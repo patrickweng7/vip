@@ -1,0 +1,166 @@
+== Overview ==
+This page discusses some of the possibilities for the present and future VIP sub-teams.  
+
+Let us begin by reviewing our team Goal:
+{| class="wikitable"
+!Goal: To develop a framework that fundamentally alters the development of algorithms. We desire to create an automated method that starts with the best human algorithms and then dispassionately develops hybrid algorithms that outperform existing methods. And then prove that these algorithms can also be studied by humans for inspiration in development of new algorithm and optimization methods.
+|}
+To effect the change, we need to continuously improve:
+* the capability of the framework, 
+* the speed of evolution
+* the user interface to the framework
+* the tools used to understand the framework and 
+* the documentation and training for the framework
+In addition, we need to continuously
+* apply the framework to new domains and 
+* publish our results
+For Spring of 2019, we would like to set some high level goals of pushing the maturity of the framework and the applications to the point that multiple publications are submitted.
+
+When thinking about the possibilities for the future we can divide the areas into four may components: Applications, Tools, Faster Evolution and Team Support.  The figure below outlines some of the possibilities.  
+[[files/Try5.png|thumb|500x500px|Sub-team possibilities]]
+
+Let us examine each of these four areas.
+
+== Tools ==
+
+=== Visualization ===
+The fall 2018 sub-team developed a dash board for viewing the progress of evolution in the objective space, as well as visualization evolved individuals.  See [[EMADE Visualization Subteam]] for more details.
+
+Possible future directions listed in their final presentation include:
+# Conduct user testing
+#* Create feedback survey and testing document
+#* Have other sub-teams run the application
+#* Get their feedback
+#* Iterate and add features
+It is the advisors opinion that it is the visualization of results that will spur future improvements to the EMADE architecture, as well as provide inputs to future publications.  Therefore, we see additional feature enhancements to the visualization to include:
+* Visualization of the ancestral lineage in phenotypic/objective space (i.e., what was the objective scores of the parents/grandparents that resulted in the current individual)
+* Visualization of the ancestral lineage in genotypic/tree structure space (i.e., what parts of an individual came from each of the parents)
+* Visualization of the evolutionary processes, (i.e. what mutations, selections, mating are occurring that are positive, and which are detrimental?)
+* How many times is an individual selected over time? How productive are their offspring, i.e. are they dominate or co-dominate to the parents or population?
+* How many Pareto individuals are there over time?
+
+=== Algorithm Export ===
+This sub-team would develop a tool able to take a specific instance of a genetic program and export an algorithm that can be executed on a local machine as well as on cloud infrastructure without the entire EMADE infrastructure.
+
+== Faster Evolution ==
+Using EMADE for more difficult problems requires improving the throughput of EMADE.  Currently caching has been utilized, but we would like to see this expand into many other areas, all of which should be publishable.
+
+=== Caching ===
+This fall 2018 sub-team has developed the ability to cache results of sub-trees to dramatically speed up evolution.  See [[EMADE Cache Subteam]] for more details. Unfortunately several issues still exist:
+* Hypervolume calculation occasionally crashes master process
+
+* Stream Data supported but currently not saved by cache
+* Feature Selection methods currently disabled when using caching (these methods damage data object integrity)
+* Stored data is not removed when EMADE is finished running
+and there are features still desired:
+* Support saving and loading of Stream Data
+* Add Data Compression Options
+* Integrate Feature Selection into Caching Framework
+* Add methods for clearing all old cache data at the start of EMADE
+This sub-team needs to bring these tasks to closure.
+
+=== Benchmarks ===
+One key to publishing results is to have available a set of standard benchmarks that are utilized in publications, and that span the technical problems.  For example, we need to show EMADE's performance in both classification and regression problems.  We also need to show the ability to use categorical, temporal, image, and video data.  Some data sets have already been used by various sub-teams, as well as in Zutty's dissertation, but we need to build out a standard set of benchmarks that demonstrate where the speed improvements developed are the most important.
+
+=== Bloat Removal ===
+Evolved EMADE solutions, like our own Genome, contain additional bloat, i.e. parts of the algorithm that perform calculations not utilized in the final result.  Research needs to be performed on how to recognize and remove this bloat.  Removal of this bloat is critical to the Algorithm Export sub-team above. 
+
+In addition to bloat removal at the end of the evolutionary process, research should also be included in bloat removal during the evolutionary process.  Latent DNA can help the evolutionary process in plants and animals, is it important in algorithm evolution?  Can we remove the bloat before the algorithm is trained and tested, yet keep the "latent DNA" in the genotypic description?
+
+=== Analysis ===
+The capabilities created by the visualization sub-team and the benchmark sub-team should also be utilized to spur focused research.  This should include analysis such as: 
+* '''Cross-fold statistics:''' Can the cross-fold statistics be utilized to develop a metric of the robustness of the algorithm, i.e. a algorithm with less variance in cross-folds may indicate a more robust algorithm for new data.
+* '''Cross-fold termination:''' If we train with one-cross fold and see that it is performing poorly can we terminate that algorithm without further evaluation?   This "idiot identification" without full training are concepts of both Zutty and Rohling dissertations.
+* '''Phenotypic distribution:'''  Can we recognize which phenotypic descriptions, (i.e., objective values) are more likely to create better individuals?
+* '''Genotypic distributions:''' Can we recognize which types of genotypic description, (i.e., tree structures) are more likely to create better individuals?
+* '''Evolutionary Operators:''' Can we find the evolutionary operators, (i.e. selection, mating, and mutations) that are leading to better individuals?
+
+=== Overtraining Detection ===
+Given the analysis provided on cross-fold statistics over the evolution as well as the benchmark problems, can we develop a metric that can be provided that would reduce over-trained individuals in the population and hopefully simultaneously improve speed, by removing overtraining susceptible components from the gene pool?  Success of this sub-team would be an accepted publication for either a conference or journal documenting the speed improvements against a variety of benchmark problems.
+
+=== Matchmaker 2.0 ===
+There was a failure chapter in the Rohling dissertation that failed to show GP could out-perform machine learning techniques using trivial primitives. Zutty then showed that using higher order primitives these techniques, algorithms could be derived that could outperform existing methods. But, Zutty had a failure appendix that tried to show he could improve the selection process through “Match Making”, i.e., selecting parents that we expect to create individuals that dominate the current parents. This analysis would utilize the database of GP against a variety of problems to utilize the results of the analysis in cross-fold statistics, phenotypic distributions, and genotypic distributions against benchmark problems to improve the speed of evolution. This process may take multiple semesters, but success of this sub-team would be an accepted publication for either a conference or journal documenting the speed improvements against a variety of benchmark problems.
+
+=== Adaptive Operators ===
+Again, using the results of the analysis and benchmark methods, can we find methods that select the best selection, mating and mutation operators that speed up the evolutionary progress?  Success of this sub-team would be an accepted publication for either a conference or journal documenting the speed improvements against a variety of benchmark problems.
+
+=== Coevolution ===
+Evolution of complex organisms has occurred overtime with evolution of both the predator and the prey. Many of the past prey grew extinct because they did not evolve as fast as the predator.  Existing prey would not have existed if it had not evolved along with its predator.  With algorithm design, we think of the algorithm as the prey and the data as the predator.  For complex problems that seem insurmountable by current algorithms, should we be advancing the difficulty of the data as the algorithms mature?  For example, should we be training to identify a vehicle in a scene, then train to identify a car versus a truck, then train to identify a Ford versus a Chevy, then train to identify a Ford Focus versus a Ford Tauras?  Think of it as the level of specificity we learn over time has a child.
+
+== Applications ==
+
+=== Deep Learning ===
+Two fall 2018 sub-teams worked in the area of using Cartesian Genetic Programming (CGP) along with convolutional neural networks (CNN) to create algorithms. They also demonstrated the ability to use large data sets with google cloud computing.  Further details can be found at [[EMADE DEEP Subteam]] and [[EMADE Deep Learning Subteam]].
+
+Possible future directions include:
+* Continue to optimize CNN and train primitives for EMADE
+
+* Expand EMADE’s tree structure to include CGP support
+** CGP’s graph structure allows reusing of nodes, as opposed to EMADE
+* Expand CGP-CNN’s image processing into video processing
+** Possible goals include:
+*** Sentiment analysis
+*** Object detection
+*** Weather prediction
+** Would require large labeled video datasets to start deep supervised learning with CGP-CNN / EMADE
+Success for this group should be able to result in a submitted publication for a journal or conference.
+
+=== EEG ===
+A fall 2018 sub-team began an evolutionary run to diagnose whether a paretic hand is caused by a neural lesion. See [[EMADE EEG Subteam]] for more details.
+
+Possible future areas of research include:
+* Develop algorithms to administer trans-cranial magnetic stimulation to better understand control over an impaired limb
+* Implement a DNN learner
+* Use Time-Frequency plots as input for biofeedback
+* Develop method to return larger data from multiprocess in EMADE
+Success for this group should be able to result in a submitted publication for a journal or conference.
+
+=== Stock Prediction ===
+A fall 2018 sub-team investigated the ability to predict stock performance using EMADE.  See [[Technical Analysis Team]] for more details.  
+
+Possible areas for future include:
+* Bloat removal: remove unnecessary indicators
+* Testing on a bull market vs bear market
+* Iterative testing: predict every day, every five days etc. instead of every ten days
+* Run on out of sample validation set
+* Transition from classification to regression
+Success for this group should be able to result in a submitted publication for a journal or conference.
+
+=== Stock Portfolio Optimization ===
+This team is pushing EMADE into online learning using Q- learning. See [[Portfolio Optimization]] for more details.
+
+Possible future directions listed in their final presentation include:
+* Integrate Emade and Q-Learner to run with multiple stocks and real-time data
+* Hyper-parameter Optimization
+* Research more technical indicators and machine learning methods
+* Expand datasets
+Success for this group should be able to result in a submitted publication for a journal or conference.
+
+=== Object Detection ===
+Deep learning has a natural progression from object detection to object tracking to video analysis.   Each of these has a number of primitives to be encapsulated.  The object detection sub-team will investigate methods to create a Pareto front of algorithms in the minimization of false negative and false positive detections.   
+
+=== Object Tracking ===
+Given a set of object detections, this team will create primitives and algorithms that provide for clustering and tracking of threats.  These may include capabilities such as track gates and multiple hypothesis tracking.
+
+=== Video Analysis ===
+Once we have object detection and tracking algorithms, then we can build the capability of searching through video for desired events. 
+
+=== Medical Applications ===
+The EEG sub-team has started to explore one of many possible medical applications.  Zutty has received some interest from both Children’s Hospital of Atlanta and Shiner’s hospital in looking at additional data sets that could contribute to these applications.  If interested, this data sets could be obtained and processed using EMADE.
+
+== Team Support ==
+As our team grow in size, matriculate experienced members, and grow in applications, there is a constant need to improve our training of new team members.   The following are possible areas:
+
+=== Documentation ===
+A comprehensive users-manual that details insertion of new data, use on cloud infrastructure, seeding of algorithms, evolutionary operators, tiered data is highly desired.
+
+A comprehensive developers-manual that details, data structures, creation of new primitives, modification of evolutionary process, and configuration management is high desired.
+
+=== Testing ===
+A comprehensive set of tests to make sure that developers do not inadvertently break or disable previous capabilities is imperative to a usable future growth of EMADE capabilities within the VIP and larger community.
+
+=== Configuration Management ===
+Given proper testing we need to develop proper configuration management processes for incorporation of new features into the EMADE baseline.
+
+=== Training ===
+As VIP students you have all been though the VIP bootcamp.  Imagine you are a future student, or an external user.  What training material would have made this process easier for you, e.g.,   youtube videos, python notebooks?   What could you produce for future users?  See  https://www.youtube.com/watch?v=6prQcORtmbw for an example.

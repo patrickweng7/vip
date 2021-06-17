@@ -1,0 +1,20 @@
+This is a project idea for the [[Automatically Defined Functions|ADF subteam]]. This will be a small 2-3 person project that will track fitness values of parents and children to detect improvements in the population as they occur to inform ADF generation.
+
+Git branch: https://github.gatech.edu/gwang340/emade/tree/feature/DifferentialFitness
+
+=== Implementation Notes ===
+We decided that the differential fitness metric was a useful tool for finding individuals containing useful sub-trees, but not for deciding how objectively useful those sub-trees are. Our reasoning is that an individual can easily make great progress coming from poorly performing parents, but will struggle to improve at all over Pareto-optimal parents. Because of this, we will still be weighting the sub-trees by the fitness of the individual they came from. We will, however, require that an individual has positive differential fitness to be considered for ADF candidates. We expect this choice to decrease the number of ADFs being generated and added to the poulation, but to also increase the quality of ADFs.
+
+=== Differential Fitness Heuristic ===
+We discovered this concept though Rosca's paper [https://www.aaai.org/Papers/Symposia/Fall/1995/FS-95-01/FS95-01-011.pdf "Towards Automatic Discovery of Building Blocks in Genetic Programming"] which describes Adaptive Representations through Learning (ARL). Differential Fitness is the difference in fitness between an individual in a GP process and its most fit parent. A positive value means that the fitness of the child improved over the parent. For example if a parent has an accuracy of 0.8 and a child has an accuracy of 0.81, then the child has a differential fitness of 0.01. 
+
+Many GP frameworks are optimizing multiple fitness heuristics, which means that a single parent cannot be compared. In these cases the best fitness value between both parents is compared to the child for each fitness value. For example, consider individuals A and B, with respective (False Positive, False Negative) values of (10, 20) and (15, 16). If A and B mate to produce individual C with a fitness of (11, 15), then C has a differential fitness value of (-1, 1).
+
+=== Steps To Implement in EMADE ===
+* Tracking the parents for each individual in EMADE
+** Can be stored in memory by the master node
+** Would map hash strings of individuals to the hash strings of their parents
+** Differential fitness values can be calculated by SQL queries for the parent fitness values
+* Implement differential fitness into ADF generation
+** Requires filtering parent-child sets of primitives based on if an individual has a differential fitness value greater than 0
+** Requires weighting the selection of parent-child primitive sets based on some combination of differential fitness values. This is not determined and could be an average of values, the max values or something similar.

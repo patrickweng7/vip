@@ -1,0 +1,364 @@
+=== <u>Important Information:</u> ===
+Paper we are working off of: https://arxiv.org/abs/1902.06827
+
+Colab set up guide:https://colab.research.google.com/drive/1Dzg-fvW628-S9ki3y1S7qwfveiajFNNx
+
+Emade spin up document: https://github.gatech.edu/emade/emade/blob/nlp-nn/emade_spin_up.pdf 
+
+To-do list:https://docs.google.com/document/d/1vGWQpaWf8FM4PDnd7EG04vEDL_XD7tkP4nuKf33Q3gY/edit
+
+remotemysql:  [http://remotemysql.com/ remotemysql.com]
+
+===<u>August 19th, 2019</u>===
+====Meeting Notes====
+*The team members are Mohan, Alex, Bek, Reagan, and Zach. Anish and Yoonwoo also joined but are time conflict members. They can work with the other time conflict members to work on nlp or other tasks if they want.
+*Our goal for this week was to brainstorm what to do this semester.
+**We can improve Text Classification capabilities by extending upon the previous work done in the summer
+**We can try to add other capabilities within emade, such as text summarization and text generation
+**We need to add neural network capabilities within emade within either the learner methods or a completely new neural network class primitive
+===<u>August 24th, 2019</u>===
+'''Sub-team Meeting Notes'''
+*We met up with some of our team members.
+*We tried to get caught up with all the nlp work that has been done in the summer
+*We looked at adding neural networks within emade
+**One option: adding them within learner primitive
+**Make a separate neural network primitive
+*We looked at ways to improve the vectorization of the text
+**Adding word2vec and improve that
+==='''<u>August 26th, 2019</u>'''===
+'''Meeting Notes'''
+*We need to set up google cloud credits
+*We are planning on subdividing tasks
+*We want to have everyone run emade on their computers with the nlp updates.
+*We need more brainstroming to how to implement neural networks within emade
+**Jason suggested using ADFs for incorporating neural networks
+*We made on a doc with future goals and potential tasks to work on; this includes all the stuff I mentioned before and part of speech tagger
+*We realized we need GCP credits still, so we asked Jason for this. He is working on this.
+*I had my team members try to look up text classification and bag of words and how it works
+===<u>August 31st, 2019</u>===
+'''Sub-team Meeting Notes'''
+*We decided that implemeting a neural network within the Learner framework for now and expand upon it later
+*Jason is still working on getting GCP credits so we could not do that as planned, so we decided to have a working version of emade on our local computers instead.
+*The main branch hasn't been merged with all the changes that have been made in the summer!!!!
+**My NLP branch is updated with the changes made in the summer, so there is an even steeper learning curve.
+*Alex brought up NEAT as way of representing neural networks in emade, so we added this to the task list.
+*Our goal for this week is to get emade running on our computers until we get our GCP credits
+*Subdivided Tasks
+**Alex wanted to work on text summarization so I let him look into that.
+**I assigned Reagan and Bek to have a working version of emade (nlp branch) on their computer and run the branch real quick and see if there are any problems
+***I also had them work on adding lemmatization and stemming into the learner method
+**Mohan is looking at text generation and its capabilities 
+**The time conflicts (Anish, Yoonwoo, Jiseok) also joined the meeting and they are looking at general tasks that can also help nlp on the side.
+***They are looking at NEAT to start implementing this. Before this, I asked them to implement a neural network within the learner framework.
+*Our next meeting is at 4 pm on Friday.
+
+=== <u>September 4th, 2019</u> ===
+'''Sub-team Meeting Notes'''
+* We further worked on installing emade
+* We decided that we should focus on installing emade on the google cloud credits more, so we will run our test run there
+* A time conflict team decided to work on our branch. They are working on developing a neural network architecture. They will work off of our branch. We will focus on general NLP applications
+** We decided to make branches off of the nlp branch called nlp-nn and nlp-app for both respective teams to work on. After the work is done, we will merge our work back on to the main NLP branch
+* We decided to make jupyter notebooks for testing to see if specific algorithms and techniques work before we implement it in emade.
+** Reagan, Bek, and Zach will work on doing text classification on their notebooks. Afterward, they will work on adding lemmatization and stemming and see how that works.
+** Alex will work on text summarization developing his own evaluation schema
+** I will work on implenting all of the work onto emade. Alex's summarization stuff needs a different data loading function, so that needs to be worked on. I will also help others in implementing as well. On my jupyter notebook I will look at text generation techniques (maybe even machine translation).
+
+=== <u>September 9th, 2019</u> ===
+* Today we will be setting up the Jupyter notebooks and text classification people will work on the movie review dataset.
+** Alex and I will find a dataset and use that for our jupyter notebook.
+* Once we get google cloud credits, we will work on getting emade running there.
+* We will coordinate with the other nlp team to see their updates and make sure we are all in the same track.
+* We are going to try to find a meeting time where all of us can meet, and a bi or tri weekly time where we can meet with the nlp-nn team.
+* Finish installing emade on our local to have the ability to test emade with any changes we want.
+
+=== <u>September 13, 2019</u> ===
+* Mohan decided to abandon text generation because of not optimallity of it with genetic programming (will look into it later)
+* He is working on getting EMADE on the google cloud
+* Zach got lemmatization and stemming working on his computer.
+** He observed that lemmatization is not optimized for non nouns so he decided to implement a part of speech tagger
+* Reagan had trouble with Conda but got help from Dr. Zutty to fix this.
+* Bek got a notebook and got his stuff running basing off of my code.
+* Zach, Reagan, and Bek are working on implementing a POS tagger to improve lemmatization
+* Alex is continuing his work on text summarization
+** He is working on making his own metrics to judge a text summarization. This will be the evaluation value
+** There is NO test data set for this so emade needs to be modified
+** Dynamic Evaluation needs to be implemented
+* Mohan will look into ways into implementing this kind of data. 
+
+=== <u>September 16, 2019</u> ===
+* We are continuing with lemmatization and stemming work and now incorporating a part of speech tagger
+* Alex is continuing with with text summarization work
+** Main focus of work is figuring out which specific features make sense to implement
+** Also emade implementation is dependent on what individuals will look like/how fitness will be evaulated
+* Mohan will work on getting emade running off of his GCP credits
+* Bek is working on caught up with some core NLP basics and implementing POS tagging with lemmitization
+* Goals:
+** Finish lemmatization and stemming and see if it gives better results
+** Look at other NLP teams subprogress and see if they got any useful implementations
+
+== Work on incorporating more data loader functions for emade for text summarization and text generation (for future) to make it generalizable for any NLP task ==
+** work on dynamic evaluation for emade
+
+=== <u>September 20, 2019</u> ===
+* Reagan and Bek met and went over various stemming methods and a strategy for lemmitization
+** Reagan caught Bek up with his implementations on the jupyter notebook
+*** He implemented several different stemmers
+*** Created a lookup table to match the POS coming from the tagger to the input that's required for lemmatizer
+** Discussion of possible testing of effectiveness of the methods above by creating a primitive
+* Mohan and Alex met and planned out the work needed to get done over the course of the semester
+** We settled on approaching the problem as a supervised-with-dataset problem, and visualized inputs as lists of numerical values representing sentences
+
+=== <u>September 30, 2019</u> ===
+* Text Summarization subteam could not find a dataset for their specific text summarization method
+* They decided to work on making their own sentence based extractive summarization method summarization dataset using dynmaci programming
+** Get news article for CNN dataset, parse it sentence level, perform evaluation functions on it sentence by sentence, use dynamic programming to utilize score of sentences before to the next sentence. At the end, you get a score for the whole document. 
+** Alex working on evens and Mohan is working on odd by end of this week.
+* Bek fixed the errors he's been having running his notebook
+** Starting looking into Spacy Lemmitization
+
+== Oct 07, 2019 ==
+'''Classification'''
+
+Decided to begin drafting primitive for stemming and lemmatization.
+
+Continue looking into Spacy and NLTK libraries.
+
+'''Summarization'''
+
+== Oct 14, 2019- No meeting Fall Recess ==
+'''Classification'''
+
+'''Summarization'''
+
+== Oct 21, 2019- Midterm ==
+'''Presentation link: https://docs.google.com/presentation/d/1mCHtyfTYjnn-gxYAl86EDCOGsQ9SAwes4w25r7HusSE/edit?usp=sharing'''
+
+MTurk is still running and going: Alex is sitting and validating all responses
+
+== Oct 28, 2019 ==
+'''Classification'''
+
+New members signed up for teams.
+
+Made a todo list for new members.
+
+Stemmatizer primitive was drafted during Hackathon.
+
+Hope to have Emade running properly soon to test Stemmatizer.
+
+'''Summarization'''
+
+We assigned primitives to all the first semesters
+
+Mohan started work on data loader and Alex is finishing up parsing responses of Mturk into csv
+
+== Nov 4, 2019 ==
+'''Classification'''
+
+Begin exploring libraries that can analyze sentiment of individual words and sentiments.
+
+Making significant progress with getting Emade running.
+
+'''Summarization'''
+
+Working on padding the data 
+
+With concrete data with the dimensions we finished the data loader
+
+== Nov 11, 2019 ==
+'''Classification'''
+
+Considering using PCA somehow in the classification pipeline.
+
+Decide not to use feedback from both Stemmatizer and Sentiment in a single learner. The two primitives will work in separate trees.
+
+Emade now functional on Icehammer.
+
+'''Summarization'''
+
+Worked on ideation for a new learner primitive to deal with summarization data
+
+Helped first semester with their primitives
+
+== Nov 18, 2019 ==
+'''Classification'''
+
+Core functionality of Sentiment is complete. Need to have it work with EmadeDataPairs.
+
+Plan to launch Emade run with Stemmatizer this week.
+
+'''Summarization'''
+
+First semester finished up primitives
+
+Worked on optimizing the primitives
+
+Finished up new learner primitive 
+
+== Nov 25, 2019 ==
+'''Classification'''
+
+Ran into some hurdles during Emade run. Eventually determined that Stemmatizer is buggy.
+
+Moving forward with debugging database_tree_evaluator and unittests to test primitives before launching full Emade run.
+
+'''Summarization'''
+
+Ran first semester primitives: took too long 
+
+Decided to go new direction and work on different primitives
+
+== Dec 02, 2019- Final ==
+'''Classification'''
+
+Successfully debugged primitives before Thanksgiving break and launched 2 runs of Emade over break.
+
+Evaluated individuals were looked at and presented in the final presentation slides.
+
+Ran baseline textblob classification on imdb dataset
+
+'''Summarization'''
+
+Made new primitives that work to apply a bag of words vectorizer on each column
+
+Reworked emade to allow this (modifying wrapping up and unpacking emade datapair)
+
+Got results for primitives and they look good as FP and FN are heavily minimized but are wary of results because evaluation techniques might not be accurate!
+
+'''Presentation link:''' [https://slack-redir.net/link?url=https%3A%2F%2Fdocs.google.com%2Fpresentation%2Fd%2F1KPcNsmbxPipkDncRDKeScHZCRR71gXoDNyumCGimTVc%2Fedit%3Fusp%3Dsharing https://docs.google.com/presentation/d/1KPcNsmbxPipkDncRDKeScHZCRR71gXoDNyumCGimTVc/edit?usp=sharing]
+
+== January 13, 2020 ==
+Continuing Natural Language Processing subteam
+
+Some of us working on neural network
+
+Others working on previous NLP work with text classification
+
+Setting up PACE
+
+== January 27, 2020 ==
+Still setting up PACE
+
+MOAB_INFO:  job was rejected - job violates class configuration 'wclimit too high for class 'pace-ice' (54000 > 43200)' delasync
+
+== February 3, 2020 ==
+SQL PACE issues
+
+sqlalchemy.exc.InternalError: (pymysql.err.InternalError) (1115, "Unknown character set: 'utf8mb4'")
+
+Working on multithreading for PACE
+
+== February 10, 2020 ==
+Outlined some stats we need to write code for
+
+Could not connect to each others mysqls
+
+Working to get GCP setup for backup
+== February 17, 2020 ==
+Drafted a lot of the stats scripts
+
+Begin working on NNLearner evaluation issues found last semester (see Anish's notebook for more info)
+
+== February 24, 2020 ==
+GECCO conference happens over the summer
+
+https://gecco-2020.sigevo.org/index.html/HomePage
+
+Will look into this more after finishing up current work
+
+Continue working on NNLearner evaluation issues
+
+== March 2, 2020 ==
+Finished up stats scripts
+
+Ice hammer running
+
+https://arxiv.org/abs/1902.06827 
+
+AutoML LEAF framework with Chest X Ray and Toxicity Dataset
+
+Prepare for midterm presentation
+
+NNLearners are evaluating correctly
+
+== March 9, 2020 ==
+Midterm presentation
+
+PACE issues still ongoing met up at CULC on sunday to work on resolving this more
+
+Another ice hammer run 
+
+Presented progress so far
+
+== March 23, 2020 ==
+All meeting now through bluejeans
+
+Several first semesters joined our subteam
+
+Introduced ourselves
+
+Will group them together based on timezone to work on project
+
+Concentrating on Chest X Ray and Wikipedia Toxicity Dataset
+
+Meetings on Fridays
+
+Integrating Toxicity dataset within emade (multilabel)
+
+Colab set up
+
+== March 30, 2020 ==
+Prepared Toxicity notebook
+
+Prepared Chest X ray notebook with 50 image subset
+
+First semester polled on which one they want to work on this week
+
+Want to incorporate bounding boxes for chest x ray
+
+Working to get google Colab running
+
+Integrating Toxicity dataset within emade (continuation)
+
+Colab set up almost done - few bugs to work on (MySQL port forwarding)
+
+Add new guide for NN branch: https://github.gatech.edu/emade/emade/blob/nlp-nn/emade_spin_up.pdf
+
+== April 6, 2020 ==
+First semesters completed notebooks
+
+Assigned tasks based on to do list we created
+
+Colab is working: link to notebook found here: [https://colab.research.google.com/drive/1Dzg-fvW628-S9ki3y1S7qwfveiajFNNx]
+
+Most teams spent time setting up on Colab
+
+== April 13, 2020 ==
+Remote mysql works as a solution for now
+
+Toxicity accuracy too high at 98% and is measured incorrectly - New evaluation function and loss function discovered and added
+
+Decided to do runs with smaller dataset
+
+Colab Run with toxicity failed
+
+PACE run with Toxicity worked with smaller dataset
+
+Bounding box issue with consistent sizing can be solved with image warping (r-cnn)
+
+First semesters working on new primitives
+
+PACE Run of toxicity with new primitives done as well
+
+Collected results for nlp-app stuff and all the toxicity work
+
+Prepare for presentation next week
+
+== April 20, 2020 ==
+Final presentation
+
+Went over presentation on sunday
+
+New primitives have added
+
+Stats collected on our runs using previous stats script

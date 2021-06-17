@@ -1,0 +1,362 @@
+=== <u>August 19th, 2019</u> ===
+'''Meeting Notes'''
+* Members are Anika Islam and Oscar Aguilar.
+* The team plans to pick up the work that Anika did during the summer.
+* For team communication we will use texting since there is only two of us. To communicate with the rest of the VIP we will use the preferred method of Slack.
+
+* We plan to meet together on Fridays, ideally during help desk hours.
+
+* Goals for the week:
+** Brainstorm goals for the semester
+
+=== <u>August 23rd, 2019</u> ===
+'''Meeting Notes'''
+* Our goal for this meeting was to brainstorm what our goals for the semester should be:
+** Clean up code and run EMADE with Automated preprocessing from our laptops
+** Expand seed generator to include all learner types
+** Change variables names within code and add comments to make code more clear
+** End goal: Identify ways we can make EMADE inclusive to a wider set of data
+
+=== <u>August 26th, 2019</u> ===
+'''Meeting Notes'''
+* Our goal for this meeting was to delegate tasks for the second week:
+** Oscar needs to review the work that Anika did over the summer
+** Clarify Anika's code by adding comments and renaming variables that make it easier to read
+**Reinstall Emade on both computers
+**Implement more learner types
+
+=== <u>August 30th, 2019</u> ===
+'''Meeting Notes'''
+* Looked through some of the code together
+* Cloned Anika's fork of the EMADE repository
+* Trouble with an authentication error when it came time to clone, eventually resolved
+* Ran out of time before we could try running EMADE
+
+=== <u>September 9th, 2019</u> ===
+* Couldn't meet as a sub-team since members were missing.
+* Main goal for the week is to meet and run EMADE and test out the pre-processing code on different data-sets and seeing what algorithms we get
+'''Challenges'''
+* Installing Emade- EMADE isn't running yet which makes it difficult to check any data
+* Documentation - The documentation on this page up to now was written after the fact. We need to remember to keep notes in here and prepare scrums for every Monday.
+
+=== <u>September 13th, 2019</u> ===
+'''Meeting Notes'''
+* Met during help desk hours
+* Tried to run EMADE - had to work out several issues:
+** Conda/pip installed all of the modules listed in the EMADE github instructions
+** Installed MYSQL workbench
+** However when it came time to run there were certain modules that needed to be installed that weren't included in the EMADE instructions such as "sep" and "lightgbm"
+** There was also an issue with the sklearn module "experimental" so we commented out the sections of code that depended on it
+** Oscar eventually got through any run-time errors but Anika couldn't get past an error regarding the mysql module not being found
+** Oscar couldn't get the pre-processing code to automatically create a sql schema and fill it in
+'''Goals'''
+* Fix the issue with automatically creating a sql schema
+* Start looking at pre-processing image data
+'''Challenges:'''
+* Getting EMADE running
+
+=== <u>September 16th, 2019</u> ===
+
+==== Meeting notes ====
+* N/A
+
+==== Plan for this week ====
+* Research into preprocessing Image data, while we wait to figure out how to install all modules for EMADE 
+* We will try to see if EMADE can take in primitives for image data preprocessing
+* Change Data Loader function for IMAGE preprocessing
+
+==== Challenge: ====
+* Getting EMADE to run is still our biggest issue (Oscar was able to install all the modules, but Anika still has trouble with installing Hmmlearn
+
+==== Links to articles: ====
+* https://towardsdatascience.com/image-pre-processing-c1aec0be3edf
+'''Tasks:'''
+{| class="wikitable"
+!Anika
+!Oscar
+|-
+|Install Emade properly and run it and see if the checklist is satisfied 
+|Install Emade properly and run it and see if the checklist is satisfied 
+|-
+|Run EMADE using at least one different besides Titanic dataset 
+|Run EMADE using Titanic dataset 
+|-
+|Look at Image preprocessing and how that could be incoparated
+|Look at Image preprocessing and find links to good websites
+|-
+|Approve all changes 
+|See if any old code could be improved
+|}
+{| class="wikitable"
+!The checklist that indicates Preprocessing works
+|-
+|SQL schema is created
+|-
+|CSV files get split and turned into GZIP files
+|-
+|XML file is created 
+|-
+|A seeding file is created
+|-
+|False Positives and Negatives are produced
+|}
+
+=== <u>September 22nd, 2019</u> ===
+'''Challenge:'''
+
+Oscar ran EMADE on his computer for 500 generations, yet there were no valid seeds, which means either one of the parameters needs to be changed or the dataset isn't compatible with APE. 
+
+'''Goal:'''
+
+This week our main goal is to research more into image data and have possible ideas for different primitives that may be available.
+
+'''MORE LINKS:'''
+
+https://www.quora.com/What-are-some-ways-of-pre-procesing-images-before-applying-convolutional-neural-networks-for-the-task-of-image-classification
+
+https://en.wikipedia.org/wiki/Normalization_(image_processing)
+
+https://imgaug.readthedocs.io/en/latest/index.html
+
+https://datascience.stackexchange.com/questions/5224/how-to-prepare-augment-images-for-neural-network
+
+=== <u>'''September 23rd, 2019'''</u> ===
+'''Meeting Notes:'''
+* Jason came over to check out why we weren't getting any valid individuals after 500 generations. Right before he came around we realized that our process for creating folds was returning empty files when the training data-sets were too small. Jason showed us an sklearn method called sklearn.model_selection.ShuffleSplit() that does the same process that were were trying to do. We plan on trying to implement it as replacement if our code continues to fail. 
+** Link: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit
+* The other problem that we identified was that our code was not producing seed files, which matches our initial suspicion that we weren't getting valid individuals because our code was not seeding in correctly. James Rick stopped by and helped us try to debug the code but we couldn't fix it in today's meeting. Anika will go through the code this week to try and figure out what's wrong.
+'''Goals:'''
+* Fix errors when running EMADE for feature data
+* Continue gathering ideas for primitives of image preprocessing
+'''Tasks:'''
+{| class="wikitable"
+!Anika
+!Oscar
+|-
+|Read through articles 
+|Read through articles 
+|-
+|Figure out why Seeds are not producing results anymore
+|
+|-
+|Come up with ideas for Image preprocessing primitives
+|Come up with ideas for Image preprocessing primitives
+|}
+
+=== <u>September 30th, 2019</u> ===
+'''Meeting Notes:'''
+* We think we finally figured out why the preprocessing code isn't working as intended. The "needs_preprocessing" parameter in the data_splitter.py file is by default set to "false". Anika worked on changing the defaults so that for our purposes the code would automatically run how we expect it to.
+* We discussed our Mid-semester goals:
+*# Test the code for feature data preprocessing and produce individuals and compare them to individuals that train on data that has been preprocessed manually
+*# Implement primitives for image data preprocessing and ideally get it working so that we can do the same evaluation for individuals evaluating image data
+* We heard that EMADE already has some image processing capabilities so Oscar will look into what we can use for our purposes for reusing or as a starting point.
+'''Goals:'''
+* Test feature data code to see if we finally get valid individuals
+* Manually preprocess some image data to get a basis of where to start
+* Look into implementing some image preprocessing techniques as primitives in EMADE
+'''Tasks:'''
+{| class="wikitable"
+!Anika
+!Oscar
+|-
+|Read through articles 
+|look into error with gzip files when creating testing folds 
+|-
+|Test feature data code
+|Look into EMADE's image data processing capabilites
+|-
+|Come up with ideas for Image preprocessing primitives
+|Look into implementing primitives
+|}
+'''Links:'''
+
+https://software.intel.com/en-us/articles/hands-on-ai-part-14-image-data-preprocessing-and-augmentation
+
+=== <u>October 7th, 2019</u> ===
+'''Meeting Notes:'''
+
+Oscar and I met and figured out what we wanted to accomplish during the fall break and discussed possible primitives we may be able to implement
+
+'''Goals:'''
+
+Finish working with Feature data and start working with Image data preprocessing 
+
+'''Tasks for fall break:'''
+{| class="wikitable"
+!Tasks
+!Date assigned
+!Status
+!Date resolved
+|-
+|Run Manually Preprocesseed Titanic Dataset in EMADE
+|Oct 7th, 2019
+|In Progress
+|N/A
+|-
+|Run APE with same Titanic dataset
+|Oct 7th, 2019
+|Resolved
+|10/20
+|-
+|Compare the two and graph the AUC
+|Oct 7th, 2019
+|In Progress
+|N/A
+|-
+|Manually Preprocesses Image data
+|Oct 7th, 2019
+|In Progress
+|N/A
+|-
+|Start implementing two primitives for image data
+|Oct 7th, 2019
+|In Progress
+|N/A
+|}
+
+=== <u>October 19th, 2019</u> ===
+'''Meeting Notes:'''
+
+Met during the VIP Hackathon. We spent five hours working on running our comparative experiment on APE versus Manually Preprocessed data EMADE runs and looking into how EMADE processes image data. We encountered a lot of trouble with running the detection processing branch of EMADE. After both of us cloning the branch and trying to run it, we settled on Oscar running the automatic preprocessing branch trials and Anika running the detection processing branch. 
+
+'''Challenges:'''
+
+- Running the detection processing branch without errors in order to the control trials of our experiment
+
+- We didn't get the chance to talk to Austin in person for him to explain how image data is processed in EMADE
+
+'''Goals:'''
+
+- Finish running trials
+
+- Put together presentation for Monday
+
+'''Tasks:'''
+{| class="wikitable"
+!Tasks
+!Date Assigned
+!Status
+!Date
+|-
+|Put together presentation
+|10/19
+|Resolved
+|10/21
+|}
+
+=== '''<u>October 21th, 2019</u>''' ===
+'''Meeting Notes:'''
+
+Marathon presentation session for VIP. We worked on the presentation yesterday and today. Anika continued trying to get the detection processing branch to work but couldn't get it to produce valid individuals by the time we were putting together the presentation.
+
+'''Tasks:'''
+{| class="wikitable"
+!Tasks
+!Date Assigned
+!Status
+!Date
+|-
+|Take a break (after spending the entire weekend with EMADE)
+|10/21
+|Resolved
+|10/28
+|-
+|Put together our pitch for the new semester students
+and plan for a bigger team.
+|10/21
+|Resolved
+|10/28
+|}
+
+=== <u>October 28th, 2019</u> ===
+'''Meeting Notes:'''
+
+Added two new members to the team: Ford and Marc. We introduced them to the team and went through what we have worked on so far and what we will be working on throughout the rest of this semester. The process for assigning first semester students was much quicker than last semester, though it was much more chaotic, so we did not have time to discuss much else.
+
+'''Goals/Tasks:'''
+
+- Get the first semester additions to clone our branch
+
+- Integrate them into our plan for the rest of the semester
+
+=== <u>November 1st, 2019</u> ===
+'''Meeting Notes:'''
+
+Met from 4:30 to 5:30 during help desk hours. Ford and Marc successfully cloned the automatic preprocessing branch. We explained to them the different types of data (feature, image, stream, etc.) and then we collectively decided to pursue implementing image data processing primitives for now.
+
+=== <u>November 4th, 2019</u> ===
+Half of our team was out sick today. Marc and Oscar delivered the scrum together and then talked with Austin for the rest of the class about how EMADE loads image data, since he wrote a lot of the code for that over the summer. They specifically went through the "load_image_csv_from_file" and "load_images_from_file" functions defined in 'data.py'. Austin then recommended different ways to save the images before giving them to emade such as np.savez() from numpy which he recommended because it does not require the images to all be of the same shape. 
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!SuspenseDate
+!Date
+Resolved
+|-
+|Talk with Austin to figure out how EMADE handles image data
+|Resolved
+|11/04
+|11/11
+|11/04
+|-
+|Finish orienting first semesters to our team
+|Resolved
+|11/04
+|11/11
+|11/08
+|-
+|Look at the methods EMADE already has for image data
+|Resolved
+|11/04
+|11/11
+|11/08
+|}
+
+=== <u>November 8th, 2019</u> ===
+Met with Austin to talk about how image data was stored with EMADE. We looked into image preprocessing primitives that were not yet present within the EMADE framework. Looked through Kaggle to find some Image datasets.
+
+=== <u>November 18th, 2019</u> ===
+'''Meeting Notes:'''
+
+Met from 4:30 to 5:30 in the VIP Room. We discussed what we should try to accomplish with the semester drawing to an end.  We decided to have Anika and Ford run trials of our pre processing boot to titanic data and Oscar and Marc running trials of un pre processed Titanic.  These would be run on the hackathon this weekend.  We also tried to to have our basic primitives entered into EMADE and pre processing file for Image data.
+
+=== <u>November 25st, 2019</u> ===
+'''Meeting Notes:'''
+
+Meeting Notes: 
+* Final meeting of the semester before the final presentations due to the Thanksgiving break. 
+* We couldn't get the primitive working to expand the dataset, so instead we are going to have a script to run before EMADE that will take the images and run them through the Keras preprocessing function and create an expanded dataset before EMADE even runs. 
+* We'll use Thanksgiving break to run our tests, and then once the break is over we'll compile the results and get them ready for the final presentations. 
+
+'''Tasks:'''
+{| class="wikitable"
+!Tasks
+!Date Assigned
+!Status
+!Date
+|-
+|Run tests on both preprocessing and regular EMADE branches so we can compare them
+|11/25
+|Resolved
+|11/30
+|-
+|Create visualizations of the results and publish them onto a presentation for 12/2
+|11/25
+|Resolved
+|12/2
+|-
+|Finish the final presentation 
+|11/25
+|Resolved
+|12/2
+|}
+
+=== <u>December 2nd, 2019:</u> ===
+Finished final presentation and submitted it
+
+We worked on the code to graph the Pareto front
+
+'''Presentation:'''
+
+https://gtvault-my.sharepoint.com/:p:/g/personal/aislam43_gatech_edu/EfmFjGoUxphKqxWjFTBFg1IBojcx4rxZhS832dz8jtJTEw?e=Xrf6wG
