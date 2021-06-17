@@ -1,0 +1,1176 @@
+== Avni Tripathi ==
+Team Member: Avni Tripathi
+
+Email: avnitripathi@gatech.edu
+Cell Phone; 858-472-5231
+
+== April 20, 2020==
+'''Final Presentations:'''
+* Research Fundamentals Presentation
+** Motivation
+*** reduce bloat in EMADE
+**** does not contribute to fintess
+**** reduce computation time and memory
+** Bloat Metric
+*** quantify how much mean program changes wrt fitness
+*** normalized size change/normalized fitness change
+*** can compare bloats between different runs
+** Neat GP
+*** bloat control technique to stop explicit bloat removals
+*** allows to do it naturally
+*** Speciation
+**** based on topological similarity + assigned greedily
+**** compute distance metric
+** Fitness Sharing
+*** project more unique individuals
+*** punish highly populated species without modifying fitness
+**** construct probability metric used during tournament selection
+** Crossover
+*** identifies common region between two individuals based on arity
+*** swap internal nodes as well as tree branches
+** Experiment setup
+*** minimize FP + FN without considering num elements
+*** unrestricted mating, vary distance thresholds, use different types of crossovers
+** Results
+*** Distance thresholds 0.3 and 0.6 had worse ending hypervolumes
+*** high variance between runs
+*** distance metric not well suited - more spine rather than full tree
+*** 0.15 not statistically significant
+**** num individual species close to 1 - weighting has very little effect
+*** 0.3 increased bloat 
+*** 0.6 increase in hypervolume, not bloat
+*** Increase in speciation threshold didn't really help reduce bloat
+** Neat Crossover
+*** generally had worse hypervolume although bloat was very similar
+*** high variance between run, because if neat crossover was called on dissimilar individuals, it preformed fewer swaps and would result in individuals too similar to one of the parents
+**** not enough diversity to reduce hypervolume
+*** resulted in more inconsistent results
+*** speciation=0.6 had a much much higher individual species quotient
+** PACE
+*** 8 runs; doesn't get faster or slower with more workers
+*** hard to install packages on PACE
+** Next Steps
+*** integrate the three
+*** investigate tree distance metrics and other optionss that impact hypervolume
+*** see how species itself is evolving over time
+* NLP Team
+** Working on adding Keras API to EMADE
+** created NNLearner
+*** take and learn LayerList to parameters which compiles and fits a keras sequential model
+*** enable emade for STM, Dense, GRU, and Embedding
+** New Primitives
+*** runs multiobjective nueroevolution similar to EMADE
+*** Dataset: toxicity and chest xray
+*** ReluLayer
+**** returns either given input or 0 for other inputs
+**** most popular activation function
+**** decrease chance of oberfitting
+*** ELU
+**** Exponential Linear Unit
+***** linear for all inputs greater than or equal to 0
+**** Push activation mean closer to zero
+*** SeLU
+**** adds on to ELU with normalization features
+**** allows for batch normalization
+*** Dropout
+**** regularization method
+**** randomly selects node to be dropped out
+**** prevents overfitting and is more robust
+*** GloVe Embedding
+**** trained layer that maps words to vectors with dimension that user decides
+**** useful in MLP
+**** Euclidean distance between vectors = similarity between words (in meaning)
+**** encodes vector for most common words
+*** Linear
+**** takes input + multiplies by weights for each neuron
+*** Attention
+**** takes paragraph of words and uses it to map to solution/label
+*** Conv2D
+**** applies convolution on 2D plane
+**** more for images than text
+*** Image warping
+**** crop image in specific location then warp
+** Toxicity dataset
+*** dataset of toxic comments with 6 classes of toxicity
+*** can be multiple classes at once
+*** initially high accuracy due to incorrect count
+**** had to make custom eval function
+*** model outputted mostly 0
+*** Multilabel
+**** required to toggle template XML: more labels, conversion and adjust score calculation
+** Chest X-Ray
+*** huge dataset
+**** over 40 GB
+*** hard to use same splits as paper
+**** used small enough splits to fit in EMADE
+** Results
+*** tried using co-lab, used PACE
+*** the new primitives helped
+*** 91% vs 90% acuraccy
+*** fewer generations + slightly higher accuracy
+*** ran 8 successful run (3 baseline w/o sentiment) + 5  with primitives
+** Pace ICE
+*** automated PACE multiprocessing
+*** does not work with mySQL because if there is another user running a server, PACE won't let a user connect
+** Goals
+*** add primitives, match paper results
+*** concatenate layers, incorporate ADFs
+* NLP Time Conflict
+** Goals
+*** test summarization primitives
+*** statistical analysis of preformances
+*** modify dataset
+*** PACE
+**** reliably run EMADE quickly
+*** create documentation
+** Issues
+*** ran SQL on unique ports
+*** some primitives weren't as efficient
+** Results
+*** Added documentation to PACE
+**** on main EMADE page
+*** fixed objective functions for multi-dimensional data and classification function
+**** check if shapes are the same
+***** want to compare similar data
+**** classifier
+***** built off of SVM from sci-kit
+***** converted matrix into tuple list (column, number named entities)
+*** define how summary ata should look and be seeded
+*** analyze summary primitives
+**** num named entities primitive
+***** find number named entities in paragraph = more named entities = more information
+***** also looks at location of named entities primitive
+***** original dataset = 2D numpy array (array of sentences, paragraphs)
+***** used spaCy library and finds length of list
+***** not efficcient
+**** TFISF
+***** Term Frequency Inverse Sequwnce Frequency
+****** way of assigning numbers to each sentence in document
+****** more rare = greater significance
+***** Assign value for each sentence
+**** numNamed entities = more precise but slight decrease in preformance
+**** TFISF - better and improving accuracy
+** EzCGP
+*** Used CIFAR-10 dataset
+*** New semester results
+**** find new CNN architectures on similar problems and implement them in tensorflow
+**** evolutionary parameter
+***** reused primitives such as primitive blocks like residual blocks and other layers (such as convolutional layer)
+**** reached higher accuracy than individual similar models
+***** no preprocessing
+***** some models were iniially built for other image datasets
+***** best individuals: generation 11 with 85% accuracy
+**** VGG-16
+***** originally on ImageNet, had 66% accuracy
+**** Block VGG with dropout
+***** increases fropout, no normalization or data augmentation
+***** test accuracy marginally increased
+**** LeNet-5
+***** ran on CIFAR-10 without preprocessing
+***** originally on MNIST with 99% accuracy
+***** didn't normalize values of input pixels
+**** ParneetK CSNN
+***** 72% accuracy, built for CIFAR-10
+***** with data augmentation, accuracy can increase
+**** Embedded Systems CNN
+***** 86% accuracy after 100 epochs
+***** model was overfitting
+*** New experiments
+**** expand functionality and add in transfer learning
+**** wanted to create a more general framework
+*** Data augmentation
+**** generate new samples from small data set
+**** define and apply operations in any order to get new data
+**** used augmenter to specif operators and probability of operator being applied
+*** Transfer learning
+**** take pre-trained validated neural network, remove last layer, and retrain on a new dataset
+**** leverage computational power of large companies with more GPUs
+*** data augmentation -> transfer learning -> nueral network
+*** new primitives - used to combine and test primitives
+*** Results
+**** evaluated with gpu for first individual, then gpu went to 0
+**** sequential tensorflow caused some errors
+**** still working on getting evolution running
+**** CPU runtime plateus
+**** GPU - each process = same amount of memory
+*** Future work
+**** network configs
+**** GPU Driver install
+**** environment setup
+== April 19, 2020==
+Review meeting with Dr. Rohling and Dr. Zutty
+* Presented our work for criticism and feedback
+* **PROVIDE CONTEXT**
+** general overview of the comments were that a lot of the graphs and statistics needed more context as to what we were comparing and why
+** change bar graphs for consistency
+* After creating the graph comparing differential fitness to the pareto front, I realized that the graph wasn't really telling us anything valuable
+** Decided to compare differential fitness to Intel ADFs instead because it would allow us to try and understand why differential fitness preformed better.
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Make bar graphs horizontal 
+|Completed  
+|April 19, 2020 
+|April 19, 2020 
+|April 19, 2020 
+|- 
+|Compare Differential Fitness to Intel ADFs
+|Complete
+|April 19, 2020
+|April 19, 2020
+|April 19, 2020
+|}
+'''Independent Work:'''
+* After we recieved feedback about our presentation, I made changes to my bar graphs to make them horizontal. Additionally, I determined that comparing ADFs in differential fitness and seleciton methods to the pareto fronts didn't add much value. Instead, because differential fitness was successful, I decided to compare differential fitness adfs to Intel ADFs in order to try and determine it's relative success. Below are the final graphs I created:
+[[files/Final Primitive Analysis 1.png|none|thumb|478x478px]]
+[[files/Final Primitive Analysis 2.png|none|thumb|476x476px]]
+[[files/Diff fit v ADF1.png|none|thumb|465x465px]]
+[[files/Classify Differntial Fitness.png|none|thumb|388x388px]]
+
+== April 18, 2020==
+'''Independent work:'''
+* Created similar graphs comparing the composition of the ADFs in differential fitness and selection methods with the composition of individuals on the baseline pareto front without ADFs. The following graphs were created:
+[[files/Diff Fit ADF v Pareto.png|none|thumb]]
+[[files/Diff fit classification.png|none|thumb]]
+[[files/Selection Methods Primitive Analysis.png|none|thumb|618x618px]]
+
+== April 17, 2020==
+'''Subteam Meeting:'''
+* Discussed PowerPoint creation and flow of presentation
+* Everyone presented their findings and we discussed what we wanted to talk about during the presentation
+* Added my graphs to the PowerPoints
+* Based on Abhiram's results, we concluded that nested ADFs are not as useful, which is consistent with my findings
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Compare Pareto Front to Differential Fitness and Selection Runs 
+|Decided Not Needed  
+|April 17, 2020 
+|April 18, 2020 
+|April 18, 2020 
+|- 
+|
+|
+|
+|
+|
+|}
+
+== April 13, 2020==
+'''Subteam Meeting:'''
+* Similar to last meeting, everyone shared what had been accomplished since the last meeting
+** Areyender showed his graph with the distribution of the primitives
+** Abhiram showed the distribution of the root nodes and how that affected the fitness
+** Renold spoke about his continued work with sorting the ADFs
+* Created classification distribution graph
+'''Independent Work:'''
+# First had to classify all the primitives located in src/GPFramework
+Wrote a script that parsed through the files in src/GPFramewiork to determine where primitives were registered/created. Based on the file that the primitives were registered in, I classified them. This returned the following dictionary, where the key is the primitive name and the value is it's classification. I've only included the first few primitives that were found because the dictionary is very long.
+ classification_dict = {'AffinityPropagationClustering': 'clustering_methods', 'MeanShiftClustering': 'clustering_methods', 'DBSCANClustering': 'clustering_methods', 'SpectralClustering': 'clustering_methods', 'k_means_clustering': 'clustering_methods', 'agglomerative_clustering': 'clustering_methods', 'birch_clustering': 'clustering_methods', 'myPCA': 'decomposition_methods', 'mySparsePCA': 'decomposition_methods', 'myICA': 'decomposition_methods', 'mySpectralEmbedding': 'decomposition_methods', 'ConvolveChannelMerge': 'detection_methods', 'Cv2TemplateMatching': 'detection_methods', 'MaximumFilter': 'detection_methods', 'MinimumFilter': 'detection_methods', 'MatchedFiltering2D': 'detection_methods', 'ObjectDetection': 'detection_methods', 'SEPObjectDetection': 'detection_methods', 'LogDetection': 'detection_methods', 'DogDetection': 'detection_methods', 'DohDetection': 'detection_methods', 'RXAnomalyDetector': 'detection_methods', 'GaussianFilter': 'detection_methods', 'SobelFilter': 'detection_methods', 'MyBinaryThreshold': 'detection_methods', 'NormalLikelihood': 'detection_methods', 'SepDetectionWindow': 'detection_methods', 'MaximumWindow': 'detection_methods', 'FilterCentroids': 'detection_methods', 'CCorrObjectFilter': 'detection_methods', 'Hog': 'feature_extraction_methods', 'Daisy': 'feature_extraction_methods', 'mySelKBest': 'feature_selection_methods', 'mySelPercentile': 'feature_selection_methods', 'mySelFpr': 'feature_selection_methods', 'mySelFdr': 'feature_selection_methods', 'mySelGenUni': 'feature_selection_methods', 'mySelFwe': 'feature_selection_methods', 'myVarThresh': 'feature_selection_methods', 'EmadeDataAddPair': 'operator_methods', 'EmadeDataAddInt': 'operator_methods', 'EmadeDataAddFloat': 'operator_methods', 'EmadeDataSubtractPair': 'operator_methods', 'EmadeDataSubtractInt': 'operator_methods', 'EmadeDataSubtractFloat': 'operator_methods', 'EmadeDataDividePair': 'operator_methods'}
+This classification allowed me to classify each of the primitives in the ADFs and in the pareto front using the following function I created:
+ <nowiki>'''</nowiki>
+ Input a csv filename with primitives to output the percentage that each classification type is found
+ <nowiki>'''</nowiki>
+ def classify_primitives(filename):
+ <nowiki> </nowiki>   class_counts = {}
+ 
+ <nowiki> </nowiki>   f_no_adf = open(filename, "r")
+ <nowiki> </nowiki>   count = 0
+ <nowiki> </nowiki>   total = 0
+ 
+ <nowiki> </nowiki>   for line in f_no_adf:
+ <nowiki> </nowiki>       count = count + 1
+ <nowiki> </nowiki>       data = line.split(";")
+ <nowiki> </nowiki>       try:
+ <nowiki> </nowiki>           val = float(data[1])
+ <nowiki> </nowiki>           classification = classification_dict.get(data[0], None)
+ <nowiki> </nowiki>           if "learnerType" in data[0]:
+ <nowiki> </nowiki>               classification="learnerType"
+ <nowiki> </nowiki>           else:
+ <nowiki> </nowiki>               try:
+ <nowiki> </nowiki>                   if int(data[0]):
+ <nowiki> </nowiki>                       classification="int"
+ <nowiki> </nowiki>               except:
+ <nowiki> </nowiki>                   try: 
+ <nowiki> </nowiki>                       if float(data[0]):
+ <nowiki> </nowiki>                           classification="float"
+ <nowiki> </nowiki>                   except:
+ <nowiki> </nowiki>                       if "[" in data[0]:
+ <nowiki> </nowiki>                           classification="array"
+ <nowiki> </nowiki>                       elif "adf" in data[0]:
+ <nowiki> </nowiki>                           classification="adf"
+ <nowiki> </nowiki>                       else: 
+ <nowiki> </nowiki>                           if classification is None:
+ <nowiki> </nowiki>                               classification="other"
+ <nowiki> </nowiki>                               print(data[0])
+ <nowiki> </nowiki>           if classification is not None:
+ <nowiki> </nowiki>               total = total + val
+ <nowiki> </nowiki>               if classification not in class_counts.keys():
+ <nowiki> </nowiki>                   class_counts[classification] = val
+ <nowiki> </nowiki>               else:
+ <nowiki> </nowiki>                   class_counts[classification] = class_counts[classification] + val
+ <nowiki> </nowiki>       except Exception as e:
+ <nowiki> </nowiki>           print(e)
+ 
+ <nowiki> </nowiki>   for key in class_counts.keys():
+ <nowiki> </nowiki>       class_counts[key] = class_counts[key] * 100/total
+ <nowiki> </nowiki>       
+ <nowiki> </nowiki>   return class_counts
+This returned a dictionary such as the one below that shows the classification type and the primitive name:
+ {'other': 5.209017290435544, 'primitive': 45.32720507769753, 'float': 20.81418253447144, 'terminal': 8.710877653753556, 'learnerType': 5.055810899540381, 'int': 11.468592689866492, 'spatial_methods': 0.8535784635587655, 'signal_methods': 0.7003720726636026, 'array': 1.5977237907638433, 'operator_methods': 0.262639527248851}
+I completed the same analysis on the ADF primitives and on the pareto front. Then, graphing the following classification I got the graph shown below:
+[[files/Primitive classification graphs.png|none|thumb]]
+
+== April 10, 2020==
+'''Subteam Meeting:'''
+* Everyone spoke about what they had accomplished since the last meeting
+* I shared the graph that I created that compared the ADFs to the pareto front
+* Reynold showed some of his code that cleaned up the names of the ADFs and sorted the individuals into buckets (one that contained the ADF and one that didn't)
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Classify all primitives 
+|Completed  
+|April 10, 2020 
+|April 17, 2020
+|April 13, 2020 
+|- 
+|Create a graph with these classified primitives
+|Completed
+|April 10, 2020
+|April 17, 2020
+|April 13, 2020
+|}
+
+== April 9, 2020==
+Worked on code that would compare ADF primitives to the Pareto Front.
+
+Link to commit: https://github.gatech.edu/gwang340/emade/commit/8dc8f01eafed5f28633f57d6ab0714453fadfacb
+ def csv_to_dictionary(adf_filename, non_adf_filename):  
+     ## Converts .csv to dictionary where key = primitive and value = number of occurrences
+     f = open(adf_filename, "r")
+ 
+     values = {}
+     total_adfs = 0
+ 
+     for line in f:
+         data = line.split(";")
+         try:
+             values[data[0]] = [float(data[1])]
+             total_adfs = total_adfs + float(data[1])
+         except Exception as e:
+             print(e)
+ 
+     #Add primitive counts from non-adf pareto front to same dictionary
+     f_no_adf = open(non_adf_filename, "r")
+     total_primitives = 0
+ 
+     for line in f_no_adf:
+         data = line.split(";")
+         try:
+             val = float(data[1])
+             if data[0] in values:
+                 values[data[0]].append(val)
+             else:
+                 values[data[0]] = [0, val]
+             total_primitives = total_primitives + val
+         except Exception as e:
+             print(e)
+ 
+     for key in values.keys():
+         if len(values[key]) == 1:
+             values[key].append(0)
+ 
+     import copy
+     percentages = copy.deepcopy(values)
+ 
+     for key in percentages.keys():
+         in_adf = percentages[key][0]
+         no_adf = percentages[key][1]
+         percentages[key] = [in_adf / total_adfs, no_adf / total_primitives]
+     
+     return percentages
+I wrote the script above to take in two files with information about the primitive distribution of the adfs produced and the primitives in the pareto front. Then, I was able to use this dictionary to construct a graph containing the comparison. I wrote a separate function to graph the information from the dictionary above, which I will not copy here
+
+This is the first graph I produced:
+[[files/ADF vs Pareto Front 1.png|none|thumb]]
+The basic comparison graph was my first step for primitive analysis.
+
+== April 6, 2020==
+'''Subteam Meeting:'''
+* Primitive Analysis: Everyone determined what analysis they wanted to do
+** Areyender: look at distribution of commonly used ADFs
+** Avni: compare primitives to pareto front
+** Gabe: finish script that shows distrubution of primitives within the population
+** Renold: see if ADFs positively or negatively impacted the accuracy
+** Abhiram: look at root nodes of ADFS
+Action Items
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Start comparing ADF primitives to Pareto Front 
+|Completed  
+|April 6, 2020 
+|April 10 2020 
+|April 9, 2020 
+|- 
+|
+|
+|
+|
+|
+|}
+
+== April 3, 2020==
+'''Subteam Meeting:'''
+* First ADF Subteam meeting
+* Each of us discussed what 'useful' ADFs were
+** ADFs that contribute to a higher accuracy
+** frequently found in the pareto front
+** ADFs that are NOT bloat and contribute usefully
+* Decided that all of us could find one way to analyze the primitives and focus on that after Gabe's script that calculated the frequency of primitives was finished
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Think of ways we can analyze the primitives 
+|Completed  
+|April 3, 2020 
+|April 5, 2020 
+|April 6, 2020 
+|- 
+|
+|
+|
+|
+|
+|}
+
+== April 1, 2020 ==
+* Got a seeded run of EMADE working
+ python src/GPFramework/input_titanicADFON.py templates/seeding_titanic_benchmark.xml
+
+== March 30, 2020 ==
+'''Subteam Meeting:'''
+* Continued with presentation given to first semesters - below are some of the main notes from the presentation
+* ADFs
+** globally accessible through primitive set ad database
+** indistinguishable from other primitives except for adf_
+** Finding ADFs
+*** _find_adfs organizes parent-child primitives sets in valid adfs to see instances of potential ADFs
+*** _generate_adf uses output from find_adfs to create a probability distriution for selecting a parent node and child based on frequency and fitness
+*** defined in u/src/GPFramework/adfs.py
+Action Items:
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Fill out survey 
+|Completed  
+|March 30, 2020 
+|March 30, 2020
+|March 30, 2020
+|- 
+|Try running a SEEDED run
+|Completed
+|March 30, 2020
+|April 2, 2020
+|April 1, 2020
+|}
+
+== March 28, 2020==
+* Worked on getting EMADE up and running
+* cloned the following repo: https://github.gatech.edu/gwang340/emade
+* ran the EMADE on the Titanic dataset from the GCP_Config branch
+* got error: 
+ (Traceback (most recent call last):
+   File "src/GPFramework/didLaunch.py", line 3, in <module>
+     from GPFramework import EMADE as emade
+   File "C:\Users\sanja\Anaconda3\lib\site-packages\gpframework-1.0-py3.7.egg\GPFramework\EMADE.py", line 13, in <module>
+     import GPFramework.gp_framework_helper as gpFrameworkHelper
+   File "C:\Users\sanja\Anaconda3\lib\site-packages\gpframework-1.0-py3.7.egg\GPFramework\gp_framework_helper.py", line 6, in <module>
+     import GPFramework.learner_methods as lm
+   File "C:\Users\sanja\Anaconda3\lib\site-packages\gpframework-1.0-py3.7.egg\GPFramework\learner_methods.py", line 21, in <module>
+     from lightgbm import LGBMClassifier
+ ModuleNotFoundError: No module named 'lightgbm')
+* used pip install lightgbm to install lightgbm, and continued installing modules until EMADE successfully ran
+
+== March 25, 2020==
+'''Subteam Meeting:'''
+* Meeting for first semesters to introduce us into ADFs and give us more insight into EMADE
+* About EMADE
+** Notes
+*** primitives - make up individual tree nodes
+*** terminals - primitive with no inputs, often constants
+** What EMADE does (review)
+*** use genetic learning to optimize genetic logorithms
+**** read template, connect to database, check for individuals, create new individuals, evaluate + calculate fitness, select individuals for next generation
+**** with ADFs:
+***** discover ADFs
+**** mate and mutate, start new generation, continue to max generation
+** Seeding
+*** speeds up runs that creates individuals from a file and inserts it into the datbase
+'''Action Items:'''
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Get EMADE running 
+|Completed  
+|March 25, 2020 
+|March 28, 2020 
+|March 28, 2020 
+|- 
+|Read about ADFs
+|Completed
+|March 25, 2020
+|March 28, 2020
+|March 30, 2020
+|}
+
+== March 23, 2020==
+'''Main Meeting:'''
+* First trial meeting after spring break
+* I'm now part of the ADF subteam
+'''Subteam Meeting:'''
+* General introduction, met Aryender, Gabe, Raurai, and Aaron
+* First semesters were asked about what they wanted to do
+** no one really knew what they wanted
+** decided to meet on Wednesday so that the first semesters could get a better idea of what to do
+'''Action Items:'''
+* None for this meeting - just show up to the first semester explanation meeting on Wednesday
+
+== March 9, 2020==
+'''Midterm Presentations:'''
+* Bootcamp 1
+** spoke about ML algorithms and data used; 71% accuracy
+** GP - gave pareto higher mating probablity
+** attempted to seed data, but it was incompatable
+** ran EMADE for 40 generations
+* Team 2: ADF
+** increase EMADE modularity
+** use subtrees as primitives (represent as a single node)
+** what makes it useful?
+*** increases population's overall fitness
+** progress: Google Cloud'
+** consider size and percentage of individuals using ADF
+** not statistically significant
+** FUTURE:
+*** analyze which ADFs are the most effective
+*** evolve ADFs (change as individual change)
+*** using ADF in evolutionary process
+* Bootcamp 3
+** Data preprocessing
+*** used heatmaps to show correlation between survival rate
+*** used histogram to normalize and box ages
+*** combined SibSp and Parch
+** genetic programming
+*** minimized (fp + fn)^2
+*** lost pareto front diversity
+* NLP - Natural Language Processing + Neural Networks
+** language has no inherent meaning, comes from where we use it
+** neural networks - inspired by humans, classified into simple and shallow
+** neat - direct encoding; evolve architectures and weights
+** CoDeapNeat - encode network by layer
+** encorporate keras API into EMADE
+*** help opotimize hyperparameters and neural network architectures
+*** solves larger problems
+** evaluated movie review datasets
+** goal
+*** run emade on PACE-ICE
+*** test larger sample size
+*** improve primitives
+*** train efficiently
+*** submit paper to GECCO
+* Research Fundamentals
+** bloat
+*** increase in mean program size without corresponding improvement in fitness
+*** time, memory, and effective breeding cause bloat
+** experimental setup
+*** run on EMADE titanic for 50 generations
+*** removed number of elements because impacts bloat
+*** varied fitness sharing
+**** punish individuals from highly populate species
+*** NEAT crossover vs single point
+**** identifies common region between two individuals
+**** node with equal parity taken at random from either parent
+* ezCGP-Deep Learning
+** data augmentation (block 1 primitives), pre-processing, training
+** CIFAR-10 data set
+*** set of 6000 images 
+** last semester:
+*** 49.998% accuracy with 1 epoch in generation6
+*** highest = 67% accuracy
+** early results
+*** 87% accuracy
+**** no activation function
+** testing flatten primitive
+*** flatten, dens, and conv layers in same evolution
+*** top 5 best individuals had flatten layer in them.
+** adding mutabe activations
+*** non-linearities
+*** represent more complex trends
+** benchmarking mutable activations
+*** wasn't statistically significant
+*** reLu and elu were dominant and 
+** data augmentation
+*** create new data
+*** adopted augmentors library
+*** each dataset has training and testing pipeline
+** run on GPUs
+* Bootcamp 4
+** feature engineering
+*** factorization of certain fields
+** EMADE
+*** objectives converted into percentages by dividing by max for all data ppomts
+*** AUC: 0.3113
+*** best tree - 7 different primities
+*** got stuck on specific individual
+* NLP Time Conflict
+** text summarization
+*** created datasets and primitives
+** goal: prove which ones are the most informative
+*** run statistical tests
+** PACE - Partnership for an Advanced Computing Environment
+*** take advantage of multiprocessing
+*** tests without conscious input
+** issues
+*** MySQL
+*** moving EMADE into PACE
+**** cloning = storage issues
+** working on
+*** have EMADE submit its own jobs and create its own worker
+*** running EMADE with different primitives to determine what is beneficial
+*** statistical tests
+**** log loss
+**** AUC
+**** mean squared error
+** TFISIF Primitive - Term Frequency - Inverse Sentence Frequency
+*** analyz each word in sentence usig inter documetal frequency
+*** doesn't appear many times = more valuable
+*** each cell =  sentence, outer cell = paragraphs
+** Text Rank
+*** data air with relative sentence weights
+*** find relatively important centences
+** num named entities
+*** things like name data and nouns
+*** more named entities = more data = contains more information
+== March 7, 2020==
+'''Independent Presentation Work'''
+* After running the model overnight, I had to write a SQL command to consolidate the data and export into one CSV. To do this, I wrote:
+ select * from paretofront left join individuals on paretofront.hash=individuals.hash;
+* Then, I exported it as a CSV. 
+ id,optimization,generation,hash,hash,elapsed_time,age,evaluation_status,evaluation_year,evaluation_start_time,tree,error_string,pickle,"FullDataSet False Positives","FullDataSet False Negatives","FullDataSet Num Elements"
+
+ 1,0,0,3dfbe5d5bbde19b518d360b5c9591d2a8291e759a438b6fed9f74198d3285e0c,3dfbe5d5bbde19b518d360b5c9591d2a8291e759a438b6fed9f74198d3285e0c,184.878,0,NOT_EVALUATED,0,"2020-03-05 04:27:46","AdaBoostLearner(myProd(ARG0, 0), ModifyLearnerFloat(learnerType('LogR', {'penalty': 0, 'C': 1.0}), 0.01), myIntAdd(3, falseBool), myFloatDiv(0.1, 0.1))",NULL,...,0,68.4,29
+
+ 2,0,0,b601d43d5f14cd9c4239e168d8e13cecff7b8ba76c6b88030845c0a948d5e9f9,b601d43d5f14cd9c4239e168d8e13cecff7b8ba76c6b88030845c0a948d5e9f9,173.85,0,NOT_EVALUATED,0,"2020-03-05 04:26:41","AdaBoostLearner(ARG0, learnerType('ExtraTrees', {'n_estimators': 100, 'max_depth': 6, 'criterion': 0}), 2, 0.01)",NULL,...,16.2,21.8,44
+
+ 3,0,1,3dfbe5d5bbde19b518d360b5c9591d2a8291e759a438b6fed9f74198d3285e0c,3dfbe5d5bbde19b518d360b5c9591d2a8291e759a438b6fed9f74198d3285e0c,184.878,0,NOT_EVALUATED,0,"2020-03-05 04:27:46","AdaBoostLearner(myProd(ARG0, 0), ModifyLearnerFloat(learnerType('LogR', {'penalty': 0, 'C': 1.0}), 0.01), myIntAdd(3, falseBool), myFloatDiv(0.1, 0.1))",NULL,...,0,68.4,29
+
+ 4,0,1,b601d43d5f14cd9c4239e168d8e13cecff7b8ba76c6b88030845c0a948d5e9f9,b601d43d5f14cd9c4239e168d8e13cecff7b8ba76c6b88030845c0a948d5e9f9,173.85,0,NOT_EVALUATED,0,"2020-03-05 04:26:41","AdaBoostLearner(ARG0, learnerType('ExtraTrees', {'n_estimators': 100, 'max_depth': 6, 'criterion': 0}), 2, 0.01)",NULL,...,16.2,21.8,44
+* Above are the first few rows of the CSV
+Then, I started writing code to evaluate the data, create the ParetoFront, and calculate the Area Under the Curve (AUC).
+* At first, I wasn't sure how to proceed because I didn't know how to calculate percentages of false positives and negatives
+** realized that I just had to divide by the total number of data points given (891)
+** learned that the false positives and false negatives given were averages of the 5 different data splits.
+* Pareto Front evaluation: 
+ import matplotlib.pyplot as plt
+ from mpl_toolkits.mplot3d import Axes3D
+ import numpy as np
+ 
+ 
+ emade_data = pd.read_csv('pareto2.csv')
+ 
+ sorted = emade_data.sort_values(by=['FullDataSet False Positives'])
+ 
+ for row in sorted.itertuples():
+     print(str(row[16]) + ' ' + str(row[15]))
+ 
+ 
+ size = [row[16] for row in sorted.itertuples()]
+ fp = [row[14]/891 for row in sorted.itertuples()]
+ fn = [row[15]/891 for row in sorted.itertuples()]
+ 
+ fp.insert(0, 0)
+ fn.insert(0, 1)
+ 
+ fp.append(1)
+ fn.append(0)
+ 
+ print(len(fp))
+ print(len(fn))
+ print(len(size))
+ 
+ def print_pareto():
+     plt.plot(fp, fn, color='r', drawstyle='steps-post')
+     plt.xlabel("False Positives")
+     plt.ylabel("False Negatives")
+     plt.title("Pareto Front")
+     plt.figure(figsize=(800, 800))
+     plt.show()
+[[files/Pareto2d.png|none|thumb]]
+After creating the above pareto front, I realized that I could not really see the individual points very clearly. So, I remove (0, 1) and (1, 0) to create the following "zoomed in" graph.
+[[files/Pareto2d Zoom.png|none|thumb]]
+This confused me because it is not an accurate pareto front. There were some individuals that were not codominant and that EMADE should not have considered as Pareto individuals. Upon further review, I realized that this was because a third factor was not being evaluated: tree size. So, I decided to create a 3D graph considering this factor.
+ def print_3d():
+     fig = plt.figure()
+     ax = fig.add_subplot(111, projection='3d')
+     for i, si in enumerate(size):
+         ax.scatter(fp[i], fn[i], zs=si, color = 'r')
+     ax.set_xlabel('False Positives')
+     ax.set_ylabel('False Negative')
+     ax.set_zlabel('Size')
+[[files/Pareto3D.png|none|thumb]]
+This is more accurate than the 2D one because individuals are actually co-dominant.
+
+Additionally, I calculated an AUC of the 2D pareto front: 0.0034526585218691464. This seemed very low, but I figured that it speaks to the accuracy of EMADE.
+
+== March 4, 2020==
+'''Team Meeting Notes:'''
+* continued debugging EMADE
+* Solved the ValueError: had to install an older version of DEAP.
+* decided to run EMADE overnight 
+** after running EMADE, it completed 18 generations
+* Figured out how to extract data
+** used a SQL JOIN command to combine the individuals table with the paretodominant ones
+** exported this to CSV for analysis. {| class="wikitable"  !Task  !Current Status  !Date Assigned  !Suspense Date  !Date Resolved  |-  |Run a complete EMADE Generation  |Completed   |February 26, 2020  |March 5, 2020  |March 5, 2020  |-  |Begin Presentation  |In Progress  |February 19, 2020  |March 9, 2020  |Ongoing  |}
+
+== March 1, 2020==
+* I was trying to get a complete EMADE generation to run on my laptop.
+* First thought I was supposed to look at computer disk logs to run emade; later realized where the real error messages were
+* Forgot to manually create the database resulting in unknown database error -> once I figured out that I was supposed to create a database, that error went away
+ NSGAII Completed
+ 1 FullDataSet individuals
+ 321 total individuals
+ 321 individuals evaluated thus far
+ Right before binary tournament 321 out of 321 are unique
+* Master .out got these results after I stopped the tournament. I need to check to ensure that this is a good output.
+* master .err produces : 
+ ValueError: selTournamentDCD: individuals length must be a multiple of 4
+
+== February 26, 2020==
+'''Team Meeting Notes:'''
+* Was a day to debug SQL and get EMADE up and running
+* Not much was discussed in class
+'''Subteam Meeting Notes:'''
+* We ran emade on Chris's machine and we were able to connect
+* I had to downgrade from SQL 8 to 5.7, which took some time
+* Began debating how we can run made without relying on someone's machine always being on
+** AWS student account?
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Run a complete EMADE Generation 
+|In Progress  
+|February 26, 2020 
+|March 5, 2020 
+|Ongoing 
+|- 
+|Begin Presentation 
+|In Progress 
+|February 19, 2020 
+|March 9, 2020 
+|Ongoing 
+|}
+
+== February 19, 2020==
+'''Team Meeting Notes:'''
+* Setup
+** setup MySQL on machine + test on someone else's machine
+** download and install git lfs (large file storage)
+** clone emade
+** run setup module
+* Running EMADE
+** navigate to top level directory and run python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+** Input files/
+*** xml document that configures all moving parts
+*** detects cluster management software
+*** Configures MySQL connection
+**** running locally, servercan be local host or 127.0.0.1
+**** if connecting, get ip address
+**** reuse 0 = fresh start; pickup to where you left off, reuse 1
+*** Datasets
+**** can run along multiple sets
+**** data preprocessed into csv files
+**** cross folded multiple times
+*** Objectives
+**** names used as columns in database
+**** -1 = minimized, +1 = maximized
+**** evaluationFunction specifies name of methods
+**** achievable+goal steer evolutionary search
+*** Parameters
+**** workersPerHost specifies how many evaluations can be run in parallel
+**** Evolution Parameters
+***** hyperparameters that affect evolutionary process
+****** probabilities, selection methods
+** Connecting worker to peer
+*** use -w command to allow computer to act as worker process
+*** make sure dbconfig is IP address not local host
+** Understanding EMADE
+*** Mysql -h hostname -u username -p
+*** choose database
+*** explore database with queries
+*** datasets/ is where data lives
+*** templates/ where input files lives
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Install EMADE 
+|Completed  
+|February 19, 2020 
+|February 21, 2020 
+|February 20, 2020 
+|- 
+|Run EMADE as group 
+|Completed 
+|February 19, 2020 
+|February 22, 2020 
+|February 26, 2020 
+|- 
+|Teach myself SQL 
+|In Progress 
+|February 19, 2020 
+|February 29, 2020 
+|Ongoing 
+|- 
+|make plot of pareto fronteir 
+|In Progress 
+|February 19, 2020 
+|March 9, 2020 
+|Ongoing 
+|- 
+|Show analysis of EMADE 
+|In Progress 
+|February 19, 2020 
+|March 9, 2020 
+|Ongoing 
+|}
+
+== February 12, 2020==
+'''Team Meeting Notes:'''
+* Team 4 
+** Other groups used sin, cos, arctan, and sigmoid (keep between 0 and 1)
+** genGrow -> generates tree of different lengths
+** NSGAII -> wanted points with higher crowding distance
+** GP was about the same or worse compared to ML
+* Team 2
+** Replaced NaN with randomly sampled age (not average)
+** Had a very low AUC of 0.03 compared to genetic 0.13/0.34
+*** used leaf-biased + mutUniform
+* Team 3
+** Created age bands
+** crossoveronepoint + mutateUniform + tournament selection
+** GP has more variance -> but ML was better
+* Team 1
+** split data into multiple folds, then aggregated data
+** also had squares and greater than/less than
+*** wrote their own functions
+** changed mating chance based on if on pareto front
+** output float and based on float, see if survived
+
+== February 7, 2020==
+'''Sub-team Meeting:'''
+* Discussed how to apply code from class to the Titanic GP problem
+* Decided to use strongly typed genetic programming to deliver most accurate results.
+Primitives
+* Used same primitives as in lab. Because we thought that this program would rely heavily on logical operators rather than mathematical one, that is what we focused on.
+[[files/Primitives for Titanic GP.png|center|thumb|342x342px]]
+* We also used a very similar evolutionary loop. We created the function evolvePop() in order to mutate, mate, and evolve our population
+[[files/Titanic Evolution Code.png|center|thumb]]
+* In order to make a more effective evolutionary algorithm, we tried to change the different hyperparameters (popSize, mateRate, and mutRate). We found that after around 50 evolutions, the change of the max accuracy decreased 
+* Additionally, we attempted to change the individual mutate functions that were registered in the toolbox. Unfortunately, through our many attempts, this resulted in an accuracy of around 0.79 with very simple, but effective trees.
+
+== February 5, 2020==
+'''Team Meeting Notes:'''
+* Assigned GP Titanic task with teams; use genetic programming to create a pareto dominant set of individuals and analyze the outputs/trees. Make this into a presentation to give to the class confirming our results.
+* Presentation Procedures
+** It's okay for the slides to be wordy
+** Include code that can be explained
+** PAGE NUMBERS help to make references
+** Slides should be able to stand alone
+** BIG GRAPHS
+*** labels (x and y axis) that are easy to read
+** To include in Titanic: discuss feature creation, evolutionary loop, performance of individual algorithms, analyze trees
+'''Sub-Team Meeting Notes:'''
+* Set up meeting time
+* Decided to use similar procedures that were in lab; create a similar evolutionary function loop + our own crossover function.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Genetic Programming - Create Pareto Individual
+|Completed 
+|February 5, 2020
+|February 10, 2020
+|February 11, 2020
+|-
+|Create PowerPoint for presentiation
+|Completed
+|February 5, 2020
+|February 10, 2020
+|February 12, 2020
+|}
+
+== February 2, 2020==
+I made progress on the Titanic Lab. Below are some of my observations, results, and some code.
+* Multi-Layer Perceptron: Creates a neural network with layers of neurons representing input features that transform values using a weighted linear summation. The code below shows some of the different parameters I changed, such as the solver and activation function. The comments contain my observations about functions that did and did not work for me.
+ mlp_clf = neural_network.MLPClassifier(hidden_layer_sizes = (90,), alpha = 1e-20, max_iter = 200, activation='tanh', solver='lbfgs', learning_rate='constant')  #no tanh maybe relu >> identity >> logistic, no SGD, maybe adam #tanh + lbfgs ~.8 >> relu + adam
+* Gradient Boosting Classifier - Creates decision tree models and improves by increasing weights of aspects that are difficult to qualify. Then adapts tree.
+* Voting Classifier - Accepts multiple other classifiers as an input. Uses majority voting based on these inputs to determine classification
+ v_cfl = ensemble.VotingClassifier(estimators=[('mlp', mlp_clf), ('gb', gb_clf),('hgb', hgb_cfl)], voting='hard') 
+*  The voting classifier above takes multiple classifiers as inputs. Because I set the voting parameter as hard, it is based on the "majority wins". This had the highest success rates compared to other models I made
+* Using the above classifiers, I created a pareto front with information about my individuals shown below. This made it very clear that the voting classifier was the most effective as it was the only pareto individual within the classifiers I had created.
+[[files/MyPareto.png|thumb]]
+
+EDIT: My team decided to clean the code a little bit more to get more accurate results. For example, we set the missing ages to the mean age of the people in a give class.
+
+Team Processing Code: https://github.com/xenoframium/VIP-Titanic/blob/master/titanic_processing.py
+
+My Code: https://github.com/avnitripathi/Automated-Algorithm-Design/blob/master/Bootcamp%20Labs/Titanic.ipynb
+
+== January 29, 2020==
+'''Team Meeting Notes:'''
+* Machine Learning
+** Began learning how to import, clean, and split data
+** Started looking into different machine learning algorithms using scikit
+* Split up into sub-teams
+** Met with subteam; set meeting time
+'''Sub-Team Meeting Note:'''
+* Discussed different classifiers: decided to keep current classification
+* Split up different types of machine learning prediction algorithms
+* Individually began working on implementing algorithms to achieve highest accuracy rate.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Lab - Score FP + FN
+|In Progress 
+|January 29, 2020
+|February 26, 2020
+|Completed
+|}
+== January 22, 2020==
+'''Team Meeting Notes:'''
+* Multiple Objectives
+** Genome: genotypic description of an individual
+** Search Space: set of all possible genome
+*** *decorator: calls wrapper function before calling actual function -> can be used to restrict search space
+** Objective space (Phenotype): set of measurements each genome is scored against
+** Evaluation: Maps genome from location in search space -> location in objective space (genotypic description -> phenotypic description)
+** Type I error: false positive; Type II error: false negative
+** Maximize
+*** Sensitivity or True Positive Rate (TPR) 
+**** hit rate; recall
+**** TPR = TP/P = TP/(TP+FN)
+*** Specificity (SPC) or True Negative Rate (TNR)
+**** TNR = TN/N = TN/ (TN + FP)
+** Minimization
+*** False Negative Rate (FNR)
+**** FNR = FN/P = FN/(TP + FN)
+**** FNR = 1 - TPR
+*** Fallout or False Positive Rate (FPR)
+** Other measures
+*** Precision or Positive Predictive Value (PPV)
+*** False Discovery Rate
+*** Negative Predictive Value
+*** Accuracy
+** Pareto Optimality
+*** individual is pareto if NO OTHER individual outperforms the individual on all objectives
+*** Pareto Frontier: set if all pareto individuals (line that connects pareto individuals; is a stair-step
+*** individuals represent '''unique''' contributions
+*** want to drive selection by favoring pareto individuals.
+*** can be used to find area under curve (AUC)
+**** want AUC to decrease
+** Nondominated Sorting Genetic Algorithm II (NSGA ii)
+*** population separated in nondomination ranks
+**** rank each member of population to pareto rank
+*** individuals selected using binary tournament
+**** lower pareto rank wins
+**** ties from same front broken by crowding distance: sum normalize euclidean distance to all points from front
+***** favors solution without close neighbors (higher crowding distance wins) -> explore newer/sparser areas of frontier
+** Strenghts Pareto Evolutionary Algorithm 2 (SPEA 2)
+*** Each individual given strength S: determines how many others in the population it dominates
+*** Compute rank R: sum of S's of individuals it dominates
+*** pareto (non-dominated individuals) receive R of 0
+*** distance of kth nearest neighbor n_k is calculates + fitness = R+ 1/(n_k + 2)
+[[files/Lab 2 Image.png|thumb]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2 Part 2
+|In Progress 
+|January 22, 2020
+|January 29, 2020
+|January 25, 2020
+|}
+Lab 2 part 2 code with my comments: https://github.com/avnitripathi/Automated-Algorithm-Design/blob/master/Bootcamp%20Labs/Lab%202%20Part%202%20Multi-Objective%20Genetic%20Programming.ipynb
+
+- Utilized pareto dominance to evaluate individuals and minimize tree height error. The pareto dominance algorithm was probably the most pertinent concept in this lab.
+ #define pareto dominance function to help visualize objective space
+ #returns true if first individual dominates the second
+ def pareto_dominance(ind1, ind2):
+     not_equal = False
+     for value_1, value_2 in zip(ind1.fitness.values, ind2.fitness.values):
+         if value_1 > value_2:
+             return False
+         elif value_1 < value_2:
+             not_equal = True
+     return not_equal
+
+== January 19, 2020==
+[[files/Symbolic Regression Graph Better.png|thumb|Graph created by lab 2|279x279px]]I worked more on Lab 2 in order to understand the concepts we spoke about in class. Some of the important changes that I made are listed below:
+* Primitives are the functions that are used in the tree to makeup the final output. I added the floor function to the primitive set, as shown below. However, I do not believe that this had a big effect on the code because the floor function will have a smaller impact on the output than functions like addition and multiplication
+ pset.addPrimitive(np.floor, arity=1)
+* Additionally, I added another mutation method: The gp.mutInsert method randomly inserted a new branch.
+ toolbox.register("mut2", gp.mutInsert, pset=pset)
+Results from the lab:
+ -- Generation 39 --
+   Min 1.1712944886774969e-16
+   Max 2.1134173679263952
+   Avg 0.24665744532807807
+   Std 0.3262553986388643
+ -- End of (successful) evolution --
+ Best individual is add(multiply(x, x), add(x, multiply(multiply(add(x, multiply(x, x)), x), x))), (1.1712944886774969e-16,)
+
+Lab 2 Code with my comments: https://github.com/avnitripathi/Automated-Algorithm-Design/blob/master/Bootcamp%20Labs/Lab%202%20Genetic%20Programming%20-%20Symbolic%20Regression.ipynb
+
+== January 15, 2020==
+'''Team Meeting Notes:'''
+* Genetic Programming
+** Let the "individual" be a function instead (the individual is the function itself.
+** Represent program as tree structure
+*** nodes: primitives and represent functions
+*** leaves: terminals and represent parameter 
+**** an input is like the terminal
+**** output is like the root of a tree
+*** tree is converted to lisp preordered parse tree
+**** use root first then expand [root, input1, input2]
+*** Crossover
+**** exchange subtrees
+*** Mutation
+**** insert/remove/change node or subtree
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2
+|Completed 
+|January 15, 2020
+|January 22, 2020
+|January 20, 2020
+|}
+
+== January 8, 2020 ==
+'''Team Meeting Notes:'''
+* First meeting; Discussed course syllabus and began introduction to evolutionary algorithms.
+* '''Genetic Algorithms:''' generated through mating of individuals and evaluating their fitness.
+** population based solution; using concepts of natural selection
+* '''Individual:''' a specific candidate being considered
+* '''Population:''' group of individuals
+* '''Objective:''' a value to characterize individuals
+* '''Fitness:''' relative ranking often based on objective *main driver of evolutionary algorithms*
+* '''Selection:''' similar idea to survival of fitness
+** '''Fitness Proportionate:''' way of selection where the probability of selection is based on the fitness value
+** '''Tournament:''' the winners are selected by mating
+*** winners determined by comparing fitness scores
+*** random comparisons are made
+* '''Mutate:''' random modifications to maintain diversity
+Overall Process:
+# Randomly initialize population
+# Determine Fitness
+# Repeat the following:
+## Select parents
+## Preform crossovers
+## Preform mutations on population
+## Determine fitness of population
+Considered One-Max Problem
+* each individual has 100 values, each of which are a 0 or 1
+* add all values to get a score
+* goal: score of 100
+* Utilize DEAP (Distribute Evolutionary Algorithms in Python) to code solution
+** install using pip
+** toolbox: allows programmer to tell DEAP what functions are for mating to apply to existing evolutionary algorithms
+'''Sub-Team Notes:'''
+* N/A - No sub-team assigned
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install Jupyter Notebooks
+|Completed
+|January 8, 2020
+|January 10, 2020
+|January 9, 2020
+|-
+|Complete Lab 1
+|Completed 
+|January 8, 2020
+|January 13, 2020
+|January 13, 2020
+|-
+|Set up notebook
+|Completed
+|January 8, 2020
+|January 10, 2020
+|January 9, 2020
+|}
+Lab 1: The One Max and N-Queens Problem
+* [[files/N- Queens Graph.png|thumb|269x269px]]I used the provided code to solve the one-max and N-Queens problem. The graph produced by the N-Queens problem is provided on the right. The graph outlines the fitness values as the generations progress. By going through the lab, I was able to create genetic algorithms that solved these problems and learned how to utilize DEAP's functionality.
+One Max Problem Code with my Comments: https://github.com/avnitripathi/Automated-Algorithm-Design/blob/master/Bootcamp%20Labs/Lab%201%20N%20queens%20problem.ipynb
+
+N Queens Problem Code with my Comments: https://github.com/avnitripathi/Automated-Algorithm-Design/blob/master/Bootcamp%20Labs/Lab%201%20One%20Max%20Problem.ipynb

@@ -1,0 +1,11 @@
+This is a project idea for the [[Automatically Defined Functions|ADF subteam]]. This will be a technically challenging project that will require learning about the ways that primitives and individuals are represented by [https://deap.readthedocs.io/en/master/index.html deap]. 
+
+=== How ADFs can Evolve ===
+ADFs are lambda expressions that evaluate a [https://deap.readthedocs.io/en/master/api/gp.html gp.PrimitiveTree] . While the lambda expression cannot be changed easily we can create new, and altered versions of an ADF during a crossover or mutation. For example if we allow a node of an ADF to be mutated then we can condense the mutated sub-tree back into a new ADF. This will make a new ADF and make sure it exists in at least one individual.
+
+=== Work That Needs to be Done ===
+* We need to be able to "expand" an ADF, and replace it with the primitives that the ADF is composed of.
+** This will be a recursive process, because ADFs can contain an unknown number of ADF nodes
+** Looking at _contract_adfs() in adf.py will show you how the nodes were originally turned into an ADF.
+* We will either need to be able to find changed ADFs after crossover/mutation or we will need to implement custom crossover and mutation functions
+** Finding them probably won't be hard. We can probably just look for the root node of the ADF to find it, but deciding what parts of the sub-tree will be in the new ADF may be hard. Potentially we would just use the whole sub-tree though.

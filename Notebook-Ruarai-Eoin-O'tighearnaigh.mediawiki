@@ -1,0 +1,1817 @@
+== General Information ==
+Team member: Ruarai O'Tighearnaigh
+
+Year: Sophomore
+
+Major: Computer Science
+
+Email: reo3@gatech.edu
+=Fall 2020=
+== November 30, 2020 ==
+
+===Meeting Notes:===
+Notebooks due on Thursday at midnight!
+
+Presentations from 6-8:30 Wednesday evening.
+
+Finished a practice run of presentation just before meeting and will be doing another right before class Wednesday to go over the final edits we will complete as suggested by Dr. Rohling and Dr. Zutty.
+
+===Team Meeting Notes:===
+No Friday meeting. It's been a great semester but it has come to a close.
+
+=== Final Presentations: ===
+Last VIP class :(
+
+stocks:
+* emade building trading ai - goal
+* issue with research paper
+* explored genetic labeling
+** solutions converge to maximize profit gained over a time
+* added technical indicators
+** SMA, EMA, Moving average convergence and divergence, Stochastic oscillator, relative strength indicaotr, William's R%
+** new research:
+*** ease of movement
+**** relationship between volume and price changes
+*** on balance volume
+**** helps with measuring trends
+*** cci
+**** momentum indicator
+*** bollinger bands
+**** momentum indicator
+*** mfi
+**** focuses on volume
+* Question: much more buys and sells - slide 11
+neural network team
+* evolutionary approach to neural architecture search using emade
+** performance
+** model complexity
+* BERT language model as layer in EMADE
+* crossover for nn
+** single point and two point crossover
+* Added some computer vision primitives
+** adaptive mean thresholding
+** adaptive gaussian thresholding
+** both worked on documents of unequal lighting
+* ran on detox dataset
+* chess x-ray dataset
+** 15 classes
+** had some very odd results
+ezCGP
+* cleaned up old primitives to work with new codebase
+* objectives
+** precision
+** recall
+* added seeding to increase performance
+* tested on cifar10
+** had good results
+* NAS Research super convergence
+** diversity and evolution
+** add aging to increase diversity
+* worked to reduce computation time by killing underperforming individuals
+== November 23, 2020 ==
+
+===Meeting Notes:===
+Presentations will done next Wednesday. Pretty slow week due to travel and Thanksgiving but work on presentation or runs if any are remaining for your experiment.
+
+===Team Meeting Notes:===
+Divvied up parts of the presentation so each member would have the chance to present some of the work we did over the course of the semester. Continue working on presentation so that we can do a practice run.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on presentation
+|Complete
+|November 23, 2020
+|November 30, 2020
+|November 28, 2020
+|}
+
+===Individual Work:===
+https://docs.google.com/presentation/d/1KU-tlra_DXV93JOS6NjQ5RB24Urj0-M8F99U3YsQQ70/edit?usp=sharing
+
+Worked on the slides in Experiment 3.
+
+== November 16, 2020 ==
+
+===Meeting Notes:===
+MNIST is coming along well. Will likely be able to have some runs before our final presentation if things continue to progress. Resources were found through Gabe's connection to GTRI that have proved instrumental in aiding Jacob.
+
+===Team Meeting Notes:===
+Continuing to do runs. Things are looking good to get enough runs to do some rudimentary analysis for our final presentation. There are a good number of DataPair restricted runs to analysis on.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze results of runs
+|Complete
+|November 9, 2020
+|November 23, 2020
+|November 20, 2020
+|}
+
+=== Individual Work: ===
+Used the script created last week to do some analysis. In most cases there were only a couple adfs that achieved high penetration into the population which in most of the runs consisted of ModifyLearners or adfs created very early in the process from the seeded individuals. This potentially could be because individuals created with ARLs of Learners, Filters, etc. had too much impact on the individual and lead to very high crowding between all individuals of the type. Another theory might be that the pool of potential ARL candidates is so small at early generations that the heuristics attempting to select good subsections of code are left picking whatever is valid since we create a fixed number per generation rather than waiting until good learners and the like are found naturally through evolution and then attempting to spread them. This leaves the less impactful of the adfs more prone to spread because if they aren't great yet the individuals containing them can still evolve fully to become better.
+
+== November 9, 2020 ==
+
+===Meeting Notes:===
+Kevin presented notes about his runs. There is some statistical significance at the usual areas but the number of adfs didn't drastically increase. Additionally, the average number of adfs was found to be largely due to "supercarriers" which could contain up to 70 or so bloat adfs and likely had been created through some perverse incentives during evolution. He will likely merge in my changes to see if with the restriction the selection method performs better.
+
+===Team Meeting Notes:===
+Runs are going slowly so Gabe set up 7 collabs to be used as workers and a google drive to help set up checkouts so multiple people don't try and run using the same account at the same time. Potentially the first semesters will be largely in charge of ensuring these accounts are running so they can get more experience dealing with Emade and some of the issues that can arise.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|DataPair runs on collab
+|Complete enough
+|October 26, 2020
+|November 16, 2020
+|November 16, 2020
+|-
+|Analyze results of runs
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|}
+
+=== Individual Work: ===
+Worked on a script to help analyze which adfs were actually being used since I noticed that at later generations of some of the runs the same adf would appear a great deal but the vast majority of adfs would not. I was curious if the trend continued and if there was anything that could be extracted from the adfs that successfully spread in the population compared to those which died out. I committed the changes to the repo of adf related scripts I created last semester. This commit mostly adds a method that creates a dictionary to keep track of how many of each adf is found in the population as a whole.
+
+https://github.gatech.edu/reo3/emade-adf-scripts/commit/a6f906425be4d952efa23526d3a4c4a1ec8550b7
+
+== November 2, 2020 ==
+
+===Meeting Notes:===
+Kevin did some analysis on the Selection branch. Some of us are having success with runs some are having less success. Regina and I are working together to try and get some complete runs.
+
+===Team Meeting Notes:===
+Jacob has continued making progress on MNIST dataset. The rest of us have been doing runs, lots unsuccessful though. First semesters are largely up to speed on what ARLs are. They have also been shown the current Collab set up and can start helping with runs.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|DataPair runs on collab
+|In Progress
+|October 26, 2020
+|November 16, 2020
+|1 full run this week
+|-
+|Explore potential reason for runs taking so long
+|In Progress
+|November 2, 2020
+|November 9, 2020
+|November 5, 2020
+|}
+
+=== Individual Work: ===
+Looked into whether the DataPair change was creating far more valid individuals with learners and that was responsible for the increased computation time compared to previous experiments. I used the mysql command below to find the number of valid individuals for generations where evaluation was complete and did some very basic statistical analysis on the number given for benchmark runs vs the new restricted ARL runs at generations 20 and 25 and didn't find anything. The variance was large and the average was extremely close so the p-value ended up at .4. Perhaps it is due to the change causing the spread of the learners used in the seeded individuals which might just take more time than some other learners but since the equipment used for the benchmark was so different than the current collab setup and at times multiple different types of workers were being used it didn't seem worthwhile to investigate further since the primary suspect had been eliminated and there wouldn't be many things that could be done if any of the other theories were correct.<blockquote>SELECT evaluation_gen, SUM(ISNULL(error_string)) FROM adf_benchmark_2.individuals GROUP BY evaluation_gen;</blockquote>
+
+== October 26, 2020 ==
+
+===Meeting Notes:===
+Hello Weiyao, Krithik, Vincent, and Bernadette!
+
+New members of the team joined and we discussed some of what expectations are for them.
+
+===Team Meeting Notes:===
+Taught the new students about ADFs using the presentation from last semester.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Merge in arg0 fix
+|Completed
+|October 26, 2020
+|November 2, 2020
+|October 28, 2020
+|-
+|DataPair runs on collab
+|In Progress
+|October 26, 2020
+|November 16, 2020
+|2 partial runs this week
+|}
+
+=== Individual Work: ===
+Merged in Gabe's ARL fixes to my branch and started trying to do some runs. It is progressing very slowly on Collab and timed out well before it reached even 40 gens. Need to make sure there isn't something wrong with the template file but from looking at Kevin's template file it doesn't appear anything is awry. Perhaps adding workers through additional collabs will be needed to ensure results that are remotely useful. Might also look into why it is taking so much longer.
+
+== October 19, 2020 ==
+
+===Meeting Notes:===
+Presentations!!!
+
+stocks:
+
+objectives:
+
+use EMADE for regression on time series data
+
+use EMADE to optimize market trading algorithms
+
+Needed to work on adding technical indicators
+
+preproccessing of data
+
+CEFLANN architecture
+
+classification problem with buy, hold, and sell signals.
+
+data preprocessing:
+
+SPY price and TI data from jan 2010 to Dec 2014
+
+used 6 technical indicators
+
+supervised regression problem
+
+Added multilayer perceptron, gaussian process, ridge regression
+
+had technical issues
+
+85 gen AUC of .27714 after seed
+
+Data was questionable for expirement
+
+future work:
+
+utilize stream to feature functionality
+
+long emade runs
+
+new semester will implement new technical indicators
+
+bootcamp group 3:
+
+did standard things
+
+used logistic regression, MLP NN, and SVM for auc
+
+used logical, relational, and algabraic primitives
+
+3 runs 30 gen - pretty short
+
+.241 auc over time
+
+did a nice 3d pareto front graph
+
+bootcamp group 1:
+
+cleaned the data
+
+dropped some data
+
+filled in missing data
+
+made data numerical
+
+used rf, bayes, lr, and mpr
+
+used an absolutely useless pareto front graph
+
+used loosely typed gp
+
+17 gen run had very high accuracy
+
+garbage pareto front probably didn't divide by 5
+
+NN ex NLP:
+
+apply evolutionary approach to emade
+
+used evolutionary neural automl for deep learning
+
+got good score of .03561 on wikidetox
+
+have optmizers/activations
+
+added terminals to introduc variation
+
+concatenating layers adds complexity
+
+182 generations: top result was very good
+
+crossover for mutations
+
+single point and double point
+
+adaptive mutation function
+
+chest x-ray dataset
+
+CV2 function wrappers
+
+next steps
+
+incorporating pretrained language models into emade
+
+rewarding complexity rather than minimizing it
+
+other datasets
+
+bootcamp 2:
+
+did good exploration and normal proccesing
+
+used lots of different models with decent results
+
+bad pareto graph with incorrect auc
+
+had normal auc after 30 gen with emade did an interesting headless chicken run as well
+
+ezcgp:
+
+create stable bench marking on cifar10 dataset this semester
+
+have noisy training
+
+want to add aging to increase diversity
+
+Early termination based on a reference curve to decrease time
+
+superconvergence
+
+bootcamp 4?:
+
+had a nice color and did lots of good explanations
+
+had very good gp run
+
+indoubtebly incorrect auc for emade
+
+===Team Meeting Notes:===
+Preparing for new students. Spent time taking stock of current progress and goals for the rest of the semester.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Take notes on other group presentations
+|Completed
+|October 19,2020
+|October 19, 2020
+|October 19, 2020
+|}
+
+=== Individual Work: ===
+Nothing to report for this week. Things were pretty slow because of presentations.
+
+== October 12, 2020 ==
+
+===Meeting Notes:===
+Presentation next week. We'll be working on our slide deck this week and hopefully will be able to schedule a practice run for some time this weekend. 
+
+===Team Meeting Notes:===
+Presentation is largely done. Will be doing a practice run with Dr. Zutty and Dr. Rohling this weekend. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on presentation
+|Completed
+|October 12,2020
+|October 19, 2020
+|October 16,2020
+|}
+
+=== Individual Work: ===
+
+https://docs.google.com/presentation/d/1ZTS5ij1kNA8cymFyIYWU1fkuJe3PuNVl_H2IyzB22RQ/edit?usp=sharing
+
+The part on the Data Pair Restriction experiment is what I worked on.
+== October 5, 2020 ==
+
+===Meeting Notes:===
+Notebooks are due tonight.
+
+Presentation in 2 weeks.
+
+Issue with inability to create adfs that impact Arg0 is vital and should be put as high priority.
+
+===Team Meeting Notes:===
+Looking into the Arg0 fix with Gabe. We have different approaches and it looks like his approach to fix the issue with the lambda is the better solution since it more cleanly solves the issue without making a lot of other changes. Progress is being made on MNIST by Jacob but there seems to be tons of issues to work through so it might take some time.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on partial ADFs
+|Suspended
+|October 2,2020
+|October 9, 2020
+|
+|}
+
+=== Individual Work: ===
+Looked into the codebase to try and fix the Arg0 issue. Over the course of investigating I realized that if we allowed partial adfs, adfs that contained a parent and some nonnegative amount of it's children rather than the full height 2 tree the parent is the root of, the problem would be largely fixed since Arg0 could remain as an unmodified child to the new adf. Started looking into making this change a reality but the infrastructure change it would require is vast since the adf creation process currently has the size and shape hardcoded into a bunch of different methods. Additionally, it would break all of the new heuristics so likely wouldn't be feasible and would stray far away from the original intended experiment with the data pair restriction.
+
+== September 28, 2020 ==
+
+===Meeting Notes:===
+Discussed DataPair Issue with Gabe. It appears to be a quite important issue since it has caused numerous adfs over the course of the generations that might have been good to not be created. The section of the code it is from is quite old so I'll potentially take a look but for now it will be treated as a blocking issue.
+
+===Team Meeting Notes:===
+Quick meeting.
+
+Discussed an auto clicker to prevent timing out on collab. All appears set up to begin doing tests on the platform. Isn't as convenient but should still work.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on pace
+|Complete
+|September 4, 2020
+|September 25, 2020
+|September 25, 2020
+|-
+|Work on DataPair change
+|On hold
+|September 11,2020
+|September 25, 2020
+|
+|-
+|Work on partial ADFs
+|In Progress
+|October 2,2020
+|October 9, 2020
+|
+|}
+
+=== Individual Work: ===
+Just went through this guide https://colab.research.google.com/drive/1Dzg-fvW628-S9ki3y1S7qwfveiajFNNx in order to get things working. Haven't completed a run yet but all appears in order.
+
+== September 21, 2020 ==
+
+===Meeting Notes:===
+We should try to get additional data sets running so we can test adfs on them.
+* could also probably just use a couple more of the dataset already included but they don't have the features adfs were proven most effective on in the past
+
+===Team Meeting Notes:===
+Pace is continuing to cause problems. Might just give up on it for the semester.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on pace
+|In progress
+|September 4, 2020
+|September 25, 2020
+|
+|-
+|Work on DataPair change
+|In Progress
+|September 11,2020
+|September 25, 2020
+|
+|}
+
+=== Individual Work: ===
+
+Continued looking into the DataPair change and trying to debug the issue. Spent a deal of time testing things with my changes but ended up figuring out the issue is caused in the adf_info_to_lambda method since it requires that ADFs do not contain any arg_N. Since almost all nodes that directly return a data pair also take in the data pair this prevents the creating of learner adfs until much further into the generations when there is sufficient intermediary nodes. I'm kind of stuck on how to fix this since this part of the code is from before my time so we'll probably wait to test this branch until Gabe manages to fix the issue. I pushed the changes to a branch anyway so once we get it solved we can test out how the change effects everything.
+
+https://github.gatech.edu/gwang340/emade/tree/RODataPairOnly
+
+== September 14, 2020 ==
+
+===Meeting Notes:===
+Finish self eval for next week.
+
+Experiencing some issues with both collab and pace but hopefully we'll get it working soon.
+
+Results of selection method are in and with more runs there was no statistical significance. It appears that it has helped but nothing significant. Hopefully this semester we finally get past that barrier.
+
+===Team Meeting Notes:===
+Short meeting today. Each of us just working on problems we are experiencing. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on pace
+|In progress
+|September 4, 2020
+|September 25, 2020
+|
+|-
+|Work on DataPair change
+|In Progress
+|September 11,2020
+|September 25, 2020
+|
+|}
+
+=== Individual Work: ===
+
+if len(node_info) > 0 and type(self.pset.mapping[node_key].ret) == GPFramework.data.EmadeDataPair:
+
+just added a check to the return type.
+
+Having a lot of bugs that I don't think are associated with the change I made though. Will be looking through the branches to see if perhaps I'm running a buggy branch but currently even after removing my change no ADFs are being created even when they are logging as having impacting the data pair.
+
+[[files/Ruarai JPG rubric.jpg|frameless]]
+== September 7, 2020 ==
+
+===Meeting Notes:===
+No regular meeting this week due to Labor Day.
+
+
+===Team Meeting Notes:===
+
+Very little work was done since last meeting due to Labor Day and still working on ideas.
+
+Losing google cloud credits soon so need to work on getting collab and pace working.
+
+Half of the team is working on pace half on collab. I'm working on pace.
+
+Also discussed some other ideas such as limiting adfs to be only created if the nodes effect the Emade data pair.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Come up with idea
+|Complete
+|September 4, 2020
+|September 11,2020
+|September 11,2020
+|-
+|Work on pace
+|In Progress
+|September 4, 2020
+|SoonTM
+|
+|-
+|Work on DataPair
+|In Progress
+|September 11, 2020
+|September 25,2020
+|
+|}
+
+=== Individual Work: ===
+
+Spent several hours working with Jacob to get his EMADE working. He was struggling with python package issues so we needed to fix his bash profile.
+
+== August 31, 2020 ==
+
+===Meeting Notes:===
+
+Discussed general progress towards finding literature and what topics each of us are looking into.
+
+
+===Team Meeting Notes:===
+Went over each of our papers. Not many were super applicable to adfs so we discussed areas we wanted to work on as individuals. 
+
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read a research paper 
+|Resolved
+|August 28, 2020
+|September 4, 2020
+|September 3, 2020
+|-
+|Come up with idea
+|In Progress
+|September 4, 2020
+|September 11
+|
+|}
+
+=== Individual Work: ===
+https://dl.acm.org/doi/pdf/10.1145/3377929.3389852
+
+I read the above presentation on ideas on how to create better trees that attempts to incorporate novelty in order to increase genetic diversity. I think it might work for adfs as well but as it currently stands it would require a lot of work and might end up counteracting other progress we are trying to make. It seems that once we get adfs only to manipulate the Emade data pair perhaps we could try and create variables to capture its demonstrated behavior but until that point I think we might instead just lead to novelty through increasingly useless nodes that do little to effect the tree as a whole. It does seem like if the work was put in to test this project though, it would be better done on the entire tree and not as a piece of adfs. Perhaps in the future a group will work on it but for now I think the ideas don't present any actionable insights.
+
+== August 24, 2020 ==
+
+===Meeting Notes:===
+ADF subteam will be meeting from 4-5pm on Fridays at http://bluejeans.com/638613382
+
+Gabe is going to continue trying to get runs in so we can finalize the results we had last semester.
+
+Everyone else still needs tasking but we discussed ideas 
+
+
+===Team Meeting Notes:===
+I was assigned to run the diff fitness on my machine, we will see how well it works since my laptop is underpowered and has historically struggled.
+
+We are doing a literature review to come up with new ideas and see if anything sticks.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read a research paper 
+|In Progress
+|August 28, 2020
+|September 4, 2020
+|
+|}
+
+=== Individual Work: ===
+The differential fitness branch has bugs so Gabe called off the runs so no progress to report there.
+
+
+== August 17, 2020 ==
+
+===Meeting Notes:===
+Potential new team: stocks.
+
+ADF team renaming to modularity team
+ *Likely to continue working with Gabe and others under this team
+
+
+===Team Meeting Notes:===
+No team meetings since teams are not finalized
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide for sure which team to work under
+|Resolved
+|August 17, 2020
+|April 24, 2020
+|April 19, 2020
+|}
+
+=== Individual Work: ===
+Did some thinking about teams and decided to continue working on adf/modularity since it's my last semester and I still have some ideas. Would like to see if we could get better ADFs somehow, either through a better selection method or straight limiting what type of node can be chosen
+
+
+=Spring 2020=
+== April 20, 2020 ==
+
+===Meeting Notes:===
+Final Presentations!!!!
+
+Research Fundementals:
+* Bloat Metric
+* average change in size of individuals in population vs average change in fitness
+* Neat GP
+** natural controls boat
+** has significatnly changed selection method
+* Speciation
+** assigned greedily
+** runs through most trees in the population to compare distance
+* tests at .15 - close to 1, .3 - close to 1, .6 - around 8
+** How many trees were assigned to each species at each speciation? Slide 9
+* increased hypervolume - three d auc
+* didn't help bloat metric
+* Would having a higher number of individuals per run help since with the many different primitives perhaps to find similarities you just need more trees to compare?
+* Have a Pace working with 8 runs at a time!!! 
+** Could definitely be helpful to try and do similar for adf team.
+Neural Networks:
+* lots of lots of primitives created by the new semester students 
+** many common activation functions and a few more complicated network functions
+* had issues with multilable data set
+** also was very sparse so much work was needed
+* significant improvement of hand tunes accuracy
+* practically no difference between old and new primitives
+conflict team:
+* text summarization vs classification of other nn group
+* lots of sql issues and pace issues
+* did some testing locally and on pace of the two primitives they have created
+** excessively long times make it impossible to add primitives to trees and instead they need to be run on the data before it is passed in
+ezCGP:
+* inclusion of preproccesing block helped even though it was quite simple
+* different implementations with better accuracy than anything seen so far
+* New students created primitives
+* went from pace to gcloud
+
+===Team Meeting Notes:===
+No team meeting this week since summer has begun!!!
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Presentation slides
+|Resolved
+|April 13, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|Create script to find average number of adfs per individual for each run and then run
+it on all the new results as well as all the baseline runs.
+|Resolved
+|April 13, 2020
+|April 20, 2020
+|April 18, 2020
+|}
+
+=== Individual Work: ===
+Nothing individual to report until the start of next semester :).
+
+== April 6, 2020 ==
+
+===Meeting Notes:===
+Opportunity for practice presentation attended by both professors.
+
+Differential fitness and selection method changes are both done and on branches ready to test. Aaron will start runs for each so we will hopefully have a full number of runs for the presentation but it is more likely that we will be analyzing based on incomplete data. The primitive analysis team will also be analyzing the new runs using the scripts they produced and will compare it against the baseline runs. We will be doing a practice run at some point over the weekend hopefully.
+
+===Team Meeting Notes:===
+I have a script up and running which finds the average number of adfs per individual for each generation in a run. During the meeting discussed how we were going to break down our section of the presentation and distribute the word. Jacob will be doing an analysis on the auc with our selection method against the auc of runs without it. We do not expect significant changes since adfs as a whole didn't alter the end result much and increasing their frequency is unlikely to change anything. Kevin will be doing an analysis of the actual adf frequency which is the item we were hoping to increase. Hopefully he finds some statistically significant evidence of that but initial results do not seem to indicate such a finding. Since the two main metrics have already been assigned out, I gave Chido the task of analyzing the relationship between adf frequency and auc because I noticed as I was running my script there was significant variation even within samples and wondered if the random variation of adf frequency had any correlation to the random variations of auc. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Presentation slides
+|In Progress
+|April 13, 2020
+|April 20, 2020
+|
+|-
+|Create script to find average number of adfs per individual for each run and then run
+it on all the new results as well as all the baseline runs.
+|In progress
+|April 13, 2020
+|April 20, 2020
+|
+|}
+
+=== Individual Work: ===
+https://github.gatech.edu/reo3/emade-adf-scripts/commit/40a2ddf98f9444327dcbf2990f5e0612115d90ef
+
+Pushed it to a separate repo since it hasn't been cleaned up yet and is still finicky at times. Added code to find auc for each generation and potentially fixed the current code in viz that results in increasing AUCs at times. This code also makes it rather easy to quickly go through a lot of sql dumps to find the values in question whereas my previous branch of viz was much slower.
+
+Results of above script when run on all the benchmarks and new selection method runs:
+
+https://drive.google.com/open?id=1TEPCEJKJl5ObTDBLUOHDtrdCj_SdhOmJ
+
+https://docs.google.com/presentation/d/1pM_VSVOVw0l5aHGx5YjvkpRcBvNPixVkjcpAnIzLzPk/edit#slide=id.g745abc3516_0_7
+
+Slides 32-35
+
+== April 6, 2020 ==
+
+===Meeting Notes:===
+Differential fitness has made great progress and is poised to be ready to test next week. Primitive analysis has made progress. There was some misunderstanding on my part with selection methods where I though selection had to do with how adfs were selected but instead the original idea was to make a new method for selecting which individuals from the population would mate. My team has pivoted well and each member will present a new selection method for individuals on Friday and we will compare methodologies and select the best pieces of each one for our final method we will add to weight adfs.
+
+===Team Meeting Notes:===
+Good progress all around. Jacob and I had similar approaches with editing the tournament to include adfs when determining the better individual. Kevin took a different approach and used the number of adfs in an individual to impact the way the weighting in weighted nsga2 worked which increased the odds of individuals with adfs being selected to enter the tournament. Chido was swamped with work this week so didn't manage to create his selection method yet but presented his ideas which aligned well with Jacob's method. We have decided to go with Jacob's since it had no unresolved bugs and placed a lower emphasis on ADF's than mine which the team felt would preserve the integrity of evolutionary process better for the original fitness metrics. I cleaned up the code afterwards and created branch with the new method which will hopefully be merged into master soon so testing can commence.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Determine the selection selection method we will be using
+|Cancelled
+|March 30, 2020
+|April 10, 2020
+|
+|-
+|Create a selection method that adds adfs weighing to the evolutionary process
+|In Progress
+|April 6, 2020
+|April 9, 2020
+|April 10, 2020
+|-
+|Determine the selection selection method we will be using
+|Resolved
+|March 30, 2020
+|April 10, 2020
+|April 10, 2020
+|}
+
+=== Individual Work: ===
+https://github.gatech.edu/gwang340/emade/commit/3702835dbc28c8454c9e5876abbc6595e62e908a
+
+Commit with the new selection method. This commit uses the tournament that Jacob outlined with the only change from my original code being the order in which the three things are considered where I had the adf counts ahead of the crowding distance but now we have instead decided to weigh them equally.
+
+== March 30, 2020 ==
+
+===Meeting Notes:===
+Finished the presentation for the first semesters. Released survey about sub-subteam interest and split the returning students among the groups by interest for them to help lead. Gabe and Aryender will be working on primitive analysis with first semesters, Aaron will be working on differential fitness with his team, and I will be working on a selection method with my team.
+
+===Team Meeting Notes:===
+Met with the new selection method sub-subteam for the first time!!! Current team members are Jacob, Chido, Kevin, and I. There were issues around the board connecting to bluejeans so used Webex instead which still had connection issues but was serviceable. 
+
+Lead a presentation on how selection is done currently and the two philosophies employed during selection of adfs for the first semesters. Utilized Aryender's code for intelligent ADF's to show a framework for the work we will be doing. Assigned the first semesters to work through the snippet of code on their own time to ensure they have a good grasp on how the pieces are connected and search for other ideas for a selection method. Currently, I was thinking that incorporating size of the individual could yield better results since given two individuals of approximately equal fitness, on average the nodes in the smaller tree would be doing more useful work. Whether this manifests in each tree having a similar number of useful nodes with the larger tree just having more bloat or each node in the smaller tree being more useful, I'm not sure about, but regardless selecting adfs from the smaller tree will still on average yield better adfs hopefully. More ideas should be coming in the Monday meeting and perhaps research will be found to back up my proposal.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Determine the selection selection method we will be using
+|In progress
+|March 30, 2020
+|April 10, 2020
+|
+|-
+|Bring the first semesters up to speed on how selection is done and what our team will be doing
+|Resolved
+|March 30, 2020
+|April 3, 2020
+|April 3, 2020
+|-
+|Create a Frequently Asked Questions section of the sub team wiki in order to provide a single place to look.
+|Resolved
+|March 23, 2020
+|March 30, 2020
+|March 29,2020
+|}
+
+=== Individual Work: ===
+Individual work this week was rather light since the beginning of the week mostly involved preparing talking points for the sub sub team meeting during which I was trying to teach the new members how ADFs are selected. Due to thinking that the code was the best place to explain this from I didn't create any slides however since I thought going to the source would alleviate more confusion. I also did some thinking about what we could implement as a different selection criteria though after communication with Gabe and Aaron later I realized I had defaulted to thinking about the wrong type of selection so scrapped the limited work I had done and prepared to create a new method to select individuals for mating.
+
+== March 23, 2020 - Trial Week ==
+
+===Meeting Notes:===
+The class will continue on largely as was originally scheduled with everything just transitioned online. The first semesters have been distributed based on their preferences and as the ADF team we are welcoming Abhiram, Chido, Katie, Kevin, Reagan, Avni, Min, and Jacob. Very excited to have all these new team members!!!
+
+===Team Meeting Notes:===
+Made our way through roughly 2/3 of the new introduction to EMADE and adfs presentation for the first years. Mostly just working on getting everyone up to speed while everyone makes sure they have everything they need set up in order to complete their coursework for the rest of the semester. During the presentation we linked to a number of papers that would aid in giving an overview of the ideas on which our team was created. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create a Frequently Asked Questions section of the sub team wiki in order to provide a single place to look.
+|In progress
+|March 23, 2020
+|March 23, 2020
+|
+|-
+|Help create slides for the introduction powerpoint.
+|Resolved
+|March 23, 2020
+|March 25, 2020
+|March 25, 2020
+|-
+|}
+
+=== Individual Work: ===
+https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit#slide=id.g720ad7ae25_2_45
+
+Edited and talked about slides 19-20 for the presentation.
+
+The new FAQ section of the sub team wiki was also my work. Hopefully as we have more new students we can streamline the process of incorporating them into our team.
+
+== March 9, 2020 ==
+
+===Meeting Notes:===
+Midterm Presentations!!!
+
+Titanic groups:
+* First group had some issues with calculating auc which caused some excitement
+* there were far more novel ideas and takes on the presentations than during my semester
+* still very similar so my notes all blended together
+Bloat:
+* Ran very limited tests
+* Are working on idea of speciation
+* have weird issue with sudden drop in individual number
+** unsure if it is in base Emade or with their change
+NLP:
+* Have created a few primitives
+* Significant issues trying to run on PACE
+** still don't have many tests due to these issues
+Time Conflict:
+* Have begun work on a few primitives
+** have written unit tests to ensure the primitives work
+** have not implemented the primitives into Emade yet
+* significant issues trying to run on PACE
+EZCGP:
+* Massive overhaul moving to tensorflow 2.0
+** seems like it has largely invalidated most of their previous work
+** would be curious if they are able to abstract away from it with their new code to allow for easier future accomidation
+* issues running on Pace
+* compared performance with different numbers of processors for their code
+** it seems due to issues with transferring data between each core it doesn't help in the way it would be expected
+
+===Team Meeting Notes:===
+Coronavirus concerns have ground everything to a halt. Short virtual talk this week about plans for new projects with the first semesters and how we might split things up. Very little to report.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin Thinking through ideas for second half of the semester
+|In Progress
+|March 9, 2020
+|March 23, 2020
+|
+|-
+|}
+
+=== Individual Work: ===
+With spring break and massive amount of turmoil caused by Coronavirus, I did not manage any individual work this week beyond a cursory look into the difficulty of implementing a different mutation who's purpose would be adding an adf rather than just adding arbitrary node. This idea was presented to us by Jason in the run up to the midterm presentation and seemed like it might hold promise. The creation of the method seems rather simple so depending on what our plans are post regroup with the new members I might try and implement it.
+
+== March 2, 2020 ==
+
+===Meeting Notes:===
+Went over tips regarding good presentations. Page numbers, context for graphs, and results are all good to include.
+
+We did some general planning for our presentation and split up sections for each of us to talk about.
+
+===Team Meeting Notes:===
+Planning on doing some final analysis of our data for some extra content on the midterm presentation. In general everything is looking good for Monday.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on midterm presentation slides. Particularly slide about reasons to join.
+|Resolved
+|March 2, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Create a histogram from a distribution of primitives and their frequencies.
+|In progress
+|January 17, 2020
+|February 24, 2020
+|
+|-
+|}
+
+=== Individual Work: ===
+https://docs.google.com/presentation/d/1VzJBOXUmKNmMjk3AgiRHe3Uq8gaHrWDserQgtQwZtOo/edit#slide=id.p
+
+Slide 26 was mine. Contributed to slides 11, 25, 26.
+
+== February 24, 2020 ==
+
+===Meeting Notes:===
+
+===Team Meeting Notes:===
+Hackathon this week! I won't be able to attend due to athletic event at Clemson. Results are in for p value of final auc as well as average auc, no significance p = .67. Thinking through different metrics such as auc cutoff, auc slope, etc. in order to try and find if there was any significant change to auc values what so ever. After having talked to Jason though we might find more success looking at other ways adf could help enable such as keeping size down and helping explainability.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create script to analyze number of generations to reach a auc cutoff.
+|In progress
+|January 10, 2020
+|February 17, 2020
+|February 17, 2020
+|-
+|Start work on properly functioning height metric for adfs
+|Suspended
+|January 17, 2020
+|February 24, 2020
+|
+|-
+|}
+
+=== Individual Work: ===
+[[files/AUC cutoff script.png|thumb|none]]           
+
+Added screenshot of my script since it is a part of Gabe's commit adding a Jupiter notebook to notebook part of our repo. When utilized in conjunction with the greater testing script that Gabe produced this resulted in findings of no statistical significance for cutoffs at every .02 increment from .2 to .3. There was some variation in the p-values but most hovered in between .25 and .75 for our current runs. 
+
+== February 17, 2020 ==
+
+===Meeting Notes:===
+We have all the runs for the first test complete and now it's just a matter of integrating the changes needed for the second round of testing which will start soon.
+
+===Team Meeting Notes:===
+Everyone except Aaron was sick and unable to meet.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Use mysql queries to do inter run comparisons of individuals with ADFs and without
+|Resolved
+|February 10, 2020
+|February 17, 2020
+|February 17, 2020
+|-
+|Start work on properly functioning height metric for adfs
+|In progress
+|January 17, 2020
+|February 24, 2020
+|
+|-
+|}
+
+== February 10, 2020 ==
+
+===Meeting Notes:===
+Due to issue with cancelling other peoples jobs using scancel on google cloud it has been decided that it Aaron will start all the runs and dump the sql database after which I will be use my auc code to create csv files with the aucs and then Aryender will perform statistical analysis on the results.
+
+===Team Meeting Notes:===
+The tests are beginning to conclude and we have some elementary statistics regarding final aucs for runs with adf on. The adf off runs have yet to be dumped but should be done soon.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create csv files with aucs.
+|In progress
+|January 27, 2020
+|February 17, 2020
+|February 11, 2020
+|-
+|Use mysql queries to do inter run comparisons of individuals with ADFs and without
+|In progress
+|January 10, 2020
+|February 17, 2020
+|
+|-
+|}
+Some of the mysql queries I used were
+* SELECT generation, COUNT(*) 
+<blockquote>FROM YOURSCHEMANAME.paretofront, YOURSCHEMANAME.individuals</blockquote><blockquote>WHERE individuals.hash = paretofront.hash AND individuals.tree LIKE '%adf%'</blockquote><blockquote>GROUP BY generation 
+	ORDER BY generation;</blockquote>
+* SELECT AVG(individuals.`FullDataSet False Negatives`), AVG(individuals.`FullDataSet False Positives`)
+<blockquote>FROM YOURSCHEMANAME.individuals</blockquote><blockquote>WHERE individuals.tree LIKE '%adf%'</blockquote><blockquote>GROUP BY individuals.evaluation_gen</blockquote>For both of the above commands adding a NOT before the like will give the corresponding statistics for non ADF individuals.
+
+Finding the average number of False Negatives and False Positives by generation for both individuals with adfs and without proved rather fruitless since without testing the only conclusions I could draw is they both have very high variances and are unlikely to be statistically different simply due to the massive fluctuation. On the other hand looking at the percentage and total numbers for individuals on the Pareto Front with adfs by generation revealed that there is steady growth in individuals with adfs on the Pareto Front as time goes on and adfs end up being present in over 30% of Pareto individuals in most runs which considering the current selection criteria is purely based off of frequency seems to indicate that adfs are impacting the evolutionary process in some significant capacity.
+
+== February 3, 2020 ==
+
+===Meeting Notes:===
+I'm still working through getting everything all set up but should be good to go quickly. Brief tutorial on using google cloud.
+
+===Team Meeting Notes:===
+We're up and running with tests. Now it's just a matter of waiting for results and using the software we've previously written. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work with Jason to gain access to the google cloud.
+|Resolved
+|January 27, 2020
+|February 3, 2020
+|February 2, 2020
+|-
+|Create csv files with aucs.
+|In progress
+|January 27, 2020
+|February 10, 2020
+|
+|-
+|}
+ 
+After the sql dumps were posted to the bucket, I used our previous code to find the arcs for the runs.  
+
+https://console.cloud.google.com/storage/browser/emade-vip-aaron-mcdaniel/auc_csvs/?project=round-mark-159321 link to the csv files with the aucs for our current gcp runs. 
+
+== January 27, 2020 ==
+
+===Team Meeting Notes:===
+It appears all google cloud issues have been resolved and we are starting the first runs. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work with Jason to gain access to the google cloud.
+|Resolved
+|January 27, 2020
+|February 3, 2020
+|February 2, 2020
+|-
+|}
+All google cloud issues were not resolved and while trying to start the first runs permission issues were present. I gained access to the google cloud after some work with Jason. Tried running my first Emade run on my own with no luck. Will resolve later.
+
+== January 20, 2020 ==
+
+===Meeting Notes:===
+
+MLK
+
+
+===Team Meeting Notes:===
+Aaron has made good progress on getting google cloud working. We are getting close to starting the actual stats and using Aryender's code. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research ways to improve ADF performance.
+|on hold
+|January 6, 2020
+|February, 2020
+|
+|-
+|Create a script to extract metrics from the database.
+|Complete
+|January 6, 2020
+|January 20, 2020
+|January 19, 2020
+|-
+|}
+https://github.gatech.edu/reo3/emade-viz/tree/ADFonlyAUC. Implementing new selection criteria will wait for statistical testing to arrive.
+
+== January 13, 2020 ==
+
+===Meeting Notes:===
+
+Metrics for evaluation should include: auc slope, average auc, gens to threshold, compute time w&w/o caching.
+
+
+===Team Meeting Notes:===
+There have been some issues running emade on google cloud which is blocking further progress on statistical testing. Good progress has been made in creating the framework for the testing. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research ways to improve ADF performance.
+|In progress
+|January 6, 2020
+|January 20, 2020
+|
+|-
+|Create a script to extract metrics from the database.
+|In progress
+|January 6, 2020
+|January 20, 2020
+|
+|-
+|}
+I have viz's code running on my machine and have started piecing together pieces to efficiently extract auc. I have also been reading papers on adfs in order to hopefully come up with ideas for new ways to select adfs if current methods don't have statistically significant improvement. 
+== January 6, 2020 ==
+
+===Meeting Notes:===
+
+Everyone from the ADF team last semester who still is in the VIP has decided to continue on with the sub-team. This semester we will focus on statistically proving our changes either positively impacted EMADE or had no effect/ worsened performance. We will need GCP or some other computing cluster in order to test and minimize unintentional confounding variables.
+
+
+===Team Meeting Notes:===
+Aryender and I will be working on the statistical testing of the data as well as extracting the necessary metrics from the database while Aaron and Gabe will be working on getting the tests running on a computing cluster hopefully gcp. Everyone should be coming up with ideas on how to either improve ADF's if the test show no improvement or looking into how to clean up our code base to more easily merge it into the master EMADE. 
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research ways to improve ADF performance.
+|In progress
+|January 6, 2020
+|January 20, 2020
+|
+|-
+|Create a script to extract metrics from the database.
+|In progress
+|January 6, 2020
+|January 20, 2020
+|
+|-
+|}
+
+=Fall 2019=
+== November 25, 2019 ==
+
+===Meeting Notes:===
+
+Last work session. Preparing presentation and running final test runs.
+
+Presentation slides:
+ https://docs.google.com/presentation/d/1o7aoCDuJgwq7mgVcsqZ-5j67A0-Qknx1qza3bkVaNhY/edit?usp=sharing
+
+===Team Meeting Notes:===
+Was blocked during hackathon by bug that prevented creation of ADF's. Aaron and Joel fixed it later. Continued working on adding heights and sizes for adf's to the database. Got it working now that adfs were actually being created through adjusting the adf schema as well using queries to find the size of any children which are also adfs. Future direction of adf team looks good based on what experienced members are saying.
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add height and size parameter to adfs in database
+|In progress
+|November 18, 2019
+|December 2, 2019
+|November 28, 2019
+|-
+|}
+
+== November 18, 2019 ==
+
+===Meeting Notes:===
+Typical standup. Worked through task distribution for hackathon and discussed final presentation.
+
+===Team Meeting Notes:===
+Met during the hackathon to debug remaining bugs. I worked on new task with height and size addition to database. Was unable to get much done due to being blocked by bug that prevented the creation of adfs. On Thursday, helped test code in order to merge in outstanding merge requests.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add height and size parameter to adfs in database
+|In progress
+|November 18, 2019
+|December 2, 2019
+|
+|-
+|}
+
+'''Individual Contribution'''
+*[[files/Screen Shot 2019-12-04 at 4.50.49 PM.png|thumb]]Struggled due to bug blocking the creation of any adfs but was able to get a height and size parameter to be added to the database through updating the schema.  
+
+== November 11, 2019 ==
+
+===Meeting Notes:===
+Standup
+
+===Team Meeting Notes:===
+
+Presented fix to adf naming scheme. Evaluation bug is still blocking most of the team. Was assigned task to prevent insertion of duplicate adfs into database.
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prevent insertion of duplicate adfs.
+|Completed
+|November 11, 2019
+|November 18, 2019
+|November 18, 2019
+|-
+|}
+
+'''Individual Contribution'''
+*Worked on figuring out how the sql commands were done in Emade in order to find if an identical adf was already in the database 
+*Was able to do this using the expression representation of the adf and a sqlalchemy command.
+similar = self.session.query(self.ADF).filter(self.ADF.expr == expr).one_or_none()
+
+if similar is not None:
+* Submitted first mr request - https://github.gatech.edu/jye72/emade/pull/32
+
+== November 4, 2019 ==
+
+===Meeting Notes:===
+Standup 
+===Team Meeting Notes:===
+
+Fix some of the last bugs needed for a successful run of new EMADE with the help of Aaron. Assigned adf naming change in order to help familiarize myself with codebase.
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|ADF naming convention update.
+|Completed
+|November 4, 2019
+|November 11, 2019
+|November 10, 2019
+|-
+|}
+
+'''Individual Contribution'''
+*Messed around with the adf specific code for a while trying to figure out how all the pieces connected
+*Was able to add the name of the root node to the adf name when it is added to the database for increased readability.
+adf_name = "adf_{}_{}".format(adf_info[0], self.currentADFID)
+
+== October 28, 2019 ==
+
+===Meeting Notes:===
+
+Meet and greet new team. Joined ADF sub team with Joel, Ben, Aaron, Aryender, and Gabe.
+
+===Team Meeting Notes:===
+
+Clone ADF repo and work to get it running.
+
+The packages that needed to be installed were
+
+lightgbm
+
+sep
+
+spectral
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Pull ADF git repository and get it running.
+|Completed
+|October 28, 2019
+|November 4, 2019
+|November 2, 2019
+|-
+|Record each additional library needed to run ADF repo.
+|Completed
+|October 28, 2019
+|November 4, 2019
+|November 2, 2019
+|-
+|}
+
+'''Individual Contribution'''
+*Cloned ADF repo and continually tried to run it and recorded each package that the error file stated was need until the error file no longer stated a missing package
+*Recorded the packages that I downloaded
+
+== October 21, 2019 ==
+
+===Class Notes:===
+Midterm Presentations
+
+
+Presented successfully.
+
+Listened to subteams in order to decide which sounded interesting and which I though I wanted to join. ADF's and exGCP were the immediate standouts for me.
+
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Contemplate which team to join.
+|Completed
+|October 21, 2019
+|October 28, 2019
+|October 28, 2019
+|-
+|}
+
+== October 16, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Was out of town for the weekend so was unable to contribute computing power to team for Emade run.
+* Got individual run on my machine but due to travel and relatively weak laptop was not able to progress past 4 generations and had very few valid individuals.
+* https://docs.google.com/presentation/d/1aEkLMt0cyisYtIDkD2OINMQz-2n3jkPhdxsj7STqWyM/edit#slide=id.p
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Run
+|Completed
+|October 16, 2019
+|October 21, 2019
+|October 19, 2019
+|-
+|Presentation
+|Completed
+|October 16, 2019
+|October 21, 2019
+|October 20, 2019
+|-
+|}
+
+'''Individual Contribution'''
+*Consulted with Dr. Zutty and realized issues with Emade run were due to impatience and not an issue with my machine
+*Ran Emade but due to traveling to Boston from Thursday to Monday was unable to run for long enough to get enough valid individuals to warrant a Pareto front.
+
+== October 9, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+Assigned task to use Emade to evaluate titanic dataset using Emade rather than DEAP as was previously done. Involved becoming familiar with Emade and learning how to set up mysql database and edit template files successfully.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Emade running
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 15, 2019
+|-
+|Download and get Mysql to run correctly
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 15, 2019
+|}
+
+'''Individual Contribution'''
+*Installed mySql and set up a database
+*Edited the Emade titanic template and tried to get a run but was unsuccessful.
+== October 2, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Went through different groups approaches to using genetic programming for Titanic dataset
+* Learned of tasks to complete within the next week
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 2, 2019
+|October 4, 2019
+|October 4, 2019
+|-
+|Pull EMADE git repository
+|Completed
+|October 2, 2019
+|October 9, 2019
+|September 12, 2019
+|-
+|Complete Peer evaluations
+|Completed
+|October 2, 2019
+|October 4, 2019
+|October 2, 2019
+|-
+|}
+
+== September 25, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Defined this weeks objectives.
+* Use DEAP and the base code provided in Lab 2 create to create a Pareto front of algorithms on the Titanic Dataset from last week
+
+===Sub-team Meetings===
+*Discussed data prep and cleaning during meeting on Friday
+*Scikit Learning lab encoder
+*Decided on using a evolutionary loop rather than eaMuPlusLambda
+*Used nondominant sort and random selection to perpetuate non dominated traits
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create evolutionary loop 
+|Completed
+|September 27, 2019
+|September 29, 2019
+|October 2, 2019
+|-
+|Implement Elitism through the use of a hall of fame and use the hof to graph Pareto front and AUC graph
+|Completed
+|September 29, 2019
+|October 2, 2019
+|October 1, 2019
+|-
+|}
+
+'''Individual Contribution'''
+*Wrote the evolutionary loop and HOF tracking utilized in the following google colab https://colab.research.google.com/drive/1ZLEIyI7zwHWRVfO-2GldPz3OxEenkQk3
+*Additionally implemented the graphing for the Pareto front and AUC progression
+*
+== September 18, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Listened to presentations regarding different teams approach to the Titanic dataset
+* Presented our groups models and findings
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review issues with dataset
+|Completed
+|September 18, 2019
+|September 25, 2019
+|September 24, 2019
+|-
+|}
+
+== September 11, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Went over Kaggle Titanic dataset
+* Went through sample Jupiter notebook showing ways to prepare data and then using different models to fit a model
+
+===Sub-team===
+*Discussed which columns to drop
+*Settled on Class, Name, Room number
+*Discussed other transformations to the data including filling in missing values and settled on a unified training set
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Use model on titanic dataset
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 13, 2019
+|-
+|Meet up with group and compare models
+|Completed 
+|September 11, 2019
+|September 18, 2019
+|September 16, 2019
+|-
+|}
+'''Individual Contribution'''
+*Created a random forest classifier to classify titanic dataset and adjusted max_depth to achieve a low FPR.
+ random_forest = ensemble.RandomForestClassifier(n_estimators = 10, max_depth = 2)
+
+== September 4, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Went over classification problems and the ways to measure algorithm success.
+*General Algorithm Success Metrics
+**Efficiency
+**Accuracy
+*Specific metrics for classification algorithms
+**True Positive Rate
+**False Positive Rate
+**True Negative Rate
+**Type 1 error rate
+**Type 2 error rate
+**etc.
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do Lab 2 - part 2
+|Completed
+|September 4, 2019
+|September 11, 2019
+|September 11, 2019
+|-
+|Review Lecture 3 Notes
+|Completed 
+|September 4, 2019
+|September 11, 2019
+|September 11, 2019
+|-
+|}
+
+
+
+== August 28, 2019 ==
+
+===Class Notes - Bootcamp:===
+
+* Discussed required events outside of class time such as presentations dates and hackathons
+* Reviewed material from lecture 1
+* Started in on Genetic programming and the tree structure used to represent various individuals
+* Went over examples of various primitives and ephemeral constants used to build a tree
+* Discussed the difference between strongly and loosely typed GP
+
+===Action Items===
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do Lab 2
+|Completed
+|August 28, 2019
+|September 4, 2019
+|September 3, 2019
+|-
+|Review Lecture 2 Notes
+|Completed 
+|August 28, 2019
+|September 4, 2019
+|September 3, 2019
+|-
+|}
+
+* Read through the source code for lab 2
+* Added primitives remainder and mod
+* Added a mutation method that replaces a node in a tree
+
+== 21<sup>st</sup> August 2019, Wednesday ==
+
+=== Class Notes - Bootcamp: ===
+* First lecture of the semester 
+* Introduction to Genetic Algorithms and Programming 
+** 1 Part and 2 Part Crossover
+** Fitness Function
+
+=== Action Items: ===
+{| class="wikitable"
+!Task 
+!Current Status
+!Date Assigned
+!Suspense Date 
+!Date Resolved
+|-
+|Pull Emade repo
+|Completed
+|21<sup>st</sup> Aug 2019
+|28 Aug 2019 
+|27 Aug 2019
+|-
+|Work through Lab 1 
+|Completed
+|21<sup>st</sup> Aug 2019
+|28 Aug 2019
+|27 Aug 2019
+|}

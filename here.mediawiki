@@ -1,0 +1,210 @@
+This is how I implement lab 5, there might be more efficient way to do this.Please feel free to edit this page if you have more efficient way.
+
+<pre>
+
+// This is main function
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include "RBDS.h"
+using namespace std;
+
+int main(){
+
+	RBDS rbds("test.dat", "test.txt");				// Convert dat to txt.
+
+	const int length = rbds.getlength("test.txt");                  // Get data length of txt.
+
+	vector<int> testbits(length);					// Declare a integer vector called testbits. 
+
+	string synd;							// Declare a string
+
+	testbits = rbds.getbits("test.txt");			        // Get bits into testbits
+
+	int StartPoint = 0;						// Start point was initialized to 0;
+
+	while (StartPoint + 25 < length){
+
+		synd = rbds.CalSynd(testbits, StartPoint);               // Calculate syndrome and return it to synd
+
+		if (rbds.Outcompare(synd))				// Compare syndrome to the table and print block type.
+													
+			StartPoint += 26;				// If syndrome matchs, calculate syndrome for next 26 bit block
+		else
+			StartPoint += 1;				// If not, read one more bit in.
+	}
+}
+</pre>
+
+
+<pre>
+// This is header file
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class RBDS{
+public:
+	RBDS(string,string);                 // RBDS(datFileName,txtFileName) will convert dat file to txt file and save txt file in the same directory.
+
+	int getlength(string);               // Return length of file.
+
+	void dat2txt(string, string);        // Convert dat to txt.
+
+	vector<int> getbits(string);         // Input txt file name, return integer vector.
+
+	string CalSynd(vector<int>, int);    // Input integer vecor, return Syndrome in string.
+
+	bool Outcompare(string);             // Input string, compare string to Syndrome Table. 
+				             // If string matchs one in the table, return true and print block type.
+};
+</pre>
+
+
+
+<pre>
+// This is definition of functions
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
+#include "RBDS.h"
+using namespace std;
+
+RBDS::RBDS(string iDatFileName,string otxtFileName){
+
+	dat2txt(iDatFileName, otxtFileName);                                  // Convert dat file to txt file ans save txt file it in the same directory.
+}
+
+int RBDS::getlength(string FileName){
+
+	                                                                      // This function will get the length of the file.
+	ifstream file(FileName, ios::binary);
+	int size;
+	file.seekg(0, ios::end);                                              // Count from position 0 to the end of file.
+	size = file.tellg();	                                              // Return current position to size.
+	file.seekg(0);	                                                      // Put position back to 0. (Not sure if it is necessary, just in case)
+	file.close();
+	return size;
+}
+
+void RBDS::dat2txt(string iFileName, string oFileName){
+	                                                                        // This function will convet dat file to txt file.
+	char *chr;
+	int length;
+	int index = 0;
+	ifstream file(iFileName, ios::binary);
+	length = getlength(iFileName);
+	chr = new char[length];
+	for (index = 0; !file.eof(); index++){
+		chr[index] = file.get() + 48;                                  // Read 8 bit of dat file, and convert it to char.
+	}
+	file.close();
+	ofstream ofile(oFileName);	                                       // Create file
+	ofile.write(chr, length - 1);                                          // Write converted data to the file.
+	ofile.close();
+}
+
+vector<int> RBDS::getbits(string FileName){
+	                                                                       // This function will convert char to int, and retrun an integer vector.
+	ifstream file(FileName);
+	int index = 0;
+	vector<int> bits(getlength(FileName));
+	while (!file.eof()){
+		char c = file.get();	                                          // Read one character from file.
+		if (c - '0' >= 0){
+			bits[index] = c - '0';                                    // Convert char to int and put it on integer vector.
+			index++;
+		}
+	}
+	file.close();
+	return bits; // return vector.
+}
+
+string RBDS::CalSynd(vector<int> testbit, int StartPoint){
+
+	// This funtion will calculate the Syndrome respect to the StarPoint and the flowing 25 bits of data in the integer vector.
+	// Return syndrome in a string.
+	int H[26][10] = { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+		1, 0, 1, 1, 0, 1, 1, 1, 0, 0,
+		0, 1, 0, 1, 1, 0, 1, 1, 1, 0,
+		0, 0, 1, 0, 1, 1, 0, 1, 1, 1,
+		1, 0, 1, 0, 0, 0, 0, 1, 1, 1,
+		1, 1, 1, 0, 0, 1, 1, 1, 1, 1,
+		1, 1, 0, 0, 0, 1, 0, 0, 1, 1,
+		1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+		1, 1, 0, 1, 1, 1, 0, 1, 1, 0,
+		0, 1, 1, 0, 1, 1, 1, 0, 1, 1,
+		1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+		1, 1, 1, 1, 0, 1, 1, 1, 0, 0,
+		0, 1, 1, 1, 1, 0, 1, 1, 1, 0,
+		0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
+		1, 0, 1, 0, 1, 0, 0, 1, 1, 1,
+		1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
+		1, 1, 0, 0, 0, 1, 1, 0, 1, 1 };
+	string str_synd;
+	vector<int> synd(10);
+	int row = 0, col = 0;
+	const int restart = StartPoint;
+	for (col = 0; col < 10; col++){
+		for (row = 0, StartPoint = restart; row < 26; row++, StartPoint++){
+			synd[col] = testbit[StartPoint] * H[row][col] + synd[col];                                              // Matrix multiplication.
+		}
+		switch (synd[col] % 2){ // Calculate syndrome and convert it to string.
+
+		case 1:str_synd = str_synd + "1"; break;
+
+		case 0:str_synd = str_synd + "0"; break;
+		}
+	}
+	return str_synd; // Return syndrome in string.
+}
+
+bool RBDS::Outcompare(string synd){
+	// Input syndrome string, compare string to Syndrome Table. 
+	// If string matchs one in the table, return true and print block type.
+	bool syn;
+	string A = "1111011000";
+	string B = "1111010100";
+	string C = "1001011100";
+	string C_ = "1111001100";
+	string D = "1001011000";
+
+	if (synd.compare(A) == 0){
+		cout << "A\t";
+		return syn = true;
+	}
+	else if (synd.compare(B) == 0){
+		cout << "B\t";
+		return syn = true;
+	}
+
+	else if (synd.compare(C) == 0){
+		cout << "C\t";
+		return syn = true;
+	}
+	else if (synd.compare(C_) == 0){
+		cout << "C'\t";
+		return syn = true;
+	}
+	else if (synd.compare(D) == 0){
+		cout << "D\t";
+		return syn = true;
+	}
+	else
+		return syn = false;
+}
+</pre>
