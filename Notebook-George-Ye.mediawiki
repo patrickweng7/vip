@@ -1,0 +1,661 @@
+== Team Member ==
+[[files/GYImage.png|thumb]]
+Team Member: George Ye
+
+Email: gye31@gatech.edu
+
+Cell Phone: 678-365-1412
+
+Interests: Machine Learning, Basketball, Video Games
+
+== April 30, 2021 ==
+'''Final Presentation Notes:'''
+* Stocks group:
+** Implemented many new technical indicators as features for their stocks. 
+** Utilized many statistical charts and calculations for their analysis
+** Team subdivided into 3 main groups: research, statisical analysis, EMADE
+* EZGCP group:
+** Focuses on using DAGs instead of EMADE tree structure
+** Ways for improvements include longer runs (past 12 gen)
+** Analysis on which layers were used most and implement them in EZGCP first
+* NLP group:
+** Shoutout to Cameron for his tree visualization tool
+** Amazed that the training set was only 5% of the data yet they tested on over 400000 data points
+** Ways for improvement include analyzing a specific individual and why the characteristics of that individual may have allowed it to perform well
+
+Great job to all groups and good work on the presentation modularity team!
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Notebook by May 1, 2021
+|Completed
+|April 30, 2021
+|May 1, 2021
+|May 1, 2021
+|-
+|}
+
+== April 26, 2021 ==
+'''Team Meeting Notes:'''
+* Weekly scrum meeting:
+* Final presentation prep. Modularity team will be comparing Titanic and MNIST datasets based on a baseline run, previous ARL implementation, and current ARL implementation.
+* Work on putting together presentation slides as well as practice presentation.
+* Hypervolume may not work properly (3 objectives). We will be using 2 objectives instead based on cohen and f1 accurarcy.
+
+'''Sub Team Notes:'''
+* Previous runs to find best objectives and seeding files were considered exploratory runs. Complete experimental runs with new seeding file and objective functions.
+* Everyone should contribute to presentation slides. Contributions include what you did, analyzed, future work, etc.
+
+'''Personal Work:'''
+* Worked with team on Full EMADE run with new seeding file and new objective functions resulted in 316 valid individuals as compared to previous runs which had less than 10 valid individuals.
+* Analyzed specific individual in seeding file on why it performed well:
+
+[[files/Learner22.png]]
+
+* Analysis: The scalar multiply primitive greatly increases all pixel values that are non black while leaving pixels that have black values or 0 unchanged. Then, the values of the pixels are summer together. The model is then better able to distinguish different black to white contrasts such as the number 1 compared to the number 8 and have a higher accuracy in classification
+* Talked with Gabe on ideas for possible improvements for seeding file: Obtaining more diverse individuals, using same objective functions, looking into optimal number of seeds to use, giving definite reason as to why to include a specific seeded individual. Added slide to presentation.
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish presentation slide for seed intro, seed examples, and improvements to seed
+|Completed
+|April 14, 2021
+|April 15, 2021
+|April 15, 2021
+|-
+|Complete experiment run 1, 2 using new objective functions and seed file
+|Completed 
+|April 26, 2021
+|April 27, 2021
+|April 27, 2021
+|-
+|Complete experiment run 3, 4 using new objective functions and seed file
+|Completed 
+|April 28, 2021
+|April 29, 2021
+|April 29, 2021
+|-
+|Analyze reasoning for sample seeds
+|Completed 
+|April 29, 2021
+|April 30, 2021
+|April 30, 2021
+|-
+|Finish up notebook by Saturday
+|Completed 
+|April 26, 2021
+|May 1, 2021
+|May 1, 2021
+|-
+|}
+
+== April 19, 2021 ==
+'''Team Meeting Notes:'''
+* Weekly scrum meeting:
+* Getting setup for final presentation on April 30. Team prepares to present findings based on current runs on MNIST as well as using the new ARL architecture being developed
+* Looking into different objectives other than F1 and accuracy. Dr. Zutty mentioned other examples such as precision vs. recall, analyzing multi objective space based on confusion matrix.
+
+'''Sub Team Notes:'''
+* Issues related to not getting enough valid individuals: No tradeoff space between the different objectives. Hard to optimize because only 1 fitness value able to use
+* Seeding file: With a better seeding file, a better run can be made.
+
+'''Personal Work:'''
+* Tasking for this week is to build another seeding file based on the 9 valid individuals from the previous week. Analyze to see if the seeding file produces more valid individuals.
+* Tasked to work with Shiyi and Rishit to combine seeding files and run EMADE. Send Gabe successful seeding file
+* Valid individuals using the new seeding file was over 200, which is much better than the old seeding file which often got less than 10 valid individuals. Here was the seeding file we used:
+
+    Learner(ToUint8(ThresholdBinaryInverseMask(ARG0, 2, 3, 100.0), passTriState(1), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ThresholdBinaryInverseMask(ARG0, 2, 3, 10.0), passTriState(1), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ThresholdBinaryInverseMask(ARG0, 2, 3, 10.0), passTriState(1), 3), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ThresholdBinaryInverseMask(ARG0, 2, 3, 1.0), passTriState(1), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ScalarMultiply(ARG0, passTriState(passTriState(passTriState(1))), passQuadState(passQuadState(passQuadState(passQuadState(3)))), passFloat(myFloatAdd(10.0, 10.0))), passTriState(2), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ScalarMultiply(ARG0, passTriState(passTriState(1)), passQuadState(passQuadState(passQuadState(passQuadState(3)))), passFloat(myFloatAdd(10.0, 10.0))), passTriState(2), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ARG0, passTriState(2), passQuadState(passQuadState(passQuadState(1)))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ARG0, passTriState(2), passQuadState(passQuadState(3))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(ToUint8(ARG0, passTriState(2), passQuadState(3)), ModifyLearnerList(learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None), [4, -5]))
+    Learner(ToUint8(ARG0, passTriState(2), passQuadState(3)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ToUint8(ARG0, passTriState(2), passQuadState(myAnd(greaterThan(myFloatSub(myFloatMult(100.0, 1.0), myFloatDiv(100.0, 0.1)), 
+    myFloatAdd(myFloatDiv(-4.741846291961977, 0.01), myFloatAdd(0.1, 1.564728841380587))), equal(ifThenElseFloat(greaterThanEqual(0.19380559630370886, 0.661611502441847), 
+    ifThenElseFloat(trueBool, 100.0, 10.0), myFloatMult(10.0, 1.0)), myFloatMult(myFloatAdd(10.0, 0.1), passFloat(1.0)))))), 2, myIntAdd(lessThanOrEqual(-2.5879193132975575, 
+    0.01), passTriState(0))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ToUint8(ARG0, passTriState(2), passQuadState(3)), 2, myIntAdd(lessThanOrEqual(-2.5879193132975575, 100.0), passTriState(0))), learnerType('KNN', {'K': 3, 
+    'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ToUint8(ARG0, passTriState(2), passQuadState(3)), 2, myIntAdd(lessThanOrEqual(-2.5879193132975575, 0.01), passTriState(0))), learnerType('KNN', {'K': 3, 
+    'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(passQuadState(passQuadState(3)))))), 
+    passFloat(myFloatSub(-4.529968443741202, 4.571234818546902))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(3)))), passFloat(myFloatSub(2.6188999083341127, 
+    10.0))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(3)))), passFloat(myFloatSub(-4.529968443741202, 
+    10.0))), 2, notEqual(myFloatAdd(myFloatDiv(0.1, 1.0), myIntToFloat(3)), myIntToFloat(myIntDiv(7, 65)))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(3)))), passFloat(myFloatSub(-4.529968443741202, 
+    10.0))), 2, notEqual(1.0, myIntToFloat(myIntDiv(7, 65)))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(3)))), 
+    passFloat(myFloatSub(-4.5161830325958805, 10.0))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), passFloat(myFloatSub(4.4154845028433485, 
+    10.0))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), passFloat(myFloatSub(0.7816936070337128, 
+    10.0))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), 
+    passFloat(myFloatSub(-4.5161830325958805, 10.0))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), 
+    passFloat(myFloatSub(-4.5161830325958805, -1.3398941928711094))), 2, 1), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), myFloatMult(3.4759895791027127, 
+    100.0)), 1, 1), 2, myIntDiv(1, 10)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(MySum(MorphCloseRect(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(3)), 4, notEqual(0.8740984530290694, 0.01)), 2, 
+    myIntDiv(myOr(lessThan(myFloatDiv(1.0, 10.0), myFloatDiv(0.01, 1.0)), trueBool), 10)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(HighpassFourierShift(ARG0, 2, 3, 100), ModifyLearnerList(learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None), [4, -5]))
+    Learner(Cv2Sqrt(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(0)))), 
+    passFloat(myFloatSub(-4.5161830325958805, -1.3398941928711094))), 2, 1), passTriState(passTriState(2)), passQuadState(passQuadState(1))), learnerType('KNN', {'K': 3, 
+    'weights': 0}, 'SINGLE', None))
+    Learner(Cv2Sqrt(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(passQuadState(passQuadState(passQuadState(passQuadState(0)))))))), 
+    learnerType('KNN', {'K': 3, 'weights': 0}, 'BAGGED', None))
+    Learner(Cv2Sqrt(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(passQuadState(1)))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(Cv2Sqrt(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(1))), learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'ADABOOST', {'n_estimators': 50, 
+    'learning_rate': 1.0}))
+    Learner(Cv2Sqrt(ARG0, passTriState(passTriState(2)), passQuadState(passQuadState(1))), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+    Learner(Cv2Sqrt(ARG0, passTriState(passTriState(2)), passQuadState(1)), learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None))
+
+* This will be the seeding file used in experimental runs.
+* Analysis: Many of the individuals are very similar in their main models and primitives. Often only differ by a single parameter or an additional simple primitive.
+* Question: What is a good number for the number of individuals (i.e. can't put infinitely number of seeds)
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Able to produce more valid individuals with better seeding file from my previous run? (Successful)
+|Completed
+|April 14, 2021
+|April 15, 2021
+|April 15, 2021
+|-
+|Run EMADE with combined seeding file with Rishit and Shiyi
+|Completed 
+|April 24, 2021
+|April 25, 2021
+|April 25, 2021
+|-
+|}
+
+== April 12, 2021 ==
+'''Team Meeting Notes:'''
+* Weekly scrum meeting:
+* Currently we do not have a tradeoff space for pareto frontier because both objectives have the same values
+* Looking for ways to implement past statistics lecture with the individuals from the EMADE runs
+* Not many individuals created with the best runs
+
+'''Sub Team Notes:'''
+* Run EMADE and analyze individuals.
+* In templates, there is a reuse parameter. When set to 0, it assumes an empty database. When set to 1, it will use where the last run ended as a starting point
+* Best to do a continuous run, since stopping and then starting introduces extra randomness.
+* Worker processes will continue to run until all individuals in the database have been evaluated.
+* To check for EMADE completion, check that all individuals in the database have a status of EVALUATED or WAITING_FOR_MASTER
+* Later generations can take longer since they are more valid individuals later on than in the beginning
+
+'''Personal Work:'''
+* Performed another exploratory run using my laptop as master process and 2 colab instances as worker processes. 
+* I tried stopping and then continuing a EMADE run. It led to much more individuals as well as an optimization value associated with different individuals (0 or 1).
+* This above run is not the correct pratice. Hence, I ran another continuous run with the same setup as before
+* Results from correct EMADE run:
+
+[[files/Mnist_test_gy1.PNG]]
+
+* Failed to get more than 9 valid individuals. This run only obtained 6 valid individuals
+* Questions confused on still:
+* I have several individuals at the end of the EMADE run who are WAITING_FOR_MASTER. Are they completed?
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try to get more than 9 valid individuals after complete EMADE run (Unsuccessful)
+|Completed
+|April 17, 2021
+|April 18, 2021
+|April 18, 2021
+|-
+|Restarted run after the master process crashed. (Results are not accurate)
+|Completed 
+|April 14, 2021
+|April 14, 2021
+|April 14, 2021
+|-
+|}
+
+== April 5, 2021 ==
+'''Team Meeting Notes:'''
+* Statistics lecture from Dr. Zutty
+* Common statistics review: Mean, Variance, Standard Deviation
+* Hypothesis Testing: Compute the probability of observing some sample at least as extreme. Based on P(sample | hypothesis). Called a p-value
+* Threshold to reject the hypothesis is based on some alpha. Common value for alpha = 0.05
+* False positive = Type II error = Beta. Statistical power of a hypothesis test is the probability of not making Type II error, or 1 - Beta
+* t-statistic: How far we are from the mean by standard deviation. Compute using t-table
+* Usually better to use a 2-tailed t test for statistical analysis
+* Can compute p-value from t-statistic with python scipy function
+
+'''Sub Team Notes:'''
+* Database for emade runs hosted on AWS.
+* Seeding database with current individuals known to run well
+* General pipeline for EMADE runs: Create a new schema for a newrun in the AWS database. With an empty database, seed the database. Initiate a master process. Add as many worker processes needed. Note: There should only be ONE master process running at a time.
+* Use autoclicker script to ensure that google colab does not detect inactivity
+* Better to have the master process running on a local machine and worker processes running on the cloud.
+
+'''Personal Work:'''
+
+* Error from previous week with reinstall.sh is fixed with the following lines:
+    !sudo apt install dos2unix
+    !find . -type f -print0 | xargs -0 dos2unix
+
+* During my run with EMADE, not entirely why EMADE stopped before completing. Received warnings concerning:
+    SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+    RuntimeWarning: invalid value encountered in double_scalars
+    individuals[j].fitness.values[i]
+
+* Warning does not stop EMADE run
+
+* Run exploratory run to reach gen 49. I completed a run with 2 alt colab instances and my laptop as master process. Results and MYSQL query to obtain valid individuals shown below:
+
+[[files/Mnist_test_gy.PNG]]
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE run again, check to see when the warnings occur. Look for potential fix (No fix for warning)
+|Completed
+|April 7, 2021
+|April 8, 2021
+|April 8, 2021
+|-
+|Reach max generation, currently hardcoded at 49. 9 valid individuals
+|Completed 
+|April 8, 2021
+|April 9, 2021
+|April 9, 2021
+|-
+|}
+
+== March 29, 2021 ==
+'''Team Meeting Notes:'''
+* Assignment of main teams.
+* Assigned to modularity team
+* Monday meetings are in a scrum sense. Each team will give weekly reports and updates as well as report any issues they are having.
+
+'''Sub Team Notes:'''
+* Introduction to current team members on Modularity as well as new students
+* Brief introduction of ARLs and what the modularity team aims to prove
+* Tasking: Read over various articles as to which much of the modularity research is based on.
+* Outlook: Modularity team will be focused on performing runs on MNIST dataset.
+
+'''Personal Work:'''
+
+Article from Modularity Meeting: Discovery of Subroutines in Genetic Programming
+
+* ARL stands for adaptive representation in learning
+* Identify useful blocks of code that appear as a result of genetic operations. An informed, or heuristic technique, was employed in the selection of what could be useful blocks of code.
+* Create a number of individuals that you know are good to replace low fitness individuals (seeding).
+
+Article from Modularity Meeting: An Analysis of Automatic Subroutine Discovery in Genetic Programming
+
+* Compares different heuristics for code selection and test their effectivness with ARLs
+* Proposes and analyses a new heuristic, the Saliency
+* Two extensions to ARL: diffusion of the new subroutines through mutation and the MaxFit technique.
+
+Issues: 
+* Running into issues with bash reinstall.sh with modularity colab notebook
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Pull the latest branch for mnist runs
+|Completed
+|March 31, 2021
+|March 31, 2021
+|March 31, 2021
+|-
+|Create and upload emade-cloud folder to google drive for google colab runs
+|Completed 
+|March 31, 2021
+|March 31, 2021
+|March 31, 2021
+|-
+|Run EMADE installation and seeding files. Begin EMADE run.
+|Completed 
+|March 31, 2021
+|April 4, 2021
+|April 4, 2021
+|-
+|}
+
+== March 22, 2021 ==
+'''Team Meeting Notes:'''
+* Bootcamp student presentations on running EMADE.
+* Bootcamp subteams had varying results when running emade, difficult to use in the beginning.
+* Returning students gave presentations over their specific topics. I was particularly interested in stocks, followed by modularity, NLP, and ezgcp.
+* EZGCP team is dag based version of EMADE (tree)
+* Modularity team is an additional step before another generation to seed in good individuals
+* Stocks team is looking to predict price trends (difficult) using emade
+
+
+'''Sub Team Notes:'''
+* Great job to everyone on the team, really good presentation. Good luck on your main teams!
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete team selection form 
+|Completed
+|March 22, 2021
+|March 29, 2021
+|March 29, 2021
+|}
+
+== March 17, 2021 ==
+'''Team Meeting Notes:'''
+* Debugging errors for EMADE runs on titanic dataset.
+* Met in breakout room with subteam to figure out remote connection to master database
+* Designated Nishant to run master process 
+* Key points to ensure that remote connection to MySQL database includes: granting user permissions, allow for connections in MySQL settings, connect to GT VPN, add firewall rules for port 3306 
+* Emade run with workers process saw a increase in generation counts (i.e. running more efficiently)
+
+'''Sub Team Notes:'''
+* Confused about objective functions in EMADE as they were based on FP and FR rather than FPR and FNR.
+* Asked in general chat and Anish provided guidance into looking into objective function code base as well as the FPR function in emade.
+* As a team discussed and edited the code within emade to produce FPR and FNR rates for the pareto front.
+* Group decided to run emade overnight to see how many generations we could get (got to gen 26)
+
+'''Personal Work:'''
+* I worked on designing the slideshow presentation, compiling our previous presentations into a more succinct manner so that we could also talk more about EMADE and our design choices there.
+* Running into issues plotting the pareto front due to indices mismatch. I wrote the code to fix the pareto front.
+
+Code for fixing pareto front connections: 
+
+    ind_sort = fitness_1.argsort()
+    fitness_1 = fitness_1[ind_sort]
+    fitness_2 = fitness_2[ind_sort]
+
+FPR Edit:
+
+[[files/FPR_edit.png|alt=FPR]]
+
+FNR Edit:
+
+[[files/FNR_edit.png|alt=FNG]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run at least 20 generations of EMADE
+|Completed
+|March 17, 2021
+|March 18, 2021
+|March 18, 2021
+|-
+|Analyze max generation pareto front and plot with AUC
+|Completed 
+|March 18, 2021
+|March 20, 2021
+|March 20, 2021
+|-
+|}
+
+== March 10, 2021 ==
+'''Team Meeting Notes:'''
+* For titanic EMADE, there is titanic folder in the templates folder 
+* Editing input file with dbConfig with the right IP address and MySQL username and passwords 
+* Input file performs 5 fold monte carlo trail over the test and train data and averages all the results
+* Evaluation function tag uses whichever method specified from the evalFunctions.py file
+* Worker processes will allow all group members to work as a cluster and increase the efficiency of EMADE.
+* The command for the worker process is: python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+* The IP address for the DBconfig needs to match whoever is the host for the master process
+
+'''Sub Team Notes:'''
+* Running emade has led to many problems. 
+* Connection to the localhost works 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluation
+|Completed
+|March 1, 2021
+|March 5, 2021
+|March 5, 2021
+|}
+
+
+
+
+
+
+
+== March 3, 2021 ==
+'''Team Meeting Notes:'''
+* Continuing presentations for ML vs. MOGP on titanic problem 
+* Brief introduction to EMADE
+
+'''Sub Team Notes:'''
+* Installation of EMADE:
+** Problems with opencv. Fixes included installing a clean version of anaconda. 
+** Conda usually does a good job correcting dependencies, but there were some issues with dependencies that required additional installs.
+** Correct MySQL server version. Installed GUI version.
+** Installed scoop using Windows powershell
+*Links to official installation for anaconda, MySQL, Scoop
+**https://www.anaconda.com/products/individual
+**https://dev.mysql.com/downloads/mysql/ (version 8.0.22 worked for subteam 2)
+**<nowiki>https://scoop.sh/</nowiki>
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluation
+|Completed
+|March 1, 2021
+|March 5, 2021
+|March 5, 2021
+|}
+
+
+
+== February 24, 2021 ==
+'''Team Meeting Notes:'''
+* Group presentations for ML vs. MOGP on titanic problem. 
+* Work on installing EMADE for next presentation
+
+'''Sub Team Notes:'''
+* Good work to everyone on Subteam 2 for a good slideshow setup and presentation.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluation
+|Completed
+|March 1, 2021
+|March 5, 2021
+|March 5, 2021
+|-
+|Install EMADE
+|Completed 
+|February 24, 2021
+|March 3, 2021
+|March 3, 2021
+|-
+|Finish up notebook for midterm check
+|Completed
+|February 24, 2021
+|March 3, 2021
+|March 1, 2021
+|}
+
+== February 17, 2021 ==
+'''Team Meeting Notes:'''
+* Use genetic programming on titanic survivor problem and compare results to ML models
+'''Sub Team Notes:'''
+* Preprocess data is the same as the data used for ML to keep it consistent.
+* Functions of our primitive tree take in 7 inputs for each feature
+* Evaluation function is multi objective based on FPR and FNR
+* Deap Functions used:
+** Select Method: selSPEA2 works well with multiple objectives
+** Mate: cxOnePoint
+** Mutate: mutUniform
+** Population of 300 was used and an evolutionary loop of 40 generations was run, with 0.5 probability of mating and 0.2 probability of mutation
+** HOF (Hall of Fame) for pareto optimal set
+[[files/MOGP Pareto Front.png|alt=MOGP Pareto Front|none|thumb|MOGP Pareto Front]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete group csv file for MOGP
+|Completed
+|February 17, 2021
+|February 24, 2021
+|February 23, 2021
+|-
+|Prep for group presentation
+|Completed 
+|February 17, 2021
+|February 24, 2021
+|February 24, 2021
+|}
+
+
+
+
+
+
+== February 10, 2021 ==
+'''Team Meeting Notes:'''
+* Titanic Survivor problem introduction 
+* Kaggle Data set and competition problem 
+* Walk through ipynb file on basic preprocessing and running machine learning models 
+* Assign subteams and team problem: Run several machine learning models. Submit predictions.csv and find a way for all models to product pareto dominant solutions based on FPR and FNR 
+'''Sub Team notes:'''
+
+Preprocess data:
+* Fill NaN age values by imputing the "titles" from the "name" column and using the median age of the specific titles. Then drop the "titles" column after
+* One hot encoding for "gender" as to not give an advantage to a gender
+* Fill NaN "fare" values by imputing the median fares based on the "Pclass". Drop not needed columns after
+* Drop "cabin", "embarked", "ticket", and "name" columns
+For my model classifier, I used a neural network.
+
+NN Structure (All layers fully connected):
+* 1 input layer with 7 nodes for each feature
+* 2 hidden layers. First hidden layer uses 12 nodes. Second hidden layer uses 6 nodes. Number of nodes chosen after running some tests as seen below.
+* 1 output layer with one node for the classification (0 or 1)
+Testing code on initial structure: Recording accuracy vs average of 3 trials for specific node count
+    from keras.models import Sequential
+    from keras.layers import Dense
+    acc = []
+    nodes = []
+    # i represents number of nodes
+    for i in range(5, 40):
+        total = 0
+        # Compute average over 3 trials
+        for j in range(3):  
+            model = Sequential()
+            model.add(Dense(i, input_dim=7, activation='sigmoid'))
+            # second hidden layer has half the nodes as the first hidden layer
+            model.add(Dense(i//2, activation='sigmoid'))
+            model.add(Dense(1, activation='sigmoid'))
+            model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+            model.fit(X_train.values, y_train.values, epochs=100)
+            accuracy = model.evaluate(x = X_test.values, y = y_test.values, return_dict = True)
+            total += (accuracy["accuracy"])
+        acc.append(total / 3)
+        nodes.append(i)
+Visualization of accuracy vs node count:
+[[files/Visualization of Accuracy vs Node Count.png|alt=Visualization of Accuracy vs Node Count|none|thumb|Visualization of Accuracy vs Node Count]]
+Using the graph, I decided on a 12 node count. This would mean the first hidden layer has 12 nodes and the second hidden layer has 6 nodes.
+
+Here is the code for running for a neural network on the structure described above:
+    from keras.models import Sequential
+    from keras.layers import Dense
+    model = Sequential()
+    model.add(Dense(12, input_dim=7, activation='sigmoid'))
+    model.add(Dense(12//2, activation='sigmoid'))
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.fit(X_train.values, y_train.values, epochs=100)
+    accuracy = model.evaluate(x =  X_test.values, y = y_test.values, return_dict = True)
+    print(accuracy)
+    {'loss': 0.39511963725090027, 'accuracy': 0.826815664768219}
+
+Here is the results of the model on the X test split:
+    Confusion Matrix
+    [[104  13]
+    [ 18  44]]
+    True Negatives 104
+    False Positives 13
+    False Negatives 18
+    True Positives 44
+    FPR: 0.22807017543859648
+    FNR: 0.14754098360655737
+
+'''Action Items:'''
+{| class="wikitable"
