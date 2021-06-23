@@ -1,0 +1,1029 @@
+== Team Member ==
+Team Member: Zack Butler
+
+Email: zbutler9@gatech.edu
+
+Cell Phone: 240-595-7967
+
+Interests: Machine Learning/AI, Sports (Hockey/Football/Soccer), Powerlifting, Music, Movies
+
+== January 7, 2019 ==
+'''Meeting Notes:'''
+* Had our first semester meeting going over syllabus and expectations for semester
+* Went over powerpoint on Genetic Algorithms and defined key terms and knowledge
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Download necessary dependencies (Jupyter Notebook & deap framework)
+|Completed
+|January 7, 2019
+|January 14, 2019
+|January 13, 2019
+|-
+|Complete Lab 1
+|Completed
+|January 7, 2019
+|January 14, 2019
+|January 13, 2019
+|-
+|Join Slack channel
+|Completed
+|January 7, 2019
+|January 14, 2019
+|January 13, 2019
+|}
+
+== January 13, 2019 ==
+'''Progress Notes:'''
+*Completed One Max problem.
+**Was based around randomizing a population of 300, creating 40 generations of children, and seeing if we could maximize fitness
+**Ran 15 times, didn't get a final generation without a maximized individual (but understand it can occur)
+*Completed N Queens problem.
+**Was based around placing queens randomly on a chess board and attempting to mutate children generations to have a board of no conflicts
+**My method was to randomly move columns to the front or the back, shown here: 
+    def myMutation(individual, indpb):
+       for i in range(size):
+           if random.random() < indpb:
+               backFront = random.randint(0,1)
+               if backFront = 0:
+                   individual[i], individual[0] = \
+                       individual[0], individual[i]
+               else:
+                   individual[i], individual[size-1] = \
+                       individual[0], individual[size-1]
+            
+       return individual
+
+**Based on the observation of the graphs, it looks like my mutation method performed better than the one given (not sure how to embed pictures...)
+**I am confused on what parameters/functions to tweak, however increasing mutation probability improved the algorithm very much
+
+== January 14, 2019 ==
+'''Meeting Notes:'''
+* Had our second meeting where we got to hear about specific sub-teams, as well as learning more about Genetic Algorithms
+** Learned about tree structure of genomes in Genetic Programming
+** Learned how symbolic regression worked and how we would implement an objective to compare
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize myself better with Genetic Programming / Genetic Algorithms
+|Completed
+|January 14, 2019
+|January 28, 2019
+|January 25, 2019
+|-
+|Complete Lab 2 Pt. 1 (Symbolic Regression)
+|Completed
+|January 14, 2019
+|January 28, 2019
+|January 27, 2019
+|}
+== January 27, 2019 ==
+'''Progress Notes:'''
+Symbolic Regression portion of Lab 2
+*Attempted to evolve an algorithm to reach what looks like an x^4 function
+*This is a run using the given mutation, and without my added primitives:
+[[files/SuccessfulRun1.png]]
+*This is a run using my mutation (mutShrink, which randomly shrinks a branch and replaces it with one of it's arguments)
+[[files/SuccessfulRun2.png]]
+*This is a run using my added primitives (which were mod and reciprocal)
+**There is clearly some error here, my assumption is that because mod is not a basic function like addition and subtraction, it heavily skews the population and ruins future individual performance
+**While the best individual actually did have a decent performance (1.256e-16), the average score was infinity, so clearly something was wrong with the primitives I added
+[[files/FailurePrimitive.png]]
+== January 28, 2019 ==
+'''Meeting Notes:'''
+* Went over multi-objective genetic programming and how it works
+** Learned about using >1 objectives to determine a fitness value
+** Learned certain keywords, as well as about maximizing/minimizing algorithms
+** Talked about pros and cons of Pareto Optimization
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2 Pt. 2 (MOGP w/ Symbolic Regression)
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 1, 2019
+|}
+== February 1, 2019 ==
+'''Progress Notes:'''
+*Completed Lab 2 Part 2
+**Attempted to minimize two objectives, the error and the size of the tree
+**Used Pareto dominance to determine better individuals
+**Area Under Curve was around 3.3 on average , 2.384 in this picture:
+[[files/paretorun1.png]]
+**My attempt at "improving" the algorithm was to change the mutator method; from mutUniform to mutShrink
+***My thought process behind this change was that because one of our objectives was minimizing tree size, a mutator that decreased tree size would be good.
+***While this change gave a much smaller AUC, about ~.7, it also gave us much less pareto individuals, with a run having .34 AUC pictured here: 
+[[files/paretorun2.png]]
+*The main thing I learned was that it is hard to determine the optimal objective minimization, because as tree size decreased, mean squared error increased, signalling that it is hard to determine the true "best" way to optimize and algorithm
+== February 4, 2019 ==
+'''Meeting Notes:'''
+* Talking shortly about starting Machine Learning
+** Went over Titanic problem and dataset
+* Split into teams to work in the rest of the semester
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work through and complete titanic problem 
+|Completed
+|February 4, 2019
+|February 11, 2019
+|February 10, 2019
+|}
+== February 10, 2019 ==
+'''Progress Notes:'''
+*Completed my portion of Titanic problem
+**My team was attempting to use different types of classifiers, I used AdaBoost because it seemed like an interesting estimator because it uses another classifier to fit copies of itself around the same dataset, but with different weights
+**Unfortunately it didn't do too well when using different base_estimators, having the best score with the default decision stump
+**Here is a small snippet of my code:
+   ada_clf = ensemble.AdaBoostClassifier(random_state = 0, n_estimators = 50, algorithm = 'SAMME.R')
+   ada_clf.fit(X_train.values, y_train.values)
+   print(ada_clf.score(X_test.values, y_test.values))
+*My score was about .796, my Kaggle score was .727, and my confusion matrix was:
+ [[156  35]
+ [ 25  79]]
+== February 11, 2019 ==
+'''Meeting Notes:'''
+* Had very little discussion, just talked about converting the Titanic ML problem to a GP problem
+** Began work on Titanic using GP techniques
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Titanic with genetic programming
+|Completed
+|February 11, 2019
+|February 18, 2019
+|February 17, 2019
+|}
+== February 17, 2019 ==
+'''Progress Notes:'''
+*Converted Titanic problem to GP and completed assignment as best as we could
+**Essentially merged Lab 2 with Titanic dataset to turn it into a Genetic Programming problem
+**Used basic primitives, as well as some random ones such as sin, cos, and tanh
+**Had a threshold primitive that would convert output to a boolean to have a binary determination of "survived" or "died" 
+**Ended with an average AUC of about .22, with best individuals usually being around .99
+**Here is a sample output of our Pareto Front (AUC = .2199) : [[files/paretotitanic.png]]
+== February 18, 2019 ==
+'''Meeting Notes:'''
+* Meeting went over EMADE and what is was/how to install it
+* Began installation of EMADE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE
+|Completed
+|February 18, 2019
+|February 25, 2019
+|February 23, 2019
+|}
+== February 23, 2019 ==
+'''Progress Notes:'''
+*Started and completed EMADE installation
+**Went through installation instructions in EMADE's README
+**Setup various dependencies and other required things like MySQL
+**Ran into some issues with conda installing deap, installed through pip (though temporary fix)
+== February 25, 2019 ==
+'''Meeting Notes:'''
+*Couldn't make it to class because of interview; was told by Jason that we would just be running titanic problem using EMADE
+**Need to get EMADE running from a master computer and use the rest of our comps as workers
+**Emailed Jason and Greg as documentation to know I missed class
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE running with Titanic problem
+|Completed
+|February 25, 2019
+|March 4, 2019
+|March 3, 2019
+|}
+== March 1, 2019 ==
+'''Progress Notes:'''
+*Met with group and tried to get EMADE running with all our computers
+*Ran into various different problems across our computers, mine being that dependencies were installed but couldn't be accessed
+**Eventually got this fixed through randomly trying Stack Overflow suggestions, still no idea what was going on...
+*Dispersed group after we could get two of us connected and all went to fix our own problems
+== March 3, 2019 ==
+'''Progress Notes:'''
+*Did some more group troubleshooting 
+**My EMADE would claim it was connected as a worker, but apparently wasn't actually connecting
+**Cloned dev branch, which fixed that problem
+*Ran into other various issues such as 'import subprocess' not correctly importing Python's subprocess module
+**This was fixed when using dev branch
+== March 4, 2019 ==
+'''Meeting Notes:'''
+* Had a subteam meeting and went over things we needed to do for our presentation
+** Attempted to get the rest of us connected to EMADE so we could run as long as possible
+** I personally have been having some issues connecting to our EMADE instance b/c I live off campus, troubleshooting this currently
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Presentation
+|Completed
+|March 4, 2019
+|March 11, 2019
+|March 10, 2019
+|-
+|Get EMADE working off campus
+|Still getting connection errors (instead just ran from campus)
+|March 4, 2019
+|March 11, 2019
+|
+|}
+== March 11, 2019 ==
+'''Meeting Notes:'''
+* Presentation Day
+** Our presentation went well, seemed like we had almost all of the required information (added the remaining information after)
+** Eric and William were both very well versed with our EMADE runs so they could do some explanation
+*** Once I get EMADE fully working I hope to be able to parse through to understand it more as well
+** I got to watch 4 of the subteam presentations, really liked the stocks team 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix/add some parts of presentation
+|Completed
+|March 11, 2019
+|March 25, 2019
+|March 14, 2019
+|-
+|Choose my #1, #2, #3 subteams
+|Completed (Stocks, Deep, EEG)
+|March 11, 2019
+|March 25, 2019
+|March 24, 2019
+|}
+== March 25, 2019 ==
+'''Meeting Notes:'''
+* Was the subteam assignment meeting
+* Was assigned to the Stock team, which was my first choice
+** The team seemed fairly new and was settling into things
+** Currently it seems like the main task is converting certain statistical models into usable primitives within EMADE
+** Don't really have much to do right now, planning on learning about some of the models used like the Markov chain model, and getting our version of EMADE running 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize myself with statsmodel, Markov Decision Models, and our EMADE
+|Completed
+|March 25, 2019
+|April 1, 2019
+|
+|}
+== April 1, 2019 ==
+'''Meeting Notes:'''
+* Went over splitting into subteams 
+** One will work on implementing ML models and one will work on data preprocessing
+** Yoonwoo, Sean, and I are going to start looking into models and what we want to implement from a paper Jiseok linked
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start to implement an MLP model
+|Still in progress
+|April 1, 2019
+|April 8, 2019
+|April 8, 2019
+|}
+== April 8, 2019 ==
+'''Meeting Notes:'''
+* Talked a bit about what to implement, difference between stock_methods.py and methods.py
+** Continued to go over MLP and implementing the code
+*** My task specifically is to add the MLP to be a learner
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish implementing MLP
+|I've been moved over to doing RBFN
+|April 8, 2019
+|April 15, 2019
+|April 15,2019
+|}
+== April 15, 2019 ==
+'''Meeting Notes:'''
+* Went over what we need to get done by next class (presentation day). This includes the following:
+** I am to implement the RBFN (radial basis function network) as a learner within methods.py
+** The preprocessing subteam will hopefully be done with the data parsing we need so we can get proper folds and train/test data
+** We are also going to implement MLP, RNN, and LSTM hopefully
+* The plan is to finish this by Saturday, get a 24 hour run of EMADE, and then Sunday afternoon/Monday afternoon parse through our results
+* The modeling group is going to meet Saturday (April 20) to complete our implementations and start a run
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement RBFN
+|We weren't able (after 8 hours of troubleshooting...) to succesfully add RBFN
+|April 15, 2019
+|April 20, 2019
+|April 20,2019
+|}
+== April 20, 2019 ==
+'''Meeting Notes:'''
+* This was a meeting between the model implementation group (Sean, Yoonwoo, Jiseok, and myself)
+* While we initially planned to code from 6pm-midnight, we encountered numerous problems and ended up completing around 7am :(
+* What we were able to get done:
+** Finished up code for LSTM, which easily allowed us to add RNN and MLP since they're all very similar
+** Unsuccessfully troubleshot my RBFN code 
+*** The problem with this was that I had to create an actual Keras Layer class, rather than adding premade layers to the KerasRegressor, which turned out to be an issue since none of us had experience with doing so. Hopefully we'll be able to figure it out sometime next year if we stay within the stocks team.
+** Fixed some of the unfinished data-parsing/preprocessing code
+** Successfully ran all learners locally on our machines
+** We ran into some memory problems we had previously encountered again, so after fixing them we began an EMADE run at about 7am
+== April 21, 2019 ==
+'''Meeting Notes:'''
+* Had a team meeting to create and go over our presentation for Monday
+** Unfortunately, we had massive timeouts with our ML models, even when 1. they ran perfectly fine locally and 2. we reduced the epochs significantly. We attempted to remedy this to no avail, and weren't able to get any EMADE results
+*** To semi-resolve that issue, we simulated runs with our stats/ML models to get some performance data, such as their error and their expected profit when run on our data.
+** Finished splitting up who would present what and explaining some of the information to less experienced team members
+== April 22, 2019 ==
+'''Meeting Notes:'''
+* Presentation Day
+** Overall I was pleased with our presentation, while some subteam members didn't seem familiar with what they were presenting, it went well.
+** We obviously had issues because we never got an EMADE run, but will be improving accordingly come next semester
+*** Our two biggest issues were: 1. not running EMADE every time we implemented a new learner, to make sure they worked, and 2. not starting implementation/running early so we could fix any errors
+* Our only tasking is to complete the notebook by Thursday morning, April 25.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish notebook
+|Completed
+|April 22, 2019
+|April 25, 2019
+|April 24,2019
+|}
+
+== August 19, 2019 ==
+'''Meeting Notes:'''
+* First day of the semester
+* Chose subteams, I was interested in NLP but time ran over slightly and I had to be in another meeting
+** Will talk to Mohan from the NLP team about what to do/get updated
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reorient myself with EMADE 
+|Completed
+|August 19, 2019
+|August 26, 2019
+|August 26, 2019
+|}
+
+== August 26, 2019 ==
+'''Meeting Notes:'''
+* I wasn't feeling well so I wasn't in class on the 26th. 
+** Messaged Mohan and him and I will be meeting on Saturday to discuss the NLP team and get familiar with it's code/goals.
+
+== August 29, 2019 ==
+'''Meeting Notes:'''
+* Met up with Mohan
+* We discussed NLP teams goals and what's already been done
+** Mohan made a couple primitives for NLP using things like TFIDF vectorizer and bag of words
+** We are moving towards better analysis, as well as other applications such as sentiment analysis or use of our own neural network primitives
+** Plan to have EMADE running by next/two meetings from now and begin deciding on work
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE running
+|Reagan got it running
+|August 29, 2019
+|N/A
+|November 21, 2019
+|}
+
+== September 5, 2019 ==
+'''Meeting Notes:'''
+* Met up with Mohan again b/c can't make team meeting
+* Talked about our plans for the team
+** My first plan of action is to continue trying to get EMADE running
+*** Currently getting an issue where it won't let me clone/checkout from our github.
+*** Jason suggested I use an SSH key
+** After that, assuming I get that done before our next meeting, I should work on implementing lemmatization and stemming with some other team members
+
+
+== September 9, 2019 ==
+'''Meeting Notes:'''
+* Went over both progress and plans for rest of week
+* Progress using EMADE is slow, we all need to get EMADE working
+** We also need to be contributors to push, AND need Google Cloud credits
+** Plan for my team is to use Jupyter Notebook to implement stemming/lemmatization by Friday
+*** Want to use sklearn bag of words vectorizer and ML models, and nltks lemmatization/stemming
+*** Can also explore other options
+*** Mohan has a linked (in Slack) Jupyter Notebook with some guidelines as to what we need to do
+** We plan to implement this with EMADE and cloud later.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get some work using lemmatization/stemming
+|Completed
+|September 9, 2019
+|September 13, 2019
+|September 13, 2019
+|}
+
+== September 13, 2019 ==
+'''Meeting Notes:'''
+* Team meeting to discuss progress
+** We talked about what each of us had done 
+** Reagan and Bek were still trying to get Jupyter Notebook/other dependencies running
+** I've implemented a bit of stemming and lemmatization
+*** Largest problem right now is part of speech tagging for proper lemmatization
+** Mohan and Alex working on text summarization
+** Plan going forward is to try to fix whatever our problems are by Monday
+
+== September 16, 2019 ==
+'''Meeting Notes:'''
+* Went over each of our own progress
+** Reagan had implemented some stemming/lemmatization and was stuck on part of speech tagging like myself
+** Bek was still working on getting everything running
+** Alex and Mohan still working on figuring out their text summarization
+** We want to have part of speech tagging done by Friday
+* Long term plans are to fit ML models on regular text, fit ML models on manipulated (stemmed/lemmatized) data, and see which ones are better performers
+** We also plan on testing spaCy against nltk to see if spaCy is worth implementing
+** We would also like to test out different stemmers/lemmatization methods to see which work best
+
+== September 23, 2019 ==
+'''Meeting Notes:'''
+* Reagan showed us the work he got done, he had implemented 2 stemmers and a lemmatizer and trained/tested with sklearns SVC model
+** Unfortunately, accuracy decreased from .89 to about .82 using each type of simplifier
+* Our groups plans for the week:
+** Zack: implement different evaluation metrics to try to identify exactly why the simplifiers are decreasing accuracy
+** Reagan: do runs with different stemmers/lemmatizers/models to try to increase accuracy and find better models
+** Bek: get jupyter notebook running and get bearings with our models
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement evaluation metrics
+|Completed
+|September 23, 2019
+|September 30, 2019
+|September 30, 2019
+|}
+
+== September 27, 2019 ==
+'''Meeting Notes:'''
+* Met briefly to go over progress
+* My evaluation metrics didn't show much besides we were getting slightly more false positives than false negatives
+** Going to continue with trying to find reasons behind errors
+
+== September 30, 2019 ==
+'''Meeting Notes:'''
+* Decided we wanted to continue moving forward with stemming/lemmatization, and focus on implementing a primitive
+** Reagan and Bek are going to focus on including other vectorizer/model types, and trying spaCy
+** I'm going to start drafting a primitive
+*** Going to add options as parameter inputs so we can stem/lemmatize differently depending on certain runs
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Draft a primitive that uses stemming/lemmatization
+|Completed
+|September 30, 2019
+|October 21, 2019
+|October 19, 2019
+|}
+
+== October 14, 2019 ==
+'''Meeting Notes:'''
+* Went over what we need to get done for presentations
+** Focusing on finishing primitive and exploring different stemmers/lemmatizers and how they work
+** Reagan is going to try to get EMADE running but isn't too confident we can make it through our errors in time
+** We also need to work on our presentation and add both explanations and results of our work
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish presentation
+|Completed
+|October 14, 2019
+|October 21, 2019
+|October 20, 2019
+|}
+
+== October 21, 2019 ==
+'''Meeting Notes:'''
+* Presentation day went well
+** We focused on what we're going to do moving forward
+*** We're going to explore other datasets and/or just get a full EMADE run with our primitive(s)
+** Got new teammates but we're currently unsure of how to task them on the classification team
+*** Currently have new members reviewing NLP and also working on mTurk with summarization team
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out what we're going to work for moving toward end of semester
+|Completed
+|October 21, 2019
+|October 28, 2019
+|October 28, 2019
+|}
+
+== October 28, 2019 ==
+'''Meeting Notes:'''
+* Gave new members simple tasking reviewing our code and NLP techniques (stemming/lemmatizing)
+* Bek and I are going to start exploring spaCy and focus on extracting word sentiment
+* Reagan is going to try to get EMADE running ASAP so we can start getting runs
+* In a week or two we'll add a new primitive and begin to get runs using them
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Explore whether spaCy/textblob should be implemented/mess around with in Jupyter
+|Completed
+|October 28, 2019
+|November 4, 2019
+|October 30, 2019
+|}
+
+== November 4, 2019 ==
+'''Meeting Notes:'''
+* Have implemented bits and pieces of spaCy and textblob to get word/ngram/sentence sentiment
+* Reagan is working on getting rid of SQL errors with EMADE
+* We're going to define a methodology of vectorizing our inputs into sentiment, and then draft a primitive
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find best way to implement sentiment of input
+|Completed
+|November 4, 2019
+|November 11, 2019
+|November 10, 2019
+|}
+
+== November 11, 2019 ==
+'''Meeting Notes:'''
+* Want to get a primitive ASAP so we can get it running on EMADE
+* Bek and I are focusing on adding the sentiment primitive
+** This primitive is going to have a switch to define whether we want to do by-word or by-sentence sentiment of the document
+** We are maybe going to add n-gram/a mix of sentiments to further refine the output 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish primitive by Friday
+|Completed
+|November 11, 2019
+|November 15, 2019
+|November 11, 2019
+|}
+
+== November 18, 2019 ==
+'''Meeting Notes:'''
+* We had some issues regarding caching and more SQL errors when trying to run EMADE
+** We've tasked Reagan with fixing those problems b/c he's going to be the one running EMADE
+** Meanwhile, Bek and I are going to write and run some unit tests for both of our primitives
+*** We're just doing this to confirm correct input/output formatting so we're ready to go when we get EMADE running
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Write UnitTests for our primitives
+|Completed
+|November 18, 2019
+|November 25, 2019
+|November 21, 2019
+|}
+== November 21, 2019 ==
+'''Meeting Notes:'''
+* I was already home for the hackathon, so I did some remote work
+** Primarily focused on completing the UnitTests to confirm the outputs of our primitives
+** Reagan focused on getting EMADE running so we could have some runs throughout thanksgiving break to have output to show for our final presentation
+
+== December 2, 2019 ==
+'''Meeting Notes:'''
+* Final Presentation day
+** Everything went well, our presentation was a lot more thorough because not only did we now have two primitives, but we finally had EMADE results
+** I covered most of the stemmatizing content and reviewed what it did and how we made it a very flexible primitive
+*** We allowed for different stemming/lemmatization methods to be used, as well as want to include the ability to change vectorization/learning capabilities
+** Bek covered our sentiment primitive, which has the ability to convert the input to sentimental values based on sentence, word, or n-gram vectorization.
+** Reagan covered the bulk of our EMADE output
+*** We got decent results, and while the "best" individuals on both of our datasets didn't include our primitives, it was promising because our stemmatizer primitive was in an individual that also performed extremely well
+** We basically concluded that with more time spent solely on one dataset, optimizing our stemmatization and sentiment primitives to said dataset, we would've gotten better results, but overall we're very happy with the final product.
+** Presentation link: https://docs.google.com/presentation/d/1KPcNsmbxPipkDncRDKeScHZCRR71gXoDNyumCGimTVc/edit?usp=sharing
+
+== January 10, 2020 ==
+'''Meeting Notes:'''
+* First meeting of the semester for time conflict
+* Went over some basic statistics/probability review
+** Specifically went over t-statistic tests and how they work/what to implement
+* Were tasked with thinking of a couple t-tests to run over the semester/create for our previous data
+** Possible: Stemming, lemmatization, best performing lemmatizer, sentiment, changing vectorization method
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think of some possible t-tests
+|Completed
+|January 10, 2020
+|January 18, 2020
+|January 10, 2020
+|}
+
+== January 17, 2020 ==
+'''Meeting Notes:'''
+* Check in meeting about any updates/news with our teams
+** I haven't been in contact with Reagan/Bek too much so I need to confirm what they're working on so I can find out what to work on myself
+** Other than that, we talked about splitting into groups so we could work independently from main group 
+*** I believe NLP will be staying together
+
+== January 24, 2020 ==
+'''Meeting Notes:'''
+* Missed this meeting but caught up with Reagan about our whereabouts
+** The regular NLP team is going to remain focused on getting EMADE running, while time-conflict is focusing on getting PACE-ICE running
+** Essentially everyone is going to try to get EMADE working on PACE-ICE
+
+== January 31, 2020 ==
+'''Meeting Notes:'''
+* Started setting up PACE-ICE
+** Having weird connectivity issues from both on and off campus
+** Essentially doing a fresh anaconda install, setting up an environment and getting MySQL running alongside EMADE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup PACE-ICE
+|Working on getting EMADE running
+|January 31, 2020
+|
+|
+|}
+
+== February 7, 2020 ==
+'''Meeting Notes:'''
+* Did more PACE-ICE setup
+** I was having some weird VPN connection issues so coming on campus helped 
+** Began setup of environment, which was wonky but eventually started to pan itself out
+** The general status of everyone is that we're trying to get MySQL setup so that we can focus on getting it running with EMADE
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup MySQL on PACE
+|Completed
+|February 7, 2020
+|February 14, 2020
+|February 9, 2020
+|}
+
+== February 9, 2020 ==
+'''Meeting Notes:'''
+* Met up with Anuraag, Alex, and Reagan to try to setup MySQL and get EMADE running
+** Was able to get MySQL setup
+** Tested queueing jobs and running MySQL queries, all of which seemed to be working
+** Next going to focus on getting EMADE 
+** Trying to setup Git LFS and get Titanic running on EMADE
+
+== February 14, 2020 ==
+'''Meeting Notes:'''
+* Talked about updates/moving forward, still trying to get PACE-ICE setup running EMADE
+** Want to have a backup in case we decide PACE is useless/too much work
+** Currently working on actually running EMADE with Titanic/testing runs of EMADE
+*** Might have to use Git LFS to download rather than cloning
+** Trying to either get MySQL 5.7 on PACE, or setup the backup running on Google cloud
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE running (still...)
+|
+|February 14, 2020
+|?
+|
+|}
+
+== February 21, 2020 ==
+'''Meeting Notes:'''
+* My computer has broken twice in the past 2 weeks so I haven't made much progress since I have had to redownload everything twice!
+* Have been working on running UnitTests with EMADE
+** Created some preliminary unit tests to test old text_processing stuff and started to get runs going
+** Have had to download a bunch of dependencies and get EMADE up and running
+* My plans for the week or two are work with Reagan and Alex on working to get EMADE running, just so we can move forward with testing everything.
+* Right now I'm focused on getting the MySQL version running on PACE-ICE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get MySQL working
+|In-progress
+|February 21, 2020
+|February 28, 2020
+|
+|}
+
+== February 28, 2020 ==
+'''Meeting Notes:'''
+* Got UnitTests running on EMADE on PACE
+** Still having issues with MySQL, which Alex is focusing on fixing; looks like versioning issues
+** Going to continue to try to get that working so we can begin getting runs
+
+== February 29, 2020 ==
+'''Meeting Notes:'''
+* Hackathon Day
+* We began work on our presentation
+** Great timing: PACE is being shutdown for the weekend, so we won't be able to get anything today :(
+** Focused on presentation and trying to get preliminary tests so we can start to run as soon as possible
+** In terms of team tasking, it looks like everyone has EMADE running and getting through UnitTests, Alex may have just gotten MySQL running, and were all waiting to be able to connect via said worker nodes once he gives us his qsub file/configurations.
+** We are basically in limbo until PACE is back up
+
+== March 6, 2020 ==
+'''Meeting Notes:'''
+* Naturally, now that PACE is back up, it completely wiped all of our configurations/environmental variables, AND changed the MySQL versioning
+** This is *great* news for us because now we have more issues to fix before we can get runs going
+** We've tasked Alex with trying to fix these because he seems to have the most experience with it
+** I'm going to begin looking into statistical tests we can implement to measure the performance of our primitives/individuals
+*** This will likely be tasking for the new semester students as they have some experience with it (AUC) and it's easy to get into
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a list of potential statistical tests to run
+|Completed
+|March 6, 2020
+|March 9, 2020
+|March 6, 2020
+|}
+
+== March 9, 2020 ==
+'''Meeting Notes:'''
+* Presentation Day
+** Went well, although my slides were the Statistical Test and New Student Slides which ended up being rather useless since time-conflict doesn't get any/many new students
+** Obviously we wish we had results from runs, but hopefully with PACE almost being setup we'll be able to get long runs and tests for the final presentation come April
+** Since we won't have new students for running statistical tests, I'll probably be the one creating/running/plotting the tests, which is what I'll start to look into and maybe get some preliminary stuff written for over break
+
+== March 27, 2020 ==
+'''Meeting Notes:'''
+* I missed this meeting because I didn't realize we had meetings during the "testing" week of remote instruction
+** Touched base with Alex who suggested I start to look into specific implementation of stats tests from our returned fitness data
+** I'm also aware all of our PACE data got wiped, and people are gonna have to re-setup everything
+** This means I may instead just focus on stats tests rather than getting EMADE running again, and let the others get actual runs 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start to implement some stats
+|Completed
+|March 27, 2020
+|April 3, 2020
+|March 29, 2020
+|}
+
+== April 3, 2020 ==
+'''Meeting Notes:'''
+* We've still been working pretty slowly through random problems, be it EMADE problems or fixing primitives
+* I haven't made much actual stats tests as I've been helping look into other random problems like why we're getting weird returns or trying to help people get MySQL working properly
+* It looks like the biggest issue right now is the jobs are running without getting canceled but aren't outputting anything, which I'm trying to help look into
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Tailor stats stuff around what objective fitnesses we're returning
+|Completed
+|April 3, 2020
+|April 10, 2020
+|April 6, 2020
+|}
+
+== April 10, 2020 ==
+'''Meeting Notes:'''
+* Finally had a real check-in with the team and was able to get updated on what output we're getting
+* It looks like most people are getting runs going with EMADE and we're getting actual results
+* We're returning the fitnesses of 4 objectives using the input_summaries.xml template: (false_positives, false_negatives, accuracy, num_elements)
+** Alex wants me to pull fitnesses and get some statistical info on these returns 
+** I'm going to look into what the old vis team did and see if I can use anything, I don't really know anything about them but I remembered they had some ...vis stuff so I figure it's not a bad place to look
+** Also just going to start looking into specifically what info I can pull from those specific objectives
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look into vis
+|Completed (I guess? Seemed easier to do this on my own)
+|April 10, 2020
+|April 17, 2020
+|April 10, 2020
+|-
+|Choose specific tests and whatnot to run
+|Completed, doesn't seem like I can get much more than some basic statistical trends and max/min/mean/etc.
+|April 10, 2020
+|April 17, 2020
+|April 17, 2020
+|}
+
+== April 17, 2020 ==
+'''Meeting Notes:'''
+* I've been having a couple issues with the previous output they gave me:
+** We currently only have one valid individual, that shows up randomly in generations. All of the other fitnesses are (inf, inf, inf, inf), and thus unusable
+** It's hard to do anything without knowing the true_positives/true_negatives. I can't get AUC (because I need True Positive Rate) or F1 score or anything with it, which is telling me that the best thing I can use is our accuracy score, which is 1 - true_accuracy.
+*** I've asked to see if we can edit and return more fitnesses, but it seems like everyone is working on their own problems, so I think I'm going to have to deal with just this and figure out what to do from there
+** I'm going to look into the valid individuals with Alex, and also start to write the code for the stats tests, just my own script to parse through our output files
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help fix the multi-dimensional input issue
+|Completed 
+|April 17, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|Get my stats tests running and get some output
+|Completed
+|April 17, 2020
+|April 20, 2020
+|April 19, 2020
+|}
+
+== April 20, 2020 ==
+'''Meeting Notes:'''
+* Final presentation day
+** I was able to help Alex fix our multi-dimensional problem by looking into creating a multi-dimensional classifier (just so our 3D data would work properly)
+** We were able to get it working for SVC and Bayes, and used those in our runs
+** As I previously realized, I wouldn't be able to get much in terms of "real" ML performance metrics, so I just wrote some code to get information both by generation and for all generations up to the Nth generation
+[[files/Statstrends.png]]
+** Other than that I picked out some interesting individuals by accuracy_score; the pareto individuals were unfortunately just the multi-dimensional classifiers, but some more complex trees had the same accuracies
+** I also did some basic stats like max/min/mean/std on all of our fitnesses, which yielded some informational but rather boring results
+** In the future I'm hoping to be more proactive with either getting EMADE running myself or with the other members on the team, so I can get the output necessary to get the results I want. I'm disappointed I couldn't dive deeper into performance metrics, but I guess it's an area to improve in.
+** Overall the presentation went well! There were some questions about the wording of my graphs, which is understandable because to be honest I don't know how to properly word them without being verbose, but both the slides I wrote and the rest of the teams presentation were good
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish notebook
+|Completed 
+|April 20, 2020
+|April 27, 2020
+|April 27, 2020
+|}

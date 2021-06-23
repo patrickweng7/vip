@@ -1,0 +1,319 @@
+== Team Member ==
+Team Member: Scott Heston
+
+Email: sheston@gatech.edu
+
+Cell Phone: 336 995 3211
+
+Interests: Scott is an undergraduate student at the Georgia Institute of Technology, interested in combining his fields of study in computer science and engineering to graduate study in computational medicine and a career as a physician-scientist.
+
+== Jan 15, 2019 ==
+'''Individual Contribution:'''
+
+Programmed a serial-port driver in order to time the delay in running FFT twice and controlling the stimulation device through the serial port. Made a when-is-good to coordinate weekly meetings for the group and weekly meetings for the conflict students.
+
+'''Team Meeting Notes:'''
+* Following our development of a real-time data input ability from our Emory lab electroencephalogram (EEG) into python, the EEG team is seeking to recreate the algorithm described in "Real-time EEG-defined excitability states to determine efficacy of TMS-induced plasticity in human motor cortex" (Zrenner et al. 2018). From this initial seed, we hope to enable EMADE to select different frequency bands of interest and possibly use learners within EMADE to approximate the forecasting that allows realtime phase-dependent application of transcranial magnetic stimuli (TMS). Our contributions to the EMADE codebase last semester including the development of a procedure to run EMADE on Google Cloud efficiently by reading in non-text data for our large dataset and debugging work in the way large datasets are passed. This semester, we expect to create several pre-trained neural-network primitives to take advantage of transfer learning.  
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|Scott to Send Out When Is Good For Obligatory Weekly Meeting
+|Done
+|Jan 7, 2019
+|Jan 11, 2019
+|Jan 11, 2019
+|-
+|Scott to Write About Gaining Access to FORCE cluster through BMED PI (they have GPUs!)
+|Done 
+|Jan 7, 2019
+|Jan 8, 2019
+|Jan 15, 2019
+|-
+|Everyone to Respond to When Is Good
+|Done
+|Jan 11, 2019
+|Jan 14, 2019
+|Jan 14, 2019
+|-
+|Everyone to Review/Critique [https://docs.google.com/document/d/1VsjEYI--92kZov7xtwNT1KWhTkkRCHLA31Ao8PBu8Ok/edit?usp=sharing Organization for Human Brain Mapping Abstract Submission] 
+|Done
+|Jan 8, 2019
+|Jan 14, 2019
+|Jan 18
+|}
+
+== Jan 18, 2019 ==
+'''Individual Contribution:'''  
+
+Formatted linearized data in EMADE format (using classes in data.py) and uploaded to Google drive for some learners that need flat data with the hope of getting the learner we have in a Jupyter notebook from last semester into EMADE(e.g. XGBoost). Read Chapter 3 of Mike X. Cohen's "Analyzing Neural Time Series": Interpreting and Asking Questions about Time-Frequency Results. Submitted request for PACE-gpu access. 
+
+Update Jan 22: received PACE access 
+
+'''Team Meeting Notes:''' We established that we would have two weekly meetings and at least one is obligatory: Monday 11-12 and Friday 12-1. Scott will attend both. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Average across many samples to make a novel seed (Ali + Jas)
+|Done, let's put into primitive
+|Jan 7, 2019
+|Jan 11, 2019
+|Jan 11
+|-
+|2) Fix the bug with returning large python objects from multiprocess (Austin + Nick)
+|Done 
+|Jan 7, 2019
+|Jan 18, 2019
+|Feb 1
+|-
+|3) Implement Zrenner's Forecasting as a primitive (Joel + James) 
+|In Progress
+|Jan 11, 2019
+|Jan 14, 2019
+|(Pending New Data)
+|-
+|4) Crop Frequency Domain and Put it into A Neural Net (Joel + James + Rahul)
+(specifically can alpha band correlate with EMG) 
+|Done
+|Jan 8, 2019
+|Jan 14, 2019
+|Jan 22
+|-
+|5) See Emory Lab (James, Joel)
+|Done
+|Jan 18, 2019
+|Jan 18, 2019
+|Jan 16
+|}
+
+== February 1, 2019 ==
+'''Individual Contribution:''' 
+
+Experimented with the Swartz Center's python package for computation neuroscience, MNE. Specifically, I followed this guide to calculate power spectral density. A future direction is to use windowing to take the FFT over time. 
+
+In the lab, I got a revised version of a driver to stimulate using a very expensive black box from a medical devices company to act as a low-latency serial port (3 ms +- .2 std. dev.) whereas a cheap serial port from Amazon gave (130 ms +- 70 std. dev.). 
+
+I confirmed the data we have are all from healthy individuals, and reformatted the data to include the maximum length of time-series associated with every truth-value.   
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Figure out the theoretical window we need to accurately predict phase at >=12Hz (Joel will consult with Dr. Zutty)
+|Done
+|Feb 1, 2019
+|Feb 1, 2019
+|Feb 1
+|-
+|2) Get healthy data taken at median TMS power (Scott responsible: thank you Ali for realizing this)
+|Done; actually they were always healthy 
+|Feb 1, 2019
+|Feb 1, 2019
+|Feb 1, 2019
+|}
+
+== February 8, 2019 ==
+'''Individual Contribution:'''   
+
+I made a new github as well with the raw data and the script I use to preprocess it.https://github.gatech.edu/sheston3/vipPreprocessing
+
+And one more for the biofeedback code:
+
+https://github.gatech.edu/sheston3/inlabcode
+
+Also, I added several team members to the PACE cluster.
+
+'''Team Meeting Notes:''' We had a SCRUM meeting.  
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Add everything to cluster
+|Done
+|Jan 7, 2019
+|Jan 11, 2019
+|Feb 12, 2019
+|-
+|2) Record More Data in March
+|Done 
+|Jan 7, 2019
+|Jan 18, 2019
+|March 14
+|}
+
+== February 15, 2019 ==
+'''Individual Contribution:'''   
+
+Reached out to our campus Google-cloud ambassador to get more Google Cloud credit to keep SQL running. He could be a useful resource:  
+
+https://docs.google.com/forms/d/e/1FAIpQLSdG-vB17mtFTySToS7V04WGmAXS8lMWFSaWSuUeJEU7XCajCA/viewform?entry.1895469608=EXAMPLE:%20Aaron%20Yeats&entry.1421139163=EXAMPLE:%20UT%20Austin%20Hackathon&entry.1901687729=EXAMPLE:%20UT%20Austin%20Hackathon&entry.1607264656=EXAMPLE:%20UT%20Austin%20Hackathon  
+
+In lab, we had a piloting session where we tried to use FFT + a square bandpass filter to predict whether eyes were open. I consider this an important positive control for our recording apparati because we have already solved eye opened/closed data using EMADE, so we should be able to trivially predict instantaneous state here. This week, we were only able to see some fluctuation that seemed to correlate combined with a baseline that was too non-stationary to set a simple threshold (even for only long enough to record a video).   
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Continue his work on image classifiers to obtain a non-trivial seed (Joel)
+|Complete
+|Feb 15, 2019
+|Feb 17, 2019
+|Feb 17, 2019
+|-
+|2) Meet on Sunday to get first evolutionary run 
+|Complete
+|Feb 15, 2019
+|Feb 17, 2019
+|Feb 21
+|}
+
+February 22, 2019
+
+'''Team Meeting Notes:'''   
+
+'''Action Items:'''  
+
+== March 1, 2019 ==
+'''Individual Contribution:''' Read multiple papers: https://emade-vip.slack.com/files/U8V96S878/FGLV3D0UR/hussain_2018.pdf and  https://www.physionet.org/pn4/eegmmidb/ . Our goal will be to have smaller teams that implement primitives from individual papers. Followed up with Joel about the complexities of using CNNs on time-series data, basically agreeing that time-invariance may actually be a weakness. https://towardsdatascience.com/whats-wrong-with-spectrograms-and-cnns-for-audio-processing-311377d7ccd  
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Currently, meaningful classifiers are erring out because there's not enough time. 
+|Done
+|March 1, 2019
+|March 8, 2019
+|March 3, 2019
+|-
+|2) Add objective function as number of features put into the final learner to encourage dimensionality reduction  
+|First Prototype Rejected, Needs Reformat
+|March 1, 2019
+|March 8, 2019
+|April 5th
+|-
+|3) Make Tiered Data Set 
+|Done 
+|March 1, 2019
+|March 8, 2019
+|March 3
+|}
+
+== March 7, 2019 ==
+'''Individual Contribution:''' Made a script people can use to test their primitives by import modified GPFramework submodules and then running everything in a Jupyter notebook. Considering making additional training resources for people.    
+
+== March 11, 2019 ==
+'''Team Meeting Notes:''' We used the following powerpoint for Spring recruiting: https://docs.google.com/presentation/d/1kgqDxPxLU4NQ6A_QiiUpSTql4b2EVerz92Epb3R2Dfc/edit#slide=id.g437e80b2d8_2_0   
+
+== March 14, 2019 ==
+'''Individual Contribution:''' Piloted once again (with Ali) and got a usable video using an FIR instead of a square bandpass filter of FFT. See the attached for details:   
+
+https://dsp.stackexchange.com/questions/2096/why-so-many-methods-of-computing-psd
+
+== March 22, 2019 ==
+[[files/EMADE run 1.png|thumb]]
+'''Individual Contribution:''' Combined the final version of the PBS script with the new way to pass back data Nick worked on and the pymysql SSL patch I figured our earlier in the semester                   
+
+== March 29, 2019 ==
+'''Individual Contribution:''' Made a script people can use to test their primitives by import modified GPFramework submodules and then running everything in a Jupyter notebook.   
+
+== April 5th, 2019 ==
+'''Individual Contributions:''' Dr. Zutty suggested that we implement an autoencoder-like function by making the number of features fed into the learner a competing objective and it occurred to me that an elegant solution would to be to make a bookmark object in the data_pair object that can be set to the len(data_pair) (which I also now made into syntactic sugar for np.prod(test_data.shape) + np.prod(train_data.shape))) during single_learner. Then we can make evalFunctions take in the data_pair. This seems much better than the idea I had before when I implemented runtime as an objective, iterating through the names of functions to see if they were runtime_eval_func and then changing the call to eval if they were.  
+
+== April 11, 2019 ==
+'''Team meeting notes:''' 
+
+All subteams should: 
+
+-Make a primitive  
+
+-Add to pset
+
+-Make your text of the individual 
+
+-Then seed it in with the command: 
+
+-Python src/GPFramework/seeding_from_file.py templates/input_emotion.py name_of_your_text_file
+
+'''Individual to-do:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Tentative Due Date
+!Date Resolved
+|-
+|1) Upload new data (from open DEAP dataset) and put input_emotion.py in regrade
+|Done
+|April 11
+|April 18
+|April 12
+|-
+|2) make a notebook for how to do basic functions
+|Done 
+|April 11
+|April 18
+|April 13
+|}
+
+== April 14, 2019 ==
+'''Individual Contribution:''' Combined primitives and worked in a group to debug and seed into the deap (emotional valence) classification. I also wrote the following conclusion for the semester and future goals, including over the summer.        
+
+== Semester Summary ==
+'''A Note On Our Experience With Neural Nets.'''   
+
+Neural nets are a special type of machine learner that have been shown to excel at dimensionality reduction. Therefore, they are widely used in applications such as human brain interfaces (HBIs) or image classification, where the input is typically a high-dimensional vector and the output can be as small as a single binary decision. Although this property seems immediately useful to develop a closed-loop TMS-EEG paradigm to modulate MEPs by deciding when to stimulate, we note that using MEPs as truth values limits the number of training samples we can provide to a neural net because it is difficult to administer more than about 1000 stimuli to one subject. Even HBIs that use techniques that typically attenuate the quantity of data a neural net needs—such as deep learning—typically train on over 10,000 samples (10 times more data than we currently have). Furthermore, even if a dataset could be obtained with 10,000 stimuli administered to one subject, this would likely need to be taken over a long time period, and it is unclear whether intra-subject variance in this case would cause non-stationarities in the features of interest. Therefore, we conclude that there are two likely methods to continuing with machine learning. 
+
+''(1) Continue With Neural Nets While Manually Designing Better Dimensionality Reduction''. The first is the development of a learner already trained on a large amount of information from the motor cortex [1] or even an autoencoder that has performed significant dimensionality reduction like Dr. Pandaranath’s lab has worked on [2]. Our submission to OHBM is related to this question, albeit less involved, in that it tries to use neural nets that have already been trained to identify classes of pictures by Google, which may help the neural net identify shapes present in spectrogram representations of EEG signal produced by a short-time (i.e. sliding window) Fourier transform. 
+
+(2) ''Feed Features That Result From Dimensionality-Reducing Techniques From Digital Signal Processing (DSP) Into Other Types of Learners''. The second possible technique is to increase our noise-to-signal ratio using a pre-processing routine, which we can develop with genetic programming. Consider that in the past year, we saw Zrenner publish an analysis of peak vs. trough stimulation of the alpha rhythm. Then, we saw Hussain publish a similar technique where the product of phase and power was used to determine whether to stimulate. In reducing the dimensionality from the raw signal to only two binary variables—is the alpha wave at peak, or is it at trough—Zrenner removed the need for a neural net to perform dimensionality reduction. Hussain followed by showing that somewhat arbitrary combinations of these values that result from DSP techniques may predict MEP amplitude. Therefore, it is possible that we could combine DSP with machine learning by using genetic programming to try many combinations of signal-processing techniques and feeding them into a learner. Note that because this removes the burden of dimensionality reduction from the machine learner, we no longer have to use neural nets; other machine learners such as support-vector machines, decision trees, and boosting learners all become viable. This technique also has the advantage of giving a tree that is comprehensible, which is useful because we are trying to ultimately infer systems-level function. In the description of this goal, I will continue to describe techniques from DSP that are immediately obvious to implement from literature review. In my opinion, they should be used to improve the eye open/closed demo we have before anything else as a strong positive control with clear and marketable physiological validation. 
+
+'''Immediate Techniques to Implement'''
+
+''Surface Laplacian''. This has been used in Zrenner, Hussain, and many other papers. I think it is a big reason we’re seeing these non-stationarities in the eye open/close demo. Mathematically, it can be proven that the effect of this transform is to highlight signal that is highly spatially localized, therefore signal that is from an area too large to possibly originate from the motor cortex can be eliminated for our purposes. The simplest  way to calculate an approximation to this transform is to subtract from each channel the average of the immediately surrounding channels, which is a technique performed in Zrenner and Hussain, which results in a montage called the Hjorth-C4. Chapter 22 of Mike X. Cohen or the original Hjorth paper from 1975 can be consulted for more information. 
+
+''One-Hot Encoding''. This means that each input into a learner is a one or a zero only. Therefore, instead of feeding the real value of power in the alpha, beta, gamma and delta rhythms into a learner as numbers, we would feed in binary variable denoting if each is at a peak or a trough and if power is above or below a threshold (as determined by a time Laplacian of Gaussian transform). An alternative to this is normalizing the input so its mean over a sliding window is 0 and its variance is 1. 
+
+''Genetic Programming''. Genetic programming lets us try many permutations of the arbitrary choices one must make in designing a pre-processing routine and select the best via evolutionary pressure (i.e. only the best phenotypes survive to perform genetic recombination). Although we have been trying many transforms on time series, we have been trying to classify without significant dimensionality reduction. Therefore, our immediate direction is to emulate the kind of arbitrary combinations of very low-dimensional data like Hussain did in her combination of power and phase. We also want to make dimensionality reduction a priority by rewarding preprocessing routines that give small input into machine learners. 
+
+==  Bibliography ==
+[1] Spectral Transfer Learning Using Information Geometry for a User-Independent Brain-Computer Interface, 2016. <nowiki>https://www.frontiersin.org/articles/10.3389/fnins.2016.00430/full</nowiki>
+
+[2] Pandarinath et al. Inferring single-trial neural population dynamics using sequential auto-encoders. Nature Methods. <nowiki>https://www.nature.com/articles/s41592-018-0109-9</nowiki>
+
+[3] Hjorth, B., 1975. An on-line transformation of EEG scalp potentials into orthogonal source derivations. Electroencephalogr. Clin. Neurophysiol. 39, 526–530.
+
+[4] Rajendra, U. ‘Deep convolutional neural network for the automated detection and diagnosis of seizure using EEG signals’. Computers in Biology and Medicine, Vol. 100, pp. 270-278.
+
+[5] Schaworonkow., N.  (2018) μ-Rhythm Extracted With Personalized EEG Filters Correlates With Corticospinal Excitability in Real-Time Phase-Triggered EEG-TMS. Front. Neurosci. Vol. 12.
+
+[6] Zrenner, C. (2018) Real-time EEG-defined excitability states determine efficacy of TMS-induced plasticity in human motor cortex. Brain Stimulation: Basic, Translational, and Clinical Research in Neuromodulation, Vol. 11, Issue 2, pp. 374 - 389.
+
+[7] Hussain, Sara. Sensorimotor Oscillatory Phase–Power Interaction Gates Resting Human Corticospinal Output. Cerebral Cortex.

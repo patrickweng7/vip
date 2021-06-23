@@ -1,0 +1,1757 @@
+== Team Member ==
+
+* Name: Ahmed Ali Alnamos
+* Email: aalnamos3@gatech.edu
+* Cell: (617) 335 - 6653
+
+* Interest(s): Design, Build, and Program Medical Devices, Rock Climbing, and Self-Defense
+
+== Jan 07, 2019 ==
+
+'''Team Meeting Note(s):'''
+* Met with the medical sub-team new members
+* Discussed the EEG projectâ€™s short- and long-term goals:
+** Classify whether an individual has a lesion in the motor complex or not and if so which side of the brain is the lesion on 
+** Use Machine Learning and EMADE to develop an algorithm that can use EEG data to classify when to TMS patients in a real-time bio-feedback study to rehabilitate stroke patients reduced dexterity
+** Develop an algorithm that is capable of generalizing to new anatomies for rehabilitation and diagnostic purposes
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task(s)
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the shared publication on the slack channel
+|Complete
+|Jan 07, 2019
+|Jan 14, 2019
+|Jan 11, 2019
+|-
+|}
+
+== Jan 09, 2019 ==
+
+'''Note(s):'''
+* Last semester-Fall, 2018-EMADE was unable to produce any results better than trivial on the lesion data set 
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out the when-is-good sent by Scott to the slack channel
+|Complete
+|Jan 07, 2019
+|Jan 13, 2019
+|Jan 12, 2019
+|-
+|}
+
+== Jan 14, 2019 ==
+
+'''Team Meeting Note(s):'''
+
+* Broke down the previous semester work into rudimentary language to give new members a sufficient explanation
+* Explained what the Fourier transform is - decomposes complex graphs to their simple constituent graphs
+* Got the new members caught up on the current progress and the future direction 
+
+'''EEG Sub-Team Note(s):'''
+
+* Data:
+** EEG data is recorded using [13 - 64] electrodes depending on the instrument sensitivity and the type of the experiment performed 
+** Electrodes pick up the summations in time and in space of the electrical activity associated with action potential-neurons firing
+** If the current is moving towards an electrode, it reads a positive potential-usually in the order of milli Volts-and vice versa
+** All relative to a reference electrode which is positioned in the middle of the top of the head as well as a ground electrode
+
+* The EEG eye data set shows that it is possible to tackle the lesion diagnostic and rehabilitation problem using ML and EMADE
+** Data set contains 55% open eyes, and 45% closed eyes so a non-trivial classifier must be more than 55% accurate
+** We realized that there is a huge potential difference between the averages of each class which achieved 82% accuracy
+** This shows that we can dig for similar features in the lesion EEG data set to successfully classify lesion vs. no lesion
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze EEG hard data set to gain insight of brain connectivity and functional networks
+|Complete
+|Jan 14, 2019
+|Jan 20, 2019
+|Jan 16, 2019
+|-
+|}
+
+== Jan 18, 2019 ==
+
+'''Team Meeting Note(s):'''
+* The Medical sub-team has two weekly meetings: (It is mandatory for each member to make at least one of them) 
+* Meeting Time(s): (Monday 11 - 12 and Friday 12 - 1) 
+* Meeting Location(s): (TBD)
+* The data sets and the ipython notebook files are available on the following link [https://drive.google.com/drive/folders/1WrK3ZIN4_jv0xZD7XqRI4T0Lfqu40ryK?usp=sharing]
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task(s)
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|1 - Deploy machine learning models on an EEG raw data set
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-
+|2 - Prove that cleaner data sets generally yield better learners 
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-
+|3 - Study the EEG channels individually to extract relevant features
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-
+|4 - Manipulate the EEG data to acquire the deterministic component
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-
+|5 - Deploy machine learning models on the manipulated data set
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-
+|6 - Validate the results using traditional genetic programming
+|Complete
+|Jan 7, 2019
+|Jan 23, 2019
+|Jan 21, 2019
+|-  
+|}
+
+== Jan 21, 2019 ==
+
+MLK Day - No school - No meeting
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read gathered peer-reviewed EEG, TMS, and EMG research articles
+|Complete
+|Jan 07, 2019
+|Jan 18, 2019
+|Jan 21, 2019
+|-
+|Try different pre-processing methods to obtain better than trivial results
+|Overcome by Event (OBE)
+|Jan 18, 2019
+|Jan 23, 2019
+|Apr 02, 2019
+|}
+[[files/Trivial Signal.png|thumb]]
+'''Note(s) with HIGH IMPORTANCE:'''
+* Met with Scott's PI, Dr. Michael at the Neural Plasticity Lab at Emory University on Tue Apr 02, 2019 and on Thu Apr 04, 2019; it turns out some instances were corrupted by the automatic DC offset while others were corrupted because the net was not on any subjects while recording. THIS explains why we failed to get any results better than trivial the entire semester.
+* The PI agreed with me that we need to eliminate some of the instances before we proceed and he also agreed to collect more CREDIBLE data to push the project further 
+* SADLY, some of the methods that we have tried and failed may have worked have we had ready-to-go data handed to us by Emory from the beginning
+
+== Jan 25, 2019 ==
+
+'''EEG Sub-Team Meeting Note(s):'''
+* Shared findings about cleaning data and then averaging per channel
+*# Classification results for raw data: 80%
+*# Accuracy after cleaning data and taking out outliers: 91% 
+*# Accuracy after averaging across channels in time domain: 99%
+*# Averaged data points separately based on the class they belong to-eye open vs eye closed
+*# Obtained the percentage of the deterministic component by dividing each individual point by calculated average
+*# Validated the results using with traditional/naive Genetic Programming
+
+* Fourier transform video https://www.youtube.com/watch?v=spUNpyF58BY&t=896s
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Watch the Fourier transform video
+|Complete
+|Jan 18, 2019
+|Jan 25, 2019
+|Jan 23, 2019
+|-
+|Start a Jupyter notebook file with the more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 01, 2019
+|Jan 28, 2019
+|-
+|}
+
+== Jan 27, 2019 ==
+
+'''Team Meeting Note(s):'''
+
+* Discussed the EEG data sets to understand their dimensionalities (subject vs. healthy)
+* The number of individuals in each category as well as the number of samples per individual are needed
+* Which dimension do we need to split in order to divide the data per individual?
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task(s)
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Develop the best seeds possible to feed into EMADE
+|Failed Due Corrupt Data
+|Feb 1, 2019
+|Feb 11, 2019
+|Feb 25, 2019
+|-
+|}
+
+== Jan 28, 2019 ==
+
+'''Team Meeting Note(s)'''
+
+* Gave everyone an update on our team and the new focus groups we made
+* Goals for the week:
+** Get started with our sub tasks and focuses
+** Run cropped frequency domain data set with EMADE and neural nets
+* How can we apply FTT to EEG data:
+** Transform time vs. channel potential to frequency vs. amplitude of signal
+** As such, pull out the fundamental frequencies of the channels, which should be different per class 
+** This will allow us to normalize each channel output and feed the data to the classifier(s)
+ 
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start Jupyter notebook code to try different pre-processing methods
+|Complete
+|Jan 25, 2019
+|Feb 01, 2019
+|Jan 29, 2019
+|-
+|Figure out how FTT can help EEG data
+|Complete
+|Jan 25, 2019
+|Jan 28, 2019
+|Jan 28, 2019
+|}
+
+== Feb 01, 2019 ==
+
+'''Team Meeting Note(s)'''
+* We need to establish a control experiment to figure out the objective function
+* We need baseline data of how healthy subjects perform when exposed to medium power to establish mean, median, and variances to compare to the paretic subjects
+* Started looking at the data channel by channel and instance by instance-look at the data as a whole to predict system performance or individually channel-wise
+* New pickle data is read in as a 3-D numpy array and not a Pandas data frame so we need to fix our pre-processing accordingly
+* Numpy 3-D array data: array of array of arrays. Each person has an array, with each person having readings per channel over a certain time interval
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Jupyter notebook and start looking at code
+|Complete
+|Feb 01, 2019
+|Feb 08, 2019
+|Feb 10, 2019
+|-
+|Apply step 6 specified above to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Figure out how to convert numpy array into data frame
+|Complete
+|Feb 01, 2019
+|Feb 08, 2019
+|Feb 04, 2019
+|}
+
+== Feb 4, 2019 ==
+
+'''Team Meeting Note(s)'''
+*Gave everyone an update on our team and the new focus groups we made
+* Goals for the week: 
+** Move onto working with new EEG data and apply averaging and Fourier Transformation to this new EEG Data (Ali + Jas)
+** Get healthy data taken at median Transcranial Magnetic Stimulation (TMS) power (Scott + Ali)
+*Issues within group now:
+**Training over entire data set leads to possibly trivial results, need to relabel and train per subject
+**New Pickle data is read in as a 3-D numpy array, but pre-processing is structured for Pandas Data Frame
+**We need metadata about the new EEG data to understand what the 3 dimensions in X_train (1175, 13, 2400)
+*Had Jason look at the X_Train data to see if he understands the 3-D
+*Jason's interpretation: 13 channels, 1175 half second captures
+*First row: 13 channels, 2400 time captures --> 1175 of these rows
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Jupyter notebook and start looking at EEG new data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 10, 2019
+|-
+|Apply his 6 step process to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Figure out how to convert numpy array into data-frame
+|OBE
+|Feb 01, 2019
+|Feb 04, 2019
+|Feb 04, 2019
+|-
+|Get the labels for the metadata to understand what the 3 dimensions are (validate Jason's interpretation)
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 11, 2019
+|-
+|Install EMADE onto Linux Virtual Machine
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|}
+
+== Feb 8, 2019 ==
+
+'''Team Meeting Note(s)'''
+
+Goals for the sub-team:
+* Predict phase
+* Make spectrogram (collaborate with Dr. Zutty) and get get new data set for sanity check
+* More data from Scott's lab in March
+* Averaging (Jas and I) --> not much progress this week. Have not been able to meet up; will have more progress next week
+* Bug fix group is talking to Dr. Zutty to understand issue
+* X_train (1175, 13, 2400) ---> trials x channels x samples
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Jupyter notebook and start looking at EEG new data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 10, 2019
+|-
+|Apply his 6 step process to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Figure out how to convert numpy array into data-frame
+|OBE
+|Feb 01, 2019
+|Feb 04, 2019
+|Feb 04, 2019
+|-
+|Get the labels for the metadata to understand what the 3 dimensions are (validate Jason's interpretation)
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 11, 2019
+|-
+|Install EMADE onto Linux Virtual Machine
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|}
+
+== Feb 10, 2019 ==
+
+'''Focus Group Meeting Note(s) (Meeting with Jas):'''
+
+* Possible issue: we need data to figure out day to day variations off EEG measurements (same person, same individual-healthy or unhealthy) ==> need variances
+* Variances needed to generalize to different anatomies
+* We need the original unhealthy data set
+* Is there a way to take the EMADE data and convert back to the original version? GPFramework.data.GTMOEPData back to original
+* GPFramework.data.GTMOEPData  is hard to index and work with learners outside of EMADE
+* Establish healthy anatomy baseline and use it to verify the predictions from unhealthy data
+* One approach: use the average of each class and treat the problem with a classification model 
+* Other approach: Use the samples averages and treat the problem with a regression model
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Jupyter notebook and start looking at EEG new data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 10, 2019
+|-
+|Apply his 6 step process to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Figure out how to convert numpy array into data-frame
+|OBE
+|Feb 01, 2019
+|Feb 04, 2019
+|Feb 04, 2019
+|-
+|Get the labels for the metadata to understand what the 3 dimensions are (validate Jason's interpretation)
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 11, 2019
+|-
+|Install EMADE onto Linux Virtual Machine
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|-
+|Convert the GPFramework.data.GTMOEPData back to original format
+|OBE
+|Feb 09, 2019
+|Feb 11, 2019
+|Feb 11, 2019
+|}
+
+== Feb 11, 2019 ==
+
+'''VIP Meeting Note(s):'''
+* Gave everyone an update on our team and the new focus groups we made
+* I have been unable to convert the GPFramework.data.GTMOEPData back to the original format. I tried various things last night but was unable to index or parse the object as I am unsure of the original data input. Plan to ask Dr. Zutty today for possible approaches.
+* Found the script that converted the original data to GPFramework.data.GTMOEPData. I'm going to attempt to use that to reverse engineer it
+* We talked to James Rick and he showed up how to use the EMADE framework to index and parse the GTMOEPData object directly so we don't need to worry about converting 
+* I realized I never git cloned into the EEG repo. My EMADE files were from the days of the Technical Analysis team so I made a new local directory and tried to pull the eeg EMADE repo that Scott forked for us
+ 
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Apply his 6 step process to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Install EMADE onto Linux Virtual Machine
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|-
+|Convert the GPFramework.data.GTMOEPData back to original format
+|OBE
+|Feb 10, 2019
+|Feb 22, 2019
+|Feb 11, 2019
+|-
+|Ask Dr. Zutty for suggestions to convert GPFramework.data.GTMOEPData 
+|OBE
+|Feb 11, 2019
+|Feb 11, 2019
+|Feb 11, 2019
+|-
+|Clone the eeg EMADE repo
+|Complete
+|Feb 11, 2019
+|Feb 15, 2019
+|Feb 17, 2019
+|}
+
+== Feb 15, 2019 ==
+
+'''Sub Team Meeting Note(s):'''
+[[files/Time v Power.jpg|thumb|233x233px|Normal: Time vs Power]]
+* Scott was able to get eye open and close data and run FFT in real-time to convert from time-domain into frequency-domain and do a band-pass filter to crop between 8-12 Hz
+* Normal: time vs Power ==> need to know when the eyes are open closes
+* Post FFT + band-pass (refer to picture)
+* Meeting Sunday 9-1
+*[[files/Frequency vs power.jpg|thumb|179x179px|Post FFT: Frequency vs Power]]
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Apply step 6 to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Install EMADE onto Linux
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|-
+|Clone the eeg EMADE repo
+|Complete
+|Feb 11, 2019
+|Feb 15, 2019
+|Feb 17, 2019
+|}
+
+== Feb 17, 2019 ==
+
+'''Sub Team Meeting Note(s) (Hackathon):'''
+* Have to read  [http://cognet.mit.edu/book/analyzing-neural-time-series-data Analyzing Neural Time Series Data]: chapter 12 and chapter 13 ==> Morlet Wavelets
+*Locally cloned the eegmade git repo
+*Tried to help Scott to clone git repo onto the cluster 
+*Had issues with askpass and tried 'unset ASKPASS' to no luck
+*Don't have the necessary permissions to set -X forwarding with SSH because not admins on PACE Cluster
+*Workaround: Used the $50 Cloud Computing coupon to scp (secure copy) the repo from local machine onto the cluster
+*Started writing a method to split EEG pickle data for cross validation:
+<code>combined = [(y_i,x_i) for (x_i,y_i) in zip(x,y)] #put together x and y before splitting</code>
+
+<code>random.shuffle(combined)</code>
+
+<code>k = 5 #change this to define number of folds for cross validation</code>
+
+<code>fl = int(len(combined)/k) #fold length- amount of data in each fold</code>
+
+<code>for i in range(0,k):</code>
+
+<code>arr = combined[i*fl:fl*(i+1)] #separating out the fold</code>
+
+<code>with open('x{}.pickle'.format(i+1), 'wb') as f:</code>
+
+<code>pickle.dump([datum[0] for datum in arr], f)</code>
+
+<code>with open('y{}.pickle'.format(i+1), 'wb') as f:</code>
+
+<code>pickle.dump([datum[1] for datum in arr], f)</code>
+* Need to request access from Scott for vipPreprocessing git repo to push this code --> Update: Scott granted me access to this repo
+* I ran my script to create 5 fold of data and pushed everything to the repo
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Apply step 6 to the larger and more complex EEG data
+|Complete
+|Jan 25, 2019
+|Feb 08, 2019
+|Feb 17, 2019
+|-
+|Install EMADE onto Linux
+|Complete
+|Feb 04, 2019
+|Feb 09, 2019
+|Feb 07, 2019
+|-
+|Clone the eeg EMADE repo
+|Complete
+|Feb 11, 2019
+|Feb 15, 2019
+|Feb 17, 2019
+|}
+
+== Feb 18, 2019 ==
+
+'''VIP Team Meeting Note(s):'''
+* Gave everyone an update from yesterday's hackathon
+* Need to read and understand chapter 12 and 13 in [http://cognet.mit.edu/book/analyzing-neural-time-series-data Analyzing Neural Time Series Data] textbook to understand Morelet Wavelets
+* Seed notes:
+** New and latest data dimensions: 1459, 12, 5000 (trials, channels, samples)
+** Idea to get more data: pull out the samples and trials to get 7,295,000 (1459 x 5000)samples, each with 12 channels. <code>temp = np.ndarray(shape=((1459*5000),12)</code>  <code>for i in range(0,1459):</code>     <code>curr = X[i].transpose</code>
+<code>temp.append(curr)</code>
+<code>temp = np.concatenate(temp, axis=0)</code>
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read chapter 12 and 13 to understand Morlet Waves
+|Completed
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 20, 2019
+|-
+|Develop a new seed idea
+|Complete
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 25, 2019
+|}
+
+== Feb 22, 2019 ==
+
+'''Sub-team Meeting Note(s)'''
+* Jas Peer reviewed the new seed:
+** We realized there is dependent points between the test and train data so it was not split well and we can't gauge the accuracy of the learners and this seed
+* Fix: split the data before transforming to 7.3 million points (basically keep all data points of each instance together, either in test or train to keep the data disjoint)
+* zip x and y where x is a (12,5000) matrix and y is the classification and then shuffle
+* Jas Helped outlining ML pipeline
+* Team update(s):
+* James- Finding papers that demonstrate correlation between EEG features and excitability as measured by TMS
+* Joel- feature abstraction
+* Ali and Jas - out of EMADE classifier 
+* Rahul - PACE cluster
+* Nick - plugging seeds into EMADE (accessing the FFT for a *space-efficient* series of convolutions)
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read chapter 12 and 13 to understand Morlet Waves
+|Completed
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 20, 2019
+|-
+|Split data into test and train before applying any manipulation
+|Complete
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 23, 2019
+|}
+
+== Feb 23, 2019 ==
+
+'''Progress Note(s):'''
+
+* Jas and I successfully rearranged the data set into an a 2D array so it can be spit and fed to different models.
+* Originally, I have manipulated the entire data set, then split it, and I got the best results doing so. 
+* However, it was brought to my attention by Scott and other team members that I should split first then manipulate for validation.
+ 
+* Unfortunately, after rigorous iterations using different models I could not reach more 60% accuracy which is only 10% better than trivial. 
+* After examining the data graphically, it turns out that some instances are very similar yet correspond to different class labels.
+* Additionally, there are many inconsistencies as well as wiggly channels in some of the instances which may explain the reduced accuracy.
+ 
+* As a result, the script in which y_median was generated need to be looked at or when the labels were placed by the software originally on the raw data.
+* The shape of the current feature matrix is (1459,12,5000) and it comes with y_median which is whether an instance was above the median or below it.
+
+* I am currently working on the following methods to try to get better results 
+* (scipy.signal-fft, rfft, stft, blackman,and welch./sklearn.manifold-TSNE/sklearn.decomposition-IncrementalPCA/pywt.dwt2) 
+
+'''Worth Mentioning:'''
+
+* I have tried to get the same results by doing the split first then average second, however, that did not work out as expected.
+* Even with the raw data I was able to reach 99.7% accuracy just by rearranging then splitting to train and test sets.
+* However, when we split the raw data into train and test then do the same rearranging process the accuracy decreases dramatically.  
+
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task(s)
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Develop the best seeds possible to feed into EMADE
+|OBE
+|Feb 25, 2019
+|Mar 04, 2019
+|Apr 02, 2019
+|-
+|}
+[[files/DC Off-Set.png|thumb]]
+'''Note(s) with HIGH IMPORTANCE:'''
+* Met with Scott's PI, Dr. Michael at the Neural Plasticity Lab at Emory University on Tue Apr 02, 2019 and on Thu Apr 04, 2019; it turns out some instances were corrupted by the automatic DC offset while others were corrupted because the net was not on any subjects while recording. THIS explains why we failed to get any results better than trivial the entire semester.
+* The PI agreed with me that we need to eliminate some of the instances before we proceed and he also agreed to collect more CREDIBLE data to push the project further 
+* SADLY, some of the methods that we have tried and failed may have worked have we had ready-to-go data handed to us by Emory from the beginning
+
+== Feb 25, 2019 ==
+
+'''VIP Team Meeting Note(s):'''
+* Gave an update to everyone
+* Had issues with high classification --> dependent data points between test and train
+* Jas helped explaining how we need to split the instances, not the data points, so that all the samples of each instance, stay together, either in test or train
+* If a subset of the 5000 points from any instance go into test and another subset goes into train, then there is dependent data in the test and train sets
+* Worked with Jas to flatten the horizontally to preserve time series analysis and to be able to work in 2D
+* Morelet waves:
+** https://www.youtube.com/watch?v=wgRgodvU_Ms
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read chapter 12 and 13 to understand Morlet Waves
+|Completed
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 20, 2019
+|-
+|Split data into test and train before applying any manipulation
+|Complete
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 23, 2019
+|}
+
+== Mar 01, 2019 ==
+
+'''Team Meeting Note(s):'''
+
+* Adapted EMADE for the PBS job scheduler on the PACE cluster
+* Discussed some research article related to the problem in hand and the methods they used 
+* "A large electroencephalographic motor imagery dataset for electroencephalographic brain computer interfaces"
+ 
+* Frequency band power, summary statistics on each channel (mean, standard deviation, root mean square, skewness, and kurtosis) 
+* Quadratic support vector machine, random sampling boosted trees (RUS), Higuchi's fractional dimension, and times series of Dow Jones Index
+* Sent the instances plot files to Scott so the PI can take a look at them and decide which ones to exclude
+
+* EEG is non-stationary, nonlinear, and noisy
+* According to research the brain quasi-state duration is 0.25 Seconds  
+* We need to partition the data; create smaller fragments of lengths [1/4 * 0.25 Sec, 1/2 * 0.25 Sec, 3/4 * 0.25 Sec, and 0.25 Sec]
+* In addition, we can will have fragments that are relatively larger to make sure we capture when the event related features occur
+
+'''Worth Mentioning:'''
+* I was able to decompose a time series EEG recording into its brain waves composition (Delta band, Theta band, Alpha band, Beta band, and Gamma band) 
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task(s)
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|1 - Investigate peer reviewed journal articles to find successful implementations of eeg/emg computational models
+|OBE
+|Mar 01, 2019
+|Mar 08, 2019
+|Apr 02, 2019 
+|-
+|2 - Use the observed brain waves as features to create better learners 
+|OBE
+|Mar 01, 2019
+|Mar 08, 2019
+|Apr 02, 2019
+|-
+|3 - Study the EEG channels individually to extract relevant features
+|OBE
+|Mar 01, 2019
+|Mar 08, 2019
+|Apr 02, 2019
+|-
+|4 - Figure out how to implement Markov chains and Sample entropy
+|OBE
+|Mar 04, 2019
+|Mar 11, 2019
+|Apr 02, 2019
+|-
+|5 - Deploy machine learning models on the manipulated data set
+|OBE
+|Mar 04, 2019
+|Mar 11, 2019
+|Apr 02, 2019
+|-
+|6 - Validate the results using traditional genetic programming
+|OBE
+|Mar 04, 2019
+|Mar 11, 2019
+|Apr 02, 2019
+|-  
+|}
+
+'''IMPORTANT Note(s):'''
+
+* There are 15 instances of healthy EEG data that are corrupted by DC-Offset
+* There are more than 50 instances when the EEG signal was recording nothing
+* The total number of bad instances was never calculated because there was no easy way of determining what is good vs what is bad besides inspection- too time consuming
+
+== Mar 4, 2019 ==
+
+'''VIP Team Meeting Note(s)'''
+* Team updates:
+** Adapted EMADE for the PBS job scheduler on the PACE cluster
+** Visited Emory to collect new data
+** Began running EMADE on data set
+** Used FFT to decompose a time series EEG recording into its brain waves composition (Delta band, Theta band, Alpha band, Beta band, and Gamma band)
+** The flattened data from last week is trivial
+*Findings indicated corrupt data: there are barely any differences between the wave compositions of each channel
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the EEG power band decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 15, 2019
+|Apr 15, 2019
+|}
+
+== Mar 6, 2019 ==
+
+'''Focus Group Meeting Note(s)'''
+* Met with Jas to discuss current status
+* Next steps: we are going abstract features to feed into EMADE
+* Features: FFT and EEG Power Band Decomposition
+* Idea: get features for all the samples of an instance but also break down a given instance into smaller random subgroups and get features from that as well
+
+'''Action Item(s):'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 15, 2019
+|Apr 15, 2019
+|}
+
+== Mar 8, 2019 ==
+
+'''Sub-team  Meeting Note(s)'''
+* Started recruiting slides
+* Talked about our idea of chunking samples into random sizes to draw insight for various points, not just the instance as whole
+
+'''Action Item(s):'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 15, 2019
+|Apr 15, 2019
+|-
+|Finish Recruiting Slides
+|Complete
+|Mar 08, 2019
+|Mar 11, 2019
+|Mar 10, 2019
+|}
+
+== Mar 11, 2019 ==
+
+'''VIP Meeting Note(s)'''
+* <u>Viz</u>
+** Goal: visual interface to make training easier - View how individuals are performing during training
+** Visualize: pareto front,  evaluation times, tree structure, AUC graph, number of Pareto Individuals over time, evaluation times
+** Current goals: add more visualizations (hereditary), improve usability (UI/UX), refactor code to be efficient
+** User Study feedback: document progress, UI needs to handle failure better
+*** Segregate generational visualizations from aggregate visualizations
+*<u>Group Four (1st Semester)</u>
+**ML
+***Dropped Name, Ticket and Cabin
+***Replaced NaN with averages
+***Logistic regression + DT ==> highest Kaggle score (.784)
+**GP
+***results : .79
+***Better than ML
+**EMADE
+***39 generations over two weeks
+***seeded with random forest individual
+***maybe better if ran for longer but no time
+***AUC: .9138
+**Learned:
+***EMADE makes building models so much easier
+***ML - user needs to make many choices (data prep, future extraction)
+***GP - requires more work
+**Troubles:
+***Installing Emade
+***SQL Issues with EMADE
+*<u>Group 2</u>
+**ML
+***Dropped non-numeric/ non-categorical cols
+***Used GridSearch to find the best parameters
+***Classifiers: DT, Random Forest, AdaBoost, C-SVM
+***Best: Random Forest - 83.7%, Decision Tree - 84%
+**GP
+***Attempt 1: Best Individual fitness: (0, .983)
+**EMADE
+***Three objectives --> False positives, False negatives, Number of elements
+***4 runs, 48 generations
+***AUC: 1882.32 -- hypervolume
+*<u>Group 5</u>
+**Preprocessing
+***Title Based NaN replacement
+***Separate age groups for Mr. and Mrs.
+***Banded age groups into 5 generations
+***Embarked was one hotted, cabin was converted to # based on depth, fares was banded into groups
+**ML
+***Age: averaged based on subgroups split on other values
+***DT, Gradient Boosting, KNN
+***Hyperparameter selection using using trial and error
+***Accuracy: 76%
+**GP
+***Mean square error for fitness
+***Squash output between 0 and 1 with sigmoid
+***Accuracy: 79%
+**EMADE
+***ASK AUSTIN
+***Notes from Dr. Rohling: use proper graphs with units/ axis; otherwise hard to visually communicate what's going on
+*<u>Caching</u>
+** Shit ton of speed efficiency Instead of train subtrees over and over, cache previous generation instead of re-evaluating
+*** Just store result of previous Trees
+** Built in parameter for EMADE
+*** Use_Cache a boolean variable now that can be flagged to make use of this
+** Progress since last Semester
+*** Documentation web app for caching improvements/ API calls
+*** Updated all XML templates within caching to be compatible with branches
+*** Working on getting it to work with image data
+**** Currently works with stream/ strings
+***** Can make running EMADE 500% faster
+** Next Steps
+*** Get it to work on image data, currently there are errors
+
+* <u>Bootcamp Group 3</u>
+** Lab 1
+*** N Queens problem
+** ML
+*** Best score: .78
+*** Score after parameter tuning: .77
+*** Three models had the same exact score (?)
+** GP
+*** Added primitives, add subtract power max 2
+*** Used mutUniform for mutation
+*** AUC: .2310
+** EMADE
+*** Ran for 30 generations
+*** AUC: .199
+** Learned
+*** ML - least accurate, tended to overfit
+*** GP - more accurate because mutations
+*** EMADE - Best
+
+* <u>Stock Team</u>
+** Goal: use EMADE to predict stock price on next day based on previous few days
+** Previously: simple binary classification problem: buy or sell
+** Based on technical indicators
+** Current focus: time series data
+** Predict actual price value as regression problem
+** Use signal processing on time series data for forecasting
+*** Auto regression
+*** Moving averages
+*** ARMA/ARIMA
+*** SARIMA
+*** VAR/VARMA
+*** SES
+*** HWES
+** Future
+** EMADE on Google Cloud
+** Implement non-classical time series forecasting methods
+* <u>Group One</u>
+** Data Pre-processing
+** ML
+*** MLP Classifier - Kaggle Highest Score .775
+*** Random Forest Classifier
+*** Gradient Booster Classifier
+*** Decision Tree Classifier
+** GP
+*** Strongly typed operators
+*** Tournament selection did not work well
+*** ^Used NGASII selection instead
+*** AUC = 30700
+** EMADE
+*** Started with sql connection errors
+*** Ran for 14 generations
+*** Had 2 optimal individuals
+*** AUC: 647
+*** Used VIZ team data to produce EMADE Pareto front
+** Conclusion
+*** AUC for EMADE far better than AUC for GP
+*** EMADE has best individual that is not overfitted with 4.6 fp and 35 fn
+
+* <u>Group Six</u>
+** Feature Engineering
+** EMADE
+*** Best run - 21 generations
+*** EMADE > GP/Ml
+** Used EMADE VIZ to generate visualizations
+** Hypervolume calculation errors caused random jumps in graphs
+** ML
+** GP
+*** used selSPEA2 selection method
+
+* <u>EEG</u>
+** Our Presentation
+** Feedback:
+*** Run EMADE
+*** Put things into EMADE
+*** Use EMADE
+*** Stop not using EMADE
+
+* <u>Deep Learning</u>
+** GP vs. CGP
+** CGPs are represented by DAGs
+** Not exactly a tree, its a directed acyclic graph
+** Blocked primitives?
+** Dataset: MNIST
+** 99+% accuracy
+** Looking for:
+*** GCP experience
+*** ML + DL experience
+*** People with GPUs
+
+'''Action Item(s):'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 15, 2019
+|Apr 15, 2019
+|-
+|Finish Recruiting Slides
+|Completed
+|Mar 08, 2019
+|Mar 11, 2019
+|Mar 10, 2019
+|}
+
+== Mar 15, 2019 ==
+
+'''EEG Team Meeting Note(s):'''
+* Overarching goal by the end of the semester is to implement as many primitives as possible before the final EMADE run to get something better than trivial
+* Update of decomposition into EMADE task: I will implement the EEG power band decomposition to EMADE since brain activity is modulated by frequency 
+* Cooperate with Jas to get the implementation ready as soon as possible
+* Currently: Real-time FFT is possible within 3 milliseconds
+* Use that as a foundation for why we should be able to do band decomposition real time
+* Made a new branch in eegmade: ali_jas for band decomposition activity
+* Link to get pickle data: https://drive.google.com/drive/folders/1zsIZrlgTvGw-9nLCI9WOOPxEidJoF2qq
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 29, 2019
+|Apr 15, 2019
+|-
+|}
+
+== Mar 21, 2019 ==
+
+'''Personal Note(s):'''
+* Slow progress currently as this is Spring Break
+* Current team status:
+** Nick/Scott: instantaneous phase calculation
+** Jas/Ali: frequency band calculation for most common bands (Jupyter notebook ---> EMADE)
+** Joel/Rahul: refactor any organizational things  
+** James/Austin: need to implement something from a paper that correlates with motor activity
+* A band-pass filter attenuates frequencies that are not included within its band's upper and lower limits
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 29, 2019
+|Apr 15, 2019
+|-
+|}
+
+== Mar 25, 2019 ==
+
+'''Team Note(s):'''
+* Got new people:
+** Shlok Natarajan - 1st year CS Premed. Interest: Medical side + reading articles for getting new methods --> James/Austin
+** Michael Lee -  2nd year CompE. Interest: DSP --> Scott/Nick
+** Kang Shin - 1st year MS CS (Biology Undergrad @ Emory). Interest: ML + Research --> 
+** Shruthi Sudhakar - 1st year CS. Interest: ML + general coding --> 
+** Some of them have time conflicts for our Friday meetings. Might need to figure out new time
+* ''butter_bandpass_filter -'' Python method to cut the extraneous frequencies 
+* I will meet with Ali through this week - tentatively Wednesday 
+* Talked to Dr. Zutty- <u>Focus</u>: (Note: Joel would be best help with this)
+** NOT band decomposition --> GTMOeP.Data 
+** Band Decomposition --> primitive:
+*** instance by instance to make a flat feature array
+**** instance by instance (13 X 5000) --> FFT---> existing primitive 
+**** Dictionary of filtered band decomposition from FFT --> new primitive 
+**** Sum up bands to make feature array
+ 
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Mar 29, 2019
+|Apr 15, 2019
+|-
+|}
+
+== Mar 27, 2019 ==
+
+[[files/Screen Shot 2019-03-27 at 4.23.28 PM.png|thumb|350x350px]]'''Meeting with Jas Note(s):'''
+* First focus: run EMADE locally on our machines
+* Finally got EMADE running on my new machine
+* Talk to Joel on Friday about how to use his template to achieve the steps that Dr. Zutty set out for us
+* Talk to Scott about how to create .XML files for our purpose and how to connect to SQL because Jas and I are both having SQL connection errors
+* Figure the above out by Friday and then we can hopefully accomplish the other goals by Monday with that information
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Apr 01, 2019
+|Apr 15, 2019
+|-
+|Figure out SQL errors
+|Complete
+|Mar 27, 2019
+|Mar 29, 2019
+|
+|-
+|Talk to Joel about his template for primitives
+|OBE
+|Mar 27, 2019
+|Mar 29, 2019
+|
+|}
+
+== Mar 29, 2019 ==
+
+'''Team Meeting Note(s):'''
+* Updates from Scott: still getting trivial results on EMADE
+* Scott made an example primitive called ExamplePrimitive Jupyter Notebook that he is pushing to VipPreprocessing - do not need to wait on Joel
+* Rahul helped us fix SQL errors
+* Follow Scott's example to adapt existing EEG band decomposition code as a primitive into EMADE
+* Update:
+** Jas/Ali: have 1 primitive in a python notebook (ask Scott for help)
+** Austin and James (plan to implement an algorithm in Python from a paper)
+** Rahul: Morelet Transform 
+** Michael: read EE book
+** Shlok: read neurosci book
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Mar 04, 2019
+|Apr 01, 2019
+|Apr 15, 2019
+|-
+|Figure out SQL errors
+|Complete
+|Mar 27, 2019
+|Mar 29, 2019
+|Mar 29, 2019
+|-
+|Talk to Joel about his template for primitives
+|OBE
+|Mar 27, 2019
+|Mar 29, 2019
+|Mar 29, 2019
+|}
+
+== Apr 01, 2019 ==
+'''VIP Meeting Note(s):'''
+* Gave everyone an update on the current progress: catching up the new members has been the main goal
+* This week has been stressful with other exams and getting the new members up to date so have not made progress on current goals
+* Pushing suspense date for those goals by a week
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put the decomposition into EMADE
+|Complete
+|Apr 03, 2019
+|Apr 08, 2019
+|Apr 15, 2019
+|-
+|}
+
+== Apr 3, 2019 ==
+
+'''Focus Group Meeting Note(s):'''
+* Shruthi joined Jas and I to get a better understanding of the project
+* Repository notes: (because this is getting a bit confusing) We are currently working out of two repos
+** https://github.gatech.edu/sheston3/vipPreprocessing.git 
+*** Contains the current pre-processing methods
+*** Has Scott's example primitive
+** https://github.gatech.edu/sheston3/eegmade.git
+*** Contains a branch for Jas and I named Ali_Jas
+*** Branch has AliLocalScript.ipynb which contains a sample local code for EEG power band decomposition 
+* Questions for Scott from EMADE my_fft() method in signal_methods:
+** what is contained in test_list?
+*** first_instance = train_list[0]
+*** Is this a channels by samples array? if so: channels = first_instance.shape[0]
+*** Is this flattened further to just singular data points
+*** FOR NOW- hard coding as having 13 channels but will want to derive from data in the future for versatility 
+* Our latest code will be in eegmade under signal_methods as my_fft_decomp()
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Implement the EEG power band decomposition into EMADE
+|Complete
+|Apr 03, 2019
+|Apr 08, 2019
+|Apr 15, 2019
+|-
+| Run new method by Scott for verification and validation
+|Complete
+|Apr 03, 2019
+|Apr 05, 2019
+|Apr 05, 2019
+|}
+
+== Apr 5, 2019 ==
+
+'''VIP EEG Subgroup Meeting Note(s):'''
+* Showed the EEG power band decomposition to Scott and explained what we did
+* We need to adjust the code for EMADE-data pair mode needs to be stream to feature
+* Scott wrote a python notebook to test primitive methods locally => need to run to test the new primitive
+* He explained structure of data_pair to help us restructure our code: 
+** Stream to Features:
+*** Takes in time series and spits out pertinent information like taking the mean of a stream or time series data
+*** ex: <code> my_fft_decomp(data_pair,sf=5000, mode=stream_to_feature) </code> 
+** Features to Features:
+*** ex: titanic data set manipulations-non time series data
+** Stream to Stream:
+*** Transform time series data into time series data in a different domain for instance <code> np.fft.fft() </code>
+* New focus:
+** Continue editing the primitive using Scott's testing to make sure it works
+** Work with Michael to find ideas for new primitives that can increase EMADE capabilities
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Verify and Validate Method by showing to Scott
+|Complete
+|Apr 03, 2019
+|Apr 05, 2019
+|Apr 05, 2019
+|-
+|Run Primitive on Scott's Python notebook
+|Complete
+|Apr 05, 2019
+|Apr 08, 2019
+|Apr 14, 2019
+|-
+|Edit and fix primitive 
+|Complete
+|Apr 05, 2019
+|Apr 12, 2019
+|Apr 16, 2019
+|}
+
+== Apr 6, 2019 ==
+'''Personal Note(s):'''
+* Used Scott's notebook to start editing the method we wrote
+* There are some formatting errors that need to be fixed
+* Will continue working on editing and fixing this primitive 
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run Primitive on Scott's Python notebook
+|Complete
+|Apr 5, 2019
+|Apr 8, 2019
+|Apr 6, 2019
+|-
+|Edit and fix primitive
+|Complete
+|Apr 5, 2019
+|Apr 12, 2019
+|Apr 16, 2019
+|}
+
+== Apr 8, 2019 ==
+'''VIP Team Meeting Note(s):'''
+* Gave weekly update
+* There's three other primitives in testing stage along with my_fft_decomp(): Morelet Wavelet Transforms, State Variance, and Mean State Shift
+* Scott and I proved that there is a statistically significant difference that corresponds to various brain states
+* Since some of the data was corrupted, the methods we disregarded in the beginning of the semester were wrongfully disregarded and need to be re-explored
+* Jas and I are splitting off but will continue working on finishing the primitive:
+** Shruti and I will re-explore the old ML methods that I tried earlier with an OpenML dataset 
+** I will oversee the finalization of the primitive we started
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit and fix primitive
+|Complete
+|Apr 05, 2019
+|Apr 12, 2019
+|Apr 16, 2019
+|}
+
+== Apr 10, 2019 ==
+'''Focus Team Meeting Notes:'''
+* Jas worked on editing the primitive using Scott's jupyter notebook testing method
+* Shruti and I tried to clean the old corrupted data to re-explore the original local ML methods 
+* Realized that we wrote out primitive to handle GTMOEPImagePair and not a GTMOEP data pair, which is fundamentally wrong 
+* Jas will edit the method and will finish it, hopefully, on Friday 
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit and fix primitive
+|Complete
+|Apr 05, 2019
+|Apr 12, 2019
+|Apr 16, 2019
+|}
+
+== Apr 12, 2019 ==
+'''Subteam Meeting Note(s):'''
+* Gave everyone an update:
+** Scott - auto encoder
+* Continued working on editing the primitive using Scott's tester
+* Once it's done, make a seed out of the primitive follow Scott's example:
+** Make a primitive 
+** Add to pset
+** Make a text representation of the individual: Seeding_Files folder in the repo
+** Then seed it in with the command: 
+*** Python src/GPFramework/seeding_from_file.py templates/input_emotion.py name_of_your_text_file
+* Goal is to finish by Monday, have Jason review to detect any early problems, and have evolutionary run for at least a week
+
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit and fix primitive
+|Complete
+|Apr 05, 2019
+|Apr 15, 2019
+|Apr 16, 2019
+|}
+
+== Apr 14, 2019 ==
+'''Note(s):'''
+
+* Dr. Zutty will verify the primitive tomorrow to point out any visible issues
+* Follow Scott's steps to seed and put primitive into the evolutionary run
+* The code can be found at: https://github.gatech.edu/sheston3/eegmade/tree/ali_jas
+* src/GPFramework/signal_methods.py/my_fft_decomp()
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit and fix primitive
+|Complete
+|Apr 05, 2019
+|Apr 15, 2019
+|Apr 16, 2019
+|-
+|Verify and push primitive to run
+|Complete
+|Apr 14, 2019
+|Apr 15, 2019
+|Apr 15, 2019
+|}
+
+== Apr 15, 2019 ==
+'''VIP Meeting Note(s):'''
+* Gave updates in terms of finishing primitives
+* Acknowledged Dr. Zutty's comment for final validation:
+** It turns out we were not indexing properly to obtain the amplitudes that correspond to the brain waves frequencies
+** Scott updated the code to index properly:
+<code>freq_bin = np.fft.fftfreq(max(data.shape), 1/sampling_frequency)</code>
+
+<code>for band in eeg_band_indices.keys():</code>
+    <code>lhs_index = np.abs((freq_bin - eeg_band_indices[band][0])).argmin() #LHS</code>
+    <code>rhs_index = np.abs((freq_bin - eeg_band_indices[band][1])).argmin() #RHS</code>
+    <code>eeg_band_indices[band] =(lhs_index, rhs_index)</code>
+** Higher level overview:
+*** Run fft on each instance
+*** Find the indices that correspond to the input frequencies of each band - in the fft output
+*** For each channel: average the values between those indices
+*** The second bullet is the important step that I was missing earlier when I was using band frequencies as sampling indices
+* Jas will seed the primitive later this week
+* Scott changed the dataset: DEAPdataset
+* The goal is to beat the 78% accuracy that Scott got with a Neural Network - Benchmark
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Verify and push primitive to run
+|Complete
+|Apr 14, 2019
+|Apr 16, 2019
+|Apr 15, 2019
+|-
+|Seed primitive for run
+|Complete
+|Apr 15, 2019
+|Apr 19, 2019
+|Apr 19, 2019
+|-
+|Peer Evals
+|Complete
+|Apr 15, 2019
+|Apr 23, 2019
+|Apr 16, 2019
+|-
+|Final Presentation
+|Complete
+|Apr 15, 2019
+|Apr 22, 2019
+|Apr 21, 2019
+|}
+
+== April 16, 2019 ==
+'''Personal Note(s):'''
+* There was a variable error in the code that I texted Jas about to fix
+* Complete Peer Evaluations
+* Jas merged the primitive code into master and seeded to PSET
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed primitive for run
+|Complete
+|Apr 15, 2019
+|Apr 19, 2019
+|Apr 19, 2019
+|-
+|Peer Evals
+|Complete
+|Apr 15, 2019
+|Apr 23, 2019
+|Apr 16, 2019
+|-
+|Final Presentation
+|Complete
+|Apr 15, 2019
+|Apr 22, 2019
+|Apr 21, 2019
+|}
+
+== Apr 19, 2019 ==
+'''Meeting Note(s):'''
+* Last team meeting focuses
+** Merge branches to master
+** Add to PSET
+** Seed learners with new primitive
+** Prepare final Presentation
+** python src/GPFramework/seeding_from_file.py templates/input_valence_all.xml seeding_test_decomp
+** Seeded: SingleLearner(myFFTDecomp(ARG0, 5000, 2), ModifyLearnerFloat(learnerType('DepthEstimate', {'sampling_rate': 1.0}), 14.186666666666667))
+* Next thing is to edit presentation and add the seed information
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed primitive for run
+|Complete
+|Apr 15, 2019
+|Apr 19, 2019
+|Apr 19, 2019
+|-
+|Final Presentation
+|Complete
+|Apr 15, 2019
+|Apr 22, 2019
+|Apr 21, 2019
+|}
+
+== Apr 21, 2019 ==
+'''Personal Note(s):'''
+* Final presentation link [https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?usp=sharing]
+
+'''Action Item(s):'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Final Presentation
+|Complete
+|Apr 15, 2019
+|Apr 22, 2019
+|Apr 21, 2019
+|}
+
+== Apr 22, 2019 ==
+'''VIP Meeting Note(s):'''
+* Presentation Day
+
+* First group, Stocks
+** Use EMADE to predict stock prices based on historical data
+** Regression problem instead of classification (?)
+** Implemented technical indicators as feature construction
+** Since it's regression instead of classification, implemented completely different primitives (ex: MDP)
+** Data used: Text file of GE stock data with some preprocessing
+** Time series decomposed into multiple features (trend, seasonality, residuals)
+** These preprocessing methods have been Implemented into primitives for emade to work with
+** Statistical Models used: SARIMA (Seasonal AutoRegressive Integrated Moving Average), VARMA (Vector AutoRegressive Moving Average), HWES (Holt-Winters Exponential Soothing)
+** Deep Learning Models used: MLP, RNN, LSTM
+** Accuracy metrics used to evaluate models: sMAPE (symmetric Mean Absolute Percent Error), MASE (Mean Absolute Scaled Error)
+** Results: Statistical models have lower error than DL models, likely due to Statistical models fitting directly on testing data
+** DL methods also require much tuning
+** Results don't produce accurate enough results to use in real life
+** Problems
+*** Emade timeout errors, workflow of Emade, unfamiliarity with implementation
+** Future work: run EMADE, more DL models, Sector market indicators
+
+* Second group, Caching
+** Divided into multiple sub-teams
+*** support all data types that EMADE supports
+*** Create APIs that give users options to use their own cache invalidation method for their own problem space
+** Cache Maintenance - add documentation
+*** Dockerizing Cache - simplify, standardize process of running on all OS's - makes updates easier, less work for GCP setup
+*** Future updates: standardize outputs, build faster, fix conda version problems, test on other OS's
+** Cache Validation
+*** Want more optimal system to maximize benefit of subtrees stored
+*** Solution: use the Dynamic Programming solution to the Knapsack Problem
+*** Problems with solution: time ineffective, time cost is large even when the number of subtrees in cache is very small
+*** Potential solutions to those problems: Scale weights, benchmarking, using buckets, etc
+** Potential optimization of Knapsack
+*** Performance vs precision tradeoff
+**** Sacrifice precision with approximation algorithm, greedy, scaling & rounding
+*** Parallelism
+**** Hypercubes vs irregular mesh
+** Scripts/ work done
+*** Wrote a script to run EMADE automatically
+
+* Third group - EEG(us)
+** https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?ts=5cbe4470
+
+* Fourth group, Data Visualization
+** Motivations
+*** Provide a visual interface to be able to interact with EMADE
+** Recap Fall 2018
+** Goals for 2019
+*** More visualizations
+**** Visualizations of pareto front over time
+*** Improve usability
+*** Refactor Code
+*** Make app generalize
+*** Visualization of parents: concept
+**** Want to have a visualization for where the parent of a dominated from comes from in a front.
+** User Study Feedback
+*** documentation
+**** Clearly state he separation between EMADE and EMADE-visualization
+**** more detail on creating an environment
+*** UI Feedback
+*** Visualization
+*** XML Importing
+**** Goal:
+***** Generalize visualizations for any type of problem and any kind of objective functions
+** Pickling First Years
+*** Goal Reduce the number of times we make a call to the database in order to increase efficiency
+**** Pickling
+** Future
+*** Make EMADE log meta data in mysql table
+*** finish hierarchy visualizations
+*** add seed creation GUI
+*** GUI for executing sql queries
+
+*Fifth group, DEEP
+** Subteam B:
+*** Regression Problem Housing Prices
+*** Progress since Midterm
+**** identified Kaggle Housing Price dataset
+**** incorporated changes into ezCGP to support regression problems
+**** Added Average Percent Change (APC) and Mean Absolute Error (MAE) as fitness functions for regression problem
+**** used StandardScaler to split and normalize training/testing data and preprocessed the housing dataset
+*** Housing Price Dateset:
+*** Parameter Choices
+**** restricted primitives to only dense layers, finding optimal number of dense layers
+*** Individual with Best APC:
+**** uses about 7 dense layers, 6 hidden
+**** predicted price is just 1 value, housing price
+**** trained best individual for 35 epochs
+*** Results on Housing Dataset
+**** compared to other kaggle results
+**** regularized NN performed slightly better
+** Subteam A:
+*** Improving structure of ezCGP
+*** Progress since Midterm
+**** implemented argument/parameter mutation
+**** changed the framework to deal with large datasets
+*** Dataset 1: MNIST
+**** used because it is easy to evaluate and accessible, population size was 12, epoch set at 1, ran 35 generations
+**** Results on MNIST
+***** best individual is 95.85% and 98.84%
+***** took the individual and trained on full training set
+***** got 99.85%
+**** Compare to Midterm Results
+***** trained model further, about 42 epochs. best accuracy 99.43%
+***** assume since its continuously increasing, will keep going up
+*** Dataset 2- CIFAR-10
+**** Parameters:
+***** pop size 9, epochs to 3, 25 generations
+**** Results on CIFAR-10:
+***** best accuracy of 79.7%, ran for 100 epochs, increased in accuracy by 1.32%
+*** Dataset 3- CIFAR -100
+**** Parameters:
+***** pop size 9, 5 epochs, 50 generations
+**** Results:
+***** low accuracy but still improved
+***** best individual was bad - just a conv block->max pooling->average pooling
+***** trained over 200 epochs because accuracy plateaued
+***** cifar-100 model under performed when trained on whole dataset. why?
+****** lack of genetic diversity
+****** smaller models learn faster
+****** larger models learn more defining features and therefore generalize better
+***** how to fix?
+****** increase number of epochs
+****** utilize first and second order gradient information to make better judgement whether its done learning
+****** kill smaller individuals

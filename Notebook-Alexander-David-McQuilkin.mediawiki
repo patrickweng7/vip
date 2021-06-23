@@ -1,0 +1,1055 @@
+
+== Team Member ==
+[[files/Propic_Alex_McQuilkin.jpg|188x188px|alt=Profile Pic|left|frameless]]
+
+Team Member: Alex McQuilkin 
+
+Email: alexmcq99@gatech.edu
+
+Cell Phone: 804-334-5773
+
+Year: 4th
+
+Major: Computer Science, concentration on Intelligence and Information-Internetworks
+
+Bootcamp sub-team members: [[Notebook Anjana Raju Chamarthi|Anjana Chamarthi]], [[Notebook Bryce Kadyn Jackson|Bryce Jackson]], [[Notebook Jiaxuan Chen|Jiaxuan Chen]]
+
+Sub-team: EZCGP
+
+== Meeting 16: December 2, 2020 ==
+
+=== Meeting Notes: ===
+* Final presentation notes
+** Stocks sub-team
+*** How can EMADE help to create a trading AI?
+*** Inconsistencies in the research paper used as a starting point for creating a trading AI
+**** Data given on bot behavior was inconsistent with the behavior that the bot is supposed to exhibit
+*** Technical Indicator primitives in EMADE
+**** Indicators from paper
+***** Moving averages and variants on them
+***** Relative strength (magnitude of strength)
+**** Custom technical indicators
+***** R%
+****** Similar to Stochastic Oscillator
+****** Also measures overbought vs oversold levels
+****** Scaled differently
+***** On-Balance Volume
+****** Returns OBV value for an opening price, closing price, and trading volume per day
+***** Bollinger Bands
+****** Momentum indicators that help identify when an asset is overbought or oversold
+*** Feature data was run to compare EMADE's performance to the paper's performance
+** NLP NN sub-team
+*** NN Learner
+**** Different layers are primitives within EMADE's Tree Structure
+**** Layer Primitives add Keras Layers
+*** DistilBERT Layer
+**** BERT is a pretrained language model for English
+**** Used as a Primitive
+*** New CV Primitives
+**** Adaptive Mean Thresholding
+**** Adaptive Gaussian Thresholding
+*** Future Work
+**** Multi-Task Learning is a method/concept that is good for multi-label problems
+**** Making BERT layer valid at any position in the tree, not just as InputLayer
+**** More datasets to test
+**** Implement more complex adaptive mutation scheme
+**** Try out Coevolution
+** Modularity sub-team
+*** Recap
+**** Explores ways to abstract parts of individuals
+**** Allows for creating "building blocks" that can help with the genetic process
+***** Reuse blocks of code
+**** Novel solutions not found by traditional GP
+*** Current ARL Implementation
+**** Search population for combinations of parent and child nodes that occur
+*** Current experiments
+**** Differential Fitness
+***** Difference in fitness between an individual between an individual and its most fit parent
+****** Positive means that the child is more fit than the parent
+***** Only search individuals with a positive differential fitness for ARLs
+***** Modify the cdf to favor individuals with a high differential fitness
+**** Alternate Selection Method
+***** Modified tournament selection method so that the probability of getting selected scales linearly with the number of ARLs the individual has
+**** Data Pair Restriction
+***** Only ARLs that return an EmadeDataPair are valid
+***** Filters out most of the less useful ARLs
+***** Favors more Filter and Learner ARLs
+**** Updated Selection
+***** Combination of Alternate Selection and Data Pair Restriction
+***** Goal: Reduce bloat, since useless ARLs theoretically no longer exist
+*** Key Takeaways
+**** Multiple experiments show significance in generations 10-20
+**** ARLs seem beneficial compared to the baseline
+*** Future Work
+**** MNIST Dataset experiments
+**** Measuring diversity over time
+*** Future Questions
+**** Are ARLs limiting the search of EMADE?
+**** Is the dataset too trivial?
+== EZCGP Final Presentation Meeting: November 28, 2020 ==
+
+=== Meeting Notes: ===
+* Discussed details of the final presentation
+** Discussed concepts we explain in the presentation so that everyone understands what they're presenting
+*** Discussed MNIST and why we're interested in it
+**** Experiment on the block genome structure - is it better to split the genome into multiple blocks or have it one block
+** Discussed rearranging and replotting the pareto front graph for each generation the more experienced students ran
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare Slide on MNIST for Final Presentation
+|Completed
+|November 19, 2020
+|December 2, 2020 
+|November 28, 2020
+|-
+|Update and Clean Up VIP Notebook for Final Evaluation (Clean up format, make tasks more granular)
+|Completed
+|November 23, 2020
+|December 2, 2020
+|November 29, 2020
+|-
+|Fill Out Peer Evaluations
+|Completed
+|November 23, 2020
+|December 2, 2020
+|November 29, 2020
+|}
+
+== Final Presentation Slide on Loading MNIST ==
+
+=== Notes: ===
+* Added the steps it took to to load MNIST on my PC in a few bullet points
+** Prepared some notes about things to talk about for loading MNIST
+* Talked with Rodd about why loading MNIST was necessary
+** EZCGP is doing an experiment to determine if splitting the primitives of an individual's genome into multiple blocks helps the genetic algorithm converge to near-perfect objective scores faster
+** MNIST is a good dataset for image classification without neural networks, which we won't be using
+*** We will instead use more conventional classification methods using features that we extract from the images
+* Link to presentation: https://docs.google.com/presentation/d/1cbx_daOsFvMZIgBQvVnmiJBmmm-Lvha61Mfe68Ej7c8/edit?usp=sharing
+
+== Meeting 15: November 23, 2020 ==
+
+=== Meeting Notes: ===
+* Discussed what to do for the final presentation next Wednesday
+** Finish slides by next meeting
+*** Less text, more pictures
+*** Stay within allotted time
+* Discussed notebooks
+** They should be updated before the next meeting
+** Take a look at veterans' notebooks to see how to fill mine out
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare Slide on Loading MNIST for Final Presentation
+|Completed
+|November 19, 2020
+|December 2, 2020 
+|November 28, 2020
+|-
+|Update and Clean Up VIP Notebook for Final Evaluation (Clean up format, make tasks more granular)
+|Completed
+|November 23, 2020
+|December 2, 2020
+|November 29, 2020
+|-
+|Fill Out Peer Evaluations
+|Completed
+|November 23, 2020
+|December 2, 2020
+|November 29, 2020
+|}
+
+== EZCGP Sub-Team Meeting: November 19, 2020 ==
+
+=== Meeting Notes: ===
+* Discussed what results the more experienced members have gotten since the last meeting
+* Discussed what we wanted to document for the final presentation
+** What visuals do we want for our data?
+** What do we want each person to talk about?
+** What can the first-semesters talk about?
+* Went over our midterm presentation and started modifying it to reflect the work the team has done since then
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare Slide on Loading MNIST for Final Presentation
+|Completed
+|November 19, 2020
+|December 2, 2020 
+|November 28, 2020
+|}
+
+== Loading MNIST Dataset ==
+
+=== Notes: ===
+* Downloaded the MNIST compressed files from Y. LeCun's website using the curl command
+** <nowiki>http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz</nowiki>
+** <nowiki>http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz</nowiki>
+** <nowiki>http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz</nowiki>
+** <nowiki>http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz</nowiki>
+* Uncompressed them for reading
+** gunzip *.gz
+* Created a python script called load_mnist.py that loaded the data, put it in numpy arrays, and wrote it back to csv files on the disk
+** Used mlxtend.data.loadlocal_mnist to load the data into numpy arrays for images and labels (X and y)
+** Saved X and y as csv files, images.csv and labels.csv, respectively
+
+== Meeting 14: November 16, 2020 ==
+
+=== Meeting Notes: ===
+* Checked in with Dr. Zutty about our final presentation timeline
+* Talked about how the MNIST dataset loading was going
+** Still in progress, some members having trouble accessing the github repository
+** We should load the dataset as soon as possible and see if Rodd has anything we can help with
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Load MNIST Dataset on PC
+|Completed
+|November 12, 2020
+|End of Semester 
+|November 19, 2020
+|}
+
+== EZCGP Sub-Team Meeting: November 12, 2020 ==
+
+=== Meeting Notes: ===
+* Discussed how much time we have left in the semester and when the final presentation is
+** Discussed making a timeline for getting the final presentation set up
+* Talked about the MNIST dataset, what it is, and how to get it set up
+** Dataset of handwritten digits
+** Added on github, which was has a guide on how to load up the dataset
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Load MNIST Dataset on PC
+|Completed
+|November 12, 2020
+|End of Semester 
+|November 19, 2020
+|}
+
+== Environment for PACE ==
+
+=== Notes: ===
+* Required me to SSH into
+** ssh [mailto:GTusername@pace-ice.pace.gatech.edu GTusername@pace-ice.pace.gatech.edu]
+* Needed to set up SSH keys on my Github account
+* Cloned EZCGP repo onto remote machine
+* Installed Anaconda, making sure to put my .conda directory in the data directory, since there's a more generous storage limit, while symlinking the .conda directory at my user directory to the one in data
+* Set up my conda environment for EZCGP with all necessary packages and versions
+
+== Meeting 13: November 9, 2020 ==
+
+=== Meeting Notes: ===
+* Checked in with Dr. Zutty and discussed with him and Mr. Rodd about how to approach giving tasks to first semester students
+** Dr. Zutty and Mr. Rodd revealed they had been talking about how to integrate EZCGP with Emade
+* Discussed how to set up PACE for first semester students
+** Sent some documentation in our slack channel got a brief overview of it
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set Up Environment for PACE (Henry left instructions on Slack)
+|Completed
+|November 9, 2020
+|November 12, 2020 
+|November 12, 2020
+|}
+
+== EZCGP Sub-Team Meeting: November 5, 2020 ==
+
+=== Meeting Notes: ===
+* Checked in with other team members on how they were doing with their tasks
+* Discussed how comfortable first semester students felt with the material so far
+** Discussed what exactly the first semester students did during the bootcamp and how familiar we are with emade
+* Discussed with all students how to approach integrating EZCGP with Emade
+** Considered asking Dr. Zutty to join our sub-team meeting next Monday to talk about it 
+
+== Meeting 12: November 2, 2020 ==
+
+=== Meeting Notes: ===
+* Checked in with other subteams and moved to subteam meeting
+* EZCGP: Subteam meeting
+** First Semester Lecture: Introduction to Neural Networks
+*** Data set for binary classification: 2D array, rows are observations, columns are features, last column is binary classification (0 or 1)
+*** X: 500 * 10 matrix, 500 observations of 10 features each
+*** y: 500 * 1 vector of 0's or 1's
+*** Solve for AX + B = y (+ error)
+**** Linear regression
+*** Neural networks are similar to linear transformations - they map observations in the original dataset to a different space, that of the classification
+**** NN - A set of Linear Transformations + non-linear functions
+**** Layers - Each layer is a linear transformation and a non-linear function
+
+== First Semester Students in EZCGP Meeting: October 31, 2020 ==
+
+=== Lecture Notes: ===
+* EZCGP is related to using directed acyclic graphs as individuals in Emade instead of traditional trees
+** The CGP in EZCGP stands for "Cartesian Genetic Programming," with the "Cartesian" part of it referring to using DAG's instead of trees in GP
+** Each input, whether a variable or a constant, is stored a single time in the DAG and has an edge leading to whatever primitive operations (nodes) it is used in
+*** This makes storage a little more efficient, since the traditional tree approach needed a new leaf with an input in it whenever it is used
+** Some nodes are "active" and others are "inactive"
+*** Active nodes are primitive operations used in the process of finding the output
+*** Inactive nodes are not used in finding the output, but might be used in the future after a mutation
+** No mating, since this has historically been more destructive than constructive
+** 4 Mutant offspring from 1 parent
+*** Mutate active nodes
+* In a scientific paper, Brian Goldman shows how to represent a DAG as a list of dictionaries
+** A given node is a dictionary with "inputs," "args," and "function"
+*** Inputs: List of indices as inputs that feed into this node
+*** Args: List of indices of arguments to use as hyperparameters
+*** Function: String representation of the primitive to be applied in this node
+* Divide nodes into data preprocessing primitives and data classification primitives, treating all nodes of either type as a separate part of the overall genome
+
+== Meeting 11: October 26, 2020 ==
+
+=== Meeting Notes: ===
+* Brief general meeting to check in with subteams, followed by breaking up into subteam meetings
+** As a first semester student, was assigned to the ezcgp subteam
+* EZCGP Subteam meeting
+** Checked in with the progress of more experienced team members
+** Discussed the GitHub repositories for ezcgp and how to get our environments set up for the work we'll start soon
+*** Two repositories: one public, one private
+** Set meeting date to discuss the fundamentals of ezcgp
+*** Saturday, October 31 at 10 AM
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone EZCGP repositories and get environment set up
+|Completed
+|October 26, 2020
+|October 31, 2020 
+|October 30, 2020
+|}
+
+== Meeting 10: October 19, 2020 ==
+
+=== Lecture Notes: ===
+* Gave presentation on emade project
+** [https://docs.google.com/presentation/d/1vT8q7KpkgHUw45GXzUMbwfO2CtB41tzK2jg7-XIysmg/edit?usp=sharing Presentation Link]
+** Feedback: see the Titanic Emade Project section below for feedback
+
+*Presentation notes
+** Market Analysis and Portfolio Optimization (Stocks team)
+*** Overview
+**** Objectives
+***** How can EMADE optimize the formulation of trading algorithms?
+***** How can we use EMADE for regression on time series data?
+**** Methods
+***** Find existing research for GP in market analysis
+***** Learn about technical indicators and how they can be used in modeling
+***** Use EMADE to optimize existing trading algorithms cited in published papers
+**** Additional objectives
+***** Build EMADE's regression capabilities
+***** Experiment with Google Colab and cloud-based services for performance
+***** Expand use of neural networks in EMADE
+*** Objectives for the semester
+**** Create a CEFLANN architecture based off of a paper
+*** First Steps
+**** Regression or classification? - regression
+**** What stock tickers?
+**** Which technical indicators? - On-balance volume (OBV), etc.
+*** Literature review
+**** A hybrid stock trading framework integrating technical analysis with machine learning techniques
+***** Uses a Computational Efficient Function-Link Artificial Neural Network (CEFLANN)
+***** Classification problem with buy, hold, sell, signals derived from market being up, down, or neutral
+*** CEFLANN architecture
+**** Some papers report up to 100 times faster than simulation speed of a MLP
+**** Paired with an ELM (Extreme Learning Machine) to train to CEFLANN model
+***** Significantly faster than backpropagating
+**** Baseline paper claims that it outperformed other common classifiers that used particular technical indicators
+*** Implementation
+**** Data processing
+***** Step 1: Run vanilla EMADE on preprocessed data
+***** For best comparison with paper, run EMADE on SPY price and TI data from 1/4/2010 to 12/31/2014
+***** Supervised regression problem
+**** Regression primitives
+***** EMADE for regression modeling
+***** Add following regression learners, in addition to initial 6
+****** MLP, Gaussian Process, Ridge Regression
+***** ModifyLearner functions were not implemented for Regression Learners, so added functionality for learner modification during evolution
+***** Only one EnsembleType allows individuals to compile during runs, so limited options so that EMADE  could only choose 'SINGLE'
+*** Results
+**** Ran for 85 generations
+**** Seeded with vanilla sklearn regression models
+**** Predict next day's trading signal using technical indicators as features
+**** Stats
+***** Pareto front AUC = 0.27714
+***** Best individual: Average MSE of 0.199
+***** Best EMADE Individual Prediction is 2.3% profit
+*** Future work
+**** Creating CEFLANN architecture with out chosen Technical Indicators
+**** Implementing Keras in EMADE, as well as more machine learning regression models as primitives
+**** Look into other time windows besides day-to-day
+**** Explore other preprocessing/labeling ideas besides predicting trading score
+** Bootcamp group 3, EMADE with titanic survivors
+*** Machine learning algorithms
+**** MLP NN, Logistic Regression, Random Forest, SVM, Decision Tree, KNN
+**** K-fold validation did not significantly improve accuracy
+*** EMADE
+**** Google cloud MySQL
+**** 3 Runs, 30 generations, 5821 individuals
+**** EMADE spent a little more time on null individuals than non-null individuals
+*** GP had lowest AUC
+*** EMADE balanced objectives better than GP
+*** Highest variance for GP
+** Modularity in EMADE
+*** Overview
+**** Explore ways to abstract parts of individuals
+**** This allows us to reuse blocks of code that helps with the genetic process
+**** May lead to novel solutions not found by traditional GP
+*** Literature
+**** Koza (ADF: Automatically Defined Functions)
+**** Angeline (AR: Adaptive Representation)
+**** Rosca (ARL: Adaptive Representation Through Learning)
+*** ARL
+**** Way to introduce modularity and reusability in EMADE
+**** Function that is dynamically evolved and can be called by other functions
+***** One a good section of a tree is found, use it to make primitives
+**** Use a set of nodes/operations of constants/arguments as a "black box" to be reused in other primitives
+**** Might improve a population's overall fitness
+**** Should allow a population to converge faster
+**** Within EMADE we expect data manipulating primitives to be the most useful
+**** Frequency
+***** The more a subtree is used, the more likely we'll use it again
+**** Fitness
+***** The more fit individuals that have it, the more likely we should use it 
+*** Previous Semester
+**** Differential Fitness
+***** Factor in individuals' improvement over parents' fitness when selecting ARL's
+**** Selection method
+***** Minor change in selection to bias towards more ARL's
+*** Current experiments
+**** Argument refactor
+***** Previous architecture didn't allow for certain arguments to be included in ARL's
+***** Has now been refactored to allow for previous cases
+****** New useful ARL's, like filters or learners
+**** Data pair limitation
+***** Previous implementation allowed any tree of height 2 to act as an ARL
+****** Allowed bad ARL's
+***** Implemented a check so that only subtrees that return an EMADEDataPair Object are allowed
+**** Alternate Selection Method
+***** Runs with a new selection and argument fix
+***** Directly increases probability of getting ARL's by increasing probability of getting selected linearly with number of ARL's
+**** Future work
+***** MNIST Dataset
+****** Dataset of 70000 of handwritten digits
+****** Want to see how ARL's perform on a non-trivial dataset
+****** Leverage signal/spatial primitives
+***** New heuristics for selecting ARL's in individuals
+****** Differential fitness, more intelligent ARL's
+****** More comparisons between ancestors and children
+** Bootcamp group 2
+*** ML and GP
+**** Preprocessed data similar to our group
+**** Changed selTournament to NSGAII, which produced a healthier distribution
+**** Ran 2 runs, one normal with 3 generations, one headless chicken with 20 generations
+**** EMADE had a slightly higher area under the curve than ML or GP
+** ezCGP team
+*** Graph-based structure instead of Tree (DAG of primitives)
+*** Fixed genome length
+*** Custom primitives and data types
+*** Added deep learning (keras) primitives essential for CIFAR-10
+**** Gaussian noise
+**** Various types of pooling layers
+**** Convolutions
+*** Setup evaluation for keras (deep learning) block
+**** Build graph
+**** Train graph
+**** Validate results
+** Bootcamp group 4
+*** ML
+**** Classifiers
+***** Random forest
+***** Neural network
+***** KNN
+***** Logistic Regression
+**** AUC = 0.256
+*** GP
+**** Primitives: +, -, >, <, =
+**** Select: NSGA2
+*** EMADE
+**** Generations: 28
+**** Database individuals: 6066
+**** Individuals evaluated: 5661
+**** At Generation 28:
+***** 735 individuals in gene pool
+***** 512 individuals in elite pool
+***** 301 individuals evaluated
+**** AUC = 0.028
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Send Dr. Zutty an Email with Preferences for Subteams to Join
+|Completed
+|October 19, 2020
+|October 26, 2020 
+|October 26, 2020
+|}
+
+== Titanic Emade Project ==
+* The final project for our bootcamp was to run Emade on the titanic dataset and compare the results to the results from the ML and Genetic Programming projects
+* We first had to set up the Emade repository and environments before running it
+** Installed MySQL and created accounts for my subteam members
+** Had some issues installing necessary packages for the environment, eventually resolved in bootcamp meeting with help from Dr. Zutty
+*** The issue was related to the version of DEAP; rolling it back to 1.2.2 fixed the issue
+** Helped group members install the necessary packages to set up their environment correctly
+* Ran Emade several times after fixing various environment issues, finally finishing multiple runs reusing the same data from before, ending up with 17 generations
+** Used the data in the MySQL database to get important data from the runs
+*** Queries
+**** select tree, `FullDataSet False Positives`, `FullDataSet False Negatives` from individuals where `FullDataSet False Negatives` is not null and `FullDataSet False Positives` is not null INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/valid_individuals.csv'  FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';
+**** select count(generation) from titanic.history group by generation INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/gen_counts.csv'  FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';
+**** Select paretofront.id, individuals.`FullDataSet False Positives`, individuals.`FullDataSet False Negatives` from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(paretofront.generation)) INTO OUTFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/max_gen_pareto_fitnesses.csv'  FIELDS TERMINATED BY ','  LINES TERMINATED BY '\n';
+*** General Data
+**** 311 valid individuals
+**** 235 individuals on pareto front
+***** Best accuracy was 96.5%
+***** Average accuracy was 95.2%
+*** Pareto Front
+**** The pareto front contained some individuals that were dominated, which confused us
+**** The AUC was 0.0052, which was much better than either GP or ML
+** Graphs
+{| class="wikitable"
+!'''Accuracies of Pareto Front'''
+!Fitness of Individuals
+!Valid Individuals Per Generation
+!Fitness of Pareto Front - AUC = 0.0052
+|-
+|[[files/Accuracy histogram.png|center|frameless]]
+|[[files/All Valid Individuals.png|center|frameless]]
+|[[files/Valid individuals per generation.png|center|frameless]]
+|[[files/Max gen pareto front.png|center|frameless]]
+|}
+* Conclusions
+** Emade produced better results, going by the AUC of the Pareto Front, than GP or ML
+*** GP's best accuracy: 81%
+*** ML's best accuracy: 80%
+*** Emade's best accuracy: 96.5%
+* Feedback
+** The Pareto Front for Emade contained dominated individuals because we plotted the pareto front on only two of the objectives, not all 3; we forgot about the size of the tree
+*** This explains the dominated individuals because these dominated individuals might have more false positives and false negatives, but they could have a smaller tree size
+** The number of our valid individuals per generation and in total is extremely suspicious, because there should be only 300 individuals in total per generation, so there should be much less than 300 per generation because most of the trees will be invalid
+*** This might have to do with running Emade incorrectly or something similar, since Dr. Zutty commented our queries to retrieve this data looked correct
+** The accuracy of our pareto front is also very suspicious, since 96.5% is much too high for a run of Emade
+*** It should be in the 80% range 
+*** This may be caused by incorrectly calculating accuracy from the false positives and false positives given in the database
+
+== Meeting 7: September 30, 2020 ==
+
+=== Lecture Notes: ===
+* What is EMADE?
+** Evolutionary Multi-Objective Algorithm Design Engine
+** It combines multi-objective evolutionary search with high-level primitives (sklearn ml algorithms) to automate algorithm design
+** Github: https://github.gatech.edu/emade
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Environment Set Up with Correct Packages and Software for Running Emade
+|Completed
+|September 30, 2020
+|October 19, 2020 
+|October 16, 2020
+|-
+|Run Emade, Get Results, and Finish Presentation
+|Completed
+|September 30, 2020
+|October 19, 2020
+|October 18, 2020
+|}
+
+== Meeting 6: September 23, 2020 ==
+
+=== Lecture Notes: ===
+* Titanic Genetic Programming Project presentations during lecture today
+* Presentation: https://docs.google.com/presentation/d/1lT6RHDLZP6HDdxIHngKpiAOgPdE-qQiYLooMz4fsweM/edit?usp=sharing
+** Feedback on presentation: It would be better to one-hot encode the "Embarked" attribute, since changing an attribute with only 3 values to 0, 1, and 2, implies that the one marked as 1 is closer to the one marked as 0 than the one marked as 2, which is not necessarily true of a qualitative attribute
+** Tournament selection uses only the first fitness attribute when selecting the next generation of offspring, so results were biased towards minimizing false positives rather than false negatives
+
+== Titanic Genetic Programming Project ==
+All of the code and explanation is in the Jupyter notebook for genetic programming located at this repository: https://github.gatech.edu/amcquilkin3/subteam-1-titanic-ml
+
+Still, I'll write a summary of my individual work for the purposes of my VIP Notebook:
+* Defined what our fitness objectives and individuals would be
+** Individual: A function using specified primitives, represented by a tree, that classifies whether or not a person will survive based on the data given
+*** Initialized each individual with gp.genHalfAndHalf, with minimum depth of 1 and a maximum of 3
+** Fitness objectives: False positives and false negatives, as classified by each individual
+*** Defined the function evalSymbReg(), which evaluates an individual by executing its function on the training data, saying a passenger survives if the output is positive, with the passenger dying otherwise
+* Defined the primitive set as the following operations: 
+** Addition
+** Subtraction
+** Multiplication
+** Negation
+** Maximization
+** Minimization
+* Read the pre-processed data from csv files (it was pre-processed and written to a file already in the last project)
+** This data is used in the evaluation function when each individual must predict the survival of each passenger
+* Started the main part of the evolutionary algorithm with the following parameters:
+** 75 generations
+** Initial population of 200
+** Crossover probability: 35%
+** Crossover probability if in the hall of fame: 70%
+** Mutation probability: 20%
+* After the evolutionary algorithm, there were 32 codominant individuals in the pareto front - note that individuals were considered equal in the pareto front if they predicted exactly the same values for the training set, which is why there aren't more in the pareto front
+* Best individual for the training set: subtract(subtract(maximum(maximum(Embarked, subtract(minimum(subtract(add(maximum(maximum(Embarked, subtract(minimum(subtract(maximum(multiply(Parch, Age), add(Fare, Age)), multiply(Parch, SibSp)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(maximum(maximum(Embarked, subtract(minimum(subtract(add(Fare, Age), multiply(Fare, Parch)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(Embarked, Embarked), maximum(negative(Parch), maximum(multiply(multiply(Age, Pclass), negative(Embarked)), Parch))), Age))), Parch), Embarked), maximum(add(Embarked, Embarked), maximum(subtract(maximum(Embarked, Parch), minimum(multiply(minimum(Embarked, Age), Age), Embarked)), minimum(add(Embarked, Age), maximum(Fare, Fare))))), minimum(minimum(Age, Age), Embarked)))), Parch), Age), multiply(Fare, Parch)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(Embarked, Embarked), maximum(negative(Parch), maximum(multiply(multiply(Age, Pclass), negative(add(Embarked, Embarked))), Parch))), minimum(minimum(Age, multiply(subtract(Pclass, Parch), Age)), Embarked)))), Parch), minimum(Age, Embarked)), Age) with fitness: (0.0, 191.0)
+* Best individual on the test set: subtract(subtract(maximum(Embarked, subtract(Age, minimum(multiply(Age, Parch), Embarked))), minimum(minimum(Age, multiply(add(Embarked, Sex), negative(minimum(Age, Sex)))), Embarked)), Age)
+** Accuracy: 0.8171641791044776
+** Fitness: (162, 1)
+{| class="wikitable"
+!Pareto Frontier: AUC = 0.2103
+|-
+|[[files/Pareto front draft 6.png|center|frameless]]
+|}
+
+== Meeting 5: September 16, 2020 ==
+
+=== Lecture Notes ===
+* Next assignment is to redo the Titanic ML project, with Genetic Programming this time
+** Individuals will be models that can predict survival given a data set of passengers
+** Fitness will be measured in multiple objectives, false negatives and false positives
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Titanic Project with Genetic Programming
+|Completed
+|September 16, 2020
+|September 23, 2020 
+|September 19, 2020
+|}
+
+== Titanic ML Project ==
+All of the code and explanation is in the Jupyter notebook for machine learning located at this repository: https://github.gatech.edu/amcquilkin3/subteam-1-titanic-ml
+
+Still, I'll write a summary of my individual work for the purposes of my VIP Notebook:
+* Started out by reading train.csv and test.csv with '''pandas'''
+* Set the index of the data frame to the passenger id, since it already can be used as a unique identifier for any given passenger
+* Looked over features and determined that Ticket no. and Name were not at all related to a passenger's survival of the shipwreck, so those features were dropped
+* Determined what features in which data sets (training/testing) had missing entries and how many there were
+** Training data: 
+*** List of columns with at least 1 missing entry: ['Age', 'Cabin', 'Embarked']
+**** No. of missing entries in Age: 177 out of 891
+**** No. of missing entries in Cabin: 687 out of 891
+**** No. of missing entries in Embarked: 2 out of 891
+** Testing data
+*** List of columns with at least 1 missing entry: ['Age', 'Fare', 'Cabin']
+**** No. of missing entries in Age: 86 out of 418
+**** No. of missing entries in Fare: 1 out of 418
+**** No. of missing entries in Cabin: 327 out of 418
+* Since most of the entries from Cabin are missing, it's best to drop this feature as well
+* The missing entries from Age and Fare can be replaced with their mean, and the missing ones from Embarked can be replaced with its mode
+** Afterwards, we shouldn't have any missing entries
+* Now we need to convert non-numerical features to numerical features
+** Embarked: Cherbourg becomes 0, Queenstown becomes 1, and Southampton becomes 2
+** Sex: Male becomes 0 and Female becomes 1
+* Binary classification algorithms used:
+** Multilayer perceptron score:  0.8022388059701493 
+{| class="wikitable"
+!My Confusion Matrix for Multilayer perceptron
+!My Group's Pareto Front
+|-
+|[[files/Confusion matrix mlp.png|left|frameless]]
+|[[files/Pareto Front Subteam 1 draft 2.png|left|frameless]]
+|}
+
+== VIP Notebook Self-Evaluation ==
+Total Score: 90/100
+
+[https://vip.gatech.edu/wiki/images/0/0c/VIP_Notebook_Self_Evaluation.pdf Self Evaluation PDF]
+
+== Meeting 4: September 9, 2020 ==
+
+=== Lecture Notes ===
+* Intro to Machine Learning
+** Assignment for this week is a team project that includes training a model to classify passengers on the titanic by whether or not they will survive the shipwreck
+** Talked about various machine learning and data manipulation packages, such as sklearn, numpy, and pandas
+** Sub-team members:
+*** Anjana Chamarthi
+*** Jiaxuan Chen
+*** Bryce Jackson
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reach out to group members and make a group chat
+|Completed
+|September 9, 2020
+|September 16, 2020
+|September 9, 2020
+|-
+|Fill out VIP Notebook Self-evaluation
+|Completed
+|September 9, 2020
+|September 16, 2020
+|September 15, 2020
+|-
+|Complete Titanic Intro to ML Project
+|Completed
+|September 9, 2020
+|September 16, 2020 
+|September 15, 2020
+|}
+
+== Meeting 3: September 2, 2020 ==
+
+=== Lecture notes ===
+* Multi-objective genetic programming - what do we do when we want to optimize a vector of objectives that may conflict with each other?
+** Classification measures
+*** Data set consists of positive and negative samples (people either have Covid or not)
+*** We run this data set through a classifier, which predicts an individual is either positive or negative, creating a confusion matrix, consisting of:
+**** True positive - Predicted positive and actually positive
+**** False positive - Predicted positive and actually negative (Type 1 error)
+**** True negative - Predicted negative and actually negative
+**** False negative - Predicted negative and actually positive (Type 2 error)
+** Maximization measures
+*** Sensitivity or True Positive Rate (TPR)
+**** Also known as hit rate or recall
+**** True positives / (True positives + False positives)
+*** Specificity or True Negative Rate (TNR)
+**** True negatives / (True negatives + False negatives)
+** Minimization measures
+*** False Negative Rate (FNR)
+**** False negatives / (True positives + False negatives)
+**** Equal to 1 - TPR
+*** False Positive Rate (FPR)
+**** False Positives / (False positives + True negatives)
+**** Equal to 1 - TNR
+** Other measures
+*** Precision or Positive Predictive Value (PPV)
+**** True positives / (True positives + False positives)
+**** Bigger is better
+*** False Discovery Rate (FDR)
+**** False positives / (True poisitives + false positives)
+*** Negative Predictive Value (NPV)
+**** True negatives / (True negatives + false negatives)
+**** Bigger is better
+*** Accuracy (ACC)
+**** (True positives + True negatives) / (True negatives + False negatives + True positives + False positives)
+* Objective space
+** Each individual is evaluated using objective functions
+** Objective scores give each individual a point in objective space, using the scores as values on axes
+*** This can referred to as the phenotype of the individual
+** This can work in more than 2 or 3 dimensions, up to N
+* Pareto optimization
+** An individual is Pareto optimal if there is no other individual in the population that out performs the individual on all objectives
+** The set of all Pareto individuals is the Pareto frontier
+*** All individuals in the Pareto frontier represent unique contributions in their various trade-offs, etc.
+** We want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+* Non-dominated Sorting Genetic Algorithm II (NSGA II)
+** Population is separated into don-domination ranks (frontiers)
+** Individuals are selected using a binary tournament
+*** Lower Pareto ranks beat higher ones
+*** Ties on the same front are broken by crowding distance
+**** Summation of normalized Euclidean distances to all points within the front
+**** Higher crowding distance wins - reward higher distance because it contributes more, not many other individuals cover the area they do
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** Each individual is given a strength S
+*** S is how many others in the population it dominates
+** Each individual gets a rank R
+*** R is the sum of S's of the individuals that dominate it
+*** Pareto individuals are not dominated, so they receive an R of 0
+** A distance r to the kth nearest neighbor is calculated and a fitness of (R + 1)/(r + 2)
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 2 - Multi-objective optimization
+|Completed
+|August 26, 2020
+|September 2, 2020
+|September 2, 2020
+|}
+
+== Lab 2: Genetic Programming and Multi-Objective Optimization ==
+
+=== Part 1: Symbolic Regression ===
+* After initializing the individual and objective (that is, obtaining minimum error), I learned how to initialize the pset (primitive set)
+** The 2 primitives I added were initially np.power and np.math.factorial, but I ran into some problems with invalid exponents and taking the factorial of non-positive integers, so I switched them to np.square and np.absolute, which didn't cause any errors
+* Afterwards, we initialized the individual and population in the toolbox, similar to lab 1, but this time, we also initialized the "expr" and "compile" functions using some functions from gp
+** The "expr" function generates an individual tree based on a minimum and maximum depth (in this case, min=1 and max=2) and the primitive set we defined earlier
+** The "compile" function compiles an individual tree into a function, so its output can be directly compared with the objective function
+* Now we defined the evaluation function, which is used to evaluate an individual's performance compared to the objective function
+** In this case, it is the mean squared error between the compiled individual and objective function over a variety of points, which we are trying to minimize
+* Next, we defined the genetic operators in the toolbox, such as evaluate, mate, mutate, etc.
+** The evaluate operator was simply the function we defined above, over 1000 points between -1 and 1
+** The select operator was tournament selection, with an initial size of 3
+** The mate operator was one point crossover
+** The mutate operator already defined was a uniform mutation, which randomly replaced a subtree in an individual with another generated subtree
+** My custom mutate operator was an insertion mutation, which inserted a new generated branch randomly into an individual
+* Afterwards, the main process was almost identical to that of Lab 1, including breeding, evaluating, and selecting individuals across several generations to produced fit individuals
+** Initial results: Running the algorithm on the initial parameters yielded an individual with an evaluation of 7.602982495923859e-17, which actually identified (a mathematical equivalent of) the ground truth function
+** Best results: Running on the algorithm on changed parameters (tournament size increased to 6, nothing else changed) yielded an individual with an evaluation of 8.620776339403237e-17 and identified another mathematical equivalent of the ground truth function
+*** I changed many of the other parameters, including the max depth for both expr and expr_mut, but only found that increasing them only caused the evaluation to converge slower and with more variation
+{| class="wikitable"
+!Initial results
+!Best results
+|-
+|[[files/Screenshot (41).png|left|thumb]]
+|[[files/Screenshot (42).png|thumb]]
+|}
+
+=== Part 2: Multi-Objective Genetic Programming ===
+* For part 2, we are doing almost the same thing as part 1, except we are now minimizing the size of the tree in addition to the mean squared error
+* Similar to part 1, we initialize our toolbox functions and our primitive set, this time making sure to set a seed for randomization so that results can be reproduced
+** However, for our evaluation function, we must return a tuple of the mean squared error and the size of the individual, in order to better evaluate for our 2 objectives
+* Now we can plot our objective space
+** We defined a function to determine if an individual dominates another individual, meaning individual 1 has better fitness in both objectives, which is necessary since we have to use both to find the fittest individual
+*** We can use this to plot out the objective space
+** Initialize a random population, and select any given individual to compare the rest to
+** Now, we can use the pareto dominance function to sort the population into 3 groups:
+*** Dominators - the individuals who dominate the selected individual
+*** Dominated - the individuals who are dominated by the selected individual
+*** Others - the individuals who neither dominate nor are dominated
+** Afterwards, we can plot each of these groups on the same axes (the two objective evaluations) and label them according to their group
+*** The blue dot represents the individual selected (the one we compare the rest to)
+*** The black dots are incomparable 
+*** The red dots dominate the individual selected
+*** The green dots are dominated by the individual selected
+** Therefore, we are looking for individuals in the red group, closer to the origin, since we want to minimize both objectives
+*** By implementing a genetic algorithm that selects based on this principle, we can improve the fitness of our population in both objectives over several generations
+*** The "frontier" of best individuals closest to the origin whose fitness values neither dominate each other nor are dominated are known as the "pareto front"
+*** The area under the curve of this "frontier" represents how well we have optimized our population's fitness for our objective space - the lower, the better
+{| class="wikitable"
+!Objective space using pareto
+!Fitness values in both objectives over generations
+!Pareto front of the best individuals
+|-
+![[files/Objective space alex mcquilkin.png|none|thumb]]
+![[files/Fitness over several generations.png|none|thumb]]
+![[files/Pareto front with auc.png|thumb]]
+|}
+* Afterwards, I was supposed to design my own implementation of the genetic programming problem that reduced the area under the curve by 25%, to around 1.79
+** I changed the tournament selection size to 6 instead of 3, which seemed to help in previous parts, but I'm not sure if it did in this case
+** I changed the max depth of the initial population to 15 instead of 2, and instead of uniformly mutating trees, I mutated them by shrinking them, with gp.mutShrink, which shrunk the size of the trees over many generations
+[[files/Paretofront_custom.png|frameless]] 
+=== Part 3: Strongly Typed Genetic Programming ===
+* First, we defined a strongly typed primitive set, which consisted of strongly typed primitives and terminals
+** Strongly typed primitives were primitive operators that operate on specific data types or any combination of recognized data types
+*** Example: XOR operates on two booleans and returns a boolean
+*** Example: Multiply operates on two floats and returns a float
+** Terminals are predefined constants of any recognized type
+** Because we are working with multiple types of terminals and primitives, we must be careful with they interact in mutations and crossovers, since having a primitive take invalid types as input will lead to errors
+* Ephemeral constants are terminals defined by a function instead of being predefined
+* Bloating trees - when individual trees get larger over several generations from mating and mutating
+** To prevent this, we can use the toolbox to set a static limit on height for mutation and mating
+** We can also incorporate tree size as a fitness objective, favoring smaller trees as more fit, like we did in part 2
+
+== Meeting 2: August 26, 2020 ==
+
+=== Lecture notes ===
+* Genetic programming
+** Main difference: individual is not a vector of attributes to be evaluated, but is the function itself
+** Individual takes in an input, performs its function on them, and outputs data
+* Tree representations
+** Nodes are called primitives and represent functions
+** Leaves are called terminals and represent parameters
+*** Input is a particular type of terminal
+*** Output is produced at the root of the tree
+** Storage of tree
+*** Converted to lisp pre-ordered parse tree, which will end up being operator followed by inputs
+* Crossover in genetic programming
+** Crossover in tree-based genetic programming is simply exchanging sub-trees
+** Randomly pick a point in each tree, which will become our sub-tree
+** Exchange the two sub-trees between the parents, resulting in 2 new offspring
+* Mutation in genetic programming
+** Inserting/deleting a node or sub-tree
+** Changing a node or sub-tree
+* Example: Symbolic regression
+** Use simple primitives and genetic programming to evolve a solution to y=sin(x)
+** Primitives: +, -, *, /
+** Terminals include integers and x, the input variable
+** Use the finite taylor series for sin(x) for some order k
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 1 - Symbolic Regression
+|Completed
+|August 26, 2020
+|September 2, 2020
+|September 2, 2020
+|}
+
+== Lab 1 - Genetic Algorithms with DEAP ==
+
+=== Part 1: One Max Problem ===
+* Learned about and imported base, creator, and tools, the 3 modules needed for implementing genetic algorithms with DEAP, and the setup for the main algorithm
+** The creator module is used for defining the fitness objective and individual classes
+*** Individual: Vector (list in python) of bits
+*** Fitness objective: Sum of bits in vector
+** The base module is used for DEAP's toolbox, which we will need for registering various functions and classes in the context of our genetic algorithm, such as individuals or the mating process
+** The tools module is used for many useful functions it contains, such as 2 point crossover, mutation of a vector by flipping bits, and selection tournament 
+* Learned about the main process of the genetic algorithm, in which populations are evaluation, selected, and bred over several generations to produce the fittest individuals
+** An population is initialized using the toolbox's population function defined earlier, randomly, and then is evaluated for fitness
+** Afterwards, the following process is repeated for a set number of generations:
+*** The individuals who will eventually become the next generation (the offspring) are selected from the previous population using the toolbox's selection function defined earlier
+*** Among these individuals, some are mated and some are mutated, depending on predefined probabilities (in this case, 20% for mutation and 50% for mating)
+*** Afterwards, individuals who have been mutated or mated will now have invalid fitness values and must be re-evaluated
+*** After re-evaluation, the offspring can take their place as the new population
+*** Statistics about this generation can be collected and printed out before the process is repeated
+
+=== Part 2: N Queens Problem ===
+* Setup for the genetic algorithm
+** Individual: Vector (list in python) of integers in [0, n) where n is the number of queens and width of the chess board
+*** i'th element of vector represents what number column the queen will be on in the i'th row
+** Fitness: Number of conflicts, that is, queens on the same diagonal
+** Crossover (mating) functions:
+*** Partial crossover - swapping queen positions between two rows rather than across half the chessboard
+*** 2 point crossover - same as defined in notes
+** Mutation functions:
+*** Shuffle indices - Given an independent probability of each queen in each row moving to a different row, swap queens randomly throughout the rows based on the probability
+*** Permute indices (custom mutation function) - Given an independent probability of each queen in each row moving to a different row, randomly permute the queens who will be moving rows and swap them among their previous spots
+* Main process of the genetic algorithm
+** Process was the same as that of the One Max problem, barring the changes of the mating and mutation functions
+*** Mutation probability: 20%
+*** Mating probability: 50%
+* Optimization of the genetic algorithm
+** The algorithm, even after 100 generations, does not consistently achieve the global minimum of 0 conflicts
+*** After running it few times, it was clear that it only got down to 1 conflict some of the time (maybe around half?)
+*** It also achieved the elbow of the downward curve for average and minimum conflicts at around 20-30 generations
+** Parameters tuned to achieve better consistency for the global minimum and faster achievement of this minimum
+*** Probability of mating
+**** I tried increasing this probability to 60% or 70%, but it only made the algorithm take 10-20 generations longer to hit the bend in the curves mentioned before
+**** 30% seemed to do better than 60% or 70%, but still worse than 50%
+**** 40% and 45% seemed to do slightly better than 50%, but barely so, if at all, letting the curve hit the stable bend at around 20-25 generations most of the time
+*** Probability of mutation
+**** I tried increasing this above 20%, but it seemed to reduce the stability of the curve, which is not what I wanted
+**** I tried lowering it to 10%, but this seemed to prevent it from reaching the global minimum sometimes
+**** Ultimately, I decided to keep it at 20%
+*** Mating function
+**** I tried switching from the partial crossover function to 2 point crossover, which seemed to perform much better in terms of consistency in reaching the global minimum
+***** After running it several times, it seemed using 2 point crossover nearly always found the global minimum of 0 conflicts
+*** Mutation function
+**** I tried using my custom permute indices function instead of the shuffle indices function, but it performed much worse, increasing the amount of generations by about 10-20 to get the curve to its bend
+**** Ultimately, I decided to keep using the shuffle indices function for mutation
+*** Selection function
+**** I kept using the tournament method of selecting offspring for the next generation, but I found that increasing the tournament size from 3 dramatically reduced the number of generations for the curve to reach stability
+***** Increasing it from 3 to 6 allowed the curve to hit its elbow between 10 and 20 generations
+***** Further increasing it to 8, 12, 16, or even 24 didn't seem to reduce it further, and even made the curve hit its elbow solidly around 15-25 instead, worsening performance
+***** I'd assume the optimal tournament size to be 6-10 based on this
+** Best performance
+*** Mating probability: 40%
+*** Mutation probability: 20%
+*** Mating function: 2 point crossover
+*** Mutation function: Shuffle indices
+*** Selection function: Tournament, size 6
+[[files/Best performance.png|frameless|792x792px]]
+
+== Meeting 1: August 19, 2020 ==
+
+=== Lecture Notes ===
+* Genetic Algorithms - evolutionary algorithms to create the fittest individual
+** Each generation is created through mating/mutation of individuals in the previous population
+** Fitness of individuals is evaluated
+** Through numerous generations, best fit individuals will be produced eventually
+* Key terms
+** Individual - a specific singular candidate in population
+** Population - group of individuals whose properties are altered
+** Objective - value of individuals which you want to optimize through an evolutionary algorithm
+** Fitness - relative objective score compared to rest of population
+** Selection - selecting parents from the population, giving preference to more fit individuals
+*** Fitness Proportionate - the more fit, the higher the probability of selection
+*** Tournament - tournament of fitness in which winners get to mate
+** Mate/Crossover: Mating between individuals
+*** Single point - take genes of both individuals, separated by a single point
+*** Double point - same as single point, but alternating individuals' genes between 2 points
+** Mutate
+*** Random occasional modifications for diversity
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 19, 2020
+|-
+|Set Up Jupyter Notebooks
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 25, 2020
+|-
+|Lab 1 - DEAP
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 25, 2020
+|}
+__FORCETOC__

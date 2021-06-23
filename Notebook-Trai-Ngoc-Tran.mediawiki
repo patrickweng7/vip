@@ -1,0 +1,631 @@
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Due Date
+!Description
+|-
+|Exploring ezCGP SymbolicRegression branch
+|Done
+|Week 1 August 19 - 23, 2019
+|Talking with the team to gain understanding of the project overall.
+|-
+|Deep Dive into ezCGP main branch code base
+|Done
+|Week 2 August 26 - 30, 2019
+|Understanding what each object / file does in relation to others.
+|-
+|Code refactoring and parallelizing research
+|Done
+|Week 3 September 01 - 07, 2019
+|Refactoring all data loading into DbManager and DataSet objects
+|-
+|Implement parallelization for main.py using MPI '''run_universe()''' (Part 1)
+|Done
+|Week 4 September 08 - 14, 2019
+|Parallelized the run_universe() in the while loop under mpi_universe.py
+|-
+|Implement parallelization for main.py using MPI '''create_universe()''' (Part 2)
+|Done
+|Week 5 September 15 - 21, 2019
+|Parallelized the create_universe() before the while loop under mpi_universe.py
+|-
+|Fix memory issues in ezCGP that caused MPI to fail
+|Done
+|Week 6 September 22 - 28, 2019
+|Fixed Pickle error and fixed the memory leak.
+|-
+|Optimizing MPI function calls and testing MPI implementation
+|Done
+|Week 7 September 29 - Oct 5, 2019
+|Ensuring mpi_universe.py can run prior to presentation
+|-
+|Fall break
+|Done
+|Week 8 Oct 6 - Oct 12, 2019
+|
+|-
+|Running benchmark and presentation
+|Done
+|Week 9 Oct 13 - Oct 19, 2019
+|Running ezCGP on 1, 2, 4, 8. 16 cores and collect runtime differences
+|-
+|Improvement discussion with the team
+|Done
+|Week 10 Oct 20 - Oct 26, 2019
+|Discussing what features are necessary to focus on
+|-
+|Removing dataset out of individuals
+|Done
+|Week 11 Oct 27 - Nov 2, 2019
+|Avoiding MPI communications to include datasets
+|-
+|Deep look into what causes the slowdown
+|Done
+|Week 12 Nov 3 - Nov 9, 2019
+|Understanding run_universe() and what functions slow it down
+|-
+|Building benchmark metrics collector
+|Done
+|Week 13 Nov 10 - Nov 16, 2019
+|Building runtime benchmarking collector of every function calls to get a better picture
+|-
+|Collecting runtime benchmarks for presentation
+|Done
+|Week 14 Nov 17 - Nov 23, 2019
+|Collecting runtime benchmarks and analyze to see why it is slowed down
+|-
+|Thanksgiving
+|Done
+|Week 15 Nov 24 - Nov 30, 2019
+|
+|}
+
+== '''Week 1''' August 19 - 23, 2019 ==
+'''Summary:''' Discuss with team and intro to ezCGP
+
+'''What is ezCGP?'''
+
+An optimizing framework that uses Genetic Programming for Deep Learning Neural Network architecture
+
+'''How does ezCGP work?'''
+
+ezCGP composes a Neural Network with multiple blocks/layers. Each layer can be Convolutional Neural Network, Resnet, Max Sum, etc. It can also forward outputs to one or more layers. This allows ezCGP to generate a population of multiple Networks with different combination and permutation of the layers.
+
+'''Where to clone the repo?'''
+
+https://github.com/ezCGP/ezCGP
+
+'''Exploring ezCGP SymbolicRegression branch to understand the overall concept:'''
+
+- Blocks: Can Mate and Mutate its internal data structure 
+
+- Operators: Allow how primitives interact to produce output 
+
+- Genome: Contain methods, weights, primitives (nodes) 
+
+- Individual: Representation/container of a genome 
+
+'input': [datatype], 
+
+'output': [datatype], 
+
+1: {**kwargs}       #  Arguments / Hyperparameters 
+
+- Population: Contain multiple individuals 
+
+- Universe: The entire program that control the GP 
+
+- Mutate: Allow mutating a node operators and its input, output edges 
+
+- Mate: Currently Mate is not supported due to complexities 
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Due Date
+!Description
+|-
+|Exploring ezCGP SymbolicRegression branch
+|Done
+|Week 1 August 19 - 23, 2019
+|Talking with the team to gain understanding of the project overall.
+|} 
+
+== '''Week 2''' August 26 - 30, 2019 ==
+'''Summary:''' Deep dive into ezCGP main branch code base and understanding the concept of ezCGP
+
+'''What's the importance of problem.py'''
+
+Define the structure and information of the problem being solved by ezCGP. Problem.py currently also handling loading the data set for the problem.
+
+'''What's individual used for?'''
+
+The individual is one single NN embedded in one particular architecture. This individual will be evaluated by running through data sets and record the error.
+
+'''What are different types of NN architectures?'''
+
+Currently ezCGP working with ConvNet running against object detection.
+
+'''How does ezCGP mutate its individuals?'''
+
+ezCGP mutate its individuals by changing the internal architecture of the Neural Network. The architecture is split up into blocks. Each block can be mutated by changing where does it output to and the input comes from.
+
+'''How does ezCGP mate its individuals?'''
+
+Mating for NN is hard, and the problem is pending for solution.
+{| class="wikitable"
+|-
+|Deep Dive into ezCGP main branch code base
+|Done
+|Week 2 August 26 - 30, 2019
+|Understanding what each object / file does in relation to others.
+|}
+
+== '''Week 3''' September 01 - 07, 2019 ==
+'''Summary:''' ezCGP Code refactoring and Parallelization research
+
+'''Refactoring data related operations into objects:'''
+
+- '''DbManager''' Object: Controlling how the dataset will be loaded, and how to cleanup data once the operation is done.
+
+- '''DataSet''' Object: Containing the data, and define what operations data can be operated with.
+
+- The above objects are used to replace data loading in problem.py
+
+- Give us a cleaner way to reason about the data.
+
+'''Parallelization research:'''
+
+- '''multi-process module''' in Python: Allow to work directly with process creation and lower level of fine-tuning the process communication.
+
+'''- multi-thread module''' in Python: Since python is limited by the GIL, multi-threading doesn't seem to be a good option to go with.
+
+'''- MPI''': Message Passing Interface. Used to allow multiple processes to communicate at high speed. MPI also takes care of the process creation.
+
+'''Why do we choose MPI?'''
+
+'''-''' Because the multi-process module in Python doesn't offer us a high-speed communication interface. That means we have to define how each process communicate with one another. This aspect increases the complexity siginificantly.
+
+'''What are MPI implementations that we can use?''' 
+
+- Mpich, OpenMP, mvapich
+
+- Currently we are going to stick with '''Mpich''' due to easy to install and run fine on Linux machine compares to other implementation.
+{| class="wikitable"
+|-
+|Code refactoring and parallelizing research
+|Done
+|Week 3 September 01 - 07, 2019
+|Refactoring all data loading into DbManager and DataSet objects
+|}
+
+== '''Week 4''' September 08 - 14, 2019 ==
+'''Summary''': Integrate MPI into ezCGP, parallelizing '''run universe'''.
+
+'''What do to first?'''
+
+In order to parallelize, we have to inline all the function calls so we can inject MPI communication calls in between.
+
+'''Design:'''
+# '''Initializing the population in parallel (Implement later)'''
+# '''Divide the population to sub-populations'''
+# '''scatter the sub-populations across all slave cpu'''
+# '''Once the computation in each cpu, gather the results back to the master cpu.''' 
+# '''Wait for the next batch of the next generation to arrive.''' 
+# '''Repeat step 2'''  
+
+'''Where to start?'''
+
+'''Main.py''' seems like a good place to start with. Since it defines how the program executes at the highest level. Run universe is where most of the computation comes from.
+
+'''Updated the while loop where the computation should be parallelized'''
+
+'''Link to the file changed:'''
+
+https://github.com/ezCGP/ezCGP/blob/trai-parallel/mpi_universe.py
+{| class="wikitable"
+|-
+|Implement parallelization for main.py using MPI '''run_universe()''' (Part 1)
+|Done
+|Week 4 September 08 - 14, 2019
+|Parallelized the run_universe() in the while loop under mpi_universe.py
+|}
+
+== '''Week 5''' September 15 - 21, 2019 ==
+'''Summary''': Integrate MPI into ezCGP, parallelizing '''create universe'''.
+
+'''Where to start?'''
+
+Since the create universe takes a lot of time to complete. Parallelizing this portion of the code will help speed up the runtime.
+
+'''What to do first?'''
+
+Lots of the computation lies in the '''universe.create_universe(),''' since it has to evaluate the entire population at first in order to initiate the population. Parallelizing that function makes sense.
+
+'''Design:'''
+# '''Initialize an array of Individual object'''
+# '''split the population into subpopulation'''
+# '''scatter the subpopulation to slave CPU'''
+# '''call evaluate() on each CPU'''
+
+'''Updated the initialization portion (CREATE UNIVERSE) before the while loop runs.'''
+
+'''Link to the file changed:'''
+
+https://github.com/ezCGP/ezCGP/blob/trai-parallel/mpi_universe.py
+{| class="wikitable"
+|-
+|Implement parallelization for main.py using MPI '''create_universe()''' (Part 2)
+|Done
+|Week 5 September 15 - 21, 2019
+|Parallelized the create_universe() before the while loop under mpi_universe.py
+|}
+
+== '''Week 6''' September 22 - 28, 2019 ==
+'''Summary''': Research memory issues in ezCGP that caused MPI to fail and Fixing memory issues.
+
+'''Challenge''':
+# Memory leak
+# Pickle error
+When run the mpi_universe.py, the system quickly runs out of memory. We have discussed among the team. The code should not use more than 10 GB.
+
+The code also throw Pickle error due to MPI can't stream objects across multiple CPU.
+
+'''Solutions:'''
+# To fix the Pickle error, we perform a deepcopy on each of the Individual() object. Before wew can deepcopy, we had to clear the tensor graph on each of them.
+# To fix the Memory leak, we clear the dataset before and after we scatter the individual.
+# {| class="wikitable" |- |Fix memory issues in ezCGP that caused MPI to fail |Done |Week 6 September 22 - 28, 2019 |Fixed Pickle error and fixed the memory leak. |}
+
+== '''Week 7''' September 29 - October 5, 2019 ==
+'''Summary''': Optimizing MPI function calls, and testing new MPI implementation
+# '''Split_pop(populations):''' reimplemented how the entire population is being split into sub-population
+# Updated information print statements to use Logging functions instead
+# Moving K best selection from slave nodes to the master node only because this would alter the result of the algorithm.
+# {| class="wikitable" |- |Optimizing MPI function calls and testing MPI implementation |Done |Week 7 September 29 - Oct 5, 2019 |Ensuring mpi_universe.py can run prior to presentation |}
+
+== '''Week 8''' October 6 - October 12, 2019 ==
+'''Summary''': Fall break week... not much progress this week. 
+
+== '''Week 9''' October 13 - October 19, 2019 ==
+'''Summary''': Benchmarking ezCGP parallelization vs serial run-time, and determining the root cause of slow down. 
+
+'''Please consider the charts under week 10.''' 
+
+How the benchmark was done: 
+# ezCGP was run on the i7 8 core CPU with 16 GB RAM 
+# The parameters that were used to run ezCGP 
+## Population size is 16 individuals 
+## Mutant is 1 which means after mutating the population doubles 
+## 6 generations 
+## Primitives used: Dense layer  
+# The memory footprint was around 10 GB for all instances of benchmarks. 
+# The run time for sequential ezCGP was about 2000 seconds ~ 33 minutes 
+# We first calculated the expected ideal parallel run time on 2, 4, 8 cores by taking sequential run time divided by 2, 4, 8 respectively. 
+# After running the benchmark, we substract the measured parallel run time from the idea parallel run-time to find how long ezCGP spend in doing IO operation. 
+## About 30 minutes in IO. 
+
+== '''Week 10''' October 20 - October 26, 2019 ==
+'''Summary''': Presentation Time    
+
+[[files/Theoretical run time vs. CPU.png|frame|This is the ideal run time when parallelizing ezCGP with 5 generations, 50 epochs training, 16 individual, and 1 mutant|none]]
+[[files/EzCGP computation time + IO (second) vs. CPU.png|frame|ezCGP benchmark run-time with multiple-cores. The reason that parallelization is slower is because of the memory issues. MPI has to spend more time in IO than in Computation.|none]]
+
+[[files/Time spent in IO (second) vs. CPU.png|frame|The IO communication cost for 1 core is assumed 0 as there's no communication. The IO run-time cost is consistent across all core counts. This means ezCGP spends as much time in IO as the sequential run time on 1 core.|none]]
+
+== '''Week 11''' October 27 - Nov 2, 2019 ==
+{| class="wikitable"
+|-
+|Removing dataset out of individuals
+|Done
+|Week 11 Oct 27 - Nov 2, 2019
+|Avoiding MPI communications to include datasets
+|}Working with Michael to extract datasets out of population before performing collective communication. This reduces IO costs and therefore runtime.
+
+'''Commit''':
+
+https://github.com/ezCGP/ezCGP/commit/a13e5c671b5298c3f7eb7f8da607f0b2b17e68c7
+
+== '''Week 12''' Nov 3 - Nov 9, 2019 ==
+{| class="wikitable"
+|-
+|Deep look into what causes the slowdown
+|Done
+|Week 12 Nov 3 - Nov 9, 2019
+|Understanding run_universe() and what functions that slow it down
+|}Eventhough we reducing IO costs from communication, there is still runtime cost in run_universe()
+
+Mutate(): Fast runtime and low memory consumption
+
+Block.evaluate(): is slow runtime and potentially consumes more memory
+
+'''Commit'''
+
+== '''Week 13''' Nov 10 - Nov 16, 2019 ==
+{| class="wikitable"
+|-
+|Building benchmark metrics collector
+|Done
+|Week 13 Nov 10 - Nov 16, 2019
+|Building runtime benchmarking collector of every function calls to get a better picture
+|}Working with Mai to implement benchmark collector
+
+Collecting Communication Runtime
+
+'''Commit'''
+
+== '''Week 14''' Nov 17 - Nov 23, 2019 ==
+{| class="wikitable"
+|-
+|Collecting runtime benchmarks for presentation
+|Done
+|Week 14 Nov 17 - Nov 23, 2019
+|Collecting runtime benchmarks and analyze to see why it is slowed down
+|}'''Commit'''
+
+== '''Week 15''' Nov 24 - Nov 30, 2019 ==
+Thanksgiving
+
+== '''Week 1''' Jan 6 - Jan 12, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Reviewing work progress with and discussing new plan
+|Done
+|Discussing with team mostly on what are subteams, and what should we be doing next
+|}
+# What are subteams?
+## Performance Team (My team)
+## Primitive Team
+# What does Performance team do?
+## Optimize Performance with GPU and cloud
+## Benchmarking the performance
+# What does Primitive Team do?
+## Designing primitives and add more primitives to ezCGP
+
+== '''Week 2''' Jan 13 - Jan 19, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Redesign GitHub branches and team collaboration
+|Done
+|Discussing with team to redesign how branches and versions work. Also using Zenhub to manage task
+|}
+# Redesigning Github Versioning branches:
+## Each Semester will have its own stable branch for versioning
+## Each Team will have its own branch for development
+## Each Individual can branch from their own team's branches
+## All team's branches will be merged by the end of the semester
+# Managing tasks using Zenhub
+## We'll have a few individuals for creating tasks and assigning them to team members
+## By the end of the week, tasks will be checked and moved through the pipeline after approved
+
+== '''Week 3''' Jan 20 - Jan 26, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Understanding Horovod 
+|Done
+|Gaining understanding of Horovod and experimenting with Horovod
+|}
+'''Zenhub Task Link:''' https://github.com/ezCGP/ezCGP/issues/21
+# Understanding NCCL that is used with Horovod
+## Nvidia collective communication library supports similar communication protocols to MPI
+## In order to use Horovod, we need to install NCCL refer to this link: https://developer.nvidia.com/nccl
+## NCCL github to build from source: https://github.com/NVIDIA/nccl
+# To install Horovod:
+## Install [https://www.open-mpi.org/ Open MPI] or another MPI implementation. Learn how to install Open MPI [https://www.open-mpi.org/faq/?category=building#easy-build on this page].  Note: Open MPI 3.1.3 has an issue that may cause hangs. The recommended fix is to downgrade to Open MPI 3.1.2 or upgrade to Open MPI 4.0.0.
+## If you've installed TensorFlow from [https://pypi.org/project/tensorflow PyPI], make sure that the <code>g++-4.8.5</code> or <code>g++-4.9</code> is installed.  If you've installed PyTorch from [https://pypi.org/project/torch PyPI], make sure that the <code>g++-4.9</code> or above is installed.  If you've installed either package from [https://conda.io/ Conda], make sure that the <code>gxx_linux-64</code> Conda package is installed.
+ $ pip install horovod
+
+=== Running Horovod ===
+The example commands below show how to run distributed training. See Run Horovod for more details, including RoCE/InfiniBand tweaks and tips for dealing with hangs.
+# To run on a machine with 4 GPUs:  $ horovodrun -np 4 -H localhost:4 python train.py
+# To run on 4 machines with 4 GPUs each:  $ horovodrun -np 16 -H server1:4,server2:4,server3:4,server4:4 python train.py
+Refer to this link to run with OpenMPI: https://github.com/horovod/horovod/blob/master/docs/mpirun.rst
+
+Code example using Horovod with TensorFlow: https://github.com/horovod/horovod/blob/master/examples/tensorflow_mnist.py
+
+== '''Week 4''' Jan 27 - Feb 2, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Integrating Horovod with ezCGP
+|Done
+|Install required packages and implement Horovod with ezCGP
+|-
+|Come up with a concrete plan to report back to Jason
+|Done
+|The plan should describe what we need to do for the rest of the semester
+|}
+'''Zenhub Task''': https://github.com/ezCGP/ezCGP/issues/29
+
+'''<u>Our Plan:</u>'''
+# Came up with a series of Parallelizing Architecture
+## 1 CPU to 1 GPU
+## 1 CPU to Many GPU
+## Many CPU to 1 GPU
+## Many CPU to Many GPU
+# Came up with benchmarking plans
+# We decided to go with 1 CPU to 1 GPU architecture first because it's easier to implement
+'''Following is the screenshot of how Horovod is integrated with tensorblock_evaluate()'''
+
+[[files/EzCGP Horovod.png]]
+
+'''Issues''':
+# Mismatching NCCL version (Resolved)
+# Missing pip packages that support Horovod. Please refer to Horovod doc:  [https://github.com/horovod/horovod/blob/master/docs/mpirun.rst https://github.com/horovod] (Resolved)
+
+== '''Week 5''' Feb 3 - Feb 9, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Testing Horovod with MPI on Cloud
+|Done
+|Install Horovod on Google cloud and run ezCGP with Horovod on local machine and cloud
+|}
+'''Zenhub Task''': https://github.com/ezCGP/ezCGP/issues/29
+# Deploy ezCGP to Google Cloud
+# Install required packages:
+## NCCL library
+## Horovod packages
+## OpenMPI library
+## Run "conda install" on ezCGP
+# Running Horovod on Local Machine
+# Running Horovod on Google Cloud
+'''Issues''':
+# GLibc version is outdated (2.24) and Horovod required installing new version which is (>= 2.27)
+# It is not recommended to reinstalll Glibc the reason is because many system processes rely on correct version of glibc. By installing new version, this might break the system.
+# Running Horovod on Local Machine causes error "Mismatching Tensor Dimention" due to AllGather communication. This issue is much more complicated than expected because it required a deep dive into how the data structure of the Tensor layout.
+# Discussed with Jason and decided to focus on upgrading to TensorFlow 2
+
+== '''Week 6''' Feb 10 - Feb 16, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Redesigning ezCGP framework with Object Oriented Design
+|Done
+|In order to upgrade to TensorFlow 2, redesigning is required. Designing basic objects and dependency relationship
+|}
+'''Zenhub Task:''' https://github.com/ezCGP/ezCGP/issues/47
+
+Created the following objects with Mai, Rodd, and Sam:
+* '''Universe:''' This object is the highest class that contain everything else
+* '''Population:''' We can have different types of the population such as population that support MP
+* '''Individual:''' Different types of individual will inherit from this
+* '''SkeletonBlock:''' Forming the basis block that all other blocks will inherit from
+* '''CanMate Interface:''' Any objects that perform mating should implement this interface
+* '''CanMutate Interface''': Any objects that perform mutating should implement this interface
+* '''CanEval Interface''': Any objects that performance evaluation should implement this interface
+* '''Problem Interface''': A problem given to ezCGP should first implement this interface
+TODO:
+# We need to determine the relationships between these objects
+# There are other patterns such as builder, factory that can be used to reduce coupling
+
+== '''Week 7''' Feb 17 - Feb 23, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Redesigning ezCGP framework with Object Oriented Design (Part 2)
+|Done
+|Adding more objects and refining the relationship among objects
+|}
+'''Zenhub Task:''' https://github.com/ezCGP/ezCGP/issues/48
+
+== '''Week 8''' Feb 24 - March 1, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Design ezCGP Object builders
+|Done
+|https://github.com/ezCGP/ezCGP/issues/50
+|}
+
+'''Why do we need builders?''' Because we'd like to change the behaviors of how we instantiate these objects.
+
+Population builder
+
+Individual builder
+
+== '''Week 9''' March 2 - March 8, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Design and implement MPI Universe in ezCGP 2.0
+|Done
+|https://github.com/ezCGP/ezCGP/issues/49
+|}
+
+== '''Week 10''' March 9 - March 15, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Implement Block TensorFlow GPU Evaluator with Michael
+|Done
+|https://github.com/ezCGP/ezCGP/issues/51
+|}
+
+The current evaluator does not support GPU, and we'd like to create a new evaluator that uses GPU.
+
+== '''Week 11''' March 16 - March 22, 2020 ==
+Spring break
+
+== '''Week 12''' March 23 - March 29, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Integrate GPU with MPI development
+|Done
+|Include Tensorflow 2.0 with GPU support into MPI
+|}
+
+== '''Week 13''' March 30 - April 5, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|MPI and GPU local run test and benchmark on PACE
+|Done
+|Testing the MPI and GPU on the local machine
+|}PACE does not support the latest NVIDIA driver which is at least 418.x version. The process of upgrading the driver is too long for the deadline, and we are thinking to switch to Google Cloud instead.
+
+== '''Week 14''' April 6 - April 12, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Integrate ezCGP into Google Cloud with MPI and Tensorflow 2.0
+|Done
+|https://docs.google.com/document/d/1c2TTQIHnweXQOHmWqAKQxC2FXWIC61qyN15tgiT8Fck/edit?usp=sharing
+|}Challenges:
+* Installing drivers, kernels, and packages
+* Configuring SSH
+* Benchmarking GPU utilization and speedup
+
+== '''Week 15''' April 13 - April 19, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|Presenting the performance team's results
+|Done
+|Presentation
+|}[[files/CPU vs Single GPU vs Multi GPU.png]]
+
+[[files/CPU speedup vs Single GPU speedup vs Multi GPU speedup.png]]
+
+Multi GPU shows the highest speedup among all configs which means we  can scale up ezCGP to multiple instances and multiple GPU while maintaining high speedup.
+
+== '''Week 16''' April 20 - April 26, 2020 ==
+{| class="wikitable"
+!'''Task Name'''
+!Status
+!Description
+|-
+|notebook and documentation
+|Done
+|https://docs.google.com/document/d/1c2TTQIHnweXQOHmWqAKQxC2FXWIC61qyN15tgiT8Fck/edit?usp=sharing
+|}

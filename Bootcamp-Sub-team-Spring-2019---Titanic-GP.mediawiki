@@ -1,0 +1,148 @@
+[[files/20190204 174924.jpg|1000px]]
+
+== Group 1  ==
+Anish Thite, Mohan Dodda, Anika Islam, Shelby Robinson, Curren Tipnis
+* Kept the same data-preprocessing program as the sci-kit model
+* Added primitives: 
+** pset.addPrimitive(np.add, [float, float], float)  
+** pset.addPrimitive(np.subtract, [float, float], float)  
+** pset.addPrimitive(np.multiply, [float, float], float)  
+** pset.addPrimitive(np.negative, [float], float)  
+** pset.addPrimitive(np.sin, [float], float)  
+** pset.addPrimitive(np.cos, [float], float)  
+** pset.addPrimitive(np.mod,[float, float], float) 
+** pset.addPrimitive(float_to_bool, [float], bool)  
+** pset.addPrimitive(operator.xor, [bool, bool], bool)
+* Used Strongly-typed operators: the data would start off as floats, then would be converted to booleans (if the person survived)
+* Used gp.genHalfAndHalf as expr function
+* Eval function (runs the dataset on the individual and computes the number of false positives and false negatives):
+  def evalFunction(individual, points, pset):
+
+    func = gp.compile(expr=individual, pset=pset)
+
+    fn, fp = 0
+
+    for i in points:
+
+      if (i[0] == 1 and func(*i[1:]) != 1):
+
+        fp += 1
+
+      elif (i[0] == 0 and func(*i[1:]) != 0):
+
+        fn += 1
+
+    return (fn, fp)
+* Tried to use Tournament selection but the pareto front was clustered together
+* Used NSGAII selection algo instead
+* Outputs:
+** gen = 400 and n = 400: 41366 AUC
+** gen = 400 and n = 600: 34532 AUC
+** gen = 400 and n = 800: 35639.0 AUC
+** Changed mutation function from Node Replacement to muUniform (n and gen stayed same): 32448.0 AUC
+**[[files/Group 1 Parto Front.png|none|thumb]]Pareto front for the last modification
+https://docs.google.com/presentation/d/1Q6EldkppXhIu14DA7mBjvsrq1ATfKd6sP9ZKH0WNufw/edit#slide=id.g52040e9846_0_28
+
+== Group 2  ==
+Oscar Aguilar, Zack Butler, Eric Frankel, [[Notebook Yuhang Li | '''Yuhang (William) Li''']]
+*Convert Titanic ML to a GP oriented problem
+**Used Strongly Typed GP to ensure a boolean (0,1) --> (died,lived) output
+***Created a threshold function that would be the only primitive with a boolean output, and required a boolean output from tree
+***Used deap primitives add, subtract, multiply, negative, sin, cos, tanh, and our thresh function
+**Messed around with changing mutation method
+***On average, mutUniform had a .22 AUC, mutShrink had a .29 AUC, and mutInsert had a .28 AUC
+**Changing initialization method from genHalfAndHalf added about .08-.1 to the AUC (not completely sure why)
+'''Below is an example run using mutUniform and genHalfAndHalf'''
+*Best individual is: thresh(add(add(cos(Embarked), Parch), negative(add(Age, Age)))) with fitness: (0.0, 0.9831932773109243)
+*Area Under Curve: 0.21990751607905734
+*Generation Graph: [[files/gengraph.png]]
+*Pareto Graph: [[files/paretotitanic.png]]
+
+== Group 3  ==
+* Shlok, Sarthak, Nicole, and Somil.
+*We preprocessed the data in a similar way as the last lab
+*Dropped name, ticket, and cabin
+*Added primitives
+**pset = gp.PrimitiveSet("MAIN", arity=7)
+**pset.addPrimitive(np.add, arity=2)
+**pset.addPrimitive(np.subtract, arity=2)
+**pset.addPrimitive(np.multiply, arity=2)
+**pset.addPrimitive(np.negative, arity=1)
+**pset.addPrimitive(inverse, arity=1)
+**pset.addPrimitive(np.power, arity=2)
+**pset.addPrimitive(np.maximum, arity=2)
+*Changed the evaluation function to the following
+def evalSymbReg(individual, x, y, pset):
+    func = gp.compile(expr=individual, pset=pset)
+    r = []
+    for z in x:
+        a = func(float(z[0]), float(z[1]), float(z[2]),float(z[3]),float(z[4]),float(z[5]),float(z[6])
+        r.append(a)
+    results = [0 if m < 0 else 1 for m in r]
+    fp = 0
+    fn = 0
+    for t in zip(results, y):
+        if t[0] != int(t[1]):
+            if int(t[1]):
+                fp += 1
+            else:
+                fn += 1
+
+    return fp, fn
+Pareto Front
+[[files/Newpareto.png|none|thumb|Pareto front of Titanic Data Set with GP]]
+*Area under curve: 0.2310
+
+== Group 4  ==
+Gabriel Wang, Bek Hovakimian
+
+<nowiki>*</nowiki>Used the previous Lab as basis
+
+Kang Shin
+
+==== <nowiki>*</nowiki>Primitives used: ====
+<nowiki>**</nowiki>add, sub, mul, div, cos, sin, tanh, max, min, random
+
+<nowiki>*</nowiki>Used '''''xcOnePoint''''' for mate function
+
+<nowiki>*</nowiki>Used '''''mutUniform''''' for mutate function
+
+<nowiki>**</nowiki>cxpb = 0.7 and  mutpb = 0.3
+
+<nowiki>*</nowiki>Tournament selection with size of 3
+
+<nowiki>*</nowiki>Population of 300 with 100 generationsÂ 
+
+<nowiki>*</nowiki>Best result was 77%
+
+<nowiki>*</nowiki>Roughly the same results as last week
+
+<nowiki>*</nowiki>May produce better results by filtering the data
+
+Cedric Chen
+* DataMuging
+[[files/Data cabin.png|center|frameless]]
+* feature selection after generations
+ Selected Features:  ['Pclass', 'Sex', 'Age', 'SibSp', 'Fare', 'Title', 'Deck', 'NameContainsP', 'AgeBins', 'MedianAge', 'Young_m', 'Young_f', 'Family', 'Ttype', 'Ttype2', 'Ticket_group', 'Shared_ticket', 'Young']
+* Best result in kaggle roughly as 80% better than last week.
+[[files/G4ParetoFrontTitanicGP.png]]
+
+== Group 5  ==
+Alex Gurung, Kris Satya, Reagan Kan, Michael Lee
+* Converted Titanic problem to GP
+** Took code from Lab 2 as basis
+** Changed the arity of "MAIN" primitive to number of inputs from titanic dataset
+** Changed evaluation function to run function on train dataset
+*** [[files/Spring 2019 Group 5 Titanic GP Eval.png|center|thumb|748x748px]]
+*** take the mean squared error of all outputs (given more time we would make it strongly typed, but for now we just pushed the output into a sigmoid function to make it between 0 and 1 and then took the split at halfway)
+*** Messed with mutation functions and percent likelihoods, ran training
+*** [[files/2019 Titanic GP Group 5 res.png|center|thumb|483x483px]]
+*** (note fitness is an approximation of error so we wanted to minimise it)
+*** On kaggle, best result was 77%
+
+== Group 6  ==
+Animesh Agarwal, Sruthi Sudhakar, Sean Kim and Yash Shah.
+* Used lab 2 code as a starting point
+* Feature engineering was the same as the previous lab[[files/Vip sean.jpg|center|thumb|GP _ Not strongly typed ]]
+[[files/Download209.png|thumb|center|Result of the strongly typed run]]
+[[files/Stronglytyped.jpg|center|thumb|GP _ Strongly Typed]]

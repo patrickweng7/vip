@@ -1,0 +1,1128 @@
+= Team Member =
+Team Member: Seung Je Jung
+
+Email: sjung323@gatech.edu
+
+Phone: 404-421-2280
+
+Interests: ML / CS Theory
+
+= January 8th =
+'''First Meeting'''
+
+Genetic Algorithms:
+* Algorithms utilizing ideas of evolution and natural selection
+* Each candidate is an individual of a population
+** Every candidate has a different fitness value based on an evaluating function
+* Algorithm runs in generations
+** Each generation is essentially mimicking a generation of living organisms
+** Random selection is used weighted to favour more fit candidates to select the next generation
+*** In tournament selection, some number of individuals are selected from the population and the most fit continues onto the next generation
+*** In fitness proportionate selection each individual has a chance of being selected proportional to its fitness relative to others, and random individuals are selected using these proportions.
+** After selection, candidates for the next generation are created using crossing over and mutations
+*** Crossing over mixes the data of two individuals
+*** Mutation changes one individual's data randomly
+** Generations are run again and again which leads to the candidates becoming more and more fit
+Began lab 1, trying out 1 max problem.
+
+Most of the time it seems to be unable to reach 100 exactly, but reaches 99 consistently.
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 1
+|In Progress
+|January 8
+|January 15
+|
+|}
+
+= January 15th =
+'''Lab 1 and meeting'''
+
+Reviewed Lab 1.
+* Completed the n queens sample code and reviewed what the code does
+*The visualisation of the N Queens algorithm results[[files/Nqueensvip.png|none|thumb|294x294px|N Queens Visualisation Data]]
+
+Attending meeting.
+
+Genetic Programming
+* Evolve the program itself rather than values.
+* Can be thought of as a tree structure
+** Nodes in the tree which are not leaves
+*** Called primitives
+*** Represent operations (functions) on the nodes below them
+*** Results are propagated up the tree
+** Leaves of the tree
+*** These leaves are inputs into the tree and are operated on by the parent
+** Tree representation
+*** Called a lisp preordered parse tree
+*** Created by preordering the tree
+*** Can be evaluated using a stack preorder algorithm
+** Crossing over trees
+*** Crossing over can be a simple exchange in subtrees between two individuals
+*** Randomly pick two nodes in two trees and swap them including the children
+** Mutation
+*** Can be difficult - no clear way to mutate a tree
+*** For mutation we can instead insert, delete or change nodes with specific rules
+*** For example, deletion may have a rule which replaces the empty node with the leftmost child and throws away the rest
+** Evaluation
+*** Evaluate the tree by plugging in inputs and then measure error
+**** Error could be measured using sum square error
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 1
+|Completed
+|January 8
+|January 15
+|January 15
+|-
+|Lab 2
+|In Progress
+|January 15
+|January 22
+|
+|}
+
+= January 22nd =
+'''Lab 2 and meeting'''
+Lab 2
+*Finished Lab 2
+*[[files/Lab2.png|none|thumb|Lab 2 Results Over 150 Generations (Increased from 40)]]
+*Optimisation Objectives
+**Different Types of Errors
+***Type I Error: False Positive
+***Type II Error: False Positive
+**Different Measures of Errors
+***True Positive Rate / Sensitivity: TPR = TP / P
+***True Negative Rate / Specificity: TNR = TN / N
+***False Negative Rate: FNR = FN / P
+***False Positive Rate: FPR = FP / N
+**Different algorithms are better for different objectives
+***Create a pareto frontier for different algorithms
+****Algorithms not on the pareto frontier are never better than those on the frontier
+****Algorithms on the pareto frontier are better than other algorithms for different objectives (e.g. Optimising for low FNR or FPR)
+***Can choose different algorithm depending on requirements for objectives
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2
+|Completed
+|January 22
+|January 15
+|January 22
+|}
+= January 29 =
+'''Meeting'''
+*Kaggle Titanic Classification Challenge
+**Classify whether people on the Titanic survived or died based on some information for each passenger
+**Use multiple different models and create a Pareto frontier
+**Do this in teams of 5-6
+**Met in teams
+***Need to sort out how to clean data
+***Need to sort out who is doing which model
+***Set a meeting time on January 31st to figure out these details
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Data Cleaning
+|In Progress
+|January 22
+|February 5
+| 
+|-
+|Titanic Model Delegation
+|In Progress
+|January 22
+|January 31
+|
+|-
+|Titanic Classification Project
+|In Progress
+|January 22
+|February 5
+|
+|}
+
+= January 31 =
+'''Team Meeting'''
+*Talked about what classifier each person was going to be given
+**Me - SVM
+**Sam - Random Forest
+**Avni - MLP
+**Auric - GNB
+**Jehun - PAC
+*Talked about how we might clean the data
+**Dropping Name, Ticket and Cabin
+***Cabin has too many things missing
+***Ticket doesn't seem to contain any useful information
+***Considering extracting titles from the name
+**Embarked is going to be re-encoded into a one-hot vector since they don't really have a logical ordering (other than distance from crash)
+*I was tasked with cleaning data
+*Before meeting on Wednesday, work on models individually
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Data Cleaning
+|In Progress
+|January 22
+|February 5
+| 
+|-
+|Titanic Model Delegation
+|Completed
+|January 22
+|January 31
+|January 31
+|-
+|Titanic Classification Project
+|In Progress
+|January 22
+|February 5
+|
+|}
+
+= February 5 =
+'''Meeting and Cleaning Data'''
+*Wrote data cleaning / processing in the morning
+*Commit: https://github.com/xenoframium/VIP-Titanic/commit/38c30e659ef5f53c5d478b8d5e8f4b818bbd39a3
+**Re-encoded embarked into one hot
+***Before doing this, any missing entries were replaced with the mode
+**Regex is used to extract title from name[[files/Datacleaning.png|none|thumb|890x890px]]
+**Title is encoded one hot form
+***For each title, the average age of the people with that title is calculated
+***For people with missing ages, their age is then set to the average age for people with that title
+**Name, Cabin, Ticket, Embarked are then removed
+*Finished testing / tweaking hyperparameters for SVM[[files/Svmcode.png|none|thumb|892x892px]]
+*Commit: https://github.com/xenoframium/VIP-Titanic/commit/9190d33c782257243a374bb45565dadeaf64f589
+**Managed to get 84.4% accuracy with 15% FPR and FNR[[files/Cnfsnmatrix.png|none|thumb]]
+*Wrote code to evaluate every model[[files/Paretooptimal.png|none|thumb|707x707px]]
+**Creates pareto front
+***Sweep algorithm which sorts models and then finds pareto front
+**Does not yet plot pareto front itself, but plots every algo separately on a scatter plot with labels[[files/ParetoDiagram.png|none|thumb]]
+*Meeting about GP for Titanic and presentation
+**Use DEAP and GP to generate algorithms which can classify surviving and not surviving titanic passengers
+**GP will be done using the trees mentioned before and the same cleaned data
+**Teams should code their own evolutionary functions
+***Crossing over / mutation / evolution / selection included
+***Functions which do this cycle for us cannot be used
+*Presentations will be done on results next week
+**Presentation will include
+***Results and summary of each ML method that was used
+***Pareto frontier of the ML methods used
+***Results and summary for GP methods
+***Pareto frontier for the algorithms generated using GP
+**Presentation Tips:
+***Clear title, authors and date presented on first page of presentation
+***Walls of text are allowed in technical presentations
+***Use figures and diagrams
+***Include numbers
+***Have page numbers
+*Set up a team meeting on Feb 7
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Data Cleaning
+|Completed
+|January 22
+|February 5
+|February 5
+|-
+|Titanic Classification Project
+|Completed
+|January 22
+|February 5
+|February 5
+|-
+|Titanic GP Classification Project
+|In Progress
+|February 5
+|February 12
+|
+|-
+|Titanic GP Classification Task Delegation
+|In Progress
+|February 5
+|February 7
+|
+|}
+
+= February 7 =
+'''Team Meeting'''
+*Delegated work to people
+**Avni - Presentation
+**Jehun - Website
+**Everyone - Their own section in presentation and website
+**Sam - GP methods
+**Me - Boilerplate for evolution
+*Investigated methods that we could use in DEAP
+**Found crossover, mutation and tournament selection code that we could reuse
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic GP Classification Project
+|In Progress
+|February 5
+|February 12
+|
+|-
+|Titanic GP Classification Task Delegation
+|Completed
+|February 5
+|February 7
+|Febraury 7
+|}
+
+= February 12 =
+'''Meeting'''
+*Fixed bugs with FPR and FNR and also a bug in titanic_GP where initial population was being created incorrectly
+**Commit: https://github.com/xenoframium/VIP-Titanic/commit/c88ab8cc71771a63e2b9cfb472b966c6a8cf6d83
+**[[files/Bug.png|none|thumb|980x980px|The line that was fixed]]
+*Worked on the presentation and the team subpage
+*Worked on canvas submission for the GP algorithm
+*Completed work on the Titanic GP classification algorithm and presentation
+
+*Group 
+**Used gender and age since those were important on who got off first
+**Family ties were important as well
+**Added trigonometric functions and sigmoid function
+**Gengrow creates trees with varying length
+**Genfull creates similar size trees
+**NSGAII
+**Found ML and GP were similar
+***However GP had lower AUC
+**ML had similar results as GP but GP gave a higher variety of models
+*Group
+**Name, Ticket, Cabin and Embarked columns removed
+**Normalized data for multi objective programming
+**Randomized the test/training data to not overfit
+**Moving from single objective to multi objective was difficult
+**Biased crossover towards the leaves
+**Uniform mutation function
+*Group
+**Changed features from ranges to cataegories
+**Correlation diagram between features and survival
+**Higher AUC in GP than ML
+*Group
+**Dropped Name/Ticket/Cabin/Embarked
+**3 fold validation
+**Lower AUC comopared to ML
+
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic GP Classification Project
+|Completed
+|February 5
+|February 12
+|February 12
+|}
+
+= February 19 =
+'''VIP Meeting'''
+
+*Emade
+**Emade is a program which can create, just using a dataset and some primitives, algorithms that solve the classification problem.
+**This is achieved using an evolutionary model akin to the Genetic Programming, but with far more primitives and the ability to hyperparameter optimised
+**Need to:
+***Install Git-lfs
+***Clone the git repository
+***Install dependencies
+***Setup mysql server
+**XML files configuration
+**Need to configure username and password in sql server
+**Data splitter
+***Runs k fold cross validation
+***Titanic data splitter produces the data used
+**Objective input file
+***Weighting for maximization or minimization
+***Specifies how to evaluate tree
+***Specifies ranges for output values
+**Evolution parameters
+***Defines how to cross over / mutate etc
+**Setting up a worker - use the -w command
+*Assignment
+**Run EMADE as a group
+***Have one person be the master / host
+***Run many generations
+***Learn SQL
+***Plot pareto front
+***Presentation on the 9th of March
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Classification Project
+|Started
+|February 19
+|March 9
+|
+|-
+|Setup EMADE
+|Started
+|February 19
+|February 26
+|}
+
+= February 26th =
+'''VIP Meeting'''
+Work Session
+*EMADE Issues
+**Had to fix an issue with having MySQL 8 instead of MySQL 5.7
+**Managed to setup emade with separate workers (made multiple accounts and had people connect to them)
+**Unsure if it is working since it does not appear to go past generation 0
+**Worked together with team to work some PATH problems and some installation issues
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Classification Project
+|In Progress
+|February 19
+|March 9
+|
+|-
+|Setup EMADE
+|Completed
+|February 19
+|February 26
+|February 26
+|-
+|Run EMADE On Titanic Data
+|Planned
+|February 26
+|March 9
+|
+|}
+
+= March 4 =
+*EMADE Debugging
+**Found out that emade was not working properly, so runs were voided (emade crashed but we did not realise).
+**Worked together to fix a DEAP issue:
+***[[files/Seungjejung deapissue.png|none|thumb|590x590px]]ValueError: selTournamentDCD: individuals length must be a multiple of 4
+**Worked out that two people would run EMADE overnight since we were having some difficulty
+*Started Creating a powerpoint to present on March 9
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Classification Project
+|In Progress
+|February 19
+|March 9
+|
+|-
+|Run EMADE On Titanic Data
+|Running
+|February 26
+|March 9
+|
+|-
+|Make powerpoint presentation
+|Started
+|March 4
+|March 9
+|
+|}
+
+= March 8 =
+*EMADE
+**Finished running emade on two members' computers
+**Gathered data and plotted a graph of the pareto optimal solutions (3d)
+***[[files/Seuungjejung emadepareto3d.png|none|thumb|466x466px]]
+**Plotted a pareto frontier comparing to other approaches (Blue = Emade, Green = ML, Red = GP)
+***[[files/Seungjejung paretofrontieremade.png|none|thumb|579x579px]]
+**Drew a tree to visualize an individual
+***[[files/Seungjejung emadetree.png|none|thumb|1047x1047px]]
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Classification Project
+|In Progress
+|February 19
+|March 9
+|
+|-
+|Run EMADE On Titanic Data
+|Complete
+|February 26
+|March 9
+|March 8
+|-
+|Make powerpoint presentation
+|In Progress
+|March 4
+|March 9
+|
+|}  
+
+= March 9 =
+Group 1
+*ML
+**used mlp/svm etc
+**features
+***age, ticket price, sex, child/parent, #siblings
+*GP
+**standard primitives
+**mating
+***pareto optimal ones higher chance to mate
+**lower auc than ml
+*emade
+**lower auc than gp/ml
+**planck taper
+*ADF
+**Finds parts of trees that can be reused amongst the population
+**Assume that big parts are useful if they are reused
+***Can be used as primitives now
+***Decreases complexity
+**Can guess that they are useful if they are repeated in high accuracy individuals
+**Not yet seen to be significantly better yet (statistically)
+**Significance in the difference in the size of the tree
+**Different primitives being used in ADFs compared to overall
+**Ideas to improve
+****Evolving ADFs
+Meetings at Tuesday 4:30 pm to 5:30 pm
+*Group 2
+**Overfit model from 17 tree depth
+*NLP
+**Changing text into numbers (for computers)
+**Sentiment Analysis
+**Problems with permissions on google cloud
+***Solution - do it locally first
+**Lots of local / remote SQL errors (and different mysql implementations)
+**Neural Nets
+***Multiple layers of neurons
+***More layers = more tweaking
+**Scikit has MLP but this is not sophisticated enough
+**GECCO conference
+*Group 3
+**Problems with evaluation going over 1.0
+**AUC around 0.18
+*
+**Fitness causes bloat
+**Larger programs are fitter - likely to have bloat
+**Remove bloat control methods in mating
+**NEAT crossover
+*ezCGP
+**Preprocessing
+**Flattening Primitives
+***Problems with PACE being down so could only run three iterations
+**Activation functions
+**Data augmentation
+***Changing data but not changing the recognition
+***Increases number of training samples
+**GPUs
+***Tensorflow 1 has no cloud gpu support (Cannot use google cloud)
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Classification Project
+|Completed
+|February 19
+|March 9
+|March 9
+|-
+|Make powerpoint presentation
+|Completed
+|March 4
+|March 9
+|March 9
+|}
+
+= March 16 =
+Coronavirus Break
+
+= March 23 =
+Allocated to Research Fundamentals Group, but unfortunately missed the meeting due to allocation constraints.
+
+= March 30 =
+Attended VIP Meeting and the later Research Fundamentals group meeting.
+Caught up with what work needs to be done, assigned to PACE.
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look at PACE instructions
+|Begun
+|March 30
+|April 3
+|
+|-
+|Read Neat-GP paper
+|Not started
+|March 30
+|April 3
+|
+|}
+
+= April 3 =
+Read Neat-GP paper in preparation for sub-team meeting
+Looked up pace setup instructions, but an account seems to be required so stopped working on that until the meeting.
+Subteam meeting
+*Worked out the account problems out with the team
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look at PACE instructions
+|Completed
+|March 30
+|April 3
+|April 3
+|-
+|Read Neat-GP paper
+|Completed
+|March 30
+|April 3
+|April 3
+|-
+|Setup PACE
+|Not started
+|March 3
+|April 10
+|
+|}
+
+= April 6 =
+Setup emade locally in preparation to do runs if PACE does not work out
+VIP Meeting
+*Discussion about how to setup the MySQL server since it does not seem possible to do it solely on PACE.
+*Aim to get EMADE setup and working on PACE by Next subteam meeting.
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup PACE
+|Not started
+|March 3
+|April 10
+|
+|}
+
+= April 10 =
+Setup pace
+*Issues with permissions
+**Had difficulty installing anaconda due to yum needing sudo privelages
+**Resolved by using cat to load the anaconda install sh onto pace and running it locally
+*Setup anaconda environment
+**Set it so bash automatically uses the anaconda environment
+**The anaconda environment should be able to alleviate the permissions issue since packages can be installed to the virtual environment instead
+*Issues with git clone when setting up emade
+**Git returns a fatal HTTPS error when trying to clone[[files/Sjung323 git.png|none|thumb|713x713px]]
+**Found that this is caused by a version of git that is too low (the one installed on PACE)
+**Resolved by installing a newer version of git using conda
+*Installed git lfs
+*Cloned emade from subteam branch successfully
+**Issues trying to install OpenCV through anaconda due to a probable issue with Redhat compatibility
+**Skipped that step and installed all the other packages
+**Other packages seemed to install fine for the conda packages
+**Ran into a space issue (ran out of space allocation)
+***Had to delete the anaconda downloaded package files to get some more space
+**Pip successfully installed the remaining packages
+*Used the reinstall script for emade which completed successfully
+*Tried to setup MySQL 5
+**Installed fine with anaconda, but ran into another issue where port binding is not allowed on PACE[[files/Sjung323 sql.png|none|thumb|918x918px]]
+Subteam Meeting
+*Discussed the issues with MySQL, and Eric will try to setup a google cloud MySQL server to connect to PACE
+*Discussed the issue to do with OpenCV, but it will probably not be an issue since no OpenCV primitives are being used
+*TODO: setup PACE with the google cloud server once Eric sets it up
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup PACE
+|Complete
+|March 3
+|April 10
+|April 10
+|-
+|Test and run EMADE
+|Mostly Complete
+|April 10
+|April 13
+|
+|-
+|}
+
+= April 13 =
+EMADE setup continued
+*Turns out that git clone had actually failed due to git lfs not being setup correctly
+**Fixed git lfs and deleted the emade repository, then tried to clone
+**Unfortunately encountered an error stating that the size of the repository was too big
+**Cloned EMADE into a new repository and removed some data sets
+***Dataset removal: https://github.gatech.edu/sjung323/emade-vip2020/commit/741f2100a0de10093ab6676971f1bf06c04f670c
+**Unfortunately the size was still too big, so used a single branch shallow commit which finally worked
+*EMADE gives an error about permission denied trying to run 'qhost'
+**Removed the lines that are problematic, which involved commenting out all the grid engine code
+***Grid engine code removal: https://github.gatech.edu/sjung323/emade-vip2020/commit/1c5c15ecf2fd487cc0355027aa09b9dddc2a7d21
+**EMADE now runs ok from the PACE login machines
+***TODO: get it working on qsub job submissions
+**Copied qsub commands and tried to match the parameters
+***qsub testing: https://github.gatech.edu/sjung323/emade-vip2020/commit/468640fca8e3c0b42f213d34bf31d5faa53feca8
+***Unfortunately they do not work well with PACE's qsub, since PACE has different and sparsely documented qsub parameters
+**After some experimentation, the qsub finally seems to be working on PACE
+***Removing debug code after getting everything working: https://github.gatech.edu/sjung323/emade-vip2020/commit/03678da7ba6206929e535e0576eacfe73e62bcc7
+*Started a run on EMADE with 14 nodes with 4 cores each - everything seems to be running well. Also started a run which will run overnight.
+*Have a goal to get the PACE qsub working with the other grid engines, and have the parameters not hardcoded
+*Setup a script to get past all the problematic hassle of setting up EMADE on PACE
+
+VIP Meeting
+*Catchup on how the subteam is going
+**Runs are going smoothly
+**PACE setup going well
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test and run EMADE
+|Complete
+|April 10
+|April 13
+|April 13
+|-
+|Rewrite the code for qsub in launchEMADE.py so that it works together with other grid engine code
+|Waiting
+|April 13
+|April 17
+|
+|-
+|Create a script to setup EMADE so that anybody can use it
+|Waiting
+|April 13
+|April 17
+|
+|-
+|}
+
+= April 15 =
+launchEMADE rewrite
+*First off, add PACE detection code (check if pace-check-queue command available) and move it to a separate branch instead of commenting out the others
+**Pace detection and code restructuring: https://github.gatech.edu/sjung323/emade-vip2020/commit/617fda5498d741eb53ff323115e9d271d291fac4
+*Second, in order to not hard code parameters, add XML parameters and add them to the template so that XML does not complain
+**Fix XML Issues: https://github.gatech.edu/sjung323/emade-vip2020/commit/353869473c8921088ea7b6e4e0ab30a578689fc7
+*Third, setup a utility script which sets up EMADE and PACE
+**The script does the following:
+***Curl anaconda setup shell script
+***Run anaconda setup in silent mode
+***Sets up anaconda so it by default activates in bash
+***Installs git and git-lfs
+***Runs the git-lfs install step
+***Installs EMADE dependencies (skipping opencv)
+***Single branch shallow clones my repository
+***Runs EMADE reinstall script
+***Sets up a setup script found in my branch which sets up the SQL server credentials and database
+****SQL setup script addition: https://github.gatech.edu/sjung323/emade-vip2020/commit/4ba2771f3494c0cc476088e85774da08f1ece1e8
+****EMADE / PACE setup script gist: https://gist.githubusercontent.com/xenoframium/ec5512d49c90c99d010bd5466ea7c754/raw/5c8c10b10777f700c573459396aeda59d9e46d89/setup.sh
+Running PACE:
+*After some observation it seems that there is enough space on PACE to run two EMADE instances at a time
+**Unfortunately PACE jobs are restricted to 12 hours so maybe EMADE will not execute in time, but will try it anyway
+**Set up EMADE to instead run with 7 nodes and 4 cores for the masters, each with 4 workers 8 cores each
+Local EMADE run complete
+*After 36 hours the local EMADE run has finished, so upload the data to team google drive
+TODO: Check up on how long EMADE runs take, and the number of cores to allocate
+TODO: Figure out how to get more than two runs since space becomes a problem
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rewrite the code for qsub in launchEMADE.py so that it works together with other grid engine code
+|Complete
+|April 13
+|April 17
+|April 15
+|-
+|Create a script to setup EMADE so that anybody can use it
+|Complete
+|April 13
+|April 17
+|April 15
+|-
+|Work out how many cores master / workers should use
+|Begun
+|April 15
+|April 20
+|
+|-
+|Figure out how to clean out more space to do runs
+|Waiting
+|April 15
+|April 20
+|
+|-
+|}
+
+= April 16 =
+EMADE has finished running in the same time it took with just one run, so will try to do four runs at a time
+*Running into space issues since EMADE takes up a lot of space even stripped down
+**Removed .git folder and this freed up enough room to make four instances
+**Running 4 EMADE instances with 4 masters each with 2 nodes each having 4 cores, and then also 2 workers each with 1 node and 4 cores.
+*Upload the data to team google drive again
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work out how many cores master / workers should use
+|In progress
+|April 15
+|April 20
+|
+|-
+|Figure out how to clean out more space to do runs
+|Partially complete, 8 at a time needs more work
+|April 15
+|April 20
+|
+|-
+|}
+
+= April 17 =
+4 Runs on EMADE complete, started up 4 more while waiting on how to get 8 at a time setup
+*Uploaded data again to team google drive
+**This takes a really long time, maybe workout a script to do this for me?
+Subteam meeting
+*Assigned to work on PACE slides, asked to upload data also
+**Started work on PACE slide
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work out how many cores master / workers should use
+|In progress
+|April 15
+|April 20
+|
+|-
+|Figure out how to clean out more space to do runs
+|In progress (have to figure out 8)
+|April 15
+|April 20
+|
+|-
+|Write a script which does the data processing for me
+|In progress
+|April 17
+|April 20
+|
+|-
+|Write my presentation slide
+|In progress
+|April 17
+|April 19
+|
+|-
+|}
+
+= April 19 =
+4 more runs complete
+*Uploaded data again
+Asked by Josh to run some more runs - will need to run 8 consecutively probably to fulfill this in time
+*Setting up 8 runs at a time
+**To decrease storage use even further, deleted unit test files
+***This freed up enough space for 8 runs at a time
+**Each master has now been changed to use 2 nodes with 4 cores each, each with 1 worker that has 2 nodes with 4 cores.
+**Started 8 consecutive runs with the requested parameters
+**After 8 hours the runs completed with no apparent performance degradation
+***TODO: Figure out how to share data between EMADE instances since its already barebones (no more hacks to get by)
+****Probably going to be able to run 16 at a time (No workers and just 4 core master per)
+****For sure going to be able to run 12 since it executed 8x in 8hrs, and more instances scale linearly
+**Wrote a script to process data for me (not public since it contains personal details)
+***Used the script to process data and upload it
+***Found an issue with the data formatting - the shell command Josh provided unfortunately does not work with the individuals.csv since it contains ' characters
+***Just exported manually for now
+**Verified with Josh that the data looks good - 8 runs at a time working now!
+Presentation
+*Wrote a brief summary about how PACE was setup and some issues with it / what we can do right now
+Presentation practice
+*Presented and got team feedback
+**My feedback was:
+***Add some commits
+***Add some images
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work out how many cores master / workers should use
+|No performance degradation at 8, but out of time to check more so tentatively complete
+|April 15
+|April 20
+|April 19
+|-
+|Figure out how to clean out more space to do runs
+|Completed
+|April 15
+|April 20
+|April 19
+|-
+|Write a script which does the data processing for me
+|Complete
+|April 17
+|April 20
+|April 19
+|-
+|Write my presentation slide
+|Complete
+|April 17
+|April 19
+|April 19
+|-
+|Fix my presentation slide
+|Begun
+|April 19
+|April 20
+|
+|-
+|}
+
+= April 20 =
+Fix presentation
+*Added commits and images to presentation
+*Added a new slide
+**Contains the "next steps" for future teams
+*Also reformatted the first slide to look much cleaner
+*Added a takeaway box after suggestion by Eric
+
+My final slides:
+[[files/Sjung323 slide1.png|none|thumb|1057x1057px]]
+[[files/Sjung323 slide2.png|none|thumb|1056x1056px]]
+
+Subteam presentations day
+
+Presented third - presented the two PACE slides
+
+Notes on subteams results
+
+ADFs
+*Reuses subtrees of individuals
+*Automatically defined function
+*Better representation
+*ADF
+**Two subprocesses
+**ADF identification
+*Differential Fitness
+**Fitness improvement vs parents
+**If fitness is improved, it is a valid ADF candidate
+*Sub-subteams:
+*Primitive analysis
+**Analyze how useful ADFs are
+*Selection Methods
+**ADF Frequency to change ADF occurrence
+*Differential Fitness
+**As before
+**ADF
+*40 generation runs with 10 trials
+**Not much difference between Intel ADFs and no ADFs
+**No statistically significant difference except for Gen 19
+*Potential evidence of improvement
+**Maybe better in some generations than others?
+**Try to figure out why some primitives are being selected again, and try to use that to improve
+**Some primitives not used for no good reason
+**Try to figure out how to get ADFs to be selected
+*ADFs have fewer primitives so there is lower diversity
+**Being on the pareto front does not necessarily mean it helps as part of a bigger individual
+*~14% of ADFs appear on the pareto front
+**This is more than ~4.6% of individuals so they are contributing
+*passTriState too common
+**Selecting ADFs based off frequency is not that useful even though it is common
+*ADFs with other ADFs as the root node do not perform as well
+*Most ADFs found increase accuracy in the pareto front
+**Unknown statistical significance
+*Differential Fitness Project
+**Don't measure how good an ADF is by how good the individual is
+**Use how much better it makes the parent
+**Seems to converge faster then No ADF, but no statistical significance
+**More individuals use ADFs on the pareto front - but not statistically significant
+*Selection Method
+**Choosing which individuals to mate
+**Early generations have around 0 ADFs
+**Crowding distance reduced by duplicate ADFs
+**Increasing the number of ADFs may not be beneficial for the ADFs
+**Differential fitness may help to gauge better which ADFs are good
+**ADFs might help fast convergence but not help in the long run
+*NLP
+**Adding NLP primitives to EMADE
+**Evolves NLP Networks
+**Different activation layer primitives added
+***ReLU
+***SeLU
+*Glove
+**Embedding layer
+**Maps similar words to eachother in English
+*Linear Activation function
+**Output is proportional to input
+*Convolutional layers
+**Applies a convolution to the input
+**Usually for images
+*Problems with accuracy metric for toxicity
+**0,0,0,0,0 was 83% match to 0,1,0,0,0 but it shouldbe 0
+**Custom activation function made it better
+*Chest Xray
+**Files way too big for emade
+**Split up data into separate sections
+**40GB of data
+*Running EMADE on PACE
+**One Worker and One Master
+*NLP Time Conflict
+**Works on Summarisation
+**Unit testing
+**Issues with SQL were the biggest problem
+***Change in SQL
+**PACE setup tutorial page
+***Collaborate on it?
+**Problems with performance
+***TSISF takes 2 hours to run
+*ezCGP
+**First semesters set up Tensorflow for CNN
+**39 generations over 41 hours
+**Very close F1 scores
+**Crossover propagates good mutations quickly
+**Different CNNs architectures with MNIST database
+**Data augmentation
+***Flipping / cropping / scaling
+**Transfer learning
+***Remove the last layer and retrain
+***Use trained CNN from Microsoft / Google
+**Tensorflow making new primitives
+**Tensorflow 1.0 no longer supported so had to move to Tensorflow 2.0
+**Driver problems with Tensorflow 2.0 made it so this couldn't be used
+**Moved to GCloud
+**Adding more CPUs diminishing returns
+***Has to share memory
+***Whereas GPU allocates separate memory
+***Limit to 8
+
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix my presentation slide
+|Complete
+|April 19
+|April 20
+|April 20
+|-
+|Present!!!
+|Complete
+|April 20
+|April 20
+|April 20
+|-
+|Update notebook
+|Begun
+|April 20
+|April 27
+|
+|-
+|}
+
+= April 27 =
+Updated notebook!
+
+Also Contacted Dr. Jason Zutty about EMADE PACE pull requests
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Complete
+|April 20
+|April 27
+|April 27
+|-
+|}

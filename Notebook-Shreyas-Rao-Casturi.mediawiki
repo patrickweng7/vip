@@ -1,0 +1,1547 @@
+== December 3, 2020 (And Beyond) ==
+'''Note: Again, as I mentioned in October, this was not a great semester for me. I wasn't able to make much more significant progress after October, and there are multiple reasons for that. I would like to note that thanks to the help of Pulak and Anish, I actually will be seeing if I can go forward and actually help the NLP team in the future, though probably not in the VIP framework. I'll be in their Slack and still help them out and try and contribute. While I hope for a not-terrible grade, I accept my role/lack thereof. Thanks for your understanding.'''
+
+The last set of presentations. I have enclosed my own notes here:
+
+'''STOCKS''':
+
+Agenda:
+* 1. inconsistencies in the base research paper
+** The way the trading signal was calculated in the research paper seemed to be inconsistent with the rules the researchers specified.
+* 2. genetic labeling, why it’s good
+** inconsistencies necessitate genetic labeling: tried to use a genetic algorithm based oracle
+** developed a new fitness function that treats each time point independently
+** this approach is based heavily on what has already been predicted before
+* 3. Writing technical indicator primitives in EMADE
+Various averages/indicators that were implemented:
+* simple moving average – smooths price data from short-term fluctuations
+* exponential moving average – moving average that weights recent days more
+* Moving average convergence and Divergence – reveals changes in strength/direction momentum 	and duration of a trend
+* Stochastic oscillator
+* Relative strength indicator – measures magnitude of trends
+* Williams R& – measures overbought and oversold levels, similar to stochastic oscillator
+* Ease of movement – helps traders see the ease of price movement
+* uses distance moved and box ratio, a 14-day-period ease of movement
+On-Balance Volume (OBV)
+* takes an opening price, closing price, and trading volume per day
+* needed to consider how to receive inputs that were more complex than just a closing price list
+* returns an obv value for time range given
+* if price up intra day, then add volume to obv
+* if price down intra-day, subtract volume from obv
+* volume is an important metric for trading within trends as well as entering and exiting positions
+also uses:
+* Bollinger Bands: Set of momentum indicators which consist of a simple moving average, an upper band, and a lower band
+* CCI – a commodity channel indicator – determines market trends and volume by measuring the current price level relative to the average price level over a period of time. Cci is high – when prices are far above their average, if cci is low, then prices are far below their average, then it signals a sell
+* MFI – money flow index – if money flowing into a security is high, the security is overbought, else if it is low, it’s sold a lot.
+Feature data EMADE Run
+* compared between paper’s run and EMADE run.
+* Second EMADE run results – stream to features
+* tests with normalization and without normalization, use multiple days for a prediction at a time.
+Future work –
+* Run new STREAM_TO_FEATURES run on normalized data
+* test larger time ranges of test data, more than 5 years
+* Test more granular data, hour hour minute minute
+* improve genetics labeling – make trades less frequent, look into oracles used in literature, can we help models from bottoming out?
+* Find new literature as other literature is inconsistent, as seen at the beginning.
+<nowiki>------------------------------------------------------------------------------------------------------------</nowiki>
+
+'''EZCGP:'''
+* Wanted to clean up opencv base.
+* What primitives to add or remove from pipeline.
+* Objective scores:
+** precision
+** ratio of correctly predicted positive
+** observations to total predicted observations TP/(TP + FP)
+** recall
+** ratio of correctly predicted observations to all observations in actual class
+** TP/TP + FN
+* Previously used:
+** accuracy
+* f1 score: Weighted average of precision and recall, 2 * (RECALL * Precision) / (Recall + Precision)
+'''Using PACE-ICE vs PACE-ICE GPU'''
+* problems with getting CUDA set up
+* conda install vs pip install tensorflow
+** pip install is better
+* Current setup:
+* RAM: 128 GB
+* GPU: 2
+* Run-time: 8 hours
+'''Experimental Setup – Hyperparameters'''
+* 20 individuals to a population, 20 epochs training per individual, individual fitness: precision and recall, basic genome/block seeding, population selection + tournament selection
+* Results: Hours run: around 53 hours, 9 generations each averaging under 6 hours
+* Best Score:
+** precision: 0.97877902
+** recall: 0.9745964
+** f1: 0.97676519508
+* Analyzing results: SOTA results on CIFAR-10: 99.7% EffNet-L2
+* ResNet on CIFAR-10: 93%
+'''What’s next:'''
+* '''Experiment 1: can we replicate these results without transfer learning?'''
+* '''Experiment 2: Can we break the plateau by increasing randomness, or adding new primitives?'''
+'''Nas Research Code''':
+* Implementing Super convergence – a cyclical learning rate structure. Tensorflow now has an add-on for cyclical learning rates, provide quick convergence
+* Aging evolution:
+** implemented new individ def and methods to prune old individ to simulate die by old age
+** increase diversity of individ by pruning lucky initial models that reach high accuracy by luck
+* Early Termination:
+** construct the ref curve using previous accuracy curves of network training, terminate if accuracies for the current architecture are worse than the values of the ref c urve by N consecutive times
+** Update reference curve when best fitness among offspring exceeds parent, I think
+'''Experiment on block structure''':
+* The introduction of blocks will accelerate the convergence of a population to competitive fitness values. The single genome structure may find more pareto optimal individuals.
+Want to use MNIST – primitives will be similar to CIFAR10, we’ll use feature extraction methods and feed that to a classification method
+
+First sem students loaded MNIST to get familiar with the process, code
+
+– downloading
+
+– decompressing
+
+– converting to numpay arrays
+
+– writing to CSV
+
+'''Future Tasks''':
+* Continue the block structure experiment
+* Continue neural architecture search experiment
+* Marry ezCGP with EMADE
+* Research new mating methods
+<nowiki>-------------------------------------------</nowiki>
+
+'''Modularity in EMADE'''
+
+Abstract parts of individuals
+
+Reusable blocks of code
+
+ARL Implementation: Search entire population for combinations of parent and children nodes
+
+Select some combinations of nodes based on their
+
+Experiment Setup:
+
+Run on Titanic Dataset
+
+false positives, false negatives
+
+Interesting work on MNIST and ARL
+
+<nowiki>-------------------------------------------</nowiki>
+
+'''Going forward:'''
+
+I will be contacting Anish/Pulak to see if I can help them with the paper they're trying to get written. I will not be in VIP formally, but I'll still be in the Slack, trying to get runs done on PACE.
+{| class="wikitable"
+!Task
+!Due by
+!Finished by
+!Assigned
+|-
+|Present the presentation
+|12/2/2020
+|12/2/2020
+|August 2020
+|-
+|Ask Anish and Pulak for next steps next sem
+|01/01/2021
+|
+|12/2/2020
+|}
+
+== November 30, 2020 ==
+Unfortunately, I was not able to make significant progress on the PACE architecture. It turns out that Maxim was kind enough to give me these two commands:
+
+''conda clean -a'' -- that essentially does a super-cleaning of the conda environment, and can be used to delete caches.
+
+''pip cache-purge --'' purge the cache that pip has for its own packages (even the packages that you don't regularly use). The problem of most package managers (in, say, Linux) is that you will often run up large caches of files dedicated to the packages that you might not need anymore (if you install a package, you don't need the package itself anymore, it's already on your system). Pip works the same way, if I'm not mistaken.
+
+I tried using these commands to get rid of the various packages, but it still didn't work. We were still running into disk quota exceeded errors, which basically meant that I couldn't do the runs. This is something I want to figure out later, hopefully in the next semester (with Maxim's help, as Maxim's taking point on PACE).
+
+So that means I'm probably going to just present on the NNLearner refresher slide, or a slide that's about background info, because I'm unable to get the runs on PACE working. This is something I'd like to look into for next semester.
+{| class="wikitable"
+!Task
+!Due By
+!Finished By
+!Assigned
+|-
+|See if we can resolve the conda issue
+|November 30, 2020
+|November 30, 2020
+|November 23, 2020
+|-
+|Do runs for chest x-ray dataset
+|November 30, 2020
+|Unable to finish, on hold
+|November 23, 2020
+|-
+|Start looking at presentation slides for NN-Learner
+|November 30, 2020/ December 2, 2020
+|December 2, 2020 (time of presentation)
+|December 2, 2020
+|}
+
+== November 23, 2020 ==
+The job here is to see if we can get certain runs done on PACE using EMADE.
+
+Specifically, we want to see if we can get the Chest X-Ray dataset to be fed into emade, and for my end, I need to do 2 runs with all primitives turned on.
+
+What's going on, however, is that I'm running into "disk quota exceeded" errors. I can't attach photos right now, as I can't access PACE at this late hour, but basically what happens is (use this guide by Maxim Geller and follow along: https://www.notion.so/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11 :
+# Go into PACE via SSH, and SCP (ssh-copy, essentially) the EMADE repo into your PACE home directory; I had to use the nn-branch, and make sure there's only the datasets you need in the EMADE repo folder.
+# Then, you need to setup MySQL. While Maxim's guide is nice, I suggest trying to use this guide, as it explains a bit more clearly what you have to do that is PACE-specific: https://docs.pace.gatech.edu/software/mysql/
+# What kept failing on my end was conda. The reason is that EMADE requires quite a bit of packages for setup. Installing them via conda often requires multiple dependencies as well, not to mention the installation of packages via pip. I wonder if anything can be done to streamline this process or use solely pip or conda in the future.
+# As I noted above (and as can be observed in Pulak's notebook), a lot of us were having trouble getting things installed on PACE. This is due to the fact that only a finite amount of writing space to disk is allowed to the user, which is why you get a disk quota exceeded error. I tried deleting and reinstalling very carefully, sometimes even directly trying to get rid of large packages like TensorFlow, but to no avail.
+# It got so bad that even the SQL DB setup failed because the very creation of the DB necessitates disk writes, and unfortunately, I didn't have enough disk writing space. One must also consider that ''multiple'' conda environments exist on the same server, and they are all taking up space. Note that we should look into getting rid of multiple conda envs and see if we can streamline into one conda env that we all share, where the only thing that changes is the EMADE you use (a particular dataset or something of that nature)
+As a result, I'll need to work double-time to see if I can get the 2 runs in for the X-Ray dataset. If not, we can still report that (I think Tejas is also running into some issues like this) for the presentation.
+{| class="wikitable"
+!Task
+!Due by 
+!Finished by
+!Assigned
+|-
+|See if we can resolve the conda issue
+|November 30, 2020
+|November 30, 2020
+|November 23, 2020
+|-
+|Do runs for chest x-ray dataset
+|November 30, 2020
+|On hold/see Nov 30, 2020
+|November 23, 2020
+|-
+|Start looking at presentation stuff
+|Nov 30, 2020/December 1, 2020
+|Nov 30, 2020
+|November 23, 2020
+|}
+
+== October 19, 2020 ==
+This was the week of the midterm presentations. I have enclosed my own notes that I took for some of the teams, though not all of them.
+
+'''Stocks subteam'''
+
+<nowiki>-----------------------</nowiki>
+* How do we use EMADE for regression on time series data? How can we use EMADE to optimize market trading algorithms?
+* Build out EMADE’s regression capabilities, experiment Google Colab, and cloud based services, and expand on usage of Neural Networks in EMADE.
+* '''Research Step:'''
+** Create a CEFLANN architecture based off of a paper
+** Research Tech indicators to use in the CEFLANN model, and implement Keras Neural Networks in EMADE.
+* '''Implementation step''':
+** Run emade with regression, EMADE through colab, and EMADE integration of premade Tis, and writing STREAM_TO_FEATURES primitives for data preprocessing.
+* '''First Steps''':
+** Regression or Classification, what stock tickers, which technical indicators to use? Technical inidcators are heuristics used by traders, take in price, volume, and open interest, and each person researched 3-5 indicators of a designated type: Volume, Momentum, Trend/Moving Average, Breadth Indicators, Oscillators, Relative Strength index
+** Transitioned to looking to research paper’s and their specific methodologies.
+** The paper they used in reference is: ''A Hybrid Stock Trading framework integrating technical analysis with machine learning techniques.''”
+* '''The takeaways''': Using a Computational Efficient Function Link Artificial Neural Network (CEFLANN)
+** Classification problem with buy, hold, and sell signals, and the buy sell and hold signals are dervied from after determining if the trend is up, down, or neutral.
+* '''What is CEFLANN Architecture:'''
+** CEFLANN == FLANN
+** it’s efficient because it lacks hidden layers in its architecture. Papers report up to 100 times faster than simulation speed of an MLP. Paired with an ELM (extreme learning machine) to train to CEFLANN model. Significantly faster than backpropagating to learn. Our baseline paper claims that it outperformed other commonclassifiers that used particular technical indicators.
+* '''Implementing Regression Primitives in EMADE:'''
+** Implemented using EMADE for regression modelling:
+** Only 6 learner primitives existed, so added more types of regression learners:
+** Multi-layer perceptron, Gaussian Process, Ridge Regression.
+** ModifyLearner functions were not implemented for Regression Learners, so added functionality for learner modification during evolution
+** Found that only one Ensemble Type allows individuals to compile during runs, so limited options that EMADE could choose to only ‘SINGLE’.
+* '''LONG TERM FUTURE WORK:'''
+** Implement machine learning regression models more
+'''Rookie Team 1/Bootcamp 3: Applying Titanic Problem'''
+* Preprocessing – dropped certain attributes:
+* Then applied Machine Learning: We used MLP NN, Logistic Regression, Random Forest, SVM, Decision Tree, and KNN. K-fold validation did not significantly improve accuracy.
+* Applied GP: Strongly typed GP, used logical, relational, and algebraic primitives, used cxOnePoint function for mating, Used mutUniform function for mutatin, and Evaluation function compares predicted survival of an individual to actual, and minimized FNR and FPR (false negative, false positive rate).
+* Issues with Configuration: Issue with DEAP (Max Kazman talked about this). Used 3 runs, 30 generations, and 5821 total evaluated individuals.
+* Challenges: NSGA II, one hot encoding, FPR/FNR for EMADE, Bias towards dominant individuals. NSGA II has problems with Multi-objective GP. Some problems with trends in pareto graphs. GP had lowest AUC, EMADE balanced the objectives better than GP, and highest variance for GP. Individuals that had fitness took longer to evaluate.
+<nowiki>---------------------------</nowiki>
+
+'''Modularity:'''
+* Exploring ways to abstract parts of individuals, allows us to create building blocks that can help with the genetic process. Allows us to reuse blocks of code. May also lead to novel solutions not found by traditional GP.
+* Koza: ADF – automatically defined functions – subroutines defined for each individual that evolved alongside them. Angeline: AR – adapative representation, created dynamic libraries of subtrees taken from parts of fit GP trees…
+* ARL: Adapative representation through learning. A way to introduce modularity and reusability in EMADE. A function that is dynamically evolved and can be called by other functions.
+* What makes ARL useful: might improves population overall fitness, via altruism, having a pool of good bits that could help all individuals, could help population converge faster, within EMADE we expect data maniuplating primitives to be the most useful, Frequency, and Fitness.
+* Ran on Titanic Dataset, Objective: False Positives, False Negatives, Default evolutionary parametesr…
+* Prev Semester: Differential Fitness and Selection Method.
+* Comparing no ARL vs Alternative Selection AUC.
+* Add MNIST Dataset, Adding New Heuristics, Differential Fitness/selection of ARLS
+<nowiki>--------------------------</nowiki>
+
+'''Bootcamp Subteam 1'''
+* Data Preprocessing – scikit learn
+* Cleaned Data: – set passenger id as index, dropped name and ticket. Account for missing values: Age == mean, Embarked == mode, 327/418 Cabin values missing –> dropped.
+* Changed non-numerical Values to Numerical Values: columns_map, and split data into testing and training sets.
+* We used Random Forest classified, Naive Bayes classifier, and Logistic regression classifier, and another one.
+
+== October 5, 2020 ==
+'''Note: I have been having a lot of trouble this semester with regards to my schedule and commitments. I remain committed to VIP and AAD. However, I have to show those commitments for the 2nd half of the semester, as for this first half, it's been quite rough, personally and professionally. I am therefore only filling in this entry for this week, and will maintain a regular notebook structure for the other weeks. I hope to make progress and show a complete notebook. Other past entries from April to October will be filled in over time.'''
+
+'''Simply put, I've been struggling with my other courses and this one in how to allocate time efficiently. I have therefore fallen behind. I'm not proud of it, but of course we're dealt the hand and have to respond. I hope to show Dr. Zutty and Dr. Rohling that I am indeed capable of progress, and I expect that by December, this notebook will be complete and filled well.'''
+
+''Sub-team: NLP''
+
+'''Problem: Why are we not seeing ConcatLayer individuals in our Pareto Front?'''
+* This problem has some explanations that are needed. First, we have to deal with the fact that we are using Neural Networks and not simply basic Trees. What is happening is that we are trying to prove that we can get Trees to train successfully/work successfully on a data set (the Toxicity data set, as seen with Anish' notebook). What has occurred is that Google and other benchmarks are primarily using Layer structures of some sort (or simply put, structures that don't use Trees), and we want to prove that we can indeed get Trees to perform at the same level of accuracy that we're seeing in other resources/papers.
+* We are using a library known as Keras to create Neural Networks and NN-related individuals. One of the functions we are using is known as a ConcatLayer, which takes two individuals and concatenates them together. We can quickly observe that such a function in effect creates our trees. Therefore, when running EMADE, we want to look for individuals that have ConcatLayers in them, which suggests that we are getting Tree like structures (and not simply the NN-layered individuals that Keras would produce). However, none of our individuals that are the best (or at the Pareto Front) are seeming to include ConcatLayers. Why is this the case?
+* My job is to figure out why this is the case, and see if I can develop individuals who will be able to use the ConcatLayer successfully. I have talked to Anish about this, who has given me tutorials on Keras, CoLab notebooks to edit, and more.
+{| class="wikitable"
+!Task
+!Current State
+!Date Assigned
+!Date Completed
+|-
+|Reinstall EMADE on my new computer (which is taking longer than it should)
+|In progress
+|August 2020
+|By the end of this week (October 5, 2020)
+|-
+|Read Keras tutorials (review Neural Network textbook that Anish sent) and edit Anish' CoLab notebooks with new individuals I've made (and test these individuals)
+|In progress
+|October 5, 2020
+|
+|-
+|Continue to edit my notebook and fill in entries related to Keras, EMADE, and more
+|In Progress
+|August 2020
+|
+|}
+'''While this is certainly not enough, I hope to edit this over the course of the semester and show that I am on the right track, and making valuable contributions to the team.'''
+
+I also wasn't able to find that self-evaluation notebook form due to time constraints. You can expect that it would have had a very low grade. I hope that such a grade will not be the case by the end of December.
+
+== April 20, 2020 ==
+'''Problem: Presentation day! Keep track of what's going on.'''
+
+'''NOTE TO DR. ZUTTY: I have taken your suggestions and attempted to be a bit more definitive in terms of cataloguing and filling in entries PAST February 19. All the entries up to and including February 19 have not changed. Hopefully there is a marked, positive difference in the strength of the entries.'''
+
+'''NOTE TO DR ZUTTY II: Thanks for the constructive feedback! I look forward to coming back to this VIP (for Research Fundamentals) in the Fall of 2020!'''
+
+Here were the topics of presentation, a bit condensed, as it was a long day:
+# '''ADFS''':
+## automatically defined functions, basically subtrees that recur a lot and are advantageous to have, can we put them in EMADE and have them be deployed instead of gradually arising through GA/GP
+## ADF usage/implementation did not unfortunately have statistical significance
+## What was noted was that individuals who were pareto-optimal usually had ADFs in them, but the ADFs themselves do not necessarily change things. Somehow, fitness is better for those pareto-optimal individuals who do have those ADFs.
+# '''Research Fundamentals''': Check Max Kazman's April 20, 2020 entry for our presentation.
+## We wanted to reduce bloat to make programs faster and more efficient and less space-consuming
+## Bloat is basically seeing if the tree size grows faster than the changes in the hypervolume (or AUC).
+## We implement speciation to keep genetic diversity higher and to potentially prevent bloat from happening
+### We did experiments with .15, .3 and .6 speciation thresholds (unrestricted mating), these did not have any significant changes to bloat/hypervolume
+## Noted that there was in fact a drop of some sort in terms of individuals being generated (after a particular generation or so, amt of individuals drops significantly)
+### Changing parameters did not affect this drop.'
+## We were able to get stuff working on the computer cluster known as PACE:
+### WE CAN DO 8 RUNS SIMULTANEOUSLY!
+### EMADE folder is quite large, need to put datasets back in manually
+### Bravo Chris on setting up PACE and automating it!
+# '''NLP I''' (non time conflict):
+## Want to deal with toxicity of words, etc...
+## Tried to linearize data with new primitives (ReluLayer, ELU, SeLU, RELU with normalization/batch normalization)
+## Tested toxicity of words/passages with new primitives and hand-developed models
+## Used google colab
+## Had trouble with PACE, did some x-ray classification stuff
+# '''NLP II''' (time conflict):
+## Helped develop guide to using PACE
+## Tried to add some primitives to help determine meaning of a sentence
+# '''ezCGP''':
+## We want a full GP framework for a particular dataset (CIFAR-100)
+### Turns out data prep and model training is done by hand most of the time
+### We can increase the amount of data we have by modifying the data in a way that doesn't change the underlying data (images being flipped and then being sent as a new data point)
+## Tried to set up a three-stage process with different EMADE algorithms
+## ☢PACE:
+### Tried to emphasize use of PACE, had their own DEAP stuff, but configurations were difficult to get working with PACE and GPU, etc...
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Complete
+|March 30, 2020
+|April 3, 2020
+|-
+|Do runs of speciation threshold = 0.6, with unrestricted mating (1 run done now)
+|Complete
+|April 3/6/7 2020
+|April 19, 2020
+|-
+|Upload data of the runs to Google Drive
+|Complete
+|April 10, 2020
+|April 19, 2020
+|-
+|Do .15 runs
+|Complete
+|April 13, 2020
+|April 19, 2020
+|-
+|Practice Presentation
+|Complete
+|April 13, 2020
+|April 19, 2020
+|-
+|Present
+|Complete
+|January 2020
+|April 20, 2020
+|}
+
+== April 13 - 19, 2020 ==
+'''Problem: doing the practice presentation, knowing what to talk about, uploading all the csv files, finishing the runs, etc...'''
+
+I'm cramming most of what happened into one week because it's not worth it to divvy up the days for this one:
+# I continue to do the runs and upload them to Google Drive. At the last minute, I get really scared that I messed up some of the csv uploads (because it was getting confusing making sure i was in the right google drive folder, so I just made a new one within the folder we were using and uploaded everything there.)
+# I will discuss briefly that I used DBeaver for having GUI access to the databases (DBeaver is a wonderful tool, and I would suggest using it over MySQL Workbench; on Arch, MySQL Workbench has errors relating to some password store issues, whereas DBeaver worked without a hitch -- will upload the Feb 26, 2020 entry for this and state that cleanly over there).
+# I was then asked to switch to doing .15 speciation-threshold runs (remember that increasing speciation-thresholds means that individuals that are a bit further away in "distance" from various species of trees can still be included in that species. What is speciation? Here: speciation is just a way of dividing the individuals we get into groups of individuals, sort of similar clusters, essentially. Each time we generate a new individual, we want that individual to belong to one of the species we've already collated. What we do is we check if the "distance" of the new tree and the species is relatively close. If it's close enough, we'll include it in our species, if not, cast it out. So increasing the threshold means more trees can be included in a given species, because they might have farther away distances and still fall under a single species. This means that decreasing the speciation-threshold means more individuals won't fall into the same species, thereby potentially increasing the amount of species there can be, if I'm not mistaken).
+# I was doing both .15 and .6runs, uploading that data dutifully.
+# We then prepped for our presentation, where Professor Rohling gave us some tips and pointers on what to dofor the presentation. 
+# Josh found out he wanted a bit more data, so I'll put what he wanted here explicitly:
+## '''Master.err/master.out files'''
+## '''individual table (as csv)'''
+## '''bloat table (as csv)'''
+## '''pareto table (as csv)'''
+## '''The result of: <code>select history.generation, count(individuals.species_id), count(distinct individuals.species_id) from individuals join history on individuals.hash = history.hash group by generation;</code> as a csv file. So then I did that.'''
+## I will try to upload my csv files if you want, but it might be a bit of data.  
+# Here is the zipped file: OKAY I CANNOT UPLOAD .ZIP FILES, COME ON! I'll try to figure out something else, but I'm low on time here. Just ask to see the Research Fundamentals Google Drive or something, we can help you from there.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Complete
+|March 30, 2020
+|April 3, 2020
+|-
+|Do runs of speciation threshold = 0.6, with unrestricted mating (1 run done now)
+|Complete
+|April 3/6/7 2020
+|April 19, 2020
+|-
+|Upload data of the runs to Google Drive
+|Complete
+|April 10, 2020
+|April 19, 2020
+|-
+|Do .15 runs
+|Complete
+|April 13, 2020
+|April 19, 2020
+|-
+|Practice Presentation
+|Complete
+|April 13, 2020
+|April 19, 2020
+|-
+|Present
+|Incomplete
+|January 2020
+|April 20, 2020
+|}
+
+== April 12, 2020 ==
+'''Problem: Now I'm doing the runs? Why are they taking so long?'''
+# I started doing the runs around April 11/12, 2020, following the procedures I outlined in the previous entries. '''I HIGHLY SUGGEST PRE-CONSTRUCTING YOUR DATABASES INSTEAD OF MAKING A NEW DATABASE RIGHT BEFORE YOU DO A RUN.''' Anyways, I noticed how the runs were really destroying my machine, in terms of fan speed, heat, and general time it took to evaluate certain individuals. My 1st run was finished in less than 5 hours, if I'm not mistaken, but my 2nd run would take a full day to finish. This sort of variance is puzzling and a bit worrying -- will I be able to do all the runs that I said I would be able to do (10 runs of speciation_threshold = 0.6, with unrestricted mating?)
+# Beyond that, I had no problems. I had been keeping in touch with Eric and Josh and updating my progress in the sub-channel.
+# You will notice that most of the entries from here on out are a bit perfunctory simply because this is all I was doing for the last week.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Complete
+|March 30, 2020
+|April 3, 2020
+|-
+|Do runs of speciation threshold = 0.6, with unrestricted mating (1 run done now)
+|Incomplete
+|April 3/6/7 2020
+|
+|-
+|Upload data of the runs to Google Drive
+|Incomplete
+|April 10, 2020
+|
+|}
+== April 10, 2020 ==
+'''Problem: Now that I'm on the same-page, need to make sure I know exactly what to do. Continue to set up for runs (i'm just writing it where it should have gone, which is April 7, 2020. I didn't formally start executing runs until around April 12, 2020)'''
+
+# Just a regular update meeting (some issues with the PACE team getting their stuff set up, not much more than that). I was able to get basic EMADE testing up and running, as we stated before on the 7th/8th. Due to school, testing's falling behind. But I'm on the same page as the rest of the team, and I know what I have to do: '''10 runs of EMADE/Titanic, with speciation_threshold = 0.6 and restricted_mating = false, for at least 30 generations per run.'''
+# Also, I should note that Eric pushed an update to handle some fitness_sharing glitches where certain individuals were taking way more time than was necessary(at least 2 hours per individual) -- in order to keep the process running, institute a hard-cut when an individual takes 2 hours to evaluate and still isn't done. So I git pulled that <code>git pull <branch-name></code> and then ran <code>bash reinstall.sh</code> to have those changes take effect, and made sure the speciation_threshold and restricted mating lines were the same.
+# '''Most important:''' In order to gather data for our presentation on April 20, we need to make sure we have a place for our data so that Eric and Josh can take a look at the data and get their results from it. So we were given a google drive link to upload our runs to. We want to include '''individuals table, bloat table, pareto front table, master output file, and master error file (as csv files for the tables, and .out/.err runs for output files and error files) PER RUN'''. Create a subfolder for each run and upload your data there thusly.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Complete
+|March 30, 2020
+|April 3, 2020
+|-
+|Do runs of speciation threshold = 0.6, with unrestricted mating
+|Incomplete
+|April 3/6/7 2020
+|
+|-
+|Upload data of the runs to Google Drive
+|Incomplete
+|April 10, 2020
+|
+|}
+
+== April 7, 2020 ==
+Because the week returning after Spring Break was probably one of the worst weeks of the semester for me, in terms of projects and homework being piled up on top of each other, I was unable to come into the team meetings. I'm not proud of it, and accept whatever penalties might come along with it.
+
+I know that I was able to at least talk to Eric about transitioning to EMADE runs (on input_titanic.xml, parameters in the rest of the notes). I touched base with him and began to play catch up. I was able to install EMADE/install the Research Fundamentals' fork of EMADE, and then start the runs. 
+
+'''Guide to setting up for particular runs''' 
+# First, I created some databases that were empty, following the guide I put into place on February 26, 2020. I also went through the EMADE reinstallation process as given in February 26, 2020.
+# Now, the most important thing is to change the parameters of general EMADE. 
+# '''Changing parameters for speciation-threshold = 0.6, restricted mating = False'''
+## When you're in your EMADE directory, navigate to src/GPFramework/launchEMADE.py, and open it in a text editor
+## search for <code>speciation_threshold</code> and set it to 0.6. The <code>restricted_mating</code> line should be right below it, and set that to False.
+## change the necessary DB name, username, and password elements in input_titanic.xml, as given in the guide for Feb 26, 2020.
+## Then, navigate to the regular emade directory and do <code>bash reinstall.sh (or ./reinstall.sh)</code>. Whenever you tamper with EMADE's source code, as we had to do for launchEMADE.py, you need to reinstall everything to make sure it's all up-to-date. PLEASE DO THIS WHENEVER YOU CHANGE THE SOURCE CODE!!!!
+## Now, you can run <code>python src/GPFramework/launchEMADE.py templates/input_titanic.xml</code>.
+## As I stated before, there should be master and worker files that are filling up with data. Try using <code>tail -f</code> to keep track of the outputs of the files. We'll need to do these runs for 30 generations. It will take some time to do it.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Complete
+|March 30, 2020
+|April 3, 2020
+|-
+|Do runs of speciation threshold = 0.6, with unrestricted mating
+|Incomplete
+|April 3/6/7 2020
+|
+|}
+
+== April 3, 2020 ==
+'''Problem: Now that I've read the paper, what do I move onto next?'''
+# I read the paper and largely understood it -- it offered much needed context on the work I was going to do.
+# Eric and the team have asked me to install their Fork of EMADE and start doing runs with speciation-threshold 0.6 and restricted mating = false on the TITANIC PROBLEM (or input_titanic.xml).
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Incomplete
+|March 30, 2020
+|
+|}
+
+== March 30, 2020 ==
+'''Problem: Now that we're back from Spring Break, whatever that means, what am I supposed to do?'''
+# I am supposed to read a paper on the approach known as neat-GP, which is where the discussion of speciation and all the techniques that Research Fundamentals was talking about came from.
+# Remember the problem of bloat control is that it is computationally intensive to simply go through all generated trees and manually remove bloat. The best approach is to try and regulate it organically. neat-GP uses speciation and other heuristic techniques to try and make sure bloat is being kept down, while maintaining the same, if not higher, levels of fitness.
+# I'm simply supposed to read the paper and report back on my findings, and then transition to doing stuff with EMADE.
+# I will link the paper here... okay the paper won't link, that's kind of sad. Apparently it already exists on the site. Just look up ''neat'' Genetic Programming: Controlling Bloat Manually by Leonardo Trujillo, Munoz, etc...
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|-
+|Read neat-GP paper
+|Incomplete
+|March 30, 2020
+|
+|}
+
+== March 23, 2020 ==
+'''Problem: Transitioning to whole online apparatus (no online meetings due to COVID 19). Have to send in preferences for teams.'''
+
+I sent in preferences for Research Fundamentals and NLP as the two big ones.We have meetings at the same time, and then break out into group meetings for each sub-group after the regular meeting. Due Dates haven't changed.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose/Send Preferences: Teams to Join
+|Complete
+|March 9, 2020 (informally)
+|March 23, 2020
+|}
+
+== March 9, 2020 ==
+'''Problem: It's Presentation Day, so I have some notes on what I observed from the presentation'''. 
+
+Please note I mostly paid attention to Research Fundamentals and ADFs as they were the most interesting to me. I'm aware that NLP and ezCGP also were there, but my notes for them might be very brief.
+
+# Generally, the first semester groups were able to get EMADE working in a master-worker setup. 
+# AUC/Pareto front with EMADE was not always better than the previous approaches (multi objective GP).
+# We apparently got the accuracy wrong because using accuracy == euclidean distance works only if true positive and negative rates are half and half, 50:50. I'm not entirely sure why, as some of the details elude me.
+'''ADFs:'''
+# These stand for Automatically Defined Functions
+# Basically, can we make new primitives with the trees of pareto-dominating individuals (take parts of those trees and start putting them together?)
+# If we see that one particular subtree shows up a lot of the time in pareto-dominating individuals, then the program should turn that subtree into its own primitive (its own part), and therefore it can be added into other trees. Think of it like this: if I find a particular sequence of operators is really good, why don't I just take that collection of operators and make it one big part, instead of waiting for this part to naturally occur with GA/GP?
+# Most of the time was spent trying to get ADF generation working, so not very significant results that ADF helped GP.
+
+'''Research Fundamentals:'''
+# What's bloat? Bloat shows up everywhere! Remember how I was discussing how trees can get exponentially large, and that requires more time to evaluate them? This is an actual field of exploration within GA/GP -- how do we make our trees less bloated, but still maintain the good level of fitness they need for continued evolution?
+# One way to combat this is through speciation -- an approach that controlsgenetic diversity and allows you to go through the search space (the space of all possible solutions) better than just traditional approaches. To reduce bloat, we want to show that the change in hypervolume (essentially a 3-d AUC) is better than the change of the tree size. In the case of a minimization problem such as Titanic, we need to have the hypervolume decrease faster than the tree size growth rate (if hypervolume decreases faster than the tree grows, clearly we're able to maintain some level of fitness without the three becoming overly bloated).
+# I enjoy reading Theory, even though I'll admit I'm pretty toast on this one. I really want to join this team because it seems like I can just read papers and teach myself some interesting stuff, and also get some practical understandings of implementations v. theory.
+
+Beyond that, some notes on ezCGP: Trying to fix the training process via changing parameters and changing some of the datasets (say, for images, flipping or resizing the images) to give more data sets to test on.
+
+Some notes for NLP:
+
+Trying to figure out the "toxicity" of words, also trying to figure out "toxicities" in passages. Also trying to figure out how to get anything running on PACE, the GT comp. cluster.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Complete
+|March 4, 2020
+|March 9, 2020
+|-
+|Choose Teams to Join
+|Incomplete
+|March 9, 2020 (informally)
+|
+|}
+
+== March 4, 2020 ==
+'''Problem: Now that we were able to test that EMADE works (and our ability to connect to others' EMADE instances), we need to develop data for EMADE on Titanic, and use this for our presentation.'''
+
+'''Notes:'''
+# We ran EMADE with 5 workers (our team), for 2 hours, and went for roughly 30 generations. For more information on the parameters we modified in input_titanic.xml, please look at Maxwell Kazman's notebook for more details.
+# We obtained results that showed that the AUC for the pareto front was a bit lesser than the results we had obtained previously. We also found that AdaBoost Learners were generally the most accurate individual. 
+# '''Details on AdaBoost Learner:''' For more details about what AdaBoost is, basically imagine it like this: in Machine Learning, we're given some data sets and asked to create a predictor given more data that we haven't seen previously. This predictor is called a ''learner''. It is generally easier to make some good rules of thumb than to make a perfect ''learner'', right? Think about checking if a car is in good quality. There's a few internal rules you'd use to judge, with reasonable accuracy, if a car is good or not. This is the crux of AdaBoost. It is easier to come up with a bunch of ''weak'' learners (rules of thumb) and then combine these ''weak'' learners in various proportions to get one large approximating learner than it is to come up with one perfect learner from the get go. In the car example, you might emphasize certain factors over others in determining whether a car is good to go or not. I can attach the paper by AdaBoost here: http://rob.schapire.net/papers/explaining-adaboost.pdf or: https://www.cs.princeton.edu/courses/archive/spr07/cos424/papers/boosting-survey.pdf. I recommend the latter paper, and also recommend taking a look at Jacob Abernethy's CS 4540 class, taught in Fall 2019 (this is where I encountered AdaBoost) for more mathematics needed to understand what's going on in AdaBoost. But this is what AdaBoost is, at a high level. Note that you will need a great deal of mathematics to understand some parts of the paper, so only read the first 5 or so pages for the latter paper. Feel free to email me if you find this notebook years down the line and don't understand what some of the paper is saying.
+# '''Challenges with Evaluation:''' Some challenges we noted was that individuals become longer and longer and therefore take more time to evaluate, which means its harder to get from one generation to another. We necessarily need more computing power.
+# '''What we have to do:''' Now we simply need to make our presentation, and hope that it all goes well.
+
+Here is some data from Max's notebook that shows how AdaBoost dominates. AdaBoost was one of my favorite approaches to a problem because of how intuitive (and relatively efficient) it is.   
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|-
+|Present Presentation
+|Incomplete
+|March 4, 2020
+|
+|} 
+
+== February 26, 2020 ==
+'''Problem: Now that we ran GA/GP on the Titanic Problem and got results for it, we want to run EMADE on the Titanic Problem and see what results it produces. This necessitates installing EMADE. I am just writing a guide -- a basic one -- to install MySQL and EMADE.'''
+
+'''Guide On MySQL (For Linux/MacOS users, primarily):'''
+# '''A quick explanation of SQL:''' MySQL is essentially a language/application that allows a user to create and maintain multiple databases. Now, what is most important to realize is that like most applications, one can make different ''users'' on MySQL. There is a ''root'' user that has all ''privileges'' on all databases. What are ''privileges?''
+# Well, like trying to run Administrator privileges on Windows machines (or sudo <command> on Linux), you need different accounts in order to do different things. The ''root'' user has, as far as I can tell, complete access and ability to work on any databases that are created, but I believe you can rectify this if you want.
+# Anyways, what you're gonna do is install MySQL, create an account with a password, and create a blank database whose privileges of editing/accessing rest solely on that user (and also ''root''). ''Root'' will be used to verify that this is done.
+# I traditionally run SQL via the command-line, so that is what I will be doing and trying to show you.
+# '''Actual instructions to install:''' Installing MySQL is rather straightforward. For Ubuntu users (version >= 18.04), you can run  <code>sudo apt install mysql-server && mysql_secure_installation</code>
+# Follow what is done over in that installation. You will most likely set a password for the ''root'' user (you don't want anyone to just get root access for MySQL, do you?)
+# Arch Linux users, we do not have a regular MySQL installation. Rather, we use the community fork of MySQL, known as MariaDB. For the purposes of VIP, there shouldn't be a difference between the two. You can run <code>sudo pacman -S mariadb</code> and that will install all the necessary dependencies.
+# For Arch users, every time you try to run mariadb as root, you're gonna need to log in with sudo privileges anyways, so that's already its own form of protection (but I guess you should set root password up. However, if you're running Arch, then I trust you can figure that out.)
+# For MacOS users, you can use the Native Package Installer to install MySQL, a compressed tar, and more. The easiest way to do it, as far as I can tell, is to download the .dmg (disk image file), and mount the disk image, and run the installer (the .pkg file).
+# '''Basic setup user guide:''' For Arch users, you're going to have to do ''sudo systemctl start mariadb.service'' before running mariadb/MySQL. Try running ''mariadb -u root -p'' (which means log in as root user, which takes in a password). You should have a password prompt (and you may have had to already enter your sudo password if you have to run this as sudo), and you can enter nothing in there/simply press Enter. Basically, we've logged into MySQL/mariadb as root user.
+# '''Create user with password''': The easiest way to do this is to simply do: <code>CREATE USER name@'localhost' IDENTIFIED BY '<password>'.</code> What does this do? It creates a user of ''name'' and whose host (connection, basically) is the localhost (your machine's IP address) with a password to log in as that user. As you're in root, you should do <code>SELECT user, host FROM mysql.user;</code>. What this does is that mysql/mariadb maintains its own internal database that keeps track of what you've done/made, in terms of what users are there, what databases exist, privileges, etc... When you do the above command, you are asking to see the database of all users and their names. This means your new user you made with the first command should show up (along with localhost as the host).
+# '''Create a blank database, and grant read/write/access privileges to the user:''' I'm going to be skipping a few steps here, but basically we want to create a blank database (as root user) and then give the grant privileges to your new user (so that your new user can populate the database when EMADE ends up using the new user to get into this newly created database). Simply do <code>CREATE DATABASE <database_name></code>. This creates the database. Now, we want to grant privileges for the new user you made in instruction 11 to be able to do things with this database. Run <code>GRANT ALL PRIVILEGES ON <database_name>.* TO 'name'@'localhost' IDENTIFIED BY '<password>'</code>. This allows the user you made (which I call "name") to have full control over this new database and all the tables/columns of that database. In order for these privileges to take effect, you must type in <code>FLUSH PRIVILEGES</code> (this updates the privileges list for users). Now, let's check if this had an effect. List the privileges of all users by typing in <code>SHOW GRANTS</code>. You should see a small table that shows your new user having privileges on the new database you created.
+# '''Log out of root, log back in as new user, check privileges again:''' Run <code>exit</code> and you should be out of mariadb/MySQL. Now, do <code>mariadb -u <new user name you made> -p</code>. Log in using the password you set. If you can do this, you probably don't have anything to worry about. Check privileges with <code>SHOW GRANTS</code> if you want. <code>exit</code> when you're done. You have now set up a blank database, and made a new user with a particular password.
+'''BASIC EMADE GUIDE/NOTES ON WHAT WE DID:'''
+# I'm writing a quick guide on how to install EMADE/what I remember went wrong during our own uses of the EMADE.
+## First, make sure you install git. On Windows, you'll need the .exe file, on MacOS and Linux, you can usually use a package manager of some sort to expedite the installation process.
+## Do <code>git lfs install.</code>
+## Make sure YOU HAVE NOT CLONED THE EMADE REPOSITORY before doing this.
+## Run <code>git clone https://github.gatech.edu/emade/emade</code>
+## This allows you to clone EMADE. Be warned, it'll take a long time.
+## Install ''anaconda 3''. I disagree with this at least for Arch users. I would rather you install ''miniconda'', which at least was able to work on my Arch machine. For Arch users, do <code>git clone https://aur.archlinux.org/miniconda3.git</code>. It's an AUR package (if you're running Arch, you'll know what that is, so do what you have to do.) 
+## After you've installed Anaconda/miniconda (for whatever OS you're using), you can do <code>cd emade</code>, and <code>conda install opencv</code>, as well as <code>conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn</code>, which installs the prerequisite packages you're going to need to run EMADE successfully.
+## Now, part of the problem is that there might be some problems with pip (python's own package manager) and miniconda/anaconda (the application designed to handle dependencies of python-based applications). You're going to have to run <code>pip install xgboost lmfit multiprocess hmmlearn deap opencv-python</code>. PLEASE UPDATE DEAP WITH PIP AFTER YOU'VE DONE THIS. For more information, check out Maxwell Kazman's entry on February 26, 2020 (DEAP has problems and needs to update in order to work with EMADE).
+## Now, you should be in the emade directory (that was what <code>cd emade</code> was for), and we can run <code>bash reinstall.sh</code> or <code>./reinstall.sh</code> for MacOS and Linux users (I don't know exactly what it updates/what it reinstalls, but you do it whenever you've made changes to EMADE source files).
+## You should have been successful in setting up EMADE!
+## '''Running EMADE:''' Now we want to actually test EMADE out. What we need to do is go to the templates folder and edit the input-file for whatever problem we're trying to solve. That is, the way EMADE runs is it basically "links" to a database (the new database we made), and puts results into that database by logging in as the user that has privileges on that new database (the new user we made). So we go into <code>templates/</code>and we see a bunch of .xml files. Those .xml files correspond to... basically, state initialization files. For example, <code>input_titanic.xml</code> is all the information needed to initialize a simulation of the Titanic Problem. So, we're gonna primarily be testing on input_titanic, so go into that file, and in the section that begins as <code><dbConfig></code> (it's found within the first ten lines or so), you'll see <code><server> </server>, <username> </username></code>, etc... make sure to fill in <code><server> localhost </server></code>, <code><username> <name of user you made> </username></code>, <code><password> <password_for_that_user> </password></code>, and the name of the database you made within <code><database> </database></code>. The reuse number is used for when you might stop the running of EMADE mid-run and need to resume from the point of stopping. Generally, I don't interrupt my runs, so keep that number as 0.
+## Now go back to the original <code>emade</code> directory, the central high-level directory, and run <code>python src/GPFramework/launchGTMOEP.py templates/<input-file></code>. You should see outputs start to show up on your terminal, and you should see your current directory fill up with "master<some_number>.out/.err" and "worker<number>.out/.err". Consider opening another terminal and navigating to this directory and running <code>ls -ltr</code> to show if the files are being updated, and if the sizes are being updated (Because info is being filled in on them).
+## You can kill a run with Ctrl+C. Also, note that in order to keep track of what's being written to which file, you can use <code>tail -f <file-name></code>, which basically monitors and outputs the lines being written to a particular file. Do this for multiple files (either separately, with separate tail commands, or with one large tail command, such as <code>tail -fn0*</code>, if i'm not mistaken. Do it separately; it's easier to parse).
+# In terms of what we actually did, we tested EMADE out and ran it with teammates to at least verify that we could do such a run. Basically, EMADE allows one user/computer to designate themselves as a MASTER and other computers as WORKERS. So other computers can connect to the EMADE instance spun up by the MASTER. In this case, you can affix <code>-w</code> to the original command: <code>python src/GPFramework/launchGTMOEP.py templates/<input-file> -w</code>, that is.
+# I was able to connect to Max Kazman's master process on the 26th/29th (we did the Hackathon). I was however UNABLE to have others connect to me. I'm not sure why or how to tackle this problem... but it seemed to be permissions issue or firewall issue. Dang Arch. In any case, we have to now make sure everyone else can run EMADE and generate some results for the presentation.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Finished
+|-
+|Test EMADE connections on non-titanic problem
+|Complete
+|Feb 26/29th 2020
+|Feb 26/29th 2020
+|-
+|Test EMADE on Titanic with Master/Worker connection
+|Complete
+|Feb 26/29th 2020
+|March 4, 2020
+|-
+|Create Presentation
+|Complete
+|January 2020 (We knew in advance we'd have to do it)
+|March 8, 2020
+|}
+
+== February 19, 2020 ==
+'''Notes''':
+
+Installed EMADE! This took a long time to do and was incredibly problematic.
+
+Remember that EMADE has to work with Anaconda/Miniconda/Conda. Technically it doesn't have to, but the tutorials to get it set up indicate otherwise.
+
+If you are on Linux and plan on installing Conda, please remember what distro you're using! Look at the Arch Linux wiki for more details. I personally recommend using Miniconda as it actually worked.
+
+SQL was installed, however, as I'm running on Arch Linux, this was done then via MariaDB, a fork of MySQL.
+
+'''IF YOU WANT A MINI-GUIDE ON WHAT TO DO WITH MYSQL AND EMADE, PLEASE READ THE FEBRUARY 26 ENTRY!'''
+{| class="wikitable"
+!Tasks
+!Date Assigned
+!Finished
+!
+|-
+|Test EMADE with SQL
+|February 19, 2020
+|Feb 26, 2020
+|
+|-
+|Run EMADE with teammates
+|Feb 19, 2020
+|Mar 4, 2020
+|
+|-
+|
+|
+|
+|
+|}
+
+== February 12, 2020 ==
+{| class="wikitable"
+!Tasks
+!Assigned
+!Finished
+!
+|-
+|Install EMADE
+|February 12, 2020
+|February 19, 2020
+|
+|-
+|Install prerequisites for EMADE
+|February 12, 2020
+|February 19, 2020
+|
+|-
+|Test EMADE
+|February 12, 2020
+|
+|In Progress
+|}
+
+We did our presentation, and were told to download EMADE for next week.
+
+== February 5, 2020 ==
+'''Notes:'''
+
+For this one, we wanted to discuss how to implement GP techniques to solve the Titanic Classifier Problem, because we have to present on this material on February 12th.
+
+'''GP And Titanic Classifier''':
+
+We want to minimize False Positives and False Negatives.
+
+Along with David, I worked on trying to figure out how to evaluate the fitness/figure out if something was false positive, or false negative.
+
+Our general Algorithm did as follows:
+# Took some group of individuals, put them through a series of generated function
+# Calculated the amount of false positives, negatives, etc... based on the actual set of survivals for the set we evaluated, per function.
+# Calculated the fitness as a result of false positives, negatives etc... per function.
+# Mutate some of these individuals and produce children, etc...
+# Re-run the algorithm for multiple generations with the updated functions/trees/children.
+# At the end, plot a Pareto front and see which individuals are dominant. Report on the AUC.
+I'm taking the code from the notebook for this problem. I'm aware that other individuals have also displayed the same code, so I expect it'll look the same:
+
+The evaluation function:
+ def evalTrainData(individual, table=train_data, pset=pset):
+     func = gp.compile(expr=individual, pset=pset)
+     train_data_sample = train_data.sample(int(len(train_data['Survived']) / 2))
+     guesses = []
+     truth = train_data_sample['Survived'].tolist()
+     for row in train_data_sample.itertuples():
+         y = func(row[2], row[3], row[4], row[5], row[6])
+         guesses.append(float(y))
+     vals = np.subtract(truth, guesses)
+     countFP = 0
+     countFN = 0
+     countT = 0
+     for i in vals:
+         if i == 1.0:
+             countFP += 1
+         elif i == -1.0:
+             countFN += 1
+         else:
+             countT += 1
+             
+     #dist = np.power(np.power(countFP / len(vals), 2) + np.power(countFN / len(vals), 2), 0.5)
+     return (countFN / len(vals), countFP / len(vals))
+     #return (1-(countT / len(vals)), )
+The actual algorithm:
+ # Evaluate the individuals with an invalid fitness
+ invalid_ind = [ind for ind in population if not ind.fitness.valid]
+ fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+ for ind, fit in zip(invalid_ind, fitnesses):
+     ind.fitness.values = fit
+     
+ record = stats.compile(population)
+ logbook.record(gen=0, nevals=len(invalid_ind), **record)
+ 
+ print(logbook.stream)
+ 
+ for gen in range(1, ngen + 1):
+     # Select the next generation individuals
+     offspring = toolbox.select(population, len(population))
+ 
+     # Vary the pool of individuals
+     offspring = [toolbox.clone(ind) for ind in population]
+ 
+     # Apply crossover and mutation on the offspring
+     for i in range(1, len(offspring), 2):
+         if random.random() < cxpb:
+             offspring[i - 1], offspring[i] = toolbox.mate(offspring[i - 1],
+                                                           offspring[i])
+             del offspring[i - 1].fitness.values, offspring[i].fitness.values
+ 
+     for i in range(len(offspring)):
+         if random.random() < mutpb:
+             offspring[i], = toolbox.mutate(offspring[i])
+             del offspring[i].fitness.values
+ 
+         # Evaluate the individuals with an invalid fitness
+     invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
+     fitnesses = toolbox.map(toolbox.evaluate, invalid_ind)
+     for ind, fit in zip(invalid_ind, fitnesses):
+         ind.fitness.values = fit
+ 
+         # Update the hall of fame with the generated individuals
+     hof.update(offspring)
+     
+     if sum(tools.selBest(population, 1)[0].fitness.values) < sum(best_ind.fitness.values):
+         best_ind = tools.selBest(population, 1)[0]
+         gen_best = gen
+ 
+         # Replace the current population by the offspring
+     population[:] = offspring
+
+Here are some results, from the powerpoint we later made. I took these photos from Max' notebook because I couldn't figure out how to actually download the images from the powerpoint:
+[[files/Results For Presentation.png|center|thumb|800x800px]]
+{| class="wikitable"
+!Task
+!Date Assigned
+!Date Finished
+!
+|-
+|Do Presentation
+|February 5, 2020
+|February 12, 2020
+|
+|-
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|}
+
+== January 28/29, 2020 ==
+'''Notes''':
+
+Discussed generally what the next lab was. This is where I didn't do so well, so unfortunately, yeah.
+
+'''Titanic Classifier: An Introduction to Machine Learning'''
+
+We know a great deal of data about who survived and who died on the Titanic. What happens if we created a model that could predict who else lived and died, for data that we hadn't yet looked at?
+
+What we notice is we need two things: we need a set of data on which to train the model (to train the model to look for certain patterns, etc...), and another set of data that we can actually test the model with (and create predictions. We can then check what the actual results were versus the predictions).
+
+This is the foundation of basic machine learning. We have a training set of data with various parameters and attributes, and we want to figure out what weighting of attributes and more contributes to the best-predicting model there is.
+
+So we downloaded sci-kit learn and other packages to prep ourselves for basic machine learning. We were supposed to do our own machine learning predictive models (using some other classifiers), but unfortunately I was not able to solve this problem in time. What ended up happening (I'm writing this from the future/editing this entry beyond Jan 29) is that I'm better at the theory than I am the coding. At least I understand something.
+
+There are some things we want to worry about:
+# What attributes do we think actually matter?
+# For attributes which might have NaN (when there should clearly be a number), what do we do?
+# Should we normalize this data to make everything out of 100 percent/1?
+# How do we decrease false positives and false negatives? 
+What was decided was that some columns would be reorganized; for example, SibSP and Parch columns were put into a single column, known as FamSize, whose value per each entry was val(SibSp) + val(FamSize).
+
+The Age column which had NaN's was replaced by values from the probability distribution of age values (using the average might skew the results).
+
+For this one, we're supposed to do these items:
+{| class="wikitable"
+!Tasks
+!Date Assigned
+!Date Finished
+!
+|-
+|Do your own classifiers
+|January 29, 2020
+|N/A
+|
+|-
+|Create Pareto Dominance Front
+|January 29, 2020
+|N/A
+|
+|-
+|
+|
+|
+|
+|}
+
+== January 15, 2020 ==
+- Set deadlines for next week, January 22nd, to review previous lecture materials, get DEAP set up, review Python, etc...
+
+{| class="wikitable"
+!Tasks
+!Assigned
+!Finished
+!
+|-
+|Install DEAP
+|January 15, 2020
+|January 16, 2020
+|
+|-
+|Read the lab 1/do the first lab
+|January 15, 2020
+|January 22, 2020
+|
+|-
+|Review Python
+|January 15, 2020
+|January 22, 2020
+|
+|}
+
+'''Genetic Algorithms Continued:'''
+
+Review:
+# Population based solution
+# Used concepts from natural selection to evolve individuals
+# List of genes for each individual expressible as an array.
+Instead of taking an individual and having a func evaluator, we'll make the individual the function itself.
+
+'''Genetic Programming'''
+
+[0, 1, 2, 3, 4, 5] -> Individual -> [0, 1, 4, 9, 16, 25], etc...
+
+We will represent this as a tree, where Nodes are called primitives and represent functions, and leaves are called terminals and represent parameters.
+
+A function can be written as a set of operators and numbers:
+
+3 * 4 + 1 -> [+, *, 3, 4, 1]. Basically a Lisp expression.
+
+You can cross these trees and create increasingly larger functions.
+
+In GP, mutations can involve:
+# inserting a node or subtree
+# delete a node or subtree.
+So, with this in mind, what about the generation of y = sin(x)?
+
+A very interesting example of writing things out, though we only seemed to deal with a third-order expansion.
+
+'''An Introduction to Multiple Objectives'''
+
+In the One-Max problem, we are trying to maximize ''one objective'' -- namely, the fitness of a given individual. Given multiple objectives, what do we do?
+
+We are given Lab 2 to do, except Lab 2 seems to keep failing for me (updated in February, still failing, didn't get around to asking why it was failing. Conceptually I do understand what is going on).
+
+'''Genetic Programming in DEAP'''
+
+We want to create trees, whose leaves are operators, which output the output of a function. The tree is the function, and we feed input into the tree, which then returns a number. We want to find out what tree best matches a function we are trying to approximate. Think of something like sin(x), where we can't actually just invoke sin(x). We have to try 
+
+and work around it by creating a function (however complicated it might be). We then want to mutate the function, and make it do better.
+
+'''Pareto Dominance'''
+
+We want to ''solve'' multiple objectives. Usually this can be understood in the context of false positives and false negatives. If a doctor is administering a test (a classic problem) to a group of individuals, the doctor wants to construct the test in such a way that it minimizes false positives and false negatives, and is hence more accurate.
+
+We can visualize what ''Pareto Dominance'' is by realizing that a lot of the time, we may have different versions of the doctor's test that minimize either false positives or false negatives, but do not necessarily do both. We can graph these tests if the axes measure false positives and false negatives. Tests that are minimizing both (closer to what we want) are graphed closer to the origin.
+
+If there are a series of individuals that are doing the ''best'' out of all the other individuals (say, there were five versions of the test that seemed to minimize one of the problems), we can connect these individuals on our graph and create a ''curve'' of sorts, that shows the dominant/best individuals. This is known as a '''Pareto curve''', and these individuals are considered '''Pareto dominant'''''.''
+
+The way to improve the Pareto curves is, naturally, to decrease the area under the curve. Intuitively, if individuals are doing better and better in this version of Pareto optimization, the curves will get closer and closer to the origin. Hence the area under the curves will be smaller. So if we are able to decrease the area under some given Pareto curve from one curve to another, we know that the curve has improved, and the individuals are better.
+
+Here is an example of a Pareto front trying to minimize Mean Squared Error and Tree Size (From Lab 2, added in after January 15):
+
+The area is 2.38414, roughly.
+
+I'm having some trouble trying to actually minimize the area further than that. However, conceptually speaking, this is not hard to understand.
+
+[[files/ParetoDominance.png|thumb|An example of Pareto Front/Dominance. The Front is the red line, essentially. This is an example gleaned from the basic version of Lab 2.]]
+
+== January 8, 2020 ==
+'''Introduction and Keywords'''
+
+<u>Genetic algorithm</u>: a new generation is created through mating of individuals from the previous population.
+
+<u>Some Definitions</u>
+# <u>Individual</u> - a specific candidate in the population (with certain properties)
+# <u>Population</u> - a group of individuals whose properties will be altered.
+# <u>Objective</u>: A value that characterizes individuals that you are trying to maximize or minimize (think back to Objective functions in LP). We want to increase the objective through the evolutionary/genetic algorithm.
+# <u>Fitness</u>: A comparison metric to other individuals; how well does the individual accomplish a task relative to the rest of the population?
+# <u>Selection</u>: where individuals with better fitness are given preference to pass on their genes to their children. How do we choose who is selected?
+## <u>Fitness proportionate:</u> The greater the fitness value, the higher the probability you're selected to mate.
+## <u>Tournament</u>: where individuals "compete" (based on fitness); winners are those who can mate.
+# <u>Mate/Crossover</u>: Where individuals "mate". In the context of the population we're looking at, we're going to be looking at the modification of bit vectors, essentially. I would assume the cutting-up of vectors and concatenating different parts of them would be considered an example of mating.
+# <u>Mutate</u>: Random modifications on population not derived from mating. This maintains diversity of the population. Consider randomly flipping the bit of some given ''n-bit'' vector.
+<u>How do these algorithms work</u>:
+# Randomly initialize population
+# Determine fitness of population
+# Loop:
+## select parents from population
+## perform crossover on parents creating population
+## perform mutation of population
+## determine fitness of population
+# End loop until best individual is "good enough" (has the highest possible fitness)
+
+'''An Example Application: The One-Max Problem'''
+
+This problem revolves around individuals, represented as 100-bit vectors, whose ''objective value'' is the amount of 1's an individual has; how many bits are 1 per individual?
+
+Of course, naturally, most individuals start out with some mixture of 1's and 0's, generally less 1's than 0's. We do not want this.
+
+In fact, we want to produce an individual whose vector is an all 1's vector, and hence has the highest possible objective value: 100. We will actually do this now, with a utility known as <u>DEAP -- Distributed Algorithms in Python.</u>
+
+'''One-Max via DEAP: Lab 1 -- Please note this was done after January 8, but the content described here is part of the January 8 lecture.'''
+
+As we explained before, we are given some n-bit vector (which represents an individual), where each bit represents a ''gene''. We are going to try to get some individual to have an objective value of 100, which means every gene is turned on/reads 1 for its bit value.
+
+We will need to make use of DEAP, a python utility that lets us run/create genetic algorithms. We will attempt to solve the One-Max problem using DEAP.
+
+First, we need to simulate randomness in our initialization of the population, and we need to get the basic tools down of DEAP.
+
+DEAP allows us to create classes and instances of those classes upon which we will run our genetic algorithms. As classes can be multi-faceted, DEAP is pretty abstract about what a class can/can't contain. Hence, DEAP gives us the <u>creator</u> utility, that lets us build new classes quickly by defining what classes our classes may inherit from, and, most importantly, what attributes we might want our new class to have.
+
+<u>Basic code:</u>
+
+from deap import base
+
+from deap import creator
+
+from deap import tools
+
+creator.create("Name of class", base.ClassToInheritFrom, additionalArgsAsAttributes)
+
+From there, we note that most instances of a class that we create/instantiate will be put into something known as a ''toolbox.'' For our purposes, we create an Individual class that is basically a glorified list.
+
+We need methods to use within this toolbox -- the toolbox itself seems to only have a few methods, so we can create methods/wrap pre-existing methods with <u>toolbox.register("name", method_to_wrap, parameters to the function).</u>
+
+We also need to create ways of instantiating individuals, so we could do:
+
+<u>toolbox.register("name of individual", tools.initRepeat (aliased function), creator.classWeMade, toolbox.function_that_we_may_have_wrapped, timesToRepeat)</u>
+
+<u>tools.initRepeat</u> takes a class we made, a function to repeat to put into the "container" of the class we made (runs the function on that class/an attribute of the class some given amount of times). In our case, we're going to randomly initialize a hundred values to be 1 or 0.
+
+We also create another class known as Population, which is itself a list (a list of Individuals... who are themselves lists, yeah this can be complicated) of individuals, and then we instantiate individuals and feed them into the population. The population class takes in a parameter that tells us how many individuals we want, and then instantiates those individuals with their own 100-length lists.
+
+Then of course, we want to evaluate the objective value of these 100-length lists (individuals). We define a method that sums over the values in the list for each individual (an individual of course is one list). This is the evalOneMax method, which takes in an individual and calculates the objective/fitness val of the individuals.
+
+Here is the results of the lab:
+ This is the list initially:  [47.0, 57.0, 57.0, 49.0, 44.0, 47.0, 46.0, 54.0, 50.0, 53.0, 58.0, 51.0, 54.0, 47.0, 48.0, 46.0, 44.0, 53.0, 55.0, 55.0, 48.0, 45.0, 56.0, 44.0, 51.0, 50.0, 47.0, 50.0, 53.0, 47.0, 50.0, 42.0, 53.0, 45.0, 41.0, 40.0, 45.0, 47.0, 44.0, 51.0, 52.0, 49.0, 50.0, 58.0, 55.0, 50.0, 46.0, 51.0, 49.0, 56.0, 54.0, 47.0, 51.0, 42.0, 53.0, 50.0, 51.0, 46.0, 56.0, 51.0, 58.0, 52.0, 47.0, 50.0, 63.0, 52.0, 48.0, 51.0, 55.0, 54.0, 49.0, 41.0, 49.0, 46.0, 48.0, 51.0, 46.0, 49.0, 50.0, 52.0, 46.0, 54.0, 41.0, 52.0, 47.0, 57.0, 46.0, 52.0, 49.0, 49.0, 53.0, 48.0, 48.0, 45.0, 41.0, 47.0, 50.0, 50.0, 54.0, 46.0, 40.0, 51.0, 54.0, 48.0, 48.0, 51.0, 57.0, 49.0, 43.0, 52.0, 48.0, 50.0, 47.0, 56.0, 50.0, 53.0, 53.0, 52.0, 47.0, 56.0, 48.0, 45.0, 58.0, 55.0, 49.0, 49.0, 41.0, 48.0, 45.0, 50.0, 46.0, 42.0, 48.0, 50.0, 60.0, 52.0, 47.0, 51.0, 52.0, 52.0, 55.0, 54.0, 44.0, 42.0, 56.0, 53.0, 47.0, 56.0, 53.0, 53.0, 57.0, 45.0, 47.0, 40.0, 41.0, 42.0, 70.0, 56.0, 50.0, 43.0, 58.0, 54.0, 51.0, 51.0, 48.0, 46.0, 43.0, 51.0, 50.0, 51.0, 49.0, 49.0, 46.0, 50.0, 55.0, 46.0, 45.0, 48.0, 46.0, 50.0, 39.0, 44.0, 49.0, 46.0, 55.0, 46.0, 49.0, 53.0, 47.0, 51.0, 58.0, 50.0, 56.0, 46.0, 51.0, 46.0, 56.0, 49.0, 48.0, 46.0, 50.0, 51.0, 53.0, 55.0, 56.0, 46.0, 50.0, 44.0, 48.0, 50.0, 54.0, 51.0, 54.0, 47.0, 55.0, 48.0, 48.0, 48.0, 54.0, 51.0, 52.0, 48.0, 53.0, 43.0, 45.0, 50.0, 57.0, 49.0, 51.0, 52.0, 43.0, 49.0, 47.0, 47.0, 47.0, 50.0, 53.0, 57.0, 45.0, 46.0, 52.0, 60.0, 50.0, 46.0, 48.0, 47.0, 44.0, 47.0, 58.0, 48.0, 43.0, 58.0, 47.0, 54.0, 51.0, 45.0, 56.0, 45.0, 49.0, 50.0, 59.0, 62.0, 48.0, 47.0, 42.0, 58.0, 52.0, 52.0, 54.0, 49.0, 45.0, 46.0, 47.0, 50.0, 51.0, 59.0, 44.0, 44.0, 45.0, 54.0, 61.0, 46.0, 51.0, 50.0, 52.0, 40.0, 49.0, 50.0, 50.0, 44.0, 57.0, 46.0, 55.0, 51.0, 45.0, 47.0, 47.0, 50.0, 44.0, 47.0]
+ 70.0
+ -- Generation 1 --
+ new fits:  [55.0, 62.0, 57.0, 58.0, 51.0, 50.0, 50.0, 52.0, 51.0, 53.0, 55.0, 61.0, 50.0, 56.0, 58.0, 56.0, 54.0, 57.0, 63.0, 51.0, 48.0, 58.0, 44.0, 56.0, 55.0, 56.0, 49.0, 52.0, 52.0, 52.0, 54.0, 53.0, 56.0, 51.0, 47.0, 51.0, 51.0, 63.0, 53.0, 62.0, 57.0, 49.0, 56.0, 54.0, 54.0, 57.0, 55.0, 53.0, 52.0, 50.0, 52.0, 50.0, 49.0, 62.0, 51.0, 50.0, 50.0, 51.0, 59.0, 49.0, 54.0, 56.0, 54.0, 56.0, 53.0, 58.0, 50.0, 51.0, 59.0, 51.0, 56.0, 53.0, 55.0, 55.0, 52.0, 51.0, 52.0, 53.0, 60.0, 49.0, 55.0, 52.0, 55.0, 52.0, 53.0, 58.0, 47.0, 57.0, 57.0, 57.0, 54.0, 54.0, 50.0, 50.0, 56.0, 55.0, 54.0, 50.0, 55.0, 54.0, 56.0, 50.0, 57.0, 57.0, 56.0, 48.0, 57.0, 52.0, 51.0, 54.0, 54.0, 56.0, 51.0, 60.0, 56.0, 53.0, 46.0, 62.0, 51.0, 51.0, 56.0, 49.0, 51.0, 44.0, 57.0, 50.0, 53.0, 55.0, 55.0, 55.0, 53.0, 52.0, 57.0, 56.0, 51.0, 50.0, 51.0, 58.0, 56.0, 52.0, 55.0, 56.0, 51.0, 58.0, 59.0, 55.0, 52.0, 54.0, 51.0, 54.0, 56.0, 55.0, 56.0, 50.0, 50.0, 56.0, 58.0, 58.0, 62.0, 57.0, 53.0, 53.0, 60.0, 55.0, 53.0, 53.0, 50.0, 51.0, 58.0, 52.0, 48.0, 47.0, 55.0, 61.0, 55.0, 54.0, 58.0, 49.0, 54.0, 58.0, 56.0, 51.0, 52.0, 51.0, 53.0, 56.0, 62.0, 56.0, 49.0, 49.0, 54.0, 51.0, 53.0, 57.0, 55.0, 54.0, 54.0, 49.0, 56.0, 53.0, 53.0, 48.0, 52.0, 51.0, 53.0, 47.0, 53.0, 51.0, 56.0, 48.0, 62.0, 50.0, 55.0, 57.0, 52.0, 49.0, 54.0, 62.0, 54.0, 56.0, 55.0, 49.0, 50.0, 56.0, 53.0, 58.0, 50.0, 59.0, 57.0, 51.0, 57.0, 56.0, 58.0, 59.0, 54.0, 50.0, 52.0, 56.0, 50.0, 57.0, 53.0, 55.0, 54.0, 57.0, 53.0, 55.0, 52.0, 60.0, 62.0, 55.0, 58.0, 57.0, 57.0, 49.0, 54.0, 60.0, 43.0, 55.0, 55.0, 56.0, 53.0, 52.0, 57.0, 60.0, 51.0, 52.0, 50.0, 57.0, 43.0, 58.0, 56.0, 58.0, 54.0, 55.0, 58.0, 50.0, 56.0, 50.0, 52.0, 51.0, 51.0, 51.0, 57.0, 53.0, 56.0, 53.0, 58.0, 58.0, 50.0, 54.0, 53.0, 55.0, 51.0, 60.0, 56.0, 54.0, 61.0, 65.0, 55.0, 48.0]
+ Min = 43.0
+ Max = 65.0
+ Avg = 53.96
+ Std = 3.721791683226429
+ -- Generation 2 --
+ new fits:  [55.0, 57.0, 55.0, 57.0, 58.0, 58.0, 58.0, 58.0, 53.0, 60.0, 55.0, 59.0, 64.0, 55.0, 61.0, 61.0, 56.0, 63.0, 57.0, 56.0, 60.0, 53.0, 56.0, 56.0, 55.0, 55.0, 51.0, 63.0, 61.0, 59.0, 51.0, 59.0, 55.0, 54.0, 59.0, 58.0, 61.0, 55.0, 60.0, 64.0, 57.0, 56.0, 57.0, 56.0, 63.0, 54.0, 56.0, 58.0, 63.0, 60.0, 60.0, 57.0, 58.0, 58.0, 56.0, 55.0, 66.0, 53.0, 62.0, 62.0, 57.0, 54.0, 56.0, 58.0, 60.0, 55.0, 57.0, 54.0, 57.0, 59.0, 56.0, 62.0, 61.0, 58.0, 62.0, 57.0, 57.0, 59.0, 52.0, 62.0, 56.0, 52.0, 57.0, 60.0, 57.0, 54.0, 56.0, 63.0, 58.0, 60.0, 49.0, 59.0, 51.0, 61.0, 61.0, 59.0, 54.0, 58.0, 58.0, 59.0, 57.0, 58.0, 60.0, 55.0, 58.0, 56.0, 54.0, 51.0, 56.0, 55.0, 54.0, 57.0, 60.0, 62.0, 57.0, 58.0, 60.0, 56.0, 53.0, 52.0, 56.0, 63.0, 60.0, 56.0, 57.0, 58.0, 57.0, 55.0, 56.0, 62.0, 51.0, 61.0, 60.0, 56.0, 58.0, 56.0, 55.0, 63.0, 52.0, 56.0, 58.0, 56.0, 59.0, 52.0, 55.0, 55.0, 55.0, 54.0, 56.0, 57.0, 57.0, 63.0, 60.0, 55.0, 55.0, 58.0, 58.0, 55.0, 62.0, 62.0, 64.0, 56.0, 60.0, 65.0, 54.0, 61.0, 52.0, 59.0, 52.0, 58.0, 58.0, 55.0, 62.0, 51.0, 59.0, 61.0, 57.0, 62.0, 62.0, 56.0, 53.0, 49.0, 58.0, 56.0, 57.0, 61.0, 60.0, 60.0, 49.0, 61.0, 56.0, 57.0, 61.0, 60.0, 57.0, 60.0, 58.0, 58.0, 58.0, 52.0, 62.0, 57.0, 60.0, 64.0, 58.0, 60.0, 58.0, 59.0, 58.0, 50.0, 55.0, 61.0, 59.0, 54.0, 57.0, 62.0, 57.0, 51.0, 59.0, 61.0, 57.0, 60.0, 54.0, 64.0, 56.0, 56.0, 56.0, 54.0, 58.0, 57.0, 54.0, 56.0, 62.0, 59.0, 55.0, 55.0, 62.0, 57.0, 55.0, 51.0, 57.0, 53.0, 53.0, 57.0, 58.0, 51.0, 60.0, 55.0, 52.0, 55.0, 55.0, 58.0, 57.0, 63.0, 60.0, 53.0, 52.0, 57.0, 60.0, 56.0, 54.0, 63.0, 56.0, 53.0, 55.0, 55.0, 55.0, 58.0, 54.0, 63.0, 55.0, 60.0, 57.0, 56.0, 62.0, 57.0, 59.0, 60.0, 56.0, 55.0, 52.0, 59.0, 52.0, 61.0, 58.0, 58.0, 61.0, 57.0, 55.0, 58.0, 58.0, 55.0, 61.0, 56.0, 54.0, 54.0, 53.0, 58.0, 57.0, 65.0]
+ Min = 49.0
+ Max = 66.0
+ Avg = 57.31333333333333
+ Std = 3.2916797468094465
+ -- Generation 3 --
+ new fits:  [62.0, 58.0, 57.0, 55.0, 57.0, 61.0, 58.0, 64.0, 61.0, 60.0, 52.0, 66.0, 58.0, 61.0, 61.0, 60.0, 62.0, 62.0, 61.0, 55.0, 58.0, 64.0, 61.0, 62.0, 62.0, 56.0, 61.0, 57.0, 62.0, 55.0, 59.0, 61.0, 58.0, 61.0, 63.0, 61.0, 59.0, 61.0, 58.0, 62.0, 58.0, 66.0, 63.0, 60.0, 61.0, 59.0, 59.0, 59.0, 60.0, 55.0, 58.0, 62.0, 59.0, 59.0, 59.0, 61.0, 60.0, 62.0, 63.0, 62.0, 62.0, 59.0, 59.0, 63.0, 62.0, 60.0, 62.0, 62.0, 62.0, 64.0, 60.0, 59.0, 53.0, 61.0, 60.0, 61.0, 60.0, 58.0, 56.0, 56.0, 56.0, 67.0, 63.0, 57.0, 61.0, 58.0, 60.0, 55.0, 63.0, 61.0, 63.0, 59.0, 59.0, 59.0, 60.0, 59.0, 56.0, 55.0, 61.0, 60.0, 60.0, 61.0, 59.0, 66.0, 60.0, 63.0, 57.0, 55.0, 58.0, 58.0, 61.0, 55.0, 61.0, 64.0, 62.0, 62.0, 61.0, 61.0, 59.0, 63.0, 64.0, 50.0, 58.0, 58.0, 60.0, 54.0, 59.0, 64.0, 61.0, 64.0, 59.0, 61.0, 60.0, 59.0, 55.0, 66.0, 60.0, 62.0, 58.0, 62.0, 60.0, 57.0, 61.0, 60.0, 57.0, 65.0, 62.0, 65.0, 58.0, 58.0, 55.0, 63.0, 56.0, 62.0, 61.0, 58.0, 59.0, 59.0, 60.0, 55.0, 60.0, 56.0, 63.0, 65.0, 58.0, 58.0, 55.0, 62.0, 64.0, 60.0, 52.0, 72.0, 57.0, 62.0, 60.0, 59.0, 61.0, 59.0, 62.0, 60.0, 63.0, 58.0, 62.0, 50.0, 62.0, 59.0, 58.0, 64.0, 65.0, 55.0, 58.0, 55.0, 54.0, 61.0, 58.0, 63.0, 61.0, 58.0, 63.0, 56.0, 60.0, 59.0, 58.0, 58.0, 57.0, 62.0, 62.0, 52.0, 58.0, 65.0, 58.0, 60.0, 61.0, 54.0, 57.0, 61.0, 61.0, 64.0, 58.0, 58.0, 59.0, 64.0, 58.0, 59.0, 61.0, 57.0, 60.0, 57.0, 59.0, 60.0, 58.0, 58.0, 63.0, 53.0, 60.0, 57.0, 61.0, 58.0, 60.0, 59.0, 57.0, 65.0, 64.0, 62.0, 58.0, 56.0, 66.0, 55.0, 64.0, 60.0, 63.0, 58.0, 56.0, 66.0, 62.0, 62.0, 64.0, 61.0, 61.0, 62.0, 53.0, 57.0, 60.0, 58.0, 63.0, 63.0, 55.0, 62.0, 56.0, 54.0, 62.0, 62.0, 57.0, 63.0, 57.0, 60.0, 60.0, 58.0, 63.0, 56.0, 64.0, 63.0, 58.0, 65.0, 58.0, 61.0, 54.0, 62.0, 58.0, 60.0, 60.0, 58.0, 59.0, 56.0, 52.0, 70.0, 59.0, 58.0, 59.0, 57.0]
+ Min = 50.0
+ Max = 72.0
+ Avg = 59.74333333333333
+ Std = 3.1818425828789856
+ -- Generation 4 --
+ new fits:  [62.0, 57.0, 59.0, 66.0, 59.0, 63.0, 62.0, 60.0, 64.0, 61.0, 63.0, 63.0, 67.0, 63.0, 62.0, 58.0, 65.0, 54.0, 65.0, 64.0, 68.0, 55.0, 61.0, 64.0, 56.0, 57.0, 63.0, 59.0, 63.0, 57.0, 67.0, 61.0, 64.0, 63.0, 55.0, 68.0, 66.0, 63.0, 59.0, 65.0, 61.0, 61.0, 61.0, 63.0, 58.0, 61.0, 63.0, 61.0, 58.0, 62.0, 62.0, 62.0, 59.0, 61.0, 60.0, 61.0, 59.0, 63.0, 62.0, 60.0, 63.0, 63.0, 56.0, 64.0, 61.0, 72.0, 64.0, 61.0, 59.0, 60.0, 57.0, 63.0, 61.0, 60.0, 65.0, 61.0, 64.0, 59.0, 67.0, 54.0, 60.0, 61.0, 60.0, 64.0, 62.0, 63.0, 62.0, 62.0, 62.0, 62.0, 65.0, 62.0, 65.0, 60.0, 61.0, 59.0, 62.0, 62.0, 63.0, 61.0, 64.0, 63.0, 60.0, 72.0, 61.0, 62.0, 63.0, 65.0, 62.0, 61.0, 59.0, 58.0, 67.0, 57.0, 63.0, 59.0, 64.0, 63.0, 63.0, 61.0, 61.0, 59.0, 66.0, 55.0, 65.0, 61.0, 59.0, 61.0, 70.0, 58.0, 65.0, 62.0, 63.0, 55.0, 63.0, 62.0, 59.0, 62.0, 64.0, 60.0, 61.0, 63.0, 61.0, 60.0, 63.0, 58.0, 62.0, 62.0, 60.0, 62.0, 57.0, 61.0, 57.0, 64.0, 63.0, 61.0, 67.0, 57.0, 53.0, 59.0, 66.0, 64.0, 60.0, 64.0, 63.0, 62.0, 65.0, 58.0, 61.0, 62.0, 60.0, 62.0, 61.0, 62.0, 65.0, 61.0, 60.0, 61.0, 61.0, 66.0, 60.0, 61.0, 72.0, 60.0, 63.0, 64.0, 62.0, 60.0, 62.0, 60.0, 58.0, 60.0, 60.0, 63.0, 65.0, 61.0, 60.0, 60.0, 66.0, 66.0, 66.0, 59.0, 62.0, 63.0, 61.0, 64.0, 63.0, 59.0, 64.0, 59.0, 60.0, 65.0, 65.0, 64.0, 62.0, 62.0, 64.0, 62.0, 54.0, 67.0, 62.0, 63.0, 64.0, 64.0, 65.0, 62.0, 61.0, 64.0, 62.0, 64.0, 61.0, 62.0, 64.0, 64.0, 60.0, 63.0, 62.0, 60.0, 62.0, 63.0, 61.0, 62.0, 62.0, 59.0, 62.0, 62.0, 62.0, 72.0, 61.0, 64.0, 64.0, 56.0, 62.0, 64.0, 63.0, 60.0, 63.0, 61.0, 70.0, 59.0, 65.0, 66.0, 57.0, 66.0, 62.0, 62.0, 55.0, 64.0, 62.0, 65.0, 53.0, 72.0, 62.0, 63.0, 67.0, 63.0, 62.0, 62.0, 61.0, 61.0, 57.0, 66.0, 63.0, 64.0, 66.0, 56.0, 64.0, 64.0, 62.0, 60.0, 60.0, 63.0, 62.0, 62.0, 59.0, 68.0, 62.0, 62.0, 66.0, 64.0]
+ Min = 53.0
+ Max = 72.0
+ Avg = 61.94
+ Std = 3.114974585236191
+ -- Generation 5 --
+ new fits:  [66.0, 60.0, 62.0, 66.0, 64.0, 64.0, 60.0, 72.0, 62.0, 66.0, 63.0, 64.0, 67.0, 61.0, 65.0, 66.0, 64.0, 67.0, 60.0, 62.0, 65.0, 64.0, 62.0, 63.0, 63.0, 72.0, 62.0, 64.0, 63.0, 67.0, 71.0, 65.0, 65.0, 60.0, 65.0, 62.0, 60.0, 64.0, 66.0, 63.0, 62.0, 61.0, 67.0, 62.0, 61.0, 63.0, 67.0, 64.0, 67.0, 70.0, 67.0, 62.0, 56.0, 64.0, 63.0, 61.0, 71.0, 62.0, 63.0, 68.0, 60.0, 64.0, 64.0, 61.0, 61.0, 64.0, 63.0, 64.0, 61.0, 65.0, 62.0, 63.0, 64.0, 61.0, 69.0, 63.0, 66.0, 65.0, 62.0, 67.0, 69.0, 59.0, 59.0, 69.0, 63.0, 64.0, 58.0, 62.0, 66.0, 65.0, 60.0, 65.0, 61.0, 65.0, 64.0, 66.0, 63.0, 66.0, 63.0, 66.0, 66.0, 59.0, 62.0, 66.0, 60.0, 67.0, 66.0, 62.0, 64.0, 64.0, 61.0, 68.0, 64.0, 63.0, 65.0, 65.0, 62.0, 65.0, 66.0, 63.0, 63.0, 65.0, 66.0, 67.0, 61.0, 63.0, 66.0, 62.0, 67.0, 64.0, 68.0, 61.0, 67.0, 66.0, 63.0, 64.0, 64.0, 67.0, 67.0, 66.0, 70.0, 60.0, 60.0, 63.0, 63.0, 68.0, 72.0, 62.0, 67.0, 65.0, 60.0, 66.0, 69.0, 55.0, 66.0, 63.0, 65.0, 68.0, 61.0, 66.0, 63.0, 63.0, 64.0, 71.0, 72.0, 57.0, 63.0, 65.0, 67.0, 67.0, 62.0, 68.0, 72.0, 61.0, 63.0, 63.0, 66.0, 67.0, 62.0, 68.0, 61.0, 63.0, 71.0, 61.0, 69.0, 60.0, 66.0, 60.0, 68.0, 65.0, 61.0, 64.0, 64.0, 61.0, 66.0, 68.0, 69.0, 62.0, 63.0, 66.0, 70.0, 60.0, 69.0, 65.0, 63.0, 65.0, 63.0, 61.0, 72.0, 63.0, 66.0, 62.0, 72.0, 64.0, 53.0, 73.0, 62.0, 64.0, 64.0, 63.0, 71.0, 62.0, 66.0, 61.0, 67.0, 70.0, 67.0, 59.0, 63.0, 62.0, 61.0, 63.0, 63.0, 61.0, 65.0, 65.0, 63.0, 63.0, 70.0, 59.0, 59.0, 64.0, 63.0, 64.0, 62.0, 65.0, 64.0, 63.0, 68.0, 62.0, 60.0, 61.0, 66.0, 65.0, 63.0, 64.0, 68.0, 71.0, 65.0, 59.0, 66.0, 63.0, 66.0, 63.0, 68.0, 65.0, 67.0, 66.0, 64.0, 66.0, 67.0, 60.0, 64.0, 62.0, 65.0, 65.0, 63.0, 66.0, 65.0, 61.0, 67.0, 63.0, 65.0, 64.0, 59.0, 63.0, 63.0, 62.0, 64.0, 60.0, 62.0, 60.0, 70.0, 66.0, 64.0, 65.0, 68.0, 67.0, 59.0, 64.0]
+ Min = 53.0
+ Max = 73.0
+ Avg = 64.21333333333334
+ Std = 3.182423953878687
+ -- Generation 6 --
+ new fits:  [65.0, 67.0, 70.0, 68.0, 67.0, 65.0, 69.0, 67.0, 66.0, 71.0, 66.0, 64.0, 73.0, 68.0, 63.0, 62.0, 69.0, 68.0, 66.0, 64.0, 69.0, 62.0, 63.0, 69.0, 66.0, 66.0, 67.0, 67.0, 72.0, 61.0, 66.0, 63.0, 66.0, 63.0, 64.0, 68.0, 66.0, 68.0, 67.0, 64.0, 67.0, 66.0, 70.0, 67.0, 70.0, 71.0, 67.0, 64.0, 70.0, 69.0, 66.0, 70.0, 65.0, 64.0, 64.0, 67.0, 72.0, 66.0, 72.0, 64.0, 64.0, 68.0, 72.0, 66.0, 63.0, 65.0, 68.0, 69.0, 69.0, 64.0, 67.0, 64.0, 61.0, 71.0, 66.0, 67.0, 62.0, 70.0, 63.0, 66.0, 66.0, 70.0, 66.0, 69.0, 73.0, 68.0, 72.0, 66.0, 60.0, 64.0, 66.0, 66.0, 70.0, 65.0, 68.0, 65.0, 69.0, 66.0, 67.0, 67.0, 69.0, 66.0, 66.0, 67.0, 71.0, 69.0, 67.0, 65.0, 62.0, 69.0, 70.0, 67.0, 68.0, 62.0, 66.0, 72.0, 69.0, 67.0, 64.0, 65.0, 69.0, 70.0, 64.0, 69.0, 59.0, 64.0, 63.0, 64.0, 67.0, 65.0, 64.0, 65.0, 65.0, 68.0, 64.0, 65.0, 68.0, 63.0, 72.0, 62.0, 70.0, 69.0, 65.0, 65.0, 58.0, 64.0, 70.0, 59.0, 65.0, 66.0, 71.0, 70.0, 69.0, 69.0, 65.0, 66.0, 67.0, 66.0, 64.0, 69.0, 66.0, 72.0, 60.0, 69.0, 66.0, 63.0, 67.0, 64.0, 66.0, 65.0, 68.0, 60.0, 66.0, 66.0, 68.0, 66.0, 67.0, 67.0, 69.0, 63.0, 59.0, 71.0, 64.0, 66.0, 62.0, 68.0, 69.0, 65.0, 67.0, 72.0, 67.0, 62.0, 63.0, 65.0, 71.0, 68.0, 69.0, 68.0, 68.0, 67.0, 73.0, 68.0, 68.0, 64.0, 64.0, 68.0, 65.0, 64.0, 67.0, 67.0, 65.0, 71.0, 68.0, 70.0, 65.0, 64.0, 65.0, 66.0, 68.0, 63.0, 65.0, 71.0, 71.0, 68.0, 67.0, 63.0, 68.0, 65.0, 70.0, 67.0, 67.0, 65.0, 64.0, 65.0, 70.0, 65.0, 68.0, 65.0, 59.0, 68.0, 71.0, 66.0, 65.0, 66.0, 70.0, 69.0, 71.0, 62.0, 65.0, 66.0, 64.0, 68.0, 65.0, 68.0, 67.0, 66.0, 66.0, 67.0, 64.0, 69.0, 62.0, 68.0, 64.0, 67.0, 68.0, 68.0, 67.0, 72.0, 65.0, 62.0, 62.0, 67.0, 66.0, 63.0, 66.0, 69.0, 67.0, 66.0, 67.0, 66.0, 70.0, 65.0, 67.0, 71.0, 64.0, 65.0, 63.0, 74.0, 68.0, 72.0, 65.0, 60.0, 65.0, 67.0, 65.0, 64.0, 64.0, 67.0, 69.0, 62.0]
+ Min = 58.0
+ Max = 74.0
+ Avg = 66.49666666666667
+ Std = 2.9034443147558635
+ -- Generation 7 --
+ new fits:  [70.0, 73.0, 69.0, 66.0, 73.0, 70.0, 69.0, 68.0, 70.0, 71.0, 67.0, 64.0, 68.0, 71.0, 69.0, 69.0, 66.0, 71.0, 69.0, 69.0, 70.0, 67.0, 67.0, 70.0, 68.0, 69.0, 69.0, 73.0, 69.0, 69.0, 68.0, 68.0, 68.0, 69.0, 72.0, 70.0, 57.0, 72.0, 68.0, 68.0, 71.0, 71.0, 67.0, 67.0, 69.0, 67.0, 68.0, 70.0, 69.0, 65.0, 72.0, 72.0, 68.0, 65.0, 71.0, 69.0, 65.0, 69.0, 66.0, 67.0, 67.0, 71.0, 67.0, 71.0, 61.0, 70.0, 69.0, 70.0, 67.0, 72.0, 67.0, 69.0, 75.0, 67.0, 70.0, 73.0, 71.0, 68.0, 67.0, 65.0, 70.0, 71.0, 67.0, 71.0, 64.0, 71.0, 68.0, 72.0, 66.0, 68.0, 69.0, 68.0, 69.0, 68.0, 71.0, 71.0, 67.0, 69.0, 69.0, 73.0, 70.0, 67.0, 71.0, 66.0, 70.0, 70.0, 69.0, 70.0, 65.0, 70.0, 71.0, 64.0, 70.0, 70.0, 66.0, 70.0, 67.0, 68.0, 67.0, 72.0, 69.0, 68.0, 64.0, 67.0, 65.0, 67.0, 74.0, 68.0, 63.0, 69.0, 69.0, 66.0, 69.0, 68.0, 70.0, 72.0, 71.0, 72.0, 66.0, 71.0, 68.0, 70.0, 68.0, 71.0, 70.0, 69.0, 67.0, 76.0, 65.0, 72.0, 68.0, 66.0, 68.0, 74.0, 69.0, 70.0, 69.0, 64.0, 69.0, 65.0, 68.0, 69.0, 73.0, 71.0, 70.0, 71.0, 68.0, 73.0, 66.0, 74.0, 71.0, 68.0, 66.0, 74.0, 69.0, 69.0, 60.0, 73.0, 66.0, 71.0, 69.0, 70.0, 68.0, 70.0, 69.0, 72.0, 68.0, 69.0, 69.0, 67.0, 64.0, 66.0, 66.0, 72.0, 67.0, 64.0, 72.0, 72.0, 72.0, 68.0, 73.0, 65.0, 68.0, 72.0, 65.0, 72.0, 67.0, 71.0, 72.0, 72.0, 70.0, 72.0, 68.0, 67.0, 68.0, 68.0, 64.0, 70.0, 73.0, 67.0, 69.0, 69.0, 70.0, 69.0, 67.0, 64.0, 70.0, 67.0, 72.0, 63.0, 68.0, 66.0, 69.0, 70.0, 72.0, 69.0, 71.0, 73.0, 72.0, 67.0, 73.0, 68.0, 72.0, 69.0, 67.0, 64.0, 69.0, 71.0, 70.0, 71.0, 67.0, 73.0, 69.0, 71.0, 67.0, 67.0, 64.0, 72.0, 67.0, 71.0, 65.0, 72.0, 67.0, 73.0, 71.0, 67.0, 69.0, 72.0, 64.0, 70.0, 69.0, 69.0, 65.0, 65.0, 66.0, 68.0, 72.0, 70.0, 69.0, 66.0, 66.0, 72.0, 68.0, 64.0, 68.0, 69.0, 71.0, 70.0, 69.0, 71.0, 68.0, 65.0, 72.0, 69.0, 68.0, 66.0, 70.0, 74.0, 70.0, 72.0]
+ Min = 57.0
+ Max = 76.0
+ Avg = 68.85666666666667
+ Std = 2.6688553518107465
+ -- Generation 8 --
+ new fits:  [71.0, 70.0, 74.0, 69.0, 65.0, 71.0, 69.0, 69.0, 72.0, 69.0, 67.0, 73.0, 71.0, 71.0, 66.0, 70.0, 71.0, 73.0, 69.0, 72.0, 69.0, 69.0, 74.0, 73.0, 68.0, 71.0, 71.0, 70.0, 68.0, 71.0, 71.0, 73.0, 71.0, 70.0, 74.0, 67.0, 76.0, 71.0, 70.0, 71.0, 70.0, 63.0, 72.0, 68.0, 74.0, 65.0, 70.0, 64.0, 71.0, 70.0, 72.0, 69.0, 72.0, 70.0, 74.0, 71.0, 70.0, 73.0, 70.0, 71.0, 74.0, 68.0, 72.0, 66.0, 70.0, 72.0, 68.0, 73.0, 72.0, 71.0, 70.0, 76.0, 67.0, 70.0, 74.0, 67.0, 71.0, 71.0, 75.0, 67.0, 73.0, 72.0, 71.0, 71.0, 71.0, 72.0, 73.0, 72.0, 68.0, 72.0, 71.0, 65.0, 72.0, 68.0, 76.0, 70.0, 71.0, 73.0, 71.0, 69.0, 74.0, 72.0, 71.0, 72.0, 70.0, 71.0, 75.0, 66.0, 72.0, 70.0, 74.0, 72.0, 67.0, 72.0, 65.0, 71.0, 69.0, 70.0, 73.0, 72.0, 71.0, 71.0, 68.0, 71.0, 69.0, 70.0, 72.0, 72.0, 70.0, 72.0, 70.0, 71.0, 72.0, 71.0, 73.0, 75.0, 73.0, 76.0, 73.0, 71.0, 69.0, 73.0, 71.0, 68.0, 73.0, 72.0, 65.0, 75.0, 69.0, 76.0, 71.0, 71.0, 74.0, 69.0, 68.0, 72.0, 70.0, 69.0, 73.0, 70.0, 70.0, 72.0, 71.0, 72.0, 68.0, 71.0, 65.0, 72.0, 70.0, 73.0, 69.0, 71.0, 72.0, 69.0, 69.0, 71.0, 69.0, 74.0, 72.0, 71.0, 69.0, 75.0, 71.0, 70.0, 70.0, 72.0, 69.0, 69.0, 70.0, 69.0, 72.0, 66.0, 65.0, 70.0, 71.0, 73.0, 72.0, 70.0, 71.0, 69.0, 71.0, 65.0, 72.0, 73.0, 71.0, 69.0, 70.0, 71.0, 70.0, 71.0, 73.0, 68.0, 71.0, 75.0, 73.0, 71.0, 72.0, 72.0, 70.0, 73.0, 70.0, 72.0, 71.0, 70.0, 73.0, 73.0, 63.0, 70.0, 70.0, 70.0, 70.0, 73.0, 69.0, 70.0, 76.0, 72.0, 65.0, 68.0, 69.0, 72.0, 71.0, 70.0, 70.0, 71.0, 69.0, 70.0, 72.0, 69.0, 73.0, 73.0, 72.0, 74.0, 70.0, 70.0, 72.0, 72.0, 72.0, 69.0, 68.0, 72.0, 73.0, 73.0, 73.0, 70.0, 73.0, 69.0, 75.0, 70.0, 71.0, 72.0, 73.0, 73.0, 66.0, 72.0, 72.0, 70.0, 71.0, 71.0, 71.0, 72.0, 69.0, 68.0, 71.0, 71.0, 71.0, 71.0, 71.0, 70.0, 73.0, 71.0, 68.0, 70.0, 70.0, 71.0, 71.0, 73.0, 69.0, 65.0, 72.0, 72.0]
+ Min = 63.0
+ Max = 76.0
+ Avg = 70.72666666666667
+ Std = 2.3263610114413487
+ -- Generation 9 --
+ new fits:  [75.0, 73.0, 72.0, 64.0, 75.0, 70.0, 72.0, 70.0, 72.0, 72.0, 71.0, 71.0, 72.0, 73.0, 72.0, 73.0, 70.0, 69.0, 71.0, 70.0, 71.0, 71.0, 71.0, 73.0, 68.0, 74.0, 71.0, 69.0, 75.0, 70.0, 75.0, 72.0, 68.0, 76.0, 74.0, 72.0, 69.0, 71.0, 71.0, 71.0, 68.0, 73.0, 71.0, 73.0, 73.0, 74.0, 72.0, 72.0, 73.0, 73.0, 72.0, 68.0, 78.0, 71.0, 69.0, 71.0, 73.0, 72.0, 71.0, 70.0, 73.0, 72.0, 72.0, 73.0, 70.0, 76.0, 73.0, 72.0, 73.0, 72.0, 72.0, 72.0, 71.0, 73.0, 72.0, 74.0, 73.0, 73.0, 72.0, 72.0, 74.0, 75.0, 72.0, 72.0, 71.0, 72.0, 72.0, 68.0, 72.0, 70.0, 73.0, 72.0, 73.0, 72.0, 70.0, 73.0, 70.0, 74.0, 76.0, 70.0, 73.0, 73.0, 69.0, 75.0, 67.0, 74.0, 64.0, 76.0, 70.0, 75.0, 76.0, 71.0, 71.0, 72.0, 73.0, 74.0, 76.0, 73.0, 69.0, 72.0, 67.0, 72.0, 72.0, 68.0, 74.0, 70.0, 73.0, 72.0, 71.0, 72.0, 72.0, 75.0, 66.0, 74.0, 73.0, 73.0, 75.0, 71.0, 70.0, 76.0, 71.0, 73.0, 73.0, 73.0, 71.0, 70.0, 72.0, 71.0, 71.0, 70.0, 65.0, 73.0, 73.0, 71.0, 74.0, 71.0, 75.0, 72.0, 72.0, 68.0, 71.0, 72.0, 70.0, 74.0, 73.0, 76.0, 77.0, 72.0, 73.0, 73.0, 71.0, 72.0, 71.0, 76.0, 70.0, 73.0, 72.0, 73.0, 73.0, 74.0, 71.0, 75.0, 74.0, 71.0, 73.0, 75.0, 69.0, 75.0, 73.0, 69.0, 71.0, 74.0, 70.0, 73.0, 72.0, 73.0, 71.0, 76.0, 68.0, 74.0, 78.0, 73.0, 74.0, 72.0, 73.0, 72.0, 73.0, 74.0, 72.0, 72.0, 74.0, 71.0, 68.0, 72.0, 73.0, 66.0, 70.0, 74.0, 72.0, 66.0, 68.0, 73.0, 73.0, 73.0, 70.0, 67.0, 73.0, 71.0, 68.0, 75.0, 72.0, 72.0, 75.0, 72.0, 75.0, 71.0, 73.0, 72.0, 74.0, 75.0, 72.0, 66.0, 66.0, 75.0, 75.0, 69.0, 72.0, 72.0, 67.0, 73.0, 70.0, 75.0, 72.0, 73.0, 72.0, 73.0, 72.0, 73.0, 73.0, 73.0, 73.0, 71.0, 74.0, 72.0, 76.0, 71.0, 77.0, 70.0, 71.0, 73.0, 67.0, 69.0, 71.0, 75.0, 75.0, 73.0, 68.0, 72.0, 71.0, 70.0, 72.0, 72.0, 72.0, 70.0, 71.0, 72.0, 72.0, 71.0, 73.0, 71.0, 72.0, 73.0, 69.0, 71.0, 70.0, 72.0, 72.0, 69.0, 72.0, 72.0]
+ Min = 64.0
+ Max = 78.0
+ Avg = 71.93
+ Std = 2.2916733333233577
+ -- Generation 10 --
+ new fits:  [72.0, 75.0, 71.0, 73.0, 74.0, 76.0, 72.0, 74.0, 71.0, 75.0, 75.0, 76.0, 73.0, 74.0, 76.0, 71.0, 70.0, 73.0, 73.0, 75.0, 73.0, 75.0, 73.0, 71.0, 75.0, 69.0, 71.0, 76.0, 73.0, 74.0, 74.0, 73.0, 76.0, 75.0, 73.0, 76.0, 73.0, 76.0, 72.0, 76.0, 69.0, 73.0, 76.0, 74.0, 73.0, 72.0, 73.0, 78.0, 73.0, 75.0, 76.0, 73.0, 73.0, 76.0, 74.0, 72.0, 73.0, 73.0, 75.0, 73.0, 70.0, 76.0, 72.0, 69.0, 76.0, 72.0, 72.0, 75.0, 74.0, 72.0, 75.0, 73.0, 70.0, 71.0, 72.0, 72.0, 74.0, 75.0, 71.0, 74.0, 74.0, 73.0, 75.0, 75.0, 78.0, 74.0, 74.0, 73.0, 74.0, 73.0, 75.0, 73.0, 76.0, 73.0, 70.0, 70.0, 74.0, 74.0, 76.0, 69.0, 75.0, 76.0, 73.0, 79.0, 72.0, 72.0, 75.0, 74.0, 74.0, 72.0, 75.0, 73.0, 73.0, 72.0, 73.0, 74.0, 73.0, 73.0, 76.0, 70.0, 74.0, 72.0, 73.0, 73.0, 70.0, 73.0, 74.0, 70.0, 73.0, 74.0, 73.0, 75.0, 75.0, 74.0, 74.0, 69.0, 70.0, 74.0, 72.0, 72.0, 72.0, 77.0, 74.0, 71.0, 73.0, 73.0, 76.0, 75.0, 73.0, 73.0, 75.0, 73.0, 71.0, 73.0, 76.0, 74.0, 73.0, 76.0, 73.0, 73.0, 72.0, 75.0, 74.0, 78.0, 78.0, 74.0, 69.0, 73.0, 74.0, 74.0, 71.0, 73.0, 69.0, 73.0, 75.0, 77.0, 73.0, 73.0, 72.0, 72.0, 77.0, 73.0, 73.0, 72.0, 68.0, 72.0, 74.0, 72.0, 76.0, 73.0, 74.0, 72.0, 75.0, 72.0, 73.0, 77.0, 73.0, 74.0, 76.0, 71.0, 75.0, 77.0, 73.0, 74.0, 76.0, 74.0, 75.0, 73.0, 77.0, 72.0, 75.0, 70.0, 70.0, 75.0, 76.0, 73.0, 72.0, 77.0, 76.0, 73.0, 71.0, 70.0, 72.0, 70.0, 76.0, 73.0, 73.0, 76.0, 76.0, 72.0, 73.0, 75.0, 74.0, 73.0, 73.0, 73.0, 71.0, 76.0, 73.0, 73.0, 72.0, 76.0, 74.0, 75.0, 75.0, 75.0, 73.0, 69.0, 73.0, 75.0, 75.0, 74.0, 73.0, 68.0, 71.0, 75.0, 74.0, 73.0, 71.0, 76.0, 73.0, 75.0, 75.0, 70.0, 70.0, 70.0, 75.0, 73.0, 75.0, 74.0, 74.0, 75.0, 73.0, 71.0, 72.0, 72.0, 76.0, 73.0, 73.0, 75.0, 75.0, 70.0, 75.0, 73.0, 76.0, 74.0, 73.0, 74.0, 75.0, 69.0, 79.0, 71.0, 71.0, 78.0, 73.0, 71.0, 74.0, 71.0, 79.0, 69.0]
+ Min = 68.0
+ Max = 79.0
+ Avg = 73.43333333333334
+ Std = 2.071767897768072
+ -- Generation 11 --
+ new fits:  [75.0, 72.0, 72.0, 72.0, 76.0, 71.0, 74.0, 72.0, 75.0, 78.0, 80.0, 71.0, 71.0, 77.0, 76.0, 73.0, 75.0, 74.0, 72.0, 75.0, 75.0, 77.0, 70.0, 76.0, 75.0, 73.0, 74.0, 69.0, 72.0, 75.0, 71.0, 76.0, 73.0, 75.0, 74.0, 77.0, 72.0, 77.0, 79.0, 68.0, 75.0, 76.0, 75.0, 76.0, 77.0, 76.0, 77.0, 74.0, 72.0, 74.0, 73.0, 73.0, 73.0, 75.0, 75.0, 79.0, 73.0, 78.0, 74.0, 75.0, 72.0, 77.0, 74.0, 75.0, 73.0, 73.0, 74.0, 79.0, 76.0, 73.0, 76.0, 78.0, 75.0, 75.0, 73.0, 76.0, 71.0, 77.0, 75.0, 76.0, 76.0, 75.0, 72.0, 75.0, 77.0, 77.0, 74.0, 77.0, 70.0, 72.0, 75.0, 74.0, 76.0, 75.0, 76.0, 75.0, 69.0, 73.0, 75.0, 74.0, 77.0, 75.0, 67.0, 74.0, 74.0, 74.0, 70.0, 77.0, 76.0, 72.0, 69.0, 76.0, 76.0, 75.0, 74.0, 77.0, 77.0, 75.0, 73.0, 75.0, 76.0, 74.0, 73.0, 79.0, 78.0, 73.0, 75.0, 77.0, 76.0, 72.0, 74.0, 74.0, 71.0, 74.0, 75.0, 75.0, 69.0, 74.0, 76.0, 78.0, 68.0, 79.0, 75.0, 73.0, 73.0, 74.0, 72.0, 75.0, 75.0, 74.0, 69.0, 79.0, 74.0, 70.0, 78.0, 73.0, 76.0, 75.0, 73.0, 78.0, 69.0, 75.0, 74.0, 77.0, 71.0, 74.0, 71.0, 76.0, 74.0, 73.0, 75.0, 73.0, 73.0, 76.0, 74.0, 78.0, 74.0, 77.0, 75.0, 73.0, 78.0, 74.0, 73.0, 73.0, 75.0, 79.0, 75.0, 76.0, 74.0, 75.0, 74.0, 75.0, 74.0, 77.0, 76.0, 75.0, 75.0, 74.0, 75.0, 72.0, 76.0, 74.0, 77.0, 73.0, 76.0, 74.0, 75.0, 75.0, 74.0, 73.0, 75.0, 74.0, 77.0, 74.0, 73.0, 76.0, 73.0, 74.0, 74.0, 77.0, 74.0, 74.0, 76.0, 76.0, 76.0, 76.0, 79.0, 73.0, 76.0, 75.0, 79.0, 75.0, 72.0, 73.0, 73.0, 79.0, 77.0, 72.0, 73.0, 78.0, 76.0, 74.0, 75.0, 77.0, 76.0, 77.0, 73.0, 77.0, 74.0, 76.0, 74.0, 75.0, 67.0, 74.0, 73.0, 74.0, 75.0, 78.0, 67.0, 75.0, 75.0, 75.0, 73.0, 74.0, 72.0, 73.0, 78.0, 77.0, 76.0, 73.0, 75.0, 74.0, 74.0, 75.0, 75.0, 75.0, 79.0, 76.0, 74.0, 75.0, 74.0, 76.0, 74.0, 73.0, 76.0, 71.0, 77.0, 76.0, 79.0, 74.0, 75.0, 74.0, 72.0, 75.0, 74.0, 76.0, 77.0, 75.0, 72.0, 73.0]
+ Min = 67.0
+ Max = 80.0
+ Avg = 74.54
+ Std = 2.285111229969528
+ -- Generation 12 --
+ new fits:  [73.0, 74.0, 75.0, 76.0, 76.0, 76.0, 74.0, 79.0, 79.0, 72.0, 76.0, 77.0, 75.0, 72.0, 76.0, 70.0, 74.0, 76.0, 73.0, 78.0, 72.0, 78.0, 76.0, 76.0, 76.0, 76.0, 76.0, 77.0, 78.0, 70.0, 74.0, 76.0, 77.0, 78.0, 77.0, 79.0, 76.0, 76.0, 76.0, 73.0, 76.0, 79.0, 73.0, 78.0, 79.0, 77.0, 79.0, 75.0, 77.0, 76.0, 74.0, 76.0, 74.0, 78.0, 78.0, 77.0, 74.0, 77.0, 79.0, 77.0, 74.0, 79.0, 76.0, 75.0, 78.0, 77.0, 78.0, 73.0, 76.0, 78.0, 76.0, 76.0, 76.0, 76.0, 78.0, 78.0, 77.0, 74.0, 78.0, 74.0, 75.0, 78.0, 76.0, 76.0, 78.0, 71.0, 77.0, 77.0, 75.0, 76.0, 79.0, 76.0, 79.0, 77.0, 77.0, 78.0, 79.0, 75.0, 75.0, 72.0, 76.0, 76.0, 74.0, 72.0, 76.0, 74.0, 74.0, 77.0, 74.0, 78.0, 80.0, 76.0, 77.0, 78.0, 73.0, 76.0, 75.0, 79.0, 78.0, 73.0, 67.0, 77.0, 76.0, 79.0, 77.0, 75.0, 74.0, 79.0, 77.0, 78.0, 77.0, 74.0, 79.0, 76.0, 79.0, 73.0, 78.0, 73.0, 71.0, 76.0, 79.0, 74.0, 75.0, 77.0, 79.0, 77.0, 73.0, 77.0, 78.0, 74.0, 75.0, 69.0, 78.0, 77.0, 76.0, 78.0, 76.0, 74.0, 75.0, 77.0, 75.0, 75.0, 77.0, 78.0, 79.0, 72.0, 73.0, 76.0, 78.0, 77.0, 74.0, 80.0, 78.0, 75.0, 79.0, 75.0, 77.0, 78.0, 75.0, 77.0, 76.0, 77.0, 76.0, 77.0, 76.0, 76.0, 72.0, 75.0, 69.0, 78.0, 76.0, 79.0, 70.0, 80.0, 80.0, 74.0, 75.0, 75.0, 76.0, 74.0, 79.0, 75.0, 77.0, 77.0, 75.0, 77.0, 77.0, 79.0, 78.0, 70.0, 77.0, 75.0, 76.0, 76.0, 79.0, 75.0, 77.0, 70.0, 74.0, 77.0, 75.0, 79.0, 78.0, 78.0, 75.0, 70.0, 73.0, 73.0, 75.0, 76.0, 74.0, 77.0, 76.0, 74.0, 74.0, 78.0, 80.0, 77.0, 76.0, 76.0, 77.0, 75.0, 75.0, 76.0, 79.0, 67.0, 75.0, 75.0, 74.0, 77.0, 78.0, 75.0, 74.0, 76.0, 77.0, 77.0, 76.0, 74.0, 76.0, 76.0, 71.0, 79.0, 75.0, 76.0, 77.0, 77.0, 75.0, 81.0, 77.0, 76.0, 77.0, 77.0, 75.0, 74.0, 76.0, 76.0, 74.0, 80.0, 74.0, 77.0, 74.0, 80.0, 78.0, 76.0, 71.0, 78.0, 76.0, 75.0, 75.0, 77.0, 75.0, 74.0, 76.0, 77.0, 75.0, 76.0, 75.0, 76.0, 77.0, 74.0]
+ Min = 67.0
+ Max = 81.0
+ Avg = 75.91333333333333
+ Std = 2.2816270997301697
+ -- Generation 13 --
+
+ new fits:  [74.0, 76.0, 78.0, 78.0, 79.0, 78.0, 78.0, 79.0, 77.0, 80.0, 79.0, 79.0, 77.0, 78.0, 78.0, 76.0, 80.0, 76.0, 75.0, 79.0, 75.0, 78.0, 78.0, 77.0, 74.0, 81.0, 79.0, 78.0, 77.0, 78.0, 76.0, 75.0, 75.0, 72.0, 78.0, 77.0, 79.0, 79.0, 76.0, 76.0, 75.0, 75.0, 73.0, 79.0, 78.0, 79.0, 78.0, 76.0, 81.0, 75.0, 77.0, 80.0, 80.0, 75.0, 77.0, 75.0, 76.0, 77.0, 75.0, 76.0, 74.0, 73.0, 79.0, 77.0, 77.0, 78.0, 77.0, 79.0, 75.0, 78.0, 77.0, 77.0, 75.0, 80.0, 68.0, 77.0, 79.0, 77.0, 77.0, 72.0, 79.0, 74.0, 76.0, 80.0, 77.0, 71.0, 76.0, 75.0, 77.0, 75.0, 78.0, 79.0, 74.0, 78.0, 75.0, 74.0, 77.0, 79.0, 76.0, 81.0, 78.0, 77.0, 70.0, 80.0, 71.0, 80.0, 78.0, 75.0, 76.0, 78.0, 75.0, 77.0, 77.0, 75.0, 76.0, 72.0, 79.0, 77.0, 78.0, 78.0, 76.0, 78.0, 74.0, 81.0, 76.0, 79.0, 76.0, 78.0, 72.0, 76.0, 76.0, 77.0, 76.0, 79.0, 78.0, 75.0, 79.0, 78.0, 79.0, 75.0, 79.0, 78.0, 80.0, 79.0, 72.0, 77.0, 79.0, 77.0, 79.0, 78.0, 79.0, 78.0, 78.0, 77.0, 78.0, 75.0, 80.0, 78.0, 77.0, 80.0, 78.0, 78.0, 76.0, 77.0, 79.0, 76.0, 79.0, 78.0, 74.0, 74.0, 78.0, 80.0, 77.0, 76.0, 79.0, 79.0, 79.0, 77.0, 77.0, 77.0, 79.0, 72.0, 79.0, 78.0, 78.0, 76.0, 76.0, 78.0, 79.0, 77.0, 79.0, 75.0, 79.0, 78.0, 76.0, 78.0, 75.0, 77.0, 76.0, 78.0, 72.0, 78.0, 74.0, 76.0, 80.0, 76.0, 77.0, 78.0, 78.0, 76.0, 74.0, 78.0, 79.0, 74.0, 72.0, 78.0, 77.0, 77.0, 77.0, 76.0, 74.0, 77.0, 79.0, 77.0, 80.0, 76.0, 79.0, 78.0, 77.0, 79.0, 75.0, 77.0, 80.0, 75.0, 79.0, 70.0, 78.0, 77.0, 78.0, 77.0, 74.0, 78.0, 78.0, 75.0, 72.0, 77.0, 77.0, 77.0, 79.0, 79.0, 78.0, 76.0, 74.0, 80.0, 77.0, 78.0, 74.0, 76.0, 76.0, 78.0, 77.0, 77.0, 78.0, 78.0, 78.0, 79.0, 80.0, 75.0, 78.0, 79.0, 77.0, 79.0, 71.0, 77.0, 76.0, 76.0, 78.0, 76.0, 76.0, 77.0, 77.0, 80.0, 72.0, 77.0, 79.0, 77.0, 77.0, 76.0, 76.0, 80.0, 74.0, 77.0, 78.0, 75.0, 77.0, 76.0, 78.0, 78.0, 77.0, 78.0]
+ Min = 68.0
+ Max = 81.0
+ Avg = 76.94333333333333
+ Std = 2.130756255938871
+ -- Generation 14 --
+ new fits:  [78.0, 80.0, 79.0, 79.0, 70.0, 74.0, 79.0, 80.0, 78.0, 81.0, 80.0, 78.0, 71.0, 79.0, 75.0, 76.0, 81.0, 78.0, 73.0, 78.0, 78.0, 80.0, 76.0, 78.0, 77.0, 79.0, 81.0, 72.0, 79.0, 81.0, 79.0, 80.0, 76.0, 77.0, 80.0, 74.0, 79.0, 78.0, 80.0, 80.0, 78.0, 75.0, 78.0, 80.0, 80.0, 78.0, 77.0, 79.0, 79.0, 78.0, 79.0, 77.0, 78.0, 75.0, 75.0, 79.0, 79.0, 77.0, 77.0, 80.0, 79.0, 75.0, 79.0, 77.0, 78.0, 77.0, 79.0, 77.0, 80.0, 79.0, 79.0, 77.0, 80.0, 81.0, 77.0, 80.0, 79.0, 79.0, 80.0, 79.0, 79.0, 73.0, 79.0, 77.0, 77.0, 79.0, 80.0, 77.0, 77.0, 76.0, 80.0, 76.0, 75.0, 77.0, 80.0, 80.0, 78.0, 78.0, 79.0, 75.0, 79.0, 80.0, 78.0, 79.0, 78.0, 80.0, 79.0, 77.0, 79.0, 79.0, 77.0, 75.0, 80.0, 79.0, 75.0, 79.0, 79.0, 79.0, 78.0, 78.0, 82.0, 77.0, 78.0, 78.0, 81.0, 78.0, 79.0, 78.0, 77.0, 80.0, 78.0, 77.0, 78.0, 77.0, 75.0, 78.0, 78.0, 77.0, 79.0, 78.0, 72.0, 70.0, 77.0, 79.0, 78.0, 80.0, 80.0, 79.0, 77.0, 78.0, 78.0, 77.0, 78.0, 73.0, 80.0, 79.0, 80.0, 76.0, 78.0, 80.0, 75.0, 80.0, 80.0, 78.0, 81.0, 70.0, 78.0, 79.0, 78.0, 74.0, 70.0, 79.0, 80.0, 79.0, 79.0, 78.0, 75.0, 81.0, 79.0, 78.0, 75.0, 78.0, 77.0, 79.0, 77.0, 76.0, 79.0, 78.0, 77.0, 79.0, 78.0, 69.0, 78.0, 79.0, 76.0, 81.0, 74.0, 83.0, 78.0, 80.0, 77.0, 80.0, 76.0, 83.0, 79.0, 76.0, 77.0, 78.0, 82.0, 75.0, 78.0, 79.0, 80.0, 76.0, 78.0, 77.0, 77.0, 74.0, 78.0, 78.0, 79.0, 77.0, 77.0, 78.0, 79.0, 77.0, 80.0, 80.0, 78.0, 76.0, 79.0, 76.0, 76.0, 79.0, 71.0, 79.0, 78.0, 81.0, 77.0, 78.0, 80.0, 79.0, 77.0, 78.0, 78.0, 76.0, 78.0, 77.0, 79.0, 79.0, 79.0, 79.0, 77.0, 76.0, 78.0, 79.0, 76.0, 81.0, 78.0, 78.0, 79.0, 74.0, 79.0, 80.0, 79.0, 79.0, 80.0, 81.0, 80.0, 77.0, 80.0, 79.0, 74.0, 80.0, 76.0, 79.0, 79.0, 76.0, 79.0, 79.0, 78.0, 79.0, 82.0, 77.0, 78.0, 81.0, 79.0, 77.0, 78.0, 79.0, 78.0, 76.0, 77.0, 81.0, 80.0, 79.0, 78.0, 79.0, 77.0, 77.0]
+ Min = 69.0
+ Max = 83.0
+ Avg = 77.95666666666666
+ Std = 2.1728910592930384
+ -- Generation 15 --
+ new fits:  [80.0, 77.0, 80.0, 79.0, 79.0, 81.0, 79.0, 76.0, 79.0, 80.0, 79.0, 80.0, 79.0, 79.0, 78.0, 77.0, 78.0, 80.0, 79.0, 77.0, 81.0, 74.0, 78.0, 79.0, 73.0, 79.0, 79.0, 79.0, 76.0, 76.0, 82.0, 78.0, 74.0, 80.0, 74.0, 78.0, 79.0, 78.0, 79.0, 79.0, 80.0, 79.0, 79.0, 79.0, 82.0, 74.0, 77.0, 81.0, 78.0, 80.0, 81.0, 78.0, 83.0, 80.0, 81.0, 80.0, 77.0, 80.0, 81.0, 78.0, 81.0, 79.0, 81.0, 78.0, 79.0, 78.0, 79.0, 84.0, 79.0, 81.0, 78.0, 80.0, 81.0, 80.0, 79.0, 80.0, 80.0, 80.0, 78.0, 82.0, 80.0, 81.0, 79.0, 76.0, 78.0, 78.0, 80.0, 81.0, 77.0, 78.0, 79.0, 80.0, 80.0, 80.0, 78.0, 77.0, 81.0, 77.0, 80.0, 80.0, 79.0, 80.0, 78.0, 79.0, 80.0, 81.0, 83.0, 80.0, 78.0, 77.0, 78.0, 78.0, 80.0, 79.0, 82.0, 73.0, 75.0, 80.0, 80.0, 78.0, 79.0, 79.0, 80.0, 79.0, 79.0, 75.0, 78.0, 73.0, 78.0, 80.0, 79.0, 76.0, 76.0, 78.0, 79.0, 81.0, 79.0, 81.0, 79.0, 83.0, 81.0, 78.0, 79.0, 79.0, 74.0, 78.0, 79.0, 77.0, 78.0, 77.0, 76.0, 80.0, 82.0, 80.0, 72.0, 78.0, 81.0, 80.0, 76.0, 81.0, 80.0, 81.0, 79.0, 79.0, 76.0, 80.0, 80.0, 79.0, 78.0, 80.0, 82.0, 78.0, 80.0, 77.0, 81.0, 77.0, 79.0, 80.0, 80.0, 73.0, 80.0, 81.0, 78.0, 81.0, 73.0, 81.0, 74.0, 81.0, 80.0, 80.0, 77.0, 76.0, 81.0, 78.0, 80.0, 78.0, 80.0, 79.0, 80.0, 80.0, 83.0, 80.0, 78.0, 80.0, 78.0, 75.0, 79.0, 80.0, 72.0, 79.0, 80.0, 81.0, 80.0, 80.0, 79.0, 81.0, 80.0, 78.0, 79.0, 79.0, 79.0, 79.0, 79.0, 79.0, 77.0, 79.0, 82.0, 79.0, 76.0, 78.0, 79.0, 80.0, 80.0, 80.0, 80.0, 78.0, 80.0, 79.0, 79.0, 81.0, 78.0, 83.0, 81.0, 79.0, 79.0, 74.0, 79.0, 79.0, 71.0, 80.0, 82.0, 78.0, 78.0, 80.0, 78.0, 79.0, 78.0, 80.0, 76.0, 81.0, 80.0, 82.0, 81.0, 80.0, 77.0, 80.0, 79.0, 80.0, 80.0, 79.0, 82.0, 79.0, 81.0, 79.0, 78.0, 71.0, 79.0, 82.0, 79.0, 76.0, 80.0, 76.0, 82.0, 82.0, 81.0, 79.0, 80.0, 79.0, 80.0, 78.0, 81.0, 80.0, 82.0, 78.0, 77.0, 79.0, 81.0, 78.0, 74.0, 78.0]
+ Min = 71.0
+ Max = 84.0
+ Avg = 78.91333333333333
+ Std = 2.1148259713012885
+ -- Generation 16 --
+ new fits:  [80.0, 80.0, 77.0, 82.0, 75.0, 81.0, 79.0, 81.0, 78.0, 80.0, 80.0, 80.0, 81.0, 81.0, 76.0, 76.0, 74.0, 81.0, 78.0, 81.0, 81.0, 79.0, 79.0, 80.0, 81.0, 80.0, 77.0, 80.0, 79.0, 82.0, 80.0, 77.0, 82.0, 83.0, 81.0, 82.0, 78.0, 79.0, 81.0, 81.0, 80.0, 80.0, 78.0, 81.0, 80.0, 81.0, 83.0, 80.0, 80.0, 82.0, 78.0, 81.0, 80.0, 76.0, 78.0, 79.0, 80.0, 79.0, 82.0, 83.0, 79.0, 80.0, 78.0, 80.0, 76.0, 82.0, 82.0, 75.0, 82.0, 84.0, 81.0, 80.0, 82.0, 78.0, 83.0, 82.0, 81.0, 81.0, 79.0, 81.0, 80.0, 78.0, 82.0, 77.0, 76.0, 78.0, 77.0, 80.0, 81.0, 80.0, 80.0, 80.0, 79.0, 82.0, 82.0, 81.0, 80.0, 81.0, 81.0, 79.0, 78.0, 86.0, 81.0, 81.0, 81.0, 74.0, 80.0, 79.0, 81.0, 83.0, 83.0, 82.0, 82.0, 80.0, 80.0, 83.0, 86.0, 76.0, 78.0, 79.0, 81.0, 82.0, 78.0, 80.0, 81.0, 81.0, 80.0, 79.0, 77.0, 80.0, 78.0, 81.0, 79.0, 82.0, 79.0, 80.0, 82.0, 79.0, 82.0, 80.0, 82.0, 80.0, 80.0, 81.0, 78.0, 84.0, 82.0, 79.0, 77.0, 81.0, 82.0, 79.0, 80.0, 75.0, 82.0, 80.0, 78.0, 74.0, 80.0, 79.0, 80.0, 79.0, 80.0, 82.0, 80.0, 82.0, 82.0, 80.0, 81.0, 80.0, 79.0, 83.0, 80.0, 75.0, 81.0, 79.0, 80.0, 83.0, 79.0, 79.0, 81.0, 81.0, 76.0, 82.0, 81.0, 80.0, 76.0, 78.0, 81.0, 82.0, 76.0, 80.0, 78.0, 80.0, 81.0, 79.0, 78.0, 80.0, 79.0, 80.0, 75.0, 80.0, 80.0, 82.0, 77.0, 82.0, 80.0, 76.0, 80.0, 79.0, 80.0, 81.0, 75.0, 79.0, 81.0, 80.0, 80.0, 80.0, 79.0, 80.0, 81.0, 82.0, 82.0, 81.0, 81.0, 80.0, 73.0, 78.0, 79.0, 81.0, 81.0, 80.0, 81.0, 75.0, 79.0, 75.0, 81.0, 78.0, 77.0, 78.0, 81.0, 78.0, 78.0, 83.0, 82.0, 77.0, 80.0, 79.0, 80.0, 81.0, 79.0, 83.0, 82.0, 81.0, 80.0, 81.0, 81.0, 80.0, 81.0, 82.0, 82.0, 80.0, 78.0, 81.0, 80.0, 80.0, 80.0, 80.0, 80.0, 82.0, 81.0, 79.0, 80.0, 80.0, 83.0, 81.0, 81.0, 77.0, 80.0, 80.0, 80.0, 82.0, 78.0, 78.0, 79.0, 82.0, 78.0, 78.0, 78.0, 83.0, 79.0, 81.0, 79.0, 82.0, 82.0, 79.0, 79.0, 80.0, 72.0, 82.0]
+ Min = 72.0
+ Max = 86.0
+ Avg = 79.86
+ Std = 2.070523283295013
+ -- Generation 17 --
+ new fits:  [83.0, 80.0, 81.0, 83.0, 82.0, 80.0, 83.0, 80.0, 81.0, 83.0, 81.0, 80.0, 83.0, 77.0, 81.0, 81.0, 78.0, 80.0, 84.0, 81.0, 77.0, 88.0, 81.0, 82.0, 80.0, 85.0, 83.0, 81.0, 78.0, 81.0, 78.0, 81.0, 78.0, 82.0, 83.0, 79.0, 77.0, 82.0, 83.0, 81.0, 82.0, 81.0, 83.0, 84.0, 86.0, 77.0, 78.0, 76.0, 80.0, 78.0, 81.0, 81.0, 80.0, 82.0, 84.0, 77.0, 80.0, 80.0, 79.0, 82.0, 82.0, 82.0, 77.0, 73.0, 81.0, 82.0, 81.0, 74.0, 81.0, 81.0, 82.0, 81.0, 83.0, 79.0, 84.0, 79.0, 81.0, 80.0, 82.0, 82.0, 83.0, 82.0, 83.0, 79.0, 83.0, 79.0, 79.0, 83.0, 82.0, 82.0, 82.0, 81.0, 81.0, 81.0, 80.0, 80.0, 86.0, 79.0, 82.0, 80.0, 80.0, 81.0, 81.0, 83.0, 80.0, 82.0, 81.0, 81.0, 82.0, 80.0, 80.0, 82.0, 81.0, 80.0, 83.0, 80.0, 82.0, 74.0, 76.0, 83.0, 83.0, 78.0, 80.0, 81.0, 82.0, 81.0, 80.0, 83.0, 80.0, 79.0, 80.0, 82.0, 80.0, 76.0, 81.0, 83.0, 81.0, 81.0, 80.0, 82.0, 77.0, 86.0, 81.0, 82.0, 81.0, 81.0, 82.0, 82.0, 82.0, 81.0, 82.0, 81.0, 79.0, 86.0, 80.0, 81.0, 83.0, 79.0, 82.0, 82.0, 82.0, 83.0, 81.0, 81.0, 83.0, 81.0, 82.0, 86.0, 82.0, 79.0, 87.0, 80.0, 81.0, 84.0, 82.0, 83.0, 81.0, 84.0, 79.0, 81.0, 80.0, 81.0, 81.0, 81.0, 80.0, 82.0, 74.0, 86.0, 81.0, 77.0, 81.0, 78.0, 74.0, 82.0, 81.0, 82.0, 82.0, 82.0, 80.0, 83.0, 83.0, 79.0, 77.0, 83.0, 82.0, 83.0, 84.0, 81.0, 80.0, 81.0, 83.0, 82.0, 81.0, 82.0, 81.0, 83.0, 78.0, 81.0, 82.0, 81.0, 77.0, 81.0, 79.0, 83.0, 83.0, 82.0, 81.0, 80.0, 78.0, 85.0, 73.0, 83.0, 81.0, 83.0, 81.0, 82.0, 77.0, 82.0, 80.0, 82.0, 82.0, 77.0, 79.0, 78.0, 83.0, 82.0, 81.0, 80.0, 81.0, 78.0, 76.0, 81.0, 82.0, 83.0, 78.0, 82.0, 84.0, 80.0, 81.0, 81.0, 83.0, 82.0, 80.0, 81.0, 82.0, 74.0, 73.0, 81.0, 78.0, 82.0, 83.0, 80.0, 81.0, 81.0, 82.0, 81.0, 82.0, 81.0, 82.0, 79.0, 77.0, 83.0, 86.0, 78.0, 86.0, 82.0, 80.0, 82.0, 84.0, 79.0, 82.0, 80.0, 83.0, 78.0, 77.0, 84.0, 79.0, 81.0, 82.0, 78.0]
+ Min = 73.0
+ Max = 88.0
+ Avg = 80.9
+ Std = 2.3501772982759666
+ -- Generation 18 --
+ new fits:  [83.0, 83.0, 81.0, 83.0, 82.0, 83.0, 82.0, 74.0, 81.0, 82.0, 83.0, 77.0, 80.0, 84.0, 84.0, 85.0, 81.0, 81.0, 81.0, 80.0, 83.0, 83.0, 82.0, 81.0, 84.0, 83.0, 82.0, 81.0, 83.0, 82.0, 79.0, 81.0, 82.0, 83.0, 80.0, 83.0, 82.0, 83.0, 78.0, 88.0, 83.0, 80.0, 84.0, 81.0, 83.0, 82.0, 81.0, 82.0, 81.0, 82.0, 81.0, 79.0, 81.0, 83.0, 84.0, 81.0, 83.0, 82.0, 82.0, 81.0, 82.0, 85.0, 87.0, 84.0, 84.0, 82.0, 81.0, 83.0, 82.0, 82.0, 81.0, 80.0, 85.0, 81.0, 82.0, 84.0, 82.0, 84.0, 86.0, 81.0, 81.0, 83.0, 83.0, 83.0, 83.0, 84.0, 82.0, 82.0, 79.0, 85.0, 83.0, 85.0, 80.0, 83.0, 82.0, 83.0, 81.0, 82.0, 83.0, 82.0, 85.0, 78.0, 82.0, 85.0, 80.0, 81.0, 84.0, 82.0, 79.0, 83.0, 83.0, 75.0, 82.0, 83.0, 80.0, 82.0, 80.0, 83.0, 86.0, 82.0, 81.0, 82.0, 80.0, 82.0, 82.0, 77.0, 79.0, 82.0, 84.0, 83.0, 79.0, 81.0, 82.0, 82.0, 86.0, 83.0, 82.0, 84.0, 83.0, 83.0, 80.0, 82.0, 83.0, 80.0, 79.0, 82.0, 77.0, 89.0, 84.0, 83.0, 82.0, 81.0, 83.0, 82.0, 78.0, 86.0, 86.0, 82.0, 82.0, 83.0, 82.0, 82.0, 83.0, 82.0, 81.0, 82.0, 82.0, 81.0, 81.0, 83.0, 79.0, 87.0, 81.0, 81.0, 83.0, 83.0, 83.0, 75.0, 83.0, 82.0, 80.0, 77.0, 82.0, 82.0, 83.0, 79.0, 77.0, 83.0, 81.0, 83.0, 82.0, 82.0, 83.0, 84.0, 81.0, 84.0, 85.0, 81.0, 80.0, 82.0, 84.0, 76.0, 84.0, 77.0, 83.0, 88.0, 81.0, 81.0, 86.0, 83.0, 83.0, 81.0, 83.0, 82.0, 81.0, 81.0, 82.0, 81.0, 83.0, 84.0, 82.0, 84.0, 82.0, 81.0, 82.0, 88.0, 84.0, 84.0, 83.0, 82.0, 79.0, 83.0, 83.0, 84.0, 77.0, 81.0, 75.0, 81.0, 81.0, 82.0, 86.0, 79.0, 83.0, 78.0, 83.0, 80.0, 82.0, 82.0, 82.0, 83.0, 80.0, 81.0, 82.0, 84.0, 81.0, 84.0, 82.0, 80.0, 81.0, 83.0, 79.0, 86.0, 81.0, 83.0, 81.0, 79.0, 80.0, 82.0, 81.0, 83.0, 80.0, 82.0, 81.0, 84.0, 80.0, 82.0, 83.0, 80.0, 83.0, 84.0, 86.0, 83.0, 82.0, 82.0, 84.0, 76.0, 86.0, 86.0, 84.0, 83.0, 83.0, 83.0, 84.0, 80.0, 84.0, 83.0, 82.0, 78.0, 81.0, 83.0]
+ Min = 74.0
+ Max = 89.0
+ Avg = 82.01333333333334
+ Std = 2.192370609383471
+ -- Generation 19 --
+ new fits:  [87.0, 81.0, 84.0, 84.0, 79.0, 88.0, 87.0, 81.0, 86.0, 86.0, 80.0, 83.0, 84.0, 83.0, 86.0, 83.0, 83.0, 86.0, 84.0, 81.0, 83.0, 84.0, 78.0, 79.0, 82.0, 84.0, 81.0, 87.0, 86.0, 87.0, 80.0, 82.0, 83.0, 82.0, 83.0, 82.0, 81.0, 83.0, 84.0, 82.0, 81.0, 88.0, 82.0, 83.0, 83.0, 86.0, 82.0, 83.0, 89.0, 84.0, 85.0, 81.0, 83.0, 81.0, 86.0, 80.0, 84.0, 81.0, 85.0, 79.0, 83.0, 85.0, 82.0, 82.0, 79.0, 85.0, 81.0, 84.0, 80.0, 84.0, 77.0, 81.0, 82.0, 79.0, 84.0, 83.0, 85.0, 84.0, 84.0, 87.0, 79.0, 82.0, 83.0, 83.0, 84.0, 79.0, 82.0, 85.0, 78.0, 85.0, 83.0, 84.0, 83.0, 85.0, 85.0, 81.0, 87.0, 79.0, 83.0, 82.0, 85.0, 86.0, 84.0, 84.0, 85.0, 85.0, 78.0, 85.0, 82.0, 81.0, 83.0, 82.0, 84.0, 83.0, 86.0, 85.0, 83.0, 81.0, 84.0, 83.0, 82.0, 79.0, 85.0, 83.0, 83.0, 84.0, 86.0, 83.0, 86.0, 83.0, 82.0, 83.0, 84.0, 86.0, 87.0, 85.0, 86.0, 85.0, 84.0, 83.0, 85.0, 88.0, 82.0, 84.0, 75.0, 83.0, 74.0, 85.0, 83.0, 84.0, 81.0, 82.0, 84.0, 83.0, 84.0, 84.0, 81.0, 83.0, 85.0, 83.0, 83.0, 84.0, 82.0, 85.0, 85.0, 88.0, 84.0, 83.0, 81.0, 84.0, 82.0, 84.0, 82.0, 76.0, 83.0, 83.0, 80.0, 82.0, 83.0, 84.0, 82.0, 85.0, 82.0, 84.0, 83.0, 82.0, 83.0, 82.0, 83.0, 84.0, 82.0, 84.0, 84.0, 82.0, 83.0, 82.0, 85.0, 80.0, 83.0, 83.0, 83.0, 84.0, 86.0, 81.0, 83.0, 82.0, 83.0, 87.0, 85.0, 85.0, 81.0, 80.0, 82.0, 85.0, 83.0, 82.0, 82.0, 86.0, 81.0, 86.0, 82.0, 84.0, 83.0, 82.0, 82.0, 85.0, 82.0, 85.0, 82.0, 83.0, 83.0, 81.0, 87.0, 83.0, 84.0, 84.0, 81.0, 85.0, 85.0, 82.0, 80.0, 84.0, 82.0, 85.0, 75.0, 83.0, 83.0, 85.0, 84.0, 82.0, 84.0, 80.0, 83.0, 82.0, 81.0, 84.0, 87.0, 81.0, 84.0, 81.0, 82.0, 83.0, 81.0, 83.0, 84.0, 88.0, 88.0, 83.0, 83.0, 82.0, 85.0, 78.0, 83.0, 85.0, 82.0, 84.0, 77.0, 84.0, 84.0, 83.0, 86.0, 89.0, 79.0, 82.0, 80.0, 83.0, 80.0, 84.0, 81.0, 83.0, 82.0, 83.0, 84.0, 84.0, 81.0, 84.0, 83.0, 83.0, 86.0, 84.0]
+ Min = 74.0
+ Max = 89.0
+ Avg = 83.06666666666666
+ Std = 2.2997584414214534
+ -- Generation 20 --
+ new fits:  [84.0, 85.0, 83.0, 84.0, 83.0, 85.0, 85.0, 86.0, 83.0, 83.0, 88.0, 85.0, 86.0, 83.0, 84.0, 86.0, 81.0, 84.0, 83.0, 86.0, 88.0, 86.0, 87.0, 80.0, 87.0, 86.0, 87.0, 85.0, 84.0, 84.0, 87.0, 81.0, 81.0, 79.0, 84.0, 85.0, 80.0, 88.0, 84.0, 84.0, 83.0, 84.0, 85.0, 83.0, 84.0, 87.0, 85.0, 86.0, 81.0, 83.0, 85.0, 85.0, 82.0, 84.0, 83.0, 85.0, 84.0, 81.0, 79.0, 86.0, 86.0, 83.0, 85.0, 85.0, 85.0, 83.0, 83.0, 86.0, 85.0, 85.0, 85.0, 83.0, 84.0, 86.0, 82.0, 83.0, 84.0, 83.0, 83.0, 85.0, 83.0, 84.0, 85.0, 85.0, 83.0, 85.0, 83.0, 85.0, 77.0, 86.0, 84.0, 85.0, 83.0, 84.0, 86.0, 87.0, 78.0, 85.0, 86.0, 84.0, 84.0, 85.0, 84.0, 86.0, 85.0, 86.0, 86.0, 81.0, 86.0, 81.0, 83.0, 86.0, 84.0, 82.0, 85.0, 84.0, 84.0, 84.0, 84.0, 85.0, 81.0, 86.0, 87.0, 86.0, 87.0, 85.0, 82.0, 80.0, 84.0, 85.0, 87.0, 84.0, 84.0, 84.0, 83.0, 86.0, 84.0, 84.0, 81.0, 90.0, 84.0, 79.0, 87.0, 85.0, 82.0, 81.0, 85.0, 82.0, 87.0, 84.0, 87.0, 84.0, 84.0, 87.0, 84.0, 84.0, 87.0, 85.0, 89.0, 83.0, 87.0, 86.0, 86.0, 85.0, 87.0, 85.0, 83.0, 85.0, 87.0, 79.0, 86.0, 87.0, 80.0, 82.0, 84.0, 82.0, 82.0, 84.0, 83.0, 85.0, 82.0, 85.0, 82.0, 84.0, 87.0, 82.0, 85.0, 85.0, 83.0, 86.0, 88.0, 86.0, 86.0, 89.0, 86.0, 86.0, 86.0, 85.0, 82.0, 84.0, 83.0, 89.0, 79.0, 86.0, 89.0, 80.0, 77.0, 83.0, 84.0, 84.0, 82.0, 87.0, 87.0, 85.0, 83.0, 85.0, 88.0, 84.0, 85.0, 82.0, 80.0, 86.0, 85.0, 85.0, 85.0, 84.0, 83.0, 82.0, 79.0, 87.0, 86.0, 84.0, 88.0, 82.0, 83.0, 87.0, 87.0, 87.0, 88.0, 84.0, 79.0, 86.0, 85.0, 80.0, 89.0, 88.0, 90.0, 84.0, 76.0, 84.0, 82.0, 86.0, 87.0, 86.0, 90.0, 82.0, 84.0, 84.0, 82.0, 85.0, 81.0, 86.0, 82.0, 83.0, 86.0, 80.0, 84.0, 84.0, 84.0, 84.0, 84.0, 87.0, 89.0, 83.0, 77.0, 88.0, 81.0, 83.0, 85.0, 85.0, 84.0, 87.0, 84.0, 86.0, 84.0, 87.0, 82.0, 83.0, 86.0, 84.0, 81.0, 87.0, 86.0, 86.0, 84.0, 86.0, 85.0, 87.0, 84.0, 84.0]
+ Min = 76.0
+ Max = 90.0
+ Avg = 84.32
+ Std = 2.3588697858650884
+ -- Generation 21 --
+ new fits:  [88.0, 84.0, 83.0, 87.0, 85.0, 87.0, 83.0, 87.0, 86.0, 87.0, 79.0, 81.0, 81.0, 89.0, 86.0, 84.0, 85.0, 90.0, 87.0, 87.0, 83.0, 88.0, 89.0, 85.0, 87.0, 85.0, 86.0, 85.0, 87.0, 89.0, 84.0, 87.0, 82.0, 85.0, 87.0, 86.0, 86.0, 87.0, 81.0, 86.0, 87.0, 86.0, 87.0, 85.0, 89.0, 82.0, 89.0, 85.0, 88.0, 89.0, 87.0, 87.0, 89.0, 82.0, 86.0, 88.0, 82.0, 85.0, 85.0, 87.0, 86.0, 85.0, 89.0, 88.0, 88.0, 87.0, 86.0, 85.0, 82.0, 86.0, 86.0, 85.0, 81.0, 85.0, 83.0, 86.0, 90.0, 86.0, 84.0, 87.0, 87.0, 85.0, 87.0, 86.0, 87.0, 88.0, 87.0, 86.0, 84.0, 81.0, 82.0, 85.0, 90.0, 83.0, 85.0, 88.0, 86.0, 88.0, 87.0, 86.0, 89.0, 87.0, 85.0, 86.0, 84.0, 84.0, 85.0, 86.0, 84.0, 85.0, 84.0, 88.0, 81.0, 85.0, 87.0, 84.0, 85.0, 91.0, 86.0, 82.0, 87.0, 87.0, 82.0, 84.0, 86.0, 87.0, 86.0, 84.0, 86.0, 87.0, 85.0, 86.0, 85.0, 86.0, 84.0, 82.0, 86.0, 88.0, 87.0, 88.0, 82.0, 88.0, 87.0, 86.0, 86.0, 87.0, 86.0, 86.0, 87.0, 86.0, 87.0, 84.0, 85.0, 84.0, 87.0, 88.0, 87.0, 85.0, 88.0, 84.0, 86.0, 85.0, 86.0, 87.0, 86.0, 87.0, 86.0, 86.0, 82.0, 86.0, 84.0, 88.0, 85.0, 88.0, 84.0, 86.0, 87.0, 86.0, 78.0, 86.0, 87.0, 88.0, 89.0, 87.0, 88.0, 86.0, 86.0, 87.0, 84.0, 88.0, 85.0, 86.0, 86.0, 87.0, 84.0, 86.0, 81.0, 89.0, 85.0, 87.0, 84.0, 86.0, 85.0, 83.0, 90.0, 85.0, 87.0, 88.0, 86.0, 83.0, 84.0, 86.0, 86.0, 87.0, 85.0, 89.0, 88.0, 82.0, 85.0, 85.0, 85.0, 86.0, 87.0, 85.0, 89.0, 90.0, 85.0, 87.0, 87.0, 86.0, 84.0, 85.0, 87.0, 83.0, 85.0, 88.0, 78.0, 87.0, 87.0, 87.0, 90.0, 87.0, 85.0, 85.0, 81.0, 86.0, 87.0, 85.0, 85.0, 87.0, 86.0, 86.0, 85.0, 87.0, 87.0, 87.0, 86.0, 85.0, 86.0, 77.0, 85.0, 84.0, 85.0, 87.0, 87.0, 87.0, 85.0, 85.0, 86.0, 86.0, 86.0, 86.0, 85.0, 87.0, 85.0, 89.0, 86.0, 86.0, 82.0, 88.0, 87.0, 86.0, 78.0, 86.0, 84.0, 87.0, 87.0, 88.0, 86.0, 84.0, 85.0, 84.0, 88.0, 86.0, 89.0, 86.0, 86.0, 83.0, 88.0, 87.0]
+ Min = 77.0
+ Max = 91.0
+ Avg = 85.76333333333334
+ Std = 2.1495710166345887
+ -- Generation 22 --
+ new fits:  [85.0, 89.0, 86.0, 86.0, 89.0, 89.0, 85.0, 87.0, 88.0, 83.0, 89.0, 90.0, 88.0, 82.0, 84.0, 86.0, 87.0, 83.0, 89.0, 86.0, 87.0, 89.0, 89.0, 81.0, 90.0, 89.0, 86.0, 90.0, 86.0, 87.0, 86.0, 87.0, 90.0, 86.0, 88.0, 78.0, 88.0, 83.0, 82.0, 86.0, 84.0, 89.0, 88.0, 88.0, 88.0, 84.0, 87.0, 89.0, 87.0, 85.0, 88.0, 86.0, 86.0, 87.0, 88.0, 87.0, 88.0, 87.0, 85.0, 88.0, 86.0, 88.0, 80.0, 91.0, 85.0, 88.0, 87.0, 83.0, 82.0, 86.0, 87.0, 83.0, 86.0, 82.0, 87.0, 84.0, 85.0, 88.0, 86.0, 91.0, 88.0, 89.0, 89.0, 88.0, 89.0, 91.0, 89.0, 87.0, 87.0, 88.0, 88.0, 88.0, 88.0, 87.0, 88.0, 89.0, 86.0, 89.0, 87.0, 86.0, 89.0, 85.0, 85.0, 86.0, 85.0, 87.0, 90.0, 86.0, 84.0, 84.0, 86.0, 86.0, 89.0, 80.0, 88.0, 85.0, 83.0, 84.0, 87.0, 87.0, 88.0, 88.0, 87.0, 82.0, 87.0, 88.0, 87.0, 88.0, 87.0, 88.0, 91.0, 86.0, 90.0, 89.0, 89.0, 87.0, 84.0, 90.0, 87.0, 87.0, 87.0, 90.0, 86.0, 88.0, 89.0, 85.0, 90.0, 79.0, 89.0, 86.0, 81.0, 87.0, 88.0, 89.0, 88.0, 87.0, 88.0, 84.0, 85.0, 87.0, 86.0, 86.0, 87.0, 88.0, 87.0, 85.0, 89.0, 87.0, 87.0, 87.0, 88.0, 89.0, 85.0, 90.0, 84.0, 90.0, 86.0, 89.0, 85.0, 88.0, 87.0, 88.0, 87.0, 86.0, 88.0, 90.0, 87.0, 86.0, 87.0, 89.0, 89.0, 87.0, 82.0, 88.0, 81.0, 85.0, 87.0, 88.0, 89.0, 85.0, 88.0, 82.0, 87.0, 87.0, 90.0, 86.0, 88.0, 87.0, 87.0, 87.0, 87.0, 88.0, 87.0, 81.0, 88.0, 89.0, 86.0, 85.0, 87.0, 87.0, 85.0, 87.0, 86.0, 89.0, 88.0, 87.0, 86.0, 87.0, 87.0, 85.0, 87.0, 87.0, 83.0, 85.0, 88.0, 87.0, 90.0, 87.0, 84.0, 83.0, 88.0, 88.0, 88.0, 85.0, 87.0, 88.0, 90.0, 83.0, 90.0, 89.0, 83.0, 87.0, 82.0, 87.0, 87.0, 85.0, 90.0, 87.0, 90.0, 80.0, 87.0, 87.0, 86.0, 85.0, 82.0, 87.0, 80.0, 88.0, 89.0, 89.0, 89.0, 86.0, 87.0, 87.0, 88.0, 87.0, 88.0, 86.0, 87.0, 80.0, 78.0, 87.0, 85.0, 89.0, 87.0, 90.0, 81.0, 82.0, 86.0, 87.0, 84.0, 82.0, 86.0, 85.0, 87.0, 90.0, 85.0, 86.0, 88.0, 85.0]
+ Min = 78.0
+ Max = 91.0
+ Avg = 86.61
+ Std = 2.40788288751768
+ -- Generation 23 --
+ new fits:  [84.0, 85.0, 91.0, 88.0, 89.0, 89.0, 81.0, 87.0, 88.0, 87.0, 83.0, 89.0, 86.0, 90.0, 90.0, 88.0, 91.0, 87.0, 89.0, 86.0, 88.0, 85.0, 83.0, 89.0, 85.0, 89.0, 89.0, 86.0, 90.0, 87.0, 87.0, 88.0, 88.0, 89.0, 91.0, 84.0, 83.0, 89.0, 88.0, 90.0, 87.0, 89.0, 87.0, 89.0, 90.0, 87.0, 91.0, 89.0, 88.0, 89.0, 87.0, 85.0, 87.0, 89.0, 83.0, 85.0, 88.0, 89.0, 88.0, 88.0, 85.0, 86.0, 82.0, 83.0, 84.0, 89.0, 90.0, 90.0, 89.0, 90.0, 83.0, 90.0, 88.0, 87.0, 88.0, 88.0, 90.0, 88.0, 87.0, 90.0, 89.0, 87.0, 87.0, 89.0, 88.0, 89.0, 85.0, 89.0, 85.0, 88.0, 88.0, 83.0, 88.0, 88.0, 89.0, 88.0, 89.0, 88.0, 89.0, 82.0, 91.0, 87.0, 88.0, 88.0, 87.0, 89.0, 89.0, 87.0, 89.0, 89.0, 88.0, 87.0, 89.0, 84.0, 90.0, 87.0, 87.0, 90.0, 84.0, 80.0, 89.0, 87.0, 84.0, 87.0, 85.0, 89.0, 89.0, 90.0, 86.0, 90.0, 82.0, 89.0, 88.0, 90.0, 85.0, 87.0, 88.0, 84.0, 88.0, 85.0, 87.0, 86.0, 86.0, 87.0, 85.0, 87.0, 89.0, 88.0, 88.0, 91.0, 82.0, 89.0, 88.0, 89.0, 90.0, 88.0, 89.0, 89.0, 87.0, 88.0, 86.0, 91.0, 87.0, 89.0, 88.0, 88.0, 84.0, 88.0, 86.0, 90.0, 90.0, 86.0, 88.0, 80.0, 88.0, 88.0, 90.0, 88.0, 86.0, 89.0, 87.0, 87.0, 89.0, 86.0, 88.0, 85.0, 89.0, 88.0, 85.0, 90.0, 84.0, 84.0, 88.0, 87.0, 87.0, 89.0, 88.0, 89.0, 88.0, 88.0, 90.0, 90.0, 89.0, 82.0, 86.0, 85.0, 89.0, 88.0, 87.0, 90.0, 88.0, 89.0, 90.0, 89.0, 87.0, 90.0, 89.0, 88.0, 87.0, 89.0, 89.0, 88.0, 88.0, 88.0, 89.0, 82.0, 87.0, 85.0, 80.0, 90.0, 89.0, 87.0, 88.0, 88.0, 87.0, 89.0, 87.0, 87.0, 90.0, 82.0, 90.0, 87.0, 90.0, 88.0, 90.0, 89.0, 86.0, 85.0, 90.0, 89.0, 90.0, 87.0, 88.0, 89.0, 88.0, 89.0, 90.0, 89.0, 89.0, 88.0, 89.0, 89.0, 81.0, 84.0, 88.0, 87.0, 90.0, 87.0, 88.0, 89.0, 84.0, 87.0, 90.0, 89.0, 85.0, 87.0, 87.0, 88.0, 87.0, 81.0, 88.0, 88.0, 90.0, 88.0, 87.0, 89.0, 87.0, 89.0, 88.0, 89.0, 88.0, 87.0, 88.0, 89.0, 87.0, 90.0, 88.0, 87.0, 86.0, 86.0]
+ Min = 80.0
+ Max = 91.0
+ Avg = 87.52
+ Std = 2.199151351469028
+ -- Generation 24 --
+ new fits:  [89.0, 89.0, 88.0, 89.0, 89.0, 91.0, 89.0, 86.0, 90.0, 87.0, 89.0, 90.0, 87.0, 89.0, 89.0, 89.0, 88.0, 88.0, 87.0, 90.0, 90.0, 90.0, 89.0, 86.0, 85.0, 93.0, 92.0, 87.0, 90.0, 89.0, 86.0, 90.0, 88.0, 89.0, 90.0, 90.0, 88.0, 88.0, 90.0, 91.0, 89.0, 89.0, 87.0, 91.0, 88.0, 90.0, 90.0, 84.0, 90.0, 87.0, 87.0, 91.0, 88.0, 91.0, 83.0, 89.0, 88.0, 85.0, 89.0, 88.0, 88.0, 87.0, 89.0, 88.0, 88.0, 90.0, 86.0, 91.0, 89.0, 79.0, 89.0, 89.0, 87.0, 88.0, 88.0, 91.0, 84.0, 87.0, 86.0, 89.0, 90.0, 89.0, 91.0, 80.0, 87.0, 89.0, 90.0, 90.0, 90.0, 90.0, 90.0, 89.0, 85.0, 89.0, 88.0, 91.0, 90.0, 86.0, 89.0, 90.0, 85.0, 89.0, 89.0, 83.0, 89.0, 90.0, 89.0, 87.0, 87.0, 88.0, 81.0, 88.0, 90.0, 90.0, 79.0, 87.0, 90.0, 90.0, 87.0, 89.0, 89.0, 88.0, 88.0, 80.0, 90.0, 89.0, 89.0, 88.0, 89.0, 90.0, 86.0, 81.0, 90.0, 89.0, 89.0, 86.0, 90.0, 90.0, 89.0, 87.0, 89.0, 90.0, 88.0, 90.0, 89.0, 90.0, 90.0, 87.0, 88.0, 90.0, 89.0, 88.0, 86.0, 85.0, 92.0, 84.0, 90.0, 89.0, 89.0, 87.0, 89.0, 84.0, 86.0, 89.0, 89.0, 86.0, 88.0, 88.0, 89.0, 89.0, 88.0, 90.0, 89.0, 87.0, 87.0, 89.0, 89.0, 89.0, 89.0, 90.0, 90.0, 89.0, 89.0, 89.0, 90.0, 90.0, 84.0, 90.0, 83.0, 85.0, 90.0, 90.0, 88.0, 81.0, 89.0, 90.0, 88.0, 89.0, 88.0, 88.0, 87.0, 89.0, 90.0, 90.0, 90.0, 86.0, 90.0, 90.0, 85.0, 88.0, 89.0, 90.0, 90.0, 90.0, 90.0, 91.0, 90.0, 88.0, 87.0, 91.0, 90.0, 88.0, 89.0, 83.0, 89.0, 90.0, 89.0, 89.0, 85.0, 91.0, 89.0, 88.0, 90.0, 89.0, 87.0, 87.0, 90.0, 88.0, 90.0, 88.0, 90.0, 89.0, 91.0, 89.0, 89.0, 89.0, 90.0, 89.0, 90.0, 90.0, 91.0, 90.0, 88.0, 89.0, 89.0, 83.0, 82.0, 88.0, 88.0, 86.0, 89.0, 90.0, 89.0, 86.0, 90.0, 89.0, 88.0, 90.0, 88.0, 86.0, 90.0, 90.0, 88.0, 87.0, 90.0, 89.0, 82.0, 89.0, 84.0, 90.0, 90.0, 89.0, 89.0, 91.0, 89.0, 86.0, 89.0, 90.0, 89.0, 88.0, 89.0, 84.0, 87.0, 87.0, 89.0, 89.0, 90.0, 89.0, 89.0, 88.0]
+ Min = 79.0
+ Max = 93.0
+ Avg = 88.32333333333334
+ Std = 2.210306665500168
+ -- Generation 25 --
+
+ new fits:  [87.0, 91.0, 90.0, 90.0, 87.0, 90.0, 81.0, 89.0, 90.0, 88.0, 89.0, 90.0, 90.0, 90.0, 91.0, 90.0, 90.0, 90.0, 91.0, 90.0, 90.0, 91.0, 91.0, 91.0, 80.0, 90.0, 89.0, 89.0, 90.0, 90.0, 87.0, 91.0, 90.0, 89.0, 87.0, 89.0, 90.0, 81.0, 90.0, 89.0, 86.0, 90.0, 90.0, 90.0, 86.0, 89.0, 88.0, 89.0, 89.0, 90.0, 90.0, 90.0, 90.0, 89.0, 89.0, 91.0, 90.0, 90.0, 89.0, 90.0, 91.0, 84.0, 89.0, 81.0, 89.0, 88.0, 89.0, 89.0, 88.0, 91.0, 89.0, 92.0, 89.0, 93.0, 88.0, 92.0, 87.0, 90.0, 90.0, 90.0, 88.0, 84.0, 91.0, 90.0, 91.0, 90.0, 89.0, 89.0, 90.0, 90.0, 89.0, 89.0, 82.0, 84.0, 87.0, 90.0, 90.0, 89.0, 89.0, 91.0, 90.0, 90.0, 90.0, 90.0, 86.0, 90.0, 88.0, 91.0, 88.0, 89.0, 92.0, 90.0, 82.0, 92.0, 89.0, 84.0, 89.0, 90.0, 89.0, 88.0, 89.0, 90.0, 90.0, 90.0, 86.0, 90.0, 90.0, 84.0, 89.0, 89.0, 90.0, 89.0, 90.0, 89.0, 89.0, 90.0, 91.0, 85.0, 91.0, 88.0, 91.0, 88.0, 90.0, 90.0, 89.0, 90.0, 90.0, 90.0, 93.0, 88.0, 90.0, 90.0, 89.0, 91.0, 91.0, 90.0, 90.0, 90.0, 90.0, 90.0, 89.0, 87.0, 89.0, 89.0, 91.0, 90.0, 91.0, 89.0, 83.0, 84.0, 88.0, 85.0, 90.0, 91.0, 91.0, 89.0, 89.0, 84.0, 91.0, 84.0, 86.0, 90.0, 90.0, 90.0, 88.0, 90.0, 83.0, 89.0, 90.0, 90.0, 90.0, 91.0, 90.0, 88.0, 89.0, 91.0, 89.0, 90.0, 87.0, 82.0, 91.0, 86.0, 90.0, 86.0, 90.0, 89.0, 92.0, 88.0, 90.0, 89.0, 90.0, 90.0, 85.0, 90.0, 90.0, 88.0, 91.0, 90.0, 89.0, 87.0, 91.0, 89.0, 90.0, 87.0, 91.0, 90.0, 88.0, 88.0, 86.0, 89.0, 91.0, 90.0, 90.0, 89.0, 90.0, 90.0, 88.0, 87.0, 90.0, 90.0, 90.0, 89.0, 89.0, 89.0, 90.0, 85.0, 90.0, 91.0, 89.0, 90.0, 92.0, 91.0, 84.0, 90.0, 92.0, 90.0, 90.0, 90.0, 90.0, 90.0, 90.0, 91.0, 92.0, 89.0, 90.0, 90.0, 90.0, 89.0, 82.0, 88.0, 87.0, 89.0, 89.0, 91.0, 84.0, 91.0, 90.0, 90.0, 90.0, 90.0, 89.0, 90.0, 90.0, 90.0, 90.0, 89.0, 89.0, 90.0, 89.0, 89.0, 81.0, 89.0, 89.0, 90.0, 83.0, 85.0, 87.0, 93.0, 89.0, 85.0]
+ Min = 80.0
+ Max = 93.0
+ Avg = 88.97
+ Std = 2.244051395727571
+ -- Generation 26 --
+ new fits:  [91.0, 91.0, 88.0, 88.0, 90.0, 92.0, 91.0, 90.0, 85.0, 89.0, 91.0, 90.0, 91.0, 93.0, 90.0, 88.0, 84.0, 89.0, 90.0, 91.0, 90.0, 80.0, 93.0, 90.0, 89.0, 88.0, 89.0, 90.0, 91.0, 89.0, 84.0, 91.0, 90.0, 84.0, 90.0, 80.0, 90.0, 88.0, 90.0, 87.0, 84.0, 89.0, 91.0, 90.0, 88.0, 91.0, 90.0, 90.0, 87.0, 92.0, 90.0, 91.0, 87.0, 91.0, 88.0, 92.0, 85.0, 90.0, 88.0, 89.0, 90.0, 90.0, 91.0, 90.0, 92.0, 88.0, 92.0, 89.0, 90.0, 90.0, 90.0, 91.0, 92.0, 90.0, 93.0, 92.0, 84.0, 91.0, 86.0, 89.0, 90.0, 90.0, 83.0, 92.0, 88.0, 89.0, 90.0, 90.0, 90.0, 93.0, 92.0, 87.0, 91.0, 90.0, 90.0, 92.0, 91.0, 90.0, 87.0, 89.0, 90.0, 91.0, 92.0, 90.0, 86.0, 89.0, 92.0, 90.0, 91.0, 90.0, 91.0, 86.0, 90.0, 90.0, 91.0, 90.0, 93.0, 87.0, 90.0, 92.0, 90.0, 90.0, 90.0, 90.0, 92.0, 92.0, 90.0, 80.0, 92.0, 92.0, 93.0, 90.0, 91.0, 89.0, 90.0, 91.0, 90.0, 91.0, 90.0, 88.0, 91.0, 87.0, 91.0, 90.0, 90.0, 89.0, 91.0, 88.0, 86.0, 90.0, 90.0, 87.0, 92.0, 90.0, 92.0, 89.0, 92.0, 88.0, 92.0, 91.0, 92.0, 87.0, 90.0, 91.0, 90.0, 92.0, 91.0, 91.0, 89.0, 91.0, 87.0, 89.0, 91.0, 85.0, 88.0, 92.0, 89.0, 91.0, 93.0, 86.0, 91.0, 89.0, 81.0, 88.0, 91.0, 87.0, 90.0, 91.0, 88.0, 85.0, 83.0, 92.0, 90.0, 90.0, 93.0, 90.0, 92.0, 92.0, 89.0, 90.0, 93.0, 91.0, 89.0, 89.0, 88.0, 90.0, 87.0, 89.0, 91.0, 91.0, 79.0, 90.0, 90.0, 91.0, 91.0, 92.0, 90.0, 90.0, 91.0, 90.0, 91.0, 89.0, 90.0, 84.0, 91.0, 92.0, 87.0, 90.0, 90.0, 90.0, 91.0, 90.0, 88.0, 90.0, 91.0, 91.0, 90.0, 91.0, 91.0, 89.0, 83.0, 88.0, 91.0, 91.0, 90.0, 91.0, 91.0, 91.0, 90.0, 90.0, 85.0, 92.0, 84.0, 86.0, 91.0, 91.0, 89.0, 90.0, 90.0, 86.0, 89.0, 85.0, 91.0, 90.0, 90.0, 91.0, 87.0, 91.0, 89.0, 91.0, 90.0, 91.0, 91.0, 91.0, 90.0, 90.0, 87.0, 91.0, 85.0, 90.0, 91.0, 86.0, 88.0, 91.0, 87.0, 92.0, 92.0, 86.0, 91.0, 90.0, 90.0, 90.0, 91.0, 89.0, 89.0, 90.0, 91.0, 90.0, 91.0, 90.0]
+ Min = 79.0
+ Max = 93.0
+ Avg = 89.53333333333333
+ Std = 2.372527953236477
+ -- Generation 27 --
+ new fits:  [93.0, 90.0, 91.0, 90.0, 90.0, 85.0, 90.0, 86.0, 83.0, 91.0, 84.0, 92.0, 93.0, 92.0, 91.0, 91.0, 91.0, 91.0, 89.0, 91.0, 92.0, 92.0, 91.0, 91.0, 90.0, 93.0, 91.0, 92.0, 90.0, 91.0, 84.0, 93.0, 88.0, 91.0, 90.0, 92.0, 92.0, 93.0, 91.0, 92.0, 91.0, 92.0, 87.0, 90.0, 92.0, 88.0, 92.0, 91.0, 91.0, 89.0, 91.0, 91.0, 92.0, 89.0, 88.0, 90.0, 91.0, 92.0, 89.0, 92.0, 91.0, 92.0, 91.0, 86.0, 88.0, 92.0, 90.0, 90.0, 91.0, 91.0, 90.0, 89.0, 90.0, 91.0, 91.0, 91.0, 87.0, 92.0, 92.0, 87.0, 87.0, 92.0, 91.0, 87.0, 88.0, 92.0, 83.0, 92.0, 92.0, 93.0, 90.0, 91.0, 90.0, 92.0, 86.0, 92.0, 91.0, 91.0, 86.0, 91.0, 89.0, 90.0, 91.0, 91.0, 91.0, 91.0, 92.0, 92.0, 92.0, 87.0, 91.0, 88.0, 87.0, 91.0, 86.0, 93.0, 87.0, 89.0, 90.0, 90.0, 92.0, 90.0, 89.0, 93.0, 88.0, 92.0, 93.0, 86.0, 90.0, 91.0, 91.0, 89.0, 90.0, 92.0, 92.0, 88.0, 87.0, 90.0, 90.0, 90.0, 90.0, 87.0, 89.0, 91.0, 84.0, 93.0, 87.0, 91.0, 91.0, 90.0, 92.0, 90.0, 89.0, 91.0, 91.0, 90.0, 92.0, 91.0, 92.0, 86.0, 88.0, 91.0, 92.0, 91.0, 93.0, 89.0, 90.0, 90.0, 91.0, 91.0, 91.0, 91.0, 93.0, 89.0, 91.0, 91.0, 92.0, 87.0, 88.0, 91.0, 92.0, 90.0, 92.0, 93.0, 88.0, 92.0, 92.0, 91.0, 91.0, 90.0, 82.0, 91.0, 91.0, 91.0, 92.0, 84.0, 92.0, 91.0, 91.0, 95.0, 91.0, 90.0, 92.0, 92.0, 93.0, 88.0, 92.0, 91.0, 90.0, 85.0, 91.0, 91.0, 90.0, 90.0, 93.0, 92.0, 90.0, 92.0, 87.0, 91.0, 90.0, 91.0, 93.0, 93.0, 91.0, 91.0, 92.0, 92.0, 92.0, 91.0, 91.0, 85.0, 91.0, 91.0, 86.0, 91.0, 84.0, 91.0, 89.0, 92.0, 90.0, 85.0, 92.0, 89.0, 88.0, 91.0, 91.0, 91.0, 92.0, 90.0, 91.0, 91.0, 92.0, 91.0, 92.0, 90.0, 93.0, 92.0, 92.0, 91.0, 90.0, 90.0, 90.0, 92.0, 91.0, 91.0, 87.0, 92.0, 89.0, 91.0, 92.0, 89.0, 90.0, 92.0, 91.0, 93.0, 92.0, 85.0, 89.0, 88.0, 91.0, 84.0, 92.0, 92.0, 88.0, 83.0, 91.0, 92.0, 85.0, 92.0, 92.0, 82.0, 91.0, 91.0, 92.0, 84.0, 91.0, 91.0, 91.0, 92.0]
+ Min = 82.0
+ Max = 95.0
+ Avg = 90.20666666666666
+ Std = 2.281217998253697
+ -- Generation 28 --
+ new fits:  [92.0, 92.0, 93.0, 90.0, 92.0, 91.0, 89.0, 92.0, 92.0, 91.0, 91.0, 93.0, 90.0, 93.0, 91.0, 91.0, 92.0, 91.0, 90.0, 92.0, 90.0, 88.0, 91.0, 92.0, 92.0, 91.0, 92.0, 91.0, 93.0, 92.0, 91.0, 90.0, 92.0, 92.0, 93.0, 93.0, 90.0, 92.0, 93.0, 90.0, 92.0, 89.0, 88.0, 91.0, 91.0, 92.0, 92.0, 91.0, 92.0, 91.0, 89.0, 85.0, 94.0, 83.0, 93.0, 87.0, 91.0, 91.0, 94.0, 92.0, 90.0, 92.0, 91.0, 91.0, 89.0, 92.0, 89.0, 92.0, 90.0, 91.0, 91.0, 89.0, 92.0, 91.0, 92.0, 93.0, 91.0, 86.0, 92.0, 92.0, 91.0, 91.0, 92.0, 86.0, 90.0, 93.0, 92.0, 92.0, 88.0, 92.0, 92.0, 92.0, 92.0, 92.0, 87.0, 91.0, 91.0, 93.0, 93.0, 92.0, 90.0, 87.0, 87.0, 92.0, 92.0, 92.0, 92.0, 86.0, 92.0, 91.0, 91.0, 93.0, 92.0, 91.0, 88.0, 92.0, 90.0, 93.0, 92.0, 88.0, 90.0, 92.0, 93.0, 89.0, 86.0, 92.0, 93.0, 91.0, 87.0, 91.0, 92.0, 92.0, 84.0, 91.0, 91.0, 91.0, 92.0, 91.0, 92.0, 92.0, 91.0, 85.0, 92.0, 91.0, 91.0, 91.0, 92.0, 92.0, 91.0, 88.0, 94.0, 91.0, 91.0, 92.0, 92.0, 92.0, 92.0, 91.0, 92.0, 90.0, 91.0, 81.0, 92.0, 92.0, 91.0, 92.0, 94.0, 90.0, 91.0, 87.0, 90.0, 93.0, 91.0, 88.0, 91.0, 91.0, 92.0, 87.0, 88.0, 91.0, 89.0, 91.0, 92.0, 92.0, 91.0, 93.0, 85.0, 92.0, 88.0, 92.0, 92.0, 91.0, 86.0, 92.0, 88.0, 91.0, 90.0, 92.0, 91.0, 92.0, 90.0, 89.0, 92.0, 88.0, 92.0, 92.0, 93.0, 95.0, 89.0, 92.0, 92.0, 92.0, 92.0, 92.0, 92.0, 93.0, 90.0, 93.0, 85.0, 92.0, 91.0, 92.0, 89.0, 92.0, 90.0, 84.0, 91.0, 91.0, 92.0, 92.0, 93.0, 91.0, 91.0, 93.0, 90.0, 92.0, 92.0, 92.0, 92.0, 92.0, 93.0, 92.0, 92.0, 90.0, 92.0, 86.0, 92.0, 88.0, 92.0, 90.0, 89.0, 91.0, 92.0, 90.0, 91.0, 91.0, 92.0, 91.0, 93.0, 81.0, 92.0, 92.0, 89.0, 91.0, 93.0, 90.0, 92.0, 92.0, 92.0, 92.0, 92.0, 91.0, 90.0, 88.0, 87.0, 91.0, 92.0, 92.0, 90.0, 87.0, 92.0, 92.0, 93.0, 91.0, 92.0, 91.0, 92.0, 92.0, 89.0, 93.0, 92.0, 92.0, 93.0, 89.0, 92.0, 84.0, 91.0, 87.0, 92.0, 92.0]
+ Min = 81.0
+ Max = 95.0
+ Avg = 90.83333333333333
+ Std = 2.11633855724708
+ -- Generation 29 --
+ new fits:  [94.0, 91.0, 95.0, 88.0, 92.0, 93.0, 95.0, 89.0, 91.0, 93.0, 92.0, 94.0, 94.0, 91.0, 93.0, 90.0, 92.0, 93.0, 86.0, 91.0, 94.0, 92.0, 93.0, 92.0, 93.0, 92.0, 93.0, 90.0, 91.0, 92.0, 94.0, 92.0, 92.0, 93.0, 94.0, 92.0, 92.0, 92.0, 87.0, 92.0, 88.0, 91.0, 91.0, 93.0, 92.0, 93.0, 93.0, 93.0, 89.0, 90.0, 92.0, 87.0, 92.0, 93.0, 90.0, 94.0, 90.0, 92.0, 88.0, 89.0, 95.0, 92.0, 90.0, 92.0, 92.0, 92.0, 88.0, 92.0, 92.0, 93.0, 93.0, 87.0, 93.0, 91.0, 91.0, 92.0, 92.0, 93.0, 92.0, 92.0, 93.0, 93.0, 90.0, 91.0, 92.0, 92.0, 93.0, 92.0, 92.0, 91.0, 91.0, 95.0, 92.0, 92.0, 93.0, 93.0, 92.0, 89.0, 93.0, 91.0, 93.0, 92.0, 92.0, 91.0, 95.0, 92.0, 92.0, 93.0, 93.0, 90.0, 93.0, 93.0, 92.0, 92.0, 92.0, 94.0, 93.0, 92.0, 93.0, 92.0, 94.0, 91.0, 92.0, 88.0, 93.0, 92.0, 90.0, 93.0, 92.0, 91.0, 92.0, 93.0, 91.0, 92.0, 93.0, 93.0, 92.0, 92.0, 90.0, 91.0, 89.0, 93.0, 93.0, 92.0, 92.0, 84.0, 92.0, 93.0, 88.0, 88.0, 87.0, 95.0, 90.0, 93.0, 86.0, 88.0, 93.0, 92.0, 91.0, 92.0, 91.0, 93.0, 93.0, 89.0, 92.0, 89.0, 92.0, 92.0, 91.0, 92.0, 92.0, 92.0, 93.0, 93.0, 93.0, 92.0, 92.0, 91.0, 93.0, 93.0, 91.0, 92.0, 92.0, 87.0, 92.0, 94.0, 91.0, 92.0, 94.0, 92.0, 92.0, 92.0, 92.0, 90.0, 93.0, 92.0, 93.0, 93.0, 92.0, 92.0, 94.0, 94.0, 90.0, 93.0, 91.0, 93.0, 85.0, 92.0, 92.0, 92.0, 91.0, 93.0, 92.0, 88.0, 95.0, 91.0, 91.0, 93.0, 86.0, 93.0, 93.0, 94.0, 93.0, 94.0, 90.0, 87.0, 93.0, 91.0, 91.0, 92.0, 92.0, 93.0, 90.0, 92.0, 90.0, 86.0, 91.0, 87.0, 88.0, 84.0, 92.0, 92.0, 92.0, 92.0, 91.0, 92.0, 92.0, 88.0, 93.0, 88.0, 91.0, 92.0, 91.0, 93.0, 87.0, 92.0, 92.0, 93.0, 94.0, 92.0, 92.0, 87.0, 92.0, 93.0, 92.0, 92.0, 90.0, 92.0, 88.0, 92.0, 86.0, 94.0, 92.0, 93.0, 93.0, 92.0, 92.0, 92.0, 92.0, 91.0, 92.0, 93.0, 90.0, 92.0, 92.0, 91.0, 92.0, 93.0, 92.0, 92.0, 92.0, 93.0, 92.0, 92.0, 87.0, 91.0, 89.0, 91.0, 93.0, 89.0]
+ Min = 84.0
+ Max = 95.0
+ Avg = 91.56
+ Std = 1.9561186058109874
+ -- Generation 30 --
+ new fits:  [94.0, 92.0, 90.0, 93.0, 88.0, 92.0, 91.0, 92.0, 93.0, 93.0, 92.0, 94.0, 92.0, 93.0, 94.0, 92.0, 92.0, 93.0, 93.0, 92.0, 91.0, 93.0, 94.0, 92.0, 92.0, 93.0, 92.0, 93.0, 92.0, 92.0, 94.0, 93.0, 94.0, 90.0, 93.0, 90.0, 93.0, 92.0, 92.0, 94.0, 92.0, 95.0, 90.0, 95.0, 93.0, 93.0, 91.0, 91.0, 93.0, 92.0, 93.0, 93.0, 93.0, 95.0, 88.0, 88.0, 94.0, 95.0, 93.0, 92.0, 94.0, 94.0, 92.0, 93.0, 88.0, 93.0, 84.0, 95.0, 86.0, 92.0, 87.0, 94.0, 91.0, 93.0, 94.0, 93.0, 93.0, 93.0, 93.0, 93.0, 92.0, 93.0, 88.0, 94.0, 92.0, 93.0, 93.0, 88.0, 94.0, 93.0, 93.0, 92.0, 92.0, 89.0, 93.0, 94.0, 95.0, 92.0, 93.0, 93.0, 94.0, 93.0, 92.0, 93.0, 92.0, 93.0, 90.0, 93.0, 95.0, 92.0, 93.0, 90.0, 90.0, 93.0, 91.0, 86.0, 86.0, 94.0, 93.0, 93.0, 93.0, 92.0, 90.0, 94.0, 95.0, 93.0, 93.0, 87.0, 94.0, 92.0, 92.0, 93.0, 92.0, 92.0, 92.0, 92.0, 92.0, 93.0, 92.0, 93.0, 93.0, 87.0, 92.0, 91.0, 92.0, 94.0, 93.0, 91.0, 93.0, 92.0, 91.0, 95.0, 93.0, 92.0, 90.0, 93.0, 93.0, 93.0, 91.0, 91.0, 94.0, 92.0, 88.0, 93.0, 93.0, 93.0, 94.0, 90.0, 90.0, 93.0, 95.0, 93.0, 89.0, 93.0, 88.0, 93.0, 91.0, 93.0, 95.0, 93.0, 92.0, 90.0, 88.0, 94.0, 93.0, 91.0, 92.0, 94.0, 84.0, 90.0, 95.0, 93.0, 93.0, 93.0, 88.0, 94.0, 93.0, 94.0, 89.0, 92.0, 93.0, 94.0, 88.0, 96.0, 93.0, 91.0, 89.0, 92.0, 93.0, 94.0, 93.0, 94.0, 94.0, 87.0, 93.0, 93.0, 90.0, 89.0, 86.0, 92.0, 90.0, 94.0, 91.0, 93.0, 93.0, 93.0, 89.0, 92.0, 94.0, 94.0, 94.0, 92.0, 93.0, 95.0, 93.0, 94.0, 89.0, 92.0, 93.0, 93.0, 88.0, 93.0, 88.0, 94.0, 93.0, 89.0, 92.0, 93.0, 86.0, 93.0, 93.0, 94.0, 93.0, 92.0, 95.0, 87.0, 93.0, 84.0, 89.0, 94.0, 93.0, 95.0, 92.0, 93.0, 89.0, 92.0, 93.0, 84.0, 91.0, 92.0, 92.0, 92.0, 95.0, 93.0, 93.0, 95.0, 92.0, 94.0, 82.0, 94.0, 93.0, 92.0, 94.0, 94.0, 97.0, 91.0, 92.0, 91.0, 86.0, 92.0, 93.0, 93.0, 92.0, 93.0, 92.0, 92.0, 93.0, 94.0, 87.0, 92.0]
+ Min = 82.0
+ Max = 97.0
+ Avg = 92.02666666666667
+ Std = 2.283116778051749
+ -- Generation 31 --
+ new fits:  [90.0, 93.0, 95.0, 92.0, 93.0, 93.0, 94.0, 94.0, 95.0, 93.0, 94.0, 93.0, 94.0, 93.0, 92.0, 95.0, 94.0, 93.0, 88.0, 95.0, 94.0, 85.0, 94.0, 94.0, 94.0, 93.0, 93.0, 93.0, 88.0, 91.0, 93.0, 91.0, 95.0, 94.0, 95.0, 96.0, 85.0, 93.0, 93.0, 94.0, 93.0, 94.0, 92.0, 94.0, 90.0, 89.0, 93.0, 92.0, 95.0, 92.0, 88.0, 92.0, 95.0, 89.0, 93.0, 93.0, 94.0, 91.0, 93.0, 86.0, 95.0, 93.0, 94.0, 95.0, 87.0, 92.0, 95.0, 95.0, 93.0, 93.0, 91.0, 95.0, 93.0, 91.0, 89.0, 90.0, 92.0, 95.0, 90.0, 93.0, 91.0, 94.0, 89.0, 93.0, 92.0, 93.0, 95.0, 93.0, 94.0, 94.0, 89.0, 93.0, 93.0, 93.0, 94.0, 95.0, 88.0, 95.0, 95.0, 95.0, 93.0, 94.0, 94.0, 87.0, 95.0, 93.0, 95.0, 92.0, 95.0, 85.0, 94.0, 94.0, 94.0, 95.0, 89.0, 92.0, 91.0, 94.0, 89.0, 93.0, 95.0, 93.0, 93.0, 88.0, 92.0, 94.0, 94.0, 94.0, 97.0, 93.0, 93.0, 88.0, 94.0, 93.0, 89.0, 87.0, 96.0, 95.0, 87.0, 94.0, 95.0, 94.0, 93.0, 88.0, 90.0, 93.0, 88.0, 92.0, 96.0, 93.0, 93.0, 88.0, 94.0, 92.0, 94.0, 93.0, 95.0, 94.0, 95.0, 94.0, 92.0, 94.0, 94.0, 95.0, 89.0, 93.0, 92.0, 92.0, 89.0, 93.0, 92.0, 93.0, 94.0, 94.0, 94.0, 94.0, 93.0, 94.0, 85.0, 95.0, 94.0, 94.0, 96.0, 93.0, 90.0, 93.0, 92.0, 90.0, 92.0, 94.0, 91.0, 93.0, 92.0, 94.0, 84.0, 95.0, 94.0, 88.0, 93.0, 93.0, 93.0, 94.0, 93.0, 93.0, 93.0, 96.0, 93.0, 94.0, 94.0, 95.0, 93.0, 92.0, 91.0, 91.0, 94.0, 93.0, 93.0, 91.0, 94.0, 88.0, 94.0, 89.0, 95.0, 90.0, 93.0, 92.0, 92.0, 81.0, 95.0, 93.0, 93.0, 93.0, 91.0, 89.0, 93.0, 94.0, 93.0, 91.0, 93.0, 90.0, 85.0, 95.0, 87.0, 94.0, 94.0, 93.0, 87.0, 94.0, 93.0, 93.0, 91.0, 94.0, 96.0, 94.0, 94.0, 91.0, 95.0, 94.0, 95.0, 95.0, 89.0, 94.0, 90.0, 86.0, 94.0, 97.0, 89.0, 93.0, 93.0, 93.0, 94.0, 96.0, 94.0, 94.0, 94.0, 94.0, 94.0, 94.0, 94.0, 89.0, 93.0, 91.0, 93.0, 93.0, 92.0, 89.0, 93.0, 93.0, 87.0, 93.0, 92.0, 94.0, 93.0, 92.0, 87.0, 95.0, 93.0, 94.0, 93.0, 93.0]
+ Min = 81.0
+ Max = 97.0
+ Avg = 92.49666666666667
+ Std = 2.5106417948847364
+ -- Generation 32 --
+ new fits:  [96.0, 94.0, 93.0, 94.0, 92.0, 96.0, 93.0, 94.0, 94.0, 89.0, 95.0, 94.0, 93.0, 95.0, 97.0, 91.0, 93.0, 93.0, 97.0, 93.0, 97.0, 91.0, 95.0, 94.0, 96.0, 92.0, 93.0, 93.0, 96.0, 92.0, 94.0, 94.0, 93.0, 96.0, 94.0, 94.0, 94.0, 93.0, 94.0, 95.0, 90.0, 95.0, 93.0, 93.0, 96.0, 92.0, 94.0, 95.0, 91.0, 96.0, 92.0, 94.0, 97.0, 93.0, 95.0, 93.0, 94.0, 95.0, 96.0, 94.0, 94.0, 92.0, 89.0, 93.0, 95.0, 94.0, 88.0, 94.0, 95.0, 95.0, 93.0, 92.0, 90.0, 97.0, 92.0, 95.0, 95.0, 96.0, 89.0, 95.0, 94.0, 94.0, 94.0, 87.0, 94.0, 95.0, 92.0, 90.0, 95.0, 96.0, 89.0, 94.0, 97.0, 95.0, 93.0, 93.0, 94.0, 94.0, 97.0, 94.0, 94.0, 94.0, 86.0, 95.0, 96.0, 94.0, 93.0, 94.0, 92.0, 96.0, 96.0, 94.0, 93.0, 95.0, 95.0, 91.0, 94.0, 95.0, 93.0, 95.0, 94.0, 96.0, 94.0, 92.0, 95.0, 87.0, 95.0, 96.0, 95.0, 94.0, 95.0, 95.0, 95.0, 93.0, 95.0, 94.0, 95.0, 95.0, 94.0, 89.0, 95.0, 94.0, 93.0, 93.0, 94.0, 94.0, 96.0, 94.0, 93.0, 95.0, 92.0, 93.0, 94.0, 94.0, 89.0, 93.0, 94.0, 95.0, 94.0, 86.0, 96.0, 95.0, 91.0, 95.0, 95.0, 94.0, 94.0, 94.0, 94.0, 93.0, 96.0, 94.0, 95.0, 90.0, 94.0, 96.0, 94.0, 95.0, 91.0, 94.0, 96.0, 89.0, 94.0, 94.0, 92.0, 94.0, 94.0, 91.0, 95.0, 86.0, 95.0, 95.0, 92.0, 95.0, 93.0, 94.0, 90.0, 87.0, 96.0, 92.0, 95.0, 95.0, 95.0, 96.0, 93.0, 94.0, 95.0, 92.0, 95.0, 90.0, 90.0, 94.0, 93.0, 95.0, 94.0, 94.0, 95.0, 90.0, 94.0, 95.0, 96.0, 89.0, 94.0, 94.0, 96.0, 94.0, 86.0, 94.0, 96.0, 86.0, 96.0, 92.0, 92.0, 94.0, 94.0, 95.0, 95.0, 93.0, 94.0, 95.0, 96.0, 93.0, 93.0, 93.0, 95.0, 89.0, 94.0, 94.0, 92.0, 97.0, 92.0, 96.0, 94.0, 90.0, 90.0, 95.0, 94.0, 94.0, 92.0, 94.0, 95.0, 94.0, 92.0, 95.0, 95.0, 95.0, 95.0, 94.0, 95.0, 94.0, 90.0, 94.0, 95.0, 94.0, 95.0, 93.0, 95.0, 95.0, 95.0, 93.0, 94.0, 94.0, 95.0, 94.0, 95.0, 97.0, 96.0, 92.0, 94.0, 94.0, 95.0, 94.0, 95.0, 94.0, 94.0, 91.0, 95.0, 93.0, 94.0, 95.0]
+ Min = 86.0
+ Max = 97.0
+ Avg = 93.64666666666666
+ Std = 2.112302587751911
+ -- Generation 33 --
+ new fits:  [95.0, 97.0, 96.0, 95.0, 93.0, 93.0, 95.0, 97.0, 95.0, 86.0, 90.0, 96.0, 94.0, 94.0, 96.0, 94.0, 97.0, 93.0, 92.0, 97.0, 95.0, 97.0, 95.0, 97.0, 95.0, 93.0, 92.0, 94.0, 96.0, 90.0, 96.0, 95.0, 88.0, 95.0, 94.0, 96.0, 95.0, 89.0, 95.0, 95.0, 90.0, 96.0, 96.0, 95.0, 95.0, 96.0, 96.0, 89.0, 94.0, 94.0, 96.0, 90.0, 95.0, 95.0, 91.0, 95.0, 91.0, 95.0, 94.0, 94.0, 94.0, 95.0, 95.0, 95.0, 96.0, 96.0, 97.0, 95.0, 86.0, 94.0, 95.0, 95.0, 95.0, 93.0, 87.0, 95.0, 96.0, 94.0, 94.0, 95.0, 94.0, 95.0, 90.0, 94.0, 94.0, 95.0, 97.0, 96.0, 95.0, 94.0, 96.0, 94.0, 96.0, 92.0, 95.0, 97.0, 96.0, 95.0, 89.0, 96.0, 91.0, 97.0, 95.0, 95.0, 95.0, 95.0, 93.0, 90.0, 95.0, 97.0, 95.0, 92.0, 95.0, 96.0, 95.0, 94.0, 88.0, 94.0, 91.0, 95.0, 96.0, 95.0, 96.0, 94.0, 96.0, 95.0, 92.0, 94.0, 95.0, 95.0, 95.0, 95.0, 96.0, 95.0, 96.0, 94.0, 89.0, 97.0, 94.0, 96.0, 93.0, 96.0, 96.0, 91.0, 93.0, 95.0, 92.0, 94.0, 96.0, 95.0, 94.0, 92.0, 95.0, 95.0, 97.0, 96.0, 95.0, 95.0, 95.0, 94.0, 96.0, 94.0, 95.0, 95.0, 95.0, 97.0, 95.0, 94.0, 95.0, 95.0, 94.0, 96.0, 89.0, 95.0, 95.0, 95.0, 96.0, 95.0, 93.0, 96.0, 96.0, 94.0, 94.0, 94.0, 95.0, 95.0, 96.0, 96.0, 89.0, 94.0, 92.0, 95.0, 97.0, 96.0, 96.0, 93.0, 96.0, 96.0, 93.0, 97.0, 96.0, 94.0, 92.0, 95.0, 89.0, 94.0, 96.0, 95.0, 97.0, 95.0, 94.0, 94.0, 96.0, 95.0, 97.0, 92.0, 94.0, 95.0, 96.0, 96.0, 95.0, 96.0, 95.0, 94.0, 94.0, 96.0, 95.0, 94.0, 92.0, 95.0, 95.0, 92.0, 95.0, 95.0, 96.0, 94.0, 94.0, 95.0, 95.0, 94.0, 96.0, 95.0, 96.0, 96.0, 93.0, 96.0, 94.0, 90.0, 94.0, 95.0, 96.0, 94.0, 96.0, 96.0, 95.0, 95.0, 95.0, 96.0, 91.0, 95.0, 95.0, 94.0, 94.0, 95.0, 95.0, 94.0, 94.0, 95.0, 95.0, 95.0, 96.0, 95.0, 94.0, 96.0, 91.0, 87.0, 96.0, 94.0, 91.0, 94.0, 96.0, 95.0, 90.0, 94.0, 96.0, 94.0, 88.0, 91.0, 94.0, 96.0, 97.0, 95.0, 96.0, 95.0, 96.0, 95.0, 95.0, 95.0, 92.0, 94.0]
+ Min = 86.0
+ Max = 97.0
+ Avg = 94.36
+ Std = 2.061649824776019
+ -- Generation 34 --
+ new fits:  [96.0, 87.0, 94.0, 97.0, 96.0, 94.0, 96.0, 96.0, 96.0, 96.0, 97.0, 92.0, 95.0, 93.0, 89.0, 90.0, 91.0, 96.0, 97.0, 96.0, 96.0, 97.0, 95.0, 96.0, 96.0, 95.0, 96.0, 97.0, 95.0, 89.0, 96.0, 95.0, 95.0, 95.0, 92.0, 96.0, 96.0, 91.0, 95.0, 95.0, 96.0, 89.0, 95.0, 96.0, 97.0, 96.0, 96.0, 94.0, 94.0, 96.0, 95.0, 97.0, 96.0, 95.0, 96.0, 95.0, 95.0, 90.0, 95.0, 95.0, 93.0, 96.0, 95.0, 97.0, 94.0, 96.0, 97.0, 96.0, 95.0, 95.0, 96.0, 95.0, 95.0, 97.0, 93.0, 96.0, 95.0, 96.0, 95.0, 96.0, 92.0, 95.0, 93.0, 94.0, 96.0, 96.0, 89.0, 95.0, 96.0, 89.0, 96.0, 96.0, 95.0, 96.0, 94.0, 97.0, 90.0, 96.0, 96.0, 96.0, 88.0, 95.0, 95.0, 95.0, 96.0, 97.0, 96.0, 88.0, 94.0, 95.0, 93.0, 97.0, 92.0, 96.0, 97.0, 95.0, 96.0, 97.0, 96.0, 96.0, 95.0, 95.0, 96.0, 97.0, 95.0, 96.0, 96.0, 96.0, 93.0, 98.0, 96.0, 95.0, 97.0, 97.0, 89.0, 93.0, 95.0, 96.0, 96.0, 94.0, 96.0, 92.0, 97.0, 94.0, 89.0, 96.0, 96.0, 81.0, 94.0, 95.0, 95.0, 97.0, 97.0, 94.0, 89.0, 97.0, 97.0, 94.0, 97.0, 95.0, 96.0, 96.0, 97.0, 96.0, 96.0, 93.0, 96.0, 97.0, 89.0, 97.0, 96.0, 97.0, 97.0, 96.0, 95.0, 95.0, 96.0, 96.0, 94.0, 96.0, 95.0, 96.0, 89.0, 95.0, 96.0, 87.0, 96.0, 90.0, 95.0, 95.0, 94.0, 94.0, 96.0, 96.0, 95.0, 96.0, 90.0, 97.0, 94.0, 95.0, 96.0, 88.0, 95.0, 91.0, 94.0, 96.0, 89.0, 97.0, 96.0, 90.0, 92.0, 95.0, 90.0, 95.0, 96.0, 95.0, 95.0, 96.0, 96.0, 95.0, 95.0, 96.0, 97.0, 96.0, 96.0, 93.0, 96.0, 95.0, 95.0, 95.0, 95.0, 96.0, 96.0, 96.0, 96.0, 94.0, 96.0, 96.0, 94.0, 95.0, 90.0, 96.0, 90.0, 96.0, 96.0, 89.0, 94.0, 97.0, 94.0, 91.0, 96.0, 95.0, 94.0, 96.0, 96.0, 96.0, 95.0, 97.0, 95.0, 96.0, 96.0, 97.0, 94.0, 94.0, 95.0, 96.0, 90.0, 95.0, 95.0, 96.0, 96.0, 95.0, 92.0, 95.0, 91.0, 96.0, 91.0, 96.0, 95.0, 95.0, 97.0, 95.0, 94.0, 91.0, 96.0, 94.0, 96.0, 91.0, 90.0, 97.0, 90.0, 96.0, 97.0, 95.0, 96.0, 97.0, 93.0, 96.0, 96.0, 97.0]
+ Min = 81.0
+ Max = 98.0
+ Avg = 94.68666666666667
+ Std = 2.3850553219766137
+ -- Generation 35 --
+ new fits:  [95.0, 95.0, 96.0, 96.0, 96.0, 97.0, 96.0, 97.0, 95.0, 96.0, 97.0, 96.0, 96.0, 95.0, 97.0, 95.0, 93.0, 96.0, 94.0, 91.0, 91.0, 96.0, 96.0, 96.0, 96.0, 97.0, 93.0, 96.0, 96.0, 96.0, 97.0, 97.0, 95.0, 96.0, 93.0, 88.0, 96.0, 92.0, 98.0, 96.0, 97.0, 97.0, 96.0, 97.0, 92.0, 89.0, 95.0, 88.0, 97.0, 95.0, 97.0, 89.0, 97.0, 95.0, 96.0, 96.0, 96.0, 98.0, 97.0, 96.0, 96.0, 95.0, 97.0, 97.0, 97.0, 96.0, 96.0, 92.0, 97.0, 97.0, 97.0, 88.0, 96.0, 97.0, 95.0, 97.0, 96.0, 89.0, 96.0, 91.0, 97.0, 96.0, 91.0, 96.0, 96.0, 91.0, 95.0, 98.0, 95.0, 96.0, 96.0, 96.0, 96.0, 96.0, 97.0, 97.0, 95.0, 97.0, 96.0, 97.0, 96.0, 98.0, 96.0, 96.0, 96.0, 91.0, 96.0, 97.0, 96.0, 94.0, 95.0, 97.0, 97.0, 96.0, 97.0, 89.0, 95.0, 97.0, 97.0, 97.0, 92.0, 96.0, 92.0, 97.0, 97.0, 96.0, 94.0, 90.0, 89.0, 96.0, 94.0, 97.0, 94.0, 96.0, 89.0, 95.0, 95.0, 96.0, 97.0, 96.0, 96.0, 96.0, 97.0, 97.0, 96.0, 96.0, 98.0, 94.0, 97.0, 93.0, 90.0, 97.0, 97.0, 96.0, 92.0, 96.0, 97.0, 96.0, 97.0, 96.0, 90.0, 96.0, 97.0, 93.0, 96.0, 96.0, 90.0, 96.0, 97.0, 97.0, 96.0, 97.0, 96.0, 94.0, 96.0, 98.0, 97.0, 97.0, 98.0, 95.0, 91.0, 96.0, 94.0, 95.0, 97.0, 96.0, 97.0, 97.0, 95.0, 90.0, 97.0, 97.0, 92.0, 91.0, 97.0, 96.0, 97.0, 96.0, 94.0, 95.0, 98.0, 96.0, 92.0, 96.0, 98.0, 95.0, 97.0, 96.0, 95.0, 98.0, 96.0, 97.0, 97.0, 97.0, 95.0, 97.0, 96.0, 96.0, 96.0, 96.0, 97.0, 91.0, 97.0, 95.0, 97.0, 97.0, 96.0, 91.0, 96.0, 95.0, 96.0, 95.0, 95.0, 98.0, 94.0, 93.0, 96.0, 96.0, 97.0, 86.0, 96.0, 89.0, 93.0, 96.0, 96.0, 97.0, 97.0, 92.0, 95.0, 92.0, 96.0, 92.0, 96.0, 97.0, 97.0, 97.0, 96.0, 97.0, 95.0, 96.0, 97.0, 96.0, 96.0, 95.0, 94.0, 98.0, 96.0, 96.0, 96.0, 95.0, 96.0, 96.0, 97.0, 96.0, 97.0, 96.0, 97.0, 93.0, 96.0, 93.0, 97.0, 96.0, 96.0, 95.0, 88.0, 95.0, 97.0, 89.0, 96.0, 95.0, 97.0, 97.0, 95.0, 96.0, 90.0, 97.0, 97.0, 96.0, 96.0, 96.0]
+ Min = 86.0
+ Max = 98.0
+ Avg = 95.31333333333333
+ Std = 2.2675586480225576
+ -- Generation 36 --
+ new fits:  [95.0, 89.0, 96.0, 98.0, 91.0, 97.0, 95.0, 96.0, 97.0, 97.0, 97.0, 97.0, 96.0, 96.0, 98.0, 97.0, 97.0, 97.0, 94.0, 96.0, 97.0, 97.0, 97.0, 97.0, 84.0, 95.0, 92.0, 94.0, 97.0, 97.0, 97.0, 93.0, 90.0, 97.0, 96.0, 97.0, 97.0, 96.0, 95.0, 97.0, 96.0, 98.0, 96.0, 98.0, 97.0, 96.0, 98.0, 96.0, 92.0, 96.0, 97.0, 93.0, 97.0, 97.0, 98.0, 96.0, 97.0, 97.0, 96.0, 96.0, 96.0, 90.0, 97.0, 93.0, 97.0, 97.0, 95.0, 96.0, 89.0, 98.0, 95.0, 98.0, 96.0, 97.0, 95.0, 90.0, 90.0, 97.0, 97.0, 97.0, 93.0, 97.0, 93.0, 97.0, 91.0, 98.0, 91.0, 97.0, 98.0, 91.0, 97.0, 95.0, 98.0, 96.0, 97.0, 97.0, 97.0, 96.0, 98.0, 97.0, 94.0, 96.0, 96.0, 97.0, 96.0, 93.0, 98.0, 87.0, 98.0, 90.0, 94.0, 95.0, 98.0, 96.0, 97.0, 97.0, 95.0, 92.0, 97.0, 97.0, 96.0, 97.0, 97.0, 96.0, 96.0, 97.0, 97.0, 98.0, 97.0, 96.0, 97.0, 96.0, 96.0, 96.0, 97.0, 96.0, 95.0, 98.0, 96.0, 97.0, 97.0, 92.0, 97.0, 96.0, 97.0, 97.0, 97.0, 97.0, 98.0, 95.0, 97.0, 97.0, 90.0, 97.0, 97.0, 96.0, 97.0, 97.0, 96.0, 98.0, 97.0, 98.0, 97.0, 96.0, 97.0, 96.0, 97.0, 96.0, 96.0, 97.0, 97.0, 97.0, 97.0, 97.0, 96.0, 97.0, 97.0, 95.0, 92.0, 97.0, 90.0, 97.0, 91.0, 93.0, 94.0, 97.0, 93.0, 97.0, 96.0, 97.0, 98.0, 97.0, 94.0, 97.0, 98.0, 94.0, 90.0, 95.0, 96.0, 87.0, 96.0, 97.0, 98.0, 97.0, 96.0, 96.0, 97.0, 96.0, 96.0, 96.0, 96.0, 98.0, 96.0, 97.0, 90.0, 97.0, 96.0, 96.0, 96.0, 96.0, 98.0, 96.0, 98.0, 98.0, 94.0, 98.0, 92.0, 96.0, 97.0, 96.0, 98.0, 96.0, 97.0, 88.0, 96.0, 96.0, 96.0, 97.0, 93.0, 97.0, 97.0, 96.0, 98.0, 94.0, 97.0, 97.0, 97.0, 95.0, 91.0, 98.0, 97.0, 93.0, 98.0, 98.0, 97.0, 97.0, 93.0, 95.0, 96.0, 95.0, 97.0, 93.0, 97.0, 97.0, 97.0, 97.0, 97.0, 91.0, 96.0, 97.0, 96.0, 97.0, 96.0, 87.0, 97.0, 97.0, 97.0, 96.0, 96.0, 95.0, 90.0, 96.0, 98.0, 95.0, 97.0, 93.0, 90.0, 95.0, 96.0, 97.0, 98.0, 96.0, 97.0, 96.0, 97.0, 97.0, 98.0, 97.0, 97.0, 96.0]
+ Min = 84.0
+ Max = 98.0
+ Avg = 95.75333333333333
+ Std = 2.332199724628183
+ -- Generation 37 --
+ new fits:  [97.0, 97.0, 97.0, 97.0, 95.0, 98.0, 97.0, 97.0, 98.0, 93.0, 97.0, 98.0, 97.0, 97.0, 93.0, 96.0, 97.0, 90.0, 97.0, 90.0, 98.0, 97.0, 90.0, 97.0, 88.0, 98.0, 96.0, 93.0, 97.0, 98.0, 97.0, 97.0, 97.0, 96.0, 97.0, 91.0, 98.0, 98.0, 91.0, 98.0, 96.0, 97.0, 97.0, 93.0, 98.0, 98.0, 92.0, 98.0, 96.0, 98.0, 98.0, 98.0, 98.0, 92.0, 97.0, 96.0, 94.0, 98.0, 92.0, 95.0, 98.0, 95.0, 98.0, 97.0, 94.0, 98.0, 90.0, 98.0, 97.0, 97.0, 97.0, 98.0, 88.0, 97.0, 98.0, 94.0, 98.0, 98.0, 94.0, 93.0, 97.0, 97.0, 97.0, 97.0, 96.0, 97.0, 96.0, 97.0, 97.0, 96.0, 97.0, 95.0, 98.0, 98.0, 97.0, 90.0, 97.0, 98.0, 97.0, 92.0, 91.0, 97.0, 97.0, 95.0, 97.0, 98.0, 98.0, 95.0, 95.0, 97.0, 98.0, 97.0, 95.0, 97.0, 97.0, 97.0, 97.0, 97.0, 98.0, 97.0, 98.0, 97.0, 97.0, 96.0, 97.0, 97.0, 97.0, 98.0, 89.0, 96.0, 97.0, 98.0, 95.0, 99.0, 97.0, 94.0, 97.0, 95.0, 97.0, 93.0, 98.0, 97.0, 97.0, 93.0, 97.0, 97.0, 98.0, 98.0, 98.0, 97.0, 97.0, 97.0, 98.0, 98.0, 88.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 96.0, 97.0, 98.0, 94.0, 97.0, 97.0, 93.0, 97.0, 89.0, 98.0, 97.0, 98.0, 97.0, 98.0, 97.0, 97.0, 97.0, 93.0, 97.0, 97.0, 96.0, 97.0, 98.0, 97.0, 98.0, 97.0, 97.0, 97.0, 97.0, 98.0, 94.0, 97.0, 97.0, 97.0, 92.0, 95.0, 97.0, 95.0, 97.0, 98.0, 97.0, 97.0, 97.0, 96.0, 97.0, 98.0, 98.0, 98.0, 94.0, 97.0, 95.0, 96.0, 97.0, 88.0, 98.0, 97.0, 98.0, 98.0, 96.0, 96.0, 98.0, 98.0, 96.0, 98.0, 98.0, 91.0, 97.0, 92.0, 96.0, 98.0, 98.0, 93.0, 97.0, 97.0, 98.0, 98.0, 98.0, 98.0, 89.0, 98.0, 97.0, 98.0, 96.0, 96.0, 93.0, 98.0, 97.0, 98.0, 97.0, 97.0, 98.0, 98.0, 97.0, 97.0, 96.0, 98.0, 92.0, 97.0, 94.0, 92.0, 97.0, 92.0, 98.0, 98.0, 98.0, 98.0, 96.0, 97.0, 97.0, 98.0, 97.0, 97.0, 97.0, 98.0, 97.0, 95.0, 97.0, 97.0, 98.0, 98.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 97.0, 93.0, 95.0, 97.0, 98.0, 96.0, 97.0, 97.0, 96.0, 91.0]
+ Min = 88.0
+ Max = 99.0
+ Avg = 96.27666666666667
+ Std = 2.200027777602344
+ -- Generation 38 --
+
+ new fits:  [98.0, 98.0, 97.0, 98.0, 95.0, 97.0, 93.0, 98.0, 98.0, 98.0, 97.0, 97.0, 97.0, 99.0, 98.0, 93.0, 98.0, 97.0, 98.0, 98.0, 87.0, 97.0, 96.0, 97.0, 97.0, 97.0, 98.0, 93.0, 98.0, 98.0, 95.0, 97.0, 97.0, 97.0, 97.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 97.0, 97.0, 97.0, 96.0, 98.0, 98.0, 98.0, 97.0, 98.0, 91.0, 96.0, 98.0, 97.0, 94.0, 94.0, 98.0, 91.0, 98.0, 98.0, 97.0, 98.0, 97.0, 97.0, 97.0, 90.0, 98.0, 98.0, 98.0, 88.0, 98.0, 98.0, 95.0, 88.0, 98.0, 97.0, 98.0, 96.0, 98.0, 95.0, 97.0, 97.0, 98.0, 98.0, 99.0, 97.0, 94.0, 98.0, 98.0, 98.0, 98.0, 94.0, 97.0, 88.0, 98.0, 97.0, 97.0, 98.0, 98.0, 97.0, 97.0, 97.0, 98.0, 97.0, 98.0, 92.0, 98.0, 92.0, 98.0, 98.0, 98.0, 98.0, 98.0, 96.0, 98.0, 97.0, 98.0, 93.0, 93.0, 98.0, 90.0, 98.0, 93.0, 98.0, 97.0, 98.0, 95.0, 98.0, 99.0, 97.0, 98.0, 98.0, 98.0, 98.0, 92.0, 97.0, 98.0, 97.0, 98.0, 97.0, 97.0, 90.0, 97.0, 98.0, 97.0, 98.0, 98.0, 97.0, 98.0, 97.0, 97.0, 91.0, 97.0, 99.0, 98.0, 92.0, 97.0, 95.0, 92.0, 93.0, 90.0, 97.0, 96.0, 98.0, 98.0, 97.0, 97.0, 97.0, 98.0, 97.0, 98.0, 98.0, 98.0, 92.0, 99.0, 97.0, 97.0, 99.0, 98.0, 89.0, 98.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 97.0, 98.0, 98.0, 98.0, 98.0, 91.0, 97.0, 93.0, 98.0, 97.0, 97.0, 95.0, 98.0, 95.0, 94.0, 98.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 93.0, 89.0, 97.0, 98.0, 90.0, 97.0, 98.0, 98.0, 97.0, 97.0, 98.0, 98.0, 98.0, 98.0, 91.0, 92.0, 97.0, 98.0, 96.0, 90.0, 91.0, 88.0, 90.0, 95.0, 98.0, 99.0, 96.0, 97.0, 98.0, 97.0, 98.0, 93.0, 97.0, 97.0, 98.0, 98.0, 96.0, 97.0, 98.0, 97.0, 98.0, 97.0, 98.0, 97.0, 97.0, 97.0, 98.0, 97.0, 94.0, 97.0, 94.0, 98.0, 92.0, 98.0, 98.0, 98.0, 93.0, 92.0, 97.0, 98.0, 97.0, 98.0, 98.0, 98.0, 97.0, 97.0, 98.0, 98.0, 97.0, 97.0, 97.0, 98.0, 98.0, 97.0, 97.0, 97.0, 97.0, 98.0, 93.0, 99.0, 98.0, 98.0, 98.0]
+ Min = 87.0
+ Max = 99.0
+ Avg = 96.54333333333334
+ Std = 2.4100046104152297
+ -- Generation 39 --
+ new fits:  [98.0, 98.0, 92.0, 96.0, 96.0, 98.0, 98.0, 98.0, 92.0, 98.0, 97.0, 98.0, 99.0, 97.0, 98.0, 92.0, 99.0, 98.0, 98.0, 98.0, 96.0, 98.0, 98.0, 98.0, 99.0, 98.0, 97.0, 98.0, 98.0, 99.0, 94.0, 98.0, 96.0, 98.0, 98.0, 98.0, 92.0, 99.0, 98.0, 90.0, 97.0, 98.0, 98.0, 98.0, 93.0, 98.0, 98.0, 95.0, 98.0, 98.0, 89.0, 99.0, 99.0, 93.0, 98.0, 97.0, 94.0, 99.0, 97.0, 99.0, 98.0, 91.0, 93.0, 98.0, 97.0, 98.0, 98.0, 97.0, 96.0, 92.0, 98.0, 98.0, 97.0, 98.0, 98.0, 98.0, 98.0, 94.0, 98.0, 98.0, 98.0, 98.0, 98.0, 93.0, 98.0, 98.0, 98.0, 99.0, 98.0, 97.0, 98.0, 91.0, 98.0, 98.0, 99.0, 98.0, 98.0, 96.0, 98.0, 98.0, 93.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 95.0, 99.0, 98.0, 90.0, 98.0, 98.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 94.0, 95.0, 95.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 95.0, 98.0, 98.0, 90.0, 95.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 93.0, 94.0, 98.0, 98.0, 98.0, 93.0, 98.0, 97.0, 98.0, 89.0, 99.0, 98.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 93.0, 94.0, 97.0, 93.0, 94.0, 97.0, 98.0, 99.0, 99.0, 98.0, 95.0, 98.0, 98.0, 94.0, 98.0, 98.0, 96.0, 97.0, 99.0, 98.0, 98.0, 97.0, 99.0, 98.0, 98.0, 96.0, 96.0, 98.0, 98.0, 98.0, 98.0, 90.0, 97.0, 97.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 96.0, 98.0, 96.0, 98.0, 90.0, 98.0, 98.0, 98.0, 97.0, 98.0, 98.0, 97.0, 95.0, 98.0, 92.0, 98.0, 95.0, 99.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 99.0, 97.0, 98.0, 98.0, 95.0, 95.0, 98.0, 98.0, 98.0, 93.0, 98.0, 91.0, 98.0, 91.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 97.0, 98.0, 98.0, 98.0, 98.0, 98.0, 97.0, 97.0, 98.0, 99.0, 97.0, 90.0, 98.0, 96.0, 99.0, 94.0, 98.0, 94.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 95.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 93.0, 97.0, 98.0, 97.0, 98.0, 97.0, 98.0, 98.0, 92.0, 98.0, 87.0, 98.0, 98.0]
+ Min = 87.0
+ Max = 99.0
+ Avg = 96.96
+ Std = 2.1890028171141007
+ -- Generation 40 --
+ new fits:  [99.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 99.0, 98.0, 99.0, 92.0, 98.0, 99.0, 98.0, 98.0, 96.0, 99.0, 96.0, 93.0, 97.0, 98.0, 98.0, 98.0, 99.0, 96.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 97.0, 98.0, 98.0, 97.0, 90.0, 98.0, 92.0, 98.0, 98.0, 98.0, 95.0, 99.0, 98.0, 91.0, 98.0, 98.0, 92.0, 99.0, 89.0, 98.0, 98.0, 98.0, 98.0, 98.0, 99.0, 92.0, 97.0, 98.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 94.0, 98.0, 93.0, 98.0, 98.0, 93.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 91.0, 98.0, 98.0, 99.0, 99.0, 99.0, 98.0, 98.0, 97.0, 98.0, 98.0, 94.0, 98.0, 98.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 99.0, 98.0, 98.0, 90.0, 89.0, 94.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 99.0, 98.0, 99.0, 98.0, 98.0, 98.0, 95.0, 96.0, 99.0, 98.0, 97.0, 98.0, 98.0, 99.0, 98.0, 98.0, 88.0, 98.0, 95.0, 95.0, 98.0, 92.0, 98.0, 94.0, 94.0, 97.0, 90.0, 99.0, 98.0, 99.0, 98.0, 91.0, 94.0, 98.0, 93.0, 93.0, 98.0, 96.0, 98.0, 98.0, 98.0, 94.0, 98.0, 98.0, 98.0, 99.0, 99.0, 99.0, 94.0, 98.0, 98.0, 98.0, 93.0, 99.0, 95.0, 99.0, 95.0, 98.0, 98.0, 98.0, 97.0, 99.0, 99.0, 98.0, 99.0, 92.0, 98.0, 98.0, 98.0, 91.0, 98.0, 98.0, 93.0, 99.0, 98.0, 97.0, 99.0, 98.0, 98.0, 94.0, 98.0, 99.0, 99.0, 98.0, 95.0, 98.0, 98.0, 98.0, 95.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 95.0, 98.0, 98.0, 98.0, 98.0, 96.0, 98.0, 97.0, 90.0, 98.0, 98.0, 97.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 95.0, 95.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 98.0, 93.0, 98.0, 96.0, 98.0, 99.0, 98.0, 98.0, 98.0, 90.0, 98.0, 98.0, 98.0, 98.0, 97.0, 93.0, 99.0, 98.0, 97.0, 98.0, 98.0, 99.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 94.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 95.0, 98.0, 98.0, 93.0, 98.0, 98.0, 98.0, 93.0, 94.0, 99.0, 99.0, 98.0, 98.0, 95.0, 98.0, 98.0, 97.0, 98.0, 98.0, 95.0, 97.0, 99.0, 95.0, 98.0]
+ Min = 88.0
+ Max = 99.0
+ Avg = 97.14333333333333
+ Std = 2.199118510272448
+ -- Generation 41 --
+ new fits:  [98.0, 98.0, 95.0, 98.0, 99.0, 98.0, 98.0, 99.0, 97.0, 100.0, 93.0, 93.0, 99.0, 99.0, 98.0, 96.0, 99.0, 90.0, 98.0, 99.0, 97.0, 99.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 99.0, 99.0, 91.0, 99.0, 98.0, 95.0, 94.0, 92.0, 98.0, 98.0, 98.0, 94.0, 98.0, 98.0, 99.0, 98.0, 95.0, 98.0, 99.0, 99.0, 99.0, 91.0, 96.0, 92.0, 96.0, 98.0, 90.0, 99.0, 99.0, 92.0, 98.0, 95.0, 99.0, 92.0, 98.0, 99.0, 98.0, 99.0, 93.0, 88.0, 98.0, 97.0, 99.0, 98.0, 94.0, 99.0, 99.0, 99.0, 98.0, 98.0, 98.0, 96.0, 98.0, 98.0, 98.0, 92.0, 98.0, 99.0, 98.0, 92.0, 99.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 99.0, 98.0, 95.0, 98.0, 98.0, 98.0, 92.0, 94.0, 95.0, 97.0, 94.0, 98.0, 98.0, 99.0, 99.0, 98.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 93.0, 99.0, 96.0, 98.0, 98.0, 99.0, 91.0, 98.0, 98.0, 99.0, 98.0, 98.0, 98.0, 98.0, 95.0, 100.0, 98.0, 99.0, 99.0, 99.0, 91.0, 94.0, 98.0, 98.0, 99.0, 99.0, 97.0, 99.0, 98.0, 98.0, 94.0, 98.0, 99.0, 91.0, 99.0, 95.0, 98.0, 95.0, 96.0, 97.0, 98.0, 99.0, 98.0, 98.0, 98.0, 99.0, 99.0, 99.0, 98.0, 98.0, 99.0, 98.0, 99.0, 99.0, 98.0, 97.0, 99.0, 98.0, 98.0, 98.0, 92.0, 99.0, 98.0, 99.0, 94.0, 98.0, 93.0, 99.0, 98.0, 98.0, 99.0, 95.0, 98.0, 99.0, 93.0, 98.0, 99.0, 99.0, 99.0, 97.0, 99.0, 98.0, 99.0, 99.0, 98.0, 98.0, 92.0, 98.0, 98.0, 89.0, 99.0, 99.0, 98.0, 99.0, 99.0, 99.0, 98.0, 98.0, 92.0, 92.0, 99.0, 99.0, 98.0, 95.0, 98.0, 97.0, 99.0, 92.0, 90.0, 99.0, 99.0, 98.0, 98.0, 98.0, 98.0, 98.0, 99.0, 99.0, 99.0, 98.0, 99.0, 95.0, 98.0, 94.0, 99.0, 99.0, 91.0, 98.0, 98.0, 99.0, 98.0, 98.0, 96.0, 98.0, 98.0, 99.0, 98.0, 99.0, 98.0, 99.0, 98.0, 95.0, 98.0, 95.0, 93.0, 90.0, 92.0, 98.0, 99.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 90.0, 98.0, 98.0, 99.0, 98.0, 94.0, 99.0, 95.0, 99.0, 99.0, 98.0, 98.0, 98.0, 99.0, 98.0, 98.0, 92.0, 99.0, 98.0, 93.0, 98.0, 99.0]
+ Min = 88.0
+ Max = 100.0
+ Avg = 97.21333333333334
+ Std = 2.412707101070368
+ ​
+The lab works! There was a lot I actually have to learn, but I mostly get what's going on.

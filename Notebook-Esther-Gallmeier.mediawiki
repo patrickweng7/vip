@@ -1,0 +1,910 @@
+== Team Member ==
+<big>'''Team Member:''' Esther Gallmeier</big>
+
+<big>'''Email:''' egallmeier6@gatech.edu</big>
+
+<big>'''Major:''' Mathematics</big>
+
+== <small>'''Week 16: December 2, 2019'''</small> ==
+Presentations Today!!!
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluations
+|Completed
+|November 25, 2019
+|December 04, 2019
+|December 01, 2019
+|-
+|Update Wiki
+|Completed
+|November 25, 2019
+|December 04, 2019
+|December 01, 2019
+|-
+|Presentation
+|Completed
+|December 02, 2019
+|December 02, 2019
+|December 02, 2019
+|}
+
+== <small>'''Week 15: November 25, 2019'''</small> ==
+'''Announcements:''' 
+* Presentations next week
+* Do peer evaluations
+* Update wiki pages
+'''__________________________________________'''
+
+'''Monday Team Meeting:''' 
+* Discussed with group about the presentation (finish slides by Saturday night)
+* Animesh decided that we don't have time to try the cifar dataset (Michael has results from mnist & I will have results from titanic)
+* ADF subteam also is having same NoneType errors with detection processing branch => Austin said he would fix the bug
+'''Individual Notes:''' 
+* Austin fixed the bugs in the detection_processing branch
+* Ran titanic for 46 generations overnight without seeding on detection processing branch (crashed at 46 gen)
+** Not many evaluated trees (probably because didn't seed), but no NoneType errors!
+* Ran titanic again for 9 generations til it crashed (with seeding this time)
+** Same crash error as last time: 
+*** "aborted due to Ctrl + C event" -but I didn't press Ctrl + C
+* Ran titanic again with seeding only for 4 generations when it crashed
+* I sent Animesh my data files that he would try to parse
+* Unsure why my emade runs were crashing 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic run of ~40-50 generations
+|Completed
+|November 25, 2019
+|November 27, 2019
+|November 27, 2019
+|-
+|Send Animesh csv files with data
+|Completed
+|November 25, 2019
+|November 27, 2019
+|November 27, 2019
+|-
+|Update wiki
+|Completed
+|November 25, 2019
+|December 4, 2019
+|November 30,2019
+|-
+|Add slide
+|Completed
+|November 29, 2019
+|November 29, 2019
+|November 29, 2019
+|}
+
+== <small>'''Week 14: November 18, 2019'''</small> ==
+'''Announcements:'''  
+* Social Hackathon: Saturday afternoon (11/23) 
+* Get everything wrapped up; end of semester is approaching 
+* Peer evaluations coming out soon 
+* Update wiki pages 
+______________________________________________________
+
+'''Monday Team Meeting:''' 
+* Discussed with team about end semester goals 
+* Animesh and I talked with Austin about caching whether all subtrees of all individuals get cached
+** in detection_processing branch, there's an option in the xml files to set time_threshold = 0; then, everything gets cached
+** have to keep in mind the caching & memory limit
+** looked at update_hash function in data.py; it wasn't helpful
+* My next task is to do a titanic run of about 10 generations from detection processing branch with time_threshold set to 0; 
+** We want to see how the subtrees are cached and if it works; We will decide more steps on Friday when we meet
+'''Individual Notes:'''  
+* When running emade on detection processing branch, ran into ModuleNotFound errors & other import errors 
+** Asked Dr. Zutty for help 
+** Ran reinstall.bat & installed "lightgbm" and other modules 
+* Did titanic run for 30-40 generations on detection processing branch 
+** Caching table was empty & there were no valid trees yet (concerning) 
+** Basic trees had NoneType errors
+*** ex:  {| class="wikitable" |Learner(ARG0, LearnerType('BAYES', None), EnsembleType('BAGGED', None)) |}
+'''Friday Team Meeting:''' 
+* Talked with Dr. Zutty about these NoneType Errors 
+* Dr. Zutty advised me to update my fork & try again 
+** Then, ask Austin for advice if the same errors pop up 
+'''Individual Notes:'''  
+* I updated my fork & did another titanic run on the detection processing branch 
+** I got the same issues (NoneType errors & empty caching table because there were no valid evaluated trees) 
+'''Saturday Hackathon:'''
+* Talked with team members about the presentation
+** Google slides link will be sent out on Monday
+* Animesh wants data from different datasets (mnist, cifar & titanic) 
+** I looked at images datasets that are already on emade & looked at the cifar dataset online if preprocessing is needed
+** We decided to talk more on Monday
+* I talked with Austin about the NoneType errors & the empty caching table
+** He advised me to seed my run with trees from gpframework helper.py & agreed that these NoneType Errors should not be appearing for such basic trees
+** He promised to look at the code for bugs
+'''Individual Note:''' 
+* I did another titanic run with seeding this time, but still resulted in NoneType errors as well as index errors
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run Titantic from detection_processing branch (~10 generations)
+|Completed
+|Nov 18, 2019
+|Nov 22, 2019
+|November 20, 2019
+|-
+|Look at subtrees from the run
+|Completed
+|Nov 18, 2019
+|Nov 22, 2019
+|November 20, 2019
+|-
+|Update Wiki
+|Completed
+|Nov 18, 2019
+|Nov 22, 2019
+|November 22, 2019
+|}
+
+== <small>'''Week 13: November 11, 2019'''</small> ==
+'''Monday Team Meeting:''' 
+* Discussed with team about bloat control methods and caching
+* One of Animesh's methods is super inefficient and would be faster if the caching table had all subtrees of all individuals
+* My task is to found this out: by reading the code &/or trying a titanic run
+'''Individual Notes:'''  
+* Looked through emade code for caching references (asked Eric for help) & was directed to detection_processing branch
+* looked at asdfa_cache.py in GPFramework in src; decided to talk with Austin about caching on Monday (11/18)
+* Had to reinstall apps & clone emade several times; (my laptop fully crashed a few weeks ago & I had it restored to factory condition)
+'''Friday Team Meeting:''' 
+* Met with team and told them my difficulties; got some advice on checking out a branch
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out whether all subtrees of all individuals are in caching table
+|Completed
+|Nov 11, 2019
+|Nov 18, 2019
+|Nov 18, 2019
+|-
+|Reinstall Anaconda, git, git lfs, mysql, emade, ...
+|Completed
+|Nov 11, 2019
+|Nov 15, 2019
+|Nov 14, 2019
+|-
+|checkout detection_processing branch 
+|Completed
+|Nov 15, 2019
+|Nov 18, 2019
+|Nov 18, 2019
+|}
+
+== <small>'''Week 12: November 4, 2019'''</small> ==
+'''Monday Team Meeting''': 
+* Discussed the goal for new semester students:
+** Right now, just open ended research on bloat & others' implementations of bloat control in genetic programming frameworks 
+'''Individual Notes: (from bloat control paper)'''
+* I found another paper to read: 
+** "A Comparison of Bloat Control Methods for Genetic Programming" by Sean Luke & Liviu Panait from George Mason University
+* Def: <u>bloat</u> - uncontrolled and unbounded growth of individuals in the population whose fitness scores are not improving correspondingly
+* Bloat Problems: 
+** Slows the evolutionary process down, consumes memory & can obstruct effective breeding
+* Bloat Control Methods/Techniques:
+** Parsimony pressure: punishing individuals for being large
+*** Selective pressure to be small
+** Depth limiting: placing constraints on the size or depth of an individual (very popular)
+** Tarpeian Method: makes a fraction of individuals with above-average size uncompetitive by giving them a really bad fitness score => reduces number of evaluations needed
+*** Very aggressive: rejects individuals by size before even considering their fitness values
+'''Friday Team Meeting:''' 
+* Got cancelled
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|open research on bloat methods
+|Completed
+|November 4, 2019
+|November 11, 2019
+|November 10, 2019
+|}
+
+== <small>'''Week 11: October 28, 2019'''</small> ==
+'''Annoucements:''' 
+* Joining subteams today!
+_____________________________
+
+'''Monday Team Meeting:''' 
+* I picked Research Fundamentals, aka Bloat Control!
+* Discussed the subteam's role 
+** Researching bloat in emade
+* Discussed goals for the end of the semester
+** Figure out benchmarks from the midterm presentation
+** Implement neat-GP
+** Implement bloat removal methods
+* Hemang & I (new semester students) were advised to read the neat-GP paper & do other necessary research to get a understanding of bloat control
+'''Individual Notes: (from neat-GP paper)'''
+
+"neat Genetic Programming: Controlling Bloat Naturally" by Trujillo, Muñoz, Galván-López & Silva
+* Def: <u>bloat</u> - increase in mean program size (size of individuals) without a corresponding improvement in fitness
+* Def: <u>genetic programming:</u>  - supervised learning algorithm that attempts to construct a syntactically valid expression using a finite set of basic functions and input variables, guided by a objective function
+** Evolved solutions = valid syntactic expressions (in our case, valid trees that can be evaluated)
+* Why bloat occurs?
+** FCBT - fitness-causes-bloat theory
+*** For a particular fitness value, there are more large programs than small programs with that fitness score 
+** CBT - crossover bias theory
+***  Bloat is produced by the effect that subtree crossover has on the distribution of tree sizes in the population
+***  Subtree crossover produces a lot of small trees & small trees have usually low fitness scores => selection favors larger trees & increases average tree size
+* Bloat control Methods: 
+** OE - Operator Equalisation
+*** Focuses on explicitly controlling the distribution of the tree sizes at each generation 
+*** Flat-OE: flat distribution 
+** NEAT - NeuroEvolution of Augmenting Topologies
+*** Does not explicity consider a symbolic representation for the evolved solutions
+*** Incorporates a scheme to protect diversity
+*** At beginning, all individuals start with same minimal structure and the search focuses on adding nodes to the base topology (evolving the graph structures)
+*** Each individual penalized on its similarity with others in the population => to prevent topological similarities & fitness sharing
+* neat-GP
+** Inspired by Flat-OE & NEAT
+** Starts with random population of small simple trees & progressively builds solutions while protecting diversity using speciation
+'''Friday Team Meeting:''' 
+* Discussed with team that we want neat-GP to be implemented by the end of the semester
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read neat-GP paper
+|Completed
+|October 28, 2019
+|November 4, 2019
+|Novemeber 2, 2019
+|}
+
+== <small>'''Week 10: October 21, 2019'''</small> ==
+'''Announcements:''' 
+* Presentations Today!!!
+* Listen to the subteams, because we have to pick next week
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think of which subteam to pick
+|Completed
+|October 21, 2019
+|October 28, 2019
+|October 28, 2019
+|}
+
+== <small>'''Week 9: October 16 , 2019'''</small> ==
+'''Announcements:'''  
+* Midterm Presentations next week 
+__________________________________________________
+
+'''Team Meeting:''' 
+* Ruarai mentioned that he would be out of town for the whole weekend including part of Monday => would not be able to help much in this project
+* Other team members were either not present or had left early => could not communicate with them over when to meet
+[[files/Comparison paretofronts.png|thumb|This is a comparison of the pareto fronts from the machine learning, genetic programming & emade runs. ]]
+'''Individual Notes:''' 
+* Contacted other team members twice via GroupMe without any responses back => did this project & presentation by myself
+* Attempted to run titanic overnight with master branch
+** Was not able to get past Generation 0
+* Went to office hours on Thursday & got help from Dr. Zutty
+** Dr. Zutty advised me to change reuse to 1
+* Ran titanic overnight again & got ~15 generations after 10 hours of running
+* Played with sql commands on the workbench & plotted pareto front in python 
+* I was surprised at the few number of co-dominant individuals, especially compared to the GP run 
+* Presentation Link: https://docs.google.com/presentation/d/1aEkLMt0cyisYtIDkD2OINMQz-2n3jkPhdxsj7STqWyM/edit?usp=sharing
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic run 
+|Completed
+|October 16, 2019
+|October 21, 2019
+|October 19, 2019
+|-
+|Presentation
+|Completed
+|October 16, 2019
+|October 21, 2019
+|October 20, 2019
+|}
+
+== <small>'''Week 8: October 9, 2019'''</small> ==
+'''Announcements:''' 
+* Dr. Zutty was not present; Austin presented to us 
+* Need to get Emade running as soon as possible because big project and big presentation coming up
+'''Class Notes:''' 
+* Walked through the "Introduction to EMADE" powerpoint
+* To start a run of EMADE: we have to run a input_titanic.xml file
+** Need to edit the database configuration in xml file
+** If working on laptop, change # of workers per host to 2-3
+** Can try to connect the whole group together
+** Play with sql commands to see what information we can present
+'''Team Goal:''' 
+* Discussed with subteam that the goal for this week is to get everyone's emade working
+** Download everything & get a run working
+'''Individual Work:'''
+* This week I downloaded everything (had to manually download older versions of some programs) and got emade running
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Emade set up & running properly
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 14, 2019
+|-
+|Download git, git lfs, anaconda, MySQL, and more
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 14, 2019
+|}
+
+== <small>'''Week 7: October 2, 2019'''</small> ==
+'''Announcements:''' 
+* Peer Evaluations close on Friday
+* Wikis will be graded (update by Friday at midnight)
+* Next week, we will do the same project with EMADE
+** need to install emade & download git LFS and clone the repository
+'''Class Notes:''' 
+* Presentations Today!!!
+** Note: the goal of presentations is to make it easy for the audience to reproduce the work 
+*** improve on presentations, include more visuals & information
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Wiki
+|Completed
+|October 2, 2019
+|October 4, 2019
+|October 4, 2019
+|-
+|Download git LFS
+|Completed
+|October 2, 2019
+|October 9, 2019
+|October 4, 2019
+|-
+|Clone repository
+|Completed
+|October 2, 2019
+|October 9, 2019
+|October 4, 2019
+|-
+|Play with Titanic GP
+|Completed
+|October 2, 2019
+|October 9, 2019
+|October 5, 2019
+|}
+
+== '''<small>Week 6: September 25, 2019</small>''' ==
+'''Announcements:''' 
+* peer evaluations open on Monday (Oct 1) & close on Friday (Oct 4) : part of grade
+* anonymous amazon credits in slack channel
+'''Project this week:'''
+* titantic disaster dataset with multi-objective genetic programming
+** common evolutionary framework
+* use basic primitives: and, or, not, +, -, *, %, ...
+* Goal: 
+** FNR vs FPR graph of codominant individuals at last generation (minimize FNR & FPR)
+** AUC over the generations graph (minimize AUC)
+** Submission on Canvas: predictions.csv for all codominant individuals
+* Suggestions:
+** bound number of generations to around 200 or so
+** change selection method from selTournament to something else
+** use Lab 2 as a starting point
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titantic GP Lab
+|Completed
+|September 25, 2019
+|October 2, 2019
+|October 2, 2019
+|-
+|Peer Evaluations
+|Completed
+|September 30, 2019
+|October 4, 2019
+|October 1, 2019
+|}
+'''<u>Individual Work before 1st Subteam Meeting:</u>''' 
+* Reviewed Lab 2 
+* Looked over deap documentation of selection methods
+** NSGA-II: looks good because it chooses nondominanted individuals to continue the algorithm
+** selTournament: a more random choice that will narrow diversity later on
+* Changed dataset: 
+** Dropped Name, Cabin, Ticket, SibSp, Parch
+** Divided Age into 5 categories & Fare into 4 categories
+** Used scikit's label encoder to encode Sex, embarked, age, fare & Pclass into numerical vectorized & normalized values
+[[files/Paretofront titanic gp.png|thumb|Pareto Front of Generation #50 ]]
+[[files/Auc titanic gp.png|thumb|AUC for all 50 generations
+]]
+<u>'''Subteam Meeting #1''' (Friday):</u> 
+* Discussed changes in dataset (kept changes as shown above)
+
+* Discussed how to approach the problem 
+** Looked through deap documentation to understand the "algorithms.eaMuPluLambda" function
+** Wrote an evaluation function
+** Discussed how to save data from each generation with the eaMuPlusLambda function & decided that it is possible by calling the function in a for loop
+*** we first attempted completing the project with the eaMuPlusLambda function; however, coding it ourselves was more flexible
+<u>'''Subteam Meeting #2''' (Monday):</u>
+* Discussed what all of us have individually been able to figure out over the weekend
+** we had two "working" algorithms (Ruarai & Leo) with different evaluation functions  
+* One algorithm though had trouble with its bloat control 
+** Implemented static limit for max tree height, but kept increasing tree height at some spot in the code that we could not identify
+** thus, we had to manually implement bloat control resulting in a wonky AUC graph, but it had a nice pareto front graph
+*** if increased tree size over 30, we replaced the individuals with random individuals of height under 30
+* the other algorithm had a nice AUC graph; however, the pareto front graph was not as diverse  
+
+== '''<small>Week 5: September 18, 2019</small>''' ==
+'''Team Meeting Notes:'''
+* Subteam Presentations
+* General Comments: 
+** Should add vectorization & whitening: 
+*** '''Vectorization''' = making sure that data values are equally distant from each other
+*** ex: Embarked: mapping locations to 1,2,3
+**** results in 1 & 3 being inherently farther apart
+**** Solution: vectorization => map values to [1,0,0], [0,1,0], [0,0,1]
+**** Scikit-learn: has built-in labelled encoder that does vectorization
+*** '''Whitening''' = normalizing all data to same scale
+**** some algorithms are sensitive to algorithms: such as KNN & SVM
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Wiki
+|In progress
+|September 18, 2019
+|September 25, 2019
+|
+|}
+
+== '''<small>Week 4: September 11, 2019</small>''' ==
+'''Team Meeting Notes:'''
+* Based on our self-ratings, we were placed into bootcamp subteams
+** '''My Subteam:''' Sarthak, Chaudhary, Ruarai, Lechen
+* No Classroom Notes Today: Screen kept blinking 
+* Group Assignment: Find 5 codominant ML Algorithms for the Titantic ML dataset from Kaggle
+[[files/Goal titantic.png|thumb|The ideal goal: to find 5 codominant algorithms]]
+* Wednesday Sub-team Meeting Notes: 
+** Decided on meeting on Monday (September 16th)
+** Tried setting up GitHub (that didn't work out)
+*Weekend Assignment Work: 
+**Looked over previous kaggle titantic notebooks in order to gain insight
+**How I cleaned the dataset: 
+***Dropped: Name, Cabin, SibSp, Parch, & Ticket
+***Filled in missing Age values with random values between mean and one standard deviation & divided Age into 5 numerical categories
+***Divided Fare into 4 numerical categories
+***Mapped Sex & Embarked (filled in missing values with "S"- the mode) to numerical categories
+* Monday Sub-team Meeting Notes:
+** Discussed which features to drop & how to change features to numerical data
+** How we cleaned the data: 
+*** Dropped: Name, Cabin, Ticket & Pclass
+*** Filled in Age with mean value; Filled in Embarked with mode value
+*** Did not "bucket" Age, SibSp, Parch or Fare into categories (left as original values)
+** Each team member had to choose an algorithm and "improve" it as best they could for Wednesday
+'''Presentation Link: https://docs.google.com/presentation/d/1eVSsjRtP_opPCcgSSecr57Pq_uGYz-LPZ42eA7d2m1M/edit?usp=sharing'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titantic ML Lab #3
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 17, 2019
+|-
+|Meet with Group
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 16, 2019
+|}
+== '''<small>Week 3: September 4, 2019</small>''' ==
+'''Team Meeting Notes:'''
+
+'''General Class Info:''' 
+* Rate ourselves on Python & ML
+* Brief summaries of the 5 subteams this semester
+* GP Part II due next week
+* Kahoot
+'''How do we know an algorithm works well?''' 
+* memory usage (space efficiency)
+* minimize errors (misclassifications)
+* true positive
+* minimize false positive
+* time efficiency
+* security
+* human computer interface (usability)
+* cost effectiveness
+* computational efficient (power usage)
+'''DEF''': <u>gene pool:</u>  set of genome to be evaluated during a generation
+
+'''Classification:''' 
+
+DATASET (contains positive samples & negative samples -----> CLASSIFIER ------> CLASSIFICATIONS
+
+'''Confusion Matrix:''' 
+{| class="wikitable"
+!
+!Predicted Positive
+!Predicted Negative
+|-
+|Actual Positive (P)
+|True Positive (TP)
+|False Negative (FN)
+|-
+|Actual Negative (N)
+|False Positive (FP)
+|True Negative (TN) 
+|}
+'''Maximization Measures:''' 
+* '''Sensitivity or True Positive Rate (TPR):''' 
+** TPR = how did I identify correctly/ how many there were in total = TP / P = TP / (TP + FN)
+
+* '''Specificity (SPC) or True Negative Rate (TNR)''': 
+** TNR = TN/ N = TN (TN + P)
+* '''Accuracy (ACC):''' combined all in one
+** ACC = (TP+TN) / (P+N)
+** ACC = (TP+TN) / ( TP + FP + FN + TN)
+
+* '''Goal:''' in both measures, want to maximize and get 1
+'''Minimization Measures:''' 
+* '''False Negative Rate (FNR):'''
+**  FNR = 1 - TNR
+
+* '''False Positive Rate (FPR):''' 
+** FPR = 1- SPC = 1 - TNR
+
+* '''Goal:''' Want to get 0 (minimization problem)
+'''Definitions:''' 
+
+<u>genotype</u>- DNA; gene (ex: list in Genetic Algorithms)
+
+<u>phenotype</u>- how it is manifested in the objectives; evaluated score/ output
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish LAB #2
+|Completed
+|September 4, 2019
+|September 11, 2019
+|September 9, 2019
+|-
+|
+|
+|September 4, 2019
+|
+|
+|}
+'''GP Lab Part II:''' Multi-objective Genetic Programming
+
+'''Goal:''' Minimize mean squared error & size of the tree
+
+'''Function:''' (that we are approximating) f(x) = -x + sin(x^2) + tan(x^3) - cos(x)
+{| class="wikitable"
+!Runs
+!Changes
+!Best Individual
+!
+!AUC
+!
+|-
+|Run #1 
+|no change
+|negative(cos(multiply
+(add(cos(sin(cos(sin(cos(
+
+tan(x)))))), cos(x)), tan(x))))
+with fitness:
+
+(0.2786133308027132, 15.0)
+|[[files/GP Multiobjective run 1.png|thumb|Run #1 of GP Multi]]
+|2.3841416
+|[[files/Gp multiauc1.png|thumb|Run #1: Pareto Front Objective Space]]
+|}
+'''Attempted to Code to Decrease AUC:''' 
+* Code not working yet 
+* Idea: replace fitness evaluation function with the formula of AUC, so that it would decrease AUC
+
+== '''Week 2: August 28, 2019''' ==
+
+'''Team Meeting Notes:'''
+[[files/Genetic Programming Mechanism.png|thumb|Genetic Programming Mechanism]]
+* Started Genetic Programming:
+** Similar to Genetic Algorithms (but in GA individuals are represented as lists)
+** GP individuals are functions or tree structures
+** nodes = primitives (represent functions)
+** leaves = terminals (represent parameters
+** Crossover in GP: 
+*** Exchange subtrees
+*** Pick random points and swap
+** Mutations in GP:
+*** Insert node or subtree
+*** Delete node or subtree
+*** Change node 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create VIP Notebook
+|Completed
+|August 28, 2019
+|ASAP
+|August 29, 2019
+|-
+|First half of LAB #2
+|Completed
+|August 28, 2019
+|September 4, 2019
+|September 2, 2019
+|}
+[[files/Deap Tools for GP.png|thumb|DEAP GP Evolutionary Tools Chart]]
+Symbolic Regression: 
+* Goal: Approximate Function Symbolically; Evaluation function measures distance from true values => minimization problem 
+* Primitives added: np.exp & np.rint
+* Mutations added: mutNodeReplacement, mutInsert
+{| class="wikitable"
+!Run
+!Changes
+!Min
+!Max
+!Avg
+!Best Individual
+!Plot
+|-
+|1
+|No change;
+mutation is mutUniform
+|1.16e-16
+|3.77
+|0.32
+|add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, x))), x)
+|[[files/Symbolic Regression GP Run 1.png|alt=Run #1 for GP Symbolic Regression|thumb|Run #1]]
+|-
+|2
+|changed mutation to mutNodeReplacement
+|0.283
+|339668
+|1133
+|multiply(rint(rint(exp(rint(x)))), x)
+|[[files/GP Symbolic Regression Run 2.png|thumb|Run #2]][[files/Gp symreg22 lab2.png|thumb|Run #2 (differently scaled to see averages and mins better)]]
+|-
+|3
+|changed mutation to mutInsert
+|0.164
+|213806
+|713
+|add(multiply(x, multiply(exp(x), x)), x)
+|[[files/Gp symreg3 lab2.png|thumb|Run #3]]
+|-
+|4
+|mutUniform;
+changed max depth to 5
+|1.076 e-16
+|2.17
+|0.306
+|add(add(multiply(add(multiply(x, x), multiply(multiply(x, x), x)), x), add(multiply(x, x), x)), rint(subtract(x, x)))
+|[[files/Gp symreg4 lab2.png|thumb|Run #4]]
+|-
+|5
+|mutNodeReplacement;
+max depth = 5
+|0.0347
+|5.857
+|0.398
+|multiply(subtract(multiply(x, x), negative(x)), add(subtract(exp(x), add(multiply(x, multiply(multiply(x, subtract(exp(x), add(multiply(x, x), multiply(x, x)))), x)), x)), multiply(x, x)))
+|[[files/Gp symreg5 lab2.png|thumb|Run #5]]
+|-
+|6
+|mutInsert;
+max depth = 5
+|0.159
+|20.976
+|0.576
+|add(x, multiply(subtract(add(x, x), multiply(x, negative(x))), x))
+|[[files/Gp symreg6 lab2.png|thumb|Run #6]]
+|-
+|7
+|mutUniform; 
+min depth = 3
+
+max depth = 7
+|0.1273
+|176.27
+|1.676
+|multiply(add(exp(x), multiply(subtract(exp(x), multiply(x, x)), multiply(x, x))), x)
+|[[files/Gp symreg7 lab2.png|thumb|Run #7]]
+|}
+Conclusions:
+* mutUniform mutation seems to work best; giving the lowest fitness values 
+* Increasing max depth seems to lower fitness values to a certain extent
+* The maxes and averages seem to be pretty inconsistent as the program works (very unpredictable jumps)
+
+== '''Week 1: August 21, 2019''' ==
+'''Team Meeting Notes:'''
+* Introductions
+* General Class Information:
+** Boot Camp on Wednesdays for ~10 weeks (halfway through the semester)
+** Help Desk on Thursdays and Fridays 
+** DOCUMENT EVERYTHING in Notebooks!!!
+[[files/Genetic Algorithm .jpg|thumb|Diagram of the basic steps of a genetic algorithm (from notes).]]
+* Started Genetic Algorithms:
+** Every new generation is produced from the mating (crossovers) & mutation from selected parents
+** Goal: to produce the best individual whose fitness cannot be improved
+
+*Introduced to One Max Problem for LAB #1
+'''Action Items:'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 22, 2019
+|-
+|Install DEAP library
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 22, 2019
+|-
+|LAB #1
+|Completed 
+|August 21, 2019
+|August 28, 2019
+|August 25, 2019
+|}
+'''Lab #1:''' 
+
+One Max Problem:
+* Goal: get a binary string containing all 1's
+
+* Fitness evaluation: sums the entries in the list => maximizing the objective
+[[files/DEAP Evolutionary Tools for GA.png|thumb|Basic DEAP methods and operations for GA]]
+* Read documentation on evolutionary tools of deap library for genetic algorithms
+N Queens Problem: 
+* Goal: place queens in on a nxn chessboard so that there are 0 conflicts
+* Fitness evaluation: counts # of queen conflicts (only diagonal, because code already restricts horizontal and vertical placement of queens ) => minimizing objective
+* Read paper on the performance of mutation operators on the travelling salesman problem:   https://arxiv.org/ftp/arxiv/papers/1203/1203.3099.pdf
+{| class="wikitable"
+!Run
+!Changes
+!# of generations
+!Max 
+!Min
+!Avg
+!Best individual
+|-
+|1
+|No change
+n = 20
+|99
+|11.0
+|1.0
+|1.7
+|[11, 18, 15, 7, 2, 4, 12, 1, 8, 5, 3, 13, 19, 14, 9, 0, 6, 17, 10, 16], (1.0,)
+|-
+|2
+|No change;
+n = 20
+|99
+|9.0
+|0.0
+|0.91
+|[2, 12, 5, 16, 10, 13, 4, 8, 15, 18, 7, 1, 17, 9, 14, 19, 0, 3, 6, 11], (0.0,)
+|-
+|3
+|No change;
+n = 10
+|99
+|8.0
+|0.0
+|0.73
+|[3, 5, 9, 2, 0, 7, 4, 1, 8, 6], (0.0,)
+|-
+|4
+|Changed crossover from partially matched to cxTwoPoint;
+n = 10
+|99
+|6.0
+|0.0
+|0.41
+|[2, 9, 3, 0, 9, 1, 9, 2, 8, 3], (0.0,)
+|-
+|5
+|cxTwoPoint crosser;
+changed for loop to while loop (so that algorithm stops once best individual has max fitness; 
+
+n = 10
+|2
+|10.0
+|0.0
+|3.34
+|[3, 8, 2, 9, 1, 1, 7, 0, 3, 7], (0.0,)
+|-
+|6
+|cxTwoPoint;
+while loop;
+
+n= 15
+|15
+|10.0
+|0.0
+|2.36
+|[6, 0, 3, 0, 14, 7, 14, 12, 6, 1, 6, 0, 12, 4, 8], (0.0,)
+|-
+|7
+|cxPartiallyMatched;
+while loop;
+
+n = 15
+|59
+|0.0
+|8.0
+|1.66
+|[0, 8, 12, 14, 9, 2, 5, 1, 10, 13, 11, 4, 7, 3, 6], (0.0,)
+|}
+Conclusions: 
+* cxPartiallyMatched not as time efficient as cxTwoPoint for arriving at best individual
+* If n increases, takes more generations (more time) to find a best individual of fitness 0
