@@ -1,0 +1,902 @@
+== Team Member ==
+[[files/Curren Tipnis Atlanta 61118 photo.jpg|left|thumb|178x178px]]
+
+Team Member: Curren Tipnis
+
+Email: ctipnis@gatech.edu
+
+Cell Phone: 609-651-1537
+
+Interests: Optimization, ML, Math, Spikeball
+
+
+
+
+
+
+
+
+
+== Jan 12th, 2019 ==
+'''Progress Notes'''
+
+One Max Problem
+
+- A simple example of how to write a Genetic Algorithm using DEAP with one attribute (fitness value)
+
+- First define classes (attribute, individual) and setup toolbox with commonly used functions
+
+- GA stages:
+       - Initialization: initialize a population with random parameters (0 or 1 bits in this case)
+       - Evaluation: calculate the fitness value for each individual (sum of all bits in this case)
+       - Selection: use a tournament between several individuals to select a best one among them, then repeat to select a new generation
+       - Crossover: use a two-point crossover (two points are randomly selected and bits between the two points are swapped)
+       - Mutation: randomly selected bits are flipped
+       - Propagation: jump back to Evaluation stage to repeat
+N-Queens Problem
+
+- An more complex example of how a Genetic Algorithm solves a problem with constraints
+
+- Similar process as above. Some differences:
+        - Evaluation: count the number of conflicts on the diagonals (since it's guaranteed each line and row only has one queen)
+        - Crossover: use a Partially Matched crossover algorithm to preserve the ordering property of individuals (thus not breaking the constraints of the problem)
+        - Mutation: shuffle the individual's list instead of randomly changing values (so that the constraints are not broken)
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Complete Lab 1
+|Complete  
+|Jan 7, 2019 
+|Jan 14, 2019 
+|Jan 12, 2019 
+|}
+
+== Jan 14th, 2019 == 
+
+'''Team Meeting:'''
+
+GP: Genetic Programming
+ - Evaluation 
+ - Fitness computation
+ - Selection
+ - Mating
+ - Mutation
+
+Tree Structure instead of list of genes for genetic programming
+ - Output of tree is the same thing as the root of the tree
+ - Nodes are primitives and leaves are terminals
+ - Terms for DEAP
+ - Primitives - +, -, *, retc
+ - Terminals - 
+ - Represent trees with parse trees (lists)
+           - Ex: 1 + (3*4)
+                   [+ 1 * 3 4]
+           - (0 + 1) - 2
+                   [- + 0 1 2] 
+- Arity - how many inputs a function has
+- Crossover Step for GP
+           - Strong-type GP will make sure crossovers have the same data type outputted for switched nodes
+- Mating is usually restricted to single point crossover
+- Mutation 
+         - Replacing, insertion, and shrink primitives
+
+How to use GP to solve symbolic regression?
+ - ex : y = sin(x)
+       - Primitive set: +, -, *, /
+       - Terminals: x, constants
+       - x - (x^3/3!) + (x^5/5!) - â€¦
+       - We can add more complex primitives ^ and !
+       - [- x / pow x 3 fact 3]
+       - How to evaluate these functions?
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Wiki Page
+|Completed
+|Jan 14, 2019
+|Jan 21, 2019
+|Jan 18, 2019
+|-
+|Sign up for Slack
+|Completed
+|Jan 14, 2019
+|Jan 21, 2019  
+|Jan 20, 2019
+|-
+|Lab 2 Part 1
+|Completed
+|Jan 14, 2019
+|Jan 21, 2019  
+|Jan 20, 2019
+|}
+== Jan 24th, 2019 ==
+
+'''Progress Notes'''
+
+- Worked on the symbolic regression portion for Lab 2
+
+- implemented code on jupyter notebooks
+
+- After implementing code, outputted the following plot for fitness vs generations
+[[files/Screen Shot 2019-01-28 at 4.35.37 PM.png|left|thumb|500x500px]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Symbolic Regression
+|Complete
+|Jan 21, 2019
+|Jan 28, 2019
+|Jan 24, 2019
+|}
+
+== Jan 28th, 2019 ==
+
+'''Team Meeting:'''
+
+Multiple Objective Optimization:
+
+What the algorithm looks for a mating?
+  - Effecient 
+  - Acuuracy
+  - Validation
+  - Hardware Requirements
+  - Memories
+  - GPU
+  - TPU
+  - # of cores
+  - Size
+  - Power
+
+Metrics and Measures for Optimal performance
+  - Maximization of TPR and TNR, Minimization of FNR and FPR 
+       TPR = TP / (TP + FN)
+       TNR = TN / (TN + FP)
+       FNR = FN/ (TP + FN)
+       FPR = FP/ (TN + FP)
+
+
+-  Pareto Optimality: As long as an individual does not exceed every other individual for every objective but is only optimal with respect to certain objectives, it is Pareto Optimal
+-  More Metrics in ML 
+      Accuracy = TP + TN / P + N
+      Precision = TP/ TP + FP
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Complete Lab 3
+|Complete  
+|Jan 29, 2019 
+|Feb 4th, 2019 
+|Feb 3rd, 2019 
+|}
+
+== Feb 4th, 2019 == 
+- was not able to come to class because of Georgia Tech Excused Absence
+
+- (Emailed Dr. Zutty and Dr. Rohling with approved forms)
+== Feb 10th, 2019 ==
+'''Progress Notes:'''
+
+- Finished Titanic Survival Prediction lab by myself because I did not have any group assigned at the time
+ 
+- preprocessed and cleaned data
+  
+- tried using Neural Nets, SVMs, and Random Forest model and tuned hyperparameters in order to find best model for the data
+ 
+- performed cross validation the model to prevent from overfitting and performed split 5 times
+ 
+- found confusion matrix and completed pareto analysis
+ 
+- best model was Random Forest model with 150 estimators. 
+  import pandas as pd
+  import numpy as np
+  import random as rand
+
+  import matplotlib.pyplot as plt
+  %matplotlib inline
+
+  from sklearn.svm import SVC, LinearSVC
+  from sklearn.ensemble import RandomForestClassifier
+  from sklearn.neighbors import KNeighborsClassifier
+  from sklearn.linear_model import SGDClassifier
+  from sklearn import svm, tree, neighbors, neural_network
+  from sklearn.model_selection import train_test_split
+  from sklearn.metrics import confusion_matrix
+  import seaborn as sns
+  from sklearn import tree
+  from sklearn.metrics import scorer
+  from sklearn.metrics import accuracy_score
+  from sklearn.ensemble import AdaBoostClassifier
+  from sklearn.neural_network import MLPClassifier
+  from sklearn.model_selection import cross_val_score 
+  
+  #preprocessing data and splitting into train and test
+  train = pd.read_csv('train.csv')
+  test= pd.read_csv('test.csv')
+  combine = [train, test]
+  train.drop(columns=['Ticket', 'Cabin', 'Name'],inplace = True)
+  test.drop(columns=['Ticket', 'Cabin', 'Name'],inplace = True)
+  columns_map = {'Embarked': {'C': 0, 'Q': 1, 'S': 2}, 'Sex': {'male': 0, 'female': 1}}
+  train.replace(columns_map, inplace=True)
+  test.replace(columns_map,inplace =True)
+  train = train.dropna()
+  test = test.dropna()
+
+  #running models
+  mlp = MLPClassifier(solver='sgd',activation='logistic',learning_rate="adaptive",hidden_layer_sizes=(1, 1),).fit(x_train, y_train)
+  acc_MLP = accuracy_score(y_train, mlp.predict(x_train))
+  linear_svc = LinearSVC()
+  linear_svc.fit(x_train, y_train)
+  acc_linear_svc = round(linear_svc.score(x_train, y_train) * 100, 2)
+  acc_linear_svc
+  scores = cross_val_score(linear_svc, x_train, y_train, cv = 5)
+  print(scores)
+  
+  random_forest = RandomForestClassifier(n_estimators=100)
+  xr,xe,yr,ye = train_test_split(x_train, y_train, test_size=0.3, random_state=10)
+  random_forest.fit(xr.values, yr.values)
+  print(random_forest.score(xe, ye))
+  scores = cross_val_score(random_forest, x_train, y_train, cv = 5)
+  print(scores)
+  
+  tn, fp, fn, tp = confusion_matrix(ye, yp).ravel()
+  print("Confusion Matrix")
+  print(confusion_matrix(ye, yp, labels=[0, 1]))
+  print("")
+  print("True Negatives", tn)
+  print("False Positives", fp)
+  print("False Negatives", fn)
+  print("True Positives", tp)
+
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Titanic ML Models
+|Complete  
+|Feb 4, 2019 
+|Feb 11, 2019 
+|Feb 10, 2019 
+|}
+
+
+== Feb 11th, 2019 ==
+'''Team Meeting:'''
+
+- Joined a Subgroup team
+
+- Met later to work on Genetic Programing implementation of the Titanic Problem
+
+- Used the data that Anish's group had previously instead of the data I had used for the lab
+
+- I figured out a way to hard code the Evaluation function for GP
+  def evalFunction(individual, points, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        fn, fp = 0 
+        for i in points:
+            if (i[0] == 1 and func(*i[1:]) != 1):
+                fp += 1
+            elif (i[0] == 0 and func(*i[1:]) != 0):
+                fn += 1
+  return (fn, fp)
+- https://colab.research.google.com/drive/1kXPtDVaPYDK5JgufHk1v6_7DQPtc64mI
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Titanic GP Lab
+|Complete  
+|Feb 11, 2019 
+|Feb 18, 2019 
+|Feb 17, 2019 
+|}
+
+== Feb 15th, 2019 ==
+'''Progress Notes'''
+
+- Went to office hours with Mohan and Anish, met with James
+
+- James helped us figure out how to implement the strongly typed GP operations 
+
+- Issue was because output was a boolean but all of the inputs and operators dealt with numbers
+
+- Figured out that Pareto Individuals were clumping after running algorithm 
+
+- In order to fix, we changed the mutation function Tournament to NSGA2
+
+[[files/Group 1 Parto Front.png|none|thumb]]
+
+Pareto Front Result
+
+== Feb 17th, 2019 ==
+'''Team Meeting:'''
+
+- Was able to download all of the necessary packages to run EMADE 
+
+- Helped other teammates downloading anaconda and easily installing all of the packages
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Finish downloading all packages in order to run EMADE
+|Complete  
+|Feb 17, 2019 
+|Feb 17, 2019 
+|Feb 19, 2019 
+|}
+
+== Feb 18th, 2019 ==
+'''Team Meeting:'''
+
+- Was able to help all of team members finish installing emade
+
+== Feb 25th, 2019 ==
+'''Team Meeting:'''
+
+- Learned how to work on MySQL 
+
+- 'validate length' error on Anishes Master branch
+
+- keep getting SSL connection error when I tried to run as worker with Mohan
+
+- was not able to solve error
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Fix SSL Connection Error
+|Complete  
+|Feb 25, 2019 
+|Feb 28, 2019 
+|Mar 8, 2019 
+|}
+
+== Mar 1st, 2019 ==
+'''Team Meeting:'''
+
+-  met with James at office hours
+
+- Learned about how to use MySQL Workbench
+
+- Anish was able to fix his error by updating his sci-kit learn package
+
+== Mar 4th, 2019 ==
+
+- were still not able to fix SSL Connection error
+== Mar 8th, 2019 ==
+'''Team Meeting:'''
+
+- met with James at office hours
+
+- was able to fix SSL connection error after rechecking versions of all packages and changing one line in the source code
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Fix SSL Connection Error
+|Complete  
+|Feb 25, 2019 
+|Feb 28, 2019 
+|Mar 8, 2019 
+|}
+
+== Mar 10th, 2019 ==
+'''Team Meeting:'''
+
+- worked in the morning to create slides for presentation and decide who was presenting what 
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Practice Presentation
+|Complete  
+|Mar 10, 2019 
+|Mar 10, 2019 
+|Mar 11, 2019 
+|}
+
+== Mar 11th, 2019 ==
+'''Team Meeting:'''
+
+- gave presentation
+
+== Mar 25th-Apr 2nd, 2019 ==
+
+- was sick with a flu
+
+- got assigned to Visualization Team
+
+== Apr 9th, 2019 ==
+
+- was able to download all of the emade visualization package
+
+- able to run it on titanic data
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Run emade viz
+|Complete  
+|Apr 9, 2019 
+|Apr 9, 2019 
+|Apr 9, 2019 
+|}
+
+== Apr 15th, 2019 ==
+
+'''Team Meeting:'''
+
+- identified issue with Pareto Front in the current implementation:
+
+- does not allow for user input xml to emade viz
+
+- does not allow for dataset selection and objective selection for pareto front graphing 
+
+- worked with Michael in order to figure out scope of what I can do 
+
+- decided to use following xml to dict function to read parts of input_xml file that user can give:
+
+  def parse(xml_input, encoding=None, expat=expat, process_namespaces=False,
+          namespace_separator=':', disable_entities=True, **kwargs):
+    """Parse the given XML input and convert it into a dictionary.
+    `xml_input` can either be a `string`, a file-like object, or a generator of strings.
+    If `xml_attribs` is `True`, element attributes are put in the dictionary
+    among regular child elements, using `@` as a prefix to avoid collisions. If
+    set to `False`, they are just ignored.
+    Simple example::
+        >>> import xmltodict
+        >>> doc = xmltodict.parse(\"\"\"
+        ... <a prop="x">
+        ...   <b>1</b>
+        ...   <b>2</b>
+        ... </a>
+        ... \"\"\")
+        >>> doc['a']['@prop']
+        u'x'
+        >>> doc['a']['b']
+        [u'1', u'2']
+    If `item_depth` is `0`, the function returns a dictionary for the root
+    element (default behavior). Otherwise, it calls `item_callback` every time
+    an item at the specified depth is found and returns `None` in the end
+    (streaming mode).
+    The callback function receives two parameters: the `path` from the document
+    root to the item (name-attribs pairs), and the `item` (dict). If the
+    callback's return value is false-ish, parsing will be stopped with the
+    :class:`ParsingInterrupted` exception.
+    Streaming example::
+        >>> def handle(path, item):
+        ...     print('path:%s item:%s' % (path, item))
+        ...     return True
+        ...
+        >>> xmltodict.parse(\"\"\"
+        ... <a prop="x">
+        ...   <b>1</b>
+        ...   <b>2</b>
+        ... </a>\"\"\", item_depth=2, item_callback=handle)
+        path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:1
+        path:[(u'a', {u'prop': u'x'}), (u'b', None)] item:2
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|New Functionality for Pareto Front
+|Complete  
+|Apr 9, 2019 
+|Apr 20, 2019 
+|Apr 19, 2019 
+|}
+
+== Apr 17th, 2019 ==
+
+'''Team Meeting:'''
+
+Talked with Suraj and Anthony about which files I would need to modify in order to finish the small project given to me
+
+Made following changes to the app.py file: 
+
+- added get_objective_pairs function based on xml file 
+ 
+- modified make_pareto_plot function to take an index of objective pair as argument. 
+
+- modified the call to make_pareto_plot function to use default objective pair index of 0
+
+- modified call to tree_lib.getParetoFront to include two additional objective argument.
+
+- added import of xmltodict.py
+
+ import click
+ from flask import Flask, render_template, jsonify, request, redirect, url_for
+
+ import MySQLdb
+
+ from bokeh.plotting import figure, ColumnDataSource
+ from bokeh.embed import components
+ from bokeh.models.sources import AjaxDataSource
+
+ import scripts.tree_plotter as tree_lib
+ import scripts.progress_bar as prog_bar_lib
+ import scripts.auc as auc_lib
+ import scripts.individuals_list as individuals_list_lib
+ import scripts.pareto_num_ind as pareto_num_ind_lib
+ import scripts.individual_eval_time_generation as ind_eval_time_gen_lib
+ import xmltodict
+
+ app = Flask(__name__)
+ app.url_map.strict_slashes = False
+
+ connection = None
+ 
+ TOOLTIPS = """
+     <div>
+         <div>
+             <img
+                 src="data:image/png;base64, @imgs" alt="individual tree @imgs" width="500"
+                 style="float: left; margin: 0px 15px 15px 0px;"
+                 border="2"
+             ></img>
+         </div>
+         <div>
+             <span style="font-size: 15px;">False Positive:</span>
+             <span style="font-size: 10px; color: #696;">@x</span>
+             <br>
+
+             <span style="font-size: 15px;">False Negative:</span>
+             <span style="font-size: 10px; color: #696;">@y</span>
+
+         </div>
+     </div>
+ """
+
+ # Return true if there is an error, return false if there is no error
+ def check_connection(forceUpdate=False):
+     global connection
+
+     if not connection or forceUpdate:
+         host = request.cookies.get('host')
+         user = request.cookies.get('user')
+         passwd = request.cookies.get('passwd')
+         db = request.cookies.get('db')
+ 
+         try:
+             connection = MySQLdb.connect(host=host, user=user, passwd=passwd, database=db)
+             return False
+         except Exception as e:
+             print("Failed to connect, exception: " + str(e))
+             connection = None
+             return True
+
+     try:
+         cursor = connection.cursor()
+         cursor.execute("SELECT VERSION()")
+         results = cursor.fetchone()
+         if not results:
+             connection = None
+             return True
+     except Exception as e:
+         print("Failed to connect, excpetion: " + str(e))
+         connection = None
+         return True
+
+     return False
+
+
+
+ @app.route('/', methods=['POST', 'GET'])
+ def index():
+     global connection
+
+     resp = app.make_response(render_template('index.html'))
+ 
+     if request.method == 'POST':
+
+         db_info = request.form.to_dict()
+         resp.set_cookie('host', db_info['host'])
+         resp.set_cookie('user', db_info['user'])
+         resp.set_cookie('passwd', db_info['passwd'])
+         resp.set_cookie('db', db_info['db'])
+
+         try:
+             connection = MySQLdb.connect(host=db_info['host'],
+                 user=db_info['user'],
+                 passwd=db_info['passwd'],
+                 database=db_info['db'])
+             return show_dashboard()
+ 
+         except Exception as e:
+             print('Could not connect with info: ', db_info)
+             print('Exception: ' + str(e))
+             connection = None
+             resp = app.make_response(render_template('index_fail.html'))
+ 
+     return resp
+ 
+ 
+ @app.route('/dashboard', methods=['POST', 'GET'])
+ def show_dashboard():
+     try:
+         if check_connection():
+             return render_template('connection_error.html')
+         global connection
+ 
+         # currently the generation is from a query string or defaults to the last
+         current_gen = request.args.get('gen') or auc_lib.get_current_gen(connection.cursor())
+         current_gen = int(current_gen)
+         # Currently this is hardcoded but user should input which ob combination for pareto plot
+         obIndex = 0  
+         # get pareto graph
+         pareto_plots = [make_pareto_plot(current_gen,obIndex)]
+ 
+         # get progress bar graph
+         progress_bar = prog_bar_lib.plot_prog_bar_for_gen(connection.cursor(), current_gen)
+         progress_bar_c = components(progress_bar)
+ 
+         # get individuals for this gen
+         individuals = individuals_list_lib.fetch_individuals_from_db(connection.cursor(), current_gen)
+ 
+         # get auc
+         auc_plot = auc_lib.make_auc_plot(connection.cursor(), current_gen)
+         auc_plot_c = components(auc_plot)
+ 
+         # get num pareto ind over time
+         num_pareto = pareto_num_ind_lib.make_pareto_num_plot(connection.cursor(), current_gen)
+         num_pareto_c = components(num_pareto)
+ 
+         # get evaluatiuon times of individuals per generation
+         ind_eval_times = ind_eval_time_gen_lib.make_ind_eval_time_per_gen_plot(connection.cursor(), current_gen)
+         ind_eval_times_c = components(ind_eval_times)
+ 
+         # get evaluation time of VALID (no error) individuals per generation
+         valid_ind_eval_times = ind_eval_time_gen_lib.make_valid_ind_eval_time_per_gen_plot(connection.cursor(), current_gen)
+         valid_ind_eval_times_c = components(valid_ind_eval_times)
+ 
+         # render the template
+         return render_template('dashboard.html',
+             plots=pareto_plots,
+             individuals=individuals,
+             generation=current_gen,
+             progress_bar=progress_bar_c,
+             auc_plot=auc_plot_c,
+             num_pareto_ind_plot=num_pareto_c,
+             ind_eval_time_plot=ind_eval_times_c,
+             valid_ind_eval_time_plot=valid_ind_eval_times_c
+        ) . 
+     except Exception as e:
+         print('Failed to show dashboard, exception: ' + str(e))
+         resp = app.make_response(render_template('invalid_data_error.html'))
+     return resp
+
+ @app.route('/pareto', methods=['POST', 'GET'])
+ def show_pareto():
+ 
+         if check_connection():
+             return render_template('connection_error.html')
+         global connection
+ 
+         # currently the generation is from a query string or defaults to the last
+         current_gen = request.args.get('gen') or auc_lib.get_current_gen(connection.cursor())
+         current_gen = int(current_gen)
+ 
+         # get pareto graph
+         pareto_plots = [make_dynamic_pareto_plot()]
+         # print (pareto_plots)
+ 
+         # get num pareto ind over time
+         num_pareto = pareto_num_ind_lib.make_pareto_num_plot(connection.cursor(), current_gen)
+         num_pareto_c = components(num_pareto)
+ 
+         # render the template
+         return render_template('pareto.html',
+             plots=pareto_plots,
+             num_pareto_ind_plot=num_pareto_c
+         )
+ def get_objective_pairs( xmlfile="input_wine.xml" ):
+     filedict = xmltodict.parse(open(xmlfile).read())
+     obl=[]
+     for ob in [for of in filedict['input']['objectives']['objective']]:
+         obl.append(ob['name'])
+     obpairlist = []
+     for p1 in range(len(obl)):
+                 for p2 in range(p1+1,len(obl)):
+                         obpairlist.append([obl[p1],obl[p2]])
+     return obpairlist
+ def make_pareto_plot(year=None, obIndex = 0):
+
+     if check_connection():
+         return render_template('connection_error.html')
+     global connection
+     #### get objective function taken xml file as input
+     obpairlist = get_objective_pairs();
+     obpair = obpairlist[obIndex]
+     if connection:
+         plot = figure(x_axis_label =obpair[0],
+                   y_axis_label=obpair[1],plot_height=300, sizing_mode='scale_width', tooltips=TOOLTIPS)
+         plot.toolbar.active_drag = None
+         x, y, imgs = tree_lib.getParetoFront(obpair[0],obpair[1],connection.cursor(), year)
+
+         individuals = dict(x=x, y=y, imgs=imgs)
+
+         source = ColumnDataSource(data=individuals)
+
+         plot.step(x, y, line_width=4,  mode='after')
+         plot.circle('x', 'y', size=10, source=source)
+
+         script, div = components(plot)
+         return script, div
+
+     else:
+         return None, None
+
+ def make_dynamic_pareto_plot():
+     source = AjaxDataSource(data_url=request.url_root + 'data/',
+                             polling_interval=10000, mode='replace')
+
+     source.data = dict(x=[1], y=[1], imgs=[1])
+
+     plot = figure(x_axis_label ='False Negative',
+                   y_axis_label='False Positive',plot_height=300, sizing_mode='scale_width', tooltips=TOOLTIPS)
+
+     plot.step('x', 'y', source=source, line_width=4, mode='after')
+     plot.circle('x', 'y', size=10, source=source)
+
+     script, div = components(plot)
+     return script, div
+
+ # TODO what is this used for?
+ @app.route('/data/', methods=['POST']) 
+ def data():
+
+     if check_connection():
+         return render_template('connection_error.html')
+     global connection
+
+     x, y, imgs = tree_lib.getRecentParetoFront(connection.cursor())
+
+     return jsonify(x=x, y=y, imgs=imgs)
+
+ if __name__ == "__main__":
+     app.run(debug=True)
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|New Functionality for Pareto Front
+|Complete  
+|Apr 9, 2019 
+|Apr 20, 2019 
+|Apr 19, 2019 
+|}
+
+== Apr 19th, 2019 ==
+
+Made changes to the treeplotter.py file in order to allow user inputted objectives and datasets for pareto plots:
+
+- Modified getParetoFront to take two additional argument objective 1 and 2.
+
+  def getParetoFront(ob1,ob2,cursor, year):
+
+    paretofront = []
+
+    cursor.execute("SELECT `FullDataSet %s`, `FullDataSet %s`, tree FROM individuals WHERE evaluation_status ='EVALUATED' AND evaluation_year <= '%s'", (ob1,ob2,int(year),))
+    myresult = cursor.fetchall()
+    for result in myresult:
+        if result[0] != None and result[1] != None:
+            paretofront = update(paretofront, result)
+    x = [result[0] for result in paretofront]
+    y = [result[1] for result in paretofront]
+    trees = [result[2] for result in paretofront]
+    img_trees = []
+
+    for t in trees:
+        try:
+            tree_string_parser(t)
+        except:
+            print('Err on tree:\n:', t)
+            img_trees.append(None)
+        else:
+            img_trees.append(get_base64_tree(t))
+
+    return x, y, img_trees
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|New Functionality for Pareto Front
+|Complete  
+|Apr 9, 2019 
+|Apr 20, 2019 
+|Apr 19, 2019 
+|}
+
+== Apr 21st, 2019 ==
+
+- reviewed my power point slides and practiced for presentation 
+
+- send all of my file changes and additions to Suraj and he pushed and committed all of them to the emade viz master file on github
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Practice Presentation
+|Complete  
+|Apr 21, 2019 
+|Apr 21, 2019 
+|Apr 21, 2019 
+|}
+
+== Grade ==
+
+I strongly believe that I deserve an A- for this semester. This is because I was one of two main contributing members to my bootcamp subgroup. I was able to help my other group members to understand ML, GP, and emade.  I attended many office hours sessions with James in order to complete labs and run emade properly. When we came back from spring break, I was very sick with the flu and the two weeks after I was extremely busy with senior design and exams and I was also not able to attend class because of a client presentation (and I know that is on me). However, I worked outside of class a lot the week after to get involved with the visualization team and was able to learn how exactly emade viz works as well as figure out an opportunity for me to contribute. I had to learn how to parse XML as well. I single handedly changed code of three of the files in emade viz and in doing so added a functionality in emade viz for user chosen objectives on Pareto Fronts which I worked on outside of class a lot in order to catch up for the weeks of work I missed.

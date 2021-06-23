@@ -1,0 +1,1056 @@
+== General Information ==
+* Name: Diptendu Maity
+* Email: dmaity6@gatech.edu
+* Phone Number: 972-489-4321
+
+=== Teammate Info ===
+* Vishesh Gupta; vgupta342@gatech.edu
+* Sriram Mudireddy; smudireddy3@gatech.edu
+* Andrew Weatherly; andrew.weatherly@gatech.edu
+* Lucas Zhang; lzhang462@gatech.edu
+* Kevin Zheng; kzheng74@gatech.edu
+
+== Week of 1/20/21 ==
+
+=== Lecture Notes ===
+* Genetic Programing - A new generation is created by mating/mutation with the previous population in order to create the best individual. Models survival of the fittest
+* The performance of an individual algorithm is determined by its relative performance amongst other algorithms in the population.
+* The higher the fitness value an algorithm has, the more likely it is for the algorithm to pass on its genes to the next generation.
+* Mate/Crossover - Creates two children based on n-points of separations.
+* Mutate - Change a single gene of a single individual in order to maintain diversity.
+
+=== Lab 1 - Genetic Algorithms with DEAP ===
+
+==== Part 1: One Max Problem ====
+The objective of this problem is to generate a genetic algorithm that outputs the maximum number of one in a fixed-size list, in which the two options for the data in the list is 0 and 1.
+* The fitness score is evaluated by adding up the number of ones in the list. Thus if the size of each list is 100, the max score would be 100.
+* A set of lists needs to be generated where each data entry is randomly chosen.
+* Through mating, mutating, and selection in tournaments, there will be offsprings created for each generation.
+* Since we are trying to maximize our fitness score, we would set the weight of it at 1.
+Observations:
+* The maximum fitness score of 100 is usually reached 95% of the time within the 40 generations that were simulation.
+* Regardless of the maximum fitness score at the end of the simulation, the average almost always seems to be between 97 - 99.
+
+==== Part 2: The N Queens Problem ====
+The problem is to determine a configuration of n queens on an n x n chessboard such that no queen can be taken by one another. In this version, each queen is assigned to one column, and only one queen can be on each line.
+* Since we are trying to minimize the number of conflicts between the queens, we would set the weight to -1.
+* Since there can only be one queen in each column of the chessboard, whenever the new generations are created, the values in the list can only be swapped with one another.
+<u>Given Mutate Function:</u>
+[[files/Pic 1.png|none|thumb|545x545px]]
+Result of a Simulation:
+[[files/Pic 2.png|none|thumb|564x564px]]
+* The global minimum of 0 was reached at generation 48 during this simulation when using the given mutate function.
+* The global minimum of 0 is reached about 80% of the time when running the simulations.
+<u>Mutate Function created by me:</u>
+[[files/Pic 3.png|none|thumb|570x570px]]
+For my mutate function, if the random value is less than the indpb number, then a random index from the first half of the list is swapped with a random index from the second half of the list. Thus, there can never be index swaps within the same half of the list.
+
+Result of a Simulation:
+[[files/Pic 4.png|none|thumb|560x560px]]
+* The global minimum of 0 was reached at generation 27 during this simulation when using the mutate function that I created.
+* The global minimum of 0 is reached about 70% of the time when running the simulations.
+[[files/Original Graph.png|none|thumb|530x530px|Graph generated when using the original mutate function]]
+[[files/My Graph.png|none|thumb|533x533px|Graph generated when using my mutate function]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up VIP Notebook
+|Completed
+|1/20/21
+|1/27/21
+|1/20/21
+|-
+|Complete Lab 1 - Genetic Algorithms with DEAP
+|Completed
+|1/20/21
+|1/27/21
+|1/28/21
+|-
+|Lecture Notes for 1/20/21
+|Completed
+|1/20/21
+|1/27/21
+|1/20/21
+|}
+
+== Week of 1/27/21 ==
+
+=== Lecture Notes ===
+* An individual can be a function of itself.
+* There needs to be an error metric in order to determine if the function is working or not.
+* Fitness is the relative performance of an individual whereas objective does not account for other individual’s performance.
+* A program can be represented through a tree structure. The input data enters from the leaves(bottom) and comes out of the root (top).
+* Crossovers in GP can be done by taking a random node and all of its children and switching it with another random node and its children of a different individual.
+* A mutation is when u delete/add/change a node and its subtrees.
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+===== Part 1: Symbolic Regression =====
+The objective of this lab is to generate a function that models out objective function the best way it can. Genetic programming is utilized in order to mutate the function by changing its primitive values in an efficient and effective manner.
+* A tree structure is used, in which each node stores a primitive data type. The tree is read from left to right basis.
+* The nodes get altered when each new generation is being created.
+* The effectiveness of a function is determined by comparing its output to the expected output.
+* The mean squares error is calculated between the function we created and the actual function.
+* The goal is to minimize the mean squared error as much as possible
+The two primitive types I added include: 
+[[files/Screen Shot 2021-02-14 at 2.48.06 PM.png|none|thumb|780x780px]] 
+Results when implementing the given mutUniform mutate function: 
+[[files/Screen Shot 2021-02-14 at 2.51.00 PM.png|none|thumb|659x659px]]
+[[files/Screen Shot 2021-02-14 at 2.52.17 PM.png|none|thumb|404x404px]] 
+
+The mutUniform function selects a random node in the tree and replaces the whole subtree associated with that node.
+
+The mutation method that I chose to add:
+[[files/Pic 4.2.png|none|thumb|728x728px]]
+
+The mutNodeReplacement function randomly chooses a node and replaces it with another node with the same number of arguments.
+[[files/Screen Shot 2021-02-14 at 2.57.37 PM.png|none|thumb|744x744px]]
+Results when implementing the mutNodeReplacement mutate function:
+[[files/Screen Shot 2021-02-14 at 2.58.43 PM.png|none|thumb|362x362px]]
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes for 1/27/21
+|Completed
+|1/27/21
+|2/3/21
+|1/27/21
+|-
+|Begin Lab 2 (First Half)
+|Completed
+|1/27/21
+|2/3/21
+|1/30/21
+|}
+
+== Week of 2/3/21 ==
+
+=== Lecture Notes ===
+* Gene pool is the set of the genome to be evaluated during the current generation.
+* True Positive - when we expect it to come out positive and it comes out to be positive.
+* False Positive - when we expect something to be positive turns out to be not positive.
+* We would want the False Positive Rate and False Negative Rate to be as close to 1 as possible.
+* The FNR and TPR add up to one. The FPR and TNR add up to one.
+* The bigger the Negative Predictive Value the better.
+* The Accuracy is the ones you identified correctly (whether it is an apple or not). Bigger is better for this case as well.
+* A solution is Pareto optimal if it is not outperformed by any other algorithm in all objectives. It is usually a set of Pareto algorithms.
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+==== Part 2: Multi-Objective Genetic Programming ====
+* The goal of this simulation is to minimize two objectives: mean squared error and the size of our tree.
+* The primitives used include add, subtract, multiply, negative, sin, cos, tan.
+The mean squared error is calculated with the function:
+[[files/Pic 1.4.png|none|thumb|638x638px]]
+* A change that is being made to this evolutionary process includes returning the length of the individual tree, which returns the number of nodes in the individual tree.
+This Pareto dominance function returns true is the first individual dominated the second individual:
+[[files/2.4.png|none|thumb|640x640px]]
+
+The Objective Space with our sorted population:
+[[files/3.4.png|none|thumb|382x382px]]
+* Our objective is to minimize both objectives and have an individual as close to the bottom right as possible.
+Display of best individual:
+[[files/4.4.png|none|thumb|401x401px]]
+
+This Pareto front represents how our population is doing on both objectives:
+[[files/5.4.png|none|thumb|398x398px]]
+
+DEAP’s Pareto front hall gives us a list of non dominated individuals after our evolution. The lower the Area Under Curve, the better our Pareto front is.
+
+Pareto front of my implementation of a version of the genetic programming problem:
+[[files/5.5.png|none|thumb|392x392px]]
+
+=== Self Peer Assessment 1 ===
+* [https://drive.google.com/file/d/124JP8pOahLkvJkpRYJGr9YsL08PI2slC/view?usp=sharing Link to VIP Notebook Self Peer Assessment 1]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes for 2/3/21
+|Completed
+|2/3/21
+|2/10/21
+|2/3/21
+|-
+|Finish Lab 2 (Second Half)
+|Completed
+|2/3/21
+|2/14/21
+|2/14/21
+|-
+|Self Peer Assessment
+|Completed
+|2/3/21
+|2/14/21
+|2/14/21
+|}
+
+== Week of 2/10/21 ==
+
+=== Lecture Notes ===
+* Intro to machine learning assignment - Titanic Machine Learning from Disaster problem on Kaggle.
+* Create one Pareto optimal co-dominant algorithms per member of the group.
+* Use a specific set of data for fitting your model and then use the other set for testing purposes.
+* The main manipulation is going to be done by picking out various machine learning models that are best for our data.
+* We need to present the machine learning models that we picked for our assignment.
+
+=== Team Meeting 1 Notes - Titanic Assignment ===
+* Filtered the data appropriately so that the useful information is the only aspect of the data that is kept.
+* Decided to run feature selection models in order to determine which feature we want to take into consideration when running our machine learning models.
+* The main feature selection models that are going to be used include univariate selection, feature importance, and correlation matrix with heat map.
+* The test size that we plan to use for our training dating will consist of 25% (0.25) of our training data.
+* Notify the team regarding our results of the feature selection analysis on Group Me, so that we can decide on what features we want to use.
+* Assign different machine learning models to each of our team members after feature selection is done.
+
+=== Feature Selection Analysis - Titanic Assignment ===
+Objective: Run a Univariate Selection Test on the X_train and Y_train data in order to determine which features have the highest correlation with the given output.
+
+Univariate Selection Test uses the chi-squared statistical test for non-negative features to select the best features from the given input.
+
+Code for Univariate Selection Test:
+[[files/Screen Shot 2021-02-14 at 4.27.02 PM.png|none|thumb|806x806px]]
+As shown in the table above, the features that have a strong association with the output are Fare, Sex, P-class, Age, Embarked, and Parch.
+
+=== Machine Learning Models - Titanic Assignment ===
+The Machine Learning Models that were run in order to achieve optimal results:
+[[files/Screen Shot 2021-02-23 at 9.24.43 PM.png|none|thumb|683x683px]]
+Confusion Matrix for AdaBoostClassifier:
+[[files/P2Titanic.png|none|thumb|381x381px]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes for 2/10/21
+|Completed
+|2/10/21
+|2/17/21
+|2/10/21
+|-
+|Team Meeting 1 Notes - Titanic Assignment
+|Completed
+|2/13/21
+|2/17/21
+|2/14/21
+|-
+|Feature Selection Analysis - Titanic Assignment
+|Completed
+|2/13/21
+|2/15/21
+|2/14/21
+|-
+|Run Machine Learning Models - Titanic Assignment
+|Completed
+|2/16/21
+|2/17/21
+|2/17/21
+|}
+
+== Week of 2/17/21 ==
+
+=== Lecture Meeting Notes ===
+* Take a different approach to the Titanic Machine Learning assignment now.
+* Instead of using pre-made Machine Learning models to make your prediction, come up with your own algorithm using multiobjective genetic programming (MOGP).
+* Make sure the population of algorithms is being developed over the generations through mutation, mating, selection, and tournaments.
+* Prepare for presentation next week where our group is to present our findings for the Machine Learning part and MOGP part of the Titanic assignment.
+
+=== Team Meeting 2 Notes ===
+* Clarified the term Pareto optimal with concrete Jupyter notebook examples.
+* Decided to drop columns ‘embarked’, ‘SibSp’ based on the feature selection results from univariate selection and correlation matrix with heatmap.
+* Decided to keep the 'Parch' column due to a drop in accuracy in multiple selected models.
+* Finalized the machine learning models for each member through [https://codeshare.io/adXokR CodeShare].
+
+=== Multi-Objective Genetic Programming - Titanic Assignment ===
+Code for my MOGP algorithm creation:
+[[files/Screen Shot 2021-02-23 at 9.38.55 PM.png|none|thumb|655x655px]]
+[[files/Screen Shot 2021-02-23 at 9.39.44 PM.png|none|thumb|658x658px]]
+Results (tp, fp, fn, tn): 
+[[files/Screen Shot 2021-02-23 at 9.58.09 PM.png|none|thumb|670x670px]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes for 2/17/21
+|Completed
+|2/17/21
+|2/24/21
+|2/23/21
+|-
+|Team Meeting 2 Notes - Titanic Assignment
+|Completed
+|2/21/21
+|2/24/21
+|2/23/21
+|-
+|Multi-Objective Genetic Programming - Titanic Assignment
+|Completed
+|2/17/21
+|2/24/21
+|2/23/21
+|-
+|Prepare for Presentations on 2/24/21
+|Completed
+|2/17/21
+|2/24/21
+|2/23/21
+|}
+
+== Week of 2/24/21 ==
+
+=== Presentation Meeting Notes ===
+* Aspects covered in the presentation: Data Processing, Machine Learning Models, MOGP Design Evaluation, MOGP Design Selection, MOGP Results, and Comparision of ML and MOGP.
+* We should not have done feature selection before using MOGP to create a prediction model. 
+* By doing so, it negated the multi-objective aspect of genetic programming.
+* Due to the fact that we used feature selection beforehand, our Pareto optimal curve was condensed in the middle due to its increased accuracy. 
+* If feature selection were to be avoided, the process towards attaining the objective was done properly.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Present Titanic Assignment
+|Completed
+|2/24/21
+|2/24/21
+|2/24/21
+|-
+|Presentation Meeting Notes
+|Completed
+|2/24/21
+|3/3/21
+|3/2/21
+|}
+
+== Week of 3/3/21 ==
+
+=== Lecture Meeting Notes ===
+* Evolution allowed for more co dominate solutions that allow for more options covering a wide range.
+* Download EMADE, MySQL, git-lfs
+* Running EMADE is a one-line effort.
+* The input file is an XML file. We will be running the file locally.
+* Database Configuration: There will be a master and workers that run EMADE. Everyone that isn’t running the database server needs to include an IP Address.
+* Datasets: specifies multiple Monte Carlo folds
+* Objectives: XML descriptions of what EMADE should use to do its optimizations.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Meeting Notes
+|Completed
+|3/3/21
+|3/10/21
+|3/3/21
+|-
+|Download EMADE
+|Competed
+|3/3/21
+|3/17/21
+|3/16/21
+|-
+|Download MySQL
+|Competed
+|3/3/21
+|3/17/21
+|3/16/21
+|-
+|Download git-lfs
+|Competed
+|3/3/21
+|3/17/21
+|3/16/21
+|}
+
+== Week of 3/10/21 ==
+
+=== Lecture Meeting Notes ===
+* Trouble shooting downloading EMADE, MySQL, git-lfs
+* Coordinated with teammates to start Titanic Assignment Part 3
+* Work out the starting aspects of the project
+* Figure out how to achieve the target objective
+
+=== Team Meeting Notes (3/16/2021) ===
+* Attempted to setup MySQL server.
+* Resolved campus VPN issue.
+* Collaborated on EMADE setup for multiple team members.
+* Collaborated on EMADE setup for multiple team members.
+* Decided to continue the meeting on Friday due to the server error.
+* Assisted several members on MySQL database installation.
+* Notify the team regarding the next meeting time.
+* Continue to set up MySQL server.
+* Continue to install EMDAE.
+
+=== EMADE Installation ===
+* Issues
+** Python 3.6 or 3.7 and DEAP 1.2.2 was required to run emade
+** Could not remotely connect to mysql database
+* Resolve
+** Changed bind-address to 0.0.0.0
+** Check if port 3306 (mysql port) is open using “nmap -p 3306 [host-address] -Pn”
+** Must specifically open port through the firewall in order for others to connect
+** Used an AWS Lightsail server with a mysql database for all of us to use
+[[files/Screen Shot 2021-03-25 at 5.21.24 PM.png|none|thumb|490x490px|Conda environment activation]]
+
+=== Emade Run ===
+* Exercise: to run it on Titanic dataset
+* Input files/ templates/input_titanic.xml
+** Contains python config
+** Contains dbConfig
+** Objective: minimize False positives and False Negatives
+** Uses 5-fold training data sets
+* Emade Run:
+** Master (Kevin): python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+** Others (worker): python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+** MySQL Query: select count(evaluation_status) from titanic.individuals group by evaluation_status;
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Meeting Notes
+|Completed
+|3/10/21
+|3/17/21
+|3/16/21
+|-
+|Team Meeting Notes
+|Competed
+|3/16/21
+|3/17/21
+|3/16/21
+|-
+|Resolve EMADE Installation Issues
+|Completed
+|3/16/21
+|3/17/21
+|3/17/21
+|-
+|Start Running EMADE
+|Completed
+|3/16/21
+|3/17/21
+|3/17/21
+|}
+
+== Week of 3/17/21 ==
+
+=== Team Meeting Notes (3/19/2021) ===
+* Switched server to AWS lightsail server.
+* Added workers’ IP address to the server using wildcard.
+* Clarified on virtual python environment setup using Conda.
+* Assisted server group members to connect to AWS server.
+* Achieved four running worker processes
+* Set up and Fill in the LettuceMeet for Weekend (2 to 3 hrs) meeting availability.
+* Connect to AWS lightsail server.
+* Continue to install EMDAE.
+* Notify the team regarding the next meeting time.
+
+=== Team Meeting Notes (3/21/2021) ===
+* Delegated tasks to each team member on the presentation.
+* Updated MOGP slides and removed tournament selection.
+* Updated Pareto front curve for ML, MOGP, and EMADE section.
+* Condensed ML and MOGP slide lengths.
+* Added more EMADE related sections to the presentation, includes installation, run, methodology, and parse tree.
+* Continue to update the presentation slides per the responsibility assigned.
+* Remind the team of the next rehearsal time on Monday.
+* Preparing for presentation scripts.
+
+=== EMADE Methodology ===
+* Minimal data cleaning (no parameters removed)
+** Unlike for ML and MOGP where we dropped ‘Name’, ‘Embarked’, and ‘PClass’
+* We ran til 21 generations (2-3 hours with 3 workers and 1 master)
+* Unlike for ML and MOGP, we will distribute computing power to have a genetic algorithm that works with more individuals per generation (~300 individuals per gen)
+* With minimizing FN and FP as the goal we will run across several generations to create several pareto optimal models for the Titanic problem set
+* Shared db through mySQL, monitored and analyzed data through mySQL queries.
+
+=== Output Analysis: Pareto Individuals over time ===
+* SQL Query: select generation,count(generation) from individuals join paretofront on individuals.hash=paretofront.hash group by generation;
+
+* 38 Pareto individuals in Final generation
+* Pareto individuals almost linearly increased over generations.
+[[files/Screen Shot 2021-03-25 at 5.45.47 PM.png|none|thumb|Pareto Individuals Over Time]]
+
+=== Output Analysis: Valid Individuals over time ===
+* SQL Query: select count(generation) from titanic.history group by generation;
+
+* This graph shows the valid individuals for each generation
+* The final generation got 294 such individuals
+[[files/Screen Shot 2021-03-25 at 5.48.24 PM.png|none|thumb|286x286px|Valid Individuals over time]]
+
+=== Output Analysis: Final Generation ===
+* 294 valid individuals on graph (in blue dots)
+* SQL QUERY: select tree, `FullDataSet False Positives`, `FullDataSet False Negatives` from individuals where `FullDataSet False Negatives` is not null;
+
+* 38 pareto individuals (in red dots)
+* SQL QUERY: select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+[[files/Screen Shot 2021-03-25 at 5.50.44 PM.png|none|thumb|Final Generation]]
+
+=== Compare Individual and Cluster Run ===
+* Cluster run is more efficient when determining pareto optimality:
+** When working with individual runs, we had to manually determine Pareto optimality by comparing the TP/FP rates with our teammates, which required a lot of effort. When working with cluster runs, EMADE automatically calculates Pareto optimality, which makes the process much more efficient.
+* The process runs faster in cluster run because of the shared computer power.
+** A lot more processing power is generated and multiple individuals are being evaluated at once, which allows for us to work through more generations and have more individuals
+* There is a lot less redundancy when working with EMADE. 
+** When working with individual runs, there is a chance that a specific individual in the population was being evaluated multiple times because each process was independent. Whereas with emade, an individual won’t be evaluated more than once because there is only one process running.
+* EMADE allows for more diversity compared to individual run
+** The number of pareto optimal individuals increases as time goes on when working with EMADE because an individual moves on to the next generation as long as Pareto optimality is maintained. Whereas, when working with individual runs, an individual would only move on to the next generation if a certain score was attained during processes such as tourney selection.
+
+=== Pareto Individual Parse Trees ===
+[[files/Screen Shot 2021-03-25 at 5.59.27 PMcs.png|none|thumb|429x429px]]
+[[files/Screen Shot 2021-03-25 at 6.00.32 PM.png|none|thumb|524x524px]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting Notes (3/19/2021)
+|Completed
+|3/19/2021
+|3/19/2021
+|3/19/2021
+|-
+|Team Meeting Notes (3/21/2021)
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|-
+|Describe EMADE Methodology
+|Completed
+|3/19/2021
+|3/21/2021
+|3/20/2021
+|-
+|Output Analysis: Pareto Individuals over time
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|-
+|Output Analysis: Valid Individuals over time
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|-
+|Output Analysis: Final Generation
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|-
+|Compare Individual and Cluster Run
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|-
+|Pareto Individual Parse Trees
+|Completed
+|3/21/2021
+|3/21/2021
+|3/21/2021
+|}
+
+== Week of 3/22/2021 ==
+
+=== Team Meeting Notes (3/22/2021) ===
+* Reviewed our presentation slides and reformated them to Georgia Tech style.
+* Rehearsal on our presentation twice through the bluejeans meeting before the class meeting time.
+* Updated the conclusion page based on EMADE accuracy and running time.
+
+* Updated our presentation slides on the [[Group 1|subteam #1 Wiki page]].
+
+* Update subteam wiki page
+* Everyone good luck with the presentation
+
+=== Stocks Team Notes ===
+* How can we use TI's to predict specific stock trends and generate buy/sell signals
+* How can we use EMADE to optimize market existing trading algorithms
+* Find the literature on stock predictions using TI's, ML, and Genetic Programming
+* Learn about technical indicators and establish which ones might be useful to us
+* Recreate a trading algorithm using our literature as a bias
+* Use EMADE to optimize our trading algorithms cited in published papers
+
+=== EGCP Team Notes ===
+* Continue CIFAR-10 experiments to identify bottlenecks in the system and fix them
+* Get CIFAR working without transfer learning.
+* Hemang - Implementing new primitives (recurrent neural networks/transformers)
+* Research on Transformers and Hyperparameter tuning using genetic evolution
+
+=== NLP Team Notes ===
+* Focusing on NLP applications this semester
+* Linguistically Independent Sentiment Analysis
+* Attention-based bidirectional CNN-RNN Deep Model for sentiment analysis
+
+=== Modularity Team Notes ===
+* We are exploring ways to abstract part of individuals
+* This allows for us to create "building blocks" that can help with the genetic process
+* Ideally, this allows for us to reuse blocks of code
+* May also lead to novel solutions not found by traditional GP
+* EMADE already uses machine learning models as a form of abstraction.
+* Primitive types can be models instead of simple operation found in GP
+* The current implementation is based on Adaptive Representation through Learning (ARLs)
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting Notes (3/22/2021)
+|Completed
+|3/22/2021
+|3/22/2021
+|3/22/2021
+|-
+|Practice Presentation
+|Completed
+|3/22/2021
+|3/22/2021
+|3/22/2021
+|-
+|Take Notes on Stocks Team
+|Completed
+|3/22/2021
+|3/25/2021
+|3/25/2021
+|-
+|Take Notes on EGCP Team
+|Completed
+|3/22/2021
+|3/25/2021
+|3/25/2021
+|-
+|Take Notes on NLP Team
+|Completed
+|3/22/2021
+|3/25/2021
+|3/25/2021
+|-
+|Take Notes on Modularity Team
+|Completed
+|3/22/2021
+|3/25/2021
+|3/25/2021
+|}
+
+== Week of 3/29/2021 ==
+
+=== Lecture & Team Meeting Notes ===
+* Assigned to Stocks Team
+* Further, optimize EMADE with a different fitness function
+* How to get more valid individuals: Monte Carlo Simulation
+* Compare to the buy and hold scenario
+* The purpose of the Monte Carlo approach is to correlate good decisions to buys. Try to figure out baseline performance
+* Make a random decision at a specific buy point. Utilize random variance.
+* Figure out whether expected value or variance outperform coinflip
+* It is a good statistical test to test how good your machine learning model is doing.
+* The further outside the bounds you are, the more powerful the model is.
+* Initiation and onboarding to team
+* How EMADE works 
+* Purpose of team
+* Researching Technical indicators
+* Assigned initial tasks to new incomers
+
+=== Basis Paper Notes ===
+* Stocks trading signals normally use technical indicators to monitor the stock prices and assist investors in setting up trading rules for buy-sell-hold decisions.
+* The stock market is a complex system where decision-making can be very difficult; the market is affected by numerous factors
+* Many researchers try to use formulas and statistical tools to find stock trading signals.
+* A strong trading signal detection method must consider not only stock price variations, but also other information 
+* Pattern recognition is another hot topic been investigated for predicting stock trading signals.
+* Technical index analysis (TA) is the process of analyzing historical stock prices to determine the possible future trends of a stock price. 
+* The parameters of ANN, especially the hidden layer‘s neural number, training rate, and initial random number seed, are always problem-dependent. In experimental results, detailed parameter settings for the neural networks are provided and the gradient method is applied to calculate the connection weights of the neurons.
+* Clustering of financial time series data: data preprocessing is one of the features that can be applied in financial time series data processing. Effective clustering of time series data can further improve the forecasting accuracy of the forecasting system.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes
+|Completed
+|3/29/2021
+|4/5/2021
+|3/29/2021
+|-
+|Team Meeting Notes
+|Completed
+|3/29/2021
+|4/5/2021
+|3/29/2021
+|-
+|Read Basis Paper
+|Completed
+|3/29/2021
+|4/5/2021
+|4/3/2021
+|-
+|Install the team version of EMADE
+|Completed
+|3/29/2021
+|4/5/2021
+|4/3/2021
+|}
+
+== Week of 4/5/2021 ==
+
+=== Lecture Notes ===
+* Generate objective function or use randomize process to assess single individuals
+* Need to consider computations intensity
+* Will prepare for another EMADE run for the weekend
+* Stats for EMADE Presentation
+
+=== Stats for EMADE Presentation Notes ===
+* We collect data on all sorts of metrics in EMADE
+** Objective scores
+** Processing time
+** Area under curve
+** Number of Pareto individuals
+
+Pertinent Formulas:
+[[files/statsSizedTwo.png]]
+
+Distributions:
+[[files/Pic_2_copy.png]]
+
+How to design an experiment:
+* What do we know, the greater the t-statistic, the more unlikely the chance of observing the sample given the hypothesis
+* If we want strong results, we wither need differences in sample means that overwhelm the sample variance or a high number of samples to reduce the * effect of the variance.
+* If you have an idea of the type of change you expect to see, you can compute the number of trials you should need to prove it.
+
+=== Team Meeting Notes ===
+* Connect to Stocks SQL Server 
+* Set up my google colab notebook: [https://colab.research.google.com/drive/1qeicvBm3PfHgfEsXxHeyMGUrZXsrc0TD?usp=sharing Colab Notebook]
+* Determine three subteam groups
+** Literature Review and Research (reading about TIs and figuring out which to use, reading other research papers for ideas)
+** Data Analysis of EMADE runs and individuals
+** Implementation in EMADE
+* Chose to partake in Literature Review and Research
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes
+|Completed
+|4/5/2021
+|4/12/2021
+|4/5/2021
+|-
+|Notes on Stats Presentation
+|Completed
+|4/5/2021
+|4/12/2021
+|4/5/2021
+|-
+|Team Meeting Notes
+|Completed
+|4/8/2021
+|4/12/2021
+|4/8/2021
+|-
+|Read Research Papers
+|Completed
+|4/8/2021
+|4/12/2021
+|4/11/2021
+|-
+|Conduct an EMADE RUN
+|Completed
+|4/8/2021
+|4/12/2021
+|4/8/2021
+|-
+|Reserach Technical Indicators
+|Completed
+|4/8/2021
+|4/12/2021
+|4/8/2021
+|}
+
+== Week of 4/12/2021 ==
+
+=== Lecture & Team Meeting Notes ===
+* Random experiments, change up z score in order to get better results.
+* Will analyze the EMADE run that we had last week this week.
+* Implement technical indicators
+* How to use tests to figure out the significance of the algorithms.
+* Show invariance under different stocks. What happens when you take out five stocks.
+* What type of larger experiments can be done in order to take advantage of automation. 
+* How much does the seeding population affect the automation running?
+* What can I change after I have the pipeline in place?  
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes
+|Completed
+|4/12/2021
+|4/19/2021
+|4/12/2021
+|-
+|Team Meeting Notes
+|Completed
+|4/15/2021
+|4/19/2021
+|4/15/2021
+|-
+|Research Technical Indicators
+|Completed
+|4/15/2021
+|4/19/2021
+|4/18/2021
+|-
+|Start implementing Average Directional Movement Index Technical Indicator
+|Completed
+|4/15/2021
+|4/19/2021
+|4/18/2021
+|}
+
+== Week of 4/19/2021 ==
+
+=== Lecture & Team Meeting Notes ===
+* Final presentation April 30th: 6:00pm - 8:50pm
+* Need to show how effective our implementations are by using statistical approaches during our presentation
+* Turn in notebook after the final presentation (Saturday at 11:59 PM)
+* Peer evals should be done by the 28th, a week from tomorrow
+* Had a few discussion on implementation and EMADE.
+* Our proposed solution is to train an individual to work on any specific stock that is given. To find an algorithm that can work on a specific stock but may need to be trained.
+* We wanted to concatenate the dataset to get a generalized model, but the chances we find something for that are low.
+* We are going to add more datasets to our EMADE run.
+* Adding a longer timeframe with S&P or ETF data. Something that is not bullish.
+* Will make an evaluation function to compare individuals to the monte Carlos simulation.
+* If optimal individuals are different for every stock, we should run emade on different stocks.
+
+=== Average Directional Movement Index (ADX) ===
+ADX stands for Average Directional Movement Index and can be used to help measure the overall strength of a trend. The ADX indicator is an average of expanding price range values. The ADX is a component of the Directional Movement System developed by Welles Wilder. This system attempts to measure the strength of price movement in a positive and negative direction.
+
+* Research shows that a strong trend is present when ADX is above 25 and no trend is present when below 20.
+* When the ADX turns down from high values, then the trend may be ending.
+* If the ADX is declining, it could be an indication that the market is becoming less directional, and the current trend is weakening.
+* If the ADX is rising then the market is showing a strengthening trend.
+* The value of the ADX is proportional to the slope of the trend.
+* The slope of the ADX line is proportional to the acceleration of the price movement (changing trend slope). If the trend is a constant slope then the ADX value tends to flatten out.
+
+Calculation: ADX is simply the mean, or average, of the values of the directional movement index over the specified period.
+
+My implementation of ADX that was used in the EMADE Run:
+
+[[files/ADXTwo.png]]
+
+I sent the code to Abhiram and he pushed the code onto git so that it could be used on the next EMADE run.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes
+|Completed
+|4/19/2021
+|4/26/2021
+|4/19/2021
+|-
+|Team Meeting Notes
+|Completed
+|4/19/2021
+|4/26/2021
+|4/19/2021
+|-
+|Research Technical Indicators
+|Completed
+|4/19/2021
+|4/26/2021
+|4/25/2021
+|-
+|Implement Average Directional Movement Index Technical Indicator
+|Completed
+|4/19/2021
+|4/26/2021
+|4/25/2021
+|}
+
+== Week of 4/26/2021 ==
+
+=== Lecture & Team Meeting Notes ===
+* Did a run of EMADE using some of the new technical indicators such as cdf. 
+* Discussed some results and did some statistical analysis.
+* We found an individual that outperformed all other individuals by a considerable amount. It averages around a cdf of 0.06. Our target is 0.05. 
+* Planning to do another EMADE run with new technical indicators and objectives.
+* We want to modify hyper parameters in EMADE and see how that performs. Although we might not have enough time to do that, considering the end of the semester is here.
+
+=== Final Presentation Workup ===
+
+Aspects to highlight in terms of Technical Indicators:
+
+'''TA-Lib Technical Indicators:'''
+* All existing TI primitives (SMA, EMA, MACD, etc) where reimplemented using TA-Lib (found some existed were implemented incorrectly)
+* Addition of new indicators:
+** BETA - Measures volatility of stock compared to market
+** TSF - Time Series Forecast, Simple linear regression to extrapolate next day price
+** STOCH_RSI - measure of RSI relative to itself (high-low range over a time period)
+** AROON - identifies whether a price is trending or within a trading range
+*** AROONUP - measures length of time since last price high
+*** AROONDOWN - measures length of time since last price low
+** ADX - used to determine the strength of a particular trend, makes use of +, - DIs
+*** 25+ = strength, 20- = weak
+** OBV - indicates degree of momentum, measures buying/selling pressure cumulatively and adds volume on up days and subtracts volume on down days. The actual value of OBV is irrelevant but it is important to pay attention to its direction and trend.
+
+'''Technical Indicators without TA-LIB: Indicators that were not available on TA-Lib were calculated manually'''
+* VWMA (Volume Weighted Moving Average) - prices weighted based on “volume” of trading activity during a particular time period
+** 3-Day VWMA is calculated by multiplying each day’s volume by that same day’s closing price, adding all three combined values together and dividing by the total volume across the three days. (C1*V1 + C2*V2 + C3*V3) / (V1 + V2 + V3)
+* VWAP (Volume Weighted Average Price) - average price weighted by volume
+** Compute typical price ((H + L + C)/ 3), multiply by period’s volume, create a running total of these values and of volume
+** Calculated by dividing the running total of price-volume by the running total of volume
+* FIBRET (Fibonacci Retracement) - used to set price targets, for technical analysis of stocks
+** 23.6%, 38.2%, 61.8%, 78.6% (50% and 100% are also used although not technically Fibonacci ratios)
+* Money Flow Index (MFI) - uses price and volume to identify overbought and oversold scenarios of a stock
+** MFI above 80 shows overbought stock, MFI below 20 is oversold
+* Chaikin Money Flow (CMF)
+** Shows the flow of money in and out of a stock
+* Klinger Volume Oscillator (KVO)
+** identifies long-term trends of money flow and predicts short-term reversals of trends
+
+Speaker Notes: On top of the technical indicators that we re-implemented, we added six new ones that used the TA Lib Library. We tried to implement different types of Technical Indicators so we could have a good variation. For example, some momentum indicators were used such as ADX, leading indicators such as Time series forecast, and volume indicators such as on-balance volume.
+
+=== Final Presentation Notes ===
+
+'''EzCGP'''
+* Recreated similar results on CIFAR-10 without relying on Transfer Learning
+** Improved Neural Architecture Search
+*** Diversified population 
+*** Expanded the set of available primitives to create
+** Tightened testing loop and maintain stable codebase at all times
+** Fine-tuned training parameters and validated assumptions
+* Improved ability to visualize genomes
+* Research, develop, and test new mating methods for Cartesian GP
+* The initial population produced the expected normal distribution in individual sizes
+* Larger individuals performed worse and hence were selected against
+* Larger architectures likely meant more room for mistakes in the architecture in the initial random seed
+* Possible solution could be looking at incremental strategies to make larger architectures such as mutation to add layers and mating
+
+'''NLP'''
+* They chose a simpler dataset
+* Streamlined how they ran EMADE
+* Examined the shortcomings of the implementation of NAS
+* Looked for improvements in increasing order of complexity, from evolution
+** hyperparameters -> primitive debugging -> neural network primitive architecture
+* They chose to set up EMADE on PACE-ICE & document/streamline process
+* identical OS and resources allow for standardized runs
+* Lots of CPUs and GPUs were available
+* Added support to multiple worker nodes, stretches average run from 8
+* EMADE on Amazon:
+** 22 generations over 16 hours on PACE
+** Seeded run with no queue limit
+* Best individual from the run: 
+** Accuracy: 92.8% 
+*** Exceeding benchmark model
+
+'''Modularity'''
+* Goal this semester was to increase the allowed complexity of ARLs; increasing tree depth, allowing imbalanced trees.
+* Edited the search for ARLs to account for greater tree depth
+* Edited the search for ARLs to allow imbalanced trees
+* Created a new weighting function for ARLs to be used as a probability in picking the best candidates
+* The weighting function adds to each occurrence of the ARL
+* Edited multiple other methods to deal with the increased depth of ARLS
+* These methods contract places where ARL subtrees are found in the population into just the single ARL node, pass data into made.
+* Originally, these methods passed in the children directly, but now these methods search for the ARL subtree because of the arbitrary depth they could be.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lecture Notes
+|Completed
+|4/26/2021
+|5/1/2021
+|4/26/2021
+|-
+|Team Meeting Notes
+|Completed
+|4/26/2021
+|5/1/2021
+|4/30/2021
+|-
+|Final EMADE Run
+|Completed
+|4/26/2021
+|4/26/2021
+|4/26/2021
+|-
+|Prepare Final Presentation: TI Part
+|Completed
+|4/26/2021
+|4/30/2021
+|4/29/2021
+|-
+|Final Presentation Notes on Subteams
+|Completed
+|4/30/2021
+|4/30/2021
+|4/30/2021
+|}

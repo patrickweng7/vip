@@ -1,0 +1,962 @@
+== Devan Moses ==
+Team Member: Devan Moses
+
+Email: dmoses@gatech.edu
+
+Cell Phone: 404-509-3758
+
+Interests: 
+*Academic: Artificial Intelligence, Cognition, Bio-Inspired Learning
+*Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
+
+== Apr 30, 2021 ==
+'''Final Presentation Notes:'''
+*Stocks
+**Analyze time series stock data
+**subgroups:
+**#literature and research
+**#analysis
+**#emade implementation
+**Comparisons:
+**#monte carlo sims made a good baseline 
+**#buy hold seems like it wouldnt be a comprehensive enough representation
+**#buy sell lag looks to be something that is good for analysis but I feel could make for a good min objective
+*ezCGP:
+**honestly still not 100% on what benefit this structuring provides over traditional tree-based GP
+**its interesting that the initial populations are nice and diverse and length and the latter ones are standardized to 4-5 depth, I would do some runs with a high min-depth to see not only how the results compare but if it's still trying to minimize depth or if 4-5 is some sort of local minimum
+**I really like the visualization of an individual in it's entirety, its gives me a much more concrete view of what theyre talking about even without intimate understanding
+**For the one point crossover, i realize it's done equidistant from the root but does that guarantee equal progress at that point? or could this be another thing causing individuals to be of similar length
+*NLP:
+**is the change to a simpler dataset due to architectural limitations? if so it seems like a waste to me to just ignore future multiclass runs, architecture can always be worked on after getting it to run nicely with simpler datasets
+**this question may be outside the scope of our research but why does the vocabulary have to be predefined? either way would we be able to develop the vocab using gp as well then feed that into the model for NLP, further abstracting the process?
+**I really appreciate all the work being put into documentation and intro level information in this team
+**the final results seem indicative that FNR and FPR may not be the best for this dataset. it really does look like the model is minimizing one and letting fate take the wheel on the other. I would be interested to find out if this is the result of the objectives or something else in the process. if changing the objectives doesn't change the trend there could be a deeper problem?
+*Modularity feedback:
+**consider plotting a number of individuals' fitness scores and checking for a correlation
+
+== Apr 26, 2021 ==
+'''Team Meeting Notes:'''
+*Stocks
+**made graphs of higher performing individuals, comparing them to the Monte Carlo simulation
+**added new TI's and objective functions
+*ezCGP
+**scraped keras' pretrained layers for potential new primitives
+**symbolic regression visualization
+**mating was useful, interesting because in CGP it's typically destructive
+*Modularity
+**Flatten to 2d objective space, consider precision and recall?
+*NLP
+**swapped to FPR and FNR
+**significantly increased run speeds, about 6 fold
+
+'''Sub-team notes:'''
+*we've got some new seeded individuals
+*what we really need is data, we will do baseline runs and ARL runs using the new objectives and seeded individuals
+
+
+'''Individual notes:'''
+*This week was all about getting together with the other first semesters and running as much as we can.
+*ran as a worker on laptop for 4 full multi-hour runs
+*added slides for the work aazia and I did on the new objectives and mapped the general flow of our portion
+*aazia hosted a run for us to confirm the difference in weighted averaging
+
+*Answers to some of the questions from last week:
+*#Why is individual a parameter yes never used?
+*#*part of emade architecture
+*#Why do we invert the scores and minimize?
+*#*minimizing gives our model a goal, 0, rather than arbitrarily higher and higher numbers
+*#Is there a disadvantage to minimizing some and maximizing other objectives
+*#*team didnt think so, also basically the same because inverting should lead to same results
+*#We were recommended to look into recall and precision, with all of these metrics using the same statistics as the base, wouldn't we be skewing our results?
+*#*this is a concern and something to consider going forward
+[https://docs.google.com/presentation/d/1SLLHwjsy-ZHV4OqAXDBclBeTzqrSbyCNCJNRZs0a8Kc Modularity ppt]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Runs, runs, runs
+|Completed
+|Apr 25, 2021
+|Apr 29, 2021
+|Apr 29, 2021
+|-
+|plan and add slides
+|Completed
+|Apr 25, 2021
+|Apr 29, 2021
+|Apr 29, 2021
+|}
+
+== Apr 19, 2021 ==
+'''Team Meeting Notes:'''
+*General Notes:
+**Want to move to more focused sub-teams with a more concrete research goal in mind
+*Stocks
+**Goal: Run emade to develop optimal individual to perform on that specific stock
+**add an objective function for CDF of normal distribution and new TI's
+**experiment to see if each stock required its own individual, results indicate the opposite which is good
+*ezCGP
+**fixed some obscurity in visualization by changing parameters to the actual input
+**consider limiting the parameters for increased efficiency
+**getting some GPU errors, reproducible with same seeds
+*Modularity
+**Compare mnist on cachev2 vs our branch
+**the 2 objectives are currently returning the same value, limiting our elite pool and significantly impairing the advantages of MOGP
+***in fact reduces elite pool to one individual, ruining the ability to propagate good traits
+*NLP
+**LSTM individual seeded runs resulted in non-LSTM individuals, interesting that this was being evolved away from
+
+'''Sub-team notes:'''
+*General:
+**careful of short seeded runs, initial populations will normally be very similar
+**ephemerals (type of terminal) - objects that, when called, can be regenerated. ex. can swap between learners (CNN -> Random Forest, etc)
+*Analysis:
+**we want to know why our individuals work well, ex.maybe individuals using scalarmultiply or sum are making the given pixel's color more distinct
+*Problems:
+**selection could use some work, requires more research
+**Learners might be being classed all together, important to differentiate for evaluation
+**need to move away from using lambdas for node abstraction, causing problems on recall
+
+
+'''Individual notes:'''
+*Aazia and I tasked with looking into new objective functions
+[[files/APR19-notes.PNG|right]]
+*I looked into our codebase and have some questions:
+**Why is individual a parameter yes never used?
+**Why do we invert the scores and minimize?
+**Is there a disadvantage to minimizing some and maximizing other objectives
+**We were recommended to look into recall and precision, with all of these metrics using the same statistics as the base, wouldn't we be skewing our results?
+*The process:
+**We unintentionally divided the work with Aazia focusing on finding and running new objectives and me analyzing and troubleshooting them.
+*#First I simply added precision and recall with default parameters using skl's implementation
+*#Aazia told me about an error she was getting: the default parameter average='binary' doesn't work for multiclass objectives (strange that I wasn't getting the same error)
+*#I looked into it and it turns out that the averaging has 4 options and we need to use one between micro, macro, and weighted. I chose micro without much thought after quickly reading the descriptions to make sure the runs continue 
+*#Well after looking deeper into it, it turns out that precision, recall, and f1 score using micro averaging all give the same result as accuracy. this is because fp and fn end up being the same when counted globally.
+*#*The solution to this was to change the averaging to weighted. this allows the fn and fp to be counted by class, as well as weighting the results based on the number of results in each class.
+*#Aazia introduced Cohen Kappa score and found herself getting good results. [[files/weighted.PNG|right]]
+*#*I looked into it and its essentially a ratio of how well our classifier is doing compared to a completely random one.
+*#*interestingly enough the initial implementation was to return 1 - Cohen Kappa to invert it into a minimize problem like the rest of the metrics, what I found after looking into it is that it doesn't return in the same fashion as the others:
+*#**it returns a value between -1 and 1 ranging from trash to the same as random to perfect and inverting it the way we did ended up being correct, it moved the range to 0-2 and flipped the goal into a minimization problem
+*The takeaway:
+**use cohen kappa along with one of the confusion matrix based objectives
+**possible correlation?
+[[files/Same-score.png]]
+[[files/Same-score2.png]]
+[[files/3 objectives.PNG]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research and add new objective functions
+|Completed
+|Apr 18, 2021
+|Apr 22, 2021
+|Apr 24, 2021
+|-
+|Meet with Aazia
+|Completed
+|Apr 18, 2021
+|Apr 22, 2021
+|Apr 22, 2021
+|-
+|Do runs whenever possible using potential objective functions
+|Completed
+|Apr 18, 2021
+|Apr 23, 2021
+|Apr 23, 2021
+|}
+
+== Apr 12, 2021 ==
+'''Team Meeting Notes:'''
+*Stocks
+**how much does seeding affect the results??
+**use other set's of stocks to determine if the solutions are tied to the current dataset
+*ezCGP
+**primitives are single in/out, consider multiple input
+*Modularity
+**one hot encoded?
+**try precision/recall metrics or confusion matrix data for objective (currently 2 equivalent objectives)
+**consider new objective functions to target confusors once there are results indicative of them
+*NLP
+**setup PACE functionality w/EMADE
+**NN representation
+*Some general notes:
+**Ephemerals - obj(terminals) that when called can be regenerated (ie. can swap b/w learners KNN->RandomForest)
+**why do individuals work well?
+**Is the selection method working as intended?
+
+'''Sub-team notes:'''
+*Possible Problems: Learners not being differentiated at the moment?, Move away from lambda functions
+*Problems:
+**Objective functions return the same metric
+**Not getting valid fitnesses (wasn't just me)
+**not enough individuals for some people
+*Notes on feature data vs stream data:
+**feature data is like the titanic dataset
+**it goes directly into the learners (out of the box models) for prediction
+**stream data (images) require a feature extraction step (stream data -> feature data) before processing
+*Hypothesis that there may be a problem in feature extraction if we cannot get valid individuals
+*Seeded individuals don't seem to be propagating very well, why? Possibly during mating/mutation
+
+'''Individual notes:'''
+*3rd paper from intro ppt, An Analysis of Automatic Subroutine Discovery in Genetic Programming
+**The important point for this method is the selection of useful pieces to carry on.
+**This paper gives a number of heuristics to accomplish this such as random choice, frequency-based, evaluating a block with a fitness function, average fitness of the individuals the blocks belong to, and a number of others.
+**Random fit seems to be the best general choice while the others show varying levels of effectiveness depending on domain
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read at least one paper (3/3) from intro
+|Completed
+|Apr 12, 2021
+|Apr 17, 2021
+|Apr 17, 2021
+|}
+
+== Apr 5, 2021 ==
+'''Team Meeting Notes:'''
+*Statistics for analysis
+**TLDW; Use the Student's t-Test (confidence intervals) to determine the probability of your sample being representative of your population
+**high t-value is indicative that your sample may not be representative and results in a low p-value (the equivalent probability based on the t-value's normal distribution)
+**google confidence intervals and student t-test for more information and formulas
+
+'''Sub-team notes:'''
+*Goals: increased diversity and determining the selections method.
+
+'''Individual notes:'''
+*First run and individuals are invalid?
+**Not sure if an issue on my part with setup, ask at meeting next week
+*2nd paper from intro ppt,Towards Automatic Discovery of Building Blocks in Genetic Programming
+** essentially laying down the reasoning for wanting structured building blocks for GP and strats leading up to ARLs
+** instead of blindly modifying/competing, we're sort of seeding the populations 'subroutines' through evolution
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run firs mnist trial
+|Completed
+|Apr 5, 2021
+|Apr 10, 2021
+|Apr 10, 2021
+|-
+|Read at least one paper (2/3) from intro
+|Completed
+|Apr 5, 2021
+|Apr 10, 2021
+|Apr 10, 2021
+|}
+
+== Mar 29, 2021 ==
+'''Team Meeting Notes:'''
+*Modularity team
+
+'''Sub-team notes:'''
+*I asked for another rundown of what we do:
+**Automatically defined functions (ADFs) -> ARLs
+**We use MNIST dataset
+*Intro
+**[https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit#slide=id.g720ad7ae25_2_82 Intro ppt]
+
+'''Individual notes:'''
+*Setup the repo on my PC
+*The first paper "Discovery of Subroutines in Genetic Programming" was really interesting becuase it uses pac-man as the first example to explain ARLs in context
+**Would recommend as the first read as paper's can be quite dry sometimes.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup repo/collab for emade fork
+|Completed
+|Mar 29, 2021
+|Apr 1, 2021
+|Apr 1, 2021
+|-
+|Read at least one paper (1/3) from intro
+|Completed
+|Mar 29, 2021
+|Apr 3, 2021
+|Apr 3, 2021
+|}
+
+== Mar 22, 2021 ==
+'''Team Meeting Notes:'''
+*Presentations:
+*#Stocks
+*#*Market analysis and portfolio optimization
+*#*TIs(technical indicators) to predict stock trends
+*#*Uses piecewise linear regression
+*#ezCGP
+*#*Graph based approach (as opposed to emade's tree based approach [even though a tree is a graph... but semantics])
+*#*Uses a block structure allowing for some abstraction/modularity
+*#Modularity
+*#*Abstractions for reuse
+*#*AFter genetic operations (mate/mut), abstract ARLs(adaptive representation through learning) from high fitness individuals and use a primitives for future generations
+*#NLP
+*#*takes advantage of PACE-ICE
+*#*working to complete runs on Amazon review dataset
+
+
+
+'''Sub-team notes:'''
+*N/A
+
+'''Individual notes:'''
+*Modularity > NLP > ezCGP > Stonks
+**ezCGP was confusing and stocks team will surely be highly requested
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Choose team
+|Completed
+|Mar 22, 2021
+|Mar 26, 2021
+|Mar 25, 2021
+|}
+
+== Mar 17, 2021 ==
+'''Team Meeting Notes:'''
+*Teams still having trouble connecting
+*possible issues
+**firewall
+**not on vpn
+**if youre on the vpn use your new vpn ip's instead of the usual ones
+**make sure to make a user on your sql database for each of your team members and that they connect using those credentials in their input file
+**set your bind address for sql
+
+
+'''Sub-team notes:'''
+*Most of the group came to the meeting this week :)
+*Some of the team now communicated needing help getting emade working
+*Me, Hua, and Dhruv setup the p2p network.
+**instead of going about it the recommended way we set up port forwarding in Hua's router and connected to his public ip directly
+*we need to transfer our splitter.py to emade formatting, FN/FP -> FNR/FPR, and to do some runs 
+
+'''Individual notes:'''
+*I wrote the splitter file
+**removed vectorize
+**use np.hstack to tack truth value at the end for emade formatting
+**for any new students, learn a bit about numpy arrays and panda dataframes' methods, it will make your life easier
+*linked to Hua's PC for runs
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Write splitter
+|Completed
+|Mar 17, 2021
+|Mar 18, 2021
+|Mar 18, 2021
+|-
+|Help team with aforementioned setup issues
+|Completed
+|Mar 17, 2021
+|Mar 17, 2021
+|Mar 17, 2021
+|-
+|Group meeting
+|In progress
+|Mar 17, 2021
+|Mar 17, 2021
+|Mar 17, 2021
+|-
+|p2p for runs
+|Completed
+|Mar 17, 2021
+|Mar 20, 2021
+|Mar 20, 2021
+|}
+
+== Mar 10, 2021 ==
+'''Team Meeting Notes:'''
+*Problems with emade
+**wrong version of deap "ValueError: selTournamentDCD: individuals length must be a multiple of 4"
+**needs to be in its own virtual env to use older python version
+**teams should have gotten up and running by now 
+
+
+'''Sub-team notes:'''
+*Could not get team together for meeting, attempted setting a date and time with no responses
+
+'''Individual notes:'''
+*turns out I was running into an issue that didn't show up initially (first ~10 mins of practice runs), this was solved by changing to python37 and deap 1.2.2
+*Fixed issue and got first good run with valid individuals
+*Objective functions in emade look for FP/FN, we need FPR,FDR
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Play with input/eval functions to see how much we are 'allowed' to change before it doesn't work
+|Completed
+|Mar 10, 2021
+|Mar 13, 2021
+|Mar 13, 2021
+|-
+|Actually make sure everything is installed and runs
+|Completed
+|Mar 10, 2021
+|Mar 10, 2021
+|Mar 10, 2021
+|-
+|Group meeting to run p2p
+|Completed
+|Mar 10, 2021
+|Mar 14, 2021
+|Mar 17, 2021
+|}
+
+== Mar 3, 2021 ==
+'''Team Meeting Notes:'''
+*Intro to emade (evolutionary multi-objective algorithm design engine)
+**Uses mysql database to store data.
+**Launch with python (python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml)
+**Input file:
+**#python config (automatic)
+**#database config
+**#*mysql server info
+**#datasets
+**#*set test/train split file locations here
+**#*uses python file containing splitting logic similar to code from our previous project iterations
+**#objective
+**#*contains objective, min/max, location of the evaluation function and other optimizations for objective
+**#evaluation params
+**#*contains mating/mutating methods names (from eval file) and probabilities
+**can use "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w" to indicate youre a worker if you have the master's server info in input file.
+**can access data in the sql datasets created by running the program
+
+'''Sub-team notes:'''
+*Decided that the master will likely be Hua's computer due to superior spec's (subject to change in case the meeting tells another story)
+*Was difficult to get a meeting done this week because midterms and this requires everyone.
+
+'''Individual notes:'''
+*running this alone abuses my old laptop, p2p is definitely the play.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Actually look through EMADE codebase
+|Completed
+|Mar 3, 2021
+|Mar 6, 2021
+|Mar 6, 2021
+|-
+|Play with sql terminal and database manipulation
+|Completed
+|Mar 3, 2021
+|Mar 6, 2021
+|Mar 6, 2021
+|-
+|Make sure everything is installed and runs
+|Completed
+|Mar 3, 2021
+|Mar 6, 2021
+|Mar 6, 2021
+|-
+|Group meeting to run p2p
+|In progress
+|Mar 3, 2021
+|Mar 6, 2021
+|
+|}
+
+== Feb 24, 2021 ==
+'''Team Meeting Notes:'''
+*Presentations
+*Some observations from Dr.Zutty:
+**NSGA2 is supposed to work in tandem with a tournament style selection
+**Make sure to bound pareto graphs to include 0 and 1 for more accurate results
+
+'''Sub-team notes:'''
+*Decided to only make minor changes to the presentation
+
+'''Individual notes:'''
+*Edited team wiki
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review presentation based on Dr.Zutty's observations
+|Completed
+|Feb 24, 2021
+|Feb 26, 2021
+|Feb 26, 2021
+|-
+|Review with team and prep presentation
+|Completed
+|Feb 24, 2021
+|Mar 2, 2021
+|Mar 3, 2021
+|}
+
+== Feb 17, 2021 ==
+'''Team Meeting Notes:'''
+*Discussed previous weeks findings
+*Important take-aways:
+*#Direct mapping (a b c -> 1 2 3) is bad as it introduces bias
+*#*Can use onehot encoding (a b c > [1 0 0], [0 1 0], [0 0 1]) changes to separate categories represented using binary values
+*#Data itself can be biased - ex.may contain significantly more 'survives' than 'dies'
+*#*Can use different sampling methods (stratified, over/under) to accommodate for the bias
+*#For gp version you can consider additional terminal constants such as average age or random values
+
+'''Sub-team notes:'''
+*Meeting 1
+**I brought up normalization and rounding, then comparing to truth values to evaluate the individuals; team agreed
+**Zhao offered a formula for normalization
+**We decided which parts of the algorithm can be tweaked and agreed to do some individual testing.
+*Meeting 2
+**Zhao noticed better results with more mutation options and varAND when the number of generations is greatly increased
+**David tested out some other MO selection algorithms such as SPEA2
+**End result was higher diversity with a large number of generations yielded the best results 
+
+'''Individual notes:'''
+*Observed that a single objective of minimizing the difference between normalized output and truth values could be a good avenue given complete freedom for the problem
+*Wrote the initial iteration of the algorithm as follows:
+*Started with a few important questions:
+*#How to make the function take more variables? Change arity when instantiating the pset
+*#How can we normalize? Use MinMaxScaler from skl (requires dataframe/nparray manipulation)
+*Some initial settings:
+*#pset = add, subtract, multiply, sin, cos, tan
+*#genHalfandHalf for initial individual generation
+*#NSAG2 selection
+*#One point crossover
+*#Uses an implementation similar to skl's muPlusLambda algorithm
+*#*Keep next gen chosen from (offspring + pop) to ensure best genes passed on
+*#Uses an implementation of varOR
+*#*Makes mutation and mating mutually exclusive in an attempt to preserve good genes
+*Possible problems:
+*#Several generations without changed in min/max
+**[[files/Titanic-GP-Problem1.PNG]]
+*#Reach a minimum of 0, then raises again
+**[[files/Titanic-GP-Problem2.PNG]]
+
+*The results for a quick 50 generation run were as follows:
+<div><ul> 
+<li style="display: inline-block; vertical-align: top;"> [[files/Titanic-GP-genStats.PNG|thumb|FPR: Red/Orange FNR: Blue/Green]] </li>
+<li style="display: inline-block; vertical-align: top;"> [[files/Titanic-GP-ParetoFrontier.PNG|thumb|Pareto frontier]] </li>
+</ul></div>
+
+*[https://github.gatech.edu/dmoses33/VIP-GP-Titanic/blob/master/GP-Titanic.ipynb GP-Titanic Notebook]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Group meeting
+|Complete
+|Feb 17, 2021
+|Feb 18, 2021
+|Feb 18, 2021
+|-
+|Go through DEAP docs/Lab I/Lab II to understand algorithms
+|Completed
+|Feb 17, 2021
+|Feb 20, 2021
+|Feb 20, 2021
+|-
+|Implement my algorithm
+|Completed
+|Feb 17, 2021
+|Feb 20, 2021
+|Feb 20, 2021
+|-
+|Integrate with team and prep presentation
+|Completed
+|Feb 17, 2021
+|Feb 21, 2021
+|Feb 24, 2021
+|}
+
+== Feb 10, 2021 ==
+'''Team Meeting Notes:'''
+*Sub-team created: Me, Zhao, David, Devesh, and Dhruv.
+*Intro to data science competition website, Kaggle.
+*Intro and run through of example submission for Titanic exercise.
+*General workflow:
+*#Clean data (numericize, categorize, check relevance, delete useless)
+*#Split data into folds: 1 for training model, 1 for testing model
+*#Choose model, then fit using training data and predict on test data
+
+'''Sub-team notes:'''
+[[files/Titanic-data-precleaning.PNG|thumb|Caption|Data before]]
+*Remove 'Sibsp' and 'Parch' in favor of 'isAlone' boolean
+*Remove 'Name', 'Ticket', and 'Cabin' after determining they're irrelevant or duplicate data
+*NaN values in 'Age' and 'Fare' are set to the respective mean while embarked is set to 0
+*Sex is mapped to 0 and 1 for male and female respectively
+*Embarked is mapped using numerical category codes which simply enumerates the given options
+*Fare and Age are set to numerical categories representing 4-5 splits of the data using ranges based on pandas cut method and observation
+*Decided to use Cross Validation for further evaluation of our models
+*Decided to change test split size to 0.25
+[[files/Titanic-data-postcleaning.PNG|thumb|Caption|Data after]]
+
+'''Individual notes:'''
+*Create GroupMe and Discord for group, introducing when2meet.com to schedule meeting
+*Created 'isAlone' which was later added into team
+*Created ranges for Age and Fare which was later added into team
+*Created code for the preprocessed data, added in other groups members ideas and posted on GitHub so the group's preprocessing can be consistent
+*1-on-1 with Dhruv to play by play the code
+*Research skl's classification models, other Kaggle submissions, and cross validation suggested by teammate
+*Decided to use a decision tree, none of the parameters were very relevant
+*Lab Observations:
+**Changing the size of the split was beneficial for some and detrimental to others.
+**Data cleaning requires some research to decide what is important and in which form will it be the most helpful
+**Making ranges out of Age and Fare was a good method to determine possible correlation:
+[[files/Titanic-agerange.PNG]]
+[[files/Titanic-farerange.PNG]]
+*The results were as follows:
+<div><ul> 
+<li style="display: inline-block; vertical-align: top;"> [[files/Titanic-confusionmatrix.PNG|thumb|FPR: 0.23 FNR: 0.16]] </li>
+<li style="display: inline-block; vertical-align: top;"> [[files/Titanic-clfcvScores.PNG|thumb|The decision tree and cross validation scores]] </li>
+</ul></div>
+
+*[https://github.gatech.edu/dmoses33/VIP-Titanic/blob/master/Titanic.ipynb Titanic Notebook]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Group meeting
+|Complete
+|Feb 10, 2021
+|Feb 14, 2021
+|Feb 14, 2021
+|-
+|Go through skl models
+|Completed
+|Feb 10, 2021
+|Feb 14, 2021
+|Feb 14, 2021
+|-
+|Complete my models implementation
+|Completed
+|Feb 10, 2021
+|Feb 14, 2021
+|Feb 15, 2021
+|}
+
+== Feb 3, 2021 ==
+'''Team Meeting Notes:'''
+*Multiple Objective in MOGA/GP
+*#Gene pool - Set of all possible genomes (tree, string, etc)
+*#Search Space - Set of all possible genomes (for AAD: all algo's) - "Genotypical Space"
+*#Objective Space(Score space) - Set of all scores - "Phenotypical Space"
+**Thus evaluation is a mapping: search space (genotypical) -> objective space (phenotypical)
+[[files/PosNeg-_Chart.PNG|thumb|link=https://vip.gatech.edu/wiki/index.php/files/PosNeg-_Chart.PNG]]
+*Classification measures
+**True/False Positive - Result SHOULD be positive and results ARE/NOT positive. ->
+**True/False Negative - Result SHOULD be negative and results ARE/NOT negative. ->
+*Maximization Measures
+**Sensitivity or True Positive Rate (TPR) (AKA hit rate or recall)
+***TPR = TP/P = TP/(TP + FN) => # Successful positive classifications over total possible positives
+**Specificity (SPC) or True Negative Rate (TNR)
+***TNR = TN/N = TN/(TN + FP) => # Failed positive classifications over total possible positives
+**Bigger is better => % successful classifications
+*Minimization Measures
+**False Negative Rate (FNR)
+***FNR = FN/P = FN/(TP + FN) => # Failed positive classifications over total possible positives
+***FNR = 1 - TPR => Compliment of Sensitivity/True Positive Rate
+**Fallout or False Positive Rate (FPR)
+***FPR = FP/N = FP/(FP + TN) => # Failed negative classifications over total possible negatives
+***FPR = 1 – TNR = 1 - SPC => Compliment of Specificity/True Negative Rate
+**Smaller is better => % failed classifications
+*Other Measures
+**Precision or Positive Predictive Value (PPV)
+***PPV = TP / (TP + FP) => Correctly predicted positives over total predicted positives
+**False Discovery Rate (FDR)
+***FDR = FP/(TP + FP) => Incorrectly predicted positives over total predicted positives
+***FDR = 1 - PPV => Precision's compliment
+**Negative Predictive Value(NPV)
+***NPV = TN / (TN + FN) => Correctly predicted negatives over total predicted negatives
+**Accuracy (ACC)
+***ACC = (TP + TN) / (P + N) => Total correct predictions over total predictions
+***(P + N) = (TP + FP + FN + TN) => These are interchangeable in the denominator above
+**Bigger is better for those that say "Correct/Successful", the opposite is also true.
+*Pareto Optimality
+**An individual is PO if: no other individual is better than it at everything => everything that is better than it in some way is worse than it in at least one other way
+[[files/Objective-Space.PNG|thumb|link=https://vip.gatech.edu/wiki/index.php/files/Objective-Space.PNG]]
+**The set of these individuals: Pareto Frontier
+*Nondominated Sorting Genetic Algorithm II (NSGA2)
+**Individuals are ranked based on "Pareto Ranks"
+**#First pareto frontier => all points are R = 1
+**#Second pareto frontier => R = 2
+**#Repeat until ranked
+**Ties are decided by "crowding distance": won by individual with a higher sum of the distances from points of the same rank.
+*Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+**Each individual is give a strength "S": # of individuals in the population that it dominates
+**Each individual is give a rank "R": Sum of S's from the individuals that dominate it, meaning pareto individuals: R = 0
+**Ties are decided using the following formula: R + 1/(σk + 2) where σk is the distance from the kth nearest neighbor.
+***Higher distance => less added to R => better rank
+
+'''Sub-team notes(Temporarily Lab Notes):'''
+[[files/Lab2-2-Pareto.PNG|thumb|link=https://vip.gatech.edu/wiki/index.php/files/Lab2-2-Pareto.PNG]]
+*Multiple Objective Optimization
+**We're going to tackle a new problem in target function: -x + sin(x^2) + tan(x^3)
+***Because of this we will be adding trig functions to the primitives
+**The general process is the same as the first part bar the following changes:
+**#We must add the second objective to the Fitness class the new fitness class to our individual
+**#Add new primitives.
+**#Have the evaluation function return both the mean squared error AND length of our individual representing the tree size.
+**#Create a function to determine pareto dominance based on a single individual
+**#(EXTRA)Person some visualization exercises with pareto function. The the blue dot is the reference while green is worse and red is better -> 
+**#We then take advantage of one of deap's evolutionary algorithms, mu + lambda and graph as usual
+**#Becuase this graph isn't representative of our data we make another graph using our pareto individuals from mu + lambda algorithm's output => objective space
+***The curve under this pareto frontier can be used to measure performance.
+*These are the first run, first improved run, and best run respectively:
+[[files/Lab2-2-Pareto-1.PNG]]
+[[files/Lab2-2-Pareto-2.PNG]]
+[[files/Lab2-2-Pareto-3.PNG]]
+*The main changes are the addition of squared/cubed primitives and HEAVILY lowering the mutation rate to 1%, the former being much more impactful.
+
+[[files/Moses_VIP_AAD_notebook_rubric.docx|Notebook Self Assessment]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Lab 2 
+|Complete
+|Feb 3, 2021
+|Feb 6, 2021
+|Feb 6, 2021
+|-
+|Review notes on Multiple Objective GA/GP
+|Completed
+|Feb 3, 2021
+|Feb 6, 2021
+|Feb 6, 2021
+|-
+|Complete notebook self-evaluation
+|Completed
+|Feb 3, 2021
+|Feb 6, 2021
+|Feb 6, 2021
+|}
+
+== Jan 27, 2021 ==
+'''Team Meeting Notes:'''
+[[files/TreeRepresentation1.png|thumb|link=https://vip.gatech.edu/wiki/index.php/files/TreeRepresentation1.png]]
+* Generic programming (Tree based):
+**Individual will be a function rather than a list
+**#input -> individual -> output -> evaluator
+**Represented by a tree
+**#nodes = "primitives" = operators
+**#leaves = "terminals" = input values
+**#input starts at leaves and comes out from the root
+**Tree is converted to Lisp Preordered Parse Tree
+***ex.(3*4)+1 -> [+*341], read top to bottom, left to right, and recursively starting at the root. See illustration ->
+**Crossover
+**#pick two nodes at random and swap subtrees starting from the chosen nodes
+**Mutation
+**#insert, remove, or change a node or subtree
+**An example was to use a third order taylor series expansion as the individual to have the resulting function be as close to y=sinx as possible
+***here we can evaluate error using the sum squared error summation as a metric.
+*This is the general idea behind EMADE.
+
+'''Sub-team notes(Temporarily Lab Notes):'''
+*Symbolic Regression
+**This lab generally has the same steps as last weeks except the adaptation to Tree based GP:
+**#Created individual and fitness classes.
+**#(NEW) Create and populate the set of primitives for problem.
+**#Define the toolbox, individual, population, and compiler.
+**#*(NEW) define a function used to populate our individual with trees and add the ability to compile the trees to the toolbox
+**#Create the evaluation function, in this case using the squared sum of the difference in our individual's output and the desired function's output (x^4+x^3+x^2+x)
+**#Register all the genetic operators
+***(NEW) here we also set a limit to the height of mated and mutated trees
+**Run the main loop and show results.
+*Below are the initial results then after some tweaks, the largest of which being changed the mutation function to grow rather than full:
+**This seems to result in lower averages and more consistent results.
+[[files/Lab2-Results-NoChanges.PNG]]
+[[files/Lab2-Results.PNG]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start Lab 2 
+|Complete
+|Jan 27, 2021
+|Jan 30, 2021
+|Jan 30, 2021
+|-
+|Review notes on genetic programming
+|Completed
+|Jan 27, 2021
+|Jan 30, 2021
+|Jan 30, 2021
+|-
+|Add hyperlink for Lab 2 on calendar
+|Completed
+|Jan 27, 2021
+|Jan 30, 2021
+|Jan 30, 2021
+|}
+
+== Jan 20, 2021 ==
+'''Team Meeting Notes:'''
+* [[Automated_Algorithm_Design|AAD Team Overview]], [[Syllabus_Spring_2021|syllabus]], [[Calendar_Spring_2021|calendar]], and [[Notebooks_Spring_2021|notebooks]].
+* Generic algorithms:
+**Intro:
+***Evolutionary and bio-inspired, several generations are created through mating and mutation of previous population to ultimately work towards producing an individual with the best qualities based on an objective.
+**Keywords:
+*#Individual - One candidate in the population, has specific representation "DNA".
+*#Population - Group of Individuals.
+*#Objective(s) - Characteristic(s) of individual(s) represented as value(s) to be maximized.
+*#Fitness - Relative comparison to other individuals based on objective(s).
+*#Evaluation - A functional that takes an individual and returns objective score(s) used to compute fitness.
+*#Selection - "Survival of the Fittest" - Choose the "parents" of the next generation.
+*#*Fitness Proportionate - Chance of being chosen is based on fitness score, direct correlation. Based on normalized values (dividing each individuals score by total score to give it a percentage weight.).
+*#*Tournament Selection - A number of individuals, n, will be compared, those with higher fitness will be chosen. n is chosen depending on the case.
+*#Crossover(Mating) - Create next generation (new population) based on selected individuals.
+*#*Let's take a 4 bit section of memory as an example for each parent: 0-1-1-0 and 1-1-0-0.
+*##Single Point - Choose a point, split each parent at that point, then the child is created from the left side of one and the right side of the other
+*##*ex. Split at middle -> 0-1-0-0
+*##Double Point - Choose 2 points, split each parent at that point, then the child is created is a pattern of 1-2-1 or 2-1-2
+*##*ex. Split after first and third -> 0-1-0-0 or 1-1-1-0
+*#Mutate - Random change in "genes" for diversity.
+*#*ex. 1-1-1-1 -> 1-1-0-1
+**The general algorithm:
+**#Initialize randomly.
+**#Determine population fitness.
+**#Cycle until objective is reached:
+**##Select parents.
+**##Crossover.
+**##Mutate.
+**One Max Problem
+***100 bits per individual
+***Objective: 1's
+***Evaluation: sum of all 1's
+
+'''Sub-team notes(Temporarily Lab Notes):'''
+* Distributed Evolutionary Algorithms in Python (DEAP)
+**Learned that pip installing DEAP was not the same as conda installing DEAP.
+**One Max 
+**#We create a fitness objective using DEAP's base fitness objective and a tuple with the entries representing the number of objectives and whether to min or max it (1.0 or -1.0). Then, we create an individual and link it to our fitness objective, for the one max problem our individual is represented by a list.
+**#We now create and toolbox and use that to randomize and initialize our individuals and add them to a population list.
+**#Then, we create our evaluation function, the sum of 1's and set our genetic operators: bind our function, double point crossover, 5% binary mutations, and tournament selection of 3 individuals.
+**#The Algorithm
+**##Define the population, map it to the evaluation function and assign the fitness values accordingly.
+**##We then select individuals for crossover, cloning them to work on fresh instances, breed and mutate them at %50 and %20 respectively.
+**##Wipe the old fitness values, reevaluate using new genes, and replace the old population with these new individuals.
+**#Finally, print the stats every generation(min, max, avg, and std), and select the best individual based on fitness value.
+**N Queens
+**#Again, we create a fitness objective using DEAP's base fitness objective and this time we want to minimize (-1.0). Then, we create an individual and link it to our fitness objective, for the n queens problem our individual is represented by a list. We also store a problem size of n = 20 arbitrarily.
+**#Now create the evaluation function, in this case the number of conflicts between queens on a diagonal.
+**#We use the partially matched crossover function in order because this will allow some information on sequential rows to be kept each generation.
+**#The implemented mutation is to shuffle data between indexes, this is to retain the original separation.
+**#Then we bind the functions and selection method to our toolbox and run the main evolutionary method just as in One Max.
+**Another mutation function I implemented was to keep the 2 outer fourths and shuffle the two middle fourths.
+***This aggressive mutation method resulted in worse results all around
+**We can observe that most of the queens end up a knights pattern away from the nearest, this could be worth looking into.
+*Overall observations:
+**The process seems to be:
+**#Create fitness objective and individual.
+**#Create functions for evaluation, crossover, and mutation.
+**#Bind these functions to our toolbox.
+**#Run the loop: init, evaluate, mate, mutate, evaluate, repeat.
+*Because many of the parameters and functions are nearly arbitrarily chosen and tweaks, we can see the advantage of automating the process.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup Notebook
+|Completed
+|Jan 20, 2021
+|Jan 23, 2021
+|Jan 21, 2021
+|-
+|Browse student notebooks and format my own based on observations.
+|Completed
+|Jan 20, 2021
+|Jan 23, 2021
+|Jan 21, 2021
+|-
+|Setup GT GitHub and Anaconda on Laptop
+|Completed
+|Jan 20, 2021
+|Jan 23, 2021
+|Jan 21, 2021
+|-
+|Perform Lab 1 (Genetic Algorithms/DEAP)
+|In Progress
+|Jan 20, 2021
+|Jan 23, 2021
+|Jan 23, 2021
+|-
+|Join our Slack group
+|Completed
+|Jan 20, 2021
+|Jan 23, 2021
+|Jan 21, 2021
+|}

@@ -1,0 +1,975 @@
+==Team Member==
+* Name: Hua Zhao
+* Email: hzhao341@gatech.edu
+* member of NLP project
+** [https://github.gatech.edu/emade/emade/tree/nn-vip NLP project repo]
+** [https://wiki.vip.gatech.edu/mediawiki/index.php/Spring_2021_Sub-team_Weekly_Reports#NLP NLP Team Wiki]
+** my forked EMADE development: https://github.gatech.edu/hzhao341/emade/tree/nn-vip
+* part of Titanic bootcamp
+** [https://github.com/hzhaoc/AAD Hua Zhao's Titanic assignment repo (with brief results)]
+
+== 2021-04-30 ==
+
+=== Main meeting ===
+* Weekly status report per project team.
+** For NLP team, go check [https://wiki.vip.gatech.edu/mediawiki/index.php/Spring_2021_Sub-team_Weekly_Reports#Week_of_April_30th NLP team status week of Apr 26]
+** NLP Final Presentation!! Check out our PPT at https://docs.google.com/presentation/d/13PfLTDQnA1Lct5-SkOJLb8uzvkISPMzfuC6GnMvAmsk/edit#slide=id.gc84dce302c_2_50
+** Declared NLP project 2021 Spring completion.
+
+=== Individual Work ===
+*'''Topic'''
+** The current EMADE NLP engine uses only one tokenizer from Keras to vectorize training data or test data into one dimension of [vector len] per sample, in the NNLeaner . Various other tokenizers in text_processing_methods.py have not been utilized. 
+* '''Main Improvement'''
+** Source code: https://github.gatech.edu/hzhao341/emade/tree/nn-vip commit '''64d662f6c803281cba83d3dfce48f158c5dfb204'''
+** Constructed two additional class: '''DataPairVector''' and '''DataPairVectors''' in neural_network_methods.py as input of primitive. Constructed one additional function '''VariableVector''' in same place as primitive. 
+*** DataPairVector is a child class of EmadeDataPair. It is tokenized data from various tokenizers. So it has numerical vectors of original data. Dimension is [vector len]
+*** DataPairVectors combine all DataPairVector data into one. Dimension increase from [vector len] to [vector num, vector len]. Num is variable from 2 to 6.
+*** VariableVector is the primitive that does that combining process.
+*** Now modified primitive trees makes NNLeaner take an input of DataPairVectors, which is output from primitive VariableVector that combines all input of DataPairVector toghether, which are outputs from various tokenizer primitives that vectorizes all EmadeDataPair. 
+*** The part of pset in code is as follows: 
+'''
+    pset.addPrimitive(tp.tokenizer, [EmadeDataPair, int], DataPairVector, name = "KerasVectorizer")  # (n, 1) -> (n, MAXLEN)
+    pset.addPrimitive(tp.sentiment, [EmadeDataPair, bool], DataPairVector, name = "SentimentVectorizer") # (n, 1) -> (n, 2)
+    pset.addPrimitive(tp.stemmatizer, [EmadeDataPair, int, int], EmadeDataPair, name='NormStemmatizer')  # (n, 1) -> (n, 1) this normalize words, not convert to numbers
+    pset.addPrimitive(tp.count_vectorizer, [EmadeDataPair, bool, int, int, int], DataPairVector, name='CountVectorizer') # (n, 1) -> (n, MAXLEN)
+    pset.addPrimitive(tp.tfidf_vectorizer, [EmadeDataPair, bool, int, int, int], DataPairVector, name='TfidfVectorizer') # (n, 1) -> (n, MAXLEN)
+    pset.addPrimitive(tp.hashing_vectorizer, [EmadeDataPair, bool, int, int, int], DataPairVector, name='HashingVectorizer') # (n, 1) -> (n, MAXLEN)
+
+    pset.addPrimitive(nnm.NNLearner, [EmadeDataPair, nnm.DataPairVectors, nnm.LayerList, int, nnm.Optimizer], EmadeDataPair, name="NNLearner")
+
+    pset.addPrimitive(nnm.VariableVector, [nnm.DataPairVector, nnm.DataPairVector], nnm.DataPairVectors, name="VariableTokenizer_(2,MAXLEN)")
+    pset.addPrimitive(nnm.VariableVector, [nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector], nnm.DataPairVectors, name="VariableTokenizer_(3,MAXLEN)")
+    pset.addPrimitive(nnm.VariableVector, [nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector], nnm.DataPairVectors, name="VariableTokenizer_(4,MAXLEN)")
+    pset.addPrimitive(nnm.VariableVector, [nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector, nnm.DataPairVector], nnm.DataPairVectors, name="VariableTokenizer_(5,MAXLEN)")
+'''
+*** This way, '''only NNLeaner has the output type of EmadeDataPair so it will be placed as root of the pset tree''', consistent with our idea of the NN construction and the output of PrimitiveTreeTyped to avoid bad trees where the final output is from tokenizers or other primitive that are NOT neural network constructor like NNLeaner.
+*** It also provides diversified tokenized data vectors for different individuals at variable dimension of [number of vector, length of vector] where number is from 2 to 6. (See above code)
+** The current engine incurs many errors when layers being constructed in NNLeaner are incompatible. For example, following is one excerpt from worker output:
+'''
+    ValueError: Input 0 of layer max_pooling2d is incompatible with the layer: expected ndim=4, found ndim=3. Full shape received: (None, 300, 43)
+'''
+** I modified NNLeaner to add a function *_append* to fix incompatible issue when new layer tries to add onto previous tensor. 
+** This does not seem to work pretty well because there are still many same errors occurring. It needs future improvement. I put the code version above.
+* Small fixes
+** Keras Model in NNLeaner takes same length of training data, test data, and '''truth data''' and '''target data''' now.
+** Fix CountVectorizer in text_processing_methods.py
+** ...
+* '''Result'''
+** Test Run on 2021-04-30
+** 77 generations
+** 7 Hours
+** 2 PACE GPU as evaluation workers
+** 6 individuals found on pareto frontier
+** pareto frontier 
+*** table is here: https://github.com/hzhaoc/AAD/blob/main/results/HOF_Titanic_GP_PACE2.csv
+*** FullDataSet Accuracy Score	FullDataSet Num Parameters
+{| class="wikitable"
+!individual
+!1-Accuracy
+!Num Param
+|-
+|0
+|0.0739252
+|647027
+|-
+|1
+|0.0729402
+|674681
+|-
+|2
+|0.1723
+|50021
+|-
+|3
+|0.14878
+|64351
+|-
+|4
+|0.0733327
+|668411
+|-
+|5
+|0.0716202
+|675539
+|-
+|}
+
+*** Visualized pareto frontier: https://github.com/hzhaoc/AAD/blob/main/results/PACE_HOF.png
+** individual tree
+*** visualized tree 0: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner0.png
+*** visualized tree 1: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner1.png
+*** visualized tree 2: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner2.png
+*** visualized tree 3: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner3.png
+*** visualized tree 4: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner4.png
+*** visualized tree 5: https://github.com/hzhaoc/AAD/blob/main/results/NNLearner5.png
+*** ''Errors in uploading graph files. So I have to link to GitHub.''
+** As you can see from pareto frontier individual scores and tree structures above, '''individuals are diversified because of more layer types are able to participate and more tokenizers are as well as variable input vectors'''.
+* '''Future Improvement'''
+** Fully fix layer incompatibility in NNLeaner
+** More depth of primitive tree
+** A nice protocol of developing tree for NLP, especially for the code in neural_network_methods.py. The protocol should include standards of adding primitives, layers, terminals, structure of data (e.g. whether it is [sample #, vector num, vector len], or [sample #, vector len], or others). This will be important for future co-development.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+| 3nd Seeded Test Run 
+|04/12/2021
+|04/30/2021
+|04/30/2021
+|-
+|Learn NLP
+|04/05/2021
+|04/30/2021
+|lifelong
+|-
+|Task: NNLearner construction
+|04/12/2021
+|04/26/2021
+|04/30/2021
+|}
+
+== 2021-04-19 ==
+
+=== AAD meeting ===
+* Weekly status report per project team.
+** For NLP team, go check [https://wiki.vip.gatech.edu/mediawiki/index.php/Spring_2021_Sub-team_Weekly_Reports#Week_of_April_12th NLP team status week of Apr 19]
+
+=== NLP meeting ===
+* Team planned on the final week prior to the presentation to wrap up the project for the semester
+** Monday fix project code version
+** Wednesday practical run for presentation results
+** Thursday dry run of presentation
+** Friday formal presentation
+* NLP learning material resource from team 
+** [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.gc7e4d6272b_0_55 NLP EMADE Crash Course from  Cameron]
+** [https://www.notion.so/Natural-Language-Processing-6ab51406b2164470ab0fb16675dbdee6 NLP text processing methods]. This corresponds to the code in ./src/GPFramework/text_processing_methods.py
+
+=== Individual notes ===
+* Completed 2nd test run.
+** Seeded 
+** 4 hours
+** 256 population
+** 36 generations
+** 3 individuals in pareto frontier, best individual at ~0.928 accuracy, similar to other teammates' results. Will use this as a benchmark for following task.
+** The pareto frontier is updated in [https://github.com/hzhaoc/AAD/blob/main/results/HOF_Titanic_GP_PACE.csv here]
+* Ongoing task:
+** NNLearners as subtrees (Hua, Temi, Heidi):
+*** Learners can take outputs of other learners as a feature vector
+*** Idea: make NNLearners do this as subtrees
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+| 2nd Seeded Test Run 
+|04/12/2021
+|04/19/2021
+|04/19/2021
+|-
+|Learn NLP
+|04/05/2021
+|04/30/2021
+|
+|-
+|Task: NNLearner subtree
+|04/12/2021
+|04/26/2021
+|
+|}
+
+== 2021-04-12 ==
+
+=== AAD meeting ===
+* Weekly status report per project team.
+** For NLP team, go check [https://wiki.vip.gatech.edu/mediawiki/index.php/Spring_2021_Sub-team_Weekly_Reports#Week_of_April_12th NLP team status week of Apr 12]
+
+=== NLP meeting ===
+* Current team best results are 5-6 individuals with best at 0.932 accuracy. (Our objectives are classification accuracy and number of parameters)
+* Team is tasked per [https://docs.google.com/document/d/1V-etbhOdzUfgjwMLX7qtFNQEVGNnmrx5GfaQxfeosJ4/edit Gdoc]
+* Cameron fixed "launchEMADE_amazon.pbs" file
+* NLP learning material resource from team: 
+** [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.gc7e4d6272b_0_55 NLP EMADE Crash Course from  Cameron]
+** [https://www.notion.so/Natural-Language-Processing-6ab51406b2164470ab0fb16675dbdee6 NLP text processing methods]. This corresponds to the code in ./src/GPFramework/text_processing_methods.py
+
+=== Individual notes ===
+* Completed PACE-ICE project environment setup
+* Completed 1st test run.
+** Prior to completion, got stuck in gen 1, resolved by reinstalling DEAP version=1.2.2
+** 4+4 hours (2 database tasks)
+** 256 population
+** 78 generations
+** Null in Pareto Frontier
+** This is a non-seeded run. Reported this to team. And team followed up to update dataset to a smaller training size to avoid errors for a seeded run. Next is to do a seeded test run.
+* Assigned with a task:
+** NNLearners as subtrees (Hua, Temi, Heidi):
+*** Learners can take outputs of other learners as a feature vector
+*** Idea: make NNLearners do this as subtrees
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Set up PACE-ICE
+|04/05/2021
+|04/12/2021
+|04/19/2021
+|-
+| 1st Non-seeded Test Run 
+|04/05/2021
+|04/12/2021
+|04/12/2021
+|-
+| 2nd Seeded Test Run 
+|04/12/2021
+|04/19/2021
+|
+|-
+|Learn NLP
+|04/05/2021
+|04/30/2021
+|
+|}
+
+== 2021-04-05 ==
+
+=== AAD meeting ===
+* First main meeting after new and return students diverged
+* Reinforce the concepts of statistics for EMADE. 
+** Especially walked through statistical hypothesis analysis.
+
+=== NLP meeting ===
+* First NLP session for new students
+* DEAP Genetic Programming with neural network automatic design and learning in EMADE
+* Utilize PACE-ICE, school cloud clusters' GPU and OS to run EMADE DEAP. 
+* Focus on optimize solutions to a binary classification using dataset of Amazon Reviews.
+* [https://docs.google.com/presentation/d/1bpIN_1nL6PB8fMq1yvEDQnuy_ktcSY87HV2nxNsvmas/edit#slide=id.gc84dce302c_2_76 previous presentation] from returning students
+* [http://wiki.vip.gatech.edu/mediawiki/index.php/Guide_to_Using_PACE-ICE#How_to_get_started_with_PACE-ICE PACE-ICE setup guide]
+* [https://www.youtube.com/watch?v=LashYCCJF3E Cameron's video version of PACE-ICE setup guide]
+
+=== Individual notes ===
+* Joined team Slack channel for discussion
+* To set up individual project environment
+** PACE-ICE client as GPU
+** MariaDB as database
+** Python
+*** python version 3.6.x
+*** project code version: check latest from [https://github.gatech.edu/emade/emade/tree/nn-vip EMADE, Branch nn-vip]
+*** conda environment using yaml file from the above code version
+*** Use DEAP 1.2.2
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Join NLP
+|03/29/2021
+|04/05/2021
+|04/05/2021
+|-
+|Set up PACE-ICE
+|04/05/2021
+|04/12/2021
+|
+|-
+|Test Run 
+|04/05/2021
+|04/18/2021
+|
+|-
+|Learn NLP
+|04/05/2021
+|04/30/2021
+|
+|}
+
+== 2021-03-29 ==
+
+=== Class Meeting: Declare Bootcamp completion and start NLP Project ===
+* Individual finish picking up project and submit through Canvas.
+* Declare BootCamp completion and BootCamp new students and project returning students converge. 
+* Meetings are held on Monday 5PM EST for the rest of the semester.
+* New students will be allocated based on submission and available resources prior to next meeting.
+* Next step for new students is to join their project meeting session starting next week, after the main AAD meeting. And start to contribute to projects.
+
+=== Individual notes ===
+* Watched NLP project presentation last week. Realized what they were doing basically for a sentimental Amazon review binary classification through GaTech PACE cloud clusters with EMADE DEAP. Became interested.
+* Picked up NLP project and submitted to Canvas.
+* Waiting for next meeting to kick off.  
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Pick & Learn a Interested Project
+|03/22/2021
+|03/29/2021
+|03/29/2021
+|-
+|Submit/Choose Project Team
+|03/22/2021
+|03/29/2021
+|03/29/2021
+|-
+|Join NLP
+|03/29/2021
+|04/05/2021
+|
+|}
+
+== 2021-03-22 ==
+
+=== Project Presentations for return students ===
+* NLP, Modularity, Stock, etc.
+
+=== Titanic Problem with EMADE DEAP Presentation for new students===
+* Team 5: ([[Group 5|Group 5|Team 5 Work Link]]) Section: Titanic Assignment with EMADE
+
+=== Team Work ===
+* Finished final iteration of EMADE run.
+** Pareto frontier data: https://github.com/hzhaoc/AAD/blob/main/results/HOF_Titanic_GP_EMADE2.csv
+** [[files/GP best validauc 50gen.png|center|thumb]]
+* Key results
+** EMADE run took 4 hours
+** Generation: 37
+** Pareto Frontier AUC
+*** EMADE: 0.2374
+*** GP:    0.1305
+*** ML:    0.2379
+** Pareto Frontier Member #:
+*** ML: 5
+*** DEAP: 45
+*** EMADE: 22
+
+=== Individual Work ===
+* Realized the pareto front from GP without EMADE and the one with EMADE are evaluated and trained on different datasets. (ENADE used 5-fold cross-train). So made EMADE pareto front be evaluated on same validation dataset as the previous pareto front without EMADE, so that the pareto fronts are compared apples to apples. 
+* Wrote the AUC calculation code to make pareto frontier results from ML, MOGP w/o EMADE, MOGP w/ EMADE comparable. 
+* Plotted Pareto Frontier Comparison ML vs. MOGP vs. MOGP with EMADE (see above graph), uploaded by Dhruv Patel
+* Finished presentation slides. See above link. Or [https://github.com/hzhaoc/AAD/blob/main/results/Titanic%20EMADE%20GP%20Team%205%20.pptx Hua's GitHub Repo]
+* Organized meeting to do a dry run for 03/22/2021 presentation and managed to get it done.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Final EMADE Iteration run
+|03/17/2021
+|03/22/2021
+|03/21/2021
+|-
+|Complete Titanic on EMADE
+|03/03/2021
+|03/22/2021
+|03/21/2021
+|-
+|Titanic EMADE Presentation
+|03/03/2021
+|03/22/2021
+|03/22/2021
+|-
+|Pick & Learn a Interested Project
+|03/22/2021
+|03/29/2021
+|
+|-
+|Submit/Choose Project Team
+|03/22/2021
+|03/29/2021
+|
+|}
+
+== 2021-03-17 ==
+
+=== Lecture: EMADE Q&A ===
+
+# Office hours to go over some issues/questions we had
+#* DEAP version as of the time needs to be install as version 1.2.2 to run errorless in EMADE.
+#* EMADE is a distributed GP engine designed to allow distributed CPU processes to work on the same evolutionary process and a universal database server. Basic workflow is one server with database, and a master process, the other clients work on the same evolutionary problem and interact with the central database. For each of the client, they participate as worker process. 
+#* For students outside campus, they need to use VPN to work in EMADE.
+
+=== Titanic MOGP with EMADE ===
+* Team 5: ([[Group 5|Group 5|Team 5 Work Link]]) Section: Titanic Assignment with EMADE
+** Meeting through Discord to coordinate master-worker process on MEADE
+*** Used Hua Zhao's local machine as the rDBMS server, and master process, with an additional worker process, the other four Dhruv Patel, Devan Moses, David Wolfson, Devesh Kakkar's respective local machines were set up as workers to join the database server and master process. 
+** Complete Algorithm / Evolutionary Process
+*** Dataset
+**** Same as previous Titanic solution with MOGP DEAP. See [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Hua_Zhao#2021-03-17 2021-03-17 note: Topic->Individual Work->Preprocessing]
+*** Objective
+**** Max: -1*FNR
+**** Max: -1*FPR
+*** Primitives (default)
+**** basic: <, <=, >, >=, =, !=, &, |, ~, etc.
+**** advanced: learnertype of svm, random forest, etc. 
+*** mutation (default)
+**** insert, insert modify, ephermeral, node replace, uniform, shrink
+*** mate (default)
+**** (crossover, .5), (crossoverEphemeral, .5). (headlessChicken, .1), (headlessChickenEphemeral, .1)
+*** select: selNSGA2
+**** Population is separated into nondomination ranks
+**** Individuals are selected using a binary tournament
+**** Lower Pareto ranks beat higher Pareto ranks. For example, an individual on the blue front will beat out an individual on the orange front
+**** Ties on the same front are broken by crowding distance 
+***** Summation of normalized Euclidian distances to all points within the front
+***** Higher crowding distance wins
+**** We tested NSGA2 against basic methods, including SPEA2 and found NSGA2 with best performance. "NSGA-II, in most problems, is able to find much better spread of solutions and better convergence  near the truePareto-optimal front compared to Pareto-archived evolution strategy and strength-Pareto EAâ€”two other elitist MOEAs that pay special attention to creating a diverse Pareto-optimal  front.", according to Kalyanmoy Deb at al. :[https://www.iitk.ac.in/kangal/Deb_NSGA-II.pdf A Fast and Elitist Multiobjective Genetic Algorithm:NSGA-II]
+** Presentation Slides
+* Individual Work
+** Organized meeting to structure workflow within the team using EMADE DEAP.
+** Designed complete algorithm structure
+** Drafted Presentation slides
+** With the help of Devan Moses, and Dhruv Patel, I explicitly set up one of my port as a open listening port for the database server, and we managed correct in-bound and out-bound rules. Therefore we avoided using VPN since this way is more general use case for future students to learn.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Set up EMADE
+|03/03/2021
+|03/13/2021
+|03/16/2021
+|-
+|Set up MySQL server
+|03/03/2021
+|03/13/2021
+|03/15/2021
+|-
+|Set up Python Env.
+|03/03/2021
+|03/13/2021
+|03/15/2021
+|-
+|Test Run EMADE Group-wise
+|03/03/2021
+|03/17/2021
+|03/16/2021
+|-
+|Complete Titanic on EMADE
+|03/03/2021
+|3/22/2021
+|
+|-
+|Titanic EMADE Presentation
+|03/03/2021
+|3/22/2021
+|
+|-
+|Final Iteration run
+|03/17/2021
+|03/22/2021
+|
+|}
+
+== 2021-03-10 ==
+
+=== Lecture: Statistics for EMADE ===
+To analyze if you made a change from EMADA run results:
+# Metrics from EMADE:
+#* OBjective scores
+#* Processing timews
+#* AUC
+#* Number of pareto individuals
+# A/B testing [https://en.wikipedia.org/wiki/A/B_testing]
+# Hypothesis [https://en.wikipedia.org/wiki/Statistical_hypothesis_testing Testing]
+#* For example, we have two results A, B from EMAD scenarios to compare, each with 100 test runs. Do a hypothesis testing that for metric AUC, AUC of A = AUC of B, assuming normal distribution. Analyze from t-[https://en.wikipedia.org/wiki/Student%27s_t-test statistics], p-[https://en.wikipedia.org/wiki/P-value value], etc,. If statistics show given some confidence level, two AUCs are significantly different, then hypothesis does not stand, otherwise it does.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Kaggle: Titanic Presentation
+|02/18/2021
+|03/03/2021
+|03/03/2021
+|-
+|Set up EMADE
+|03/03/2021
+|03/13/2021
+|
+|-
+|Set up MySQL server
+|03/03/2021
+|03/13/2021
+|
+|-
+|Set up Python Env.
+|03/03/2021
+|03/13/2021
+|
+|-
+|Test Run EMADE Group-wise
+|03/03/2021
+|03/17/2021
+|
+|-
+|Complete Titanic on EMADE
+|03/03/2021
+|3/22/2021
+|
+|-
+|Titanic EMADE Presentation
+|03/03/2021
+|3/22/2021
+|
+|}
+
+== 2021-03-03 ==
+
+===Presentation: MOGP with Titanic Disaster===
+* Team 5: ([[Group 5|Group 5|Team 5 Work Link]])
+
+=== Lecture: Intro to EMADE ===
+* EMADE is the Evolutionary Multi-objective Algorithm Design Engine.
+* It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms.
+* Lecture slides: https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_5_EMADE/intro_to_emade.pptx
+* A Python virtual env. you can need: https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_5_EMADE/emade_env.yml
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Kaggle: Titanic Presentation
+|02/18/2021
+|03/03/2021
+|03/03/2021
+|-
+|Set up EMADE
+|03/03/2021
+|03/10/2021
+|
+|-
+|Set up MySQL server
+|03/03/2021
+|03/10/2021
+|
+|-
+|Set up Python Env.
+|03/03/2021
+|03/10/2021
+|
+|-
+|Test Run EMADE Group-wise
+|03/03/2021
+|03/17/2021
+|
+|-
+|Complete Titanic on EMADE
+|03/03/2021
+|3/22/2021
+|
+|-
+|Titanic EMADE Presentation
+|03/03/2021
+|3/22/2021
+|
+|}
+
+== 2021-02-24 ==
+===Presentation: MOGP with Titanic Disaster===
+* Team 5: ([[Group 5|Group 5|Team 5 Work Link]])
+** Delayed to 3/3/2021
+** Presentation Slides
+** Pareto Frontier Comparison ML vs. MOGP
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Kaggle: Titanic Presentation
+|Undergoing
+|02/18/2021
+|03/03/2021
+|
+|}
+
+== 2021-02-17 ==
+
+=== Topic: MOGP with Titanic Disaster ===
+* Team Work ([[Group 5|Group 5|Team 5 Work Link]])
+** Presentation Slides
+** Pareto Frontier Comparison ML vs. MOGP
+
+* Individual Work 
+** Code: [https://github.com/hzhaoc/AAD/ Hua Zhao's Github Repo], commit ID: f5695a3b2dbbd9ce0f8aa6ae8c53ca0b2ed28bf7
+** Preprocessing
+*** Features:
+****[[files/GP feature corr.png|center|thumb]]
+****Pclass, Sex, Ticket, Cabin, Embarked, IsAlone, Age, Fare
+****[https://en.wikipedia.org/wiki/Feature_scaling/ normalization] with [https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html/ MinMaxScaler()]
+*Objectives
+**minimize FPR, FNR
+*Evolutionary Process
+**Complete Algorithm: 
+***Gen 1 Population -> Mutation(s) and Mating -> select with Gen 1 Population -> Gen 2 Population -> Mutations and Mating -> Gen n Population [[files/Diag GP with 1500 gen.png|center|thumb]]
+**primitives: add, subtract, multiply, sin, cost sigmoid, power of 2 (min depth=4, max depth=8)
+**fitness scores: FPR, FNR (round to closes integer 0 or 1)
+**evaluation dataset: 0.75 training dataset (SAME as previous ML solution)
+**mutation: mutUniform, mutReplaceNode, mutShrink
+**mate: CxOnePointLeafBiased
+**select: selNSGA2. (Best so far. Better than SPEA since it is probably able to select better spread individuals.)
+**Hyperparemter:
+***generation: 50/1500
+***child: 100
+***population: 50
+***mutation probability: 0.10/0.15
+***mate probability: 0.5
+*Presentation
+*Submission to Canvas
+**Group Assignments: csv file on test file: Passenger ID, pareto frontier individual 1 predict, individual 2, 3, etc.
+Solutions
+*With '''50/small''' generations
+**Configurations from best training set performance
+***Primitives: add, subtract, multiply, sin, sigmoid, <s>cos, power of 2</s>
+***Features: Sex, <s>Ticket</s>, <s>Cabin</s>, Embarked, IsAlone, Age, Fare
+***Mutation types: 1 (uniform)
+**Result
+***Process:
+****[[files/GP evolution 50gen.png|center|thumb]]
+***AUC on training data: '''0.1550''', HOF number: 99
+***[[files/GP best trainauc 50gen.png|center|thumb]]
+*** [[Group 5|AUC on validation = '''0.1019''']] ''(value is relative and can not be compared to AUC on training data)'', HOF number: 23
+* With '''1500/more''' generations
+** Configurations from best training set performance
+*** Primitives: add, subtract, multiply, sin, sigmoid, cos, power of 2
+*** Features: Sex, Ticket, Cabin, Embarked, IsAlone, Age, Fare
+*** Mutation types: 3 (uniform, nodereplacement, shrink)
+** Result:
+*** Process
+***[[files/GP evolution 1500gen.png|center|thumb]]
+*** AUC on training data: '''0.1125''', HOF number: 563
+****[[files/GP best trainauc 1500gen.png|center|thumb]]   
+*** [[Group 5|AUC on validation = '''0.1305''']]'''.''' HOF number: 47
+* Summary
+** More generation with higher variety in evolution increase performance in training 
+** But may lead to overfitting in validation or other unseen data
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Kaggle: Titanic w GP
+|Complete
+|02/18/2021
+|02/25/2021
+|02/25/2021
+|-
+|Kaggle: Titanic Presentation
+|Undergoing
+|02/18/2021
+|03/03/2021
+|
+|-
+|Canvas Submission
+|Complete
+|02/18/2021
+|02/25/2021
+|02/24/2021
+|}
+
+== 2021-02-10 ==
+
+=== Lecture Notes: ML with Titanic Disaster ===
+A week of detour from evolutionary algorithm/automated algorithm design. Basically the purpose is to get familiar of basic machine learning process through an example: Titanic Disaster from Kaggle. (https://www.kaggle.com/c/titanic)
+
+=== Kaggle: Titanic Disaster ===
+*Problem link: https://www.kaggle.com/c/titanic/overview
+*Problem description in general: Design and train a learning model (without GP idea) to best predict survivals of passengers.
+*Sub-Team activities:
+**Meeting on 2021-02-15. 
+***Walk through the sample Jupyter notebook provided. 
+***Discussed how we understand and may process with each possible feature in data. 
+***Discussed what measures of performance we may use: coefficient of determinants, confusion matrix. Cross validation may be used on validate model.
+**Discussion on 2021-02-16 & 2021-02-17
+***Agreed and reached same preprocessed features for next step
+****Pclass: categorical
+****Sex: categorical (binary)
+****Embarked: categorical (Null is mapped to 0.)
+****IsAlone: 0 ParCh and 0 SibSp
+****AgeRange: 0-16, 16-31, etc
+****FareRange: 0-7.91, 7.91-14.451, etc.
+**Team '''Non-dominant pareto frontier''' (compared with MOGP pareto frontier): [[Group 5|Group 5|Team 5 Pareto Frontiers ML vs. GP]].
+**Code Source: [https://github.com/hzhaoc/AAD/blob/main/Titanic.ipynb https://github.com/hzhaoc/AAD/blob/main/Titanic.ipynb |Hua Zhao Titanic ML]
+**Individual work:
+***Feature correlation:
+[[files/Week 4 titanic Feature correlations.png|center|frameless|467x467px]]
+* Individual Work (Cont.)
+** Best selected model: Neural Network, input-hidden(10 size)-hidden(10 size)-output layer, Relu hidden activation, Logistic output activation. Adam solver. 32 batch size. 10,000 epochs. Learning rate = constant 0.0005, random state = 6
+** Performance in validation
+*** R^2: 0.8263 
+*** FPR: 0.0612, FNR: 0.4079 
+*** Confusion Matrix
+****[[files/ML confusion.png|center|thumb]]
+
+* Performance on test set submitted to Kaggle: R^2 Score: '''0.77'''
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Sub-Team formation
+|Completed
+|2021-02-08
+|2021-02-08
+|2021-02-08
+|-
+|Kaggle: Titanic w/o GP
+|Completed
+|2021-02-10
+|2021-02-17
+|2021-02-17
+|}
+
+== 2021-02-03 ==
+
+===Lecture Notes: Multi-Objective Genetic Programming===
+*Topic: translation of vector of scores from evaluation into a fitness value
+*[[files/Multi-Object Genetic Programming.png|center|thumb|300x300px]]
+*Gene pool: set of genome to be evaluated during current generation
+**genome: 
+***Genotypic description of individuals; 
+***DNA;
+***GA = set of values
+***GP = tree structure, string
+*Search Space
+**set of all possible genome. For automated algorithm design, it is set of all possible Algorithms
+*Evaluation
+**Evaluation of a Genome associates a genome/individual (set of params for GAa or string for GP) with a set of scores
+**Maps a genome/individual from a location in search space to a location in objective space
+**Scores: True Positive, False Positive, etc. ([https://en.wikipedia.org/wiki/Confusion_matrix/ Confusion Matrix])
+*Objectives:
+**set of measurements each genome is scored against
+**phenotype
+*Objective space
+**Set of objectives
+**individual is evaluated using objective functions: MSE, Cost, Complexity, TPR, FPR, etc. 
+**objective scores computed above are referred to as phenotypes
+*Pareto Optimality
+**an individual is Pareto if there is no other individual in population that outperforms the objective on ALL objectives (meaning the objective can be outperform partially)
+**Pareto Frontier: all Pareto Individuals
+**Drive Selection by favoring Pareto Individuals but maintain diversity by giving all individuals chances of mating
+*'''Nondominated Sorting Genetic Algorithm (NSGA)'''
+**Population is separated into nondomination ranks (layers/ranks of pareto individuals)
+**individuals are selected by binary tournament
+**lower rank beats higher rank
+**ties on same rank are broken by Crowding Distance
+***crowding distance = sum of normalized Euclidian distances to all other individual within the same rank
+***higher crowding distance wins. '''WHY?'''
+*'''Strength Pareto Evolutionary Algorithm (SPEA)'''
+**Strength S: Each individual is given a strength S hat is how many others in population the individual dominates
+**Rank R: sum of strengths of individuals that dominate the individual
+**Pareto individuals R = 0
+**Fitness = R + 1/(theta^k + 2) where theta^k is distance to k^th nearest neighbors
+
+=== Lab 2: (part 2: Multi-Objective GP: Symbolic Regression problem) ===
+*Objective: 1: min. fitness value 2: min. tree length
+**1: objective function: -x + sin(x^2) + tan(x^3) + cos(x) where x is an array
+*Original setup result:
+**Pareto Front AUC:  2.38
+[[files/Lab 2 part 2 original pareto front.png|center|thumb]]
+[[files/Lab 2 part 2 original.png|center|thumb]]
+* My own implementation:
+** Modifications: add primitives: power of 2, power of 3, delete primitives: multiply
+** Result
+[[files/Lab 2 part 2 objective space Hua Zhao.png|center|thumb]]
+[[files/Lab 2 part 2 evolution Hua Zhao.png|center|thumb]]
+[[files/Lab 2 part 2 pareto front Hua Zhao.png|center|thumb]]
+* Result:
+** Pareto Front AUC:  1.76 (27% decrease from original)
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Statuss
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Lab 2 Part 2
+|Complete
+|2021-02-01
+|2021-02-07
+|2021-02-05
+|}
+
+== 2021-01-27 ==
+
+===Lecture Notes: Genetic Programming===
+*Instead of putting individual through an evaluator to get a score, the individual consumes data and returns the output
+*Tree representation
+**Nodes are denoted as primitives (functions) and leaves are terminals (parameters)
+**Lisp Pre-ordered Parse Tree
+***Example:  algebra 3*4+1 is represented in tree as [+,*,3,4,1])
+**Crossovers: Exchange nodes
+**Mutation: insert/delete/modify a node
+*GP Example: Symbolic Regression
+**Use Lisp Pre-ordered Parse Tree and Genetic Programming idea to evolve a solution to y=sin(x)
+**Primitives include: +, -, *, /
+**Terminals include integers and x (a variable)
+**Solution: Taylor Series for sin(x). For example, use tree to represent its 3-rd order to approximate sin(x)
+**Evaluation of the solution:
+***For example: Error measure with MSE or SSE https://en.wikipedia.org/wiki/Mean_squared_error
+**Which primitives would make it easier?
+***Power, Factorial, Sin, etc. (This is the idea behind EMADE.)
+
+=== Lab 2: (part 1 Symbolic Regression problem) ===
+*Objective function: x^4 + x^3 + x^2 + x where x is an array
+*My GP configuration:
+**Generation: 40
+**Population: 300
+**Lisp Preorder Parser Tree: deap.gp.genHalfAndHalf
+**Primitives: add, subtract, negative, multiply, power of 2, power of 3, power of 4, maximum, minimum (through numpy)
+**Mutation: 3 alternatives: (deap.gp.mutUniform, deap.gp.mutNodeReplacement, deap.gp.mutInsert), more on https://github.com/DEAP/deap/blob/master/deap/gp.py
+**Evaluation of fitness: MSE
+*Result:
+**With deap.gp.mutUniform:
+***  Best individual is add(add(multiply(x, add(maximum(pow3(x), pow3(x)), x)), multiply(x, multiply(x, x))), x), (8.776562516626517e-17,)
+***[[files/Lab 2 part 1 symbolic regression mutuniform.png|center|thumb]]
+**With deap.gp.mutNodeReplacement
+***  Best individual is add(add(multiply(x, add(pow2(negative(maximum(x, x))), pow3(x))), pow2(x)), minimum(x, x)), (9.233475335870788e-17,)
+***[[files/Lab 2 part 1 symbolic regression munodereplacemnet.png|center|thumb]]
+**  With.deap.gp.gp.mutInsert
+***Best individual is add(x, maximum(pow4(pow2(x)), add(add(pow2(x), pow3(minimum(maximum(pow2(negative(maximum(subtract(x, subtract(x, x)), x))), add(add(add(negative(x), add(x, x)), add(x, pow4(pow2(x)))), pow3(minimum(x, x)))), x))), pow4(minimum(x, x))))), (8.31350729035384e-17,)
+***[[files/Lab 2 part 1 symbolic regression mutinsert.png|center|thumb]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Statuss
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Lab 2 Part 1
+|Complete
+|2021-01-25
+|2021-02-01
+|2021-01-30
+|}
+
+== 2021-01-20 ==
+
+=== Team Meeting Notes ===
+*Automation Algorithm Design team project kickoff:
+**Weekly team meeting through Bluejeans on Monday for returning students, on Wednesday for new students 
+**Course announcements through Canvas and/or email. 
+**Syllabus: [[Syllabus Spring 2021]] for returning students (not first-semester).
+**Calendar ([[Calendar Spring 2021]]).
+**Mid-term and final Peer Evaluation
+**Sub-team in later semester.
+**Research in later semester.
+*Introduction to the basics of genetic algorithms
+**Concepts ([https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_1_GA/Part%201%20(Genetic%20Algorithm).pptx https://github.gatech.edu/hzhao341/reference_material/blob/master/Lectures/Lecture_1_GA/Part%201%20(Genetic%20Algorithm).pptx]<nowiki/>): 
+***Individual: One specific candidate in the population
+***Population: the universal group of individuals
+***Objective: the purpose of evolutionary process for population. Usually represented by quantitative values to characterize individuals for optimization.
+***Fitness: relative comparison between individual to others.
+***Evaluation: function that computes objective
+***Selection: better individual selection process in the evolutionary process, allowing it to pass down its characteristics (like genes) to next generation
+****fitness proportionate: the greater the fitness, the higher the change being selected for mating
+****tournament: individuals who win tournament win mating opportunity
+***mate: mating between two individuals
+***mutate: introduce random modifications to individual characteristics in order to maintain diversity
+***Algorithm
+***#Randomly initialize population
+***#determine fitness
+***#repeat: 
+***##select better parents population
+***##perform mating
+***##perform mutating
+***##determine fitness
+***#until best individual is "good" enough
+**Deap System intro in Jupyter notebook ([https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_1_GA/Lecture%201%20-%20GA%20Walkthrough.ipynb https://github.gatech.edu/hzhao341/reference_material/blob/master/Lectures/Lecture_1_GA/Lecture%201%20-%20GA%20Walkthrough.ipynb])
+**Lab 1 for a simple genetic algorithm problem with Deap ([https://github.gatech.edu/emade/emade/blob/master/notebooks/Lab%201%20-%20Genetic%20Algorithms%20with%20DEAP.ipynb https://github.gatech.edu/hzhao341/emade/blob/master/notebooks/Lab%201%20-%20Genetic%20Algorithms%20with%20DEAP.ipynb]
+
+=== Lab Notes: ===
+
+==== One max problem ====
+* Problem description: Individual "DNA" is a list of 100 binary numbers. Fitness value is the sum of the DNA list. The higher the value, the better the individual. Goal is to find the best individual.
+* 40 Generation (0-39)
+*   -- Generation 39 --   Min 89.0   Max 100.0   Avg 97.84   Std 2.2032702966273043
+* Best individual at Generation 39 is [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], (100.0,)
+
+==== N Queens problem ====
+* Problem description: on a N*N chessboard, each line stands a queen, find a solution for the N queens where conflicts are minimized. (a queen being able to take another queen is considered a conflict)
+* My modifications in the Lab original code:
+** Evaluation of fitness score of an individual: conflicts on the same diagonal = A*(A-1)/2 where A is the number of queens on that diagonal.
+** Mutate process: N probable random swaps. 
+* Result:
+** reached global optimal of 0 fitness score with 300 population, 100 iteration [[files/N queens.png|center|frame]]
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Genetic algorithm lecture notes in presentation
+|Completed
+|2021/01/20
+|2021/01/27
+|2021/01/21
+|-
+|Walkthrough Deap introduction in Jupyter notebook
+|Completed
+|2021/01/20
+|2021/01/27
+|2021/01/22
+|-
+|Lab 1: Environment setup (mainly Deap)
+|Completed
+|2021/01/20
+|2021/01/27
+|2021/01/23
+|-
+|Lab 1: Solve One Max problem with Deap
+|Completed
+|2021/01/20
+|2021/01/27
+|2021/01/24
+|-
+|Lab 1: Solve N Queens problem with Deap
+|Completed
+|2021/01/20
+|2021/01/27
+|2021/01/24
+|}

@@ -1,0 +1,817 @@
+== Team Member ==
+[[files/Myfaces.jpg|thumb|135x135px|none]]
+
+Team Member: Sruthi Sudhakar
+
+Email: sruthis@gatech.edu
+
+Cell Phone: 732-853-9597
+
+Interests: Machine Learning, Python
+
+== January 7, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Overview of Genetic Algorithms:
+** a search heuristic inspired by Charles Darwin’s theory of natural evolution
+** a population of individuals are selected, evaluated, and mutated to produce best individual (fitness is better than all others and cannot get better)
+* Genetic Algorithms Vocabulary:
+** Individual- specific candidate, a gene, has properties (represented by string of bits usually 0's or 1's)
+** Population- group of individuals
+** Objective- value to characterize individuals
+** Fitness- relative comparison to other individuals
+** Evaluation- function to compute objective scores
+** Selection- fittest individuals chosen as parents to pass their genes to the next generation
+*** Fitness Proportionate- greater fitness value = more likely to be selected for mating
+*** Tournament- tournaments between individuals. winners selected for mating
+** Mating/Crossover- exchange genomes
+** Mutate- random modifications to maintain diversity
+** Algorithms- process 
+**# Randomly initialize population
+**# Determine fitness of population
+**# Repeat
+**## select parents
+**## perform crossover
+**## perform mutation
+**## determine fitness
+
+=== '''Sub-Team Notes:''' ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Initialize Notebook
+|Completed
+|January 7, 2019
+|January 8, 2019
+|January 8, 2019
+|-
+|Join slack
+|Completed 
+|January 7, 2019
+|January 8, 2019
+|January 8, 2019
+|-
+|Review class slides and take notes in VIP Notebook
+|Completed
+|January 7, 2019
+|January 8, 2019
+|January 8, 2019
+|-
+|Read up on deap
+|Completed
+|January 7, 2019
+|January 8, 2019
+|January 8, 2019
+|-
+|Finish Lab #1 DEAP on Simple Problem [https://github.gatech.edu/emade/emade/blob/master/notebooks/Lab%201%20-%20Genetic%20Algorithms%20with%20DEAP.ipynb Python Notebook Here]
+|Completed
+|January 7, 2019
+|January 9, 2019
+|January 13, 2019
+|}
+== January 13, 2019 ==
+[[files/Graph_1.png|right|frameless|198x198px]]
+
+=== '''LAB #1 Notes and Results:''' ===
+* '''Process:''' 
+** First I read through the entire document and understood all the code and functions
+** Then I ran the code and analyzed the resulting graph
+***[https://github.gatech.edu/storage/user/24948/files/4ce10400-180c-11e9-9fa4-27d08aacdb43]
+** Next I changed the crossover function form the partially matched crossover to the two point crossover to see the differences
+***[[files/Graph_2.png|right|frameless|200x200px]][https://github.gatech.edu/storage/user/24948/files/a3e6d900-180c-11e9-9c3a-37ddee30a5ca]
+** Finally I made my own mutation function where in whenever the random int generated crossed below the probability threshold, I simply shifted the chessboard pieces down by one column. 
+***[[files/Graph 3.png|223x223px|right|frameless]][https://github.gatech.edu/storage/user/24948/files/ca0c7900-180c-11e9-8695-9685862fd5bb]
+** This resulted in finding the local minimum within less generations than the previous mutation function. 
+* '''Issues I faced:'''
+** At first, I installed deap through pip but it did not download the folder into the right location in my Anaconda environment. Therefore, I had to go to through the files on my computer, locate the folder, and move it into my scripts folder. 
+** While trying to obtain a plot of my data, the plt.show() function was not working because I forgot to install the matplotlib library for python. After I did this, everything worked well. 
+After reading through the lab and understanding the code, I ran the notebook, however I had to resolve the issue 
+== January 14, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+'''Genetic Programming'''
+* Like Genetic Algorithms, involves the basic stages of 
+*# Evaluation
+*# Fitness Computation
+*# Selection
+*# Mating
+*# Mutation
+'''Genome is now a tree instead of a list'''
+* [[files/Imagea.png|right|frameless]]
+* Nodes- Primitives (+,-,*,/)
+* Leaves- terminals
+* genome -> 1 + (3 * 4)
+* Parse tree represented by lisp function
+** [+ 1 * 3 4]
+* Arity- how many args you are going to put in
+'''Mating and Mutation are different therefore'''
+
+Crossover:
+*look at image on right[[files/Imageb.png|right|frameless]]
+Mutation:
+* Single Point Replacement
+** Change primitive in node
+* Insertion mutation
+** Insert inputs
+* Shrink Node Mutation
+** Delete Part of Tree
+Using GP To Solve Symbolic Regression Problem
+* if you have:
+** y=sin(x)
+** primitives: + - * /
+** inputs: x, constants
+** taylor expression: x - x<sup>3</sup>/3! + ......
+** 1st order tree : x
+** 2nd order tree:
+** adding primitives makes it simpler like ! and exponent
+* How to evaluate Objective
+** |func(x) - sin(x)|<sup>2</sup>
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review class slides and take notes in VIP Notebook
+|Completed
+|January 14, 2019
+|January 16, 2019
+|January 16, 2019
+|-
+|Finish Lab #2 GP for regression problem
+|Completed
+|January 14, 2019
+|January 18, 2019
+|January 27, 2019
+|}
+
+== January 27, 2018 ==
+
+=== '''LAB #2 Part 1 Notes and Results:''' ===
+* '''Notes:'''
+** arity parameter we defined specifies the amount of arguments each primitive takes.
+** each individual is represented by a tree
+** the evaluate function is trying to find the ideal combination of primitives such that the difference between the function created from that primitive tree and the inputed ideal function is minimized
+*** this means that you have the answer, and trying to see how close you can get to it
+*** 
+* '''Process:'''
+** added two new possible operations/nodes/primitives to the tree
+***[[files/Capturea.png|202x202px|right|frameless]]pset.addPrimitive(np.divide, arity=2)
+*** pset.addPrimitive(np.power, arity=1)
+**defined another mutate function: mutNodeReplacement
+***replaces random node from individual with another random node of same arity
+**first I ran the code without any new primitives added[[files/Screenshot (168).png|201x201px|right|frameless]]
+***the greatest result was utilizing the add and multiply functions repeatedly
+***subtract and negative functions did not show up in the best primitive tree result
+**Next I added in my two defined functions, divide and positive, and noticed:
+***the average graph did not show up because of divide by zero errors. 
+***The maximum graph had a sharp peak upon every rerun.
+***The minimum graph stayed very low throughout. 
+***the divide function was used, indicating it was useful. the positive function and the subtract functions were occasionally used.[[files/Cap2.png|197x197px|right|frameless]]
+**With this I came to the overall conclusion that the multiply, add, and divide primitive operations impacted the results the most
+**Next I removed the divide function so that I could see averages again
+**I then changed the mutate function to make it a node replacement
+***the results showed that the optimal function was reached quicker because new functions like sin and cos were added during the mutations that worked well
+== January 28, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+Multi-Objective Optimization
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review class slides and take notes in VIP Notebook
+|Completed
+|January 14, 2019
+|January 28, 2019
+|February 3, 2019
+|-
+|Finish Lab #2 Part 2 Multi-Objective Optimization
+|Completed
+|January 14, 2019
+|January 28, 2019
+|February 3, 2019
+|}
+
+== February 3, 2019 ==
+
+=== '''LAB #2 Part 2 Notes and Results:''' ===
+* '''Notes:'''
+**Upon running the code, I generated these three graphs as a result
+**y plotting the Tree Size and Mean Squared Error, we generated a visual representation of our objective space to show our paerto front
+**To measure the performance of the paerto front, we calculate the area under the curve
+**The area under the curve was approximately 2.38[[files/Screenshot .png|left|frameless]]
+**[[files/Screenshot_(183).png|frameless]][[files/Screenshot_(182).png|frameless]]
+**To decrease the area under the curve, which would imply improving the performance of the paerto front, I removed 3 primitives from my pset including sin, cos, and tan
+**This decreased the AUC to approximately 0.69 
+**[[files/Screenshot (184).png|frameless|245x245px]][[files/Screenshot (186).png|frameless|249x249px]]
+
+== February 4, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Overview of the python code necessary to write script that runs analysis on dataset
+* Learned about how data is split into training and testing
+* Learned about feature analysis, different models, and hyperparameters
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Use ML models and enter Kaggle Titanic Dataset Competition
+|Completed
+|February 3, 2019
+|February 7, 2019
+|February 7, 2019
+|-
+|Meet with team to ensure co-dominance and plot Pareto Front
+|Completed
+|February 3, 2019
+|February 10, 2019
+|February 10, 2019
+|}
+
+== February 7, 2019 ==
+
+=== '''Titanic Dataset Kaggle Competition:''' ===
+**I dropped 3 features:
+***Name: I believe this feature does not make a large difference because each person has a unique [[files/Screenshot (187).png|thumb|266x266px]]
+***Ticket: Each passenger has a random and unique ticket
+***Cabin: There were a lot of NaN values for cabin so i dropped the column
+**I filled in the NaN values in Age and Fare with the mean values
+**I filed in NaN values in Embarked with the mode
+**I mapped Embarked and Sex from categorical to numerical values
+**I put Age and Fare into bins of 0, 1, 2, and 3
+**I added features to my data set including
+***IsAlone (replaces Family Size and Sibling and Parch)
+***Age*Class to replace Age and Class
+**I tested all the models and settled on Decision Trees as the best option for predictions
+
+== February 10, 2019 ==
+
+=== '''Titanic Dataset Kaggle Competition:''' ===
+*[[files/Image-1.jpg|thumb|213x213px]]
+** Met with sub-team to discuss our results for the Titanic dataset
+** Discussed which models to use, how to acheive co-dominance
+** added hyperparemeters to my tree:
+***I made the splitter parameter random
+***I changed the criterion parameter to entropy
+**I then plotted the Pareto Front to check that my data points are co-dominate with my team-mates
+**Finally, I submitted my titanic.csv to Kaggle and received my score
+
+== February 11, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Started working on the Titanic Dataset Kaggle Competition using Genetic Programming instead of SciKitLearn
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Use Genetic Programming for Kaggle Titanic Dataset Competition
+|Completed
+|February 11, 2019
+|February 18, 2019
+|February 18, 2019
+|}
+
+== February 17, 2019 ==
+
+=== Progress Made: ===
+* Finalized a working evaluation function for our program
+* fed in a set of primitives to make our individuals
+* the evaluation function has a gp.compile function which takes in the values in the rows of the table.
+* the confusion matrix is constructed using the training and testing dataset differences
+
+== February 18, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Learned about our intended goal to use Genetic Programming and feed Machine Learning algorithms we utilized in SciKitLearn as our primitive set to optimize our algorithms
+* Utilized the class time to get started on emade (downloading and installing all necessary dependencies)
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get emade up and running by the next class
+|Completed
+|February 18, 2019
+|February 25 , 2019
+|February 23, 2019
+|}
+
+== February 23, 2019 ==
+
+=== Progress Made: ===
+* Followed instructions on emade GitHub and finished all installations
+
+== February 25, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Created my own SQL database
+* Changed the input_titanic.xml file to connect to my SQL database
+* Got emade to start running
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with teammates and connect to one database
+|In Progress
+|February 25, 2019
+|February 29 , 2019
+|February 29, 2019
+|}
+
+== March 4, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* Figured out who among subteam members will be master
+* Connected to master and ran as a worker
+
+=== Sub-Team Notes: ===
+* no sub-team assigned yet
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with teammates and connect to one database
+|Completed
+|March 4th, 2019
+|March 8th, 2019
+|March 8th, 2019
+|-
+|Finish Presentation
+|Completed
+|March 4th, 2019
+|March 9th, 2019
+|March 10th, 2019
+|-
+|Practice Presenting
+|Completed
+|March 4th, 2019
+|March 9th, 2019
+|March 11h, 2019
+|}
+
+== March 8th, 2019 ==
+
+=== Progress Made: ===
+* Had to figure out how to turn off firewalls
+* Changed the input data set to one that we had imputed and split
+* Finish presentation
+* images of individuals, Pareto fronts, and AUC are displayed on subteam notebook
+
+== March 11th, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+EMADE-Viz
+* provide visual interface to interact with EMADE to easily identify best performing individuals
+* individual tree structure viz
+* Pareto front overtime viz
+* AUC graph overtime 
+* number of Pareto individuals overtime visualization
+* evaluations time per individuals over generations
+* Skills: Matplotlib, NumPy, Web Dev, basic SQL
+Caching 
+* reusing results during crossover if you have same sub-trees so that you don't have to reevaluate the entire tree. 
+* saves so much time (500%)
+* spend lot of time on the internal implementations of emade
+Stocks
+* predict stock price for next day using emade
+* last semester binary classification (stock price goes up or down)
+* implemented new primitives in emade (technical indicators - used to determine behavior of prices). seeded into emade because those are measures used to predict stock prices
+* emade combines technical indicators to predict
+* this semester stock data as time series data to predict actual price
+EEG
+* use TMS to stimulate motor cortex 
+* certain aspects in EEG more or less correlated to what were trying to find
+* competing objectives
+* use emade to extrapolate features of eeg to find what are the important features
+ez-CGP Deep Learning
+* AI->ML->Deep Learning
+* optimize neural networks (model structure of neurons)
+* Why Deep?
+** no feature preprocessing. the models have feature preprocessing built in
+** ex: for CNN just feed image in and do not need to preprocess data
+* GP vs CGP
+** instead of tree structure, use DAGs 
+* ezCGP
+** primitives are neural nets or convolution layer or pemdas etc.
+** picking diff combos of those primitives  
+
+=== Subteam Notes: ===
+* no sub-team assigned yet
+
+=== Action Items: ===
+** {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Understand what all the subteams do |Completed |March 11th, 2019 |March 11th, 2019 |March 12th, 2019 |- |Rank subteams based on my preference |Completed |March 11th, 2019 |March 11th, 2019 |March 12th, 2019 |}
+
+== March 18th, 2019 ==
+* Spring break so no progress made 
+
+== March 25th, 2019 ==
+=== '''Team Meeting Notes:''' ===
+* Got assigned to the EEG team 
+
+=== Sub-Team Notes: ===
+* Started to understand what the EEG team does: 
+** Takes EEG readings from the lab in Emory 
+** Use these EEG data as truth values to see how the waves of healthy people looked when they intended to make hand gestures
+** This could help treat patients who are not able to send the correct signals move on their own 
+
+=== Action Items: ===
+<nowiki>{| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Read through power points of EEG team's presentation to understand more |Completed |March 25th, 2019 |March 27th, 2019 |March 27th, 2019 |- |Think about which aspect of the team's work I would be interested in working on |Completed |March 25th, 2019 |March 27th, 2019 |March 27th, 2019 |}</nowiki>
+
+== April 1st, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* One more week of class before our final marathon where we will be presenting the progress we have made after 
+
+=== Sub-Team Notes: ===
+* Meet with the experienced EEG members and talk about their individual work
+* Found my interests to correspond with the work Ali and Jas are doing in training ML algorithms and adding primitives
+* Understood their work so far:
+** tried to attempt to analyze data with machine 
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|write a my_fft_decomp() method 
+|Completed
+|April 1, 2019
+|April 3, 2019
+|April 3, 2019
+|-
+|Help Ali put the decomposition into Emade
+|Completed
+|April 1, 2019
+|April 3, 2019
+|April 3, 2019
+|}
+
+== April 3rd, 2019 ==
+
+=== Progress Made: ===
+* Joined Ali and Jas's subteam where they were working on adding primitives to EMADE
+* Learned about what an FFT decomposition was:
+** When the signal is broken down into individual frequencies so that you can represent a whole signal as the sum of its parts
+* Learned that Ali and Jas had written multiple scripts to test their algorithm on the EEG data they had been collecting from the lab
+* Cloned the eegmade github repo and started browsing through their branch to understand what primitives have currently been created
+* https://github.gatech.edu/sheston3/eegmade/tree/ali_jas/src/GPFramework
+* Tried to go about seeing if using the decomposition of the signals as a primitve would improve the predicitons. To do this needed to write an fft decomposition method.
+* Used the outline of the my_ft() primitive method that exists to design a my_fft_decomp() method that will send back instances of data with channels that contain 5 pieces of information regarding the frequencies of each signal (alpha, beta, gamma, theta, and delta waves)
+* [[files/Screenshot (222).png|frameless|452x452px]]
+* [[files/Screenshot (223).png|frameless|455x455px]]
+
+== April 8th, 2019 ==
+
+=== '''Team Meeting Notes:''' ===
+* One more week of class before our final marathon where we will be presenting the progress we have made after 
+
+=== Sub-Team Notes: ===
+* We made a plan of when to meet so that we could go through existing data and clean things up and also when we should re-run the scripts that were created to classify data with different ML algorithms
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clean the data to remove corrupt instances
+|Completed
+|March 8, 2019
+|March 14, 2019
+|
+|-
+|Rerun scripts created on standard data
+|Completed
+|March 8, 2019
+|March 10, 2019
+|March 10 2019
+|}
+
+== April 10th, 2019 ==
+
+=== Progress Made: ===
+* Started testing EEG ML classification scripts with verified standard data from online 
+* First used raw data 
+* Results:
+** Neural Networks did very well: 92.9% accuracy
+** All other models were very poor in performance
+* Then wrote a method to pre-process the data based on the classification
+** Split the training data based on if it was classified as a 0 or 1 and averaged each instance's single point over the total of that class's data
+** Ran the same algorithms again
+** Neural net was giving us weird results, but the rest of the models increased in accuracy by around 70% 
+** Also tested how results would fair if we divided test data by the running average
+** Concluded that this pre-processing was successful and therefore the pre-processing, Random Forest, Decision Trees, and other algorithms tested could all be ideal primitives for EMADE
+
+== April 15th, 2019 ==
+=== '''Team Meeting Notes''' ===
+* Updated everyone on the state of the corrupt data, the four new primitives that have been made, and the plan to start running EMADE tonigh
+* Discussed the plan for the rest of the semester
+
+=== Sub-Team Notes ===
+* Updated eachother on the new dataset we are using and our plan to finalize primitives by tonight and start EMADE tonight to run for the week.
+* We discussed how we are going to organize our presentation
+* Got the link for the new dataset   
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Download new EEG Emotion dataset
+|Completed
+|April 15th, 2019
+|April 15th, 2019
+|April 19th
+|-
+|Rerun scripts created on emotion data
+|In progress
+|April 15th, 2019
+|April 16th, 2019
+|
+|-
+|Make final presentation
+|Completed
+|April 15th, 2019
+|April 19th, 2019
+|April 21st, 2019
+|-
+|Practice for final presentation
+|Completed
+|April 15th, 2019
+|April 21st, 2019
+|April 21st, 2019
+|}
+
+== April 19th, 2019 ==
+
+=== Progress Made: ===
+* met with subteam to discuss how results after running EMADE
+* learned that those who wrote the primitives to add to EMADE must also write seeds
+* some team members began writing seeds
+* worked with Kang and Rahul to understand where everyone on the team was 
+* reviewed the final presentation from Fall semester 
+* began modifying presentation to use for this semester with new progress added in
+
+== April 22nd, 2019 ==
+* met with subteam prior to VIP class meeting to discuss where we are in regards to presenting
+* finished making presentation
+* split slides among individuals on subteam
+* met with Scott to understand what I am supposed to present on
+* ran through presentation a few times to practice the flow 
+
+=== '''Team Meeting Notes''' ===
+* Presentations happened
+
+* '''<u>Stocks</u>'''
+** Progress
+*** improved data parser for stock data
+*** implemented several time series preprocessing methods as primitives
+*** implement 3 statistical and 3 deep learning models as regression models
+** results
+*** statistical models have much lower errors
+*** deep learning methods require a lot of training
+*** gained a profit over the testing period
+*** it is not enough to come close to predicting the price because very accurate predictions are required for profitable trading
+** problems:
+*** EMADE- timeouts, memory errors
+*** difficult in understanding workflow of stock team in EMADE
+*** input formatting was difficult to build models off of
+*** tried to get a 4th ML model, Radial Basic Function, but unable to
+** Future work:
+***get EMADE running properly
+***implement RBFN and other ML models
+***see how reinforcement models can work with EMADE
+*'''<u>Caching</u>'''
+**Cache Maintenance Subteam
+***maintain current iteration of cache branch
+***add documentation fro branch
+***fix document bugs and other problems
+***documentation tool to keep track of bugs. used as external resource
+**Dockerizing Cache Subteam
+***simplifies/standardizes process of running on all operating systems (conda setup and mysql setup)
+***GCP setup easier
+***for future- 
+****build faster
+****standardize outputs
+****fix conda version problems
+****test on another OS
+**Cache Invalidation Subteam
+***have max size cache can take up and want to maximize benefit of storing subtrees. want MORE optimal solution
+***ynamic programming solution
+***problems:
+****very time ineffective
+****time cost is large 
+
+* '''<u>EEG(us)</u>'''
+** https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?ts=5cbe4470
+
+* '''<u>Data Visualization</u>'''
+** Motivations
+*** Provide a visual interface to be able to interact with EMADE
+** Recap Fall 2018
+** Goals for 2019
+*** More visualizations
+**** Visualizations of pareto front over time
+*** Improve usability
+*** Refactor Code
+*** Make app generalize
+*** Visualization of parents: concept
+**** Want to have a visualization for where the parent of a dominated from comes from in a front.
+** User Study Feedback
+*** documentation
+**** Clearly state he separation between EMADE and EMADE-visualization
+**** more detail on creating an environment
+*** UI Feedback
+*** Visualization
+*** XML Importing
+**** Goal:
+***** Generalize visualizations for any type of problem and any kind of objective functions
+** Pickling First Years
+*** Goal Reduce the number of times we make a call to the database in order to increase efficiency
+**** Pickling
+** Future
+*** Make EMADE log meta data in mysql table
+*** finish hierarchy visualizations
+*** add seed creation GUI
+*** GUI for executing sql queries
+
+*'''<u>DEEP</u>'''
+**<u>Subteam B:</u>
+***Regression Problem Housing Prices
+***Progress since Midterm
+****identified Kaggle Housing Price dataset
+****incorporated changes into ezCGP to support regression problems
+****Added Average Percent Change (APC) and Mean Absolute Error (MAE) as fitness functions for regression problem
+****used StandardScaler to split and normalize training/testing data and preprocessed the housing dataset
+***Housing Price Dateset:
+***Parameter Choices
+****restricted primitives to only dense layers, finding optimal number of dense layers
+***Individual with Best APC:
+****uses about 7 dense layers, 6 hidden
+****predicted price is just 1 value, housing price
+****trained best individual for 35 epochs
+***Results on Housing Dataset
+****compared to other kaggle results
+****regularized NN performed slightly better
+**<u>Subteam A:</u>
+***Improving structure of ezCGP
+***Progress since Midterm
+****implemented argument/parameter mutation
+****changed the framework to deal with large datasets
+***Dataset 1: MNIST
+****used because it is easy to evaluate and accessible, population size was 12, epoch set at 1, ran 35 generations
+****Results on MNIST
+*****best individual is 95.85% and 98.84%
+*****took the individual and trained on full training set
+*****got 99.85%
+****Compare to Midterm Results
+*****trained model further, about 42 epochs. best accuracy 99.43%
+*****assume since its continuously increasing, will keep going up
+***Dataset 2- CIFAR-10
+****Parameters:
+*****pop size 9, epochs to 3, 25 generations
+****Results on CIFAR-10:
+*****best accuracy of 79.7%, ran for 100 epochs, increased in accuracy by 1.32%
+***Dataset 3- CIFAR -100
+****Parameters:
+*****pop size 9, 5 epochs, 50 generations
+****Results: 
+*****low accuracy but still improved
+*****best individual was bad - just a conv block->max pooling->average pooling
+*****trained over 200 epochs because accuracy plateaued
+*****cifar-100 model under performed when trained on whole dataset. why?
+******lack of genetic diversity
+******smaller models learn faster
+******larger models learn more defining features and therefore generalize better
+*****how to fix?
+******increase number of epochs
+******utilize first and second order gradient information to make better judgement whether its done learning
+******kill smaller individuals
+
+=== Subteam Notes: ===
+* We presented our team's work
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Peer Evals
+|Completed
+|April 21st, 2019
+|April 21st, 2019
+|April 21st, 2019
+|-
+|Write about my contributions and grade deserved
+|Completed
+|April 22nd, 2019
+|April 22nd, 2019
+|April 22nd, 2019
+|-
+|Finish up notebook
+|Completed
+|April 22nd, 2019
+|April 22nd, 2019
+|April 22nd, 2019
+|}
+
+== Final Entry ==
+
+=== Overarching Concepts I learned: ===
+* Genetic Algorithms
+** a population of individuals are selected, evaluated, and mutated to produce best individual (fitness is better than all others and cannot get better)
+* Genetic Programming
+** Like Genetic Algorithms, involves the basic stages of
+**# Evaluation
+**# Fitness Computation
+**# Selection
+**# Mating
+**# Mutation
+* Benefits of EMADE
+** EMADE uses Distributed Evolutionary Algorithms in Python to perform genetic programming
+** EMADE handles preprocessing and training of data
+** Can add any primitives that may help the algorithm be more accurate
+* EEG
+** we currently have little understanding of what how the brain of a stroke patient rewires itself after a trauma.
+** by using EMADE we can classify EEG signals based on EMG potentials induced by TMS 
+** we want to classify these readings based on the truth data in motor evoked potential to see if the subject is more or less excitable at the moment
+** if we are able to learn an algorithm that knows when a patient is more excitable, then we can apply TMS at the correct times to help paralyzed patients gain better control of their muscles
+
+=== Self-Reflection: ===
+* I have learned several new concepts about GP, and EMADE in detail and realized the great benefits and prospective of these frameworks through the several labs we have done and the subteam presentations we did before spring break
+* I have thoroughly understood the purpose of the EEG subteam and its goals
+* I began making contributions on the EEG subteam by understanding the idea of FFT decomposition
+* Helped team members create the my_fft_decomp() primitive to add to EMADE
+* I believe I deserve a 95 for the semester overall. Before joining the EEG subteam I did not have a strong foundation on why and how everything works but after getting involved in the subteam, I learned the bright future of EMADE and was active on the subteam while trying to understand what already exists and how we can make things better
+
+=== Conclusion: ===
+* Overall it was successful semester. Though there were many bumps and learning curves along the way, by spending a lot of time outside of class, going to help desk, and meeting with my team members, I was able to learn and contribute a lot throughout the semester.

@@ -1,0 +1,1629 @@
+==Team Member==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px|link=https://vip.gatech.edu/wiki/index.php/files/GeorgiaTechBuzz.jpg]]Team Member: Max Kazman
+
+Email: maxkazman@gatech.edu
+
+Interests: Basketball, Piano, DNA, Machine Learning
+
+Current Subteam: Stocks (Previously on research fundamentals)
+
+Teammates: [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Kartik_Sarangmath Kartik Sarangmath], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Rishi_Bhatnager, Rishi Bhatnager], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Abhiram_Venkata_Tirumala Abhiram Tirumala], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Kinnera_Banda Kinnera Banda], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_David_Neil_Daniell David Daniell], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Joseph_Dzaluk Joseph Dzaluk], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Youssef_Walid_Elmougy Youssef Elmougy], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Sriram_Mudireddy Sriram Mudireddy], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Coleman_Adams_Christensen Coleman Christensen], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Devesh_Kakkar Devesh Kakkar], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Diptendu_Maity Diptendu Maity], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Pranav_Shankar_Manjunath Pranav Manjunath], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Dhruv_M_Patel, Dhruv Patel], [https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_David_Socher_Wolfson David Wolfson]
+
+==January 8, 2020==
+'''Team Meeting Notes:'''
+* Initialize Population -> Evaluation -> Selection -> Crossover (Mate) -> Mutate
+* '''Objective vs. Fitness'''
+** Objective is how well its maximizing or minimizing the task
+** Fitness is how well it compares to all other individuals
+* '''Selection'''
+** Didn't catch this one
+* '''Fitness Proportionate'''
+** Based on fitness, there is a high or low chance that the individual is passed on to the next generation
+* '''Tournament'''
+** Randomly select two individuals, higher fitness one is passed down
+* '''Crossover/Mate'''
+** Single point: One child gets first half of traits from one parent and second half of traits from the other
+*** Not necessarily half – it’s a random point
+** Double Point: there are three “sections” of traits that are mixed
+** Mutate: randomly change a single trait
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|}
+
+==January 15, 2020==
+* Tree expansion for functions
+** Read from left to right, start top to bottom
+** Allows crossover to occur during mating
+*** (Swapping nodes between offspring to produce children)
+** Allows mutations
+*** Add, remove, change nodes
+*** Insertion and deletion are a bit complicated because deleting a single node may screw up the parsed tree
+**** This is completely up to the user to design how this is handled for the functions you're working with
+** You can have singular inputs to nodes on the tree, but you need to specify somehow to DEAP so it knows how to "execute" the parsed tree
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|}
+
+==Lab 1 - Genetic Algorithms with DEAP==
+'''Important DEAP Tools'''
+* Creator:
+** Creates classes. In most cases, create a class for Individual that extends a list and has a fitness
+*** creator.create("Class Name", extends, instantiate variables)
+* Toolbox
+** Can create methods with aliases that are useful for keeping the genetic programming code clean
+*** toolbox.register("Method alias", method new alias is based on, parameters for alias)
+**** If there are any parameters that are not specified, that must be specified when the method alias is called
+*** Can often use tools.initRepeat for the base method which takes in a container and a generator - create a bunch of individuals with create.Individual or create a population
+* Evaluate function is always necessary in GA's. This varies from implementation, so it is usually written by the coder
+'''General Structure of a Genetic Algorithm:'''
+* Create a large population
+* Evaluate all the individuals and set the individuals' fitnesses to these values
+* Begin generational loop - in our case we have been doing a set 40 generations
+** select a group of "offspring" which are basically the SURVIVORS of natural selection
+*** Can be selected using a tournament WITH replacement so you can end up with the same size population
+**** Could do other things too but somehow have to end up with the same size generation each time, so you might have to compensate in the generation of children/crossover
+** Apply crossover by pairing up the survivors and randomly (or something fancier) mating pairs. Mating CHANGES the original survivors by swapping parts of their "genome"
+*** **To every CHANGED survivor, you need to delete the existing fitness value, so it can be reevaluated
+** Apply mutations to a random subset of the survivors/offspring
+*** Remember to delete the fitness values of mutated offspring
+** Reevaluate all offspring with deleted/invalid fitness values
+** Population = offspring
+[[files/N Queens.png|none|thumb|After ~30 generations, a board with no conflicts was discovered. This was repeatable in similar amounts of generations.]]
+
+==January 22, 2020==
+'''Team Meeting Notes:'''
+* Genetic algorithm: Genome is a set of values (evaluated perhaps as combinations of known algorithms)
+* Genetic programming: Genome is a tree structure or string (to develop an algorithm)
+* If you are minimizing two variables, you end up trying to make the values go towards the origin.
+* Maximization measures
+** Sensitivity or True Positive Rate (TPR)
+** Specificity or False Negative Rate: False negatives / Positives, etc.
+* Pareto Optimality
+** An individual is Pareto if there is no other individual in the population that outperforms the individual on all objectives
+** The set of pareto individuals is the pareto frontier
+** The pareto frontier creates an area under the curve (AUC)  - You would expect this to decrease as it evolves (if minimizing)
+** Distance from point to origin in 1-ACC
+* Nondominated Sorting Genetic Algorithm II
+** Population is separated into nondomination ranks
+*** Pareto ranks are basically new pareto frontiers after removing the pareto frontier
+** Pareto ranks are used to determine who wins a tournament in selection
+*** If there is a tie, use crowding distance and choose the more sparcely populated area
+* Strength Pareto Evolutionary Algorithm 2
+** Every point is given a strength, the number of individuals it completely dominates
+** Use the strength to compute a rank which is the sum of all the strengths of the individuals that dominate IT
+** Ties are still broken with some form of crowd distance
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|}
+
+==Lab 2 - Genetic Programming==
+'''New DEAP Terminology'''
+* Primitive Set:
+** A collection of different primitive operations (add, mult, max, etc.) that can be used to create new functions
+** It is important that the primitive set has only primitive functions as this allows for a wide range of possible algorithm outputs
+* Expression:
+** A 'list' of different members of the primitive set that represent an function. Expressions are good for crossover and are stored in individuals as trees (essentially same thing as expression in our context, but we draw them as trees)
+** Can be compiled into usable functions
+'''Lessons Learned from Generating a Function with GP to model f(x) = x^4 + x^3 + x^2 + x'''
+* Single mutations can have large effects on fitness, but are quickly eliminated by selection
+* Mutations are important to maintain diversity. Lowering mutation rate can create much more stable results, but you might only be finding a LOCAL minimum, instead of a more GLOBAL one
+* Large tree depth limits allow for extremely accurate results, but also very volatile crossovers
+** Even with a limit of only 2 deep, the correct function was generated by the GP
+** Increasing layers beyond 5 increases bloat (i.e. terms in the final function that cancel), but accuracy remains in tact
+[[files/LowMut.png|none|thumb|Only 1% of the population was mutated. Changes in the fitness were very low, however it is possible to converge on an answer that is good, but not the best possible. Without any mutations, it will be very slow to achieve the best possible solution in this case]]
+[[files/HighMut.png|none|thumb|90% of individuals are mutated. Mutations are very volatile and create huge spikes in fitness. However, each of these bad mutations is eliminated after a single generation, suggesting only one individual is affected at a time]]
+[[files/2deep.png|none|thumb|Only allowing a maximum of two height on all expression trees.  The correct function was still obtained with low amount volatility]]
+[[files/20deep.png|none|thumb|Using up to 20 levels deep of the expression tree. 20% are mutated. A much higher volatility and potential bloat in the answer, but the correct function is obtained]]
+==January 29, 2020==
+'''Team Meeting Notes:'''
+* Introduction to first group project (I'm in Group 2)
+** Titanic Dataset
+*** A bunch of columns representing attributes of passengers (rows) on the Titanic
+*** In theory, you can use the columns in the train data-set to train a model that can predict based on age, sex, ticket fare, etc. whether or not the passenger survived
+** Use Sci-Kit Learn library
+*** Has built in functions for many different kinds of machine learning classifiers
+*** Can use a bunch with different hyperparameters as well to train a model based on the dataset and then predict whether a certain set of new passengers will survive
+** Task
+*** Together, group decides how to clean the data
+**** Which columns to use, how to deal with NaNs, normalizing, etc
+*** Individually, group members can use different classifiers from Sci-Kit Learn to create predictions of a subset of the train data, and use the results to create a confusion matrix for each classifier indicating the accuracy of every model including false positive rate and false negative rate
+*** Together, create a plot with false negatives and false positives on X and Y axis, where each point is a classifier
+**** Create a Pareto dominance front with the best models
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|}
+
+==Group Titanic Project Part 1==
+* Cleaning the data
+** Decided to omit Name, cabin, ticket, and embarked columns as they contained little valuable information
+** Combined SibSP and Parch to FamSize column by adding the values
+** NaNs in the Age column were replaced with random values that corresponded to the probability distribution of the age values
+*** We did not want to replace with the average as that would skew models with so many people aged 29.17
+** No values were normalized numerically
+** For training, the first 2/3 of the data were used, and the last third was used to test our model and determine accuracy
+* Models:
+** I used NearestCentroid, BernoulliNB, RandomForest, and AdaBoost 
+** To the right is the total list of classifiers used from the imports
+** The best model was Neural Network with 83.7% accuracy
+** Most models ranged from 70-80% accurate [[files/Imports.png|thumb|600x600px|The different classifiers used from Sci-Kit Learn]][[files/Confusionmatrixex.png|none|thumb|Confusion matrix for Gaussian Naive Bayes, normalized. Similar matrices were created for every model used.]]
+* Results
+[[files/Classifierparetofront.png|none|thumb|A plot of the different ML classifiers used to predict whether the passengers survived or not. A Pareto dominance front is shown]]
+
+==February 5, 2020==
+'''Team Meeting Notes:'''
+* Next group project assignment
+** Use the same Titanic data but use primitives and GP to create a function from scratch
+** May need additional data normalizing or cleaning
+** Use a genetic algorithm with that optimizes two objectives (false positives and false negatives)
+** Create a Pareto dominance front from all of the individuals in the final generation and compare to ML classifiers
+* Presentation tips
+** Use big and clear font
+** Include a sentence that is the main purpose of each slide
+** Split talking between all members of group (not necessarily good in general but we should do that for this class)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|}
+
+==Group Titanic Project Part 2==
+* Further normalizing of data
+** Normalized all data points to numerical values between 0 and 1 by running the sigmoid function on the number of standard deviations each point is away from the mean
+** Used same columns as the previous project part (Sex, Age, FamSize, Fare, Pclass) [[files/Normalizedtitanic.png|none|thumb|The first few columns of our normalized data]]
+* Primitives[[files/Primitivesmax.png|thumb|The strongly typed primitives used for function generation through GP on Titanic data]]
+** Standard primitives, however all functions had a sigmoid function attached, which meant that no value could ever be returned outside of 0 and 1
+** Strongly typed vs. weakly typed
+*** Strongly typed means that each function is defined to only take in certain data types, and return a certain data type. Deap can use this information to construct valid trees without error
+*** Weakly typed doesn't have ensured datatypes for inputs or outputs, and creates more random trees but some may fail with invalid data types
+*** Initially, we used weakly typed primitives, and had all of our data represented as floats, but decided to add logical operators and switch to strongly typed
+* Genetic Algorithm
+** Ran 200 generations at 500 individuals per generation
+** Mutation probability: 0.1
+** Mating probability: 0.5
+** Evaluate function generates normalized false negative and false positive values for every individual. These are the objectives to be minimized
+** A random half of the data was used to train and test for every individual to reduce overfitting
+* Results:
+** Our area under the curve was very small at 0.03, and our individuals performed better than many of the ML classifiers
+** The fitness values seemed to be stagnant, but the minimum values did continue to decrease over generations
+** It was an interesting conclusion that the best tree only used Pclass and Sex to determine if the passenger would survive [[files/Gpparetofront.png|none|thumb|534x534px|The average errors for each generation on the left. Right is pareto front of the population of the final generation with the AUC]][[files/Besttree.png|none|thumb|532x532px|This was the most accurate function generated by our genetic programming algorithm]]
+
+==February 12, 2020==
+'''Team Meeting Notes'''
+* This week have to install EMADE
+* Check to see if it works by getting someone else to connect to my computer
+* (check github for the presentation cause there's screenshots and stuff)
+* Set reuse to 1 so you can pick up where you left off each time (ConfigDB)
+* Vectorization: If a feature only has a few options, you can create a separate column for each option
+** One hot
+** Vector is 4 long if there's four options
+** This is good cause you add dimensions to options so they can't be compared (like 1 vs 2 vs 3 - is 1 closer to 2 or 3?? - doesn't make sense to create relationships between these arbitrary values)
+* Input files
+** Data splitter - clean data
+** Objectives
+** More parameters
+** Evolutionary parameters - population size, crossover, etc.
+* Assignment
+** Run emade as a group (one person is master, rest are workers)
+** Learn SQL and see what we can find from the database
+** Make a pareto frontier of the last generation of Titanic problem
+** Present on March 9
+** Don't use SQLite!!
+'''Subteam Meeting Notes:'''
+* We were very surprised that our area under the curve was much lower than other groups (.03 vs ~.2)
+** We theorized that other groups may have been normalizing their false positive rates and false negative rates differently than us, causing ours to appear much lower
+** It is still unknown as to whether we should be normalizing the false positives and false negatives to the total number of people or the total number of people who died/survived.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|In Progress
+|February 12, 2020
+| -
+|-
+|Connect to MySQL
+|In Progress
+|February 12, 2020
+| -
+|-
+|}
+==February 19, 2020==
+'''Subteam Meeting Notes (Just work session today)'''
+* Installed MySQL and MySQL Workbench
+** Important to only use MySQL before version 5 (I'm using 5.7) because of compatibility issues with EMADE
+** Workbench version doesn't matter as much, I am using version 6.3
+* Set up MySQL Server
+** Easy to do through the workbench with everything in GUI
+** Create a new connection to localhost, and start the server under Start/Stop tab
+* Testing connections with other computers
+** Create a new connection in workbench using the IPv4 address
+*** This is a dynamic IP address, so it changes from time to time, which means the connection to other people's computers might need to be updated the next day
+** Tested connection with Kartik and Abhi and was able to make changes to their databases and vice versa - Success!
+*** Need to make them users with their own passwords and all permissions in Users tab
+[[files/TestConnection.png|none|thumb|Successful connection message from MySQL Workbench when connecting to other servers on teammates' computers]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|In Progress
+|February 12, 2020
+| -
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|}
+
+==February 26, 2020==
+'''Subteam Meeting Notes (Including Hackathon on 29th)'''
+* Installing EMADE
+** Following instructions on [https://github.gatech.edu/emade EMADE github] to install all the extra Anaconda dependencies
+*** Some (Including OpenCV and Tensorflow) did not install on the first try, but running pip install worked in each of these cases, so everything was properly installed
+** Cloned EMADE master branch using Git LFS because the file is very large - no problems
+* Debugging and running EMADE
+** Edit input_titanic.xml from the templates folder to connect to MySQL server
+*** Set server address to localhost and add the username and password for the user
+*** Set reuse to 1 if you want it to pick up where it left off each time you run again
+** Run with this command: python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+*** Add '-w' to the end to run as a worker if you connect to someone else's computer who already started a master process
+*** View master.err and worker.err for error logs and master.out and worker.out for outputs to see if its working properly
+** Error with selTournament
+*** After only a couple generations, there would be an error with selTournament which stopped the run - a problem with Deap library
+*** Used a new pull request which has this issue solved
+**** It turns out the next day it was merged with the master branch, so this pull request was not needed anymore, just update Deap
+** After running for an hour or so, about 10 generations had passed on the titanic dataset
+*** Connecting with workers helped the process significantly
+[[files/Goodoutput.png|none|thumb|768x768px|Terminal output when EMADE is run successfully]]
+[[files/IndividualsExample.png|none|thumb|780x780px|Table of individuals generated by EMADE for Titanic test run obtained from MySQL Workbench]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|In Progress
+|February 29, 2020
+| -
+|-
+|}
+
+==March 4, 2020==
+'''Team Meeting Notes'''
+* Subteam work session
+
+'''Subteam Meeting Notes:'''
+* Spent time setting group-mates up with EMADE
+** Problems included having the wrong version of MySQL and not being able to install all the correct Anaconda dependencies for EMADE 
+* Ran EMADE with 5 workers for about 2 hours and obtained 30 generations[[files/Param1today.png|left|thumb|347x347px|Parameters for large EMADE run on Titanic data]][[files/Param2today.png|none|thumb|335x335px|More parameters for the same EMADE run]]
+* Results:
+** The area under the curve for the pareto front was slightly less than with simple primitives
+*** Since this was much less generations as well, potentially doing 200 generations would result in even lower area under the curve
+[[files/Paretofronts.png|none|thumb|896x896px|Pareto front and AUC comparison for hand-tuned machine learning algorithms, simple primitives GP, and advanced primitives GP]]
+[[files/Accuracyslie.png|thumb|473x473px|Most accurate individuals from Ski-kit learn classifiers, DEAP with simple primitives, and EMADE GP]]
+** The most accurate individual (shortest Euclidean distance to the origin in pareto front graph) came from an AdaBoostLearner, and was more accurate than hand-tuned machine learning algorithms and GP simple primitive
+** Many of the pareto front individuals were AdaBoost learners
+Challenges:
+* Individuals at later generations take much longer to evaluate becuase the individuals have become much bigger, so getting to higher generations is very difficult
+* Not being able to run the same number of generations as the other genetic programming algorithm with simple primitives makes it difficult to tell how much better complex primitives can be
+[[files/Adaboosts.png|none|thumb|322x322px|Individuals from pareto front, most of which are modified AdaBoostLearners]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|}
+
+==March 9, 2020==
+'''Team Meeting Notes:'''
+* Presentation day, learning about new teams and which one I might join
+* Titanic first-semester groups:
+** In general, all the teams were able to get EMADE working with workers and a master
+** The AUC for the EMADE vs. the simple multi-objective genetic program showed that EMADE did not always perform better, but was similar to basic primitive solutions
+** We were calculating the accuracy wrong, as having the accuracy be the euclidean distance from the origin only works if the true positive and negative rate was 50:50.
+* ADFs
+** Automatically Defined Functions (ADF)
+** Main Idea: Dynamically generate new primitives out of subtrees that form in many of the pareto dominating individuals
+*** If a certain subtree appears very often in high-performing individuals, the program will turn that subtree into a primitive, which can be added and mutated by future generations, theoretically populating future generations with more beneficial genetic material
+** The team spent most of the semester setting up ADF generation, but weren't able to get statistically significant results showing that ADFs improved GP
+** This seems like an interesting team to join, as they claim to have set up a lot of the foundation for more creative tests in the future
+* NLP Teams
+** One NLP team is working on primitives for toxicity identification of individual words, which vectorizes words
+** The other NLP team is working on entire passages
+** Both teams were working hard on getting their EMADE to run on PACE, Georgia Tech's computer cluster
+*** Their primitives are very computationally expensive, so it is difficult to get data locally
+** I am not too interested in NLP, and the meeting times for the rest of this semester are conflicting also
+* Research Fundamentals
+** Looking at methods of bloat control
+*** Many trees include large unnecessary parts that may be extremely computationally intensive, but have no real purpose
+** "Speciation" is a way they found in the literature to reduce bloat naturally
+*** They implemented the design they found in the literature, and showed a decrease in hypervolume, suggesting that bloat removal was working.
+*** However, they were not able to get enough data to prove statistical significance
+** Their methods are sound and it is interesting to see literature implementations
+*** This would be a fun team to join
+* ezCGP
+** Normally, machine learning algorithms are trained by hand, and given a particular training set to train on
+*** However, there are multiple ways of improving the training process, including iteratively tuning the model's hyperparameters, and flipping/transforming the images in the dataset to provide more data to train on
+*** This team is looking to automate each step in this process to create a very good image recognition pipeline that can train itself
+** There are a lot of people on this team, but a lot of things seem to be happening concurrently, and would be exciting to join
+Top Choices for subteams: Research Fundamentals, and ezCGP
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|}
+
+==March 23, 2020==
+'''Team Meeting Notes:'''
+* Rest of semester is online via Bluejeans
+* Group meetings happen at the same time live, while there are breakout groups for each subteam that happen directly after and other times throughout the week
+* Final presentation is still on the same date
+* Need to fill out the form for choosing subteam
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|Fill out subteam preference 
+|In Progress
+|March 23, 2020
+| -
+|}
+
+==March 30 - April 3, 2020==
+'''Team Meeting Notes:'''
+* Assigned to Research Fundamentals
+* Meet on Fridays at 1:15pm
+'''Subteam Meeting Notes:'''
+* Assigned to look into PACE setup, as we need to get many runs done for the final presentation in order to have enough data to talk about
+** A run is running EMADE on Titanic with their new speciation code from the neatGP paper for ~30 generations
+* Began looking into PACE documentation [https://docs.pace.gatech.edu/software/anacondaEnv/ here]
+** Was able to SSH into my account on PACE through Putty
+*** Surprised I even had an account considering I am not a CS major
+** Was able to get the correct version of Anaconda in my environment on PACE
+** Tried cloning our fork of EMADE, but it did not run on PACE, need to do a lot of debugging next week
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|Fill out subteam preference 
+|Complete
+|March 23, 2020
+|March 30, 2020
+|-
+|Set up PACE for running RF EMADE
+|In Progress
+|March 30, 2020
+| -
+|-
+|}
+
+==April 6-10, 2020==
+'''Team Meeting Notes:'''
+* Other teams are also working on PACE and I should look into talking to them, particularly NLP
+* One team is working on Google Colab, which would be very cool if it worked
+'''Subteam Meeting Notes:'''
+* Had some issues making sure I was on the correct branch on PACE, but sorted it out with Chris's help
+** Git's version is too low on PACE, so you need to update git, then everything git-related worked as expected
+* After talking to other people, I decided I wasn't going to try to run a MySQL server on PACE, and instead have PACE run as a worker for a MySQL server run locally or on Google Cloud
+* There were problems on PACE when "subprocesses" were called. Began commenting them out, but it seems like there is a fundamental issue with how processes are handled by EMADE that won't work on PACE.
+** Chris seems to know a lot more about this, and I may need to switch to getting runs done locally
+* I setup my local environment to run our fork of EMADE in case I need to be enlisted to do runs for data for the presentation
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+|February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|Fill out subteam preference 
+|Complete
+|March 23, 2020
+|March 30, 2020
+|-
+|Set up PACE for running RF EMADE
+|In Progress
+|March 30, 2020
+| -
+|-
+|Set up local environment for tests
+|Complete
+|April 6, 2020
+|April 10, 2020
+|-
+|}
+
+==April 13-17, 2020==
+'''Team Meeting Notes:'''
+* Presentations next week
+* Dr. Zutty and Dr. Rohling can set up times to listen to presentations sometime over the weekend to make sure we have a practiced presentation
+'''Subteam Meeting Notes:'''
+* Switched to doing local runs for unrestricted mating on speciation threshold of 0.6
+** I should do 5 for sure, but can increase it
+* Completed 5 runs, and attempted a 6th but it failed at sometime overnight
+* Needed to do one extra run for 0.15 speciation threshold as well
+* Uploaded the following items to Google Drive folder for each 
+** Master.err / Master.out
+** individuals.csv
+** bloat.csv
+** pareto.csv
+** history.csv (generated using join command provided by Josh)
+* Once Chris got PACE working, I attempted to do many runs at once, but PACE was down on Saturday, and had to do local runs in order to finish on time
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|Fill out subteam preference 
+|Complete
+|March 23, 2020
+|March 30, 2020
+|-
+|Set up PACE for running RF EMADE
+|Handed off to Chris and Sam
+|March 30, 2020
+|April 11, 2020
+|-
+|Set up local environment for tests
+|Complete
+|April 6, 2020
+|April 10, 2020
+|-
+|Do 5 runs for 0.6 speciation threshold unrestricted mating
+|Complete
+|April 11, 2020
+|April 15, 2020
+|-
+|Practice Presentation
+|Complete
+|April 13, 2020
+|April 19, 2020
+|}
+
+==April 20, 2020==
+'''Team Meeting Notes:'''
+* Presentation day!
+
+* ADFs
+** Automatically defined functions, which are common sub trees that are repeated by EMADE to improve populations by repeating large useful parts of trees
+** In general, their implementation of ADFs was not statistically significant for any generation
+*** One generation was below p=0.05, but since there were so many tests run, even if the results were all due to pure chance, you would expect some generations to appear statistically significant just by chance
+** They did find that pareto front individuals contain more ADFs than the overall population, possibly suggesting that they do improve fitness?
+*** However since they did not actually improve the fitness as shown by their first experiment, there is probably something else that rewards ADFs for being in the pareto front besides fitness alone
+** Scaffolding ADFs does not perform well (i.e. an ADF contains another ADF as a root)
+** Alternative methods of selection which preferred trees with ADFs also did not significantly improve
+* Research Fundamentals: (MY GROUP FINAL PROGRESS) See [https://docs.google.com/presentation/d/1mmyBsT76iPt4N7pM0oUf7c2qlhh34gBle978DpOBPrE/edit#slide=id.g74514c014e_0_31 final presentation] for all graphs and charts referenced.
+** Goal: Reduce bloat in genetic programs to make GP faster and more efficient
+** Bloat is defined as something in the program that doesn't reduce hypervolume size, but does increase average tree size
+*** This will be done by speciation, the grouping of topologically similar trees into "species"
+**** In general, members of underrepresented trees are preferred in mating, which would promote more diversity
+**** When implemented completely as described in the [https://www.sciencedirect.com/science/article/pii/S0020025515008038 NeatGP paper], species can only mate within their own species except on occasion. In addition, only certain crossovers are possible within species where  the corresponding shared topological features are utilized identically in a particular crossover
+** Experiments:
+*** Tested different speciation methods with unrestricted mating, so all mating is the same single point mating from regular EMADE
+**** Results: After testing 0.15, 0.3, and 0.6 speciation thresholds, none of them had statistically significant decreases, and in fact, the 0.3 had a statistically significant increase in hypervolume
+**** Might need to do even more trials (more than 10 per threshold), but I don't think that is the problem. Most likely just promoting diversity like this doesn't help, and we may need more elements of neatGP to be implemented before we see statistically significant results
+*** Mysterious Drop:
+**** After a certain number of generations the number of individuals generated per generation takes a sharp drop
+**** Different mutation thresholds and speciation thresholds do not remove this drop
+*** Pace:
+**** We got PACE working using a MySQL server hosted on Google Cloud
+**** It was a bit difficult to run multiple instances of EMADE on each account, so we had to have separate downloaded EMADE folders as to not interrupt previous runs when starting a new one on the same PACE account
+***** The EMADE folder is very large, so datasets were removed among many other things to decrease the size of the folder so that 8 instances can be stored on an individual PACE account
+***** 8 runs of EMADE can be done simultaneously
+***** The runs go about the same speed as my local runs (perhaps a bit faster), but they can be run simultaneously and without slowing down local machines
+**** Chris wrote a script that sets up everything on PACE [https://github.gatech.edu/sjung323/emade/tree/fitness_sharing here]
+* NLP (Non time conflict)
+** Added multiple primitives to help linearize data which would come from language interpreting primitives
+** GloVe is a pre-trained primitive which assigns weights to "distances" between words based on their semantic relation to each other
+** Testing toxicity models with their primitives and hand-tuned model
+** Google Colab was used to help develop EMADE remotely so people can write code together
+*** EMADE runs well as Google Colab has high powered GPUs
+** Also ran models with image classification on X-rays
+*** Had issues with the size of the data set, and had to split it into smaller parts but still have enough to generate good models
+** Got PACE working, but have been having trouble with MySQL on PACE
+* NLP (Time Conflict)
+** Developed a PACE guide under the general Wiki of the team
+*** They spent a lot of time getting MySQL to actually function on PACE, which wasn't done by any other team
+** General goal is to determine summaries of sentences, while the other NLP group is doing 
+** Added two primitives for determining meaning of sentences (NumNamedEntities and TFISF)
+*** They had problems with the time it takes for these primitives to run, which was a barrier for obtaining data and something that needs to be optimized in order to have successful future tests
+* ezCGP
+** Goal is to develop a full framework with genetic programming that can prepare data, train a model, and test the model for cifar-10 dataset
+*** Usually the data preparation and model training (tuning machine learning hyper parameters) are done by hand
+*** Data preparation includes rotating images sideways and transformations like this, as it increases the "amount" of training data, but also keeps the data the same
+**** I.e. a picture of a dog will still be a picture of a dog if it is mirrored
+**** This is an effective way of getting more data from the same dataset
+** Most of their time was spent setting up their three stage process, each with a different EMADE algorithm, to be trained through GP
+*** In the end they were able to finish each sub algorithm (data preparation, training, and testing)
+** PACE:
+*** They used pace starting from very early on, however this was much easier to do since they did not use EMADE at all in their pace setup. Instead, they had their own DEAP genetic programming algorithm seemingly from scratch
+*** Configuration was difficult to get PACE to use tensor flow properly with GPU, but this was their main difficulty
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Lab 1 Part 1
+|Complete
+|January 8, 2020
+|January 12, 2020
+|-
+|Lab 1 Part 2
+|Complete
+|January 15, 2020
+|January 20, 2020
+|-
+|Lab 2
+|Complete
+|January 22, 2020
+|January 26, 2020
+|-
+|Titanic Project Part 1
+|Complete
+|January 29, 2020
+|February 5, 2020
+|-
+|Titanic Project Part 2
+|Complete
+|February 5, 2020
+|February 12, 2020
+|-
+|Install Emade
+|Complete
+|February 12, 2020
+| February 29, 2020
+|-
+|Connect to MySQL
+|Complete
+|February 12, 2020
+| February 19, 2020
+|-
+|Run EMADE on Titanic and Analyze
+|Complete
+|February 29, 2020
+|March 4, 2020
+|-
+|Create presentation
+|Complete
+|March 4, 2020
+|March 8, 2020
+|-
+|Fill out subteam preference 
+|Complete
+|March 23, 2020
+|March 30, 2020
+|-
+|Set up PACE for running RF EMADE
+|Handed off to Chris and Sam
+|March 30, 2020
+|April 11, 2020
+|-
+|Set up local environment for tests
+|Complete
+|April 6, 2020
+|April 10, 2020
+|-
+|Do 5 runs for 0.6 speciation threshold unrestricted mating
+|Complete
+|April 11, 2020
+|April 15, 2020
+|-
+|Practice Presentation
+|Complete
+|April 13, 2020
+|April 19, 2020
+|-
+|}
+==Week of January 25, 2021==
+'''Team Meeting Notes:'''
+*I have a time conflict for regular Monday meetings, and am working with Joseph (who also has a time conflict) to get a time to meet with Jason throughout the week.
+*I am continuing on the Stocks team
+*Kartik filled me in for this weeks meeting
+**Set up a time as a team to meet later in the week
+**Rishi and Abhiram will continue to lead the stocks team
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Get time conflict meeting time with Jason and Joseph
+|In Progress
+|January 25, 2021
+| -
+|-
+|Decide on team meeting time
+|Complete
+|January 25, 2021
+|January 27, 2021
+|-
+|}
+==Week of February 1, 2021==
+'''Team Meeting Notes:'''
+*Decided to meet with Jason and Joseph for time conflict meetings on Thursdays at 6:15 after our team meetings
+*Meeting Thursdays with team at 5:30
+'''Subteam Meeting Notes:'''
+*Kartik and I looked into sentiment analysis that can be used as another EMADE feature
+**[https://medium.com/analytics-vidhya/sentiment-analysis-for-trading-with-reddit-text-data-73729c931d01 One article] is helpful in explaining how sentiment can be used to analyze stocks in real time
+** [https://unbiastock.com/reddit.php Another website] makes it easy to get sentiment data from multiple sources
+** In general, sentiment seems like a valuable tool in determining stock price direction, however, it is difficult to get good historical sentiment data without paying. This is something we can look into in the future, but it will probably involve us making our own dataset, which may take more time than its worth for now.
+* We also discussed some clustering ideas for potential pattern recognition/classification. I think it can be useful, but the framework with EMADE for unsupervised learning may be difficult to overcome for now.
+* People will look into new papers to base our current semester's projects on. We will also consider papers from last semester that we looked into
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Get time conflict meeting time with Jason and Joseph
+|Complete
+|January 25, 2021
+|February 8, 2021
+|-
+|Research sentiment data
+|Complete
+|February 1, 2021
+|February 4, 2021
+|-
+|}
+==Week of February 8, 2021==
+'''Team Meeting Notes:'''
+* Meeting with Jason was cancelled for this week, but we notified him of some questions that might be useful for the stock meeting on Monday:
+** Thoughts on our new paper
+** How one might create more structured trees in EMADE (essentially only allow EMADE to change hyperparameters of a predefined and unchanging tree structure)
+'''Subteam Meeting Notes:'''
+* Abhiram talked about some of the work he did over break
+** One interesting test was how he only allowed EMADE to use primitives that were related to stocks (technical indicators) or regression learners. This significantly reduced the broken individuals which were unable to compile. Previous tests we did with no restrictions had only about 10% of individuals that compiled, whereas this new test had about 33% compiled indviduals. (note these percentages are estimates)
+* Discussed [https://www.sciencedirect.com/science/article/pii/S1568494611000937 this paper]
+** A very interesting paper that uses piecewise linear regression to create labels in the data (when the price changes direction significantly)
+*** The moving window used to make the piecewise linear regression was chosen through genetic programming, which sounds like EMADE can improve upon
+** They then use a neural network to predict when the stock is going to change direction based on their vertices labeled from piecewise linear regression
+*** Instead of classification, they use regression so they have a better understanding of how confident the model is. This is a recurring theme in financial machine learning
+** Then then have a dynamic threshold which determines when the value outputted by the model is extreme enough (high or low) to warrant a true change in direction
+*** This was done through exponential moving averages
+** Each of these tasks were optimized individually, and we believe EMADE could improve upon the process by evolving the PLR, neural network architecture, and dynamic thresholding simultaneously
+* Ideas for moving forward:
+** We want to improve our technical indicators by adding more adding functionality to change their hyperparameters through EMADE
+** We want to conduct an EMADE run with Abhiram's improvement and the PLR-labeled data (no PLR evolution yet)
+** Later, we want to conduct an EMADE run with a fixed tree, where EMADE can only change hyperparameters. We will see if this can allow us to create a better version of the architecture used in the paper.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Read [https://www.sciencedirect.com/science/article/pii/S1568494611000937 this paper]
+|Complete
+|February 8, 2021
+|February 11, 2021
+|-
+|Work on technical indicators
+|In progress
+|February 11, 2021
+| -
+|-
+|Look into EMADE tree restrictions
+|In Progress
+|February 11, 2021
+| -
+|-
+|}
+[[files/Rubricsemester3.png|thumb|Self evaluation for notebook Spring 2021 Number 1|none]]
+==Week of February 15, 2021==
+'''Team Meeting Notes:'''
+*Notebook self evaluation was due this week
+* Talked about some of the troubles we had been having with PLR implementation, and how it could be useful or not for labeling our data
+** Why do they do genetic algorithm on it?
+'''Subteam Meeting Notes:'''
+*We are trying to figure out everything from the paper
+**Kartik and Abhiram have been working on the PLR code, and things seem to look good, but there is a problem with the Euclidian distance in the calculations
+***Kartik worked on adding Euclidian distance to make the code more accurate
+***See this colab notebook: https://colab.research.google.com/drive/1EtaQwCV_luXwZWII9NnR2HVjFFJcb-pm#scrollTo=hIXA8BVc_1vW
+** Krithik is going to look for more papers in case we do not have enough stuff to continue with this one
+*** If we are able to get  PLR working such that we have labeled data, I am confident we will be able to continue to some EMADE runs
+* I spent some time working on technical indicators
+** Many technical indicators need to have High, Low, and Open prices to work, so I believe we should add this to our datasets
+*** I adjusted how some of the technical indicators handle the inputs, which allows for any arbitrary number of streams to be added, as long as we keep the order consistent
+**** I.e. Open, High, Low, Close, Volume
+**** See example below how different streams are utilized by technical indicators. Lines 444 and 445 display this.
+** I'm sure there are a lot of Python libraries that have implemented many technical indicators, so I will try to find one that will work for us, to speed up the process of adding many technical indicators
+[[files/Ema.png|none|thumb|408x408px|Example of technical indicator that uses multiple streams]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Work on technical indicators
+|Complete
+|February 11, 2021
+| February 22, 2021
+|-
+|Look into EMADE tree restrictions
+|In Progress
+|February 11, 2021
+| -
+|-
+|Look into technical indicator python libraries
+|In progress
+|February 18, 2021
+| -
+|-
+|}
+==Week of February 22, 2021==
+'''Team Meeting Notes:'''
+*Notebooks and peer evals due next week!
+* Talked with Jason about the work I had done with some of the technical indicators, and he agreed that the library seems like a good way to go to increase our production
+** He also checked the license, which I had not considered, and it looks OK to use
+'''Subteam Meeting Notes:'''
+*Lots of new technical indicators were added by Abhiram and Youssef
+**BIAS, DeltaSMA, DeltaBIAS, DeltaMACD, DeltaSTOCH, DeltaWILLR, DeltaRSI, BiasEMA, and DeltaEMA
+** Krithik, Joseph, Youssef, and Kinnera are looking into more volume based primitives
+* There was a slight issue with some inconsistencies in the source data for the paper that Rishi discovered, but sorted out by Thursday
+** It had something to do with how the stock split since 2008, but the problem seemed very strange. Either way we have the correct data now
+* Abhiram and David looked at the exponential smoothing averaging that the paper uses to decide if the model's outputs indicates a buy or a sell signal; more to come
+* Kartik and Abhiram looked into why the trading signal graphs has flat tops and bottoms
+** It seems to do with the fact that some of the regions have an even number of datapoints, leading to two points at the peak/valleys
+** Since diagnosing the problem, the solution is fairly simple for them to implement
+* Kartik set up a new AWS server, since our last one was shut down over break
+** Credentials are updated on the github
+* I found a [https://github.com/mrjbq7/ta-lib python library] that has a bunch of technical indicators that we can use as primitives potentially
+** There are many different technical indicators organized by volume, momentum, etc.
+** I tested some simple implementations, and they seem to work well
+** We discussed as a team how this could be implemented, as there are a couple technicalities:
+*** It turns out, contrary to my previous assumptions, the primitives should output one value at a time, unless we do STREAM_TO_STREAM
+*** If a moving average technical indicator for example is used, it should only output the most recent value, not the previous 20 values for a window of 20. This is different from how the library works, as it is meant to be fed the entire dataset, and then calculate the technical indicators at each point throughout the dataset
+*** We were concerned that because the primitives only see a smaller window of prices (perhaps only 20 days worth), many of the technical indicators would not be able to produce many values. For example, a moving average of 10 days would not have any meaningful values until the 10th day.
+*** We considered how to solve this problem, and realized that just returning the last value of the TA-Lib functions output would produce the value we wanted
+**** I can make a simple wrapper function for some of the TA-Lib functions to show how we will turn them into EMADE primitives
+[[files/Firstone.png|none|thumb|742x742px|Example of technical indicator using TA-Lib]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Look into EMADE tree restrictions
+|Suspended
+|February 11, 2021
+| -
+|-
+|Look into technical indicator python libraries
+|Completed
+|February 18, 2021
+|February 25, 2021
+|-
+|Create wrapper function for TA-Lib indicators
+|In Progress
+|February 25, 2021
+| -
+|-
+|}
+==Week of March 1, 2021==
+'''Team Meeting Notes:'''
+*Peer evals and notebooks are due this week!
+* A shorter meeting with Jason this week, but we discussed some of the work Joseph had done with technical indicators, and my progress on the wrapper
+** Hopefully we are close to starting some EMADE runs
+'''Subteam Meeting Notes:'''
+*Abhiram looked into the genetic algorithm used in the paper, but it is still unclear why we might need this, even after implementation
+**Can't we just calculate the optimal threshold if it is just one value?
+* David brought up some ideas for more technical indicators, since he determined that there may be some even the library doesn't have (especially for volume indicators)
+** He mentioned possibly needing average volume, which is more of a summary statistic than a datapoint that changes all the time
+** This reminded me of talk that other people had had about using fundamentals data earlier, because those are essentially constants that may change quarterly
+** We could implement this stuff as new columns to our original datasets, that are basically just constants all the way down
+*** Since they are essentially constants, it might not have too much of an impact on the models, except when we use different stocks.
+* We also plan to use different stocks as splits for training, which I think is an interesting idea
+* I updated the team with progress on the technical indicators library wrapper functions
+** I added all the new functions to a new file called "stocks_methods_wrappers.py"
+** I adjusted the functions so they only output the last number like we had discussed last week
+** I pushed new code [https://github.gatech.edu/rbhatnager3/emade/commit/a5be08c90d997e4260fd717753a6d8f6dcf5bb88 here]
+** I have not tested yet due to versioning issues on my local computer, which I plan to fix soon [[files/File.png|none|thumb|459x459px|Beginning of wrapper function file for more technical indicators]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Look into EMADE tree restrictions
+|Suspended
+|February 11, 2021
+| -
+|-
+|Create wrapper function for TA-Lib indicators
+|Completed
+|February 25, 2021
+|March 4, 2021
+|-
+|Test new wrapper primitives and add more
+|In Progress
+|March 4, 2021
+| -
+|-
+|Add more streams to our datasets and test new primitives (Open, High, Low)
+|In Progress
+|March 4, 2021
+| -
+|-
+|}
+
+==Week of March 8th, 2021==
+'''Team Meeting Notes:'''
+*Midterm presentations in 2 weeks!
+*We should move away from trying to get the paper's genetic algorithm working, because it is unnecessary or we don't really understand it
+'''Subteam Meeting Notes:'''
+*We continued to discuss the paper's genetic algorithm for determining the optimal threshold for the labeling
+**Abhiram might try out something, but we are most likely just going to move on and use our own method to find the optimal threshold
+*We're going to try to implement more technical indicators that can be easily implemented with TA-Lib
+*Kartik looked into leading indicators, because many of the ones we had been looking at are technically lagging
+**New ones we might consider include Fibonacci patterns, RSI, stochastic oscillator
+*Abhiram got XMLs and datasets ready for a new run:
+**Profit calculation seems to be working now that the transaction fee was removed (which isn't vital anyways)
+**I'm going to help be worker and analyze the run afterwards
+*I'm still having some issues with my local setup getting TA-Lib to install properly, so we can't use it for the run
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Participate as worker in run and analyze results
+|Complete
+|March 9, 2021
+|March 12, 2021
+|-
+|Add more streams to our datasets and test new primitives (Open, High, Low)
+|Suspended
+|March 4, 2021
+| -
+|-
+|}
+
+==Week of March 15th, 2021==
+'''Team Meeting Notes:'''
+*Midterm presentations next week!
+'''Subteam Meeting Notes:'''
+*From our previous run:
+**Many individuals did not even evaluate because they were in the wrong mode, so it was hard to analyze the results
+**Only two individuals that weren't seeds were valid
+*Started another run where we fixed:
+**A line which fixes the "mode" problem described above
+**Added more evaluations metrics 
+***Profit percentage
+***Number of transactions
+***Average MAE
+***Tree size
+**This time many trees were valid, one of which had rather high profit percentage
+*Worked on slides for our presentation next week. We want to make sure it doesn't go too long this time!
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Participate as worker in NEW run and analyze results
+|Complete
+|March 15, 2021
+|March 19, 2021
+|-
+|Work on presentation
+|Complete
+|March 15, 2021
+|March 22, 2021
+|-
+|}
+
+==Week of March 22nd, 2021==
+'''Team Meeting Notes:'''
+*Midterm presentations!!!
+*Stocks (Us)
+**We didn't go overtime!
+**Jason had a good point/suggestion: we need to somehow normalize the profit percentage, perhaps to a Monte Carlo simulation
+***I.e. How do we know if an individual is performing well above average?
+*ezCGP:
+**They have a completely different framework without DEAP/EMADE
+**Running into some overfitting problems
+*Modularity:
+**They did some cool documentation using something called Sphinx
+**Pretty difficult problem to incentivize ARL generation, but also not run into conversion on just one kind of ARL
+**Because of these difficulties, future steps involve different selection methods/diversity solutions
+*NLP:
+**They are using PACE-ICE, which sounds very hard to get working. I think Google Colab was the right choice
+**They also tried an un-seeded run, and got very bad results, so this reinforces the idea that we should definitely be seeding our trials
+**Might transition from Keras to Pytorch, not sure exactly what features they are looking for, but it sounds like they want a more versatile framework. I think this might be too complex for what they need…
+
+'''Subteam Meeting Notes:'''
+*Talked about Jason's Monte Carlo suggestion:
+**Maybe we can just compare to buy and hold? Hard to find a good reason why we can't do this, other than the fact that Monte Carlo simulation may be more accurate
+***If Monte Carlo is easily implemented, we probably want to go with this as it would probably capture more information about the test set data
+**I'll look more into the Monte Carlo simulations
+*Talked about other fitness functions:
+**Abhiram brought up profit per trade. This is correlated strongly to average number of trades though. Profit per trade = profit%/number of transactions. Since we already have both of these other objectives, profit per trade might not help
+***Does consistency matter on a per trade basis? What about if we are doing tons of trades? Do we want more or less trades? I can see all of these questions both ways, so its hard to say if average number of transactions should be an objective function because we wouldn't know to maximize or minimize it
+***This discussion led Abhiram to suggest variance of the transaction profits. This is an interesting suggestion, and isn't hard to implement according to him
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Look into Monte Carlo simulations
+|In Progress
+|March 22, 2021
+| --
+|-
+|Work on presentation
+|Complete
+|March 15, 2021
+|March 22, 2021
+|-
+|}
+
+==Week of March 29th, 2021==
+'''Team Meeting Notes:'''
+*Lots of new team members!
+**David W.
+**Coleman
+**Devesh
+**Diptendu
+**Pranav
+**Sriram
+**Dhruv
+*Gave an onboarding presentation to new members to get them setup with the paper we're reading and our fork setup
+
+'''Subteam Meeting Notes:'''
+*I setup a Monte Carlo test to use as a test for a new objective function based on Jason's suggestions:
+**Take a test set of 100 days, and calculate a probability of making a trade (buy or sell) on any given day based on an input. i.e. if you want it to average 18.6 trades in the 100 day trading period, probability = 18.6/100
+**Simulation involves generating random indices based on the above probability, and trading every alternating index as a buy then sell
+**Calculate profit percentage based on these trades
+[[files/Examplesimulation.png|none|thumb|368x264px|Example of a singular simulation of SH, and the calculated profit. Expected value of 25 transactions]]
+**Repeat experiment 10000 times, keeping track of the profit each time
+**Below are the histograms of the profits for each stock doing this experiment
+[[files/random.png]]
+[[files/random2.png]]
+**It's apparent that some stocks perform well even with random trades (such as AAPL and UMC, which we thought our individual from the midterm presentation did well on, but was actually about average)
+**It turns out that the individual from the midterm presentation actually did do well above average for UMC, but the rest were close to average
+**We can use a lookup table to implement this as an objective function, I'll work on that
+[[files/New pictures.PNG]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Look into Monte Carlo simulations
+|Completed
+|March 22, 2021
+|March 31, 2021
+|-
+|Run Monte Carlo simulations
+|Completed
+|March 29, 2021
+|April 1, 2021
+|-
+|Create objective function for CDFs with Monte Carlo simulations in EMADE
+|In Progress
+|April 1, 2021
+| -
+|-
+|}
+
+==Week of April 5th, 2021==
+'''Team Meeting Notes:'''
+*Stats presentation!
+**In general, we want to run "experiments" where we change one variable, and run multiple trials and then statistically determine if the experimental variable significantly affected some output
+***This is something we haven't been doing too much of as we get everything set up, but as we do lots of runs, we have to keep this in mind
+'''Subteam Meeting Notes:'''
+*Spent much of the meeting helping new members get set up with our SQL server and the colab notebooks and our fork of EMADE
+*We also helped get everyone assigned to a sub-subteam
+**Literature/TI implementation
+**EMADE implementation
+**Analysis of EMADE runs
+*I talked more about the idea to make an evaluation function using the random Monte Carlo simulations I created
+**After discussing with Abhiram, found out this would be simple to implement, because he already figured out how to determine which fold of data we are on within the objective function code when he created the profit percentage objective function
+**I'm going to make a look-up table with a bunch of experiments already run so we don't have to do this every time we evaluate an individual, because it is a bit slow to run a lot of tests
+***The lookup table will have a many means and standard deviations for tests with different trade probabilities for each stock.
+***The objective function will simply find the row in the correct stock's column that is closest to the individuals' average number of trades, and use that mean and standard deviation to calculate a Z-score or CDF
+***Abhiram wants to do 1-CDF so we can minimize the value which will help with our AUC calculations
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Create objective function for CDFs with Monte Carlo simulations in EMADE
+|In progress
+|April 1, 2021
+| --
+|-
+|}
+
+==Week of April 12th, 2021==
+'''Team Meeting Notes:'''
+*Jason suggested several tests we could do, involving changing the number and quality of seeds or having more datasets with longer timeframes
+'''Subteam Meeting Notes:'''
+*Abhiram made some code to visualize the individuals on the histograms I made
+*People definitely want to try adding more datasets and longer time frames
+*Kartik and I finished the evaluation function / lookup table described in last weeks notes, so that is ready to be used in a run. See commit: [https://github.gatech.edu/rbhatnager3/emade/commit/a5c94f142042ade1f4db6df91aeb0f4f333b85be]
+*See the example of the lookup table and the objective function code below
+[[files/Lookuptablemaxnooneusedthisone.PNG]]
+[[files/Commitcodecdf.PNG]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Create objective function for CDFs with Monte Carlo simulations in EMADE
+|Completed
+|April 1, 2021
+|April 16, 2021
+|-
+|}
+
+==Week of April 19th, 2021==
+'''Team Meeting Notes:'''
+*Presentations during our final block on April 30th at 6pm.
+**Presentations can be a bit longer now that there are no bootcamp people
+*Peer evals due Tuesday April 27th
+*Notebooks due May 1st at midnight
+
+'''Subteam Meeting Notes:'''
+*Devesh is doing an interesting experiment to see if there is a way to make an objective function that measures the time between trades and local extrema in stock price
+*Sriram implemented Fibonacci Retracement, a leading technical indicator primitive
+*We are staring a new run!
+**Eval functions:
+***Profit percentage
+***Average profit per transaction
+***Variance of profit percentage
+***CDF (me and Kartik's new eval function)
+**I helped as a worker for this run
+**Best individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None)
+***The average CDF is 0.11, which is strong, but not necessarily statistically significant
+***I'm not so sure how we would determine if any one individual is statistically significant, given how we have several folds of data that probably aren't independent (but maybe they can be treated as such?)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Help as worker with EMADE runs and analysis
+|In progress
+|April 19, 2021
+| --
+|-
+|}
+
+==Week of April 26th, 2021==
+'''Team Meeting Notes:'''
+*Notebooks due this weekend
+*Presentation Friday!!
+*Presentations!
+**EzCGP:
+***Trying their "block" structure on CIFAR-10 to search new neural network architectures
+***Seeing if a genetic algorithm run directly on neural network and convolutional layers can help improve performance on CIFAR-10 without the need for transfer learning
+***One very interesting result: they noticed that an increase in mutation percentage increased the individual fitness significantly
+**Modularity:
+***They are still having issues getting the ARLs to work the way they want them to
+****It is hard to get trees to create diverse ARLs but also narrow in on ones that work well at the same time
+***More experiments needed to directly target the affect of ARLs
+**NLP/Neural Networks:
+***Still using PACE
+***They had an interesting issue with neural networks being way too simple
+****I.e. one layer or two layers with just a few nodes, whose weights/biases would be optimized through gradient descent and represent a trivial solution
+****Experimented with having evaluation time be a metric/objective to help select for more complicated models, although this seems like a slippery slope
+'''Subteam Meeting Notes:'''
+*We did one more run, this time without the profit percentage objective function
+**The results were very similar to the last time, it is hard to distinguish the runs
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Help as worker with EMADE runs and analysis
+|Completed
+|April 19, 2021
+|April 26, 2021
+|-
+|Work on presentation and practice
+|Completed
+|April 26, 2021
+|April 30, 2021
+|-
+|}

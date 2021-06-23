@@ -1,0 +1,508 @@
+==Team Member==
+Team Member: Cameron Bennett
+
+Email: cbennett49@gatech.edu
+[[files/Cameron Bennett.png|thumb]]
+Phone: 404-660-4206
+== April 30th, 2021==
+'''Presentation Day'''
+* Today's presentations for each team occurred from 6-8:50. Some updates presented in the NLP presentation are included below.
+* I was present to present information regarding my specific slide discussing layerlists.
+'''Individual notes and tasks'''
+* My only task for today was presenting my slide and updating journal entries.
+* During the NLP presentation, the professor seemed to appreciate our use of a motivation slide and goals slide to articulate objective goals for the semester. The overall question presented was: "Can EMADE take a (seeded) network and reliably create a better one?"
+* After discussing motivations, our presentation detailed what PACE is and its very important role in improving the performance of each nlp emade run. Additionally, there was mention of Cameron Whaley's helpful setup video provided to get started with PACE.
+* In addition to the PACE videos provided, Jonathan provided details about the updated primitive documentation which all new members can now use. The documentation contains all information and notes recorded on each primitive ported over from notion.
+* Ideally this documentation and some of the pre-existing slide decks will enable easier onboarding issues in future years.
+* A big portion of this presentation addressed the question of how different nnlearners perform in an objective space represented by FNR and FPR instead of accuracy error. What was discovered overall was that FPR and FNR usage did generate some good results with individuals maxing out at accuracy 0.9313 but some of the data used seems questionable upon review so deeper speculation is necessary here.
+* Finally, some future things to be tested include increasing network complexities and depths of nn subtrees, fixing pretrained embedding layers and improving emade's outlook when seeded with bad or no individuals.
+
+== April 26th, 2021==
+'''Subteam Meeting Notes:'''
+* Complete slides based on outline by friday
+* Cameron Whaley recommended a practice run on 4/29/21 at 6pm
+* At the time of this meeting, there was a desire to complete more runs with the new FPR and FNR measure configuration. A few team members discussed completing a couple of 8 hour runs in time for the presentation.
+* Team members not contributing to experimental runs directly were assigned slides to complete and served in contributing visualizations once finished.
+
+'''Individual Reflection:'''
+* For this meeting, my task was to give an example of a LayerList (maybe the LayerList for the individual in the picture), explain how layers & their parameters are stored in the LayerList. This task was provided by Anshul who said I could contact him with any questions.
+* My understanding of the layerlist after analyzing neural_network_methods.py, was such that it operated like an arraylist containing a multitude of primitives(eg. InputLayer, ConcatLayer, Optimizers, etc.). 
+* The primitives constructed are essentially wrappers to existing Keras object with their hyperparameters exposed and other specific functionality that made needs to access.
+* A simple example that I felt conveyed these ideas was included in my slide as shown below:[[files/slidea.jpg]]
+
+== April 23rd, 2021==
+'''Subteam Meeting:'''
+* In preparation for the final presentation, Cameron Whaley led a meeting in which a presentation outline was established which included.
+     - Introduction: Contains outline for project motivation, semester goals and brief background on existing primitives and functionality.
+     - PACE: Section contains information regarding PACE setup, particularly the tutorial information provided by Cameron Whaley for setup.
+     - Documentation: Section introduces the new documentation ported from notion onto the wiki detailing primitive information.
+     - Experiments: Section discusses newly tested datasets, running Emade with FPR and FNR modified configurations.
+* Outside of this light outline for a presentation, it was announced that there would be a code freeze on Wednesday at 12pm.
+
+
+'''Individual Reflection:'''
+* At the time of this meeting, I had a running instance of the nlp-nn branch for emade being run on titanic dataset utilizing the pre-configured AUC scoring. 
+* After analyzing neural_network_methods.py, not much could really be determined as problematic. However, I expressed some concern about the EarlyStopping on line 703 as I felt this might be an unnecessary layer that prevents full optimizing of larger networks. I was assured that this layer is necessary.
+* Up until this point, my individuals have reached 5 generations and produced a pareto optimal grouping that consists of these individuals: 
+      - AdaBoostLearner(ARG0, ModifyLearnerFloat(learnerType('LogR', {'penalty': 0, 'C': 1.0}), 0.01), myIntAdd(3, greaterThan(100.0, 2.6872796524601306)), myFloatDiv(0.1, 0.1))
+      - NNLearner(ARG0, OutputLayer(DenseLayer(0, softmaxActivation, 66, InputLayer())), 100, passOptimizer(AdamOptimizer))(0.5106755337766888, 0.0) 
+      - AdaBoostLearner(ARG0, learnerType('ExtraTrees', {'n_estimators': 100, 'max_depth': 6, 'criterion': 0}), 2, 0.01)
+      - AdaBoostLearner(myProd(ARG0, 0), ModifyLearnerFloat(learnerType('LogR', {'penalty': 0, 'C': 1.0}), 0.01), myIntAdd(3, falseBool), myFloatDiv(0.1, 0.1))
+      - NNLearner(ARG0, OutputLayer(InputLayer()), myIntDiv(myIntSub(7, 55), 128), passOptimizer(RMSpropOptimizer))(0.49727486374318713, 0.011400570028501426)
+
+* As already described, the elite individuals being produced which used nnlearners had very simple or small layerlists associated with them.
+* I intended to keep this running fully before doing analysis and troubleshooting but the following day would see my laptop crash and stop the run at generation 5.
+* It did not seem possible to re-run and accumulate any relevant information in time for the final presentation so I'd decide to pivot and help with the presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evaluation
+|Completed
+|April 19th, 2021
+|April 27th, 2021
+|April 20th, 2021
+|-
+|Regular run with titanic in PACE 
+|Failed
+|April 17th, 2021
+|April 26th, 2021
+|N/A
+|}
+
+== April 12th, 2021==
+'''Subteam Meeting Notes:'''
+* The majority of this meeting was delegation of tasks to group members using a google doc to outline improvements. The document information is included below.
+* In particular, I'll be working on improving the evolution of the current NNLearners primitive that exists within Emade. It seems when increasing layer sizes are included within a layerlist primitive that NNLearners begin to fail more and more at most tasks.
+* In addition, there are some bugs with the output layer to this primitive which could be greatly improved.
+
+Desired Improvements:
+*  Evolution(Cam B, Jon, Karthik, Nishant):
+     - NNLearners easily fail, cannot get very big
+     - Datatypes aren't always specific enough
+       - E.g., primitives can specify if an arg is an integer but canâ€™t dictate sign(?). Need to consider instances where a negative number will break things
+     - Nnlearners can lack integral parts
+       - Why have an output layer instead of always appending one
+*  NNLearners as subtrees (Hua, Temi, Member):
+     - Learners can take outputs of other learners as a feature
+       - Seems similar to ensemble method
+       - Idea: make NNLearners do this as subtrees
+*  PACE-ICE Stuff: (Cameron W)
+     - Merge PACE functionality into cacheV2
+     - Merge PACE functionality & DB fix into nn-vip
+
+'''Individual Notes:'''
+* In order to diagnose the problem with nnlearner subtrees being so small, I proposed doing a couple of simple seeded runs and analyzing the nnlearner individuals as well as their performance compared to other primitive pareto-optimal individuals.
+* It was recommended to me that I do my run locally to prevent wasting necessary experimental runs.
+* I was also provided some sample data to look at, though I'm not certain how much information I'll be able to get with respect to debugging.
+* While doing my local run, I had little else I could contribute so I decided to simply analyze the neural_network_methods.py file on the nlp-nn branch and make note of some things to be modified.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Take notes on the nnlearners class within neural_network_methods.py
+|Complete
+|April 12th, 2021
+|April 16th, 2021
+|April 15th, 2021
+|-
+|}
+== April 5th, 2021==
+'''Team Meeting Notes:'''
+* Dr. Zutty gave a helpful presentation about hypothesis testing and determining statistical significance using t-tests.
+* This was a bit hard for me to follow but it seems these two t-tests introduced: Welch and normal, produce a p-value and significance level that directly correlate with some support of rejecting or failing a given null hypothesis. 
+* Dr. Zutty spent some time during this presentation trying to provide examples but I may need to review the bluejeans to ensure my understanding.
+
+'''Subteam Meeting Notes:'''
+* This meeting began with updates on the progress of setting up PACE which I was able to do over the weekend. 
+* Additionally, we recieved a really thorough presentation from Anshul regarding the basics of neural networks, their layers and how they relate to Natural Language Processing.
+
+'''Some notes on presentation'''
+* Neural Networks are layers of data points being passed from a higher density input to a typically lower density output through layers.
+* Each layer in a neural net consists of an operation and an activation function.
+* Operation is the actual computation the layer does on the data it receives. Once that is performed, it sends the output to the
+Activation - this part introduces non-linearity into the model, making models more complex.
+  - Important ones to use include: ReLu, Maxout, Leaky ReLu.
+  - Generally ReLu gets used for our purposes. It an easily computed activation function whose main drawback comes from the occasional causing of neurons to not get activated, otherwise known as dropout.
+* When training a neural network, there are two important steps that occur: 
+  - Feed Forward - this step entails plugging in input data to our input layer and essentially watching the values cascade through our constructed layers until they produce a desired size output which then needs to be compared to the loss function we possess.
+  - Backpropogation - this step utilizes gradients, more specifically optimizers such as stochastic gradient descent, to adjust the weight values present in each of our layer nodes through some relatively complex calculus that is beyond our project scope.
+* Next up were disucssions of layer types such as:
+  - Dense layers - simple fully connected layers
+  - Convolutional layers - commonly used layer for image processing which relies on filtering image data through a kernel.
+  - Recurrent and LSTM layers - Both layers with the capability for some level of memory and attention which is very useful for processing textual data. 
+* Finally, review of some NLP-specific concepts such as word embeddings were reviewed along with some helpful resources for understanding these concepts.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try a test run of Emade using amazon dataset
+|Completed
+|April 7th, 2021
+|April 9th, 2021
+|April 7th, 2021
+|-
+|}
+== March 29th, 2021==
+'''Team Meeting Notes:'''
+* I was placed on the NLP subteam for this semester. This week's meeting involved introductions to our subteams along with onboarding of the different tech within our teams.
+
+'''Subteam Meeting Notes:'''
+* Introduction to NLP team members and brief overview of goals.
+* Friday's at 6pm will be our meet times
+* First task is to use the tutorial from Cameron Whaley to set up PACE on my machine and then try a test run with their provided amazon dataset.
+* April 2nd Meeting: Cameron Whaley gave a presentation on PACE and a basic overview of the nlp-nn branch in the EMADE Github. In particular, he explained to us important abstract data types that we would be using such as EmadeDataPair's which stores lots of train and test data in an organized format that allows us to interpret it's types and details with ease.
+* Additionally, we covered alot of prior knowledge regarding running emade and which files do what exactly. A table can be seen here: [[files/details.jpg]]
+* Finally, we were introduced to the layerlists layer which was a really interesting primitive structure that seems to enable different neural network structures that can interact with DEAP's library within emade similar to other primitives.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up PACE on machine
+|Completed
+|March 29th, 2021
+|April 3rd, 2021
+|April 5th, 2021
+|-
+|}
+== March 22nd, 2021==
+'''Team Meeting Notes:'''
+* Presentation day for both Bootcamp teams and Subteams which lasted around 4 hours.
+* Our team presented 6th and recieved some praise for recognizing the FPR and FNR are not the values we were being provided directly from emade. This required modifying our evalFunctions.py and creating helper functions to transform the provided FullDataset positives and negatives.
+* While watching the subteam presentations, I took particular interest in the nlp team which seemed to have a very hefty task of introducing neural net primitives to emade in a way that is effective and widely applicable. I also felt their subteam had some interesting oppourtunity for gaining experience with real world natural language processing.
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out Canvas Poll to rank subteam preferences
+|Completed
+|March 23nd, 2021
+|March 26th, 2021
+|March 28th, 2021
+|-
+|}
+==March 17th, 2021==
+'''Class Meeting Notes:'''
+*This week was left as another work session week in which the professor provided time for debugging emade installations and setup specifically regarding setting up worker processes.
+*Subteam 4 tried to get assistance with some mysql troubles which was successfully resolved for the most part.
+'''Subteam 4 Updates:'''
+* This week involved subteam 4 meeting to discuss what values and statistics need to be included in the new presentation.
+* It was noticed that the existing False positive and False Negative values generated by emade are not rates per individual which is what would be greatly preferred.
+* Some minor modifications to the evalfunctions file were made to generate proper FPR and FNR values which will be displayed in the presentation linked below: https://docs.google.com/presentation/d/1uCTub-XaYYrW1fCq78S0_E9Z5jK8uSYPUHtqymzRr4I/edit?usp=sharing
+'''Individual Updates:'''
+* After running the initial emade without any preprocessed data on this members machine, it was realized that the following modifications to the fpr and fnr evalfunctions needed to be made(right).
+* In addition to changing the eval functions, it was realized that since the initial emade values generated were meant to be plotted in 3 dimensions, constraining them to a 2D form of just FPR and FNR included some paretofront individuals that are no longer valid. This can be seen in the slides linked above. Fixing this required a function for further processing paretofront individuals.
+* Finally, after completing an emade run of 22 generations with the values specified, graphs and charts were generated using matplotlib which can be seen in the powerpoint above.[[files/ModifiedFPRandFNR.png|thumb]]
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Modify evalFunctions to generate proper FPR and FNR values
+|Complete
+|March 17th, 2021
+|March 22nd, 2021
+|March 21nd, 2021
+|-
+|Add newly generated pareto front graphs and data to existing powerpoint
+|Complete
+|March 17th, 2021
+|March 22nd, 2021
+|March 21nd, 2021
+|}
+==March 10th, 2021==
+'''Class Meeting Notes:'''
+*This week was left as a work session week in which the professor provided time for debugging emade installations and setup.
+*The assignment detailed for the next 2 weeks would be to install emade and then aim to get remote worker processes functioning within each subteam.
+*Once complete, subteams are supposed to present the results of using emade as a genetic programming solution compared to DEAP libraries and attempts using machine learning directly.
+'''Subteam 4 Updates:'''
+* This week involved subteam 4 catching up in getting emade functioning on each members local devices.
+*The group met 2 times in order to first solve issues of instillation on individual devices and then a second time to test remote worker connections.
+*Team leader Rishit volunteered to run the master process and was able to connect 3 other subteam member devices in order to run emade using some modified preprocessed data.
+'''Individual Updates:'''
+* Getting emade running required testing on 3 seperate operating systems before working results could be seen.
+* In trying to setup emade, it was seen that the Kali linux distro is unable to function using the required version of tensorflow found in emade.
+* Attempting to get a worker process seemed to be the most difficult task because this member was unable to make any sort of remote mysql connections with master devices within their subteam. It's been verified that this is not a firewall issue thanks to the use of the gatech vpn however the issues faced remain unresolved.
+* In order to contribute to paretofront generation, this member decided to use their personal machine with 4 workers and gpu optimization in order to generate a pareto front for the base titanic dataset without any preprocessing.
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Remote connection to work on EMADE with MySQL Workbench
+|Incomplete/Issue Arose
+|March 10th, 2021
+|March 17th, 2021
+|March 15th, 2021
+|-
+|Get EMADE running locally
+|Complete
+|March 10th, 2021
+|March 17th, 2021
+|March 15th, 2021
+|}
+== March 3rd, 2021 ==
+'''Team Meeting Notes:'''
+*Today consisted of more team presentations and feedback.
+*The instructor made positive note of our groups preprocessing slides and thorough analysis throughout our presentation.
+*In addition, we covered some basics for installing emade and what we should look forward to completing for next week's assignment.
+'''Action Items:'''
+
+No active tasks to complete this week.
+==February 24th, 2021==
+'''Team Meeting Notes:'''
+*Today consisted of just team presentations and feedback.
+*The instructor pointed out the importance of having multiple features when using machine learning algorithms or genetic programming. 
+*Many of the useful ML algorithms mentioned include:
+**KNN
+**Random Forest
+**Neural Networks
+**MultiLayer Perceptron
+**XGBoost
+**Catboos
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evals
+|Completed
+|February 24th, 2021
+|March 5th, 2021
+|March 1st, 2021
+|-
+|Install EMADE
+|Completed
+|February 24th, 2021
+|March 3rd, 2021
+|March 3rd, 2021
+|}
+==February 17th, 2021==
+'''Team Meeting Notes:'''
+*Mostly meant to introduce the next presentation assignment while allowing us to discuss the previous assignment.
+'''Subteam 2 Notes:'''
+*Since the previous week, our team has created a collab notebook that preprocesses and runs models on a titanic dataset to find Pareto optimal models with minimal False Negative Responses and False Positive Responses.
+**Specifics on preprocessing for our notebook can be seen here: https://docs.google.com/presentation/d/1uCTub-XaYYrW1fCq78S0_E9Z5jK8uSYPUHtqymzRr4I/edit?usp=sharing
+**Total Attempted classifiers and their associated successes can be seen to the right: 
+[[files/Pareto Optimal+Titanic.png|thumb|714x714px|A set of models run on the provided titanic data set with false-negative responses and false-positive responses as the axis.]]
+
+*'''New Assignment: '''Use multi-objective genetic programming to create a set of Pareto optimal models with minimal false-negative responses and false-positive responses.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with sub-team to discuss presentation ordering
+|Completed
+|February 20th, 2021
+|February 24th, 2021
+|February 23rd, 2021
+|-
+|Complete PowerPoint slides regarding pre-processing
+|Completed
+|February 20th, 2021
+|February 24th, 2021
+|February 23rd, 2021
+|-
+|Experiment with using different mutations and depths to minimize FNR and FPR
+|Completed
+|February 20th, 2021
+|February 24th, 2021
+|February 23rd, 2021
+|}
+==February 10th, 2021==
+'''Team Meeting Notes:'''
+*Today we got broken into our team groups of which I landed in group 4. These teams are essential for brainstorming and planning the completion of projects to come.
+*A starting project we'll be engaging in is to analyze a titanic dataset in an attempt to identify codominant traits which will minimize false-positive rates and false-negative rates. 
+*This project's open endedness enables each team member the flexibility to attempt any multitude of algorithms they see fit.
+'''Subteam 4 Updates:'''
+* Our subteam has set up a slack channel and decided to meet on 2/15/2021.
+* In my time, I've read through a couple of the beginner notebooks utilized for this dataset in an attempt to see how well they work for the given problem.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Subteam to discuss potential methods of analysis
+|Completed
+|February 13th, 2021
+|February 17th, 2021
+|February 15th, 2021
+|-
+|Preprocess categorical features from the titanic data set
+|Completed
+|February 15th, 2021
+|February 20th, 2021
+|February 18th, 2021
+|-
+|Attempt to run a random forest classifier on preprocessed data
+|Completed
+|February 15th, 2021
+|February 20th, 2021
+|February 19th, 2021
+|}
+
+== February 3rd, 2021 ==
+'''Team Meeting Notes:'''
+
+'''Lecture Notes:'''
+*In today's lecture, we discussed the optimality of fitness scores and some concepts that help us evaluate the desirability of individuals within populations.
+**We opened up with an initial discussion about some of the things we look for in an algorithm and how that could correspond to other traits we've seen develop evolutionarily. Something that came from this is that we want complementary characteristics in our algorithms as they produce the ideal and unique offspring that we usually want.
+**We learned that the evaluation of algorithms in groups utilizes scores of True Positives and False positives to help plot algorithms to be analyzed for Pareto optimality.
+***Example:
+****An example mentioned had to do with a classification problem to detect apples. Regardless of the algorithm used, we were able to approximate the number of True positives, False Negatives, False Positives, and True Negatives associated with each algorithm. 
+****Utilizing these values, we can calculate the Sensitivity/True Positive rate using the equation TP/(TP+FN). Similarly, we can calculate specificity using the equation TN/(TN+FP).
+****These particular values are what get's plotted to determine the phenotype of algorithms. An example plot is shown to the right.[[files/Chart Img.png|thumb|Sample plotting of genome]]
+**I learned that Pareto optimal individuals outperform on all objectives and can be easily identified if displayed graphically
+** I learned that different problems require different optimizations, for example, a classification problem can seek out properties of algorithms that produce more false negatives in route to being as effective as possible and vice versa. These factors can also influence crossover and genetic mutation of algorithms.
+** Notable terms and formulas:
+*** Nondominated Sorting Genetic Algorithm II (NSGA II): - This algorithm does selection based on tournaments and handles ties based on the distance of an algorithm from the remaining population. 
+*** Strength Pareto Evolutionary Algorithm 2 (SPEA2): - In this algorithm, each individual is graded off of a rank for the number of individuals it Pareto dominates along with a strength value.
+*** Genome - Genotypic description of an individuals DNA
+*** Search Space- Set of all possible Genomes used in our VIP to represent all possible algorithms
+*** Precision = TP/(TP + FP)
+*** False Discover Rate = FP/(TP + FP)
+*** Negative Predictive Value = TN/(TN + FN)
+*** Accuracy = (TP + TN) / (P + N)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete notebook self-assessment
+|Completed
+|February 1st, 2021
+|February 8rd, 2021
+|February 7st, 2021
+|}
+
+== January 27th, 2021 ==
+'''Team Meeting Notes:'''
+*This week we go a more in-depth look at how we would not only describe but analyze diversity amongst algorithms specific to programming. This is referred to as Genetic Programming. We received information about how crossover and mating occurs. We also got a sneak peek into the potential for these evolutionary processes when utilized for harder operations such as exponentials, etc.
+
+* Unlike last week, in this lecture, we deal with individuals within our population as functions that need to be optimized. In order to do this, we reevaluated the concept and layout of an individual starting with a tree structure called '''Lisp preordered parse tree''' that defines primitive operators with respect to their inputs and outputs. An example being:
+** Function: f(x) = (a + b) * c + 7 
+[[files/Example-operator-tree.svg.png|center|thumb|178x178px]]
+* This operator tree format can be nicely recreated in an array format as such: [+,*,+,a,b,c,7]. This is very useful in the future when we want to execute crossover with other trees of similar structure. According to the lecture, we would simply swap operator nodes within 2 similar trees to produce offspring that can then represent a unique individual within our population.
+* Crossover is a tree-based genetic programming process that exchanged subtrees of algorithms to simulate mating. This process randomly selects subtrees to exchange which introduces some variability which introduces new and very diverse sets of individuals into our existing population.
+* Thanks to the easy storage of our functions, we can utilize their tree structure to test real parameters which means evaluating their success is as simple as a summation of mean squared error calculations with desired values.
+'''Notable terms:'''
+* '''genotypic diversity: '''how similar is the structure of an algorithm.
+* '''phenotypic diversity: '''how similar are the fitness levels and objective scores of 2 algorithms
+* '''genetic algorithms: '''a population-based solution to optimizing properties of algorithms.
+* '''Lisp preordered parse tree:''' Operator followed by inputs list
+* '''Nodes/primitives:''' tree abstractions to represent functions
+* '''Leaves/terminals:''' tree abstractions to represent parameters.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Walkthrough lab 2
+|Completed
+|January 27th, 2021
+|February 3rd, 2021
+|February 1st, 2021
+|}
+* While walking through lab 2, I felt I learned a good bit about the different primitives we are able to generate into individuals and what that looks like. I also think our evaluator function made perfect sense and enjoyed seeing that there is a compile function capable of taking care of generating a function from a list of primitives and arguments. 
+* The initial problem of symbolic regression required me to look up a good deal about NumPy operators in order to find one that I could actually use in my individuals. I tried min, max, and exponential before realizing there was a requirement that the input primitives have only one argument. It was still enjoyable to get to read a bit through the source code.
+* In the multi-objective problem which followed, I learned about the Pareto-dominance metric that is used to classify dominant algorithms to each other. Given my understanding of what Pareto dominance is, it made perfect sense the way I saw it being implemented. 
+* Finally, it took me a second to understand but I think the evolutionary algorithm that was run on our population of individuals was not as effective as I'd hoped. My optimal fitness appeared to be only 27% which I imagine is not desirable. Even after messing with parameters, this was best increased to 30%.
+
+==January 20th, 2021==
+'''Team Meeting Notes:'''
+*Today was an initial presentation of genetic algorithms and their role in finding optimal algorithms in what appears to be a general mathematical context.
+*We discussed the basics of evolutionary algorithms and some terms used to describe their "fitness".
+*The majority of this lecture provides background for what we're going to learn and build upon in lab 1.
+*Keywords:
+**Individual: one specific candidate in the population
+**Population: a group of individuals whose properties will be altered
+**Objective: a value used to characterize individuals that you are trying to maximize or minimize.
+**Fitness: relative comparison to other individuals
+**Evaluation: a function that computes the objective of an individual.
+**Selection: represents survival of the fittest and gives preference to better individuals to allow them to pass on their genes
+**Tournament: method of selection that pits algorithms head to head to decide winners
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Walkthrough lab 1 notebook in jupyter
+|Completed
+|January 20th, 2021
+|January 27th, 2021
+|January 25nd, 2021
+|}After walking through lab 1, I noticed:
+* The DEAP library seems quite expansive and really customizable for establishing versions of class fitness and random individuals.
+* The one max problem was a very simple introduction to the capabilities of DEAP hands on. Utilizing random mutations and mating, my specific instance of evolution was able to find a pretty optimal individual with 99 1 bits. I should also add this occurred well before generation 30.
+* The one max problem had the goal of optimizing the generation of a high number in the range of 1-100. In order to optimize this, we use a simple evaluator sum function which proves quite effective in optimizing our evolution to 99.
+* The NQueens problem sees us trying to optimize the placement of queens on an NxN chessboard using an evaluator that counts the number of conflicts in existing positions. Similar to the one max problem we include utilization tournament selection with the added shuffle indices mutation.
+* After increasing generation count along with population size, I was able to minimize my generations to zero fully and generate a fitness graph that looks as such:[[files/Lab1emade.png|left|thumb|My minimization of the NQueens problem in Lab 1.]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Self-Assessment of Notebook:
+[[files/VIP_AAD_notebook_Cameron_Bennett.docx]]

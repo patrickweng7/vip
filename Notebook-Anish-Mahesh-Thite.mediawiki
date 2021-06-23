@@ -1,0 +1,2956 @@
+== Team Member ==
+[[files/Anish.jpg|thumb]]
+Team Member: Anish Thite
+
+Email: anishthite@gatech.edu
+Cell Phone; 203-909-9118
+
+Interests: RL, NLP, Cycling, Swimming, Astronomy
+
+== December 02, 2020 ==
+'''Team Meeting Notes'''
+
+'''Stocks'''
+* Focus on applications of stock market trend analysis in EMADE
+* Looked at a variety of technical indicators
+* Compared various runs and profits to baseline paper
+* It would be interesting to see how it compares to the current market, see how it handles the recent drop
+* Also no neural networks :(, I think a v large network might work
+'''EzCGP'''
+* Switched from Accuracy and F1 Score to Precision and Recall as objective scores
+* Genome Seeding - saving 20 best individuals after each generation
+** Might be interesting to try this with EMADE
+* Mentioned the advantage of DAG, I agree it would be really helpful to EMADE. This is one big pitfall with our team. 
+'''Modularity'''
+* Looking for ways to abstract out parts of individuals
+* ARL - Adaptive Representation through Learning
+* Differential Fitness - difference between an individual and its most fit parent
+* I like how they talked about statistical significance rather than just results
+'''Sub-Team Notes'''
+* Everyone is working on finishing their slides
+* Helped some people with some issues:
+** Anshul with graphing
+** Cameron with some design decisions with BertLayer (it was a tensor instead of a layer so we made a custom if statement in NNLearner to handle it)
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Add results from Chest X-Ray hand-training to the slides 
+|Completed 
+|11-30-20 
+|12-03-20 
+| 12-03-20
+|}
+
+== November 30, 2020 ==
+'''General Meeting Notes:'''
+* I was unable to attend the general meeting today due to my power going out.
+** The second run did not help though 
+* The team started working on the powerpoint for the final presentation
+'''Subteam Meeting Notes:'''
+* Ran through slides
+* I decided to try to figure out what was going on with the Chest X-Ray runs
+* I set up a notebook to try to hand-train individuals on the dataset to see if there were anything bad
+** First I looked at the dataset itself: 
+** Looked at number of positives in an instance: (#pos: #instances)
+ Counter({1: 9241, 2: 1339, 3: 460, 4: 122, 5: 35, 6: 12, 7: 3})
+* Doesn't seem to be too bad, a lot of qs and it drops after that, which makes sense
+* Also looked at # positives for each class:
+ Counter({0: 1132,
+          1: 215,
+          2: 407,
+          3: 234,
+          4: 1290,
+          5: 178,
+          6: 152,
+          7: 22,
+          8: 2130,
+          9: 778,
+          10: 6017,
+          11: 749,
+          12: 311,
+          13: 130,
+          14: 310})
+* 10 is really high
+* At this point collab broke (OOM when I tried to train a small network) so I had to start a new notebook on a different server
+** old nb: https://colab.research.google.com/drive/14TWIRB76lEdPwB4LiXjwOqMdQw7_jK4k#scrollTo=WfpateN1D14A
+* new nb (doesn't work on colllab, I needed 10 11gb GPUS for this to work)
+** https://colab.research.google.com/drive/1nNVvKoC21C254PFEXveGKG1IiFnJqaeH?usp=sharing
+* Trained the original seed (Input((224,224,1)), Conv2D(32,(3,3)), MaxPool2D(2), Flatten(), Dense(15))
+** Got the bad accuracy (0.43 on multilabel) which was good
+** 
+* Tried to go for a very small model: Input -> Output
+** Didn't work with size mismatch, I added Flatten layer in middle to get it right
+*** Final model: Input -> Flatten -> Output
+**** For some reason validation accuracy after training would fluctuate between 0.53 and 0.1, so I set the same random seeds that EMADE uses. It stabilized after that
+* Results for Small run:
+** 1 - Multilabel Accuracy: 0.46334284694969674      
+** AUROC: 0.5
+**[[files/Screenshot from 2020-12-03 22-13-58.png|none|thumb]]Confusion Matrix: 
+* Ok, so it looks like it just picks one class and onyl predicts that. That would explain the fluctuation before (it would pick some other class and stick with it), as well as the common occurance of 0.433 accuracy
+* Since the model is clearly undeerfitting, if I add some more parameters it might be better
+* I lookedup up some Kaggle kernels on this dataset, and came accross a MobileNet solution. 
+* Architecture: 
+*  <code>Model: "sequential_3"  Layer (type)                 Output Shape              Param #</code>     
+*  <code>mobilenet_1.00_224 (Function (None, 7, 7, 1024)        3228288</code>    
+*  <code>global_average_pooling2d_3 ( (None, 1024)              0</code>        
+*  <code>dropout_16 (Dropout)         (None, 1024)              0</code>        
+*  <code>dense_35 (Dense)             (None, 512)               524800</code>     
+*  <code>dropout_17 (Dropout)         (None, 512)               0</code>        
+*  <code>dense_36 (Dense)             (None, 15)                7695</code>      
+*  <code>Total params: 3,760,783 Trainable params: 3,738,895 Non-trainable params: 21,888</code> 
+*  It's a lot larger (the other one was ~52k params)
+* Results:
+** 1 - Multilabel Accuracy: 0.814484480913307
+** AUROC: 0.5928323820989334
+**[[files/Screenshot from 2020-12-03 22-14-28.png|none|thumb]]Confusion matrix: 
+* So the larger model is "actually trying" which is good
+* Wha tis interesting that multilabel is worse on the larger one, but AUROC is better on the larger one
+** We care more about AUROC than multilabel acc, so maybe we should optimize on that instead in EMADE
+* Ran both models a bunch of times, only had ~2% variation in all metrics
+* I also tried an InceptionV3 and VGG as the first layer, It was ~20M parameters but no real difference between it and Mobilenet
+* I then tried to use pretrained weights for each of the three models, but they needed 3 channel images. I converted the images to be three channels, but it OOM'd
+* I gave up and would just present these results for the presentation. 
+** New Hypothesis:
+*** EMADE starts off with a small network, and falls into a local minima of guessing only one label
+** Possible solutions:
+*** Keep same seeds, add more mutations to help it get higher
+*** Remove/modify parameter objective
+*** Seed in large models and try to use other EMADE primitives + minor architecture changes to optimize
+* I decided to see how the Mobilenet would perform against LEAF so I calculated the AUROC
+** 0.5943576020714718 for us vs 0.84 for LEAF, so a lot of room to improve
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|-
+|Figure out why Chest X-Ray run is doing so bad
+|Completed
+|11-30-20
+|11-30-20
+|11-30-20
+|-
+|Add results from Chest X-Ray hand-training to the slides
+|Completed
+|11-30-20
+|12-03-20
+|12-03-20
+|}
+
+== November 23, 2020 ==
+* '''General Meeting Notes'''
+** Started working on final presentation (same link as the midterm)
+** Still some PACE issues
+* '''Sub-team Meeting Notes'''
+** I think the all function run messed up, there are a bunch of mysql conenction errs in the middle, only did 15 gens
+** Restarted, but here are the results from the broken run: https://github.gatech.edu/pagarwal80/EMADEResults/blob/master/ChestXray/allfuncs1/slurm-1989477.out
+** No difference between this and the normal run in terms of accuracy
+** Sumit has a script ready to parse, so that should be helpful
+** Some people were having emade environment issues (Alex + Steven), so I shared mine with them
+*** I know it helped Alex, not sure about Steven
+* Still need to figure out what's going wrong, maybe this second run will help
+** It did not help. One individual was on the Pareto Front from the beginning to the end:
+*** Pareto Individual 0 after gen 91 is NNLearner(ARG0, GlobalMaxPoolingLayer2D(OutputLayer(ARG0, InputLayer(ARG0))), 78, AdamOptimizer)(0.46334284694969674, 30.0) Age 1.0
+* I will hand-train some models on MOnday to solve this once and for all
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|-
+|Figure out why Chest X-Ray run is doing so bad
+|Completed
+|11-30-20
+|11-30-20
+|11-30-20
+|}
+
+== November 16, 2020 ==
+'''General Meeting Notes'''
+* Dr. Zutty said to use fp16 or fp8 instead to lower the dataset size
+* Discussed which runs we wanted to do in order to get results for the final presentation
+* Pulak is working on getting the novelty nsga algorithm to work
+* Jon wrote  documentation on EMADE CV Primitives: https://www.notion.so/Computer-Vision-Primitives-6f160347b15c4f3e8c0ccac10b9bc749
+* '''Sub-team Meeting Notes'''
+** Cameron had some issues with BertLayer, so I helped him with it
+*** Tokenization issues, where to put the tokenizer. It is not in NNLearner as well, seperate from the embedding layer
+* Firgured out issue with the 224x224x1x4 size mismatch
+** Some data was 224x224x3 in the dataset, so reshaping made it 4d
+** I reshaped the data again, after making everything greyscale
+* Restarted run
+* For some reason now I wasn't having issue with OOM issues
+* Results:
+** Hypervolume:  463342905.27604353  
+*** Pareto Individual 0 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, GlobalAveragePoolingLayer2D(MaxPoolingLayer2D(2, Conv2DLayer(32, defaultActivation, 3, 3, trueBool, 1, InputLayer(ARG0))))), 95, NadamOptimizer)(0.46334284694969674, 815.0) Age 1.0  
+*** Pareto Individual 1 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, FlattenLayer(GlobalAveragePoolingLayer2D(DenseLayer(9, defaultActivation, 7, Conv2DLayer(32, defaultActivation, 3, 3, trueBool, 1, InputLayer(ARG0)))))), 96, RMSpropOptimizer)(0.4641455583303603, 767.0) Age 1.0  
+*** Pareto Individual 2 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, MaxPoolingLayer2D(2, Conv2DLayer(3, seluActivation, 10, 100, falseBool, 14, InputLayer(ARG0)))), 95, AdadeltaOptimizer)(0.47351052443810204, 363.0) Age 1.0  
+*** Pareto Individual 3 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, FlattenLayer(GlobalAveragePoolingLayer2D(DenseLayer(9, defaultActivation, 7, InputLayer(ARG0))))), 96, RMSpropOptimizer)(0.4885836603638958, 168.0) Age 1.0  
+*** Pareto Individual 4 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, GlobalAveragePoolingLayer2D(DropoutLayer(1.0, InputLayer(ARG0)))), 8, FtrlOptimizer)(0.7036211202283268, 30.0) Age 1.0 
+*** Pareto Individual 5 after gen 219 is NNLearner(ARG0, OutputLayer(ARG0, Conv2DLayer(0, softmaxActivation, 150, 128, falseBool, 2, MaxPoolingLayer2D(2, InputLayer(ARG0)))), 97, AdamaxOptimizer)(1.0, 15.0) Age 1.0
+** For some reason EMADE optimized to get individuals that are very small. I will do another run to double check this was not a fluke, but I am unsure why this is happening
+** Another issue: accuracies are really low
+*** To make sure it was not a seeding issue I switched from my tiny CNN seed to a very simple network (Input -> Output)
+*** I told Sumit to try to make a script for calculating AUROC, maybe these would be good enough to get 84% there and our multi-label function is really harsh 
+*** I also started a run with all the mating and mutation functions on as a :"hail mary"
+<nowiki>{| class="wikitable"  !Task  !Current Status  !Date Assigned  !Suspense Date  !Date Resolved  |-  |Figure out OOM issue due to dataset size OOM issue due to Dataset  |Completed  |11-06-20 |11-16-20 |11-16-20 |- |Fix 224x224x1x4 size mismatch issue |Completed |11-02-20 |11-16-20 |11-16-20 |- |Figure out why Chest X-Ray run is doing so bad |Completed |11-30-20 |11-30-20 |11-30-20 |}</nowiki>
+
+== November 09, 2020 ==
+'''General Meeting Notes:'''
+* Maxim got PACE working which is nice
+* Still having issues with GPU
+* From Pulak:
+** What we need:
+*** Toxicity - 2 big runs, 2 baseline runs, 2 runs with other mating and mutation functions on
+*** Chest Xray - 2 big runs, 2 baseline runs, 2 runs with other mating and mutation functions on, 2 with all primitives
+*** 2 runs with the novelty functions on
+*** Amazon dataset (2)
+*** List of NAS frameworks that we want to compare to Schedule:
+*** By Friday: 2 big runs of chest xray, 2 big runs of toxicity, 2 baseline for each (both on PACE, ICEHAMMER) (8/18)
+*** By Monday, 23rd: Have a definitive list of frameworks we want to compare with and see if we can get results on those, novelty results done, 2 runs of each dataset with the mating and mutations.
+*** By Wednesday, 25th: Buffer period for anything that gets left over and getting results with the frameworks we choose for comparing results
+* Put results here: https://github.gatech.edu/pagarwal80/EMADEResults
+* My goal is to get Chest runs done
+'''Sub-team Meeting Notes:'''
+* Two of the first-semesters are working on getting the Amazon roduct review dataset integrated with EMADE, just as another task to see how our codebase reacts.
+
+* Maxim was having PACE issues again, NNLearners were timing out
+** It seems he wasn't using the GPU there (accd to the check_gpu command), but he was seeing a 10x drop in evaluation time between the gpu and no-gpu node even though the only difference in spec was memory
+** After mentioning it to Dr. Zutty he said it's likely due to the memory overhead being less on the gpu node
+* GPU Issue fixed thanks to Gabe + Dr. Zutty
+** Remove the ping_gpu flag
+* Started EMADE run :)
+* EMADE run is taking a long time, plus a lot of individuals are OOMing. I think this is due to the size of the dataset. I will ask Dr. Zutty why on Monday
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Figure out OOM issue due to dataset size OOM issue due to Dataset 
+|Completed 
+|11-06-20
+|11-16-20
+|11-16-20
+|-
+|Figure out why EMADE is not using GPU
+|Completed
+|11-02-20
+|11-16-20
+|11-11-20
+|-
+|Fix 224x224x1x4 size mismatch issue
+|Completed
+|11-02-20
+|11-16-20
+|11-16-20
+|}
+
+== November 02, 2020 ==
+'''General Meeting Notes:'''
+* Maxim is setting up PACE, will try to get a Toxicity run there
+'''Sub-team Meeting Notes:'''
+* Realized from Gabe that the GPUs didn't work
+* This also bleeds over with GTRI work, but I tried some runs to fix it
+* Couldn't figure anything out, but this is also top priority now
+* Eventually realized that we could go the route of moving all imports to functions, but that isn't very elegant
+* Will try to figure out more w/ Gabe and Dr. Zutty 
+* Finished converting images to the smaller size 
+* Maxim was running into some issues with the nn-vip branch on PACE, I fixed those
+** It was a bug on my part, hadn't merged things properly when rebasing 
+*Started a Chest X-Ray run, but it errored out with a size mismatch with the Conv2D layers (They needed 224x224xn and I was giving 224x224)
+**Still struggling why this happened, can't find anywhere in EMADE where it reshapes it
+*All code in the test notebook and chest_xray repo  
+<nowiki>{| class="wikitable"  !Task  !Current Status  !Date Assigned  !Suspense Date  !Date Resolved  |-  |Process Chest X-Ray in the right format (npz)  |Completed  |10-19-20 |11-01-20 | 11-08-20 |- |Fix 224x224x1x4 size mismatch issue |Completed |11-02-20 |11-16-20 |11-16-20 |-  |Run EMADE on Chest X-Ray for base run  |Completed  |10-19-20 |11-01-20 |11-08-20 |- |Figure out why EMADE is not using GPU |Completed |11-02-20 |11-16-20 |11-11-20 |}</nowiki>
+
+== October 26, 2020 ==
+'''General Meeting Notes:'''
+* Talked w/ Dr. Zutty about novelty, best bet for now is to look at getting good results w/ Chest XRay and also combining other EMADE primitices + ours for it
+* Onboarded some new people
+* Pulak explained everything to the
+** Max is going to ger EMADE working on PACE-ICE
+** Steven and Christopher are going to be working on exploring a novel problem to run our NNLearners on
+** Jon is going to help out the CV team
+* I added a technical description on slack (reposted here as documentation) 
+** full link: https://emade-vip.slack.com/archives/C01906FV2PL/p1603779315144200
+<blockquote>'''What we have done and an introduction to NNs in EMADE:'''</blockquote><blockquote>All of our code is contained in the nn-vip branch, in src/GPFramework/neural_network_methods.py and src/GPFramework/emade_operators.py. Please take a look through that code to understand the capabilities and limitations of what we have rn. Reading the background in the overleaf link should help as well. Feel free to ask any questions.</blockquote><blockquote>Before we start, you should probably have some idea of what a neural network is. Note this is at a really high level, and there are a ton of things I'm leaving out. </blockquote><blockquote>You can treat a neural network as a normal ml classifier, where you feed data in and get an output. </blockquote><blockquote>The architecture of a neural network can be drawn as a series of layers of neurons, and we pipe input through this series of layers to get the output <s>like Unix commands</s>. ex. input -> layer a -> layer b -> layer c -> layer d -> ouput can be described as d(c(b(a(input)))) = output. </blockquote><blockquote>These layers can also have different attributes and properties or act on the input in a distinct way, which gives rise to a variety of layer types. </blockquote><blockquote>Examples would be an LSTM layer, Dense Layer, or Convolution Layer. </blockquote><blockquote>The important takeaway from this is that we can define a neural network as a permutation of layers.</blockquote><blockquote>There are some frameworks that allow use to do this, such as Keras. If we give Keras a permutation of layers, it can create a neural network for us.</blockquote><blockquote>What is where:''src/GPFramework/neural_network_methods.py''You'll see a lot of functions whose name ends in "Layer". Ex: InputLayer or DenseLayer. </blockquote><blockquote>These functions are layerlist-control functions. For now think of a layerlist as a normal list. </blockquote><blockquote>These functions take in a layerlist, add a Keras layer to it, and return the same layerlist. You may see some other parameters. </blockquote><blockquote>These are parameters that are passed into the Keras Layer that the function creates.</blockquote><blockquote>Since all of these functions take in and return a layerlist, we can chain the inputs and outputs of each of these layerlist-control function to create a list of keras functions. </blockquote><blockquote>Ex. OutputLayer(DenseLayer(InputLayer())) creates ['<KerasInputLayerObj>','<KerasDenseLayerObj>','<KerasOutputLayerObj>']</blockquote><blockquote>Ok that's cool, but what's the point? </blockquote><blockquote>We can pass this layerlist into another function: NNLearner (also defined in this file). NNLearner takes in a layerlist, iterates over it, and creates a Keras model from it. </blockquote><blockquote>The list from above would result in a Output(Dense(Input)) neural network. The NNLearner function also takes in an EmadeDataPair as a parameter. </blockquote><blockquote>An EmadeDataPair is an object that contains our train and test data. NNLearner takes the created Keras model, trains it, and creates predictions for the test dataset. </blockquote><blockquote>From this point on the magic of EMADE takes over (ie. I'm not going to go all the way in depth on it rn). </blockquote><blockquote>EMADE takes the predictions, scores the individual based on the prediction, and continues along in the evolutionary process.So why did we do all this? </blockquote><blockquote>We basically made a mechanism so that by calling the layerlist-control functions in the right way we can control the layerlist, and since the layerlist controls the Keras model generated in NNLearner, the resulting neural network architecture. </blockquote><blockquote>And by "we", I mean EMADE. </blockquote><blockquote>We can add the layerlist-control functions as primitives to EMADE's pset, which lets EMADE evolve their ordering. By evolving their ordering EMADE then can dictate different neural architectures.''src/GPFramework/emade_operators.py''</blockquote><blockquote>We decided to add some mating and mutation functions here that specifically operate on the layerlist controlling functions. The idea is that if we target evolution on the layers we can get better results faster.There's more to both of the files, but this is the general idea. Once again, it's a lot to handle, so don't be afraid to ask questions</blockquote>
+* Found this: https://arxiv.org/pdf/2010.10499.pdf
+* Cameron found a related paper too: https://arxiv.org/abs/2010.08512 
+* Didn't get to read too much into it, but it seems like Amazon evolved BERT to be smaller yet faster
+** Who names their model Bort?
+* Might be interesting to try to evolve BERT, when I last tried it OOM'd on ICEHAMMER though.
+
+Chest X-Ray stuff:
+* I started figuring out how the LEAF guys preprocessed dataset
+** Original box link to it: https://nihcc.app.box.com/v/ChestXray-NIHCC/file/220660789610
+** It takes a long time to download. I will only download some on my laptop and test out the scripts on them. I'll then do it on the whole dataset on ICEHAMMER
+** They convert the images to 224x224 from 1048x1048
+*** I got that to work and set it up on ICEHAMMER to run
+*** Now I need to figure out splits and label creation (that's for next week)
+*** Notebook: https://github.gatech.edu/gist/athite3/a8b4fe61d6e23877de74a8203fa6b55b
+*** EDIT: test notebook won't upload right, but it's simialr to make_arr.py in the chest x_ray repo (linked above)
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Process Chest X-Ray in the right format (npz) 
+|Completed 
+|10-19-20
+|11-01-20
+| 11-08-20
+|- 
+|Run EMADE on Chest X-Ray for base run 
+|Completed 
+|10-19-20
+|11-01-20
+|11-08-20
+|}
+
+== October 19, 2020 ==
+'''General Meeting Notes:'''
+* Had presentations today
+* Our presentation:  https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit?usp=sharing
+* Stocks team is going in a good direction, I like that they have runs going on collab (although I don't know how they are able to get away with running under the runtime limit)
+** I hope they try out the neural network, the FLANN sounds pretty interesting
+* EZCGP
+** Seem to be going in a good direction, maybe we can join with them soon or collaborate
+* First semesters
+** They have a better handling on the subject than when I was a first semester. They all seem very interested in our projects too
+* ADFs
+** Good work, I will take a look at their results to see if any of it can help us
+* I will start looking at the Chest X-Ray dataset and get that implemented for a few runs
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Process Chest X-Ray in the right format (npz) 
+|Completed 
+|10-19-20
+|11-01-20
+| 11-08-20
+|- 
+|Run EMADE on Chest X-Ray for base run 
+|Completed 
+|10-19-20
+|11-01-20
+|11-08-20
+|}
+
+== October 12, 2020 ==
+'''General Meeting Notes:'''
+* Discussed what to present, made copy of last semester's presentation and started working on it'''Subteam specific Notes:'''
+* I took the runs I did and started to try to find anything interesting between the large and smal runs
+** I also decided to look for any Concatenate individuals
+** All work in the vizviz notebook: https://colab.research.google.com/drive/17vC-WvvFMBhG3y8yROE8qSIwhjMEWrdM?usp=sharing
+*** Made a bunch of functions to make it easy to add more metrics to graph
+*** JSON is really easy to work with compared to the out files
+**** Also beneficial over the database since db connections take a long time
+* Findings on the large-size (in terms of population and queue sizes) run with all our mating and mutation functions and all primitives:[[files/Dqdwq.png|none|thumb]]I don't know why I graphed this, I'm not sure if #Pareto individuals is important to look for for us. We want to look at best accuracy [[files/Image(1)dqwd.png|none|thumb]]So looking at best accuracy the algorithm found it early and never beat it. I think we can definitely improve on mating then, in order to take more advantage of the gains. [[files/Image(2).png|none|thumb]]This shows that NNLearners gradually took over the entire population. This makes sense since our evaluaiton function neceissitates a "number of parameters", meaning only NNLearners and be non-inf.
+*I will look at more charts and will try to see if anything interesting pops out that I can talk about for the midterm presentation
+**Look at Concatenate individuals, compare sizes of the runs, might be good areas to start
+*I started to look at some more charts, and edited the notebook to graph the large and small runs side by side
+*[[files/Screenshot from 2020-12-03 22-35-29.png|none|thumb|338x338px]]* (Sorry it's blurry, I tried different ways of uploading it but the wiki compresses everything)
+** Hypervolume is as expected
+*** Smaller run had lower Hypervolume (likeley due to more gens and more optimization)
+** Pareto Individuals stagnated at ~0.035
+** [[files/Screenshot from 2020-12-03 22-35-56.png|none|thumb]]
+*** Small run had higher average error per generation
+**** Weird, maybe due to Law of Large Numbers. It is pretty consistent though
+*** Minimum individual error generally constant and equal between bot
+[[files/Screenshot from 2020-12-03 22-35-39.png|none|thumb]]
+* Looked at Concatenate Layers next, since we want those for novelty purposes
+** Concatenate Layer individuals are typically not on the Pareto Front for either run
+** They are being generated but not evaluating as well as sequential models, small run is doing better than the large model (likely due to more mutations. I had expected it to be the other way though)
+
+** Note: these results only have one run of each setting, there might be some variance so we should run more of these at some point int he future.
+<nowiki>{| class="wikitable"  !Task  !Current Status  !Date Assigned  !Suspense Date  !Date Resolved  |-  |Scripts to generate charts for run results (Hypervolume, accuracy by run size)  |Completed  |10-18-20 |10-19-20 | 10-19-20 |-  |Scripts to generate charts for run results (# Concatenate individuals)  |Completed  |10-18-20 |10-19-20 | 10-19-20 |-  |Scripts to generate charts for run results (find other interesting trends)  |Completed  |10-18-20 |10-19-20 | 10-19-20 |}</nowiki>
+
+== October 05, 2020 ==
+'''General Meeting Notes:'''
+* Dr. Zutty mentioned that we should try to reward EMADE for complexity instead of minimizing it
+** I tried a run with no complexity optimization over the summer, didn't help but it should be interesting to try to reward it
+** I will set a run to try to get this to work after these runs are done
+* Cameron trying to get Attention working with PyTorch, not sure on how to add it to EMADE
+** Maybe we can try to make it it's own thing (A transformer learner in Pytorch) and not mess with the architecture too much (See notes on Evolved Transformer)
+** Saw this paper from ICLR:https://openreview.net/forum?id=YicbFdNTTy
+*** We can try to improve on this with EMADE, transformers can handle both images and text 
+'''Subteam specific Notes:'''
+* Sumit is working on converting out files to json, I will be making a notebook to convert that json to graphs for the presentation
+* I also started a large run (increase the pool sizes and the population size by 10x)
+** The idea is maybe if we increase the number of individuals we can get more diverse populations. With recombination it should improve scores
+** Update 10-7-20: No real progress on the run, it takes a lot longer than the smaller size one
+** Final results from large run:
+*** Metrics: (1- multilabel accuracy, number of params)
+**** Run 1
+***** Hypervolume:  43511314.81183112
+****** Pareto Individual 0 after gen 61 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(3, ARG0, glorotUniformWeights, InputLayer(ARG0))), 100, NadamOptimizer)(0.04349599874470422, 24001.0) Age 1.0
+****** Pareto Individual 1 after gen 61 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(2, ARG0, glorotNormalWeights, InputLayer(ARG0))), 100, NadamOptimizer)(0.044876824101678925, 16001.0) Age 1.0
+**** Run 2
+***** Hypervolume:  35844165.468131185
+****** Pareto Individual 0 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(100, seluActivation, 8, falseBool, trueBool, EmbeddingLayer(6, ARG0, gloveTwitterWeights, InputLayer(ARG0)))), 88, AdamOptimizer)(0.035838694492389744, 1490701.0) Age 1.0
+****** Pareto Individual 1 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(150, tanhActivation, 8, falseBool, trueBool, EmbeddingLayer(100, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 23, NadamOptimizer)(0.036968460693550864, 813551.0) Age 1.0
+****** Pareto Individual 2 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, LSTMLayer(4, seluActivation, 64, falseBool, trueBool, EmbeddingLayer(3, ARG0, gloveWeights, InputLayer(ARG0)))), 100, AdamOptimizer)(0.039102463517966424, 701685.0) Age 1.0
+****** Pareto Individual 3 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, GlobalMaxPoolingLayer1D(EmbeddingLayer(100, ARG0, glorotNormalWeights, InputLayer(ARG0)))), 18, NadamOptimizer)(0.039227993095873215, 700101.0) Age 1.0
+****** Pareto Individual 4 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(32, sigmoidActivation, 150, trueBool, falseBool, EmbeddingLayer(1, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 90, RMSpropOptimizer)(0.040138082535697506, 13785.0) Age 1.0
+****** Pareto Individual 5 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(5, sigmoidActivation, 64, trueBool, falseBool, EmbeddingLayer(trueBool, ARG0, randomUniformWeights, InputLayer(ARG0)))), 255, NadamOptimizer)(0.0424289973324965, 7251.0) Age 1.0
+****** Pareto Individual 6 after gen 50 is NNLearner(ARG0, OutputLayer(ARG0, OutputLayer(ARG0, OutputLayer(ARG0, EmbeddingLayer(falseBool, ARG0, glorotNormalWeights, InputLayer(ARG0))))), 100, NadamOptimizer)(0.09565353836497725, 1004.0) Age 1.0 
+**** Interesting that the second run had a smaller hypervolume with less generations
+**** ICEHAMMER had an issue during run1, so that migh tbe the reason for why
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Create notebook to hand-generate individuals 
+|Abanoned 
+|08-17-20 
+|10-01-21 
+| 
+|- 
+|Scripts to generate charts for run results (also need to decide what to graph) 
+|In Progress 
+|09-07-20 
+|01-01-21 
+| 10-29-20
+|- 
+|Large toxicity runs (queue/pool sizes from input_titanic) 
+|In Progress 
+|09-28-20 
+|10-05-20 
+| 10-12-20
+|}
+
+== September 28, 2020 ==
+
+'''General Meeting Notes:'''
+* Talked with Dr. Rohling about the inf issues
+** He mentioned adding healing functions
+** Gabe mentioned making the elite pool size larger
+** I decided to try to make everything larger and see what happens
+*** Ran into some memory issues but eventually sorted them out
+*** Results as of 5:00pm 10/05
+*** Evaluation metrics: (1 - multi-label accuracy, number of parameters)
+**** Run 1:
+***** Pareto Individual 0 after gen 14 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(100, seluActivation, 8, falseBool, trueBool, EmbeddingLayer(6, ARG0, gloveTwitterWeights, InputLayer(ARG0)))), 88, AdamOptimizer)(0.035838694492389744, 1490701.0) Age 1.0  
+***** Pareto Individual 1 after gen 14 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(100, ARG0, glorotNormalWeights, InputLayer(ARG0))), 95, AdamaxOptimizer)(0.043307704377844036, 800001.0) Age 1.0 
+***** Pareto Individual 2 after gen 14 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(10, ARG0, randomUniformWeights, InputLayer(ARG0))), 100, AdamOptimizer)(0.043841205083947954, 80001.0) Age 1.0  
+***** Pareto Individual 3 after gen 14 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(5, ARG0, glorotUniformWeights, InputLayer(ARG0))), 96, NadamOptimizer)(0.043966734661854745, 40001.0) Age 1.0  
+***** Pareto Individual 4 after gen 14 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0))), falseBool, AdamOptimizer)(0.04399811705633139, 8001.0) Age 1.0
+**** Run 2:
+***** Pareto Individual 0 after gen 31 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(3, ARG0, glorotUniformWeights, InputLayer(ARG0))), 100, NadamOptimizer)(0.04349599874470422, 24001.0) Age 1.0 
+***** Pareto Individual 1 after gen 31 is NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(2, ARG0, glorotNormalWeights, InputLayer(ARG0))), 100, NadamOptimizer)(0.044876824101678925, 16001.0) Age 1.0
+**** Not too much benefit right now, need to validate the 0.0358 individual in order to see if it actually helped
+
+'''Subteam Meeting Notes:'''
+* CV team setting up on PACE
+* Cameron will be working on the Attention implementation Mohan started
+* Met with Sumit, he's working on the scripts for analyzing the out file 
+* Met with Shreyas, he's working on the collab notebook to hand-generate individuals to see if our search space should be changed
+*Read some papers in order to get some more ideas:
+**https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html
+***Lillian is a researcher at OpenAI, this is a survey of some NAS techniques she talks about
+***She mentioned https://arxiv.org/abs/2003.12056 which is interesting
+****They basically didn't train on labelled data in the search phase, and found that it saves time and works as well as training ont he data during search
+*****I don't understand how they "assigned weights" during the search phase, it might be a thing similar to "Weight Agnostic Neural Networks"
+****We can try looking at unsupervised learning too, maybe just try to learn word embeddings
+*Also looked at https://arxiv.org/abs/1901.11117
+**Didn't really understand it on the first read, will re-read to see what exactly they did
+**Created a modified transformer architecture by defining an encode decoder structure as made up of n stacks of blocks (n is fixed)
+**Searched for optimal structure inside block and then construct model just by repeating it
+***a lot more restrictive than us 
+
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Create notebook to hand-generate individuals 
+|Abanoned 
+|08-17-20 
+|10-01-21 
+| 
+|- 
+|Scripts to generate charts for run results (also need to decide what to graph) 
+|In Progress 
+|09-07-20 
+|01-01-21 
+| 10-29-20
+|- 
+|Large toxicity runs (queue/pool sizes from input_titanic) 
+|In Progress 
+|09-28-20 
+|10-05-20 
+| 10-12-20
+|}
+
+== September 21, 2020 ==
+
+'''General Meeting Notes:'''
+* Had some issues with mutation functions
+* Fixed them, added another mating function
+* Started run with Opitmizers + mating funcs
+** Talked about this in subteam meeting
+*** They kinda sucked:
+**** 1st run - Best individual had score 0.0358 after 94 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, GlobalMaxPoolingLayer1D(GRULayer(50, tanhActivation, 32, trueBool, trueBool, EmbeddingLayer(98, ARG0, fasttextWeights, InputLayer(ARG0))))), 0, NadamOptimizer)(0.03565040012552956, 2205701.0)
+**** 2nd run - Best individual had score 0.03759 after 65 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, OutputLayer(ARG0, GRULayer(8, softmaxActivation, 5, trueBool, trueBool, EmbeddingLayer(50, ARG0, fasttextWeights, InputLayer(ARG0))))), 100, NadamOptimizer)
+**** No benefit to both
+*** Started 2 runs with only mating funcs to see if optimizers offset them, maybe that caused the lack of improvement
+***used input_toxicity
+***Evaluation metrics: (1 - multi-label accuracy, number of parameters)
+***run1
+****Hypervolume:  36507142.54570854  
+*****Pareto Individual 0 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, LSTMLayer(100, tanhActivation, 9, trueBool, falseBool, EmbeddingLayer(1, ARG0, gloveWeights, InputLayer(ARG0)))), 0, AdamOptimizer)(0.03649772477640045, 861001.0) Age 1.0  
+*****Pareto Individual 1 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(9, softmaxActivation, 3, trueBool, falseBool, EmbeddingLayer(95, ARG0, gloveWeights, InputLayer(ARG0)))), 100, AdamOptimizer)(0.037407814216224744, 706013.0) Age 1.0  
+*****Pareto Individual 2 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(2, tanhActivation, 150, trueBool, falseBool, DropoutLayer(10.0, EmbeddingLayer(100, ARG0, glorotUniformWeights, InputLayer(ARG0))))), 6, AdamOptimizer)(0.0394790522516868, 701253.0) Age 1.0  
+*****Pareto Individual 3 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, AttentionLayer(EmbeddingLayer(24, ARG0, glorotUniformWeights, InputLayer(ARG0)), EmbeddingLayer(24, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 87, AdamOptimizer)(0.039918405774360566, 360001.0) Age 1.0  
+*****Pareto Individual 4 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, OutputLayer(ARG0, GRULayer(55, reluActivation, 2, trueBool, trueBool, EmbeddingLayer(7, ARG0, randomUniformWeights, InputLayer(ARG0))))), 90, AdamOptimizer)(0.04004393535226736, 71232.0) Age 1.0  
+*****Pareto Individual 5 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, DropoutLayer(1.0, Conv1DLayer(55, reluActivation, 100, 150, falseBool, 10, EmbeddingLayer(trueBool, ARG0, randomUniformWeights, InputLayer(ARG0))))), 100, AdamOptimizer)(0.041267848736858626, 67556.0) Age 1.0  
+*****Pareto Individual 6 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(5, tanhActivation, 0, trueBool, falseBool, EmbeddingLayer(trueBool, ARG0, glorotNormalWeights, InputLayer(ARG0)))), 0, AdamOptimizer)(0.04142476070924217, 7251.0) Age 1.0 
+*****Pareto Individual 7 after gen 332 is NNLearner(ARG0, OutputLayer(ARG0, GlobalAveragePoolingLayer1D(EmbeddingLayer(trueBool, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 0, AdamOptimizer)(0.07694963125686494, 7002.0) Age 1.0
+***run2
+****Hypervolume:  35627327.39102471 
+*****Pareto Individual 0 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(64, defaultActivation, 10, falseBool, falseBool, EmbeddingLayer(trueBool, ARG0, fasttextWeights, InputLayer(ARG0)))), 100, AdamOptimizer)(0.035619017731052915, 2170337.0) Age 1.0  
+*****Pareto Individual 1 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(32, softmaxActivation, 26, falseBool, trueBool, EmbeddingLayer(100, ARG0, gloveWeights, InputLayer(ARG0)))), 91, AdamOptimizer)(0.03621528322611012, 712897.0) Age 1.0 
+*****Pareto Individual 2 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(10, eluActivation, 50, falseBool, falseBool, EmbeddingLayer(1, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 5, AdamOptimizer)(0.03659187195983049, 7401.0) Age 1.0  
+*****Pareto Individual 3 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(5, reluActivation, 64, falseBool, falseBool, EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0)))), 5, AdamOptimizer)(0.037533343794131535, 7126.0) Age 1.0
+*****Pareto Individual 4 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(1, defaultActivation, 32, trueBool, falseBool, EmbeddingLayer(trueBool, ARG0, glorotUniformWeights, InputLayer(ARG0)))), 2, AdamOptimizer)(0.04390396987290135, 7027.0) Age 1.0  
+*****Pareto Individual 5 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(1, eluActivation, 6, falseBool, trueBool, DenseLayer(trueBool, tanhActivation, 3, EmbeddingLayer(trueBool, ARG0, randomUniformWeights, InputLayer(ARG0))))), 100, AdamOptimizer)(0.04534756001882945, 7016.0) Age 1.0  
+*****Pareto Individual 6 after gen 182 is NNLearner(ARG0, OutputLayer(ARG0, GlobalMaxPoolingLayer1D(EmbeddingLayer(trueBool, ARG0, randomUniformWeights, InputLayer(ARG0)))), 100, AdamOptimizer)(0.05309901145457396, 7002.0) Age 1.0
+*** It seems there is no benefit to having mating functions, which breaks our hypothesis
+* Talked with Dr. Zutty about ways to get novelty
+
+'''Subteam Meeting Notes:'''
+* CV team still setting up on PACE, might move to collab
+* Decided to show our results to get advice on ways to increase performance since we can't tikn of many other things to add. 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create notebook to hand-generate individuals
+|Abanoned
+|08-17-20
+|10-01-21
+|
+|-
+|Runs for Optimizer
+|Complete
+|09-14-20
+|09-21-20
+|09-21-20
+|-
+|Runs with Mating Function
+|Complete
+|09-14-20
+|09-21-20
+|09-21-20
+|-
+|Scripts to generate charts for run results (also need to decide what to graph)
+|In Progress
+|09-07-20
+|01-01-21
+|10-29-20
+|}
+
+== Journal Self Reflection  ==
+[[files/My reflection.png|frameless|1024x1024px]]
+
+== September 14th, 2020 ==
+
+'''General Meeting Notes:'''
+* Bit late since I had to go to Office Hours for another class
+* Dr. Zutty will be fixing push access issue for the gang
+** Still will be an issue if I want to bring changes to BitBucket but that's a problem for another time (also ez solution by just asking Dr. Zutty for push override)
+
+'''Subteam Meeting Notes:'''
+* CV team setting up on PACE
+* '''Semester Goals (Long Term):'''
+** Started run with the Optimizers and the Optimizer-specific mutation function
+** Alex added in the mating function, testing and will do a run with these added in
+** Something was fishy with the results from last week, so I validated the 0.0355 individual
+*** It got 0.040 which is kinda depressing
+**** It might have overfit on the test data (when compared to the validation data), honestly don't know how to fix that, will need to ask Dr. Zutty
+**** Only hope is to move on and find out other ways to make this perform better
+
+* Alex is working on the mating function so I started making a collab notebook to hand generate individuals to see if trees can perform as good as Elliot's paper
+
+* Shreyas will probably help me with that 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add in Parameter Specific Activation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with Activation
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with new Mutation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Cry over results overfitting
+|Completed
+|09-14-20
+|09-14-20
+|09-14-20
+|-
+|Create notebook to hand-generate individuals
+|In Progress
+|08-17-20
+|10-01-21
+|
+|-
+|Runs for Optimizer
+|Complete
+|09-14-20
+|09-21-20
+|09-21-20
+|-
+|Runs with Mating Function
+|Complete
+|09-14-20
+|09-21-20
+|09-21-20
+|-
+|Scripts to generate charts
+|In Progress
+|09-07-20
+|01-01-21
+|
+|}
+
+== September 7th, 2020 ==
+
+'''General Meeting Notes:'''
+* Stocks might be doing NN stuff, might ask me questions later
+'''Subteam Meeting Notes:'''
+* Helped Alex + Anshul with Adaptive mutations, they seem on the right track now
+* Pulak having Collab issues, I tried to help but have no clue how to help
+* Helped Cameron with getting Optimizers in EMADE
+* '''Semester Goals (Long Term):'''
+** Figured out how BibText works, started to add some citations to the paper, cleaned up intro a bit and changed layout (paper link below)
+** Did two runs with Activations as parameters
+*** One run had best individual of 0.038 and the other 0.0374, might have made it worse or no effect 
+** Added in the parameter based mutation function (not pushed yet, will update with commit hash)
+*** This mutation function is a generic mutation function that will replace terminal with a certain return type with another terminal with a certain return type 
+*** Did 2 runs with added mutation functions of mutating Activations enum and Embeddings enum 
+*** Made results chart on Google Doc
+**** REALLY GOOD PERFORMANCE (0.0355 for both runs)
+***** Should start making scripts to generate charts for the paper 
+[[files/Results table.png|thumb]]
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert Activations to Parameters
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Add in Parameter Specific Activation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with Activation
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with new Mutation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do a run with MutNodeReplace On
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Clean up Paper Formatting
+|Completed
+|08-17-20
+|01-01-21
+|09-01-20
+|-
+|Create notebook to hand-generate individuals
+|In Progress
+|08-17-20
+|10-01-21
+|
+|-
+|Scripts to generate charts
+|Not Started
+|09-07-20
+|01-01-21
+|
+|}
+
+== August 31th, 2020 ==
+
+'''General Meeting Notes:'''
+* Discussed the PACE Issues with Dr. Zutty
+'''Subteam Meeting Notes:'''
+* Went over my findings from looking at the out files
+** No usage of Pretrained Initializers (MutNodeReplace runs will fix this)  
+** No update on hypothesis that Concatenate individuals are bad (still need to test them out more to see if they help)  
+* '''Semester Goals (Long Term):'''
+** Added Activations as Parameters
+*** https://github.gatech.edu/emade/emade/commit/e4ed63580e8c69b3f6f759b07f35a3d4b84cefba#diff-25d902c24283ab8cfbac54dfa101ad31 and https://github.gatech.edu/emade/emade/commit/5454175ef58111b58a856cc02159abfd057b0931#diff-25d902c24283ab8cfbac54dfa101ad31
+**** This should help us evolve more efficient networks. Before we could have individuals such as ReluLayer(ReluLayer(DenseLayer(...)), which would be the same thing as ReluLayer(DenseLayer(...))
+***** Rodd said EZCGP uses this method, so It should work better 
+** MutNodeReplace runs out files:
+*** https://emade-vip.slack.com/files/UF7QYS6GY/F019CPXKDKP/slurm-1748011.out and https://emade-vip.slack.com/files/UF7QYS6GY/F019CPZFZ9T/slurm-1748007.out  
+*** Better perforance (0.037 before ), will try to change Activations as parameters and see if it helps
+**** (0.036183900831633475, 4095001.0)  (0.0372509022438412, 3543857.0)  (0.03734504942727135, 76001.0)  (0.03847481562843247, 19931.0)  (0.039918405774360566, 7199.0)  (0.04286835085517027, 7065.0)  (0.05313039384905072, 7002.0)  Hypervolume:  36195442.202165365  Pareto Individual 0 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(150, 8, trueBool, falseBool, EmbeddingLayer(1, ARG0, gloveFasttextWeights, InputLayer(ARG0)))), falseBool)(0.036183900831633475, 4095001.0) Age 1.0  Pareto Individual 1 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(1, 3432, falseBool, falseBool, LSTMLayer(9, 2803, trueBool, trueBool, EmbeddingLayer(1, ARG0, gloveFasttextWeights, InputLayer(ARG0))))), 55)(0.0372509022438412, 3543857.0) Age 1.0  Pareto Individual 2 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(150, 7, falseBool, falseBool, EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0)))), falseBool)(0.03734504942727135, 76001.0) Age 1.0  Pareto Individual 3 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, LeakyReLULayer(32, GRULayer(64, 50, falseBool, falseBool, DenseLayer(1, 255, EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0)))))), falseBool)(0.03847481562843247, 19931.0) Age 1.0  Pareto Individual 4 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, LSTMLayer(6, 10, falseBool, trueBool, EmbeddingLayer(1, ARG0, heWeights, InputLayer(ARG0)))), 10)(0.039918405774360566, 7199.0) Age 1.0  Pareto Individual 5 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, GRULayer(2, 8, trueBool, falseBool, EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0)))), 10)(0.04286835085517027, 7065.0) Age 1.0  Pareto Individual 6 after gen 71 is NNLearner(ARG0, OutputLayer(ARG0, GlobalMaxPoolingLayer1D(EmbeddingLayer(1, ARG0, randomUniformWeights, InputLayer(ARG0)))), falseBool)(0.05313039384905072, 7002.0) Age 1.0
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert Activations to Parameters
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Add in Parameter Specific Activation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with Activation
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do Runs with new Mutation Function
+|Completed
+|08-31-20
+|09-14-20
+|09-14-20
+|-
+|Do a run with MutNodeReplace On
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Help Pulak with management
+|Completed
+|08-24-20
+|08-31-20
+|08-31-20
+|-
+|Clean up Paper Formatting
+|Completed
+|08-17-20
+|01-01-21
+|09-01-20
+|-
+|Create notebook to hand-generate individuals
+|In Progress
+|08-17-20
+|10-01-21
+|
+|}
+
+== August 24th, 2020 ==
+
+'''General Meeting Notes:'''
+* Got people to sign up for tasks on the Google Doc
+* Pace might be an issue, as is Colab
+** For people testing mating functions/new primitives we can use Colab. 
+** Long runs would have to be done on Icehammer or PACE
+*** Potential Issue with Pace: I don't think it supports TF 2.0, might be a blocker in the future
+** Pulak will work on setting these up, I think we just need to modify the notebook from last semester 
+'''Subteam Meeting Notes:'''
+* Helped people decide what tasks to do, what the goals are, and what changed over the summer
+* '''Semester Goals (Long Term):'''
+** The underlying issue with everything is if trees are good enough to reach Elliot's paper. I'm not sure if they are. The only thing to do is keep on chugging on and checking/fixing the issues in the last entry to see if they help
+** Cleaned up some of the paper https://www.overleaf.com/read/jgzbnkqrzywj 
+** Went through the out files to see what's going on with concat learners
+*** It seems that they are being generated, but they are not evaluating to be as well as sequential models
+**** Solution: Try to generate some Concatenate learners to see if we can get good conatenate learners
+***** One of the individuals from Mohan's attempts over the summer used Concat learners, so they should be decent
+** Started 2 runs with MutNodeReplace on
+*** Theory is that having this on will ncrease the number of mutations to PretrainedInitializers (since they are parameters), if this works it will increase the number of inds with the pretrained initializers which should give more performance
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert Activations to Parameters
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Do a run with MutNodeReplace On
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Help Pulak with management
+|Completed
+|08-24-20
+|08-31-20
+|08-31-20
+|-
+|Read Out Files for Concatenate Issue
+|Completed
+|08-17-20
+|08-24-20
+|08-24-20
+|-
+|Clean up Paper Formatting
+|Completed
+|08-17-20
+|01-01-21
+|09-01-20
+|-
+|Create notebook to hand-generate individuals
+|In Progress
+|08-17-20
+|10-01-21
+|
+|}
+
+== August 17th, 2020 ==
+'''General Meeting Notes:'''
+* Nother year, nother semester
+* I'll be gunning for submitting a paper to GECCO 21.
+'''Subteam Meeting Notes:'''
+* Went over developments/goals on the nn branch with Pulak + the gang
+* Added the tasks to the google doc
+** Somone brought up using Bert/Elmo/GPTn for embeddings
+*** I had tried BERT on IceHammer during the summer, I OOM'd
+**** I think it was due to the data size, which is easier to fix than making mem footprint of model smaller
+*** Elmo would probably work, it's small anough that we could run multiple instances of it in parallel
+*** Not sure about GPT1/2, since it's attention mask is uniderectional. It might not be as performant on an NLI task like classification
+*** GPT3 might work but "Open"AI decided not to open soruce weights or even give out API access to everyone (smh)
+* '''Semester Goals (Long Term):'''
+** Continue working on expanding the Neural Network integration into EMADE
+** Put tasks on this google doc: https://docs.google.com/document/d/1jrezh0mv2DKAzgtlhbHza7O9h7FKutCCPlP5enfTmP4/edit?usp=sharing (pls use this before judging my notebook, I spend a lot more effort here)
+*** Issue: Concatenate Layers are not on the pareto front rn
+**** Solution: Figure out why
+***** Possible Reasons:
+****** Concatenate Layers are not good enough (see “find good individuals task” above)
+****** Concatenate Functions are not evolving properly
+******* Might be because inds are getting evolved multiple times in one generation: 
+******** Will do run to test this helped
+
+* Issue: Activations aren’t being modified
+** Solution: Move to parameters (see above) and make a mutation function for it 
+** Will do a run with MutNodeReplace on and see if it helps
+
+* Issue: Pretrained Embeddings Aren’t being used
+** Solution: Make a mut func for it 
+** Will do a run with MutNodeReplace on and see if it helps
+* Issue: weird recursion issue that sometimes happen
+** Solution: None yet, need to identify reason, will look through the 
+* Idea: add adaptive mutation layers 
+** Try to find a paper that already implements adaptive mutation layers
+** Need to look into this more
+** Performance measurement
+*** Rank mutation functions according to how well individuals are doing (frequency?)
+
+* Run experiments on datasets to obtain results and submit paper to GECCO
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert Activations to Parameters
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Do a run with MutNodeReplace On
+|Completed
+|08-17-20
+|09-01-20
+|09-01-20
+|-
+|Help Pulak with management
+|Completed
+|08-17-20
+|08-24-20
+|08-24-20
+|-
+|Read Out Files for Concatenate Issue
+|Completed
+|08-17-20
+|08-24-20
+|08-24-20
+|}
+
+== April 20, 2020 ==
+Presentations:
+* ADFs presented
+** Added automatically-defined functions to EMADE
+** Could be useful to add ADFs to nlp-nn for neural network blocks
+** Most helpful in middle generations
+** Doesn't work too well as root nodes
+** No statistical difference with additions and AUC
+* Bloat Control
+** Statisitcally significance difference in hypervolume and bloat with higher speciation thresholds
+* We Presented
+** Realized after we weren't using GPUs on PACE (explains discrepancies between Colab and PACE eval time (70 sec vs 200 sec))
+* NLP Time Conflict Presented
+** Ran their primitives from last semester in order to test statistical significance
+** Alex got PACE figured out
+* EzCGP Presented
+** Uses TF Functional, which might be interesting to look at
+** Need to ask them about how they choose hyperparameters, maybe controlling number of epochs might be helpful
+
+== April 13, 2020 - April 19, 2020 ==
+Monday Meeting:
+* Discussed updates with First Semsters
+* Decided to only run Toxicity for now since that's implemented and most of our new primitives are for the Toxicity dataset
+* Decided to add to the spin up guide since a lot of people were still confused
+** https://github.gatech.edu/emade/emade/blob/nlp-nn/emade_spin_up.pdf
+* Also made sure everyone had a task to work on
+* Told everyone to get new primitives in by Wed/Thurs so that we can get in a run before the Presentations on Monday
+* Anshul gave the ideal to add Activation functions as layers instead of string parameters, this would have the effect of being primitives instead of terminals.
+** Potential Pros are that it's easier to implement, and when we add new layers EMADE can try to add in different activation functions by default. Potential Cons are that it is easier for EMADE to create broken individuals when randomly mutating or creating (since the number of possible layer combinations are now greater). 
+Tuesday - Friday:
+* Helped Rishi setup his primitive, he was having an issue with adding the activation function as a primitive
+* Also helped David fix the same DEAP issue Cameron and I had earlier
+* Also helped Reagan with minor Colab issues (password included a '@' in it so when initially cloning EMADE the link would get confused, to solve it you need to escape it)
+** Replace the GIT AUTH block (2nd one) with this:
+*** user = getpass('Github user')  password = getpass('Github password before at')  password2 = getpass('Github password after at')  os.environ['GIT_AUTH'] = user + ':' + password + '%40' + password2
+**** Reagan also got PACE running with the nlp-nn branch. Since we could use remotemysql we could ignore the issues of setting up MySQL on PACE. He ran a run on Thursday night without new first-sem primitives. 
+* Also helped Anshul set up his primitive (He was trying to add in GLOVE embeddings)
+** Came up with adding a boolean parameter use_glove to Embedding Layer, if true it will initialize with the GLOVE embeddings
+Friday's Meeting
+* First Sems pushed their code, I began to merge everything in
+** https://github.gatech.edu/emade/emade/commit/ce02375ea015fee668d7d2950bbcb9cb4cc64116
+** https://github.gatech.edu/emade/emade/commit/aebeaf3eaf1bf2a11f71ac5df1a1c342e0c5bf16
+** https://github.gatech.edu/emade/emade/commit/76571dd7cf34c36c4b5cc52d3ea7e9f169294d7c
+** https://github.gatech.edu/emade/emade/commit/86c18a4ec551fb4b1ee1790ff571449a78399976
+* Began to work on final presentation
+* Need to add in outside benchmark for Toxicity dataset
+* Also need to look at Anshul's pull request lin by line, git diff is saying every line is changed
+Saturday:
+* Manually add in Anshul's changes because my git fu to try to fix git diff did not work (online diffs did not work for some reason)
+* Also run Reagan's Unittests on all of the added Primitives to make sure they work
+** Only minor issues with First Sems' code (typos, forgotten imports, no initialization of some variables)
+* https://github.gatech.edu/emade/emade/commit/c56862946852da789e6164261bec1c0537c78073
+* https://github.gatech.edu/emade/emade/commit/1e7097381a4f9ed7b5acc63e50a768a0804490e5
+* https://github.gatech.edu/emade/emade/commit/88cc9a12180bd4f36cd32900a065e2b03ff4fd1e
+* https://github.gatech.edu/emade/emade/commit/e2a013d7072e5c6d3e2d994e97502ce996cd2925
+* https://github.gatech.edu/emade/emade/commit/a283ce7f5f955898763d337dc0b1c0a822a8aa6d
+* https://github.gatech.edu/emade/emade/commit/559ecb3d53616c45db801b276075046fc1aa8dc1
+* https://github.gatech.edu/emade/emade/commit/73c2d792f86732133064e4bd76bf60efe1b1a592
+* https://github.gatech.edu/emade/emade/commit/0ed8df6c0afd739d6a4a0d648625a86cdf1c6a2f
+* https://github.gatech.edu/emade/emade/commit/d6984a0f82e03990a0548c14c9d8391521eaaba2
+* https://github.gatech.edu/emade/emade/commit/1c41fba6b2b3aa0115179477de6aa04d80fb5a9e
+Sunday's Meeting
+* Dry Run of presentation, everything went smoothly
+* Added in new benchmark model
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add to emade spin up to help first semesters 
+|Completed
+|04-13-20
+|04-13-20
+|04-13-20
+|-
+|Help various people with integration questions 
+|Completed
+|04-13-20
+|04-17-20
+|04-17-20
+|-
+|Finish Presentation
+|Completed
+|04-13-20
+|04-19-20
+|04-19-20
+|-
+|Merge First Semester's PRs
+|Completed
+|04-17-20
+|04-18-20
+|04-18-20
+|-
+|Benchmark model
+|Completed
+|04-13-20
+|04-19-20
+|04-19-20
+|}
+
+== April 06, 2020 - April 12, 2020 ==
+Monday Meeting:
+* Added some documentation to the Colab notebook and gave it to First Semesters so that they can test their additions
+* The First Semesters decided which TODO they wanted to work on
+* Mohan and Reagan also decided to set up Colab
+* Added some general docs so that other teams can get setup on EMADE, post it on Slack
+Tuesday- Friday:
+* General Tech Support for people with Colab:
+** Help David Gao add in some Conv layers into EMADE, explain step by step way to add in primitives
+Friday Meeting:
+* Help Mohan get setup on Colab to test toxicity integration, he loves it
+** Has an issue where evaluations stop after 1 generation. This may be due to the 100MB limit or some Collab error
+*** I will try to replicate this
+* Also help David with some more implementation questions
+* Cameron still has the DEAP issue, Mohan recognizes it as an issue Eric fixed a while back,
+** I guide Cameron on fixing it by manually installing it (clone from source on github, run python setpy.py install)
+** It works
+Saturday:
+* I also am now getting the same issue as Cameron does when trying to replicate Mohan's error
+** It's really weird though, I rarely get it, when I do nothing past gen 0 evals (which makes sense, since it can't make a gen1)
+* I tried to delete some RAM management code I had added (destroy the tf session created by each instance of NNLearner) This fixes the problem
+** NOTE: It is still very slow. However it evals for 4 generations at least
+** https://github.gatech.edu/emade/emade/commit/8e93deb72a5f41668d0840a1c17ee797cc519b09
+* Also added in a basic test for myself to test with
+** https://github.gatech.edu/emade/emade/commit/7650a2fe52c3f4bd09eead12b202ae8c6bb7bd63
+* The DEAP error may come back to haunt us in the future but it works, for now. If it comes to it I can add in a code block to manually install it. Issues may arise with this when reinstalling though, reinstall.sh may add in the wrong DEAP or not find it at all. 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add general Docs to EMADE Colab
+|Completed
+|04-06-20
+|04-06-20
+|04-06-20
+|-
+|Test Colab to try to fix Mohan's errer
+|Completed
+|04-06-20
+|04-12-20
+|04-11-20
+|-
+|Make sure Colab usage goes smoothly
+|Completed
+|04-06-20
+|04-12-20
+|04-12-20
+|}
+
+== March 30, 2020 - April 05, 2020 ==
+Monday Meeting:
+* Mohan explained the plan for the First Semesters to them as well as some of the important parts of EMADE
+** They will work on the notebooks till 4/6, work on adding in primitives till 4/12, and we will run a long run of EMADE from 4/12 till 4/19
+* Notebooks were distributed to the First Semester students
+** I added /firstsem folder on EMADe to contain the respective notebooks
+*** https://github.gatech.edu/emade/emade/commit/9c9f8b0a196825cebc473b93003694fc154914d6
+*** https://github.gatech.edu/emade/emade/commit/3fe8b0df9590b7db5004c79b1368687e54ba6240
+* I asked around to some first semesters to see how they would be able to access a MYSQL database externally (because of the Google VM ). None of them knew how to Port Forward, so I need to find a new way fo them to access an external MySQL database. The worst-case scenario is that they use mine, and I will just make sure no two people are using it at the same time. 
+Friday Meeting:
+* First Semesters present their solutions, mainly good results
+** Interesting Issue with the Toxicity notebook: They used GLOVE embeddings, and the embeddings resulted in a 97% accuracy by themselves. The rest of the architecture didn't really matter. We were confused by it, Mohan will take a look at it, I might as well
+* Mohan mentioned that I could use setup.py to control what pip packages are added to the egg generated by ./reinstall (recap: the problem is that keras-pickle-wrapper is not being added to the egg. I think it may have to do with the fact that we pip add it).
+* I decide to manually add it to see if it will work
+** It works
+* Now running into some issues with nltk not being added (also a pip added package)
+** Added it to setup.py, and it works as well
+* Ran some test runs of EMADE in the Colab Notebook, get warnings that the GPU is not being used
+** Don't really know why they aren't happening, when I add tensorflow-gpu to the list of packages in setup.py it works
+* Will have to look into why pip packages have this issue later
+** My hypothesis is that it's being installed into a different directory and ./reinstall doesn't know where to find it (although stdout of the script suggests it is looking in the right place)
+* Commits:
+** https://github.gatech.edu/emade/emade/commit/321960e56aa8bc909cbc23efa79ee0c1af11f22b
+** https://github.gatech.edu/emade/emade/commit/68c5e1294d6542497aa8e0e19a64d2dc646349d8
+** https://github.gatech.edu/emade/emade/commit/b08ac9907b6a917b72f3f96d8510c99a0bf6fa38
+* Also looked into using <nowiki>https://remotemysql.com</nowiki> as a replacement for port forwarding.
+** It provides an external database to use, likely will not hit the rate-limit or the storage limit (100MB)
+*** Tested with the Colab notebook, it works
+*** One issue: Colab does not let people edit .XML files in browser, so user either has to clone it along with EMADE from git or upload it (not really a big issue)
+** Also important: since I can get nlp-nn running on a GPU on colab it means that there is probably an issue with the distributed network on ICE-HAMMER. That may be the reason that NNLearners did not evaluate on Pulak's run
+* Cameron (a first semester) also started trying to run EMADE nlp-nn on his laptop which has a GPU
+** He tells me he has a DEAP error in selection methods (individuals length have to be > 4)
+*** This is weird, we never messed with selection methods. I tell him to downgrade to the DEAP version I'm using (He was running 1.3 I'm on 1.2) and try again {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Fix Keras Pickle Wrapper Issue |Completed |03-23-20 |04-05-20 |04-05-20 |- |Distribute Notebooks |Completed |03-30-20 |03-30-20 |03-30-20 |- |Test remotemysql.com with colab |Completed |03-30-20 |04-05-20 |04-05-20 |}
+
+== March 23, 2020 - March 29, 2020 ==
+Monday Meeting:
+* First Online meeting, Mohan presented for us, good job considering he probably felt like he was speaking into the void
+* Decided to start splitting up tasks
+** First Sems would be running notebooks for either the toxicity or chest x-ray dataset in preparation for our comparison to the AutoML paper
+*** They will get up-to-speed with NN concepts, the datasets themselves, and EMADE. We also gave them some other resources for learning in the slack (emade_spin_up I had written, some other EMADE guides). Other intentions are that they will be creating seed models for the benchmark as well as come up with any primitives we should have
+*** They have to decide via a poll on what dataset to work on
+*** Only one person has a local GPU
+** Reagan/Bek would work on creating the notebooks for the First Sems to run the different datasets on
+** Pulak would continue to get PACE set up, ICEHAMMER is getting set up for remote access as well
+** Mohan would be setting up the Toxicity dataset on EMADE because that is the easiest to run with the primitives we have right now
+** I will be setting up Google Colab to run EMADE since none of the other First Sems have access to GPUs and we will likely need it to test any new primitives we may have  Tuesday- Friday
+**Started to set up Google Colab Notebook
+*** https://colab.research.google.com/drive/1Dzg-fvW628-S9ki3y1S7qwfveiajFNNx
+**Primarily working on getting the python environment setup and EMADE downloaded
+**Original idea that Dr. Zutty had talked about was setting up EAMDE from a Google Drive Account
+***Tried to use this, EMADE would take 12 hours to upload to Google Drive
+***Tried to remove unnecessary datasets did not work either (still took a couple hours)
+****https://github.gatech.edu/emade/emade/commit/d24ac9605881374e18e66c039b66c37d180eb652
+***Git cloning works, it allows downloads of EMADE in < 5 min
+**Got GitLFS setup on the collab notebook, (need to install it each time since the VM doesn't have this by default), also got EMADE to download well
+**Exported new EMADE environment (since we moved to TF 2.0 a while back) and uploaded that to github as well
+***https://github.gatech.edu/emade/emade/commit/7d06c17811f11cfb646ed1a96a22780db8d1b576
+**Added code block to automatically install things from this conda environment to set things up
+***Also need to install Miniconda on initial setup, so added code block for that
+**Works for everything but keras-pickle-wrapper (it isn't included with reinstall.sh for some reason) 
+***Will look into this next week along with MySQL integration 
+**Combined Reagan's TODO list for the rest of the semester with mine: https://docs.google.com/document/d/1vGWQpaWf8FM4PDnd7EG04vEDL_XD7tkP4nuKf33Q3gY/edit?usp=sharing
+Friday Meeting:
+*Not many new students, however we went over some of their notebooks
+*Specifically looked at the Toxicity links
+*Also made sure first semesters knew what dataset they wanted to work on
+*Mohan bounced some ideas about adding Multilabel support to EMADE, they seemed good
+*Reagan had an issue with the Chest Xray dataset using up too much space, I suggested not storing in a list
+**I also tried out his notebook on my laptop to see if it would be fast, it was still extremely slow for me
+**After Reagan, Mohan, and Dr. Zutty talked they decided to move to a smaller subset of the dataset Sunday:
+*Decided that I can use Port Forwarding to connect to the MySQL database
+*set up Port Forwarding on my computer/router and added my external IP address to the input file
+**https://github.gatech.edu/emade/emade/commit/cb27c264964fad348ac9b472a61983c2c469bf00
+*Will test more next week
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Allow for Conda setup on Colab
+|Completed
+|03-23-20
+|04-05-20
+|03-27-20
+|-
+|Allow for EMADE download on Colab
+|Completed
+|03-23-20
+|04-05-20
+|03-27-20
+|-
+|Allow for MySQL collaboration on Colab
+|Completed
+|03-23-20
+|04-05-20
+|03-29-20
+|-
+|Set up TODO list
+|Completed
+|03-23-20
+|03-23-20
+|03-23-20
+|-
+|Fix Keras Pickle Wrapper Issue
+|Completed
+|03-23-20
+|04-05-20
+|
+|}
+
+== March 16, 2020 - March 22, 2020 ==
+* Spring Break, no meeting
+* Found an interesting paper however:
+** https://arxiv.org/abs/2003.03384
+** Recent paper from Google that evolved NNs from very basic primitives (dot product, add)
+** Might be interesting to try to do something similar or add a similar "simple" primitive to EMADE
+** However this only really results in fully connected layers, adding in different activation functions and recurrence might be hard or take long to evolve
+*** Tried to experiment with evolving python code using DEAP, didn't really work out, however, the code discovered that it could just write True/False repeatedly and that would compile
+*** I think the search space would be too sparse for this 
+** Also might try to add in some way to save weights between individuals. Don't really know how though, but it would save memory
+** Tree-based neural networks should be added as well. The paper we are trying to beat has them, and currently we can only support sequential models
+
+== March 9, 2020 - March 15, 2020 ==
+Monday Meeting:
+* Presented to the First Semesters
+* Pulak ran into issues with the ICE Hammer run
+** NNLearner individuals did not evaluate even after a very long amount of time
+** I think this could be due to the distributed nature of ICEHAMMER
+** We need to test on some different computers to see how well it performs (till now I have only ran it on my own computer)
+Friday Meeting:
+* Spring Break so no meeting
+
+== March 2, 2020 - March 8, 2020 ==
+Monday Meeting:
+* Made some changes to set up nlp-nn branch so Pulak can run it (return pop sizes and seeding sizes to normal sizes):
+** https://github.gatech.edu/emade/emade/commit/1987e70ffb98a14e706688e458bd3b1840ea449d
+** https://github.gatech.edu/emade/emade/commit/04dd696751deeb37e52744d839827d66390be5a0
+
+* Continue to add to mid-term presentation
+** https://docs.google.com/presentation/d/1cmuV6Awxr-s7rA8fMaNm9yOOKJuXTESOuNley5uLd_g/edit
+* Created a Google Doc to organize things we need to add to the nlp-nn branch for the comparison
+* Mohan brought up a good point that they use a lot of compute and their individuals are pretty large, that may be an issue in the future 
+Friday Meeting:
+* Noticed that there is an issue with the evaluation methods again:
+** When adding up the total FP and FN, I get a 50% accuracy, this accuracy doesn't match up what I received with the same model trained outside of EMADE (~86% accuracy)
+** Will look more on Sunday
+Sunday Meeting:
+* Took a look at the code, checked a lot of different arrays at different points to see if it was getting shuffled or rearranged somehow (most likely explanation if the accuracy is 50% ie. basically random)
+** Checked if the data going into the model is correct: it was
+** Checked if the accuracy was being calculated correctly (hand calculated outside of EMADE to check): it was
+** Checked if the model trained in emade can work works well outside of emade (saved model, checked outside, it got 86% acc): It does
+** Went line by line to find out what could be going wrong between the prediction and the eval method
+** There was an issue with the tokenizer: the vocab size was being calculated incorrectly (thanks to Mohan for help)
+** We also were tokenizing train data for test predictions in a few places so I fixed that as well (probably more important fix than the vocab_size issue)
+** My guess is that  we were inputting the wrong things at wrong times and didn't realize it since the vocab size wasn't throwing errors (because it was being calculated incorrectly)
+** During this I also began to add some more NNLearner documentation to the emade_spin_up_guide in preparation for the First Semesters
+** I couldn't train more than 1 neural network at a time on my laptop, was getting CUDA errors. This may be bad in the future if other people need to run unit tests without PACE or a local GPU. 
+** Pulak will run this updated code to see what happens
+** All code in these commits:
+*** https://github.gatech.edu/emade/emade/commit/236e0a43e3346c428e0a94a93cae7028bc22c6f1
+*** https://github.gatech.edu/emade/emade/commit/b7b65cdf2f9ea35de45e5d9f4094682dcfc8a28a 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish presentation
+|Completed
+|02-24-20
+|03-05-20
+|03-02-20
+|-
+|Fix the 50% Accuracy Error
+|Completed
+|03-06-20
+|03-08-20
+|03-08-20
+|-
+|Add documentation to EMADE spin up guide
+|Completed
+|03-08-20
+|03-08-20
+|03-08-20
+|}
+
+== February 24, 2020 - March 1, 2020 ==
+Monday Meeting: 
+* We found a paper similar to ours: Evolutionary Neural AutoML for Deep Learning: https://arxiv.org/pdf/1902.06827.pdf
+* Highlights:
+** Use CoDEEPNEAT (multiobjective framework operating in "blocks" of layers)
+** indirect coding like us
+** The authors benchmarked on 2 datasets:
+*** Toxicity:
+**** NLP based, identify toxic comments, multi-label classification (instance can be more than one label)
+*** Chest X Ray:
+**** CV based, identify diseases from chest X rays
+* Would be a good idea to try to achieve similar results with emade
+Friday Meeting:
+* We discussed the paper between ourselves, we could try to benchmark the same datasets
+* Not much done today, finishing other work so I can work during hackathon 
+Saturday Hackathon: 
+* Cleaned up the codebase
+** https://github.gatech.edu/emade/emade/commit/9e724b92717eb64321fa77c485e9eb2006904ca0
+
+* Tested code once more on laptop
+* Mohan talked me into updating code to be Tf 2.0 based, spent too much time on that, but it works
+** Changes between Tf 1 and Tf2: Tf1 needs tensorflow-gpu installed to use gpu, Tf2 does not
+** Also CUDA version needs to be 10.0 or less for 10.1, not an issue for now but may be in the future
+** Added my NNLearner stuff to the presentation deck
+* Dr. Zutty told us it would be a good idea to compare the datasets exactly, so we will probably do that
+** We decided to have the first semesters who join add more primitives so that we can have a larger diversity of layers (and activation functions) 
+** {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Add Tensorflow 2.0 to nlp-nn |Completed |02-28-20 |03-01-20 |02-29-20 |- |Test run new additions to nlp-nn |Completed |02-24-20 |03-01-20 |02-29-20 |- |Finish presentation |Completed |02-24-20 |03-05-20 |03-02-20 |}
+
+== February 16 - February 23, 2020 ==
+Monday Meeting:
+* Dr. Zutty mentioned submitting to Gecco
+* We decided to try to meet that goal
+* Need to do a lit review to determine novelty
+* Also need to fix eval function
+** Dr. Zutty showed em that eval methods are called implicitly
+** handleWorker may be causing the problem
+** Will look into it more on Friday
+Friday Meeting (mainly individual work, some of this was done over the weekend):
+* So the problem wasn't the inputs being passed into or the truth data
+* nd.tostring makes the data as bytes -> I used str instead and I can see the actual inputs :
+truth data: [[0.]
+
+[0.]
+
+[1.]
+
+...
+
+[1.]
+
+[0.]
+
+[1.]]
+
+my predictions: [[0.1271492 ]
+
+[0.97426575]
+
+[0.076065  ]
+
+...
+
+[0.13003355]
+
+[0.9776007 ]
+
+[0.95942414]]
+* Clearly, my outputs are not being thresholded (I think binary cross entropy loss took care of that when training). I need to either get keras to do it during inference or I need to write my own eval function)
+* Added a np.round line to convert the predictions to be 0 or 1
+* https://github.gatech.edu/emade/emade/commit/802310a21285b970f623b68a53ed38c6b344fb14
+* NOTE: This will work for binary classification (which movie reviews is), I will need to check to have it work for multi-class classification tasks
+* Tested on my laptop, received good results (FP + FN < len(total dataset)) Pulak will try to do an ICE-HAMMER run 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix Eval Function
+|Completed
+|02-14-20
+|02-21-20
+|02-23-20
+|-
+|Lit Review
+|Completed
+|02-17-2020
+|Sometime in March
+|02-24-20
+|}
+
+== February 10 - February 15, 2020 ==
+Monday:
+* Dr. Zutty is out
+* We are still having PACE Issues
+* I continued the SQL connection dance with Bek
+* We tried connecting via VPN too, but it did not work
+* We thought it might been due to me being on a different WIFI network during connection, but that did not work
+Friday:
+* I decided to stop working on PACE and will go back to my eval function issues
+* Tried to find out where eval_methods was being called in the general EMADE function, could not find it
+
+* Will ask on Monday
+Individual Work (between Friday and Sunday)
+* Began testing to see where 0% accuracy was coming from
+** For context: The 0% accuracy problem came from an issue we were having at the end of last semester. The individuals would evaluate, but they would show every prediction as a FP or FN
+*** It appears that the network is comparing the input layer to the labels
+*** Something is wrong with how it passes test_data in, the outputs are not right 
+*** WIll check more next week, I will go through and print out bumpy arrays at certain parts of the code 
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Fix Eval Function 
+|Completed 
+|02-14-20 
+|02-21-20 
+| 02-23-20
+|}
+
+== February 3 - February 7, 2020 ==
+Monday:
+* Dr. Zutty sat down with me and helped figure out quota issue
+* Turns out script is for a different version of PACE (PACE not PACE-ICE)
+* We have 10 gb limit on /home
+* It might be too small for emade
+* Might be worth looking into using scratch directory (shared but we can change permissions)
+* Accidently deleted everything when figuring out storage issue, need to reinstall
+Friday:
+* Reset PACE directory
+* Sat down with Bek to see if we can use mysql on our own laptops and connect to PACE via that
+* Was not able to connect between our own laptops 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run mysql on PACE
+|Abandoned
+|01-27-20
+|02-03-20
+|
+|-
+|Reset PACE 
+|Completed
+|02-03-20
+|02-03-20
+|02-03-20
+|-
+|Try to connect PACE to my laptop's mysql schema
+|Abandoned
+|02-03-20
+|02-10-20
+|
+|}
+
+== January 27 - January 31, 2020 ==
+Monday:
+* Met with team
+* Was able to run EMADE seeding on login node, but generated this error:
+* OperationalError: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '128.61.41.49' ([Errno 110] Connection timed out)")
+* Need to figure out how to get mysql on PACE
+Friday:
+* Everyone else has the same issue
+* Started to run into a space issue (run pace-quota):
+* ======= Checking 'home' =======  Current usage  : 9.9G  Hard limit     : 5G  Full path      : /nv/pace-ice/athite3
+
+* THere should be a data folder but it isn't showing up on queue
+* Also don't know how I am going over the hard limit for data storage
+* Created a scratch directory, but that limit seems broken as well
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run mysql on PACE
+|Abandoned
+|01-27-20
+|02-03-20
+|
+|-
+|Figure our storage issue
+|Completed
+|01-27-20
+|02-03-20
+|02-03-20
+|}
+
+== January 20 - January 24, 2020 ==
+Monday: MLK Day: no meeting
+
+Friday: 
+* I was at an interview, so was unable to meet with the rest of the group
+* Ran test pbs to make sure PACE works
+Command:
+
+<nowiki>#</nowiki>PBS -N hello
+
+<nowiki>#</nowiki>PBS -l nodes=7:ppn=4
+
+<nowiki>#</nowiki>PBS -l mem=32gb
+
+<nowiki>#</nowiki>PBS -l walltime=12:00:00
+
+<nowiki>#</nowiki>PBS -q paceib
+
+<nowiki>#</nowiki>PBS -k oe
+
+<nowiki>#</nowiki>PBS -m abe
+
+<nowiki>#</nowiki>PBS -M [mailto:athite3@gatech.edu athite3@gatech.edu]cd $PBS_O_WORKDIR
+
+echo "Started on `/bin/hostname`"
+
+echo "Nodes chosen are:"
+
+cat $PBS_NODEFILE
+
+module load gcc/4.9.0
+
+module load mvapich2/2.1sh hello.sh
+
+(in hello.sh write echo "done" >> yes.txt)
+* It worked
+* Created env file, shared with team:
+* https://github.gatech.edu/gist/athite3/585660afa33e306f217972bd9046baa3
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test EMADE on PACE
+|Completed
+|01-20-20
+|01-27-20
+|01-27-20
+|}
+
+== January 13 - January 17, 2020 ==
+Monday:
+* Another old nlp team member showed up, so we helped him get set up with the repository
+* Realized I need to push to emade/emade, so asked Dr. Zutty for push access
+* Pushed last semester changes to EMADE general
+* https://github.gatech.edu/emade/emade/commit/97b195e86792823c4ee089884d3761252e1111c3
+* Cloned emade onto the PACE directory, will look to get conda working on PACE
+
+Friday:
+* No meeting: Career Fair
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get Conda set up
+|In progress
+|01-13-20
+|01-24-20
+|01-13-20
+|-
+|Get EMADE on PACE
+|Completed
+|01-10-20
+|01-13-20
+|01-13-20
+|-
+|Write .env file for setting up conda env on PACE
+|Completed
+|01-13-20
+|01-24-20
+|01-20-20
+|-
+|Write test pbs file 
+|Completed
+|01-13-20
+|01-24-20
+|01-20-20
+|}
+
+== January 6 - January 10, 2020 ==
+Monday:
+* First general meeting of Spring Semester
+* Decided to continue along with Neural Network Team
+* Dr. Zutty gave lecture on Testing for Statistical Significance. Hypothesis testing.
+* Looking to get PACE working so that it is easier for other people to run emade-nn
+* Set meeting dates to Fridays
+Friday:
+* Started to look over the PACE slides, was able to ssh into PACE
+* Started trying to figure out how PACE job submission worked, will try to get a test submission working
+* Wrote test pbs script
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Submit simple non-Emade job to understand qsub command and pbs scripting.
+|In progress
+|01-10-20
+|01-13-20
+|01-13-20
+|-
+|SSH Into PACE
+|Completed
+|01-10-20
+|01-13-20
+|01-10-20
+|-
+|Get EMADE on PACE
+|Completed
+|01-10-20
+|01-13-20
+|01-13-20
+|}
+
+== November 29 - December 01, 2019 ==
+* The specific error was happening in the AddFeatureFromClass function
+** Tried to remove only that line of code
+** It accidently was adding something else to it
+* Tried to remove that line of code and the actual append function
+** No improvement
+* Tried to add the original data_pair data instead of our tokenized version of data_pair (we create a tokenized data pair at the beginning of NNLearner)
+** It ran for a long amount of time and eventually timed out
+* I added GPU support for Keras, so it reduced the time to train the model for 12 minutes to 5 minutes. It didn't solve the time-out error though
+* Tried to fix the size mismatch error by removing the entire codeblock of adding training data
+** Mohan said it was there so that classifiers can stack on top of each other, so it isn't necessary to us at the moment
+** EMADE ran, but it returned inf for all three specified evaulation functions
+*** However Keras returns an accuracy that works well
+* Tried to print outputs from the eval functions to see what was happening
+** There was a shape mismatch going in
+*** One was a row, the other was a column
+** I manually changed the shape, and it returned values, however the model had a FP rate of 50% of the dataset and a FN rate of 50% of the dataset
+*** Printed the actual labels coming in, and it turns out it was comparing the tokenized inputs
+**** Tried to see where EMADE passes params into the eval function, but couldn't see where it is called
+*** I need to either change NNLearner to fit whats coming in (possible), or make my own eval function (not really necessary)
+*** Logs and errors as well as changes to the eval methods:
+**** https://github.gatech.edu/athite3/emade/commit/d72a2bd43372d01cca6e8e9c8b96322d60b84540
+* Made sure first semesters didn't need help with their tasks
+** Pulak showed me an interesting error for the News dataset where it would always converge to 75% accuracy for multi-class classification and then 25% for multi-label classification
+** Also, other classification methods only achieved ~40% accuracy, chowing the high degree of noise
+** Anuraag got a good architecture for Titanic however, it outperforms the EMADE optimized classifier
+* Created final presentation:
+** https://docs.google.com/presentation/d/1GSIrOEssa06AZDewUNgxEtssS3OQrKnxbpkuIrEwlXY/edit?usp=sharing
+* Final Reflections
+** It was a challenging semester. I had to delve into parts of code I didn't even know were in EMADE. Neural networks have been attempted in EMADE before, but they haven't worked to this degree. So this is an improvement. I think the solution is close. 
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evals  
+|Completed
+|12/04/2019
+|12/03/2019
+|}
+
+== November 24, 2019 ==
+* Met with Yoonwoo, started the debugging process 
+* Received an error that the vocab size was wrong 
+* Decided to rewrite the tokenizer in text_processing_methods
+** called Tokenizer2 
+** Similar to tokenizer, it calculates the vocab size in our own way 
+* It ran, but the neural network only achieves 50% accuracy on 1 epoch 
+* Incresed epochs to 10, but then it took an hour to return 1 individual 
+* 2 epochs worked, it gave 85% accuracy (but EMADE still returned an error) 
+* Re-ran EMADE, ran into an error that when appending the predictions on training data to the dataframe there is a size mismatch 
+* Github commit:
+** https://github.gatech.edu/athite3/emade/commit/fa8c5e2033ddfa23f6ad1c39a5c8c5116517eb3f 
+* Will solve this during Thanksgiving Break weekend 
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Fix size mismatch error  
+|Completed
+|12/01/2019
+|12/01/2019
+|-
+|Work on final presentation
+|Completed
+|12/01/2019
+|12/01/2019
+|}
+
+== November 22, 2019 - November 23, 2019 ==
+* Added Embedding Layer changes
+** https://github.gatech.edu/athite3/emade/commit/ce3211fbbcc67c787bf2439b651083632db82134
+* Met up with Yoonwoo at the Hackathon to test out NNLearner
+* Fixed up the code in GP Framework Helper
+* Also cleaned out the carcasses of failed code
+* Helped the first semesters with some issues they had
+** They were running into an issue with the News dataset
+*** There are two column of text input data, so it is important to consolidate them into one data set 
+*** The dataset is also very noisy 
+*** Pulak mentioned trying binary-cross entropy, as he think multi-label classification will be better than multi-class classification 
+*** Met with Anika to figure out what image dataset they were using, but it had no labels so we are stuck with the image dataset currently in EMADE (no one knows what is of or how to parse it)
+**** The First Semesters already have enough to do so we can figure out Image later 
+* Hackathon commits:
+** https://github.gatech.edu/athite3/emade/commit/7479a332600d1f639f3a937631d7c8760b2c4412
+* Tried to test NNLearner, ran into a bunch of errors
+** The first errors were syntactical, those were easily solvable
+*** forgot to put in an optimizer in compile(), added it in
+** Received a type error due to DEAP code, Dr. Zutty wrote a passThrough function for our type (str) that fixed it
+* It took a long time to run (15 minutes for worker to evaluate the neural network) but wasn't throwing errors so left it to run for a while 
+* Meeting with Yoonwoo in 11/24 to continue to debug
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE more and fix any errors that occur during evaluation  
+|Completed
+|11/24/2019
+|11/24/2019
+|}
+
+== November 15, 2019 ==
+* William had a merging issue for his commit so we cleared that up
+* Came up with pseudocode for my Embedding Layer changes on top of Will's layer function changes
+* We debated creating a Layer class with specific layers inheriting from it, and a signular add_layer_to_list function, but that was less clear than keeping our original architecture
+* https://github.gatech.edu/athite3/emade/commit/28ab3c4b852533b4dbf4943ebbd0c5100f998cc1
+* I also helped the first-semester students with their task
+** They will be creating seed neural networks for some other datasets: news, image, and titanic
+*** They should aim for >85% accuracy
+** Showed them Yoonwoo/my notebook so they can get started
+** helped clear up some issues in getting it to run (Some were running a different version of Tensorflow as a backend) and setting up the other datasets 
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Add Embedding Layer code  
+|Completed 
+|11/23/2019 
+|11/23/2019 
+|- 
+|Fix Types in GP Framework 
+|Completed 
+|11/23/2019 
+|11/23/2019 
+|- 
+|Test NNLearner 
+|Completed 
+|11/23/2019 
+|11/23/2019 
+|}
+
+== November 8, 2019 ==
+* Dr. Zutty helped us fix the SQL Error
+* It was due to Keras models not being able to be pickled 
+* Solved by using the Keras-pickle wrapper 
+* However, it can only wrap compiled models (only after all layers have been added) 
+* Drew up a redesign of the NNLearner object
+** Now, instead of passing a Keras model up through the chain of NNLearner (layer function add a layer directly to the model) it passes up a LayerList (list) 
+** Layer functions add a dictionary representation of the layer type and other parameters to the list 
+** NNLearner takes in a list and creates the model from scratch there
+***  See schematic in final powerpoint
+**  I made an example Layer class so William knew how to fix the other classes
+**  https://github.gatech.edu/athite3/emade/commit/c7f8a37f908f6e07ae5d5a4a7b294ffcacc646ba 
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Create pseudocode for Embedding Layer changes
+|Completed 
+|11/15/2019 
+|10/15/2019 
+|-
+|Divide work for First Semesters
+|Completed
+|11/15/2019
+|10/15/2019
+|}
+
+== October 22, 2019 - November 1, 2019 ==
+* Went back and forth with Austin over tryng to fix the SQL Issue
+* Thought it might have been some code I accidently merged from when I was setting up my branch, so I compared the different branches. However, nothing was out of the ordinary
+* I also re-compared NNLearner to Learner to look for any differences in code there
+* No meeting on October 25 due to the presentations
+* Had Yoonwoo try to replicate it, but wasn't successful
+* This error ruined pickles for me, my friendship with pickles has officially ended
+* Yoonwoo is working on alternatives to Keras, such as PyTorch (both of us are more familiar with PyTorch)
+* Mohan is going to give my spin up document to the first semesters who join NLP, so I went through and made sure there are no typos there
+** https://github.gatech.edu/athite3/emade/commit/0af22632485d4ff09c75d0fbcdc5ad9c8111bc76
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Fix SQL Issue (Figure out why it's happening and how to fix it) 
+|Completed
+|11/01/2019
+|11/08/2019
+|}
+
+== October 19-21, 2019 ==
+* Attended Hackathon session
+* Helped Yoonwoo create the seed individual for the Neural Network
+* Tried to train on my own laptop, but it took a while
+* Decided to train on a google collab instance instead:
+** https://colab.research.google.com/drive/1qKdRNr9onZRyDhWC5oEWAUY5yJxRwis3 
+** Architecture: Embedding Layer -> LSTM Layer -> Dense Layer (relu) -> Dense Layer (sigmoid) 
+* Also implemented all of Neural Network Learner
+** Decided to model it after Learner, so I copied the function and replaced it with my own keras model
+* Added GRULayer (very similar to LSTM Layer)
+* Re-modeled Embedding Layer after Yoonwoo's seed model's embedding layer
+* Made InitModel into an ephermal constant
+* Hackathon commits:
+** https://github.gatech.edu/athite3/emade/commit/555da6681b1febd9350b2abe904ec1c05a5928a8
+* Created slides for presentation
+** https://docs.google.com/presentation/d/1B63kw5ne58jJ0FhFcM9L7GplOe0Asq5awU27hqRoEp0/edit?usp=sharing
+* Made seeding file with NNLearner in it
+** https://github.gatech.edu/athite3/emade/commit/a77447433febf7623306898b7dfb75f955bb802c
+* Tested NNLearner
+** Ran into SQL Issue, Don't know what that is happening (issue screenshot in ppt slides)
+*** https://github.gatech.edu/athite3/emade/commit/70ae5c785011fb19549c1878912125a81a929159
+** Re-ran EMADE wihtout primitives with no issues, so the issue is with our code 
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Fix SQL Issue (Figure out why it's happening and how to fix it) 
+|Completed
+|11/01/2019
+|11/08/2019
+|}
+
+== October 18, 2019 ==
+* Having issues with pushing to the general emade repository, so I merged the detection_processing changes and my new additions to neural_network_methods.py into my own repository
+** https://github.gatech.edu/athite3/emade/commit/43156a3221acf8c8dc8253770fdce164a8ca1ce5 
+* Also added am EmbeddingLayer function, which adds an embedding layer to our Keras model 
+* Designed an Activation function wrapper class to be a terminal
+** It takes in a string (activation function) and saves it to self.activation 
+** DenseLayer takes in this object as a parameter 
+* Tested EMADE with all primitives added to the toolkit, after some syntactical issues it worked well 
+* https://github.gatech.edu/athite3/emade/commit/062266096ef3591cd79d3b6da2757033879f2cbd 
+* Yoonwoo is still trying to get the seed neural network up and running. He might be using a GRU layer, so I should add that in as well 
+* Yoonwoo said that the Embedding layer need to be the first layer, so I need to figure out a way to do that 
+** I also need to take in a data pair into Embedding Layer to calculate vocabulary size 
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Add NNLearner 
+|Completed
+|10/19/2019
+|10/19/2019
+|-
+|Add GRULayer as primitive
+|Completed
+|10/19/2019
+|10/19/2019
+|-
+|Fix Embedding Layer
+|Completed
+|10/19/2019
+|10/19/2019
+|}
+
+== October 5, 2019 - October 11, 2019 ==
+* Started to implement NNLearner
+** Write the primitives for DenseLayer, LSTMLayer
+*** https://github.gatech.edu/athite3/emade/commit/062266096ef3591cd79d3b6da2757033879f2cbd
+** Still need to figure out how to work on Embedding Layer
+*** It needs vocabulary size and will have to calculate output dimension 
+* Added to the EMADE spin up document:
+** https://github.gatech.edu/athite3/emade/commit/abbbabb70957d8039a9f840beff629d96ded3508
+* Decided to forego on creating the AWS instance, partly because I hate installing things and partly because EMADE runs adequately on my laptop
+* Decided we no longer needed to make an objective function, since the EMADE evaluation metrics should work. We can use the false positive and false negative evaluation functions
+* Yoonwoo is working on the seed neural network for the movie reviews dataset while I work on this implementation
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Test fully connected layers as primitives
+|Completed
+|10/18/2019
+|10/18/2019
+|-
+|Push changes to the repository 
+|Completed
+|10/18/2019
+|10/18/2019
+|-
+|Add activation functions as primitives
+|Completed
+|10/18/2019
+|10/18/2019
+|-
+|Add embedding layer
+|Completed
+|10/18/2019
+|10/18/2019
+|}
+
+== October 4, 2019 ==
+* Spoke with Dr. Zutty about my questions about Emade
+* Learned about how mutations and objective functions are implemented
+* Also understood how seeding and Learners work
+* Created an objective function pseudocode with group members
+* Also discussed making the embedding layer fixed
+* Need to discuss data issues: Need to lift code from Learner
+* Also need to look at how to mutate layer sizes and # of neurons (parameters for )
+* Need to look at possible mutation issues and mating issues
+[[files/Descriptive name.jpg|none|thumb]]
+
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Implement fully connected layers as primitives
+|Completed
+|10/11/2019
+|10/05/2019
+|-
+|Implement an objective function 
+|Abandoned
+|10/11/2019
+|N/A
+|-
+|Test AWS instance
+|Abandoned
+|10/11/2019
+|N/A
+|-
+|Design way for primitive params to be evolved
+|Completed
+|10/11/2019
+|10/05/2019
+|}
+
+== September 27, 2019 ==
+* Started Spin UpGuide for EMADE since there is no similar document and EMADE is kinda confusing 
+* https://github.gatech.edu/athite3/emade/blob/master/emade_spin_up.md 
+* Realized I could not commit since I had cloned the original repo 
+* Set up my own repo to reflect the nlp-nn branch 
+* Learned more about the differences between primitives 
+* Realized that we should also have a way to store model weights in the primitive since we would only be storing architecture and throwing away the weights of best individuals 
+* Updated Notebook sketch for possible implementation of model weights 
+* Read through EMADE source and tried to trace how the algorithm works 
+[[files/Wfe.jpg|none|thumb]]
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Create Spin-up Document
+|Resolved
+|10/04/2019
+|10/04/2019
+|-
+|Re-set up my github branch
+|Resolved
+|10/04/2019
+|10/04/2019
+|-
+|Think of better model architectures
+|Resolved
+|10/04/2019
+|10/04/2019
+|}
+
+== September 20, 2019 ==
+* Received AWS credits, will start to put emade on an aws instance
+* Set up the nlp branch
+* On the micro instance, the shell becomes almost unuseable when emade is running but that's fine
+* Tested the nlp test code Mohan put in there
+* Broke due to memory error (Do not use micro instance)
+* Will just use on laptop for now then
+* Set up new AWS Instance, did not get chance to test yet
+* Sketched some possible implementations of Neural network primitives, need to compare to Learner primitive so we can see if it would be better to just modify Learner or create a new primitive[[files/Notebook anish.jpg|none|thumb]]
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Set up EMADE on laptop
+|Resolved
+|09/27/2019
+|09/27/2019
+|-
+|Set up EMADE on AWS
+|Resolved
+|09/27/2019
+|09/27/2019
+|-
+|Run test code 
+|Resolved
+|09/27/2019
+|09/27/2019
+|}
+
+== September 13, 2019 ==
+* Learned from Mohan and Jisoek about EMADE primitives
+* Looked into EMADE.py code and tried to understand how mutations work
+* It looks like it applies to all of them in succession
+* Also tried to look at past attempts of neural network implementations
+* There is an RNN function in learner_methods, but it isn't called anywhere
+* It also isn't very scalable
+* Mohan started some over the summer, I will look into that some more
+* I will also look at his seeder file and make sure it still works
+{| class="wikitable"
+!Task
+!Current Status
+!Suspense Date
+!Date Resolved
+|-
+|Finish understanding DeepNEAT
+|Resolved
+|09/20/2019
+|09/20/2019
+|-
+|Learn how to implement EMADE primitive
+|Resolved
+|09/20/2019
+|09/20/2019
+|-
+|Look at how to manage layer size (corrections after the mutation phase)
+|Resolved
+|09/20/2019
+|09/20/2019
+|-
+|Set up GCP instance (waiting for credits)
+|Resolved
+|09/20/2019
+|09/20/2019
+|}
+
+== September 06, 2019 ==
+* Met with the other conflict students and split into subteams
+* Decided to form a subteam of the NLP team, dedicated to putting neural networks into EMADE
+* Brought other team members up to speed on the strategy for implementing neural networks (following the NEAT paper)
+* Learned the updates in EMADE over the summer
+* Started process for installing the new version of EMADE
+* Decided on github branch and other logistical things (nn-nlp branch off of general EMADE branch)
+* Decided to start off by implementing Keras layers in EMADE
+* Talked about the issue of evolving topology vs weights, and the issue of training the neural network
+* Decided to use the position encoding found in NEAT or use the indirect encoding of HyperNEAT to help solve this
+* Also considered only allowing 1 degree of freedom in the neural network (number of hidden layers)
+* Will read up more on the topic over the week to decide what to work on 
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Read DeepNEAT 
+|Resolved 
+|09/06/19 |09/13/19 
+|09/13/2019 
+|09/13/2019
+|- 
+|Read CoDeepNEAT 
+|Resolved 
+|09/06/19 
+|09/13/19 
+|09/13/2019 
+|- 
+|Install EMADE 
+|In Progress 
+|09/06/19 
+|Whenever we get credits 
+|09/13/2019
+|}
+
+== August 31, 2019 ==
+* Met with the NLP team again
+* Was interested in NEAT, so will look into that in my free time
+NEAT Paper Notes and Thoughts: 
+* Uses direct encoding (model explicitly encoded)
+* Claims it outperforms Q learning and AHC 
+* This is due to the fact that it uses behavior as opposed to value functions
+* Genome composed of Node genes and connection genes, we evolve connection genes and hidden layer nodes
+* To replicate homology in biology (chromosomes align), NEAT uses historical markers when new node or connection is added (to avoid information loss)
+* Reduces non-functional individuals
+* Is hard to generate larger neural networks
+* HyperNEAT solves this, also see Enhanced NEAT and CoDeepNEAT
+* 
+HyperNEAT:
+* Switches from direct to indirect encoding (steps to create a model are encoded)
+** Think of DNA: Phenotypes are orders of magnitude larger than genotypes
+* Uses CPPNs  and geometric properties to create larger, more symmetric models
+* Specifically, uses NEAT algorithm to evolve CPPNs
+* Keeps historical markers
+* Lay out neurons on substrate (plane, grid), the CPPN will draw edges between nodes and compute weights between them
+* Algo summary (https://towardsdatascience.com/hyperneat-powerful-indirect-neural-network-evolution-fba5c7c43b7b)
+** 1. Chose a substrate configuration (the layout of nodes and where input/output is located)
+** 2. Create a uniform, minimal initial population of connective CPPNs
+** 3. Repeat until solution:
+** 4. For each CPPN
+*** (a) Generate connections for the neural network using the CPPN
+*** (b) Evaluate the performance of the neural network
+** 5. Reproduce CPPNs using NEAT algorithm [[files/S.jpg|none|thumb]]
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go to the Friday Meeting at 3 and see what subteam to join
+|Resolved
+|09/06/19
+|09/06/19
+|09/06/2019
+|}
+
+== August 24 2019 ==
+* Met with the NLP team during their meeting
+* Still trying to set up VIP meeting time for conflict session
+* Went over the possibility of implementing RNNs and NNs into EMADE, and possible subteam goals 
+
+== Final Remarks ==
+I received an A- to an A in the class on the midterm evaluation. I believe that this is an appropriate grade, as at the time not all of my posts had task tables. I thoroughly enjoyed working with EMADE this semester. I only had experience with deep learning, so it was interesting to see other algorithms and learn more about genetic algorithms. I also learned a lot about git workflow, particularly when I began to work with the caching sub-team. Figuring out how Docker and GCP functioned were interesting as well. I believe I deserve an A in the class, as I have been a productive worker before Spring Break and after Spring Break. I helped other members of my group understand scikit, and was able to work with them to present our findings successfully. In addition, I made a sincere effort to learn about EMADE and the caching branch, as well as figure out the numerous problems that occurred when setting up my GCP instance. I did not give up when facing an issue. I took initiative on the Docker project so that in the future the team will be more efficient in setting up EMADE.
+
+== April 19, 2019 - April 22, 2019 ==
+* Met with the team to update
+* Got some feedback and suggestions from Eric about ways to add mysql into the container
+** Use docker-compose to add a msql container that has already been created
+** docker-compose
+*** Runs an image inside another image
+**** emade runs in a mysql container
+
+* Continued to work on fixing issues and adding the mysql container
+* Added docker-compose.yml:
+** Analogous to DockerFile, builds emade and mysql
+** Has options to create database, add user, and set user passwords, updated it to match input_dota.xml
+** Now use sudo docker-compose up to build it if necessary and run it
+* Received error: numpy 1.15.4 is installed but numpy<=1.14.5,>=1.13.3 is required by {'tensorflow'}
+** I suspect hmmlearn is overwriting any numpy installed previously with the latest version
+** Added a line at the very end: RUN conda install numpy=1.14.5
+** Success
+
+* Every now and then I would run out of space on the instance due to the size of the docker containers
+** Run sudo docker system prune --all --force --volumes to remove containers (and mysql dbs) created
+** Reason: Docker caches containers, so the conda environment wouldn't need to be rebuilt.
+** Problem: it takes 15-20 minutes to rebuild every time you prune, nothing I can do about that other than taking a nap while I wait
+* Successfully runs, will test re-install script
+** Need to figure out how to run commands in a container
+*** Tried to use sudo docker-compose exec
+**** It did not work
+*** Used sudo docker-compose run emade <command>
+
+* Reinstall script works
+* Running emade generates master and worker .out and .err files, but I cannot see where they are being written to
+** They are neither in the source folder nor the container copy
+* Tried to mount the source folder as a volume
+** That did not work either
+* After some searching Stack Overflow, saw that there are 2 layers to the container: a read-only layer and a read-write layer on top of it
+** Read-write layer exists in /var/lib/docker/volumes/<container id>
+* Found master.err files
+** networkx was not installed
+*** Added in command RUN pip install networkx at the bottom of DockerFile
+* Next error: Tensorboard error - ModuleNotFoundError: No module named 'tensorflow.contrib.tensorboard'
+** Could it be that the emade env was not getting activated
+*** This is wrong, it was already was activated
+*** Added some activation code to guarantee that it is being activated
+** Solved by including tensorboard in the pip install command
+* Numpy version error occurred again
+** Verified that pip install numpy=1.14.5 was the last command, so tensorboard is not overwriting the numpy installation
+* Tried to remove the pip reqs that were in the DockerFile from before I joined caching, it broke even more
+** reinstall wouldn't build properly
+** Will go through those packages to see if any of them are overwriting numpy 
+** Turns out the environment.yml file has numpy=1.15.4 listed
+*** Removed it, but the error still persits 
+*** Will try to add in RUN conda remove numpy before reinstalling it to the correct version
+**** Did not work 
+*** It turns out aesteval was adding in numpy 1.15.4 
+*** Tried removing the pip install from requirements.txt file, maybe something in there installs numpy 1.15.4 
+*All code hosted at https://github.gatech.edu/bchau7/emade/tree/docker 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add in the mysql container
+|Help me.
+|4/19/19
+|4/19/19
+|4/19/19
+|-
+|Figure out where files are outputted to 
+|Complete
+|4/19/19
+|4/21/19
+|4/20/19
+|-
+|Fix import errors
+|RIP my sanity
+|4/19/19
+|4/22/19
+|
+|}
+== April 15, 2019 ==
+* Eric gave me his conda environment
+** Was not able to build env from output from conda list
+*** Had him generate environment.yml
+**** Used conda list --explicit
+*Created an install script, it clones the git repo, and installs a bunch of dependencies
+** Useful for installing until Docker container works
+*** #Make sure Anaconda is already installed and in bashrc (conda activate works)
+****sudo apt-get install curl gdebi-core gcc -y
+****sudo apt update -y
+****sudo apt install git -y
+****sudo apt-get install software-properties-common -y
+****curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+****sudo apt-get install git-lfs -y
+****git lfs install
+****wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
+****sudo gdebi mysql-apt-config_0.8.12-1_all.deb -y
+****sudo apt update -y
+****sudo apt install mysql-server -y
+****sudo apt-get install libmysqlclient-dev -y
+****sudo systemctl status mysql
+****mysqladmin -u root -p version
+****git config --global credential.helper store
+****git lfs clone https://github.gatech.edu/bchau7/emade.git
+****conda activate
+****conda env create -f environment.yml
+****conda activate emade
+****cd emade
+****./reinstall.sh
+* Tried to add the conda environment to the docker container
+** needed to install conda before-hand
+*** fixed by adding FROM miniconda to the DockerFile
+* When building the DockerFile, got some errors creating the conda environment
+** Would not create an env based off of environment.yml file
+*** Solved by adding "RUN conda env create -f environment.yml -v" to env file
+** Received message saying to update conda after using the FROM command
+*** added "RUN conda update -n base -c defaults conda -y"
+*** Success
+* None of the pip packages would download
+** At first, I thought that it could be due to pip not properly being set up in the container
+*** moved all of the pip reqs from the environment.yml file to pip commands in the DockerFile
+*** Realized hmmlearn was causing issues
+* Received error that hmmlearn was unable to be downloaded
+** the verbose link from Eric's environment was broken
+*** solved by adding hmmlearn after the other packages by "RUN conda install -c omnia hmmlearn"
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add in the conda env file
+|Help me.
+|4/15/19
+|4/15/19
+|4/15/19
+|-
+|Figure out hmmlearn 
+|Complete
+|4/19/19
+|4/21/19
+|4/20/19
+|-
+|get everything to work 
+|In Progress
+|4/15/19
+|4/22/19
+|
+|-
+|}
+
+== April 12, 2019 ==
+* Started receiving mysql errors, the wrong version was installed
+* For some reason, the Debian repository didn't have the most updated version
+* eventually broke sudo apt-get update
+* Made a new instance to start fresh, Sam recommended using Ubuntu 16 instead
+* He will also give me the conda image from his instance to copy
+* Unfortunately, his instance went down before he gave me it
+* Docker resources:
+** https://fmgdata.kinja.com/using-docker-with-conda-environments-1790901398
+** https://medium.com/@chadlagore/conda-environments-with-docker-82cdc9d25754
+** https://www.youtube.com/watch?v=JBtWxj9l7zM
+** https://djangostars.com/blog/what-is-docker-and-how-to-use-it-with-python/
+** https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b
+* Will continue to learn more about Docker, and how to use DockerFiles
+** Docker - container-based applications, the entire application runs in a standardized environment
+*** allows for seamless transitioning between operating systems
+*** DockerFile
+**** builds an image
+**** Will try to understand the partial DockerFile that is already in the repo
+***** Currently it copies over emade into the container, builds emade, installs gcc and other dependencies
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn Docker
+|Complete
+|4/12/19
+|4/13/19
+|4/12/19
+|-
+|Look through existing DockerFile and understand what is in it
+|Complete
+|4/12/19
+|4/13/19
+|4/13/19
+|}
+
+== April 8, 2019 ==
+* Going to try to fix GCP errors
+* ran ./reinstall again to see what happens, it says mysql_config can't be found
+* narrowed it down to maybe libmysqlclient not installed properly
+* had to install default-libmysql
+* new error:Setup script exited with error: command 'gcc' failed with exit status 1
+* python-dev was not installed, tried to install it
+** Still received error
+* tried 2.7 version instead of 3
+** Still didn't work
+* found some issues when methods.py, indenting issues, Ben fixed them 
+* going to use docker/build an installation script
+* Will meet with Sam/Ben on Friday
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix GCP errors
+|Complete
+|4/5/189
+|4/8/19
+|4/8/19
+|-
+|Learn what Docker is
+|Complete
+|4/8/19
+|4/12/19
+|4/12/19
+|-
+|}
+
+== April 5, 2019 ==
+'''Team Meeting Notes'''
+* resolved the PR for gtMOEP and seeding_from_file
+* Merged gtMOEP and seeding_from_file into caching branch 
+* Set up emade properly, still getting errors when running DOTA
+* It can't see GPFramework for some reason
+* Traceback (most recent call last):  File "src/GPFramework/didLaunch.py", line 3, in <module>  from GPFramework import gtMOEP as gtMOEP  ModuleNotFoundError: No module named 'GPFramework'
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix GCP errors
+|Help me.
+|4/5/189
+|4/8/19
+|4/8/19
+|-
+|Merge gtMOEP and seeding_from_file
+|Complete
+|4/1/19
+|4/5/19
+|4/5/19
+|-
+|understand caching methods
+|In Progress
+|4/5/19
+|4/8/19
+|4/8/19
+|}
+
+== April 1, 2019 ==
+'''Team Meeting Notes'''
+* continued working on figuring out caching
+* continued to set up gcp instance, going to try to figure out ssh credentials
+** Couldn't figure out auth in gcp, will just use the browser
+* I merged it in the wrong way, will fix that 
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Merge gtMOEP and seeding_from_files 
+|Complete 
+|4/1/19 
+|4/8/19 
+|4/5/19 
+|- 
+|Figure out ssh credentials 
+|Abandoned 
+|4/1/19 
+|4/5/19 
+| 
+|- 
+|read gtMOEP 
+|Complete 
+|4/1/19 
+|4/5/19 
+|4/4/19 
+|}
+
+== March 25, 2019 ==
+'''Team Meeting Notes'''
+* Joined caching team
+* learned the basics of cache, where most of the caching methods were stored
+* Assigned gtMOEP and seeding_from_file to merge into caching branch
+* Need to learn how git flow works, will read up on that
+** Learned about git branches:
+*** usually make a branch and push changes to it, eventually merge it back into the main (usually master) branch
+*** git branch --> shows branches
+*** git checkout --> switched branches, with flags can be used to make new branches
+* Also need to learn to set up gcp 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up GCP
+|Complete
+|3/25/19
+|4/1/19
+|3/28/19
+|-
+|Learn how to property git
+|Complete
+|3/25/19
+|4/1/19
+|3/30/19
+|-
+|merge files
+|Complete
+|3/25/19
+|4/1/19
+|4/9/19
+|}
+
+== March 11, 2019 ==
+'''Team Meeting Notes'''
+* Presented
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Decide which team to join
+|In Progress  
+|Mar 11, 2019 
+|??? 
+| 
+|}
+== March 10, 2019 ==
+'''Team Meeting Notes'''
+* Met with team to create presentation
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Practice presentation 
+|Complete  
+|Mar 10, 2019 
+|Mar 11, 2019 
+|Mar 11, 2019 
+|}
+== March 09, 2019 ==
+'''Team Meeting Notes'''
+* Met with Anthony from Viz team to visualize EMADE
+* It only worked on one member's computer
+* Downloaded some visualizations
+* ran EMADE
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Get Visuals and run EMADE more 
+|Complete  
+|Mar 09, 2019 
+|Mar 10, 2019 
+|Mar 10, 2019 
+|}
+== March 08, 2019 ==
+'''Team Meeting Notes'''
+* Met with James to fix the SSL Connection error
+** download pymysql and add "+pymyql" to certain lines in the lanuchGTMOEP python script
+* Ran EMADE
+* A group member accidentally deleted data from the database, so we had to start over from generation 0
+* Re-ran EMADE
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Run EMADE
+|Complete  
+|Mar 09, 2019 
+|Mar 09, 2019 
+|Mar 09, 2019 
+|}
+== March 04, 2019 ==
+'''Team Meeting Notes'''
+* Tried to fix the SSL Connection error
+* Mohan tried to fix the default conf file, didn't work
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|fix "ssl connection" error 
+|Complete  
+|Mar 01, 2019 
+|Mar 04, 2019 
+|Mar 09, 2019 
+|}
+== March 01, 2019 ==
+'''Team Meeting Notes'''
+* Set up the database on Raspberry Pi and was able to connect to it
+* Learned how to use MySQL workbench
+* Met with James to fix the "validate lengths" error I got on Monday
+** had to update scikit-image version to 0.14.2 
+*received ssl connection error
+**quit in misery
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|fix "ssl connection" error 
+|Complete  
+|Mar 01, 2019 
+|Mar 04, 2019 
+|Mar 09, 2019 
+|}
+
+== February 25, 2019 ==
+'''Team Meeting Notes'''
+* Learned more about how to use MySQL
+* Recieved a validate_lengths error when I tried to run EMADE
+* Made plans to meet on Friday with group
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|fix "validate lengths" error 
+|Complete  
+|Feb 25, 2019 
+|Mar 01, 2019 
+|Mar 01, 2019 
+|}
+
+== February 18, 2019 ==
+'''Team Meeting Notes'''
+* Installed emade
+* took a while to clone the repo
+* Had to finish after class
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Finish installing emade 
+|Complete  
+|Feb 18, 2019 
+|Feb 24, 2019 
+|Feb 22, 2019 
+|}
+
+== February 15, 2019 ==
+'''Team Meeting Notes'''
+* Met with James at the Help Desk to finish this project
+* Changed code to strongly typed (Float primitives as well as boolean primitives)
+* Wrote function to convert float to boolean (Will return True is > 0.5) 
+* Pareto individuals were clustering together
+* Had to change the mutation function from Tournament to NSGA2
+** The tournament selection wasn't optimizing for the second objective Final Outputs:
+** gen = 400 and n = 400: 41366 AUC
+** gen = 400 and n = 600: 34532 AUC
+** gen = 400 and n = 800: 35639.0 AUC
+** Mutation function changed from Node Replacement to muUniform (n and gen stayed same): 32448.0 AU
+
+== February 11, 2019 ==
+'''Team Meeting Notes'''
+* Curren joined the team
+* Decided to meet later today to work on the project more
+* Will meet again on Friday to finish the evolve loop
+* Decided to keep the same data preprocessing, copied that over
+* Wrote evaluation function for the genetic program
+** calculates false positives and false negatives by running the train data on the individual
+** def evalFunction(individual, points, pset):  
+*** func = gp.compile(expr=individual, pset=pset)  
+**** fn, fp = 0  for i in points:  
+**** if (i[0] == 1 and func(*i[1:]) != 1):  
+***** fp += 1  
+**** elif (i[0] == 0 and func(*i[1:]) != 0):  
+***** fn += 1  
+*** return (fn, fp)
+* https://colab.research.google.com/drive/1kXPtDVaPYDK5JgufHk1v6_7DQPtc64mI
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Finish the evolve loop 
+|Complete  
+|Feb 11, 2019 
+|Feb 15, 2019 
+|Feb 15, 2019 
+|}
+== February 09, 2019 ==
+'''Team Meeting Notes'''
+* Optimized the models
+** Tuned different parameters (max depth, optimize function)
+* Created the Pareto front code<gallery>
+files/Group 1.png|
+</gallery>
+** The Pareto Front shows that there is a clear dominant individual, and therefore no curve (Decision Tree Classifier). 
+** The classifier performs worse than the other models on the kaggle test dataset, meaning that the data has been overfitted. 
+** MLP gave the highest kaggle score
+*** It had the third best score using the testing dataset.
+* https://colab.research.google.com/drive/14y0ppBNAS7Icpymv7FPMgrV0veZ5pUdO
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Complete Models to make the Titanic dataset 
+|Complete  
+|Feb 04, 2019 
+|Feb 10, 2019 
+|Feb 10, 2019 
+|}
+
+== February 08, 2019 ==
+'''Team Meeting Notes'''
+* Discussed the different strategies to parse through the data
+* Decided on the ideas shown on  [[Bootcamp Sub-team Spring 2019]] (Group 1)
+* Got all members up-to-speed on ml basics, and discussed pandas/numpy/sci-kit  
+
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Complete Models to make the Titanic dataset 
+|Complete  
+|Feb 04, 2019 
+|Feb 10, 2019 
+|Feb 10, 2019 
+|}
+
+== February 03, 2019 ==
+'''Team Meeting Notes'''
+* We will work on the Titanic dataset with our groups
+* Anish Thite, Mohan Dodda, Shelby Robinson, Anika Islam 
+* Will meet on Friday
+{| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Analyze Titanic Set data |Complete  |Feb 04, 2019 |Feb 10, 2019 |Feb 08, 2019 |- |Make sure all members are up-to-speed on ml |Complete |Feb 04, 2019 |Feb 10, 2019 |Feb 08, 2019 |}
+
+== January 29 - February 03, 2019 ==
+'''Lab 3 Notes'''
+* Why is the square error function what it is? Why do we square the sine and cosine but we cube the tan?
+**sqerror = (func(points) - (np.negative(points) + np.sin(points**2) + np.tan(points**3) - np.cos(points)))**2)
+**This is because we know the ideal function already
+*evaluate function returns the different objective metrics
+**now the square error and the length of the individual
+* At first I tried to change some of the constants. Changing the mutation probability changed the area under the curve to ~3
+* Another strategy was to change the number of individuals. This means there are more chances for more mutations and crossovers to occur (at the cost of more computing time) This resulted in an AUC of 5
+* Combining the two strategies above (increasing the number of individuals and increasing the mutation probability) reduced the AUC from 5 to 3
+
+== January 28, 2019 ==
+'''Meeting Notes'''
+* learned about optimizing multiple objectives
+Notes:
+
+*What we look for in an algorithm
+** accuracy
+** validation
+** hardware requirements
+*weight these differently
+
+*gene pool
+**set of genomes to be evaluated during the current generation
+**algorithm: a set of values
+**program: tree structure, string
+
+
+*Evaluation of a genome 
+**associated the genome with a set of scores
+**True positive
+**false positive
+
+Confusion Matrix:	
+
+{| class="wikitable"
+!
+!Predicted P
+!Predicted F
+|-
+|Actual p
+|TP 
+|FN
+|-
+|Actual N
+|FP
+|TN
+|-
+|}
+
+
+* True Positive Rate: TP/P
+* True Negative Rate: TN/N
+
+* Accuracy = (TP+TN)/(P+N)
+* In multiple Objective spaces, bigger is better for True space
+* smaller is better for false space
+* Poretto optimality: as long as an individual is better than other individuals, it is the optimal solution
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 3
+|Complete 
+|Jan 29, 2019
+|Feb 04, 2019
+|Feb 03, 2019
+|-
+|}
+
+== January 14 - 28, 2019 ==
+'''Lab 2'''
+* read through the code
+* added the following primitives:
+**pset.addPrimitive(np.mod, arity=2)
+**pset.addPrimitive(np.absolute, arity=1)
+
+* In this lab the individual is a tree
+** minimum and maximum dephs are set
+* Evaluate: mean square error
+**not trying to fit function to data
+** find best combination of primitives to fit the data to
+
+*Added the Node Replacement mutation
+**toolbox.register("mut_node_rep", gp.mutNodeReplacement, pset=pset)
+
+* fitness loop is the same as for the individual
+*Can we do more than one mutation on the program?
+*After running the node replacement mutation, I got a fitness of 0.4913
+*On different runs, the fitness varies much more than the individul from the last lab
+* it settles on add(absolute(absolute(x)), add(x, x)) as the best program
+
+
+
+== January 14, 2019 ==
+'''Team Meeting Notes:'''
+
+Today we went over genetic programs with Dr. Zutty
+
+Steps in Genetic Programming:
+* Evaluation
+* Fitness Computation
+* Selection
+* Mating
+* Mutation
+
+Instead of using a list, we use a tree structure. 
+
+* output is the root
+* Nodes and leaves (last row)
+** Nodes-- Primitives (+,-,x)
+** Leaves-- Terminals (content that will be consumed)
+How we represent the structure:
+ex: 1+(3*4)
+* [+ 1 * 3 4]
+
+* primitive set: The set of functions
+* arity: how many inputs the function has
+
+* How to mating:
+** Single Point Crossover: pick a random point in the tree and switch with another individual's tree
+
+* Mutations:
+** Single Point replacement: replace point
+** insertion: insert point
+** shrink: delete a node from the tree
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2
+|In progress 
+|Jan 14, 2019
+|Jan 29, 2019
+|Jan 26, 2019
+|-
+|}
+
+== January 8-13, 2019 ==
+'''Lab One Notes:'''
+* Installed required packages, and read through the One Max Problem code
+* Also skimmed over the documentation for the DEAP library
+* When running the one max problem the algorithm reached a fitness of 100 almost all of the times I ran it. 
+'''N Queens Problem:'''
+* Couldn't get matplotlib to work, it would give a figure size but no figure
+** Restarting the jupyter notebook solved the issue. 
+* Ran the genetic algorithm 5 times, it was able to achieve 0.0 5 times. 
+* Tried to switch mutation and crossover parameters to both be 0.25, but it led to achieving lowest fitness 6/10 times. 
+* In a batch of 10 runs, the best individual had a fitness of 0.0 7 times.
+I decided to write 2 mutation functions: 
+def mutIncrement(individual, indpb):
+    
+ if random.random() < indpb:
+        size = len(individual)
+        for i in range(size):
+            if individual[i] == size-1:
+                individual[i] = 0
+            else:
+                individual[i] = individual[i] + 1
+    return individual,
+
+This function increments each position by 1 (and in the case for the queen in the last row it shifts it to the top). An individual has a probability indpb of being affected by this complete change.
+
+
+
+A second proposed mutation function would take the individual and switch row positions with the column next to it. However, this does not work for odd-numbered sizes of chessboards. 
+A third idea is that is randomly chosen, the queen in the row will be placed in the column immediately to the right (and the queen in the farthest column would be moved to the 1st column). The code is:
+
+def mutIncrementBetter(individual, indpb):
+    size = len(individual)
+    for i in range(size):
+        if random.random() < indpb:
+            if individual[i] == size-1:
+                individual[i] = 0
+            else:
+                individual[i] = individual[i] + 1
+    return individual,
+
+
+'''Results'''
+* Ran with mutIncrement 10 times, and the lowest fitness it generated was 3.0.
+* After adjusting the mutation probability to 0.5, the lowest fitness was 2.0
+* When the mutation probability was set to 1.0, the lowest fitness was 1.0.
+** This pattern is likely happening due to the double probability I mistakenly put in the mutation function. Since both the mutation function and generation function are calculating the probability to affect the individual, the probability that the individual is mutated is a lot lower than previous models.
+* Modifying the indpb parameter to 5/n doesn't change the results
+* Ran mutIncrementBetter with the mutation probability set to 0.3 20 times. It generated a fitness of 0.0 7 times.
+** This likely worked better because it affected all the individuals instead of a small proportion of individuals. In addition, in mutIncrement the entire board was changed, whereas in mutIncrementBetter only a few queens were moved.
+
+== January 7, 2019 ==
+'''Team Meeting Notes:'''
+
+We learned the following vocabulary for developing genetic algorithms
+* '''Individual''': one specific candidate, a member of the population
+* '''Population''': full set of individuals
+* Each parameter in our function is a gene, the function is the genome
+* We look to optimize the program
+* '''Objective score''': real-world value, not relative (ex. probability of detection)
+** We want to increase objective score
+* '''Fitness''': relative score
+* '''Survival of fittest''': A way for us to select individuals. There are 2 main ways:
+** '''Fitness proportionate''': 
+*** The greater the fitness of the individual, the higher the probability is for being selected
+** '''Tournament''': 
+*** several tournaments among individuals and the winner is selected for mating
+* '''Mate/Crossover'''
+** take 2 individuals and exchange information
+***single point (one point of crossover) double point (two points of crossover)
+*'''Mutate''': introduce random modifications, maintain diversity
+
+The typical way to create genetic algorithms
+:1. start with randomly generated pop
+:2. determine objective score, then fitness
+:3. loop:
+:: - select parent
+:: - perform crossover
+:: - perform mutation
+:: - determine fitness
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Wiki Page
+|Completed
+|Jan 7, 2019
+|Jan 14, 2019
+|Jan 10, 2019
+|-
+|Complete Lab 1
+|Completed 
+|Jan 7, 2019
+|Jan 14, 2019
+|Jan 13, 2019
+|-
+|Sign up for Slack
+|Completed
+|Jan 7, 2019
+|Jan 14, 2019  
+|Jan 7, 2019
+|-}

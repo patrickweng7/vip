@@ -1,0 +1,1042 @@
+{{AAD_navbar}}
+== Jan 14, 2019 Reports ==
+
+=== Visualization Sub-team Report ===
+'''Our temporary meeting time is Wed 4:30 - 5:30, which may change later on in the semester.'''
+
+'''Our current goals for this week are: '''
+* Get everyone on this team able to run the code from last semester locally
+* Refactor the code to make it easily extensible to prepare for our future goals
+
+'''Our team is splitting into two smaller groups, User Study, and Coding, with long term goals listed below.'''
+
+The User Study team will tackle the following tasks:
+* Create documentation for those who want to run it locally 
+* Host site on Heroku 
+* Testing out website with live data
+* Create survey with questions about Viz tool
+
+The Coding team will tackle the following tasks (in addition to the refactoring mentioned above):
+* Improve aesthetics of website
+* How many Pareto individuals are there over time?
+* Change in Pareto Front over time
+* Changes requiring more changes to EMADE to store more detailed information in the database:
+** Change EMADE code so that each individual has references to its parents
+** Visualization of the ancestral lineage in phenotypic/objective space (i.e., what was the objective scores of the parents/grandparents that resulted in the current individual)
+** Visualization of the ancestral lineage in genotypic/tree structure space (i.e., what parts of an individual came from each of the parents)
+** Visualization of the evolutionary processes, (i.e. what mutations, selections, mating are occurring that are positive, and which are detrimental?)
+** How many times is an individual selected over time? 
+** How productive are their offspring, i.e. are they dominate or co-dominate to the parents or population?
+
+=== EEG Sub-team Report ===
+'''We've established that we will have meetings 11-12 Mondays and 12-1 on Fridays. Members will be responsible for coming to only one, but Scott will attend both. We are also working with Dr. Zutty to make a time for our conflict-period.'''
+
+'''Progress Made Since Last Week:''' 
+
+Over at Emory, we set up a system to read in EEG data into python as well as to control the neural stimulation device (TMS) through a serial port in Python. This will permit us to test the algorithms EMADE designs offline on an actual nervous system. 
+
+'''Our current goals for this week are: '''
+* Ensure everyone on the team is able to talk intelligibly about the publication we submitted at the end of last semester. 
+* This publication serves as a baseline, and each member will be thinking this week about how they want to author a mutation (e.g. seed in a novel algorithm) or make a new primitive this week. 
+* Measure the delay from a physiological trigger (flexing a finger) until the detection of the signal by our Python program and subsequent automatic delivery of a neural stimulation. Our goal is less than 100 ms.
+
+=== Deep Learning Sub-team Report ===
+
+====Our Goal====
+* Have ezCGP running for symbolic regression. 
+* Get it working with emade (using the data pair object and emade primitives) then run on Titanic dataset. 
+* Repeat the process for a very basic neural networks with mnist. 
+* Finally, split into subgroups for specific development and and datasets to try it on.
+
+====Progress since last meeting====
+* We got added to the ezCGP git repo. (https://github.com/ezCGP/ezCGP)
+* Went through the code
+
+====Current Issues====
+* None as of now
+
+====Goal of the week:====
+* Continue to read over new set of code on ezCGP, and read a paper on cgp that inspired a lot of work (https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6815728&tag=1)
+* Have ezCGP runnable for 'symbolic regression' and then try out our own symbolic regressions
+
+=== Stock Sub-team Report ===
+
+'''Our Goals'''
+* Implement more time series forecasting methods
+
+**Markov Models
+**ARIMA (AutoRegressive Integrated Moving Average)
+
+*Find out how optimization performs with technical indicators we have vs without
+
+'''Current Issues'''
+* gathering stock data
+
+'''Our current goals for this week are: '''
+* research more models to implement/ different ways to implement the markov models
+
+== Jan 28, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the SymbRegression branch and/or the respective branches after the team splits into two.
+
+====Progress since last meeting====
+* Read and understood the paper (https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6815728&tag=1) which spoke about CGP and different mating methods.
+* We got added to the ezCGP git repo as contributors (https://github.com/ezCGP/ezCGP)
+* Additional code was added to the ezCGP repo to make it fully functional. 
+* Issues regarding execution of the code were opened and resolved so that the team can now run the code by simply cloning the repo and running "python main.py"
+* Individual team members ran series of experiments on ezCGP and compiled statistics across different runs until convergence with seeded numbers for replicability
+** Results include but are not limited to compiled graphs showing variance of convergence times (generations and times), RMS Error, Max Error and number of active nodes in genome across different runs
+
+====Current Issues====
+* Add more comments to certain portions of the code to make it more easy to understand work with.
+* Very slow run time. Tried to add multiprocessing using python's pool and star-map functions in the multiprocessing library. Changes actually slowed it down. (https://docs.python.org/3.4/library/multiprocessing.html?highlight=process)
+
+==== Goal of the week ====
+* Split into two teams. Namely the EMADE and tensorflow integration groups. 
+* EMADE group aims to add support for using the data pair object. Try symbolic regression on TItanic dataset. 
+* Tensorflow group aims to add neural network functionality to ezCGP. Try symbolic regression on something simple like the mnist dataset
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Migrate [https://github.gatech.edu/pages/bchau7/mkdoc_emade_cache_test/ docs test] to docs/ in the [https://github.gatech.edu/bchau7/emade caching branch fork].
+* Cache does not initialize correctly with feature data, we need to investigate the issue and estimate the time needed to fix it
+* Try other non-feature datasets (image, stream, etc...) to figure out if it is an issue with feature data, or across all the datasets
+* Might work on a script that can be ran to setup GCP instances without using the guide that we created (also fix cache/image's Dockerfile)
+
+==== Progress: ====
+* Established a working template for documentation, see the testing repository for the docs [https://github.gatech.edu/bchau7/mkdoc_emade_cache_test here].
+* Added some sample function documentation to the test documentation site.
+* Got EMADE master/slaves/SQL working on a Google Cloud instance(s).
+* Created a guide to correctly setup GCP instances, started debugging the startup issue that we are encountering with feature data in Cache
+* Code was added to the Dockerfile to resolve dependency issues
+
+==== Current Issues: ====
+* Need to study some more Doxygen style documentation and how the mkdoc tool works; Not currently happy with how the documentation currently looks or is organized.
+* Need a concrete way to organize bugs and patches.
+* MIGHT potentially need more GCP credits (depends on whether we will be deploying more instances)
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.''' 
+
+==== Goals: ====
+* Test out the existing app and UI with data from other problems (ex: EEG emade data)
+* Update the UI in preparation for testing and sending out UI survey
+** Add navigation bar
+** Fix URL redirects
+** Aesthetic changes
+
+==== Progress: ====
+* Made some UI changes that will be pushed soon
+* Got a copy of the EEG db data from last semester
+* Everyone can run the app locally
+* Heroku app is up and running but needs some bug fixes
+
+==== Current Issues: ====
+* App cannot connect to Google Cloud db which needs SSL or other authentication
+* Heroku app cannot connect to a localhost db
+
+=== '''EEG Sub-team Report''' ===
+'''We've established that we will have meetings 11-12 Mondays and 12-1 on Fridays. Members will be responsible for coming to only one, but Scott will attend both. We are also working with Dr. Zutty to make a time for our conflict-period.'''
+
+==== '''Progress Made Since Last Week:''' ====
+Divided up work/semester focus amongst the members: 
+* Average many samples to make a novel seed (Ali + Jas) 
+* Fix the bug with returning large python objects from multiprocess (Austin) 
+* Implement Zrenner's Forecasting as a primitive (Joel, James + Rahul) 
+* Crop Frequency Domain and Put it into A Neural Net (Joel, James + Rahul) 
+* See Emory Lab (James + Joel)  
+
+==== Work done ====
+* Lab visit and scripting for online detection of finger twitch
+* Secured the FORCE cluster with 50000 hours from PACE
+* Frequency domain generated for data (with sliding window) - waiting to train
+
+==== '''Our current goals for this week are: ''' ====
+* Get started with our subtasks and focuses
+* Run cropped frequency domain dataset with Emade and neural nets
+
+== February 4, 2019 Reports ==
+
+=== Stock Sub-team Report ===
+'''Meetings are Fridays at 4:30'''
+
+==== Our Goals: ====
+* Implement more time series prediction methods in EMADE
+* Run EMADE on stock data with time series primitives
+* Compare results to using technical indicators done last semester
+
+==== Progress Made Since Last Week: ====
+* Two new members have downloaded and set up everything
+* Everyone caught up to date to what we are doing
+* Going over primitives and data pairs and how to run unit tests etc. 
+* Found primitives to implement
+
+==== Our current goals for this week are:  ====
+* Implement the classical time series forecasting methods we researched (autoregression, moving average, exponential smoothing, and their variations)
+
+=== '''EEG Sub-team Report''' ===
+'''Sub team meetings on 11-12 Mondays or 12-1 on Fridays. Members will be responsible for coming to only one, but Scott will attend both. Conflict period with Dr. Zutty on Fridays at 3'''
+
+==== '''Progress Made Since Last Week:''' ====
+* Cropped Frequency Domain and Put it into A Neural Net (Joel, James + Rahul) 
+  
+==== '''Our current goals for this week are: ''' ====
+* Move onto working with new EEG data and apply Ali's learning of averaging and Fourier Transformation to this new EEG Data (Ali + Jas)
+* Get healthy data taken at median TMS power (Scott + Ali)
+
+==== Current Issues ====
+* Training over entire dataset leads to possibly trivial results, need to relabel and train per subject
+* New Pickle data is read in as a 3D numpy array, but preprocessing is structured for Pandas DF
+
+=== Deep Learning Sub-team Report ===
+
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.
+
+====Progress since last meeting====
+* Created a new tensorflow-nn branch on the ezCGP repo. 
+* Added code to read and preprocess the MNIST dataset. 
+* Set according flags and values to the genome and block skeletons to make them compatible with tensorflow methods. 
+* Ported some tensorflow primitives from CGP-CNN and added few simple primitives to test simple functionality (evaluation and computational graph building)
+* Can now instantiate an individual with a tensorblock successfully and run the evaluation method on an individual without erroring (i.e. interrupted flow)
+
+====Current Issues====
+* Currently unsure of whether the tensorflow computational graph is being constructed as expected or not. 
+* Running evaluate on an individual by passing the training data through seems to result in nothing being outputted. i.e. genome_outputs is an empty list
+** This is likely a result of our choice of primitives that require 2 or more tensors to be passed in before giving an output which is currently never the case.
+
+==== Goal of the week ====
+* Tensorflow group aims to add neural network functionality to ezCGP. Try symbolic regression on something simple like the mnist dataset.
+* Build the tensorflow graph from active nodes so that we can evaluate individuals in the population. 
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Fix the new issue with qsub (grid engine) about not being able to locate a few files
+* Work on solving the '''new''' docker dependencies issues
+* Try other non-feature datasets (image, stream, etc...) to figure out if it is an issue with feature data, or across all the datasets (from last week, this is blocked by the first issue)
+* Migrated docs repository over to docs/ in caching branch.
+** Currently don't have the repository using Github Pages due to pathing issues. 
+** Might be helpful to write a small shell script to help serve pages locally for now, or integrate it into other places.
+
+==== Progress: ====
+* Found a few more bugs with the Dockerfile, (solved the version conflict when building docker, but some dependencies stopped working)
+* Fixed an issue with qsub not being compatible with my instance's Linux distribution (we can avoid this by creating an instance with a compatible distribution.)
+* Documented the aforementioned bugs, both solved and unsolved.
+* Migrated docs repository over to docs/ in caching branch.
+* [http://www.doxygen.nl/manual/docblocks.html#pythonblocks Doxygen python blocks]
+
+==== Current Issues: ====
+* Postponed working on the docker dependencies, and instead using a manually installed conda distribution (Since docker is not prioritized)
+* A problem with the Grid Engine (qsub) that does not load the correct file
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.''' 
+
+==== Goals: ====
+* Test out the existing app and UI with data from other problems (ex: EEG emade data)
+* Continue improving dashboard UI
+* Create a guide to setting up flask app to run locally
+* Add more visualizations
+** Another pareto visualization (number of non-dominated individuals over time)
+** Create a plan for creating visualizations dealing with ancestreal lineage of individuals
+
+==== Progress: ====
+* Refactored and merged feature branches in our repo
+* Made some UI login and dashboard changes
+* Decided to put Heroku app on hold
+
+==== Current Issues: ====
+* Still working on visualizing EEG data through local db
+* Getting user testing materials finalized
+* Reaching out to other teams about doing user testing this week
+
+== February 11, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.
+
+====Progress since last meeting====
+* After last weeks meeting, we learnt that our individual was being set to "dead" upon the throwing of an exception stating that the key in our feed_dict is None.  
+* Fixed the above bug and then ran into issue due to inconsistent matrix dimensions between operations. Fixed this error by flattening matrix at the final preprocessing step before adding the final dense layer for the output predictions. 
+* Running initialization and evaluation of the individual now outputs decreasing training loss across runs which demonstrates that learning is happening.  
+* Last week's issue that was caused due to self.genome_outputs being empty is now fixed and calling evaluate() on each individual now assigns them their fitness values.
+* Added support for usage of the DNN specific primitives. 
+** Added an extra dimension to the training data to make it suitable for convolution operations. 
+** The Dense primitive ported from CGP-CNN errored when running but is now fixed thereby allowing us to build deeper networks. 
+
+* Have begun seeding individuals with specific primitives only so as to ensure these basic primitives are robust to errors so we can run an entire evolutionary process to completion. 
+* Due to the large number of examples, and the current state of ezCGP sending all the data at once, convergence takes a very long and also, needs to go through all the data before making a weight update and improving performance. Moreover, applying conv2d primitives causes excessively long run-times on the entire training data and upon flattening, results in an error caused due an excessively large tensor.
+** '''Potential fix 1:''' Feeding data in batches might speed up convergence, and could potentially fix the excessively large tensor problem.
+** '''Potential fix 2:''' Add a new primitive that combines conv_layer and max_pooling so that the size of the input is scaled down and can therefore be flattened
+
+====Current Issues====
+* Currently unsure of whether all the primitives are fully functional.  
+* Adding convolutional primitives without feeding in batches takes an excessively long time to converge and also causes errors due to the excessively large tensors.
+
+==== Goal of the week ====
+* We aim to implement both of the aforementioned fixes. 
+* Also aim to each test a few primitives exhaustively so that we can be mostly certain that it will not crash the evolutionary process.  
+* Hope to be able to run python main.py i.e. the entire end-to-end evolutionary process to completion.  
+
+=== Stock Sub-team Report ===
+'''Meetings are Fridays at 4:30'''
+
+==== Progress ====
+* Have at least two primitives implemented with unit tests (AR and ARIMA)
+* Added reinstall script in unit tests
+
+==== Goals ====
+* Meet today and review code
+* Discuss what hyperparameters to include
+* Continue implementing more primitives
+
+==== Issues ====
+*Autoregression package only has univariate case implemented
+*Stock data has 5 streams (open, high, low, close, volume)
+*Reinstall script has to be run twice
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Continue the fix on the new issue with qsub (grid engine) about not being able to locate a few files
+* Trying other non-feature datasets with grid engine
+* Add more documentation, put that documentation in docs/
+
+==== Progress: ====
+* Merged part of the file for launchGTMOEP.py, has the XML portion fixed, needs to debug a few more things
+* Added more documentation in docs/
+
+==== Current Issues: ====
+* Merged part of the code on grid engine, honestly just need more time
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.''' 
+
+==== Goals: ====
+* Test out the existing app while EMADE is running live.
+* Continue improving dashboard UI
+* Modify EMADE to store ancestry information in db, needed for creating more visualizations.
+
+==== Progress: ====
+* More UI updates and bug fixes
+* Have a Google Cloud VM instance running EMADE (currently running the titanic problem)
+
+==== Current Issues: ====
+* EEG Data on hold (last semester's data unavailable, waiting for the team to run EMADE on updated dataset)
+* Reaching out to other teams about doing user testing
+
+=== '''EEG Sub-team Report''' ===
+'''Sub team meetings on 11-12 Mondays or 12-1 on Fridays. Members will be responsible for coming to only one, but Scott will attend both. Conflict period with Dr. Zutty on Fridays at 3'''
+
+==== '''Progress Made Since Last Week:''' ====
+* Ali and Jas are currently working on developing seeds using the new healthy dataset. 
+  
+==== '''Our current goals for this week are: ''' ====
+* Have an evolutionary run on the FORCE cluster by the weekend
+* Analyzing new up to date healthy data
+
+==== Current Issues ====
+* Collect more EEG data in March
+** Learn variance, may be by condition, of EEG data, day to day, for the same person,
+
+== February 18, 2019 Reports ==
+
+=== Stock Subteam Report ===
+'''Meetings are on Friday or Saturday evenings (around 5pm)'''
+
+==== Progress ====
+* Pushed implemented primitives and their respective unit tests (AR, ARIMA, SES)
+* Added shell file to run reinstall script in unit tests directory
+* Figured out labeling scheme from previous work
+
+==== Goals  ====
+* Implement remaining classical primitives (currently 3/11) by next sub-team meeting
+* Find a better solution to the reinstall script
+
+==== Issues ====
+* Solution to reinstall script is still a workaround, possibly change unit tests so they are callable from top directory
+* Unsure whether to implement all 11 primitives or only implement the most general few, many are generalizations of each other (ie. SES < HWES)
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Continue the fix on the issue with slurm about configuring the engine.
+** Parsing errors in the sample slurm configuration at the moment. 
+* Come up with a guide to understand, fix, and configure slurm on any new machines, for future attempts at messing with slurm.
+* Add more documentation (as per usual). Fix missing docstrings.
+* Fix all the cache XML configs to be up to date.
+** Several don't match the current input schema of the master branch and seem to be from varying commit times.
+
+==== Progress: ====
+* Merged all of the codes for the grid engine and XML configuration in launchGTMOEP.
+* Created a slurm.conf file for cloud instance with basic settings.
+** @Sam might have played a bit with removing the unnecessary slurm checks altogether.
+* Added more documentation, fixed some invalid docstrings in data.py
+
+==== Current Issues: ====
+* Slurm does not recognize the key in the slurm.conf file and does not start up the process correctly.
+* Need to add the dependencies needed by Slurm into the our Docker image.
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.''' 
+
+==== Goals: ====
+* Get EMADE data from other datasets
+* Modify EMADE to store ancestry information in db, needed for creating more visualizations.
+* Increase speed and efficiency of visualization app
+* Long term goal: allow the user to drag-and-drop which graphs they want to see on their dashboard
+
+==== Progress: ====
+* More UI updates and bug fixes to allow for smoother flow of interaction
+* Adding visualizations that show eval times for individuals per generation, and total eval time per generation
+
+==== Current Issues: ====
+* User testing currently on hold as we wait for first-semester students to run EMADE
+* Having trouble modifying EMADE source code to log parents
+* Unable to get meaningful results from other built-in datasets (such as dota and wine)
+* Live refresh of graphs not working while EMADE is running
+* App takes a long time to load, even when viewing info from a prior generation
+** Still unsure if its an issue with repeatedly accessing the database, or our flask app, or dependent on local machine hardware
+
+=== EEG Subteam Report ===
+'''Sub team meetings on 11-12 Mondays or 12-1 on Fridays. Members will be responsible for coming to only one, but Scott will attend both. Conflict period with Dr. Zutty on Fridays at 3'''
+
+==== Goals: ====
+* Implement Morlet wavelet as a primitive into Emade
+* Create several seeds in preparation of an evolutionary run
+* Get Emade into the PACE cluster
+
+==== Progress: ====
+* Held a 4 hour "hackathon" on Sunday
+* Wrote config files to run Emade on PACE cluster
+
+==== Current Issues: ====
+* Still waiting on Rahul and James to be added to PACE cluster
+
+=== Deep Learning Sub-team Report ===
+
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.
+
+====Progress since last meeting====
+* Added functionality to feed data in batch_size increments
+* The individual now successfully overfits to the training data from having a training accuracy of 25% after 20 epochs, the training accuracy is now > 99% in 5 epochs.. 
+* We tried running some of the convolutional primitives and they successfully didn't crash the system due to bloated tensors anymore.
+
+====Current Issues====
+* When batch_size is not a direct divisor of the number of examples, all the data doesn't get fed into the model which causes errors due to mismatched shapes of labels and predictions.
+
+==== Goal of the week ====
+* Hope to be able to run python main.py i.e. the entire end-to-end evolutionary process to completion.  
+* Take the fitness of the individual to be its validation/test error and f1-score instead of its training statistics. 
+
+== February 25, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.'''
+
+==== Progress since last meeting ====
+* Updated scoring metric of individual so it now uses statistics based off validation set performance to assign fitness so as to give a better idea of how the model is generalising.
+* Batch_size is now an input into the skeleton of the tensorblock so that the user can change it without going into the code. 
+* Fixed the earlier error where the data was not being fed completely. However, this is less of an issue now due to the usage of the validation set to assign fitnesses.
+* Can now run the entire evolutionary process by running "python main.py" after setting the required parameters.
+** Ran into some issues with deepcopying the individual before mutating. The cause of this error was identified to be non-hashable Tensors and other tensorflow objects/variables
+*** Fixed this by clearing all such variables (if needed) before exiting the evaluation method 
+** Another issue we ran into was an error within the actual mutation being caused as a result of an empty list being passed into random.choice
+*** This was fixed by simply returning None when an empty list is passed in
+*** However, the exact source of the error was not identified and might still be there.
+*** Uncertain of whether the individual is actually being mutated
+
+* Running for multiple generations appears to give decreasing fitnesses, but while unlikely, '''<u>''random initialization has not been eliminated as a reason for this''</u>'''.  
+
+==== Current Issues ====
+* Uncertain about whether the individual is actually being mutated.
+* Uncertain about whether decreasing fitnesses across our run was indeed a result of progressively better individuals, or due to the randomness inherent in deep architecture initialization. 
+====Goal of the week====
+* The entire evolutionary process runs to completion. However, some further inspection is required to ensure that everything is running as expected.   
+* We aim to ensure that mutation is indeed taking place and that individuals being evaluated are indeed, distinct which results in distinct/improving performances
+
+=== EEG Sub-team Report ===
+==== Progress since last week ====
+* James -- finding papers that demonstrate correlation between EEG features and excitability as measured by TMS
+* Joel -- feature abstraction
+* Ali and Jas -- making progress on a classifer
+* Rahul -- working on the PACE cluster
+* Nick -- plugging seeds into EMADE especially accessing the FFT for a *space-efficient* series of convolutions
+
+==== Current Issues ====
+* Flu going around our team, everyone's out
+* Finding good "expert" seeds without some required primitives implemented
+
+====Goals====
+* Correct issues regarding high accuracy classifier (dependent data points in test and train)
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Add more documentation, as per usual.
+* Be able to launch a small cluster of instances with EMADE on the caching branch.
+* Begin some benchmarking.
+** Get some baseline statistics on input_dota.xml (which we know is runnable at least on the master branch and on our cloud instance).
+
+==== Progress: ====
+* Launched a new instance for EMADE.
+** Needed a larger hard drive. Our last fix a week ago required more space than we had on hand, and we found we couldn't just move data from one remote location to another instance (another remote location). So, we had to reconfigure an entirely new instance with a larger hard drive to fit Anaconda & EMADE.
+** Image has been at this point completely set up and cleaned. 
+** A configuration guide has been written. This will be used to write a Dockerfile/bash script to launch and configure our other instances.
+* Cleaned up slurm stuff.
+** @Sam cleaned out slurm from both our instances. We may attempt other builds of slurm or otherwise modify system configurations to get it to work. 
+** Our last solution (removed it entirely) is a temporary solution, not one that we'd like to proceed with further down the road.
+* Added more documentation offline; haven't been pushed yet.
+
+=== Stock Subteam Report ===
+'''Meetings are on Friday or Saturday evenings (around 5pm)'''
+
+==== Progress ====
+* Implemented all classical time series primitives (SARIMA, VAR/VARMA, HWES)
+* Set up Google Cloud instance and verified connection
+* Working on installing EMADE and dependencies
+
+==== Goals  ====
+* Finish installing EMADE
+* Write new template and seeding files
+* Improve data parser for regression problems
+* Implement non-classical primitives
+
+==== Issues ====
+* Implementation of VARMA gives linear algebra errors (non-positive-definite matrices for Cholesky decomposition) - VAR is implemented for now
+* Git LFS not working properly on Google Cloud
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.'''
+
+==== Progress: ====
+* Added database login explanation
+* Begun working on a more specific Google Cloud EMADE guide detailing entire setup process and python package versions
+* Almost finished another visualization of eval times for non-erring individuals.
+* Began working on a slider so users can more easily traverse through generations in EMADE
+* Started reaching out to first years about user studies again
+* Modified SQL ORM to have field for the parent hashes
+* Modified Master Algorithm to log parent hash during mating and mutating functions
+==== Goals: ====
+* Get EMADE data from other datasets
+* Test ancestry fork of EMADE
+* Have more team members running EMADE on cloud
+* Increase speed and efficiency of visualization app
+* Long term goal: allow the user to customize which graphs they want to see on their dashboard
+
+==== Current Issues: ====
+* Individuals can have more than 2 parents, making hierarchy visualization difficult
+* Unable to get meaningful results from other built-in datasets (such as dota and wine)
+* Live refresh of graphs not working while EMADE is running
+* App takes a long time to load, even when viewing info from a prior generation
+* Requested more GCP credits to help with creating the guides.
+
+== March 4, 2019 Reports ==
+
+=== EEG Sub-team Report ===
+
+==== Progress since last week: ====
+* We've adapted emade for the PBS job scheduler on the PACE cluster 
+* Visited Emory to collect new data
+* Have begun running Emade on dataset
+
+==== Goals: ====
+* Found new peer-reviewed article on new potential data
+** Review new data set from the brain-computer interface dataset
+* Analyze EEG band data, using that to create new features
+* Run Emade on flattened data (both on samples and channel)
+
+==== Current Issues: ====
+* Don't know how to implement:
+** Quadratic support vector machine, random sampling boosted trees (RUS), Higuchi's fractional dimension, and times series of Dow Jones Index
+** summary statistics on each channel (mean, standard deviation, root mean square, skewness, and kurtosis)
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.'''
+
+==== Progress: ====
+* Continuing working on a more detailed Google Cloud EMADE guide
+* Met with a first-semester student to get feedback on our visualization app
+* Continuing working on a slider so users can more easily traverse through generations in EMADE
+* Modified SQL ORM to have field for the parent hashes
+* Modified Master Algorithm to log parent hash during mating and mutating functions
+==== Goals: ====
+* Get EMADE data from other datasets
+* Test ancestry fork of EMADE
+* Have more team members running EMADE on cloud
+* Store XML information in database to prevent hard-coding of dynamic column names
+* Work on final presentation for progress so far and recruiting first-semester students
+* Long term goal: allow the user to customize which graphs they want to see on their dashboard
+
+==== Current Issues: ====
+* New this week:
+** Issues with creating slider to dynamically update graphs
+** GCP issue with sharing bucket across projects
+* Same as last week:
+** Individuals can have more than 2 parents, making hierarchy visualization difficult
+** Unable to get meaningful results from other built-in datasets (such as dota and wine)
+** Live refresh of graphs not working while EMADE is running
+** App takes a long time to load, even when viewing info from a prior generation
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Add more documentation, as per usual.
+* Launch master instance and run dota and image for baseline comparison (for benchmarking)
+* Also run stream data (which we haven't debugged yet) on cache to get performance
+* Perhaps generate graphs ('''maybe''' even look at Visualization team's API, if it is simple enough to integrate/merge, we can also use that)
+
+==== Progress: ====
+* Fixed issue with hard-coded path for feature and image data loading, also added more documentation with regards to the path and the method
+* Got data for benchmarking for dota and image, need data from master (not cache) for baseline comparison
+* Added more documentation
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.'''
+
+==== Progress since last meeting ====
+* Ensured that mutation is working as expected. 
+* Laid the foundation for running the entire evolutionary process on CIFAR-10 dataset and obtaining results on it. 
+* Documented the code better and fixed errors caused due to an invalid combination of tensorflow operators. (eg. dense layer followed by a pooling layer)
+
+==== Current Issues ====
+* Due to the larger size of the CIFAR-10 dataset and the manner in which it is distributed (multiple pickle files containing the different batches), we will potentially have to make large changes to the code in order to make it generic to all datasets
+* Alternatively, we can tailor it to CIFAR-10 which will result in general fragility and require us to make potential changes for every new dataset. (or not as MNIST might be the exception due to being read in directly from tensorflow) 
+* Potentially create a new branch to counter this problem. 
+
+==== Goal of the week ====
+* Each team member can look through some papers and brainstorm additional features/primitives that can be added to ezCGP
+* Look to run ezCGP on GCP with both CIFAR and MNIST so that we can run the entire evolutionary process at the desired/required scale.
+* Collect results for both these datasets and report them.
+
+=== Stock Sub Team Report ===
+'''Meetings are at 5:00pm on Fridays/Saturdays.'''
+
+==== Current Issues /Goals ====
+*Install SQL on Google Cloud 
+*Run EMADE stock on google cloud
+*Git lfs did not work, so we should test new commands
+
+==== Progress ====
+*Google cloud instance is created and everyone is connected
+*Issues with HWES, but HWES test is fixed, so the merge will be done today or tomorrow (goal)
+
+== March 11, 2019 Reports ==
+
+=== Visualization Sub-team Report ===
+Midterm Presentation: [https://docs.google.com/presentation/d/1mY1MpqoTm6lmQJ_7Xl6DTrdTTmSYjhnnDcTSd4EgNZY/edit?usp=sharing Link to presentation].
+
+=== Deep Learning Sub-team Report ===
+* Midterm presentation week.
+* Presentation link: [https://docs.google.com/presentation/d/1UmH5CSSlO2NPVMmBe_Kqo3sie2gQs4Sm2fldg9JC6lE/edit?usp=sharing Deep Learning Team Midterm Presentation]
+
+=== EEG Sub-team Report ===
+[https://docs.google.com/presentation/d/1WkPyZUnuwT27jbyhFYHfgA4SGDeA0hTQOxyryDVIkuc/edit?usp=sharing Midterm Presentation]
+
+== March 25, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.'''
+
+==== Progress since last meeting ====
+* No progress in terms of development due to Spring Break.
+* We met up on Thursday, March 14th to discuss how work will be organised and divided from here on. 
+* The team will split into 2 parts
+** Team A: Will work on all round development of ezCGP to make it a more user friendly framework.
+** Team B: performs experiments and collects results using ezCGP while also adding more deep-learning specific primitives and functionality.
+* The two teams will be working closely with each other but we felt that this division will help us cover more ground and hit more of the goals we set out to reach more efficiently.
+
+==== Current Issues ====
+* Deciding which team members go into which sub-sub-team. These include current team members and first semesters that may join today.
+
+==== Goal of the week ====
+* We have made tasks for development for the current members. These tasks include:
+** Allowing ezCGP to handle regression problems in addition to classification problems. 
+** Integrating usage of ephemeral constants for tensorflow primitive hyperparameters
+** Allowing number of epochs to be inputted externally i.e. within problem.py instead of by going into blocks.py and manually changing it.
+* New members will be asked to:
+** Gain access to the git repo. 
+** Set up the python environment and ensure that you can run main.py
+** Familiarize yourself with how the framework is structured and how the team works.
+
+== April 1, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.'''
+
+==== Progress since last meeting ====
+* Split into 2 sub-sub-teams and allocated work between them. 
+** Team A: Will work on all round development of ezCGP and work to make it more user friendly. 
+*** Assigned the task of feeding data in a more organised and scalable manner.
+*** Working to mutate constants and hyperparameters for different layers i.e. number of filters, hidden units and filter sizes.
+** Team B: Works on the development and adding of deep learning specific primitives and functionality. 
+*** Extend ezCGP to work beyond classification problems and work with regression problems as well
+*** Obtain results on CIFAR-100 and any regression problem. (preferably a popular benchmark one so that we can compare results and where we stand)
+*** Add additional primitives with an LSTM layer being one of them to be better suited to time-series data. 
+* The newer team members were added to the Git Repo and assigned the same exercises the rest of us were given at the beginning of the semester so that they could familiarise themselves with the ezCGP framework. 
+
+==== Current Issues ====
+* None as of now
+
+==== Goal of the week ====
+* Team A
+** Work with Rodd to integrate the mutation of constants and hyperparameters into the framework. 
+** Try and get the data to feed in a more organised and scalable manner. 
+* Team B
+** Extend ezCGP to work with regression problems.  
+** Identify a regression problem and obtain proof that ezCGP appears to be converging upon a workable solution for this problem. 
+
+* New Team Members
+** Experiment with Symbolic Regression using ezCGP to better understand how the ezCGP framework works.
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Add more documentation, as per usual.
+* Get new members up to speed with documentation and merging master into cache
+* Start looking at getting the new members involved in fixing image data
+
+==== Progress: ====
+* Get new members to read data.py and launchGTMOEP.py to better understand cache
+* All subteams are in charge of documenting the code, merging the code, and understanding (able to explain) the files that they are in charge of
+* Merge master -> cache (grid_slurm_integration branch)
+* Subteam 1: 
+** ~90 lines to merge
+** database_tree_evaluator.py
+** didLaunch.py
+* Subteam 2:
+** ~70 lines
+** gtMOEP.py
+** seeding_from_file.py
+* Subteam 3:
+** ~80 lines
+** methods.py
+*** Implements machine learning methods for use with DEAP.
+*** Most of these are wrappers around sklearn learners that facilitate their use with GTMOEPDataPair objects.
+*** Attempted merging, but have not tested the resultant merged file.
+*** The following still need documentation to be completed:
+**** vgg16 
+***** currently has no documentation
+**** ball_tree_cluster_scikit needs documentation on parameters and return value
+** selection_methods.py
+*** Implements selection methods for use with DEAP.
+*** No merge conflicts with master
+*** The following still need documentation to be completed:
+**** find_pareto
+***** need to understand the parameters and the intended use of this method
+*** Uses different documentation format than methods.py, need to chose one.
+===Stock Subteam Report===
+====Progress====
+*Introduced some 1st semester students to our work
+*Fixed HWES implementation and made improvements to other primitives
+*Ran EMADE again 
+====Goals====
+*Write new data parser to set up new stock data as a regression problem
+*Implement machine learning primitives (KNN, RNN, MDP)
+*https://machinelearningmastery.com/findings-comparing-classical-and-machine-learning-methods-for-time-series-forecasting/
+====Issues====
+*Google cloud freezes up after a few hours (can't ssh back in)
+*Some memory allocation errors in log files
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.'''
+
+==== Progress: ====
+* Working on merging code to combine new graphs with new login page (which has more useful error messages)
+* Getting the new team members up and running with our viz app
+
+==== Goals: ====
+* Develop a way of storing data (like caching) to lower the number of db queries and speed up viz app
+* Store EMADE's input xml metadata in a new table in the db (and then have queries search for column names based on that metadata)
+* Hereditary visualizations and graph coloring
+* Continued user studies once merging with new features is complete
+
+==== Current Issues: ====
+* New Issues:
+** Working through issues brought up during the branch merges
+* Old Issues:
+** Still working on hierarchy visualization
+** Unable to get meaningful results from other built-in datasets (such as dota and wine)
+** Live refresh of graphs not working while EMADE is running
+** App takes a long time to load, even when viewing info from a prior generation
+
+=== EEG Sub-team Report ===
+==== Progress: ====
+* Talked to First Semesters and assigned them focus groups
+* Made a plan for the rest of the semester
+* Getting things into EMADE
+
+==== Goals: ====
+* Get things into EMADE
+* Jas/Ali: Getting the band decomposition primitive into EMADE
+* Austin/James: Reading a paper to find a new algorithm
+* New members: Reading old papers and getting caught up
+* Rahul: Implementing Morelet
+
+== April 8, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary. Git commits will be made to the tensorflow-nn branch.'''
+
+==== Progress since last meeting ====
+* Since last week, the 2 sub-sub teams worked to complete their respective tasks. 
+* Team A (Rodd Squad):
+** Met with Rodd and made changes to the code so that we can now work with ephemeral constants giving us the ability to inject additional randomness into the evolutionary process by allowing us to change more than just the type of primitive, but also the configurations of the primitives. 
+** Preliminary runs of the evolutionary process (using only dense primitives) show that the process is running as expected with successively better results across generations. 
+** Have been unable to run the evolutionary process with the more complex primitives due to the lack of compute power available at the time. 
+** Completed full evolutionary run on CIFAR-10 (for midterm presentation we had to terminate early) i.e. for 25 generations. On training on the full dataset, we got a small improvement on our earlier model (~1% improvement in testing accuracy). 
+* Team B (Talebi Tubbies):
+** Identified a regression dataset (Housing Price dataset: https://www.kaggle.com/gabriellima/house-sales-in-king-county-usa) and preprocessed it. 
+** Worked to identify portions that need to be changed to support regression capabilities. 
+** Cleaned up some of the folder that were present, and added in code to load the preprocessed housing dataset. 
+** Also, added a new scoring function that uses mean squared error and mean absolute error as the fitness metrics to minimize. 
+* The newer team members continued to familiarize themselves with the ezCGP framework and will likely be joining either Team A or Team B. 
+
+==== Current Issues ====
+* Confirm that evolutionary process runs as expected with the more complex primitives even after the overhaul that was made. 
+
+==== Goal of the week ====
+* Team A
+** Try and get the data to feed in a more organised and scalable manner. 
+** Hope to get results on CIFAR-100.  
+* Team B
+** Extend ezCGP to work with regression problems.  
+** Update the code to set a flag when the problem is a regression problem and to set the output layer of the network accordingly.   
+
+* New Team Members
+** Join a larger team and begin understanding how we work with the tensorflow primitives. 
+** As a way of familiarising with the tensorflow part of ezCGP, update the code so that the number of epochs can be changed from within problem.py instead of going into blocks.py
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Add more documentation, as per usual.
+* Get new members up to speed with documentation and merging master into cache
+* Start looking at getting the new members involved in fixing image data
+
+==== Progress: ====
+* Get new members to read data.py and launchGTMOEP.py to better understand cache (continuation from last week)
+* Three subteams in charge of fixing image, creating a bash script for collecting stats, and implementing new caching algorithms
+* Fixing Image Team:
+** Look at the old commits that causes "c" (error in terms of saving image cache)
+** Revert the error and find other bugs
+* Bash Team:
+** Broken down into two stages, first stage looks at creating the script needed for stats on a single instance
+** Next stage looks at creating the script for multiple instances
+** This week we're expecting the first stage
+* New Cache Invalidation Methods Team
+** Document and understand the current caching mechanism
+** Summarize our understanding on our personal notebook
+** Start researching new methods to implement for better caching results
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.'''
+
+==== Progress: ====
+[[files/Tree Coloring Example.png|thumb|400x400px]]
+* Merged our feature branches into master
+* New team members working on pickling db data for increasing app efficiency
+* Hereditary visualizations in progress
+* Storing xml metadata and using that to fix AUC calculation
+* Graph coloring for tree structure almost complete
+* Download pareto front graph implemented
+
+==== Goals: ====
+* Create new graph that finds columns based on metadata table
+* Finish basic Hereditary visualization
+* Merge all new features and test in preparation for end of semester
+* Finish download graphs functionality
+
+==== Current Issues: ====
+* None for now
+** We are just trying to get our app ready for the end of the semester to be merged in with EMADE
+
+=== Stock Subteam Report ===
+
+====Progress====
+*Wrote new data parser that allows for dynamic numbers of training days, testing days, and k-folds
+*Implemented sMAPE and MASE as objective functions
+*Implemented various time series preprocessing methods as primitives (power transform, deseasonalizing, detrending)
+*Added stream to features mode for some existing preprocessing methods (log, difference, moving average)
+*Selected and began implementing machine learning models (MLP, RBF, RNN, LSTM) 
+====Goals====
+*Continue adding functionality to data parser
+*Finish implementing machine learning models
+====Issues====
+*No urgent issues
+*Implementation detail whether to write models as primitives or learners
+
+=== EEG Sub-team Report ===
+
+====Progress====
+* Four new primitives written, in testing and editing stage:  Power Band Decomposition, Morelet Wavelet transforms, State Variance, and Mean State Shift
+* Recorded new base line data with Scott at Emory to prove that there is a significant power difference between eyes open vs closed condition
+====Goals====
+* Fix and validate primitives using Scott's local testing script
+* Re-try the things we tried in the beginning with new data
+* Implement more signal processing primitives into EMADE
+* New members: doing research to find ideas for more primitives
+====Issues====
+* No urgent issues
+
+== April 15, 2019 Reports ==
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary.''' 
+
+==== Progress since last meeting ====
+* Updated the framework so that the number of epochs to evaluate for could be set from the problem file. 
+* First semesters were placed into their respective sub-sub teams upon completion of the crash course on the ezCGP framework and worked on the aforementioned problem to get some understanding of how the framework is laid out.  
+
+==== Team A updates ====
+* Made changes to the framework so that a defined subset of the data can be fed to the framework. This helped speed up the process and allowed us to ensure that the primitives are all working as expected with the changes made to integrate ephemeral constant into the evolutionary process. 
+* Updated the code so that it can now work with larger datasets. (i.e. those that have too much data to be entirely held in memory)
+* This was achieved by adding a 'large_dataset' parameter to the skeleton of the block which is populated when the dataset is large and takes in special inputs
+** This large_dataset parameter has a default value of '''''None''''' which indicates that the dataset is small enough to fit into memory and is therefore treated differently.
+** The above mapping helps maintain backwards compatibility and allows the user to not concern themselves with the following steps in the case of smaller datasets. 
+* When active, the large_dataset parameter is mapped to a tuple containing (list of filenames, function pointer to user defined function)
+** The list of filenames is a list of the names of the different files that contain subsets of the data. 
+** This is done because, larger datasets usually allow you to download the data in batches/subsets each containing different subsets of the large data. 
+** The user defined function takes in one of the stated filenames and reads the data to return a tuple of (training data, training labels)  
+* To summarize, the framework can now work with larger datasets, provided the user inputs a list of the filenames containing the data AND defines a function that reads the data in one of the files  to return a tuple of (training data, labels)
+* Due to the additional complexity that was added to the code, these changes were then documented via comments. 
+
+==== Team B updates ====
+* Made changes to enable regression. (replaced the softmax ouput layer with a dense layer using a linear activation function)
+* Tested framework with only dense layers
+* Changed score function metric from f1 score and accuracy to average percent change (apc) and mean absolute error (mae)
+* Added classification vs. regression flag for continued use with regression
+* Temporarily abandoned Stock dataset due to bull/bear problems accurately predicting stock prices using the time series data
+** Will be running and finalizing results with Housing dataset for a more understandable and clear presentation
+** Currently have NumPy results for 5 generations
+
+==== Current Issues ====
+*Intuitively speaking, if the user provides the list of filenames and the function pointer to load the files, they should not have to worry about creating an xtrain and ytrain variable.
+** However, the way the framework works, an xtrain and ytrain variable is required to build the original model i.e. set the tensorflow placeholders up for correct evaluation of the tensorblock.
+** So, the user needs to pass in a something that is the same shape of the data that should be fed to the tensorflow model so that the graph can be correctly built.
+** This cannot be fixed without making large changes to the codebase as it affects the building of the tensorflow graph itself and the subsequent evaluation. 
+
+* Evolution is breaking with constitutional layers and other layer types.
+** Temporary solution: create new operators (kind of like primitives) which take new datatype shape or
+** edit current operators so they are more robust
+** allow user to specify sets of primitives?
+
+* Need to benchmark regression against Kaggle result.
+* There are a few minor adjustments to the normalization of housing prices that we may need to do
+** Unlike stock data, housing data typically has numbers in the millions or higher, with a relatively large variance
+** Average Percentage Change (APC) is one way to tackle this problem, but we still need a way to properly account for outliers
+*** e.g. One rich <s>corrupt politician</s> entrepreneur's mansion in a relatively poor neighborhood
+
+==== Goal of the week ====
+* Prepare for the presentation next week. 
+* Obtain results on MNIST, CIFAR-10 and CIFAR-100 with the updated framework using a more intensive evolutionary process (i.e. more variables, generations, individuals, primitives and epochs)
+* Obtain results on the Housing dataset which is the regression problem.
+
+=== Caching Sub-team Report ===
+'''Meetings are at 4:30pm Fridays during help desk hours, weekends if work during that period hasn't been finished.''' 
+
+==== Goals: ====
+* Bash Team: create the script for collecting statistics
+* Image Team: fix image and look at how cache is related to evaluate (it has some bugs right now)
+* Cache Method Team: find better cache invalidation methods and push to the code
+
+==== Progress: ====
+* Three subteams in charge of fixing image, creating a bash script for collecting stats, and implementing new caching algorithms
+* Fixing Image Team:
+** Going through the source code from top to bottom at the moment. 
+*** What we know for sure is that individuals are not being evaluated at all, so the number of individuals never decrease and the master process simply continues to wait for workers to evaluate.
+**** Checking the tables after executing on input_image.xml for around an hour produces 509 individuals and no data in any other table. 
+*** Since it works on feature data, one idea we have is to try to checking the differences between feature and image in terms of evaluating individuals and loading data.
+*** Data seems to be correctly saved onto the disk, but loading might be broken.
+*** Debugging is currently our biggest problem; difficult to use a debugger like pdb and our only other option is debugging print statements. 
+* Bash Team:
+** Please note we're actually using Python scripts despite being called the bash team
+** Have basic stats collection finished, runner seems to be working
+***stats are: run time, generations, cache time savings, cache size
+****cache time savings is likely inaccurate as all entries in the cachedata table currently have 0 or NULL for their write_time, so the current numbers for that are skewed high
+****looking for input on more metrics to track
+**started four day long test (2 24-hour standard tests, 2 24 hour cache tests)
+* New Cache Invalidation Methods Team
+** Did research on a variety of algorithms to solve the Knapsack problem
+** Alex implemented and optimized some algorithms for benchmarking:
+*** Results (from [[Notebook_Alexander_Ackerman_Gurung#April_10th.2C_2019|Alex's notebook]]):
+****Optimal solution for weight 40000 took time 9.66s and has value 18306
+****1% of weight bucket solution for weight 40000 took time 0.01s and has value 12854
+****Fixed 100 bucket solution for weight 40000 took time 0.03s and has value 16159
+****Square bucket solution for weight 40000 took time 0.05s and has value 17532
+****Heap solution for weight 40000 took time 0.00s and has value 8195
+
+=== Visualization Sub-team Report ===
+'''Meetings are at 4:30pm on Wednesdays.'''
+
+==== Progress: ====
+* Working on uploading the input_xml file
+** Lets the user skip manually inputting the database info
+** Gives our app immediate access to all the xml metadata even if the new metadata table is missing (until that code gets merged in to EMADE)
+* Added some UI updates for clarity
+** Tooltips with detailed instructions
+** More user-friendly error handling
+* Implemented pickling of database info for faster lookups
+
+==== Goals: ====
+* Determining why the pages load slowly
+** Create a branch dedicated to optimizing the speed of page loading. 
+** We can test out one graph at a time and see what the load times are for the dashboard. 
+** That’ll let us know whether the bottleneck is certain graphs or the calls to the database.
+* Create presentation for next Monday
+
+==== Current Issues: ====
+* Still having some errors with creating hierarchy visualizations (SQL errors).
+
+=== Stock Subteam Report ===
+
+==== Progress ====
+* Using KerasRegressor so initial code can be reused
+* Created models for different networks (MLP, RBFN, RNN, LSTM)
+
+==== Goals ====
+* Continue adding functionality to data parser
+* Finish implementing machine learning models and add UnitTests
+* Run EMADE with new primitives
+
+==== Issues ====
+* No urgent issues
+
+=== EEG Subteam Report ===
+
+==== Progress ====
+* Implemented all required primitives for final presentation (as of 11:59 PM 4/15)
+* Doing final validations by talking to Dr. Zutty
+* Preprocessed EEG emotion dataset to run through using same seeds as Stroke patients
+
+==== Goals ====
+* Complete run of EEGMADE
+
+==== Issues ====
+* No issues as of yet, will report once EEGMADE starts running
+
+== April 22, 2019 Reports ==
+
+=== EEG Subteam ===
+[https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?usp=sharing End of Spring Semester Presentation]
+
+=== Visualization Sub-team ===
+[https://drive.google.com/open?id=1zlmRR45vRG40iu5HKsqU_W2MrBFHMh5DDD1gEG_XOBk End of Spring Semester Presentation Link].
+
+=== Deep Learning Sub-team Report ===
+'''We've established that we will have meetings 4:30-6pm Thursdays during helpdesk hours and on weekends if necessary.'''
+* Final presentation: [https://docs.google.com/presentation/d/10t_-9TvkV_GwWpHTPa6wG7tWbhio_NAjP8u-f-bfWqE/edit?usp=sharing Final Presentation]
+Stock Sub-team Report
+
+[https://docs.google.com/presentation/d/10xf9KcT4J-MECnhHFCqxyt9AXUIUhVRzZtdGDKRxJh4/edit#slide=id.g582dfe573a_4_100 Link to the Final Presentation]

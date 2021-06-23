@@ -1,0 +1,800 @@
+= Team Member =
+[[files/maximgeller.JPG|thumb|250x200px]]
+'''Name:''' Maxim Geller
+
+'''Email:''' [mailto:maximgeller@gatech.edu maximgeller@gatech.edu]
+
+'''Cell Phone:''' 201-422-0170
+
+'''Interests:''' [http://gtswimclub.com Swimming], [https://datasciencegt.org Data Science], [https://enlight.nyc EdTech]
+
+'''Fun Fact:''' I helped start a hackathon called [https://makespp.com MakeSPP] in high school, and now I'm helping organize [https://hacklytics.io Hacklytics] at Georgia Tech!
+
+= Fall 2020 =
+== Week 16: November 30th - December 2nd, 2020 ==
+My objective for this week was to get an installation of EMADE with tensorflow 2.2.0 running ideally on the shared classroom workspace on PACE; however, creation of files in the workspace still counted against my quota instead of the classroom's like it should have. I plan to look closer into setting up a proper environment with nested activation in conda next semester.
+
+It also appears that the <code>tmp</code> folder for PACE-ICE is a little overfilled right now, so I had to [https://stackoverflow.com/questions/55103162/could-not-install-packages-due-to-an-environmenterror-errno-28-no-space-left redirect it] in order to install tensorflow on my own conda environment. 
+
+Next, I wanted to resolve the broken pipe error that was caused by PyMySQL. I eventually discovered that the reason the incredibly long string of binary was failing to be added to the database was because of a 1 MB packet limit on the server. While I still don't know why the binary does not properly get parsed as a string from <code>fasttextWeights</code> primitives, I was able to [https://ma.ttias.be/mysql-error-1153-08s01-got-a-packet-bigger-than-max-allowed-packet-bytes/#:~:text=To%20do%20so%2C%20log%20into,packet%20to%201000000000%2C%20or%20100MB. increase my maximum allowable packet] in the meantime.
+
+=== PACE Engine Runs ===
+Dr. Zutty shared the latest PR from the EMADE repository, <code>EMADE-219</code> so that I could take advantage of the full computing power PACE offers by using multiple workers. The configuration he provided in <code>launchEMADE.py</code> was not enough to run EMADE on its own; I had to add lines to the generated script to make sure the right modules and environments were loaded in. In addition, I had to include a line to seed runs with <code>NNLearners</code> (this is specific to my sub-team). After that, I was able to run EMADE using the CPUs available on PACE.
+
+I then decided to continue working on the script in order to add GPU support. This is when things got a little trickier. I requested 1 GPU per worker (none for the master), and received the following errors when doing runs this way in the worker's error file.
+
+<pre>2020-12-02 16:04:44.396142: W tensorflow/compiler/xla/service/platform_util.cc:210] unable to create StreamExecutor for CUDA:0: failed initializing StreamExecutor for CUDA device ordinal 0: Internal: failed call to cuDevicePrimaryCtxRetain: CUDA_ERROR_INVALID_DEVICE: invalid device ordinal
+2020-12-02 16:04:44.396203: I tensorflow/compiler/jit/xla_gpu_device.cc:161] Ignoring visible XLA_GPU_JIT device. Device number is 0, reason: Internal: no supported devices found for platform CUDA</pre>
+
+In my worker out file, I got errors stating that CUDA enabled devices were busy or unavailable corresponding to when I received the above error from the error file. This was strange since I specified that the GPUs were to be used exclusively by each respective worker. Still, I decided to request two GPUs (technically per worker, but one per worker wasn't working clearly) to force the workers to run on separate nodes. After a short while, I ran out of memory on the run.
+
+I would like to finish writing the script Dr. Zutty started to add support for GPUs using Tensorflow and write a guide similar to the one I created for setting up MySQL on PACE and doing local runs so that the team and VIP as a whole can have a clear recipe to producing high quality runs.
+
+=== Final Presentations ===
+'''Stocks'''
+* They identified inconsistencies with the research paper they took cues from. The researchers did not match their findings with the rules they set for themselves.
+* Used technical market indicators to determine market movements to feed into EMADE
+
+'''NN'''
+* Automating neural network architecture search using EMADE
+* Testing on two datasets (text-based and image-based) to compare to competing frameworks
+* Troubles running with GPUs on PACE-ICE and also running into disk quotas (when we shouldn't be)
+
+'''ezCGP'''
+* Also working on neural architecture search, but using a cartesian programming based framework
+* Using PACE-ICE GPUs to run framework with similar troubles to NN team
+* Top individuals had similarities in NN layers used
+* In the future: replace DEAP with ezCGP in EMADE
+
+'''Modularity'''
+* Currently conducting 4 experiments to investigate impact of ARLs on primitives
+* ARLs tend to lose significance in later generations
+* Next: experiments on MNIST since Titanic is limiting?
+
+== Week 15: November 23rd - 29th, 2020 ==
+I am experiencing trouble doing my EMADE run because of the problem related to vectors in the pretrained directory of the <code>nn</code> branch. In particular, primitives with <code>gloveFasttextWeights</code> and <code>fasttextWeights</code> are returned as a binary string well over 1 million characters long and the error given by MySQL is <pre>Got error (pymysql.err.OperationalError) (2006, "MySQL server has gone away (BrokenPipeError(32, 'Broken pipe'))")</pre> However, I am still able to login and use the server as I normally would no matter how many times this error pops up during the run, so I suspect this message is inaccurate and it is due to the unexpected input from the word vector. 
+
+As a result, I want to try a fresh EMADE install running tensorflow 2.2.0 on the shared classroom on PACE so that we can (a) figure out if there is a difference and (b) so I can easily pass it off to Anish who has been helping me with the troubleshooting. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Set up conda and EMADE on VIP shared workspace on PACE
+|On hold
+|November 23rd, 2020
+|December 2nd, 2020
+|December 2nd, 2020
+|-
+|Resolve error with fasttest primitives
+|Patch fix
+|November 23rd, 2020
+|December 2nd, 2020
+|December 2nd, 2020
+|-
+|}
+
+== Week 14: November 16th - 22nd, 2020 ==
+I was tasked this week on completed a run on PACE-ICE with the toxicity dataset. Because we're still having issue accessing GPUs on PACE, that issue needs to be resolved first. 
+I commented out the line <code>ping_GPU()</code> in <code>EMADE.py</code> per Anish's suggestion, and also tried enabling the CUDA 10.1 module and downloading cuDNN 7.6.5 and Tensorrt. EMADE was able to open some but not all dynamic libraries necessary for GPU usage. I spent a lot of time digging through Stack Overflow and Github reports on Tensorflow and found people with similar issues. The leading suggested fix involved using CUDA 10.2 and changing some of the library paths. However, the directory paths are different from mine because I am accessing CUDA through the PACE batch software module.
+I am also still running into the problem with the NLP pretrained library vectors that give me a result in binary when used to evaluate NNLearners.
+
+=== Utilizing Tensorflow on PACE ===
+'''Update 11/19/20'''
+
+After much experimenting with the available tensorflow versions, I have found that tensorflow 2.0.0 is successfully able to detect the GPU in the <code>pace-ice-gpu</code> queue. To properly configure:
+# In your job .pbs script, include the CUDA 10.0 module by including <code>module load cuda/10.0</code>
+# In your conda environment, install tensorflow-gpu and cuDNN in order to be able to access the appropriate code. For cuDNN especially, it's important that you get the one that is designed for CUDA 10.0 else you will not be able to open the dynamic library when the GPU needs to get used. The lines to run are
+## <code>pip install tensorflow-gpu==2.0.0</code> 
+## <code>conda install https://anaconda.org/anaconda/cudnn/7.6.5/download/linux-64/cudnn-7.6.5-cuda10.0_0.tar.bz2</code>
+# Launch EMADE and after a little while, your worker's error log should have something like this: 
+<div class='mw-collapsible mw-collapsed'>
+'''Worker Error Log'''
+<div class='toccolours mw-collapsible-content'>
+<pre>
+2020-11-19 19:02:06.197550: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-11-19 19:02:06.226365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: Tesla V100-PCIE-16GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+pciBusID: 0000:3b:00.0
+2020-11-19 19:02:06.228223: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2020-11-19 19:02:06.231334: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2020-11-19 19:02:06.234315: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2020-11-19 19:02:06.236560: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2020-11-19 19:02:06.239736: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2020-11-19 19:02:06.242631: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2020-11-19 19:02:07.449388: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-11-19 19:02:07.451587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2020-11-19 19:02:07.451960: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2020-11-19 19:02:07.476652: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2700000000 Hz
+2020-11-19 19:02:07.476955: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x2aab5cd5ad10 executing computations on platform Host. Devices:
+2020-11-19 19:02:07.476974: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2020-11-19 19:02:07.576824: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x2aab5cd5d810 executing computations on platform CUDA. Devices:
+2020-11-19 19:02:07.576861: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla V100-PCIE-16GB, Compute Capability 7.0
+</pre>
+</div>
+</div>
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Complete run on EMADE using GPUs with toxicity dataset 
+|Blocker
+|November 16th, 2020
+|November 20th, 2020
+|November 20th, 2020
+|-
+|}
+
+== Week 13: November 9th - 15th, 2020 ==
+I completed the document for setting up MySQL and EMADE on PACE, found [https://www.notion.so/maximgeller/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11 here].
+Anish asked me to use the <code>nn</code> branch because he fixed the errors with DEAP on that branch. I will configure EMADE on PACE again with this latest version and do another experiment. Unfortunately due to the 10 GB limit on PACE-ICE, I can't use GitHub to clone the EMADE repo since it is too large.
+As a result, I ended up basically reinstalling the conda environment as well as EMADE on my PACE-ICE account.
+'''The solution to last week's error was adding the Optimizer to the <code>gp_framework_helper.py</code> script after line 210: <code>pset.addPrimitive(my_pass_through, [nnm.Optimizer], nnm.Optimizer, name="passOptimizer")</code>'''
+After doing that and rebuilding the files, EMADE was able to run with a larger launch and pool size of 512 on PACE-ICE.
+By modifying the launch script, I was also able to launch EMADE on the GPU queue which contains CPUs with larger memory so I can compute NNLearners quicker. However, after downloading the vectors in the pretrained directory in the <code>nn</code> branch, I hit some errors when they were used that resulted in walls of binary. Reached out to the team regarding next steps, but I will likely move to working with the chest x-rays dataset since there's no NLP vectors involved there.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Do another EMADE run on PACE with corrected scripts
+|Completed
+|November 9th, 2020
+|November 13th, 2020
+|November 13th, 2020
+|-
+|}
+
+== Week 12: November 2nd - 8th, 2020 ==
+Found [https://docs.google.com/document/d/1VIv4EM1KhaUToZpEhKNx3lQs-Hu7QSOk4VEqZcx2tIs/edit?usp=sharing past documentation] from setting up with PACE from Pulak.
+* Need to ssh into PACE via GT VPN and transfer EMADE files onto my account there. I used WinSCP to do this. 
+* Then, I had to create a MySQL instance (ended up being MariaDB since that is what they have loaded in at PACE)
+** I created a local instance first to make sure it worked before using a <code>.pbs</code> script to queue a job in PACE.
+** Had a '''lot''' of trouble setting up and configuring the DB instance to be able to be logged in. The problem running the install command that would set up the data directory properly, ensuring the socket route was correct, and removing anonymous user accounts because they messed with user account logins.
+* Once an instance of MySQL was running on PACE, I had to do the same with EMADE. I had to make sure the code compiled correctly and fix some missing dependencies that might have gotten lost in the mix as this was a Linux installation.
+** Creating a better [https://www.notion.so/maximgeller/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11 reference guide] in order for people to have fewer issues in the future.
+* Once it was finally configured, I did a test run with the toxicity dataset present on the <code>nn-vip</code> branch. The individuals on the paretofront were all exactly the same, so I will bring this up at the sub-team meeting. I suspect it has to do with the small batch size, but I got the following error when I tried increasing the evolution parameters.
+
+<div class='mw-collapsible mw-collapsed'>
+'''Master error log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 616, in generate
+    prim = random.choice(pset.primitives[type_])
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/random.py", line 260, in choice
+    raise IndexError('Cannot choose from an empty sequence') from None
+IndexError: Cannot choose from an empty sequence
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 119, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 109, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 686, in master_algorithm
+    first_gen = _inst.toolbox.population(NPOP)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 23, in initRepeat
+    return container(func() for _ in range(n))
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 23, in <genexpr>
+    return container(func() for _ in range(n))
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 72, in initCycle
+    return container(func() for _ in range(n) for func in seq_func)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/creator.py", line 167, in initType
+    base.__init__(self, *args, **kargs)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 72, in <genexpr>
+    return container(func() for _ in range(n) for func in seq_func)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 49, in initIterate
+    return container(generator())
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 528, in genFull
+    return generate(pset, min_, max_, condition, type_)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 621, in generate
+    "none available." % (type_,)).with_traceback(traceback)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 616, in generate
+    prim = random.choice(pset.primitives[type_])
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/random.py", line 260, in choice
+    raise IndexError('Cannot choose from an empty sequence') from None
+IndexError: The gp.generate function tried to add a primitive of type '<enum 'Optimizer'>', but there is none available.
+</code>
+</div>
+</div>
+
+=== NN Sub-Team Meeting, November 6th, 2020 ===
+I brought up my errors at the meeting but there was no guidance on what to try.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Launch EMADE on PACE
+|Completed
+|October 30th, 2020
+|November 6th, 2020
+|November 5th, 2020
+|-
+|Create better documentation for using PACE for sub-team
+|Completed
+|November 5th, 2020
+|November 13th, 2020
+|November 9th, 2020
+|-
+|}
+
+== Week 11: October 26th, 2020 ==
+I was assigned to the NLP/NN sub-team! In our meeting, Pulak and Anish caught us up on what the team is working on:
+* They are exploring how EMADE can be use to automate the creation of neural network architecture.
+* Using evolution is a novel approach, and the team is hoping to write and submit a paper that performs better than a baseline paper the team is comparing to.
+* Capability to go beyond neural net architecture to combine with EMADE primitives to process data.
+* Stacking: Creating synthetic features to input into next ML model.
+I will be helping the team by configuring experiments to run on PACE, the HPC cluster.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Choose sub-team task
+|Completed
+|October 26th, 2020
+|October 30th, 2020
+|October 30th, 2020
+|-
+|Reach out to Pulak to acquire material for using PACE
+|Completed
+|October 30th, 2020
+|November 2nd, 2020
+|November 2nd, 2020
+|-
+|}
+
+== Week 10: October 19th, 2020 ==
+'''Presentation week!'''
+* I presented our implementation of EMADE and elapsed time analysis for my sub-team
+** Was raised a question about how to better cut off invalid individuals so that they don't waste so much time. I said that we could look at what kinds of individuals tend to not have fitness and cut off other individuals that look similar in order to not waste time.
+* Heard from Stocks, Modularity, NN, and ezCGP as well as the other sub-teams.
+** The idea behind ezCGP seems super interesting and the presentation was well put together, plus it sounds like I would get experience with ETL and creating new primitives if I joined their team, but I also really liked the problem space that the NN team is tackling and since they are using EMADE rather than developing their own framework. I think my first preference would be to join the NN sub-team, followed by ezCGP.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Research sub-team options and send preferences.
+|Completed
+|October 19th, 2020
+|October 26th, 2020
+|October 25th, 2020
+|-
+|}
+
+== Week 9: October 14th, 2020 ==
+* Our subteam was able to complete our EMADE run with enough pareto optimal indiviudals, so we used our class time to ask Dr. Zutty some questions about how to transform our raw data into the pareto front graph as well as some other interesting ideas for information we could mine. He mentioned to compare the evaluation time for individuals that did not have null values for false positive and false negatives against ones that did.
+* I spent some time setting up pymysql with our database so that we could fetch data into a ipynb notebook to manipulate. At first, I used the cursor object provided by the module, but ultimately decided to use the <code>read_sql</code> function in pandas to read queries directly into a dataframe for easy manipulation. I extracted the false positive and negative columns and converted them into an array to create a pareto front with.
+* I wasn't sure how to normalize the data because I didn't know what the sample size was and the values didn't seem to be percentages since I had several false positive values greater than 100 despite that many of the values were decimals. I ended up normalizing the data by dividing all of the numbers by the largest value in the column; for false positives, this was 109.2 and 68.4 for the false negatives.
+* Regarding the output <code>.txt</code> files, Dr. Zutty said they're deprecated files of data we can mine from the database. We will ignore them going forward.
+=== Subteam #3 Meeting: October 18th, 2020 ===
+I shared what I did to set up our data with the subteam and we delegated work to prepare for our presentation comparing all three of our experiments.
+* Vincent and Angela worked on preparing the slide presentation
+* Krithik created a graph outlining the difference in evaluation time among different individuals
+* I wrote SQL queries to mine the necessary data and helped create plots
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|October 14th, 2020
+|October 19th, 2020
+|October 19th, 2020
+|-
+|Connect database to notebook via pymysql
+|Completed
+|October 14th, 2020
+|October 19th, 2020
+|October 17th, 2020
+|-
+|Mine data to be presented
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 18th, 2020
+|-
+|Create pareto front graph
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 18th, 2020
+|-
+|Finalize presentation
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 19th, 2020
+|-
+|}
+
+== Week 8: October 7th, 2020 ==
+I used our meeting timeslot to ask Dr. Zutty some questions to help troubleshoot why my MySQL server was refusing connections. I made sure sure the file configuration had no bind address or option to skip networking, and that the correct port was open on my firewall. Nonetheless, I was still having issues with allowing remote connections after Wednesday.
+=== Subteam #3 Meeting: October 11th, 2020 ===
+We met to try and help each other connect to one person's MySQL instance now that everyone has successfully installed EMADE. This was wholly unproductive, so I started researching alternative solutions. What resulted was creating a MySQL instance on the Google Cloud Platform and using that to house our data. We were all able to connect to the GCP instance without issue and could run EMADE with master and worker processes! 
+However, after 16 generations and about 280 individuals in the pareto front database, EMADE seems to stall out on trying to evaluate a particular individual early on the evolution process. We decided to schedule another meeting to figure out what's going on.
+=== Subteam #3 Meeting: October 13th, 2020 ===
+I explained how to use the GCP project to my subteam and showed how you can connect to the SQL database using either command line or the cloud shell to run queries. We were all also able to connect to the same server in order to pool our data there. We don't know what some of the outputted <code>.txt</code> files, like <code>hypervolume###.txt</code>, <code>parentsTitanic###.txt</code>, <code>paretoFitnessTitanic###.txt</code>, and <code>paretoFrontTitanic###.txt</code> do, so we're planning so ask Dr. Zutty how to interpret these files as well as useful SQL queries to run at the next meeting.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|October 7th, 2020
+|October 13th, 2020
+|October 12th, 2020
+|-
+|Get MySQL instance working among team
+|Completed
+|October 7th, 2020
+|October 13th, 2020
+|October 12th, 2020
+|-
+|Configure Google Cloud SQL
+|Complete
+|October 7th, 2020
+|October 12th, 2020
+|October 11th, 2020
+|-
+|Run 30+ generations of EMADE
+|Complete
+|October 7th, 2020
+|October 13th, 2020
+|October 13th, 2020
+|-
+|}
+
+== Week 7: September 30th, 2020 ==
+=== Bootcamp: Intro to EMADE ===
+* We will now use EMADE to create an algorithm that generalizes Titanic survivorship.
+* Learned how to clone the repository and start a run of EMADE locally
+** Configure MySQL by creating a database and entering details into the XML file for the titanic data
+** Our subteam will configure EMADE this weekend and try to run it together this week
+=== Personal Notes ===
+* The <code>.yml</code> Dr. Zutty pushed to the reference repo did not work when I tried to configure a separate conda environment -- I suspect it's an OS issue with Windows based on how the version #'s for the files were written in the file. Since I already installed all of the dependencies on my disk, I decided I would use EMADE without a conda environment for now.
+* MySQL 8 was already configured on my computer so I just had to retrieve my login info and create a database to configure the xml file for titanic.
+* When I tried to do my local run of EMADE, my master got caught in a loop of being stuck at Year One with 508 elements to process and my worker file log had an error referencing threading. I looked at some Stack Overflow posts to try to get a feel for how threading works and poked around <code>didLaunch.py</code> and <code>gtMOEP.py</code> but I could not find anything to try and do other than modify the number of workers which did not change the errors as shown.
+<div class='mw-collapsible mw-collapsed'>
+'''Worker error log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 117, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 111, in main
+    pool = gtMOEP.MyPool(processes=num_workers)
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 212, in __init__
+    self._repopulate_pool()
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 303, in _repopulate_pool
+    return self._repopulate_pool_static(self._ctx, self.Process,
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 319, in _repopulate_pool_static
+    w = Process(ctx, target=worker,
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\process.py", line 82, in __init__
+    assert group is None, 'group argument must be None for now'
+AssertionError: group argument must be None for now
+</code>
+</div>
+</div>
+<div class='mw-collapsible mw-collapsed'>
+'''Master out log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Begin GP!
+
+512 0.5 0.5 0.05 0.25 0.05 0.05 0.05 200 300 512
+
+No pareto front to seed
+
+Got first generation
+
+512 to evaluate
+
+Starting Year 0
+
+Querying database for elements remaining in queue
+
+508 elements remaining in queue, query complete in 0.02 seconds
+
+Good night
+
+Good morning
+
+Starting Year 0
+
+Querying database for elements remaining in queue
+
+508 elements remaining in queue, query complete in 0.00 seconds
+
+Good night
+
+...
+</code>
+</div>
+</div>
+* I eventually resolved this by creating a new conda environment running python 3.6, but received this new error after the first generation was done being evaluated before selection
+<div class='mw-collapsible mw-collapsed'>
+'''Master out log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 117, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 107, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\gtMOEP.py", line 1085, in master_algorithm
+    parents = fun(individuals=gene_pool, k=launchSize, **all_selection_args)
+  File "C:\Users\Maxim\aad-vip\emade\src\GPFramework\selection_methods.py", line 104, in sel_nsga2
+    selected_pop = tools.selTournamentDCD(individuals, k)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\deap\tools\emo.py", line 163, in selTournamentDCD
+    raise ValueError("selTournamentDCD: individuals length must be a multiple of 4")
+ValueError: selTournamentDCD: individuals length must be a multiple of 4
+</code>
+</div>
+</div>
+I eventually fixed this by reinstalling an older version of DEAP; Dr. Zutty shared that the latest version of it was causing this bug. I rolled DEAP back to <code>1.2.2</code>
+
+=== Subteam 3 Meeting: October 6th, 2020 ===
+* Vincent and I tried to ssh into each other's SQL servers, but we couldn't establish a connection
+* Helped Krithik and Angela get started with installing EMADE.
+* Agreed to get office hours help to get EMADE bugs resolved.
+
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|Get EMADE working locally
+|Completed
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|Configure EMADE as a subteam and connect to eachother's databases
+|Postponed (issue)
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|}
+
+== Week 6: September 23rd, 2020 ==
+=== Bootcamp: Titanic Presentations ===
+Subteam 3's [https://github.com/maximgeller/Titanic-Multiple-Objectives GitHub] and [https://docs.google.com/presentation/d/1597u_k5FujjsxW72xXI3dQB0GkeUyko_JRNvBnZZu_U/edit?usp=sharing Presentation]
+* Groups used NSGA-II & tournament for selection
+** Discussed that tournament does not work for a multiple objective problem because it only optimizes for the first objective.
+** Also highlighted that the best individual wasn't actually the best -- just the first one on the Pareto front.
+* My subteam presented our findings.
+** The ML implementation was consistently biased with little variance among dominant solutions
+** Using DEAP, we were able to generate a Pareto front with a smaller area under curve.
+** We used strongly typed GP, a large mix of boolean and floating point operators, and NSGA-II for selection.
+[[files/Pareto-titanic-ml.png|frameless|Pareto Front with ML]]
+[[files/Pareto-titanic-deap.png|frameless|Pareto Front with DEAP]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Complete
+|September 23rd, 2020
+|September 30th, 2020
+|September 25th, 2020
+|-
+|Install EMADE
+|Complete
+|September 23rd, 2020
+|September 30th, 2020
+|September 25th, 2020
+|}
+
+== Week 5: September 16th, 2020 ==
+=== Bootcamp: Using DEAP ===
+=== Subteam #3 Meeting: September 18th, 2020 ===
+* Initialized a shared Github repository for collaborating on the code
+* Reviewed how we implemented GP for multiple objectives in Lab 2
+* We wanted to control the output value from the node tree to be a boolean value so decided to use strongly typed GP<sup>1</sup>.
+* Researched several approaches taken by past teams<sup>2</sup> to create primitives and understand how to write the evaluation function. 
+* Because we split the cleaning and modeling into separate notebooks, we weren't sure if we correctly implemented the evaluation function. Our idea was to compare the output booleans with the true survival column in the data and to see how the individuals evolve.
+* We broke off the meeting to allow me to format the data and for Vincent to create more helper functions for creating unique primitives for creating booleans from a float and division. 
+=== Subteam #3 Meeting #2: September 20th, 2020 ===
+* Figured out how to write the evaluation function and do evolution, but the strongest individual outputted always seemed optimized for only one of the objectives and not the other. 
+* We decided to use NSGA-II for selection because we wanted to have a diverse range of solutions and NSGA-II's approach to crowd distancing<sup>3</sup> helps with that.
+* The Pareto front had an AUC of ~0.2 thanks to a mix of boolean and float operators. We evolved over 80 generations.
+
+==== References ====
+[https://deap.readthedocs.io/en/master/tutorials/advanced/gp.html 1 - Strongly Typed GP]
+
+[https://github.gatech.edu/schoudhury40/TitanicProjectGroup1/blob/master/deaptitanic.py 2 - S19 Team 1]
+[https://github.com/xenoframium/VIP-Titanic/blob/master/titanic_GP.py S19 Team 5]
+
+[https://www.ias.ac.in/article/fulltext/sadh/037/06/0675-0694#:~:text=The%20advantages%20of%20NSGA%2DII,pareto%2Doptimal%20solution%20as%20possible. 3 - NSGA-II (p. 680)]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Complete
+|September 16th, 2020
+|September 23rd, 2020
+|September 23rd, 2020
+|-
+|Create predictions CSV for MOGP
+|Completed
+|September 22nd, 2020
+|September 23rd, 2020
+|September 23rd, 2020
+|-
+|Reconcile Evaluation Function
+|Completed
+|September 18th, 2020
+|September 20th, 2020
+|September 20th, 2020
+|-
+|Implement DEAP on Titanic data
+|Completed
+|September 16th, 2020
+|September 23rd, 2020
+|September 21st, 2020
+|-
+|Create Github repo and push clean data and ML models
+|Completed
+|September 16th, 2020
+|September 18th, 2020
+|September 17th, 2020
+|-
+|Format data to be properly used for DEAP
+|Completed
+|September 18th, 2020
+|September 18th, 2020
+|September 18th, 2020
+|}
+
+== Week 4: September 9th, 2020 ==
+=== Bootcamp: Introducing Titanic & Machine Learning ===
+* Split into subteams using our pareto optimality
+* Discussed the titanic dataset Kaggle competition
+* Went through a notebook showing example feature engineering and modeling with scikit-learn
+* Broke out into subteam meeting immediate after to make introductions and plan time to preprocess data together
+
+=== Subteam #3 Meeting: September 10th, 2020 ===
+* Created GroupMe to stay in close contact
+* Discussed methods for preprocessing data
+** Created a feature that encoded the deck a passenger was on, since each deck had a different proximity to the ship's escape routes. Inspired by a [https://www.kaggle.com/gunesevitan/titanic-advanced-feature-engineering-tutorial/data#1.-Exploratory-Data-Analysis Kaggle notebook].
+** Filled NaNs on Deck with a placeholder "missing" value. All values were encoded to numbers.
+** After encoding a feature for Deck, we dropped the Name, Ticket, and Cabin features since they didn't seem like likely predictors
+** We filled the missing values in Age with the median age, the missing values in Fare with the mean fare, and the missing values in embarkation with the mode embark point and encoded them all to numbers.
+* Explored the possibility of using KFold for cross validation, but ultimately decided not to and to stick with the objective of creating 4 co-dominant models.
+* Assigned each team member a few different models to try, agreed to be in touch to assess multiple objectives of FP and FN.
+
+=== Independent Work: September 13th, 2020 ===
+* Decided to use the Support Vector Machine classifier from scikit-learn to model the prepared data
+* After a simple train test split, I fitted the model with just a linear kernel at first. This got me good accuracy and was a good general model for predicting the outcomes.
+* Learned about the [https://www.youtube.com/watch?v=Z2_yh2sice8 radial basis function kernel] and decided to start experimenting with it instead.
+* Also researched trade-offs of cost parameter C and the Gamma parameter using [https://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html scikit-learn docs]
+* I first tried GridSearchCV to pick hyper-parameters, but it led to over-fitting. The accuracy on my local model was high, but very poor on Kaggle. I decided to pick and choose the C and gamma to give me a model that best generalized the data so that I would get a relatively equal number of false positives and false negatives
+* My final model had an accuracy of 0.81, with 24 false positives and 32 false negatives. My hyper-parameters were <code>kernel='rbf', C=1000, gamma=0.00001</code>
+* After updating my notebook, I completed my notebook self evaluation found [https://vip.gatech.edu/wiki/images/7/71/GellerMaximAADNotebookRubric.pdf here].
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Complete Notebook Self Eval Rubric
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Subteam meeting to preprocess Titanic data
+|Completed
+|September 9th, 2020
+|September 10th, 2020
+|September 10th, 2020
+|-
+|Create a SVM model for predicting survivors of the Titanic
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Compare results with team to ensure co-dominance
+|Completed
+|September 10th, 2020
+|September 16th, 2020
+|September 15th, 2020
+|}
+
+== Week 3: September 2nd, 2020 ==
+=== Bootcamp: Multiple Objectives & Pareto Optimality ===
+* We often have a variety of objectives we want to solve to get the best solution for
+* Accuracy, specificity, sensitivity, precision, and more
+** Confusion matrices help us visualize this
+* These vectors can be fed into ML models (typically classifiers)
+* Pareto optimization refer to solutions that don’t have a better one — idea of trade offs between objectives
+* There are 2 algorithms used to divide up a solution set of data points: NSGA-II & SPEA-2
+* Rank 0 solutions are the Pareto frontier: nothing better than them.
+** The strength S of a solution can tell us how many other solutions it dominates
+** A solution that dominates is one that beats out another in all objectives
+* We don’t discount the other solutions though because the results could have been confounded by the sample set
+=== Lab 2 Part 2 Notes ===
+* Followed the lab to solve the multiple objective problem with symbolic regression
+* Plotted Pareto Frontier to visualize how individual solutions can dominate each other
+* <code>Area Under Curve: 2.338791327080944</code>
+* Strongest individual: <code>subtract(multiply(x, x), cos(x))</code>
+[[files/Pareto-front.png|frameless|Pareto Frontier]]
+[[files/Lab-2-pt2.png|frameless|Evaluating fitness using SR]]
+* I decided to try removing the trig function primitives when tasked with lowering the AUC by 25%. This worked rather well as I got the area to be just <code>0.6912744703006891</code> but there weren't too many combinations on my Pareto frontier.
+* The strongest individual was <code>subtract(x, x)</code>
+[[files/my-pareto-front.png|frameless|Pareto Frontier]]
+[[files/evolution-graph-lab2-2.png|frameless|Evaluating fitness using SR]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 2nd, 2020
+|September 9th, 2020
+|September 9th, 2020
+|-
+|Lab 2 Part 2
+|Completed
+|September 2nd, 2020
+|September 9th, 2020
+|September 9th, 2020
+|}
+
+== Week 2: August 26th, 2020 ==
+=== Bootcamp: Genetic Algorithms ===
+* In genetic programming, the most common program structure is the tree representation. 
+* The '''primitives''' interact with the inputs in order to produce an output from the entire function. 
+* The functions with the best output mate and produce the next generation.
+* We use the mean squared error to evaluate the output with the true value to figure out the strongest algorithms.
+* Mutation happens by inserting or deleting a node or subtree, or changing a node
+=== Lab 2 Part 1 Notes ===
+* Initially, I added primitives to square and divide the terminals, but I was getting some extremely large results, so I eventually went with just multiplication and addition.
+* The mutation I chose was [https://deap.readthedocs.io/en/master/api/tools.html#deap.gp.mutInsert mutInsert]. As shown in the graph, this was able to slightly reduce the error but not fully to 0.
+[[files/Lab-2-chart.png|frameless|Results of GP]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|August 26th, 2020
+|September 2nd, 2020
+|September 1st, 2020
+|-
+|Lab 2 Part 1
+|Completed
+|August 26th, 2020
+|September 2nd, 2020
+|September 1st, 2020
+|}
+
+== Week 1: August 19th, 2020 ==
+=== Introductory Notes ===
+* Overview of AAD wiki
+** Syllabus
+** Notebooks
+** EMADE repository
+=== Bootcamp: Genetic Programming ===
+* Genetic programming is a paradigm where algorithms are created from the fittest individuals of the population through mating and mutation.
+* Selection is done using either a fitness proportionate method or a tournament
+* Mating is the creation of a new algorithm, the crossover can have one or two split points
+* Mutations are random modifications that help maintain diversity
+* The One Max problem has a goal of producing a vector where the sum of the vector is equal to its length i.e. converting a vector with some 0's and 1's into a vector with all 1's.
+* We'll be using the DEAP library
+
+=== Lab 1 Notes ===
+* Studied the application of DEAP's toolbox to the one max problem by using a double split mating and tournament selection.
+* Viewed the N Queens problem with the key difference to minimize rather than maximize as we did with one max. 
+* I found that using the [https://deap.readthedocs.io/en/master/api/tools.html#deap.tools.mutUniformInt uniformInt] mutation more consistently minimized the number of generations necessary than the shuffleIndexes mutation
+[[files/N-queens-shuffleindices.png|frameless|N Queens with shuffleIndexes]]
+[[files/N-queens-uniformint.png|frameless|N Queens with uniformInt]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Begin notebook
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|-
+|Lab 1
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|-
+|Install DEAP
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|}

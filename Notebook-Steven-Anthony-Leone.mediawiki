@@ -1,0 +1,1850 @@
+== Team Member ==
+[[files/A Photo of Me.jpg|thumb]]
+<b>Team Member:</b> Steven Leone <br>
+<b> Major: </b> Computer Science <br>
+<b>Email:  </b>sleone6@gatech.edu <br>
+<b>Cell Phone:</b> (412)-378-7253 <br>
+<b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
+<b>Sub Team:</b> NLP-NN
+
+= Spring 2021 =
+
+== MySQL Common Errors Table==
+The most common MySQL issues we've run into on PACE are documented below. Use the index to look for a more thorough explanation below.
+
+{| class="wikitable"
+!Index
+!Error Title
+!Cause of Error
+!How to Resolve
+|-
+|1
+|Server won't start
+|Port is likely in use via submitted job or terminal
+|qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
+|-
+|2
+|Malformed Credentials
+|Password is stored incorrectly in MySQL due to version discrepancies
+|SET PASSWORD FOR 'gt_username'@'%' = PASSWORD('password');
+|-
+|3
+|Access Denied
+|It's likely that this is a new database created, or permissions weren't granted correctly.
+|Re-grant privileges, specify user address
+|-
+|4
+|Can't Connect to MySQL
+|MySQL may be running in the wrong manner (not a terminal, not a submitted job)
+|Ensure proper server address (job or from terminal)
+|-
+|5
+|2003 MySQL cannot connect
+|PACE has too many users; the host address has changed for MySQL
+|After starting mysql, run qstat -n to find the name of the host it’s running on, and swap it in input.xml
+|}
+
+===Further Elaboration on Error Descriptions===
+* 1) From PACE this semester, I've learned that MySQL can run either as a submitted job to PACE or on the terminal, by opening up another terminal window and running it from the /usr tab. If you're attempting to run MySQL and it won't start, then it's likely that it's already running one one of these methods (the one you're not trying to use). To remove a submitted job, run "qstat" at the terminal, and delete the index of the job that's described as "mysql-job", and you are also listed as the owner with your GTID with that same job. To remove from the terminal, run lost -I:PORT#. If MySQL is running on PORT#, you will see a PID#. run "Kill PID#".
+* 2) This error is caused by discrepancies between versions of MySQL, where passwords are stored differently. To update, simply run the command using the root user inside of MySQL.
+* 3) Permissions issues often result, especially when specificity is not defined. I recommend granting privileges both to yourself using wildcards, and your specific addresses the error specifies. For example, if it says "Access denied for sleone6@localhost", grant all privileges to "sleone6@localhost", as opposed to just using the wildcard. Theoretically, wildcards should mean you don't have to do this, but often times this is the exact case.
+* 4) Similar to #1, but this is often the fault of specifying the wrong server address in the input.xml file. A submitted job normally runs on atl1-1-02-012-5-l, while running from the terminal runs on localhost. Ensure this is properly specified in the <server> tag of the input xml file.
+* 5) This often happens when too many users are connected to PACE. Often times, the server address runs on an address like atl1-02-012-5-r instead of atl1-02-012-5-l. To find the right address, run "qstat -n", and the address of your MySQL job will be listed.
+
+== Week 14: April 26, 2021 ==
+
+=== General Meeting Notes ===
+*NLP/NN
+**Cameron pushed a large update to the Git
+**Generations run much faster now
+*Modularity
+**Have some new objectives, doing 3 experiments
+**Week is mostly focused on runs
+**Using precision and recall on them
+**Using 3 objectives, unsure if DEAP will still work w/ hyper volume; they will flatten to 2d to evaluate.
+*EZGCP
+**Did work on researching primitives
+**scraped some common pre trained layers
+**visualized them all to see which ones would be a priority to implement
+**Adding batch normalization
+**Mating can be very destructive, so not usually used w/ cartesian
+*Stocks
+**For the past week, they did a run w/ emade using new technical indicators
+**Modified some hyper parameters in EMADE for this run; ran it for longer
+**One individual outperformed seeded individual by a considerable amount
+**That individual outperforms the mean by a considerable amount
+**No other individuals performed this well.
+**Will be using seeding functions that first semesters wrote
+=== Sub Team Meeting ===
+*Cameron put out a rather large new update
+*I showed the large improvement we got from seeded mediocre individuals
+*We'll meet on Wednesday to discuss our final presentation
+
+=== Friday Presentations ===
+*Stocks
+**Main goal: look at how EMADE can optimize Stock Trading
+**Semester Objectives: Implement TA-Lib Indicators, increase "evolvability" of EMADE individuals, test on larger datasets, analyze specific individuals, work on objective functions and evolutionary parameters, implement technical indicators researched
+**Based methodology off of a paper. It discussed Piecewise Linear Representation and Exponential Smoothing.
+**Created 3 main subgroups and general interest areas: Literature Review and Research, Data Analysis of runs, EMADE implementation
+**Groups were not mutually exclusive
+**Removed TriState and Axis parameters from TI primitives
+**TA-Lib makes adding primitives much easier
+**Wrote new technical indicators
+**New indicators: Volume Weighted Moving Average, Volume Weighted Average Price, Fibonacci Retracement
+**Also implemented Money flow index, Chaikin money flow, and Klinger volume oscillator
+**Run 1 Results with 4 objectives, 328 generations:
+***AUC: 0.002915
+***Pareto Fronts seem to decrease, especially on var profit per transaction
+**Notable Individual: the best performing one was a variant of MyBollingerBand
+**Another Notable Individual: wasn't as well in performance, but not as volatile
+**Team is utilizing Monte Carlo Simulations
+**Individuals are consistently above average, and more than just in terms of profit
+*EZGCP
+**Refresher: EZGCP uses a graph based instead of tree based structure
+**Midterm Recap: Removed augmentation and preprocessing
+**Midterm Accuracy: Training had high accuracy, but validation was low (overfitting)
+**Objectives: Recreate similar results on CIFAR-10 without relying on transfer learning, improve ability to visualize genomes, research and make new mating methods for cartesian GP
+**Results: Analysis showed that individuals produced matched the target distribution
+**Deeper individuals were required to produce results on CIFAR-10
+**Finished max pooling, average pooling, and dropout
+**After 50 generations, they reached 68.5% (compared to 56.3% without the primitives)
+**Experimented with the introduction of dense layers after convolutional layers; had issues with low diversity and poor performance compared to SOTA and transfer learning.
+**Read Cartesian Genetic Programming Paper to improve EZGCP
+**Ran regression defined on 4 objectives as defined in the paper (Koza-3, Nguyen-4, Nguyen-7, Pagie-1)
+*NLP/NN
+**We presented our findings with regards to evolving complex individuals on the Amazon Dataset this semester.
+*Modularity
+**Overview: Background, Experiments, Analysis
+**Modularity: exploring ways to abstract parts of individuals
+**This allows for creating "building blocks"
+**ARL is Adaptive Representation through learning
+**Previously, searched the population for combinations of parent and children nodes
+**Ongoing project: increase complexity of ARLs. 
+**Edited multiple methods to deal with increased depth of ARLS
+**Experiment setup: Titanic dataset had feature data, MNIST had stream
+**Potential objectives: Precision, Recall, F1, Accuracy, Cohen Kappa Score
+**30 Seeded individuals in MNIST had an F1 and accuracy score < 0.1.
+**Would like to change seeding file individuals for MNIST
+
+====Lessons from Presentation====
+*The presentation was stopped, and questions were asked about my slide comparing improvements in accuracy when seeded individuals had mediocre accuracy (70%) versus accuracy near our baseline model (91%).
+*The key takeaway was that marginal improvements in accuracy were due to seeds already having very high accuracy (low error to minimize) yet high number of parameters (which left a lot to minimize), as opposed to an error existing in EMADE or the NNLearner. This was not conveyed well.
+*Ideas to improve this could have been showing the accuracies directly on the Pareto Front. Having a key takeaway note on the slide as opposed to using space to show one of the individuals may have better conveyed this as well.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Pull Cameron's update
+|Complete
+|04/26/2021
+|04/27/2021
+|04/30/2021
+|-
+|Get a False Positive False Negative Run in w/ updated branch
+|Complete
+|04/26/2021
+|04/28/2021
+|04/30/2021
+|-
+|Analyze Runs and Make Visualizations
+|Complete
+|04/28/2021
+|04/29/2021
+|04/29/2021
+|}
+
+===Emade Runs===
+*We wanted to get a decent sample of runs using false positive rate and false negative rate as the objectives in order to get some confidence intervals on the runs so that we could conclude that our final individuals improved from our seeded individuals. Having PACE setup, I had to get one of these runs in.
+*First, I pulled the changes Cameron made on GitHub. This required taking the files from Github and using scp to transfer them to PACE as the .git folder had to be removed due to disk quote issues.
+*After running bash reinstall.sh, I then had to change the input.xml file to accommodate the new changes. The biggest difference was adding pace path.
+*By the time I got to runs, however, PACE was overloaded, so MySQL was not working. I asked about it on the slack, and Cameron told me he had run into MySQL Error: 2003 as well before. It happens when too many people are on pace, so a different host is used for MySQL. Thus, I had to run stat -n to find the name of the host, and change it in the input.xml file. I added it to the MySQL common errors documentation, at the top of my notebook.
+*I was then able to successfully run EMADE using FPR and FNR. I uploaded my runs to the "Runs Results" google doc. Across 3 8 hour submissions to PACE, it reached generation 40. 
+
+===Presentation Work===
+*We met on Wednesday to talk about our presentation, and did a rehearsal on Thursday.
+*I was tasked with 2 slides.
+**1) A slide explaining our difficulties with PACE, and how we future proofed ourselves to prevent having such difficulties again.
+**2) A slide explaining our initial run results on PACE, and how we had only marginal improvements in accuracy due to the high accuracy of our seeds, which already almost reached the baseline model Sumit made using fastext.
+*The first slide was easy, as we had already compiled much of our PACE issues for our midterm presentation. I shortened them, splitting them into two categories (EMADE and PACE errors). Harrison would discuss the MySQL issues we've documented.
+*I created better visualizations of the Pareto Front for the individuals resulting from 90% accuracy achieving seeds versus individuals resulting from 70% accuracy achieving seeds. These visualizations are shown below.
+**[[files/medseeds-amzn.png]]
+**[[files/baselineseeds-amzn.png]]
+*On a side note, these visualizations are much better than the ones I manually graphed for my notebook, and convey the details, such as the actual Pareto Front using the steps, very well. I will use python and matplotlib to graph from now on, as opposed to excel.
+*I also looked into the master.out files and added area under the curve values.
+*As an update, I should use accuracy next time, as that was the metric I was elaborating on, as opposed to area under the curve.
+
+== Week 13: April 19, 2021 ==
+
+=== General Meeting Notes ===
+*NLP/NN
+**We presented our progress; Most members are on PACE
+**We're making progress w/ getting individuals with some complexity
+*EZGCP
+**Mating team finished last week's paper, working on benchmarks
+**Dense layers had a best accuracy of 55%
+**Visualization team added Parameters
+*Modularity
+**ARL's are properly being created and added to the database
+**Everyone is tasked on the team of restructuring the database
+**Getting things ready for the final presentation
+*Stocks
+**Considering adding more datasets
+**Plan to do an Emade Run to use newly made functions
+
+=== Sub Team Meeting ===
+*We discussed results about my most recent run
+*Hua's runs are stock on Generation 1
+*Moving to using false positives and false negatives instead of accuracy/num parameters may be the best move.
+
+=== Friday Meeting ===
+*Discussed my mediocre individuals run and improvement
+*Will begin shifting focus to how to present our findings this semester best in our presentation
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Complete and Analyze Mediocre Seeded Individuals Run
+|Completed
+|04/19/2021
+|04/25/2021
+|04/26/2021
+|}
+
+=== EMADE Run on PACE ===
+*With my mediocre individuals seeded, I then ran EMADE again to see how close it could get to our benchmarked results that Sumit and Anshul produced (92%).
+*The final Pareto individuals (blue) are shown against the seeded (red) individuals below. Note that some red, particularly on the number of parameters axis, can't be seen as they are directly below the blue.
+
+[[files/emadeamzn3.png]]
+
+*The best results were these two individuals
+**NNLearner(ARG0, OutputLayer(EmbeddingLayer(5, ARG0, glorotUniformWeights, InputLayer())), myIntMult(falseBool, 3), NadamOptimizer)
+**NNLearner(ARG0, OutputLayer(EmbeddingLayer(-3, ARG0, passWeightInitializer(passWeightInitializer(heWeights)), InputLayer())), 128, RMSpropOptimizer)
+*This individual had a bit above 89% accuracy. It wasn't Pareto at the end, but it is rather complex:
+**NNLearner(HighpassIrst(ContourMaskMinEquDiameter(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_1, 10), passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.AXIS_1)), OutputLayer(EmbeddingLayer(myIntMult(6, 6), ARG0, heWeights, InputLayer())), -4, RMSpropOptimizer)
+*Both score between 89% and 90% accuracy, compared to the 66% accuracy that our seeded individuals offered us.
+*The difference is quite significant. This leads me to believe that we aren't having a problem with obtaining complex individuals, especially as we've reached just 2% shy of the benchmarked best possible solution we could get. Else, we would have had trouble getting past 66%. Furthermore, the individuals EMADE produced are quite complex. This would lead me to believe that, last semester, the lack of complexity was due to num parameters being an objective. With a data set split 95 to 5, it's quite likely that a simple learner could still score extremely high on accuracy, while, due to its lack of complexity, score really well on num parameters as well. This, however, only has the good results of Amazon to evidence this conclusion; more analysis may be needed.
+
+== Week 12: April 12, 2021 ==
+
+=== General Meeting Notes ===
+*NLP/NN
+**Cameron has runs that we will look at in the general meeting
+**We've laid out tasks for people to work on, and assigned them
+*Stocks
+**Still onboarding first semesters
+**Random experiments found that they were doing much better, other than on hypervolume
+*EZGCP
+**New members are working on visualization and mating
+**Added average pooling, hardcoded some dense layers
+*Modularity
+**Made progress on the depth problem (functions being found, lambdas created)
+**Added more members to database restructuring task
+
+=== Sub Team Meeting ===
+*Cameron and I both finished rather large runs that we analyzed in the meeting.
+*Our results (visualized in my work below) were not too different from the seeded individuals, which was quite disappointing.
+*Dr. Rohling commented on our discussion.
+*He noted that we had to visualize our seeded individuals on the Pareto Front as well. It would be one thing if these individuals evolved from 60%, but another from the 92% individuals.
+*Most of our new members all have PACE setup now.
+*Anshul and Sumit are essentially done as well.
+
+=== Friday Meeting ===
+*We wrapped up tasking people via the google doc.
+*Harris, Nishant, and Karthik are exploring how to query the database and how individuals are stored by EMADE in MySQL.
+*I will continue trying to find bad individuals.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Seed Amazon w/ less accurate individuals
+|Completed
+|04/12/2021
+|04/16/2021
+|04/16/2021
+|-
+|Look into potential new tasks
+|Completed
+|04/12/2021
+|04/16/2021
+|04/16/2021
+|}
+
+=== EMADE Run on PACE ===
+*To get around the 8 hour PACE wall time, I changed the location the database was hosted on to localhost:3307, so that I could run EMADE from the terminal. Thus, as long as my laptop didn't sleep, EMADE could keep going. I used the Mac command "caffeinated" in a different terminal to accomplish this.
+*In total, this second run ran for 24 hours, seeded with 10 individuals, all similar but slightly changed from the single NNLearner previously seeded. The Hypervolume here was 70360579.5, an improvement from the last run. There were 6 Pareto individuals, shown on the Pareto Front below.
+
+[[files/AmznRun2-resized.png]]
+
+
+*These results are noticeably similar to the first Amazon Run. Disappointingly, the best individual regarding accuracy is only slightly different from the seeded one. This best individual is '''NNLearner(ARG0, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, GRULayer(150, eluActivation, 50, trueBool, trueBool, EmbeddingLayer(-4, ARG0, heWeights, InputLayer())))), 89, RMSpropOptimizer)'''. The number of parameters is improved though, suggesting that it was slightly optimized along this end.
+*The number of parameters Pareto Front is much more fleshed out in this run. While the ones with only around 300 parameters are trivial solutions (an accuracy of about 50%, essentially guessing all positive or all negative each time), they at least explore this end of the Pareto Front.
+*One of the reasons why the seeded individual is not being surpassed in accuracy is that this may be as accurate as the individual can easily get. The benchmark Sumit and Anshul had was about 93% accuracy. Therefore, if we seed an individual that already gets extremely close to this number, it will be incredibly hard to improve upon it. Seeding less accurate individuals might be a better way to see if EMADE can produce complex individuals.
+*Through the meeting, it was also discussed with Dr. Rohling that it would be nice to see the seeded Pareto Front on the same chart. We also discussed how it would drastically change things if seeded individuals were already performing as well as the results.
+*Consequently, I decided to begin looking into new individuals to seed that would not be already performing at near maximum accuracy.
+*To start, I began a non seeded run. This should weed out non NNLearners fairly quickly, and get some poor performing NNLearners at first before reaching maximum accuracy.
+*Most of the individuals produced here were fairly trivial, only reaching about 50% accuracy in an evenly split binary classification problem.
+*One individual, NNLearner(ARG0, OutputLayer(EmbeddingLayer(6, ARG0, heWeights, InputLayer())), myFloatToInt(100.0), AdagradOptimizer), received about 66% accuracy. This would do nicely for the problem of needing mediocre individuals. I began testing variants of this individual to seed.
+
+=== Looking into New Tasks ===
+*I checked the tasks list, and noted that the analysis and getting EMADE to work on PACE tasks that I've been doing fell under the "Evolutionary" category of new tasks. I marked myself down to work on this, so that I could continue working on the same problem I've been working on all semester.
+
+== Week 11: April 5, 2021 ==
+
+=== General Meeting Notes ===
+*Stocks
+**Continued with their onboarding process for first semester students
+**finished all Talibans methods, but final optimizations are not done yet
+*NLP/NN
+**I am working on resolving final errors
+**Cameron discovered the problems with PACE
+**Anshul will give a presentation on Neural Networks
+*Modularity
+**Still benchmarking MNIST
+**Still working on the depth problem
+**Will do Analysis the rest of the semester
+*EZGCP
+**Acheived a run, obtained 68% accuracy
+**Had just one individual with only small mutations at the end of a couple generations
+
+=== Sub Team Meeting ===
+*We worked on getting people setup on PACE
+*The issue with transformers keeps popping up, despite it being in the YML file. This is rather strange; when extra time exists, we'll have to look into it.
+
+=== Friday Meeting ===
+*Anshul gave a presentation on neural networks
+*Karthik made a script to facilitate ease of initial tasks when logging into PACE
+*I wrote my script to divide the dataset, and will get a long run in over the weekend
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Resolve Large Dataset Issue
+|In Progress
+|04/05/2021
+|04/09/2021
+|04/09/2021
+|-
+|Resolve NNLearner Code Issue
+|Complete
+|04/05/2021
+|04/09/2021
+|04/09/2021
+|-
+|Discover why NNLearners all Fail
+|Complete
+|04/05/2021
+| 04/09/2021
+|04/09/2021
+|}
+
+=== EMADE Run on PACE ===
+
+====Resolving Final Errors====
+*Having discussed the errors with NNLearner and the Amazon dataset on Friday, I worked to resolve these issues.
+*Cameron already resolved the bug in the NNLearner that he found. I pulled this updated file and ran "bash reinstall.sh" to fix this.
+*Now, the final issue was the size of the Amazon dataset. As there were 3.6 million examples in the training file, it was 20 times the size of toxicity, and was consequently crashing PACE, which made evaluating NNLearners fail every time. This is why every NNLearner had a fitness of (infinity, infinity) during the runs, even known good seeded ones.
+*My initial plan to resolve this was to use K-folds, however, instead of partitioning the same dataset into different train and test splits, I would divide the dataset up into 20 evenly split groups. Then, I could enter the datasets into the XML file the same way as K-folds are used in the input_titanic.xml file.
+*First, I loaded in arrays from the .npz test and train files, as this was the only way to work with non-utf8 characters. I ran into an issue with the default settings of bumpy, however, shown below
+[[files/PickleValueError.png]]
+*I resolved this by saving numpy's default load settings to change back to at the end, and then inserting this line of code before loading the .npz files: "np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)"
+*This code changed the value allow_pickle to true, fixing the error. Below, I've shown the code that fixes this error, and successfully loads in the data.
+[[files/PickleValueErrorFix.png]]
+*I don't have permission to push to Github, so I gave the script and results to Cameron. He took one of the splits and pushed it to Github, which can be found here: https://github.gatech.edu/emade/emade/tree/nn-vip/datasets/amazon
+*Having resolved this error, I proceeded to writing a script performed as intended, dividing up the dataset and saving it to 20 test and train csv files.
+*You can download this script here https://drive.google.com/file/d/1Wdv3BQwyBsQDLfyjGOovei1xjDaOoF2u/view?usp=sharing
+[[files/AmznFoldingScriptResized.png]]
+*I discovered we couldn't use folds for the dataset in this branch
+*I resorted to only use a dataset that was 1/20th of the size
+*The training data was now a 49.3/50.6 split, which should be good enough still to get non-trivial results.
+
+====Running EMADE, results analysis====
+*With the NNLearner fixed and data set divided properly, I could now do runs that yielded meaningful results.
+*Thus, I started my first run. I seeded one NNLearner, set wall time on PACE to the max (8 hours), and let it run.
+*It hit 8 hours without any errors. In total, it ran for 15 generations, had 3 Pareto individuals, and a hyper volume of 71355488.6. The results are shown in the graph below.
+[[files/AmznRun1-resized.png]]
+*The results are rather disappointing. There's a large amount of unexplored territory on the Pareto Front, especially on the number of parameters axis. Furthermore, the individual with the most accuracy is identical to the seeded individual. This individual, with an accuracy of 92.9%, was NNLearner(ARG0, OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer).
+*Other results that appeared did work well, but none surpassed this seeded individual in accuracy. This was of concern, as EMADE was unable to improve upon a seeded individual in regards to accuracy. Other individuals had close to as high accuracy and less parameters, but none scored as high on accuracy.
+
+== Week 10: March 29, 2021 ==
+
+=== General Meeting Notes ===
+*Modularity
+**Still testing against the depth problem
+**Multiclass False positives and false negatives may be outdated
+*NN/NLP
+**We've decided that an all out attempt to get everyone setup on PACE was best for us
+**Sumit is also moving from benchmarking to getting set up on PACE
+**Based off our presentation, we'll be all out focusing on getting non-trivial results
+*Stocks
+**Doing General Onboarding with members
+*EZGCP
+**Working on adding dropping and max pool layers
+**Also working on onboarding new members
+
+=== Sub Team Meeting ===
+*Most of this meeting was spent acquainting new members with our branch and goal for the semester
+*I compiled several links needed to get PACE up and running.
+*I pasted them into the slack and BlueJeans call.
+*I also gave an update on my progress w/ Amazon Dataset.
+*All members were to start trying to get PACE set up as soon as the wiki was available again.
+
+=== Friday Meeting ===
+*I gave an update on my progress. Having run into logical errors in the code, I was doing a deep dive into EMADE to understand what was going wrong.
+*Cameron actually already found two issues.
+**The first was a bug in NNLearner, which he pushed a fix to Github for
+**The second was that the dataset was too big
+*He talked about a couple solutions for the size of the dataset, such as changing the padding size for text, which was well larger than needed.
+*I suggested splitting up the data and using it the same way K-folds were used.
+*After that, he gave a brief presentation on EMADE to the first semesters.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Do a Seeded Run on Amazon
+|Complete
+|03/29/2021
+| 03/29/2021
+|03/29/2021
+|-
+|Familiarize with EMADE code
+|Complete
+|03/29/2021
+|04/01/2021
+|04/03/2021
+|-
+|Discover why NNLearners all Fail
+|Complete
+|03/29/2021
+| 04/01/2021
+|04/03/2021
+|}
+
+=== EMADE Run on PACE ===
+*With the code working, I was able to get a seeded run in.
+*After 6 hours, the run hit wall time on PACE without any errors.
+*However, the NNLearners were all still failing.
+*I began to use standalone_tree_evaluator.py to run an NNLearner individually, and see results.
+*Just like in the full runs, the NNLearners were returning infinity on both objectives, accuracy and number of parameters. This was confusing; even if accuracy had the worst score, there was definitely a finite number of parameters, well below the maximum defined by the XML file.
+*As a result, I started to do a deep-dive into the code base for EMADE, to see what was going on.
+
+== Week 9: March 22, 2021 ==
+
+=== General Meeting/Presentation Notes ===
+* Stocks
+** Overview: How can we use technical indicators to predict specific stock trends and buy/sell signals
+** Previous semester had an inconsistent research paper, so they found a new one
+** Writing more Technical Indicators
+** Using the same stocks, except for EPISTAR as they can't find it
+** ML Model is used to predict trading signals
+** Technical issues include deciphering implementation details (such as whether or not to use a Genetic algorithm) 
+** Just did an EMADE run, ran for roughly 6 hours
+** Some transactions resulted in a loss. This is likely due to lag.
+* Modularity
+** Exploring ways to abstract parts of individuals
+** allows for "building blocks" to help the process"
+** ARL: adaptive representation through learning (thus, when a good part of a tree is found, it can become a new primitive).
+** Using Sphinx this semester to generate documentation
+** New method: searching an individual (takes in an individual ARL candidate, traverses node in order).
+** Making progress on all subtrees
+* NLP
+** We presented our work for the semester
+* EZGCP
+** "easy cartesian genetic programming": graph based instead of tree based
+** Using a block structure, so block only has data of a particular type
+** Each block has its own set of mating and mutating strategies
+** Primary goal for last semester was using the Block Structure on CIFAR-10 dataset
+** They were able to successfully evolve with existing pre-trained model followed by transfer learning
+** Exploring Transformers and RNN
+** Pretrained and seeded models were likely redundant with Transfer learning, which they are trying to move away from
+* Bootcamp 1
+** Used EMADE to predict who survived the Titanic
+** Used univariate selection, feature importance, and correlation matrix with heatmap to pre-process data
+** Used 7 different ML Models
+** Minimized squared sum of FN and FP and maximized squared sum of tp^2 and tf^2
+** Had to turn off firewall to allow connections (this doesn't seem right from my POV view though... were they not using a stateful firewall? Why wasn't an entry added to their Access Control List? Not relevant exactly to the topic, just caught my interest).
+* Bootcamp 2
+** Used one hot encoding
+** dropped cabin column
+** used "regex" to extract names
+** dropped embarked column
+** Used 6 models, including xboost, SVM, RF, nn, and logistic regression
+** Best individual primitive tree performed best toward FPR
+** Ran EMADE for 20 generations
+* Bootcamp 3
+** Genetic Programming performed the best, followed by EMADE then ML
+* Bootcamp 4
+** Again, EMADE was outperformed by Genetic Programming
+* Bootcamp 5
+** Preprocessed
+** Used KNN, Neural Networks, and decision tree
+** Only difference in their pre-processing is that they normalized individuals before putting them in (normalized entire dataset)
+** Had a very good AUC on Genetic Programming Runs, while ML only had an AUC on .2379
+** On EMADE, they ran for only 4 hours, with 37 generations, and had an AUC of .2374
+=== Friday Meeting ===
+* Having presented our work, we decided on our best path forward for the rest of the semester
+* We decided that everything we do should focus on our overall goal of fixing any error in the NNLearner
+* I gave my update on the run I did, running into the empty sequence error. I was informed that this issue had actually been resolved via code changes that I had to update, as detailed below in this week's work.
+* We decided that, to make any meaningful progress, we would have to get everyone set up on PACE.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Do a Seeded Run on Amazon
+|In Progress
+|03/12/2021
+|
+|03/29/2021
+|-
+|SCP new NNLearner Code from Git
+|Complete
+|03/26/2021
+|03/27/2021
+|03/29/2021
+|}
+
+=== EMADE Run on PACE ===
+* Having presented our work, I moved forward with trying to debug the error I was getting (the one in remove_layer, detailed in the previous week). 
+* The first thing I tried was creating a new environment from scratch; this lead to nowhere.
+* I tried re-seeding, after deleting all individuals from my database. I did this using the "drop table individuals" command in MySQL.
+* This seems to have worked; I got up to Generation 6 without error. Therefore, I think this was definitely the result of a primitive or some part of an individual, which didn't always pop up in runs. Below I've documented a learner that I was getting this issue with. In the near future I'll have to further investigate this to see exactly why it's giving this issue. For now, the main focus is on trying to successfully get complex individuals on the Amazon Dataset with EMADE.
+** Individual that crashed the run: '''''NNLearner(ContourMaskMinEnclosingCircle(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_2, 0.01), [], greaterThan(10.0, -1.98222821704125), passOptimizer(FtrlOptimizer))'''''
+* Instead, I got the error shown below during Generation 6.
+* [[files/Empty Sequence Error.png|alt=Empty Sequence Error|none|thumb|554x554px|Empty Sequence Error]]
+* I remembered that Cameron and Anish had run into this issue. From reading the slack, I though it was an issue with the Pre-trained Embedding layer.
+* However, on Friday, I learned that it was actually a result of errors in the code. Changes had been pushed to Github. Changes were made in emade_operators.py and eval_methods.py. I copied these over into PACE using scp and ran them.
+
+== Week 8: March 15, 2021 ==
+
+=== General Meeting Notes ===
+* Stocks
+** Ran EMADE using new primitives and new pipeline
+** results were interesting; not good
+** a lot of individuals didn't evaluate properly
+** a lot of errors; only 2 or 3 valid individuals over the course of the entire run (even after seeding of 20-30 individuals)
+** There are likely problems with the code
+* Modularity
+** Wanna schedule a practice presentation this week
+** nearly done testing regarding the depth problem
+** some trees are taking a little longer to generate
+* NLP
+** Cameron and I have an issue w/ seeding
+** Sumit has a benchmark from Fasttext
+* EZGCP
+** Got Benchmark results, working on improving those results
+** added a few more primitives
+** sometimes getting a shape mismatch
+*We all need to prepare for presentations, midterm grades should be out by tomorrow night.
+=== Sub Team Meeting ===
+* Sumit went and ran his code on a Google Collab and encountered the same error as before
+* We're unsure of how else to proceed regarding getting a baseline that doesn't use Fasttext.
+* Cameron and I are encountering a MYSQL error when attempting to seed
+* As it turns out, the seeding file requires us to run "qsub mysql.pbs" prior to seeding. This is because the socket can't be used in the terminal environment, it has to be submitted as a job to do.
+* We will all begin going through the powerpoint this week and filling it in.
+=== Friday Meeting ===
+* I gave an update on my progress; I seeded individuals successfully, but, unfortunately, I was also getting errors when these individuals were being mutated
+* Anish and Cameron weren't getting this issue
+* We spent the majority of the meeting then detailing our presentation and determine how to present our work this semester, as detailed at the bottom of this week's work.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Do a Seeded Run on Amazon
+|In Progress
+|03/12/2021
+|
+|03/29/2021
+|-
+|Resolve Database Errors with Seeding
+|Complete
+|03/12/2021
+|03/19/2021
+|03/19/2021
+|-
+|Resolve New Code Errors with Seeding
+|Complete
+|03/12/2021
+|03/19/2021
+|03/19/2021
+|-
+|Presentation Prep
+|Complete
+|03/15/2021
+|03/20/2021
+|03/20/2021
+|}
+
+=== EMADE Run on PACE ===
+
+==== Seeding File/Database Problems ====
+* I started off by trying to simply seed the individuals, running the command " python3 src/GPFramework/seeding_from_file.py templates/input_amzn.xml seeding_test_toxicity". However, this kept giving an error, saying that MYSQL socket couldn't be reached.
+* Thanks to instructions from Cameron, I learned that the environment qsubbed processes run in is different from the ones run from the terminal. Therefore, while the socket could be reached from the EMADE program when running from the terminal, it was a completely different story regarding any qsubbed processes. Thus, the seeding program would need a different way to connect.
+* I had to move the database to run on "atl1-1-02-012-5-l:3307" (atl1-1-02-012-5-l using port 3307) in order for it to be reachable during seeding. 
+* Furthermore, this database had to be run as a submitted job using qsub. However, doing so meant that mysql could no longer be accessed from the terminal.
+** This required two different ways of running the server: one to access from the terminal, and one that EMADE programs could access.
+** To run one from the terminal, still do the old way, running "cd /usr" and then "mysqld_safe --datadir='/storage/home/hpaceice1/sleone6/scratch/db'" inside of this directory (Note you must change sleone6 if a different user)
+*** This is important for granting privileges to users and viewing individuals, paretofront, and statistics tables
+** To run one that EMADE can access, put that same command in a .pbs file called "pbsmysql.pbs" and run "qsub pbsmysql.pbs" (the name doesn't have to be "pbsmysql"). This way, there is a database server running that your seeding file can access.
+* As a result of changing how the database is run, I had to also run EMADE inside of a submitted job via qsub. This requires the command "qsub launchEMADE.pbs". You can view the output using "vim emade-amzn.xml"
+* Seeding also required the deletion of all other tables in the MYSQL database.
+
+==== Seeded Individual Problems ====
+* Initially, I was using the file "seeding_test_toxicity" to seed. However, this had several errors, such as malformed strings. Even after fixing some typos (like RG0 into ARG0), it still didn't quite work. Consequently, I switched to "seeding_test_toxicity_empty", seeding it with individuals such as "NNLearner(ARG0, OutputLayer(ARG0, EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer(ARG0))), 87, AdamOptimizer)".
+* Seeding with "seeding_test_toxicity_empty" proved successful; the run was seeded, and could proceed as normal, with the aforementioned changes from the previous section.
+
+==== DEAP searchSubTree Error ====
+* Previously, in the non-seeded run, I encountered this error. However, upon my first seeded-run, I encountered this error in Gen 2, considerably earlier on in the process.
+* [[files/DeapErrorSearchSubTree.png|alt=searchSubTree Error from deep|none|thumb|452x452px|searchSubTree Error from deep]]
+* The fact that it occurred much earlier this time around makes me think this is a problem in more developed mutation functions. As the run is seeded with more developed individuals earlier on, it's causing this error to pop up.
+* I looked up the source code of DEAP to try to resolve this issue. SearchSubTree is shown below
+*[[files/SearchSubTree code.png|alt=searchSubTree code|none|thumb|357x357px|searchSubTree code]]
+* As shown in notebook work the week after this, I temporarily resolved this issue by deleting all of the individuals from the database. This definitely means it was a certain part of an individual that was causing this error. 
+
+==== Presentation Work ====
+* We created presentation slides to present our work to first year students.
+* First, we explained our team, and how the NNLearner works
+* We went into detail about how our problem this semester, and how using a balanced dataset will help show if we have a problem making trivial individuals.
+* We documented our errors on PACE and how we've resolved them.
+* We also added slides detailing our benchmarking, to see if EMADE could at least match these results.
+* We then divided up the slides which we would present on.
+
+== Week 7: March 08, 2021 ==
+
+=== General Meeting Notes ===
+*Modularity
+**Got Feedback on Sphinx documentation
+**Designing architecture for database storage
+*EZGCP
+**Resolved their pipeline bugs
+**Got an 8 hour run with 7 generations in
+**Planning on visualizing their results with a Pareto Front 
+*Stocks
+**The team is confused as to the purpose of genetic algorithms in the paper they're reading
+**Trying to wrap up TI primitives so they can get a run in soon
+*NLP/NN
+**Considering looking into setting up Pytorch
+**Collab Issues are persisting for Sumit
+**Cameron and I both have PACE Instances set up
+
+=== Sub Team Meeting ===
+*It was decided that a universal .yml file was necessary
+*Collab is disconnecting; asking stocks team for help as they've apparently had experience with this
+*JG is finishing up his documentation
+
+=== Friday Meeting ===
+* Sumit successfully ran a Fastpace control run w/ Amazon dataset
+* I ran EMADE for 6 hours and 68 generations before it crashed. Anish suggested doing a seeded run as opposed to a non seeded run
+* The error I'm running into seems to be an issue with DEAP, not EMADE
+* Cameron is having an issue getting past Gen 0; Anish walked him through fixing it by seeding w/ an NNlearner to avoid the issue with the regular learner
+* John has been looking at pytorch vs keras models
+* Link for walking through seeding https://vip.gatech.edu/wiki/index.php/Guide_to_Debugging_Individual_Algorithms 
+* Use Seeding from toxicity (dense layer, lstm)
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Date Due
+|-
+|Finish Amazon Run and Share Results
+|Complete
+|03/08/2021
+|03/06/2021
+|03/12/2021
+|}
+
+=== EMADE Run on PACE ===
+* Having resolved last week's issues by pulling emade_operators.py from the nn branch, I was able to run EMADE successfully without crashing
+* It ran for a total of 67 generations, crashing on generation 68. I analyzed my results, as shown below.
+* Via the XML file, there were two objectives in this run. One was to minimize the number of parameters in the NNLearner, while the other was to achieve optimal accuracy (minimizing with the accuracy_score function, with a 1 being the worst).
+* This is the Pareto Front of the results. The x-axis is the accuracy score, and the y-axis is the number of parameters.
+*[[files/Non Seeded Pareto Front.png|alt=Non Seeded Pareto Front|none|thumb|388x388px|Non Seeded Pareto Front]]
+* These results were pretty bad, with a Hypervolume of 1 * 10^9. 
+* I investigated further and found out why. The best individual was a Gaussian, not an NNLearner. By design, these individuals don't have a number of parameters, as they aren't a neural network tree. Therefore, the value wasn't actually 1 * 10^9, but actually infinity. Therefore, all of these learners weren't NNLearners, and they were failing. This design choice was made so that NNLearners would be evaluated sooner.
+* At Generation 68, this error happened. I was informed on Friday that it was most likely a DEAP issue.
+* [[files/DeapErrorSearchSubTree.png|alt=searchSubTree Error from deep|none|thumb|452x452px|searchSubTree Error from deep]]
+* In the meeting on Friday, I was informed that the best path forward would be to seed individuals that were NNLearners, which wouldn't fail.
+
+== Week 6: March 01, 2021 ==
+
+=== General Meeting Notes ===
+* Stocks
+** Implemented new technical indicators, like BIAS and DeltaSMA
+** Looking into why trading signals have flat parts between segments
+** Some price data is inconsistent with the paper, currently looking into that
+* Modularity
+** Looking at literature to vision improvements to current infrastructure
+** Stil using Sphinx
+* EZGCP
+** Benchmarking and fine tuning individual training times
+** Performed 8 hours of runs and 7 generations
+** Working on visualizing Pareto Front
+* NLP
+** I had a tourney selection (individuals must be divisible by 4) which we resolved by running pip install deap==1.2.2
+** Sumit has an issue with Google Colab that is being debugged to get the Keras model working.
+
+=== Sub Team Meeting ===
+* We worked through Sumit's error in Google Colab
+* Cameron is also running Amazon on PACE successfully now
+* The tournament selection works now with the fix, waiting for the rest of the run to continue
+
+=== Friday Meeting ===
+* Decided to pursue a new control set for Amazon as Google Collab wasn't working
+* Will problem on Stack Overflow
+* Anish gave me the updated emade_operators.py to fix the concat_learner issue
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Attempt EMADE run on PACE
+|In Progress
+|02/08/2021
+|03/05/2021
+|03/05/2021
+|-
+|Resolve Remaining Gen 0 Runtime Errors on EMADE
+|In Progress
+|02/26/2021
+|03/04/2021
+|03/05/2021
+|}
+
+=== EMADE Run on Pace ===
+* To fix tourney selection issue, run "pip install deap==1.2.2"
+* Gen 0 continued running successfully after this, until I obtained a RecursionValue Error[[files/Max Recursion Error.png|none|thumb|552x552px|Max Recursion Error]]
+* This error happens when your program recurses past the max allowed by the system
+* You can resolve this with "u-limit -s", as demoed below, which shows the initial max value as 8192 and changes it to 12000
+* [[files/Ulimit -s demo.png|alt=ulimit -s demo|none|thumb|547x547px|ulimit -s demo]]
+
+* On Friday, it turns out this recursion was actually an error with the concat learner that Anish fixed in the nn branch; the emade_operators.py file was changed to resolve this.
+
+== Week 5: February 22, 2021  ==
+
+=== General Meeting Notes ===
+* Stocks:
+** There were bugs on the PLR, labels should be working, indicators should be working
+** Most Indicators mentioned in the paper are already developed
+** Going to Report scores on aggregate of 6 folds
+** Were only able to get 2 of Taiwanese Stock
+* Modularity:
+** Pretty much done with the documentation side of things
+** Sphinx was easy to use
+** Team is more familiar with the code base now
+* NLP:
+** Making sure Amazon is ready to go on PACE-ICE
+** Would like to refactor to Pytorch
+** I am working on fixing .gz issues w/ the dataset
+* EZGCP:
+** Got PACE-ICE setup for their accounts
+** made a shared .conda configuration file
+** getting errors before individuals are saved
+** only made it through 1 generation
+** could technically save individuals earlier, but think bugs can be fixed
+** Goal for next week: Get a full run
+=== Sub-Team Meeting ===
+* I've been working through bugs in setting up Amazon
+* Our branch doesn't have a set environment .yml file; Cameron will work on that
+* I had to use pip install to get keras pickle wrapper, nltk, and transformers from tensorflow
+* I set up Git LSF wrong, files were not in proper .gz format
+* Group working on a Keras Model is still encountering errors as well
+
+=== Friday Meeting ===
+* I was able to successfully get Amazon running on Emade on Pace
+* There are some bugs in the NN-VIP branch that printed out 0 individuals
+* I worked with Anish to add lines of code to particular files to resolve these errors.
+* There are some issues with seeding that still need to be resolved
+* The following line of code was added to line 213 in gp_framework_helper.py in the nn-vip branch to resolve the issue
+*[[files/Python Helper Code.png|none|thumb|719x719px]]
+
+* After adding this line of code, 'bash reinstall.sh' has to be run.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Attempt EMADE run on PACE
+|In Progress
+|02/08/2021
+|
+|03/05/2021
+|-
+|Resolve Runtime Errors w/ Data formatted incorrectly
+|Complete
+|02/22/2021
+|02/24/2021
+|02/26/2021
+|-
+|Resolve Runtime Errors w/ Seeding
+|Complete
+|02/26/2021
+|03/01/2021
+|03/05/2021
+|}
+
+=== EMADE Run on Pace ===
+* Environment issues were resolved last week and before Monday Meeting
+* I resolved MySQL issues; I had to give my user permission for all tables, all databases, on both password and no password settings
+*[[files/This issue is indicative that MySQL user needs permissions on either a table or db, or that a different database is running on the port.png|alt=This issue is indicative that MySQL user needs permissions on either a table or db, or that a different database is running on the port|none|thumb|1009x1009px|This issue is indicative that MySQL user needs permissions on either a table or db, or that a different database is running on the port]]
+* I encountered an error with .gzip.
+* I setup Git LSF wrong; I only had a pointer to the data, not the data itself. This was resolved by downloading the data raw and transferring it over with scp.
+* After Friday, EMADE successfully runs and completes NSGA II. There is an issue with length of individuals not being divisible by 4 with TournamentDCD.
+*[[files/TournamentDCD Error.png|alt=TournamentDCD Error|none|thumb|1040x1040px|TournamentDCD Error]]
+
+== Week 4: February 15, 2021 ==
+
+=== General Meeting Notes ===
+* Stocks: have to write a new fitness function and have new data, still looking for a new paper, got all the datasets used in one paper currently being used.
+** Data is from 2008, which could be a problem due to 2008 recession.
+* EZGCP:
+** worked to run EZGCP without transfer learning
+** Added multi-channel support to equalize
+* Modularity:
+** Adding more complexity into ARL's
+** Still conducting a literature review
+* NLP:
+** Cameron and I are still working on running EMADE on PACE
+** Submit, Alex, Anshul still working on Keras Model
+=== Sub-Team Meeting ===
+* launchEmade.py isn't working, there are MYSQL issues
+* Goal: resolve issues by Friday
+
+=== Friday Meeting ===
+* I was tasked w/ performing an EMADE run using Amazon
+* I also gave an update on the run on PACE thus far
+* Anish would give us the data and XML for Amazon on Sunday
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Attempt EMADE run on PACE
+|In Progress
+|02/08/2021
+|
+|03/05/2021
+|-
+|Have MySQL and Environment for EMADE PACE setup
+|Complete
+|02/15/021
+|02/20/2021
+|02/20/2021
+|}
+
+=== EMADE Run on Pace ===
+* launchEmade.py is not working
+* There was something running on port 3306, so I had to set it to 3307
+*[[files/Changed Port to 3307.png|alt=Changed Port to 3307|none|thumb|Changed Port to 3307]]
+* MySQL connects now
+* I created a user, and gave him permissions
+* LaunchEmade.py now runs without crashing, I just have some new library issues; it seems some primitives use libraries like nltk
+* I installed nltk, transformers, and keras pickle wrapper using pip
+*[[files/Errors like this in worker.out mean the .yml environment file was not setup properly.png|alt=Errors like this in worker.out mean the .yml environment file was not setup properly|none|thumb|Errors like this in worker.out mean the .yml environment file was not setup properly|628x628px]]
+
+== Week 3: February 8, 2021 ==
+
+=== General Meeting Notes ===
+* Stocks: have a little better understanding of emade now. Trying to find a new paper to base their work off of. Discussing ways to explore new primitives and change theirs. Also discussing types of stocks that should be targeted.
+* EZGCP: met with team to discuss semester goals; are very consistent with last semester, using minGPT to make a new primitive
+* Modularity: still doing a literature review, everyone brought a paper and people are reading now
+* NLP: Refining goals for the semester. Focusing purely on NLP, addressing a neural net only finding trivial solutions, one group focusing on control w/ Kerns on Amazon dataset, another group focusing on Emade on Amazon dataset.
+* Self Evaluation is Due next Week, Rubric is on the Wiki.
+
+=== Sub-Team Meeting ===
+* Sumit, Anshul, Alex are looking for papers to use as a baseline for Amazon dataset. Should be ready for Friday meeting.
+* Amazon should be ready on EMADE by the week's end.
+* As it only takes one person to really prep Amazon, I will be attempting to setup runs on PACE to help for the end of semester rush, in case we have to have a bunch of runs again.
+
+=== Friday Meeting ===
+* I updated the sub team on my progress setting up PACE
+* I had issues with bash reinstall.sh
+* I resolved it by setting up a different environment to download GPFramework from
+* Sumit, Anshul, and Alex are progressing, and found a paper
+
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Attempt Emade Run on Pace
+|In Progress
+|02/08/2021
+|
+|03/05/2021
+|-
+|SCP transfer EMADE to pace
+|Complete
+|02/08/2021
+|02/15/2021
+|2/15/2021
+|-
+|Setup EMADE environment on PACE
+|Complete
+|02/08/2021
+|02/15/2021
+|02/15/2021
+|}
+
+=== Emade Run on Pace ===
+* First, due to a resetting of my laptop, I had to redownload and install emade, using my notebook from last semester as a guide.[[files/Re-cloning EMADE.png|alt=Re-cloning EMADE|none|thumb|Re-cloning EMADE]]
+* New conda environment is named "emade34"
+* First, to avoid not knowing the source of errors, I began trying to run the toxicity dataset on PACE, and decided to use Amazon later
+* ssh'ed onto the pace server successfully
+* scp at first denied permission. Creating a folder called "vip" and specifying it in the destination path resolved this issue.
+* Had some conda environment issues at first. The pace guide helped resolve this [[Guide to Using PACE-ICE]]
+* Had to remove GPFramework from .yml file, name it "emade35", and then "bash reinstall.sh" and "pip install gpramework==1.0" afterwards to add this.
+* PACE emade environment is named EMADE35
+
+=== Notebook Self Evaluation ===
+[[files/Self Eval Page 1.png|alt=Self Eval Page 1|none|thumb|Self Eval Page 1]]
+[[files/Self Eval Page 2.png|alt=Self Eval Page 2|none|thumb|Self Eval Page 2]]
+
+== Week 2: February 1, 2021 ==
+
+=== General Meeting Notes ===
+* Stocks: trying to come up with a larger goal.
+** Had problems with the dataset. 
+* NLP: team leadership undecided on
+** Working out goals for this semester
+* EZGCP:
+** Two projects, one person each
+* Modularity
+** want to try more complex construction of ARL's
+** Didn't get too many experiments in previously
+
+=== Sub-Team Meeting ===
+* We considered the different problems we could pursue in the domain of NLP/Neural Architecture Search with EMADE
+* Examples include finding a potential bug in the NNLearner that prevents complex solutions from happening
+* Possibly going back to a more pure NLP task
+* Goal of staying more united this Semester as opposed to working on several different projects
+
+=== Friday Meeting ===
+* Focusing on Pure NLP is an ideal task
+* If there is a bug, then doing anything else is essentially useless
+* First, attempting to see how Emade runs on a more distributed binary data set (Amazon) vs the results of a simple model from Keras on the same dataset
+* If all is good there, use a multi-class dataset and have the same EMADE vs control model
+* My task: continue work on getting Amazon up and ready, w/ Cameron and Anish
+
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Meet with NLP Group
+|Complete
+|01/25/2021
+|2/01/2021
+|02/01/2021
+|}
+
+=== Preparing Amazon for Emade ===
+* I posted the files I worked on last semester in the slack channel.
+* This includes the pre-processed data and XML file
+* Discussed brief modifications over the pre-processing
+* UTF-8 issue was resolved
+
+== Week 1: January 25, 2021 ==
+
+=== General Meeting Notes ===
+* Meeting Goals: set priorities and goals for the semester
+* Notebooks remain important due to online format
+* Returning Members are open to jumping ship.
+* Teams continuing on: No new ones, Stocks, EZGCP, NN/NLP team, Modularity
+* Will decide teams w/ a spreadsheet
+* Main problem last semester on NLP team: Trees weren't building complexity very well (but we could build neural networks with trees)
+* Possible goal: switch from Keras to Pytorch
+* Using LSTM's on tree structure to learn existing grammar. (look at different fields in GP to increase complexity)<br>
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Meet with NLP Group
+|In Progress
+|01/25/2021
+|
+|02/01/2021
+|}
+
+= Fall 2020 =
+
+==Week 16: November 30th, 2020==
+
+===Meeting Notes:===
+* Stocks
+** Had a slower week
+** Most work from here on out should be for next semester.
+* EZGCP
+** Finishing for Presentation
+** Getting good visualizations for Wednesday
+* NLP/NN
+** Getting results in, having some difficulties with PACE
+** Running out of disk space on PACE
+** Seeing if PACE will consistently obtain runs
+** Amazon may be delayed to next semester
+* Modularity
+** Polishing up Presentation
+
+=== Sub Team Meeting ===
+* Lots of Errors with PACE, difficulty with running out of memory
+* Continued issues setting up the environment for EMADE-NN-VIP branch for Amazon; gave the developed XML File, data, and Preprocessing script to the rest of the team on the slack to check for accuracy.
+
+=== Final Presentations ===
+* Stocks
+** Goal: look at how EMADE can help trading AI.
+** Base research paper had inconsistencies.
+** Wrote technical indicator primitives, including Bollinger bands, CCI, and MFI
+** In the future, planning on running new on normalized data, testing more granular data, and finding more literature that is consistent.
+* NLP/NN
+** We presented
+* EZGCP
+** OpenCV primitives for preprocessing, involved a lot of testing and debugging
+** Fitness or Objective Scores
+** Added functionality for genome seeding, saved individuals with best scores
+* Modularity
+** ARL's are giving more influential and important information for the problem.
+** However, there is no statistically significant improvement.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Rehearse Final Presentation
+|Complete
+|11/30/2020
+|12/02/2020
+|12/02/2020
+|-
+|Clean Up Notebook
+|Complete
+|11/30/2020
+|12/02/2020
+|12/03/2020
+|-
+|Successfully use Amazon Data Set on EMADE
+|In Progress
+|11/09/2020
+|NEXT SEMESTER
+|PUSHED TO NEXT SEMESTER
+|}
+
+==== Amazon Data Set ====
+* Conda Environment Issues have persisted despite numerous attempted fixes.
+* I attempted to use the file given by Pulak to create the right environment to run the EMADE-nn-vip branch. However, this encountered the same pitfalls as before.
+* I posted all files regarding the Amazon Data Set, including the XML, train.txt, and Preprocess.py files, on the Slack; someone with the environment already set up will be able to see if it runs correctly.
+==Week 15: November 23rd, 2020==
+
+===Meeting Notes:===
+* Stock Sub Team
+** Accomplished a lot
+** Went over findings to find function needed to calculate score
+** Moved a bit towards their own research
+* EZGCP
+** Prioritizing baseline runs
+** Obtained some individuals (1 test run for 8 hours)
+** Evolution was greedy; going from 20 individuals to 400.
+* NLP
+** Still focusing on getting results in runs
+** 2 baseline runs for each dataset: chest and toxicity
+* Modularity
+** Need to do more analysis why changes are happening
+** Especially generations w/ consistent abnormal generations across runs
+
+=== Sub Team Meeting ===
+* We are prioritizing baseline runs.
+* We divided up people to do some more baseline EMADE runs on datasets.
+
+=== Friday Meeting ===
+* A lot of people are having issues running EMADE on PACE.
+* Amazon input files are done, but there is trouble setting up the environment.
+* Pulak gave me a .yml file to make the Conda environment with; I will be trying this over the weekend.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Successfully Use Amazon dataset on Emade
+|In Progress
+|11/09/2020
+|
+|12/02/2020
+|}
+
+==== Amazon Data Set ====
+* Attempting to Run Amazon Dataset with Conda and issues encountered.
+* First I attempted to run with the same environment as the master branch on EMADE. However, after many module not found errors, I found out that it required a whole different set of libraries and versions.
+* First I attempted to create a Conda environment by running "conda env create -f emade-env.yml". However, this had a "ResolvePackageNotFound" error; this means it could not find packages for any of the libraries at the specified versions listed, as shown below.
+*[[files/ResolvePackageNotFound.png|none|thumb|408x408px|ResolvePackageNotFound]]
+* First, I tried to solve this using pip; I used pip-install to attempt to install libraries that could not be found with Conda. However, pip was also unable to find some of these libraries.
+*[[files/Pip Errors.png|none|thumb|498x498px|Pip Errors]]
+* I then proceeded to attempt running EMADE without these libraries; as expected, it could not continue due to a dependency on these libraries, such as specific versions of Keras.pickle_wrapper.
+* Then I tried to create an environment from other files from the condaEnvironments folder, like py36_win10.yml and Emade_env.txt. However, these files ran into the same issues.
+* I proceeded to attempt on my windows machine, meeting similar errors. I posted in the slack, and was given another file someone used to create their environment on icehammer; this was also unsuccessful and I found myself running into the same errors.
+* I decided to wait until Friday to debug, so that I could get live feedback on it.
+
+==Week 14: November 16th, 2020==
+
+===Meeting Notes:===
+* Focusing on getting runs in
+* Able to use Pace now; this means it should be easier to get runs in
+
+=== Sub Team Meeting ===
+* Amazon data set is progressing; meeting on Thursday should give more progress
+
+=== Thursday Meeting w/ Chris ===
+* I met with Chris on this day to decide how we could use both of our efforts to further progress on the Amazon Dataset.
+* After showing him my progress on the XML and preprocessing, we decided that we needed a better way of dealing with non-utf8 characters than simply removing those examples.
+* We delegated work up as follows:
+** Chris would work on finding a way that would allow us to deal with non-utf8 characters without having to lose those examples.
+** I would continue working on the XML file and attempting to run Amazon, while Chris would work towards creatively dealing with non-utf8 characters.
+=== Friday Meeting ===
+* Amazon data set is progressing
+* Data has been saved as 5 folds in test and train files
+* XML file is mostly written; wikidetox dataset was looked at as a guide
+* Unsure where functions for toxicityFitness, geneToxicity, and parentToxicity are; will need to find these.
+* Answer: these are just the names that outputs are labelled as; they can be customized without writing any new functions.
+* Trying to get Pace setup with runs
+* If we have access to ice hammer, we should be running on it
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Write Amazon XML File
+|Complete
+|11/09/2020
+|11/20/2020
+|12/02/2020
+|-
+|Successfully Use Amazon dataset on Emade
+|In Progress
+|11/09/2020
+|
+|12/02/2020
+|}
+
+==== Amazon Data Set ====
+* The final component required to run Amazon on Emade was the XML file, which specified specifics about the run and the formatting of the data.
+* I, again, was able to look upon previous work for help in creating these files. However, the XML file was different for this branch than the master branch, as was used with the titanic. For example, the outdated acronym GTMOEP was replaced with EMADE throughout the code and files; this required evaluation functions to be renamed. 
+* Rather than directly copying fields from the toxicity XML, I tried to look into each one to find out what they meant. Most of the changes I made in creating the Amazon XML were in changing the probabilities of mutating and mating functions to give them at least close to uniform probabilities. 
+[[files/Screenshot 2020-12-01 163922.png|none|thumb|Writing the XML file for Amazon Product Reviews Dataset]]
+==Week 13: November 9th, 2020==
+
+===Meeting Notes:===
+* Code Base is in a Work in Progress Stage
+* Targeting finishing development by next week
+* CV Sub-team got data from 8 out of 15 classes; not generalizing well.
+* For now, it was put on hold for this reason.
+* Sentiment Analysis on Amazon Reviews is ongoing (my task)
+
+=== Sub Team Meeting ===
+* EMADE mostly successful on PACE.
+* Will have to begin prioritizing runs next week.
+
+=== Friday Meeting ===
+* Development of new features is mostly wrapping up.
+* CV Sub-team still has issues with bounded box.
+* Amazon data has been mostly pre-processed.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Write folds of clean Amazon data
+|Complete
+|11/09/2020
+|11/13/2020
+|12/02/2020
+|-
+|Write Amazon XML File
+|In Progress
+|11/09/2020
+|
+|12/02/2020
+|-
+|Successfully run EMADE w/ Amazon
+|In Progress
+|11/09/2020
+|
+|12/02/2020
+|}
+
+==== Amazon Data Set ====
+* I looked at the toxicity and titanic datasets to determine how the data files should be formatted.
+* I decided to use the K=5 fold used with the titanic dataset to test performance.
+* This required using scikit's folding.
+* I added onto the Preprocess.py script, and looked up the methods used by the preprocessing toxicity file for reference. Most of them could be reused for Amazon.
+* I ran the script, originally using np.savetxt(). However, the format of the outputted txt files was different. I then realized that the variable assignments in the toxicity preprocessing actually wrote the final files, and adjusted my script to write in this format.
+* Running the Preprocessing script required 15-20 minutes due to the sheer volume (~3 million) of the dataset.
+[[files/5 Fold of data.png|none|thumb|456x456px|5 Fold of Amazon data]]
+
+==Week 12: November 2nd, 2020==
+
+===Meeting Notes:===
+* Monday Meeting: was spent acquainting first Semester Students
+* Friday: was an extension of that
+* Returning Students: set a code deadline of 2 weeks from now.
+* Last week reserved for experimenting and results.
+
+=== Sub Team Meeting ===
+* My task: Run EMADE with the Amazon Sentiment Analysis Dataset
+* https://www.kaggle.com/bittlingmayer/amazonreviews
+* Progression on other features is running smoothly.
+
+=== Friday Meeting ===
+* Informed team of progress on Amazon Reviews Dataset
+* Final format to run in EMADE involves ".csv.gz" files, with the number of sentiment in a cell next to the textual data.
+* Text should remain text; word embedding algorithms like GLOVE (and eventually BERT) will be used by EMADE.
+* Toxicity dataset should be similar enough to use as a baseline, though there are some differences (more even, roughly50/50 y-value distribution in this dataset).
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Find Dataset
+|Completed
+|10/30/2020
+|11/01/2020
+|11/02/2020
+|-
+|Discover what using EMADE with Amazon Dataset Requires
+|In Progress
+|11/02/2020
+|11/06/2020
+|11/06/2020
+|}
+
+==== Amazon Data Set ====
+* I began attempting to make the Sentiment Classification on Amazon Reviews Dataset run on EMADE: https://www.kaggle.com/bittlingmayer/amazonreviews
+* Downloads didn't seem to open properly on Windows, so I downloaded on Mac, saved as a text file, and emailed it.
+* Some characters in the dataset aren't UTF-8; I've put in a try-catch til I fix that. Thus, it currently removes these examples from the final dataset.
+* Successfully converted data to a working format, with pairs of format sentence first, then sentiment number after it.
+* Ex: ["Amazing Book!", "1"]
+* Next steps will be putting this in a format that EMADE will work on. Currently unsure if I have to obtain word embeddings before EMADE starts running, or if that happens during; will have to check on this.
+[[files/Initial Cleaning Amazon Data.png|none|thumb|466x466px|Initial Cleaning Amazon Data]]
+
+==Week 11: October 26th, 2020==
+
+===Meeting Notes:===
+* Bootcamp has ended; will be meeting on Mondays now instead.
+* My Sub Team Assignment: NN (formerly NLP)
+* Last Week, Stocks Team had a dataset that yielded a loss.
+* EZGCP has no huge developments; implementation team updated their branch recently
+* NLP (slash NN) decided what tasks to assign first semester students, wants to run on Chess dataset on EMADE this week.
+* Modularity: thought of first semester student tasks
+
+=== Sub Team Meeting ===
+* Creating NNLearner, which constructs neural architecture using LSTM layers, linear layers, etc.
+* Currently Comparing to paper, have a deadline of end of semester.
+* First Semester Task: reading literature, test individuals, find datasets, or Get EMADE working on PACE
+* Meeting Friday, 4:30-5:30
+
+=== Friday Meeting ===
+* Meeting is focused on assigning first years to tasks
+* Options
+** Attempt to get EMADE to run on PACE (tried previously by other team members, not successfully though)
+** Look for new Datasets to run EMADE with
+** Join returning students in their tasks
+* Maxim will be working on PACE.
+* John will be working with CV returning students.
+* I will be working on finding a new dataset.
+* Chris will also work on finding a new dataset.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Read Paper
+|Completed
+|10/26/2020
+|10/29/2020
+|10/30/2020
+|}
+
+==Week 10: October 21st, 2020==
+
+===Lecture Notes:===
+* Presentation Day: All groups presented on what they worked on
+* Stocks
+** Market Analysis and Optimization
+** Overview: First semester of a subgroup attacking the stocks problem. The goal was to optimize stock trading methods.
+** Used Genetic Programming, and researched current Machine Learning Techniques to combine to run the problem.
+** Regression isn't something that had been done much before.
+** To Implement, they ran EMADE with Regression and Collab.
+** Implemented Regression Primitives in EMADE
+** Results: Had values that gained money, but were short of the paper's results
+** In the future, would like Longer EMADE runs with 5+ workers.
+** Even longer term, LSTMs and RNN's being implemented as EMADE primitives would be a goal, in addition to looking into other time windows and exploring other preprocessing.
+** First Semester students who join will be researching Technical Indicators from Papers.
+* Bootcamp Group 3
+** Will be comparing Titanic results from EMADE, GP, and ML.
+** Preprocessing: Dropped Name and Ticket Columns
+** Machine Learning: used MLP NN, Logistic Regression, Random Forest, SVM, Decision Tree, and KNN. Neural Networks performed the best on the Pareto Front.
+** Applied Genetic Programming, using Strongly typed GP, aiming to minimize FNR and FPR.
+** Used Google Cloud MySQL instead of personal routers.
+** Emade was very clustered toward optimizing both of the results rather than exploring the entire Pareto Front.
+* Modularity
+** Exploring ways to abstract parts of individuals.
+** This allows for creating "building blocks" that can help with genetic functions.
+** Has explored Koza Automatically Defined Functions, Angeline AR, and Rosca ARL (currently working on).
+** ARL -> Adaptive Representation Through Learning. A function that is dynamically evolved and can be called by other functions.
+** An ARL might improve a population's overall fitness, allows a population to converge faster, and has other benefits.
+** Also used the Titanic Dataset: 40 generations, ten trials.
+** Current work: Refactoring ARL Arguments (didn't allow data manipulating primitives), Experimented limiting what ARL's could be created (made a check that ARL's must directly impact data so that only useful ARLs were made), and Experimenting with new selection methods (fixing the arguments, directly increased probability of getting ARLS).
+** Also tried a dataset with more complexity: Handwritten Digits. This would likely make more ARL's. 
+** First Semester students who join will be running and designing experiments with their ideas.
+* Bootcamp Group 1
+** Will be also using Titanic problem to compare results from EMADE, GP, and ML.
+** Used Random Forest, Naive Bayes, Logistic Regression, and a Multilayer Perceptron Classifier.
+** GP AUC: 0.277
+** Ran 17 Generations, 311 final valid individuals; ended with 235 individuals on the Pareto Front.
+** Emade used 5-fold cross validation on the titanic training data.
+** Emade had the best accuracy, but balanced less overall.
+* Natural Language Processing
+** Work done mostly falls under NN as well.
+** Motivation and Goal: Apply evolutionary approach to neural architecture search using EMADE.
+** Compares to paper "Evolutionary Neural AutoML for Deep Learning"
+** Uses Toxicity Dataset and Chest X-ray Dataset
+** NNLearner: different layers are primitives within EMADE's tree structure.
+** Example learner after 182 generations: NNLearner(Arg0...), had embedding layers and output layers.
+** Adaptive Mutating Functions.
+** Potential Next Steps; Adding more Primitives.
+** Wikidetox Dataset: Uneven dataset of toxic vs non-toxic dataset.
+** In the future, they want to incorporate prertrained language models into EMADE (BERT, ELMo).
+** Meet 4:30 on Fridays.
+** Join if you have GPU/AWS Access.
+* Bootcamp Group 2
+** Tested 8-9 ML Models with AUC = 0.21245.
+** The Decision Tree performed the best.
+** Had two EMADE Runs: Headless chicken "Zany" run and one with the initial Hyperparameters.
+* EZGCP
+** Is a graph based structure instead of tree based.
+** Uses a DAG of Primitives.
+* Bootcamp Group 4 -> we presented our findings comparing results on the Titanic Dataset from EMADE, GP, and ML.
+
+=== Action Items: ===
+None for this week; next week we'll receive sub team assignments.
+
+==Week 9: October 14th, 2020==
+
+===Lecture Notes:===
+* Worked on progress on EMADE
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Emade Assignment
+|Complete
+|Sep 30th, 2020
+|October 20th, 2020
+|Oct 21st, 2020
+|}
+
+=== EMADE Assignment: ===
+* Friday Meeting: Having figured out how to run EMADE successfully, we started our final run. We set a deadline of Sunday for the run.
+* Sunday Meeting: We met, created our presentation, and worked on understanding our EMADE results.
+
+==Week 8: October 7th, 2020==
+
+===Lecture Notes:===
+* Worked on progress on EMADE
+* DEAP may need it's version changed.
+* Assignment: 
+** 1 person should have the sql server set up and act as the master process, the rest should connect their workers.
+** Run for a substantial number of generations, just as in the last assignment.
+** Make a plot of your non dominated frontier at the end of the run, compare with ML and MOGP assignments.
+** Make any other plots and figures to show your analysis of EMADE running on the Titanic problem, see if you can find some successful trees
+** This assignment will have a presentation on Monday the 21st, compare all 3 results.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Emade Assignment
+|In Progress
+|Sep 30th, 2020
+|
+|Oct 21st, 2020
+|}
+
+=== EMADE Assignment: ===
+* Environment has been setup successfully, in an environment named "emade1"
+* Tried several times to set up and install MySQL and MariaDB; each ended in failure.
+* Resulting Error was a "PID" could not connect.
+* As this is a reoccuring issue on my macbook, I switched to a slower windows machine, and resetup the "emade1" environment.
+* Setting up MariaDB worked on this windows laptop. However, running EMADE required several hours.
+* The next step was meeting with team members to compare results and form the presentation.
+* Via texting chats, we decided that Thursday, October 15th 2020 was a good time to meet to start doing this.
+
+
+
+==Week 7: September 30th, 2020==
+
+===Lecture Notes:===
+* EMADE Lecture
+** EMADE = "Evolutionary Multi-objective Algorithm Design Engine".
+** It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms.
+** Emade Steps:
+*** Configure a mysql server on your machine (5.6 or 5.7, no MySQL 8; else MariahDB)
+*** download and install git-lfs
+*** Run the setup module to install the package
+** Running Emade
+*** Start at top level directory python3 src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+*** Input file: xml file that configures EMADE:
+**** First one configures python (will be python 3 on my machine)
+**** Second and Third, Grid and Slurm, do not matter when running locally.
+*** dbConfig
+**** Username and password will be for MySQL; user should have full permissions on the database specified
+*** Datasets: specifies the train and test files; Emade folds it 5 times.
+*** Objectives:
+**** Specifies minimization (-1) or maximization (1)
+**** evaluationFunction specifies which method from GPFramework/evalFunctions.py should be used
+**** Achievable and goal are used for steering the optimization, lower and upper are used for bounding.
+*** workersPerHost: Keep this small on a laptop (specifies how many evaluations to run in parallel).
+*** Evolution Parameters:
+**** All of these control the various hyperparameters that affect the evolutionary process.
+** Emade Output
+*** Best place to observe outputs: MySQL databases
+*** You can connect from the command line using Mysql -h hostname -u username -p
+*** You can select a database with "use database_name"
+*** Basic SQL to interact with it, using "*" as the wildcard
+*** Good Progression on the Pareto Front takes hours (successful evaluations should be within first 20 minutes)
+* Assignment: 
+** 1 person should have the sql server set up and act as the master process, the rest should connect their workers.
+** Run for a substantial number of generations, just as in the last assignment.
+** Make a plot of your non dominated frontier at the end of the run, compare with ML and MOGP assignments.
+** Make any other plots and figures to show your analysis of EMADE running on the Titanic problem, see if you can find some successful trees
+** This assignment will have a presentation on Monday the 21st, compare all 3 results.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Peer Evaluations
+|Completed
+|Sep 30th, 2020
+|Oct 1st, 2020
+|Oct 2nd, 2020
+|-
+|Emade Assignment
+|In Progress
+|Sep 30th, 2020
+|
+|Oct 21st, 2020
+|}
+
+=== EMADE Assignment: ===
+* Note: OpenCV must still be installed from last week, as there are compatibility issues with Python 3.8.
+* MySQL 5.7 was downloaded and installed. It had to be done by right clicking and opening, as Apple could not verify the software had no malware (due to it being an older version of MySQL).
+* The Installation was completed successfully.
+* Upon further investigation of the OpenCV issue, I found that a solution was to create a different environment with Anaconda and set its version to Python 3.6 .
+* The above solution worked; the environment was named "py3" 
+* Next, libraries were installed with pip buy running the command "pip install xgboost lmfit multiprocess hmmlearn deap opencv-python". 
+* Next, the command "bash reinstall.sh" was run in order to build all the required files. 
+
+==Week 6: September 23rd, 2020==
+
+=== '''Lecture Notes:''' ===
+* Presented Titanic Powerpoint
+* One Hot Vectors are used to encode categorical data. They help avoid implying that there is a numeric relationship between the data.
+** For example, encoding "Woman" as 1 and "Man" as 0 would imply that the category "Man" is somehow one less than "Woman".
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Download EMADE
+|Complete 
+|Sep 23rd, 2020
+|Sep 23rd, 2020
+|Sep 30th, 2020
+|}
+
+=== Download EMADE Notes: ===
+* Instructions were followed from https://github.gatech.edu/emade/emade
+* Git and Git LFS were installed.
+* The command "git config --global credential.helper cache" was run to reduce login prompts.
+* EMADE was then cloned using "git clone https://github.gatech.edu/emade/emade"
+* Anaconda was installed for Python3
+[[files/Setting up EMADE.png|none|thumb|429x429px|Setting up EMADE]]
+* Opening a new directory, EMADE was CD'ed into. Conda was used to setup the environment.
+* There was an error found; Python 3.8.3 was too high and incompatible.
+* [[files/PythonError when using conda.png|none|thumb|403x403px|PythonError when using conda]]
+* To resolve this, I first attempted to find a more recent version of Anaconda to install.
+* With further investigation, I realized this was an issue with Python 3.8 and OpenCV being incompatible. 
+
+== Week 5: September 16th, 2020 ==
+
+=== '''Lecture Notes:''' ===
+* Group Project: Titanic classifier with Genetic Program
+* Submit one csv file this time, as a team
+* Add powerpoint to team page
+* Present Power Point on next Wednesday
+
+=== Team Meeting: ===
+* Planned on Monday Meeting to create classifier
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Titanic GP Group Project
+|Complete 
+|Sep 16th, 2020
+|Sep 21st, 2020
+|Sep 23rd, 2020
+|-
+|Prepare to Present Titanic Project
+|Complete
+|Sep 21st, 2020
+|Sep 22nd, 2020
+|Sep 23rd, 2020
+|}
+
+=== Monday Meeting: ===
+* Titanic GP Group Project
+* Data was parsed and transformed in the same manner as in the previous dataset
+* Our primitive set was created, and had most primitive operations from the Numpy library added, including addition, subtraction, multiplication, division, and comparison logic and trigonometry functions.
+* We defined success as minimizing our False Positive and False Negative Rates, and wrote an evaluation function to provide a fitness based on this criteria.
+* Using 300 individuals per generation, we eventually obtained a pareto dominant set. This was then compared to the Machine Learning Models.
+* In short, the GP Titanic Model worked much better, having lower false positive and false negative rates and a smaller area under the curve for the pareto front.
+* [[files/Pareto Front for Group 4 Titanic GP.png|none|thumb|GP Model Pareto Front vs ML Models]]
+
+== Week 4: September 9th, 2020 ==
+
+=== '''Lecture Notes:''' ===
+* TODO: Notebook Self assessment
+** Rubric is on Notebooks page
+* First Group Assignment
+** Use Titanic Data Set on Kaggle
+** Group 4
+** Use Scikit to obtain models
+** Documentation: scikit-learn.org
+** Task: Define a common set of feature data
+** Each member will come up with a model and score it
+** Ensure all members of team have co-dominant solutions
+** The example model is very naive with great accuracy: this is because of the binary status of the classification, and the 3 quarters survival rate of the Titanic
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Group Project
+|Complete 
+|Sep 9th, 2020
+|Sep 16th, 2020
+|Sep 16th, 2020
+|-
+|Notebook Self Grade Rubric
+|Complete
+|Sep 9th, 2020
+|Sep 13th, 2020
+|Sep 16th, 2020
+|}
+
+=== Notebook Assessment: ===
+* I reviewed my Notebook this week, made minor cleans to it, and scored myself based on the provided rubric. It is displayed below.
+* The primary areas to improve are adding teammate names (these were recently assigned), adding some justifications and reflections to my work, providing references, and usability as a reference.
+* [[files/Steven Leone Self Assessment Fall 2020 Rubric.png|none|thumb|390x390px|Steven Leone Self Assessment Fall 2020 Rubric]]
+
+=== Group Activity: Titanic Data Set ===
+* Part 1: Individual
+** First, the data was downloaded off of Kaggle:
+*** gender_submission.csv
+*** test.csv
+*** train.csv
+** Then, the necessary libraries (numpy, scikit, pandas) were all imported.
+** The train and test files were parsed using pandas
+** Cleaning up the data was then influenced by teammates. Using peer recommendations, some columns were dropped, including Cabin, Age, Embarked, and Ticket.
+** Finally, the data was split up with a 70-30 split for validation and training data.
+** Using this data, a Support Vector Machine Classifier was trained. Using default hyperparameters, the validation data was tested with 66.79% accuracy.
+** Using scikit's metrics, the following confusion matrix was generated:
+***[[files/SVMcMAtrix.png|none|thumb|710x710px|Confusion Matrix for SVM]]
+** Next, a grid search was run with the SVM in order to obtain the best possible hyperparameters.
+***[[files/Screen Shot 2020-09-13 at 3.25.14 PM.png|none|thumb|721x721px|SVM grid search]]
+***  Best Hyperparameters: {'C': 2, 'coef0': 0, 'decision_function_shape': 'ovo', 'gamma': 'auto', 'kernel': 'rbf'}
+***  Final Accuracy: 0.65
+** Unfortunately, the results were not good for such a binary classification problem, receiving only a 65% accuracy on the final run with the test data. Note that this is barely better than a function that always returns the same exact classification, as it would achieve about 50%. Thus, a random forest was used and received the same procedure, grid searching with a stratified 3 fold.
+***[[files/Screen Shot 2020-09-13 at 3.25.26 PM.png|none|thumb|758x758px|Random forest grid search]]
+***[[files/RfConfusionMatrix.png|none|thumb|732x732px|Random forest confusion matrix]]
+*** RESULTS: {'criterion': 'entropy', 'max_depth': 5, 'max_features': 'sqrt', 'min_impurity_decrease': 0, 'n_estimators': 25}
+*** SCORE: 0.8426
+** These results were much better and yielded 82.46% accuracy. Therefore, they were used in part 2.
+
+*Part 2: Group Collaboration
+** As a team, we then came together to compare our results. Our team used random forests, neural networks, and knn.
+** We plotted our points on a pareto frontier, and discovered that only one point was off the frontier.
+** The model that was off of the Pareto frontier was revised until it appeared back on. Our results are shown below.
+**[[files/Screen Shot 2020-09-16 at 5.00.12 PM.png|none|thumb|Our results are codominant, as they all fall on the pareto frontier.]]
+* 
+
+== Week 3: September 2nd, 2020 ==
+
+=== '''Lecture Notes:''' ===
+*  Topic "Multiple Objectives": The MO in MOGA and MOGP
+*  Objective: Recognize the power of multiple objective optimization, understand Pareto dominance and using it to affect mating probability, understand classification terms
+*  Analogy: What we look for in a mate is different for each individual person, and has multiple criteria
+*  How do we do this for algorithms, using a vector of scores for multiple objectives?
+*  In Binary Classification, everything is a 1 or 0
+**  True Positive -TP: How often are we identifying the desired object?
+**  False Positive - FP: How often are we identifying something else as the desired object?
+**  False Negative - FN: We failed to classify a desired object as the desired object
+**  True Negative - TN: We successfully did not classify something else as the desired object
+*  Classification Measures
+**  We have Positive Samples and Negative Samples (all true states)
+**  We put this data into an algorithm called the classifier
+**  We obtain results and can put them in a confusion matrix: https://en.wikipedia.org/wiki/Confusion_matrix
+**  TPR = Hit Rate or Recall = TP/(TP+FN) = TP/P
+**  TNR = Specificity = TN/(TN+FP) = TN/N
+**  False Negative Rate = FN/(TP+FN) (Measure of Error) = 1 - TPR
+**  False Positive Rate (Fallout) = FPR = TN/(FP+TN) (Measure of Error) = 1 - TNR
+**  Precision or Positive Predictive Value = TP/(FP + FP)
+**  False Discovery Rate = FP/(TP + FP)
+*  Objective Space
+**  Objective Scores give each individual a point in objective space (the scatter plot)
+**  This may be referred to as the phenotype of the individual
+**  Pareto Optimality: an Individual is Pareto if there is no other individual in the population that outperforms the individual on all objectives
+**  The set of all Pareto individuals is known as the Pareto Frontier
+**  We still want to ensure non Pareto points still have some probability of mating
+*  Algorithms that use Pareto Optimality
+**  NSGA II: Nondominated Sorting Genetic Algorithm II
+***  Population is separated into non domination ranks (Pareto Frontier is Rank 0, rank behind that is 1, etc.)
+***  We then use a tournament to select. Ties are broken by crowding distance (Higher wins). You reward individuals with neighbors far away with this, and this is desirable as this part of the Pareto Frontier is covered less.
+**  Strength Pareto Evolutionary Algorithm (SPEA2)
+***  An individual's S (strength) is how many others in the population it dominates
+***  An individual's R (rank) is the sum of the strengths of the individuals that dominate it (Pareto Frontier has rank 0)
+***  A distance to the kth nearest neighbor is calculated and a fitness of R+1/(kth distance + 2) is obtained
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Lab 2 Part 2
+|Completed
+|Sep 2nd, 2020
+|Sep 7th,2020
+|Sep 9th, 2020
+|-
+|Email Python and ML skills
+|Completed
+|Sep 2nd, 2020
+|Sep 2nd, 2020
+|Sep 2nd, 2020
+|}
+=== Lab 2 (Part 2): ===
+* Multi Objective Programming
+* Created new individuals and a new fitness with the creator
+** Used multiple weights (-1, -1) for the fitness this time, as there are multiple objectives
+* Initialized primitives (addition, subtraction, sin, cos, etc.) 
+* Reinitialized toolbox functions, and declared a new evaluation function that handles multiple objectives
+* Defined a function to compare two individuals, and see if one is dominant over the other, and visualize the objective space
+* Initialized 300 random individuals 
+* Compared Individuals to a single chosen Individual, and mapped them in the Objective Space:
+[[files/Objective Space-SL.png|none|thumb|Objective Space]]
+* The blue point was compared to all the other points; it dominated green points and was dominated by the red.
+* This visualization makes sense, as the goal is to minimize tree size and have the lowest MSE. The most dominant individuals are towards the bottom.
+* After this, the main evolutionary algorithm was defined, and run. The best individual was negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x)))). It had a fitness of (0.27530582924947056, 25.0), which is still fairly minimal for tree size and MSE. The graph below shows the average and minimums for each of the generations
+* [[files/Screen Shot 2020-09-06 at 11.36.55 AM.png|none|thumb|600x600px|Progress over Generations]]
+* Red and orange are tree size, blue and green are MSE. While MSE clearly drops very quickly, the tree size seems to steadily increase.
+* As this graph only shows progress with the objectives and not the objective space, another graph was made that shows the Pareto Frontier, and how individuals fall among it. 
+* [[files/Screen Shot 2020-09-06 at 11.43.03 AM.png|none|thumb|The Objective Space, showing the Pareto Frontier]]
+* Area Under the Curve of the Pareto Frontier is used to measure the performance of the pareto frontier. The current area under the curve is approximately 2.46.
+* In order to lower the area curve by at least 25% to at least 1.84, a new genetic program was implemented. Initially, number of generations was increased, but this seemed to only increase area under the curve (up to twice as much). Other hyperparameters were then tuned; lowering MUTPB to be below 0.01 was quite effective and produced an area under the curve of approximately 0.702.
+* [[files/Screen Shot 2020-09-06 at 12.10.39 PM.png|none|thumb|Final Result]]
+
+== Week 2: August 26th, 2020 ==
+
+=== '''Lecture Notes:''' ===
+*  For Future Reference: Write about what I learned in Labs in the Notebook, and what I actually did
+*  Tree Representation
+**  Nodes are primitives and represent functions
+**  Leaves are called terminals and represent parameter
+*  Lisp preordered parse tree.
+**  You have your operator followed by operands
+*  Crossover: exchanging subtrees
+**  Randomly pick a point in the tree, and exchange these subtrees
+*  Mutation: includes inserting, deleting, or changing a node or subtree
+*  We can evaluate a Tree with Error as sum of actual - expected squared
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Lab 2 Part 1
+|Completed
+|Aug 26, 2020
+|Aug 27, 2020
+|Sep 2nd, 2020
+|}
+===Lab 2 (Part 1):===
+* Genetic Programming
+* Created Individuals
+** Inherit from DEAP's PrimitiveTree
+** Set operators as addition, subtraction, multiplication, and division for 2 operands
+** Added numpy's exp2 and tan functions, with arity 1.
+* Created toolbox with population made up of these defined individuals
+* Defined evaluation function as mean square error between the function and goal function
+* Added several mutations, including "mutShrink", which replaces a branch with one of its arguments
+* Set constraints on tree heights to 17 in mutating and mating functions
+* Ran 40 Generations
+** Best individual was "multiply(exp2(multiply(x, x)), add(multiply(x, x), x)), (0.04644464850190968,)"
+* [[files/Evolutionary Loop For 40 Generations.png|none|thumb|Evolutionary Loop for 40 Generations]]
+
+* By the 40th Generation, the function was quite well replicated, as shown by the graph, with almost zero error.
+* Most actually reached this point around the 10th Generation.
+
+== Week 1: August 19th, 2020 ==
+
+=== '''Lecture Notes:''' ===
+* Note books are important
+* Genetic Algorithms: Create populations that reproduce, selecting the best individuals from each batch.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Due Date
+|-
+|Join VIP Slack group
+|Completed
+|Aug 19, 2020
+|Aug 19, 2020
+|Aug 26, 2020
+|-
+|Install Jupiter Notebook
+|Completed
+|Aug 19, 2020
+|Aug 19, 2020
+|Aug 26, 2020
+|-
+|Review class lecture slides
+|Completed
+|Aug 19, 2020
+|Aug 20, 2020
+|Aug 26, 2020
+|-
+|Lab 1
+|Completed
+|Aug 19, 2020
+|Aug 19, 2020
+|Aug 26,  2020
+|}
+===Lab 1:===
+
+Learned how to use Jupiter Notebook, create Genetic Algorithms to solve the all 1's problem and n queen's
+* For the N Queen's Problem, the Best Individual was [10, 15, 19, 9, 0, 8, 18, 11, 1, 6, 17, 3, 2, 13, 5, 16, 14, 12, 7, 4] after 100 generations. The Progression over generations is shown below. Note that the minimum was actually reached well before the 100 individuals, and the objective was to minimize the fitness. Therefore, 100 generations was likely not entirely necessary, as you can tell by the near completely horizontal slope of all lines after around generation 40.
+* [[files/Nqueensresult.png|none|thumb|The progress of N-queens Individuals over 100 generations]]
+* The all 1's problem didn't quite converge to the final best possible result, and had a best individual of  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].
+* Increasing the generations would have likely solved this problem, as it would inevitably fill in the extra 1 eventually.

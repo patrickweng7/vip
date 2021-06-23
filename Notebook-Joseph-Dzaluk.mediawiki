@@ -1,0 +1,1936 @@
+== General Information ==
+Team Member: Joseph Dzaluk
+
+Major: Computer Science
+
+Year: Junior
+
+Email: jdzaluk3@gatech.edu
+
+Interests: Machine Learning, Game Theory, Combinatorial Games, Poker
+
+== April 22nd, 2021, Thursday ==
+
+=== Team Notes ===
+* Final Presentation: https://docs.google.com/presentation/d/1Ve_3G6xkq_y0QRFFXv0Mv7hAi-348cVPt48Zessnv_s/edit#slide=id.gadbc172287_0_95
+
+=== '''Sub-Team Notes''' ===
+* Run from Monday, one of the individuals outperformed the rest 
+** Bollinger bin gives three features then uses a decision tree
+** Abhi tried recreating it with sci-kit learn 
+** The CDF it got was .06, so it was a 6% chance that this individual was just doing random computation 
+** The individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None))
+** We are finally getting 10+ individual outperforming our seeds
+* What additional changes do we want to see done
+** What change in variables change the results 
+** Changing evolutionary variables 
+** Changing crossover and mutation percentage 
+** Changing the number of seeds we use 
+
+=== Individual Notes ===
+* Slide for Final Presentation focused around future focus: 
+** 1. incorporate fundamental analysis which are measures that try to quantify a company’s underlying value and potential for future growth rather than its current and past market prices. some examples of fundamental analysis metrics are things like revenue, earnings, future growth, return on equity, and profit margins
+** 2. We want to compare the effectiveness and differing profit percentages on different time scales such as hourly / daily / weekly 
+** 3. We want to incorporate a different paper which transforms price and TIs into image data
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create and Rehearse Final Slide
+|Completed
+|4/22/2021
+|4/30/2021
+|4/24/2021
+|-
+|}
+
+== April 15th, 2021, Thursday ==
+
+=== Team Notes ===
+* Our Final Presentations are on April 30th at 6pm
+* Peer evals due Tuesday April 27th
+
+=== '''Sub-Team Notes''' ===
+* Discussed changing the how many and quality of seeds
+* Or potentially having more datasets, longer timeframe
+* New Fibonacci retracement, Ichimoku Kinkō Hyō
+* RSI debug, any length of data now, default parameters on MACD
+
+* We did 10 get runs of EMADE to see if we train an individual on just apple data if it performs better on one stock than other stocks, seems not that much better
+* Seems like the results are pretty correlated throughout different stocks 
+* Adding another data set to our EMADE run, we wanted maybe longer-term flatter return stock outside of tech, maybe consumer staple
+
+=== Individual Notes ===
+* Helping implement new TI’s David sent
+* Stochastic RSI: Better for choppier, neutral trends
+* Aroon: Time vs Price, helpful for trend spotting and can also be used to identify consolidations. Could be used in downtrends where smaller reversals are tough to spot
+* VWAP: Volume indicator that takes into account of both price and volume. Good for spotting entry and exit points for intraday trading.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help TA Implementation
+|Completed
+|4/15/2021
+|4/22/2021
+|4/16/2021
+|-
+|}
+
+== April 8th, 2021, Thursday ==
+
+=== Team Notes ===
+* New students are becoming integrated into team and beginning to task themselves mostly with TA implementation
+
+=== '''Sub-Team Notes''' ===
+* Conversed about the different ways to prove statistical significance as shown in lecture
+* Potentially can do a Welch’s test on indivduals' profit percentage
+* Implemented new TA primitives from TA-lib and did a new EMADE run 
+
+=== Individual Notes ===
+* Jason gave a talk on statistics
+* Recommends changing one variable at a time to run an experiment and find statistical significance from the one variable difference 
+* Goal for the rest of the semester to do this with individual runs
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create new Objective Functions
+|Completed
+|4/8/2021
+|4/15/2021
+|4/10/2021
+|-
+|}
+
+== April 1st, 2021, Thursday ==
+
+=== Team Notes ===
+* 7 new members:
+** Diptendu
+** Pranav
+** Sriram
+** David W.
+** Coleman
+** Devesh
+** Dhruv
+* Presented to new members to catch them up with the paper and our setup
+
+=== '''Sub-Team Notes''' ===
+* Monte Carlo simulation would not have to be restimulated for every new individual 
+** We could instead use a look-up table to compare the individual's metrics to the distribution
+* Our initial Monte Carlo test took a set of 100 days where using a probability given from an input there would be random indices chosen and we would simply buy and sell back and forth for each index 
+* That would give us a profit percentage distribution to compare new individuals to
+** After seeing this run Max noted that our past "best" individual actually scored very well 
+
+* Next EMADE run: 
+** New TA-lib primitives
+** New evaluation metrics: 
+*** Average Profit per Transactions
+*** Variance of Profit per Transaction
+
+=== Individual Notes ===
+* Research on Monte Carlo Simulations relating to investing:
+
+* Basic understanding of Monte Carlo Simulations and how it can be applied in investing: 
+** https://www.investopedia.com/terms/m/montecarlosimulation.asp
+* Article detailing Python implementaion and how drift and volatility work:
+** https://medium.com/analytics-vidhya/monte-carlo-simulations-for-predicting-stock-prices-python-a64f53585662
+*** Drift: Direction that rates of returns have had in the past
+*** Volatility: Historical volatility multiplied by a random
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up Monte Carlo Sim
+|Completed
+|4/1/2021
+|4/8/2021
+|3/25/2021
+|-
+|}
+
+== March 22nd, 2021, Monday ==
+
+=== Team Notes ===
+* Presentation Day: https://docs.google.com/presentation/d/1xvS6nfHNZ9N56m4cDXoD4KzHeRoKkhfhsfIDHpysOUE/edit#slide=id.p
+
+* Stocks: 
+** Presentation went well
+** Feedback: Normalize the profit percentage, Monte Carlo simulation may be a way to calculate this
+** Need a way to measure individuals better than random 
+** Jason would like to see more analysis of each of our individuals 
+
+* ezCGP:
+** They have problems with overfitting 
+
+* Modularity:
+** Don't know how to incentivize ARL generation, may try to use different selection methods
+
+* NLP:
+** Using PACE-ICE
+** After an un-seeded run they did not get good results
+** Potential switch from Keras to Pytorch
+
+
+=== '''Sub-Team Notes''' ===
+* Had a lengthy discussion about Monte Carlo possibilities
+** One idea is to simply compare against buy and hold for the same time duration
+*** Pro's: Simple, standard, repeatable
+*** Con's: May not yield as accurate of results as Monte Carlo 
+** Max and I will investigate possibilities of Monte Carlo sim
+
+* Other ideas surrounding fitness functions:
+** Profit per trade, PPT = profit percentage divided by the number of transactions
+*** We debated if this was even necessary as both profit percentage itself may be a more valuable objective as placing value on increasing or decreasing the number of trades isn't necessarily important 
+** We did consider lowering variance of profit a valid objective as providing more a more repeatable and consistent algorithm compared to an algorithm that was less consistent but yielded the same total profit percentage over a longer period of time  
+
+
+=== Individual Notes ===
+* My slide is a high-level overview discussing our objectives and methods:
+* Objectives: 
+** How can we use TI’s to predict specific stock trends and generate buy/sell signals?
+** How can we use EMADE to optimize market existing trading algorithms?
+* Methods
+** Find literature on stock prediction using TI’s, ML, and Genetic Programming
+** Learn about technical indicators and establish which ones might be useful to us
+** Recreate a trading algorithm using our literature as a basis
+** Use EMADE to optimize our trading algorithms cited in published papers
+
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide on Monte Carlo Sim Direction
+|Completed
+|3/22/2021
+|3/25/2021
+|3/25/2021
+|-
+|Complete Presentation
+|Completed
+|3/22/2021
+|3/22/2021
+|3/22/2021
+|}
+
+== March 11th, 2021, Thursday ==
+
+=== Team Notes ===
+* Presentation coming up on the 22nd
+
+=== '''Sub-Team Notes''' ===
+* We completed an initial run but numerous individuals were not valid because they were in the wrong mode so we could not analyze the results
+* From there we completed a second run without the mode problem and with profit percentage among other additional metrics such as tree size and average mean absolute error 
+* These yielded positive results 
+
+=== Individual Notes ===
+* Working on the presentation slide, was asked to take a high level introduction or overview slide 
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Presentation Slide 
+|Completed
+|3/11/2021
+|3/18/2021
+|3/15/2021
+|-
+|Join Runs as Worker
+|Completed
+|3/11/2021
+|3/18/2021
+|3/15/2021
+|}
+
+== February 25th, 2021, Thursday ==
+
+=== Team Notes ===
+* Notebooks are due next Thursday and Peer Evaluations are due next Friday
+
+=== '''Sub-Team Notes''' ===
+* Progress is going well:
+** Abhi and Kartik worked on why our trading signals have flat segments 
+** Abhi and Davis learned more about exponential smoothing and may have a working implementation
+** Max is looking into a TI library which may save us some time as well as add diversity to our primitives
+** Rishi found new stock data from AlphaVantage which is much closer to the data in the paper
+** We are thinking of simply maximizing a lot of random iterations to find optimal threshold as opposed to how the paper uses GP
+* Short Term Goals:
+** Finalize PLR method
+** Label all 6 datasets
+** Determine a method for finding optimal threshold 
+** Integrate Exponential Smoothing in EMADE as a fitness function
+** Finalize / prepare datasets for EMADE runs
+
+=== Individual Notes ===
+*Worked on three volume-based TI's (the ones I previously researched)
+*[[files/Screen Shot 2021-03-04 at 10.14.37 PM.png|none|thumb|477x477px|VROC Primitive]][[files/Screen Shot 2021-03-04 at 9.00.55 PM.png|none|thumb|457x457px|OBV Primitive]][[files/Screen Shot 2021-03-04 at 9.01.47 PM.png|none|thumb|441x441px|CO Primitive]]
+*The Chaikin Oscillator can not be fully written until parameters are changed in the dataset 
+*Specifically volume within a day is an important metric and necesarry for determing moving averages
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Volume Based TI's
+|Completed
+|2/25/2021
+|3/4/2021
+|3/2/2021
+|-
+|Prepare Datasets for Run
+|Completed
+|2/25/2021
+|3/4/2021
+|3/4/2021
+|}
+
+== February 18th, 2021, Thursday ==
+
+=== '''Sub-Team Notes''' ===
+* After talking to Dr. Zutty people explained how he said that there are two ways to go about dealing with data:
+** First choice is creating individual Monte Carlo folds per stock which will test the pipeline
+** The second choice is to lump all stock data together and create random folds for the entire dataset. This would result in a broader model which would likely be more generalizable to other datasets
+* Generally we are leaning towards the first choice so we can make the most effective trade decisions on a specific stock and then create the best possible pipeline
+* Abhi went into further detail about changes he made over Winter Break 
+* Shorter meeting, we need to get work done on the TI's and getting a successful run of PLR method
+
+=== Individual Notes ===
+* I noticed for Chaikin Oscillator we need a way to see volume within a day which is not yet accessible so I need to work on importing different data 
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin Volume Based TI's
+|Completed
+|2/18/2021
+|2/25/2021
+|3/2/2021
+|-
+|Debug PLR Method
+|Completed
+|2/18/2021
+|2/25/2021
+|2/22/2021
+|}
+
+== February 11th, 2021, Thursday ==
+
+=== Team Notes ===
+* Our meeting with Jason was cancelled, but we were able to ask some questions that may be helpful moving forward
+** We asked about the new paper and our general direction
+** As well as how to create structured trees in EMADE where we can change hyperparameters of the functions themselves as opposed to the technical indicators and learners
+
+=== '''Sub-Team Notes''' ===
+*Abhi was explaining how he simplified EMADE primitives what reduced the number of individuals that would not compile by only allowing EMADE to yse primitives that were related to TI's or regression learners
+*Decided on a final paper: https://www.sciencedirect.com/science/article/pii/S1568494611000937
+** The paper uses a piecewise linear regression to create labels in the data 
+** The PLR used a moving window which was found through Genetic Programming but specifics aren't detailed in the paper
+** A neural network predicts when a stock will change direction based off the labeling so instead of using classification they use regression for confidence 
+* Then there is a dynamic threshold that decides when to buy or sell if the price is extreme enough in some direction (similar to the GP I don't fully understand this but it seems they are using exponential moving averages)
+* This paper seems like a good inspiration since every step was optimized once at a time and EMADE may be able to improve each step
+
+=== Individual Notes ===
+* Paper I proposed to be a loose inspiration for this semester:
+** https://www.sciencedirect.com/science/article/pii/S0950705114001403
+** Uses multitree genetic programming to create a dynamic portfolio
+* I noticed we were a little light on volume TI's:
+** On-Balance Volume:
+*** Leading Indicator
+*** If the price is higher than previous for give a time period then we add the given volume level, if the price is lower we subtract the given volume level
+**Chaikin Oscillator:
+*** Leading Indicator
+*** Measures the accumulation-distribution line of moving average convergence-divergence (MCAD)
+*** This indicator really focuses in on the relationship between the number of buyers and sellers with a core belief that the relationship between the two (primarily the quantity) is what drives price
+**Volume Rate of Change:
+*** Lagging Indicator
+*** To calculate this, you need to divide the volume change over the last n-periods (days, weeks or months) by the volume n-periods ago. The answer is a percentage change of the volume over the last n-periods.
+*** A positive ROC will indicate increasing volume and vice-versa
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read our Paper and Understand Piecewise Linear Regression
+|Completed
+|2/11/2021
+|2/18/2021
+|2/13/2021
+|}
+
+== February 4th, 2021, Thursday ==
+
+=== Team Notes ===
+* Came to the conclusions that our subteam meeting will be 5:30-6:15 on Thursdays and Max and I's meeting with Dr. Zutty will be afterwards from 6:15-
+
+=== '''Sub-Team Notes''' ===
+* As mentioned we are still looking for a paper that is similar to last semester but less restrictive 
+* Our goals (both short and long term):
+** Writing primitives (specifically in areas we feel we need more) 
+** Experiment with new labeling methods 
+** Adding fundamentals to see if EMADE can do analysis 
+** Create a model that outperforms a paper
+** Use it on numerous datasets and compare results
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research TI's From Last Semester
+|Completed
+|2/4/2021
+|2/11/2021
+|2/10/2021
+|-
+|Find 1-2 Papers for Next Week
+|Completed
+|2/4/2021
+|2/11/2021
+|2/10/2021
+|}
+
+== January 28th, 2021, Thursday ==
+
+=== Team Notes ===
+* There are four Subteams returning from last semester: ezCGP, Stocks, NLP/NN, Modularity
+* I will have a time conflict this semester so that is something I have to figure out soon
+
+=== '''Sub-Team Notes''' ===
+* All of our members are returning members except for one new Member: Krithik Acharya
+* Abhi worked on some things over Winter Break such as coming to the conclusion that Genetic Labeling was an overcomplication
+* We instead should maybe opt for a hard coded solution of lebling local min as buy and local max as sells 
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find a Subteam Meeting Time
+|Completed
+|1/28/2021
+|2/4/2021
+|2/2/2021
+|-
+|Find a Time Conflict Meeting Time with Dr. Zutty and Max
+|Completed
+|1/28/2021
+|2/4/2021
+|2/2/2021
+|}
+
+== November 30th, 2020, Monday ==
+
+=== '''Sub-Team Notes''' ===
+* Final Presentation: https://docs.google.com/presentation/d/1arplCjluOGjVm58LiMHV2zVwXl0GCvCsvgb2Ou7nSN8/edit#slide=id.gadbc172287_0_157
+* Biggest take aways from presentation were:
+** Label every axes
+** Discuss the hyperparameters of each run
+** Explain the equations / how each TI works on a deeper level 
+** Give a better introduction to the paper we are attempting to replicate
+
+* '''Neural Networks Team'''
+** "Evolutionary Neural AutoML for Deep Learning"
+*** Uses multi-objective evolution similar to this team
+*** Attempted to Maximize AUROC and minimize number of parameters
+** Keras was used for NN development
+** Made progress on PACE as well as good documentation
+** They created new primitives
+*** CV primitives
+** Run of Chest X-ray 
+*** YOLO Nueral Networks are only fed each image once to make runs go faster
+*** Went for 665 generations
+**** Larger AUROC than the paper
+** Hit a wall when a pareto individual from the first gen lasted the entire run
+* '''ezCGP'''
+** Reworked OpenCV preprocessing primitives
+** Maximizing precision over accuracy 
+** Used PACE-ICE GPU
+** Genome seeding
+** CIFAR10 run
+*** Only 20 individuals per gen
+*** 9 Generations over 50+ hours
+*** 99.7% accuracy on CIFAR10
+** Transitioning to MNIST dataset
+* '''Modularity Team'''
+** ARL implementation
+*** It searches for common tree subsets which are then turned into primitives
+*** Wanna try different ways of selecting ARLs
+*** Differential Fitness
+**** There was no statistical significance for helping fitness 
+*** Alternate Selection
+**** There was no statistical significance for helping fitness 
+*** Data Pair Restriction
+**** Interesting because they only allow subtrees that return EMADE data pairs but there was no statistical significance for helping fitness 
+*** Alternate Selection with Data Pair Restriction
+**** There was no statistical significance for helping fitness 
+
+=== Individual Notes ===
+* Anshul and I met up and reworked our OBV method[[files/New OBV.png|none|thumb|565x565px]]
+* Unit test has yet to be created but there was still internal dialogue as to which TIs we wish to use going forward
+* May need to try some experimentation with each next semester
+* Slide I will be presenting on[[files/Final presentation slide.png|none|thumb|480x480px]]
+* Will discuss how volume is an important metric as it allows us to pick stocks that are likely to have strong trends
+** Additionally high volume means you can exit and enter positions with much more fludity which is important if we wnated to actually trade
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rehearse Slide for Final Presentation
+|Completed
+|11/30/2020
+|12/02/2020
+|12/01/2020
+|}
+
+== November 16th, 2020, Monday ==
+
+=== Individual Notes ===
+* Decided to go with On-Balance-Volume as out TI
+* Set up colab with Anshul 
+** https://colab.research.google.com/drive/1-SUaxGU773IrNiTNxqRwc_DkoHfaVqLL#scrollTo=SJljtfLI5rWW
+[[files/OBV.png|none|thumb|590x590px]]
+* Need to ask how we are importing volume
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Check and Implement OBV
+|Completed
+|11/16/2020
+|11/26/2020
+|11/20/2020
+|-
+|Begin Working on my Final Presentation Slide
+|Completed
+|11/16/2020
+|12/02/2020
+|11/28/2020
+|}
+
+== November 5th, 2020, Thursday ==
+
+=== '''Sub-Team Notes''' ===
+* We all have retasked every indiviaul member
+* I'm tasked on finding and implenting a new TI not in the paper
+
+=== Individual Notes ===
+* TI Research: https://docs.google.com/document/d/1NSX0v9jswtGxGBmf0XUtxwnAriEzNzWODmC7aI3iykA/edit
+* Some TIs we considered
+** RSI
+** SMA
+** OBV
+** Parabolic Stop and Reverse
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find and Write New TI
+|Completed
+|11/5/2020
+|11/12/2020
+|10/12/2020
+|}
+
+== October 26th, 2020, Monday ==
+
+=== '''Sub-Team Notes''' ===
+* We had our presentation last Monday
+* The presentation went well but we still have oddities in our data
+** Profit was not being maximized
+* Technical Indicators were added as primitives 
+** https://github.gatech.edu/rbhatnager3/emade/commit/61032bac75d2d21e548a8c2eee1d57402e7bff56
+
+=== Individual Notes ===
+* The Paper uses 6 TIs: 
+** Simple Moving Average
+** Exponential Moving Average
+** Moving Average Convergence and Divergence
+** Stochastic Oscillator
+** Relative Strength Indicator
+** William R%
+* I presented to the team how we may benefit from using our own hand-selected TIs in our runs
+* We can draw back from previous research we conducted on which TIs we may believe to be optimal and how they operate
+* Eventually, we can write our own methods
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Improved EMADE Run
+|Completed
+|10/22/2020
+|1029/2020
+|10/29/2020
+|-
+|Revisit Previously Researched TIs
+|Completed
+|10/22/2020
+|10/29/2020
+|10/25/2020
+|}
+
+== October 15th, 2020, Thursday ==
+
+=== Team Notes ===
+* Midterm presentations next Monday
+
+=== '''Sub-Team Notes''' ===
+* Finishing touches on the presentation
+
+=== Individual Notes ===
+* Midterm Presentation: https://docs.google.com/presentation/d/1Fm_pXaKLDFHDEsk-T1rXW1p2UGS8ax2Nvd8k8TIstqs/edit#slide=id.ga1786b4003_6_5
+* Create my slide 
+[[files/MidtermSlide.png|none|thumb]]
+* Planning on talking about how before any sort of implementation we aimed to understand trend analysis itself to the best of our abilities
+* That started with asking some important questions:
+** Regression vs Classification 
+*** Regression to predict the price of stock and then decide to buy or sell
+** Which Stock Tickers?
+*** Diverse (so our results are not purely determined by one sector), high volume (would give us theoretical power to buy/sell when needed), stable stocks (a lower volatility)
+** Which Technical Indicators?
+*** A technical indicator is a sort of heuristic used by traders to determine entry or exit points in a trade.  They all have different formulas but they only take in the price, volume and open interest of aecurity and return  In the top right is an example of a volume technical indicator called “On-Balance-Volume,” it is a leading indicator meaning it is used to try to predict a trend rather than following one
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Midterm Presentation
+|Completed
+|10/5/2020
+|10/19/2020
+|10/15/2020
+|}
+
+== October 5th, 2020, Monday ==
+
+=== Team Notes ===
+* Notebooks due 
+* 10/19 are Midterm Presentations
+
+=== '''Sub-Team Notes''' ===
+*Initial run time-series data[[files/Time Series Data.png|none|thumb]]
+*EMADE run was successful 
+*52 generations of EMADE with S&P 500 dataset 
+**Found a minimum standard error of 10.8387 for a few models (27.2492 was best of seed individuals
+
+* Went over the structure of the midterm presentation and dedicated a few people to begin preparing it.
+* We fixed learner modification primitives to make sure non-negative values and float values were in 0-1 range. 
+
+=== Individual Notes ===
+* Furthering my research on Technical Indicators 
+** Need to decide if we are simply using the papers or are we going to create some of our own
+*Began Midterm Presentation and decided I would be presenting on more trading research 
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join EMADE Run
+|Completed
+|10/5/2020
+|10/12/2020
+|10/5/2020
+|-
+|Work on Midterm Presentation
+|Completed
+|10/5/2020
+|10/19/2020
+|10/15/2020
+|}
+
+== September 28st, 2020, Monday ==
+
+=== '''Sub-Team Notes''' ===
+*We had a discussion regarding CEFLANN and how it operates
+**“In comparison to other soft computing techniques, functional link artificial neural network (FLANN) and Legendre Neural Network (LeNN) has less computational cost and is easily implemented in hardware applications. This is the motivation on which the present research work is based.”
+**https://ieeexplore.ieee.org/document/6508166
+***The MLP takes 100 times longer to simulate compared to FLANN
+*CEFLANN implementation in EMADE seems possible 
+
+=== Individual Notes ===
+* Got EMADE successfully implemented and am doing further research from the paper as to how price predictions were finalized before implementing my own function
+* Mostly waiting on others to finish their implementation before I can finish the integration of my code
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue price prediction + price to decision function + graphs 
+|Completed
+|9/21/2020
+|10/5/2020
+|10/3/2020
+|}
+
+== September 21st, 2020, Monday ==
+
+=== '''Sub-Team Notes''' ===
+*We were recommended to begin implementing the exact data the paper used and to choose which primitives we will be moving forward with
+*Using AWS MySQL database
+*Everyone is assigned a unique responsibility
+
+=== Individual Notes ===
+* First I have to get EMADE set up on Colab so we can have group runs before I work on my specific assignments
+* I am tasked with creating a function that takes in the values generated from the TI's and creates a predicted price for the stock as well as a decision
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Price prediction + price to decision function + graphs
+|Completed
+|9/21/2020
+|10/5/2020
+|10/3/2020
+|-
+|Test run on EMADE branch
+|Completed
+|9/21/2020
+|9/28/2020
+|9/27/2020
+|}
+
+== September 14th, 2020, Monday ==
+
+=== Self-Evaluation ===
+[[files/Self-Eval.png|none|thumb]]
+
+=== '''Meeting Notes''' ===
+* First meeting back since Labor Day Break
+
+=== '''Sub-Team Notes''' ===
+* We have decided to focus on one specific paper: https://www.sciencedirect.com/science/article/pii/S2405918815300179?via%3Dihub
+* Discussing how much we want to deviate from the paper:
+** Do we change the data set?
+** Do we change TIs?
+** Do we want a similar architecture?
+
+=== Individual Notes ===
+*Picked two research papers to do extensive reading
+*https://www.sciencedirect.com/science/article/pii/S1877050920317877
+**Stock Market prediction on High frequency data using Long-Short Term Memory
+***Used Deep Learning
+*** Regression “Long-Short Term Memory” model
+*** Technical Indicators: Open, High, Low, Close prices, Volume, EMA12, EMA25, MACD, BollingerUp and Bollinger Down
+*** Concluded technical indicators did not improve the results of their existing models
+*** When not using technical indicators they simply used Open, High, Low, Close prices and Volume values as input
+
+* https://core.ac.uk/download/pdf/52104888.pdf
+** Predicting Stock Prices Using Technical Analysis and Machine Learning
+*** Performed on Oslo Stock Exchange
+*** [[files/Agents.png|none|thumb]]
+*** “We consequently apply Occam’s razor to the choice of technical indicators, leaving out the intricate price patterns and focusing on the most popular indicators that can be efficiently operationalized and that are relatively objective in interpretation.”
+*** Two layer reasoning architecture: Agent oriented design of first layer allows for easy integration with new analysis techniques. The second layer of reasoning is also easily adaptable because the ADTL algorithm’s fitness function can easily add additional constraints or you can change the measures of success.
+*** Outperformed Oslo Benchmark Index (OSEBX)
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do deeper research into selected research paper
+|In Progress
+|9/14/2020
+|9/21/2020
+|9/20/2020
+|}
+
+== August 31st, 2020, Monday ==
+
+=== '''Sub-Team Notes''' ===
+* My subgroup (Research) will be meeting at 5:30 pm on Thursdays
+* TI research team has been terminated
+* We are continually looking at TI as well as different ways to implement ML (regression vs classification)
+** Notes from talking with Jason:
+*** STREAM_TO_FEATURE: Step detection might be a feature. (Eg) TI predicts a value could be a feature. Binary 01 could be a feature. Could be grouped differently.
+*** STREAM_TO_STREAM: Time series data itself is manipulated. Mean filtering, median filtering, edge and step detection.
+*** Seed things: algorithms that you expect to work feed into emade in the beginning so it’ll evolve from them.
+*** How can automated algorithm design improve existing algorithms? 
+**** Implement their algorithm in EMADE, feed data, add more indicators and see how it compares to the original.
+*** Big goal: Find the best algorithm, but also find the algorithm that finds the best algorithm (how can the same program find a solution to a different problem?)
+** Our model:
+*** First model: confidence interval and price change percentage.
+*** Second function: use the confidence interval, price change percentage to include in the fitness function to decide buy/sell/hold.
+** Goals for next meeting:
+*** Research group: 
+**** Finish research into technical indicators, but then consider focusing more on looking at articles and research papers for building trading AIs, replicating those in EMADE, and then improving upon those methodologies with our own research
+
+=== Individual Notes / Research ===
+* Volume:
+** On Balance Volume: <nowiki>https://www.investopedia.com/terms/o/onbalancevolume.asp</nowiki>
+*** Leading Indicator
+*** If the price is higher than the previous for given time period then we add the given volume level, if the price is lower we subtract the given volume level
+*** [[files/OBV Formula.png|none|thumb]]
+*** Not just a volume but also targets momentum; Recursive
+*** Could be implemented hour by hour and day to day.
+*** Limitations include the probability of it producing a false signal as well as the fact that a large spike in volume from an event such as a surprise earnings report or introduced to a new index can through off the metric
+** Chaikin Oscillator: <nowiki>https://www.investopedia.com/terms/c/chaikinoscillator.asp</nowiki>
+*** Leading Indicator
+*** Measures the accumulation-distribution line of moving average convergence-divergence (MCAD)
+*** [[files/Chaikin Oscillator Formula.png|none|thumb]]
+*** This indicator really focuses in on the relationship between the number of buyers and sellers with a core belief that the relationship between the two (primarily the quantity) is what drives the price
+*** We use the indicator by watching for divergence when the center-line crosses over above the accumulation-distribution line. A positive divergence signals a stock price is likely to rise, given the increase in accumulation. A negative divergence signals a stock price is likely to fall, given the increase in distribution.
+** Volume Rate of Change: <nowiki>https://www.investopedia.com/articles/technical/02/091002.asp</nowiki>
+*** To calculate this, you need to divide the volume change over the last n-periods (days, weeks or months) by the volume n-periods ago. The answer is a percentage change of the volume over the last n-periods.
+*** A positive ROC will indicate increasing volume and vice-versa
+*** It’s a lagging indicator so it is less likely to be predictive but at the same time it allows for the user to hop on an existing or established trend or confirm intuitions
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue to research TIs and understand other people's TIs
+|Completed
+|8/31/2020
+|9/3/2020
+|9/1/2020
+|-
+|Find research papers and read at least 2
+|Completed
+|8/31/2020
+|9/3/2020
+|9/1/2020
+|}
+
+== August 24st, 2020, Monday ==
+
+=== '''Meeting Notes''' ===
+* Decided to join Stocks subteam
+
+=== '''Sub-Team Notes''' ===
+* Meeting time confirmation.
+** After VIP until 6:30 PM
+* Assign Team Leader
+** Abhiram, Rishi
+* Splitting into three groups: 
+** Technical Indicators
+** EMADE Integration
+** Research: I will be in research
+* Potential Obstacles / Questions:
+** How EMADE works
+** What the TIs mean
+** How to prepare a Dataset for EMADE
+* Goals
+** Predicting stock prices after some interval
+** Know which features we will use and how we will use them
+** Reach Goal: decide buy/sell
+
+=== '''Individual Notes''' ===
+* Going to begin researching TI's starting with this link: https://www.businessinsider.com/stock-traders-swear-by-these-12-technical-indicators-2017-5
+* For more in-depth analysis on any specific TI, I will be using: https://www.investopedia.com/terms/t/technicalindicator.asp#:~:text=Technical%20indicators%20are%20heuristic%20or,to%20predict%20future%20price%20movements.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research At Least 3 TI's
+|Completed
+|8/24/2020
+|8/31/2020
+|8/31/2020
+|-
+|Meet with the Subgroup to discuss further strategies 
+|Completed
+|8/24/2020
+|8/27/2020
+|8/27/2020
+|}
+
+== August 17st, 2020, Monday ==
+
+=== '''Meeting Notes''' ===
+* Start of Fall 2020
+* Hybrid, in-person not mandated
+* Still using notebooks for primary grading
+* The same teams are returning with discussion centered around a potential new portfolio management team
+* Expressed intern
+
+=== '''Sub-Team Notes''' ===
+* No subteam assigned yet
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find a subteam I want to join
+|Completed
+|8/17/20
+|8/24/20
+|8/24/20
+|}
+
+== December 2nd, 2019, Monday ==
+
+=== '''General Information''' ===
+* Final presentations are today
+* Notebook and Peer Eval due Dec 4 at 5 PM
+
+=== '''Meeting Notes''' ===
+* Our presentation: https://docs.google.com/presentation/d/1KPcNsmbxPipkDncRDKeScHZCRR71gXoDNyumCGimTVc/edit#slide=id.g6bd390a1d0_17_62
+* Bloat Control
+* Preprocessing
+* ezCGP
+* ADF
+* NLP
+** Text Classification
+** Text Summarization
+*** EMADE Integrated
+*** Primitives num_named_entities, text_rank and TFISF were created
+** Modified Learner
+*** We created our own modified learning and evaluation functions
+
+=== '''Sub-Team Notes''' ===
+* No subteam meeting
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Notebook
+|Completed
+|12/2/19
+|12/4/19
+|12/4/19
+|-
+|Finish Peer Evaluations
+|Completed
+|12/2/19
+|12/4/19
+|12/4/19
+|}
+
+=== '''Overview''' ===
+* Will continue to work on creating primitives in my own time and comparing results
+* Can transfer those results over to next semester
+
+== November 25th, 2019, Monday ==
+
+=== '''General Information''' ===
+* Notebook and Peer Eval due Dec 4 at 5PM
+
+=== '''Meeting Notes''' ===
+* NLP
+** Summarization team
+*** Testing primitives
+* Preprocessing
+** Created new primitives to image preprocessing like rotate or shift
+* ezCGP
+** Testing
+* ADF
+** Debugging evaluation error
+* Bloat Control
+** They fixed their old bug
+** They are using the titanic data set
+
+=== '''Sub-Team Notes''' ===
+* No team meeting
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Primitive
+|Completed
+|11/25/19
+|12/2/19
+|11/29/19
+|-
+|Test Primitive on Data Set
+|Completed
+|11/25/19
+|12/2/19
+|11/29/19
+|-
+|Finish Presentation
+|Completed
+|11/25/19
+|12/2/19
+|12/2/19
+|}
+
+=== '''Overview''' ===
+* Optimized the primitive by using SpaCy instead of NLTK
+* Final Code:
+[[files/Named Entities.png|center|thumb|Named Entity]]
+
+== November 18th, 2019, Monday ==
+
+=== '''General Information''' ===
+* Coming back from being out for so long I shifted my focus to the named entity primitive
+
+=== '''Meeting Notes''' ===
+* ADF
+** Working on fixing evaluation issues
+* Preprocessing
+** Working on testing bugs
+* ezCGP
+** They successfully ran code on Ice-hammer.
+* NLP
+** Still working on primitives
+* Bloat Control
+** Their quantification algorithm is too inefficient 
+
+=== '''Sub-Team Notes''' ===
+* We met on Friday, 22nd November.
+
+* The named entities primitive uses SpaCy as a library that takes in a string
+* Original data is an array of an array
+* Creates tuples which are then added to a dictionary
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on primitive
+|Completed
+|11/18/19
+|11/25/19
+|11/25/19
+|-
+|Implement text processing method
+|Completed
+|11/18/19
+|11/25/19
+|11/21/19
+|}
+
+=== '''Overview''' ===
+* Need to choose between NLTK and SpaCy for creating primitive
+
+== November 11th, 2019, Monday ==
+
+=== '''Personal Notes''' ===
+* I had a collapsed lung this week and was out of school / in and out of the hospital for a week and a half
+* I made an effort to catch up on what was missed after the fact
+
+== November 4th, 2019, Monday ==
+
+=== '''General Information''' ===
+* More team selected for first semester students
+
+=== '''Meeting Notes''' ===
+* Teams gave updates:
+
+* ezcGP
+** The parallelization is fixed and the speed of code is increased
+* ADF
+** They are troubleshooting seeding
+* Preprocessing team
+** Still working on image processing
+* NLP
+** They want to keep adding new primitives
+* Bloat control
+** They want to get NeatGP in line with EMADE as well as start benchmark testing
+
+=== '''Sub-Team Notes''' ===
+* We (Text Classification) met on Friday, November 8th
+** We discussed our goals/direction of the team
+** Discussed potential primitives
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Choose a primitive to work on
+|Completed
+|11/4/19
+|11/11/19
+|11/4/19
+|-
+|Explore EMADE more to shape data set
+|Completed
+|11/4/19
+|11/11/19
+|11/4/19
+|}
+
+=== '''Overview''' ===
+* I will begin working on a sentence location primitive that weights text importance by their relative location
+
+== October 28th, 2019, Monday ==
+
+=== '''General Information''' ===
+* Everyone selects what team to join
+
+=== '''Meeting Notes''' ===
+* Teams spoke for a little about what they are working on:
+* ExCGP:
+** They are trying to figure out ways to run code more efficiently
+* ADF
+** Working with Google Cloud testing
+* NLP
+** They build primitives to score text data for right now summarization purposes
+
+* I selected neural networks because I am interested in the potential applications
+
+=== '''Sub-Team Notes''' ===
+* Our first team meeting is on Friday, 1st November.
+
+* I joined the Text Classification NLP subteam.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE for NLP Subteam
+|Completed
+|10/28/19
+|11/4/19
+|11/1/19
+|-
+|Join NLP team Slack
+|Completed
+|10/28/19
+|11/4/19
+|10/28/19
+|-
+|Read first few pages of GP NLP Paper
+|Completed
+|10/28/19
+|11/4/19
+|11/1/19
+|}
+
+=== '''Overview''' ===
+* I joined the Text Classification NLP subteam
+** Still just getting a better understanding of everything
+
+=== '''Personal Notes''' ===
+This paper (https://www.sciencedirect.com/science/article/pii/S1877050915006869) does a good job of explaining the process of GP NLP as well as provide different ways to weight text importance through primitives. I looked at all the different primitives and discussed the relative pros and cons of each one with teammates.
+
+== October 21st, 2019, Monday ==
+
+=== '''General Information''' ===
+* Returning sub-teams presented on progress.
+* First Semester sub-teams presented on EMADE results and compared them to the MOGP and ML results
+
+=== '''Meeting Notes''' ===
+* Our presentation: https://docs.google.com/presentation/d/1nDlbacJ5zTDk5g6c5B92MEgx5rw3qAewIVchtNYQnzk/edit#slide=id.p
+* We learned about the different subteams:
+** ADF
+** ezCGP - Cartesian Genetic Programming
+** NLP - Natural Language Processing
+*** Text Classification
+*** Neural Networks
+** Preprocessing
+** Bloat Control
+
+=== '''Sub-Team Notes''' ===
+* No sub-team meeting.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Present our Results
+|Completed
+|10/21/19
+|10/21/19
+|10/21/19
+|-
+|Choose a Subteam
+|Completed
+|10/21/19
+|10/28/19
+|10/24/19
+|-
+|Play around with primitives for EMADE datasets
+|Completed
+|10/12/19
+|10/28/19
+|10/24/19
+|}
+
+=== '''Overview''' ===
+* Presentation went well
+* Some things we concluded
+** EMADE takes a lot longer to create multiple generations that lower the AUC over time, however cit an be more effective at optimization.
+** Different approaches give different results based on the level of processing.
+* We explained the difficulties we ran into but ultimately reached results similar to the rest of the class
+
+=== '''Personal Notes''' ===
+* I am heavily leaning towards joined NLP subteam
+
+== October 16th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Prepare for presentation next week on October 21st
+* Continue with Titanic dataset project using MySQL as well as EMADE
+
+=== '''Meeting Notes''' ===
+* Set up MySQL servers.
+* Continued working on the project
+
+=== '''Sub-Team Notes''' ===
+* No sub-team meeting.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup mySQL Database and the input file
+|Completed
+|10/16/19
+|10/21/19
+|10/16/19
+|-
+|Setup/ Join MySQL worker server
+|Completed
+|10/16/19
+|10/21/19
+|10/16/19
+|-
+|Run EMADE
+|Completed
+|10/16/19
+|10/21/19
+|10/17/19
+|-
+|Create Midterm Presentation
+|Completed
+|10/16/19
+|10/21/19
+|10/20/19
+|}
+
+=== '''Overview''' ===
+* Our original Pareto front was in 2 dimensions even though we had 3 objectives, we realized this did not make sense
+* We created a function to graph our Pareto front in 3 Dimensions as shown below
+[[files/3Dimensional Pareto Front.png|center|thumb|Our 3 Dimensional Pareto Front]]
+* Seen below is the AUC Comparison using ML, MOGP, and EMADE, the AUC's were .27 and .23 for the last two methods respectively[[files/Three Different Approaches.png|center|thumb|400x400px|AUC Comparison]]
+
+=== '''Personal Notes''' ===
+* MySQL project is going well
+
+== October 9th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Continue to use EMADE to create new evolutionary ML algorithms
+* Learning how to implement MySQL database
+
+=== '''Meeting Notes''' ===
+* Evolutionary Multi-Objective Algorithm Design Engine (EMADE)
+* Learned how to run EMADE
+* For EMADE datasets:
+** It comes in CSV files
+** A row is an instance, a column is a feature and final columns have truth data
+* Main objectives:
+** Weights - Should be minimized (-1.0) or maximized (1.0)
+** Evaluation function specifies the name of a method 
+** <workersPerHost> to see how many evaluations to run in parallel.
+* We were also introduced to MYSQL
+
+=== '''Sub-Team Notes''' ===
+* No sub-team meeting.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look over EMADE
+|Completed
+|10/9/19
+|10/16/19
+|10/11/19
+|-
+|Install and set up MySQL
+|Completed
+|10/9/19
+|10/16/19
+|10/11/19
+|}
+
+=== '''Overview''' ===
+* EMADE is the backbone of what will happen in future projects
+
+=== '''Personal Notes''' ===
+* Installation of everything went well, need to continue to familiarize myself with MySQL
+
+== October 2nd, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Make sure to finish Peer Evaluations by Friday 4 pm (if not completed a letter grade will be docked) 
+
+=== '''Meeting Notes''' ===
+* Sub-teams all presented on their solutions
+* My sub-team presented: [[Bootcamp Sub-team Fall 2019|Bootcamp Sub-Team Fall 2019]] (Team 1)
+
+=== '''Sub-Team Notes''' ===
+* Presented on our solution to the Titanic Problem using Multi-Objective Genetic Programming
+* Our Solution Code: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1/blob/master/Titanic_GP.ipynb
+* Our team presentation: https://docs.google.com/presentation/d/1nOBkBBZlXKNpkpiklO-IvuAoEmPrEtOjIKG4s5BieRw/edit#slide=id.p
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Play Around with Titanic Problem using MOGP (Play With Parameters)
+|In Action
+|10/2/19
+|10/9/19
+|Not Resolved Yet
+|-
+|Peer Evaluation Survey
+|Completed
+|10/2/19
+|10/4/19
+|10/3/19
+|-
+|Install my SQL and EMADE
+|Completed
+|10/2/19
+|10/9/19
+|Not Resolved Yet
+|-
+|Complete Notebook for 10/2
+|Completed
+|10/2/19
+|10/9/19
+|10/4/19
+|}
+
+=== '''Overview''' ===
+* The biggest take away:
+** Learned that simply using MuPlusLambda was not one of the purposes of the project
+** We should have created our own evolutionary loop
+*Other takeaways:
+**We should have added (1, 0) and (0, 1) to the graph as the boundaries avoid getting areas of zero
+**We could have added additionally visual data such as the video movie of AUC progression
+**We could have shown a specific individual function and its tree representation
+**We could have used logical operators such as less than and greater than 
+
+=== '''Personal Notes''' ===
+* Felt presentation went well
+* Next time / in the future attempt to create our own genetic algorithm for selection
+* I will continue to mess around with inputs to try to decrease AUC on my own time
+
+== September 25th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Make sure to finish Peer Evaluations by next Friday 4 pm 
+* We are now shifting to using genetic programming to solve similar problems
+
+=== '''Meeting Notes''' ===
+* We will now use multi-objective genetic programming to solve the same Titanic Problem
+** For this, we are once again creating codominant individuals
+** This time they will be genetically produced
+** Must have 100 final individuals plotted on a Pareto front for FPR and FNR
+** This is a minimization problem since we want to minimize FPR and FNR
+** Therefore the smaller the area under the curve the better the set of individuals
+** To create our individuals we will use simple primitives -, +, -, /, and, or, not, etc.
+** They will evolve generation by generation in an evolutionary loop
+** The final area under the curve of the 100 individuals will be our score
+
+=== '''Sub-Team Notes''' ===
+* Met with sub-team three times to complete project
+* We decided to work on just one notebook since the final set of functions will evolve from one original set of functions
+* We used the same feature set as last week’s assignment (PClass, Age, Sex, SibSp, Parch, Fare)
+* Our Solution Code: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1/blob/master/Titanic_GP.ipynb
+* Our team presentation: https://docs.google.com/presentation/d/1nOBkBBZlXKNpkpiklO-IvuAoEmPrEtOjIKG4s5BieRw/edit#slide=id.p
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Team and Complete Titanic Problem with MOGP
+|Completed
+|9/25/19
+|10/2/19
+|10/2/19
+|-
+|Complete Presentation Slides
+|Completed
+|9/25/19
+|10/2/19
+|10/2/19
+|-
+|Complete Notebook for 9/25
+|Completed
+|9/25/19
+|10/2/19
+|10/2/19
+|}
+[[files/Screen Shot 2019-10-04 at 3.41.56 PM.png|thumb|400x400px|Registering toolbox functions from DEAP]]
+
+=== '''Overview / Personal Responsibilities''' ===
+* '''Personal Tasks:'''[[files/Screen Shot 2019-10-04 at 3.44.45 PM.png|thumb|Primitives we chose to use]]
+** I was assigned to find and implement a selection function 
+** I figured out that selection Tournament would be a poor choice
+*** This is because it is a single objective function and will only look at the first value
+**Instead, I chose NSGA-II (Non-Dominated Sorting Genetic Algorithm) 
+***Since it is multi-objective, we could minimize FPR and FNR
+** Helped choose primitives with the rest of the team
+** Helped find and implement MuPlusLambda 
+*** It selected the best functions between both the current and parent generation
+* [[files/Screen Shot 2019-10-04 at 3.52.55 PM.png|thumb|300x300px|Our final graph of the area under the curve over generations]]'''Project Conclusions:'''
+** Each function plots to an FPR and FNR, we had 157 total codominant functions
+** Our Area Under the Curve decreased over generations from 0.37 to 0.1183 over 150 generations. 
+** We decided to stop at 150 because the difference started to vary by a factor of 10^-4
+[[files/Screen Shot 2019-10-04 at 3.53.30 PM.png|thumb|350x350px|The Pareto front of our 157 codominant functions|none]]
+
+=== '''Personal Notes''' ===
+* Felt like our team struggled somewhat to begin but we improved throughout the week
+* Communication improved from last week and we ensured we all understood what was happening
+
+== September 18th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Sub-teams all presented on their solutions
+* My sub-team presented: [[Bootcamp Sub-team Fall 2019|Bootcamp Sub-Team Fall 2019]] (Team 1)
+
+=== '''Meeting Notes''' ===
+* Teams explained how they thought about the problem
+** They explained thoughts behind the chosen feature set
+** Explained why / which ML algorithms were chosen
+** Showed co-dominancy of different ML algorithms
+*Our team's presentation: https://docs.google.com/presentation/d/1x_8xfFspcMqOYNSju7Hl3QtAJquGAbR2QhAp6xskn5w/edit#slide=id.p
+*Out team's GitHub Repo: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1
+
+=== '''Sub-Team Notes''' ===
+* We presented our solution to the Titanic Problem
+* Quickly understood from other groups how we failed to complete codominance of all functions
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lab 2 Part 2
+|Completed
+|9/18/19
+|9/25/19
+|9/20/19
+|-
+|Research DEAP Evolutionary Tools
+|Completed
+|9/18/19
+|9/25/19
+|9/20/19
+|-
+|Complete Notebook for 9/18
+|Completed
+|9/18/19
+|9/25/19
+|9/24/19
+|}
+
+=== '''Overview''' ===
+* Our team discussed after all the presentations about where we misunderstood the assignment
+* We went back and added a Pareto front
+* After further internal discussion, we reached an understanding amongst us all over the purpose of the assignment
+* It was not to create 5 good functions, rather 5 functions which did not dominate each other and accomplished different things in relation to FPR and FNR
+
+=== '''Personal Notes''' ===
+* To better understand actual implementation of evolutionary functions I want to independently research more
+* For that, I used: https://deap.readthedocs.io/en/master/api/tools.html
+* Learned about one-point vs two-point crossover, different selection methods such as select random vs select best, looked into mutation functions such as mutFlipBit
+
+== September 11th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Were assigned to sub-team: [[Bootcamp Sub-team Fall 2019|Bootcamp Sub-Team Fall 2019]] (Team 1)
+* My team consists of Aryender, Pulak, Anshul, Joseph (Me), Peiqi, Ford
+* We will use Kaggle for our next project
+* Scikit is a useful resource for searching for machine learning algorithms
+
+=== '''Meeting Notes''' ===
+*Discussed scikit-learn and different methods to tackle problems
+*Ran notebook to create data and graphs
+*Were assigned to sub-team and given our first project
+*Each team was tasked with finding 5 co-dominant functions for predicting survivorship of the Titanic
+*Must be plotted on FPR and FNR axis (minimization problem)
+*Codominance:
+**When functions are not dominated by each other
+**For MOGP, they can differ/dominate each other in one input, but then the other function dominates the other in the other input
+**There is a tradeoff from switching to one to another
+**A set of codominant functions create a Pareto front
+
+=== '''Sub-Team Notes''' ===
+*Began Titanic Problem:
+**Created a GitHub Repo: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1
+**Discussed how responsibilities would be divided
+**Decided each group member present that day (5 of us) would find a codominant algorithm
+**We find FPR and FNR and plot them on a chart to create a Pareto front
+**Our team's final presentation: https://docs.google.com/presentation/d/1x_8xfFspcMqOYNSju7Hl3QtAJquGAbR2QhAp6xskn5w/edit#slide=id.p
+[[files/Screen Shot 2019-10-03 at 11.25.05 PM copy.png|thumb|239x239px|My progress on my online Python course.]]
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research Numpy and Pandas
+|Completed
+|9/11/19
+|9/18/19
+|9/14/19
+|-
+|Agree to a Common Feature Set
+|Completed
+|9/11/19
+|9/18/19
+|9/13/19
+|-
+|Meet with Team and Complete Titanic Problem
+|Completed
+|9/11/19
+|9/18/19
+|9/18/19
+|-
+|Complete Notebook for 9/11
+|Completed
+|9/11/19
+|9/18/19
+|9/18/19
+|}
+
+=== '''Overview / Personal Responsibilities''' ===
+* '''Personal Tasks:'''
+** Researched Numpy and Pandas to attempt preprocessing data
+** Chose to use Neural Networks for my independent function I would train[[files/Screen Shot 2019-10-04 at 10.49.54 AM.png|thumb|300x300px|Confusion matrix I created of FP, FN, TP, TN]]Created my own independent solution implementing Neural Networks: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1/blob/master/Titanic%20Example.ipynb
+
+* '''Overview:'''
+**Neural Network Results:
+*** False Positive Rate: 23/191 = 0.120
+*** False Negative Rate: 29/104 = 0.2788
+*** Accuracy hovered between .825-.835
+[[files/Screen Shot 2019-10-04 at 10.49.43 AM.png|thumb|350x350px|My training of Neural Networks|none]]
+
+=== '''Personal Notes''' ===
+Introductory Python Course:
+* Finished the Python online course
+* Learned everything I wanted to know
+* Will later search for a new course to learn more data science skills
+* For now, I will focus on projects within VIP
+Titanic Presentation
+* Could have gone better
+* We misunderstood the purpose of the assignment originally
+* Only two final functions were co-dominant and optimal and those two functions dominated the other three function
+* Need to work on communication in further projects so we have a better understanding as a team
+
+== September 4th, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Sub-Teams Defined:
+** ADF (Automatically defined functions)
+** Research Fundamentals
+** Automated Processing
+** EzCGP
+** NLP (Natural Language Processing)
+
+=== '''Meeting Notes''' ===
+'''Multi-Objective Programming'''
+* What type of things would we want in an algorithm?
+** Minimize errors
+** Low memory usage
+** Efficient
+** Secure
+** Good false positive and false negative rate
+** Usability (Interface)
+** Cost-Effectiveness
+
+* A gene pool is a set of genomes will get tested for fitness
+** Genome: Genotypic description of an individual
+** Phenotype: Phenotypic expression of an individual 
+** Search Space: The set of all possible genomes
+
+* Ways to score functions
+** True Positive (TP) - The number of actual positives which are correctly identified (identified positive, actually positive)
+** False Positive (FP) - The number of actual negatives which are incorrectly identified (identified positive, actually negative)
+* Maximization  - We want to maximize the true measures (the ones that were correctly identified)
+** Sensitive / True Positive Rate (TPR)
+*** TRP = TP / (TP + FN)
+** Specificity / True Negative Rate (TNR)
+*** TNR = TN / (TN + FP)
+* Minimization - We want to minimize the false measures (the ones that were incorrectly identified)
+** False Negative Rate (FNR)
+*** FNR = FN / P = FN / (TP + FN) = 1 - TPR
+** False Positive Rate (FPR)
+*** FPR = FP / N = FP / (TN + FP) = 1 - TNR
+* Accuracy = (TP + TN) / (P + N) = (TP + TN) / (TP + TN + FP + FN) (We would like to maximize accuracy)
+* Genotype - DNA
+* Phenotype - The manifestation of the function
+
+=== '''Sub-Team Notes''' ===
+* NA: Team has not been assigned yet[[files/Screen Shot 2019-10-03 at 11.06.22 PM.png|thumb|234x234px|My progress in my online Python course]]
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Day 3 Lecture Notes
+|Completed
+|9/4/19
+|9/11/19
+|9/5/19
+|-
+|Finish DEAP Lab 2 Part 2 - Multi-Objective Genetic Programming
+|Completed
+|9/4/19
+|9/11/19
+|9/7/19
+|-
+|Review/Relearn Python for 90 minutes/week
+|Completed
+|9/4/19
+|9/11/19
+|9/9/19
+|-
+|Complete Notebook for 9/4
+|Completed
+|9/4/19
+|9/11/19
+|9/9/19
+|}
+
+=== '''Overview''' ===
+DEAP Lab 2 Part 2 - Multi-Objective Genetic Programming
+[[files/Screen Shot 2019-10-04 at 2.06.18 AM.png|thumb|400x400px|The final co-dominant frontier of Pareto optimal individual functions by tree size and mean-squared error]]
+* Purpose: Create individuals which are Pareto optimal to each other in both mean squared error and size of tree 
+* Steps to get to that purpose using Multi_objective Genetic Programming:
+** Create individuals (functions) 
+** Create a way to test their fitness 
+** Define specific functions with toolbox 
+** Create an evaluation function 
+** Create the evolutionary process 
+** Create statistical data and graphs to show our results 
+
+* ''The lower the area under the curve the better the set of codominant individuals''
+
+=== '''Personal Notes''' ===
+Introductory Python Course:
+* The course is still going well and I am learning new material
+* This week I spent 90 minutes on the course which translated to 68% of the entire course
+* I am on pace to complete the entire course in one more week
+
+== August 28st, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* Important Dates:
+** October 21st, 2019 and December 2nd, 2019
+*** Both are on Monday from 4:30-7:30 PM 
+*** First meeting First Semester sub-teams report EMADE updates and results
+*** The Second meeting consists of Final Presentation from each sub-team
+
+=== '''Meeting Notes''' ===
+'''Genetic Programming'''
+* Genetic programming is different because the program is the genome itself, the functions are the genomes
+* Tree-based genetic programming: Primitives are functions which are also the nodes of the tree (+, -, *, /, etc.)
+* Terminals are leaf nodes aka the inputs or parameters for the functions
+* A tree is converted to a lisp preordered parse tree
+** If a function was f(x) = 5 - 6*2
+** The parse tree would be [-, 5, *, 6, 2]
+
+* Weakly typed- any kind of input can go into any slot
+* Strongly types- this takes in certain types of data into what slots
+* Mating and Mutation:
+** Mating: It is a single-point crossover, we exchange subtrees, 
+** Mutation: We mutate a single node, or add/ delete a subtree
+'''Symbolic Regression'''
+* Type of regression analysis
+* Searches for function with the best fit of the data
+* Using +, -, *, /, !, sin, cos, etc. help the evolution process
+[[files/Screen Shot 2019-08-31 at 11.46.52 PM.png|thumb|235x235px|My current status in my online Python course]]
+
+=== '''Sub-Team Notes''' ===
+* NA: Team has not been assigned yet
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Day 2 Lecture Notes
+|Completed
+|8/28/19
+|9/4/19
+|8/29/19
+|-
+|Finish DEAP Lab 2 Part 1 - Single Symbolic Regression
+|Completed
+|8/28/19
+|9/4/19
+|8/31/19
+|-
+|Review/Relearn Python for 90 minutes/week
+|Completed
+|8/28/19
+|9/4/19
+|8/31/19
+|-
+|Complete Notebook for 8/28
+|Completed
+|8/28/19
+|9/4/19
+|9/1/19
+|}
+
+=== '''Overview''' ===
+DEAP Lab 2 Part 1 - Single Symbolic Regression
+* Purpose: The purpose is to use genetic programming to produce a function that minimizes the mean squared error between the created function and the actual function 
+* As evolution occurred and fitness was tested, the mean-squared error between the two functions decreased
+* The better individuals (functions) were surviving and continuing to mate and mutate as the worse functions died off
+[[files/Screen Shot 2019-10-03 at 7.19.37 PM.png|thumb|600x600px|Adding two of my own primitives|left]]
+[[files/Screen Shot 2019-10-03 at 8.42.39 PM.png|thumb|400x400px|My final graph that shows the maximum, minimum and average fitness level of the individuals (note it decreases over time)]]
+[[files/My Mutation Code.png|thumb|600x600px|Imported my own mutation method which takes a random node and changes the node's primitive|left]]
+[[files/My code copy.png|thumb|600x600px|Changed the tree height constraints to the mutation and crossover functions|none]]
+
+=== '''Personal Notes''' ===
+Introductory Python Course:
+* The course is going well and I am relearning concepts as I anticipated
+* This week I spent 90 minutes on the course which translated to 35% of the entire course
+* I am on pace to complete the entire course in two more weeks
+
+== August 21st, 2019, Wednesday ==
+
+=== '''General Information''' ===
+* First 10 weeks new students meet at Klaus 1440 on Wednesdays from 4:30-5:20 PM
+* Notebooks are essential for displaying all work, progress, and notes
+** If it is not in the notebook, "Then you didn't do it"
+* Grade Distribution is as follow:
+** Documentation and records (33%)
+** Personal accomplishments and contributions to your team’s goals (33%)
+** Teamwork and interaction (33%)
+
+=== '''Meeting Notes''' ===
+'''Genetic Algorithm'''
+* An approach to optimization problems that is based on natural selection.
+* It tries to optimize the solution, or produce the best individual, the one that displays maximal fitness, by repetitively mating and mutating individuals of a given population based on chosen attributes, eventually leading to a single best individuals with optimal fitness, displaying the chosen attributes.
+* Individual - A specific candidate in the population (can be characterized by DNA)
+* Population - The set of all individuals
+* Objective - A value to characterize the individuals which is either maximized or minimized
+* Fitness - Relative objectiveness, for example, getting good grades is an objective but class rank would be fitness
+* Evaluation - A function that computes fitness
+* Selection- Individuals with higher fitness have a better chance of mating through higher selection (represents survival of the fittest)
+** The two ways this can be conducted are:
+**# Fitness Proportionate- The greater the fitness value the greater the probability of being selected for mating (not random)
+**# Tournament: Several tournaments are held and winners are selected for mating (random)
+* Mate/Crossover - Mating between individuals of the population where there are different ways to combine the genetic information of the two mates to create the offspring
+* Mutate - Introduces random modifications to the individuals' makeup so that diversity is maintained
+<u>General Process of the Genetic Algorithm:</u>
+# Create a randomly initialized population
+# Determine the overall fitness level of the population
+# Choose select parents from the population with relatively high fitness
+# Perform mating/crossover to produce the next generation population
+# Perform mutation on the next generation to maintain diversity
+# Continue to repeat steps 2-5 until the best individual of a given population displays maximal fitness (where that boundary lies must be set)
+
+=== '''Sub-Team Notes''' ===
+* NA: Team has not been assigned yet
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install GitHub, Anaconda and Jupyter Notebook
+|Completed
+|8/21/19
+|8/28/19
+|8/22/19
+|-
+|Join EMADE Slack
+|Completed
+|8/21/19
+|8/28/19
+|8/22/19
+|-
+|Review Class Syllabus and Day 1 Lecture Notes
+|Completed
+|8/21/19
+|8/28/19
+|8/22/19
+|-
+|Finish DEAP Lab 1 - Genetic Algorithms with DEAP
+|Completed
+|8/21/19
+|8/28/19
+|8/28/19
+|-
+|Review/Relearn Python for 90 minutes/week
+|Completed
+|8/21/19
+|8/28/19
+|8/28/19
+|-
+|Complete Notebook for 8/21
+|Completed
+|8/21/19
+|8/28/19
+|8/28/19
+|}
+[[files/Screen Shot 2019-08-31 at 11.31.57 PM.png|thumb|My own mutation program which swaps two indexes of an individual (which in this instance translated to switching the location of two queens on a given chess board)]]
+
+=== '''Overview''' ===
+* DEAP Lab 1 Part 1 - One Max Problem
+** Created individuals through a random initializer
+** Algorithm ran for 40 generations
+** Progress in fitness was tracked
+** Tournament style selection took place where 50% mated and 20% mutated
+** Fitness of new generation was analyzed 
+** Process was repeated until the individual with the highest fitness was found
+* DEAP Lab 1 Part 2 - N Queens Problem
+** An 8x8 chessboard contains 8 queens
+** The chessboard is the individual 
+** The individual's fitness level is determined by the number of interactions between all the queens
+** Fitness was tracked
+** Crossover/Mutation occurred
+** Offspring were produced 
+** Process was repeated until the individual with the best/lowest fitness was found
+
+=== '''Personal Notes''' ===
+First and foremost I believe my python skills need some revisiting as I have not touched python since my first introductory course
+* For this, I will search for the best online introductory course and complete 90 minutes of review work per week
+* As I am already somewhat acquainted with python 90 minutes of personal work should translate to approximately 120-150 minutes of recommended coursework time
+* This week I spent most of those 90 minutes searching for the course that I think will best suit my needs
+* I have decided that I will use Kaggle Learn's Introductory course to Python
+* The course is 7 lessons long and is estimated to take 7 hours long 
+* By my approximations for my own pace, I am planning on completing this course in about 4.5 hours or 270 minutes, which will take me exactly three weeks
