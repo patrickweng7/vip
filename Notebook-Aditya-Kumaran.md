@@ -1,15 +1,15 @@
 == Team Member ==
 [[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
-Team Member: Buzz Y. Jacket
+Team Member: Aditya Kumaran
 
-Email: bjacket@gatech.edu
-Cell Phone; 404-867-5309
+Email: akumaran6@gatech.edu
+Cell Phone: +65 86455011
 
-Interests: Machine Learning, Football, Basketball, Python
+Interests: Writing Fiction, Music, Reading, Sports
 
 
 
-== April 8, 2019 ==
+== August 25, 2021 ==
 '''Team Meeting Notes:'''
 * Started lecture on genetic programming.
 
