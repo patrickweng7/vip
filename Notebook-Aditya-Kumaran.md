@@ -43,11 +43,11 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Initialize population
     *  Evaluate population to get objective, fitness
     *  Loop through:
-        *  Select parents
-        *  Mating actions
-        *  Mutations
-        *  Determine fitness
-        *  (until the best individual is acceptable)
+        1. Select parents
+        2. Mating actions
+        3. Mutations
+        4. Determine fitness
+        5. (until the best individual is acceptable)
 
 '''Action Items:'''
 {| class="wikitable"
