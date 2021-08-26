@@ -8,6 +8,7 @@
 
 ### August 25, 2021 
 * Dr. Zutty went over the syllabus and presentation dates
+* Dr. Zutty gave lecture 1
 
 **Lecture 1**
 * genetic algorithms
