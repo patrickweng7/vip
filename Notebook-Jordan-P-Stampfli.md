@@ -6,7 +6,7 @@
 
 ### Cell Phone: 914-874-3666
 
-**August 25, 2021** 
+### August 25, 2021 
 * Dr. Zutty went over the syllabus and presentation dates
 
 **Lecture 1**
