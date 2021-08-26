@@ -48,6 +48,8 @@ This is better summarized in [[https://deap.readthedocs.io/en/master/tutorials/b
 
 I was able to run through the rest of the lab with no problems and began to become familiar with the conventions of the DEAP framework and how we can register the various fitness, mutation, and mating functions to our toolbox. One thing of note is to use the copy method from tools when mating and mutating individuals. This is to ensure that we do not modify individuals in the population when creating the offspring.
 
+What struck me as odd was the selection of the offspring. The tournament selection was set to evaluate 3 individuals at a time, but it was also set to create 300 offspring. Our population is also 300. According to the documentation, n individuals are chose k times. In this case n=3 and k=300. This means that there is a good number of duplicate individuals in the population.
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
