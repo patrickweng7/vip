@@ -1,5 +1,6 @@
 == Team Member ==
 [[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+
 Team Member: Aditya Kumaran
 
 Email: akumaran6@gatech.edu
