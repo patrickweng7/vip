@@ -1,4 +1,5 @@
 == Team Member ==
+[[files/A Photo of Me.jpg|thumb]]
 <b>Team Member:</b> Steven Leone <br>
 <b> Major: </b> Computer Science <br>
 <b>Email:  </b>sleone6@gatech.edu <br>
@@ -221,8 +222,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 *With my mediocre individuals seeded, I then ran EMADE again to see how close it could get to our benchmarked results that Sumit and Anshul produced (92%).
 *The final Pareto individuals (blue) are shown against the seeded (red) individuals below. Note that some red, particularly on the number of parameters axis, can't be seen as they are directly below the blue.
 
-
-
 *The best results were these two individuals
 **NNLearner(ARG0, OutputLayer(EmbeddingLayer(5, ARG0, glorotUniformWeights, InputLayer())), myIntMult(falseBool, 3), NadamOptimizer)
 **NNLearner(ARG0, OutputLayer(EmbeddingLayer(-3, ARG0, passWeightInitializer(passWeightInitializer(heWeights)), InputLayer())), 128, RMSpropOptimizer)
@@ -284,7 +283,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 === EMADE Run on PACE ===
 *To get around the 8 hour PACE wall time, I changed the location the database was hosted on to localhost:3307, so that I could run EMADE from the terminal. Thus, as long as my laptop didn't sleep, EMADE could keep going. I used the Mac command "caffeinated" in a different terminal to accomplish this.
 *In total, this second run ran for 24 hours, seeded with 10 individuals, all similar but slightly changed from the single NNLearner previously seeded. The Hypervolume here was 70360579.5, an improvement from the last run. There were 6 Pareto individuals, shown on the Pareto Front below.
-
 
 
 *These results are noticeably similar to the first Amazon Run. Disappointingly, the best individual regarding accuracy is only slightly different from the seeded one. This best individual is '''NNLearner(ARG0, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, GRULayer(150, eluActivation, 50, trueBool, trueBool, EmbeddingLayer(-4, ARG0, heWeights, InputLayer())))), 89, RMSpropOptimizer)'''. The number of parameters is improved though, suggesting that it was slightly optimized along this end.
@@ -361,14 +359,11 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 *Now, the final issue was the size of the Amazon dataset. As there were 3.6 million examples in the training file, it was 20 times the size of toxicity, and was consequently crashing PACE, which made evaluating NNLearners fail every time. This is why every NNLearner had a fitness of (infinity, infinity) during the runs, even known good seeded ones.
 *My initial plan to resolve this was to use K-folds, however, instead of partitioning the same dataset into different train and test splits, I would divide the dataset up into 20 evenly split groups. Then, I could enter the datasets into the XML file the same way as K-folds are used in the input_titanic.xml file.
 *First, I loaded in arrays from the .npz test and train files, as this was the only way to work with non-utf8 characters. I ran into an issue with the default settings of bumpy, however, shown below
-
 *I resolved this by saving numpy's default load settings to change back to at the end, and then inserting this line of code before loading the .npz files: "np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)"
 *This code changed the value allow_pickle to true, fixing the error. Below, I've shown the code that fixes this error, and successfully loads in the data.
-
 *I don't have permission to push to Github, so I gave the script and results to Cameron. He took one of the splits and pushed it to Github, which can be found here: https://github.gatech.edu/emade/emade/tree/nn-vip/datasets/amazon
 *Having resolved this error, I proceeded to writing a script performed as intended, dividing up the dataset and saving it to 20 test and train csv files.
 *You can download this script here https://drive.google.com/file/d/1Wdv3BQwyBsQDLfyjGOovei1xjDaOoF2u/view?usp=sharing
-
 *I discovered we couldn't use folds for the dataset in this branch
 *I resorted to only use a dataset that was 1/20th of the size
 *The training data was now a 49.3/50.6 split, which should be good enough still to get non-trivial results.
@@ -377,7 +372,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 *With the NNLearner fixed and data set divided properly, I could now do runs that yielded meaningful results.
 *Thus, I started my first run. I seeded one NNLearner, set wall time on PACE to the max (8 hours), and let it run.
 *It hit 8 hours without any errors. In total, it ran for 15 generations, had 3 Pareto individuals, and a hyper volume of 71355488.6. The results are shown in the graph below.
-
 *The results are rather disappointing. There's a large amount of unexplored territory on the Pareto Front, especially on the number of parameters axis. Furthermore, the individual with the most accuracy is identical to the seeded individual. This individual, with an accuracy of 92.9%, was NNLearner(ARG0, OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer).
 *Other results that appeared did work well, but none surpassed this seeded individual in accuracy. This was of concern, as EMADE was unable to improve upon a seeded individual in regards to accuracy. Other individuals had close to as high accuracy and less parameters, but none scored as high on accuracy.
 
@@ -533,7 +527,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 * This seems to have worked; I got up to Generation 6 without error. Therefore, I think this was definitely the result of a primitive or some part of an individual, which didn't always pop up in runs. Below I've documented a learner that I was getting this issue with. In the near future I'll have to further investigate this to see exactly why it's giving this issue. For now, the main focus is on trying to successfully get complex individuals on the Amazon Dataset with EMADE.
 ** Individual that crashed the run: '''''NNLearner(ContourMaskMinEnclosingCircle(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_2, 0.01), [], greaterThan(10.0, -1.98222821704125), passOptimizer(FtrlOptimizer))'''''
 * Instead, I got the error shown below during Generation 6.
-* 
 * I remembered that Cameron and Anish had run into this issue. From reading the slack, I though it was an issue with the Pre-trained Embedding layer.
 * However, on Friday, I learned that it was actually a result of errors in the code. Changes had been pushed to Github. Changes were made in emade_operators.py and eval_methods.py. I copied these over into PACE using scp and ran them.
 
@@ -603,7 +596,7 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 === EMADE Run on PACE ===
 
 ==== Seeding File/Database Problems ====
-* I started off by trying to simply seed the individuals, running the command " python3 src/GPFramework/seeding_from_file.py templates/input_amzn.xml seeding_test_toxicity". However, this kept giving an error, saying that MYSQL socket couldn't be reached.
+* I started off by trying to simply seed the individuals, running the command " python3 src/GPFramework/seeding_from_file.py templates/input_amzn.xml seeding_test_toxicity". However, this kept giving an error, saying that MYSQL socket couldn't be reached.
 * Thanks to instructions from Cameron, I learned that the environment qsubbed processes run in is different from the ones run from the terminal. Therefore, while the socket could be reached from the EMADE program when running from the terminal, it was a completely different story regarding any qsubbed processes. Thus, the seeding program would need a different way to connect.
 * I had to move the database to run on "atl1-1-02-012-5-l:3307" (atl1-1-02-012-5-l using port 3307) in order for it to be reachable during seeding. 
 * Furthermore, this database had to be run as a submitted job using qsub. However, doing so meant that mysql could no longer be accessed from the terminal.
@@ -741,7 +734,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 * Gen 0 continued running successfully after this, until I obtained a RecursionValue Error
 * This error happens when your program recurses past the max allowed by the system
 * You can resolve this with "u-limit -s", as demoed below, which shows the initial max value as 8192 and changes it to 12000
-* 
 
 * On Friday, it turns out this recursion was actually an error with the concat learner that Anish fixed in the nn branch; the emade_operators.py file was changed to resolve this.
 
@@ -930,7 +922,6 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 * PACE emade environment is named EMADE35
 
 === Notebook Self Evaluation ===
-
 
 == Week 2: February 1, 2021 ==
 
@@ -1177,7 +1168,7 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 ==== Amazon Data Set ====
 * The final component required to run Amazon on Emade was the XML file, which specified specifics about the run and the formatting of the data.
 * I, again, was able to look upon previous work for help in creating these files. However, the XML file was different for this branch than the master branch, as was used with the titanic. For example, the outdated acronym GTMOEP was replaced with EMADE throughout the code and files; this required evaluation functions to be renamed. 
-* Rather than directly copying fields from the toxicity XML, I tried to look into each one to find out what they meant. Most of the changes I made in creating the Amazon XML were in changing the probabilities of mutating and mating functions to give them at least close to uniform probabilities. 
+* Rather than directly copying fields from the toxicity XML, I tried to look into each one to find out what they meant. Most of the changes I made in creating the Amazon XML were in changing the probabilities of mutating and mating functions to give them at least close to uniform probabilities.
 ==Week 13: November 9th, 2020==
 
 ===Meeting Notes:===
@@ -1229,7 +1220,7 @@ The most common MySQL issues we've run into on PACE are documented below. Use th
 * This required using scikit's folding.
 * I added onto the Preprocess.py script, and looked up the methods used by the preprocessing toxicity file for reference. Most of them could be reused for Amazon.
 * I ran the script, originally using np.savetxt(). However, the format of the outputted txt files was different. I then realized that the variable assignments in the toxicity preprocessing actually wrote the final files, and adjusted my script to write in this format.
-* Running the Preprocessing script required 15-20 minutes due to the sheer volume (about 3 million) of the dataset.
+* Running the Preprocessing script required 15-20 minutes due to the sheer volume (approximately 3 million) of the dataset.
 
 ==Week 12: November 2nd, 2020==
 
@@ -1653,6 +1644,7 @@ None for this week; next week we'll receive sub team assignments.
 ** We plotted our points on a pareto frontier, and discovered that only one point was off the frontier.
 ** The model that was off of the Pareto frontier was revised until it appeared back on. Our results are shown below.
 
+
 == Week 3: September 2nd, 2020 ==
 
 === '''Lecture Notes:''' ===
@@ -1810,6 +1802,7 @@ None for this week; next week we'll receive sub team assignments.
 ===Lab 1:===
 
 Learned how to use Jupiter Notebook, create Genetic Algorithms to solve the all 1's problem and n queen's
-* For the N Queen's Problem, the Best Individual was [10, 15, 19, 9, 0, 8, 18, 11, 1, 6, 17, 3, 2, 13, 5, 16, 14, 12, 7, 4] after 100 generations. The Progression over generations is shown below. Note that the minimum was actually reached well before the 100 individuals, and the objective was to minimize the fitness. Therefore, 100 generations was likely not entirely necessary, as you can tell by the near completely horizontal slope of all lines after around generation 40.
+* For the N Queen's Problem, the Best Individual was [10, 15, 19, 9, 0, 8, 18, 11, 1, 6, 17, 3, 2, 13, 5, 16, 14, 12, 7, 4] after 100 generations. The Progression over generations is shown below. Note that the minimum was actually reached well before the 100 individuals, and the objective was to minimize the fitness. Therefore, 100 generations was likely not entirely necessary, as you can tell by the near completely horizontal slope of all lines after around generation 40.
 * The all 1's problem didn't quite converge to the final best possible result, and had a best individual of  [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].
 * Increasing the generations would have likely solved this problem, as it would inevitably fill in the extra 1 eventually.
+
