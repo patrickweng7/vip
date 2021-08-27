@@ -1,20 +1,19 @@
 == Team Member ==
-[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
 
-Team Member: Aditya Kumaran
+Team Member: Leul Wubete
 
-Email: akumaran6@gatech.edu
-Cell Phone: +65 86455011
+Email: wubete3@gatech.edu
+Cell Phone: +1 4047897798
 
-Interests: Writing fiction, Music, Reading, Sports
+Interests: Soccer, Walking, Eating, Breathing
 
 == September 1, 2021 (Week 2) == 
 
 == August 25, 2021 (Week 1) == 
 
 '''Lecture Notes:'''
-* Learned about project requirements: Anaconda, JupyterLab, Python deap
-* Introduced to EMade's GitHub, Wiki, Personal Progress Notebooks, Python Jupyter Notebooks, Slack
+* Introduced to project requirements:  Rubric, Syllabus, JupyterLab, Python deap, 
+* Given access and shown emade's GitHub, Wiki, Personal Progress Notebooks, Python Jupyter Notebooks, Slack
 * Introduced to Genetic Algorithms:
     *  Allegories for how DNA works.
     *  Many solutions to your problem, each being a “genome” and can mutate either individually or in groups 
