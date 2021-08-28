@@ -1,9 +1,9 @@
 ## Table of Contents
 - [Team Member](#team-member)
-- [August 28, 2021](#august-28,-2021)
+- [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
   * [Action Items](#action-items)
-- [August 25, 2021](#august-25,-2021)
+- [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
   * [Action Items](#action-items-1)
 
