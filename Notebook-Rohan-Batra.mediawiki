@@ -61,11 +61,16 @@
 * Ran the algorithm for 40 generations.
 * <u>Conclusion:</u> Global maximum fitness of 100.0 was usually achieved in 40 generations but sometimes this was not the case; however, the maximum fitness obtained was always very close to 100.0. This method of tournament selection among 3 individuals is better than random search.
 
-'''The N Queens Problem:'''
+'''The N Queens Problem:''' The problem is to determine a configuration of n queens on a nxn chessboard such that no queen can be taken by one another. In this version, each queen is assigned to one column, and only one queen can be on each line. The outline and process completed is as follows (as per steps followed in the DEAP Python notebook):
+* Imported the required modules (mostly DEAP tools)
+* Defined individual classes, the fitness objective, and functions using DEAP's ToolBox.
+* The fitness objective is to minimize the number of conflicts between 2 queens on the chessboard. Used to range function as well.
+* Defined a function called "permutation" to help create our individuals and population and others like Evaluation (minimize diagonal conflicts), Crossover (partially matched), and Mutation (shuffle indexes) functions.
+* Ran main evolutionary loop for 100 generations. 
+* Iterations can be reduced with change is parameters. Current algorithm did not always achieve the global minimum (0.0) but was consistently close.
+* Visualization done to achieve more efficiency and speed using graphs as follows:
 
-
-
-
+[[desktop/VIP Algo image vip.png|thumb|none]]
 
 '''<i>Action Items</i>'''
 {| class="wikitable"
