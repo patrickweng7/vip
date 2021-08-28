@@ -1,14 +1,14 @@
-# Team Member 
+## Team Member 
 
-### Team Member: Jordan Stampfli
+Team Member: Jordan Stampfli
 
-### Email: jstampfli3@gatech.edu
+Email: jstampfli3@gatech.edu
 
-### Cell Phone: 914-874-3666
+Cell Phone: 914-874-3666
 
-### August 28, 2021
+## August 28, 2021
 
-**Lab 1 Notes**
+### Lab 1 Notes
 * installed deap in anaconda
 * linked deap tutorial on creator and toolbox
   * we defined fitness objective and individual object
@@ -33,36 +33,36 @@
 
 **Swapping index 2 using partially matched crossover**
 
-**Parent 1**
+Parent 1
 |0|3|2|1|
 |---|---|---|---|
 
-**Parent 2**
+Parent 2
 |1|2|0|3|
 |---|---|---|---|
 
 **After the swap**
 
-**Parent 1**
+Parent 1
 |0|2|3|1|
 |---|---|---|---|
 
-**Parent 2**
+Parent 2
 |1|3|0|2|
 |---|---|---|---|
 
-**Action Items**
+### Action Items
 
 | Task | Due Date | Progress Notes | Current Status|
 |---|---|---|---|
 |Install Anaconda| 8/28 | Completed for Laptop|Complete|
 |Lab 1| 9/01 | Improved in Jupyter Notebook and general python as well as deap|Complete|
 
-### August 25, 2021 
+## August 25, 2021 
 * Dr. Zutty went over the syllabus and presentation dates
 * Dr. Zutty gave lecture 1
 
-**Lecture 1**
+### Lecture 1
 * genetic algorithms
   * evolve generations through selective breeding to improve fitness and optimize solutions
   * individual: one person in population
@@ -83,7 +83,7 @@
     * mate and mutate
     * evaluate new generation
 
-**Action Items**
+### Action Items
 
 | Task | Due Date | Progress Notes | Current Status|
 |---|---|---|---|
