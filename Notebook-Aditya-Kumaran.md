@@ -57,7 +57,32 @@ Interests: Writing fiction, Music, Reading, Sports
 * Retrieved the DEAP Problem from the Calendar, under the Assignments column for the first week. Saved the file as .ipynb
 * Imported the .ipynb into JupyterLab via 'New -> Text File'
 * Opened a new Terminal window in JupyterLab, and used 'pip install deap' to install deap
+
+=== OneMax Problem ===
+* Using toolbox.register and tools.initRepeat, we'll create an individual with a list of 100 booleans (either 0 or 1).
+* Writing the evalOneMax() function to evaluate the total fitness of an individual, we sum all of the 100 bits an individual carries.
+* Defined four tool functions for evaluation (evalOneMax()), mating (2 point crossover), mutation (independent probability of bit flipping = 5%), and selection (tournament style, 3 per pod).
+* Initialized population of 300, mapped the evaluation function to the population using: map(toolbox.evaluate, pop). Assigned individuals their fitness values as properties.
+* Defined an evolutionary loop (40 generations), and performed tournament selection on the population, cloning the selected offspring to create separate instances from the previous iteration.
+* Matched the even terms with their adjacent odd terms and called toolbox.mate() with 50% probability. Deleted the mated offspring's fitness values.
+* Mutated individuals with 20% probabilities, deleted the mutated offspring's fitness values. 
+* Re-evaluated the modified offspring and assigned their newly evaluated fitness values. Replaced old population with offspring.
+* Calculated max, min, mean, and standard deviation statistics for new population.
+* Ran main():
+    * Achieved 100% maximum fitness in 31 generations.
+    * Achieved 100% maximum fitness in 39 generations.
+    * Achieved 100% maximum fitness in over 40 generations (99% maximum in 40 generations).
+    * Achieved 100% maximum fitness in 34 generations.
+    * Achieved 100% maximum fitness in 39 generations.
+
+=== N Queens Problem ===
+* Created fitness and individual classes for an nxn chessboard (sample is 20x20). Fitness is weighted negatively, since the goal is to minimize conflicts between the queens on the board.
+* Created individuals using toolbox_q.permutation (returns randomized list of numbers less than n, representing the queens' columns), since there is only one queen per column.
+* Count the number of queens on each diagonal for evalNQueens(individual), and sum the total number of conflicts on both left and right diagonals.
+* Writing the partially matched crossover function for two individuals. Chose two random crossover points, and swapped the individuals' bits between those indices.
+* Wrote the mutation function for individuals with a given probability of each attribute to be moved indpb.
 * 
+
 
 '''Action Items:'''
 {| class="wikitable"
