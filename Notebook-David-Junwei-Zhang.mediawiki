@@ -39,6 +39,27 @@ Genetic Algorithm Steps
 
 *Types of problem that are good for genetic programming: problems with highly discontinuous, large search spaces 
 
+'''Lab 1'''
+
+One Max Problem
+
+Objective: The population is a string of bits and we are trying to maximize the number of 1 bits within the population.
+To maximize a single objective using DEAP, we can use the following line of code
+
+    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+
+Conversely, in order to minimize a single objective, we can set the weight tuple to (-1.0,) and to create a multi-objective problem, we can set the tuple to (1.0, 1.0)
+
+Some settings used for the one max problem include
+* using 2 points crossover function
+* mutation with probability 0.05
+* tournament selection with tournament size 3 (we use tournament selection because it tends to preserve more diverse traits than simple competition against the entire population
+* running the algorithm for 40 generations on a population of 300
+
+Summary
+
+After running the final output 5 times, I got a score of 100 3 times, and 99 2 times. This means that 
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
