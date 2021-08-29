@@ -49,7 +49,9 @@ This is better summarized in [[https://deap.readthedocs.io/en/master/tutorials/b
 I was able to run through the rest of the lab with no problems and began to become familiar with the conventions of the DEAP framework and how we can register the various fitness, mutation, and mating functions to our toolbox. One thing of note is to use the copy method from tools when mating and mutating individuals. This is to ensure that we do not modify individuals in the population when creating the offspring.
 
 What struck me as odd was the selection of the offspring. The tournament selection was set to evaluate 3 individuals at a time, but it was also set to create 300 offspring. Our population is also 300. According to the documentation, n individuals are chose k times. In this case n=3 and k=300. This means that there is a good number of duplicate individuals in the population. I also suspected that the number of duplicates would increase over each generation. The populations will converge to all 1s, so the probability of two sets with 99 ones each at different positions generating the same set increases. The counts of duplicates at each generation was as follows:
-[34, 65, 76, 48, 51, 48, 54, 49, 50, 62, 57, 58, 52, 40, 62, 38, 57, 72, 67, 96, 81, 93, 92, 100, 117, 116, 131, 150, 173, 175, 202, 196, 197, 211, 220, 215, 231, 229, 236, 238]. Perhaps there needs to be a clean up set to reduce duplicates and increase the search space. The effect of duplicates is that it increases the probability that a solution will be selected during the tournament, and therefore weighs the optimal solution towards these individuals.
+ [34, 65, 76, 48, 51, 48, 54, 49, 50, 62, 57, 58, 52, 40, 62, 38, 57, 72, 67, 96, 81, 93, 92, 100, 117, 116, 131, 150, 173, 175, 202, 196, 197, 211, 220, 215, 231, 229, 236, 238]. 
+
+Perhaps there needs to be a clean up set to reduce duplicates and increase the search space. The effect of duplicates is that it increases the probability that a solution will be selected during the tournament, and therefore weighs the optimal solution towards these individuals.
 
 '''Action Items:'''
 {| class="wikitable"
