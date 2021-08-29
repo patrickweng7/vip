@@ -80,9 +80,35 @@ Interests: Writing fiction, Music, Reading, Sports
 * Created individuals using toolbox_q.permutation (returns randomized list of numbers less than n, representing the queens' columns), since there is only one queen per column.
 * Count the number of queens on each diagonal for evalNQueens(individual), and sum the total number of conflicts on both left and right diagonals.
 * Writing the partially matched crossover function for two individuals. Chose two random crossover points, and swapped the individuals' bits between those indices.
-* Wrote the mutation function for individuals with a given probability of each attribute to be moved indpb.
-* 
-
+* Wrote the mutation function for individuals with a given probability of each attribute to be swapped with another random index (indpb).
+* Implemented custom mutation function, swapping an additional term that's halfway between the index term and the randomly selected term.
+    * def mutationCustom(individual, indpb):
+    *     size = len(individual)
+    *     for i in range(size):
+    *         if random.random() < indpb:
+    *             far_index = random.randint(0, size - 2)
+    *             if far_index >= i:
+    *                 far_index += 1
+    *             middle_index = (i + far_index) / 2
+    *             individual[i], individual[middle_index], individual[far_index] = \
+    *                 individual[middle_index], individual[far_index], individual[i]
+    * 
+    *     return (individual, )
+* Registered four tool functions for evaluation (evalNQueens()), mating (partially matched), mutation (independent probability of bit flipping = 2/n), and selection (tournament style, 3 per pod).
+* Performed the same evolutionary loop as in OneMax and outputted the same statistics.
+* Ran main() with mutShuffleIndexes():
+    * Achieved 0 minimum fitness in 32 generations.
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 81 generations.
+* Ran main() with mutationCustom():
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 15 generations.
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 74 generations.
+* Learned that my custom mutation function often gets to a minimum of 1.0 quickly, but routinely fails to reach a minimum of 0.
 
 '''Action Items:'''
 {| class="wikitable"
