@@ -110,6 +110,7 @@ Interests: Writing fiction, Music, Reading, Sports
     * Achieved 0 minimum fitness in 74 generations.
 * Learned that my custom mutation function often gets to a minimum of 1.0 quickly, but routinely fails to reach a minimum of 0.
 
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -134,5 +135,5 @@ Interests: Writing fiction, Music, Reading, Sports
 |Completed
 |August 25, 2021
 |September 1, 2021
-|August 26, 2021
+|August 29, 2021
 |}
