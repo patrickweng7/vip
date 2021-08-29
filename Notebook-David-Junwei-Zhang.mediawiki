@@ -46,7 +46,7 @@ One Max Problem
 Objective: The population is a string of bits and we are trying to maximize the number of 1 bits within the population.
 To maximize a single objective using DEAP, we can use the following line of code
 
-    creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+<code> creator.create("FitnessMax", base.Fitness, weights=(1.0,)) </code>
 
 Conversely, in order to minimize a single objective, we can set the weight tuple to (-1.0,) and to create a multi-objective problem, we can set the tuple to (1.0, 1.0)
 
@@ -59,6 +59,17 @@ Some settings used for the one max problem include
 Summary
 
 After running the final output 5 times, I got a score of 100 3 times, and 99 2 times. This means that for the most part, my algorithm converged to the best possible population with its optimal population but not always since we only run the algorithm for 40 generations. 
+
+N-Queens Problem
+
+* Objective: we are minimizing the number of queen conflicts on a chess board where conflicts only occur on the diagonals in this problem.
+* A permutation is used to define our sample space where each value represents the column of the queen on row i
+* We apply partially matched crossover for mating (instead of 2 point)
+* For mutation, we cannot directly alter the values, but we instead shuffle indices (in order to preserve board constraints)
+
+Custom Mutate Function (swapping 2 indices)
+
+After applying the custom mutate function that swaps more indices, it appears to perform relatively the same as the original mutate function (this is because mutate doesn't happen often and only swapping 2 indices is not a major change from the original)
 
 '''Action Items:'''
 {| class="wikitable"
@@ -75,10 +86,10 @@ After running the final output 5 times, I got a score of 100 3 times, and 99 2 t
 |August 26, 2021
 |-
 |Install Jupyter notebook and dependencies
-|In progress
+|Completed
 |August 25, 2021
 |September 1, 2021
-|
+|August 28, 2021
 |-
 |Complete Lab 1
 |In progress
