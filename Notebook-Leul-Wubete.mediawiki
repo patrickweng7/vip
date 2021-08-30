@@ -43,7 +43,7 @@ Interests: Soccer, Walking, Eating, Breathing
     -  Why? Keep diversity as a factor.
 * Algorithms
     -  Initialize population
-    -  Consider population fitness, survival of fittest
+    -  Consider population fitness (survival of fittest)
     -  Repeat and pick the chosen one:
         1. Select parents
         2. Mating actions
@@ -55,7 +55,7 @@ Interests: Soccer, Walking, Eating, Breathing
 * Downloaded and installed pip for Windows 10
 * pip installed jupyterLab for Windows 10
 * Added python to my environment variables
-* I launched JupyterLab from cmd using 'jupyterLab' command.
+* I launched JupyterLab from cmd using 'jupyter-lab' command.
 * downloaded DEAP Problem from the Calendar, under the week 1 Assignments column. Saved the file as .ipynb
 * Imported Lab1 .ipynb into JupyterLab via the jupyterLab file explorer GUI.
 * Opened a new command prompt and used 'pip install deap' to install deap
@@ -65,6 +65,34 @@ Interests: Soccer, Walking, Eating, Breathing
 ===oneMax===
 * we defined the name of the class, the inherited class, and the objectives.
     - creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+      weight is the objective, if we wanted multi-objective, maybe something like (1.0, -1.0)
+* Deap's toolbox
+    - DEAP's toolbox.register, we generate individuals with their attributes and how many attributes each individual container should have.
+* evalOneMax()
+    - simple algorithm to return the # of 1's in a list.
+* Genetic Operations
+    - Evaluate: evalOneMax()
+    - Mate: a two-point crossover function (tools.cxTwoPoint)
+    - Mutate: is defined as flipping a bit in our bitstring to either 1 or 0, independent probability of flipping each individual bit of 5%.
+    - Select: tournament selection of 3 individuals
+* Evaluating our population
+    - mapped the evaluation function, then assigning fitness by zipping individuals and their fitness together:
+       fitnesses = list(map(toolbox.evaluate, pop))
+       for ind, fit in zip(pop, fitnesses):
+           ind.fitness.values = fit 
+* Evolution process
+    - After the tournament selection, clone the offspring so they do not mix with the last loop.
+    - next is crossover mutation, where we zip the 2 versions of the list, one being the odd skip, the other being the even skip.
+    - in the chance we generate a random < 0.5, we will be mating the two and deleting their separate fitness values.
+    - mutate individuals having <20% probabilities and deleted the mutated offspring's fitness values.
+    - individuals with invalid fitness in offspring will have their fitness evaluated and then given fitness values, then we set the pop to offspring.
+    - found max, min, avg, and standard deviation statistics for the new pop.
+
+==N Queens==
+* A conceptually simple problem, knowing that a queen can move horizontally, vertically, and diagonally, how can we stack queens on an n x n board in
+  each row, so that no one queen can reach another queen?
+* Make fitness and individual classes for sample 20 x 20 board. Fitness is negative weight, why? We want to minimize conflicting queen paths.
+* Each individual is 
 
 ===Action Items:===
 {| class="wikitable"
