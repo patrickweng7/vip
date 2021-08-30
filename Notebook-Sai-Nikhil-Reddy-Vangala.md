@@ -18,7 +18,29 @@
 			1. Select parents from population
 			2. Perform crossover on parents creating population
 			3. Perform mutation of population
-			4. Determine fitness of population
-			5. Until best individual is good enough.
+			4. Determine fitness # of population
+		* Until best individual is good enough.
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Assign tasks to each member and complete individual code to pre-process titanic data and use a machine learning model to make predictions
+|Completed
+|February 8, 2019
+|February 9, 2019
+|February 9, 2019
+|-
+|Make co-dominant Pareto front ensuring that each member is co-dominant with all other members
+|Completed
+|February 8, 2019
+|February 10, 2019
+|February 10, 2019
+|}
+
 
 
