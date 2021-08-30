@@ -1,6 +1,6 @@
 **Team Meeting Notes:**
-	• With genetic algorithms, each new generation is created through mating/mutation of individuals in the process.
-	• Keywords:
+* With genetic algorithms, each new generation is created through mating/mutation of individuals in the process.
+Keywords:
 		○ Individual: One specific candidate in the population
 		○ Population: group of individuals whose properties will be altered.
 		○ Objective: a value used to characterize individuals that you are trying to maximize or minimize
