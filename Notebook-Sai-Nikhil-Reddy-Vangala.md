@@ -21,7 +21,7 @@
 			4. Determine fitness # of population
 		* Until best individual is good enough.
 
-=== '''Action Items:''' ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -29,17 +29,34 @@
 !Suspense Date
 !Date Resolved
 |-
-|Assign tasks to each member and complete individual code to pre-process titanic data and use a machine learning model to make predictions
-|Completed
-|February 8, 2019
-|February 9, 2019
-|February 9, 2019
+|Continue in making of true positive training data
+|No progress this week
+|March 25, 2019
+|April 29, 2019
+|
 |-
-|Make co-dominant Pareto front ensuring that each member is co-dominant with all other members
-|Completed
-|February 8, 2019
-|February 10, 2019
-|February 10, 2019
+|Complete mid-term peer evaluation
+|Completed 
+|March 25, 2019
+|April 1, 2019
+|March 28, 2019
+|-
+|Setup a meeting with the deep learning team
+|
+|April 1, 2019
+|April 8, 2019
+|
+|-
+|Create a git large file system repository of the training data and test data we have in order to share withe the deep learning team
+|
+|April 1, 2019
+|April 17, 2019
+|
+|-
+|Create a set of existing algorithms
+|
+|April 1, 2019
+|April 17, 2019
 |}
 
 
