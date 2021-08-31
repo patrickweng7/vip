@@ -69,6 +69,23 @@ N-Queens Problem
 
 Custom Mutate Function (swapping 2 indices)
 
+    #swaps two indices instead of one
+    def mutate2(individual, indpb):
+        size = len(individual)
+        for i in range(size-1):
+            if random.random() < indpb:
+                swap_indx1 = random.randint(0, size - 2)
+                swap_indx2 = random.randint(0, size - 2)
+                if swap_indx1 >= i:
+                    swap_indx1 += 1
+                if swap_indx2 >= i:
+                    swap_indx2 += 1
+                individual[i], individual[swap_indx1] = \
+                    individual[swap_indx1], individual[i]
+                individual[i+1], individual[swap_indx2] = \
+                    individual[swap_indx2], individual[i+1]
+        return individual,
+
 After applying the custom mutate function that swaps more indices, it appears to perform relatively the same as the original mutate function (this is because mutate doesn't happen often and only swapping 2 indices is not a major change from the original)
 
 '''Action Items:'''
@@ -95,6 +112,6 @@ After applying the custom mutate function that swaps more indices, it appears to
 |In progress
 |August 25, 2021
 |September 1, 2021
-|
+|August 31, 2021
 |-
 |}
