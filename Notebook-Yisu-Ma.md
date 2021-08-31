@@ -33,5 +33,9 @@
 * define Toolbox
 * _Learning point:_ Our single objective is a tuple -- (1.0,) for maximum; (-1.0,) for the minimum;
   For multi-objective: we can do something like (1.0, 1.0)
+* define our genetic algorithm
+* _Learning point:_ We can use the evaluate/mate/mutate/select function for our genetic algorithm. The current probability of bit flipping is defined as 5% in our example. Is there any standard for this number? So does the amount of tournament selection. If we increase the number of selections, would it affect how many generations we finally have?
+* design our main algorithm
 
-**Reflection:** 
+
+**Reflection and Thoughts:** Most of the time, we can reach maximum fitness within 40 generations. I changed the selection size to >=3 and the results runs well, but if I decrease the selection size, the result will not end up with maximum fitness.
