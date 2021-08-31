@@ -15,5 +15,16 @@
 * Started lecture on genetic programming.
 * Jupyter notebook and lab 1 introduction
 ### Lecture Notes
-* Genetic Algorithms: each new generation is created through mating/mutation of individuals in the previous population (then their fitness is evaluated).
+* Genetic Algorithms: various evolutionary algorithms to create a solution or best individual.
 * Key Words:
+  1. Individual: one specific candidate in the population (with properties such as DNA)
+  2. Population: group of individuals whose properties will be altered 
+  3. Objective: a value used to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through 
+     the evolutionary algorithm)
+  4. Fitness: relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
+  5. Evaluation: a function that computes the objective of an individual
+  6. Mate/Crossover: represents mating between individuals
+  7. Mutate: introduces random modifications; purpose is to maintain diversity
+* One Max Problem
+### Lab 1
+**One Max Problem:** try to find a bit string containing all 1s.
