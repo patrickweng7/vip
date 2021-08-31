@@ -15,4 +15,5 @@
 * Started lecture on genetic programming.
 * Jupyter notebook and lab 1 introduction
 ### Lecture Notes
-* 
+* Genetic Algorithms: each new generation is created through mating/mutation of individuals in the previous population (then their fitness is evaluated).
+* Key Words:
