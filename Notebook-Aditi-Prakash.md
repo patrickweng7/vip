@@ -44,5 +44,5 @@ This notebook provided a solid introduction to the DEAP API and the representati
 ### Lab 1 - Genetic Algorithms with DEAP
 This lab explored both the One Max problem and the n-queens problem and defined genetic algorithms to solve both. 
 
-One Max Problem
+One Max Problem:
 For this problem, we followed many of the same steps that were defined in the Lecture 1 Notebook (see above). We define a main() function for the genetic algorithm, which evaluates the full population and initiates the evolutionary loop. Within the evolutionary loop, we select individuals for each successive generation, clone them, and perform mutations/crossovers on them. We then evaluate the fitness of these offspring and replace the existing population with the offspring. Finally, we return the fitnesses of the individuals (based on the predefined fitness operation - the sum of the individual's entries) and print statistics such as the mean fitness, squared sum of the fitnesses, and standard deviation of the fitnesses). We loop for some number of generations (40, in this case) and report the best individual that has resulted from this evolution process. 
