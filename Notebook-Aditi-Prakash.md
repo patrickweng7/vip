@@ -70,4 +70,7 @@ With Uniform Int Mutation:
 
 We can see here that the average fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. 
 
+With 85 Generations and 0.1 Mutation Rate (Shuffle Index Mutation):
+![N Queens Visualization with 85 Generations and 0.1 Mutation Rate](https://picc.io/MZtm5UD.png)
+
 [Further improvements] 
