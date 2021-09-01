@@ -19,21 +19,11 @@
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
 
 === Lab 1 ===
-* Questions
-*# What is the purpose of registering functions with aliases to the toolbox?
-*# When applying mating/crossover and mutations, why do we only account for 70% of the population (50% from mating/crossover, 20% from mutation)?
-*# How does the following code sum the number of queens on each diagonal?
-
-'''
-    for i in range(size):
-        left_diagonal[i+individual[i]] += 1
-        right_diagonal[size-1-i+individual[i]] += 1
-'''
-
-* Thoughts
+==== Part 1: One Max Problem ====
+* The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
 ** When I ran the algorithm with a much larger population (n=10000) it seemed like it took less generations for the an individual in the population to reach maximum fitness.
-** I realized from the evalNQueens() method that there are 2n-1 diagonals on an nxn board.
 
+==== Part 2: N Queens Problem ====
 * Learning Points
 ** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
 ** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
@@ -41,6 +31,45 @@
 ** arr[:] makes a shallow copy of the array
 ** you can resize an array to a desired length using [0] * size
 
+* My Mutation Methods
+<code>
+def mutOppositeHalves(individual, indpb):
+    """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
+    
+    :param individual: Individual to be mutated.
+    :param indpb: Independent probability for each attribute to be exchanged to
+                  another position.
+    :returns: A tuple of one individual.
+    """
+    
+    size = len(individual)
+    front_half = random.randint(0, size/2)
+    back_half = random.randint(size/2, size-1)
+        
+    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+    return individual,
+</code>
+
+<code>
+def mutRandomHalves(individual, indpb):
+    """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
+     swapping them with a probability of indpb.
+    
+    :param individual: Individual to be mutated.
+    :param indpb: Independent probability for each attribute to be exchanged to
+                  another position.
+    :returns: A tuple of one individual.
+    """
+    
+    size = len(individual)
+    midpoint = random.randint(0, size-2)
+    
+    front_half = random.randint(0, size/2)
+    back_half = random.randint(size/2, size-1)
+        
+    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+    return individual,
+</code>
 
 '''Action Items:'''
 {| class="wikitable"
