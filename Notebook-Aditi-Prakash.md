@@ -9,7 +9,7 @@ Discussed course format (10-week bootcamp followed by joining a sub-team), locat
 
 ## Team Meeting Notes
 ### Lecture on Genetic Algorithms
-Introduced concept of genetic algorithms that mimic evolutionary processes (mutation, selection, mating, fitness evaluation, reproduction ,etc.) in order to maximize the fitness of individuals in a population of data. Identified steps of a genetic algorithm:
+Introduced concept of genetic algorithms that mimic evolutionary processes (mutation, selection, mating, fitness evaluation, reproduction, etc.) in order to maximize the fitness of individuals in a population of data. Identified steps of a genetic algorithm:
 1. Random initialization of population
 2. Determining fitness of population
 3. Determining objective: how do we define performance of individuals?
