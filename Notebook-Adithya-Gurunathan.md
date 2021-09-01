@@ -13,5 +13,6 @@
 * Started lecture on genetic programming.
 
 == September 1, 2021 (Week 2) ==
+
 '''Lecture Notes:'''
 * Continued lecture on genetic programming
