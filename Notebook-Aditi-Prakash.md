@@ -37,4 +37,4 @@ Learned genetic algorithm solution to One Max Problem - a simple problem that pr
 This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
 
 ### Lab 1 - Genetic Algorithms with DEAP
-![](C:\Users\aditi\OneDrive\Documents\Lab 1 Screenshot 1.png)
+![]("C:\Users\aditi\OneDrive\Documents\Automated Algorithm Design\emade\emade\Lab 1 Screenshot 1.png")
