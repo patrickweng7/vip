@@ -35,3 +35,18 @@ Learned genetic algorithm solution to One Max Problem - a simple problem that pr
 * Performed in-place mutation with a given probability of mutation on individuals
 
 This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
+
+### Lab 1 - Genetic Algorithms with DEAP
+* Installed DEAP using pip
+* Imported base, creator, and tools libraries from DEAP
+* Created FitnessMax Class to track objectives for individuals in One Max problem 
+* Set weights attribute to have a value of 1.0 - our goal is to maximize this value for a given individual through the evolution process
+* Created Individual class which inherits from list and has fitness attribute
+* Created a binary random choice generator attr_bool using the DEAP toolbox to randomly present either a 0 or 1 for each value in the list for an individual
+* Created individual() method to create a list of 100 randomly generator 0's and 1's for each individual and registered with DEAP toolbox
+* Created population() method to create a set of individuals
+* Defined evaluation function for fitness: a sum operation across all of an individual's values
+* Performed in-place two-point crossover on individuals
+* Performed in-place mutation with a given probability of mutation on individuals
+
+This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
