@@ -53,7 +53,41 @@ At any given time, there are multiple solutions to a problem
 ==== ''Lab Notes'' ====
 '''OneMax Problem'''
 * Simple genetic algorithm problem-- '''Objective''': find a bit string containing all 1s with a set length
-* 
+* Using DEAP Python Library to solve
+* '''Deap Overview''': https://deap.readthedocs.io/en/master/overview.html
+* we use DEAP's Toolbox to define functions available to our GA
+** Attribute Generator: "attr_bool"
+*** Randomly generates a boolean represented by either 0 or 1
+** Structure Initializer: "individual"
+*** Generates an individual and initializes each with a list of 100 booleans --> bit string length of 100
+** Structure Initializer: "population"
+*** Defines population-- list of individuals
+* Defined evaluation function for fitness objective
+** Returns sum of Boolean integers of an individual; more 1s = higher fitness score (max score = 100)
+** Sum is returned as a tuple to match previously defined fitness objective
+* Defined algorithm's genetic operators
+** '''Four Functions''':
+*** "evaluate": evaluation function previously defined
+*** "mate": two-point crossover function
+*** "mutate": flipping a bit w/ independent probability of flipping each bit = 0.05
+*** "select": tournament selection of 3 individuals
+* Defined <code>main</code> '''genetic algorithm'''
+** Started off by initializing population (n) to 300
+** Evaluated population by mapping evaluation function to population. Then we assigned each individual their respective fitness value.
+* '''Evolution'''
+** Began Evolutionary Process
+*** Created evolutionary loop to set algorithm to run for 40 generations
+** Added '''selection''': used tournament selection on population and made a list of an exact copy of the selected individuals --> ensures offspring are a separate instance
+** Performed '''crossover''' and '''mutation''' in the offspring
+*** Mate two individuals w/ 50% probability and mutate an individual with 20% probability. <code>delete</code> statements invalidate the fitness of mated/mutated offspring
+** Re-evaluate modified offspring & Replace old pop. with offspring
+** Define and print stats for population
+*** Gathered all fitnesses in one list and print stats
+
+[[files/OneMaxProblemOutput.png|550x550px]]
+
+
+
 
 === Action Items ===
 {| class="wikitable"
