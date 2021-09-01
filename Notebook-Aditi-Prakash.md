@@ -77,6 +77,10 @@ We can see here that with a 10% mutation rate as opposed to the initial 20% muta
 
 Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, increasing the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
+| Syntax | Description |
+| --- | ----------- |
+| Header | Title |
+| Paragraph | Text |
 
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | Install DEAP and set up JupyterLab for Lab 1 | Completed |8/25/2021|9/1/2021|8/30/2021|
