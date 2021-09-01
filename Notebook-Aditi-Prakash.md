@@ -16,4 +16,5 @@ Introduced concept of genetic algorithms that mimic evolutionary processes (muta
 4. Determining fitness: how does an individual's objective compare to that of others?
 5. Subject individuals to selection methods (ex. fitness proportionate and tournament selection) so as to give preference to the fittest individuals in the population.  
 6. Through an evolutionary loop, select parents from population, perform crossovers/mutations on parents and save these modifications as offspring of the initial population, and determine the fitness of the population. Repeat until we maximize the fitness of the best individual in the population. 
+
 Learned genetic algorithm solution to One Max Problem - a simple problem that presents the goal of maximizing the number of 1's that an individual contains (thereby maximizing the sum of the individual's values). 
