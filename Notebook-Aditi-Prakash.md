@@ -83,8 +83,8 @@ Additional improvements can be made to the current n-queens algorithm such that 
 | Paragraph | Text |
 
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
-| Install DEAP and set up JupyterLab for Lab 1 | Completed |8/25/2021|9/1/2021|8/30/2021|
-| Complete Lecture 1: GA Walkthrough | Completed |8/25/2021|9/1/2021|8/30/2021|
-| Complete Lab 1 | Completed |8/25/2021|9/1/2021|8/30/2021|
-| Set Up Notebook | Completed |8/25/2021|9/1/2021|8/30/2021|
-| Review Genetic Algorithms | Completed |8/25/2021|9/1/2021|8/30/2021|
+| Install DEAP and set up JupyterLab for Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lecture 1: GA Walkthrough | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
