@@ -33,4 +33,5 @@ Learned genetic algorithm solution to One Max Problem - a simple problem that pr
 * Defined evaluation function for fitness: a sum operation across all of an individual's values
 * Performed in-place two-point crossover on individuals
 * Performed in-place mutation with a given probability of mutation on individuals
-This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented more nuanced information on the evolutionary process for different problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
+
+This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
