@@ -33,7 +33,7 @@ Created
 * individual() method to create a list of 100 randomly generator 0's and 1's for each individual and registered with DEAP toolbox
 * population() method to create a set of individuals
 
-* Defined evaluation function for fitness: a sum operation across all of an individual's values
+Defined evaluation function for fitness: a sum operation across all of an individual's values.
 
 Performed
 * in-place two-point crossover on individuals
