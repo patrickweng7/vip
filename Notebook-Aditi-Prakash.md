@@ -58,7 +58,6 @@ For this problem, we followed many of the same steps that appeared in the One Ma
 Findings:
 ![N Queens Generations, Part 1](https://picc.io/UzJTkn-.png)
 ![N Queens Generations, Part 2](https://picc.io/BAhG-pn.png)
-[Tweak parameters and screenshots with improvement]
 
 Visualizations:
 
