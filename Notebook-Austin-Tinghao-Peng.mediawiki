@@ -33,41 +33,39 @@
 
 * My Mutation Methods
  <nowiki>
-def mutOppositeHalves(individual, indpb):
-    """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
-    
-    :param individual: Individual to be mutated.
-    :param indpb: Independent probability for each attribute to be exchanged to
-                  another position.
-    :returns: A tuple of one individual.
-    """
-    
-    size = len(individual)
-    front_half = random.randint(0, size/2)
-    back_half = random.randint(size/2, size-1)
+    def mutOppositeHalves(individual, indpb):
+        """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
         
-    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,
+        :param individual: Individual to be mutated.
+        :param indpb: Independent probability for each attribute to be exchanged to another position.
+        :returns: A tuple of one individual.
+        """
+    
+        size = len(individual)
+        front_half = random.randint(0, size/2)
+        back_half = random.randint(size/2, size-1)
+            
+        individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+        return individual,
 
  <nowiki>
-def mutRandomHalves(individual, indpb):
-    """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
-     swapping them with a probability of indpb.
+    def mutRandomHalves(individual, indpb):
+        """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
+        swapping them with a probability of indpb.
     
-    :param individual: Individual to be mutated.
-    :param indpb: Independent probability for each attribute to be exchanged to
-                  another position.
-    :returns: A tuple of one individual.
-    """
+        :param individual: Individual to be mutated.
+        :param indpb: Independent probability for each attribute to be exchanged to another position.
+        :returns: A tuple of one individual.
+        """
     
-    size = len(individual)
-    midpoint = random.randint(0, size-2)
-    
-    front_half = random.randint(0, size/2)
-    back_half = random.randint(size/2, size-1)
+        size = len(individual)
+        midpoint = random.randint(0, size-2)
         
-    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,
+        front_half = random.randint(0, size/2)
+        back_half = random.randint(size/2, size-1)
+            
+        individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+        return individual,
 
 '''Action Items:'''
 {| class="wikitable"
@@ -84,10 +82,10 @@ def mutRandomHalves(individual, indpb):
 |August 26, 2021
 |-
 |Lab 1
-|In Progress
+|Completed
 |August 25, 2021
 |September 1, 2021
-|
+|September 1, 2021
 |-
 |Update Notebook
 |In Progress
