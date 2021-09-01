@@ -1,0 +1,79 @@
+'''Name:''' Pranav Pusarla
+
+'''Email:''' [mailto:ppusarla3@gatech.edu]
+
+'''Cell Phone:''' 408-728-3993
+
+'''VIP:''' Automated Algorithm Design
+
+'''Interests:''' Artificial Intelligence, Quantitative Finance, Volleyball, Soccer, Guitar
+
+== August 25, 2021 ==
+=== Class Notes: ===
+
+'''<u>Concept of Genetic Algorithms</u>'''
+*new generation created through mating/mutation of individuals
+*fitness is evaluated then used again for new generation
+**relative comparison to other individuals (Ex. how well does individual accomplish task relative to population?)
+
+'''<u>Keywords</u>'''
+*Objective: value used to characterize individuals (usually maximize objective)
+*Selection: gives preference to better individuals therefore allowing them to pass on their genes
+*Fitness Proportionate: greater the fitness value, the higher the probability of being selected for mating
+*Tournament: several tournaments among individuals; winners selected for mating
+*Mate/Crossover: represents mating between individuals
+*Mutate: introduces random modifications; purpose to maintain diversity
+
+'''<u>Algorithm</u>'''
+#Randomly initialize population
+#Determine fitness of population
+#Repeat
+##Select parents
+##Perform crossover on parents
+##Perform mutation
+##Determine fitness of individuals
+
+=== Lab 1 Notes: ===
+'''One Max Problem'''
+*Defined a fitness objective and individual classes with DEAP creator
+*Defined individual as 100 boolean values and population as a list of individuals
+**Evaluation function is just the sum of the ones
+*Defined genetic operators such as mutate, mate, and tournament
+*Start the main algorithm
+**Evaluate each individual in population and map fitness with individual
+**Select individuals for tournament
+**Mate and mutate individuals with 50% and 20% chance respectively
+**Re-evaluate fitness of new individuals and assign fitness to individuals
+*Main algorithm was run 40 times to achieve best result
+
+'''N Queens Problem'''
+*Problem: Placing n queens on a nxn board so that none of the queens hit each other
+*This time the weight of our fitness objective is negative since we want to minimize the number of conflicts between queens on the chessboard
+*Defined a permutation function in the toolbox to represent locations of queens on the chessboard
+*Defined evaluation function to count conflicts between other queens
+**Since queens are placed on different rows and columns because of permutation, only need to check diagonals
+**There are 2*n - 1 diagonals left and 2*n - 1 right
+*Tested out two-point crossover function would two randomized permutations of 1-8
+*Defined our mutation function as a shuffle function since we cannot change any of the numbers since they represent column values on board
+**Made my own mutation function switching first and last if probability lower than indpb
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create VIP Notebook and add lecture notes
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|-
+|Finish Lab 1
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|}
