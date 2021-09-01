@@ -32,6 +32,31 @@
 ** you can resize an array to a desired length using [0] * size
 
 * My Mutation Methods
+ <nowiki>Start with a space in the first column,
+(before the <nowiki>).
+
+Then your block format will be
+    maintained.
+
+This is good for copying in code blocks:
+
+def function():
+    def mutOppositeHalves(individual, indpb):
+    """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
+    
+    :param individual: Individual to be mutated.
+    :param indpb: Independent probability for each attribute to be exchanged to
+                  another position.
+    :returns: A tuple of one individual.
+    """
+    
+    size = len(individual)
+    front_half = random.randint(0, size/2)
+    back_half = random.randint(size/2, size-1)
+        
+    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+    return individual,</nowiki>
+
  <nowiki>
     def mutOppositeHalves(individual, indpb):
         """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
