@@ -42,4 +42,4 @@ Performed
 This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
 
 ### Lab 1 - Genetic Algorithms with DEAP
-![One Max Part 1]("Lab 1 Screenshot 1.png")
+![One Max Part 1](https://drive.google.com/file/d/151aFGcK5lfomAtcAfSIqWywsvbTTFpGp/view?usp=sharing)
