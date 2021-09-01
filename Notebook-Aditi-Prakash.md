@@ -62,4 +62,5 @@ Results:
 [Tweak parameters and screenshots with improvement]
 Visualization:
 ![N Queens Visualization](https://picc.io/-qpvzmX.png)
+![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
 [Further improvements] 
