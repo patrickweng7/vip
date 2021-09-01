@@ -1,7 +1,5 @@
 # General Information
 
-***
-
 **Team Member**: Eashan Sinha
 
 **Email**: esinha6@gatech.edu
@@ -10,8 +8,53 @@
 
 **Interests**: Artificial Intelligence/Machine Learning, Data Science, Basketball, Trying new Foods, Percussion
 
-# Week 1 of Fall 2021 (8/23 - 8/27)
+# Bootcamp
 
-***
+## Week 1 of Fall 2021 (8/23 - 8/27)
 
-## Lecture Notes (8/25)
+### Lecture Notes (8/25)
+**Genetic Algorithm**
+
+At any given time, there are multiple solutions to a problem
+
+* **Individual** is a specific candidate in the population
+
+* **Population** is a group of individuals
+
+* **Objective** is a way to characterize individuals I'm trying to maximize or minimize
+
+* **Fitness** is relative comparison to other individuals
+
+* **Evaluation** spits out the DNA (computes the objective of the individual)
+
+* **Selection** = 'survival of the fittest'
+
+  * fitness proportionate = greater fitness = greater probability of being selected for mating
+
+  * tournament = I can pick any number of individuals and whoever has the higher fitness moves to the next round and winners are selected for mating
+
+  * You're not directly tied to your fitness but your fitness will still affect the probability of you being selected
+  * But you can combine the two above (which is how it's set up in emade)
+
+* **Mate/Crossover** is when we take two individuals (or more) and exchange DNA between them (mating)
+
+* **Mutation** is when we make a small change to an individual -- purpose is to maintain diversity
+  * we make small changes to a child (after mating)
+
+**Algorithm**
+
+1. Randomly initialize a population
+
+2. Evaluate the population to get the objective (determine fitness)
+
+3. Repeat…
+
+    * Select parents
+
+    * Crossover on parents creating population
+
+    * Mutation of population
+
+    * Determine fitness of population
+
+      … until best individual is good enough
