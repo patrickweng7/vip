@@ -12,35 +12,6 @@
 '''Lecture Notes:'''
 * Started lecture on genetic programming.
 
-'''<i>Action Items</i>'''
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
-|DEAP library setup/installation on Python
-|Completed
-|August 25th, 2021
-|September 1st, 2021
-|August 25th, 2021
-|-
-|Start Notebook
-|Completed
-|August 25th, 2021
-|September 1st, 2021
-|September 1th, 2021
-|- 
-|Review Genetic Algorithms Slides
-|Completed
-|August 25th, 2021
-|September 1st, 2021
-|August 31th, 2021
-|-
-|Finish Lab 1
-|Completed
-|August 25th, 2021
-|September 1st, 2021
-|August 31th, 2021
-|}
+== September 1, 2021 (Week 2) ==
+'''Lecture Notes:'''
+* Continued lecture on genetic programming
