@@ -75,4 +75,9 @@ With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
 
 We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trend towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
 
-Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, increasing the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function. 
+Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, increasing the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+
+| Syntax      | Description | Test Text     |
+| :---        |    :----:   |          ---: |
+| Header      | Title       | Here's this   |
+| Paragraph   | Text        | And more      |
