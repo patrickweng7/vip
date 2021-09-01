@@ -38,4 +38,30 @@
 * design our main algorithm
 
 
-**Reflection and Thoughts:** Most of the time, we can reach maximum fitness within 40 generations. I changed the selection size to >=3 and the results runs well, but if I decrease the selection size, the result will not end up with maximum fitness.
+**Reflection and Thoughts:** Most of the time, we can reach maximum fitness within 40 generations. I changed the selection size to >=3 and the results run well, but if I decrease the selection size, the result will not end up with maximum fitness.
+
+**The N Queens Problem:** determine a configuration of n queens on an nxn chessboard such that no queen can be taken by one another.
+* creat fitness and individual classes.
+* _Learning point:_ Since we want to minimize the number of conflicts between two queens, we wanna use the minimum objective for this model.
+* define toolbox
+* define a permutation function
+* define evaluation function
+* define crossover&&mutation function
+* run main evolutionary function for 100 generations.
+
+**Reflection and Thoughts:**
+* After about 30 generations, the plot of the minimum would have a severe decrease. In the end, the average plot would not be exactly at 0, but very close. Here is the visualization of the graph.
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/vip%20lab1.png)
+
+**Action Items:**
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Import deap library and set up Jupyter Notebook|complete|August 25th, 2021|September 1st, 2021|August 28th, 2021|
+|Record Notebook|complete|August 25th, 2021|September 1st, 2021|August 31th, 2021|
+|Lab1|complete|August 25th, 2021|September 1st, 2021|August 31th, 2021|
+
+
+
+
+
