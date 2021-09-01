@@ -26,12 +26,14 @@ Learned genetic algorithm solution to One Max Problem - a simple problem that pr
 * Imported base, creator, and tools libraries from DEAP
 * Created FitnessMax Class to track objectives for individuals in One Max problem 
 * Set weights attribute to have a value of 1.0 - our goal is to maximize this value for a given individual through the evolution process
+
 Created
 * Individual class which inherits from list and has fitness attribute
 * Binary random choice generator attr_bool using the DEAP toolbox to randomly present either a 0 or 1 for each value in the list for an individual
 * individual() method to create a list of 100 randomly generator 0's and 1's for each individual and registered with DEAP toolbox
 * population() method to create a set of individuals
 * Defined evaluation function for fitness: a sum operation across all of an individual's values
+
 Performed
 * in-place two-point crossover on individuals
 * in-place mutation with a given probability of mutation on individuals
