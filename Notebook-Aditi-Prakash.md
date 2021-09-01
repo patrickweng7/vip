@@ -61,15 +61,15 @@ Findings:
 
 Visualizations:
 
-With Shuffle Indexes Mutation:
+1. With Shuffle Indexes Mutation:
 ![N Queens Visualization](https://picc.io/-qpvzmX.png)
 
-With Uniform Int Mutation:
+2. With Uniform Int Mutation:
 ![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
 
 We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
 
-With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
+3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
 ![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)
 
 We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trends towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
