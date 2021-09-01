@@ -104,6 +104,7 @@ Best individual is [18, 3, 8, 13, 11, 6, 1, 16, 5, 12, 10, 15, 0, 4, 19, 7, 14, 
 
 **Reflection and Thoughts:**
 * After about 30 generations, the plot of the minimum would have a severe decrease. In the end, the average plot would not be exactly at 0, but very close. Here is the visualization of the graph.
+* How could the mutation function affect our final result to reach a minimum?
 
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/vip%20lab1.png)
 
