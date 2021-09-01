@@ -6,7 +6,7 @@
 
 **VIP:** Automated Algorithm Design
 
-**Interests:** Fingerstyle guitar, soccer, K-pop, camping
+**Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
 
