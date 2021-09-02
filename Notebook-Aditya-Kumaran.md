@@ -19,7 +19,7 @@ Interests: Writing fiction, Music, Reading, Sports
  	*  Individual function here is squaring
  	*  Evaluator would match output data to truth data for accuracy
     * Tree representation 
-        *  Represents a program
+        *  Represents a program.
 	*  Made up of nodes (primitives, functions) and leaves (terminals, end of the tree. Parameters or input data)
 	*  Read bottom to top node
 	*  Stored as a ‘lisp treeordered parse tree’
