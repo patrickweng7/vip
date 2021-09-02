@@ -33,9 +33,9 @@ Cell Phone: 914-874-3666
 * successfully added sin and cos primitives which weren't used in optimal answers
 * added the primitive swap mutation
 * results with four basic primitives: +,-,/,*
-  * best individual:(X+(X*X)*(X+X*X)+X*X)=(X+X^3+X^4+X^2)
+  * best individual: (X+(X\*X)*(X+X\*X)+X\*X)=(X+X<sup>3</sup>+X<sup>4</sup>+X<sup>2</sup>)
 * results with four basic primitives and power
-  * best individual:2X*(X^X+X^2)
+  * best individual: 2X*(X<sup>X</sup>+X<sup>2</sup>)
   * on different runs got very complex trees with 20+ primitives
 
 ### Action Items
