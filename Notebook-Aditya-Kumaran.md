@@ -12,6 +12,30 @@ Interests: Writing fiction, Music, Reading, Sports
 
 === Lecture Notes: ===
 * Learned how to add images to notebook via 'git clone'
+* Introduced to genetic algorithms:
+    * Individual is now the function itself
+    * Practices running data through the individual instead of evaluating the individual AS the data.
+        *  Ex.- 0,1,2,3,4,5 -> Individual -> 0,1,4,9,16,15 -> Evaluate
+ 	*  Individual function here is squaring
+ 	*  Evaluator would match output data to truth data for accuracy
+    * Tree representation 
+        *  Represents a program
+	*  Made up of nodes (primitives, functions) and leaves (terminals, end of the tree. Parameters or input data)
+	*  Read bottom to top node
+	*  Stored as a ‘lisp treeordered parse tree’
+	*  [+,*,3,4,1]
+            *  First is root
+	    *  Next two are '*' and 1
+	    *  '*' has two inputs, and they come before 1
+    * Crossover
+        *  Single-point crossover is just exchanging subtrees
+            *  Starts by randomly selecting a point in the tree
+            *  Subtrees are swapped to produce children
+    * Mutation
+        *  Inserting a node or subtree
+        *  Deleting a node or subtree
+        *  Changing a node
+
 
 === Individual Notes: ===
 * Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
@@ -59,6 +83,7 @@ Interests: Writing fiction, Music, Reading, Sports
 * Introduced to EMade's GitHub, Wiki, Personal Progress Notebooks, Python Jupyter Notebooks, Slack
 * Introduced to Genetic Algorithms:
     *  Allegories for how DNA works.
+    *  Population-based solution.
     *  Many solutions to your problem, each being a “genome” and can mutate either individually or in groups 
 * "Individual"
     *  Specific candidate in the population
