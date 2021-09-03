@@ -103,10 +103,8 @@
  <nowiki>def mutRandomHalves(individual, indpb):
     """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
      swapping them with a probability of indpb.
-    
     :param individual: Individual to be mutated.
-    :param indpb: Independent probability for each attribute to be exchanged to
-                  another position.
+    :param indpb: Independent probability for each attribute to be exchanged to another position.
     :returns: A tuple of one individual.
     """
     
@@ -117,7 +115,9 @@
     back_half = random.randint(size/2, size-1)
         
     individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,</nowiki>
+    return individual,
+<nowiki></nowiki>
+
 * Observations & Reflection
 ** To test the effectiveness of my mutation methods, I ran each evolution (100 generations) 100 times and plotted the fitness values.
 ** I saw that my mutOppositeHalves() method performed the best, finding the global minimum of 0, 60 out of 100 evolutions. My mutRandomHalves() and the provided mutShuffleIndexes performed slightly worse producing the global minimum approximately 55 times out of 100 evolutions.
