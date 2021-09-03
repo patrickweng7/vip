@@ -13,40 +13,40 @@ Interests: Writing fiction, Music, Reading, Sports
 === Lecture Notes: ===
 * Learned how to add images to notebook via 'git clone'
 * Introduced to genetic algorithms:
-    * Individual is now the function itself
-    * Practices running data through the individual instead of evaluating the individual AS the data.
-        *  Ex.- 0,1,2,3,4,5 -> Individual -> 0,1,4,9,16,15 -> Evaluate
- 	*  Individual function here is squaring
- 	*  Evaluator would match output data to truth data for accuracy
-    * Tree representation 
-        *  Represents a program.
-	*  Made up of nodes (primitives, functions) and leaves (terminals, end of the tree. Parameters or input data)
-	*  Read bottom to top node
-	*  Stored as a ‘lisp treeordered parse tree’
-	*  [+,*,3,4,1]
-            *  First is root
-	    *  Next two are '*' and 1
-	    *  '*' has two inputs, and they come before 1
-    * Crossover
+    *  Individual is now the function itself
+    *  Practices running data through the individual instead of evaluating the individual AS the data.
+        *   Ex.- 0,1,2,3,4,5 -> Individual -> 0,1,4,9,16,15 -> Evaluate
+ 	*   Individual function here is squaring
+ 	*   Evaluator would match output data to truth data for accuracy
+    *  Tree representation 
+        *   Represents a program.
+        *   Made up of nodes (primitives, functions) and leaves (terminals, end of the tree. Parameters or input data)
+        *   Read bottom to top node
+        *   Stored as a ‘lisp treeordered parse tree’
+        *   [+,*,3,4,1]
+             *  First is root
+             *  Next two are '*' and 1
+             *  '*' has two inputs, and they come before 1
+    *  Crossover
         *  Single-point crossover is just exchanging subtrees
-            *  Starts by randomly selecting a point in the tree
-            *  Subtrees are swapped to produce children
-    * Mutation
+             *  Starts by randomly selecting a point in the tree
+             *  Subtrees are swapped to produce children
+    *  Mutation
         *  Inserting a node or subtree
         *  Deleting a node or subtree
         *  Changing a node
 
 
 === Individual Notes: ===
-* Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
-* Created fitness and individual classes, which will be represented as a tree structure made of primitives. Evaluation compiles the primitive tree from leaves to root node.
-* Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1).
-* Registered four tool functions for expr (returns a tree based on a primitive set and maximum and minimum depth), individual, population, and compile (makes the tree into a function).
-* Defined evaluation function, comparing the compiled function with the function we're trying to generate by minimizing mean squared error.
-* Registered genetic operators for evaluate, select (tournament select, 3 per pod), mate (one point crossover), expr_mut, mutate. Added alternate mutation method, gp.mutInsert (inserts branch at a random position in individual).
-* Performed the customary evolutionary loop and outputted the same statistics.
-    * Achieved 1.16e-16 minimum fitness in best individual: add(x, multiply(x, add(multiply(x, x), add(x, multiply(x, multiply(x, x))))))
-* Added images from labs (last week and this week).
+*  Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
+*  Created fitness and individual classes, which will be represented as a tree structure made of primitives. Evaluation compiles the primitive tree from leaves to root node.
+*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1).
+*  Registered four tool functions for expr (returns a tree based on a primitive set and maximum and minimum depth), individual, population, and compile (makes the tree into a function).
+*  Defined evaluation function, comparing the compiled function with the function we're trying to generate by minimizing mean squared error.
+*  Registered genetic operators for evaluate, select (tournament select, 3 per pod), mate (one point crossover), expr_mut, mutate. Added alternate mutation method, gp.mutInsert (inserts branch at a random position in individual).
+*  Performed the customary evolutionary loop and outputted the same statistics.
+    *  Achieved 1.16e-16 minimum fitness in best individual: add(x, multiply(x, add(multiply(x, x), add(x, multiply(x, multiply(x, x))))))
+*  Added images from labs (last week and this week).
 
 === Action Items: ===
 {| class="wikitable"
@@ -63,7 +63,7 @@ Interests: Writing fiction, Music, Reading, Sports
 |September 2, 2021
 |-
 |Begin "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
-|
+|Completed
 |September 1, 2021
 |September 8, 2021
 |September 1, 2021
