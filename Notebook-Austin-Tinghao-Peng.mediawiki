@@ -63,9 +63,9 @@
 * '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot inncrease objective through evolutionary algorithm)
 * '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
 * '''evaluation''': a function that computes the objective of an individual
-* '''selection''': represents 'survival of hte fittest'; gives preference to better individuals, allowing them to pass on their genes
-	- **fitness proportionate**: the greater the fitnenss value, the higher the probability of beingn selected for mating
-	- **tournament**: several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
+* '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
+** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
+** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
 * '''mate/crossover''': represents mating between individuals
 ![[files/apeng39/w1-ss1-crossover.png]]
 ![[files/apeng/w1-ss2-crossover.png]]
@@ -97,12 +97,9 @@
     size = len(individual)
     front_half = random.randint(0, size/2)
     back_half = random.randint(size/2, size-1)
-(before the <nowiki>).</nowiki>
- <nowiki>
-        
     individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,</nowiki>
-
+    return individual,
+<nowiki></nowiki>
  <nowiki>def mutRandomHalves(individual, indpb):
     """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
      swapping them with a probability of indpb.
