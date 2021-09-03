@@ -11,7 +11,7 @@ Generic Algorithm
 2.	Population: Group of individuals whose properties will be altered
 3.	Objective: a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm
 4.	Fitness: relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
-5.	Selection: Represents ‘survival of the fittest’; gies preference to better individuals, therefore allowing them to pass on their genes
+5.	Selection: Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
 	* Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next gen
 	* Tournament: Several tournaments among individuals; winners are selected for mating
 NB: (You can spin a roulette wheel and select a pool, highest wins)
@@ -20,10 +20,10 @@ NB: (You can spin a roulette wheel and select a pool, highest wins)
 •	Algorithms: Various evolutionary algorithms to create a solution or best individual
 1.	Randomly Initialize population
 2.	Determine fitness of population
-3.	Repeat
-* 	Select parents from population
-* 	Perform crossover on parents creating population
-* 	Perform mutation of population
-* 	Determine fitness of population
-* 	Continue until best individual is found
+3.	Repeat:
+ 	* Select parents from population
+        * Perform crossover on parents creating population
+ 	* Perform mutation of population
+ 	* Determine fitness of population
+ 	* Continue until best individual is found
 
