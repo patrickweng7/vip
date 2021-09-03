@@ -18,6 +18,30 @@
 * Briefly discussed Crossover and Mutation in Genetic Programming and Symbolic Regression.
 
 '''Lecture Notes:'''
+* Did a brief review of last week's material regarding Genetic Algorithms.
+* Instead of taking an individual and having a function evaluator to obtain objective scores, the individual will be the function itself.
+* Discussed one of the most common program structures in genetic programming, <b>Tree Representation</b>. Went over its uses and how to traverse over this tree. Parts of tree representation:
+** Nodes are called primitives and represent functions, eg: +, -, x, /.
+** Leaves are called terminals and represent parameters. The input can be thought of as a particular type of terminal. The output is produced at the root of the tree.
+* To store the tree, the tree is converted to a lisp preordered parse tree and the order is determined by the inputs, so we use the root first and then go down.
+* For example, if we use the following representation, we can determine how to traverse through the tree to determine the function by going top down and left to right.
+[[files/TreeRepresentation1.png]]
+
+So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the parse would be [+, *, 3, 4, 1].
+* Crossover in tree-based GP is simply done by exchanging subtrees. Start by randomly picking a point in each tree and then these points and everything below create subtrees.
+* The function with the best output mate and then produce the next generation of children.
+* We also use the root sum (mean) square error method to calculate the optimized output and algorithms.
+* Mutation can involve and is done by:
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+* Learned more about the example of Symbolic Regression.
+* Symbolic Regression is an example involving the mutation of GP that is used to evolve solutions using primitives.
+* For instance: We use primitives like sin function, factorial, cos function, tan function, exponential, summation to evolve a solution to y = sin(x) by using the Taylor Series formula for sin(x).
+* Finally we discussed that to evaluate the tree, we can measure the difference between the truth and the output that we obtain after feeding the a number of input points into the function to get outputs and then running f(x).
+
+
+
 
 
 
