@@ -40,6 +40,44 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 * For instance: We use primitives like sin function, factorial, cos function, tan function, exponential, summation to evolve a solution to y = sin(x) by using the Taylor Series formula for sin(x).
 * Finally we discussed that to evaluate the tree, we can measure the difference between the truth and the output that we obtain after feeding the a number of input points into the function to get outputs and then running f(x).
 
+===LAB 2: Symbolic Regression===
+* Tried to derive/inherit individuals from DEAP's PrimitiveTree instead of lists.
+* Added primitives to the primitive set and chose a new mutation to find the most optimized solution.
+* Compiled the primitive tree to generate the evaluation function, which finds the squared sum of the difference between our desired function's output and our individual's output. In this case we are trying to find minimum values that approaches zero faster.
+* I tried modifying the code in three different ways:
+** The original program:
+***original lab 2
+
+***First Attempt: Best individual is add(add(negative(negative(multiply(x, x))), multiply(subtract(multiply(x, x), negative(x)), multiply(x, x))), x), (1.0123748708878107e-16,)
+***Second Attempt: Best individual is add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17,)
+***Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently.
+** Program with added mutation
+
+***First Mutation (mutInsert): Best individual is add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, negative(negative(x))))), x), (1.1585916677755867e-16,)
+
+***part2lab 2....Even after running the code for a number of times the error is lesser and the solution is more consistent and optimized than the original program.
+
+***Second Mutation (mutShrink): Best individual is add(add(multiply(x, x), multiply(x, multiply(x, x))), add(x, multiply(x, multiply(multiply(x, x), x)))), (9.522005638492831e-17,)
+
+***part2lab21....Values were usually close to zero, but in some cases the value was very high (for maximum) and not as consistent. 
+** Program with only added primitivies
+
+***extralab2
+
+*** Best individual is add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
+
+** Program with both added primitives and mutation
+*** We used the mutInsert mutation as it seemed more consistent.
+
+*** First pair of primitives (sin and square): Best individual is add(x, add(multiply(add(x, square(x)), multiply(x, x)), multiply(x, x))), (1.0123748708878107e-16,)
+
+***lab2primitive1
+
+***Second pair of primitives (absolute, cos): Best individual is add(add(cos(add(cos(subtract(x, x), cos(add(negative(x), subtract(x, negative(multiply(x, x)))), x)), x), x), cos(subtract(x, x), x)), add(x, x)), (0.0,)
+***finallab2
+
+<b>In this lab, I attempted to reduce error to bring it almost to zero. This can be seen best in the graph where I used the absolute and cos primitives with the mutInsert mutation.</b>
+
 '''<i>Action Items</i>'''
 {| class="wikitable"
 !Task
@@ -61,36 +99,11 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 |September 1st, 2021
 |- 
 |Complete Lab 2
-|In progress
+|Completed
 |September 1st, 2021
 |September 8th, 2021
-|September 1st, 2021
+|September 4th, 2021
 |}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 == Week 1: August 25th - September 1st (2021) ==
 
