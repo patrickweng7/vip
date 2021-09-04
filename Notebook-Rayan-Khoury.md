@@ -21,9 +21,9 @@ NB: (You can spin a roulette wheel and select a pool, highest wins)
 1.	Randomly Initialize population
 2.	Determine fitness of population
 3.	Repeat:
-         1. Select parents from population
-         2. Perform crossover on parents creating population
-         3. Perform mutation of population
-         4. Determine fitness of population
-         5. Continue until best individual is found
+       1. Select parents from population
+       2. Perform crossover on parents creating population
+       3. Perform mutation of population
+       4. Determine fitness of population
+       5. Continue until best individual is found
 
