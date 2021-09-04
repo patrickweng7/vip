@@ -25,7 +25,27 @@ Tree Representation
 ** changing node or subtree
 
 Evaluating a tree: Feed a number of points into the function to get outputs and compare with the ground truth function. Can use MSE or other error function for evaluation.
-Idea behind EMADE: Add useful primitives that can optimize genetic programs. Use algorithms as primitives?
+
+Idea behind EMADE: Add useful primitives that can optimize genetic programs. We can even use other machine learning algorithms as primitives (making genetic programming potentially very expressive)
+
+'''Lab 2 Until Multi-Objective GP'''
+
+For genetic programming, we will use "gp.PrimitiveTree" instead of a list since an individual is represented with a tree-like structure (parse tree)
+The two new primitives I added were the power and sin functions
+
+<code>pset.addPrimitive(np.power, arity=2)</code>
+
+<code>pset.addPrimitive(np.sin, arity=1)</code>
+
+My reasoning for adding power is because power can easily generate large numbers without having to use many nodes. I chose the sin function because it is expressive in terms of generating cyclical behavior
+
+The mutation function that I added is below
+
+<code>toolbox.register("mutate", gp.mutShrink, expr=toolbox.expr_mut, pset=pset)</code>
+
+I chose to use gp.mutShrink because of the idea of Occam's razor (the simplest solution that performs well should be preferred over a more complicated one that performs similarly)
+
+After trying to run the GP loop, I had some issues with overflow (from both power and later testing exponentials using np.power and np.exp respectively)
 
 '''Action Items:'''
 {| class="wikitable"
@@ -36,10 +56,10 @@ Idea behind EMADE: Add useful primitives that can optimize genetic programs. Use
 !Date Resolved
 |-
 |Review Class Notes
-|In Progress
+|Completed
 |September 1, 2021
 |September 8, 2021
-|
+|September 4, 2021
 |-
 |Complete Lab 2 until Multi Objective
 |In progress
