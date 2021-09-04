@@ -17,7 +17,7 @@ With genetic algorithm, each new generation is created through mating/nutation o
 NB: (You can spin a roulette wheel and select a pool, highest wins)
 6.	Mating/Crossover: Represents mating between individuals
 7.	Mutate: Introduces random modifications; purpose is to maintain diversity
-•	Algorithms: Various evolutionary algorithms to create a solution or best individual
+* Algorithms: Various evolutionary algorithms to create a solution or best individual
 1.	Randomly Initialize population
 2.	Determine fitness of population
 3.	Repeat:
