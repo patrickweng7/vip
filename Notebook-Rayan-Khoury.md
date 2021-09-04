@@ -6,7 +6,7 @@
 ## **Meeting 1**
 ### Lecture 1
 Generic Algorithm
-* 	With genetic algorithm, each new generation is created through mating/nutation of individuals in the previous population (then their fitness is evaluated). Through numerous operations of this process, it will eventually produce the best individual
+With genetic algorithm, each new generation is created through mating/nutation of individuals in the previous population (then their fitness is evaluated). Through numerous operations of this process, it will eventually produce the best individual
 1.	Individual: One specific candidate in the population(with properties such as DNA)
 2.	Population: Group of individuals whose properties will be altered
 3.	Objective: a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm
@@ -21,9 +21,9 @@ NB: (You can spin a roulette wheel and select a pool, highest wins)
 1.	Randomly Initialize population
 2.	Determine fitness of population
 3.	Repeat:
- 	* Select parents from population
-        * Perform crossover on parents creating population
- 	* Perform mutation of population
- 	* Determine fitness of population
- 	* Continue until best individual is found
+               * Select parents from population
+               * Perform crossover on parents creating population
+               * Perform mutation of population
+               * Determine fitness of population
+               * Continue until best individual is found
 
