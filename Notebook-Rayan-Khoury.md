@@ -12,8 +12,8 @@ With genetic algorithm, each new generation is created through mating/nutation o
 3.	Objective: a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm
 4.	Fitness: relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
 5.	Selection: Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
-	* Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next generation
-	* Tournament: Several tournaments among individuals; winners are selected for mating
+	1. Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next generation
+	2. Tournament: Several tournaments among individuals; winners are selected for mating
 NB: (You can spin a roulette wheel and select a pool, highest wins)
 6.	Mating/Crossover: Represents mating between individuals
 7.	Mutate: Introduces random modifications; purpose is to maintain diversity
