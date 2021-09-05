@@ -143,20 +143,25 @@ At any given time, there are multiple solutions to a problem
 * Start by randomly picking a point in each tree
 * These points and everything below create subtrees
 * The subtrees are exchanged to produce children
+* We take what's left of parent 1 and what's left of parent 2 and swap and create 2 child algorithms out of that
 
 '''Mutation in GP'''
 * Mutation can involve…
 ** Inserting a node or subtree
 ** Deleting a node or subtree
 ** Changing a node
+* When we delete a node or subtree, we can perform a shrink operation to fill up that tree
+* Any change we make locally to a tree, that is called a '''mutation'''
 * Example: Symbolic Regression
 ** Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
 ** Primitives include: +, *, -, /
+** Terminals include ''integers'' and X
+* We solve this using a Calc 1 Concept of '''Taylor Series'''
+** Taylor Series for sin(x)
 
-
-
-
-
-
-
+'''Evaluating a Tree'''
+* We can feed a number of input points into the function to get outputs
+** 𝑋=[0..2𝜋]
+* We can measure error between outputs and truth, for example sum square error could be computed as
+** 𝐸𝑟𝑟𝑜𝑟=∑_𝑖▒〖(𝑓(𝑥_𝑖 )−sin⁡(𝑥_𝑖 ))〗^2 
 
