@@ -71,7 +71,7 @@ After the crossover on the entire population, we print out the result to check t
 
 We can deduce that after running the code many times, one can notice that the optimal maximum expected wasn’t always reached and that should be due to the random nature of initialization, crossover, and mutation.
 
-                                                        The N Queens Problem
+                                                       The N Queens Problem
 
 The N Queens is the problem of putting N chess queens on an NxN chessboard such that no two queens attack each other. We use n=20 to create the fitness and individual classes. After that, we define our evaluation function like as below:
 
