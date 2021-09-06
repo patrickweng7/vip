@@ -119,6 +119,7 @@ In the next step, we define our crossover. We will be facing a partially matched
                 `individual[swap_indx], individual[i]`
     `return individual,`
 
+
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
 
 ## Topic 2: Genetic Programming
@@ -138,7 +139,7 @@ In this exercise, it is a must to Shuffle indexes because it represents the posi
 
 **What’s the function?**
 
-F(x) = 2 – (0+1) (Note: It’s a constant)
+    * F(x) = 2 – (0+1) (Note: It’s a constant)
 
 **Crossover in GP:**
 
