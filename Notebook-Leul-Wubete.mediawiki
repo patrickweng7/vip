@@ -160,10 +160,29 @@ Interests: Soccer, Walking, Eating, Breathing
     b. pset.renameArguments(ARG0='x')
     c. pset.addPrimitive()
 
-    
+* What else should we not forget in the setup process?
+    - Next we will define our toolbox, individual, population, and compiler.
+    - This time, we have an expr function: gp.genHaldandHalf returns a primitive tree based on a primitive set and a minimum and maximum tree depth.
+    - In this case, the primitive set is the one we defined earlier, the minimum depth is 1, and the maximum depth is 2.     
 
+* How to optimize the function we are generating?
+   - by minimizing mean squared error.
+   - the mean squared error between the function we compile and the actual function we are trying to generate
+   - you could think of genetic programming as finding the best combination of primitives given objectives to minimize or maximize.
+   - This means we care a lot less about data than machine learning and care more about objectives.
 
+* How did I add a new mutation function?
+   - went to GP mutations in the DEAP source code here: https://github.com/DEAP/deap/blob/master/deap/gp.py
+   - picked:  gp.mutEphemeral
+   - added: toolbox.register("mutate_2", gp.mutEphemeral, expr=toolbox.expr_mut, pset=pset)
 
+* How to add tree height constraints?
+   - toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
+
+* How are the generations printed differently from our evolutionary algorithm?
+   - they are printed from the the structure of the tree, read left to right
+
+== Multiple Objective Genetic Programming == 
 ===Action Items:===
 {| class="wikitable"
 !Task
