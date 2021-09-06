@@ -51,7 +51,7 @@ _GitHub: github.gatech.edu/emade/emade_
                                   
 ### Lab 1: Genetic Algorithm with DEAP
 
-                                                              One Max Problem
+                                                           One Max Problem
 
 The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library. I installed DEAP and imported this library, I had to define the name of the normal and inherited classes. I created my own class. The tournament selection of 3 individuals’ method is important because it let us make sure that more varied traits in this population are present. 
 
@@ -71,7 +71,7 @@ After the crossover on the entire population, we print out the result to check t
 
 We can deduce that after running the code many times, one can notice that the optimal maximum expected wasn’t always reached and that should be due to the random nature of initialization, crossover, and mutation.
 
-                                                           The N Queens Problem
+                                                        The N Queens Problem
 
 The N Queens is the problem of putting N chess queens on an NxN chessboard such that no two queens attack each other. We use n=20 to create the fitness and individual classes. After that, we define our evaluation function like as below:
 
