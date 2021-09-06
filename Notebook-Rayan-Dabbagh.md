@@ -1,6 +1,9 @@
 * Introduction to VIP
 * Syllabus 
 * Allowing others to reproduce the work done (documentation)
+
+* Phone number : 4049368747
+* Personal e-mail : rayan.dabbagh@gmail.com
                                                       
 # **Automated Algorithm Design**
 
@@ -18,20 +21,20 @@ Each new generation is created through the manipulation/mutation of individuals.
 
 **Fitness:** relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
 
-**Selection:** Represents ‘survival of the fittest’; gies preference to better individuals, therefore allowing them to pass on their genes
+**Selection:** Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
 
-**Fitness proportionate:** When fitness value goes up, the higher the probability that he gets picked.
+1. Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next generation
 
-**Tournament:** Several tournaments – winners are selected for mating.
+2. Tournament: Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
 
 **Mating/Crossover:** Taking 2 or more individuals and exchanging the DNA between them.
 
 **Mutate:** Random modifications (The goal is to maintain diversity)
 
-•	Algorithms: Various evolutionary algorithms to create a solution or best individual
-1.	Randomly Initialize population
-2.	Determine fitness of population
-3.	Repeat
+**Algorithms:** Various evolutionary algorithms to create a solution or best individual
+1. Randomly Initialize population
+2. Determine fitness of population
+3. Repeat
 	Select parents from population
 	Perform crossover on parents creating population
 	Perform mutation of population
