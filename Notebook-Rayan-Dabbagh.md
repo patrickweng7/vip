@@ -25,9 +25,9 @@ _GitHub: github.gatech.edu/emade/emade_
 
 **Selection:** Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
 
-   **1.**    **Fitness Proportionate:** The greater the fitness, the greater the probability to be selected for next generation
+   _1.    Fitness Proportionate:_ The greater the fitness, the greater the probability to be selected for next generation
 
-   **2.**    **Tournament:** Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
+   _2.    Tournament:_ Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
 
 **Mating/Crossover:** Taking 2 or more individuals and exchanging the DNA between them.
 
@@ -51,7 +51,7 @@ _GitHub: github.gatech.edu/emade/emade_
                                   
 ### Lab 1: Genetic Algorithm with DEAP
 
-                                                         One Max Problem
+                                                              One Max Problem
 
 The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library. I installed DEAP and imported this library, I had to define the name of the normal and inherited classes. I created my own class. The tournament selection of 3 individuals’ method is important because it let us make sure that more varied traits in this population are present. 
 
@@ -59,20 +59,19 @@ The objective of this exercise was to find a bit string containing all 1s with a
 After this, we rank each individual of our population according to their fitness. The algorithm is then set to run for 40 generations.
 
 def main():
-    pop = toolbox.population(n=300)
-    
+    pop = toolbox.population(n=300) 
     # Evaluate the entire population
     fitnesses = list(map(toolbox.evaluate, pop))
     for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
 
 After the crossover on the entire population, we print out the result to check the progress over time:
-     * Max increased from 65.0 at generation 0 to 100.0 at generation 39
-     * Average increased from 53.82 in generation 0 to 97.81 at generation 39
+    * Max increased from 65.0 at generation 0 to 100.0 at generation 39
+    * Average increased from 53.82 in generation 0 to 97.81 at generation 39
 
 We can deduce that after running the code many times, one can notice that the optimal maximum expected wasn’t always reached and that should be due to the random nature of initialization, crossover, and mutation.
 
-                                                            **The N Queens Problem**
+                                                           The N Queens Problem
 
 The N Queens is the problem of putting N chess queens on an NxN chessboard such that no two queens attack each other. We use n=20 to create the fitness and individual classes. After that, we define our evaluation function like as below:
 
