@@ -98,17 +98,6 @@ The N Queens is the problem of putting N chess queens on an NxN chessboard such 
 In the next step, we define our crossover. We will be facing a partially matched crossover mating. It shows swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario. We finally use our mutation function, shown below:
 
 	`def mutShuffleIndexes(individual, indpb):`
-    `"""Shuffle the attributes of the input individual and return the mutant.`
-    `The *individual* is expected to be a :term:`sequence`. The *indpb* argument is the`
-    `probability of each attribute to be moved. Usually this mutation is applied on `
-    `vector of indices.`
-    `:param individual: Individual to be mutated.`
-    `:param indpb: Independent probability for each attribute to be exchanged to`
-                  `another position.`
-    `:returns: A tuple of one individual.`
-    `This function uses the :func:`~random.random` and :func:`~random.randint``
-    `functions from the python base :mod:`random` module.`
-    `"""`
     `size = len(individual)`
     `for i in range(size):`
         `if random.random() < indpb:`
