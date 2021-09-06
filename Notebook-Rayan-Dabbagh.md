@@ -1,3 +1,5 @@
+
+***
 * Introduction to VIP
 * Syllabus 
 * Allowing others to reproduce the work done (documentation)
