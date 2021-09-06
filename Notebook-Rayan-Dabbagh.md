@@ -35,7 +35,7 @@ _GitHub: github.gatech.edu/emade/emade_
 1. Randomly Initialize population
 2. Determine fitness of population
 3. Repeat
-* Select parents from population
+        * Select parents from population
 	* Perform crossover on parents creating population
 	* Perform mutation of population
 	* Determine fitness of population
