@@ -11,21 +11,21 @@ _GitHub: github.gatech.edu/emade/emade_
                                                       
 ## **Topic 1: Genetic Algorithms**
 
-Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
+### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 
 **Individuals:** One specific candidate in the population (with properties such as DNA)
 
 **Population:** Group of individuals whose properties will be altered
 
-**Objective:** a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm)
+**Objective:** A value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm)
 
-**Fitness:** relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
+**Fitness:** Relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
 
 **Selection:** Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
 
-1. Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next generation
+**1.** **Fitness Proportionate:** The greater the fitness, the greater the probability to be selected for next generation
 
-2. Tournament: Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
+**2.** **Tournament:** Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
 
 **Mating/Crossover:** Taking 2 or more individuals and exchanging the DNA between them.
 
@@ -35,19 +35,20 @@ Each new generation is created through the manipulation/mutation of individuals.
 1. Randomly Initialize population
 2. Determine fitness of population
 3. Repeat
-	Select parents from population
-	Perform crossover on parents creating population
-	Perform mutation of population
-	Determine fitness of population
-	Continue until best individual is found
+
+        * Select parents from population
+	* Perform crossover on parents creating population
+	* Perform mutation of population
+	* Determine fitness of population
+	* Continue until best individual is found
 
 
-                                              One Max Problem-Example Output
+### One Max Problem-Example Output                                       
 
-Results: Overtime, through the evolution, we get to the point where the vectors are full of 1s
+**Results:** Overtime, through the evolution, we get to the point where the vectors are full of 1s
 
                                   
-Lab 1: Genetic Algorithm with DEAP
+**### Lab 1: Genetic Algorithm with DEAP**
 
  One Max Problem 
 
