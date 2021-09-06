@@ -23,9 +23,9 @@ _GitHub: github.gatech.edu/emade/emade_
 
 **Selection:** Represents ‘survival of the fittest’; gives preference to better individuals, therefore allowing them to pass on their genes
 
-**1.** **Fitness Proportionate:** The greater the fitness, the greater the probability to be selected for next generation
+   **1.** **Fitness Proportionate:** The greater the fitness, the greater the probability to be selected for next generation
 
-**2.** **Tournament:** Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
+   **2.** **Tournament:** Several tournaments among individuals; winners are selected for mating NB: (You can spin a roulette wheel and select a pool, highest wins)
 
 **Mating/Crossover:** Taking 2 or more individuals and exchanging the DNA between them.
 
