@@ -81,12 +81,10 @@ The N Queens is the problem of putting N chess queens on an NxN chessboard such 
     `#The conflicts can only be diagonal, count on each diagonal line`
     `left_diagonal = [0] * (2*size-1)`
     `right_diagonal = [0] * (2*size-1)`
-    
     `#Sum the number of queens on each diagonal:`
     `for i in range(size):`
         `left_diagonal[i+individual[i]] += 1`
         `right_diagonal[size-1-i+individual[i]] += 1`
-    
     `#Count the number of conflicts on each diagonal`
     `sum_ = 0`
     `for i in range(2*size-1):`
@@ -96,31 +94,30 @@ The N Queens is the problem of putting N chess queens on an NxN chessboard such 
             `sum_ += right_diagonal[i] - 1`
     `return sum_,`
 
+
 In the next step, we define our crossover. We will be facing a partially matched crossover mating. It shows swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario. We finally use our mutation function, shown below:
 
 	`def mutShuffleIndexes(individual, indpb):`
-	    `"""Shuffle the attributes of the input individual and return the mutant.`
-	    `The *individual* is expected to be a :term:`sequence`. The *indpb* argument is the`
-	    `probability of each attribute to be moved. Usually this mutation is applied on `
-	    `vector of indices.`
-	    	    `:param individual: Individual to be mutated.`
-	    `:param indpb: Independent probability for each attribute to be exchanged to`
-	                  `another position.`
-	    `:returns: A tuple of one individual.`
-	    
-	    `This function uses the :func:`~random.random` and :func:`~random.randint``
-	    `functions from the python base :mod:`random` module.`
-	    `"""`
-	    `size = len(individual)`
-	    `for i in range(size):`
-	        `if random.random() < indpb:`
-	            `swap_indx = random.randint(0, size - 2)`
-	            `if swap_indx >= i:`
-	                `swap_indx += 1`
-	            `individual[i], individual[swap_indx] = \`
-	                `individual[swap_indx], individual[i]`
-	    
-	    `return individual,`
+    `"""Shuffle the attributes of the input individual and return the mutant.`
+    `The *individual* is expected to be a :term:`sequence`. The *indpb* argument is the`
+    `probability of each attribute to be moved. Usually this mutation is applied on `
+    `vector of indices.`
+    `:param individual: Individual to be mutated.`
+    `:param indpb: Independent probability for each attribute to be exchanged to`
+                  `another position.`
+    `:returns: A tuple of one individual.`
+    `This function uses the :func:`~random.random` and :func:`~random.randint``
+    `functions from the python base :mod:`random` module.`
+    `"""`
+    `size = len(individual)`
+    `for i in range(size):`
+        `if random.random() < indpb:`
+            `swap_indx = random.randint(0, size - 2)`
+            `if swap_indx >= i:`
+                `swap_indx += 1`
+            `individual[i], individual[swap_indx] = \`
+                `individual[swap_indx], individual[i]`
+    `return individual,`
 
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
 
