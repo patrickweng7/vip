@@ -48,14 +48,13 @@ _GitHub: github.gatech.edu/emade/emade_
 **Results:** Overtime, through the evolution, we get to the point where the vectors are full of 1s
 
                                   
-**### Lab 1: Genetic Algorithm with DEAP**
+### Lab 1: Genetic Algorithm with DEAP
 
- One Max Problem 
+                                                         **One Max Problem**
 
 The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library. I installed DEAP and imported this library, I had to define the name of the normal and inherited classes. I created my own class. The tournament selection of 3 individuals’ method is important because it let us make sure that more varied traits in this population are present. 
 
  
-
 After this, we rank each individual of our population according to their fitness. The algorithm is then set to run for 40 generations.
 
 def main():
@@ -67,12 +66,12 @@ def main():
         ind.fitness.values = fit
 
 After the crossover on the entire population, we print out the result to check the progress over time:
-o	Max increased from 65.0 at generation 0 to 100.0 at generation 39
-o	Average increased from 53.82 in generation 0 to 97.81 at generation 39
+     * Max increased from 65.0 at generation 0 to 100.0 at generation 39
+     * Average increased from 53.82 in generation 0 to 97.81 at generation 39
 
 We can deduce that after running the code many times, one can notice that the optimal maximum expected wasn’t always reached and that should be due to the random nature of initialization, crossover, and mutation.
 
- The N Queens Problem 
+                                                            **The N Queens Problem**
 
 The N Queens is the problem of putting N chess queens on an NxN chessboard such that no two queens attack each other. We use n=20 to create the fitness and individual classes. After that, we define our evaluation function like as below:
 
@@ -126,58 +125,57 @@ x)	    return individual,
 
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
 
-Topic 2: Genetic Programming
+## Topic 2: Genetic Programming
 
-Tree Representation is very used:
+**Tree Representation is very used:**
 
-•	We can represent a program as a tree structure.
-o	Nodes are called primitives and represent functions
-o	Leaves are called terminals and represent parameters
+    * We can represent a program as a tree structure.
+    * Nodes are called primitives and represent functions
+    * Leaves are called terminals and represent parameters.
 
-How is the Tree Stored?
+**How is the Tree Stored?**
 
-•	The tree is converted to a lisp preordered parse tree
+    * The tree is converted to a lisp preordered parse tree
+    * Operator followed by inputs.
 
-o	Operator followed by inputs.
+**More examples:**
 
-More examples:
-
-What’s the function?
+**What’s the function?**
 
 F(x) = 2 – (0+1) (Note: It’s a constant)
 
-Crossover in GP:
+**Crossover in GP:**
 
-o	Crossover in tree-based GP is simply exchanging subtrees
-o	Start by randomly picking a point in each tree
-o	The subtrees are exchanged to produce children
+    * Crossover in tree-based GP is simply exchanging subtrees
+    * Start by randomly picking a point in each tree
+    * The subtrees are exchanged to produce children
 
-Mutation in GP:
+**Mutation in GP:**
 
-o	Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
+    * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
 
-Example: Symbolic Regression
+**Example: Symbolic Regression**
 
-o	Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
-o	Primitives include: +, *, -, /
-o	Terminals include integers and x
-o	How did Calculus 1 solve this?  Taylor Series for sin(x)!
+    * Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
+    * Primitives include: +, *, -, /
+    * Terminals include integers and x
+    * How did Calculus 1 solve this?  Taylor Series for sin(x)!
 
-Evaluating a tree:
+**Evaluating a tree:**
 
-o	We can feed a number of input points into the function to get outputs 
-o	Run f(x)
-o	We can measure error between outputs and truth
+    * We can feed a number of input points into the function to get outputs 
+    * Run f(x)
+    * We can measure error between outputs and truth
 
-What Primitives could I use to make this evolution easier?
+**What Primitives could I use to make this evolution easier?**
 
-o	Power()
-o	Factorial()
-o	Sin()
-o	Cos()
-o	Tan()
+    * Power()
+    * Factorial()
+    * Sin()
+    * Cos()
+    * Tan()
 
-This is the idea behind EMADE.
+**This is the idea behind EMADE.**
 
 
 
