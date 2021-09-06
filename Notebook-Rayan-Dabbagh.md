@@ -51,9 +51,7 @@ _GitHub: github.gatech.edu/emade/emade_
                                   
 ### Lab 1: Genetic Algorithm with DEAP
 
-                                                         **One Max Problem**
-
-                                                         **One Max Problem**
+                                                         One Max Problem
 
 The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library. I installed DEAP and imported this library, I had to define the name of the normal and inherited classes. I created my own class. The tournament selection of 3 individuals’ method is important because it let us make sure that more varied traits in this population are present. 
 
