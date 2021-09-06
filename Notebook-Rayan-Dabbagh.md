@@ -97,7 +97,7 @@ The N Queens is the problem of putting N chess queens on an NxN chessboard such 
 
 In the next step, we define our crossover. We will be facing a partially matched crossover mating. It shows swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario. We finally use our mutation function, shown below:
 
-	`def mutShuffleIndexes(individual, indpb):`
+`def mutShuffleIndexes(individual, indpb):`
     `size = len(individual)`
     `for i in range(size):`
         `if random.random() < indpb:`
