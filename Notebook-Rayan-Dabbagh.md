@@ -51,23 +51,23 @@ _GitHub: github.gatech.edu/emade/emade_
                                   
 ### Lab 1: Genetic Algorithm with DEAP
 
-                                                           One Max Problem
+                                                       One Max Problem
 
 The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library. I installed DEAP and imported this library, I had to define the name of the normal and inherited classes. I created my own class. The tournament selection of 3 individuals’ method is important because it let us make sure that more varied traits in this population are present. 
 
  
 After this, we rank each individual of our population according to their fitness. The algorithm is then set to run for 40 generations.
 
-def main():
-    pop = toolbox.population(n=300) 
-    # Evaluate the entire population
-    fitnesses = list(map(toolbox.evaluate, pop))
-    for ind, fit in zip(pop, fitnesses):
-        ind.fitness.values = fit
+`def main():`
+    `pop = toolbox.population(n=300) `
+    `# Evaluate the entire population`
+    `fitnesses = list(map(toolbox.evaluate, pop))`
+    `for ind, fit in zip(pop, fitnesses):`
+        `ind.fitness.values = fit`
 
 After the crossover on the entire population, we print out the result to check the progress over time:
-    * Max increased from 65.0 at generation 0 to 100.0 at generation 39
-    * Average increased from 53.82 in generation 0 to 97.81 at generation 39
+   * Max increased from 65.0 at generation 0 to 100.0 at generation 39
+   * Average increased from 53.82 in generation 0 to 97.81 at generation 39
 
 We can deduce that after running the code many times, one can notice that the optimal maximum expected wasn’t always reached and that should be due to the random nature of initialization, crossover, and mutation.
 
