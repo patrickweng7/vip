@@ -2,33 +2,31 @@
 * Syllabus 
 * Allowing others to reproduce the work done (documentation)
                                                       
-Automated Algorithm Design
+# **Automated Algorithm Design**
 
-GitHub: github.gatech.edu/emade/emade
+_GitHub: github.gatech.edu/emade/emade_
                                                       
-Topic 1: Genetic Algorithms
+## **Topic 1: Genetic Algorithms**
 
 Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 
-Individuals: One specific candidate in the population (with properties such as DNA)
+**Individuals:** One specific candidate in the population (with properties such as DNA)
 
-Population: Group of individuals whose properties will be altered
+**Population:** Group of individuals whose properties will be altered
 
-Objective: a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm
+**Objective:** a value to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm)
 
-Fitness: relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
+**Fitness:** relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
 
-Selection: Represents ‘survival of the fittest’; gies preference to better individuals, therefore allowing them to pass on their genes
-	Fitness Proportionate: The greater the fitness, the greater the probability to be selected for next gen
-	Tournament: Several tournaments among individuals; winners are selected for mating
+**Selection:** Represents ‘survival of the fittest’; gies preference to better individuals, therefore allowing them to pass on their genes
 
-Fitness proportionate: When fitness value goes up, the higher the probability that he gets picked.
+**Fitness proportionate:** When fitness value goes up, the higher the probability that he gets picked.
 
-Tournament: Several tournaments – winners are selected for mating.
+**Tournament:** Several tournaments – winners are selected for mating.
 
-Mating/ Crossover: Taking 2 or more individuals and exchanging the DNA between them.
+**Mating/Crossover:** Taking 2 or more individuals and exchanging the DNA between them.
 
-Mutate: Random modifications (The goal is to maintain diversity)
+**Mutate:** Random modifications (The goal is to maintain diversity)
 
 •	Algorithms: Various evolutionary algorithms to create a solution or best individual
 1.	Randomly Initialize population
