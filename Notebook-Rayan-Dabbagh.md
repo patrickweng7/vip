@@ -42,7 +42,7 @@ _GitHub: github.gatech.edu/emade/emade_
     * Determine fitness of population
     * Continue until best individual is found
 
-
+**One Max Problem-Example Output**
 ### One Max Problem-Example Output                                       
 
 **Results:** Overtime, through the evolution, we get to the point where the vectors are full of 1s
