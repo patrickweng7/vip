@@ -98,30 +98,29 @@ def evalNQueens(individual):
 
 In the next step, we define our crossover. We will be facing a partially matched crossover mating. It shows swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario. We finally use our mutation function, shown below:
 
-a)	def mutShuffleIndexes(individual, indpb):
-b)	    """Shuffle the attributes of the input individual and return the mutant.
-c)	    The *individual* is expected to be a :term:`sequence`. The *indpb* argument is the
-d)	    probability of each attribute to be moved. Usually this mutation is applied on 
-e)	    vector of indices.
-f)	    
-g)	    :param individual: Individual to be mutated.
-h)	    :param indpb: Independent probability for each attribute to be exchanged to
-i)	                  another position.
-j)	    :returns: A tuple of one individual.
-k)	    
-l)	    This function uses the :func:`~random.random` and :func:`~random.randint`
-m)	    functions from the python base :mod:`random` module.
-n)	    """
-o)	    size = len(individual)
-p)	    for i in range(size):
-q)	        if random.random() < indpb:
-r)	            swap_indx = random.randint(0, size - 2)
-s)	            if swap_indx >= i:
-t)	                swap_indx += 1
-u)	            individual[i], individual[swap_indx] = \
-v)	                individual[swap_indx], individual[i]
-w)	    
-x)	    return individual,
+	def mutShuffleIndexes(individual, indpb):
+	    """Shuffle the attributes of the input individual and return the mutant.
+	    The *individual* is expected to be a :term:`sequence`. The *indpb* argument is the
+	    probability of each attribute to be moved. Usually this mutation is applied on 
+	    vector of indices.
+	    	    :param individual: Individual to be mutated.
+	    :param indpb: Independent probability for each attribute to be exchanged to
+	                  another position.
+	    :returns: A tuple of one individual.
+	    
+	    This function uses the :func:`~random.random` and :func:`~random.randint`
+	    functions from the python base :mod:`random` module.
+	    """
+	    size = len(individual)
+	    for i in range(size):
+	        if random.random() < indpb:
+	            swap_indx = random.randint(0, size - 2)
+	            if swap_indx >= i:
+	                swap_indx += 1
+	            individual[i], individual[swap_indx] = \
+	                individual[swap_indx], individual[i]
+	    
+	    return individual,
 
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
 
