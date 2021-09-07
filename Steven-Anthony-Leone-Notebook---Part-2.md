@@ -17,6 +17,38 @@ Team Member
 *** http://proceedings.mlr.press/v97/so19a.html
 ** We held a brainstorming meeting. We decided that the issue of complexity was best left to the NAS team if we were splitting this semester.
 
+{| class="wikitable"
+!Index
+!Error Title
+!Cause of Error
+!How to Resolve
+|-
+|1
+|Server won't start
+|Port is likely in use via submitted job or terminal
+|qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
+|-
+|2
+|Malformed Credentials
+|Password is stored incorrectly in MySQL due to version discrepancies
+|SET PASSWORD FOR 'gt_username'@'%' = PASSWORD('password');
+|-
+|3
+|Access Denied
+|It's likely that this is a new database created, or permissions weren't granted correctly.
+|Re-grant privileges, specify user address
+|-
+|4
+|Can't Connect to MySQL
+|MySQL may be running in the wrong manner (not a terminal, not a submitted job)
+|Ensure proper server address (job or from terminal)
+|-
+|5
+|2003 MySQL cannot connect
+|PACE has too many users; the host address has changed for MySQL
+|After starting mysql, run qstat -n to find the name of the host it’s running on, and swap it in input.xml
+|}
+
 == Week 2 ==
 * General Meeting Notes
 ** During the general meeting, I informed the whole team of ideas discussed in our brainstorm meeting. Devan also suggested added more primitives for more than embeddings.
