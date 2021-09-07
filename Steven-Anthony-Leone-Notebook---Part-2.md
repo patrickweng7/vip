@@ -1,4 +1,10 @@
-Steven Leone
+== Team Member ==
+<b>Team Member:</b> Steven Leone <br>
+<b> Major: </b> Computer Science <br>
+<b>Email:  </b>sleone6@gatech.edu <br>
+<b>Cell Phone:</b> (412)-378-7253 <br>
+<b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
+<b>Sub Team:</b> NLP
 
 
 == Week 1 ==
