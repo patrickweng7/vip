@@ -14,6 +14,9 @@ Interests: Writing fiction, Music, Reading, Sports
 * 
 
 === Individual Notes: ===
+*  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
+*  Created new fitness and individual classes for multi-objective problem - aim to minimize objectives 'mean squared error' and 'tree size'.
+*  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
 *  
 
 === Action Items: ===
