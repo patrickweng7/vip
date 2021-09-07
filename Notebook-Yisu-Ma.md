@@ -11,6 +11,34 @@
 # **Fall 2021**
 
 ***
+## week 2: September 1st - September 8th (2021)
+### Lecture Overviews
+* Summarized the knowledge in the last class (Genetic Algorithm)
+* Introduced Genetic programming
+* Solved several examples
+### Lecture Notes
+* Instead of taking an individual and having a function evaluator to obtain objective scores…
+* **Tree Representation:**
+1. represent a program as a tree structure
+2. Nodes are called primitives and represent functions
+3. Leaves are called terminals and represent parameters
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week2-1.PNG)
+The tree for f(X) = 3*4 + 1 can be written as:
+[+, *, 3, 4, 1]
+* Crossover in tree-based GP is simply exchanging subtrees
+* Start by randomly picking a point in each tree
+* These points and everything below creates subtrees
+**Mutation:**
+1. Inserting a node or subtree
+2. Deleting a node or subtree
+3. Changing a node
+
+
+
+
+
+
+
 ## Week 1: August 25th - September 1st (2021)
 ### Lecture Overviews
 * Summarizing the logistics of the class: wiki page, general ideas, syllabus, notebooks.
