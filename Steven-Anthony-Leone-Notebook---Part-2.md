@@ -1,4 +1,4 @@
-Team Member
+# Team Member
 <b>Team Member:</b> Steven Leone <br>
 <b> Major: </b> Computer Science <br>
 <b>Email:  </b>sleone6@gatech.edu <br>
@@ -6,8 +6,9 @@ Team Member
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
 <b>Sub Team:</b> NLP
 
+# Fall 2021
 
-== Week 1 ==
+## Week 1
 * General Meeting Notes
 ** We discussed potential sub team ideas
 **A brainstorming channel in the slack was created for the NLP sub team.
@@ -27,29 +28,9 @@ Team Member
 |Server won't start
 |Port is likely in use via submitted job or terminal
 |qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
-|-
-|2
-|Malformed Credentials
-|Password is stored incorrectly in MySQL due to version discrepancies
-|SET PASSWORD FOR 'gt_username'@'%' = PASSWORD('password');
-|-
-|3
-|Access Denied
-|It's likely that this is a new database created, or permissions weren't granted correctly.
-|Re-grant privileges, specify user address
-|-
-|4
-|Can't Connect to MySQL
-|MySQL may be running in the wrong manner (not a terminal, not a submitted job)
-|Ensure proper server address (job or from terminal)
-|-
-|5
-|2003 MySQL cannot connect
-|PACE has too many users; the host address has changed for MySQL
-|After starting mysql, run qstat -n to find the name of the host it’s running on, and swap it in input.xml
 |}
 
-== Week 2 ==
+## Week 2
 * General Meeting Notes
 ** During the general meeting, I informed the whole team of ideas discussed in our brainstorm meeting. Devan also suggested added more primitives for more than embeddings.
 ** The sub team for NLP was officially formed with members decided.
