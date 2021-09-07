@@ -1,4 +1,4 @@
-== Team Member ==
+Team Member
 <b>Team Member:</b> Steven Leone <br>
 <b> Major: </b> Computer Science <br>
 <b>Email:  </b>sleone6@gatech.edu <br>
