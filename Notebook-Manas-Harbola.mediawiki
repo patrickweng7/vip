@@ -38,6 +38,27 @@
 ** '''Mate/Crossover:''' Represents mating between individuals.
 ** '''Mutate:''' Introduce random modification; purpose is to maintain diversity
 
+==Lab 1: Genetic Algorithms with DEAP==
+
+'''One Max problem:''' Simple genetic algorithm problem with the objective of finding a bit string containing all 1s with a set length. The following steps were followed for this lab:
+* Import base, creator, tools from DEAP module and python random module
+* Define fitness objective and individual classes using DEAP's creator
+* Define individuals in population as booleans represented as 1s and 0s
+* Define evaluation function for fitness objective as sum of all 1s in bit string
+* For 40 generations, select the offspring for next generation, perform tournament selection, mate, and mutate
+* '''Observations:''' Maximum fitness score was almost always achieved after 40 generations, although it wasn't guaranteed. However, the maximum fitness score by the 40th generation was always between 97.0-100.0.
+
+'''N Queens Problem:''' Objective is to determine a configuration of n queens on a nxn chessboard such that no queen can be taken by another. For this version, each queen is assigned to one column and only one queen can be on each line. The following steps were followed for this lab:
+* Import necessary DEAP modules
+* Define fitness and individual classes as well as fitness objective and evaluation function
+* Fitness objective is to minimize the number of conflicts between two queens on nxn chessboard
+* Individual is defined as a list of n numbers denoting the column location of n queens in nxn chessboard
+* Evaluation function returns number of conflicts between queens along diagonal of chessboard
+* Define partially matched crossover function and mutate function to shuffle indices
+* Run main evolutionary loop for 100 generations
+* Algorithm doesn't consistently achieve minimum of 0.0 but gets consistently close to it
+
+
 '''<i>Action Items</i>'''
 {| class="wikitable"
 !Task
