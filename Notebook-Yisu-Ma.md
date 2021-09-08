@@ -32,10 +32,47 @@ The tree for f(X) = 3*4 + 1 can be written as:
 1. Inserting a node or subtree
 2. Deleting a node or subtree
 3. Changing a node
+* We discussed using the Taylor Series formula for sin(x) mutation
 
+### Lab Overviews
+**Symbolic Regression**
+* Focusing on genetic programming
+* created fitness and individual classes
+* Initialized PrimitiveTree class && added primitives (below are the added primtives)
 
+`pset.addPrimitive(np.sin, arity=2)
+pset.addPrimitive(np.cos, arity=2)`
 
+* Defined our toolbox, individual, population, and compiler.
+* Defined our evaluation function
+* Registered genetic operators
+* Added tree height contraints
+* Final evolutionary result(with main evolutionary algorithm)
 
+`-- Generation 37 --
+  Min 0.0
+  Max 4.0
+  Avg 0.19622640892733842
+  Std 0.6451516675079916
+-- Generation 38 --
+  Min 0.0
+  Max 5.0
+  Avg 0.25942077567399063
+  Std 0.777762277528485
+-- Generation 39 --
+  Min 0.0
+  Max 5.0
+  Avg 0.14866815351562296
+  Std 0.6378905904759974
+-- End of (successful) evolution --
+Best individual is multiply(x, x), (0.0,)
+plt.plot(gen, avg_list, label="average")`
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week2-lab.png)
+
+**Reflection and Thoughts:**the original result is negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+with fitness: (0.2786133308027132, 15.0)
+I changed the 
 
 
 
