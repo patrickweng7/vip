@@ -9,6 +9,102 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Soccer, Guitar
 
 = Fall 2021 =
+== Week 2: September 1st - September 7th (2021) == 
+===Outline of class notes===
+
+'''In class:'''
+* Overview of Genetic Programming.
+* Learnt about Tree Representation.
+* Briefly discussed Crossover and Mutation in Genetic Programming and Symbolic Regression.
+
+'''Lecture Notes:'''
+* Did a brief review of last week's material regarding Genetic Algorithms.
+* Instead of taking an individual and having a function evaluator to obtain objective scores, the individual will be the function itself.
+* Discussed one of the most common program structures in genetic programming, <b>Tree Representation</b>. Went over its uses and how to traverse over this tree. Parts of tree representation:
+** Nodes are called primitives and represent functions, eg: +, -, x, /.
+** Leaves are called terminals and represent parameters. The input can be thought of as a particular type of terminal. The output is produced at the root of the tree.
+* To store the tree, the tree is converted to a lisp preordered parse tree and the order is determined by the inputs, so we use the root first and then go down.
+* For example, if we use the following representation, we can determine how to traverse through the tree to determine the function by going top down and left to right.
+[[files/TreeRepresentation1.png]]
+
+So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the parse would be [+,*,3,4,1].
+* Crossover in tree-based GP is simply done by exchanging subtrees. Start by randomly picking a point in each tree and then these points and everything below create subtrees.
+* The function with the best output mate and then produce the next generation of children.
+* We also use the root sum (mean) square error method to calculate the optimized output and algorithms.
+* Mutation can involve and is done by:
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+* Learned more about the example of Symbolic Regression.
+* Symbolic Regression is an example involving the mutation of GP that is used to evolve solutions using primitives.
+* For instance: We use primitives like sin function, factorial, cos function, tan function, exponential, summation to evolve a solution to y = sin(x) by using the Taylor Series formula for sin(x).
+* Finally we discussed that to evaluate the tree, we can measure the difference between the truth and the output that we obtain after feeding the a number of input points into the function to get outputs and then running f(x).
+
+===LAB 2: Symbolic Regression===
+* Tried to derive/inherit individuals from DEAP's PrimitiveTree instead of lists.
+* Added primitives to the primitive set and chose a new mutation to find the most optimized solution.
+* Compiled the primitive tree to generate the evaluation function, which finds the squared sum of the difference between our desired function's output and our individual's output. In this case we are trying to find minimum values that approaches zero faster.
+* I tried modifying the code in three different ways:
+** <u>The original program</u>:
+***original lab 2
+
+***First Attempt: Best individual is add(add(negative(negative(multiply(x, x))), multiply(subtract(multiply(x, x), negative(x)), multiply(x, x))), x), (1.0123748708878107e-16,)
+***Second Attempt: Best individual is add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17,)
+***Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently.
+** <u>Program with added mutation</u>
+
+***First Mutation (mutInsert): Best individual is add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, negative(negative(x))))), x), (1.1585916677755867e-16,)
+
+***part2lab 2....Even after running the code for a number of times the error is lesser and the solution is more consistent and optimized than the original program.
+
+***Second Mutation (mutShrink): Best individual is add(add(multiply(x, x), multiply(x, multiply(x, x))), add(x, multiply(x, multiply(multiply(x, x), x)))), (9.522005638492831e-17,)
+
+***part2lab21....Values were usually close to zero, but in some cases the value was very high (for maximum) and not as consistent. 
+** <u>Program with only added primitives</u>
+
+***extralab2
+
+*** Best individual is add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
+
+** <u>Program with both added primitives and mutation</u>
+*** We used the mutInsert mutation as it seemed more consistent.
+
+*** First pair of primitives (sin and square): Best individual is add(x, add(multiply(add(x, square(x)), multiply(x, x)), multiply(x, x))), (1.0123748708878107e-16,)
+
+***lab2primitive1
+
+***Second pair of primitives (absolute, cos): Best individual is add(add(cos(add(cos(subtract(x, x), cos(add(negative(x), subtract(x, negative(multiply(x, x)))), x)), x), x), cos(subtract(x, x), x)), add(x, x)), (0.0,)
+***finallab2
+
+<b>In this lab, I attempted to reduce error to bring it almost to zero. This can be seen best in the graph where I used the absolute and cos primitives with the mutInsert mutation.</b>
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes (GP)
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 2nd, 2021
+|-
+|Review lecture slides
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 1st, 2021
+|- 
+|Complete Lab 2 (Part1)
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 4th, 2021
+|}
+
 == Week 1: August 25th - September 1st (2021) ==
 
 ===Outline of class notes===
@@ -69,7 +165,7 @@
 * Ran main evolutionary loop for 100 generations. 
 * Current algorithm did not always achieve the global minimum (0.0) but was consistently close.
 * Visualization done to achieve more efficiency and speed using graphs as follows (100 generations graph):
-[[files/NQueens_Fitness_vs_Generation.png|center|thumb]]
+[[files/N Queens Problem Visualization.png|center|thumb]]
 * Iterations can be reduced with change is parameters and functions. This is clear as we can see that the minimum is easily obtained around the 25th generation. I am trying to work on making few changes in the algorithm for improved results by changing the mutation and mating probabilities.
 
 For both problems we also found the basic statistics such as mean, minimum, maximum, and standard deviation, which helped to show that the final required output could be obtained in earlier generations itself with some tweaks made in the code.

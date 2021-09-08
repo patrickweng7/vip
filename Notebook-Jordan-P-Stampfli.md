@@ -1,11 +1,17 @@
 ## Table of Contents
 - [Team Member](#team-member)
+- [September 2, 2021](#september-2-2021)
+  * [Lab 2](#lab-2)
+  * [Action Items](#action-items)
+- [September 1, 2021](#september-1-2021)
+  * [Lecture 2](#lecture-2)
+  * [Action Items](#action-items-1)
 - [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
-  * [Action Items](#action-items)
+  * [Action Items](#action-items-2)
 - [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
-  * [Action Items](#action-items-1)
+  * [Action Items](#action-items-3)
 
 
 ## Team Member 
@@ -15,6 +21,55 @@ Team Member: Jordan Stampfli
 Email: jstampfli3@gatech.edu
 
 Cell Phone: 914-874-3666
+
+## September 2, 2021
+
+### Lab 2
+* added exponents and logs with arities 2 and 1
+  * difficulty getting np.float_power to work
+    * tried changing input values
+    * tried to define using data types instead of arity
+  * similar issues with logs
+* successfully added sin and cos primitives which weren't used in optimal answers
+* added the primitive swap mutation
+* results with four basic primitives: +,-,/,*
+  * best individual: (X+(X\*X)*(X+X\*X)+X\*X)=(X+X<sup>3</sup>+X<sup>4</sup>+X<sup>2</sup>)
+* results with four basic primitives and power
+  * best individual: 2X*(X<sup>X</sup>+X<sup>2</sup>)
+  * on different runs got very complex trees with 20+ primitives
+
+### Action Items
+|Task|Due Date|Progress Notes|Current Status|
+|---|---|---|---|
+|Lab 2|9/8|Walked through with multiple attempted primitives, mutations, and parameters|Complete|
+|Join Slack|9/4|Used school email|Complete|
+
+
+## September 1, 2021
+
+### Lecture 2
+* genetic algorithm vs genetic programming
+  * genetic programming: individuals are functions
+    * converts input data to output data
+    * tree structure
+      * nodes: primitives (functions)
+      * leaves: terminals (parameters/input data)
+      * output comes from root
+      * stored as a "listp preorered parse tree"
+      * crossover is exchanging subtrees
+      * mutations: insert, remove, change
+* symbolic regression example
+  * evolve y=sin(x)
+  * primitives: +,-,/,*
+  * terminals: integers, X
+  * evaluation: sum squared error
+
+### Action Items
+
+|Task|Due Date|Progress Notes|Current Status|
+|---|---|---|---|
+|Lab 2|9/8|NA|Incomplete|
+|Join Slack|9/4|NA|Incomplete| 
 
 ## August 28, 2021
 

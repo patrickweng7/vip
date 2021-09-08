@@ -7,12 +7,134 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 3: September 8, 2021 ==
+=== Lecture Notes ===
+* algorithms look for accuracy, efficiency, reliability, scalability, consistency
+* binary classification problem
+** data set (positive and negative samples) feed into a classifier which result in a confusion matrix
+
+{| class="wikitable"
+|+confusion matrix
+|-
+|
+|predicted positive
+|predicted negative
+|-
+|actual positive
+|true positive (TP)
+|false negative (FN), type II error
+|-
+|actual negative
+|false positive (FP), type I error
+|true negative (TN)
+|}
+
+* sensitivity or true positive rate (TPR)
+** aka hit rate or recall
+** TPR = TP/P = TP/(TP+FN)
+* specificity (SPC) or true negative rate (TNR)
+** TNR = TN/N = TN/(TN+FP)
+* false negative rate (FNR)
+** FNR = FN/P = FN/(TP+FN)
+** FNR = 1-TPR
+* fallout or false positive rate (FPR)
+** FPR = FP/N = FP/(FP+TN)
+** FPR = 1-TNR = 1-SPC
+* precision or positive predictive value (PPV)
+** PPV = TP/(TP+FP)
+** bigger is better
+* false discovery rate
+** FDR = FP/(TP+FP)
+** FDR = 1-PPV
+** smaller is better
+* negative predictive value (NPV)
+** NPV = TN/(TN+FN)
+** bigger is better
+* accuracy (ACC)
+** ACC = (TP+TN)/(P+N)
+** bigger is better
+
+* Objective Space
+** each individual is evaluated using objective functions
+*** mean squared error
+*** cost
+*** complexity
+*** TPR, FPR, etc.
+** objective scores give each individual a point in objective space
+
+* Pareto Optimality
+** '''Pareto optimal''': if there is no other individual in the population that outperforms the individual on all objectives
+** '''Pareto frontier''': the set of all Pareto individuals
+** we want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II)
+** separate population into nondomination ranks
+** select individuals using binary tournament
+** lower Pareto ranks beat higher Pareto ranks (in minimizing problems)
+** ties on the same front are broken by crowding distance
+*** summation of normalized Euclidian distances to all points within the front
+*** higher crowding distance wins
+
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** each individual is given a strength S, where S is the number of other individuals it dominates
+** each individual receives a rank R, where R is the sum of all S's of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+** a distance to the kth nearest neighbor (\sigma^k) is calculated and fitness of R + 1/(\sigma^k+2)
+
+=== Lab 2: Part 2 ===
+*
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook Self Assessment
+|
+|September 8, 2021
+|September 15, 2021
+|
+|-
+|Update Notebook (format, images, etc.)
+|
+|September 8, 2021
+|September 15, 2021
+|
+|-
+|Lab 2: Part 2
+|
+|September 8, 2021
+|September 15, 2021
+|
+|}
+
 == Week 2: September 1, 2021 ==
 === Lecture Notes ===
+* Tree Representation
+** nodes are called primitives and represent functions
+** leaves are called terminals and represent parameters
+** the output is produced at the root of the tree
+** the tree is converted to a lisp preordered parse tree
+* Crossover In Genetic Programming (GP)
+** crossover in tree-based GP is simply exchanging subtrees
+* Mutation In GP
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+* Evaluating A Tree
+** we feed a number of input points to get outputs
+* What Can Make Evolution Easier?
+** if we had better primitives, it would be easier to evolve algorithms
+** ex. if we wanted to approximate sin(x), we could use +,-,*,/, but we could also use factorial, exponent, summation, etc.
 
+=== Lab 2: Part 1 ===
+* For my two primitives, I added the sine and absolute value methods.
+* I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using pyplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method however, resulted in a lower maximum fitness than mutUniform().
 
-
-'''Action Items:'''
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status
@@ -21,23 +143,42 @@
 !Date Resolved
 |-
 |Format Notebook (code, images)
-|
+|Completed
 |September 1, 2021
 |September 8, 2021
-|
+|September 3, 2021
+|-
+|Lab 2: Part 1
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
 |}
 
 
 == Week 1: August 25, 2021 ==
-=== Lecture Overview ===
-* syllabus (grading, notebook)
-* genetic algorithms lecture
-* introduction to Jupyter notebook and lab 1
 === Lecture Notes ===
 * The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through manny iterations of this process, it produces the best individual.
 * Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
 * A mutation introduces random modifications to the algorithm in order to help maintain diversity.
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
+
+=== Keywords ===
+* '''individual''': one specific candidate in the population (with properties like DNA)
+* '''population''': group of individuals whose properties will be altered
+* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot inncrease objective through evolutionary algorithm)
+* '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
+* '''evaluation''': a function that computes the objective of an individual
+* '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
+** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
+** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
+* '''mate/crossover''': represents mating between individuals
+![[files/apeng39/w1-ss1-crossover1.png]]
+![[files/apeng/w1-ss2-crossover2.png]]
+** anything up to n-point crossover is possible
+* '''mutate''': introduces random modifications; purpose is to maintain diversity
+![[files/apeng39/w1-ss3-mutate.png]]
+* '''algorithms''': various evolutionary algorithms to create a solution or best individual
 
 === Lab 1 ===
 ==== Part 1: One Max Problem ====
@@ -55,50 +196,39 @@
 * My Mutation Methods
  <nowiki>def mutOppositeHalves(individual, indpb):
     """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
-    
     :param individual: Individual to be mutated.
-    :param indpb: Independent probability for each attribute to be exchanged to
-                  another position.
+    :param indpb: Independent probability for each attribute to be exchanged to another position.
     :returns: A tuple of one individual.
-    """
-    
+    """"
     size = len(individual)
     front_half = random.randint(0, size/2)
     back_half = random.randint(size/2, size-1)
-        
     individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,</nowiki>
+    return individual,
+<nowiki></nowiki>
 
  <nowiki>def mutRandomHalves(individual, indpb):
     """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
      swapping them with a probability of indpb.
-    
     :param individual: Individual to be mutated.
-    :param indpb: Independent probability for each attribute to be exchanged to
-                  another position.
+    :param indpb: Independent probability for each attribute to be exchanged to another position.
     :returns: A tuple of one individual.
     """
-    
     size = len(individual)
     midpoint = random.randint(0, size-2)
-    
     front_half = random.randint(0, size/2)
     back_half = random.randint(size/2, size-1)
-        
     individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
-    return individual,</nowiki>
+    return individual,
+<nowiki></nowiki>
+
 * Observations & Reflection
 ** To test the effectiveness of my mutation methods, I ran each evolution (100 generations) 100 times and plotted the fitness values.
 ** I saw that my mutOppositeHalves() method performed the best, finding the global minimum of 0, 60 out of 100 evolutions. My mutRandomHalves() and the provided mutShuffleIndexes performed slightly worse producing the global minimum approximately 55 times out of 100 evolutions.
 ** However, for the methods I wrote, the maximum shown on the line graphs for each generation ended to be lower than the method provided.
 ** I struggled a bit with writing the code to make a bar graph using matplotlib mainly because of the data types that the toolbox returned. I kept feeding matplotlib a list of tuples when it wanted a list of ints.
 
-=== Questions ===
-* How do I format my code properly? The def function(): part of my code is missing.
-* How do I add images to my notebook.
-* Why is my maximum value for each generation decreasing for the mutation methods I wrote? What does this mean?
-
-'''Action Items:'''
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status

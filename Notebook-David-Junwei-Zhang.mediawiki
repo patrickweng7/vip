@@ -5,12 +5,160 @@ Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
 
+== September 8, 2021 ==
+'''Team Meeting Notes'''
+
+Lecture 3: Multiple Objectives
+
+Main idea: There is often more than one objective to minimize/maximize. How can our algorithm take into account multiple objectives?
+
+* Metrics for algorithms: accuracy, computational speed, scalability, reliability
+* Gene pool: set of genomes to be evaluated during the current generation
+* Genome: genotypic description of an individual
+** GA = set of values
+** GP = tree structure (parse tree)
+* Search space: Set of all possible genomes. For GP, set of all possible algorithms
+* Evaluation: associates a genome/individual with a set of scores. phenotype is the expression of a genotype
+** Confusion matrix: 2x2 grid with TP, FP, TN, FN results
+** Sensitivity (or recall, true positivity rate): TP/(TP + FN)
+** Specificity (true negative rate): TN/(TN + FP)
+** False negative rate: 1-TPR
+** False positive rate: 1-TNR
+** Precision (PPV): TP / (TP + FP)
+** Negative predictive value (NPV): TN / (TN + FN)
+** Accuracy: (TP + TN) / (P + N)
+
+Pareto Optimality: An individual is pareto optimal if there i s no other individual in the population that outperforms the individual on all objectives
+* The set of all pareto optimal individuals is called the "pareto frontier"
+* We want to drive selection by favoring Pareto individuals while also maintaining diversity by giving all individuals some probability of mating
+
+Nondominated Sorting Genetic Algorithm II (NGSA II)
+* Separate population into nondomination ranks (Rank I => pareto optimal; Rank II => pareto optimal after removing rank I individuals; Rank n => pareto optimal after removing rank n-1 individuals)
+* Individuals selected through a binary tournament
+** Lower pareto ranks beat higher pareto ranks
+** Ties on the same front are broken by higher crowding distance (summation of normalized euclidean distances to all points within the front)
+
+Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+* Each individual is given a strength S (how many others in the population it dominates)
+* Each individual is given a rank R (sum of S's of individuals that dominate it)
+** for ties, distance to the kth nearest neighbor (sigma^k) is calculated and fitness of R+1/(sigma^k+2) obtained
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Class Notes
+|Completed
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|Self grade wiki notebook
+|In progress
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|Finish Lab 2
+|In progress
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|}
+
+Lecture 2: Genetic Programming
+
+Main idea: instead of taking an individual and evaluating its objective score, the individual is the function itself.
+
+Tree Representation
+* Nodes are called primitives and represent functions
+* Leaves are called terminals and represent parameters
+** Input is a particular type of terminal
+* Function is evaluated upward from leaves to the root
+* Tree converted to a lisp preordered parse tree (operators followed by inputs)
+* Crossover in tree-based GP => exchanging subtrees at a particular node
+* Mutations
+** inserting node or subtree
+** deleting node or subtree
+** changing node or subtree
+
+Evaluating a tree: Feed a number of points into the function to get outputs and compare with the ground truth function. Can use MSE or other error function for evaluation.
+
+Idea behind EMADE: Add useful primitives that can optimize genetic programs. We can even use other machine learning algorithms as primitives (making genetic programming potentially very expressive)
+
+'''Lab 2 Until Multi-Objective GP'''
+
+For genetic programming, we will use "gp.PrimitiveTree" instead of a list since an individual is represented with a tree-like structure (parse tree)
+
+The two new primitives I added were the power and sin functions.
+
+<code>pset.addPrimitive(np.power, arity=2)</code>
+
+<code>pset.addPrimitive(np.sin, arity=1)</code>
+
+My reasoning for adding power is because power can easily generate large numbers without having to use many nodes. I chose the sin function because it is expressive in terms of generating cyclical behavior.
+
+The mutation function that I added is below
+
+<code>toolbox.register("mutate", gp.mutShrink)</code>
+
+I chose to use gp.mutShrink because of the idea of Occam's razor (the simplest solution that performs well should be preferred over a more complicated one that performs similarly)
+
+After trying to run the GP loop, I had some issues with overflow (from both power and later testing exponentials using np.power and np.exp respectively).
+
+Lab 2 Debugging notes: One error that I had was with the mutShrink method parameters. I initially assumed that the parameters would be the same as mutUniform, however mutShrink only takes in the individual as a parameter and does not need expression or pset. Removing those parameters resolved the syntax errors, however the overflow errors were still present resulting in NAN values in the summary outputs. Np.exp resulted in overflow while np.power resulted in invalid data types (due to complex numbers from negative fractional powers).
+
+Observations:
+After repeating sin(x), tan(x) terminals, one interesting observation is the variance in fitness outcome
+# Best individual is add(add(x, multiply(x, multiply(multiply(x, x), x))), multiply(add(multiply(x, x), x), x)), (1.1041911805293318e-16,)
+# Best individual is add(multiply(tan(x), tan(tan(sin(sin(x))))), tan(tan(sin(x)))), (0.07116831096996691,)
+# Best individual is add(multiply(tan(x), tan(x)), tan(x)), (0.21309774609405807,)
+
+* It seems that the simplest model (3) performed the worst while the most complicated model (1) performed the best in terms of minimizing the objective
+* Also, the difference between the min and max values are very high and the minimum value seems to flatline after a few iterations
+* After adding another mutate method of "mutateEphemeral", the variation seemed to be lower in results (consistently getting c * e-16 results)
+    toolbox.register("mutate", gp.mutEphemeral, mode="all")
+* Finally the last item I tested was the number of iterations on variance.
+** My hypothesis was that as number of iterations increased, the variance in optimal fitness between runs would decrease. I increased the number of runs to 100 (previously 40) and when I ran the GP multiple times, I realized that the variance was similar. It seems that the GP would converge on a solution and get "stuck" performing substantially worse on some rounds, while performing well on others. For example the output of GP min fitness would often switch between (2) and (1) from above which is a substantial difference.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Class Notes
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 4, 2021
+|-
+|Complete Lab 2 until Multi Objective
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 7, 2021
+|-
+|Resolve overflow issues for Lab 2
+|Completed
+|September 5, 2021
+|September 8, 2021
+|September 7, 2021
+|-
+|}
 
 == August 25, 2021 ==
 
 '''Team Meeting Notes'''
 
-Lecture 1: Genetic Programming Introduction
+Lecture 1: Genetic Algorithm Introduction
 
 Algorithm idea: each generation is created through mating/mutation of individuals in the previous population. Through numerous operations of this process, the fitness of the population will be optimized.
 
@@ -109,7 +257,7 @@ After applying the custom mutate function that swaps more indices, it appears to
 |August 28, 2021
 |-
 |Complete Lab 1
-|In progress
+|Completed
 |August 25, 2021
 |September 1, 2021
 |August 31, 2021
