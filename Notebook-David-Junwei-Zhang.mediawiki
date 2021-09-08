@@ -5,8 +5,71 @@ Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
 
-== September 1, 2021 ==
+== September 8, 2021 ==
 '''Team Meeting Notes'''
+
+Lecture 3: Multiple Objectives
+
+Main idea: There is often more than one objective to minimize/maximize. How can our algorithm take into account multiple objectives?
+
+* Metrics for algorithms: accuracy, computational speed, scalability, reliability
+* Gene pool: set of genomes to be evaluated during the current generation
+* Genome: genotypic description of an individual
+** GA = set of values
+** GP = tree structure (parse tree)
+* Search space: Set of all possible genomes. For GP, set of all possible algorithms
+* Evaluation: associates a genome/individual with a set of scores. phenotype is the expression of a genotype
+** Confusion matrix: 2x2 grid with TP, FP, TN, FN results
+** Sensitivity (or recall, true positivity rate): TP/(TP + FN)
+** Specificity (true negative rate): TN/(TN + FP)
+** False negative rate: 1-TPR
+** False positive rate: 1-TNR
+** Precision (PPV): TP / (TP + FP)
+** Negative predictive value (NPV): TN / (TN + FN)
+** Accuracy: (TP + TN) / (P + N)
+
+Pareto Optimality: An individual is pareto optimal if there i s no other individual in the population that outperforms the individual on all objectives
+* The set of all pareto optimal individuals is called the "pareto frontier"
+* We want to drive selection by favoring Pareto individuals while also maintaining diversity by giving all individuals some probability of mating
+
+Nondominated Sorting Genetic Algorithm II (NGSA II)
+* Separate population into nondomination ranks (Rank I => pareto optimal; Rank II => pareto optimal after removing rank I individuals; Rank n => pareto optimal after removing rank n-1 individuals)
+* Individuals selected through a binary tournament
+** Lower pareto ranks beat higher pareto ranks
+** Ties on the same front are broken by higher crowding distance (summation of normalized euclidean distances to all points within the front)
+
+Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+* Each individual is given a strength S (how many others in the population it dominates)
+* Each individual is given a rank R (sum of S's of individuals that dominate it)
+** for ties, distance to the kth nearest neighbor (sigma^k) is calculated and fitness of R+1/(sigma^k+2) obtained
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Class Notes
+|Completed
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|Self grade wiki notebook
+|In progress
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|Finish Lab 2
+|In progress
+|September 8, 2021
+|
+|September 15, 2021
+|-
+|}
 
 Lecture 2: Genetic Programming
 
@@ -78,13 +141,13 @@ After repeating sin(x), tan(x) terminals, one interesting observation is the var
 |September 4, 2021
 |-
 |Complete Lab 2 until Multi Objective
-|In progress
+|Completed
 |September 1, 2021
 |September 8, 2021
 |September 7, 2021
 |-
 |Resolve overflow issues for Lab 2
-|In progress
+|Completed
 |September 5, 2021
 |September 8, 2021
 |September 7, 2021
