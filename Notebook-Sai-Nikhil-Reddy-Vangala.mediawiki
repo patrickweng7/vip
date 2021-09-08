@@ -75,6 +75,31 @@
 
 === Lecture Notes (9/1) ===
 * Reviewed material on Genetic Algorithms form last week's meeting.
+* Tree Representation
+** We can represent a program as a tree structure
+*** Nodes are called primitives and represent functions
+*** Leaves are called terminals and represent parameters.
+**** The input can be thought of as a particular type of terminal
+**** The output is produced at the root of the tree.
+
+* How is the Tree Stored?
+
+** The tree is converted  into a '''lisp preordered parse tree'''
+** The operator would be followed by inputs
+** The tree for f(X) = 3 * 4 + 1 can be written as: [+,*,3,4,1]
+** We do a depth-first traversal in this pre-ordered parse tree
+
+* Crossover in Genetic Programming
+** Basically exchanging subtrees
+** Start by randomly picking a point in each tree
+** These points and everything below create subtrees
+** The subtrees are exchanged to produce children
+** We take what's left of parent 1 and what's left of parent 2 and swap and create 2 child algorithms out of that
+
+* Evaluating a tree
+** We can feed a number of input points into the function to get outputs 
+*** X = [0..2𝜋]
+** We can measure error between outputs and truth.
 
 
 ===Action Items===
