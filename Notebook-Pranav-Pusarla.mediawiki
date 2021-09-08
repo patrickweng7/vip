@@ -77,3 +77,59 @@
 |September 1, 2021
 |September 1, 2021
 |}
+
+== September 1, 2021 ==
+=== Class Notes: ===
+
+'''<u>Genetic Programming</u>'''
+*Instead of taking an individual and having a function evaluator to obtain objective scores, the individual is the function itself
+
+'''<u>Tree Representation</u>'''
+*We can represent a program as a tree structure
+**Nodes are called primitives and represent functions
+**Leaves are called terminals and represent parameters
+*Tree can be converted to a lisp preordered parse tree
+**Operator followed by inputs
+
+'''<u>Crossover in GP</u>'''
+*Crossover in tree-based GP is simply exchanging subtrees
+*Start by randomly picking a point in each tree and switch subtrees of picked parents
+
+'''<u>Mutation in GP</u>'''
+*Can involve...
+**Inserting a node or subtree
+**Deleting a node or subtree
+**Changing a node
+
+'''<u>Evaluating a tree</u>'''
+*We can feed a number of input points into the function to get outputs
+*Run f(X)
+*We can measure error between outputs and truth
+
+=== Lab 2 Notes: ===
+'''Symbolic Regression'''
+*Creating fitness function with weight -1 so trying to find min
+*Each individual represented by a tree by inheriting from Deap's PrimitiveTree class
+*Created a primitive set that holds all mathematical functions and arguments
+**Added two primitives (power and log)
+*Defined toolbox with individual, population, and compile
+**Also defined a function expr that creates a primitive tree between min and max depth
+*Defined evaluation function that basically takes the mean squared error between the tree function and actual function based on inputted points
+*Registered toolbox with genetic functions
+**Added a mutation function - node replacement
+*Ran 40 generations and got minimum of 8.77e-17 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Lab 2 Part 1
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}

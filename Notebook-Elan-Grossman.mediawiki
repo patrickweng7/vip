@@ -10,6 +10,91 @@ Cell Phone; 770-595-8339
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
 
+== September 1st, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed Wiki How-Tos
+* Covered using GP to generate functions instead of optimizing a solution
+* An example is generating a mathematical function such as sin(x)
+* What you could do is generate the inputs and outputs and then use GP to generate an equation that maximizes the accuracy of the solution
+* This is similar to machine learning, except you don't use gradient descent to optimize the algorithm, but a fitness function
+* Functions are represented as trees with two types of nodes
+** Nodes (or Primitives) which represent transformations such as addition, subtraction, summation, factorials, etc.
+** Leaves (Or Terminals) which represent data such as constants or even variables (x, y, z)
+* Leaves cannot have children and Nodes must have 2 children
+* Tree can be represented as a recursive tree structure
+** [-, 2,* 3, x] is equivalent to 2-3*x
+* Crossover is now exchanging nodes between trees
+** For example, we could change [-, 2,* 3, x] to [-, -,4,x,* 3, x] to be 4-x-3x where [-,4,x] is a node in a tree
+* Mutation is not only changing a node, but deleting one or adding a new node 
+
+'''Lab 2 Notes'''
+
+I worked through the module adding two more primitives, the sin function and a maximum function to the tree. The tree generation method, genHalfAndHalf where half the time it generates a tree with equal depth for each node, and the other half does not (or at least does between a minimum and maximum depth).
+
+When building the toolbox methods, I added an insert method to generate a new primitive in the tree through insertion instead of replacement. Lastly, I installed the networkx library to visualize the graph. When running my code for the first time, my optimization found this individual:
+Best individual is maximum(add(multiply(maximum(add(multiply(add(x, multiply(x, x)), x), x), x), x), x), x), (1.298785972010402e-16,)
+This is equivalently: max(x+x*max(x+x*(x^2 + x),x),x) which with the maxes removed becomes: x+(x^2 + (x^4 + x^3)) which is equivalent to our evaluation method, but with maximum added in.
+
+Next, we tried a much harder problem to solve:
+-x + sin(x^2) + tan(x^3) - cos(x)
+
+We also defined Pareto Dominance. This property means that for an individual outperforms another individual in all fitness values. This is equivalent to saying that there is no trade-off between selecting an individual in a multi-objective fitness optimization. Then I implemented the statistics and algorithms package in DEAP. The algorithm we used, eaMuPlusLambda can be found at [https://deap.readthedocs.io/en/master/api/algo.html?highlight=eaMuPlusLambda]. What's nice about this functionality is that we don't have to write the GP algorithm from scratch and we also get a very nice summary of each generation with statistics. This cuts down on code we have to write and reduces the output to something readable.
+
+We also generated a visual to represent the Pareto front. This is a list of best individuals that minimize the area under the curve between two fitness objectives. Essentially, this represents a boundary that estimates the minimum error we can obtain and the trade-off between multiple fitness objectives.
+
+{| class="wikitable"
+!Mu
+!Lambda
+!CXP
+!MUTPB
+!Result
+|-
+|50
+|100
+|0.5
+|0.2
+|2.36
+|-
+|50
+|150
+|0.5
+|0.2
+|4.043
+|-
+|50
+|50
+|0.5
+|0.2
+|2.33
+|-
+|50
+|100
+|0.3
+|0.2
+|3.702
+|-
+|50
+|75
+|0.6
+|0.7
+|2.36
+|}
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work through Regression Notebook
+|In Progress
+|September 1, 2021
+|September 7, 2021
+|September 7, 2021
+|}
 
 == August 25th, 2021 ==
 '''Team Meeting Notes:'''
