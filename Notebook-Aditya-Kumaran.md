@@ -11,7 +11,8 @@ Interests: Writing fiction, Music, Reading, Sports
 == September 8, 2021 (Week 3) == 
 
 === Lecture Notes: ===
-* 
+*  Multiple Objective Optimization:
+    *   
 
 === Individual Notes: ===
 *  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
@@ -26,6 +27,12 @@ Interests: Writing fiction, Music, Reading, Sports
 !Date Assigned
 !Suspense Date
 !Date Resolved
+|-
+|Complete Self-Grade Rubric
+|
+|September 8, 2021
+|September 15, 2021
+|September 9, 2021
 |-
 |Update Weekly Notebook
 |
