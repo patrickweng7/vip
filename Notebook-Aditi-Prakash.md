@@ -109,7 +109,7 @@ Findings: The global maximum (a best individual with a fitness or MAE of 0) was 
   
 The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
 
-Findings:
+Visualization:
 ![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
 
 * We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
