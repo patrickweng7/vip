@@ -186,12 +186,67 @@
 |September 4, 2021
 |-
 |Finish Lab 2 - Genetic Programming (part 1) and take notes
-| In Progress
+|Completed
 |September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|-
+|Understand the graphs returned by Lab 2 by asking questions about them during the next team meeting
+|In Progress
+|September 8, 2021
+|September 8, 2021
+|
+|-
+|Find out how to insert pictures in my notebook and if pictures are required by asking questions about them during the next team meeting
+|In Progress
+|September 8, 2021
 |September 8, 2021
 |
 |}
 
 '''Lab 2 - Genetic Programming (part 1)'''
-*This lab focuses on genetic programming which is the tool that will be used for automated algorithm design
-*
+*Purpose
+**This lab focuses on genetic programming which is the tool that will be used for automated algorithm design
+***The problem that Genetic programming is trying to solve is to find the best combination of the given primitives in order to get as close as possible to the ideal function and to reach the objectives
+*Background/context
+**The fitness is created with a weight of -1.0, the individuals are created and represented as tree structures
+**A primitive set is initialized and the primitives "add", "subtract", "multiply", "negative" are added to the tree
+*** I checked out NumPy documentation and added the primitives "numpy.power" and "numpy.mod" to the tree. They both take two required arguments, so I specified "arity=2" for both
+**The toolbox, individual, population, and compiler are defined
+**The evaluation function is defined to find the mean squared error between the function of the primitive tree and the function that we are trying to generate
+***The goal is to optimize the primitive tree by minimizing this mean squared error
+***We already know what the ideal function is and the primitives that it utilizes
+***Our primitive tree contains all the primitives that the ideal function utilizes
+***we need to find the best combination of these primitives that achieve the ideal function
+**The genetic operators are registered
+***"evaluate", "select", "mate", "expr_mut" (which is a function that will be passed in as a parameter for the gp.mutUniform method), and "mutate"
+***I checked out the DEAP source code and added a new mutation method, gp.mutNodeReplacement, as "mutateNodeReplace"
+***gp.mutNodeReplacement replaces a randomly chosen primitive from an individual by a randomly chosen primitive with the same number of arguments from the attributes of the individual
+** Experiment
+*** A population of 300 individuals is generated (n = 300)
+*** 40 generations are initiated
+*** During each generation, individuals are evolved by selecting, mating, and mutating in order to create the next generation
+*** statistics are printed
+** Results
+*** After running the experiment with the mutation method provided by the lab default, "mutate", the best individual is: multiply(add(power(x, subtract(x, add(remainder(x, subtract(x, x)), x))), add(power(remainder(subtract(x, x), remainder(x, x)), subtract(power(x, x), x)), x)), add(x, x)), (nan,)
+*** After running the experiment with the mutation method I created, "mutateNodeReplace", the best individual is add(add(x, multiply(multiply(x, add(x, multiply(x, x))), x)), multiply(remainder(add(x, multiply(x, power(x, x))), add(x, x)), x)), (nan,)
+
+== Week 3: September 8th - September 14th ==
+
+'''September 8, 2021 Team Meeting Notes:'''
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Insert lab result diagrams for the completed labs in my notebook
+|In Progress
+|September 8, 2021
+|September 15, 2021
+|
+|}
+ 
