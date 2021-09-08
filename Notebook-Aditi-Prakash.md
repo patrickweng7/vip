@@ -120,7 +120,6 @@ Additional improvements can be made to the current genetic programming algorithm
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
 | Continue to install DEAP and supporting libraries | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Complete Lecture 1: GA Walkthrough | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Complete Lab 1 | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Set Up Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Review Genetic Algorithms | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Complete Lab 2: Genetic Programming | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Review Genetic Programming Notes | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
