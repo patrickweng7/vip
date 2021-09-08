@@ -29,7 +29,13 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
 '''Lab 2 Notes'''
 
-I worked through the module adding two more primitives, the sin function and a maximum function to the tree. The tree generation method, genHalfAndHalf where half the time it generates a tree with equal depth for each node, and the other half does not (or at least does between a minimum and maximum depth)
+I worked through the module adding two more primitives, the sin function and a maximum function to the tree. The tree generation method, genHalfAndHalf where half the time it generates a tree with equal depth for each node, and the other half does not (or at least does between a minimum and maximum depth).
+
+When building the toolbox methods, I added an insert method to generate a new primitive in the tree through insertion instead of replacement. Lastly, I installed the networkx library to visualize the graph. When running my code for the first time, my optimization found this individual:
+Best individual is maximum(add(multiply(maximum(add(multiply(add(x, multiply(x, x)), x), x), x), x), x), x), (1.298785972010402e-16,)
+This is equivalently: max(x+x*max(x+x*(x^2 + x),x),x) which with the maxes removed becomes: x+(x^2 + (x^4 + x^3)) which is equivalent to our evaluation method, but with maximum added in.
+
+
 
 '''Action Items:'''
 {| class="wikitable"
