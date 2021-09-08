@@ -7,6 +7,110 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 3: September 8, 2021 ==
+=== Lecture Notes ===
+* algorithms look for accuracy, efficiency, reliability, scalability, consistency
+* binary classification problem
+** data set (positive and negative samples) feed into a classifier which result in a confusion matrix
+
+{| class="wikitable"
+|+confusion matrix
+|-
+|
+|predicted positive
+|predicted negative
+|-
+|actual positive
+|true positive (TP)
+|false negative (FN), type II error
+|-
+|actual negative
+|false positive (FP), type I error
+|true negative (TN)
+|}
+
+* sensitivity or true positive rate (TPR)
+** aka hit rate or recall
+** TPR = TP/P = TP/(TP+FN)
+* specificity (SPC) or true negative rate (TNR)
+** TNR = TN/N = TN/(TN+FP)
+* false negative rate (FNR)
+** FNR = FN/P = FN/(TP+FN)
+** FNR = 1-TPR
+* fallout or false positive rate (FPR)
+** FPR = FP/N = FP/(FP+TN)
+** FPR = 1-TNR = 1-SPC
+* precision or positive predictive value (PPV)
+** PPV = TP/(TP+FP)
+** bigger is better
+* false discovery rate
+** FDR = FP/(TP+FP)
+** FDR = 1-PPV
+** smaller is better
+* negative predictive value (NPV)
+** NPV = TN/(TN+FN)
+** bigger is better
+* accuracy (ACC)
+** ACC = (TP+TN)/(P+N)
+** bigger is better
+
+* Objective Space
+** each individual is evaluated using objective functions
+*** mean squared error
+*** cost
+*** complexity
+*** TPR, FPR, etc.
+** objective scores give each individual a point in objective space
+
+* Pareto Optimality
+** '''Pareto optimal''': if there is no other individual in the population that outperforms the individual on all objectives
+** '''Pareto frontier''': the set of all Pareto individuals
+** we want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II)
+** separate population into nondomination ranks
+** select individuals using binary tournament
+** lower Pareto ranks beat higher Pareto ranks (in minimizing problems)
+** ties on the same front are broken by crowding distance
+*** summation of normalized Euclidian distances to all points within the front
+*** higher crowding distance wins
+
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** each individual is given a strength S, where S is the number of other individuals it dominates
+** each individual receives a rank R, where R is the sum of all S's of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+** a distance to the kth nearest neighbor (\sigma^k) is calculated and fitness of R + 1/(\sigma^k+2)
+
+=== Lab 2: Part 2 ===
+*
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook Self Assessment
+|
+|September 8, 2021
+|September 15, 2021
+|
+|-
+|Update Notebook (format, images, etc.)
+|
+|September 8, 2021
+|September 15, 2021
+|
+|-
+|Lab 2: Part 2
+|
+|September 8, 2021
+|September 15, 2021
+|
+|}
+
 == Week 2: September 1, 2021 ==
 === Lecture Notes ===
 * Tree Representation
@@ -26,11 +130,11 @@
 ** if we had better primitives, it would be easier to evolve algorithms
 ** ex. if we wanted to approximate sin(x), we could use +,-,*,/, but we could also use factorial, exponent, summation, etc.
 
-=== Lab 2 ===
+=== Lab 2: Part 1 ===
 * For my two primitives, I added the sine and absolute value methods.
 * I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using pyplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method however, resulted in a lower maximum fitness than mutUniform().
 
-'''Action Items:'''
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status
@@ -44,7 +148,7 @@
 |September 8, 2021
 |September 3, 2021
 |-
-|Lab 2
+|Lab 2: Part 1
 |Completed
 |September 1, 2021
 |September 8, 2021
@@ -124,7 +228,7 @@
 ** However, for the methods I wrote, the maximum shown on the line graphs for each generation ended to be lower than the method provided.
 ** I struggled a bit with writing the code to make a bar graph using matplotlib mainly because of the data types that the toolbox returned. I kept feeding matplotlib a list of tuples when it wanted a list of ints.
 
-'''Action Items:'''
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status
