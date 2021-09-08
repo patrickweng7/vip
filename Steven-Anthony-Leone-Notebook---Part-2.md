@@ -8,6 +8,10 @@
 
 # Fall 2021
 
+##Week 3
+* There was no General Meeting this week
+* We decided on Wednesday at 2 pm for our Weekly Sub Team Meetings
+
 
 ## Week 2
 ### General Meeting Notes
@@ -17,7 +21,9 @@
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-300 | 301 | 283 | 290 | 286 | 
+Setup Weekly Sub Team Meetings | Complete | 08/30/2021 | 09/07/2021 | 09/16/2021 |
+Finalize Semester Goals | In Progress | 08/30/2021 | TODO | 09/16/2021 |
+Start Progress Towards Semester Goals | 08/30/2021 | TODO | 09/16/2021 |
 
 
 ## Week 1
