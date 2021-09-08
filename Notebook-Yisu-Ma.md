@@ -38,7 +38,7 @@ The tree for f(X) = 3*4 + 1 can be written as:
 **Symbolic Regression**
 * Focusing on genetic programming
 * created fitness and individual classes
-* Initialized PrimitiveTree class && added primitives (below are the added primtives)
+* Initialized PrimitiveTree class && added primitives (below are the added primitives)
 
 `pset.addPrimitive(np.sin, arity=2)
 pset.addPrimitive(np.cos, arity=2)`
@@ -46,8 +46,8 @@ pset.addPrimitive(np.cos, arity=2)`
 * Defined our toolbox, individual, population, and compiler.
 * Defined our evaluation function
 * Registered genetic operators
-* Added tree height contraints
-* Final evolutionary result(with main evolutionary algorithm)
+* Added tree height constraints
+* Final evolutionary result(with a main evolutionary algorithm)
 
 `-- Generation 37 --
   Min 0.0
@@ -70,10 +70,17 @@ plt.plot(gen, avg_list, label="average")`
 
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week2-lab.png)
 
-**Reflection and Thoughts:**the original result is negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
-with fitness: (0.2786133308027132, 15.0)
-I changed the 
-
+**Reflection and Thoughts:**the original result is 
+`negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+with fitness: (0.2786133308027132, 15.0)`
+I changed the primitives I use in the algorithm, but I didn't successfully lower our AUC, I may need some help after this. 
+ 
+**Action Items:**
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|GP lecture notes review|complete|September 1sth, 2021|September 8th, 2021|September 2nd, 2021|
+|Record Notebook|complete|September 1sth, 2021|September 8th, 2021|September 7th, 2021|
+|Lab2|complete(questions remaining)|September 1sth, 2021|September 8th, 2021|September 8th, 2021|
 
 
 ## Week 1: August 25th - September 1st (2021)
