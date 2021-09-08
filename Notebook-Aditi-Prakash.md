@@ -84,3 +84,43 @@ Additional improvements can be made to the current n-queens algorithm such that 
 | Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
 | Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
 | Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+
+# Week 2 : September 1st, 2021
+## Overview
+Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
+
+## Team Meeting Notes
+### Lecture on Genetic Algorithms
+Introduced concept of genetic programming with the goal of optimizing a function (represented as a tree structure) to achieve a particular target output.  
+1. Nodes: primitives, represent functions 
+2. Leaves: terminals, represent parameters 
+3. Explored examples of lisp preordered parse trees that represent functions
+4. Crossover in GP: exchanging subtrees
+5. Mutation in GP: Inserting/deleting nodes and subtrees
+5. Measuring error (ex. Mean Squared Error)
+7. Identifying primitives that can make modeling a function easier 
+
+### Lab 2 - Genetic Programming
+This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
+
+We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We also graphed the results and printed our statistics. 
+
+Findings: The global maximum (a best individual with a fitness or MAE of 0) was almost reached. The best maximum individual reached a minimum fitness value of around 1.5. The average and minimum fitnesses approached a fitness of 0 closely (0 was an asymptote for these values). Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.
+  
+The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
+
+Findings:
+![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+
+* We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
+
+Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Continue to install DEAP and supporting libraries | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Complete Lecture 1: GA Walkthrough | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Complete Lab 1 | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Set Up Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Review Genetic Algorithms | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
