@@ -42,8 +42,7 @@ def main():
 
 d.	Then, we evaluate our population according to each individual’s fitness
 e.	The algorithm is then set to run for 40 generations using the following function:
-`
-def main():
+`def main():
     pop = toolbox.population(n=300)
     
     # Evaluate the entire population
@@ -53,8 +52,7 @@ def main():
         
     # Begin the evolution
     for g in range(40):
-        print("-- Generation %i --" % g)
-`
+        print("-- Generation %i --" % g)`
 
 f.	After crossing over the generation and defining statistics for our population, we print out the result to check the progress over time
 	1. Max increased from 65.0 at generation 0 to 100.0 at generation 39
