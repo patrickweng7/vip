@@ -163,6 +163,64 @@ In this exercise, it is a must to Shuffle indexes because it represents the posi
 
 **This is the idea behind EMADE.**
 
+### Objective of lecture 3:
+
+* Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
+
+_Go ahead and rate your skills in ML and Python (used for group forming)_
+
+**Questions of the day:** What are you looking for in a data/mate? What is an algorithm looking for in a mate?
+
+**Gene pool:** Gene pool is the set of genomes to be evaluated during the current generation.
+
+**Evaluation of a Genome:**
+
+* True Positive 
+
+* False Positive
+
+Important: **Phenotype represents the expression of our gene, or the expression of our genome.**
+
+_Data samples are comprised of Positive Samples and Negative Samples. Through the classifier, a “Confusion Matrix” is generated._
+
+_We can apply both Maximization and Minimization Measures._
+
+_We need to know how to calculate all the factors that can be deduced from a Confusion Matrix (see more details in slides )._
+
+**Pareto Optimality:** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
+
+The set of all Pareto individuals is known as the Pareto frontier.
+
+These individuals represent unique contribution.
+
+We want to drive selection by favoring Pareto individuals.
+
+**Nondominated Sorting Genetic Algorithm II (NSGA II)**
+
+* Population is separated into nondomination ranks.
+* Individuals are selected using a binary tournament
+* Lower Pareto ranks beat higher Pareto ranks
+For example, an individual on the blue front will beat out an individual on the green front.
+* Ties on the same font are broken by crowding distance
+* Summation of normalized Euclidian distances to all points within the front
+* Higher crowding distance wins.
+
+
+**Strength Pareto Evolutionary Algorithm 2 (SPEA2)**
+
+* Each individual is given a strength S
+* Each individual receives a rank R
+* A distance to the kth nearest neighbor is calculated
+
+**Notebook self evaluation:**
+
+
+
+
+
+
+
+
 
 
 
