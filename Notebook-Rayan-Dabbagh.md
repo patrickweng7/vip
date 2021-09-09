@@ -163,6 +163,12 @@ In this exercise, it is a must to Shuffle indexes because it represents the posi
 
 **This is the idea behind EMADE.**
 
+### Lab 2:
+
+
+
+
+
 ### Objective of lecture 3:
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
