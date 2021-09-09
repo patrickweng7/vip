@@ -220,6 +220,14 @@ For example, an individual on the blue front will beat out an individual on the 
 
 **Notebook self evaluation:**
 
+The scores are the following:
+
+* Notebook Maintenance: 25/25
+* Meeting notes: 15/15
+* Personal Work & accomplishments: 35/35
+* Useful resource: 24/25
+
+**The overall grade is a 99/100**
 
 
 
