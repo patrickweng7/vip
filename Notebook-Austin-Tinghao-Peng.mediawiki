@@ -10,8 +10,9 @@
 == Week 3: September 8, 2021 ==
 === Lecture Notes ===
 * algorithms look for accuracy, efficiency, reliability, scalability, consistency
-* binary classification problem
-** data set (positive and negative samples) feed into a classifier which result in a confusion matrix
+* the evaluation of a genome associates an individual with a set of scores (true positive, false positive, etc.)
+* objectives are a set of measurements each individual is scored against
+* data set (positive and negative samples) feed into a classifier which result in a confusion matrix
 
 {| class="wikitable"
 |+confusion matrix
@@ -29,43 +30,43 @@
 |true negative (TN)
 |}
 
-* sensitivity or true positive rate (TPR)
-** aka hit rate or recall
-** TPR = TP/P = TP/(TP+FN)
-* specificity (SPC) or true negative rate (TNR)
-** TNR = TN/N = TN/(TN+FP)
-* false negative rate (FNR)
-** FNR = FN/P = FN/(TP+FN)
-** FNR = 1-TPR
-* fallout or false positive rate (FPR)
-** FPR = FP/N = FP/(FP+TN)
-** FPR = 1-TNR = 1-SPC
-* precision or positive predictive value (PPV)
-** PPV = TP/(TP+FP)
-** bigger is better
-* false discovery rate
-** FDR = FP/(TP+FP)
-** FDR = 1-PPV
-** smaller is better
-* negative predictive value (NPV)
-** NPV = TN/(TN+FN)
-** bigger is better
-* accuracy (ACC)
-** ACC = (TP+TN)/(P+N)
-** bigger is better
+* Maximization Measures
+** sensitivity or true positive rate (TPR)
+*** aka hit rate or recall
+*** TPR = TP/P = TP/(TP+FN)
+** specificity (SPC) or true negative rate (TNR)
+*** TNR = TN/N = TN/(TN+FP)
+
+* Minimization Measures
+** false negative rate (FNR)
+*** FNR = FN/P = FN/(TP+FN)
+*** FNR = 1-TPR
+** fallout or false positive rate (FPR)
+*** FPR = FP/N = FP/(FP+TN)
+*** FPR = 1-TNR = 1-SPC
+
+* Other Measures
+** precision or positive predictive value (PPV) - maximization
+*** PPV = TP/(TP+FP)
+** false discovery rate - minimization
+*** FDR = FP/(TP+FP)
+*** FDR = 1-PPV
+*** negative predictive value (NPV) - maximization
+*** NPV = TN/(TN+FN)
+** accuracy (ACC) - maximization
+*** ACC = (TP+TN)/(P+N)
 
 * Objective Space
 ** each individual is evaluated using objective functions
-*** mean squared error
-*** cost
-*** complexity
-*** TPR, FPR, etc.
+*** ex. mean squared error, cost, complexity, TPR, FPR, etc.
 ** objective scores give each individual a point in objective space
 
 * Pareto Optimality
 ** '''Pareto optimal''': if there is no other individual in the population that outperforms the individual on all objectives
 ** '''Pareto frontier''': the set of all Pareto individuals
 ** we want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+
+[[files/apeng39/w3-ss1-pareto-optimality.png]]
 
 * Nondominated Sorting Genetic Algorithm II (NSGA II)
 ** separate population into nondomination ranks
@@ -117,15 +118,24 @@
 ** nodes are called primitives and represent functions
 ** leaves are called terminals and represent parameters
 ** the output is produced at the root of the tree
-** the tree is converted to a lisp preordered parse tree
+** the tree is converted to a lisp preordered parse tree (think preorder traversal)
+
+[[files/apeng39/w2-ss1-lisp-preordered-parse-tree.png]]
+
 * Crossover In Genetic Programming (GP)
 ** crossover in tree-based GP is simply exchanging subtrees
+
+[[files/apeng39/w2-ss2-crossover-gp.png]]
+
 * Mutation In GP
 ** Inserting a node or subtree
 ** Deleting a node or subtree
 ** Changing a node
+
 * Evaluating A Tree
 ** we feed a number of input points to get outputs
+** the error between the function's outputs and truth can be measured through a sum square error
+
 * What Can Make Evolution Easier?
 ** if we had better primitives, it would be easier to evolve algorithms
 ** ex. if we wanted to approximate sin(x), we could use +,-,*,/, but we could also use factorial, exponent, summation, etc.
@@ -133,6 +143,16 @@
 === Lab 2: Part 1 ===
 * For my two primitives, I added the sine and absolute value methods.
 * I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using pyplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method however, resulted in a lower maximum fitness than mutUniform().
+
+{| class="wikitable"
+|+'''comparing mutation methods'''
+|-
+|mutNodeReplacement
+|mutUniform
+|-
+|[[files/apeng39/w2-ss3-mutNodeReplacement-lineGraph.png]]
+|[[files/apeng39/w2-ss4-mutUniform-lineGraph.png]]
+|}
 
 === Action Items ===
 {| class="wikitable"
@@ -166,18 +186,18 @@
 === Keywords ===
 * '''individual''': one specific candidate in the population (with properties like DNA)
 * '''population''': group of individuals whose properties will be altered
-* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot inncrease objective through evolutionary algorithm)
+* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot increase objective through evolutionary algorithm)
 * '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
 * '''evaluation''': a function that computes the objective of an individual
 * '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
 ** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
 ** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
 * '''mate/crossover''': represents mating between individuals
-![[files/apeng39/w1-ss1-crossover1.png|250]]
-![[files/apeng39/w1-ss2-crossover2.png|250]]
+[[files/apeng39/w1-ss1-crossover1.png]]
+[[files/apeng39/w1-ss2-crossover2.png]]
 ** anything up to n-point crossover is possible
 * '''mutate''': introduces random modifications; purpose is to maintain diversity
-![[files/apeng39/w1-ss3-mutate.png|250]]
+[[files/apeng39/w1-ss3-mutate.png]]
 * '''algorithms''': various evolutionary algorithms to create a solution or best individual
 
 === Lab 1 ===
@@ -229,21 +249,21 @@
 ** I struggled a bit with writing the code to make a bar graph using matplotlib mainly because of the data types that the toolbox returned. I kept feeding matplotlib a list of tuples when it wanted a list of ints.
 
 {| class="wikitable"
-|+mutOppositeHalves
+|+'''mutOppositeHalves'''
 |-
 |[[files/apeng39/w1-ss4-mutOppositeHalves-barGraph.png]]
 |[[files/apeng39/w1-ss5-mutOppositeHalves-lineGraphComparison.png]]
 |}
 
 {| class="wikitable"
-|+mutRandomHalves
+|+'''mutRandomHalves'''
 |-
 |[[files/apeng39/w1-ss6-mutRandomHalves-barGraph.png]]
 |[[files/apeng39/w1-ss7-mutRandomHalves-lineGraphComparison.png]]
 |}
 
 {| class="wikitable"
-|+mutShuffleIndexes
+|+'''mutShuffleIndexes'''
 |-
 |[[files/apeng39/w1-ss8-mutShuffleIndexes-barGraph.png]]
 |[[files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png]]
