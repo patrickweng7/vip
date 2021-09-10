@@ -12,7 +12,23 @@ Interests: Writing fiction, Music, Reading, Sports
 
 === Lecture Notes: ===
 *  Multiple Objective Optimization:
-    *   
+    *  Multiple metrics together, like finding a mate in nature
+        *  Algorithms look for speed, reliability, memory usage, consistency, accuracy
+        *  Genome = description of an algorithm
+            *  DNA
+            *  GA = set of values
+            *  GP = input for functions (tree structure, string)
+            *  Drive selection by favouring pareto optimal indivudals (But also want to maintain diverstity by fiving all individuals some possibility of mating)
+        *  Nondominated sorting genetic algorithm II (NSGA II)
+            *  If we remove the pareto frontier, then the next set of points becomes the next rank, and then loop doing that.
+            *  Lower ranked individuals beat higher ranked individuals
+            *  Ties are broken by “crowding distance” (summation of normalized Euclidian distances to all other points within the front)
+                *  Higher crowding distance wins
+        *  Strength pareto evoluationary algorithm 2 (SPEA2)  
+            *  Each individual has strength S (number of others in the population it dominates)
+            *  Each individual has rank R (sum of the S’s of individuals that dominate it)
+            *  Paretos are nondominated and have rank 0
+            *  Fitness = R + 1/(dk + 2), where dk is the distance to the kth nearest neighbour
 
 === Individual Notes: ===
 *  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
