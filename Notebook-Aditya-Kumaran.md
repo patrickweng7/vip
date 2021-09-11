@@ -8,6 +8,12 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== Self-Assessment (September 11, 2021) ==
+*  Notebook Maintenance:
+    *  
+    *  
+    *  
+
 == September 8, 2021 (Week 3) == 
 
 === Lecture Notes: ===
