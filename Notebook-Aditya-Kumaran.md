@@ -9,11 +9,31 @@ Cell Phone: +1 4708380468
 Interests: Writing fiction, Music, Reading, Sports
 
 == Self-Assessment (September 11, 2021) ==
-*  Notebook Maintenance:
-    *  
-    *  
-    *  
+*  Student Name: Aditya Kumaran
+*  VIP Team: N/A
+*  Semester: 1
 
+*  Notebook Maintenance:
+    *  Name and contact info: 5
+    *  Teammate names and contact are easy to find: N/A
+    *  Organization: 5
+    *  Updated at least weekly: 5
+*  Meeting Notes:
+    *  Main meeting notes: 5
+    *  Sub-teams' efforts: N/A
+*  Personal Work and Accomplishments:
+    *  To-do items: clarity, easy to find: 5
+    *  To-do list consistency (weekly or more): 5
+    *  To-dos and cancellations are checked and dated: 5
+    *  Level of detail: personal work and accomplishments: 13
+*  Useful Resource:
+    *  References: 
+    *  Useful resource for the team: 15
+
+*  Column totals: Poor = 0, Intermediate = 0, Exemplary = 
+*  Total out of 100: 
+*  Comments:
+*  
 == September 8, 2021 (Week 3) == 
 
 === Lecture Notes: ===
@@ -101,7 +121,7 @@ Interests: Writing fiction, Music, Reading, Sports
 === Individual Notes: ===
 *  Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
 *  Created fitness and individual classes, which will be represented as a tree structure made of primitives. Evaluation compiles the primitive tree from leaves to root node.
-*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1).
+*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1). Using functions with arity=2 often lead to errors, but I think these have to do with the functions' domains - this is most consistent when choosing functions with a domain of all reals that output reals as well.
 *  Registered four tool functions for expr (returns a tree based on a primitive set and maximum and minimum depth), individual, population, and compile (makes the tree into a function).
 *  Defined evaluation function, comparing the compiled function with the function we're trying to generate by minimizing mean squared error.
 *  Registered genetic operators for evaluate, select (tournament select, 3 per pod), mate (one point crossover), expr_mut, mutate. Added alternate mutation method, gp.mutInsert (inserts branch at a random position in individual).
