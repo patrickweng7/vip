@@ -2,6 +2,7 @@
 - [Team Member](#team-member)
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
+  * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
   * [Action Items](#action-items)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
@@ -88,10 +89,26 @@ Cell Phone: 914-874-3666
     * distance_k: the distance to the Kth nearest neighbor
     * favors further distances, points that are more alone
 
+### Lab 2 Multiple Objectives
+* general results
+  * \\\three local images
+* can greatly alter the pareto curve by essentially destroying the problem and having a constant population with no crossover or mutation
+  * allows for massive minimization of the tree size
+  * tree size much more impactful for area under the curve metric
+  * \\\two local images
+* similar idea with worse results is to cap height growth from mutation and crossover much more strictly
+  * better function emulation not relevant enough for area under the curve metric
+  * \\\two local images
+* should consider weighting the error function much more heavily 
+  * current mean squared error function makes the function performance almost irrelevant in comparison to the scaled height of the tree
+* decrease the relevance of tree height
+  * height currently being measured by the sum of all primitives and terminals
+  * instead could be measured by the depth of the tree: roughly log(sum of all primitives and terminals)
+
 ### Action Items
 |Task|Due Date|Progress Notes|Current Status|
 |---|---|---|---|
-|Lab 2 Part 2|9/15|NA|Incomplete|
+|Lab 2 Part 2|9/15|Most interesting to see the more unique and customizable primitives at the end|Complete|
 |Self grading rubric|9/15|NA|Incomplete|
 
 ## September 2, 2021
