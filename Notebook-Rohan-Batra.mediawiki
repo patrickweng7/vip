@@ -9,7 +9,91 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Soccer, Guitar
 
 = Fall 2021 =
-== Week 2: September 1st - September 7th (2021) == 
+== Week 3: September 8th - September 15th (2021) == 
+===Outline of class notes===
+
+'''In class:'''
+* Discussed 'Multiple Objectives – The MO in MOGA and MOGP'
+* Overview of the Pareto Optimality 
+* Rated our Python and ML Skills
+
+'''Lecture Notes:'''
+* Had an open discussion about what an algorithm looks for in a mate. There are a variety of objectives that we aim to achieve by generating specific algorithms to the get the best solution. Specificity, precision, accuracy, etc. are few important characteristics/goals that we aim to achieve.
+* <b>Genetic Programming Cycle:</b> New Gene Pool → Evaluation → Genes with scores → Fitness Computation → Genes with fitness → Selection → Parental Genes → Mating → Child Genes → Mutation → New Gene Pool
+* Keywords:
+** Gene pool: The set of genome to be evaluated during the current generation
+** Genome: Genotypic description of an individuals (DNA, GA = set of values, GP = tree structure, string)
+** Search Space: Set of all possible genome. For Automated Algorithm Design it's the set of all possible algorithms
+** The Evaluation of a Genome: Associates a genome/individual (set of parameters for GA or string for GP) with a set of scores.
+*** From a location in search space: Genotypic description
+*** To a location in objective space: Phenotype description
+* <b>Important measures for multi objectivity: </b>
+** True Positive – TP: How often are we identifying the desired object
+** False Positive – FP: How often are we identifying something else as the desired object
+** True Negative - TN: How often are we identifying the non-desired object
+** False Negative - FN: How often are we identifying the desired object as something else
+** Objectives: Set of measurements each genome (or individual) is scored against
+** Objective Space: Set of objectives 
+* Confusion Matrices use TP, FP, TN, FN to visualize outcomes.
+* Other measures that we use for optimization and prediction:
+** Sensitivity or True Positive Rate (TPR): AKA hit rate or recall, TPR = TP/P = TP/(TP+FN)
+** Specificity (SPC) or True Negative Rate (TNR): TNR = TN/N = TN/(TN+FP)
+** False Negative Rate (FNR):FNR = FN/P = FN/(TP+FN), FNR = 1 - TPR
+** Fallout or False Positive Rate (FPR): FPR = FP/N = TN/(FP+TN), FPR = 1 – TNR = 1 - SPC
+** Precision or Positive Predictive Value (PPV), PPV = TP / (TP + FP), Bigger is better
+** False Discovery Rate, FDR = FP/(TP + FP), FDR = 1 - PPV, Smaller is better
+** Negative Predictive Value (NPV), NPV = TN / (TN + FN), Bigger is better
+** Accuracy (ACC), ACC = (TP+TN) / (P+N), ACC = (TP+TN) / ( TP + FP + FN + TN),  Bigger is better
+** Objective Space:Each individual is evaluated using objective functions like Mean squared error, Cost, Complexity, True positive rate etc.
+** Objective scores give each individual a point in objective space
+** This may be referred to as the phenotype of the individual 
+* All these measures help us in selecting the right algorithms, mating, fitness computation etc.
+* <b>Pareto Optimality</b>
+** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives
+** The set of all Pareto individuals is known as <i>the Pareto frontier.</i>
+** These individuals represent unique contributions. We want to drive selection by favoring Pareto individuals (But maintain diversity by giving all individuals some probability of mating).
+* Two types of Multi objectivity algorithms:
+** Non-dominated Sorting Genetic Algorithm II (NSGA II)
+*** Population is separated into non-domination (nothing over performs it at all individuals and that is why it called Pareto optimal) ranks. Individuals are selected using a binary tournament and a lower Pareto ranks beat higher Pareto ranks.
+*** Ties on the same front are broken by crowding distance (more diversity is better) (its better if points are pareto optimals but a little far from one another). Summation of normalized Euclidian distances to all points within the front. Higher crowding distance wins
+** Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+*** Each individual is given a strength S and receives a rank R. S refers to the number of others in the population that it dominates and R refers to the sum of S’s of the individuals that dominate it. Pareto individuals are nondominated and receive an R of 0.
+*** A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 8th, 2021
+|September th, 2021
+|September 11th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 8th, 2021
+|September th, 2021
+|September 10t, 2021
+|-
+|Complete Self-Evaluation Form
+|Completed
+|September 8th, 2021
+|September th, 2021
+|September 10th, 2021
+|- 
+|Complete Lab 2 (Part 2)
+|In Progress
+|September 8th, 2021
+|September 15th, 2021
+|September th, 2021
+|}
+
+== Week 2: September 1st - September 8th (2021) == 
 ===Outline of class notes===
 
 '''In class:'''
