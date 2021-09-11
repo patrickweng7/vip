@@ -3,6 +3,7 @@
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
   * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
+  * [Self Grading Rubric](#self-grading-rubric)
   * [Action Items](#action-items)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
@@ -105,11 +106,28 @@ Cell Phone: 914-874-3666
   * height currently being measured by the sum of all primitives and terminals
   * instead could be measured by the depth of the tree: roughly log(sum of all primitives and terminals)
 
+### Self Grading Rubric
+|Section|Specific|Score|
+|---|---|---|
+|Notebook Maintenance|Name & Contact Info|5|
+||Teammate names and contact info easy to find|5|
+||Organization|5|
+||Updated at least weekly|10|
+|Meeting Notes|Main meeting notes|5|
+||Sub-teams' efforts|10|
+|Personal Work & Accomplishments|To-do items:clarity, easy to find|5|
+||To-do list consistency (weekly or more)|10|
+||To-dos & cancellations checked & dated|5|
+||Level of detail: personal work & accomplishments|15|
+|Useful Resource|References (internal, external)|9|
+||Useful Resource for the team|15|
+|Total|Total Score Out of 100|99|
+
 ### Action Items
-|Task|Due Date|Progress Notes|Current Status|
-|---|---|---|---|
-|Lab 2 Part 2|9/15|Most interesting to see the more unique and customizable primitives at the end|Complete|
-|Self grading rubric|9/15|NA|Incomplete|
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Lab 2 Part 2|Completed|Most interesting to see the more unique and customizable primitives at the end|9/8|9/15|9/11|
+|Self grading rubric|Complete|NA|9/8|9/15|9/11|
 
 ## September 2, 2021
 
@@ -128,10 +146,10 @@ Cell Phone: 914-874-3666
   * on different runs got very complex trees with 20+ primitives
 
 ### Action Items
-|Task|Due Date|Progress Notes|Current Status|
-|---|---|---|---|
-|Lab 2|9/8|Walked through with multiple attempted primitives, mutations, and parameters|Complete|
-|Join Slack|9/4|Used school email|Complete|
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Lab 2|Completed|Walked through with multiple attempted primitives, mutations, and parameters|9/1|9/8|9/2|
+|Join Slack|Complete|Used school email|9/1|9/5|9/2|
 
 
 ## September 1, 2021
@@ -154,11 +172,10 @@ Cell Phone: 914-874-3666
   * evaluation: sum squared error
 
 ### Action Items
-
-|Task|Due Date|Progress Notes|Current Status|
-|---|---|---|---|
-|Lab 2|9/8|NA|Incomplete|
-|Join Slack|9/4|NA|Incomplete| 
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Lab 2|Incomplete|NA|9/1|9/8|NA|
+|Join Slack|Incomplete|NA|9/1|9/5|NA|
 
 ## August 28, 2021
 
@@ -206,11 +223,10 @@ Parent 2
 |---|---|---|---|
 
 ### Action Items
-
-| Task | Due Date | Progress Notes | Current Status|
-|---|---|---|---|
-|Install Anaconda| 8/28 | Completed for Laptop|Complete|
-|Lab 1| 9/01 | Improved in Jupyter Notebook and general python as well as deap|Complete|
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Install Anaconda|Complete|Completed for laptop|8/25|8/28|8/28|
+|Lab 1|Complete|Improved in Jupyter Notebook and general python as well as deap|8/25|9/1|8/28|
 
 ## August 25, 2021 
 * Dr. Zutty went over the syllabus and presentation dates
@@ -238,8 +254,7 @@ Parent 2
     * evaluate new generation
 
 ### Action Items
-
-| Task | Due Date | Progress Notes | Current Status|
-|---|---|---|---|
-|Install Anaconda| 8/28 | Completed for Desktop|Incomplete|
-|Lab 1| 9/01 | Comfortable with Jupyter Notebook|Incomplete|
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Install Anaconda|Incomplete|Completed for desktop|8/25|8/28|NA|
+|Lab 1|Incomplete|Comfortable with Jupyter Notebook|8/25|9/1|NA|
