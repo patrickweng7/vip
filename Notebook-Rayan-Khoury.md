@@ -42,7 +42,7 @@ Algorithms: Various evolutionary algorithms to create a solution or best individ
 
     `def main():
       pop = toolbox.population(n=300)
-      # Evaluate the entire population
+      Evaluate the entire population
       fitnesses = list(map(toolbox.evaluate, pop))
        for ind, fit in zip(pop, fitnesses):
         ind.fitness.values = fit
