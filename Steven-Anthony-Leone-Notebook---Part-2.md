@@ -8,9 +8,34 @@
 
 # Fall 2021
 
-##Week 3
+## Week 3
 * There was no General Meeting this week
 * We decided on Wednesday at 2 pm for our Weekly Sub Team Meetings
+
+### Sub Team Meeting Notes
+* We organized our first sub team meeting of the year
+* We discussed QA systems, and I gave a brief presentation on how they work, producing probabilities for where the answer in a given paragraph starts and stops
+* We then made a brief list of steps to explore our problem with Question Answering Systems
+* We assigned tasks. For Monday, everyone was to setup EMADE on PACE and start runs with the Amazon dataset.
+* We would 
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Run EMADE on Amazon Dataset | Complete | 09/07/2021 | 09/12/2021 | 09/13/2021 |
+Look into State of the Art Question Answering Systems | Complete | 09/07/2021 | 09/12/2021  | 09/13/2021 |
+
+
+### Checking EMADE
+* The first action I took was to ensure we could still run EMADE on PACE
+* First, I ensured I still had PACE access by logging in with "ssh sleone6@pace-ice.pace.gatech.edu". This worked as expected.
+* From memory and referring to https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE as a guide, I then worked my way through, ensuring the mysql database still ran upon submitting a job on PACE.
+* I then tested seeding, running the seeding file with the 10 NNLearners we used for seeding the previous year. This also functioned properly.
+* Finally, I tested running EMADE as a submitted job on PACE. I waited until there were results after 3 Generations. The Pareto front had slightly different results than the seeded values, meaning that EMADE was working.
+
+### Literature Review for Question Answering Systems
+* I found a paper with a recent Question Answering System focus, https://aclanthology.org/P17-1018.pdf . It achieved scores in the 80's on the SQuAD dataset, using gated-self matching networks. 
 
 
 ## Week 2
@@ -21,9 +46,9 @@
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Setup Weekly Sub Team Meetings | Complete | 08/30/2021 | 09/07/2021 | 09/16/2021 |
-Finalize Semester Goals | In Progress | 08/30/2021 | TODO | 09/16/2021 |
-Start Progress Towards Semester Goals | 08/30/2021 | TODO | 09/16/2021 |
+Setup Weekly Sub Team Meetings | Complete | 08/30/2021 | 09/07/2021 | 09/13/2021 |
+Finalize Semester Goals | Complete | 08/30/2021 | 09/07/2021  | 09/13/2021 |
+Start Progress Towards Semester Goals | Complete | 08/30/2021 | 09/12/2021 | 09/13/2021 |
 
 
 ## Week 1
