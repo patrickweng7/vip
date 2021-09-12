@@ -40,7 +40,7 @@ Algorithms: Various evolutionary algorithms to create a solution or best individ
 4. Then, we evaluate our population according to each individual’s fitness
 5. The algorithm is then set to run for 40 generations using the following function:
 
-    ``def main():
+    `def main():
       pop = toolbox.population(n=300)
       Evaluate the entire population
       fitnesses = list(map(toolbox.evaluate, pop))
@@ -49,7 +49,7 @@ Algorithms: Various evolutionary algorithms to create a solution or best individ
         
       Begin the evolution
       for g in range(40):
-        print("-- Generation %i --" % g)``
+        print("-- Generation %i --" % g)`
 
 6.	After crossing over the generation and defining statistics for our population, we print out the result to check the progress over time
        	i.  Max increased from 65.0 at generation 0 to 100.0 at generation 39
