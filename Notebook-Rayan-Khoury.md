@@ -1,5 +1,4 @@
 
-***
 * Name: Rayan Khoury
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
@@ -100,4 +99,3 @@ f.	Shuffling indexes in this exercise is crucial as this represents the position
 g.	After defining the loop and running it for 100 generations, we change from a max of 16.0 in generation 0 to 9.0 in generation 99. 
 i.	Along with min, and avrg, , max has been gone down according to the following graphs
 
-***
