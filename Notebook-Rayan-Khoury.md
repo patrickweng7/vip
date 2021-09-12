@@ -58,17 +58,13 @@ Conclusion:
 	After running the code multiple times, the generation did not always reach the optimal max and average due to the random nature of initialization, crossover, and mutation.
 
 ### b) The N Queens Problem
-a.	This exercise revolves around the determination of a configuration of n queens on a nxn chessboard such that no queen can be taken by another.
-b.	First, we create the fitness and individual classes (first we use n=20)
-c.	We define our evaluation function using this function:
-def evalNQueens(individual):
-    size = len(individual)
-    #Count the number of conflicts with other queens.
-    #The conflicts can only be diagonal, count on each diagonal line
-    left_diagonal = [0] * (2*size-1)
-    right_diagonal = [0] * (2*size-1)
-    
-    #Sum the number of queens on each diagonal:
+1.	This exercise revolves around the determination of a configuration of n queens on a nxn chessboard such that no queen can be taken by another.
+2.	First, we create the fitness and individual classes (first we use n=20)
+3.	We define our evaluation function using this function:
+    `def evalNQueens(individual):
+        size = len(individual)
+        left_diagonal = [0] * (2*size-1)
+        right_diagonal = [0] * (2*size-1)
     for i in range(size):
         left_diagonal[i+individual[i]] += 1
         right_diagonal[size-1-i+individual[i]] += 1
@@ -80,10 +76,10 @@ def evalNQueens(individual):
             sum_ += left_diagonal[i] - 1
         if right_diagonal[i] > 1:
             sum_ += right_diagonal[i] - 1
-    return sum_,
+    return sum_,`
 
-d.	Next, we define our crossover. This problem will consist of partially matched crossover mating. It represents swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario.
-e.	Then, we move into our mutation function
+4.	Next, we define our crossover. This problem will consist of partially matched crossover mating. It represents swapping a pair of queens’ positions between 2 parent individuals which is more effective in this scenario.
+5.	Then, we move into our mutation function
 def mutShuffleIndexes(individual, indpb):
     size = len(individual)
     for i in range(size):
@@ -95,7 +91,7 @@ def mutShuffleIndexes(individual, indpb):
                 individual[swap_indx], individual[i]
     
     return individual,
-f.	Shuffling indexes in this exercise is crucial as this represents the position of the queens on the chessboard, but cannot mutate or duplicate as this may lead to an out of bounds result.
-g.	After defining the loop and running it for 100 generations, we change from a max of 16.0 in generation 0 to 9.0 in generation 99. 
-i.	Along with min, and avrg, , max has been gone down according to the following graphs
+6.	Shuffling indexes in this exercise is crucial as this represents the position of the queens on the chessboard, but cannot mutate or duplicate as this may lead to an out of bounds result.
+7.	After defining the loop and running it for 100 generations, we change from a max of 16.0 in generation 0 to 9.0 in generation 99. 
+8.	Along with min, and avrg, , max has been gone down according to the following graphs
 
