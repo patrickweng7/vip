@@ -51,11 +51,8 @@ Algorithms: Various evolutionary algorithms to create a solution or best individ
       for g in range(40):
         print("-- Generation %i --" % g)`
 
-6.	After crossing over the generation and defining statistics for our population, we print out the result to check the progress over time
-       	i.  Max increased from 65.0 at generation 0 to 100.0 at generation 39
-        ii. Average increased from 53.82 in generation 0 to 97.81 at generation 39
-Conclusion:
-	After running the code multiple times, the generation did not always reach the optimal max and average due to the random nature of initialization, crossover, and mutation.
+6.	After crossing over the generation and defining statistics for our population, we print out the result to check the progress over time. Max increased from 65.0 at generation 0 to 100.0 at generation 39. In addition, average increased from 53.82 in generation 0 to 97.81 at generation 39.
+Thus, we conclude that after running the code multiple times, the generation did not always reach the optimal max and average due to the random nature of initialization, crossover, and mutation.
 
 ### b) The N Queens Problem
 1.	This exercise revolves around the determination of a configuration of n queens on a nxn chessboard such that no queen can be taken by another.
