@@ -124,8 +124,8 @@ Additional improvements can be made to the current genetic programming algorithm
 | Review Genetic Programming Notes | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 | Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 
-#Week 3
-##Self-Grading Rubric
+# Week 3
+## Self-Grading Rubric
 | Category | Criteria | Poor | Intermediate | Exemplary |
 | --- | ----------- | --- | ----------- |----------- |
 | Notebook Maintenance | Name & contact info |  |  | 5 |
