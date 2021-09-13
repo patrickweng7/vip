@@ -34,22 +34,21 @@ Algorithms: Various evolutionary algorithms to create a solution or best individ
 1. 	The objective of this exercise was to find a bit string containing all 1s with a set length using the DEAP python library.
 2.	After installing deap and importing this library, we defined the name of the class, the inherited class, and the objectives. We then created a class and defined a tuple that represents a single objective up fir maximization.
 3.	The tournament selection of 3 individuals method was used to preserve more varied traits in this population. We then used the following code to define our algorithm:
-    `def main():
-      pop = toolbox.population(n=300)`
+    `def main():`
+      `pop = toolbox.population(n=300)`
 
 4. Then, we evaluate our population according to each individual’s fitness
 5. The algorithm is then set to run for 40 generations using the following function:
 
-    `def main():
-      pop = toolbox.population(n=300)
-      Evaluate the entire population
-      fitnesses = list(map(toolbox.evaluate, pop))
-       for ind, fit in zip(pop, fitnesses):
-        ind.fitness.values = fit
-        
-      Begin the evolution
-      for g in range(40):
-        print("-- Generation %i --" % g)`
+    `def main():`
+      `pop = toolbox.population(n=300)`
+      `Evaluate the entire population`
+      `fitnesses = list(map(toolbox.evaluate, pop))`
+       `for ind, fit in zip(pop, fitnesses):`
+        `ind.fitness.values = fit`
+      `Begin the evolution`
+      `for g in range(40):`
+        `print("-- Generation %i --" % g)`
 
 6.	After crossing over the generation and defining statistics for our population, we print out the result to check the progress over time. Max increased from 65.0 at generation 0 to 100.0 at generation 39. In addition, average increased from 53.82 in generation 0 to 97.81 at generation 39.
 Thus, we conclude that after running the code multiple times, the generation did not always reach the optimal max and average due to the random nature of initialization, crossover, and mutation.
