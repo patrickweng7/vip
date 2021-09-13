@@ -10,9 +10,7 @@
 ## Week 4
 
 ### Self Evaluation Rubric
-[[files/sleone6/test.png]]
-
-<img width="59" alt="Screen Shot 2021-09-13 at 6 59 59 PM" src="https://github.gatech.edu/storage/user/27405/files/0ebca680-14c5-11ec-8b24-34f84ae66006">
+<img width="962" alt="Screen Shot 2021-09-13 at 7 11 24 PM" src="https://github.gatech.edu/storage/user/27405/files/6e678180-14c6-11ec-811b-bb9acf9a8258">
 
 
 ## Week 3
