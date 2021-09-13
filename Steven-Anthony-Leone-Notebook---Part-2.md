@@ -12,6 +12,8 @@
 ### Self Evaluation Rubric
 [[files/sleone6/test.png]]
 
+<img width="59" alt="Screen Shot 2021-09-13 at 6 59 59 PM" src="https://github.gatech.edu/storage/user/27405/files/0ebca680-14c5-11ec-8b24-34f84ae66006">
+
 
 ## Week 3
 * There was no General Meeting this week
