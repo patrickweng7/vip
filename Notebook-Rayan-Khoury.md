@@ -90,4 +90,8 @@ def mutShuffleIndexes(individual, indpb):
 6.	Shuffling indexes in this exercise is crucial as this represents the position of the queens on the chessboard, but cannot mutate or duplicate as this may lead to an out of bounds result.
 7.	After defining the loop and running it for 100 generations, we change from a max of 16.0 in generation 0 to 9.0 in generation 99. 
 8.	Along with min, and avrg, , max has been gone down according to the following graphs
-
+### Action Items
+|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 1 Notes|Complete|NA|08/25/2021|08/29/2021|
+|Lab 1 Notes|Complete|NA|08/25/2021|08/29/2021|
