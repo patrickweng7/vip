@@ -141,4 +141,4 @@ Additional improvements can be made to the current genetic programming algorithm
 | Useful resource | References (internal, external) |  |  | 10 |
 | " " | Useful resource for the team |  |  | 15 |
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
-Column Totals: 100.
+| Column Totals |  |  |  | 100 |
