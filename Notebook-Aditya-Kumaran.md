@@ -27,13 +27,12 @@ Interests: Writing fiction, Music, Reading, Sports
     *  To-dos and cancellations are checked and dated: 5
     *  Level of detail: personal work and accomplishments: 13
 *  Useful Resource:
-    *  References: 
+    *  References: 9
     *  Useful resource for the team: 15
 
-*  Column totals: Poor = 0, Intermediate = 0, Exemplary = 
-*  Total out of 100: 
-*  Comments:
-*  
+*  Column totals: Poor = 0, Intermediate = 0, Exemplary = 97
+*  Total out of 100: 97
+
 == September 8, 2021 (Week 3) == 
 
 === Lecture Notes: ===
@@ -60,7 +59,33 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
 *  Created new fitness and individual classes for multi-objective problem - aim to minimize objectives 'mean squared error' and 'tree size'.
 *  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
-*  
+*  Added an objective to evaluation function, by compounding primitive functions with 'points' in the mean squared term.
+*  Defined pareto_dominance() function to visualize objective space. 
+*  Initialized population of 300 with an additional individual for comparison.
+*  Sorted population into dominated and dominators with respect to the comparison individual. Plotted sorted population in objective space.
+*  Ran main evolutionary algorithm.
+    *  Best individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+with fitness: (0.2786133308027132, 15.0)
+    *  Area Under Curve: 2.3841416372199005
+*  The goal now is to reduce the area under the graph by 25%
+    *  I first tried to add the mutate function with the altMutate function (mutInsert) by using both one after the other.
+    *  Best individual is: subtract(multiply(x, sin(subtract(add(x, x), cos(x)))), cos(x))
+with fitness: (0.1636098302024022, 12.0)
+    *  Area Under Curve: 3.619531087140837 (increased)
+    *  Then I tried completely replacing the mutate function with altMutate
+    *  Best individual is: tan(multiply(subtract(subtract(cos(sin(x)), multiply(x, multiply(subtract(cos(multiply(x, multiply(x, x))), multiply(x, x)), negative(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(sin(negative(x)), cos(multiply(x, x))))))))))))), multiply(x, x)), negative(cos(negative(cos(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(x, x)))))))))))))
+with fitness: (0.0422300662166498, 63.0)
+    *  Area Under Curve: 12.279788182341475 (increased significantly)
+    *  It seems that complicating the evaluation leads to a greater area, so I'll try to make the calculations simpler.
+    *  I tried changing the variables in the evolutionary algorithm: MU=100, LAMBDA=120.
+    *  Best individual is: subtract(sin(multiply(x, subtract(sin(x), cos(x)))), cos(x))
+with fitness: (0.24471230030517566, 11.0)
+    *  Area Under Curve: 2.7332976348871716 (increased, but closer to the original)
+    *  Finally, I removed the np.tan(points**3) from the calculation of the sqerrors, increased MU to 150, and decreased LAMBDA to 50.
+    *  Best individual is: subtract(multiply(x, x), cos(x))
+with fitness: (0.5796581408872937, 6.0)
+    *  Area Under Curve: 1.796355292509189
+    *  Based on the best individuals above, it seems my estimation was correct, and simpler functions lead to lower 'area under curve' values.
 
 === Action Items: ===
 {| class="wikitable"
@@ -71,22 +96,22 @@ Interests: Writing fiction, Music, Reading, Sports
 !Date Resolved
 |-
 |Complete Self-Grade Rubric
-|
+|Complete
 |September 8, 2021
 |September 15, 2021
-|September 9, 2021
+|September 12, 2021
 |-
 |Update Weekly Notebook
-|
+|Complete
 |September 8, 2021
 |September 15, 2021
-|September 8, 2021
+|September 12, 2021
 |-
 |Finish "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
-|
+|Complete
 |September 8, 2021
 |September 15, 2021
-|September 10, 2021
+|September 12, 2021
 |}
 
 == September 1, 2021 (Week 2) == 
