@@ -7,6 +7,11 @@
 <b>Sub Team:</b> NLP
 
 # Fall 2021
+## Week 4
+
+### Self Evaluation Rubric
+[[files/sleone6/test.png]]
+
 
 ## Week 3
 * There was no General Meeting this week
