@@ -10,7 +10,17 @@
 
 # **Fall 2021**
 
+
 ***
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20rubric.jpg)
+## Week 3: September 9th - September 15th (2021)
+### Lecture Overviews
+
+### Lecture Notes
+
+
+
+
 ## week 2: September 1st - September 8th (2021)
 ### Lecture Overviews
 * Summarized the knowledge in the last class (Genetic Algorithm)
