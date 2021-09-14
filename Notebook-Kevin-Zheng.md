@@ -8,8 +8,7 @@ Cell Phone: 256-468-0553
 
 Interests: Artificial Intelligence, Distributed Systems
 == September 13, 2021 ==
-* Self Grading Rubric
-[Self_Grading_Rubric](files/kevinzheng/Self_Grading_Rubric.docx "Self Grading Rubric")
+* [Self_Grading_Rubric](files/kevinzheng/Self_Grading_Rubric.docx "Self Grading Rubric")
 
 == September 6, 2021 ==
 * NLP Problems
