@@ -197,6 +197,9 @@ Additional improvements can be made to the current genetic programming algorithm
 | Update Notebook | Completed | 9/8/2021 | 9/15/2021 | 9/12/2021  |
 
 ## Self-Grading Rubric
+[Self-Grading Rubric Linked Here](https://drive.google.com/file/d/113sDYMD9rzibZrI8jPXoMj3mhbJmRQFn/view?usp=sharing)
+
+Markdown version of self-grading rubric here:
 | Category | Criteria | Poor | Intermediate | Exemplary |
 | --- | ----------- | --- | ----------- |----------- |
 | Notebook Maintenance | Name & contact info |  |  | 5 |
