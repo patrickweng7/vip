@@ -27,14 +27,14 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
         * GA = set of values
         * GP = tree structure, string
 
-    * Search Space
+    * _Search Space_
 
         * Set of all possible genomes
         * For automated algorithm design -> set of all possible algorithms
 
 * The evaluation of genome associates a genome with a set of scores
 
-    * **Scores:** 
+    * _Scores: _
 
         * True positive or TP: How often is the desired objective identified
         * False positive or FP: How often is something else than the desired object identified
@@ -53,12 +53,12 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 
     * A data set made of positive and negative samples is inserted in a classifier which gives out one of the following results:
         
-* Actual Positive:
+1- _Actual Positive:_
 
             * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
             * False Negative (FN) with a FN rate or FNR = FN/P = FN/(TP+FN)
         
-* Actual Negative:
+2- _Actual Negative:_
 
             * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
             * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
