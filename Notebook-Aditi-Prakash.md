@@ -125,23 +125,6 @@ Additional improvements can be made to the current genetic programming algorithm
 | Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 
 # Week 3: September 8th, 2021
-## Self-Grading Rubric
-| Category | Criteria | Poor | Intermediate | Exemplary |
-| --- | ----------- | --- | ----------- |----------- |
-| Notebook Maintenance | Name & contact info |  |  | 5 |
-| " " | Teammate names and contact info easy to find |  |  | 5 |
-| " " | Organization |  |  | 5 |
-| " " | Updated at least weekly |  |  | 10 |
-| Meeting notes | Main meeting notes |  |  | 5 |
-| " " | Sub-teams' efforts |  |  | 10 |
-| Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
-| " " | To-do list consistency checked and dated |  |  | 10 |
-| " " | To-dos and cancellations checked and dated |  |  | 5 |
-| " " | Level of detail: personal work and accomplishments |  |  | 15 |
-| Useful resource | References (internal, external) |  |  | 10 |
-| " " | Useful resource for the team |  |  | 15 |
-Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
-| Column Totals |  |  |  | 100 |
 
 ## Overview
 Attended lecture on multi-objective optimization and completed Lab 2's Multi-Objective programming exercise. Filled out survey sheet with ML and Python self-ratings.  
@@ -214,4 +197,20 @@ Additional improvements can be made to the current genetic programming algorithm
 | Complete Self-Grading Rubric | Completed | 9/8/2021  | 9/15/2021 | 9/12/2021 |
 | Update Notebook | Completed | 9/8/2021 | 9/15/2021 | 9/12/2021  |
 
-
+## Self-Grading Rubric
+| Category | Criteria | Poor | Intermediate | Exemplary |
+| --- | ----------- | --- | ----------- |----------- |
+| Notebook Maintenance | Name & contact info |  |  | 5 |
+| " " | Teammate names and contact info easy to find |  |  | 5 |
+| " " | Organization |  |  | 5 |
+| " " | Updated at least weekly |  |  | 10 |
+| Meeting notes | Main meeting notes |  |  | 5 |
+| " " | Sub-teams' efforts |  |  | 10 |
+| Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
+| " " | To-do list consistency checked and dated |  |  | 10 |
+| " " | To-dos and cancellations checked and dated |  |  | 5 |
+| " " | Level of detail: personal work and accomplishments |  |  | 15 |
+| Useful resource | References (internal, external) |  |  | 10 |
+| " " | Useful resource for the team |  |  | 15 |
+Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
+| Column Totals |  |  |  | 100 |
