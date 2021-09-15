@@ -21,44 +21,48 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 
 **Gene pool:** Gene pool is the set of genomes to be evaluated during the current generation.
 
-**Evaluation of a Genome:**
-
-* True Positive 
-
-* False Positive
-
-Important: **Phenotype represents the expression of our gene, or the expression of our genome.**
-
-_Data samples are comprised of Positive Samples and Negative Samples. Through the classifier, a “Confusion Matrix” is generated._
-
-_We can apply both Maximization and Minimization Measures._
-
-_We need to know how to calculate all the factors that can be deduced from a Confusion Matrix (see more details in slides )._
-
-**Pareto Optimality:** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
-
-The set of all Pareto individuals is known as the Pareto frontier.
-
-These individuals represent unique contribution.
-
-We want to drive selection by favoring Pareto individuals.
-
-**Nondominated Sorting Genetic Algorithm II (NSGA II)**
-
-* Population is separated into nondomination ranks.
-* Individuals are selected using a binary tournament
-* Lower Pareto ranks beat higher Pareto ranks
-For example, an individual on the blue front will beat out an individual on the green front.
-* Ties on the same font are broken by crowding distance
-* Summation of normalized Euclidian distances to all points within the front
-* Higher crowding distance wins.
-
-
-**Strength Pareto Evolutionary Algorithm 2 (SPEA2)**
-
-* Each individual is given a strength S
-* Each individual receives a rank R
-* A distance to the kth nearest neighbor is calculated
+* Gene Pool: Set of genome to be evaluated during current generation
+    * Genome
+        * Genetic description of an individual
+        * DNA
+        * GA = set of values
+        * GP = tree structure, string
+    * Search Space
+        * Set of all possible genomes
+        * For automated algorithm design -> set of all possible algorithms
+* The evaluation of genome associates a genome with a set of scores
+    * Scores: 
+        * True positive or TP: How often is the desired objective identified
+        * False positive or FP: How often is something else than the desired object identified
+    * Objectives
+        * Set of measurements each genome is scored against
+        * Phenotype 
+* Objective Space: set of objectives
+* Evaluation - Maps an in individual or genome.
+    * From a location in search space: Genotypic description
+    * To a location in objective space: Phenotype description
+* Classification Measures
+    * A data set made of positive and negative samples is inserted in a classifier which gives out one of the following results:
+        * Actual Positive:
+            * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
+            * False Negative (FN) with a FN rate or FNR = FN/P = FN/(TP+FN)
+        * Actual Negative:
+            * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
+            * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
+* Other measures include:
+    * Precision or Positive Predictive Value (PPV): PPV = TP/(TP+FP) -> Bigger is better
+    * False Discovery Rate (FDR): FDR = FP(TP+FP) = 1 - PPV -> Smaller is better
+    * Negative Predictive Value (NPV): NPV = TN/(TN+FN) -> Bigger is better
+    * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) -> Bigger is better
+* Pareto Optimality:
+    * An individual is Pareto optimal if there is no individual in the population that outperforms this individual on all objectives
+    * The set of all Pareto individuals is known as the Pareto Frontier
+    * These individuals represent unique contributions
+    * We want to drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some probability of mating.
+* Strength Pareto Evolutionary Algorithm
+    * Each individual is given a strength S (S is how many others in the population it dominates)
+    * Each individual receives a rank R (R is the sum of S's of the individuals that dominate it)
+    * A distance to the kth nearest neighbour is calculated and a fitness of R+1/(𝛔k + 2) is obtained
 
 **Notebook self evaluation:**
 
