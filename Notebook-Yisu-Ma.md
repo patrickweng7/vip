@@ -15,13 +15,31 @@
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20rubric.jpg)
 ## Week 3: September 9th - September 15th (2021)
 ### Lecture Overviews
+* Talked about the self-grading*  rubric
+* Introduced the multipole objectives
+* Discussed sample problems
 
 ### Lecture Notes
+* Gene pool is the set of genomes to be evaluated during the current generation
+* GA = set of values
+* GP = tree structure, string
+* The Evaluation of a Genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores
+* True Positive – TP 👍 ; False Negative - FN (type II error) 👎 
+* False Positive – FP (type I error) 👍 ; True Negative - TN 👎 
+* Review the fruit sample
+* Sensitivity or True Positive Rate (TPR)  ||  TPR = TP/P 
+* Specificity (SPC) or True Negative Rate (TNR)  || TNR = TN/N = TN/(TN+FP)
+* False Negative Rate (FNR)
+FNR = FN/P = FN/(TP+FN)
+FNR = 1 - TPR
+* Fallout or False Positive Rate (FPR)
+FPR = FP/N = TN/(FP+TN)
+FPR = 1 – TNR = 1 - SPC
 
 
 
 
-## week 2: September 1st - September 8th (2021)
+## Week 2: September 1st - September 8th (2021)
 ### Lecture Overviews
 * Summarized the knowledge in the last class (Genetic Algorithm)
 * Introduced Genetic programming
