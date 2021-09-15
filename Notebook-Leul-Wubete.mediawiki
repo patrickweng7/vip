@@ -8,7 +8,85 @@ Cell Phone: +1 4047897798
 Interests: Soccer, Walking, Eating, Breathing
 
 == September 1, 2021 (Week 2) == 
+===Lab 2 Notes:===
+* Genetic Programming:
+    - Tool used for automated algorithm design. Just like genetic algorithms, we still need fitness and individual classes.
 
+* Instead of lists that we use for genetic algorithms, we use what data structure?
+    - gp.PrimitiveTree, individuals represented as a tree structure
+
+* Trees are made of?
+    - functions and variables are called primitives AKA the normal nodes.
+    - Terminals are the leaf nodes.
+    - Root node is considered primitive.
+
+* How to add math operations and rename default arguments? How to add primitives?
+    a. pset.addPrimitive(np.subtract, arity=2), BY THE WAY, arity is the number of arguments an operation will take.
+    b. pset.renameArguments(ARG0='x')
+    c. pset.addPrimitive()
+
+* What else should we not forget in the setup process?
+    - Next we will define our toolbox, individual, population, and compiler.
+    - This time, we have an expr function: gp.genHaldandHalf returns a primitive tree based on a primitive set and a minimum and maximum tree depth.
+    - In this case, the primitive set is the one we defined earlier, the minimum depth is 1, and the maximum depth is 2.     
+
+* How to optimize the function we are generating?
+   - by minimizing mean squared error.
+   - the mean squared error between the function we compile and the actual function we are trying to generate
+   - you could think of genetic programming as finding the best combination of primitives given objectives to minimize or maximize.
+   - This means we care a lot less about data than machine learning and care more about objectives.
+
+* How did I add a new mutation function?
+   - went to GP mutations in the DEAP source code here: https://github.com/DEAP/deap/blob/master/deap/gp.py
+   - picked:  gp.mutEphemeral
+   - added: toolbox.register("mutate_2", gp.mutEphemeral, expr=toolbox.expr_mut, pset=pset)
+
+* How to add tree height constraints?
+   - toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
+
+* How are the generations printed differently from our evolutionary algorithm?
+   - they are printed from the the structure of the tree, read left to right
+
+==== Multiple Objective Genetic Programming ====
+
+* Remember, multiobjective genetic programming has more than one:
+   - Weights!
+* Plotting class?
+   - import matplotlib.pyplot as plt
+* Where to visit for Pareto front/dominance?
+   - https://github.com/lmarti/evolutionary-computation-course/blob/master/AEC.06%20-%20Evolutionary%20Multi-Objective%20Optimization.ipynb
+
+==== Lab 2 conclusions and issues ====
+* I still do not have access or full know-how of how to upload pictures to my Wiki
+* My process included changing my git username and email address on my command prompt. When I try to clone the Wiki
+* I get an error claiming my PC's space is too low for the wiki's
+* When I try to commit the first time, it claims that it is ready to delete all the current pictures/wikis uploaded to EMADE, not good.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up personal notebook page
+|Completed
+|August 27, 2021
+|September 1, 2021
+|August 27, 2021
+|-
+|Join Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 27, 2021
+|-
+|Complete "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
+|Completed
+|September 5, 2021
+|September 1, 2021
+|September 8, 2021
+|}
 == August 25, 2021 (Week 1) == 
 
 ===Lecture Notes:===
@@ -142,60 +220,6 @@ Interests: Soccer, Walking, Eating, Breathing
     - 0 min fitness not obtained in first 100 generations
     - 0 min fitness on gen. 11
     - 0 min fitness not obtained in first 100 generations
-
-===Lab 2 Notes:===
-* Genetic Programming:
-    - Tool used for automated algorithm design. Just like genetic algorithms, we still need fitness and individual classes.
-
-* Instead of lists that we use for genetic algorithms, we use what data structure?
-    - gp.PrimitiveTree, individuals represented as a tree structure
-
-* Trees are made of?
-    - functions and variables are called primitives AKA the normal nodes.
-    - Terminals are the leaf nodes.
-    - Root node is considered primitive.
-
-* How to add math operations and rename default arguments? How to add primitives?
-    a. pset.addPrimitive(np.subtract, arity=2), BY THE WAY, arity is the number of arguments an operation will take.
-    b. pset.renameArguments(ARG0='x')
-    c. pset.addPrimitive()
-
-* What else should we not forget in the setup process?
-    - Next we will define our toolbox, individual, population, and compiler.
-    - This time, we have an expr function: gp.genHaldandHalf returns a primitive tree based on a primitive set and a minimum and maximum tree depth.
-    - In this case, the primitive set is the one we defined earlier, the minimum depth is 1, and the maximum depth is 2.     
-
-* How to optimize the function we are generating?
-   - by minimizing mean squared error.
-   - the mean squared error between the function we compile and the actual function we are trying to generate
-   - you could think of genetic programming as finding the best combination of primitives given objectives to minimize or maximize.
-   - This means we care a lot less about data than machine learning and care more about objectives.
-
-* How did I add a new mutation function?
-   - went to GP mutations in the DEAP source code here: https://github.com/DEAP/deap/blob/master/deap/gp.py
-   - picked:  gp.mutEphemeral
-   - added: toolbox.register("mutate_2", gp.mutEphemeral, expr=toolbox.expr_mut, pset=pset)
-
-* How to add tree height constraints?
-   - toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
-
-* How are the generations printed differently from our evolutionary algorithm?
-   - they are printed from the the structure of the tree, read left to right
-
-==== Multiple Objective Genetic Programming ====
-
-* Remember, multiobjective genetic programming has more than one:
-   - Weights!
-* Plotting class?
-   - import matplotlib.pyplot as plt
-* Where to visit for Pareto front/dominance?
-   - https://github.com/lmarti/evolutionary-computation-course/blob/master/AEC.06%20-%20Evolutionary%20Multi-Objective%20Optimization.ipynb
-
-==== Lab 2 conclusions and issues ====
-* I still do not have access or full know-how of how to upload pictures to my Wiki
-* My process included changing my git username and email address on my command prompt. When I try to clone the Wiki
-* I get an error claiming my PC's space is too low for the wiki's
-* When I try to commit the first time, it claims that it is ready to delete all the current pictures/wikis uploaded to EMADE, not good.
 
 ===Action Items:===
 {| class="wikitable"
