@@ -41,7 +41,12 @@ FPR = 1 – TNR = 1 - SPC
 * initialized a random population of 300 individuals, I changed the population later in for testing
 * sorted our population
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-1.PNG)
-
+* defined and ran the main evolutionary algorithm
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-2.PNG)
+* _Learning point:_ we can see that at the end, DEAP's Mu plus Lambda evolutionary algorithm lead to the model to expected result
+`49 	70    	[ 0.28332572 14.2       ]	[0.01730375 1.73205081]        	[ 0.27861333 11.        ]	[ 0.40364443 17.        ]
+50 	66    	[ 0.28037786 15.3       ]	[1.21684778e-03 1.31529464e+00]	[ 0.27861333 10.        ]	[ 0.28500933 19.        ]`
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-3.PNG)
 
 
 
