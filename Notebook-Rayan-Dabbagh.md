@@ -88,12 +88,29 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 
 The scores are the following:
 
-* Notebook Maintenance: 25/25
-* Meeting notes: 15/15
-* Personal Work & accomplishments: 35/35
-* Useful resource: 24/25
+| Category | Criteria | Poor | Intermediate | Exemplary |
+| --- | ----------- | --- | ----------- |----------- |
+| Notebook Maintenance | Name & contact info |  |  | 5 |
+| " " | Teammate names and contact info easy to find |  |  | 5 |
+| " " | Organization |  |  | 5 |
+| " " | Updated at least weekly |  |  | 10 |
+| Meeting notes | Main meeting notes |  |  | 5 |
+| " " | Sub-teams' efforts |  |  | 10 |
+| Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
+| " " | To-do list consistency checked and dated |  |  | 10 |
+| " " | To-dos and cancellations checked and dated |  |  | 5 |
+| " " | Level of detail: personal work and accomplishments |  |  | 15 |
+| Useful resource | References (internal, external) |  |  | 8 |
+| " " | Useful resource for the team |  |  | 14 |
+| Total |  |  |  | 97 |
 
-**The overall grade is a 99/100**
+### Action items
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 3 Notes|Complete|09/15/2021|09/08/2021|09/12/2021|
+|Self-Evaluation|Complete|09/15/2021|09/08/2021|09/12/2021|
+|Lab 2(part II) Notes|Complete|09/15/2021|09/08/2021|09/14/2021|
+
 
 ## Topic 2: Genetic Programming
 
@@ -149,7 +166,23 @@ The scores are the following:
 
 ### Lab 2:
 
-                                                      
+_We first start with importing the libraries, and then create individual classes. For lab #2, the individual class just created inherits from the DEAP library, as our individual will be represented in a tree. These programs commonly take the form of trees representing LISP s-expressions, and a typical evolutionary run produces a great many of these trees. For this reason, a good tree-generation algorithm is very important to genetic programming.When evaluating an individual, we compile the tree from its leaves to its roots.After that, we go ahead and instantiate a primitive set and add the ones that can be used. After having defined all the components of our code,we define our evaluation function._
+
+After running our evolutionary algorithm for 40 generations, our fittest individual results as follows:
+ *  `Best individual is add(multiply(x, add(multiply(add(multiply(x, x), x), x), x)), x), (1.2992604035586602e-16,)`
+
+### Multi-Objective Genetic Programming with Symbolic Regression
+
+* Multi-objective optimization is is an area of multiple criteria decision making that is concerned with mathematical optimization problems involving more than one objective.
+
+_We add three new primitives, then re-instantiate our primitive set. Then, we define our Pareto Dominance, which returns true if the first individual is fittest (on all levels) relative to the second individual. Therefore, we end up with our new fit individual._
+
+### Action items
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|
+|Lab 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|  
+                                                   
 ## **Topic 1: Genetic Algorithms**
 
 ### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
