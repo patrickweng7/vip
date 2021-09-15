@@ -283,3 +283,10 @@ In the next step, we define our crossover. We will be facing a partially matched
 
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
 
+### Action Items
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 1 Notes|Complete|09/01/2021|08/27/2021|08/29/2021|
+|Lab 1 Notes|Complete|09/01/2021|08/27/2021|08/29/2021|
+
+
