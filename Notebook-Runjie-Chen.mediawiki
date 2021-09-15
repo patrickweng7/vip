@@ -97,6 +97,36 @@
 The graded rubric can be found at: https://drive.google.com/file/d/16oCakT022EO_RXLo3WiVdYInDDIjtFKP/view
 
 === Lab 2 - Multi-Objective Genetic Programming (part 2) ===
+* Objectives 
+** Minimize mean squared error
+** Minimize the size of our tree
+* Background/context
+** Added three new primitives (sin, cos, tan) to the primitive set
+** Set a seed for randomization
+** Added another objective to the evaluation function
+** A pareto_dominance function is defined to visualize the objective space
+*Experiment
+**A random population of 300 individuals is generated
+**The population is sorted by Pareto dominance and plotted
+**[INSERT PLOT DIAGRAM]
+**The blue point is the given individual we set aside and compared all the other individuals to. The black points are uncomparable, the green points are dominated by the given individual, and the red points dominate the given individual.
+**The main evolutionary algorithm is defined and ran
+*Results
+** Graph 1
+***Best individual is: negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x))))
+***[INSERT RESULTS GRAPH 1]
+***Tree size: red and orange plots
+***MSE: blue and green plots
+***Trends:
+**** The size of the primitive tree increased as generations evolved
+**** The MSE quickly decreased to between 0 and 1 within the first few generations
+with fitness: (0.27530582924947056, 25.0)
+***This graph does not neccessarily represent accurate results for both objectives, therefore, we need Graph 2, which represents objective space and pareto front, to represent both objectives accurately
+** Graph 2 (objective space and pareto front)
+***[INSERT RESULTS GRAPH 1]
+***The performance of the pareto front is measured by the area under the curve (AUC) of the pareto front seen in the visualization. The lower our AUC is, the better the pareto front is
+** My implementation of the genetic programming problem which produces at least a 25% decrease in the AUC
+***
 
 == Week 2: September 1st - September 7th ==
 
@@ -109,7 +139,7 @@ The graded rubric can be found at: https://drive.google.com/file/d/16oCakT022EO_
 ** Inputs are at the leaves of the tree
 ** Output is at the root of the tree
 ** Crossover in GP
-*** Pick random nodes/leafs in the trees participating in the crossover, swap the subtrees of the nodes/leafs
+*** Pick random nodes/leaves in the trees participating in the crossover, swap the subtrees of the nodes/leafs
 ** Mutation in GP
 *** Inserting a node or subtree
 *** Deleting a node or subtree
