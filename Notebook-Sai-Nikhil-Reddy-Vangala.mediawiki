@@ -177,15 +177,25 @@
 == Week 3 (9/6 - 9/10) ==
 
 === Lecture Notes (9/8) ===
+* Genetic Programming Cycle
+** New Gene Pool
+** Evaluation
+** Genes with scores
+** Fitness Computation
+** Genes with fitness
+** Selection
+** Parental Genes
+** Mating
+** Child Genes
+** Mutation
+** New Gene Pool
 * Gene pool is a set of genome to be evaluated during the current generation.
 ** Genome
 *** Genotypic description of an individuals
 *** DNA
 *** GA = set of values
 *** GP = tree structure, string
-** Search Space
-***
-***
+** Search Space: Set of all possible genome. For AAD, set of all possible algorithms.
 * Evaluation of a Genome assocites a genome/individual (set of parameters for GA or string for GP) with a set of scores.
 * What are these scores
 ** True Positive - TP
@@ -194,12 +204,78 @@
 *** How often are we identifying something else as the desired object.
 * Objectives
 ** set of measurements each genome is scored against
+** phenotype
+* Objectives Space: set of objectives
+* Evaluation: Maps an genome/individual 
+** From a location in search space
+*** Genotypic description
+** To a location in objective space
+*** phenotype description
 
 * Classification Measures
+** Data Set: Positive Samples (P) and Negative Samples (N)
+** Classifier
+** Confusion Matrix: True Positive, False Negative (Type II Error), False Positive (Type I Error), True Negative
 
 * Maximization Measures
+** Sensitivity or True Positive Rate (TPR)
+*** AKA hit rate or recall
+*** TPR = TP/P = TP/(TP+FN)
+** Specificity (SPC) or True Negative Rate (TNR)
+*** TNR = TN/N = TN/(TN+FP)
+
+* Minimization Measures
+** False Negative Rate (FNR)
+*** FNR = FN/P = FN/(TP+FN)
+*** FNR = 1 - TPR
+** Fallout or False Positive Rate (FPR)
+*** FPR = FP/N = TN/(FP+TN)
+
+* Other Measures
+** Precision or Positive Predictive Value (PPV)
+*** PPV = TP/(TP+FP)
+*** Bigger is better
+** False Discovery Rate
+*** FDR = FP/(TP+FP)
+*** FDR = 1 - PPV
+*** Smaller is better
+** Negative Predictive Value (NPV)
+*** NPV = TN/(TN+FN)
+*** Bigger is better
+** Accuracy (ACC)
+*** ACC = (TP+TN)/(P+N)
+*** ACC = (TP+TN)/(TP+FP+FN+TN)
+*** Bigger is better
+
+* Objective Space
+** Each individual is evaluated using objective functions
+*** Mean Squared Error
+*** Cost
+*** Complexity
+*** True positive rate
+*** False positive rate
+** Objective scores give each individual a point in objective space
+** This may be referred to as the phenotype of the individual
+
+* Pareto Optimality
+** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
+** The set of all Pareto individuals is known as the Pareto frontier.
+** These individuals represent unique contributions
+** We want to drive selection by favoring Pareto individuals
+*** But maintain diversity by giving all individuals some probability of mating.
 
 * Nondominated Sorting Genetic Algorithm II (NSGA II) 
+** Population is separated into nondomination ranks
+** Individuals are selected using a binary tournament
+** Lower Pareto ranks beat higher Pareto ranks
+
+* Strength Pareto Evolutionary Algorithm 2
+** Each individual is given a strength S
+*** S is how many others in the population it dominates
+** Each individual receives a rank R
+*** R is the sum of S's of the individuals that dominate it
+*** Pareto individuals are nondominated and receive an R of 0.
+** A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
 
 ===Action Items===
 {| class="wikitable"
