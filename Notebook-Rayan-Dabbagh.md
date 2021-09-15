@@ -38,6 +38,7 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 
         * True positive or TP: How often is the desired objective identified
         * False positive or FP: How often is something else than the desired object identified
+
     * _Objectives_:
 
         * Set of measurements each genome is scored against
@@ -55,13 +56,13 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
         
 1- _Actual Positive:_
 
-            * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
-            * False Negative (FN) with a FN rate or FNR = FN/P = FN/(TP+FN)
+    * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
+    * False Negative (FN) with a FN rate or FNR = FN/P = FN/(TP+FN)
         
 2- _Actual Negative:_
 
-            * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
-            * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
+    * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
+    * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
 
 * _Other measures include:_
 
