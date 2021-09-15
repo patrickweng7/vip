@@ -64,6 +64,12 @@
 | " " | Useful resource for the team |  |  | 14 |
 | Total |  |  |  | 95 |
 
+### Action items
+|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 3 Notes|Complete|NA|09/08/2021|09/13/2021|
+|Self-Evaluation|Complete|NA|09/08/2021|09/13/2021|
+|Lab 2(part II) Notes|Complete|NA|09/08/2021|09/14/2021|
 
 # **September 1st, 2021**
 ## **Meeting 2**
