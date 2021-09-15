@@ -48,6 +48,7 @@ FPR = 1 – TNR = 1 - SPC
 50 	66    	[ 0.28037786 15.3       ]	[1.21684778e-03 1.31529464e+00]	[ 0.27861333 10.        ]	[ 0.28500933 19.        ]`
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-3.PNG)
 **Action Items:**
+
 | Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
 |------|----------------|---------------|----------------|---------------|
 |Multiple Objectives lecture notes|complete|September 9th, 2021|September 15th, 2021|September 14nd, 2021|
