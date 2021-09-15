@@ -303,6 +303,34 @@
 ** A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
 
 ===Lab 2 (Part II): Multi-Objective Optimization===
+* Created new fitness and individual classes as it is a new problem. 
+* The two objectives that will be minimized: Mean Squared Error & Size of tree.
+* The three new primitives of sin, cos, tan were added and set a seed for randomization. 
+* Reinitialized the rest of the toolbox functions.
+* Defined the pareto dominance function: returns true if the first individual dominates the second individual. 
+* Initialized a random population of 300 individuals and one seperate individual for comparison.
+* The population was sorted by pareto dominance in comparison to the sperate individual defined. 
+* The objective space plotted using the sorter population.
+** Blue = selected individual
+** Red = dominators
+** Black = uncomparable 
+** Green = dominated
+* Defined and ran the main evolutionary algorithm that omitted:
+** negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x)))) with fitness: (0.27530582924947056, 25.0)
+* Visualized the objective space and pareto front which omitted:
+** Area Under Curve: 2.463792426733847
+* Implemented a version that produces a 25% or more decrease in the AUC using changes in the following factors:
+** NGEN
+*** Decrease --> Decrease and Increase --> Increase
+** MU
+*** Decrease --> Increase and Increase --> Increase
+** LAMBDA
+*** Decrease --> Decrease and Increase --> Increase
+** CXPB
+*** Decrease --> Increase and Increase --> Increase
+** MUTPB 
+*** Increase --> Increase
+** Removing one of operator functions: add, subtract, multiply, sin, cos, tan
 
 ===Self-Grading===
 https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=sharing
