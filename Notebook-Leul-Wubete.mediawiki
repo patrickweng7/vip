@@ -39,6 +39,7 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
 * Pareto optimality: https://www.youtube.com/watch?v=cT3DcuZnsGs
 * Multi-objective problems: https://www.youtube.com/watch?v=56JOMkPvoKs
 * Euclidian distance: https://www.youtube.com/watch?v=1jcnOEDnwLI
+* Pareto frontier: https://www.youtube.com/watch?v=9sXEBzI1R5Q
 
 ==== MultiObjective Optimization ====
 *  Multiple metrics together, like finding a mate in nature
@@ -85,21 +86,32 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
 *  Ran main evolutionary algorithm.
     *  Best individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))) with fitness: (0.2786133308027132, 15.0)
     *  Area Under Curve: 2.3841416372199005
-*  The goal now is to reduce the area under the graph by 25%
-    *  I first tried to add the mutate function with the altMutate function (mutInsert) by using both one after the other.
-    *  Best individual is: subtract(multiply(x, sin(subtract(add(x, x), cos(x)))), cos(x)) with fitness: (0.1636098302024022, 12.0)
-    *  Area Under Curve: 3.619531087140837 (increased)
-    *  Then I tried completely replacing the mutate function with altMutate
-    *  Best individual is: tan(multiply(subtract(subtract(cos(sin(x)), multiply(x, multiply(subtract(cos(multiply(x, multiply(x, x))), multiply(x, x)), negative(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(sin(negative(x)), cos(multiply(x, x))))))))))))), multiply(x, x)), negative(cos(negative(cos(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(x, x))))))))))))) with fitness: (0.0422300662166498, 63.0)
-    *  Area Under Curve: 12.279788182341475 (increased significantly)
-    *  It seems that complicating the evaluation leads to a greater area, so I'll try to make the calculations simpler.
-    *  I tried changing the variables in the evolutionary algorithm: MU=100, LAMBDA=120.
-    *  Best individual is: subtract(sin(multiply(x, subtract(sin(x), cos(x)))), cos(x)) with fitness: (0.24471230030517566, 11.0)
-    *  Area Under Curve: 2.7332976348871716 (increased, but closer to the original)
-    *  Finally, I removed the np.tan(points**3) from the calculation of the sqerrors, increased MU to 150, and decreased LAMBDA to 50.
-    *  Best individual is: subtract(multiply(x, x), cos(x)) with fitness: (0.5796581408872937, 6.0)
-    *  Area Under Curve: 1.796355292509189
-    *  Based on the best individuals above, it seems my estimation was correct, and simpler functions lead to lower 'area under curve' values.
+*  Objective: To reduce the area under the graph by 25%
+    *  I first tried to make everything arity 2 from my pset, but I got an error telling me I was missing ARG1.
+      random.seed(25)
+    * This error occurred because I gave main an arity of 2 with only ARG0 provided. I did not realize this at the time.
+
+      pset = gp.PrimitiveSet("MAIN", arity=2)
+      pset.addPrimitive(np.add, arity=2)
+      pset.addPrimitive(np.subtract, arity=2)
+      pset.addPrimitive(np.multiply, arity=2)
+      pset.addPrimitive(np.negative, arity=2)
+      pset.addPrimitive(np.sin, arity=2)
+      pset.addPrimitive(np.cos, arity=2) 
+      pset.addPrimitive(np.tan, arity=2)
+      pset.renameArguments(ARG0='x')
+
+
+     --> 3     sqerrors = (func(points)-(np.negative(points) + np.sin(points**2) + np.tan(points**3) - np.cos(points)))**2
+      4 
+      5     return (np.sqrt(np.sum(sqerrors) / len(points)), len(individual))
+   * I then immediately turned Main's arity to arity = 1 and left everything the same. The results were too hot to handle.
+      - Best individual is: negative(x, negative(multiply(x, x), multiply(x, x))) with fitness: (0.0007884709018408653, 9.0)
+   * Area Under Curve: 0.35362638208500674 Vs. 2.3841416372199005
+   * Percent decline: ~ 85.17%
+
+TypeError: <lambda>() missing 1 required positional argument: 'ARG1'
+  
 
 === Action Items: ===
 {| class="wikitable"
