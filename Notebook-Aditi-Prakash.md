@@ -193,7 +193,7 @@ with fitness: (0.2786133308027132, 15.0).
 DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation). This allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
 
 Visualization:
-![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+[Screenshots](https://docs.google.com/document/d/1isLlHDQdceJ9ZrUbcG3oIeYEq1j0an6Oi0SyJKpFyvM/edit?usp=sharing)
 
 * We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
 Improvements:
