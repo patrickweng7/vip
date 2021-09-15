@@ -35,7 +35,11 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
 == Sept. 8, 2021 (Week 3) == 
 
 === Lecture Notes: ===
+
 * Pareto optimality: https://www.youtube.com/watch?v=cT3DcuZnsGs
+* Multi-objective problems: https://www.youtube.com/watch?v=56JOMkPvoKs
+* Euclidian distance: https://www.youtube.com/watch?v=1jcnOEDnwLI
+
 ==== MultiObjective Optimization ====
 *  Multiple metrics together, like finding a mate in nature
 * you look for many things in a person, the personality, attractiveness...
@@ -49,6 +53,16 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
     - positive and negative for now {0, 1}
     - multiclass: it can be in this set of things, e.g. {0, .. , 9}
     - look at the confusion matrix
+* Maximization measurements:
+    - to work on maximizing, focus on true positives and true negatives.
+    - True positive rate = # of true positives / total positives (true positive + False Negative)
+    - Going to try to put our Pareto frontier (1, 1)
+* Minimization measure:
+    - pareto frontier to (0, 0) 
+* Accuracy:
+    - given you have a positive given from algorithm, what percent of the time is it accurate?
+* nondominated:
+    - best"Pareto optimal" individual you have found so far.
 *  (NSGA II) Nondominated sorting genetic algorithm II 
     * If we remove the pareto frontier, then the next set of points becomes the next rank, and then loop doing that.
     *  Lower ranked individuals beat higher ranked individuals
@@ -61,10 +75,10 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
     *  Fitness = R + 1/(dk + 2), where dk is the distance to the kth nearest neighbour
 
 === My Status/Notes: ===
-*  Finished Lab 2,on section "Multi-Objective Genetic Programming"
-*  Created fitness/ndividual classes for the multi-objective question - aim to minimize objectives: 'mean squared error', 'tree size'.
+*  Finished Lab 2:  "Multi-Objective Genetic Programming"
+*  Created fitness/individual classes for the multi-objective question - aim to minimize objectives: 'mean squared error', 'tree size'.
 *  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
-*  Added an objective to evaluation function, by compounding primitive functions with 'points' in the mean squared term.
+*  Added an objective to the evaluation function, by compounding primitive functions with 'points' in the mean squared term.
 *  Defined pareto_dominance() function to visualize objective space. 
 *  Initialized population of 300 with an additional individual for comparison.
 *  Sorted population into dominated and dominators with respect to the comparison individual. Plotted sorted population in objective space.
