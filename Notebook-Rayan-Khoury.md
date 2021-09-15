@@ -63,7 +63,7 @@
 | Useful resource | References (internal, external) |  |  | 8 |
 | " " | Useful resource for the team |  |  | 14 |
 | Total |  |  |  | 95 |
-
+ 
 ### Action items
 |Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
