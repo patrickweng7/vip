@@ -20,7 +20,7 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 **Questions of the day:** What are you looking for in a data/mate? What is an algorithm looking for in a mate?
 
 * _Gene Pool:_ Set of genome to be evaluated during current generation
-    * Genome
+    * _Genome_
 
         * Genetic description of an individual
         * DNA
@@ -34,7 +34,7 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 
 * The evaluation of genome associates a genome with a set of scores
 
-    * _Scores: _
+    * _Scores:_
 
         * True positive or TP: How often is the desired objective identified
         * False positive or FP: How often is something else than the desired object identified
