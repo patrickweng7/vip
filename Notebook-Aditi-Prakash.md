@@ -178,8 +178,7 @@ DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1isLlHDQdceJ9ZrUbcG3oIeYEq1j0an6Oi0SyJKpFyvM/edit?usp=sharing)
 
-* We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
-Improvements:
+* Improvements:
 Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.97. 
 NGEN = 50
 MU = 60
