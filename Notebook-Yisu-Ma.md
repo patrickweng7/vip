@@ -15,7 +15,7 @@
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20rubric.jpg)
 ## Week 3: September 9th - September 15th (2021)
 ### Lecture Overviews
-* Talked about the self-grading*  rubric
+* Talked about the self-grading rubric
 * Introduced the multipole objectives
 * Discussed sample problems
 
@@ -35,6 +35,12 @@ FNR = 1 - TPR
 * Fallout or False Positive Rate (FPR)
 FPR = FP/N = TN/(FP+TN)
 FPR = 1 – TNR = 1 - SPC
+### lab2 - partII
+* added three new primitives and reinitialized toolbox
+* defined pareto dominance function
+* initialized a random population of 300 individuals, I changed the population later in for testing
+* sorted our population
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-1.PNG)
 
 
 
