@@ -10,6 +10,121 @@
 # **Automated Algorithm Design**
 
 _GitHub: github.gatech.edu/emade/emade_
+
+### Objective of lecture 3:
+
+* Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
+
+_Go ahead and rate your skills in ML and Python (used for group forming)_
+
+**Questions of the day:** What are you looking for in a data/mate? What is an algorithm looking for in a mate?
+
+**Gene pool:** Gene pool is the set of genomes to be evaluated during the current generation.
+
+**Evaluation of a Genome:**
+
+* True Positive 
+
+* False Positive
+
+Important: **Phenotype represents the expression of our gene, or the expression of our genome.**
+
+_Data samples are comprised of Positive Samples and Negative Samples. Through the classifier, a “Confusion Matrix” is generated._
+
+_We can apply both Maximization and Minimization Measures._
+
+_We need to know how to calculate all the factors that can be deduced from a Confusion Matrix (see more details in slides )._
+
+**Pareto Optimality:** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
+
+The set of all Pareto individuals is known as the Pareto frontier.
+
+These individuals represent unique contribution.
+
+We want to drive selection by favoring Pareto individuals.
+
+**Nondominated Sorting Genetic Algorithm II (NSGA II)**
+
+* Population is separated into nondomination ranks.
+* Individuals are selected using a binary tournament
+* Lower Pareto ranks beat higher Pareto ranks
+For example, an individual on the blue front will beat out an individual on the green front.
+* Ties on the same font are broken by crowding distance
+* Summation of normalized Euclidian distances to all points within the front
+* Higher crowding distance wins.
+
+
+**Strength Pareto Evolutionary Algorithm 2 (SPEA2)**
+
+* Each individual is given a strength S
+* Each individual receives a rank R
+* A distance to the kth nearest neighbor is calculated
+
+**Notebook self evaluation:**
+
+The scores are the following:
+
+* Notebook Maintenance: 25/25
+* Meeting notes: 15/15
+* Personal Work & accomplishments: 35/35
+* Useful resource: 24/25
+
+**The overall grade is a 99/100**
+
+## Topic 2: Genetic Programming
+
+**Tree Representation is very used:**
+
+    * We can represent a program as a tree structure.
+    * Nodes are called primitives and represent functions
+    * Leaves are called terminals and represent parameters.
+
+**How is the Tree Stored?**
+
+    * The tree is converted to a lisp preordered parse tree
+    * Operator followed by inputs.
+
+**More examples:**
+
+**What’s the function?**
+
+    * F(x) = 2 – (0+1) (Note: It’s a constant)
+
+**Crossover in GP:**
+
+    * Crossover in tree-based GP is simply exchanging subtrees
+    * Start by randomly picking a point in each tree
+    * The subtrees are exchanged to produce children
+
+**Mutation in GP:**
+
+    * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
+
+**Example: Symbolic Regression**
+
+    * Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
+    * Primitives include: +, *, -, /
+    * Terminals include integers and x
+    * How did Calculus 1 solve this?  Taylor Series for sin(x)!
+
+**Evaluating a tree:**
+
+    * We can feed a number of input points into the function to get outputs 
+    * Run f(x)
+    * We can measure error between outputs and truth
+
+**What Primitives could I use to make this evolution easier?**
+
+    * Power()
+    * Factorial()
+    * Sin()
+    * Cos()
+    * Tan()
+
+**This is the idea behind EMADE.**
+
+### Lab 2:
+
                                                       
 ## **Topic 1: Genetic Algorithms**
 
@@ -110,133 +225,4 @@ In the next step, we define our crossover. We will be facing a partially matched
 
 
 In this exercise, it is a must to Shuffle indexes because it represents the position of the queens on the chessboard. At the same time, we cannot mutate or duplicate indexes as this might cause a result to be out of bounds. At the end, I defined the loop and ran it for the 100 generations, one can see that we change from a max of 16.0 in generation 0 to 9.0 in generation 99. Min, average, and max significantly decreased when measuring the fitness throughout the generations.
-
-## Topic 2: Genetic Programming
-
-**Tree Representation is very used:**
-
-    * We can represent a program as a tree structure.
-    * Nodes are called primitives and represent functions
-    * Leaves are called terminals and represent parameters.
-
-**How is the Tree Stored?**
-
-    * The tree is converted to a lisp preordered parse tree
-    * Operator followed by inputs.
-
-**More examples:**
-
-**What’s the function?**
-
-    * F(x) = 2 – (0+1) (Note: It’s a constant)
-
-**Crossover in GP:**
-
-    * Crossover in tree-based GP is simply exchanging subtrees
-    * Start by randomly picking a point in each tree
-    * The subtrees are exchanged to produce children
-
-**Mutation in GP:**
-
-    * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
-
-**Example: Symbolic Regression**
-
-    * Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
-    * Primitives include: +, *, -, /
-    * Terminals include integers and x
-    * How did Calculus 1 solve this?  Taylor Series for sin(x)!
-
-**Evaluating a tree:**
-
-    * We can feed a number of input points into the function to get outputs 
-    * Run f(x)
-    * We can measure error between outputs and truth
-
-**What Primitives could I use to make this evolution easier?**
-
-    * Power()
-    * Factorial()
-    * Sin()
-    * Cos()
-    * Tan()
-
-**This is the idea behind EMADE.**
-
-### Lab 2:
-
-
-
-
-
-### Objective of lecture 3:
-
-* Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
-
-_Go ahead and rate your skills in ML and Python (used for group forming)_
-
-**Questions of the day:** What are you looking for in a data/mate? What is an algorithm looking for in a mate?
-
-**Gene pool:** Gene pool is the set of genomes to be evaluated during the current generation.
-
-**Evaluation of a Genome:**
-
-* True Positive 
-
-* False Positive
-
-Important: **Phenotype represents the expression of our gene, or the expression of our genome.**
-
-_Data samples are comprised of Positive Samples and Negative Samples. Through the classifier, a “Confusion Matrix” is generated._
-
-_We can apply both Maximization and Minimization Measures._
-
-_We need to know how to calculate all the factors that can be deduced from a Confusion Matrix (see more details in slides )._
-
-**Pareto Optimality:** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
-
-The set of all Pareto individuals is known as the Pareto frontier.
-
-These individuals represent unique contribution.
-
-We want to drive selection by favoring Pareto individuals.
-
-**Nondominated Sorting Genetic Algorithm II (NSGA II)**
-
-* Population is separated into nondomination ranks.
-* Individuals are selected using a binary tournament
-* Lower Pareto ranks beat higher Pareto ranks
-For example, an individual on the blue front will beat out an individual on the green front.
-* Ties on the same font are broken by crowding distance
-* Summation of normalized Euclidian distances to all points within the front
-* Higher crowding distance wins.
-
-
-**Strength Pareto Evolutionary Algorithm 2 (SPEA2)**
-
-* Each individual is given a strength S
-* Each individual receives a rank R
-* A distance to the kth nearest neighbor is calculated
-
-**Notebook self evaluation:**
-
-The scores are the following:
-
-* Notebook Maintenance: 25/25
-* Meeting notes: 15/15
-* Personal Work & accomplishments: 35/35
-* Useful resource: 24/25
-
-**The overall grade is a 99/100**
-
-
-
-
-
-
-
-
-
-
-
 
