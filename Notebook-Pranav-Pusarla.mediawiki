@@ -133,3 +133,81 @@
 |September 8, 2021
 |September 8, 2021
 |}
+
+== September 8, 2021 ==
+=== Class Notes: ===
+
+'''<u>Genome</u>'''
+*Gene pool is the set of genome to be evaluated
+**Genome
+***DNA
+***GA: set of values
+***GP: tree, string
+**Search Space
+***Set of all possible genome (algorithms)
+*Evaluation of a genome -> genome with a score
+
+'''<u>Maximization Measures</u>'''
+*Sensitivity or True Positive Rate (TPR) 
+**aka hit rate or recall
+**TPR = TP / P = TP / (TP+FN)
+*Specificity or True Negative Rate (TNR)
+**TNR = TN / N = TN / (TN+FP)
+
+'''<u>Minimization Measures</u>'''
+*False Negative Rate (FNR)
+**FNR = FN / P = FN / (TP+FN)
+**FNR = 1 - TPR
+*Fallout or False Positive Rate (FPR)
+**FPR = FP / N = FP / (FP + TN)
+**FPR = 1 - TNR
+
+'''<u>Other Measures</u>'''
+*Precision or Positive Predicted Value (PPV)
+**PPV = TP / (TP+FP)
+*False Discovery Rate
+**FDR = FP / (TP+FP)
+*Negative Predictive Value
+**NPV = TN / (TN+FN)
+*Accuracy
+**(TP + TN) / (P+N)
+
+'''<u>Objective Space</u>'''
+*Each individual is evaluated using objective functions
+**MSE
+**Cost
+**Complexity
+**TPR, FPR
+*Objective scores give each individual a point in objective space
+*referred to as the phenotype of the individual
+
+'''<u>Pareto Optimality</u>'''
+*individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives
+*the set of all Pareto individuals is known as the Pareto frontier
+*we want to drive selection by favoring Pareto individuals
+**but maintain diversity by giving all individuals some probability of mating
+
+'''<u>Nondominated Sorting Genetic Algorithm II (NSGA II)</u>'''
+*Population is separated into nondomination ranks
+*Individuals are selected using binary tournament
+*Lower Pareto rank beats higher Pareto rank
+*Ties on the same front are broken by crowding distance
+**Summation of normalized Euclidean distances to all points within the front
+**Higher crowding distance wins
+
+'''<u>Strength Pareto Evolutionary Algorithm 2 (SPEA 2)</u>'''
+*Each individual is given a strength S
+**S is how many others in the population it dominates
+*Each individual receives a rank R
+**R is the sum of S of the individuals that dominate it
+**Pareto individuals are nondominated and receive an R of 0
+*For ties, a distance to the Kth nearest neighbor is calculated and a fitness of R + 1/ (muk + 2)
+
+=== Lab 2 Part 2 Notes: ===
+*working with two different objectives: minimizing two different mses
+*added sin, cos, tan as primitives to be used, reinitialized toolbox with seed to produce same results
+*defined new evaluation function 
+*created pareto dominance function that returns true if every value in individual 1 is less than individual 2
+*intialized population of 300 and selected one individual
+**separated population into dominated vs dominator with comparison of that one individual
+*blue point is the selected individual, red dots are the dominators, black is uncomparable, and green is dominated
