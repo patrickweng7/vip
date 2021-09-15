@@ -57,9 +57,20 @@
 ** Defined the crossover function: Two-Point.
 ** Defined the mutation function: partially matched crossover because it represents swapping around pairs of queen positions between two parent individuals: More effective. 
 ** Mutation that I added
-*** mutUniform: Randomly select a point in the tree *individual*, then replace the
+*** def mutUniform(individual, expr, pset):
+    """Randomly select a point in the tree *individual*, then replace the
     subtree at that point as a root by the expression generated using method
-    :func:`expr`
+    :func:`expr`.
+    :param individual: The tree to be mutated.
+    :param expr: A function object that can generate an expression when
+                 called.
+    :returns: A tuple of one tree.
+    """
+    index = random.randrange(len(individual))
+    slice_ = individual.searchSubtree(index)
+    type_ = individual[index].ret
+    individual[slice_] = expr(pset=pset, type_=type_)
+    return individual,
 ** Defined a new function called "" and tested it.
 ** Defined and ran evolutionary loop, 100 generations. 
 ** Although 100 generations were looped, the algorithm was not able to always achieve a global minimum of 0.0
