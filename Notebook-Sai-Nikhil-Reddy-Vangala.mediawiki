@@ -56,9 +56,17 @@
 ** Defined the toolbox and the evaluation function.
 ** Defined the crossover function: Two-Point.
 ** Defined the mutation function: partially matched crossover because it represents swapping around pairs of queen positions between two parent individuals: More effective. 
+** Mutation that I added
+*** mutUniform: Randomly select a point in the tree *individual*, then replace the
+    subtree at that point as a root by the expression generated using method
+    :func:`expr`
 ** Defined a new function called "" and tested it.
 ** Defined and ran evolutionary loop, 100 generations. 
 ** Although 100 generations were looped, the algorithm was not able to always achieve a global minimum of 0.0
+** Original:
+*** Best individual is [1, 6, 4, 11, 0, 18, 13, 17, 19, 12, 3, 9, 16, 5, 2, 15, 10, 8, 7, 14], (1.0,)
+** Added Mutation Effect:
+*** Best individual is [7, 12, 0, 5, 13, 11, 16, 8, 1, 9, 18, 3, 15, 17, 19, 4, 10, 14, 6, 2], (0.0,)
 ** Generated a visualization to speed up the algorithm improvement process and plotted the average, minimum, and maximum over 100 generations.
 
 ===Action Items===
@@ -144,6 +152,14 @@
 ===Lab 2: Symbolic Regression===
 * Imported the libraries needed for GP.
 * Created the fitness and individual classes
+* Initialized primitive sets and all the primitives that the tree can use. 
+** Best individual is add(add(x, multiply(x, multiply(add(x, multiply(x, x)), x))), multiply(x, x)), (1.1690561362729958e-16,)
+* Added two new primitives as well: 
+** Sine
+** Cosine
+* Defined the toolbox, individual, population, and compiler.
+* Registered genetic operators and added a new mutation and expanded it in the evolutionary loop as well. 
+* Programmed the main evolutionary algorithm which prints out the individuals in a tree format being read from left to right.
 
 ===Action Items===
 {| class="wikitable"
