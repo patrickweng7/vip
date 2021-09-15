@@ -65,11 +65,11 @@
 | Total |  |  |  | 95 |
 
 ### Action items
-|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
-|Lecture 3 Notes|Complete|NA|09/08/2021|09/13/2021|
-|Self-Evaluation|Complete|NA|09/08/2021|09/13/2021|
-|Lab 2(part II) Notes|Complete|NA|09/08/2021|09/14/2021|
+|Lecture 3 Notes|Complete|09/15/2021|09/08/2021|09/13/2021|
+|Self-Evaluation|Complete|09/15/2021|09/08/2021|09/13/2021|
+|Lab 2(part II) Notes|Complete|09/15/2021|09/08/2021|09/14/2021|
 
 # **September 1st, 2021**
 ## **Meeting 2**
@@ -116,10 +116,10 @@
 * We add three new primitives, then reinitialize our primitive set and set a seed for randomization.
 * Then, we define our pareto dominance, which returns true if the first individual dominates the second individual. Thus, we end up wuth our new and modified best individual.
 ### Action items
-|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
-|Lecture 2 Notes|Complete|NA|09/01/2021|09/03/2021|
-|Lab 2 Notes|Complete|NA|09/01/2021|09/05/2021|
+|Lecture 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|
+|Lab 2 Notes|Complete|09/08/2021|09/01/2021|09/05/2021|
 
 # **August 25th, 2021**
 ## **Meeting 1**
@@ -166,7 +166,7 @@ Thus, we conclude that after running the code multiple times, the generation did
 7.	After defining the loop and running it for 100 generations, we change from a max of 16.0 in generation 0 to 9.0 in generation 99. 
 8.	Along with min, and avrg, , max has been gone down according to the following graphs
 ### Action Items
-|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
-|Lecture 1 Notes|Complete|NA|08/25/2021|08/29/2021|
-|Lab 1 Notes|Complete|NA|08/25/2021|08/29/2021|
+|Lecture 1 Notes|Complete|09/01/2021|08/25/2021|08/29/2021|
+|Lab 1 Notes|Complete|09/01/2021|08/25/2021|08/29/2021|
