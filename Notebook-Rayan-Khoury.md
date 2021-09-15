@@ -33,6 +33,36 @@
         * Actual Negative:
             * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
             * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
+* Other measures include:
+    * Precision or Positive Predictive Value (PPV): PPV = TP/(TP+FP) -> Bigger is better
+    * False Discovery Rate (FDR): FDR = FP(TP+FP) = 1 - PPV -> Smaller is better
+    * Negative Predictive Value (NPV): NPV = TN/(TN+FN) -> Bigger is better
+    * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) -> Bigger is better
+* Pareto Optimality:
+    * An individual is Pareto optimal if there is no individual in the population that outperforms this individual on all objectives
+    * The set of all Pareto individuals is known as the Pareto Frontier
+    * These individuals represent unique contributions
+    * We want to drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some probability of mating.
+* Strength Pareto Evolutionary Algorithm
+    * Each individual is given a strength S (S is how many others in the population it dominates)
+    * Each individual receives a rank R (R is the sum of S's of the individuals that dominate it)
+    * A distance to the kth nearest neighbour is calculated and a fitness of R+1/(𝛔k + 2) is obtained
+## VIP Notebook Grading
+| Category | Criteria | Poor | Intermediate | Exemplary |
+| --- | ----------- | --- | ----------- |----------- |
+| Notebook Maintenance | Name & contact info |  |  | 5 |
+| " " | Teammate names and contact info easy to find |  |  | 5 |
+| " " | Organization |  |  | 5 |
+| " " | Updated at least weekly |  |  | 10 |
+| Meeting notes | Main meeting notes |  |  | 5 |
+| " " | Sub-teams' efforts |  |  | 10 |
+| Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
+| " " | To-do list consistency checked and dated |  |  | 10 |
+| " " | To-dos and cancellations checked and dated |  |  | 5 |
+| " " | Level of detail: personal work and accomplishments |  |  | 13 |
+| Useful resource | References (internal, external) |  |  | 8 |
+| " " | Useful resource for the team |  |  | 14 |
+| Total |  |  |  | 95 |
 
 
 # **September 1st, 2021**
