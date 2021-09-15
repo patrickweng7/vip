@@ -20,6 +20,102 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 * Intro to Pareto Optimality
 
 ===Team Meeting Notes===
+*What to look for in algorithms:
+**Scalability, Reliability, Accuracy, Efficiency, Consistency
+*How are Genome evaluated?
+**Evaluation of a genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores.
+*What are the possible scores?
+**True Positive (TP): How often we are identifying the desired object
+**False Positive (FP): How often are we identifying something else as the desired object
+*What are Objectives?
+**Set of measurements each genome (or individual) is scored against
+**Phenotype
+*Objective Space: Set of objectives
+*Evaluation: Maps an genome/individual
+**From a location in search
+*** Genotypic description
+**To a location in objective space
+*** Phenotype description
+*Classification Measures
+**Data Set (Positive (P) and Negative (N) samples) -> Classifier -> Confusion Matrix
+
+{| class="wikitable"
+|+Confusion Matrix
+|-
+|
+|Predicted: Positive
+|Predicted: Negative
+|-
+|Actual Positive (P)
+|True Positive (TP)
+|False Negative (FN), type II error
+|-
+|Actual Negative (N)
+|False Positive (FP), type I error
+|True Negative (TN)
+|}
+
+*'''Maximization Measures'''
+**Sensitivity or True Positive Rate (TPR):
+***AKA hit rate or recall
+***TPR = TP/P = TP/(TP + FN)
+**Specificity (SPC) or True Negative Rate (TNR):
+***TNR = TN/N = TN/(TN + FP)
+**We want both TPR and TNR to be as close to 1 as possible
+
+*'''Minimization Measures'''
+**False Negative Rate (FNR)
+***FNR = FN/P = FN/(TP + FN)
+***FNR = 1 - TPR
+**Fallout or False Positive Rate
+***FPR = FP/N = TN/(FP + TN)
+***FPR = 1 - TNR = 1 - SPC
+
+*'''Other Important Measures'''
+**Precision or Positive Predictive Value (PPV)
+***PPV = TP / (TP + FP)
+***Bigger is better
+**False Discovery Rate
+***FDR = FP/(TP + FP)
+***FDR = 1 - PPV
+***Smaller is better
+**Negative Predictive Value (NPV)
+***NPV = TN/(TN + FN)
+***Bigger is better
+**Accuracy (ACC)
+***ACC = (TP + TN)/(P + N)
+***ACC = (TP + TN)/(TP + FP + FN + TN)
+***Bigger is better
+
+*'''Objective Space'''
+**Individuals are evaluated using objective functions
+***Mean Squared Error
+***Cost
+***Complexity
+***True positive rate
+***False positive rate
+***Etc...
+**'''Objective scores''' give each individual a point in '''objective space'''
+**This may be referred to as the '''phenotype''' of the individual
+
+*'''Pareto Optimality'''
+**An individual is '''Pareto Optimal''' if there is no other individual in the population that outperforms the individual on all objectives
+**'''Pareto frontier''': set of all Pareto individuals
+**Pareto optimal individuals represent unique contributions
+**We drive selection by favoring Pareto individuals, but main diversity by giving all individuals some probability of mating
+
+*'''Nondominated Sorting Genetic Algorithm II (NSGA II)'''
+**Population is separated into nondomination ranks
+**Individuals are selected using a binary tournament
+**Lower Pareto ranks beat high Pareto ranks
+**Ties on the same front are broken by '''crowding distance''', the summation of normalized Euclidean distances to all points within the front
+***Higher crowding distance wins
+
+*'''Strength Pareto Evolutionary Algorithm 2 (SPEA2)'''
+**Each individual is given a strength '''S''', how many others it dominates in the population
+**Each individual receives rank '''R''', sum of S's of the individuals that dominate it
+***Pareto individuals are nondominated and receive an R of 0
+**Distance to the kth nearest neighbor (omega^k) is calculated and a fitness of R + 1/(omega^k + 2) is obtained
 
 ===Lab 2: Symbolic Regression (Part 2)===
 
