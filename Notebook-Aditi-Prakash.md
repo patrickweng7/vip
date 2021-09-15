@@ -3,7 +3,7 @@ Name: Aditi Prakash
 Email: aprakash86@gatech.edu, Cell Phone: 704-794-3924  
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 1 : August 25th, 2021
+# Week 1: August 25th, 2021
 ## Overview
 Discussed course format (10-week bootcamp followed by joining a sub-team), location of course GitHub and reference materials (https://github.gatech.edu/emade/emade/), expectations, Assignment 1, and notebooks. Attended lecture on Genetic Algorithms.
 
@@ -85,7 +85,7 @@ Additional improvements can be made to the current n-queens algorithm such that 
 | Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
 | Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
 
-# Week 2 : September 1st, 2021
+# Week 2: September 1st, 2021
 ## Overview
 Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
 
@@ -124,7 +124,7 @@ Additional improvements can be made to the current genetic programming algorithm
 | Review Genetic Programming Notes | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 | Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 
-# Week 3
+# Week 3: September 8th, 2021
 ## Self-Grading Rubric
 | Category | Criteria | Poor | Intermediate | Exemplary |
 | --- | ----------- | --- | ----------- |----------- |
@@ -142,3 +142,76 @@ Additional improvements can be made to the current genetic programming algorithm
 | " " | Useful resource for the team |  |  | 15 |
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
 | Column Totals |  |  |  | 100 |
+
+## Overview
+Attended lecture on multi-objective optimization and completed Lab 2's Multi-Objective programming exercise. Filled out survey sheet with ML and Python self-ratings.  
+
+## Team Meeting Notes
+### Lecture on Multi-Objective Optimizations:
+Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
+Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
+
+Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
+Limitations in memory limit how deep our algorithms can be. Full search space is the full set of possible algorithms. 
+How can we come up with good fitnesses to help us search these worlds?
+Objectives are our phenotype, evaluation function allows us to go from the genotype to the phenotype. 
+Binary classification vs. multiclass classification - 1 or 0 versus in a set of things
+
+Algorithm is for red objects, we are trying to find apples.
+
+Precision or positive predictive value - overlooked but very important
+Assessing algorithm’s consistency of performance with itself, regardless of truth 
+Accuracy - bigger is better
+Blue and green form a tradeoff space between each other against Objective 1 and Objective 2
+
+Dominated solution - there is an individual that would live in the space to the left and under a given point 
+Non dominated - there is no such individual 
+Co-dominant, none are dominated, form Pareto frontier 
+Want to keep diversity of genotypes, want all tree structures to stay in population, algorithms will continue to be diverse (their representations are diverse), want to reward this, stops algorithms from converging 
+Nondominated solution is called Pareto optimal in this class
+Would much rather have spread out points on Pareto frontier than clumped up individuals on either end in Pareto frontier
+Reward places that are off by themselves so we can keep that diversity 
+Higher crowding distance wins
+
+SPEA2: How many points does it dominate (look up and to the right)
+S is how many others in the population it dominates
+Rank is the sum of S’s of the individuals that dominate it 
+
+Tiebreakers:
+Fractional so serves as tiebreaker, one with higher distance is going to have a smaller effect on rank, if crowding distance is smaller, you’ll be closer to 1, almost at the next range, favor larger distance because it will get inverted 
+Niching - trying to spread diversity 
+Both algorithms favor nondomination of something more highly than how different it is from everything else. 
+Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
+Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
+
+### Lab 2 - Multi-Objective Genetic Programming
+This lab explored the problem of optimizing a set of primitives based on more than one objective to achieve a target function model. Here, we minimize the mean squared error and the size of the tree. We also add the sin, cos, and tan functions to our set of primitives and reinitialize the toolbox. We then define a function to evaluate our symbolic regression and note that this new problem, with an evaluation function that takes the sin, cos, and tangent of the points into consideration when evaluating the individuals for fitness, cannot be solved within 100 generations like the ones we worked on previously. 
+
+We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+with fitness: (0.2786133308027132, 15.0). 
+
+DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation). This allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+
+Visualization:
+![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+
+* We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
+Improvements:
+Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.97. 
+NGEN = 50
+MU = 60
+LAMBDA = 75
+CXPB = 0.4
+MUTPB = 0
+
+Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Complete Lab 2: Multi-Objective Genetic Programming | Completed | 9/8/2021 | 9/15/2021 | 9/12/2021 |
+| Review Multi-Objective Programming Notes | Completed | 9/8/2021 | 9/15/2021 | 9/12/2021 |
+| Complete Self-Grading Rubric | Completed | 9/8/2021  | 9/15/2021 | 9/12/2021 |
+| Update Notebook | Completed | 9/8/2021 | 9/15/2021 | 9/12/2021  |
+
+
