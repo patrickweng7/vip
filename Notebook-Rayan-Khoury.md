@@ -2,6 +2,38 @@
 * Name: Rayan Khoury
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
+# **September 8th, 2021**
+## **Meeting 3**
+### Lecture 3 : Multiple Objectives
+* Gene Pool: Set of genome to be evaluated during current generation
+    * Genome
+        * Genetic description of an individual
+        * DNA
+        * GA = set of values
+        * GP = tree structure, string
+    * Search Space
+        * Set of all possible genomes
+        * For automated algorithm design -> set of all possible algorithms
+* The evaluation of genome associates a genome with a set of scores
+    * Scores: 
+        * True positive or TP: How often is the desired objective identified
+        * False positive or FP: How often is something else than the desired object identified
+    * Objectives
+        * Set of measurements each genome is scored against
+        * Phenotype 
+* Objective Space: set of objectives
+* Evaluation - Maps an in individual or genome.
+    * From a location in search space: Genotypic description
+    * To a location in objective space: Phenotype description
+* Classification Measures
+    * A data set made of positive and negative samples is inserted in a classifier which gives out one of the following results:
+        * Actual Positive:
+            * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
+            * False Negative (FN) with a FN rate or FNR = FN/P = FN/(TP+FN)
+        * Actual Negative:
+            * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
+            * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
+
 
 # **September 1st, 2021**
 ## **Meeting 2**
@@ -35,8 +67,23 @@
     * cos()
     * tan()
 * **This is the main idea behind EMADE**
-## **Lab 2: Symbolic Regression**
-
+## **Lab 2: Genetic Programming and Multi-Objective Optimization**
+* First, we import the libraries.
+* We create out fitness and individual classes.
+* In this lab, our individual class inherits from the DEAP library and not from a list as our individual will be represented in a tree. Trees are the most common data structures in genetic programming as they are made of functions and variables called primitives. When evaluating an individual, we compile the tree from its leaves to its roots.\
+* We then initialize a primitive set and add the ones that can be used.
+* After defining out toolbox, individual, population, and compiler, we define our evaluation function.
+* We run our evolutionary algorithm for 40 generations. Our best individual results as follows:
+   *  `Best individual is add(multiply(x, add(multiply(add(multiply(x, x), x), x), x)), x), (1.2992604035586602e-16,)`
+### Multi-Objective Genetic Programming with Symbolic Regression
+* Multi-objective optimization is a result of modifications in the previous part of the code, especially in mean squared error and the size of our tree.
+* We add three new primitives, then reinitialize our primitive set and set a seed for randomization.
+* Then, we define our pareto dominance, which returns true if the first individual dominates the second individual. Thus, we end up wuth our new and modified best individual.
+### Action items
+|Task Description|Current Status|Progress Notes|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Lecture 2 Notes|Complete|NA|09/01/2021|09/03/2021|
+|Lab 2 Notes|Complete|NA|09/01/2021|09/05/2021|
 
 # **August 25th, 2021**
 ## **Meeting 1**
