@@ -78,19 +78,20 @@ https://drive.google.com/file/d/1vIVbjxiLl1OnBc4eH0AITw4Mx9kTa2xh/view?usp=shari
 === My Status/Notes: ===
 *  Finished Lab 2:  "Multi-Objective Genetic Programming"
 *  Created fitness/individual classes for the multi-objective question - aim to minimize objectives: 'mean squared error', 'tree size'.
-*  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
-*  Added an objective to the evaluation function, by compounding primitive functions with 'points' in the mean squared term.
-*  Defined pareto_dominance() function to visualize objective space. 
+*  sin, cos, tan, add, multiply, subtract primitives added to the upset including with parity 1.
+*  evaluation function's objectives were added, by combining primitive functions with 'points' in mean squared term.
+*  pareto_dominance() function initialized to visualize objective space. 
 *  Initialized population of 300 with an additional individual for comparison.
-*  Sorted population into dominated and dominators with respect to the comparison individual. Plotted sorted population in objective space.
-*  Ran main evolutionary algorithm.
+*  With respect to the comparison individual, Sorted population into dominated and dominators.
+*  Plotted the resulting sorted population in objective space.
+*  After running the original main evolutionary algorithm.
     *  Best individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))) with fitness: (0.2786133308027132, 15.0)
     *  Area Under Curve: 2.3841416372199005
 *  Objective: To reduce the area under the graph by 25%
     *  I first tried to make everything arity 2 from my pset, but I got an error telling me I was missing ARG1.
-      random.seed(25)
     * This error occurred because I gave main an arity of 2 with only ARG0 provided. I did not realize this at the time.
 
+      random.seed(25)
       pset = gp.PrimitiveSet("MAIN", arity=2)
       pset.addPrimitive(np.add, arity=2)
       pset.addPrimitive(np.subtract, arity=2)
