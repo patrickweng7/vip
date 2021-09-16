@@ -1,22 +1,24 @@
 ## Table of Contents
 - [Team Member](#team-member)
+- [September 15, 2021](#september-15-2021)
+  * [Action Items](#action-items)
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
   * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
   * [Self Grading Rubric](#self-grading-rubric)
-  * [Action Items](#action-items)
+  * [Action Items](#action-items-1)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
-  * [Action Items](#action-items-1)
+  * [Action Items](#action-items-2)
 - [September 1, 2021](#september-1-2021)
   * [Lecture 2](#lecture-2)
-  * [Action Items](#action-items-2)
+  * [Action Items](#action-items-3)
 - [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
-  * [Action Items](#action-items-3)
+  * [Action Items](#action-items-4)
 - [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
-  * [Action Items](#action-items-4)
+  * [Action Items](#action-items-5)
 
 
 ## Team Member 
@@ -26,6 +28,18 @@ Team Member: Jordan Stampfli
 Email: jstampfli3@gatech.edu
 
 Cell Phone: 914-874-3666
+
+## September 15, 2021
+* teams set for the remainder of the bootcamp
+* Professor Zutty went through jupyter notebook for kaggle titanic data set
+  * showed different resources for scikit, numpy, and pandas
+  * allowed resources for titanic data set are scikit, numpy, and pandas
+
+### Action Items
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Incomplete|Allowed to use pandas, numpy, and scikit|9/15|9/22|NA|
+|Submit Titanic Test Predictions|Incomplete|Needs to be submitted as csv in order starting with index 892|9/15|9/22|NA|
 
 ## September 11, 2021
 
