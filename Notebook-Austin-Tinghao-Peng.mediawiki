@@ -45,7 +45,6 @@
 |}
 
 == Week 3: September 8, 2021 ==
-[[files/apeng39/notebook-evals/w3-notebook-eval.jpg|link to notebook self-evaluation]]
 === Lecture Notes ===
 * algorithms look for accuracy, efficiency, reliability, scalability, consistency
 * the evaluation of a genome associates an individual with a set of scores (true positive, false positive, etc.)
@@ -121,7 +120,28 @@
 ** a distance to the kth nearest neighbor (\sigma^k) is calculated and fitness of R + 1/(\sigma^k+2)
 
 === Lab 2: Part 2 ===
-*
+* In this lab, there were two objectives to be minimized: mean squared error and the size of the tree.
+* In addition, three new primitives sin, cos, tan were added.
+* The rest of the program was initialized similarly to Lab 2: Part 1.
+* Using the fitness levels of the individuals, the Pareto front was determined with a key.
+** blue = the given individual
+** green = dominated by the given individual
+** red = dominates the given individual
+** black = uncomparable
+* The initial run of my code returned the approximated function negative(cos(add(x, sin(subtract(add(x, sin(sin(sin(cos(x))))), cos(x))))))
+with fitness: (0.18701281145428028, 15.0) for the given function np.negative(points) + np.sin(points**2) + np.tan(points**3) - np.cos(points). The area under the curve (AUC) was 3.578671731976013.
+* I implemented several versions of the program to produce at least a 25% decrease in AUC. Every time I run the program, I get a different value for the AUC so I will simply list the general way I altered each factor to cause at least a 25% decrease in AUC.
+** decreased NGEN -> decreased AUC, increased NGEN -> increased AUC
+*** makes sense since increasing the number of generations should give the algorithm more opportunities to find the individual with the highest fitness
+** decreased MU -> decreased AUC, increased MU -> increased AUC
+*** makes sense since increasing the number of individuals to select for the next generation allows the algorithm to have a higher chance of picking an individual with the highest fitness
+** decreased LAMBDA -> decreased AUC, increased LAMBDA -> increased AUC
+*** makes sense since increasing the number of children allows for a higher probability of the children containing parts of their parent with higher fitness
+** altering CXPB and MUTPB didn't seem to have an obvious effect on the AUC, however, I did observe that the spread of values for AUC became wider
+
+
+=== Notebook Self-Evaluation ===
+[[files/apeng39/notebook-evals/w3-notebook-eval.jpg]]
 
 === Action Items ===
 {| class="wikitable"
@@ -132,22 +152,22 @@
 !Date Resolved
 |-
 |Notebook Self Assessment
-|
+|Completed
 |September 8, 2021
 |September 15, 2021
-|
+|September 15, 2021
 |-
 |Update Notebook (format, images, etc.)
-|
+|Completed
 |September 8, 2021
 |September 15, 2021
-|
+|September 15, 2021
 |-
 |Lab 2: Part 2
-|
+|Completed
 |September 8, 2021
 |September 15, 2021
-|
+|September 15, 2021
 |}
 
 == Week 2: September 1, 2021 ==
