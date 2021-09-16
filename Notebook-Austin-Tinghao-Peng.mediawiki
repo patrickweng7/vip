@@ -49,7 +49,7 @@
 * algorithms look for accuracy, efficiency, reliability, scalability, consistency
 * the evaluation of a genome associates an individual with a set of scores (true positive, false positive, etc.)
 * objectives are a set of measurements each individual is scored against
-* data set (positive and negative samples) feed into a classifier which result in a confusion matrix
+* data set (positive and negative samples) feed into a classifier which results in a confusion matrix
 
 {| class="wikitable"
 |+confusion matrix
@@ -107,10 +107,10 @@
 
 * Nondominated Sorting Genetic Algorithm II (NSGA II)
 ** separate population into nondomination ranks
-** select individuals using binary tournament
+** select individuals using a binary tournament
 ** lower Pareto ranks beat higher Pareto ranks (in minimizing problems)
 ** ties on the same front are broken by crowding distance
-*** summation of normalized Euclidian distances to all points within the front
+*** summation of normalized Euclidean distances to all points within the front
 *** higher crowding distance wins
 
 * Strength Pareto Evolutionary Algorithm 2 (SPEA2)
@@ -191,7 +191,7 @@ with fitness: (0.18701281145428028, 15.0) for the given function np.negative(poi
 ** Changing a node
 
 * Evaluating A Tree
-** we feed a number of input points to get outputs
+** we feed several input points to get outputs
 ** the error between the function's outputs and truth can be measured through a sum square error
 
 * What Can Make Evolution Easier?
@@ -200,9 +200,9 @@ with fitness: (0.18701281145428028, 15.0) for the given function np.negative(poi
 
 === Lab 2: Part 1 ===
 * For my two primitives, I added the sine and absolute value methods.
-* I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using matplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method however, resulted in a lower maximum fitness than mutUniform().
-* I altered the function being approximated within the evaluation method found that almost all the time, the genetic algorithm was able to find a near perfect approximation for the given function.
-* I also noticed that the more complicated I made the function being approximated in the evaluation method, I would need to increase the minimum and maximum heights of the tree being generated in order to achieve a better approximation.
+* I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using matplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method, however, resulted in a lower maximum fitness than mutUniform().
+* I altered the function being approximated within the evaluation method found that almost all the time, the genetic algorithm was able to find a near-perfect approximation for the given function.
+* I also noticed that the more complicated I made the function being approximated in the evaluation method, I would need to increase the minimum and maximum heights of the tree being generated to achieve a better approximation.
 
 {| class="wikitable"
 |+'''comparing mutation methods'''
@@ -238,15 +238,15 @@ with fitness: (0.18701281145428028, 15.0) for the given function np.negative(poi
 
 == Week 1: August 25, 2021 ==
 === Lecture Notes ===
-* The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through manny iterations of this process, it produces the best individual.
+* The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through many iterations of this process, it produces the best individual.
 * Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
-* A mutation introduces random modifications to the algorithm in order to help maintain diversity.
+* A mutation introduces random modifications to the algorithm to help maintain diversity.
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
 
 === Keywords ===
 * '''individual''': one specific candidate in the population (with properties like DNA)
-* '''population''': group of individuals whose properties will be altered
-* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot increase objective through evolutionary algorithm)
+* '''population''': a group of individuals whose properties will be altered
+* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
 * '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
 * '''evaluation''': a function that computes the objective of an individual
 * '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
@@ -263,7 +263,7 @@ with fitness: (0.18701281145428028, 15.0) for the given function np.negative(poi
 === Lab 1 ===
 ==== Part 1: One Max Problem ====
 * The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
-** When I ran the algorithm with a much larger population (n=10000) it seemed like it took less generations for the an individual in the population to reach maximum fitness.
+** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
 
 ==== Part 2: N Queens Problem ====
 * Learning Points
@@ -271,7 +271,7 @@ with fitness: (0.18701281145428028, 15.0) for the given function np.negative(poi
 ** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
 ** Python slicing arr[start:stop:step] (start through not past stop, by step)
 ** arr[:] makes a shallow copy of the array
-** you can resize an array to a desired length using [0] * size
+** you can resize an array to the desired length using [0] * size
 
 * My Mutation Methods
  <nowiki>def mutOppositeHalves(individual, indpb):
