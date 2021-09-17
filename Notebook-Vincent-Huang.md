@@ -38,12 +38,17 @@ decide what to do
         - Finishing up mnist runs from last semester.
         - Fixing "super individuals" problem, could be caused by correlated objectives.
     - Infrastructure
+        - Modify EMADE to use a distributed system instead of a single master and multiple workers
+        - Add additional printing output so that users can know when errors occur without checking master file
+        - Automatically close process during fatal error
+        - Explore different data storage options besides mysql
     - EZCGP
     - Covid Data
+        - Run emade to predict covid trends within communities
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Brainstorm Topics for new semester|Completed|
+|Brainstorm Topics for new semester|Completed|Aug 30|Sep 6|Aug 31|
 
 
 
