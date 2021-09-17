@@ -29,7 +29,7 @@ decide what to do
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Rank desired subteams for semester|Completed|
-|Continue brainstorming tasks|Completed|
+|Continue brainstorming tasks|Completed|Aug 30|Aug 31|Sep 6|
 
 ### Week 1: Aug 23
 - Brainstorming topics, deciding subteams
@@ -48,7 +48,7 @@ decide what to do
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Brainstorm Topics for new semester|Completed|Aug 30|Sep 6|Aug 31|
+|Brainstorm Topics for new semester|Completed|Aug 23|Aug 30|Aug 25|
 
 
 
