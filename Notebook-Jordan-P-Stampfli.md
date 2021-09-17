@@ -1,24 +1,27 @@
 ## Table of Contents
 - [Team Member](#team-member)
-- [September 15, 2021](#september-15-2021)
+- [September 17, 2021](#september-17-2021)
+  * [Titanic Data Set](#titanic-data-set)
   * [Action Items](#action-items)
+- [September 15, 2021](#september-15-2021)
+  * [Action Items](#action-items-1)
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
   * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
   * [Self Grading Rubric](#self-grading-rubric)
-  * [Action Items](#action-items-1)
+  * [Action Items](#action-items-2)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
-  * [Action Items](#action-items-2)
+  * [Action Items](#action-items-3)
 - [September 1, 2021](#september-1-2021)
   * [Lecture 2](#lecture-2)
-  * [Action Items](#action-items-3)
+  * [Action Items](#action-items-4)
 - [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
-  * [Action Items](#action-items-4)
+  * [Action Items](#action-items-5)
 - [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
-  * [Action Items](#action-items-5)
+  * [Action Items](#action-items-6)
 
 
 ## Team Member 
@@ -28,6 +31,43 @@ Team Member: Jordan Stampfli
 Email: jstampfli3@gatech.edu
 
 Cell Phone: 914-874-3666
+
+## September 17, 2021
+
+### Titanic Data Set
+* began work on the kaggle titanic data set
+* went through the jupyter notebook tutorial
+* decided to use groupings for both age and fare because the data range was much greater than the other features
+  * used roughly uniform groupings after filling the na with the means 
+  * could possibly be improved by taking groupings more significant to the survival rate based on age
+    * similar idea could be used with fare which is also uniformly grouped currently
+* used name to derive titles rather than just deleting them
+  * titles grouped into Mr, Ms, Mrs, Master, and other
+  * the title feature would be set to 0 for all those that didn't list a title with their name 
+* created several other new features relatives, gender_embarked, and age_class 
+  * relatives is siblings plus parents
+  * gender_embarked relates the gender to where they departed 
+    * males who left from C had a high survival rate, whereas women who left from Q or S had a high survival rate
+  * age_class is the product of a person's age grouping and their pclass
+    * someone young and wealthy is very likely to survive
+    * someone who is old and poor is very unlikely to survive
+* next I ran cross evaluation scoring for accuracy and the confusion matrix on the following models
+  * perceptron, random forest, stochastic gradient descent, logistic regression, k nearest neighbor, gaussian naive bayes, support vector machine, 
+    decision tree, and neural network 
+  * the pareto optimal models were random forest, logistic regression, knn, gaussian, svc, decision tree, and neural network
+  * the highest mean accuracy of any model was 0.82 (random forest), the lowest false negative rate was 0.1 (decision tree), and the lowest false 
+    positive rate was 0.21 (gaussian)
+* further steps to improve
+  * fine tune each of the pareto optimal models further looking at each of the hyperparameters 
+  * look for more ways to identify positive information in the data
+    * possibly do something more complex than just the mean for the missing ages and fares
+    * possibly look for some way to include the cabin or ticket columns
+
+### Action Items
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Incomplete|Much progress made, large number of pareto optimal models, mediocre accuracy|9/15|9/22|NA|
+|Submit Titanic Test Predictions|Incomplete|Needs to be submitted as csv in order starting with index 892|9/15|9/22|NA|
 
 ## September 15, 2021
 * teams set for the remainder of the bootcamp
