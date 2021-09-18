@@ -1,27 +1,30 @@
 ## Table of Contents
 - [Team Member](#team-member)
+- [September 18, 2021](#september-18-2021)
+  * [Subteam Meeting](#subteam-meeting)
+  * [Action Items](#action-items)
 - [September 17, 2021](#september-17-2021)
   * [Titanic Data Set](#titanic-data-set)
   * [Action Items](#action-items)
 - [September 15, 2021](#september-15-2021)
-  * [Action Items](#action-items-1)
+  * [Action Items](#action-items-2)
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
   * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
   * [Self Grading Rubric](#self-grading-rubric)
-  * [Action Items](#action-items-2)
+  * [Action Items](#action-items-3)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
-  * [Action Items](#action-items-3)
+  * [Action Items](#action-items-4)
 - [September 1, 2021](#september-1-2021)
   * [Lecture 2](#lecture-2)
-  * [Action Items](#action-items-4)
+  * [Action Items](#action-items-5)
 - [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
-  * [Action Items](#action-items-5)
+  * [Action Items](#action-items-6)
 - [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
-  * [Action Items](#action-items-6)
+  * [Action Items](#action-items-7)
 
 
 ## Team Member 
@@ -31,6 +34,33 @@ Team Member: Jordan Stampfli
 Email: jstampfli3@gatech.edu
 
 Cell Phone: 914-874-3666
+
+## September 18, 2021
+
+### Subteam Meeting
+* discussed my progress on the problem so far
+  * shared code using google colab
+  * decided not to work more on processing data
+* wrote code to check codominance of the models I had worked with yesterday
+  * used same split as jupyter notebook example, 33% in testing
+  * found four to be codominant: perceptron, random forest, logistic regression, gaussian naive bayes
+  * had to change the na filling for age
+    * used simple mean
+* found predictions for each of the four models on the test data
+  * saved the 4 csv files 
+
+|Model|False Negative|False Positive|
+|---|---|---|
+|Perceptron|30|27|
+|Random Forest|30|30|
+|Logistic Regression|31|25|
+|Gaussian|40|21|
+
+### Action Items
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Complete|Struggled to find ways to add accuracy|9/15|9/22|9/18|
+|Submit Titanic Test Predictions|Incomplete|Have the csv, unclear where to submit the assignment|9/15|9/22|NA|
 
 ## September 17, 2021
 
