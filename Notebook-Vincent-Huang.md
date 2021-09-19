@@ -24,12 +24,35 @@ decide what to do
 |Migrate old Notebook|
 
 ### Week 2: Aug 30
-- join modularity subteam
+- Joined modularity subteam
+- Split leadership roles
+    - Since team is basically split in half between regular and time conflict meetings, split leadership role
+    - Bernadette leads discussion for time conflict, I'll lead Monday discussions
+    - Look into combining entire team into the time conflict section
+- More brainstorming ideas
+    - Do baseline run on stock team’s data
+        - https://github.gatech.edu/rbhatnager3/emade/tree/stocks-pr
+    - New Models
+        - Deep Ensembles with a diversity term
+        - A CNN architecture with decaying learning rate
+    - Selection Method
+        - Modifying the evolutionary selection method to help encourage the spread of ARLs throughout the population and complexity. 
+    - New Dataset Training
+        - Look at other datasets to expand ARL training to see which ARLs stored in the database are the most used and why.
+        - Practice on more image datasets and multi-class classification datasets.
+    - Diversity Measures
+        - Create some quantifiable way to measure diversity, generalizable for EMADE. May use a diversity measure as a heuristic when finding ARLs.
+    - ARL Database Storage
+        - Improve the way ARLs are stored in the database to keep any information from being lost
+    - EMADE Integration
+        - Integrate ARLs with EMADE’s original architecture and other modularity techniques
+
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Rank desired subteams for semester|Completed|
 |Continue brainstorming tasks|Completed|Aug 30|Aug 31|Sep 6|
+|Ask Dr Zutty|Completed|Aug 30|Aug 32|Sep 6|
 
 ### Week 1: Aug 23
 - Brainstorming topics, deciding subteams
