@@ -12,6 +12,24 @@
 ### Self Evaluation Rubric
 <img width="962" alt="Screen Shot 2021-09-13 at 7 11 24 PM" src="https://github.gatech.edu/storage/user/27405/files/6e678180-14c6-11ec-811b-bb9acf9a8258">
 
+### General Meeting
+* We updated the team on our progress.
+*3/5 of our members have gotten EMADE on PACE setup.
+
+### Sub Team Meeting
+* We gave our updates on the assigned tasks so far
+* Everyone has been able to get EMADE to run the Amazon dataset on PACE.
+* We then went over the objectives we needed to figure out to get EMADE to work.
+* We decided our objectives would be F1 and number of parameters, to strike a balance between a match/accuracy and complexity. My task was to look into F1 for QA systems and find out how they worked (we ruled out EM as it was similar to F1, but harder to train with).
+* Karthik created a Google Collab notebook to begin looking at the dataset.
+* We would familiarize ourselves with the different layers of a QA system before planning what primitives to make on Monday.
+
+### F1 Research
+* As opposed to other models, I discovered that F1 is used to score each answer provided individually. Then, the F1 score of each data point is averaged.
+* There are two answers, which are the predicted answer and the ground truth answer. Words in the predicted answers are true positives if they appear in the ground truth answer, false positives if they don't. We have false negatives if words from ground truth don't appear in the data as well.
+* I began to write code to write this as an objective function for EMADE, basing it off of the current accuracy objective.
+
+
 
 ## Week 3
 * There was no General Meeting this week
