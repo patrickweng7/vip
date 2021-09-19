@@ -11,6 +11,7 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 - fix bug from last semester
 - self eval
 -pace ice
+- [Notebook Self Evaluation](https://gtvault-my.sharepoint.com/:w:/g/personal/vhuang31_gatech_edu/EbvqH1NxuhRNkHojhS7cAwMBRufrsPn2O3e4NHXhJc3aWA?e=9RPwiv)
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
