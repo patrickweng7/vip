@@ -10,18 +10,29 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 ### Week 4: Sep 13
 - fix bug from last semester
 - self eval
+-pace ice
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Start doing runs on arl_update|
 
 ### Week 3: Sep 6
-decide what to do
+- Decided on finishing last semester's work
+    - I decided to work on extending the depth of ARLs past depth 2, Xufei joining me
+    - Angela, Bernadette, Tian are working on investigating issues from last semester's MNIST runs with super individuals
+        - Could be caused by correlated objectives
+        - Other possible causes mentioned during last semester's final presentation
+- Loss of knowledge from Gabe's departure, need to learn how to do several things
+    - Last semester used Gabe's AWS instance to do runs- figure out how to create one
+    - Data visualizations
+        - Statistical significance over generations
+        - Visualization of individuals
+    - I did a little bit of Pareto Front/AUC visualization work last semester
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Finalize topics for semester|Completed|
-|Migrate old Notebook|
+|Migrate old Notebook|Completed|
 
 ### Week 2: Aug 30
 - Joined modularity subteam
