@@ -29,6 +29,8 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
         - Statistical significance over generations
         - Visualization of individuals
     - I did a little bit of Pareto Front/AUC visualization work last semester
+    - Fork new EMADE repo or continue using Gabe's fork
+        - Ask Dr Zutty how this work should persist into the future
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
