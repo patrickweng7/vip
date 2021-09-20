@@ -13,6 +13,11 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 -pace ice
 - [Notebook Self Evaluation](https://gtvault-my.sharepoint.com/:w:/g/personal/vhuang31_gatech_edu/EbvqH1NxuhRNkHojhS7cAwMBRufrsPn2O3e4NHXhJc3aWA?e=9RPwiv)
 
+Problem: hard to test if greater than depth 2 is working since individuals aren't getting very large fast
+solution 1: Get more seeding individuals
+solution 2: merge with mnist to get seeding individuals
+solution 3: Search invalid individuals for ARLs
+
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Start doing runs on arl_update|
