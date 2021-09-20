@@ -28,6 +28,8 @@
 * As opposed to other models, I discovered that F1 is used to score each answer provided individually. Then, the F1 score of each data point is averaged.
 * There are two answers, which are the predicted answer and the ground truth answer. Words in the predicted answers are true positives if they appear in the ground truth answer, false positives if they don't. We have false negatives if words from ground truth don't appear in the data as well.
 * I began to write code to write this as an objective function for EMADE, basing it off of the current accuracy objective.
+* I finished writing the modified F1, based on the official SQUAD 2.0 evaluation dataset:
+<img width="839" alt="Screen Shot 2021-09-19 at 1 31 24 PM" src="https://github.gatech.edu/storage/user/27405/files/01aa3500-1a3a-11ec-80fa-7324ee23d348">
 
 
 
