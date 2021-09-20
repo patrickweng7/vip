@@ -35,7 +35,12 @@ Lecture 4: Machine Learning Intro
 
 Findings
 
-We set the train test split to 0.20 initially and a random state of 10 so that the splits would be the same among group members. We were able to get good results, but because the train test split was 0.20, it made it harder to find co-dominant models since there were less data points in testing so the variation in results was higher, so we decided to go with a 0.33 train test split just for the purposes of creating easier co-dominant models. This resulted in a lower accuracy though, since less data is being trained on so there was still a tradeoff. The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
+* We set the train test split to 0.20 initially and a random state of 10 so that the splits would be the same among group members. We were able to get good results, but because the train test split was 0.20, it made it harder to find co-dominant models since there were less data points in testing so the variation in results was higher, so we decided to go with a 0.33 train test split just for the purposes of creating easier co-dominant models. This resulted in a lower accuracy though, since less data is being trained on so there was still a tradeoff.
+* For the MLP model, the default params had it so that there was only one hidden layer with 100 nodes (essentially perceptron)
+* After testing multiple runs, it seemed that 2 hidden layers performed the best (adding more hidden layers resulted in diminishing or worse returns) and around (30-60 nodes per layer worked well). In the end, I decided on (64,32) for the hidden layer parameter
+* For the learning rate and regularization; since we found out that sometimes 200 epochs did not converge to the answer, I increased the learning rate start to 0.01 from 0.001 and alpha (l2 penalty) to 0.001 from 0.0001. This means that the algorithm should converge faster and also generally create a simpler model due to the increased regularization.
+* I kept the default solver ('adam') and activation function ('relu') although I did try testing the stochastic gradient descent ('sgd') solver and sigmoid as the activation function. My reasoning for testing sigmoid as an activation is because it is good for predicting probability as an output. But since the results were not better than the defaults, I kept the sklearn default params for solver and activation function.
+* The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
 
 Table of Scores
 
@@ -80,20 +85,20 @@ The model that I ended up going with using for my co-dominant model was the Gaus
 |Exchange contact info for subteam
 |Completed
 |September 15, 2021
-|September 18, 2021
 |September 22, 2021
+|September 18, 2021
 |-
 |Meet up with subteam to work on creating the model for the Titanic dataset
 |Completed
 |September 15, 2021
-|September 18, 2021
 |September 22, 2021
+|September 18, 2021
 |-
 |Submit predictions for co-dominant model
 |In progress
 |September 15, 2021
-|September 18, 2021
 |September 22, 2021
+|September 18, 2021
 |-
 |}
 
