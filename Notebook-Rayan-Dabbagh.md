@@ -11,30 +11,28 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
-### Objective of lecture 4:
+### Objectives of lecture 4:
 
-=== Lecture Notes: ===
-*  Split into temporary project groups
-*  Introduced to Kaggle Competitions, Titanic project
-*  Use Scikit for predictors and models. Learn about pandas, etc.
-*  Results are score based on objectives: false positive, false negative.
-*  Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
-*  Python Notebook:
-    *  Pandas is like Excel/Google Sheets for python, can be used to read train.csv and test.csv
-    *  Need to clean data sets (train and test the same way); use isna to find N/A values and replace them with averages/modes of their columns.
-    *  Encode any strings to ints and replace them in their columns (more useful in ML).
-    *  "Feature" = something that describes data. In this case, not the "survived" column.
-    *  Allocate training data for training and testing: (not to be confused with test.csv data)
+**Prof's notes:**
+
+We were divided into groups depending on our mastery of the Python programming language and our ability to write efficiently machine learning algorithms. I rated myself a 4/5 in Machine Learning and a 4.5/5 in Python.
+
+We got split into  project groups and then introduced to Kaggle Competitions. The project was called Titanic. For now, I am using Scikit for predictors and models. I am also consolidating my skills in Panda ( special library in Python ).
+
+Our Results are scored based on objectives: false positive and false negative. I used train.csv, test.csv, predictions.csv, and the python notebook to structure our project. Within the python notebook, I used Panda in order to train and test my dataset. I needed to clean data sets, using "isna" to find N/A values and replace them with averages/modes of their columns.
+
+The professor talked about encoding any strings to ints and replacing them in their columns (more useful in ML). He also introduced a new definition, "feature": something that describes data. In this case, not the "survived" column. We were then tasked to allocate training data for training and testing.
+**Important:**
         *  x_train = top x rows of train.csv
         *  y_train = survived x rows of train.csv
         *  x_test = bottom (n - x) rows of train.csv
         *  y_test = survived (n - x) rows of train.csv
-    *  Use Scikit score function to evaluate predictions
-*  In groups, our algorithms must be codominant - to do so, the train and test partitions need to be the same. The random state parameter needs to be the same to ensure codominance - common method of preprocessing all around.
-*  We have to individually submit our final predictions file with results codominant with our groups.
-*  Use Scikit documentation to learn ML modules, models, etc.
+        *  Use Scikit score function to evaluate predictions
+Within our groups, our algorithms must be codominant. That being said, the train and test partitions must be the same. To ensure codominance, we have to check that the random state parameter is to be the same.
 
-=== Individual Notes: ===
+At the end, we will have to submit our final predictions file with results codominant within our groups.
+
+**Individual Notes:**
 
 ### Objective of lecture 3:
 
