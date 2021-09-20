@@ -439,7 +439,7 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 ** Example ARL
  Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
 * New goal: Test the significance of the depth of ARLs on the performance of individuals
-** Problem 1: It takes a while for individuals with significant depth to generate, and therefore it takes ARLs with significant depth even longer to generate
+** Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
 *** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
 *** Manually randomly select individuals from runs which look different from the original seeds
 *** Potential problem with limiting diversity?
@@ -459,6 +459,7 @@ New Seeds
 ** Problem 2: There are several uncommon bugs which are ending runs prematurely
 *** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
 *** Might have to do with a floating point error causing divide by zero errors
+*** Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
  /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:134: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
  /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
  Traceback (most recent call last):
