@@ -11,6 +11,9 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
+### Objective of lecture 4:
+
+
 ### Objective of lecture 3:
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
