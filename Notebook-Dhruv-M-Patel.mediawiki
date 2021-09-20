@@ -18,6 +18,33 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
+==Sept 20th, 2021==
+===Meeting Notes===
+
+===Subteam Notes===
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|
+|In Progress
+|Sept 20, 2021
+|Sept 27, 2021
+|
+|-
+|Update Wiki Notebook
+|In Progress
+|Sept 20, 2021
+|Sept 27, 2021
+|
+|-
+|}
+
 ==Sept 13th, 2021==
 ===Meeting Notes===
 * Self-evals due today 9/13
@@ -64,6 +91,29 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 ** Improve existing primitives
 ** Semantic crossover
 
+'''Selection Methods Research'''
+* General
+** [https://www.researchgate.net/publication/272985206_Review_of_Feature_Selection_Methods_in_Medical_Image_Processing Paper] on selection for medical image processing
+** Might want to explore hybridizing selection methods later this semester
+
+* NSGA3
+** NSGA2 is already implemented but not NSGA3
+** https://deap.readthedocs.io/en/master/examples/nsga3.html
+** Implemented in DEAP and in PyMoo (references)
+** Better than NSGA2 because we have multiple objectives
+** Didn’t find much/anything about NSGA3 and image processing
+
+* Lexicase
+** Sel_Lexicase is already implemented (not sure if they’re the same)
+** Random training case → eliminate individuals with errors but can accidentally choose bad cases because can stop early and auto-use remaining ones
+** Might not be worth using because it could choose worse algorithms as the parents for the next generation (unless we implement it in a way that the best algorithm from ALL parents AND children are chosen to be the next parents -- but children are optimally always better than parents)
+
+* Hypervolume indicator
+** Gives score to measure quality of an algorithm/individual
+** Whether it’s feasible or not will depend on how many objectives we have
+** Definitely useful in selecting the algorithms closest to optimal, relative to the other algorithms
+** Didn’t find any image processing papers using hypervolume indicator, but I think we should try it out
+
 === Action Items: ===
 {| class="wikitable"
 !Task
@@ -73,16 +123,16 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Date Completed
 |-
 |Research Selection methods
-|In Progress
+|Complete
 |Sept 13, 2021
 |Sept 20, 2021
-|
+|Sept 19, 2021
 |-
 |Update Wiki Notebook
-|In Progress
+|Complete
 |Sept 13, 2021
 |Sept 20, 2021
-|
+|Sept 20, 2021
 |-
 |}
 
