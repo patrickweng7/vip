@@ -13,6 +13,28 @@ _GitHub: github.gatech.edu/emade/emade_
 
 ### Objective of lecture 4:
 
+=== Lecture Notes: ===
+*  Split into temporary project groups
+*  Introduced to Kaggle Competitions, Titanic project
+*  Use Scikit for predictors and models. Learn about pandas, etc.
+*  Results are score based on objectives: false positive, false negative.
+*  Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
+*  Python Notebook:
+    *  Pandas is like Excel/Google Sheets for python, can be used to read train.csv and test.csv
+    *  Need to clean data sets (train and test the same way); use isna to find N/A values and replace them with averages/modes of their columns.
+    *  Encode any strings to ints and replace them in their columns (more useful in ML).
+    *  "Feature" = something that describes data. In this case, not the "survived" column.
+    *  Allocate training data for training and testing: (not to be confused with test.csv data)
+        *  x_train = top x rows of train.csv
+        *  y_train = survived x rows of train.csv
+        *  x_test = bottom (n - x) rows of train.csv
+        *  y_test = survived (n - x) rows of train.csv
+    *  Use Scikit score function to evaluate predictions
+*  In groups, our algorithms must be codominant - to do so, the train and test partitions need to be the same. The random state parameter needs to be the same to ensure codominance - common method of preprocessing all around.
+*  We have to individually submit our final predictions file with results codominant with our groups.
+*  Use Scikit documentation to learn ML modules, models, etc.
+
+=== Individual Notes: ===
 
 ### Objective of lecture 3:
 
