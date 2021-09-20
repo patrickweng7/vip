@@ -33,7 +33,7 @@ Within our groups, our algorithms must be codominant. That being said, the train
 
 At the end, we will have to submit our final predictions file with results codominant within our groups.
 
-**Individual Notes:**
+**Individual/Project Notes:**
 
 ### Objective of lecture 3:
 
