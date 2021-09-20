@@ -18,7 +18,6 @@ solution 1: Get more seeding individuals
 solution 2: merge with mnist to get seeding individuals
 solution 3: Search invalid individuals for ARLs
 
-/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
 /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars
   individuals[j].fitness.values[l]
 Traceback (most recent call last):
@@ -35,6 +34,8 @@ Traceback (most recent call last):
   File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree
     total += self[end].arity - 1
 IndexError: list index out of range
+
+https://stackoverflow.com/questions/27784528/numpy-division-with-runtimewarning-invalid-value-encountered-in-double-scalars
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
