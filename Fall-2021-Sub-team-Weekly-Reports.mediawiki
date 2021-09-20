@@ -433,6 +433,22 @@ We had our first sub team meeting! With the creation/branching off of a new subt
  Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
 * New goal: Test the significance of the depth of ARLs on the performance of individuals
 ** Problem 1: It takes a while for individuals with significant depth to generate, and therefore it takes ARLs with significant depth even longer to generate
+*** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
+*** Manually randomly select individuals from runs which look different from the original seeds
+*** Potential problem with limiting diversity?
+Old Seeds
+ Learner(ARG0, learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion':0, 'max_depth': 3, 'class_weight':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
+ Learner(ARG0, learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
+New Seeds
+ Learner(ARG0, learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
+ Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'BAGGED', None))
+ Learner(ARG0, ModifyLearnerFloat(learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None), 0.01))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, ModifyLearnerList(ModifyLearnerInt(ModifyLearnerFloat(learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None), 1.0), notEqual(-2.6349412187954435, 0.1), myIntSub(255, -6)), passList(myListAppend([1, 6], [-2, 14]))))
 ** Problem 2: There are several uncommon bugs which are ending runs prematurely
 *** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
 *** Might have to do with a floating point error causing divide by zero errors
