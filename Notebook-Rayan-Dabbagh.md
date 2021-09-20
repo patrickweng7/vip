@@ -22,12 +22,13 @@ We got split into  project groups and then introduced to Kaggle Competitions. Th
 Our Results are scored based on objectives: false positive and false negative. I used train.csv, test.csv, predictions.csv, and the python notebook to structure our project. Within the python notebook, I used Panda in order to train and test my dataset. I needed to clean data sets, using "isna" to find N/A values and replace them with averages/modes of their columns.
 
 The professor talked about encoding any strings to ints and replacing them in their columns (more useful in ML). He also introduced a new definition, "feature": something that describes data. In this case, not the "survived" column. We were then tasked to allocate training data for training and testing.
+
 **Important:**
-        *  x_train = top x rows of train.csv
-        *  y_train = survived x rows of train.csv
-        *  x_test = bottom (n - x) rows of train.csv
-        *  y_test = survived (n - x) rows of train.csv
-        *  Use Scikit score function to evaluate predictions
+*         x_train = top x rows of train.csv
+*         y_train = survived x rows of train.csv
+*         x_test = bottom (n - x) rows of train.csv
+*         y_test = survived (n - x) rows of train.csv
+*         Use Scikit score function to evaluate predictions
 Within our groups, our algorithms must be codominant. That being said, the train and test partitions must be the same. To ensure codominance, we have to check that the random state parameter is to be the same.
 
 At the end, we will have to submit our final predictions file with results codominant within our groups.
