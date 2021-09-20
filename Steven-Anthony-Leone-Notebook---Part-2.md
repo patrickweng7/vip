@@ -7,6 +7,10 @@
 <b>Sub Team:</b> NLP
 
 # Fall 2021
+## Week 5
+### General Meeting Notes
+* We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
+
 ## Week 4
 
 ### Self Evaluation Rubric
