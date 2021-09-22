@@ -19,6 +19,18 @@
 * Talked about the difference between test.csv and train.csv
 * Introduced pandas and NumPy in the reference notes
 * Requested codominant results in groups final csv files
+### Groupwork notes
+* Sat up discord channel and met online during weekend
+* The meeting records are here :https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+* Dropped the parameters that we thought are not important
+* Recorded codominant results in our csv files
+* Chosen model: SVC_sigmoid
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Titanic problem lecture notes|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Record Notebook|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Data processed|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
 
 
 ***
