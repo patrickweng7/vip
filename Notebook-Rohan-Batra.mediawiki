@@ -37,11 +37,69 @@
 ** PassengerID
 ** Ticket Number
 ** Fare
-* We kept the 'Embarked' parameter and mapped the alphabetical values to numerical ones for easier algorithmic comprehension using a dictionary.
+* We kept the 'Embarked' and 'Sex' parameter and mapped the alphabetical values to numerical ones for easier algorithmic comprehension using a dictionary (column map). This parameter was important as the port you boarded from would affect which cabins were available. Hence, this would have an impact on where one was when the ship sank.
+* The impact of the parameters on the survival rate were reasons like not willing to separate from their family, class, age, gender, etc.
+* We then created a NaN_map to fill in the missing Age and Embarked values.
+* We tried using different models using the Sci Kit learn documentation. We used the RandomForestClassifier and the MLP classifier initially, which were co-dominant algorithms. We changed their parameters constantly to find the best optimal solutions. We imported the 'ensemble' class to run RandomForestClassifier.
+* Then went through the documentation more to find co-dominant algorithms. After trying various algorithms we finally found three others, AdaBoostClassifier, SVM, and DecisiomTreeClassifier. We changed the parameters around in order to ensure that the algorithms were co-dominant. These changes led to a change in the algorithms accuracy, but the change was not large enough to affect the objective of the confusion matrix.
+* Wrote multiple functions to plot scatter plot graphs and saved 5 different csv files (one for each member) for each model.
+* Pareto Optimal Frontier using varying classifiers: (change in parameters mentioned in brackets)
+**  Rohan = DecisionTreeClassifier (min_samples_leaf=30). False Positive = 9, False Negative = 45
+**  Manas = RandomForestClassifier (n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). False Positive = 18, False Negative = 29. 
+**  Aditya = AdaBoostClassifier. False Positive = 32, False Negative = 21. 
+**  Adithya =  MLP Classifier. False Positive = 26, False Negative = 26.
+**  Yisu = SVM (used svm.SVC, sigmoid = kernel). False Positive = 0, False Negative = 104. 
 
+'''Individual Contribution:'''
+* I decided to use the DecisionTreeClassifier as each one of us were responsible for implementing our own algorithms.
+* Made changes to its parameter, min_samples_leaf=30, to ensure it has an optimal value and co-dominance with other algorithms.
+* This then got me a good accuracy with an algorithm that fit well with the other four algorithms we planned on using.
+* Learned more about different parameters of this model from the Sci Kit learn documentation. I had initially tried different models like more kernel functions and nearest neighbor algorithms, but none fit as well in with the other algorithms we planned to choose.
+* I explored multiple functions and learned more about their parameter usage as well.
+* Two other members and I thought of mapping alphabetical values to numerical to ensure optimized and accurate supervised learning algorithmic values for the final solution.
 
+Image
 
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 18th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 17th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 18th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 19th, 2021
+|- 
+|Completed Python notebooks with 5 different co-dominant algorithms
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 19th, 2021
+|}
 
+ 
 
 == Week 3: September 8th - September 15th (2021) == 
 ===Self-Evaluation Form=== 
