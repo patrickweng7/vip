@@ -11,7 +11,7 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
-### Lecture 4:
+## Lecture 4:
 
 **Prof's notes:**
 
@@ -78,7 +78,7 @@ Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values 
 | Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
 
-### Lecture 3:
+## Lecture 3:
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
 
