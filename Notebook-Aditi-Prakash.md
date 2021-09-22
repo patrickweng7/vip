@@ -211,8 +211,8 @@ Markdown version of self-grading rubric here:
 | Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
 | " " | To-do list consistency checked and dated |  |  | 10 |
 | " " | To-dos and cancellations checked and dated |  |  | 5 |
-| " " | Level of detail: personal work and accomplishments |  |  | 15 |
+| " " | Level of detail: personal work and accomplishments |  |  | 14 |
 | Useful resource | References (internal, external) |  |  | 10 |
-| " " | Useful resource for the team |  |  | 15 |
+| " " | Useful resource for the team |  |  | 14 |
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
-| Column Totals |  |  |  | 100 |
+| Column Totals |  |  |  | 98 |
