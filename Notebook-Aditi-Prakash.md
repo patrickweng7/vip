@@ -249,10 +249,10 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 * Mounted Drive to Colab and read in train and test sets as dataframes
 * Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
 * Set PassengerID as index
-* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'.
-* One hot encoded Embarked feature values 
+* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
+* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
 * Replaced Sex feature categories with 1 for male and 0 for female
-* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer)
+* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). 
 * Replaced null Age and Fare values with median values based on Pclass of passenger
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
@@ -268,8 +268,7 @@ Additional improvements can be made to the current n-queens algorithm such that 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Install DEAP and set up JupyterLab for Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Complete Lecture 1: GA Walkthrough | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Review Titanic Dataset and Preprocessing/Hyperparameter Tuning Techniques | Completed | 9/15/2021 | 9/22/2021 | 9/16/2021 |
+| Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
+| Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
+| Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
