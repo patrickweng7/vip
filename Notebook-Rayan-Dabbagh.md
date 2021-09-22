@@ -179,7 +179,7 @@ The scores are the following:
 |Lab 2(part II) Notes|Complete|09/15/2021|09/08/2021|09/14/2021|
 
 
-## Lecture 2 2: Genetic Programming
+## Lecture 2: Genetic Programming
 
 **Tree Representation is very used:**
 
