@@ -11,7 +11,7 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
-### Objectives of lecture 4:
+### Lecture 4:
 
 **Prof's notes:**
 
@@ -78,7 +78,7 @@ Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values 
 | Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
 
-### Objective of lecture 3:
+### Lecture 3:
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
 
@@ -179,7 +179,7 @@ The scores are the following:
 |Lab 2(part II) Notes|Complete|09/15/2021|09/08/2021|09/14/2021|
 
 
-## Topic 2: Genetic Programming
+## Lecture 2 2: Genetic Programming
 
 **Tree Representation is very used:**
 
@@ -250,7 +250,7 @@ _We add three new primitives, then re-instantiate our primitive set. Then, we de
 |Lecture 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|
 |Lab 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|  
                                                    
-## **Topic 1: Genetic Algorithms**
+## **Lecture 1: Genetic Algorithms**
 
 ### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 
