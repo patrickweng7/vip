@@ -27,6 +27,18 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 * I was able to obtain an algorithm that produced 25 False Positives and 29 False Negatives
 * For the passengers who died, I obtained a precision and recall score of 86% and 87% respectively
 * For the passengers who survived, I obtained a precision and recall score of 75% and 73% respectively
+* I also played around with the hyper-parameters such as max_depth which controls how deep the nodes can get in a forest and min_samples_split which determines how many samples are required for a split to occur. By default max_depth is not set and you only need 2 samples to split with
+* Changing min_samples_split did not decrease the number of incorrect classification. This is because there is not enough data for there to ever be 3 or more items to split on
+* Changing the max depth to 4 did produce the results listed above, which were greater than anything else I tried
+* For further tuning, I referenced [https://scikit-learn.org/stable/modules/grid_search.html] to explore using the RandomizedSearchCV and GridSearch APIs. For example, I used
+<pre style="color: blue">
+model_params = {
+    "max_depth": range(2,40),
+    "min_samples_leaf": range(1,5),
+    "min_samples_split": range(2,5),
+}
+<pre>
+
 
 '''Action Items:'''
 {| class="wikitable"
