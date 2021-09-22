@@ -216,3 +216,60 @@ Markdown version of self-grading rubric here:
 | " " | Useful resource for the team |  |  | 14 |
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
 | Column Totals |  |  |  | 98 |
+
+# Week 4: September 15th, 2021
+## Overview
+Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learner's must be codominant, meaning that no learner should outperform any other learner on both objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
+
+## Team Meeting Notes
+### Notes on Titanic ML Assignment 
+- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+- Post csv representing predictions of your model that was co-dominant with rest of group. 
+- Sci-kit learn - classification (ex. Support Vector machine)
+- Do Pareto graphing for minimization objectives
+- Pandas documentation
+- Why did the decision classifier perform so well when we didn’t do that much?
+- Make sure submission samples are in the same order for everyone 
+- Pandas, sci-kit learn - dig deep 
+- Use n folds
+- Look at cabin values and encode Embarked 
+- Do k fold splits for all learners
+- Cross val score - average of false negatives and false positive 
+- Look at average for nan values across samples with similar features versus all samples
+- Create csv files with data that we’re using for preprocessing 
+- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+- Don’t mix up the rows
+- Undersampling/oversampling 
+
+## Titanic ML Problem 
+### Data Preprocessing
+* Created Google Colab notebook for group preprocessing
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
+* Imported pandas, numpy, and sklearn methods 
+* Mounted Drive to Colab and read in train and test sets as dataframes
+* Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
+* Set PassengerID as index
+* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'.
+* One hot encoded Embarked feature values 
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer)
+* Replaced null Age and Fare values with median values based on Pclass of passenger
+* Selected XGBoost learner due to its speed and ability to handle null data
+* Initially ran XGBoost predictions with default hyperparameters 
+* Obtain confusion matrix for predictions 
+* Modified XGBoost hyperparameters 
+
+Findings:
+![N Queens Generations, Part 1](https://picc.io/UzJTkn-.png)
+![N Queens Generations, Part 2](https://picc.io/BAhG-pn.png)
+
+Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Install DEAP and set up JupyterLab for Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lecture 1: GA Walkthrough | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
