@@ -34,8 +34,7 @@ Within our groups, our algorithms must be codominant. That being said, the train
 At the end, we will have to submit our final predictions file with results codominant within our groups.
 
 **Project Notes:**
-
-### Notes on Titanic ML Assignment 
+ 
 - nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
 - Post csv representing predictions of your model that was co-dominant with rest of group. 
 - Sci-kit learn - classification (ex. Support Vector machine)
