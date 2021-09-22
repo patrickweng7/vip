@@ -56,27 +56,21 @@ At the end, we will have to submit our final predictions file with results codom
 
 ## Titanic ML Problem 
 ### Data Preprocessing
-* Created Google Colab notebook for group preprocessing
+* Created Google Colab/Slack notebook for group preprocessing
 * Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
-* Imported pandas, numpy, and sklearn methods 
-* Mounted Drive to Colab and read in train and test sets as dataframes
-* Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
+* Read in train and test sets as dataframes
 * Set PassengerID as index
-* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
-* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
+* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class. Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
 * Replaced Sex feature categories with 1 for male and 0 for female
-* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
-* Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
-* Split training data into training and testing sets (test_size=0.33, random_state=10)
+* We replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
 * Selected XGBoost learner due to its speed and ability to handle null data
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Initially ran XGBoost predictions with default hyperparameters 
-* Obtain confusion matrix for predictions 
-* Modified XGBoost hyperparameters
-Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
-Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
+* Gathered the confusion matrix for predictions 
+* Changed XGBoost hyperparameters
 
 Findings:
-Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values of the FNR and FPR, given the same preprocessed data as an input. Charlie's performed much better in the FPR objective and Aditi's performed much better in the FNR objective. From the above, we can deduce that neural networks, specifically MLP classifiers, favor FP prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR. We have to further tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
