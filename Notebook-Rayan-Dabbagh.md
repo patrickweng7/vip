@@ -53,7 +53,7 @@ At the end, we will have to submit our final predictions file with results codom
 - Don’t mix up the rows
 - Undersampling/oversampling 
 
-### Titanic ML Problem - Data Preprocessing
+**Titanic ML Problem - Data Preprocessing**
 * Created Google Colab/Slack notebook for group preprocessing
 * Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Read in train and test sets as dataframes
