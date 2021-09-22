@@ -9,6 +9,16 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 4: September 16th - September 22nd (2021)
+### Lecture Overviews
+* Splited into different bootcamps (Bootcamp 2)
+* Introduced Kaggle Competitions
+* Talked about the Titanic disaster problem
+* Introduced Scikit (scikit-learn.org) for machine learning prediction model
+* The results are: 1 = survived, 0 = did not survive
+* Talked about the difference between test.csv and train.csv
+* Introduced pandas and NumPy in the reference notes
+* Requested codominant results in groups final csv files
 
 
 ***
