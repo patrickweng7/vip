@@ -7,6 +7,27 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
+
+  Using TensorFlow backend.
+  /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars
+  individuals[j].fitness.values[l]
+  Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 126, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 116, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 821, in master_algorithm
+    count = mutate(offspring, _inst.toolbox.mutateUniform, MUTUPB, needs_pset=True, needs_expr=True)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 599, in mutate
+    mutate_function(mutant, getattr(_inst.toolbox, _inst.expr), _inst.pset)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 749, in mutUniform
+    slice_ = individual.searchSubtree(index)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree
+    total += self[end].arity - 1
+  IndexError: list index out of range
+
+
 ### Week 4: Sep 13
 - fix bug from last semester
 - self eval
