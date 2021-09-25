@@ -15,6 +15,9 @@ Example problem individual
 INDV PRINT CRASH TEST node_idx: 2 len: 2 ind: learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None)
 indvlist [('arl2', 2), ("learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'BAGGED', None)", 0)]
 
+INSERT MODIFY LEARNER index 3, indv len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
+indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
+
 arl2
 lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
 
