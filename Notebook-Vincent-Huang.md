@@ -18,11 +18,16 @@ indvlist [('arl2', 2), ("learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rat
 INSERT MODIFY LEARNER index 3, indv len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
 indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
 
+MATE CRASH TEST indv len 46, indv ContourMaskMaxEquDiameter(Cv2LessThanOrEqual(Tangent(RandomUniform(ARG0, 2, 2, 10, 56), passTriState(2), passQuadState(2)), WindowTriangular(LowpassFourierGaussian(ARG0, 0, 3, 4701), passTriState(0), passQuadState(2)), passTriState(passTriState(0)), 0), 1, passQuadState(passQuadState(passQuadState(1))), lessThan(myIntToFloat(myIntMult(4, 64)), ifThenElseFloat(myAnd(trueBool, trueBool), myIntToFloat(50), myFloatSub(-1.8716145275846396, 1.0))))
+indvlist [('ContourMaskMaxEquDiameter', 4), ('Cv2LessThanOrEqual', 4), ('Tangent', 3), ('RandomUniform', 5), ('ARG0', 0), ('2', 0), ('2', 0), ('10', 0), ('56', 0), ('passTriState', 1), ('2', 0), ('passQuadState', 1), ('2', 0), ('WindowTriangular', 3), ('LowpassFourierGaussian', 4), ('ARG0', 0), ('0', 0), ('3', 0), ('4701', 0), ('passTriState', 1), ('0', 0), ('passQuadState', 1), ('2', 0), ('passTriState', 1), ('passTriState', 1), ('0', 0), ('0', 0), ('1', 0), ('passQuadState', 1), ('passQuadState', 1), ('passQuadState', 1), ('1', 0), ('lessThan', 2), ('myIntToFloat', 1), ('myIntMult', 2), ('4', 0), ('64', 0), ('ifThenElseFloat', 3), ('myAnd', 2), ('trueBool', 0), ('trueBool', 0), ('myIntToFloat', 1), ('50', 0), ('myFloatSub', 2), ('-1.8716145275846396', 0), ('1.0', 0)]
+
+
+
 arl2
 lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
 
 More bugs:
-Sometimes very large individuals generate (Eg, length 42)
+Sometimes very large individuals generate (Eg, length ~80, depth 5 or so)
 Takes very long to find all subtrees, causes python to run out of memory?
 
   Using TensorFlow backend.
