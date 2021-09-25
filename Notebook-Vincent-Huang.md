@@ -18,13 +18,15 @@ MUTANT len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir
 
 indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
 
-
-arl2
-lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
+INSERT MODIFY LEARNER index 0, indv len 4, indv learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None)
+indvlist [('Learner', 2), ('arl4', 3), ('-6', 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0)]
 
 More bugs:
 Sometimes very large individuals generate (Eg, length ~80, depth 5 or so)
 Takes very long to find all subtrees, causes python to run out of memory?
+
+unpickling data results in
+AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>
 
   Using TensorFlow backend.
   /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
