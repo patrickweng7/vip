@@ -21,6 +21,22 @@ indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearner
 INSERT MODIFY LEARNER index 0, indv len 4, indv learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None)
 indvlist [('Learner', 2), ('arl4', 3), ('-6', 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0)]
 
+INVALID INDIVIDUAL IN MATING:
+INDIVIDUAL: 4
+INDIVIDUAL LIST: [('arl8', 3), ('ARG0', 0), ('4', 0)]
+
+INVALID INDIVIDUAL IN MATING:
+INDIVIDUAL: learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None)
+INDIVIDUAL LIST: [('Learner', 2), ('arl6', 3), ('-10', 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0)]
+
+INVALID INDIVIDUAL IN MATING:
+INDIVIDUAL: arl11(ARG0, ARG0, 3, 2, 3, learnerType('BAYES', None, 'SINGLE', None))
+INDIVIDUAL LIST: [('Learner', 2), ('arl11', 6), ('ARG0', 0), ('ARG0', 0), ('3', 0), ('2', 0), ('3', 0), ("learnerType('BAYES', None, 'SINGLE', None)", 0)]
+
+INVALID INDIVIDUAL IN MATING:
+INDIVIDUAL: learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
+INDIVIDUAL LIST: [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
+
 More bugs:
 Sometimes very large individuals generate (Eg, length ~80, depth 5 or so)
 Takes very long to find all subtrees, causes python to run out of memory?
@@ -45,6 +61,9 @@ AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from 
   File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree
     total += self[end].arity - 1
   IndexError: list index out of range
+
+
+Looks like the contract_arls method is in a try except block and if it encounters an error it just ignores it?
 
 
 
