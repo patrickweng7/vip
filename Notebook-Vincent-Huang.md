@@ -8,6 +8,19 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
 
+Lots of different places where the entire individual is accessed
+mating, mutating, generating children dict in adfs, etc
+
+Example problem individual
+INDV PRINT CRASH TEST node_idx: 2 len: 2 ind: learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None)
+indvlist [('arl2', 2), ("learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'BAGGED', None)", 0)]
+
+arl2
+lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
+
+More bugs:
+Sometimes very large individuals generate (Eg, length 42)
+Takes very long to find all subtrees, causes python to run out of memory?
 
   Using TensorFlow backend.
   /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
