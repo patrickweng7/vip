@@ -9,18 +9,14 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 # Fall 2021
 
 Lots of different places where the entire individual is accessed
-mating, mutating, generating children dict in adfs, etc
+mating, mutating, inserting modify learner, generating children dict in adfs, etc
 
 Example problem individual
 INDV PRINT CRASH TEST node_idx: 2 len: 2 ind: learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None)
 indvlist [('arl2', 2), ("learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'BAGGED', None)", 0)]
+MUTANT len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
 
-INSERT MODIFY LEARNER index 3, indv len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
 indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
-
-MATE CRASH TEST indv len 46, indv ContourMaskMaxEquDiameter(Cv2LessThanOrEqual(Tangent(RandomUniform(ARG0, 2, 2, 10, 56), passTriState(2), passQuadState(2)), WindowTriangular(LowpassFourierGaussian(ARG0, 0, 3, 4701), passTriState(0), passQuadState(2)), passTriState(passTriState(0)), 0), 1, passQuadState(passQuadState(passQuadState(1))), lessThan(myIntToFloat(myIntMult(4, 64)), ifThenElseFloat(myAnd(trueBool, trueBool), myIntToFloat(50), myFloatSub(-1.8716145275846396, 1.0))))
-indvlist [('ContourMaskMaxEquDiameter', 4), ('Cv2LessThanOrEqual', 4), ('Tangent', 3), ('RandomUniform', 5), ('ARG0', 0), ('2', 0), ('2', 0), ('10', 0), ('56', 0), ('passTriState', 1), ('2', 0), ('passQuadState', 1), ('2', 0), ('WindowTriangular', 3), ('LowpassFourierGaussian', 4), ('ARG0', 0), ('0', 0), ('3', 0), ('4701', 0), ('passTriState', 1), ('0', 0), ('passQuadState', 1), ('2', 0), ('passTriState', 1), ('passTriState', 1), ('0', 0), ('0', 0), ('1', 0), ('passQuadState', 1), ('passQuadState', 1), ('passQuadState', 1), ('1', 0), ('lessThan', 2), ('myIntToFloat', 1), ('myIntMult', 2), ('4', 0), ('64', 0), ('ifThenElseFloat', 3), ('myAnd', 2), ('trueBool', 0), ('trueBool', 0), ('myIntToFloat', 1), ('50', 0), ('myFloatSub', 2), ('-1.8716145275846396', 0), ('1.0', 0)]
-
 
 
 arl2
