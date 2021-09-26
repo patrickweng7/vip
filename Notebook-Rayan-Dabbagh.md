@@ -15,6 +15,53 @@ _GitHub: github.gatech.edu/emade/emade_
 
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 26, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 24, 2021
+|-
+|Team Meeting 2
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Team Meeting 3
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Complete '''Predicting Titanic Survivors''' Assignment and Presentation
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+
+
 **Prof's notes:**
 
 * Manipulating the hyper parameters is an important factor required to obtain co-dominant algorithms.
