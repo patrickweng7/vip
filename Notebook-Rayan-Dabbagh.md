@@ -16,6 +16,7 @@ _GitHub: github.gatech.edu/emade/emade_
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
 
 === Action Items ===
+
 {| class="wikitable"
 !Task
 !Current Status
