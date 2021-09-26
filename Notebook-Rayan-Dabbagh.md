@@ -33,7 +33,7 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 !Suspense Date
 !Date Resolved
 |-
-|Update Notebook + Review Notes
+|Update Notebook
 |
 |September 22, 2021
 |September 29, 2021
