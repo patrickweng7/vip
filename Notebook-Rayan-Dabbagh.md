@@ -25,6 +25,53 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch on on our individual works.
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook for week 5
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 26, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 24, 2021
+|-
+|Team Meeting 2
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Team Meeting 3
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Complete '''Predicting Titanic Survivors''' Assignment and Presentation
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+
+
 ## Lecture 4:
 
 **Prof's notes:**
