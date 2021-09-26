@@ -13,22 +13,17 @@ _GitHub: github.gatech.edu/emade/emade_
 
 ## Lecture 5:
 
-===Outline of class notes===
+In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
 
-'''In class:'''
-* Discussed last week's (Titanic Dataset) project.
-* Got notified of this week's task.
-* Learned how to give presentations.
-* Had a discussion with group members as to when to schedule upcoming meetings.
+**Prof's notes:**
 
-'''Lecture Notes:'''
-* While discussing last week's project, we found out that changing the hyper parameters was an important factor required for obtaining co-dominant algorithms.
-* Sometimes, this change in hyper parameters led to a reduction in the Pareto optimal solutions/fitness scores.
-* Completing the objective of obtaining co-dominant solutions required hit and trial and a few iterations for finding the apt models to achieve a successful outcome.
-* For next week we have to use multiple objective genetic programming to find the Pareto optimal solutions for the same Titanic Dataset. This time we don't have any constraints such as finding a set of co-dominant algorithms. 
-* Our aim is to improve the accuracy of our algorithm to find the best optimal solutions.
-* We have to use basic primitives, such as logical and mathematical, to generate desired solutions.
-* We are allowed to use 
+* Manipulating the hyper parameters is an important factor required to obtain co-dominant algorithms.
+* Be aware that the above may sometimes result in a reduction in the Pareto optimal fitness scores.
+* Hit and trial was used to assure co-dominant algorithms. A few iterations for finding the optimal models and to achieve a successful outcome.
+* Next week's goal is to use multiple objective genetic programming to find the Pareto optimal solution.
+* Our goal now is to improve on the accuracy of our algorithms.
+* We have to use basic primitives to generate desired solutions.
+* During the weekend, my team and I have set meetings to catch on on our individual works.
 
 ## Lecture 4:
 
