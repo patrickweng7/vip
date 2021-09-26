@@ -25,14 +25,8 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch on on our individual works.
 
-=== Action Items ===
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
+**Action Items:**
+
 |Update notebook for week 5
 |Completed
 |September 22, 2021
