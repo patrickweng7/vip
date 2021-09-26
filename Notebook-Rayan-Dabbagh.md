@@ -15,15 +15,6 @@ _GitHub: github.gatech.edu/emade/emade_
 
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
 
-**Action Items:**
-| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
-| --- | ----------- | --- | ----------- |----------- |
-| Update Notebook & Review notes | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
-| Team meeting 1| Completed | 9/22/2021 | 9/29/2021 | 9/27/2021 |
-| Team Meeting 2 | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
-| Complete Predicting Titanic Survivors Assignment and Presentation | Currently in Progress | 9/22/2021 | 9/29/2021 | 9/28/2021 |
-
-
 **Prof's notes:**
 
 * Manipulating the hyper parameters is an important factor required to obtain co-dominant algorithms.
@@ -34,6 +25,13 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch up on our individual works.
 
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Update Notebook & Review notes | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
+| Team meeting 1| Completed | 9/22/2021 | 9/29/2021 | 9/27/2021 |
+| Team Meeting 2 | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
+| Complete Predicting Titanic Survivors Assignment and Presentation | Currently in Progress | 9/22/2021 | 9/29/2021 | 9/28/2021 |
 
 
 ## Lecture 4:
