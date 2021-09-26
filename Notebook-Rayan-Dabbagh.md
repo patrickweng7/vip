@@ -23,40 +23,8 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * Next week's goal is to use multiple objective genetic programming to find the Pareto optimal solution.
 * Our goal now is to improve on the accuracy of our algorithms.
 * We have to use basic primitives to generate desired solutions.
-* During the weekend, my team and I have set meetings to catch on on our individual works.
+* During the weekend, my team and I have set meetings to catch up on our individual works.
 
-=== Action Items ===
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
-|Update Notebook
-|
-|September 22, 2021
-|September 29, 2021
-|
-|-
-|Meet With Group For Titanic Dataset Predictions
-|
-|September 22, 2021
-|September 29, 2021
-|
-|-
-|Titanic Dataset Predictions w/ Genetic Programming(submit to Canvas)
-|
-|September 22, 2021
-|September 29, 2021
-|
-|-
-|Titanic Dataset Predictions Presentation w/ Graph
-|
-|September 22, 2021
-|September 29, 2021
-|
-|}
 
 
 ## Lecture 4:
