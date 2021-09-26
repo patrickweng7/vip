@@ -27,13 +27,7 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 
 **Action Items:**
 
-|Update notebook for week 5
-|Completed
-|September 22, 2021
-|September 29, 2021
-|September 26, 2021
-|-
-|Review Lecture Notes
+|Update notebook + Review Lecture Notes
 |Completed
 |September 22, 2021
 |September 29, 2021
