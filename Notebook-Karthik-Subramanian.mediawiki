@@ -9,18 +9,18 @@ Cell Phone: 908-240-0310
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 == September 20th, 2021==
 '''Main Meeting Notes:'''
-* Dr. Zutty hinted that ```num_params``` might not be a good objective function to use with F1 score. This is due to past experience of not getting a smooth Pareto frontier. Might need to find a 3rd objective
-* Devan asked about how we can force Word Embeddings, Contextual Embeddings, and Positional Embeddings to occur before the evolution and Dr. Zutty hinted at creating a subclass of ```EmadeDataPair``` that would be able to take in raw data and spit out the ```EmadeDataPair``` object that resulted from the word embeddings. In our team meeting after SCRUM, Steven hinted that the Word Embeddings was already included as a part of the ```nn-vip``` branch.
+* Dr. Zutty hinted that "num_params" might not be a good objective function to use with F1 score. This is due to past experience of not getting a smooth Pareto frontier. Might need to find a 3rd objective
+* Devan asked about how we can force Word Embeddings, Contextual Embeddings, and Positional Embeddings to occur before the evolution and Dr. Zutty hinted at creating a subclass of "EmadeDataPair" that would be able to take in raw data and spit out the "EmadeDataPair" object that resulted from the word embeddings. In our team meeting after SCRUM, Steven hinted that the Word Embeddings was already included as a part of the "nn-vip" branch.
 * I showed Steven my EDA of the SqUAd dataset. He was happy that I was able to translate the json into a Pandas DataFrame. I was wondering if I needed to do any preprocessing (like: common tools for processing natural language data) and for now, it seems like EMADE should handle that. Also, for a QA system, we might not need to do things like get rid of stopwords since the whole context might matter
 * Devan's presentation on basics of QA was extremely useful
-* For now, I can hold off on the EDA since on Wednesday, we plan on building out the architecture of the QA system in EMADE, which will involve porting the datasets into the repo or having a Python script that pulls in the dataset to instantiate the ```EmadeDataPair``` object
+* For now, I can hold off on the EDA since on Wednesday, we plan on building out the architecture of the QA system in EMADE, which will involve porting the datasets into the repo or having a Python script that pulls in the dataset to instantiate the "EmadeDataPair" object
 
 '''Subteam Meeting Notes:'''
 * To start building out the QA architecture, how do we differentiate between our inputs of Question and Context? This is what needs to be investigated
 
 '''Individual Notes:'''
 * I finally understand what Attention Layer means conceptually. According to Devan's presentation, Attention Layer basically tells how a word relates to the essence of the whole passage. Stuff like contextual and positional embeddings are local to the sentence/token, but Attention Layer gives an aggregate relationship between the words within the context of the paragraph
-* Came to a potential realization that ```EmadeDataPair``` class is a pair of ```EmadeData``` instances. Seems like from looking at ```GPFramework.data``` file, a direct plan of action could be to subclass the ```EmadeData``` instances and create a `Question` and `Context` subclasses. Main problem is that an input is defined as ```(Context, Question)``` tuple, so we need to specify EMADE that this tuple goes in along with the label from the dataset as an ```EmadeData``` instance. (ie: ```EmadeData = ((Context, Question), Label)```)
+* Came to a potential realization that "EmadeDataPair" class is a pair of "EmadeData" instances. Seems like from looking at "GPFramework.data" file, a direct plan of action could be to subclass the "EmadeData" instances and create a "Question" and "Context" subclasses. Main problem is that an input is defined as "(Context, Question)" tuple, so we need to specify EMADE that this tuple goes in along with the label from the dataset as an "EmadeData" instance. (ie: "EmadeData = ((Context, Question), Label)")
 '''Action Items:'''
 {| class="wikitable"
 !Task
