@@ -5,6 +5,8 @@
 <b>Cell Phone:</b> (412)-378-7253 <br>
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
 <b>Sub Team:</b> NLP
+<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang
+
 
 # Fall 2021
 ## Week 5
