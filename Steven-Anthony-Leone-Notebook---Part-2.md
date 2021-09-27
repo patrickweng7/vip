@@ -10,6 +10,25 @@
 ## Week 5
 ### General Meeting Notes
 * We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
+* Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
+* I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
+
+### Sub Team Meeting
+* I presented to the sub team the information I compiled on NNLearners, and how we could use them for QA systems.
+* We discussed several strategies for the layers we needed. 
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/X/2021 | 09/X/2021 |
+Research creating a new type of data pair | Complete | 09/20/2021 | 09/X/2021  | 09/X/2021 |
+
+
+### Researching NNLearners and how to implement QA
+* My assignment was to research the current state of NNLearners and see how we could add primitives to make the problem solvable
+* Having never actually coded for the branch before, I started by looking at NNLearners in neural_network_methods.py.
+* The NNLearner was setup so that each primitive was a layer from a Keras Neural Network. A lot of primitives we would need were already there. The output layer, attention layer, and embedding layers existed.
+* The initial input for an NNLearner was a data_pair, referred to in the tree structure as ARG0. 
 
 ## Week 4
 
@@ -18,7 +37,7 @@
 
 ### General Meeting
 * We updated the team on our progress.
-*3/5 of our members have gotten EMADE on PACE setup.
+* 3/5 of our members have gotten EMADE on PACE setup.
 
 ### Sub Team Meeting
 * We gave our updates on the assigned tasks so far
@@ -27,6 +46,12 @@
 * We decided our objectives would be F1 and number of parameters, to strike a balance between a match/accuracy and complexity. My task was to look into F1 for QA systems and find out how they worked (we ruled out EM as it was similar to F1, but harder to train with).
 * Karthik created a Google Collab notebook to begin looking at the dataset.
 * We would familiarize ourselves with the different layers of a QA system before planning what primitives to make on Monday.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Research and Implement QA F1 | Complete | 09/15/2021 | 09/19/2021 | 09/20/2021 |
+Familiarize self with Question Answering Systems | Complete | 09/15/2021 | 09/19/2021  | 09/20/2021 |
 
 ### F1 Research
 * As opposed to other models, I discovered that F1 is used to score each answer provided individually. Then, the F1 score of each data point is averaged.
