@@ -8,6 +8,7 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
 
+# Week 6: Sep 
 Lots of different places where the entire individual is accessed
 mating, mutating, inserting modify learner, generating children dict in adfs, etc
 
@@ -44,6 +45,13 @@ Takes very long to find all subtrees, causes python to run out of memory?
 unpickling data results in
 AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>
 
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Identify what's causing crashes during runs|
+|Check primitive set for registered primitives|
+|Gather and check pickled individuals for unregistered primitives|
+
+### Week 5: Sep 20
   Using TensorFlow backend.
   /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
   /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars
@@ -65,12 +73,16 @@ AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from 
 
 Looks like the contract_arls method is in a try except block and if it encounters an error it just ignores it?
 
-
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Identify what's causing crashes during runs|
+|Check primitive set for registered primitives|
+|Gather and check pickled individuals for unregistered primitives|
 
 ### Week 4: Sep 13
 - fix bug from last semester
 - self eval
--pace ice
+- pace ice
 - [Notebook Self Evaluation](https://gtvault-my.sharepoint.com/:w:/g/personal/vhuang31_gatech_edu/EbvqH1NxuhRNkHojhS7cAwMBRufrsPn2O3e4NHXhJc3aWA?e=9RPwiv)
 
 Problem: hard to test if greater than depth 2 is working since individuals aren't getting very large fast
