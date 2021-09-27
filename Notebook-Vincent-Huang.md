@@ -130,23 +130,22 @@ IndexError: list index out of range
 
 https://stackoverflow.com/questions/27784528/numpy-division-with-runtimewarning-invalid-value-encountered-in-double-scalars
 
-Began doing extended ARL runs
-Starting off with max depth 10 trees
-Everything seems to be working, there exist ARLs with depth > 2
-Example ARL
+* Began doing extended ARL runs
+** Starting off with max depth 10 trees
+** Everything seems to be working, there exist ARLs with depth > 2
+** Example ARL
  Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
-New goal: Test the significance of the depth of ARLs on the performance of individuals
-Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
-Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
-Manually randomly select individuals from runs which look different from the original seeds
-Potential problem with limiting diversity?
+* New goal: Test the significance of the depth of ARLs on the performance of individuals
+** Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
+*** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
+*** Manually randomly select individuals from runs which look different from the original seeds
+*** Potential problem with limiting diversity?
 Old Seeds
  Learner(ARG0, learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion':0, 'max_depth': 3, 'class_weight':0}, 'SINGLE', None))
  Learner(ARG0, learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
  Learner(ARG0, learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
  Learner(ARG0, learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
 New Seeds (Used in addition to Old Seeds)
-
  Learner(ARG0, learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
  Learner(ARG0, learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
@@ -154,10 +153,10 @@ New Seeds (Used in addition to Old Seeds)
  Learner(ARG0, ModifyLearnerFloat(learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None), 0.01))
  Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
  Learner(ARG0, ModifyLearnerList(ModifyLearnerInt(ModifyLearnerFloat(learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None), 1.0), notEqual(-2.6349412187954435, 0.1), myIntSub(255, -6)), passList(myListAppend([1, 6], [-2, 14]))))
-Problem 2: There are several uncommon bugs which are ending runs prematurely
-Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
-Might have to do with a floating point error causing divide by zero errors
-Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
+** Problem 2: There are several uncommon bugs which are ending runs prematurely
+*** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
+*** Might have to do with a floating point error causing divide by zero errors
+*** Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
  /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:134: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
  /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
  Traceback (most recent call last):
@@ -168,6 +167,7 @@ Dr. Zutty mentioned that it could be caused by an unregistered primitive, check 
  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 26, in insert_modifyLearner slice = individual.searchSubtree(index)
  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree total += self[end].arity - 1
  IndexError: list index out of range
+
  /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
  Traceback (most recent call last):
  File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
@@ -179,7 +179,7 @@ Dr. Zutty mentioned that it could be caused by an unregistered primitive, check 
  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 623, in generate_child_dict child_idx = self.generate_child_dict(individual, child_dict, next_dict, child_idx)
  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 610, in generate_child_dict num_children_left = individual[node_idx].arity
  IndexError: list index out of range
-Fixed temporary commits from last semester that were causing issues
+* Fixed temporary commits from last semester that were causing issues
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
