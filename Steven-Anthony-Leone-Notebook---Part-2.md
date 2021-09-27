@@ -58,6 +58,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Research and Implement QA F1 | Complete | 09/15/2021 | 09/19/2021 | 09/20/2021 |
 Familiarize self with Question Answering Systems | Complete | 09/15/2021 | 09/19/2021  | 09/20/2021 |
+Self Evaluation Rubric | Complete | 09/20/2021 | 09/20/2021 | 09/20/2021 |
 
 ### F1 Research
 * As opposed to other models, I discovered that F1 is used to score each answer provided individually. Then, the F1 score of each data point is averaged.
