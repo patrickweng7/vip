@@ -617,7 +617,7 @@ Meetings: 2:00 pm on Wednesdays, Virtual
 ** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
 ** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N, where N is the number of words in the context.
 ** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
-** Example from Steven's Notebook on how the output is obtained: "if our context was 'The Titanic sank in 1912' and we had the output vector [0 0 0 1 0 0 0 0 0 1], then our answer would be 'in 1912'".
+** Example from Steven's Notebook on how the output is obtained: "if our context was 'The Titanic sank in 1912' and we had the output vector (0 0 0 1 0 0 0 0 0 1), then our answer would be 'in 1912'".
 
 === Week of September 13th - 20th ===
 * Dataset work
