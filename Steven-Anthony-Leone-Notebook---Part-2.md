@@ -14,21 +14,25 @@
 * I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
 
 ### Sub Team Meeting
-* I presented to the sub team the information I compiled on NNLearners, and how we could use them for QA systems.
+* I presented to the sub team the information I compiled on NNLearners, shown in the section underneath Action Items, and how we could use them for QA systems.
 * We discussed several strategies for the layers we needed. 
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/X/2021 | 09/X/2021 |
-Research creating a new type of data pair | Complete | 09/20/2021 | 09/X/2021  | 09/X/2021 |
+Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/22/2021 | 09/22/2021 |
+Research creating a new type of data pair | In Progress | 09/20/2021 | ...  | 10/03/2021 |
 
 
 ### Researching NNLearners and how to implement QA
 * My assignment was to research the current state of NNLearners and see how we could add primitives to make the problem solvable
 * Having never actually coded for the branch before, I started by looking at NNLearners in neural_network_methods.py.
 * The NNLearner was setup so that each primitive was a layer from a Keras Neural Network. A lot of primitives we would need were already there. The output layer, attention layer, and embedding layers existed.
-* The initial input for an NNLearner was a data_pair, referred to in the tree structure as ARG0. 
+* The initial input for an NNLearner was a data_pair, referred to in the tree structure as ARG0. I figured out that the type is an EMADEDataPair by looking at the inputs and comparing methods called on it.
+* From this information, I formed strategies for our two obstacles:
+** To deal with the requirement of a different way of obtaining outputs from an outputted probability matrix, we could make a new data pair type, similar to the types 'textdata' and 'imagedata' that have already been implemented in EMADE. Then, at the end of the NNLearner code, we could implement an if statement to obtain the proper start and endpoints. 
+** To deal with the requirement of two inputs per data point, the context and the query, we could make primitives that specifically return an embedding of exactly one of the inputs. For example, one could be named "ContextEmbeddingLayer" and another could be "QueryEmbeddingLayer".
+* Analyzing these solutions from the mindset of attempting to increase and maintain diversity in individuals, I think these solutions will work well. As opposed to the original thought process of constraining NNLearners to always have one type of input or output, this will maintain the normal constraints of mating individuals, which should still allow for any individuals to be mated, increasing our diversity.
 
 ## Week 4
 
