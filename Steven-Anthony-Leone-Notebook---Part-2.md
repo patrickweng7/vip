@@ -69,7 +69,16 @@ Self Evaluation Rubric | Complete | 09/20/2021 | 09/20/2021 | 09/20/2021 |
 
 ### Question Answering Systems Research / Refresher
 * A tasked we assigned to all members of the team was to get refreshed on Question Answering Systems, or learn about them if no previous knowledge existed. 
-* 
+* I reread chapters and papers on QA systems, and linked some to my sub team members that I thought would be useful.
+* In general, QA systems have at least 3 layers: the embedding layer, the attention layer, and the output layer. These layers are all required for the following reasons:
+** Embedding layer: without this, there is just text. We cannot obtain numbers to work with.
+** Attention layer: QA systems have two inputs. We need to have a way for the vector representing the final output to be aware of both the context and the query, and attention layers are currently the best way to do this.
+** Output layer: we need to obtain our output. We must know which word in the Context is our answer.
+* In general, the output provided includes a list of length 2N, where N is the number of words in the context. The first N values are the probabilities that the ith word is the start of the answer. The last N values are the probabilities that the ith word is the end of the answer.
+* For example, if our context was "The Titanic sank in 1912" and we had the output vector [0, 0, 0, 1, 0, 0, 0, 0, 0, 1], then our answer would be "in 1912". 
+* I linked a paper about BiDAF, a QA model that is relatively easy to understand compared to some other state of the art models: https://arxiv.org/pdf/1611.01603.pdf
+* This is a diagram with BiDAF from the paper, which shows the 3 layers I described earlier (Embedding, Attention, Output) with a few extra ones:
+* <img width="1008" alt="Screen Shot 2021-09-26 at 9 34 25 PM" src="https://github.gatech.edu/storage/user/27405/files/a1bbfe80-1f11-11ec-9e9e-dcd0d2610184">
 
 
 
