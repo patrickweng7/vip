@@ -477,6 +477,25 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+* Bug causing the crashes has been identified
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
+*** Example
+           (node 0, arity 2)
+                 /  \
+ (node 1, arity 0) (node 2, arity 0)
+
+             (ARL, arity 2)
+                    \
+                   (node 2, arity 0)
+** Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+** Large chunk of code just wrapped in a try except block
+* Problem with add_all_subtrees method
+** The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
+** This causes problems with decently sized individuals (eg, length of 82 and depth of 6)
+** Python really doesn't like this, grinds to a halt. Could be running out of memory or just taking a really long time to find all subtrees.
+* Mnist team working through getting everyone on PACE-ICE to do runs
+** There was some ambiguity in the instructions which caused some confusion
+
 === Week of Sept 13-Sept 19 ===
 '''Extended ARL'''
 * Began doing extended ARL runs
