@@ -102,7 +102,7 @@ Look into State of the Art Question Answering Systems | Complete | 09/07/2021 | 
 ### Literature Review for Question Answering Systems
 * I found a paper with a recent Question Answering System focus, https://aclanthology.org/P17-1018.pdf . It achieved scores in the 80's on the SQuAD dataset, using gated-self matching networks. 
 * As the linked paper describes, gated-self matching networks work as follows: the query and the context are embedded separately, then processed by a bidirectional RNN. Then, the outputs are combined through gated attention layers. Another attention layer is then used, which applies this output to itself in this attention layer. The paper diagrams this structure with the figure below:
-* TODO: Insert Image
+* <img width="797" alt="Screen Shot 2021-09-26 at 9 05 33 PM" src="https://github.gatech.edu/storage/user/27405/files/3113e280-1f0f-11ec-95d2-1e7430ed8cf6">
 * I don't believe this paper is useful in terms of finding inspiration for new primitives. As opposed to a new mechanism that could be used, the primary innovation in this paper is the structure of the QA system. The individual units, like GRU and Attention layers, are already implemented. The structure, or how these building blocks will fit together, is for EMADE to decide by evaluating generation after generation of individuals and looking at the ones on the Pareto Front for inspiration.
 * However, I do believe this paper is helpful for our task in that it is a state of the art model for the SQUAD dataset. We can use it as inspiration to make a seeded individual, by writing this out in a tree structure. 
 
