@@ -4,7 +4,7 @@
 <b>Email:  </b>sleone6@gatech.edu <br>
 <b>Cell Phone:</b> (412)-378-7253 <br>
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
-<b>Sub Team:</b> NLP
+<b>Sub Team:</b> NLP <br>
 <b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang
 
 
