@@ -67,6 +67,10 @@ Self Evaluation Rubric | Complete | 09/20/2021 | 09/20/2021 | 09/20/2021 |
 * I finished writing the modified F1, based on the official SQUAD 2.0 evaluation dataset:
 <img width="839" alt="Screen Shot 2021-09-19 at 1 31 24 PM" src="https://github.gatech.edu/storage/user/27405/files/01aa3500-1a3a-11ec-80fa-7324ee23d348">
 
+### Question Answering Systems Research / Refresher
+* A tasked we assigned to all members of the team was to get refreshed on Question Answering Systems, or learn about them if no previous knowledge existed. 
+* 
+
 
 
 ## Week 3
@@ -97,6 +101,10 @@ Look into State of the Art Question Answering Systems | Complete | 09/07/2021 | 
 
 ### Literature Review for Question Answering Systems
 * I found a paper with a recent Question Answering System focus, https://aclanthology.org/P17-1018.pdf . It achieved scores in the 80's on the SQuAD dataset, using gated-self matching networks. 
+* As the linked paper describes, gated-self matching networks work as follows: the query and the context are embedded separately, then processed by a bidirectional RNN. Then, the outputs are combined through gated attention layers. Another attention layer is then used, which applies this output to itself in this attention layer. The paper diagrams this structure with the figure below:
+* TODO: Insert Image
+* I don't believe this paper is useful in terms of finding inspiration for new primitives. As opposed to a new mechanism that could be used, the primary innovation in this paper is the structure of the QA system. The individual units, like GRU and Attention layers, are already implemented. The structure, or how these building blocks will fit together, is for EMADE to decide by evaluating generation after generation of individuals and looking at the ones on the Pareto Front for inspiration.
+* However, I do believe this paper is helpful for our task in that it is a state of the art model for the SQUAD dataset. We can use it as inspiration to make a seeded individual, by writing this out in a tree structure. 
 
 
 ## Week 2
