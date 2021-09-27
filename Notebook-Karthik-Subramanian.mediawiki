@@ -20,7 +20,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 
 '''Individual Notes:'''
 * I finally understand what Attention Layer means conceptually. According to Devan's presentation, Attention Layer basically tells how a word relates to the essence of the whole passage. Stuff like contextual and positional embeddings are local to the sentence/token, but Attention Layer gives an aggregate relationship between the words within the context of the paragraph
-
+* Came to a potential realization that `EmadeDataPair` class is a pair of `EmadeData` instances. Seems like from looking at `GPFramework.data` file, a direct plan of action could be to subclass the `EmadeData` instances and create a `Question` and `Context` subclasses. Main problem is that an input is defined as `(Context, Question)` tuple, so we need to specify EMADE that this tuple goes in along with the label from the dataset as an `EmadeData` instance. (ie: `EmadeData = ((Context, Question), Label)`)
 '''Action Items:'''
 {| class="wikitable"
 !Task
