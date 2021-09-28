@@ -84,9 +84,9 @@ Looks like the contract_arls method is in a try except block and if it encounter
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Identify what's causing crashes during runs|
-|Check primitive set for registered primitives|
-|Gather and check pickled individuals for unregistered primitives|
+|Identify what's causing crashes during runs|Completed|Sep 20|Sep 26|Sep 25|
+|Check primitive set for registered primitives|Completed|Sep 20|Sep 26|Sep 24|
+|Gather and check pickled individuals for unregistered primitives|Completed|Sep 20|Sep 26|Sep 25|
 
 ### Week 4: Sep 13
 
@@ -212,7 +212,7 @@ IndexError: list index out of range
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Rank desired subteams for semester|Completed|
+|Rank desired subteams for semester|Completed|Aug 30|Aug 31|Sep 4|
 |Continue brainstorming tasks|Completed|Aug 30|Aug 31|Sep 6|
 |Ask Dr Zutty|Completed|Aug 30|Aug 32|Sep 6|
 
