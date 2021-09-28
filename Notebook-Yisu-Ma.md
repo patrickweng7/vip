@@ -25,11 +25,16 @@
 * Dropped the parameters that we thought are not important
 * Recorded codominant results in our CSV files
 * Chosen model: SVC_sigmoid
+
 * Removed some parameters that are not useful to our model:
 1. Name
+
 2.PassengerID
+
 3.Ticket Number
+
 4.Fare
+
 * The parameters we chose:
 1. Pclass
 2. Sex
