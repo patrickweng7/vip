@@ -163,7 +163,7 @@ IndexError: list index out of range
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Start doing runs on arl_update|
+|Start doing runs on arl_update|Completed|Sep 13|Sep 20|Sep 19|
 
 ### Week 3: Sep 6
 - Decided on finishing last semester's work
@@ -182,8 +182,8 @@ IndexError: list index out of range
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Finalize topics for semester|Completed|
-|Migrate old Notebook|Completed|
+|Finalize topics for semester|Completed|Sep 6|Sep 13|Sep 12|
+|Migrate old Notebook|Completed|Sep 6|Sep 13|Sep 8|
 
 ### Week 2: Aug 30
 - Joined modularity subteam
