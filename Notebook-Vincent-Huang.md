@@ -16,80 +16,61 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 |Do runs of extended ARLs|
 
 ### Week 5: Sep 20
-Lots of different places where the entire individual is accessed
-mating, mutating, inserting modify learner, generating children dict in adfs, etc
-
-Example problem individual
-INDV PRINT CRASH TEST node_idx: 2 len: 2 ind: learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None)
-indvlist [('arl2', 2), ("learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'BAGGED', None)", 0)]
-MUTANT len 6, indv learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
-
-indvlist [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
-
-INSERT MODIFY LEARNER index 0, indv len 4, indv learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None)
-indvlist [('Learner', 2), ('arl4', 3), ('-6', 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0)]
-
-INVALID INDIVIDUAL IN MATING:
-INDIVIDUAL: 4
-INDIVIDUAL LIST: [('arl8', 3), ('ARG0', 0), ('4', 0)]
-
-INVALID INDIVIDUAL IN MATING:
-INDIVIDUAL: learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None)
-INDIVIDUAL LIST: [('Learner', 2), ('arl6', 3), ('-10', 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0)]
-
-INVALID INDIVIDUAL IN MATING:
-INDIVIDUAL: arl11(ARG0, ARG0, 3, 2, 3, learnerType('BAYES', None, 'SINGLE', None))
-INDIVIDUAL LIST: [('Learner', 2), ('arl11', 6), ('ARG0', 0), ('ARG0', 0), ('3', 0), ('2', 0), ('3', 0), ("learnerType('BAYES', None, 'SINGLE', None)", 0)]
-
-INVALID INDIVIDUAL IN MATING:
-INDIVIDUAL: learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None)
-INDIVIDUAL LIST: [('Learner', 2), ('ARG0', 0), ('ModifyLearnerList', 2), ('ModifyLearnerInt', 3), ('ModifyLearnerFloat', 2), ("learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'BAGGED', None)", 0)]
-
-More bugs:
-Sometimes very large individuals generate (Eg, length ~80, depth 5 or so)
-Takes very long to find all subtrees, causes python to run out of memory?
 
 unpickling data results in
 AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>
 
 
-  Using TensorFlow backend.
-  /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-  /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars
-  individuals[j].fitness.values[l]
-  Traceback (most recent call last):
-  File "src/GPFramework/didLaunch.py", line 126, in <module> main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
-  File "src/GPFramework/didLaunch.py", line 116, in main
-    database_str=database_str, reuse=reuse, debug=True)
-  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 821, in master_algorithm
-    count = mutate(offspring, _inst.toolbox.mutateUniform, MUTUPB, needs_pset=True, needs_expr=True)
-  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 599, in mutate
-    mutate_function(mutant, getattr(_inst.toolbox, _inst.expr), _inst.pset)
-  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 749, in mutUniform
-    slice_ = individual.searchSubtree(index)
-  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree
-    total += self[end].arity - 1
-  IndexError: list index out of range
 
 
 Looks like the contract_arls method is in a try except block and if it encounters an error it just ignores it?
 
 
 - Bug causing the crashes has been identified
+    - First tried getting the pickled individuals
+        - Got from MySQL Workbench by right clicking and saving as file, then opening python terminal and loading it
+        - Results in `AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>` Error
+        - Did not work since the crashes usually happened before the problematic individuals were inserted into the database
+        - Ended up manually printing problematic individuals' information
+        -
+        ```python
+        def _check_valid_indv(indv, indv_idx, location_str):
+                    if not indv:
+                        print("CHECKVALID: NULL INDV")
+                        return -1
+                    if indv_idx >= len(indv):
+                        # with open(f'invalid_indv.pickle', 'wb') as handle:
+                        #     pickle.dump(indv, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                        return -1
+                    num_children_left = indv[indv_idx].arity
+                    curr_idx = indv_idx + 1
+                    for i in range(num_children_left):
+                        curr_idx = _check_valid_indv(indv, curr_idx, location_str)
+                        if curr_idx == -1:
+                            break
+                    if indv_idx == 0 and curr_idx == -1:
+                        print(f"INVALID INDIVIDUAL IN {location_str}:\nINDIVIDUAL: {indv}\nINDIVIDUAL LIST: {[(indv[i].name, indv[i].arity) for i in range(len(indv))]}")
+                    return curr_idx
+        ```
+
     - Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
         - Example
-        - ```
+        -
+
+        ```
              (node 0, arity 2)
                    /  \  
           (node 1, arity 0) (node 2, arity 0)
-          ```
+        ```
 
-        - ```
+        -
+
+        ```
              (ARL, arity 2)
                     \
                    (node 2, arity 0)
         ```
-        - Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+        - Causes a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
         - Large chunk of code just wrapped in a try except block
 - Problem with add_all_subtrees method
     - The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
