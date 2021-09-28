@@ -9,6 +9,13 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 # Fall 2021
 
 ### Week 6: Sep 27
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix contract ARLs method|
+|Investigate add_all_subtrees problem|
+|Do runs of extended ARLs|
+
+### Week 5: Sep 20
 Lots of different places where the entire individual is accessed
 mating, mutating, inserting modify learner, generating children dict in adfs, etc
 
@@ -45,13 +52,7 @@ Takes very long to find all subtrees, causes python to run out of memory?
 unpickling data results in
 AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>
 
-|Task|Status|Assigned Date|Due Date|Date Completed|
-|----|------|-------------|--------|--------------|
-|Identify what's causing crashes during runs|
-|Check primitive set for registered primitives|
-|Gather and check pickled individuals for unregistered primitives|
 
-### Week 5: Sep 20
   Using TensorFlow backend.
   /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:135: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
   /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars
@@ -72,6 +73,33 @@ AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from 
 
 
 Looks like the contract_arls method is in a try except block and if it encounters an error it just ignores it?
+
+
+- Bug causing the crashes has been identified
+    - Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
+        - Example
+        - ```
+             (node 0, arity 2)
+                   /  \  
+          (node 1, arity 0) (node 2, arity 0)
+          ```
+
+        - ```
+             (ARL, arity 2)
+                    \
+                   (node 2, arity 0)
+        ```
+        - Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+        - Large chunk of code just wrapped in a try except block
+- Problem with add_all_subtrees method
+    - The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
+    - This causes problems with decently sized individuals (eg, length of 82 and depth of 6)
+    - Python really doesn't like this, grinds to a halt. Could be running out of memory or just taking a really long time to find all subtrees.
+    - Workaround: Don't consider individuals above a certain size for ARLs
+    - Future solution: Refactor code to generate ARLs as the subtrees are found
+- Mnist team working through getting everyone on PACE-ICE to do runs
+    - There was some ambiguity in the instructions which caused some confusion
+
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
