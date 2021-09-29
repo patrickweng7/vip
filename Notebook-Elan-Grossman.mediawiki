@@ -19,8 +19,21 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 * I worked with the team to develop the genetic algorithm using DEAP step by step.
 * We started with the same code and seed we used last week to generate the test, train and validation sets for the titanic dataset so that we had parity when comparing our solutions
 * Next we had to define an individual. We choose to use the primitive tree that we used in a previous lab, but with two minimization functions representing FPR and FNR
+* The primitive Tree used:
+** Add
+** Subtract
+** cos
+** Multiply
+* We implemented the evaluation method that returned the FPR and FNR when comparing the compiled function on the training set with the testing labels
 * For the selection method, we implemented a version of selection tournament for multi-parameters. This method would select the dominant individual as the survivor or in the case of only partial dominance, the lowest combined score. I originally tried to implement this with selecting more than two individuals in the tournament, but it was too slow. The reason was that we were sampling until we selected a different individual. However, individuals were not easily compared so I used their fitness to compare. This caused the algorithm to slow down as it converged in many copies of the same winner.
-*
+* The mate function chosen was to exchange nodes using the cxOnePointLeafBiased method with a random probability
+* The mutation method was a single node replacement with a randomly chosen primitive
+
+Initially, our methods proved a slightly lower AUC using this method than our ML AUC. However, when tweaking the model we were able to get slightly better results and reduced the AUC by 40%. One thing was to play around with the maximum size of the tree. It was initially set to 2 which meant each tree could only have 4 parameters each. My increasing the maximum nodes, it increased performance significantly
+
+'''Extra Credit'''
+For my robotics class, we had an opportunity to implement particle filters for extra credit. I used DEAP to make a modified version of the particle filter algorithm where I used genetic algorithms to randomize and select particles as opposed to using a probability function. It was able to converge much more quickly to the true values, but was not as accurate over time. This is because the robot continues to move, so individuals lose a level of certainty over time and other individuals succeed. However, it does cover a wider range of solutions than the particle filter which converges completely.
+
 
 '''Action Items:'''
 {| class="wikitable"
