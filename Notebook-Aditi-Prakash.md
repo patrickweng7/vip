@@ -272,3 +272,68 @@ Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly di
 | Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
 | Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+
+# Week 5: September 22th, 2021
+## Overview
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+
+## Team Meeting Notes
+### Notes on Titanic ML Assignment 
+Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+
+Have to write genetic program yourself
+Evaluation function - at least two objective, False Positives and False Negatives
+ 
+Can add additional objectives to make it better
+
+Comparison of Pareto Front that genetic programming finds against ML codominant set
+
+Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
+
+Bare minimum is to get comparison between ML and GP. 
+
+Generate predictions for every pareto optimal point
+
+Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
+
+Present findings next week 
+in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
+
+AUC will be useful to evaluation GAs
+Minimization - adding area, maximization - eating area
+
+Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
+
+Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
+
+Diff is a fence posting problem 
+
+AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
+
+
+## Titanic MOGP Problem 
+### Data Preprocessing
+* Created Google Colab notebook with same preprocessing as Titanic ML assignment
+* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
+* Researched strongly typed GP in DEAP
+* Chose NSGA II as selection method (handles both objectives)
+* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
+* Created hof using best individuals ever identified throughout evolution
+* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
+* Predicted Survived feature for test.csv 
+
+Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
+
+Best Learner: FPR = 0, FNR =  0.9122807017543859
+
+Findings:
+The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
