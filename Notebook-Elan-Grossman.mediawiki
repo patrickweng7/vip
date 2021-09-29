@@ -16,6 +16,12 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 * Solution to problem is located at [[Bootcamp Subteam 1]]
 
 '''Lab Notes'''
+* I worked with the team to develop the genetic algorithm using DEAP step by step.
+* We started with the same code and seed we used last week to generate the test, train and validation sets for the titanic dataset so that we had parity when comparing our solutions
+* Next we had to define an individual. We choose to use the primitive tree that we used in a previous lab, but with two minimization functions representing FPR and FNR
+* For the selection method, we implemented a version of selection tournament for multi-parameters. This method would select the dominant individual as the survivor or in the case of only partial dominance, the lowest combined score. I originally tried to implement this with selecting more than two individuals in the tournament, but it was too slow. The reason was that we were sampling until we selected a different individual. However, individuals were not easily compared so I used their fitness to compare. This caused the algorithm to slow down as it converged in many copies of the same winner.
+*
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -24,8 +30,8 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 !Due Date
 !Date Resolved
 |-
-|Work with sub-team on Titanic Dataset
-|Completed
+|Work with sub-team on Titanic Dataset for GP
+|In Progress
 |September 22nd, 2021
 |September 29th, 2021
 |September 29th, 2021
