@@ -133,7 +133,7 @@ Image Processing
 
 === Sub Team Meeting ===
 * Reviewed what the team discussed on Friday
-* Zutty discussed making a paper outline for Gecko conference, could be a good project even if the results aren't publishable
+* Zutty discussed making a paper outline for Gecco conference, could be a good project even if the results aren't publishable
 * Bernadette has been working on AWS remote database with Gabe
 ** Makes it easier to have everyone connect to a seperate server and don't have to deal with GT firewalls
 * Doing visualizations? Will need to learn how to make those closer to midterm presentations
@@ -152,6 +152,7 @@ Image Processing
 
 === Sub Team Meeting: September 16 ===
 * Meeting in CoC lobby today!
+* 
 
 === Action Items ===
 {| class="wikitable"
@@ -166,13 +167,146 @@ Image Processing
 |September 13, 2021
 |September 13, 2021
 |September 13, 2021
-|-
-|
-|Incomplete
-|September 13, 2021
-|September 20, 2021
-|
 |}
+
+== Week 4: September 20, 2021 ==
+
+=== Main Team Meeting ===
+Image Processing
+* Began tasking themselves, found a great paper to reference that used neural nets
+** Can use selection methods and potentially add those to EMADE
+** How to make sure primitives stay together during evolution and don't get split up
+* Summary of team: Improving EMADE for image classification
+* Hoping to start coding next week. Don't want to be creating neural nets, synced up with Anish about that
+* Hyper-features are difficult to find papers on, can really only find papers on hyper-parameters
+
+Stocks
+* Finished secondary literature review
+* Found new things to try and play around with. Fundamental analysis was decided against because there wasn't enough data to work off of.
+* Found a paper using genetic algorithms that could generalize the individuals to work on any stocks
+** They take individuals and take "rules" that can be applied forwards. Used one technical indicator for this
+
+Modularity
+* Got started on extending ARL runs
+** Construct vs evalute an individual
+** Check that it's regestered in the primitive set pset
+** Goal shifted from extending depth to seeing how depth affects individuals performance
+* Tried to do MNIST run on Google colab, but we agreed to start moving towards using PACE-ICE since it was difficult to get everyone properly set up on Google
+
+NLP
+* Decided on objective functions officially
+** F1 score - more lenient
+** Number of parameters - want to reduce the complexity
+* Haven't seen smooth parato fronts with those objective functions
+
+NAS
+* Went over tasks based upon the ideas generated for the semester
+
+=== Individual Exploration: September 20 ===
+* Got started setting up potentially doing a PACE-ICE run
+* Used new PACE-ICE guide for reference ([[Guide to Using PACE ICE#Configuring_EMADE_on_PACE_New_Guide | link]])
+* Terminal command: ssh ayoung97@pace-ice.pace.gatech.edu and then enter GT password next
+** Need to be on campus or using VPN
+* Set up SSH Key with command: cat ~/.ssh/id_rsa.pub
+* ...cry
+
+=== Sub Team Meeting: September 23 ===
+* Got started on working on PACE-ICE together
+* Tried to get the SQL database working but kept running into issues
+
+=== Individual Exploration: September 23 ===
+* Continued following ([[Guide to Using PACE ICE#Setting_Up_MySQL | Guide]])
+* Unsure if .my.cnf file was configured correctly
+** Try using vim to create file
+** vim .my.cnf
+** Paste in contents then change USERNAME to ayoung97
+** To save and quit: :wq
+* Also got error when attempting to install the database
+** "Can't create test file"
+
+=== Individual Exploration: September 27 ===
+* Actually used vim to create the .my.cnf file, also deleted 'scratch-old' directory in PACE-ICE
+* Local MySQL instance command: mysqld_safe --datadir='/storage/home/hpaceice1/ayoung97/scratch/db'
+* Tested to see if the database is working
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Set up MySQL in PACE-ICE
+|Complete
+|September 20, 2021
+|September 27, 2021
+|September 27, 2021
+|}
+
+== Week 5: September 27, 2021 ==
+
+=== Main Team Meeting ===
+
+NAS
+* Got updated on what everyone was working on
+* Cameron figured out how to replicate a bug found earlier
+* Plan to merge a CIFAR file into the repo
+* Didn't realize individuals needed to be seeded
+* Introduced the idea of a global "supernet" which is a graph that stores information about submodels and previous generations
+** Similar to the concepts EZCGP works on
+
+Image Processing
+* Looking at selection methods, compare NSGA-I and NSGA-II
+* Looking at pre-processing data
+* Also looking at pre-packaging
+* Figured out blockers on PACE-ICE
+
+Stocks
+* Completed literature reviews
+** Still trying to decided what paper to go forward with
+** Lots of time series analysis
+* Looked more into general knowledge about stock trading and algorithmic stock trading
+
+Modularity
+* Got started on using PACE-ICE
+* Have managed to get MySQL set up, will make sure everyone on the team is set up at the next meeting
+* Need to finish adding new databases to the repo before uploading that to PACE-ICE and starting runs
+
+NLP
+* Designed the primitives and infrastructure for getting set up
+* Came up with solutions for issues they ran into
+** Have two inputs that need to be handled
+** Need to improve the prediction method(?)
+
+=== Individual Exploration: September 28 ===
+* Type "exit" to quit out of PACE-ICE
+* Need to check with team about database status
+* Should set up a baseline run first maybe
+* Got started on getting a conda environment set up in PACE-ICE and installing all packages needed for EMADE runs
+** conda activate emade
+* Figure out how to get EMADE on PACE-ICE!!!!
+
+=== Sub Team Meeting: September 30 ===
+*
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Get EMADE transferred to PACE-ICE
+|incomplete
+|September 27, 2021
+|October 4, 2021
+|September , 2021
+|}
+
 
 = Spring 2021 =
 [https://bluejeans.com/904633358 Main Team Meeting Link]

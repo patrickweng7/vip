@@ -7,6 +7,120 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== September 27th, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty wasn't present, so the team met with Anish to discuss a way to leverage EMADE architecture to create datapairs structured as "((Context, Query), Answer/Label)". We initially went with an approach of inventing our own datatype, but that would cause us to go in and modify each later in the "neural_networks_methods.py" script. Instead of inducing that risk, Anish suggested that we have an overloaded "nn_learner" method to take in "two inputs" and perform embedding separately and then do BiDaf on the context and query. 
+
+* Link to image of architecture Anish proposed: https://drive.google.com/file/d/16sbKZ2JRheoqeHsNChpx3daltsVClF0K/view?usp=sharing
+
+'''Subteam Meeting Notes:'''
+
+'''Individual Notes:'''
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Design nn_learner method for context + query inputs
+|Not yet started
+|September 29th, 2021
+|October 4th, 2021
+|
+|}
+== September 20th, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty hinted that "num_params" might not be a good objective function to use with F1 score. This is due to past experience of not getting a smooth Pareto frontier. Might need to find a 3rd objective
+* Devan asked about how we can force Word Embeddings, Contextual Embeddings, and Positional Embeddings to occur before the evolution and Dr. Zutty hinted at creating a subclass of "EmadeDataPair" that would be able to take in raw data and spit out the "EmadeDataPair" object that resulted from the word embeddings. In our team meeting after SCRUM, Steven hinted that the Word Embeddings was already included as a part of the "nn-vip" branch.
+* I showed Steven my EDA of the SqUAd dataset. He was happy that I was able to translate the json into a Pandas DataFrame. I was wondering if I needed to do any preprocessing (like: common tools for processing natural language data) and for now, it seems like EMADE should handle that. Also, for a QA system, we might not need to do things like get rid of stopwords since the whole context might matter
+* Devan's presentation on basics of QA was extremely useful
+* For now, I can hold off on the EDA since on Wednesday, we plan on building out the architecture of the QA system in EMADE, which will involve porting the datasets into the repo or having a Python script that pulls in the dataset to instantiate the "EmadeDataPair" object
+
+'''Subteam Meeting Notes:'''
+* To start building out the QA architecture, how do we differentiate between our inputs of Question and Context? This is what needs to be investigated
+
+'''Individual Notes:'''
+* I finally understand what Attention Layer means conceptually. According to Devan's presentation, Attention Layer basically tells how a word relates to the essence of the whole passage. Stuff like contextual and positional embeddings are local to the sentence/token, but Attention Layer gives an aggregate relationship between the words within the context of the paragraph
+* Came to a potential realization that "EmadeDataPair" class is a pair of "EmadeData" instances. Seems like from looking at "GPFramework.data" file, a direct plan of action could be to subclass the "EmadeData" instances and create a "Question" and "Context" subclasses. Main problem is that an input is defined as "(Context, Question)" tuple, so we need to specify EMADE that this tuple goes in along with the label from the dataset as an "EmadeData" instance. (ie: "EmadeData = ((Context, Question), Label)")
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on EDA for SqUAd dataset and get a sense of some properties of the data
+|Completed
+|September 15th, 2021
+|September 20th, 2021
+|September 20th, 2021
+|-
+|Start building out the primitives in EMADE on Wednesday's subteam meeting
+|Delayed
+|September 21st, 2021
+|September 22nd, 2021
+|Not yet resolved due to blocker from the subteam meeting
+|-
+|Look in the EMADE codebase and understand how the dataset is built into an EMADE Data Pair (`data.py`). Also, examine what the layers in `neural_network_methods.py` do to the dataset
+|Completed. Anish helped us out on this
+|September 22nd, 2021
+|September 29th, 2021
+|September 27th, 2021
+|-}
+== September 13th, 2021==
+'''Main Meeting Notes:'''
+* Discussing updates for NLP Subteam
+* Dr. Zutty advised us to conduct a literature review and go through the "checklist" to make our task of building a QA system "EMADE-able"
+* Link to my self evaluation rubric: https://docs.google.com/document/d/1xnKHrqcLZhAPb4iIz2bVFx2RMrf3jTQy/edit?usp=sharing&ouid=110383498255970078532&rtpof=true&sd=true
+
+'''Subteam Meeting Notes:'''
+* Discussed plan of action for NLP Subteam given most of the team have `nn-vip` branch working
+* Important Action items:
+    1.lit review on QA systems
+    2.look at other models/papers and see what types of layers(or anything else you think will work) can be used as primitives
+    3.checkout the dataset and see if we would need to manipulate it all to work for our purposes (null data, bias, data formatting, etc)
+* Trello board for NLP subteam created
+
+''Individual Notes:'''
+* Started creation of Colab notebook to do EDA on SqUAd dataset 
+* I was looking through some of the papers relating to models that performed well on QA problems with the SqUAd dataset. I came across a term thrown around called "Transformer Layer" and spent some time understanding it. This Youtube video was very helpful in clarifying the role of the encoder and decoder layer in doing translation (eg: English to French translation): https://www.youtube.com/watch?v=TQQlZhbC5ps&ab_channel=CodeEmporium
+* One of the papers I delved into was a QA architecture called "Retrospective Reader". At a high level, this architecture mimics how a human would answer a reading comprehension question (ie: get a general grasp of the passage and then dive into the detail to answer the question). There are two aspects of the architecture from the paper
+   * 1. Determine if a question can be answered (External Front verification)
+   * 2. If a question is answerable, produce possible places where the answer exists along with probabilities. (Internal front verification)
+Link to the paper: https://arxiv.org/pdf/2001.09694.pdf
+
+* Link to EDA on SqUAd Dataset: https://colab.research.google.com/drive/1dx66YZSFYXimJAcZtU35yTkt_PYpiVL9#scrollTo=359z-WevwWaY
+(Note that the access is "view only". You will have to make a copy of the notebook and ensure that the SqUAd dataset is in the proper directory)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on EDA for SqUAd dataset and get a sense of some properties of the data
+|In Progress
+|September 15th, 2021
+|September 20th, 2021
+|
+|-
+|Find an article in Literature relating to QA systems and analyze what models are used and how the layers/architecture are structured
+|Completed
+|September 15th, 2021
+|September 20th, 2021
+|September 20th, 2021
+|-
+|Read up on QA systems and get a feel for how they work (look at diagrams, literature, etc)
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 14th, 2021
+|}
 == September 6th, 2021==
 '''Main Meeting Notes:'''
 * Discussing ideas for problems to tackle during the Fall 2021 semester for NLP Subteam

@@ -8,6 +8,63 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== September 22, 2021 (Week 5) == 
+
+=== Lecture Notes: ===
+*  Discussed last week's project
+    *  Often lost pareto optimal solutions in favour of codominance
+*  Introduced this week's task
+    *  Multiple objective genetic programming to find a set of pareto optimal algorithms for the same titanic data set
+    *  Tree takes in the same inputs as ML model
+    *  Simple primitives allowed (logical, mathematical)
+    *  Strong or loosely typed GP allowed
+    *  Need to write an algorithm – allowed to use selection, crossover, mutator, but no stealing algorithms. Need to write our own genetic loop.
+        *  Don’t use selTournament for selection – it’s not multiple objective, only ever actually considers the first value in a tuple.
+    *  Need to write evaluation function – false negative and false positive rate are the criteria.
+    *  Compare pareto front of ML and GP frontiers
+    *  Submit .csv with columns of passengerID, and one each of the pareto optimal algorithms’ prediction of an individual's survival
+    *  Create a presentation to share our findings; compare ML and GP.
+*  Presentation about presentation
+    *  Group members on the first slide, title, date
+    *  Pareto frontier lines are important
+    *  Area under the curve
+        *  Can always make a 1.0 false positive and 1.0 false negative
+        *  Want to minimize area under curve
+        *  GP often has punctuated equilibrium (takes a few generations to find a new pareto individual)
+    *  Page numbers are helpful for audience to reference material
+    *  Can write text in slides, but don’t read off of it
+
+
+=== Individual Notes: ===
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 22, 2021
+|September 27, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" GP model
+|Complete
+|September 22, 2021
+|September 27, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" presentation
+|Complete
+|September 22, 2021
+|September 27, 2021
+|September 25, 2021
+|}
+
 == September 15, 2021 (Week 4) == 
 
 === Lecture Notes: ===
@@ -32,6 +89,21 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Use Scikit documentation to learn ML modules, models, etc.
 
 === Individual Notes: ===
+*  Scheduled online meeting with subteam.
+*  Communicated via discord, went through Python Notebook found at Reference Materials at https://github.gatech.edu/emade/reference_material/tree/master/Lectures/Lecture_4_ML
+*  Brainstormed attributes that might factor into the survival of an individual on the Titanic, made a list at https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+*  I shared my screen and communicated with group as we began editing the Titanic python notebook.
+*  Chose that Pclass (affects availability of lifeboats), Sex (women and children boarded lifeboats first), Age (Elderly were given preference), SibSp (those with larger families would have wanted to stay together), Parch (those with dependents would have wanted to protect each other), and Embarked (Presumably the port you boarded from would affect which cabins were available, and therefore where you were when the ship sank) were influential to the model, dropped the other parameters.
+*  Created a NaN_map to fill in missing Age and Embarked values. Created a column map to alias Embarked and Sex values to comparable integer values for the model to interpret.
+*  Tried using first DecisionTreeClassifier and eventually RandomForestClassifier and changed their input parameters. Ex.- one iteration ran RandomForestClassifier(n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). These were tried and adjusted through trial and error, using the SciKit documentation to learn which parameters each constructor takes in. NOTE: RandomForestClassifier requires importing 'ensemble' from sklearn.
+*  Further adjusted values to try and optimize the preliminary prediction scores. Printed confusion matrices for each iteration and saved 5 (one for each group member) trials as predictions.csv. NOTE: Although adjusting parameters did change the accuracy scores slightly, the change wasn't monumental enough to affect the confusion matrices' objectives throughout the experiment. We can conclude that the algorithms are all codependent.
+*  Created a GitHub repository for shared files (Python notebook, generated csv files) and shared with group members: https://github.gatech.edu/akumaran6/Titanic-Problem
+*  Pareto Optimal Frontier using varying classifiers:
+    *  Aditya = AdaBoostClassifier. FP = 32, FN = 21.
+    *  Rohan = DecisionTreeClassifier (min_samples_leaf=30). FP = 9, FN = 45. 
+    *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
+    *  Adithya =  MLP. FP = 26, FN = 26.
+    *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. 
 
 === Action Items: ===
 {| class="wikitable"

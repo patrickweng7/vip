@@ -4,6 +4,44 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
+== September 22, 2021 ==
+'''Team Meeting Notes'''
+
+For next week: Continue with the titanic dataset but use GP
+* Can use strongly or loosely typed GP
+* Can't use default algorithms in deep (mu+lambda...etc), but can use mutation, selection...etc (need to write the genetic loop)
+* Comparison of Pareto front between ML co-dominant set and that of GP
+* Try different operators, mutations...etc (note: selTourn is not multi objective)
+* As a group, submit a csv file for predictions for each Pareto optimal point
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet up with subteam to work on titanic lab
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|Finish titanic problem using GP
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|Work on presentation for ML/GP
+|In progress
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|}
+
 == September 15, 2021 ==
 '''Team Meeting Notes'''
 
@@ -22,6 +60,85 @@ Lecture 4: Machine Learning Intro
 ** Find a way to encode categorical variables better
 ** Need to make sure random state is the same for all group members and same partitions for training/testing
 
+'''Subteam Notes'''
+
+* Met up 9/18 to work on creating co-dominant classifiers for the Titanic problem. 
+* For preprocessing, we made the following changes
+** Dropped ticket and cabin
+** Replace NA values with the mean value for the column
+** Filtered "age" and "fare" into ranges of values (ie: Under 11, 11-18, 18-22...etc)
+** Replaced the categorical variables of "sex" and "embarked" with coded values
+** Extracted titles from name and mapped them to ints
+*** <Code>titles_map = {'Mr':1, 'Miss':2, 'Mrs':3, 'Master':4, 'Rare':5}</Code>
+
+Findings
+
+* We set the train test split to 0.20 initially and a random state of 10 so that the splits would be the same among group members. We were able to get good results, but because the train test split was 0.20, it made it harder to find co-dominant models since there were less data points in testing so the variation in results was higher, so we decided to go with a 0.33 train test split just for the purposes of creating easier co-dominant models. This resulted in a lower accuracy though, since less data is being trained on so there was still a tradeoff.
+* For the MLP model, the default params had it so that there was only one hidden layer with 100 nodes (essentially perceptron)
+* After testing multiple runs, it seemed that 2 hidden layers performed the best (adding more hidden layers resulted in diminishing or worse returns) and around (30-60 nodes per layer worked well). In the end, I decided on (64,32) for the hidden layer parameter
+* For the learning rate and regularization; since we found out that sometimes 200 epochs did not converge to the answer, I increased the learning rate start to 0.01 from 0.001 and alpha (l2 penalty) to 0.001 from 0.0001. This means that the algorithm should converge faster and also generally create a simpler model due to the increased regularization.
+* I kept the default solver ('adam') and activation function ('relu') although I did try testing the stochastic gradient descent ('sgd') solver and sigmoid as the activation function. My reasoning for testing sigmoid as an activation is because it is good for predicting probability as an output. But since the results were not better than the defaults, I kept the sklearn default params for solver and activation function.
+* The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
+
+Table of Scores
+
+{| class="wikitable"
+!Subteam member
+!Model
+!False Negatives
+!False Positives
+|-
+|David
+|Gaussian Naive Bayes
+|40
+|21
+|-
+|Nikhil
+|MLP
+|30
+|29
+|-
+|Jordan
+|Random Forest
+|30
+|30
+|-
+|Austin
+|Logistic Regression
+|31
+|25
+|-
+|}
+
+The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Exchange contact info for subteam
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Meet up with subteam to work on creating the model for the Titanic dataset
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Submit predictions for co-dominant model
+|In progress
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|}
 
 == September 8, 2021 ==
 '''Team Meeting Notes'''

@@ -1,22 +1,34 @@
 ## Table of Contents
 - [Team Member](#team-member)
+- [September 22, 2021](#september-22-2021)
+  * [Action Items](#action-items---922)
+- [September 20, 2021](#september-20-2021)
+  * [Action Items](#action-items---920)
+- [September 18, 2021](#september-18-2021)
+  * [Subteam Meeting](#subteam-meeting)
+  * [Action Items](#action-items---918)
+- [September 17, 2021](#september-17-2021)
+  * [Titanic Data Set](#titanic-data-set)
+  * [Action Items](#action-items---917)
+- [September 15, 2021](#september-15-2021)
+  * [Action Items](#action-items---915)
 - [September 11, 2021](#september-11-2021)
   * [Lecture 3](#lecture-3)
   * [Lab 2 Multiple Objectives](#lab-2-multiple-objectives)
   * [Self Grading Rubric](#self-grading-rubric)
-  * [Action Items](#action-items)
+  * [Action Items](#action-items---911)
 - [September 2, 2021](#september-2-2021)
   * [Lab 2](#lab-2)
-  * [Action Items](#action-items-1)
+  * [Action Items](#action-items---902)
 - [September 1, 2021](#september-1-2021)
   * [Lecture 2](#lecture-2)
-  * [Action Items](#action-items-2)
+  * [Action Items](#action-items---901)
 - [August 28, 2021](#august-28-2021)
   * [Lab 1 Notes](#lab-1-notes)
-  * [Action Items](#action-items-3)
+  * [Action Items](#action-items---828)
 - [August 25, 2021](#august-25-2021)
   * [Lecture 1](#lecture-1)
-  * [Action Items](#action-items-4)
+  * [Action Items](#action-items---825)
 
 
 ## Team Member 
@@ -26,6 +38,108 @@ Team Member: Jordan Stampfli
 Email: jstampfli3@gatech.edu
 
 Cell Phone: 914-874-3666
+
+## September 22, 2021
+* introduced to the assignment for this week
+  * use genetic programming to predict titanic data set
+  * have to write our own genetic loop
+  * plot the pareto frontier of our genetic programming population vs machine learning models
+  * presentation next week during class on our findings
+
+### Action Items - 9/22
+### Action Items
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Genetic programming for titanic data set|Incomplete|NA|9/22|9/29|NA|
+|Prepare for Subteam meeting|Incomplete|Do some preliminary work on the genetic loop|9/22|9/25|NA|
+|Submit genetic predictions csv|Incomplete|NA|9/22|9/29|NA|
+
+## September 20, 2021
+* submitted csv prediction file to canvas assignment
+* submitted csv prediction files for 4 different team models to kaggle
+  * gaussian, logistic regression, and perceptron got roughly 75.5
+  * random forest got roughly 75.8
+
+### Action Items - 9/20
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Submit Titanic Test Predictions|Complete|Assignment Submitted|9/15|9/22|9/20|
+
+## September 18, 2021
+
+### Subteam Meeting
+* discussed my progress on the problem so far
+  * shared code using google colab
+  * decided not to work more on processing data
+* wrote code to check codominance of the models I had worked with yesterday
+  * used same split as jupyter notebook example, 33% in testing
+  * found four to be codominant: perceptron, random forest, logistic regression, gaussian naive bayes
+  * had to change the na filling for age
+    * used simple mean
+* found predictions for each of the four models on the test data
+  * saved the 4 csv files 
+
+|Model|False Negative|False Positive|
+|---|---|---|
+|Perceptron|30|27|
+|Random Forest|30|30|
+|Logistic Regression|31|25|
+|Gaussian|40|21|
+
+### Action Items - 9/18
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Complete|Struggled to find ways to add accuracy|9/15|9/22|9/18|
+|Submit Titanic Test Predictions|Incomplete|Have the csv, unclear where to submit the assignment|9/15|9/22|NA|
+
+## September 17, 2021
+
+### Titanic Data Set
+* began work on the kaggle titanic data set
+* went through the jupyter notebook tutorial
+* decided to use groupings for both age and fare because the data range was much greater than the other features
+  * used roughly uniform groupings after filling the na with the means 
+  * could possibly be improved by taking groupings more significant to the survival rate based on age
+    * similar idea could be used with fare which is also uniformly grouped currently
+* used name to derive titles rather than just deleting them
+  * titles grouped into Mr, Ms, Mrs, Master, and other
+  * the title feature would be set to 0 for all those that didn't list a title with their name 
+* created several other new features relatives, gender_embarked, and age_class 
+  * relatives is siblings plus parents
+  * gender_embarked relates the gender to where they departed 
+    * males who left from C had a high survival rate, whereas women who left from Q or S had a high survival rate
+  * age_class is the product of a person's age grouping and their pclass
+    * someone young and wealthy is very likely to survive
+    * someone who is old and poor is very unlikely to survive
+* next I ran cross evaluation scoring for accuracy and the confusion matrix on the following models
+  * perceptron, random forest, stochastic gradient descent, logistic regression, k nearest neighbor, gaussian naive bayes, support vector machine, 
+    decision tree, and neural network 
+  * the pareto optimal models were random forest, logistic regression, knn, gaussian, svc, decision tree, and neural network
+  * the highest mean accuracy of any model was 0.82 (random forest), the lowest false negative rate was 0.1 (decision tree), and the lowest false 
+    positive rate was 0.21 (gaussian)
+* further steps to improve
+  * fine tune each of the pareto optimal models further looking at each of the hyperparameters 
+  * look for more ways to identify positive information in the data
+    * possibly do something more complex than just the mean for the missing ages and fares
+    * possibly look for some way to include the cabin or ticket columns
+
+### Action Items - 9/17
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Incomplete|Much progress made, large number of pareto optimal models, mediocre accuracy|9/15|9/22|NA|
+|Submit Titanic Test Predictions|Incomplete|Needs to be submitted as csv in order starting with index 892|9/15|9/22|NA|
+
+## September 15, 2021
+* teams set for the remainder of the bootcamp
+* Professor Zutty went through jupyter notebook for kaggle titanic data set
+  * showed different resources for scikit, numpy, and pandas
+  * allowed resources for titanic data set are scikit, numpy, and pandas
+
+### Action Items - 9/15
+|Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
+|---|---|---|---|---|---|
+|Kaggle Titanic Data set|Incomplete|Allowed to use pandas, numpy, and scikit|9/15|9/22|NA|
+|Submit Titanic Test Predictions|Incomplete|Needs to be submitted as csv in order starting with index 892|9/15|9/22|NA|
 
 ## September 11, 2021
 
@@ -123,7 +237,7 @@ Cell Phone: 914-874-3666
 ||Useful Resource for the team|15|
 |Total|Total Score Out of 100|99|
 
-### Action Items
+### Action Items - 9/11
 |Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
 |---|---|---|---|---|---|
 |Lab 2 Part 2|Completed|Most interesting to see the more unique and customizable primitives at the end|9/8|9/15|9/11|
@@ -145,7 +259,7 @@ Cell Phone: 914-874-3666
   * best individual: 2X*(X<sup>X</sup>+X<sup>2</sup>)
   * on different runs got very complex trees with 20+ primitives
 
-### Action Items
+### Action Items - 9/02
 |Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
 |---|---|---|---|---|---|
 |Lab 2|Completed|Walked through with multiple attempted primitives, mutations, and parameters|9/1|9/8|9/2|
@@ -171,7 +285,7 @@ Cell Phone: 914-874-3666
   * terminals: integers, X
   * evaluation: sum squared error
 
-### Action Items
+### Action Items - 9/01
 |Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
 |---|---|---|---|---|---|
 |Lab 2|Incomplete|NA|9/1|9/8|NA|
@@ -222,7 +336,7 @@ Parent 2
 |1|3|0|2|
 |---|---|---|---|
 
-### Action Items
+### Action Items - 8/28
 |Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
 |---|---|---|---|---|---|
 |Install Anaconda|Complete|Completed for laptop|8/25|8/28|8/28|
@@ -253,7 +367,7 @@ Parent 2
     * mate and mutate
     * evaluate new generation
 
-### Action Items
+### Action Items - 8/25
 |Task Description|Current Status|Progress Notes|Date Assigned|Suspense Date|Resolved Date|
 |---|---|---|---|---|---|
 |Install Anaconda|Incomplete|Completed for desktop|8/25|8/28|NA|

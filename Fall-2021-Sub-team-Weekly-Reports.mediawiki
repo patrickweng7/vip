@@ -3,6 +3,30 @@
 
 Wednesdays at 5:45p (hybrid style)
 
+[https://bluejeans.com/253303426/9283 Meeting Link]
+
+[https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
+
+=== Week of September 20th - 26th ===
+
+* Selection Methods
+** NSGA-III Implementation
+* Hyper-feature & Primitive Packaging
+** Searching for combinations
+* Data Prep/PACE-ICE Setup
+** TF/Keras API for Image Data Preprocessing to prep dataset (completed augmentation of the dataset for EMADE runs)
+** PACE Storage workaround
+** Baseline run unsuccessful, retrying with seed file provided by Anish.
+* Mating/Mutation
+** Update on geometric semantic genetic programming methods.
+
+=== Week of September 13th - 19th ===
+
+This week we outlined our goals and began tasking ourselves. We will be focusing on a multi-label image classification problem using the chest x-ray dataset. This has been used by a group in the past but we are hoping to improve EMADE’s selection methods and mating/mutation process to better handle images with multiple labels. In particular, we are looking into NSGA-III and Lexicase as selection methods, and improving some existing features by looking for synergies and packaging them together so they’re not broken up by the evolution process.
+
+Question: if we’re comparing performance to the CheXNet paper, how freely can we modify the dataset such that the results are still comparable. 
+
+
 === Week of September 6th - 12th ===
 [https://docs.google.com/document/d/1MQi36xly1XsjBzVa8GxB9-9LCIY_ahbkibp4lFlqkNI/edit Notes]
 
@@ -16,6 +40,40 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 '''Important Links:'''
 * [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-base EMADE fork]
 * [https://www.sciencedirect.com/science/article/pii/S1568494611000937 Basis paper]
+
+=== Week of September 20 ===
+* Literature review on following articles:
+** https://www.sciencedirect.com/science/article/pii/S092523120900040X (Prediction-based portfolio optimization model using neural networks)
+*** Focused on diversifying portfolio
+*** Ensuring portfolio has low risk rather than focused on short term time series analysis
+** https://ieeexplore.ieee.org/abstract/document/1257413/references#references (Support vector machine with adaptive parameters in financial time series forecasting)
+*** SVM in financial time series forecasting
+*** Based on the structural risk minimization (SRM) principle which seeks to minimize an upper bound of the generalization error consisting of the sum of the training error and a confidence interval.
+*** Five real futures contracts collated from the Chicago Mercantile Market are examined in the experiment. They are the Standard & Poor 500 stock index futures (CME-SP), United Sates 30-year government bond (CBOT-US), Unite States 10-year government bond (CBOT-BO), German 10-year government bond (EUREX-BUND), and French government stock index futures (MATIF-CAC40).
+** https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach (Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach)
+*** Used 15 technical indicators with different parameters
+*** The models generates two dimensional images of the time series for these indicators over a 15 day period
+*** These images are categorized as buy, sell, and hold
+*** Seems to outperform the buy and hold strategy for stocks
+
+A good resource to learn more about algorithmic trading: https://github.com/stefan-jansen/machine-learning-for-trading
+
+
+=== Week of September 13 ===
+
+* Determining semester long goal: Stock generalization or fundamental analysis
+* Stock generalization:
+** Goal: Finding models/individuals that perform well on multiple stocks
+** Model/individual performs well on stocks in one sector as well as a different sector
+* Fundamental Analysis
+** Using company quarterly balance sheets along with technical analysis to predict stock buy/sells
+** Difficult to implement since there is less fundamental analysis data and it can be difficult to manipulate
+
+* https://ieeexplore.ieee.org/abstract/document/4598507 (An empirical study of Genetic Programming generated trading rules in computerized stock trading service system)
+*** Trades based on rules generated
+*** Rules follow a tree based structure
+*** Comparison of GP tree based algorithm to MACD indicator and buy/hold strategy
+*** Data used was 30 companies from the Dow Jones Industrial Average (DJIA).
 
 
 === Week of April 19 ===
@@ -424,6 +482,85 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Sept 20-Sept 26 ===
+* Bug causing the crashes has been identified
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
+*** Example
+           (node 0, arity 2)
+                 /  \
+ (node 1, arity 0) (node 2, arity 0)
+
+             (ARL, arity 2)
+                    \
+                   (node 2, arity 0)
+** Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+** Large chunk of code just wrapped in a try except block
+* Problem with add_all_subtrees method
+** The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
+** This causes problems with decently sized individuals (eg, length of 82 and depth of 6)
+** Python really doesn't like this, grinds to a halt. Could be running out of memory or just taking a really long time to find all subtrees.
+** Workaround: Don't consider individuals above a certain size for ARLs
+** Future solution: Refactor code to generate ARLs as the subtrees are found
+* Mnist team working through getting everyone on PACE-ICE to do runs
+** There was some ambiguity in the instructions which caused some confusion
+
+=== Week of Sept 13-Sept 19 ===
+'''Extended ARL'''
+* Began doing extended ARL runs
+** Starting off with max depth 10 trees
+** Everything seems to be working, there exist ARLs with depth > 2
+** Example ARL
+ Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
+* New goal: Test the significance of the depth of ARLs on the performance of individuals
+** Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
+*** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
+*** Manually randomly select individuals from runs which look different from the original seeds
+*** Potential problem with limiting diversity?
+Old Seeds
+ Learner(ARG0, learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion':0, 'max_depth': 3, 'class_weight':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
+ Learner(ARG0, learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
+New Seeds (Used in addition to Old Seeds)
+ Learner(ARG0, learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
+ Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'BAGGED', None))
+ Learner(ARG0, ModifyLearnerFloat(learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None), 0.01))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, ModifyLearnerList(ModifyLearnerInt(ModifyLearnerFloat(learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None), 1.0), notEqual(-2.6349412187954435, 0.1), myIntSub(255, -6)), passList(myListAppend([1, 6], [-2, 14]))))
+** Problem 2: There are several uncommon bugs which are ending runs prematurely
+*** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
+*** Might have to do with a floating point error causing divide by zero errors
+*** Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
+ /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:134: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 802, in master_algorithm count = mutate(offspring, _inst.toolbox.mutateLearner, MUTLPB, needs_pset=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 600, in mutate mutate_function(mutant, inst.pset)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 26, in insert_modifyLearner slice = individual.searchSubtree(index)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree total += self[end].arity - 1
+ IndexError: list index out of range
+
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1097, in master_algorithm new_adfs, updated_individual_indices = _inst.adf_controller.update_representation(parents) # only modifies parent representation
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1160, in update_representation population_info = self._find_arls(population)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 568, in _find_arls self.search_individual(population[individual_num], individual_num, dictionary, self.max_adf_size)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1219, in search_individual self.generate_child_dict(individual, child_dict, next_dict, 0)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 623, in generate_child_dict child_idx = self.generate_child_dict(individual, child_dict, next_dict, child_idx)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 610, in generate_child_dict num_children_left = individual[node_idx].arity
+ IndexError: list index out of range
+* Fixed temporary commits from last semester that were causing issues
+
+'''Mnist Runs'''
+* Began working on moving away from Google Collab and towards PACE-ICE
+** Once finished, Extended ARL runs can also be done on PACE_ICE
+
 === Week of Sept 6-Sept 12 ===
 09/08/21 - Met with team to discuss team goals for the semester, new research areas, and responsibilities
 '''Semester Goals:'''
@@ -473,6 +610,20 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 == NLP ==
 
 Meetings: 2:00 pm on Wednesdays, Virtual
+=== Week of September 20th - 27th ===
+* This week we designed the primitives/infrastructure needed to tackle the QA problem with EMADE.
+* There are two major issues, which we designed solutions for. The problems are as follows:
+** Problem 1: Unlike other datasets, we have two inputs that the model needs to handle separately: the context and the query.
+** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
+** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
+** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
+** Example from Steven's Notebook on how the output is obtained: "if our context was 'The Titanic sank in 1912' and we had the output vector (0 0 0 1 0 0 0 0 0 1), then our answer would be 'in 1912'".
+
+=== Week of September 13th - 20th ===
+* Dataset work
+* Decided on objective functions (F1 vs num params)
+* Coded up modified F1
+* Review of QA systems
 
 === Week of September 6th - 12th ===
 * We had our first sub team meeting of the year
@@ -794,4 +945,34 @@ Meetings: 2:00 pm on Fridays, Virtual
 ** Introducing some pause functionality
 * Everyone's tasks for the week is to setup emade and ensure they can at least run locally on their own machine.
 
-[[Category:AAD]]
+=== Week of September 13th - 19th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* During the beginning of this meeting, Cameron Bennett went through 5 newly added tasks on the trello board in detail.
+* These tasks consisted of:
+** Debugging/Reproducing issue with test_swap line 300 EMADE.py
+** Modifying the reuse parameter within EMADE.py to allow reuse of all individuals after starting a previously stopped EMADE run
+** Adding CIFAR-10 Input Template to EMADE
+** Modifying eval_methods.py to check if test_data being input has 90% same classification
+** Adding a method for keeping track of NNLearner layer frequency
+* While discussing the above tasks, Cameron detailed starting points, purpose and ideal outcomes of each task so that members had a solid grasp of the expected outcome. 
+* After discussing each task, Cameron Whaley provided input regarding some blockers for the first task stating that he would need some time to reproduce the issue he noticed before anyone will be able to work on that task.
+* Once all questions from team members were answered, Cameron Bennett expressed that each member is responsible for finding and beginning work on a task as soon as they are setup in EMADE.
+* The remainder of the meeting consisted of Cameron Whaley answering debugging questions for each team members current PACE-ICE Emade setup. 
+* Connor Yurkon was able to finish his setup for PACE-ICE during the meeting.
+* Devesh and Lucas expressed a need for more time until they are set up fully. 
+
+=== Week of September 20th - 26th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* The beginning of this meeting consisted of updates from team members regarding their assigned tasks:
+** Connor communicated some blockers he ran into regarding the ability to debug the code he is currently trying to add to EMADE.py. It was suggested that he try to either utilize a dataset with a reducedInstances value of something small(such as 0.1) or he could try to reproduce the method functionality within a seperate python script since he knows what method he is trying to edit. 
+** Devesh has completed his task of adding the Input_Template file for CIFAR-10 data. He currently should have a pr from a forked version of EMADE which will be merged by Cameron Whaley at some point. [https://github.gatech.edu/emade/emade/pull/198 Attached PR]
+** Cameron Whaley remembered how he produced the swap_layer bug and has provided us an emade worker out file which should contain some evolved nnlearner individuals which we can use to identify our mutation problem.
+** Cameron Bennett has done a re-run of emade on the amazon dataset with the new triviality objective function. In an attempt to identify useful nnlearners, Cameron Whaley has provided him a jupyter notebook with some methods for analyzing individuals from a run. It is possible he will need to re-run in order to utilize a seeded amazon group.
+* After updates were given, the rest of the meeting time consisted of ideas for generating additional tasks for members. The ideas discussed are:
+** Introducing a global "supernet" which would operate like a dynamic acyclic graph which stores information about submodel accuracy as well as weights of most optimal subnet based on a prior generation run. This discussion was based on a paper provided by Devesh which analyzes the effectiveness of combining a supernet NAS with validation runs for verifying accuracy. This idea was a bit loaded and awfully similar to what EZCGP is currently working on. Therefore, we put it to the side and have decided not to move further with it. [https://www.ijcai.org/proceedings/2020/0441.pdf Linked Article]
+** Introducing Weight Sharing to the existing NNLearner evolution process in EMADE. One idea involving weight sharing was to create a method which can locate all of the shared subnets within every individual in a single generation and replace them with the most optimally trained weights. Ideally this would speed up the number of generations to see optimal performance out of similarly structured individuals. Currently, a task exists for anyone interested in exploring how to locate similar subnets within EMADE individuals.
+** Introducing writes to disk which would improve memory usage within EMADE. This is moreso a general infrastructure interest however, noone was able to generate any concrete ideas around it due to our unfamiliarity with EMADE memory usage. Cameron Whaley made a recommendation that we introduce a parameter to the existing Inputschema which allows users to set a maximum amount of time for training any nnlearner individual. The idea behind this is that, if we enable networks to learn for as long as possible, we could reach more optimal individuals sooner without having to go through the evolution process as frequent. This is something we'd like to experiment with and see what results can be generated by this. We've created a task for anyone interested in adding this parameter.
+* Before concluding, Connor requested that we have a meeting to help he and other members get a better understanding of EMADE directories and the evolution process.
+* Cameron Whaley has completed the run resume feature but we want to test it and determine success on results.
+
+[[Category-AAD]]

@@ -9,6 +9,66 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 5: September 23th - September 29nd (2021)
+### Lecture overview:
+* Discussed last week's project
+* Learned how to derive Pareto Optimization Curves
+* Learned how to deliver a great presentation
+* Made a discussion with the teammate for the project next week.
+### Lecture notes:
+* Hyperparameters would highly likely affect the models and the codominant algorithm results.
+* In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
+
+
+
+
+
+## Week 4: September 16th - September 22nd (2021)
+### Lecture Overviews
+* Split into different Bootcamp (Bootcamp 2)
+* Introduced Kaggle Competitions
+* Talked about the Titanic disaster problem
+* Introduced Scikit (scikit-learn.org) for machine learning prediction model
+* The results are: 1 = survived, 0 = did not survive
+* Talked about the difference between test.csv and train.csv
+* Introduced pandas and NumPy in the reference notes
+* Requested codominant results in groups final CSV files
+### Groupwork notes
+* Sat up discord channel and met online during the weekend
+* The meeting records are here:https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+* Dropped the parameters that we thought are not important
+* Recorded codominant results in our CSV files
+* Chosen model: SVC_sigmoid
+
+* Removed some parameters that are not useful to our model:
+1. Name
+
+2.PassengerID
+
+3.Ticket Number
+
+4.Fare
+
+* The parameters we chose:
+1. Pclass
+2. Sex
+3. Parch
+4. Embark
+5. SibSp (Because families would stay together)
+* While we were trying different models on SciKit learn, many of the models would not produce codominant results. Therefore, we created a NaN_map to fill in missing Age and Embarked values, and modify our parameters. Some model requires special parameters in the constructor and we searched the documents. 
+* Our final results are:
+_      Aditya = AdaBoostClassifier. FP = 32, FN = 21.
+    *  Rohan = DecisionTreeClassifier (min_samples_leaf=30). FP = 9, FN = 45. 
+    *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
+    *  Adithya =  MLP. FP = 26, FN = 26.
+    *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. _
+
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Titanic problem lecture notes|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Record Notebook|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Data processed|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
 
 
 ***

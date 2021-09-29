@@ -11,6 +11,156 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Tennis, Basketball
 
 = Fall 2021 =
+
+== Week 5: September 22th ==
+=== Class Summary ===
+*Discussed last week's Titanic ML project and findings
+*Given overview of Titanic MOGP task due next week
+*Received presentation on how to give a presentation by Dr. Rohling
+*Met with subteam members to schedule meetings for completing Titanic MOGP
+
+===Lecture Notes===
+*Learned how changing hyperparameters in ML models was crucial for creating the 5 co-dominant models for last week's assignment
+**'''Important''': Changing model hyperparameters will affect the pareto optimality and fitness of an individual/solution
+*Several teams noted having to fine-tune hyperparameters by trial-and-error in order to achieve co-dominance
+*Dr. Zutty assigned every team to apply GP on the Titanic dataset problem for next class using the Lab 2 MOGP notebook as a template.
+*Objective of using MOGP for Titanic was to see how objective results and AUC would compare to ML model results
+*Constraints for the MOGP assignment included the following:
+**Only basic primitives (add, subtract, multiply, etc.) and mathematical (sin, cos, tan, etc.) could be used
+**Do not use tournament selection, instead research other selection methods such as SPEA2.
+*Dr. Rohling gave a talk on how to present findings. Here were some takeaways:
+**Make sure graphs are properly labeled, readable, and have relevant info
+**Use page numbers in presentation so audience can ask questions
+**Technical presentations are often stand-alone
+**It is good practice to have take-away slides in presentation
+
+===Team Meeting Notes===
+*Organized times to meetup on Discord
+
+
+'''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 29th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 25th, 2021
+|-
+|Team Meeting #1
+|Completed
+|September 22th, 2021
+|September 25th, 2021
+|September 25th, 2021
+|-
+|Team Meeting #2
+|Completed
+|September 22th, 2021
+|September 26th, 2021
+|September 26th, 2021
+|-
+|Complete Titanic MOGP Notebook
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 29th, 2021
+|-
+|}
+
+== Week 4: September 15th ==
+===Class Summary===
+*Assigned to Sub-teams
+*Overview of Sci-kit learn and other ML-related libraries
+*Titanic dataset discussion
+
+===Lecture Notes===
+*Received sub-team assignment based on GA
+**Assigned to sub-team #2
+*Introduced to Titanic Dataset on Kaggle
+**Problem: Implement a model predicting if a passenger on the Titanic either survived or died. Create and document 5 separate co-dominant models in your subteam and generate a prediction csv file for each model.
+**Codominance: Two algorithms are said to be codominance when neither dominates the other on every objective.
+**Objectives for Titanic Dataset: False Positive Rate (FPR) and False Negative Rate (FNR)
+*Reviewed preprocessing data notebook in Jupyter and learned how to adapt it for our training models
+*Breakout into sub-teams for introductions and setting up team meetings.
+
+===Team Meeting Notes===
+*Organized Discord chat for communication, ideas, and meetings
+*First meeting on Saturday, 9/18
+*Repurposed preprocessing data notebook for assignment
+*Selected features in training data relevant and correlated to survival
+**Excluded following features: Name, PassengerID, Ticket Number, Fare
+**Embarked feature was kept because we noticed a strong visual correlation between embarked location and male and female passengers' survival in training data. This makes sense as passengers who embarked earlier would have more cabin choices.
+*Used average age and embarked values to fill in NaN age and embarked data
+*Experimented with different classifier models to minimize FPR and FNR.
+*Used the following different models:
+**RandomForestClassifier (Manas) - Parameters: n_estimators=100, max_depth=5, min_samples_leaf=5, criterion=entropy, random_state=2; FP=18, FN=29
+**DecisionTreeClassifier (Rohan) - Parameters: min_samples_leaf=30; FP=9, FN=45
+**MLP Classifier (Adithya) - Parameters: default args; FP=26, FN=26
+**SVM (Yisu) - Parameters: kernel = sigmoid; FP=0, FN=104
+**AdaBoostClassifier (Aditya) - Parameters: default; FP=32, FN=21
+*'''Important Observation:''' In order to achieve co-dominance, hyperparameters for certain models had to be purposefully manipulate to either lower FNR/raise FPR or vice versa.
+===Individual Notes===
+*Researched common models used for classification and chose RandomForestClassifier
+*Researched on SciKit-learn, StackOverflow and Medium articles how to select appropriate parameter values for model
+*Achieved approx. 84% accuracy with model with relatively low FPR and FNR
+*Added code to generate prediction CSVs for everybody's model
+*Added cells for plotting model performance on FPR/FNR axis to demonstrate co-dominance.
+
+insert frontier graph image here
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 22th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 18th, 2021
+|-
+|Team Meeting #1
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 18th, 2021
+|-
+|Team Meeting #2
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 19th, 2021
+|-
+|Complete Notebook and Submit prediction csv
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 19th, 2021
+|-
+|}
+
 == Week 3: September 8th ==
 === Self-Evaluation Rubric ===
 https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=sharing
