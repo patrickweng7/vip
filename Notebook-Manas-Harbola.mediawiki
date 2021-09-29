@@ -36,7 +36,22 @@
 
 ===Team Meeting Notes===
 *Organized times to meetup on Discord
+*Meeting #1, Sept 25:
+**Discussed and concluded that preprocessing step for MOGP would remain the same, as we were satisfied with our current features
+**Discussed which primitives we would use - agreed on using subtract, add, multiply, sin, cos, and tan
+**Researched different selection algorithms as a group and decided to use SPEA2
+**Repurposed evaluation function from Lab 2 for evaluating both FPR and FNR objectives
+**Learned about activation functions in order map any real number to either 0 or 1. Our team chose f(x) = arctan(x) / (pi / 2) as our function. We decided that if f(x) < 0.5 we would map the result to a 0, otherwise a 1.
+*Meeting #2, Sept 26:
+**Designed and wrote genetic loop for our MOGP algorithm
+**Best individual is multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653
+**Created presentation slides for our findings and results
 
+===Individual Notes===
+*Wrote majority of genetic loop with help from team members on selection, mutation, and evaluation functions
+*Originally our evaluation function was causing our best individual to always have fitness (0, 1.0). I discovered that even though fpr = fp / N and fnr = fn / P, our evaluation function was somehow not counting P and N properly. Therefore, I rewrote the evaluation function to calculate tp, tn, fp, and fn. We also decided to make fnr and/or fpr = 1 whenever the divisor was 0 to handle divide by 0 errors.
+*Cleaned up genetic loop and refactored notebook cells after achieving satisfying individuals
+*If I had more time, I would have repurposed the metrics calculations from Lab 2 to better visualize each generation in our genetic loop. Also, I would want to experiment with the mating and mutation rates in the notebook as well.
 
 '''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 
