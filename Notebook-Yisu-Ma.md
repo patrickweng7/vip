@@ -9,6 +9,20 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 5: September 23th - September 29nd (2021)
+### Lecture overview:
+* Discussed last week's project
+* Learned how to derive Pareto Optimization Curves
+* Learned how to deliver a great presentation
+* Made a discussion with the teammate for the project next week.
+### Lecture notes:
+* Hyperparameters would highly likely affect the models and the codominant algorithm results.
+* In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
+
+
+
+
+
 ## Week 4: September 16th - September 22nd (2021)
 ### Lecture Overviews
 * Split into different Bootcamp (Bootcamp 2)
