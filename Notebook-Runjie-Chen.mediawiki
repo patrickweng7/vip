@@ -8,6 +8,67 @@
 
 = Fall 2021 =
 
+== Week 5: September 22nd - September 28th ==
+
+===September 22, 2021 Team Meeting Notes===
+
+*Thoughts on titanic example
+**Sometimes we have to sacrifice performance on one objective to achieve higher performance on the other objective in order to achieve codominance 
+**There’s not really an intuitive way to interpret how changing hyper-parameters will affect the result, there’s not a linear relationship, it’s mostly a guessing game
+*Group project
+**Not allow using default algorithms in DEAP, have to code our own
+**Have to write the genetic loop as a group
+**The presentation is going to look like a graph of pareto optimal frontier graphing GP and ML results 
+**Submit a CSV file (each algorithm that is deemed pareto optimal by our algorithm gets a column in the CSV file)
+**Only use selection functions that work for multi-objective in the DEAP framework (don’t use selTournament)
+**2 types of step functions
+***“Post” for minimization
+***“Pre” for maximization
+***Points will be docked if the steps are going in the wrong way
+**Use false positive/negative rates so that it can be comparable with classmates
+**Include bounded/trivial points on the graph when computing the AUC
+*Presentation
+**Check Reference material for presentation guideline
+**It has useful code for graphing steps and AUC
+
+
+===September 24, 2021 Sub-team Meeting Notes===
+*Developed our own selection method
+*Developed our own evolutionary algorithm using our custom selection tournament method, one point crossOver mate method, and node replacement mutation method
+*Our best individual: add(multiply(multiply(Embarked_S, SibSp), subtract(Sex_female, Embarked_S)), add(subtract(Sex_female, Embarked_S), subtract(subtract(subtract(Sex_female, Embarked_S), Sex_male), Sex_male)))
+*Our Genetic programming (GP) AUC: 0.21, Machine learning (ML) AUC: 0.32
+*36% decrease in AUC observed in our GP algorithm compared to the ML algorithm
+*observed more diversity in GP pareto front compared to the ML front
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create a multiple objective evolutionary algorithm and make a presentation on it with my team
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Generate and upload one CSV file as a group that contains the predictions on test.csv for each Pareto optimal individual of our GP algorithm
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Presentation Rehersal 
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+=== September 19, 2021 Sub-team Meeting Notes ===
+
 == Week 4: September 15th - September 21st ==
 
 ===September 15, 2021 Team Meeting Notes===
@@ -42,6 +103,10 @@
 
 === September 19, 2021 Sub-team Meeting Notes ===
 *Worked on Titanic Example
+*We each chose a Machine Learning algorithm to attempt to achieve a Pareto optimal front in which each of us is codominant with each other.
+*I choose the Gradient Descent algorithm, which is an optimization algorithm for finding a local minimum of a differentiable function. The idea is to take repeated steps in the opposite direction of the gradient (or approximate gradient) of the function at the current point because this is the direction of steepest descent.
+*I used the default parameters of the Gradient Descent algorithm
+*My result that is codominant with my teammates is "FPR = 0.067   FPR = 0.414"
 
 == Week 3: September 8th - September 14th ==
 
@@ -90,7 +155,7 @@
 |
 |-
 |Add explanations, justifications, and reflections to Lab 2 results
-|In Progress
+|Completed
 |September 8, 2021
 |September 15, 2021
 |
@@ -102,7 +167,7 @@
 |September 15, 2021
 |-
 |Lab 2 - Multi-Objective Genetic Programming and take notes
-|In Progress
+|Completed
 |September 8, 2021
 |September 15, 2021
 |September 15, 2021
