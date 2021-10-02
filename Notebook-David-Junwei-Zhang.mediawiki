@@ -4,7 +4,7 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
-== September 22, 2021 ==
+== September 29, 2021 ==
 '''Team Meeting Notes''
 
 * Selecting from the HOF may preserve pareto individuals
@@ -17,11 +17,29 @@ Interests: Machine Learning, Optimization, Tennis
 ** selRoulette
 ** custom selection tournament
 ** pairing NSGA-II, selTournamentDCD
-* Activation function for evaluation function? (needed for non strongly typed)
-* Check if value > 0 or not
+* For non-strongly type GP, we can use an activation function (like tanh) or simply check if value > 0 or not to determine result
 * MOGP more diverse than ML solutions; teams also had better performance for MOGP compared to ML (lower AUC)
-What's the *params on slide 8
-Why did GP have 0 for FNR, FPR but not ML
+
+Some questions
+* Why did GP solutions often have 0 FP or 0 FN while ML solutions almost never had those (more equal distribution of FP, FNs for the most part). Does the evaluation have to to with this?
+* What is * represent when placed inside a param in python?
+** Use * to represent a variable number of parameters being passed in
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review GP for understanding
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|}
 
 == September 22, 2021 ==
 '''Team Meeting Notes'''
@@ -32,6 +50,48 @@ For next week: Continue with the titanic dataset but use GP
 * Comparison of Pareto front between ML co-dominant set and that of GP
 * Try different operators, mutations...etc (note: selTourn is not multi objective)
 * As a group, submit a csv file for predictions for each Pareto optimal point
+
+'''Subteam Notes'''
+Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
+
+These are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
+
+GP Problems 
+
+* Bloat control tree size >90 
+** Set max tree size for mate/mutation or add penalizing factor into eval function
+** Can also set another objective to minimize instead of adding error to original objectives
+** Add penalizing factor in eval function 
+** Also speed much faster when tree size reduced 
+* Keeping boolean output (used strongly typed); could alternatively use loosely typed but force a boolean output 
+* Couldn’t add terminals for some reason (adding terminals would greatly improve result since we could only compare floats between columns and not to a predetermined constant)
+* Making sure one solution is not completely FP or FN (multi-objective keeps converging to a non-optimal solution) 
+** Penalize more for having high FNR, FPR or 0 FP, FN
+** add squared penalizing term FN^2 and FP^2 instead of simply FP, FN in order to encourage more equal distribution of FP and FNs 
+** Also single-objective could work in this problem but we cannot create pareto fronts required for the assignment
+
+Eval Function used for multi-objectives
+
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        args = [x_train[cols[i]] for i in range(len(9)]
+        predictions = func(*args) 
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        #prevent very unequal FN, FP results
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20   #add regularization term to error to prevent bloating
+        e2 = FP**2 + len(individual) * 20   #(could alternatively add separate objective to minimize)
+        return (e1, e2)
+
+Interesting findings 
+
+* Sometimes the evaluation results increase over time (This could be as a result of a bad mutation)
+* Compared to ML, GP seemed to have more varied results (possibly by including mutations and keeping a large population), whereas ML optimizes at each time step/iteration. We also set a low regularization param which may contribute to this result.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -45,19 +105,19 @@ For next week: Continue with the titanic dataset but use GP
 |In Progress
 |September 22, 2021
 |September 29, 2021
-|
+|September 25, 2021
 |-
 |Finish titanic problem using GP
 |In Progress
 |September 22, 2021
 |September 29, 2021
-|
+|September 29, 2021
 |-
 |Work on presentation for ML/GP
 |In progress
 |September 22, 2021
 |September 29, 2021
-|
+|September 27, 2021
 |-
 |}
 
