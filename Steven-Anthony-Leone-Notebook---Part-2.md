@@ -28,9 +28,14 @@ Create new XML and data load functions for QA in EMADE | In Progress | 09/27/202
 
 ## Week 5
 ### General Meeting Notes
-* We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
+* Stocks: 
+* Image Processing: 
+* Modularity: 
+* NAS:
+* NLP: 
+* * We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
 * Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
-* I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
+* * I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
 
 ### Sub Team Meeting
 * I presented to the sub team the information I compiled on NNLearners, shown in the section underneath Action Items, and how we could use them for QA systems.
@@ -59,8 +64,22 @@ Research creating a new type of data pair | Complete | 09/20/2021 | 09/27/2021  
 <img width="962" alt="Screen Shot 2021-09-13 at 7 11 24 PM" src="https://github.gatech.edu/storage/user/27405/files/6e678180-14c6-11ec-811b-bb9acf9a8258">
 
 ### General Meeting
-* We updated the team on our progress.
-* 3/5 of our members have gotten EMADE on PACE setup.
+* Stocks: 
+* * Conducting a literature review to find new ideas of what to implement.
+* * Their team also found a good resource on genetic programming generated trading.
+* Image Processing: 
+* * Defined goals and tasked themselves.
+* * Focusing on multi-label image classification
+* * Image classification or object detection are their overarching goals.
+* Modularity:
+* * Still coming up with goals for the semester.
+* * Potential areas of improvement include new models, selection methods, ARL Database storage, and more depth in ARL's.
+* Neural Architecture Search:
+* * Presented information about neural architecture search to new members.
+* * Came up with 6 different potential improvements, including triviality detection
+* NLP: 
+* * We updated the team on our progress.
+* * 3/5 of our members have gotten EMADE on PACE setup, and we're moving into a literature review of Question Answering Systems.
 
 ### Sub Team Meeting
 * We gave our updates on the assigned tasks so far
