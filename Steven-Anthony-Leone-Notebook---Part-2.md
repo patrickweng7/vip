@@ -9,6 +9,23 @@
 
 
 # Fall 2021
+
+## Week 6
+### General Meeting Notes
+* We presented our plan to implement QA systems into EMADE.
+* We received feedback from Anish, and decided to just overload NNLearner with two EMADE data pairs.
+
+### Sub Team Meeting Notes
+* We received two new members, as the stocks team was dissolved
+* We focused on our tasks, and assigned everyone to start trying to get the SQUAD dataset loaded in.
+* I made a quick presentation on what we're trying to do this semester, and referred our new members to my notebook to look at the current state of research.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Create new XML and data load functions for QA in EMADE | In Progress | 09/27/2021 | ... | 10/10/2021 |
+
+
 ## Week 5
 ### General Meeting Notes
 * We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
@@ -23,7 +40,7 @@
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/22/2021 | 09/22/2021 |
-Research creating a new type of data pair | In Progress | 09/20/2021 | ...  | 10/03/2021 |
+Research creating a new type of data pair | Complete | 09/20/2021 | 09/27/2021  | 10/03/2021 |
 
 
 ### Researching NNLearners and how to implement QA
