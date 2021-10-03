@@ -5,15 +5,21 @@
 <b>Cell Phone:</b> (412)-378-7253 <br>
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
 <b>Sub Team:</b> NLP <br>
-<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang
+<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang, George Ye, Rishit Ahuja
 
 
 # Fall 2021
 
 ## Week 6
 ### General Meeting Notes
-* We presented our plan to implement QA systems into EMADE.
-* We received feedback from Anish, and decided to just overload NNLearner with two EMADE data pairs.
+* Stocks: 
+* * The stocks team was dissolved this week
+* Image Processing:
+* Modularity: 
+* NAS:
+* NLP:
+* * We presented our plan to implement QA systems into EMADE.
+* * We received feedback from Anish, and decided to just overload NNLearner with two EMADE data pairs.
 
 ### Sub Team Meeting Notes
 * We received two new members, as the stocks team was dissolved
@@ -29,12 +35,20 @@ Create new XML and data load functions for QA in EMADE | In Progress | 09/27/202
 ## Week 5
 ### General Meeting Notes
 * Stocks: 
+* * Still determining the semester goal, whether it will be Stock generalization or fundamental analysis
+* * Found a couple more interesting papers
 * Image Processing: 
+* * Looking into NSGA-III and Lexicase as selection models.
+* * Will compare performance with the ChexNet paper
 * Modularity: 
+* * Achieved ARL's with depth > 2 for the first time, checking off a big semester goal
+* * Looking into more improvement now.
 * NAS:
+* * Debugged EMADE issues
+* * Members are responsible for finding and debugging work once EMADE is setup on PACE-ICE
 * NLP: 
 * * We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
-* Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
+* * Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
 * * I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
 
 ### Sub Team Meeting
