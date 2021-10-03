@@ -15,8 +15,14 @@
 * Stocks: 
 * * The stocks team was dissolved this week
 * Image Processing:
+* * Working on NSGA-III implementation, Hyper-feature & Primitive Packaging, and more mating and mutation functions.
 * Modularity: 
+* * Identified a bug that was causing crashes. 
+* * Working through getting everyone setup to do PACE-ICE runs
 * NAS:
+* * Looking into writing to disk
+* * Discussed introducing weight sharing to the existing NNLearner evolution process in EMADE
+* * Completed the Run-Resume feature
 * NLP:
 * * We presented our plan to implement QA systems into EMADE.
 * * We received feedback from Anish, and decided to just overload NNLearner with two EMADE data pairs.
