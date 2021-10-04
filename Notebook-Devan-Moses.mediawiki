@@ -9,6 +9,61 @@ Interests:
 *Academic: Artificial Intelligence, Machine Learning, NLP, Cognition, Bio-Inspired Learning
 *Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
 
+== Sep 27, 2021 ==
+'''Team Meeting Notes:'''
+* nas:
+** discussed some topics to consider: 
+**# one shot NAS system utilizing supernet(dynamic acyclical graph to cache nnlayer combos and weights for future use to reduce computational burden)
+**# weight sharing (id common subnetworks within ind in generations to help find optimal weights)
+**#writing to disk (emade infrastructure changes for memory utilization)
+** added parameter to put ceiling on training time hoping it will force faster change
+* image processing: 
+** want to put new data preprocessing techniques for images into emade
+* stocks: 
+** having problems finding relevant literature e.g. generalization, looked into some papers and ended up not being as useful as they thought
+** did some reading up on ML-based stock trading to build foundational knowledge
+* mod: 
+** fixed run crashing bug w/arl creating method, another bug in addallsubtrees method
+** getting on PACE
+* nlp:
+** anish helped us brainstorm a cleaner way that our suggested way to implement the context/query split
+** our final iteration is to edit how the data is loaded from the xml and either overload or edit the nnlearner method to take in two pieces of data from the start and converge them in the attention layer.
+
+'''Sub-team Meeting Notes:'''
+* we got a few new teammates this week and took a small amount of time to run them through some baseline knowledge then had them sit in on us breaking the new iteration into subtasks for the week.
+* we're actually using the trello board as intended this week
+* steven will make a new fork for us to use since the nas have their own thing going now
+* tasks:
+** implement load_textdata_for_QA to handle context/query split which also must be specified in the build classifier method
+** creating the xml for SQUAD dataset
+
+'''Individual notes:'''
+* we may not need to use an emadedatapair to handle the data split. we may be able to just change the datapair.type to question_answering and handle our data accordingly.
+* looking into the code base this doesn't seem to be such a great idea because there are a lot of control flow statements based on the type and we'd have to not only change every instance of that but also include everything that is in the textdata type which would be duplicating a ton of code.
+* there seems to be a lot of code bloat in the codebase which will be tough not to contribute to as efficiently implementing our ideas may require an overhaul of some of the already implemented systems
+
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get people who still don't understand QA up to speed
+|Completed
+|Sep 20, 2021
+|Sep 22, 2021
+|Sep 22, 2021
+|-
+|get familiar with the relevant code and brainstorm how to effectively implement the query/context data split
+|Completed
+|Sep 20, 2021
+|Sep 25, 2021
+|Sep 25, 2021
+|}
+
 == Sep 20, 2021 ==
 '''Team Meeting Notes:'''
 * img porocessing: 
