@@ -2,6 +2,43 @@
 * Name: Rayan Khoury
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
+#**September 15th, 2021**
+## **Meeting 4**
+### Class Notes:
+* Presentation Guidelines and skills:
+    * Make sure title slide has the following:
+        * Clear and appropriate title
+        * List of contributors
+        * Date of presentation
+    * If slides include graphs:
+        * Have a clear title
+        * Label axis and include a readable font
+        * Make sure the Pareto Front lines go the appropriate direction for minimization versus maximization
+    * Include page numbers as you will be able to go back to any given slide at anytime. 
+
+* Introduction to Machine Learning:
+    * Introduced to Kaggle and the titanic project
+    * Use scikit learn for predictors. 
+    * Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
+    * Pandas is the python equivalent of google sheets, it is used to read train.csv and test.csv
+    * Use isna to find N/A values and replace them with averages of their columns (Use this to clean your dataset).
+    * Divide training and testing data according to the following:
+        * x_train: top x rows of train.csv
+        * x_test: bottom(n-x) rows of train.csv
+        * y_train: survived x rows of train.csv
+        * y_test: survived(n-x) rows of train.csv
+* Group project
+    * We were divided into 4 groups were we are supposed to train and test data from the titanic example using different learners and find co-dominant solutions.
+    * Use scikit documentation to learn ML models and get predictions
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/15/2021|09/08/2021|09/14/2021|
+|Join the Group slack|Complete|09/15/2021|09/08/2021|09/10/2021|
+|Attend group meetings|Complete|09/15/2021|09/09/2021|09/12/2021|
+|Complete model with learner|Complete|09/15/2021|09/08/2021|09/14/2021|
+
+
 # **September 8th, 2021**
 ## **Meeting 3**
 ### Lecture 3 : Multiple Objectives
