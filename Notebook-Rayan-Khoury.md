@@ -2,7 +2,8 @@
 * Name: Rayan Khoury
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
-#**September 15th, 2021**
+
+# **September 15th, 2021**
 ## **Meeting 4**
 ### Class Notes:
 * Presentation Guidelines and skills:
