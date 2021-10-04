@@ -46,17 +46,16 @@ In Week 5, our team approached the Titanic dataset with multi-objective genetic 
 ===Titanic Project===
 Group work: On 9/23, the team developed a conceptual understanding of the assignment, drafted a plan, and decided on a primitive set for the GP (1.75hr). On 9/26, we finalized Aditi's evaluation function, tested the results on different trees, and discussed the evolutionary loop (2hr). The morning of Tuesday 9/28, I demonstrated my evolutionary loop to the team and we identified constants and functions that could change the accuracy (1.25hr). That evening, we reviewed our work, decided on final constants and functions, and created our presentation (2hr). Aditi added a plot of the average FPR and FNR for each generation. Wednesday 9/29 morning, we corrected each other's slides and practiced our presentation (1hr). 
 
-def eval(individual, samples, y_truth, pset):
-  func = gp.compile(expr=individual, pset=pset)
-  y_pred = [func(*samples[x]) for x in range(len(samples))]
-  cnf_matrix = confusion_matrix(y_truth, y_pred)
-  return (cnf_matrix[0][1], cnf_matrix[1][0])
+  def eval(individual, samples, y_truth, pset):
+    func = gp.compile(expr=individual, pset=pset)
+    y_pred = [func(*samples[x]) for x in range(len(samples))]
+    cnf_matrix = confusion_matrix(y_truth, y_pred)
+    return (cnf_matrix[0][1], cnf_matrix[1][0])
 
 Individual work: After our first meeting, I created an evaluation function, which was not used in the final group code, and researched NSGA2 selection. After the evaluation function was completed in our second meeting, I wrote the evolutionary loop, pareto front plot, and predictions.csv output of the pareto optimal individuals compiled on test.csv. One unique feature I implemented was the use of a ParetoFront object collect pareto optimal individuals from each generation, excluding trees with duplicate fitness (fp, fn):
 
-hof = tools.ParetoFront(similar=lambda this, other : eval(this, X, pset) == eval(other, X, pset))
-
-for each generation:
+  hof = tools.ParetoFront(similar=lambda this, other : eval(this, X, pset) == eval(other, X, pset))
+  for each generation:
     evolve pop
     hof.update(pop)
 
