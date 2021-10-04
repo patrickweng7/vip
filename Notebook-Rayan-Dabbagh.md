@@ -12,6 +12,12 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
+## Lecture 6: Presentation day
+
+During presentation day, each group walked through his project in front of the class, and answered questions on diverse topics covered I the powerpoint. It was a goos way to develop basic presentation skills while at the same time explain complex topics orally.
+I benefitted a lot from the presentation which thought us the art of presenting information to an audience ). 
+I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
+
 ## Lecture 5:
 
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
