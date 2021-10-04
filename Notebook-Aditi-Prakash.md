@@ -339,8 +339,8 @@ Visualizations:
 
 I also modified the evaluation function to return a tuple (sum_left, sum_right), where sum_left is the number of conflicts between queens strictly on left diagonals and sum_right is the number of conflicts between queens strictly on right diagonals. This allowed us to attempt minimization of both objectives in the evolutionary loop such that the evolution did not produce many individuals that had a high number of conflicts on left diagonals or right diagonals but not distribute conflicts on both types of diagonals. 
 
-4. With (left_diagonal_conflicts, right_diagonal_conflicts) tuple
-
+4. With (left_diagonal_conflicts, right_diagonal_conflicts) as fitness tuple
+![](https://picc.io/7PFcY8A.png)
 
 Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
