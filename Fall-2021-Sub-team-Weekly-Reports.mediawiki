@@ -489,6 +489,33 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Sept 27-Oct 3 ===
+
+* Implemented workaround for add_all_subtrees large individuals bug
+* Fixed bug regarding incorrect arities in contract_arls
+** Example output
+```
+arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
+Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [3, 2, 1]
+individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new arity 1
+len individual after arl insert 4
+individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
+```
+** Individuals with incorrect arities still appear in the population
+** Problem with occurrences code, not properly including the entire ARL
+* PACE-ICE still causing issues
+** What we thought switching to PACE-ICE could help us with over Google Collab:
+*** Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+*** Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+*** No inactivity clicking script
+*** Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+** Switching back to Google Collab
+
 === Week of Sept 20-Sept 26 ===
 * Bug causing the crashes has been identified
 ** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
