@@ -6,7 +6,7 @@
 
 * Phone number : 4049368747
 * Personal e-mail : rayan.dabbagh@gmail.com
-* Please find the referenced materials by clicking on this link: https://github.gatech.edu/emade/emade/
+* Please find the reference materials by clicking on this link: https://github.gatech.edu/emade/emade/
                                                       
 # **Automated Algorithm Design**
 
