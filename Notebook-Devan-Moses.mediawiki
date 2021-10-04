@@ -11,13 +11,29 @@ Interests:
 
 == Sep 20, 2021 ==
 '''Team Meeting Notes:'''
-
+* img porocessing: 
+** decided to use xray dataset
+** did a base line run on emade
+**  having problems find relevant materials on "hyper features" mentioned in literature
+* stocks:
+** found some goodies in lit review such as passing learned rules to next gen
+** decided against fundamental analysis, want to try and generalize individuals to work on any stock
+* modularity:
+** did some runs and fixed bug
+** set max depth to 10, added 2 good seeds and a number of valid seeds (concerns about limiting diversity), see how depth of arls affects indivdual performance
+** swapping from titanic to mnist
+* nlp:
+** look in emade.py at create ind, change what it takes in "emade data pair" make new one to leverage strongly typed gp
+** making a child class to take in our type of tree to cover this context/query split as shown [https://arxiv.org/pdf/1611.01603.pdf here]
+* nas:
+** working with image processing datasets
+** evalmethods.py addition to test triviality/novelty, also must consider how they will use novelty
 
 '''Sub-team Meeting Notes:'''
 * tasks:
 ** if you're still confused about QA checkout the ppt I made (in last week's post) or the literature that steven linked in the slack.
 ** look into emade codebase (namely emadedatapair, nnlearner layers, and where our data is handled) and see how we can incorporate the fact that we need to differentiate between the query and context data before they merge in an attention layer
-* we decided not to use an emadedatapair child for enforcing the embedding layer as we think the genetic process will handle it but we may use it to separate the context and query data during the embedding process as shown [https://arxiv.org/pdf/1611.01603.pdf here]
+* we decided not to use an emadedatapair child for enforcing the embedding layer as we think the genetic process will handle it but we may use it to separate the context and query data during the embedding process.
 
 '''Individual notes:'''
 * we may not need to use an emadedatapair to handle the data split. we may be able to just change the datapair.type to question_answering and handle our data accordingly.
