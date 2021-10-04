@@ -3,126 +3,126 @@ Name: Aditi Prakash
 Email: aprakash86@gatech.edu, Cell Phone: 704-794-3924  
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 1: August 25th, 2021
+# Week 5: September 22th, 2021
 ## Overview
-Discussed course format (10-week bootcamp followed by joining a sub-team), location of course GitHub and reference materials (https://github.gatech.edu/emade/emade/), expectations, Assignment 1, and notebooks. Attended lecture on Genetic Algorithms.
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
 ## Team Meeting Notes
-### Lecture on Genetic Algorithms
-Introduced concept of genetic algorithms that mimic evolutionary processes (mutation, selection, mating, fitness evaluation, reproduction, etc.) in order to maximize the fitness of individuals in a population of data. Identified steps of a genetic algorithm:
-1. Random initialization of population.
-2. Determining objective of population: how do we define performance of individuals?
-3. Determining fitness of population: how does an individual's objective compare to that of others?
-4. Subject individuals to selection methods (ex. fitness proportionate and tournament selection) so as to give preference to the fittest individuals in the population.  
-5. Through an evolutionary loop, select parents from population, perform crossovers/mutations/selections on parents and save these modifications as offspring of the initial population, and determine the fitness of the population. Repeat until we maximize the fitness of the best individual in the population. 
+### Notes on Titanic ML Assignment 
+Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
 
-Learned genetic algorithm solution to One Max Problem - a simple problem that presents the goal of maximizing the number of 1's that an individual contains (thereby maximizing the sum of the individual's values). 
+Have to write genetic program yourself
+Evaluation function - at least two objective, False Positives and False Negatives
+ 
+Can add additional objectives to make it better
 
-## Lab 1 - Genetic Algorithms with DEAP
-* Installed Conda, Python, and Jupyter Notebooks
-* Cloned emade and reference-material repositories using Git 
-### Lecture 1 - GA Walkthrough (introductory notebook for understanding of DEAP implementation of genetic algorithms)
-* Installed DEAP using pip
-* Imported base, creator, and tools libraries from DEAP
-* Created FitnessMax Class to track objectives for individuals in One Max problem 
-* Set weights attribute to have a value of 1.0 - our goal is to maximize this value for a given individual through the evolution process
+Comparison of Pareto Front that genetic programming finds against ML codominant set
 
-Created:
-* Individual class which inherits from list and has fitness attribute
-* Binary random choice generator attr_bool using the DEAP toolbox to randomly present either a 0 or 1 for each value in the list for an individual
-* individual() method to create a list of 100 randomly generator 0's and 1's for each individual and registered with DEAP toolbox
-* population() method to create a set of individuals
+Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
 
-Defined evaluation function for fitness: a sum operation across all of an individual's values.
+Bare minimum is to get comparison between ML and GP. 
 
-Performed:
-* in-place two-point crossover on individuals
-* in-place mutation with a given probability of mutation on individuals
+Generate predictions for every pareto optimal point
 
-This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
+Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
 
-### Lab 1 - Genetic Algorithms with DEAP
-This lab explored the One Max problem and the n-queens problem and defined genetic algorithms to solve both. 
+Present findings next week 
+in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
 
-**One Max Problem:**
-For this problem, we followed many of the same steps that appeared in the Lecture 1 Notebook (see above). We define a main() function for the genetic algorithm, which evaluates the full population and initiates the evolutionary loop. Within the evolutionary loop, we select individuals for each successive generation, clone them, and perform mutations/crossovers on them. We then evaluate the fitness of these offspring and replace the existing population with the offspring. Finally, we return the fitnesses of the individuals (based on the predefined fitness operation - the sum of the individual's entries) and print statistics such as the mean fitness, squared sum of the fitnesses, and standard deviation of the fitnesses). We loop for some number of generations (40, in this case) and report the best individual that has resulted from this evolution process. Within the DEAP framework, we used libraries like creator (including the create() method), tools (including the selBest() method and the selTournament, mutFlipBit, and cxTwoPoint attributes), and base (including the Toolbox(), register(), select(),  mate(), and mutate() methods).
+AUC will be useful to evaluation GAs
+Minimization - adding area, maximization - eating area
 
-Findings: The global maximum (a best individual with a fitness equal to n, the number of entries in each individual) was reached within 40 generations about every 19 out of 20 times the algorithm was run; this indicates that our algorithm has an effectiveness of around 95%. Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.  
+Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
 
-![One Max Generations, Part 1](https://picc.io/pok5sgG.png)
-![One Max Generations, Part 2](https://picc.io/ouFv77h.png)
+Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
 
-**N Queens Problem:**
-For this problem, we followed many of the same steps that appeared in the One Max Problem (see above). We define a size n = 25 for each individual and define a weight of -1.0 here, since we wish to minimize the number of conflicts between queens in our problem space. We then create a permutation function to populate the entries for each individual with numbers selected without replacement from range(n). We define our evaluation function as a measure of the number of conflicts along each diagonal of our board; with the creation process we defined for individuals, queens will not appear in the same row or column. [Describe evaluation function modification here w/ screenshots]. We then write the cxPartialyMatched() function for partially matched crossover, cxTwoPoint(), and mutShuffleIndexes() to shuffle values at different indexes within each individual (since we must remain within size n  = 25). We modified the mutation function to be a uniform int mutation, wherein randomly selected entries for each individual are replaced with a randomly selected value between 0 and n. The improvements seen with this new mutation function are described in the Findings section below. Finally, we run a similar evolutionary loop as the one described for the One Max Problem (see above) for 100 generations, return the fitnesses of the individuals (based on the predefined fitness operation - the number of conflicts between queens) and print statistics. We loop for some number of generations (100, in this case) and report the best individual that has resulted from this evolution process. 
+Diff is a fence posting problem 
+
+AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
+
+
+## Titanic MOGP Problem 
+### Data Preprocessing
+* Created Google Colab notebook with same preprocessing as Titanic ML assignment
+* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
+* Researched strongly typed GP in DEAP
+* Chose NSGA II as selection method (handles both objectives)
+* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
+* Created hof using best individuals ever identified throughout evolution
+* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
+* Predicted Survived feature for test.csv 
+
+Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
+
+Best Learner: FPR = 0, FNR =  0.9122807017543859
 
 Findings:
-![N Queens Generations, Part 1](https://picc.io/UzJTkn-.png)
-![N Queens Generations, Part 2](https://picc.io/BAhG-pn.png)
-
-Visualizations:
-
-1. With Shuffle Indexes Mutation:
-![N Queens Visualization](https://picc.io/-qpvzmX.png)
-
-2. With Uniform Int Mutation:
-![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
-
-* We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
-
-3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
-![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)
-
-* We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trends towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
-
-Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Install DEAP and set up JupyterLab for Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Complete Lecture 1: GA Walkthrough | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
-| Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
 
-# Week 2: September 1st, 2021
+# Week 4: September 15th, 2021
 ## Overview
-Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
+Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
 
 ## Team Meeting Notes
-### Lecture on Genetic Algorithms
-Introduced concept of genetic programming with the goal of optimizing a function (represented as a tree structure) to achieve a particular target output.  
-1. Nodes: primitives, represent functions 
-2. Leaves: terminals, represent parameters 
-3. Explored examples of lisp preordered parse trees that represent functions
-4. Crossover in GP: exchanging subtrees
-5. Mutation in GP: Inserting/deleting nodes and subtrees
-5. Measuring error (ex. Mean Squared Error)
-7. Identifying primitives that can make modeling a function easier 
+### Notes on Titanic ML Assignment 
+- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+- Post csv representing predictions of your model that was co-dominant with rest of group. 
+- Sci-kit learn - classification (ex. Support Vector machine)
+- Do Pareto graphing for minimization objectives
+- Pandas documentation
+- Why did the decision classifier perform so well when we didn’t do that much?
+- Make sure submission samples are in the same order for everyone 
+- Pandas, sci-kit learn - dig deep 
+- Use n folds
+- Look at cabin values and encode Embarked 
+- Do k fold splits for all learners
+- Cross val score - average of false negatives and false positive 
+- Look at average for nan values across samples with similar features versus all samples
+- Create csv files with data that we’re using for preprocessing 
+- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+- Don’t mix up the rows
+- Undersampling/oversampling 
 
-### Lab 2 - Genetic Programming
-This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
+## Titanic ML Problem 
+### Data Preprocessing
+* Created Google Colab notebook for group preprocessing
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
+* Imported pandas, numpy, and sklearn methods 
+* Mounted Drive to Colab and read in train and test sets as dataframes
+* Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
+* Set PassengerID as index
+* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
+* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
+* Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+* Selected XGBoost learner due to its speed and ability to handle null data
+* Initially ran XGBoost predictions with default hyperparameters 
+* Obtain confusion matrix for predictions 
+* Modified XGBoost hyperparameters
+Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
+Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
 
-We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We also graphed the results and printed our statistics. 
-
-Findings: The global maximum (a best individual with a fitness or MAE of 0) was almost reached. The best maximum individual reached a minimum fitness value of around 1.5. The average and minimum fitnesses approached a fitness of 0 closely (0 was an asymptote for these values). Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.
-  
-The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
-
-Visualization:
-![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
-
-* We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
-
-Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+Findings:
+Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Continue to install DEAP and supporting libraries | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Complete Lab 2: Genetic Programming | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Review Genetic Programming Notes | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
-| Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Review Titanic Dataset and Preprocessing/Hyperparameter Tuning Techniques | Completed | 9/15/2021 | 9/22/2021 | 9/16/2021 |
+| Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
+| Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
+| Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
 
 # Week 3: September 8th, 2021
 
@@ -217,123 +217,123 @@ Markdown version of self-grading rubric here:
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
 | Column Totals |  |  |  | 98 |
 
-# Week 4: September 15th, 2021
+# Week 2: September 1st, 2021
 ## Overview
-Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
+Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
-- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
-- Post csv representing predictions of your model that was co-dominant with rest of group. 
-- Sci-kit learn - classification (ex. Support Vector machine)
-- Do Pareto graphing for minimization objectives
-- Pandas documentation
-- Why did the decision classifier perform so well when we didn’t do that much?
-- Make sure submission samples are in the same order for everyone 
-- Pandas, sci-kit learn - dig deep 
-- Use n folds
-- Look at cabin values and encode Embarked 
-- Do k fold splits for all learners
-- Cross val score - average of false negatives and false positive 
-- Look at average for nan values across samples with similar features versus all samples
-- Create csv files with data that we’re using for preprocessing 
-- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
-- Don’t mix up the rows
-- Undersampling/oversampling 
+### Lecture on Genetic Algorithms
+Introduced concept of genetic programming with the goal of optimizing a function (represented as a tree structure) to achieve a particular target output.  
+1. Nodes: primitives, represent functions 
+2. Leaves: terminals, represent parameters 
+3. Explored examples of lisp preordered parse trees that represent functions
+4. Crossover in GP: exchanging subtrees
+5. Mutation in GP: Inserting/deleting nodes and subtrees
+5. Measuring error (ex. Mean Squared Error)
+7. Identifying primitives that can make modeling a function easier 
 
-## Titanic ML Problem 
-### Data Preprocessing
-* Created Google Colab notebook for group preprocessing
-* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
-* Imported pandas, numpy, and sklearn methods 
-* Mounted Drive to Colab and read in train and test sets as dataframes
-* Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
-* Set PassengerID as index
-* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
-* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
-* Replaced Sex feature categories with 1 for male and 0 for female
-* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
-* Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
-* Split training data into training and testing sets (test_size=0.33, random_state=10)
-* Selected XGBoost learner due to its speed and ability to handle null data
-* Initially ran XGBoost predictions with default hyperparameters 
-* Obtain confusion matrix for predictions 
-* Modified XGBoost hyperparameters
-Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
-Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
+### Lab 2 - Genetic Programming
+This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
 
-Findings:
-Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We also graphed the results and printed our statistics. 
+
+Findings: The global maximum (a best individual with a fitness or MAE of 0) was almost reached. The best maximum individual reached a minimum fitness value of around 1.5. The average and minimum fitnesses approached a fitness of 0 closely (0 was an asymptote for these values). Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.
+  
+The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
+
+Visualization:
+![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+
+* We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
+
+Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Review Titanic Dataset and Preprocessing/Hyperparameter Tuning Techniques | Completed | 9/15/2021 | 9/22/2021 | 9/16/2021 |
-| Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
-| Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
-| Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+| Continue to install DEAP and supporting libraries | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Complete Lab 2: Genetic Programming | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Review Genetic Programming Notes | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
+| Update Notebook | Completed | 9/1/2021 | 9/8/2021 | 9/6/2021 |
 
-# Week 5: September 22th, 2021
+# Week 1: August 25th, 2021
 ## Overview
-Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+Discussed course format (10-week bootcamp followed by joining a sub-team), location of course GitHub and reference materials (https://github.gatech.edu/emade/emade/), expectations, Assignment 1, and notebooks. Attended lecture on Genetic Algorithms.
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
-Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+### Lecture on Genetic Algorithms
+Introduced concept of genetic algorithms that mimic evolutionary processes (mutation, selection, mating, fitness evaluation, reproduction, etc.) in order to maximize the fitness of individuals in a population of data. Identified steps of a genetic algorithm:
+1. Random initialization of population.
+2. Determining objective of population: how do we define performance of individuals?
+3. Determining fitness of population: how does an individual's objective compare to that of others?
+4. Subject individuals to selection methods (ex. fitness proportionate and tournament selection) so as to give preference to the fittest individuals in the population.  
+5. Through an evolutionary loop, select parents from population, perform crossovers/mutations/selections on parents and save these modifications as offspring of the initial population, and determine the fitness of the population. Repeat until we maximize the fitness of the best individual in the population. 
 
-Have to write genetic program yourself
-Evaluation function - at least two objective, False Positives and False Negatives
- 
-Can add additional objectives to make it better
+Learned genetic algorithm solution to One Max Problem - a simple problem that presents the goal of maximizing the number of 1's that an individual contains (thereby maximizing the sum of the individual's values). 
 
-Comparison of Pareto Front that genetic programming finds against ML codominant set
+## Lab 1 - Genetic Algorithms with DEAP
+* Installed Conda, Python, and Jupyter Notebooks
+* Cloned emade and reference-material repositories using Git 
+### Lecture 1 - GA Walkthrough (introductory notebook for understanding of DEAP implementation of genetic algorithms)
+* Installed DEAP using pip
+* Imported base, creator, and tools libraries from DEAP
+* Created FitnessMax Class to track objectives for individuals in One Max problem 
+* Set weights attribute to have a value of 1.0 - our goal is to maximize this value for a given individual through the evolution process
 
-Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
+Created:
+* Individual class which inherits from list and has fitness attribute
+* Binary random choice generator attr_bool using the DEAP toolbox to randomly present either a 0 or 1 for each value in the list for an individual
+* individual() method to create a list of 100 randomly generator 0's and 1's for each individual and registered with DEAP toolbox
+* population() method to create a set of individuals
 
-Bare minimum is to get comparison between ML and GP. 
+Defined evaluation function for fitness: a sum operation across all of an individual's values.
 
-Generate predictions for every pareto optimal point
+Performed:
+* in-place two-point crossover on individuals
+* in-place mutation with a given probability of mutation on individuals
 
-Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
+This notebook provided a solid introduction to the DEAP API and the representation of genetic algorithms in a high-level language like Python. While the lab itself presented a more in-depth example of the evolutionary process for more challenging optimization problems (like the n-queens problem), the information in this initial notebook will generalize well to future genetic algorithms problems.  
 
-Present findings next week 
-in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
+### Lab 1 - Genetic Algorithms with DEAP
+This lab explored the One Max problem and the n-queens problem and defined genetic algorithms to solve both. 
 
-AUC will be useful to evaluation GAs
-Minimization - adding area, maximization - eating area
+**One Max Problem:**
+For this problem, we followed many of the same steps that appeared in the Lecture 1 Notebook (see above). We define a main() function for the genetic algorithm, which evaluates the full population and initiates the evolutionary loop. Within the evolutionary loop, we select individuals for each successive generation, clone them, and perform mutations/crossovers on them. We then evaluate the fitness of these offspring and replace the existing population with the offspring. Finally, we return the fitnesses of the individuals (based on the predefined fitness operation - the sum of the individual's entries) and print statistics such as the mean fitness, squared sum of the fitnesses, and standard deviation of the fitnesses). We loop for some number of generations (40, in this case) and report the best individual that has resulted from this evolution process. Within the DEAP framework, we used libraries like creator (including the create() method), tools (including the selBest() method and the selTournament, mutFlipBit, and cxTwoPoint attributes), and base (including the Toolbox(), register(), select(),  mate(), and mutate() methods).
 
-Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
+Findings: The global maximum (a best individual with a fitness equal to n, the number of entries in each individual) was reached within 40 generations about every 19 out of 20 times the algorithm was run; this indicates that our algorithm has an effectiveness of around 95%. Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.  
 
-Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
+![One Max Generations, Part 1](https://picc.io/pok5sgG.png)
+![One Max Generations, Part 2](https://picc.io/ouFv77h.png)
 
-Diff is a fence posting problem 
-
-AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
-
-
-## Titanic MOGP Problem 
-### Data Preprocessing
-* Created Google Colab notebook with same preprocessing as Titanic ML assignment
-* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
-* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
-* Researched strongly typed GP in DEAP
-* Chose NSGA II as selection method (handles both objectives)
-* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
-* Created hof using best individuals ever identified throughout evolution
-* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
-* Predicted Survived feature for test.csv 
-
-Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
-
-Best Learner: FPR = 0, FNR =  0.9122807017543859
+**N Queens Problem:**
+For this problem, we followed many of the same steps that appeared in the One Max Problem (see above). We define a size n = 25 for each individual and define a weight of -1.0 here, since we wish to minimize the number of conflicts between queens in our problem space. We then create a permutation function to populate the entries for each individual with numbers selected without replacement from range(n). We define our evaluation function as a measure of the number of conflicts along each diagonal of our board; with the creation process we defined for individuals, queens will not appear in the same row or column. [Describe evaluation function modification here w/ screenshots]. We then write the cxPartialyMatched() function for partially matched crossover, cxTwoPoint(), and mutShuffleIndexes() to shuffle values at different indexes within each individual (since we must remain within size n  = 25). We modified the mutation function to be a uniform int mutation, wherein randomly selected entries for each individual are replaced with a randomly selected value between 0 and n. The improvements seen with this new mutation function are described in the Findings section below. Finally, we run a similar evolutionary loop as the one described for the One Max Problem (see above) for 100 generations, return the fitnesses of the individuals (based on the predefined fitness operation - the number of conflicts between queens) and print statistics. We loop for some number of generations (100, in this case) and report the best individual that has resulted from this evolution process. 
 
 Findings:
-The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. 
+![N Queens Generations, Part 1](https://picc.io/UzJTkn-.png)
+![N Queens Generations, Part 2](https://picc.io/BAhG-pn.png)
+
+Visualizations:
+
+1. With Shuffle Indexes Mutation:
+![N Queens Visualization](https://picc.io/-qpvzmX.png)
+
+2. With Uniform Int Mutation:
+![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
+
+* We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
+
+3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
+![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)
+
+* We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trends towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
+
+Additional improvements can be made to the current n-queens algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Install DEAP and set up JupyterLab for Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lecture 1: GA Walkthrough | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Complete Lab 1 | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Set Up Notebook | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
+| Review Genetic Algorithms | Completed | 8/25/2021 | 9/1/2021 | 8/30/2021 |
