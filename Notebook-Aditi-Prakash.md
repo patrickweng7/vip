@@ -211,8 +211,129 @@ Markdown version of self-grading rubric here:
 | Personal work and accomplishments | To-do items: clarity, easy to find |  |  | 5 |
 | " " | To-do list consistency checked and dated |  |  | 10 |
 | " " | To-dos and cancellations checked and dated |  |  | 5 |
-| " " | Level of detail: personal work and accomplishments |  |  | 15 |
+| " " | Level of detail: personal work and accomplishments |  |  | 14 |
 | Useful resource | References (internal, external) |  |  | 10 |
-| " " | Useful resource for the team |  |  | 15 |
+| " " | Useful resource for the team |  |  | 14 |
 Comments: I keep my notebook as detailed as possible and ensure that when I look back at my documentation for each week, I am able to recall all of the information I need in a timely and efficient manner. I also make sure my writing and documentation are are easily understandable as possible so that other people can navigate my work efficiently as well. 
-| Column Totals |  |  |  | 100 |
+| Column Totals |  |  |  | 98 |
+
+# Week 4: September 15th, 2021
+## Overview
+Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
+
+## Team Meeting Notes
+### Notes on Titanic ML Assignment 
+- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+- Post csv representing predictions of your model that was co-dominant with rest of group. 
+- Sci-kit learn - classification (ex. Support Vector machine)
+- Do Pareto graphing for minimization objectives
+- Pandas documentation
+- Why did the decision classifier perform so well when we didn’t do that much?
+- Make sure submission samples are in the same order for everyone 
+- Pandas, sci-kit learn - dig deep 
+- Use n folds
+- Look at cabin values and encode Embarked 
+- Do k fold splits for all learners
+- Cross val score - average of false negatives and false positive 
+- Look at average for nan values across samples with similar features versus all samples
+- Create csv files with data that we’re using for preprocessing 
+- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+- Don’t mix up the rows
+- Undersampling/oversampling 
+
+## Titanic ML Problem 
+### Data Preprocessing
+* Created Google Colab notebook for group preprocessing
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
+* Imported pandas, numpy, and sklearn methods 
+* Mounted Drive to Colab and read in train and test sets as dataframes
+* Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
+* Set PassengerID as index
+* Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
+* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
+* Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+* Selected XGBoost learner due to its speed and ability to handle null data
+* Initially ran XGBoost predictions with default hyperparameters 
+* Obtain confusion matrix for predictions 
+* Modified XGBoost hyperparameters
+Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
+Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
+
+Findings:
+Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Review Titanic Dataset and Preprocessing/Hyperparameter Tuning Techniques | Completed | 9/15/2021 | 9/22/2021 | 9/16/2021 |
+| Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
+| Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
+| Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+
+# Week 5: September 22th, 2021
+## Overview
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+
+## Team Meeting Notes
+### Notes on Titanic ML Assignment 
+Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+
+Have to write genetic program yourself
+Evaluation function - at least two objective, False Positives and False Negatives
+ 
+Can add additional objectives to make it better
+
+Comparison of Pareto Front that genetic programming finds against ML codominant set
+
+Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
+
+Bare minimum is to get comparison between ML and GP. 
+
+Generate predictions for every pareto optimal point
+
+Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
+
+Present findings next week 
+in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
+
+AUC will be useful to evaluation GAs
+Minimization - adding area, maximization - eating area
+
+Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
+
+Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
+
+Diff is a fence posting problem 
+
+AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
+
+
+## Titanic MOGP Problem 
+### Data Preprocessing
+* Created Google Colab notebook with same preprocessing as Titanic ML assignment
+* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
+* Researched strongly typed GP in DEAP
+* Chose NSGA II as selection method (handles both objectives)
+* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
+* Created hof using best individuals ever identified throughout evolution
+* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
+* Predicted Survived feature for test.csv 
+
+Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
+
+Best Learner: FPR = 0, FNR =  0.9122807017543859
+
+Findings:
+The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |

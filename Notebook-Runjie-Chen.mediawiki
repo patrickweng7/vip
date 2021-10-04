@@ -8,6 +8,129 @@
 
 = Fall 2021 =
 
+== Week 6: September 29th - October 5th ==
+
+===September 29, 2021 Team Meeting Notes===
+*Peer eval open next week
+**If don’t submit peer eval, automatic letter grade drop
+*Presentations
+**Group 4
+***Used logical terminals
+***Used np.greater, np.less, np.less_equal, np.logical_and primitives
+***Used gp.mutNodeReplacement which is what we did
+***Num_gen = 50, we did num_gen = 40
+***Their GP AUC is around 0.2, which is similar to what we got 
+***Used hall of fame, which is a pretty good way to do things
+***Missing constants in primitive set
+***Did not put pareto fronts on top of each other 
+**Group 3
+***Data preprocessing: 
+****Extracted titles from name and mapped to integer values
+*****Mr = 1, miss = 2, mrs = 3, master = 4, rare = 5
+****Did not use one hot encoding which might lead to unintended relationships between features
+*****For example, since rare is assigned 5 and master is assigned 4, the program might be trained to think that rare is closer to master than Mr, when in reality there’s no such relationship 
+***Used random forests, KNN, logistic regression, MLP, and SVM
+***Got 0.11 AUC for ML, which is pretty good
+***GP:
+****Used muteUniform
+****Used tools.selLexicase
+****Higher discrepancy between false positive and false negative will be penalized more
+****Got higher AUC for GP (AUC: 0.17)
+****GP graph does not display not fn/fp rate so the comparison might be off
+**Group 2
+***ML:
+****decision tree classifier
+****Random forest
+****Ada boost classifier
+****MLP 
+****SVM
+***GP:
+****Used gp.mutUniform
+****Max tree height = 17
+****Used hall of fame
+****Missing Pareto front line on the graph
+**Group 1
+***I am part of Group 1
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluation
+|In Progress
+|September 29, 2021
+|October 5th, 2021
+|
+|-
+|Insert diagrams for the completed labs and projects in my notebook
+|In Progress
+|September 29, 2021
+|October 5th, 2021
+|
+|}
+
+== Week 5: September 22nd - September 28th ==
+
+===September 22, 2021 Team Meeting Notes===
+
+*Thoughts on titanic example
+**Sometimes we have to sacrifice performance on one objective to achieve higher performance on the other objective in order to achieve codominance 
+**There’s not really an intuitive way to interpret how changing hyper-parameters will affect the result, there’s not a linear relationship, it’s mostly a guessing game
+*Group project
+**Not allow using default algorithms in DEAP, have to code our own
+**Have to write the genetic loop as a group
+**The presentation is going to look like a graph of Pareto optimal frontier graphing GP and ML results 
+**Submit a CSV file (each algorithm that is deemed Pareto optimal by our algorithm gets a column in the CSV file)
+**Only use selection functions that work for multi-objective in the DEAP framework (don’t use selTournament)
+**2 types of step functions
+***“Post” for minimization
+***“Pre” for maximization
+***Points will be docked if the steps are going in the wrong way
+**Use false positive/negative rates so that it can be comparable with classmates
+**Include bounded/trivial points on the graph when computing the AUC
+*Presentation
+**Check Reference material for presentation guideline
+**It has useful code for graphing steps and AUC
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create a multiple objective evolutionary algorithm and make a presentation on it with my team
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Generate and upload one CSV file as a group that contains the predictions on test.csv for each Pareto optimal individual of our GP algorithm
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Presentation Rehersal 
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+===September 24, 2021 Sub-team Meeting Notes===
+*Developed our own selection method
+*Developed our own evolutionary algorithm using our custom selection tournament method, one point crossOver mate method, and node replacement mutation method
+*Our best individual: add(multiply(multiply(Embarked_S, SibSp), subtract(Sex_female, Embarked_S)), add(subtract(Sex_female, Embarked_S), subtract(subtract(subtract(Sex_female, Embarked_S), Sex_male), Sex_male)))
+*Our Genetic programming (GP) AUC: 0.21, Machine learning (ML) AUC: 0.32
+*36% decrease in AUC observed in our GP algorithm compared to the ML algorithm
+*observed more diversity in GP pareto front compared to the ML front
+
 == Week 4: September 15th - September 21st ==
 
 ===September 15, 2021 Team Meeting Notes===
@@ -34,14 +157,18 @@
 !Date Resolved
 |-
 |Generate and upload a CSV of my Titanic ML prediction (that is codominant with my group) to the Canvas ZZZ section
-|In Progress
+|Completed
 |September 15, 2021
 |September 22, 2021
-|
+|September 20, 2021
 |}
 
 === September 19, 2021 Sub-team Meeting Notes ===
 *Worked on Titanic Example
+*We each chose a Machine Learning algorithm to attempt to achieve a Pareto optimal front in which each of us is codominant with each other.
+*I choose the Gradient Descent algorithm, which is an optimization algorithm for finding a local minimum of a differentiable function. The idea is to take repeated steps in the opposite direction of the gradient (or approximate gradient) of the function at the current point because this is the direction of steepest descent.
+*I used the default parameters of the Gradient Descent algorithm
+*My result that is codominant with my teammates is "FPR = 0.067   FPR = 0.414"
 
 == Week 3: September 8th - September 14th ==
 
@@ -83,17 +210,13 @@
 !Suspense Date
 !Date Resolved
 |-
-|Insert lab result diagrams for the completed labs in my notebook
-|In Progress
-|September 8, 2021
-|September 15, 2021
-|
+
 |-
 |Add explanations, justifications, and reflections to Lab 2 results
-|In Progress
+|Completed
 |September 8, 2021
 |September 15, 2021
-|
+|September 15, 2021
 |-
 |Notebook Self-assessment
 |Completed
@@ -102,7 +225,7 @@
 |September 15, 2021
 |-
 |Lab 2 - Multi-Objective Genetic Programming and take notes
-|In Progress
+|Completed
 |September 8, 2021
 |September 15, 2021
 |September 15, 2021
@@ -206,16 +329,16 @@ The graded rubric can be found at: https://drive.google.com/file/d/16oCakT022EO_
 |September 8, 2021
 |-
 |Understand the graphs returned by Lab 2 by asking questions about them during the next team meeting
-|In Progress
+|Completed
 |September 8, 2021
 |September 8, 2021
-|
+|September 8, 2021
 |-
 |Find out how to insert pictures in my notebook and if pictures are required by asking questions about them during the next team meeting
-|In Progress
+|Completed
 |September 8, 2021
 |September 8, 2021
-|
+|September 8, 2021
 |}
 
 ===Lab 2 - Genetic Programming (part 1)===

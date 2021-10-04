@@ -11,7 +11,30 @@
 
 _GitHub: github.gatech.edu/emade/emade_
 
-### Objectives of lecture 4:
+## Lecture 5:
+
+In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
+
+**Prof's notes:**
+
+* Manipulating the hyper parameters is an important factor required to obtain co-dominant algorithms.
+* Be aware that the above may sometimes result in a reduction in the Pareto optimal fitness scores.
+* Hit and trial was used to assure co-dominant algorithms. A few iterations for finding the optimal models and to achieve a successful outcome.
+* Next week's goal is to use multiple objective genetic programming to find the Pareto optimal solution.
+* Our goal now is to improve on the accuracy of our algorithms.
+* We have to use basic primitives to generate desired solutions.
+* During the weekend, my team and I have set meetings to catch up on our individual works.
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Update Notebook & Review notes | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
+| Team meeting 1| Completed | 9/22/2021 | 9/29/2021 | 9/27/2021 |
+| Team Meeting 2 | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
+| Complete Predicting Titanic Survivors Assignment and Presentation | Currently in Progress | 9/22/2021 | 9/29/2021 | 9/28/2021 |
+
+
+## Lecture 4:
 
 **Prof's notes:**
 
@@ -33,9 +56,52 @@ Within our groups, our algorithms must be codominant. That being said, the train
 
 At the end, we will have to submit our final predictions file with results codominant within our groups.
 
-**Individual/Project Notes:**
+**Project Notes:**
+ 
+- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+- Post csv representing predictions of your model that was co-dominant with rest of group. 
+- Sci-kit learn - classification (ex. Support Vector machine)
+- Do Pareto graphing for minimization objectives
+- Pandas documentation
+- Why did the decision classifier perform so well when we didn’t do that much?
+- Make sure submission samples are in the same order for everyone 
+- Pandas, sci-kit learn - dig deep 
+- Use n folds
+- Look at cabin values and encode Embarked 
+- Do k fold splits for all learners
+- Cross val score - average of false negatives and false positive 
+- Look at average for nan values across samples with similar features versus all samples
+- Create csv files with data that we’re using for preprocessing 
+- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+- Don’t mix up the rows
+- Undersampling/oversampling 
 
-### Objective of lecture 3:
+**Titanic ML Problem - Data Preprocessing**
+* Created Google Colab/Slack notebook for group preprocessing
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
+* Read in train and test sets as dataframes
+* Set PassengerID as index
+* One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class. Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
+* Replaced Sex feature categories with 1 for male and 0 for female
+* We replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
+* Selected XGBoost learner due to its speed and ability to handle null data
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+* Initially ran XGBoost predictions with default hyperparameters 
+* Gathered the confusion matrix for predictions 
+* Changed XGBoost hyperparameters
+
+Findings:
+Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values of the FNR and FPR, given the same preprocessed data as an input. Charlie's performed much better in the FPR objective and Aditi's performed much better in the FNR objective. From the above, we can deduce that neural networks, specifically MLP classifiers, favor FP prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR. We have to further tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy.
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Review Titanic Dataset and Preprocessing/Hyperparameter Tuning Techniques | Completed | 9/15/2021 | 9/22/2021 | 9/16/2021 |
+| Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
+| Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
+| Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+
+## Lecture 3:
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
 
@@ -136,7 +202,7 @@ The scores are the following:
 |Lab 2(part II) Notes|Complete|09/15/2021|09/08/2021|09/14/2021|
 
 
-## Topic 2: Genetic Programming
+## Lecture 2: Genetic Programming
 
 **Tree Representation is very used:**
 
@@ -207,7 +273,7 @@ _We add three new primitives, then re-instantiate our primitive set. Then, we de
 |Lecture 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|
 |Lab 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|  
                                                    
-## **Topic 1: Genetic Algorithms**
+## **Lecture 1: Genetic Algorithms**
 
 ### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 

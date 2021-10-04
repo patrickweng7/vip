@@ -9,6 +9,93 @@ Cell Phone; 770-595-8339
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+== September 22nd, 2021 ==
+'''Team Meeting Notes'''
+
+* Assignment for week was to use DEAP to generate Pareto optimal solutions to titanic problem
+* Solution to problem is located at [[Bootcamp Subteam 1]]
+
+'''Lab Notes'''
+* I worked with the team to develop the genetic algorithm using DEAP step by step.
+* We started with the same code and seed we used last week to generate the test, train and validation sets for the titanic dataset so that we had parity when comparing our solutions
+* Next we had to define an individual. We choose to use the primitive tree that we used in a previous lab, but with two minimization functions representing FPR and FNR
+* The primitive Tree used:
+** Add
+** Subtract
+** cos
+** Multiply
+* We implemented the evaluation method that returned the FPR and FNR when comparing the compiled function on the training set with the testing labels
+* For the selection method, we implemented a version of selection tournament for multi-parameters. This method would select the dominant individual as the survivor or in the case of only partial dominance, the lowest combined score. I originally tried to implement this with selecting more than two individuals in the tournament, but it was too slow. The reason was that we were sampling until we selected a different individual. However, individuals were not easily compared so I used their fitness to compare. This caused the algorithm to slow down as it converged in many copies of the same winner.
+* The mate function chosen was to exchange nodes using the cxOnePointLeafBiased method with a random probability
+* The mutation method was a single node replacement with a randomly chosen primitive
+
+Initially, our methods proved a slightly lower AUC using this method than our ML AUC. However, when tweaking the model we were able to get slightly better results and reduced the AUC by 40%. One thing was to play around with the maximum size of the tree. It was initially set to 2 which meant each tree could only have 4 parameters each. My increasing the maximum nodes, it increased performance significantly
+
+'''Extra Credit'''
+For my robotics class, we had an opportunity to implement particle filters for extra credit. I used DEAP to make a modified version of the particle filter algorithm where I used genetic algorithms to randomize and select particles as opposed to using a probability function. It was able to converge much more quickly to the true values, but was not as accurate over time. This is because the robot continues to move, so individuals lose a level of certainty over time and other individuals succeed. However, it does cover a wider range of solutions than the particle filter which converges completely.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Work with sub-team on Titanic Dataset for GP
+|In Progress
+|September 22nd, 2021
+|September 29th, 2021
+|September 29th, 2021
+|}
+
+== September 15th, 2021 ==
+'''Team Meeting Notes:'''
+* We reviewed the Titanic Dataset hosted by Kaggle: [https://www.kaggle.com/c/titanic/data]
+* Dr. Zutty walked through a Jupiter Notebook showing us how to clean and prepare data
+** A test.csv and train.csv were given to us, which is a splitting of the data of the passengers of the titanic.
+** This included data such as gender, ticket number, cabin number, age, ticket fare, and port of embarkation.
+** The test.csv did not contain whether or not the passengers survived, but the train set did.
+** The Train set removed cabin number, name, and ticket as they are not continuous or discrete variables
+** Then the train set was split into a different train and test set for modeling
+** Multiple models were shown to us without any hyper-parameters set
+* Our goal as a team was to work together to modify the training and test sets and build an algorithm, one for each member, such that each was co-dominate with each other. In other words, no one algorithm would be dominant for number of False Positives and False Negatives, but one or the other
+
+'''Lab Notes'''
+* The Output of our work is located on our team page [[Bootcamp Subteam 1]]
+* For my algorithm, I choose the Random Forest Classifier
+* I was able to obtain an algorithm that produced 25 False Positives and 29 False Negatives
+* For the passengers who died, I obtained a precision and recall score of 86% and 87% respectively
+* For the passengers who survived, I obtained a precision and recall score of 75% and 73% respectively
+* I also played around with the hyper-parameters such as max_depth which controls how deep the nodes can get in a forest and min_samples_split which determines how many samples are required for a split to occur. By default max_depth is not set and you only need 2 samples to split with
+* Changing min_samples_split did not decrease the number of incorrect classification. This is because there is not enough data for there to ever be 3 or more items to split on
+* Changing the max depth to 4 did produce the results listed above, which were greater than anything else I tried
+* For further tuning, I referenced [https://scikit-learn.org/stable/modules/grid_search.html] to explore using the RandomizedSearchCV and GridSearch APIs. For example, I used
+<blockquote>
+model_params = {
+    "max_depth": range(2, 40),
+    "min_samples_leaf": range(1, 5),
+    "min_samples_split": range(2, 5),
+}
+</blockquote>
+This produced a range of hyper parameters to experiment with. Grid Search searched through all combinations of variables, and the Randomized search searched through 100 random combinations of the variables. Neither solution produced an optimal outcome compared to my previous experiments
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Work with sub-team on Titanic Dataset
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 21st, 2021
+|}
+
 === Self Assessment ===
 
 {| class="wikitable"
