@@ -227,7 +227,24 @@ Guide to EMADE.py Presentation Notes:
 ***Purpose: Registers the majority of the toolbox methods to be used
 ***Args: datasetDict <- defined in launchEMADE.py
 ***Notable assignments
-****
+****self.toolbox.register("evaluate", evaluate)
+****self.toolbox.register("mutateSwapLayer", emade_operators.swap_layer)
+****self.toolbox.register("mutateAddLayer", emade_operators.add_layer)
+****self.toolbox.register("fitnessScale", HCDScaleMin)
+**my_str(individual)
+***Useful header when developing
+***Purpose: Return the string representation of an individual
+***Args:
+****Individual object
+*Mating/Mutation Functions
+**swap_layer(individual, upset)
+***Purpose: Randomly replaces a non-IO layer from an NNLearner with another layer
+**cx_ephemerals(ind1, ind2)
+***Purpose: Randomly select in each individual and exchange each subtree with the point as root between each individual.
+**swap_layer swaps a a single layer as opposed to cx_ephemerals swaps entire subtree.
+**concat_healer(individual, pset, oldbranch)
+***Purpose: Ensures newly concatenated layers are initialized within individual object
+*Master Algorithm
 
 
 
