@@ -1,13 +1,250 @@
 == Devan Moses ==
-Team Member: Devan Moses
+Team Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Karthik-Subramanian Karthik Subramanian], [https://github.gatech.edu/emade/emade/wiki/Notebook-Kevin-Zheng Kevin Zheng], [https://github.gatech.edu/emade/emade/wiki/Notebook-Shiyi-Wang Shiyi Wang], [https://github.gatech.edu/emade/emade/wiki/Notebook-Steven-Anthony-Leone Steven Leone]
 
 Email: dmoses@gatech.edu
 
 Cell Phone: 404-509-3758
 
-Interests: 
+Interests:
 *Academic: Artificial Intelligence, Machine Learning, NLP, Cognition, Bio-Inspired Learning
 *Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
+
+== Sep 27, 2021 ==
+'''Team Meeting Notes:'''
+* nas:
+** discussed some topics to consider: 
+**# one shot NAS system utilizing supernet(dynamic acyclical graph to cache nnlayer combos and weights for future use to reduce computational burden)
+**# weight sharing (id common subnetworks within ind in generations to help find optimal weights)
+**#writing to disk (emade infrastructure changes for memory utilization)
+** added parameter to put ceiling on training time hoping it will force faster change
+* image processing: 
+** want to put new data preprocessing techniques for images into emade
+* stocks: 
+** having problems finding relevant literature e.g. generalization, looked into some papers and ended up not being as useful as they thought
+** did some reading up on ML-based stock trading to build foundational knowledge
+* mod: 
+** fixed run crashing bug w/arl creating method, another bug in addallsubtrees method
+** getting on PACE
+* nlp:
+** anish helped us brainstorm a cleaner way that our suggested way to implement the context/query split
+** our final iteration is to edit how the data is loaded from the xml and either overload or edit the nnlearner method to take in two pieces of data from the start and converge them in the attention layer.
+
+'''Sub-team Meeting Notes:'''
+* we got a few new teammates this week and took a small amount of time to run them through some baseline knowledge then had them sit in on us breaking the new iteration into subtasks for the week.
+* we're actually using the trello board as intended this week
+* steven will make a new fork for us to use since the nas have their own thing going now
+* tasks:
+** implement load_textdata_for_QA to handle context/query split (which also must be specified in the build classifier method to be called)
+** creating the xml for SQUAD dataset
+
+'''Individual notes:'''
+* I decided to make a better intro to QA powerpoint because we got, and in a few weeks will get more, new members. I also suggested that we should use a distilled version of it as the beginning of our midterm presentation.
+* [https://docs.google.com/presentation/d/1E1DZyeGYXwsT8WTRPRaiwko9gRsr3q1u/edit?usp=sharing&ouid=113962999086036620588&rtpof=true&sd=true Intro to QA] <- warning about 2x as long as the quick and dirty version
+* This took much longer than I thought so I only looked through code and offered some ideas/clarification to those in the group on what/how we should be implementing our idea
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make an intro to qa ppt
+|Completed
+|Sep 27, 2021
+|Oct 02, 2021
+|Oct 04, 2021
+|-
+|implement a subcomponent data handling pipeline
+|In progress
+|Sep 20, 2021
+|Oct 04, 2021
+|WIP
+|}
+
+== Sep 20, 2021 ==
+'''Team Meeting Notes:'''
+* img porocessing: 
+** decided to use xray dataset
+** did a base line run on emade
+**  having problems find relevant materials on "hyper features" mentioned in literature
+* stocks:
+** found some goodies in lit review such as passing learned rules to next gen
+** decided against fundamental analysis, want to try and generalize individuals to work on any stock
+* modularity:
+** did some runs and fixed bug
+** set max depth to 10, added 2 good seeds and a number of valid seeds (concerns about limiting diversity), see how depth of arls affects indivdual performance
+** swapping from titanic to mnist
+* nlp:
+** look in emade.py at create ind, change what it takes in "emade data pair" make new one to leverage strongly typed gp
+** making a child class to take in our type of tree to cover this context/query split as shown [https://arxiv.org/pdf/1611.01603.pdf here]
+* nas:
+** working with image processing datasets
+** evalmethods.py addition to test triviality/novelty, also must consider how they will use novelty
+
+'''Sub-team Meeting Notes:'''
+* tasks:
+** if you're still confused about QA checkout the ppt I made (in last week's post) or the literature that steven linked in the slack.
+** look into emade codebase (namely emadedatapair, nnlearner layers, and where our data is handled) and see how we can incorporate the fact that we need to differentiate between the query and context data before they merge in an attention layer
+* we decided not to use an emadedatapair child for enforcing the embedding layer as we think the genetic process will handle it but we may use it to separate the context and query data during the embedding process.
+
+'''Individual notes:'''
+* we may not need to use an emadedatapair to handle the data split. we may be able to just change the datapair.type to question_answering and handle our data accordingly.
+* looking into the code base this doesn't seem to be such a great idea because there are a lot of control flow statements based on the type and we'd have to not only change every instance of that but also include everything that is in the textdata type which would be duplicating a ton of code.
+* there seems to be a lot of code bloat in the codebase which will be tough not to contribute to as efficiently implementing our ideas may require an overhaul of some of the already implemented systems
+
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get people who still don't understand QA up to speed
+|Completed
+|Sep 20, 2021
+|Sep 22, 2021
+|Sep 22, 2021
+|-
+|get familiar with the relevant code and brainstorm how to effectively implement the query/context data split
+|Completed
+|Sep 20, 2021
+|Sep 25, 2021
+|Sep 25, 2021
+|}
+
+== Sep 13, 2021 ==
+'''Team Meeting Notes:'''
+* Things to consider when looking to solve a problem with emade:
+*# trade off space obj
+*# id primitives and fundamental building blocks (primitives)
+*# make a seed
+*# represent as tree
+* Don't just copy paste papers, do lit review and look how you can go further with emade
+* Most, if not all teams, doing lit review to get the fundamentals for their topic
+
+'''Sub-team Meeting Notes:'''
+* Definitely going to start by representing models at trees with layers as primitives
+* Possible obj functions: f1 score and number of params, to maximize performance and minimize layers ideally
+* Goal: producing small, efficient models for QA. potentially using SOTA models as seeds in an attempt to distill their architecture
+* Created trello
+
+'''Individual notes:'''
+* I would love to know if we can force any order into what types of primitives are chosen.
+** All models I've seen start with embedding -> LSTMs (or whatever you want in the middle) (attention, modeling, etc) -> output (usually involves softmax)
+** For initial attempt I think forcing primitives of these types to go in relative order
+* I got emade working on PACE after my initial issue, there's a post in the slack about but TDLR:
+** I ran the server on the login node then ran the launch emade script after sshing into the computing node which solved the issue.
+** If ^ that doesn't make any sense to you I recommend [https://docs.pace.gatech.edu/software/mysql/ the pace docs] or [https://pace.gatech.edu/sites/default/files/pace-ice_orientation_1.pdf this presentation]
+* [https://docs.google.com/presentation/d/1F-qe4ens9mTjRujPJamc-qRwF3eyj1yZ/edit?usp=sharing&ouid=113962999086036620588&rtpof=true&sd=true quick and dirty QA explanation ppt]
+* [https://docs.google.com/document/d/1zr2eJZ0g1iPNijmz3KeoP3sdx9sSHNDs/edit?usp=sharing&ouid=113962999086036620588&rtpof=true&sd=true my notebook self-eval]
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get emade working with PACE.
+|Completed
+|Sep 06, 2021
+|Sep 11, 2021
+|Sep 14, 2021
+|-
+|Lit review on QA systems
+|Completed
+|Sep 13, 2021
+|Sep 18, 2021
+|Sep 18, 2021
+|-
+|Find layers to be used as primitives (initially)
+|Completed
+|Sep 03, 2021
+|Sep 18, 2021
+|Sep 18, 2021
+|}
+
+== Sep 06, 2021 ==
+'''Team Meeting Notes:'''
+* Labor Day
+
+'''Sub-team Meeting Notes:'''
+* This was the first meeting, we decided on Wednesdays at 2.
+* We used this meeting to get to know each other and where our relative experiences are, to figure out how we should proceed.
+* Current research idea, use emade to find well performing models for Question Answering, attempting to make them smaller or as small as current SOTA (transformer models)
+* Use of PACE-ICE and SQUAD dataset were agreed on.
+* emade best for classification type task.
+* Jason mentioned that the things we need to do are:
+*# ID any steps that need to be taken to clean/balance the dataset.
+*# ID how/if the problem can be represented in a tree structure
+*# ID what we can use as primitives
+
+'''Individual notes:'''
+* I was very interested in Named Entity Recognition models as that's what I'm most familiar with but it will be fun to dive into another task.
+* Looked in SOTA which turned out to be something I was familiar with, transformer models.
+* Highly recommend the paper, "Attention is all you need" and/or [https://medium.com/@samia.khalid/bert-explained-a-complete-guide-with-theory-and-tutorial-3ac9ebc8fa7c this medium article]
+* Surely we can approach this problem similarly to how the team did it last semester and use NN layers as the primitives with the NN architecture represented as a tree.
+* The dataset contains questions with answers and control questions without, should be careful of how we approach
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get emade working with PACE.
+|Completed
+|Sep 06, 2021
+|Sep 11, 2021
+|Sep 14, 2021
+|-
+|How can we approach QA with emade?
+|Completed
+|Sep 06, 2021
+|Sep 11, 2021
+|Sep 11, 2021
+|}
+
+== Aug 30, 2021 ==
+'''Team Meeting Notes:'''
+* This week was remote, at this point the subteams hadn't been fully decided so brainstorming ideas for our ranked teams was the main idea.
+* I talked about the idea's I have in Aug 23's post.
+* An interesting takeaway of ideas for the other team I was mainly interested in, Image Processing:
+*# medical uses (mri's/x-ray)
+*# self driving car (KITTI dataset)
+*# image classification - good
+*# image registration - might be bad
+
+'''Individual notes:'''
+* Because we weren't sure what team we were going to be one I decided to refamiliarize myself with EMADE runs and its structure using gabe's modularity fork of emade from last semester.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join relevant team slack once revealed.
+|Completed
+|Aug 30, 2021
+|Sep 03, 2021
+|Sep 01, 2021
+|-
+|Collab to find meeting time.
+|Completed
+|Aug 30, 2021
+|Sep 03, 2021
+|Sep 06, 2021
+|}
 
 == Aug 23, 2021 ==
 '''Team Meeting Notes:'''
@@ -41,7 +278,7 @@ Interests:
 !Suspense Date
 !Date Resolved
 |-
-|Join NLP slack
+|Join NLP brainstorming slack
 |Completed
 |Aug 23, 2021
 |Aug 23, 2021

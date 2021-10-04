@@ -1,4 +1,5 @@
 = Team Member =
+
 '''Name:''' Manas Harbola
 
 '''Email:''' [mailto:mharbola3@gatech.edu]
@@ -10,23 +11,434 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Tennis, Basketball
 
 = Fall 2021 =
+
+== Week 5: September 22th ==
+=== Class Summary ===
+*Discussed last week's Titanic ML project and findings
+*Given overview of Titanic MOGP task due next week
+*Received presentation on how to give a presentation by Dr. Rohling
+*Met with subteam members to schedule meetings for completing Titanic MOGP
+
+===Lecture Notes===
+*Learned how changing hyperparameters in ML models was crucial for creating the 5 co-dominant models for last week's assignment
+**'''Important''': Changing model hyperparameters will affect the pareto optimality and fitness of an individual/solution
+*Several teams noted having to fine-tune hyperparameters by trial-and-error in order to achieve co-dominance
+*Dr. Zutty assigned every team to apply GP on the Titanic dataset problem for next class using the Lab 2 MOGP notebook as a template.
+*Objective of using MOGP for Titanic was to see how objective results and AUC would compare to ML model results
+*Constraints for the MOGP assignment included the following:
+**Only basic primitives (add, subtract, multiply, etc.) and mathematical (sin, cos, tan, etc.) could be used
+**Do not use tournament selection, instead research other selection methods such as SPEA2.
+*Dr. Rohling gave a talk on how to present findings. Here were some takeaways:
+**Make sure graphs are properly labeled, readable, and have relevant info
+**Use page numbers in presentation so audience can ask questions
+**Technical presentations are often stand-alone
+**It is good practice to have take-away slides in presentation
+
+===Team Meeting Notes===
+*Organized times to meetup on Discord
+*Meeting #1, Sept 25:
+**Discussed and concluded that preprocessing step for MOGP would remain the same, as we were satisfied with our current features
+**Discussed which primitives we would use - agreed on using subtract, add, multiply, sin, cos, and tan
+**Researched different selection algorithms as a group and decided to use SPEA2
+**Repurposed evaluation function from Lab 2 for evaluating both FPR and FNR objectives
+**Learned about activation functions in order map any real number to either 0 or 1. Our team chose f(x) = arctan(x) / (pi / 2) as our function. We decided that if f(x) < 0.5 we would map the result to a 0, otherwise a 1.
+*Meeting #2, Sept 26:
+**Designed and wrote genetic loop for our MOGP algorithm
+**Best individual is multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653
+**Created presentation slides for our findings and results
+
+===Individual Notes===
+*Wrote majority of genetic loop with help from team members on selection, mutation, and evaluation functions
+*Originally our evaluation function was causing our best individual to always have fitness (0, 1.0). I discovered that even though fpr = fp / N and fnr = fn / P, our evaluation function was somehow not counting P and N properly. Therefore, I rewrote the evaluation function to calculate tp, tn, fp, and fn. We also decided to make fnr and/or fpr = 1 whenever the divisor was 0 to handle divide by 0 errors.
+*Cleaned up genetic loop and refactored notebook cells after achieving satisfying individuals
+*If I had more time, I would have repurposed the metrics calculations from Lab 2 to better visualize each generation in our genetic loop. Also, I would want to experiment with the mating and mutation rates in the notebook as well.
+
+'''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 29th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 25th, 2021
+|-
+|Team Meeting #1
+|Completed
+|September 22th, 2021
+|September 25th, 2021
+|September 25th, 2021
+|-
+|Team Meeting #2
+|Completed
+|September 22th, 2021
+|September 26th, 2021
+|September 26th, 2021
+|-
+|Complete Titanic MOGP Notebook
+|Completed
+|September 22th, 2021
+|September 29th, 2021
+|September 29th, 2021
+|-
+|}
+
+== Week 4: September 15th ==
+===Class Summary===
+*Assigned to Sub-teams
+*Overview of Sci-kit learn and other ML-related libraries
+*Titanic dataset discussion
+
+===Lecture Notes===
+*Received sub-team assignment based on GA
+**Assigned to sub-team #2
+*Introduced to Titanic Dataset on Kaggle
+**Problem: Implement a model predicting if a passenger on the Titanic either survived or died. Create and document 5 separate co-dominant models in your subteam and generate a prediction csv file for each model.
+**Codominance: Two algorithms are said to be codominance when neither dominates the other on every objective.
+**Objectives for Titanic Dataset: False Positive Rate (FPR) and False Negative Rate (FNR)
+*Reviewed preprocessing data notebook in Jupyter and learned how to adapt it for our training models
+*Breakout into sub-teams for introductions and setting up team meetings.
+
+===Team Meeting Notes===
+*Organized Discord chat for communication, ideas, and meetings
+*First meeting on Saturday, 9/18
+*Repurposed preprocessing data notebook for assignment
+*Selected features in training data relevant and correlated to survival
+**Excluded following features: Name, PassengerID, Ticket Number, Fare
+**Embarked feature was kept because we noticed a strong visual correlation between embarked location and male and female passengers' survival in training data. This makes sense as passengers who embarked earlier would have more cabin choices.
+*Used average age and embarked values to fill in NaN age and embarked data
+*Experimented with different classifier models to minimize FPR and FNR.
+*Used the following different models:
+**RandomForestClassifier (Manas) - Parameters: n_estimators=100, max_depth=5, min_samples_leaf=5, criterion=entropy, random_state=2; FP=18, FN=29
+**DecisionTreeClassifier (Rohan) - Parameters: min_samples_leaf=30; FP=9, FN=45
+**MLP Classifier (Adithya) - Parameters: default args; FP=26, FN=26
+**SVM (Yisu) - Parameters: kernel = sigmoid; FP=0, FN=104
+**AdaBoostClassifier (Aditya) - Parameters: default; FP=32, FN=21
+*'''Important Observation:''' In order to achieve co-dominance, hyperparameters for certain models had to be purposefully manipulate to either lower FNR/raise FPR or vice versa.
+===Individual Notes===
+*Researched common models used for classification and chose RandomForestClassifier
+*Researched on SciKit-learn, StackOverflow and Medium articles how to select appropriate parameter values for model
+*Achieved approx. 84% accuracy with model with relatively low FPR and FNR
+*Added code to generate prediction CSVs for everybody's model
+*Added cells for plotting model performance on FPR/FNR axis to demonstrate co-dominance.
+
+insert frontier graph image here
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 22th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 18th, 2021
+|-
+|Team Meeting #1
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 18th, 2021
+|-
+|Team Meeting #2
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 19th, 2021
+|-
+|Complete Notebook and Submit prediction csv
+|Completed
+|September 15th, 2021
+|September 22th, 2021
+|September 19th, 2021
+|-
+|}
+
+== Week 3: September 8th ==
+=== Self-Evaluation Rubric ===
+https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=sharing
+
+===Class Summary===
+* Intro to Multiple Objectives (MO) in Genetic Algorithms/Programming
+* Intro to Pareto Optimality
+
+===Team Meeting Notes===
+*What to look for in algorithms:
+**Scalability, Reliability, Accuracy, Efficiency, Consistency
+*How are Genome evaluated?
+**Evaluation of a genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores.
+*What are the possible scores?
+**True Positive (TP): How often we are identifying the desired object
+**False Positive (FP): How often are we identifying something else as the desired object
+*What are Objectives?
+**Set of measurements each genome (or individual) is scored against
+**Phenotype
+*Objective Space: Set of objectives
+*Evaluation: Maps an genome/individual
+**From a location in search
+*** Genotypic description
+**To a location in objective space
+*** Phenotype description
+*Classification Measures
+**Data Set (Positive (P) and Negative (N) samples) -> Classifier -> Confusion Matrix
+
+{| class="wikitable"
+|+Confusion Matrix
+|-
+|
+|Predicted: Positive
+|Predicted: Negative
+|-
+|Actual Positive (P)
+|True Positive (TP)
+|False Negative (FN), type II error
+|-
+|Actual Negative (N)
+|False Positive (FP), type I error
+|True Negative (TN)
+|}
+
+*'''Maximization Measures'''
+**Sensitivity or True Positive Rate (TPR):
+***AKA hit rate or recall
+***TPR = TP/P = TP/(TP + FN)
+**Specificity (SPC) or True Negative Rate (TNR):
+***TNR = TN/N = TN/(TN + FP)
+**We want both TPR and TNR to be as close to 1 as possible
+
+*'''Minimization Measures'''
+**False Negative Rate (FNR)
+***FNR = FN/P = FN/(TP + FN)
+***FNR = 1 - TPR
+**Fallout or False Positive Rate
+***FPR = FP/N = TN/(FP + TN)
+***FPR = 1 - TNR = 1 - SPC
+
+*'''Other Important Measures'''
+**Precision or Positive Predictive Value (PPV)
+***PPV = TP / (TP + FP)
+***Bigger is better
+**False Discovery Rate
+***FDR = FP/(TP + FP)
+***FDR = 1 - PPV
+***Smaller is better
+**Negative Predictive Value (NPV)
+***NPV = TN/(TN + FN)
+***Bigger is better
+**Accuracy (ACC)
+***ACC = (TP + TN)/(P + N)
+***ACC = (TP + TN)/(TP + FP + FN + TN)
+***Bigger is better
+
+*'''Objective Space'''
+**Individuals are evaluated using objective functions
+***Mean Squared Error
+***Cost
+***Complexity
+***True positive rate
+***False positive rate
+***Etc...
+**'''Objective scores''' give each individual a point in '''objective space'''
+**This may be referred to as the '''phenotype''' of the individual
+
+*'''Pareto Optimality'''
+**An individual is '''Pareto Optimal''' if there is no other individual in the population that outperforms the individual on all objectives
+**'''Pareto frontier''': set of all Pareto individuals
+**Pareto optimal individuals represent unique contributions
+**We drive selection by favoring Pareto individuals, but main diversity by giving all individuals some probability of mating
+
+*'''Nondominated Sorting Genetic Algorithm II (NSGA II)'''
+**Population is separated into nondomination ranks
+**Individuals are selected using a binary tournament
+**Lower Pareto ranks beat high Pareto ranks
+**Ties on the same front are broken by '''crowding distance''', the summation of normalized Euclidean distances to all points within the front
+***Higher crowding distance wins
+
+*'''Strength Pareto Evolutionary Algorithm 2 (SPEA2)'''
+**Each individual is given a strength '''S''', how many others it dominates in the population
+**Each individual receives rank '''R''', sum of S's of the individuals that dominate it
+***Pareto individuals are nondominated and receive an R of 0
+**Distance to the kth nearest neighbor (omega^k) is calculated and a fitness of R + 1/(omega^k + 2) is obtained
+
+===Lab 2: Symbolic Regression (Part 2)===
+*I followed the instructions in the notebook and plotted the Pareto frontier
+*Our goal is to minimize the AUC because we want to minimize the tree size of the Pareto individuals and as well as their mean squared error.
+*'''AUC with original configuration''': 2.3841416372199005
+*Best individual was negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))), with fitness (0.2786133308027132, 15.0)
+*Experiments conducted to reduce AUC by at least 25%:
+**Remove sin and cos from primitives:
+***AUC: 1.0884023352769998 (approx. 54% reduction)
+***Best individual: subtract(multiply(x, tan(multiply(x, x))), x), with fitness (0.6669255057183378, 8.0)
+**Remove sin, cos, and tan from primitives:
+***AUC: 0.6912744703006891 (approx. 71.01% reduction)
+***Best Individual: subtract(x, x), with fitness (0.7223441838209306, 3.0)
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 14th, 2021
+|- 
+|Complete Self-Evaluation rubric
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 13th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 14th, 2021
+|-
+|Finish Lab 2, Part 2
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 14th, 2021
+|}
+
+== Week 2: September 1st ==
+
+=== Class Summary===
+
+* Intro/Overview of Genetic Programming
+* Representing programs as Tree Structures
+* Crossover/Mutation in Genetic Programming
+* Symbolic Regression
+
+=== Team Meeting Notes ===
+* Conducted brief review of last week's lecture on Genetic Algorithms
+* Genetic Algorithms are a population-based solution, using concepts such as natural selection and properties of DNA to exchange/modify information between individuals
+* '''Genetic Algorithms''' have an evaluator function to obtain objective scores on individuals, whereas in '''Genetic Programming''', the individuals are the function themselves.
+
+* A way to represent program structure in Genetic Programming is to use a '''Tree Representation'''.
+** '''Nodes''' are called '''primitives''' represent functions
+** '''Leaves''' are called '''terminals''' and represent parameters
+*** Input can be thought as a particular type of terminal
+*** Output is produced at root of tree
+
+* Trees are stored by converting them to a '''lisp preordered parse tree'''.
+** Operators are followed by inputs
+** For example, the tree for '''f(x) = 3*4+1''' can be written as '''[+,*,3,4,1,]'''
+** Parse tree of '''f(x) = 2-(0+1)''' is '''[-,2,+,0,1]'''
+
+* Crossovers in GP are handled by simply exchanging subtrees
+** Start by randomly picking a point in each tree
+** These points and everything below create subtrees
+** Subtrees are exchanged to produce children
+
+* Mutations in GP can involve:
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+
+* Symbolic Regression
+** Using simple primitives, we can use GP to evolve a solution to '''y=sin(x)'''
+** Primitives include: '''+, *, -, /'''
+** Terminals include integers and variable input '''X'''
+** Calculus uses Taylor Series to approach this problem
+
+* Evaluating a Tree
+** Feed inputs into function to get outputs
+** Run '''f(x)''' to get result
+** Measure error between output of '''f(x)''' and expected output - for instance, we can use sum square error for the y=sin(x) situation
+
+* Primitives that could make evolution easier:
+** Power(), Factorial(), Sin(), Cos(), Tan()
+** '''Main Idea behind EMADE'''
+
+===Lab 2: Symbolic Regression (Part 1)===
+In this lab, I ran the evolutionary algorithm several times to observe the improves in best fit individuals. Here are the following results
+
+'''First try, no modifications:'''
+*Best individual was add(add(multiply(x, add(x, subtract(x, x))), multiply(x, multiply(add(x, multiply(x, x)), x))), x), (1.0195405384704813e-16,)
+
+'''Second try, add primitives:'''
+*Added primitives were ''np.square'' and ''np.absolute''
+*Best individual was add(add(multiply(absolute(absolute(absolute(add(multiply(square(x), x), square(x))))), x), square(absolute(x))), x), (8.620776339403237e-17,)
+
+'''Third try, add mutations, no primitives:'''
+*Added mutation was ''mutShrink''
+*Best individual is add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16,)
+
+'''Fourth try, added primitives and mutation:'''
+*Best individual is Best individual is add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+===Actions Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 8th, 2021
+|- 
+|Review Genetic Programming Slides
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 3rd, 2021
+|-
+|Finish Lab 2, Part 1
+|Completed
+|September 1st, 2021
+|September 8th, 2021
+|September 7th, 2021
+|}
+
 == Week 1: August 25th ==
 
-'''Class Summary:'''
+=== Class Summary ===
 
 * Intro to Automated Algorithm Design, Wiki, Syllabus, Notebooks
 * Introductory lecture to Genetic Algorithms
 * One Max Problem discussion
 
-'''Team Meeting Notes:'''
+=== Team Meeting Notes ===
 
-* <u> Genetic Algorithms </u>
+* Genetic Algorithms
 ** With '''genetic algorithms''', each new generation is created through '''mating/mutation''' of '''individuals''' in the previous population  
 ** Fitness evaluation is done through the Fitness Proportionate (randomization) or Tournament
 ** Fitness evaluation occurs before mating/mutation
 ** Goal is to produce individual best fit for selected task after several generations
 
-* <u>Important Keywords</u>
+* Important Keywords
 ** '''Individual:''' One specific candidate in the population (with properties such as DNA). The individual is usually intended as a solution to a problem
 ** '''Population:''' Group of individuals/solutions whose properties will be altered
 ** '''Objective:''' Value used to characterize individuals that you are trying to maximize or minimize (usually the goal is to increase objective through the evolutionary algorithm)
@@ -38,7 +450,28 @@
 ** '''Mate/Crossover:''' Represents mating between individuals.
 ** '''Mutate:''' Introduce random modification; purpose is to maintain diversity
 
-'''<i>Action Items</i>'''
+===Lab 1: Genetic Algorithms with DEAP===
+
+'''One Max problem:''' Simple genetic algorithm problem with the objective of finding a bit string containing all 1s with a set length. The following steps were followed for this lab:
+* Import base, creator, tools from DEAP module and python random module
+* Define fitness objective and individual classes using DEAP's creator
+* Define individuals in population as booleans represented as 1s and 0s
+* Define evaluation function for fitness objective as sum of all 1s in bit string
+* For 40 generations, select the offspring for next generation, perform tournament selection, mate, and mutate
+* '''Observations:''' Maximum fitness score was almost always achieved after 40 generations, although it wasn't guaranteed. However, the maximum fitness score by the 40th generation was always between 97.0-100.0.
+
+'''N Queens Problem:''' Objective is to determine a configuration of n queens on a nxn chessboard such that no queen can be taken by another. For this version, each queen is assigned to one column and only one queen can be on each line. The following steps were followed for this lab:
+* Import necessary DEAP modules
+* Define fitness and individual classes as well as fitness objective and evaluation function
+* Fitness objective is to minimize the number of conflicts between two queens on nxn chessboard
+* Individual is defined as a list of n numbers denoting the column location of n queens in nxn chessboard
+* Evaluation function returns number of conflicts between queens along diagonal of chessboard
+* Define partially matched crossover function and mutate function to shuffle indices
+* Run main evolutionary loop for 100 generations
+* Algorithm doesn't consistently achieve minimum of 0.0 but gets consistently close to it
+
+
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status
@@ -70,4 +503,3 @@
 |September 1st, 2021
 |August 31th, 2021
 |}
-

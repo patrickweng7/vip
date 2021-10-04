@@ -6,9 +6,138 @@
 
 '''Interests:''' [http://gtswimclub.com Swimming], [https://datasciencegt.org Data Science], [https://enlight.nyc EdTech]
 
-'''Fun Fact:''' I helped start a hackathon called [https://makespp.com MakeSPP] in high school, and now I'm helping organize [https://hacklytics.io Hacklytics] at Georgia Tech!
+'''Fun Fact:''' I visited 9 different countries last summer when I studied abroad in France at GT's Lorraine campus!
 
 = Fall 2021 =
+== Week 6: September 27th - October 3rd ==
+I was able to reinstall EMADE on my personal directory on PACE-ICE after resolving my storage issues. I also created an anaconda environment everyone in my team can share in our class folder which should be helpful. My only major blocker at the moment is being unable to generate a baseline run because I get hash collisions (telling me NNLearners are already there) when I try to seed a fresh database which makes no sense at all. I reached out to Cameron and Anish for help as well. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Run EMADE on new chest x-ray dataset 
+|In Progress (no valid results)
+|September 20th, 2021
+|October 4th, 2021
+|
+|-
+|}
+
+== Week 5: September 20th - September 26th ==
+Aryaan and I brainstormed some strategies to augment and manipulate the training data. However, even with the baseline data from Anish, I'm unable to create valid individuals after 60+ generations (unseeded). Prior to launching the run, I updated the XML to include the multilabel flag though that doesn't seem to have helped anything. It's weird that EMADE isn't even trying the regular instance learners on the preprocessed data. I reached out to Anish and he provided us a seed file which should hopefully help.
+
+I also worked on setting up a team workspace on the PACE-ICE shared class folder. My current blocker is the storage quota, which is mostly taken up by my installation of EMADE and MariaDB in my personal directory. After speaking with Jason, we found out that storage in the shared class directories still counts against a personal storage quota until the directories created inside the shared one are disowned (which also means losing edit access). Since this is the case, it doesn't make a lot of sense to have a shared EMADE installation, but we can have a shared anaconda environment at the very least and then personal EMADE's inside our own directories. As long as the filepath to the environment folder is included correctly in the XML, this should not be an issue. 
+
+I've had a lot of questions from my team about how to navigate and use EMADE, and think I've been pretty helpful answering them so far. Dhruv had an issue with making commits to the EMADE repo since he was trying to commit to it directly rather than from a fork. Monil had a lot of questions for me about his task of finding combinations of image processing primitives to combine in EMADE. I think this "hyper feature" buzzword is quite confusing because it's not commonly used in literature except for the vein of papers we are looking at. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Set up IP Group directory on PACE-ICE
+|Conda env set up
+|September 20th, 2021
+|September 27th, 2021
+|September 27th, 2021
+|-
+|Run EMADE on new chest x-ray dataset 
+|In Progress (no valid results)
+|September 20th, 2021
+|September 27th, 2021
+|
+|-
+|}
+
+== Week 4: September 13th - September 19th ==
+[https://docs.google.com/document/d/10DLoh-uqNWj2_TGbCp4KaANMptQ3tO8x/edit?usp=sharing&ouid=106747617579881256625&rtpof=true&sd=true Self-Eval Rubric]
+
+This week I did a literature review and carefully read and annotated the most recently published paper on EMADE, identified potential papers with techniques we could incorporate into EMADE, and helped the team get up and running on EMADE.
+
+I noticed how the EMADE paper focused a lot on the NAS/hyperparameter part and less on the task itself. Since we plan to leverage the work of the NAS team anyway, it makes sense to me to focus on how we can improve the more canonical GP side of things like selection methods, and mating/mutation. An auxiliary goal for me would be to create a simple infrastructure for utilizing the compute resources on PACE-ICE in a manner that is easily accessible to everyone without having to do individual setups.
+
+At our subteam meeting, we decided to pursue the CheXNet paper using the x-ray dataset that was used in EMADE in the past. Jason had some really valuable thoughts about how we can approach this multi-label classification problem which informed how we should start our initial group's tasking. Aryaan and I are working on preparing the training and validation data to work with EMADE. We also met with Anish to discuss his experiences using the dataset since he actually pivoted off of it to CIFAR-10. I like the challenge our data presents and look forward to developing some cool algorithms using it!
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Meet with Anish
+|Completed
+|September 15th, 2021
+|September 19th, 2021
+|September 17th, 2021
+|-
+|Do a baseline run of EMADE on old x-ray dataset
+|Completed
+|September 15th, 2021
+|September 19th, 2021
+|September 18th, 2021
+|-
+|}
+
+== Week 3: September 6th - September 12th ==
+Our Image Processing (or Computer Vision, final name TBD) has been formed with 7 members! We set our meeting time to be 5:45p on Wednesdays. Only one member is not based in Atlanta so we plan to dial them in to meetings while the rest of us meet in person. At our first meeting, we laid out our objectives for the semester and whiteboarded some ideas and initial action items for everyone. Since everyone was a second semester student, we decided that it made sense to first do some familiarization with how EMADE works and also read up on papers that we could potentially try and model with a GA approach. We agreed it would be more interesting to pick a specific domain rather than do something broad with a dataset like CIFAR-10. It was also acknowledged that any papers we brought need to have an explainable technique so that we can actually see how their approach actually compares to ours.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Create summary of how EMADE codebase works
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 13th, 2021
+|-
+|Read past published EMADE paper
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 10th, 2021
+|-
+|Find and read at least 1 paper we could potentially model
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 12th, 2021
+|-
+|}
+
+== Week 2: August 30th - September 5th ==
+I decided I was most interested in exploring the application side of EMADE and wanted to create or join a subteam that focused on applying genetic algorithms and autoML to challenges in some domain. I ended up researching a lot about image processing problems and thought that image registration and classification looked the most interesting and also had a significant amount of potential to be used in a novel way with EMADE. I met with Harris and Aryaan to discuss this in greater detail to explore how we might approach going about this as a potential team. When we presented our discussion in class, Jason suggested to look at image classification and object detection problems more closely since there's more data associated with this kind of task.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Join a team and set a meeting time
+|Completed
+|August 23th, 2021
+|August 30th, 2021
+|September 3rd, 2021
+|-
+|}
+
 == Week 1: August 23rd - August 29th ==
 Returned to VIP! We had a brainstorming session of potential topics to pursue as subteams this semester. I think looking more on the application side of EMADE would be really cool, so I'm leaning towards trying to work on image processing and neural architecture search. I did some research about image processing applications and general and learned about image registration and its uses in the biomedical field. I summarized some readings and put some resources in the image processing brainstorming slack channel.
 
@@ -21,10 +150,10 @@ Returned to VIP! We had a brainstorming session of potential topics to pursue as
 !'''Date Resolved'''
 |-
 |Brainstorm for subteams
-|In progress
+|Completed
 |August 23th, 2021
 |August 30th, 2021
-|
+|August 29th, 2021
 |-
 |Join a team and set a meeting time
 |Not started

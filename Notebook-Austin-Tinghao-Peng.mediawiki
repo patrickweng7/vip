@@ -7,28 +7,289 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 5: September 22, 2021 ==
+=== Lecture Notes ===
+* use same preprocessing, folds in data in a genetic algorithm on our Titanic problem
+* not allowed to use preprogrammed algorithms in DEAP
+* selection, mutation, crossover algorithms in DEAP are allowed
+* evaluate objects in false positive and false negative space
+* presentation: graph of false positive rate vs. false negative rate for GP pareto front and ML solutions
+** bonus: hyperparameter tuning, additional research to improve program
+* turn in to canvas a csv file with columns = [PassengerID, Survived_1, ..., Survived_n], where Survived_i is a pareto optimal program on our GP pareto frontier
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|Meet With Group For Titanic Dataset Predictions
+|
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|Titanic Dataset Predictions w/ Genetic Programming(submit to Canvas)
+|
+|September 22, 2021
+|September 29, 2021
+|
+|-
+|Titanic Dataset Predictions Presentation w/ Graph
+|
+|September 22, 2021
+|September 29, 2021
+|
+|}
+
+== Week 4: September 15, 2021 ==
+=== Lecture Notes ===
+* This week's goal is to download the Titanic dataset (from Kaggle competition), preprocess the data for machine learning, use scikit-learn, and evaluate objectives in a false positive and false negative space.
+* introduction to sci-kit, pandas, 
+* assigned to bootcamp groups with
+** David Zhang
+** Nikhil Vangala
+** Jordan Stampfli
+* within the subteam: preprocess data together, train data, try to get codominant models within your subteam
+* decisions to make: how to encode data, how to fold data (train and test percentage), how to balance data (false positives, false negatives)
+
+=== Bootcamp Team Meeting ===
+* share code for preprocessing data on Google Colab
+* split train.csv data to 67% training, 33% testing
+* chose 4 codominant models
+** multi-layer perceptron classifier
+** random forest classifier
+** gaussian naive bayes classifier
+** logistic regression classifier
+* found and made predictions using the above 4 models and saved as 4 seperate csv files
+
+{| class="wikitable"
+!Model
+!False Negative
+!False Positive
+|-
+|multi-layer perceptron
+|30
+|27
+|-
+|random forest
+|30
+|30
+|-
+|gaussian naive bayes
+|40
+|21
+|-
+|logistic regression
+|31
+|25
+|}
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook (format, images, etc.)
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|-
+|Meet With Group For Titanic Dataset Predictions
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Titanic Dataset Predictions (submit to Canvas)
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|}
+
+== Week 3: September 8, 2021 ==
+=== Lecture Notes ===
+* algorithms look for accuracy, efficiency, reliability, scalability, consistency
+* the evaluation of a genome associates an individual with a set of scores (true positive, false positive, etc.)
+* objectives are a set of measurements each individual is scored against
+* data set (positive and negative samples) feed into a classifier which results in a confusion matrix
+
+{| class="wikitable"
+|+confusion matrix
+|-
+|
+|predicted positive
+|predicted negative
+|-
+|actual positive
+|true positive (TP)
+|false negative (FN), type II error
+|-
+|actual negative
+|false positive (FP), type I error
+|true negative (TN)
+|}
+
+* Maximization Measures
+** sensitivity or true positive rate (TPR)
+*** aka hit rate or recall
+*** TPR = TP/P = TP/(TP+FN)
+** specificity (SPC) or true negative rate (TNR)
+*** TNR = TN/N = TN/(TN+FP)
+
+* Minimization Measures
+** false negative rate (FNR)
+*** FNR = FN/P = FN/(TP+FN)
+*** FNR = 1-TPR
+** fallout or false positive rate (FPR)
+*** FPR = FP/N = FP/(FP+TN)
+*** FPR = 1-TNR = 1-SPC
+
+* Other Measures
+** precision or positive predictive value (PPV) - maximization
+*** PPV = TP/(TP+FP)
+** false discovery rate - minimization
+*** FDR = FP/(TP+FP)
+*** FDR = 1-PPV
+*** negative predictive value (NPV) - maximization
+*** NPV = TN/(TN+FN)
+** accuracy (ACC) - maximization
+*** ACC = (TP+TN)/(P+N)
+
+* Objective Space
+** each individual is evaluated using objective functions
+*** ex. mean squared error, cost, complexity, TPR, FPR, etc.
+** objective scores give each individual a point in objective space
+
+* Pareto Optimality
+** '''Pareto optimal''': if there is no other individual in the population that outperforms the individual on all objectives
+** '''Pareto frontier''': the set of all Pareto individuals
+** we want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+
+[[files/apeng39/w3-ss1-pareto-optimality.png]]
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II)
+** separate population into nondomination ranks
+** select individuals using a binary tournament
+** lower Pareto ranks beat higher Pareto ranks (in minimizing problems)
+** ties on the same front are broken by crowding distance
+*** summation of normalized Euclidean distances to all points within the front
+*** higher crowding distance wins
+
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** each individual is given a strength S, where S is the number of other individuals it dominates
+** each individual receives a rank R, where R is the sum of all S's of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+** a distance to the kth nearest neighbor (\sigma^k) is calculated and fitness of R + 1/(\sigma^k+2)
+
+=== Lab 2: Part 2 ===
+* In this lab, there were two objectives to be minimized: mean squared error and the size of the tree.
+* In addition, three new primitives sin, cos, tan were added.
+* The rest of the program was initialized similarly to Lab 2: Part 1.
+* Using the fitness levels of the individuals, the Pareto front was determined with a key.
+** blue = the given individual
+** green = dominated by the given individual
+** red = dominates the given individual
+** black = uncomparable
+* The initial run of my code returned the approximated function negative(cos(add(x, sin(subtract(add(x, sin(sin(sin(cos(x))))), cos(x)))))) with fitness: (0.18701281145428028, 15.0) for the given function np.negative(points) + np.sin(points**2) + np.tan(points**3) - np.cos(points). The area under the curve (AUC) was 3.578671731976013.
+* I implemented several versions of the program to produce at least a 25% decrease in AUC. Every time I run the program, I get a different value for the AUC so I will simply list the general way I altered each factor to cause at least a 25% decrease in AUC.
+** decreased NGEN -> decreased AUC, increased NGEN -> increased AUC
+*** makes sense since increasing the number of generations should give the algorithm more opportunities to find the individual with the highest fitness
+** decreased MU -> decreased AUC, increased MU -> increased AUC
+*** makes sense since increasing the number of individuals to select for the next generation allows the algorithm to have a higher chance of picking an individual with the highest fitness
+** decreased LAMBDA -> decreased AUC, increased LAMBDA -> increased AUC
+*** makes sense since increasing the number of children allows for a higher probability of the children containing parts of their parent with higher fitness
+** altering CXPB and MUTPB didn't seem to have an obvious effect on the AUC, however, I did observe that the spread of values for AUC became wider
+
+
+=== Notebook Self-Evaluation ===
+[[files/apeng39/notebook-evals/w3-notebook-eval.jpg]]
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook Self Assessment
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Update Notebook (format, images, etc.)
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Lab 2: Part 2
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
 == Week 2: September 1, 2021 ==
 === Lecture Notes ===
 * Tree Representation
 ** nodes are called primitives and represent functions
 ** leaves are called terminals and represent parameters
 ** the output is produced at the root of the tree
-** the tree is converted to a lisp preordered parse tree
+** the tree is converted to a lisp preordered parse tree (think preorder traversal)
+
+[[files/apeng39/w2-ss1-lisp-preordered-parse-tree.png]]
+
 * Crossover In Genetic Programming (GP)
 ** crossover in tree-based GP is simply exchanging subtrees
+
+[[files/apeng39/w2-ss2-crossover-gp.png]]
+
 * Mutation In GP
 ** Inserting a node or subtree
 ** Deleting a node or subtree
 ** Changing a node
+
 * Evaluating A Tree
-** we feed a number of input points to get outputs
+** we feed several input points to get outputs
+** the error between the function's outputs and truth can be measured through a sum square error
+
 * What Can Make Evolution Easier?
 ** if we had better primitives, it would be easier to evolve algorithms
 ** ex. if we wanted to approximate sin(x), we could use +,-,*,/, but we could also use factorial, exponent, summation, etc.
 
-=== Lab 2 ===
+=== Lab 2: Part 1 ===
+* For my two primitives, I added the sine and absolute value methods.
+* I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using matplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method, however, resulted in a lower maximum fitness than mutUniform().
+* I altered the function being approximated within the evaluation method found that almost all the time, the genetic algorithm was able to find a near-perfect approximation for the given function.
+* I also noticed that the more complicated I made the function being approximated in the evaluation method, I would need to increase the minimum and maximum heights of the tree being generated to achieve a better approximation.
 
-'''Action Items:'''
+{| class="wikitable"
+|+'''comparing mutation methods'''
+|-
+|mutNodeReplacement
+|mutUniform
+|-
+|[[files/apeng39/w2-ss3-mutNodeReplacement-lineGraph.png]]
+|[[files/apeng39/w2-ss4-mutUniform-lineGraph.png]]
+|}
+
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status
@@ -37,47 +298,47 @@
 !Date Resolved
 |-
 |Format Notebook (code, images)
+|Completed
+|September 1, 2021
+|September 8, 2021
 |September 3, 2021
-|September 1, 2021
-|September 8, 2021
-|
 |-
-|Lab 2
-|
+|Lab 2: Part 1
+|Completed
 |September 1, 2021
 |September 8, 2021
-|
+|September 8, 2021
 |}
 
 
 == Week 1: August 25, 2021 ==
 === Lecture Notes ===
-* The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through manny iterations of this process, it produces the best individual.
+* The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through many iterations of this process, it produces the best individual.
 * Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
-* A mutation introduces random modifications to the algorithm in order to help maintain diversity.
+* A mutation introduces random modifications to the algorithm to help maintain diversity.
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
 
 === Keywords ===
 * '''individual''': one specific candidate in the population (with properties like DNA)
-* '''population''': group of individuals whose properties will be altered
-* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is ot inncrease objective through evolutionary algorithm)
+* '''population''': a group of individuals whose properties will be altered
+* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
 * '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
 * '''evaluation''': a function that computes the objective of an individual
 * '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
 ** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
 ** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
 * '''mate/crossover''': represents mating between individuals
-![[files/apeng39/w1-ss1-crossover1.png]]
-![[files/apeng/w1-ss2-crossover2.png]]
 ** anything up to n-point crossover is possible
+[[files/apeng39/w1-ss1-crossover1.png]]
+[[files/apeng39/w1-ss2-crossover2.png]]
 * '''mutate''': introduces random modifications; purpose is to maintain diversity
-![[files/apeng39/w1-ss3-mutate.png]]
+[[files/apeng39/w1-ss3-mutate.png]]
 * '''algorithms''': various evolutionary algorithms to create a solution or best individual
 
 === Lab 1 ===
 ==== Part 1: One Max Problem ====
 * The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
-** When I ran the algorithm with a much larger population (n=10000) it seemed like it took less generations for the an individual in the population to reach maximum fitness.
+** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
 
 ==== Part 2: N Queens Problem ====
 * Learning Points
@@ -85,7 +346,7 @@
 ** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
 ** Python slicing arr[start:stop:step] (start through not past stop, by step)
 ** arr[:] makes a shallow copy of the array
-** you can resize an array to a desired length using [0] * size
+** you can resize an array to the desired length using [0] * size
 
 * My Mutation Methods
  <nowiki>def mutOppositeHalves(individual, indpb):
@@ -122,40 +383,28 @@
 ** However, for the methods I wrote, the maximum shown on the line graphs for each generation ended to be lower than the method provided.
 ** I struggled a bit with writing the code to make a bar graph using matplotlib mainly because of the data types that the toolbox returned. I kept feeding matplotlib a list of tuples when it wanted a list of ints.
 
-{{multiple image
-| footer    = Results of the mutOppositeHalves() method.
-| width     = 400
+{| class="wikitable"
+|+'''mutOppositeHalves'''
+|-
+|[[files/apeng39/w1-ss4-mutOppositeHalves-barGraph.png]]
+|[[files/apeng39/w1-ss5-mutOppositeHalves-lineGraphComparison.png]]
+|}
 
-| image1    = files/apeng39/w1-ss4-mutOppositeHalves-barGraph.png
-| alt1      = mutOppositeHalves() bar graph
+{| class="wikitable"
+|+'''mutRandomHalves'''
+|-
+|[[files/apeng39/w1-ss6-mutRandomHalves-barGraph.png]]
+|[[files/apeng39/w1-ss7-mutRandomHalves-lineGraphComparison.png]]
+|}
 
-| image2    = files/apeng39/w1-ss5-mutOppositeHalves-lineGraphComparison.png
-| alt2      = mutOppositeHalves line graph
-}}
+{| class="wikitable"
+|+'''mutShuffleIndexes'''
+|-
+|[[files/apeng39/w1-ss8-mutShuffleIndexes-barGraph.png]]
+|[[files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png]]
+|}
 
-{{multiple image
-| footer    = Results of the mutRandomHalves() method.
-| width     = 400
-
-| image1    = files/apeng39/w1-ss6-mutRandomHalves-barGraph.png
-| alt1      = mutOppositeHalves() bar graph
-
-| image2    = files/apeng39/w1-ss7-mutRandomHalves-lineGraphComparison.png
-| alt2      = mutOppositeHalves line graph
-}}
-
-{{multiple image
-| footer    = Results of the mutShiftIndexes() method.
-| width     = 400
-
-| image1    = files/apeng39/w1-ss8-mutShuffleIndexes-barGraph.png
-| alt1      = mutOppositeHalves() bar graph
-
-| image2    = files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png
-| alt2      = mutOppositeHalves line graph
-}}
-
-'''Action Items:'''
+=== Action Items ===
 {| class="wikitable"
 !Task
 !Current Status

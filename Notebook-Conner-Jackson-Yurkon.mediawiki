@@ -7,6 +7,231 @@ Cell Phone: 305-915-9950
 
 Interests: Machine Learning, Computational Neuroscience
 
+Sub-team: Neural Architecture Search
+
+Teammates:
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Cameron-D-Bennett Cameron Bennett]
+* Cameron Whaley
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
+
+== September 20, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed progress of all sub-teams in a scrum setting. 
+* Our team presented some of the tasks we have created for the upcoming week, including novelty detection, CIFAR-10 templating, and reuse adjustments.
+* Met with sub-team after meeting, where I discussed my ticket in greater detail. We walked through the main evolutionary loop, and I gained a better understanding of which methods I would have to modify.
+* Learned a bit more about EMADE in general, including how to analyze results (using Cameron's analysis library) along with how to speed up training (by adjusting num_instances in the dataset input .xml files).
+* Followed [https://docs.pace.gatech.edu/interactiveJobs/jupyterInt/ this] tutorial to run Jupyter notebooks on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|9/24/21
+|
+|-
+| Learn more about PACE (e.g. scheduling, terminology) using their [https://docs.pace.gatech.edu/firebird_cluster/firebird/ official documentation].
+|In Progress
+|9/17/21
+|9/27/21
+|
+|-
+| Test using a Jupyter notebook on PACE for faster iterations on work.
+|Completed
+|9/17/21
+|9/24/21
+|9/17/21
+|}
+
+== September 17, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with sub-team for an hour to ensure that we all had EMADE setup and had specific tasks to work on for the next meeting.
+* I had some issues connecting to the MySQL instance running on PACE, but realized that I specified the wrong port number. Once I made this adjustment, I was able to run EMADE using the instructions provided on the Wiki (along with Cameron's YouTube video).
+* I next setup a connection between this MySQL instance and my computer using MySQL workbench. This allowed me to view the results of the EMADE run, including the pareto front and various individuals.
+* My task for this week is to construct a dictionary of layer frequencies across all individuals in a given generation. This information will be used to reward novel architectures, which might encourage EMADE to produce more novel individuals. To do this, I will have to modify either the main evolutionary loop or the evaluation method. Moreover, I need to make this dictionary available between generations.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|9/24/21
+|
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|Completed
+|9/7/21
+|9/17/21
+|9/17/21
+|}
+
+== Self-Evaluation Form Fall 2021 ==
+* Notebook Maintenance  
+** Name & contact info. '''5/5'''
+** Teammate names and contact info easy to find. '''5/5'''
+** Organization. '''5/5'''
+** Updated at least weekly. '''10/10'''
+* Meeting Notes
+** Main meeting notes. '''5/5'''
+** Sub-teams’ efforts. '''10/10'''
+* Personal work & accomplishments
+** To-do items: clarity, easy to find. '''5/5'''
+** To-do list consistency (weekly or more). '''10/10'''
+** To-dos & cancellations checked & dated. '''5/5'''
+** Level of detail: personal work & accomplishments. '''10/15'''
+* Useful resource
+** References (internal, external). '''8/10'''
+** Useful resource for the team. '''12/15'''
+
+Total Out of 100: '''90/100'''
+
+
+== September 13, 2021 ==
+'''Team Meeting Notes:'''
+* Went over some general announcements.
+* Use directory `/storage.home/hpaceice1/shared-classes/materials/vip/AAD` for shared repositories.
+* Listened to all teams in a scrum meeting talk about what they are working on and what they are stuck.
+* Met with sub-team for 10 minutes after the scrum meeting and discussed our action points. We modified some of our objectives (such as modifying EMADE's DataPair) based on feedback from Dr. Zutty, knowing that this would be a big task.
+* From my "review" action item, I read both papers and started to learn about the nn-vip branch structure. By next sub-team meeting I will have run EMADE and can start looking at some of our to-do items (specifically, fixing the bug in the swap_layers() method).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|-
+|Fill out self-evaluation form.
+|Completed
+|9/13/21
+|9/13/21
+|9/13/21
+|}
+
+== September 10, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with others on the sub-team for just over an hour.
+* Reviewed some of the ideas documented on [https://trello.com/b/RbwUW89F/nas-brainstorm this Trello board]. You may or may not have access to this, but some of the items include: triviality and novelty detection, speeding up EMADE (a critical issue because EMADE runs tend to go over the PACE limit of 8 hours; some problem areas include tokenization and some EMADE data structures), adding some test scripts, and debugging the layer swap functionality.
+* Discussed the papers mentioned below and considered how to adapt/implement some of their ideas in our branch.
+* Set a weekly meeting time for Fridays from 2 - 3 PM. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|}
+
+== August 30, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed our brainstorming results from the past week.
+* Hashed out all of the sub-teams and heard feedback on each one.
+* Voted on sub-teams and picked out the top ones.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rank personal top 4 sub-teams by end of meeting. My choices were EZCGP: 1, Neural Architecture Search: 2, Natural Language Processing: 3, and Modularity: 4. 
+|Completed
+|8/30/21
+|8/30/21
+|8/30/21
+|-
+|After sub-teams assignments are released by Dr. Zutty, meet with sub-team and hash out several tasks for the start of the semester. Also, make some progress on these tasks for the next meeting because there is no meeting on Labor Day.
+|Completed
+|8/31/21
+|8/31/21
+|8/31/21
+|-
+|Prepare for first sub-team meeting on Friday September 10 by reviewing resources sent by Cameron Whaley: bookmark [https://github.gatech.edu/emade/emade/tree/nn-vip nn-vip branch] of EMADE, read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|}
+
+== August 27, 2021 ==
+'''NLP Brainstorm Meeting Notes:'''
+* Met for 30-45 minutes to discuss a possible NLP research direction for this semester.
+* Talked with some students from last semester to get a better idea of what has already been done and what is left to do (if any work was unfinished from last semester). For example, last semester the NLP/NAS team were researching why their individuals produced by EMADE lacked complexity. This problem was not entirely solved.
+* Agreed NAS should split from the NLP sub-team and considered some state of the art architectures that might be relevant (such as BERT).
+* Settled on a problem related to question answering or machine translation, and decided to do more research outside of the meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Investigate neural architecture search (read papers, etc.) for common NLP problems using EMADE.
+|Completed
+|8/27/21
+|8/29/21
+|8/30/21
+|}
+
+== August 23, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed potential sub-teams for this semester.
+* Reviewed the work of last semesters' sub-teams and evaluated how we might continue their work.
+* Voted on sub-teams (ex. EZCGP, NLP, NAS) and decided to open Slack channels for each one and work out their details before the next meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ensure access to VIP notebook on GitHub.
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|-
+|Join sub-team brainstorm sessions (NLP & EZCGP) on Slack and setup discussion meetings before next meeting.
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|}
+
 == April 30, 2021 ==
 '''Team Meeting Notes:'''
 * Attended final presentations for VIP from 6 - 9 PM.

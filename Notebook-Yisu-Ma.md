@@ -9,8 +9,185 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 5: September 23th - September 29nd (2021)
+### Lecture overview:
+* Discussed last week's project
+* Learned how to derive Pareto Optimization Curves
+* Learned how to deliver a great presentation
+* Made a discussion with the teammate for the project next week.
+### Lecture notes:
+* Hyperparameters would highly likely affect the models and the codominant algorithm results.
+* In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
+
+
+
+
+
+## Week 4: September 16th - September 22nd (2021)
+### Lecture Overviews
+* Split into different Bootcamp (Bootcamp 2)
+* Introduced Kaggle Competitions
+* Talked about the Titanic disaster problem
+* Introduced Scikit (scikit-learn.org) for machine learning prediction model
+* The results are: 1 = survived, 0 = did not survive
+* Talked about the difference between test.csv and train.csv
+* Introduced pandas and NumPy in the reference notes
+* Requested codominant results in groups final CSV files
+### Groupwork notes
+* Sat up discord channel and met online during the weekend
+* The meeting records are here:https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+* Dropped the parameters that we thought are not important
+* Recorded codominant results in our CSV files
+* Chosen model: SVC_sigmoid
+
+* Removed some parameters that are not useful to our model:
+1. Name
+
+2.PassengerID
+
+3.Ticket Number
+
+4.Fare
+
+* The parameters we chose:
+1. Pclass
+2. Sex
+3. Parch
+4. Embark
+5. SibSp (Because families would stay together)
+* While we were trying different models on SciKit learn, many of the models would not produce codominant results. Therefore, we created a NaN_map to fill in missing Age and Embarked values, and modify our parameters. Some model requires special parameters in the constructor and we searched the documents. 
+* Our final results are:
+_      Aditya = AdaBoostClassifier. FP = 32, FN = 21.
+    *  Rohan = DecisionTreeClassifier (min_samples_leaf=30). FP = 9, FN = 45. 
+    *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
+    *  Adithya =  MLP. FP = 26, FN = 26.
+    *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. _
+
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Titanic problem lecture notes|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Record Notebook|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+|Data processed|complete|September 15th, 2021|September 22nd, 2021|September 22nd, 2021|
+
 
 ***
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20rubric.jpg)
+## Week 3: September 9th - September 15th (2021)
+### Lecture Overviews
+* Talked about the self-grading rubric
+* Introduced the multipole objectives
+* Discussed sample problems
+
+### Lecture Notes
+* Gene pool is the set of genomes to be evaluated during the current generation
+* GA = set of values
+* GP = tree structure, string
+* The Evaluation of a Genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores
+* True Positive – TP 👍 ; False Negative - FN (type II error) 👎 
+* False Positive – FP (type I error) 👍 ; True Negative - TN 👎 
+* Review the fruit sample
+* Sensitivity or True Positive Rate (TPR)  ||  TPR = TP/P 
+* Specificity (SPC) or True Negative Rate (TNR)  || TNR = TN/N = TN/(TN+FP)
+* False Negative Rate (FNR)
+FNR = FN/P = FN/(TP+FN)
+FNR = 1 - TPR
+* Fallout or False Positive Rate (FPR)
+FPR = FP/N = TN/(FP+TN)
+FPR = 1 – TNR = 1 - SPC
+### lab2 - partII
+* added three new primitives and reinitialized toolbox
+* defined pareto dominance function
+* initialized a random population of 300 individuals, I changed the population later in for testing
+* sorted our population
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-1.PNG)
+* defined and ran the main evolutionary algorithm
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-2.PNG)
+* _Learning point:_ we can see that at the end, DEAP's Mu plus Lambda evolutionary algorithm lead to the model to expected result
+`49 	70    	[ 0.28332572 14.2       ]	[0.01730375 1.73205081]        	[ 0.27861333 11.        ]	[ 0.40364443 17.        ]
+50 	66    	[ 0.28037786 15.3       ]	[1.21684778e-03 1.31529464e+00]	[ 0.27861333 10.        ]	[ 0.28500933 19.        ]`
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week3-3.PNG)
+**Action Items:**
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Multiple Objectives lecture notes|complete|September 9th, 2021|September 15th, 2021|September 14nd, 2021|
+|Record Notebook|complete|September 9th, 2021|September 15th, 2021|September 14th, 2021|
+|Lab2 part2|complete(questions remaining)|September 9th, 2021|September 15th, 2021|September 14th, 2021|
+
+
+## Week 2: September 1st - September 8th (2021)
+### Lecture Overviews
+* Summarized the knowledge in the last class (Genetic Algorithm)
+* Introduced Genetic programming
+* Solved several examples
+### Lecture Notes
+* Instead of taking an individual and having a function evaluator to obtain objective scores…
+* **Tree Representation:**
+1. represent a program as a tree structure
+2. Nodes are called primitives and represent functions
+3. Leaves are called terminals and represent parameters
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week2-1.PNG)
+The tree for f(X) = 3*4 + 1 can be written as:
+[+, *, 3, 4, 1]
+* Crossover in tree-based GP is simply exchanging subtrees
+* Start by randomly picking a point in each tree
+* These points and everything below creates subtrees
+**Mutation:**
+1. Inserting a node or subtree
+2. Deleting a node or subtree
+3. Changing a node
+* We discussed using the Taylor Series formula for sin(x) mutation
+
+### Lab Overviews
+**Symbolic Regression**
+* Focusing on genetic programming
+* created fitness and individual classes
+* Initialized PrimitiveTree class && added primitives (below are the added primitives)
+
+`pset.addPrimitive(np.sin, arity=2)
+pset.addPrimitive(np.cos, arity=2)`
+
+* Defined our toolbox, individual, population, and compiler.
+* Defined our evaluation function
+* Registered genetic operators
+* Added tree height constraints
+* Final evolutionary result(with a main evolutionary algorithm)
+
+`-- Generation 37 --
+  Min 0.0
+  Max 4.0
+  Avg 0.19622640892733842
+  Std 0.6451516675079916
+-- Generation 38 --
+  Min 0.0
+  Max 5.0
+  Avg 0.25942077567399063
+  Std 0.777762277528485
+-- Generation 39 --
+  Min 0.0
+  Max 5.0
+  Avg 0.14866815351562296
+  Std 0.6378905904759974
+-- End of (successful) evolution --
+Best individual is multiply(x, x), (0.0,)
+plt.plot(gen, avg_list, label="average")`
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week2-lab.png)
+
+**Reflection and Thoughts:**the original result is 
+`negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+with fitness: (0.2786133308027132, 15.0)`
+I changed the primitives I use in the algorithm, but I didn't successfully lower our AUC, I may need some help after this. 
+ 
+**Action Items:**
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|GP lecture notes review|complete|September 1sth, 2021|September 8th, 2021|September 2nd, 2021|
+|Record Notebook|complete|September 1sth, 2021|September 8th, 2021|September 7th, 2021|
+|Lab2|complete(questions remaining)|September 1sth, 2021|September 8th, 2021|September 8th, 2021|
+
+
 ## Week 1: August 25th - September 1st (2021)
 ### Lecture Overviews
 * Summarizing the logistics of the class: wiki page, general ideas, syllabus, notebooks.

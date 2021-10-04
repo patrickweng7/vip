@@ -8,13 +8,15 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
-== September 8, 2021 (Week 3) == 
+== September 29, 2021 (Week 6) == 
 
 === Lecture Notes: ===
-* 
+*  Presented ML and MOGP findings, compared types of algorithms
+*  Presentation: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit#slide=id.p
+*  Discussed using one-hot encoding for columns like Embarked to prevent Machine Learners from creating links between non-binary integer values (can't cast letters to numbers, because it'll make some seem closer and more related than others).
 
 === Individual Notes: ===
-*  
+*  Group submitted our .csv from last week's GP model
 
 === Action Items: ===
 {| class="wikitable"
@@ -25,16 +27,269 @@ Interests: Writing fiction, Music, Reading, Sports
 !Date Resolved
 |-
 |Update Weekly Notebook
-|
+|Complete
+|September 29, 2021
+|October 6, 2021
+|September 29, 2021
+|}
+
+
+== September 22, 2021 (Week 5) == 
+
+=== Lecture Notes: ===
+*  Discussed last week's project
+    *  Often lost pareto optimal solutions in favour of codominance
+*  Introduced this week's task
+    *  Multiple objective genetic programming to find a set of pareto optimal algorithms for the same titanic data set
+    *  Tree takes in the same inputs as ML model
+    *  Simple primitives allowed (logical, mathematical)
+    *  Strong or loosely typed GP allowed
+    *  Need to write an algorithm – allowed to use selection, crossover, mutator, but no stealing algorithms. Need to write our own genetic loop.
+        *  Don’t use selTournament for selection – it’s not multiple objective, only ever actually considers the first value in a tuple.
+    *  Need to write evaluation function – false negative and false positive rate are the criteria.
+    *  Compare pareto front of ML and GP frontiers
+    *  Submit .csv with columns of passengerID, and one each of the pareto optimal algorithms’ prediction of an individual's survival
+    *  Create a presentation to share our findings; compare ML and GP.
+*  Presentation about presentation
+    *  Group members on the first slide, title, date
+    *  Pareto frontier lines are important
+    *  Area under the curve
+        *  Can always make a 1.0 false positive and 1.0 false negative
+        *  Want to minimize area under curve
+        *  GP often has punctuated equilibrium (takes a few generations to find a new pareto individual)
+    *  Page numbers are helpful for audience to reference material
+    *  Can write text in slides, but don’t read off of it
+
+
+=== Individual Notes: ===
+*  Designed MOGP model to predict survivors from the same input data set as last week.
+*  Chose the same relevant columns as last week (Pclass, Sex, Age, SibSp, Parch, and Embarked) for the same reasons.
+*  Preprocessed data in the same way, using NaN maps and encoding for string values.
+*  Used arithmetic and logical operations, as well as terminals (constants) as primitives in pset; renamed arguments based on our relevant columns.
+*  Registered functions to toolbox:
+    *  Select = SPEA2, commonly used as a benchmark for multi-objective evolutionary algorithms.
+    *  Evaluate = EvalSymbReg. Experimented with multiple evaluation and selection algorithms and used symbolic regression in the current program.
+    *  Mate = cxOnePoint.
+    *  Mutate = mutUniform.
+*  Used toolbox.decorate() to make a new tree with each generation (with max height 17) for mate and mutate.
+*  Wrote evaluation function evalSymbReg()
+    *  Used an activation function arctan() to map the values from func (which is gp.compile) to values between 0 and 1. Set a threshold at 0.5; lower values are treated as 0, higher values are treated as 1.
+    *  Computed false positives, false negatives, true negatives, true positives, FPR, FNR
+    *  Accounted for the cases when total positives or negatives = 0, function will set FPR/FNR to 1.
+*  Wrote self-programmed genetic loop, took inspiration from Lab 2
+    *  Set population to 100, with 30 generations (initially set 50 generations, but slow algorithm meant that we had to reduce the time to check accuracy constantly)
+    *  Evaluated the entire population
+    *  In a subloop, selected next generation individuals and cloned them. Applied crossover and mutation.
+    *  Set mating probability to 0.2, mutation probability to 0.4.
+    *  Evaluated individuals with invalid fitnesses. 
+    *  Updated hallOfFame with best individuals in the population.
+*  Findings:
+    *  Best individual is: multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex)
+with fitness: (0.0, 0.37966101694915255)
+    *  Pareto Front: Area Under Curve = 0.1256530649754448
+*  Reflections
+    *  In order to improve the accuracy of our genetic programming models, we experimented with multiple  mate, mutate, and selection methods.
+    *  We also modified our parameters to minimize our false positive and false negatives.
+    *  We also tried and tested a variety of primitives used in LAB 2 to attain optimal solutions for our program.
+*  Comparing GP and ML (via AuC)
+    *  ML (approx) = 0.18129
+    *  GP = 0.1256530649754448
+*  Conclusions
+    *  The area under curve is lower for MOGP than ML models.
+    *  Overall, MOGP is more dominant than ML models.
+    *  The ML results are less scattered over the place than MOGP, but due to a lower area under the curve, it performed better.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" GP model
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" presentation
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|}
+
+== September 15, 2021 (Week 4) == 
+
+=== Lecture Notes: ===
+*  Split into temporary project groups
+*  Introduced to Kaggle Competitions, Titanic project
+*  Use Scikit for predictors and models. Learn about pandas, etc.
+*  Results are score based on objectives: false positive, false negative.
+*  Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
+*  Python Notebook:
+    *  Pandas is like Excel/Google Sheets for python, can be used to read train.csv and test.csv
+    *  Need to clean data sets (train and test the same way); use isna to find N/A values and replace them with averages/modes of their columns.
+    *  Encode any strings to ints and replace them in their columns (more useful in ML).
+    *  "Feature" = something that describes data. In this case, not the "survived" column.
+    *  Allocate training data for training and testing: (not to be confused with test.csv data)
+        *  x_train = top x rows of train.csv
+        *  y_train = survived x rows of train.csv
+        *  x_test = bottom (n - x) rows of train.csv
+        *  y_test = survived (n - x) rows of train.csv
+    *  Use Scikit score function to evaluate predictions
+*  In groups, our algorithms must be codominant - to do so, the train and test partitions need to be the same. The random state parameter needs to be the same to ensure codominance - common method of preprocessing all around.
+*  We have to individually submit our final predictions file with results codominant with our groups.
+*  Use Scikit documentation to learn ML modules, models, etc.
+
+=== Individual Notes: ===
+*  Scheduled online meeting with subteam.
+*  Communicated via discord, went through Python Notebook found at Reference Materials at https://github.gatech.edu/emade/reference_material/tree/master/Lectures/Lecture_4_ML
+*  Brainstormed attributes that might factor into the survival of an individual on the Titanic, made a list at https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+*  I shared my screen and communicated with group as we began editing the Titanic python notebook.
+*  Chose that Pclass (affects availability of lifeboats), Sex (women and children boarded lifeboats first), Age (Elderly were given preference), SibSp (those with larger families would have wanted to stay together), Parch (those with dependents would have wanted to protect each other), and Embarked (Presumably the port you boarded from would affect which cabins were available, and therefore where you were when the ship sank) were influential to the model, dropped the other parameters.
+*  Created a NaN_map to fill in missing Age and Embarked values. Created a column map to alias Embarked and Sex values to comparable integer values for the model to interpret.
+*  Tried using first DecisionTreeClassifier and eventually RandomForestClassifier and changed their input parameters. Ex.- one iteration ran RandomForestClassifier(n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). These were tried and adjusted through trial and error, using the SciKit documentation to learn which parameters each constructor takes in. NOTE: RandomForestClassifier requires importing 'ensemble' from sklearn.
+*  Further adjusted values to try and optimize the preliminary prediction scores. Printed confusion matrices for each iteration and saved 5 (one for each group member) trials as predictions.csv. NOTE: Although adjusting parameters did change the accuracy scores slightly, the change wasn't monumental enough to affect the confusion matrices' objectives throughout the experiment. We can conclude that the algorithms are all codependent.
+*  Created a GitHub repository for shared files (Python notebook, generated csv files) and shared with group members: https://github.gatech.edu/akumaran6/Titanic-Problem
+*  Pareto Optimal Frontier using varying classifiers:
+    *  Aditya = AdaBoostClassifier. FP = 32, FN = 21.
+    *  Rohan = DecisionTreeClassifier (min_samples_leaf=30). FP = 9, FN = 45. 
+    *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
+    *  Adithya =  MLP. FP = 26, FN = 26.
+    *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" ML project
+|Complete
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|}
+
+== Self-Assessment (September 11, 2021) ==
+
+https://drive.google.com/file/d/1ugXxwFcjq7Q7bHHLOAo8wkhAZRtk9Bai/view?usp=sharing
+
+*  Student Name: Aditya Kumaran
+*  VIP Team: N/A
+*  Semester: 1
+
+*  Notebook Maintenance:
+    *  Name and contact info: 5
+    *  Teammate names and contact are easy to find: N/A
+    *  Organization: 5
+    *  Updated at least weekly: 5
+*  Meeting Notes:
+    *  Main meeting notes: 5
+    *  Sub-teams' efforts: N/A
+*  Personal Work and Accomplishments:
+    *  To-do items: clarity, easy to find: 5
+    *  To-do list consistency (weekly or more): 5
+    *  To-dos and cancellations are checked and dated: 5
+    *  Level of detail: personal work and accomplishments: 13
+*  Useful Resource:
+    *  References: 9
+    *  Useful resource for the team: 15
+
+*  Column totals: Poor = 0, Intermediate = 0, Exemplary = 97
+*  Total out of 100: 97
+
+== September 8, 2021 (Week 3) == 
+
+=== Lecture Notes: ===
+*  Multiple Objective Optimization:
+    *  Multiple metrics together, like finding a mate in nature
+        *  Algorithms look for speed, reliability, memory usage, consistency, accuracy
+        *  Genome = description of an algorithm
+            *  DNA
+            *  GA = set of values
+            *  GP = input for functions (tree structure, string)
+            *  Drive selection by favouring pareto optimal indivudals (But also want to maintain diverstity by fiving all individuals some possibility of mating)
+        *  Nondominated sorting genetic algorithm II (NSGA II)
+            *  If we remove the pareto frontier, then the next set of points becomes the next rank, and then loop doing that.
+            *  Lower ranked individuals beat higher ranked individuals
+            *  Ties are broken by “crowding distance” (summation of normalized Euclidian distances to all other points within the front)
+                *  Higher crowding distance wins
+        *  Strength pareto evoluationary algorithm 2 (SPEA2)  
+            *  Each individual has strength S (number of others in the population it dominates)
+            *  Each individual has rank R (sum of the S’s of individuals that dominate it)
+            *  Paretos are nondominated and have rank 0
+            *  Fitness = R + 1/(dk + 2), where dk is the distance to the kth nearest neighbour
+
+=== Individual Notes: ===
+*  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
+*  Created new fitness and individual classes for multi-objective problem - aim to minimize objectives 'mean squared error' and 'tree size'.
+*  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
+*  Added an objective to evaluation function, by compounding primitive functions with 'points' in the mean squared term.
+*  Defined pareto_dominance() function to visualize objective space. 
+*  Initialized population of 300 with an additional individual for comparison.
+*  Sorted population into dominated and dominators with respect to the comparison individual. Plotted sorted population in objective space.
+*  Ran main evolutionary algorithm.
+    *  Best individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))) with fitness: (0.2786133308027132, 15.0)
+    *  Area Under Curve: 2.3841416372199005
+*  The goal now is to reduce the area under the graph by 25%
+    *  I first tried to add the mutate function with the altMutate function (mutInsert) by using both one after the other.
+    *  Best individual is: subtract(multiply(x, sin(subtract(add(x, x), cos(x)))), cos(x)) with fitness: (0.1636098302024022, 12.0)
+    *  Area Under Curve: 3.619531087140837 (increased)
+    *  Then I tried completely replacing the mutate function with altMutate
+    *  Best individual is: tan(multiply(subtract(subtract(cos(sin(x)), multiply(x, multiply(subtract(cos(multiply(x, multiply(x, x))), multiply(x, x)), negative(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(sin(negative(x)), cos(multiply(x, x))))))))))))), multiply(x, x)), negative(cos(negative(cos(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(x, x))))))))))))) with fitness: (0.0422300662166498, 63.0)
+    *  Area Under Curve: 12.279788182341475 (increased significantly)
+    *  It seems that complicating the evaluation leads to a greater area, so I'll try to make the calculations simpler.
+    *  I tried changing the variables in the evolutionary algorithm: MU=100, LAMBDA=120.
+    *  Best individual is: subtract(sin(multiply(x, subtract(sin(x), cos(x)))), cos(x)) with fitness: (0.24471230030517566, 11.0)
+    *  Area Under Curve: 2.7332976348871716 (increased, but closer to the original)
+    *  Finally, I removed the np.tan(points**3) from the calculation of the sqerrors, increased MU to 150, and decreased LAMBDA to 50.
+    *  Best individual is: subtract(multiply(x, x), cos(x)) with fitness: (0.5796581408872937, 6.0)
+    *  Area Under Curve: 1.796355292509189
+    *  Based on the best individuals above, it seems my estimation was correct, and simpler functions lead to lower 'area under curve' values.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Self-Grade Rubric
+|Complete
 |September 8, 2021
 |September 15, 2021
+|September 12, 2021
+|-
+|Update Weekly Notebook
+|Complete
 |September 8, 2021
+|September 15, 2021
+|September 12, 2021
 |-
 |Finish "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
-|
+|Complete
 |September 8, 2021
 |September 15, 2021
-|September 10, 2021
+|September 12, 2021
 |}
 
 == September 1, 2021 (Week 2) == 
@@ -69,13 +324,13 @@ Interests: Writing fiction, Music, Reading, Sports
 === Individual Notes: ===
 *  Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
 *  Created fitness and individual classes, which will be represented as a tree structure made of primitives. Evaluation compiles the primitive tree from leaves to root node.
-*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1).
+*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1). Using functions with arity=2 often lead to errors, but I think these have to do with the functions' domains - this is most consistent when choosing functions with a domain of all reals that output reals as well.
 *  Registered four tool functions for expr (returns a tree based on a primitive set and maximum and minimum depth), individual, population, and compile (makes the tree into a function).
 *  Defined evaluation function, comparing the compiled function with the function we're trying to generate by minimizing mean squared error.
 *  Registered genetic operators for evaluate, select (tournament select, 3 per pod), mate (one point crossover), expr_mut, mutate. Added alternate mutation method, gp.mutInsert (inserts branch at a random position in individual).
 *  Performed the customary evolutionary loop and outputted the same statistics.
     *  Achieved 1.16e-16 minimum fitness in best individual: add(x, multiply(x, add(multiply(x, x), add(x, multiply(x, multiply(x, x))))))
-*  Added images from labs (last week and this week).
+*  Tried adding images to notebook; git push failed. Going to try troubleshooting in lesson.
 
 === Action Items: ===
 {| class="wikitable"

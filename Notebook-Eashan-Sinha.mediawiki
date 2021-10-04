@@ -10,7 +10,7 @@
 
 = Fall 2021 (Bootcamp) =
 
-== Week 1 (8/23 - 8/27) ==
+== Week 1 (8/25 - 8/31) ==
 
 === Lecture Notes (8/25) ===
 '''Genetic Algorithm'''
@@ -84,9 +84,7 @@ At any given time, there are multiple solutions to a problem
 ** Define and print stats for population
 *** Gathered all fitnesses in one list and print stats
 
-[[files/OneMaxProblemOutput.png|550x550px]]
-
-
+'''N Queens'''
 
 
 === Action Items ===
@@ -110,12 +108,301 @@ At any given time, there are multiple solutions to a problem
 |August 25, 2021
 |-
 |Complete "Lab 1 - Genetic Algorithms with DEAP" in JupyterLab
-|In Progress
+|Complete
 |August 25, 2021
 |September 1, 2021
-|
+|September 1, 2021
 |}
 
-== Week 2 (8/30 - 9/3) ==
+== Week 2 (9/1 - 9/7) ==
 
 === Lecture Notes (9/1) ===
+'''Genetic Programming'''
+
+* Last week, we focused on Genetic Algorithms and how we want to arrive at a evolved population-based solution
+* Instead of utilizing a function '''evaluator''' on an individual to obtain objective scores, we want to run the [input] data through the individual and use the individual as the function itself
+** Then we want the evaluator to be run on the Output Data
+* We represent Genetic Programming as a '''Tree Structure'''
+** The '''Nodes''' of the tree are called ''primitives'' and represent functions
+** The '''Leaves''' are called ''terminals'' and represent parameters
+*** The input can be thought of as a terminal
+*** The output is produced at the root of the tree
+** If our input was '''x''', then our output would be '''f(x)'''
+
+'''How is the Tree Stored?'''
+
+* The tree is converted  into a '''lisp preordered parse tree'''
+** The operator would be followed by inputs
+* The tree for f(X) = 3 * 4 + 1 can be written as: [+,*,3,4,1]
+* We do a depth-first traversal in this pre-ordered parse tree
+
+'''Crossover in GP'''
+* Basically exchanging subtrees
+* Start by randomly picking a point in each tree
+* These points and everything below create subtrees
+* The subtrees are exchanged to produce children
+* We take what's left of parent 1 and what's left of parent 2 and swap and create 2 child algorithms out of that
+
+'''Mutation in GP'''
+* Mutation can involve…
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+* When we delete a node or subtree, we can perform a shrink operation to fill up that tree
+* Any change we make locally to a tree, that is called a '''mutation'''
+* Example: Symbolic Regression
+** Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
+** Primitives include: +, *, -, /
+** Terminals include ''integers'' and X
+* We solve this using a Calc 1 Concept of '''Taylor Series'''
+** Taylor Series for sin(x)
+
+'''Evaluating a Tree'''
+* We can feed a number of input points into the function to get outputs
+** 𝑋=[0..2𝜋]
+* We can measure error between outputs and truth
+* Other Primitives could make this a lot easier
+** Power()
+** Factorial()
+** Sin()
+** Cos()
+** Tan()
+** Summation()
+** Pi
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+==== ''Lab Setup'' ====
+* Saved 'Lab 2 - Genetic Programming and Multi-Objective Optimization' as .ipynb file (''Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb'')
+* Downloaded and installed Anaconda for MacOS
+* Launched '''JupyterLab''' using Anaconda Navigator
+* Imported Lab .ipynb file into JupyterLab
+
+==== ''Lab Notes'' ====
+'''Symbolic Regression'''
+
+* Lab focuses on '''genetic programming'''
+* Imported necessary libraries for GP
+* Created fitness and individual classes
+* We'll be representing our individuals in a tree structure
+* Initialized a primitive set and added all the primitives our trees can use
+* Added two primitives:
+<pre>pset.addPrimitive(np.divide, arity=2)
+pset.addPrimitive(np.mod, arity=2)</pre>
+* Defined evaluation function <code>evalSymbReg</code>
+* Registered our genetic operators using <code>toolbox.register()</code>
+
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 5, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 5, 2021
+|-
+|Complete '''Part 1''' of "Lab 2 - Genetic Programming and Multi-Objective Optimization" in JupyterLab
+|In Progress
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}
+
+== Week 3 (9/8 - 9/14) ==
+
+=== Lecture Notes (9/1) ===
+
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+==== ''Lab Setup'' ====
+* Lab already set up from previous part of lab
+
+==== ''Lab Notes'' ====
+'''Multi Objective Genetic Programming'''
+
+* Lab focuses on '''Multi Objective Genetic Programming'''
+* Imported necessary libraries for GP
+* Created fitness and individual classes
+* We'll be representing our individuals in a tree structure
+* Initialized a primitive set and added all the primitives our trees can use
+* Added two primitives:
+<pre>pset.addPrimitive(np.divide, arity=2)
+pset.addPrimitive(np.mod, arity=2)</pre>
+* Defined evaluation function <code>evalSymbReg</code>
+* Registered our genetic operators using <code>toolbox.register()</code>
+
+==== Self Grading ====
+https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=sharing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 14, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Complete '''Self Grading Rubric'''
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Complete '''Part 2''' of "Lab 2 - Genetic Programming and Multi-Objective Optimization" in JupyterLab
+|In Progress
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
+== Week 4 (9/15 - 9/21) ==
+
+=== Lecture Notes (9/15) ===
+
+==== Intro to Machine Learning ====
+
+
+
+==== Extra Notes ====
+* Assigned to subteams:
+* My teammates:
+** Pranav Pusarla
+** Jessi Chen
+** Leul Wubete
+** Elan Grossman
+* Introduced to '''scikit-learn''': https://scikit-learn.org/stable/index.html
+* We will be using skcikit-learn to import many Machine Learning algorithms/models that we can use to analyze our Titanic Disaster and more accurately predict survival.
+* We went through some of the source code in the Jupyter Notebook for the Titanic Project
+
+=== Group Project -- Titanic- Machine Learning from Disaster ===
+
+==== ''Project Setup'' ====
+* Project setup same way as previous labs
+
+==== ''Sub Team Notes (9/19)'' ====
+* 
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 20, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|-
+|Complete Data Processing and Pareto Front using Titanic Dataset
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|}
+
+== Week 5 (9/22 - 9/28) ==
+
+=== Lecture Notes (9/22) ===
+
+* Went over action items for Presentation next week (9/29)
+
+
+=== Group Project -- Titanic- Machine Learning from Disaster ===
+
+==== ''Project Setup'' ====
+* Project setup same way as previous labs
+
+==== ''Sub Team Notes (9/24)'' ====
+
+* 
+
+
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 26, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 24, 2021
+|-
+|Team Meeting 2
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Team Meeting 3
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Complete '''Predicting Titanic Survivors''' Assignment and Presentation
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+

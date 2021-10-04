@@ -4,6 +4,254 @@ Team Member: Cameron Bennett
 Email: cbennett49@gatech.edu
 [[files/Cameron Bennett.png|thumb]]
 Phone: 404-660-4206
+
+Interests: Machine Learning, Low Level Distributed Systems
+
+Sub-team: Neural Architecture Search
+
+Teammates:
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Conner-Jackson-Yurkon Connor Yurkon]
+* Cameron Whaley
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
+
+== Self-Evaluation Form Fall 2021 ==
+* Notebook Maintenance  
+** Name & contact info. '''5/5'''
+** Teammate names and contact info easy to find. '''5/5'''
+** Organization. '''5/5'''
+** Updated at least weekly. '''4/10'''
+* Meeting Notes
+** Main meeting notes. '''5/5'''
+** Sub-teams’ efforts. '''10/10'''
+* Personal work & accomplishments
+** To-do items: clarity, easy to find. '''5/5'''
+** To-do list consistency (weekly or more). '''8/10'''
+** To-dos & cancellations checked & dated. '''5/5'''
+** Level of detail: personal work & accomplishments. '''15/15'''
+* Useful resource
+** References (internal, external). '''10/10'''
+** Useful resource for the team. '''14/15'''
+
+Total Out of 100: '''91/100'''
+
+== September 27, 2021 ==
+'''Team Meeting Notes:'''
+* This scrum meeting we discussed the 3 high level ideas that interested us from the week prior in our subteam meeting. Those topics include:
+** Introducing a global "supernet"
+** Introducing Weight Sharing
+** Introducing writes to disk 
+* Additionally, we covered some of the bugs being ran into by different members.
+* Devesh completed his task for the Input Template
+* Cameron Whaley remembered how he reproduced his issue with swap_layer
+* Finally, Connor made a recommendation that we hold a presentation to more effectively onboard members to the codebase of EMADE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rerun EMADE with seeded amazon file
+|Completed
+|9/27/21
+|9/31/21
+|9/30/21
+|-
+|Complete Presentation on EMADE
+|Completed
+|9/24/21
+|9/28/21
+|9/27/21
+|-
+|Identify valid NNLearners within EMADE run.
+|Incomplete
+|9/19/21
+|9/31/21
+|
+|}
+
+'''Individual Notes:'''
+* I communicated with Cameron Whaley about an issue I ran into while using the analyze library. Essentially, I was not getting any valid individuals after reading from the database connected to my input template xml. He said that I needed to ensure I seeded my run in order for the database reader to easily identify valid indiviuals.  
+* I'm going to rerun emade with my specified seed for amazon.
+* Connor requested that Cameron Whaley and I present about emade and some of the fundamentals of the evolutionary loop. We've decided to setup a presentation for Tuesday virtually and we will record the meeting for anyone else interested. 
+
+== September 20, 2021 ==
+'''Team Meeting Notes:'''
+* This meeting involved our usual SCRUM in which we all shared the tasks we were currently working on.
+* I communicated our plans to work on novelty detection, CIFAR-10 new input template and a pause function within EMADE.
+* Dr. Zutty communicated that we should flesh out our understanding of novelty a little bit better. Additionally, he recommended we take a look at his implementation of novelty detection within the CACHEV2 branch.
+* In our subteam meeting, we discussed everyone's familiarity with their current task. Devesh seemed comfortable working on the input template. Connor had a couple of questions about the layer frequency task but we discussed it a little. 
+* Anish provided some insights about how we could speed up training while trying to debug functionality within EMADE. He recommended that we simply adjust the num_instances variable present within our input template. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Literature Review for One-Shot NAS article.
+|Completed
+|9/20/21
+|9/24/21
+|9/22/21
+|-
+|Identify valid NNLearners within EMADE run.
+|Incomplete
+|9/19/21
+|9/25/21
+|
+|}
+
+'''Individual Notes:'''
+* I've added 2 more trello tasks to be worked on.
+* I'm currently attempting to use Cameron Whaley's Analyze.ipynb notebook to do some standalone tree evaluation for my modified triviality run.
+* I'm currently doing some literature review based on a recommendation from Devesh regarding One-Shot NAS which uses weight sharing through a datastructure called a "supernet". I feel like it would be interesting to explore a potential implementation of this supernet for NNLearners in EMADE.
+
+== September 13, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed some general information about PACE storage and SCRUMS for each subteam
+* Dr. Zutty mentions that we should be using directory `/storage.home/hpaceice1/shared-classes/materials/vip/AAD` if we encounter storage issues.
+* Subteam meeting consisted of trello board review with Dr. Zutty who provided feedback on many of our existing ideas including
+** We should look to utilize the CIFAR-10 dataset in a new Input-Template or utilize some existing MNIST and Pokemon dataset resources
+** We should check the CACHEV2 branch for bug fixes before making any large scale changes to nn-vip
+** Though much of the Neural Architecture capability exists in EMADE we should look to include capabilities of neuroevolution algorithms such as CoDEEPNEAT.
+** Similar to the Modularity team, we'll be looking to build complexity in our generated individuals by diversifying them with Novelty detection.
+** Some literature of Novelty detection should be done in order to properly define novelty.
+** A potential metric to reference for progress could be the percentage of time spent on training successful individuals versus time spent on failed individuals. This is readily available within the emade SQL database on normal runs.
+* We discussed some potential performance improvements we'd like to make such as running a shared tokenization process for all nnlearner individuals.
+* Finally, our subteam members gave updates regarding progress of setting up emade locally and on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Generate 3 straightforward tasks that can begin being worked on.
+|Completed
+|9/13/21
+|9/19/21
+|9/16/21
+|-
+|Fill out self-evaluation form.
+|Completed
+|9/13/21
+|9/13/21
+|9/13/21
+|}
+
+'''Individual Notes:'''
+* I connected with Lucas regarding a bug he ran into while setting up EMADE locally. He's now in the process of fixing said issue.
+* I created a google doc with some of the notes discussed during today's meeting with Dr. Zutty regarding our work for the Semester.
+* I'll be spending today creating enough tasks for each team member to begin contributing to the 6 main ideas we've established to be worked on this semester. Connor has alredy volunteered to work on a bug fix for Swap_Layer method.
+* In addition, I'm currently looking to make the Input_Template for the CIFAR dataset we plan to use this semester.
+
+== September 6th, 2021==
+'''Main Meeting Notes:'''
+* Met with Cameron Whaley post meeting about some ideas to work on for the semester
+* Many of the issues experienced with neural architecture seem to stem from small performance problems that can be optimized.
+* Ideally we'd like to add a new input_template for a smaller dataset such as MNIST to be used when testing neural architecture structures more frequently.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE using Amazon dataset locally
+|Completed
+|September 6th, 2021
+|September 13th, 2021
+|September 9th, 2021
+|-
+|Run EMADE locally with GPU
+|In Progress
+|September 6th, 2021
+|September 14th, 2021
+|-
+|Update Subteam weekly notes
+|Completed
+|September 6th, 2021
+|September 14th, 2021
+|September 11th, 2021
+|}
+
+'''Individual Notes:'''
+* I decided to create a trello board and mark down 6 ideas we could begin working on to improve emade NAS. 
+* I read through 2 of the articles provided by Dr. Zutty regarding neuroevolution algorithms
+* I plan on spending a good deal of time setting up emade to run locally.
+
+== August 30, 2021 ==
+'''NAS Brainstorm Meeting Notes:'''
+* Cameron Whaley and I met for about an hour after the VIP meeting to compare ideas of tasks for the semester
+* We both noticed that some infrastructure improvements would benefit our ability to test and generate NNLearner individuals greatly.
+* Finally, we decided it might be good to continue some literature review for the week and prepare to create a list of tasks and help resources to be provided to other team members in our first full team meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Slack Channel for Team
+|Completed
+|8/30/21
+|8/31/21
+|8/30/21
+|-
+|Read 2 Articles provided by Dr. Zutty
+|Completed
+|8/30/21
+|8/31/21
+|8/30/21
+|}
+
+'''Individual Reflection:'''
+* I'm taking this week to review the existing EMADE codebase and engage in some literature review to generate tasks.
+* Cameron Whaley and I met for a second time to discuss some potential starting points for tasks and how we plan to gauge improvements based on our work.
+
+== August 23, 2021 ==
+'''Team Meeting Notes:'''
+* Brainstormed potential teams for semester
+* Pitched potential tasks for each team to work on for semester and potential team leads
+* Did a group vote for interest in each pitched team
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try to access VIP notebook
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|-
+|Generate a plan for Neural Architecture Search Team
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|}
+
+'''Individual Reflection:'''
+* I volunteered to be team lead for the Neural Architecture Search team which requires that I do some research for neuroevolution strategies.
+* I've decided to reach out to Cameron Whaley to get some insights about work that needs to be done on EMADE.
+
 == April 30th, 2021==
 '''Presentation Day'''
 * Today's presentations for each team occurred from 6-8:50. Some updates presented in the NLP presentation are included below.

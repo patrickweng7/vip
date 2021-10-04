@@ -9,7 +9,281 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Soccer, Guitar
 
 = Fall 2021 =
-== Week 2: September 1st - September 7th (2021) == 
+== Week 5: September 22nd - September 29th (2021) == 
+===Outline of class notes===
+
+'''In class:'''
+* Discussed last week's (Titanic Dataset) project.
+* Got notified of this week's task.
+* Learned how to give presentations.
+* Had a discussion with group members as to when to schedule upcoming meetings.
+
+'''Lecture Notes:'''
+* While discussing last week's project, we found out that changing the hyper parameters was an important factor required for obtaining co-dominant algorithms.
+* Sometimes, this change in hyper parameters led to a reduction in the Pareto optimal solutions/fitness scores.
+* Completing the objective of obtaining co-dominant solutions required hit and trial and a few iterations for finding the apt models to achieve a successful outcome.
+* For next week we have to use multiple objective genetic programming to find the Pareto optimal solutions for the same Titanic Dataset. This time we don't have any constraints such as finding a set of co-dominant algorithms. 
+* Our aim is to improve the accuracy of our algorithm to find the best optimal solutions.
+* We have to use basic primitives, such as logical and mathematical, to generate desired solutions.
+* We are supposed to write our own algorithms for selection, crossover, mutator functions and not use tournament selection.
+* Finally, we have to compare the Pareto frontier values (ML and GP) and then submit a csv file.
+* Generation of own genetic loop is important and presentation of work and algorithms will take place next week.
+* <b>Presentation about how to give a presentation:</b>
+** Important to follow mentioned organized structure.
+** Should present required schedule tables and graphs that have been plotted.
+** Explain how you came up with the solution.
+** Text can be on the slides but try not to read off the text directly.
+
+'''Sub-team Meeting Notes:'''
+* Discussed the steps required to attain desired output through the python notebook.
+* Used primitives from Lab 2 to fulfill the requirements of this Lab.
+* Experimented multiple models and algorithms to find the apt one for selection as we were not allowed to use tournament selection. We used SPEA2.
+* Used symbolic regression evaluation function.
+* Decided content to be added to our presentation.
+* Programmed our own genetic loop.
+
+'''Individual Notes:'''
+* Did a lot of research on working of symbolic regression evaluation function and difference between NSGA II and SPEA2 for selection algorithms.
+* Worked on programming the genetic loop. As it had to be completely original, coding one took a while and required each one of us to do our own research for the same.
+* I designed the layout of the presentation and was responsible for verifying the code and information to be included.
+* Added code for area under the curve to ensure an apt comparison of ML and MOGP.
+
+'''Presentation:''' https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 25th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|- 
+|Completed Python notebook
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 29th, 2021
+|- 
+|Made Presentation
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|}
+
+== Week 4: September 15th - September 22nd (2021) == 
+===Outline of class notes===
+
+'''In class:'''
+* Sub-Teams assigned
+* Discussion of Titanic dataset
+* Overview of Machine learning libraries, especially Sci-kit Learn
+
+'''Lecture Notes:'''
+* Got assigned into sub-teams using our Pareto optimality (decided by the Professor)
+** I have been assigned to Sub-Team #2 consisting of me, Manas, Aditya Kumaran, Adhitya Gurunathan, and .
+* Introduced to Kaggle, an online community based platform for data science and machine learning purposes.
+* Discussed the Titanic Dataset on Kaggle.
+** The Titanic Dataset:</u> The titanic problem is used for designing a model which can accurately predict whether or not a given passenger will survive on the basis of the data. Our task is to come up with co-dominant algorithms and submit each of our predictions in the form of a csv file on Canvas.
+** Codominant Algorithms: Algorithms in which one does not dominate another on every objective. For this particular challenge, we have to classify survivors and minimize false positives (FP) and false negatives (FN).
+* Went over the sample code/Python notebook related to this dataset. The notebook used sci-ket learn for modeling.
+* Towards the end of the lecture, we broke out into our sub-teams, noted one another's contacts, and set up a meeting outside of lecture time.
+
+===Titanic Dataset (ML)===
+'''Sub-Team meeting Notes:'''
+* Created a Discord Chat to keep in touch, share ideas, and schedule meetings.
+* Scheduled a virtual meeting at 2:45 pm on 18th September. 
+* Set up the Python notebook for the Titanic Challenge and opened it in Jupiter using the Anaconda Navigator.
+* Discussed the parameters/features that our not vital for improving the accuracy of our Machine Learning algorithm.
+* Removed the following parameters, as they did not affect the passenger survival rate significantly:
+** Name
+** PassengerID
+** Ticket Number
+** Fare
+* We kept the 'Embarked' and 'Sex' parameter and mapped the alphabetical values to numerical ones for easier algorithmic comprehension using a dictionary (column map). This parameter was important as the port you boarded from would affect which cabins were available. Hence, this would have an impact on where one was when the ship sank.
+* The impact of the parameters on the survival rate were reasons like not willing to separate from their family, class, age, gender, etc.
+* We then created a NaN_map to fill in the missing Age and Embarked values.
+* We tried using different models using the Sci Kit learn documentation. We used the RandomForestClassifier and the MLP classifier initially, which were co-dominant algorithms. We changed their parameters constantly to find the best optimal solutions. We imported the 'ensemble' class to run RandomForestClassifier.
+* Then went through the documentation more to find co-dominant algorithms. After trying various algorithms we finally found three others, AdaBoostClassifier, SVM, and DecisiomTreeClassifier. We changed the parameters around in order to ensure that the algorithms were co-dominant. These changes led to a change in the algorithms accuracy, but the change was not large enough to affect the objective of the confusion matrix.
+* Wrote multiple functions to plot scatter plot graphs and saved 5 different csv files (one for each member) for each model.
+* Pareto Optimal Frontier using varying classifiers: (change in parameters mentioned in brackets)
+**  Rohan = DecisionTreeClassifier (min_samples_leaf=30). False Positive = 9, False Negative = 45
+**  Manas = RandomForestClassifier (n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). False Positive = 18, False Negative = 29. 
+**  Aditya = AdaBoostClassifier. False Positive = 32, False Negative = 21. 
+**  Adithya =  MLP Classifier. False Positive = 26, False Negative = 26.
+**  Yisu = SVM (used svm.SVC, sigmoid = kernel). False Positive = 0, False Negative = 104. 
+
+'''Individual Contribution:'''
+* I decided to use the DecisionTreeClassifier as each one of us were responsible for implementing our own algorithms.
+* Made changes to its parameter, min_samples_leaf=30, to ensure it has an optimal value and co-dominance with other algorithms.
+* This then got me a good accuracy with an algorithm that fit well with the other four algorithms we planned on using.
+* Learned more about different parameters of this model from the Sci Kit learn documentation. I had initially tried different models like more kernel functions and nearest neighbor algorithms, but none fit as well in with the other algorithms we planned to choose.
+* I explored multiple functions and learned more about their parameter usage as well.
+* Two other members and I thought of mapping alphabetical values to numerical to ensure optimized and accurate supervised learning algorithmic values for the final solution.
+
+Image
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 18th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 17th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 18th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 19th, 2021
+|- 
+|Completed Python notebooks with 5 different co-dominant algorithms
+|Completed
+|September 15th, 2021
+|September 22nd, 2021
+|September 19th, 2021
+|}
+== Week 3: September 8th - September 15th (2021) == 
+===Self-Evaluation Form=== 
+https://drive.google.com/file/d/1nv79npHVXmHw1cMCW4aEE8cNPSBdqY_t/view?usp=sharing
+
+===Outline of class notes===
+
+'''In class:'''
+* Discussed 'Multiple Objectives – The MO in MOGA and MOGP'
+* Overview of the Pareto Optimality 
+* Rated our Python and ML Skills
+
+'''Lecture Notes:'''
+* Had an open discussion about what an algorithm looks for in a mate. There are a variety of objectives that we aim to achieve by generating specific algorithms to the get the best solution. Specificity, precision, accuracy, etc. are few important characteristics/goals that we aim to achieve.
+* <b>Genetic Programming Cycle:</b> New Gene Pool → Evaluation → Genes with scores → Fitness Computation → Genes with fitness → Selection → Parental Genes → Mating → Child Genes → Mutation → New Gene Pool
+* Keywords:
+** Gene pool: The set of genome to be evaluated during the current generation
+** Genome: Genotypic description of an individuals (DNA, GA = set of values, GP = tree structure, string)
+** Search Space: Set of all possible genome. For Automated Algorithm Design it's the set of all possible algorithms
+** The Evaluation of a Genome: Associates a genome/individual (set of parameters for GA or string for GP) with a set of scores.
+*** From a location in search space: Genotypic description
+*** To a location in objective space: Phenotype description
+* <b>Important measures for multi objectivity: </b>
+** True Positive – TP: How often are we identifying the desired object
+** False Positive – FP: How often are we identifying something else as the desired object
+** True Negative - TN: How often are we identifying the non-desired object
+** False Negative - FN: How often are we identifying the desired object as something else
+** Objectives: Set of measurements each genome (or individual) is scored against
+** Objective Space: Set of objectives 
+* Confusion Matrices use TP, FP, TN, FN to visualize outcomes.
+* Other measures that we use for optimization and prediction:
+** Sensitivity or True Positive Rate (TPR): AKA hit rate or recall, TPR = TP/P = TP/(TP+FN)
+** Specificity (SPC) or True Negative Rate (TNR): TNR = TN/N = TN/(TN+FP)
+** False Negative Rate (FNR):FNR = FN/P = FN/(TP+FN), FNR = 1 - TPR
+** Fallout or False Positive Rate (FPR): FPR = FP/N = TN/(FP+TN), FPR = 1 – TNR = 1 - SPC
+** Precision or Positive Predictive Value (PPV), PPV = TP / (TP + FP), Bigger is better
+** False Discovery Rate, FDR = FP/(TP + FP), FDR = 1 - PPV, Smaller is better
+** Negative Predictive Value (NPV), NPV = TN / (TN + FN), Bigger is better
+** Accuracy (ACC), ACC = (TP+TN) / (P+N), ACC = (TP+TN) / ( TP + FP + FN + TN),  Bigger is better
+** Objective Space:Each individual is evaluated using objective functions like Mean squared error, Cost, Complexity, True positive rate etc.
+** Objective scores give each individual a point in objective space
+** This may be referred to as the phenotype of the individual 
+* All these measures help us in selecting the right algorithms, mating, fitness computation etc.
+* <b>Pareto Optimality</b>
+** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives
+** The set of all Pareto individuals is known as <i>the Pareto frontier.</i>
+** These individuals represent unique contributions. We want to drive selection by favoring Pareto individuals (But maintain diversity by giving all individuals some probability of mating).
+* Two types of Multi objectivity algorithms:
+** Non-dominated Sorting Genetic Algorithm II (NSGA II)
+*** Population is separated into non-domination (nothing over performs it at all individuals and that is why it called Pareto optimal) ranks. Individuals are selected using a binary tournament and a lower Pareto ranks beat higher Pareto ranks.
+*** Ties on the same front are broken by crowding distance (more diversity is better) (its better if points are pareto optimals but a little far from one another). Summation of normalized Euclidian distances to all points within the front. Higher crowding distance wins
+** Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+*** Each individual is given a strength S and receives a rank R. S refers to the number of others in the population that it dominates and R refers to the sum of S’s of the individuals that dominate it. Pareto individuals are nondominated and receive an R of 0.
+*** A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
+
+===Lab 2 (Part 2): Multi-Objective Genetic Programming===
+* Followed instructions given in the python notebook and tried to minimize the mean squared error along with the tree size.
+* We also plotted the Pareto frontier. The main reason why we are trying to minimize area under the curve is to reduce distance of the Pareto curve with the axes and increase the probability of finding optimized and better individuals to minimize the two objectives.
+* The area under the curve with the original parameters was: 2.463792426733847
+* Best individual is: negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x)))) with fitness: (0.27530582924947056, 25.0)
+Images
+* Now, our goal is to reduce AUC by at least 25% by changing the parameters.
+* To achieve this goal, I attempted to remove the three trigonometric functions.
+* First, when I just removed the tan function, the area under the curve increased; however, once I removed all three functions, the area under the curve reduced and became 0.6912744703006891.
+* Best individual is: subtract(x, x) with fitness: (0.7223441838209306, 3.0). This was the best individual in this case.
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 11th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 10th, 2021
+|-
+|Complete Self-Evaluation Form
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 10th, 2021
+|- 
+|Complete Lab 2 (Part 2)
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 12th, 2021
+|}
+
+== Week 2: September 1st - September 8th (2021) == 
 ===Outline of class notes===
 
 '''In class:'''
@@ -45,13 +319,13 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 * Added primitives to the primitive set and chose a new mutation to find the most optimized solution.
 * Compiled the primitive tree to generate the evaluation function, which finds the squared sum of the difference between our desired function's output and our individual's output. In this case we are trying to find minimum values that approaches zero faster.
 * I tried modifying the code in three different ways:
-** The original program:
+** <u>The original program</u>:
 ***original lab 2
 
 ***First Attempt: Best individual is add(add(negative(negative(multiply(x, x))), multiply(subtract(multiply(x, x), negative(x)), multiply(x, x))), x), (1.0123748708878107e-16,)
 ***Second Attempt: Best individual is add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17,)
 ***Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently.
-** Program with added mutation
+** <u>Program with added mutation</u>
 
 ***First Mutation (mutInsert): Best individual is add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, negative(negative(x))))), x), (1.1585916677755867e-16,)
 
@@ -60,13 +334,13 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 ***Second Mutation (mutShrink): Best individual is add(add(multiply(x, x), multiply(x, multiply(x, x))), add(x, multiply(x, multiply(multiply(x, x), x)))), (9.522005638492831e-17,)
 
 ***part2lab21....Values were usually close to zero, but in some cases the value was very high (for maximum) and not as consistent. 
-** Program with only added primitivies
+** <u>Program with only added primitives</u>
 
 ***extralab2
 
 *** Best individual is add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
 
-** Program with both added primitives and mutation
+** <u>Program with both added primitives and mutation</u>
 *** We used the mutInsert mutation as it seemed more consistent.
 
 *** First pair of primitives (sin and square): Best individual is add(x, add(multiply(add(x, square(x)), multiply(x, x)), multiply(x, x))), (1.0123748708878107e-16,)

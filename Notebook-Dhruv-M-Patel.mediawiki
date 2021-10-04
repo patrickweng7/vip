@@ -14,7 +14,238 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 =Fall 2021=
 '''General Info'''
 * Image Processing subteam
+** Teammates: [[Notebook Harris Barton|Harris Barton]], [[Notebook Maxim Daniel Geller|Maxim Geller]], [[Notebook Monil Manish Kaneria|Monil Kaneria]], [[Notebook Aryaan Anuj Mehra|Aryaan Mehra]], [[Notebook Temiloluwa Orefoluwa Ogunsanya|Temi O]], [[Notebook Heidi Mae Yap|Heidi Yap]]
 * VIP meetings 5-5:50pm on Mondays
+* Subteam meetings 5:45-6:45pm on Wednesdays
+
+==Sept 27th, 2021==
+===Meeting Notes===
+
+===Subteam Notes===
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|
+|In Progress
+|Sept 27, 2021
+|Oct 4, 2021
+|
+|-
+|Update Wiki Notebook
+|In Progress
+|Sept 27, 2021
+|Oct 4, 2021
+|
+|-
+|}
+
+==Sept 20th, 2021==
+===Meeting Notes===
+* Zutty says (if we want a direct comparison to another study) you cannot change the test data, however you can change training data however you want
+* Essentially want to say one can outperform another algorithm on the same test
+
+===Subteam Notes===
+* We should create our own branch off Image-Processing(nn-vip) to start doing our own work.
+* Tasks for me: Dhruv and Harris begin implementing a selection method. We (should) have a baseline now thanks to Aryaan
+
+'''NSGA3 Implementation'''
+* Attempting to implement NSGA3 by next Monday
+* [https://github.com/DEAP/deap/blob/d328fe6b68e7528b2d2d990bb2ab1ad1786e6f58/deap/tools/emo.py Deap's NSGA3]
+* Edit selection_methods.py file
+* To push changes, will need to fork emade and upload changes to that because we can't push to or edit branches
+* tools.uniform_reference_points(nobj=14, p=?)
+** Using this to generate reference points if not passed in as parameter in our sel_nsga3()
+** Not too sure what p is, scales linearly with depth. Might needa play around with it. Setting to 14 initially.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Implement NSGA3 into code
+|Complete
+|Sept 20, 2021
+|Sept 27, 2021
+|Sept 26, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Sept 20, 2021
+|Sept 27, 2021
+|Sept 27, 2021
+|-
+|}
+
+==Sept 13th, 2021==
+===Meeting Notes===
+* Self-evals due today 9/13
+* We have pace ice access, use shared folder
+** /storage/home/hpaceice1/shared-classes/materials/vip/AAD
+* Image processing uses a lot of OpenCV and needs a lot of data coercion to get into the right format 
+* Being careful with primitives and casting to correct form
+** So many image processing primitives, how do we help search do the right thing?
+** E.g. a lot of primitives serve similar purposes like window functions, determine “same flavor”
+*Need to decide to do classification or detection (Dr.Zutty says EMADE would work better with classification)
+
+===Subteam Notes===
+* Team will focus on using EMADE over cheXNet for X-ray image lung disease detection
+* [https://paperswithcode.com/paper/chexnet-radiologist-level-pneumonia-detection CheXNet paper]
+* Notes from Jason's feedback:
+** Changing the selection methods for many objectives
+** NSGA 3 for example or lexicase, hypervolume Indicator - can use one for the parent and one for the child and see what works best
+** Good crossovers and mutations
+** There is nothing that compares primitives to each other (for making the search better)
+** Can we make a primitive that combines/compares existing ones i.e. put them together like an ADF
+** Down-sample the data with fewer rows and images.
+** Make the images gray-scale or make them smaller
+** Take it down to 64 by 64 and cut the data in half
+** Need objectives that are uncorrelated
+** Demonstrate an improvement in EMADE
+** Come up with something novel
+** Compare with LEAF AutoML
+
+'''What Success Is'''
+* Demontrate improvement in EMADE
+* Novel algo
+* Outperform LEAF
+
+'''Starting tasks'''
+* Data preparation
+** Downsample (greyscale, lower resolution, balancing)
+** Talk to Anish
+* Try it out with EMADE as is
+* Selection methods
+** NSGA3, Lexicase, etc.
+** Hypervolume indicator
+* Hyper-feature packaging
+* Clever mating and mutation
+** Improve existing primitives
+** Semantic crossover
+
+'''Selection Methods Research'''
+* General
+** [https://www.researchgate.net/publication/272985206_Review_of_Feature_Selection_Methods_in_Medical_Image_Processing Paper] on selection for medical image processing
+** Might want to explore hybridizing selection methods later this semester
+
+* NSGA3
+** NSGA2 is already implemented but not NSGA3
+** https://deap.readthedocs.io/en/master/examples/nsga3.html
+** Implemented in DEAP and in PyMoo (references)
+** Better than NSGA2 because we have multiple objectives
+** Didn’t find much/anything about NSGA3 and image processing
+
+* Lexicase
+** Sel_Lexicase is already implemented (not sure if they’re the same)
+** Random training case → eliminate individuals with errors but can accidentally choose bad cases because can stop early and auto-use remaining ones
+** Might not be worth using because it could choose worse algorithms as the parents for the next generation (unless we implement it in a way that the best algorithm from ALL parents AND children are chosen to be the next parents -- but children are optimally always better than parents)
+
+* Hypervolume indicator
+** Gives score to measure quality of an algorithm/individual
+** Whether it’s feasible or not will depend on how many objectives we have
+** Definitely useful in selecting the algorithms closest to optimal, relative to the other algorithms
+** Didn’t find any image processing papers using hypervolume indicator, but I think we should try it out
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Research Selection methods
+|Complete
+|Sept 13, 2021
+|Sept 20, 2021
+|Sept 19, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Sept 13, 2021
+|Sept 20, 2021
+|Sept 20, 2021
+|-
+|}
+
+==Sept 6th, 2021==
+===Meeting Notes===
+* No meeting due to Labor Day
+
+===Subteam Notes===
+* Maxim is team leader
+* Re-familiarize yourself with EMADE
+* Read previous team's paper
+* Possibly add primitives to EMADE
+* Everyone find image processing paper
+* Incl. potential data sets
+
+Notes on previous team's paper:
+* Neural architecture search using EMADE
+* Automates determining best layer combo and optimal hyper-parameters
+* Search space, search strategy, and candidate network performance estimation strategy
+* Manipulating input data, current systems lack data pre-processing in search space
+* Uses CIFAR-10’s image database for benchmarking
+* EMADE extensions: LayerTree, Layer Primitives, Pre-trained layer primitives, and Neural Network Learner
+* Hovering at 73-74% accuracy
+
+'''Exploratory research paper''' for ideas:
+* [https://doi.org/10.1016/j.irbm.2013.01.010]
+* Diabetic retinopathy screening (diabetes eye condition). “combines pathological pattern mining methods, with specific lesion detection methods, to extract information from the images”.
+* Computes abnormality risk
+* Both datasets: [https://www.adcis.net/en/third-party/e-ophtha/]
+** Fill out form for access, def allowed for research/educational purposes
+
+Notebook [https://docs.google.com/document/d/1fPIo8kQ-2McLnTW_2NwNI80QNv_KwnIb/edit?usp=sharing&ouid=111956644347073534620&rtpof=true&sd=true Self-Eval]
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Re-familiarize yourself with EMADE
+|Complete
+|Sept 6th, 2021
+|Sept 13th, 2021
+|Sept 12th, 2021
+|-
+|Read prev sem's research paper
+|Complete
+|Sept 6th, 2021
+|Sept 13th, 2021
+|Sept 11th, 2021
+|-
+|Find interesting ip papers
+|Complete
+|Sept 6th, 2021
+|Sept 13th, 2021
+|Sept 12th, 2021
+|-
+|Do self-eval
+|Complete
+|Sept 6th, 2021
+|Sept 13th, 2021
+|Sept 13th, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Sept 6th, 2021
+|Sept 13th, 2021
+|Sept 12th, 2021
+|-
+|}
 
 ==Aug 30th, 2021==
 ===Meeting Notes===
@@ -42,6 +273,35 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |Aug 30th, 2021
 |Sept 6th, 2021
 |Sept 4th, 2021
+|-
+|}
+
+==Aug 23rd, 2021==
+===Meeting Notes===
+* Brainstormed new teams
+
+===Subteam Notes===
+* N/A
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Create subteam ranking list
+|Complete
+|Aug 23rd, 2021
+|Aug 30th, 2021
+|Aug 30th, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Aug 23rd, 2021
+|Aug 30th, 2021
+|Aug 30th, 2021
 |-
 |}
 
@@ -818,7 +1078,7 @@ The presentation can be found [[files/Titanic GP Team 5.pptx|here]]
 ===Self-Evaluation===
 Click [https://drive.google.com/file/d/1qOsTSRS-lDaP3YeipnDqN1UaHII2nVHJ/view?usp=sharing Here] for the completed self-evaluation form
 
-===Lab 2: Multi-Objective Genetic Programming===
+===Lab 2: MOGP===
 *Our goal was to minimize Mean Squared Error (MSE) and Tree Size -- hence multi-obj
 '''Results from Initial Run'''
 

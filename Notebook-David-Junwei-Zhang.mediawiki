@@ -4,6 +4,336 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
+== September 29, 2021 ==
+'''Team Meeting Notes''
+
+* Selecting from the HOF may preserve pareto individuals
+* Adding terminals can help improve performance greatly (instead of simply comparing)
+* One hot encoding for categorical variables that have no relationship
+* Using HOF to save pareto optimal solutions may be helpful (many groups used this)
+* Different selection functions teams used
+** SPEA2
+** NSGAII
+** selRoulette
+** custom selection tournament
+** pairing NSGA-II, selTournamentDCD
+* For non-strongly type GP, we can use an activation function (like tanh) or simply check if value > 0 or not to determine result
+* MOGP more diverse than ML solutions; teams also had better performance for MOGP compared to ML (lower AUC)
+
+Some questions
+* Why did GP solutions often have 0 FP or 0 FN while ML solutions almost never had those (more equal distribution of FP, FNs for the most part). Does the evaluation have to to with this?
+* What is * represent when placed inside a param in python?
+** Use * to represent a variable number of parameters being passed in
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review GP for understanding
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|}
+
+== September 22, 2021 ==
+'''Team Meeting Notes'''
+
+For next week: Continue with the titanic dataset but use GP
+* Can use strongly or loosely typed GP
+* Can't use default algorithms in deep (mu+lambda...etc), but can use mutation, selection...etc (need to write the genetic loop)
+* Comparison of Pareto front between ML co-dominant set and that of GP
+* Try different operators, mutations...etc (note: selTourn is not multi objective)
+* As a group, submit a csv file for predictions for each Pareto optimal point
+
+'''Subteam Notes'''
+Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
+
+These are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
+
+GP Problems 
+
+* Bloat control tree size >90 
+** Set max tree size for mate/mutation or add penalizing factor into eval function
+** Can also set another objective to minimize instead of adding error to original objectives
+** Add penalizing factor in eval function 
+** Also speed much faster when tree size reduced 
+* Keeping boolean output (used strongly typed); could alternatively use loosely typed but force a boolean output 
+* Couldn’t add terminals for some reason (adding terminals would greatly improve result since we could only compare floats between columns and not to a predetermined constant)
+* Making sure one solution is not completely FP or FN (multi-objective keeps converging to a non-optimal solution) 
+** Penalize more for having high FNR, FPR or 0 FP, FN
+** add squared penalizing term FN^2 and FP^2 instead of simply FP, FN in order to encourage more equal distribution of FP and FNs 
+** Also single-objective could work in this problem but we cannot create pareto fronts required for the assignment
+
+Eval Function used for multi-objectives
+
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        args = [x_train[cols[i]] for i in range(len(9)]
+        predictions = func(*args) 
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        #prevent very unequal FN, FP results
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20   #add regularization term to error to prevent bloating
+        e2 = FP**2 + len(individual) * 20   #(could alternatively add separate objective to minimize)
+        return (e1, e2)
+
+Interesting findings 
+
+* Sometimes the evaluation results increase over time (This could be as a result of a bad mutation)
+* Compared to ML, GP seemed to have more varied results (possibly by including mutations and keeping a large population), whereas ML optimizes at each time step/iteration. We also set a low regularization param which may contribute to this result.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet up with subteam to work on titanic lab
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Finish titanic problem using GP
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 29, 2021
+|-
+|Work on presentation for ML/GP
+|In progress
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|}
+
+== September 15, 2021 ==
+'''Team Meeting Notes'''
+
+Assigned group for bootcamp and Titanic assignment to create co-dominant models within group
+
+Lecture 4: Machine Learning Intro
+* Preprocessing usually done on all the data before training
+** handle NAN values by dropping them or imputing with average
+** encode strings to numerical values
+* Metrics to use
+** False negative rate (FNR)
+** False positive rate (FPR)
+* Test, Train data both come from "train.csv" dataset (since we need the labels)
+* Some things to try:
+** Balance data set (50/50 split of train test for the labels)
+** Find a way to encode categorical variables better
+** Need to make sure random state is the same for all group members and same partitions for training/testing
+
+'''Subteam Notes'''
+
+* Met up 9/18 to work on creating co-dominant classifiers for the Titanic problem. 
+* For preprocessing, we made the following changes
+** Dropped ticket and cabin
+** Replace NA values with the mean value for the column
+** Filtered "age" and "fare" into ranges of values (ie: Under 11, 11-18, 18-22...etc)
+** Replaced the categorical variables of "sex" and "embarked" with coded values
+** Extracted titles from name and mapped them to ints
+*** <Code>titles_map = {'Mr':1, 'Miss':2, 'Mrs':3, 'Master':4, 'Rare':5}</Code>
+
+Findings
+
+* We set the train test split to 0.20 initially and a random state of 10 so that the splits would be the same among group members. We were able to get good results, but because the train test split was 0.20, it made it harder to find co-dominant models since there were less data points in testing so the variation in results was higher, so we decided to go with a 0.33 train test split just for the purposes of creating easier co-dominant models. This resulted in a lower accuracy though, since less data is being trained on so there was still a tradeoff.
+* For the MLP model, the default params had it so that there was only one hidden layer with 100 nodes (essentially perceptron)
+* After testing multiple runs, it seemed that 2 hidden layers performed the best (adding more hidden layers resulted in diminishing or worse returns) and around (30-60 nodes per layer worked well). In the end, I decided on (64,32) for the hidden layer parameter
+* For the learning rate and regularization; since we found out that sometimes 200 epochs did not converge to the answer, I increased the learning rate start to 0.01 from 0.001 and alpha (l2 penalty) to 0.001 from 0.0001. This means that the algorithm should converge faster and also generally create a simpler model due to the increased regularization.
+* I kept the default solver ('adam') and activation function ('relu') although I did try testing the stochastic gradient descent ('sgd') solver and sigmoid as the activation function. My reasoning for testing sigmoid as an activation is because it is good for predicting probability as an output. But since the results were not better than the defaults, I kept the sklearn default params for solver and activation function.
+* The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
+
+Table of Scores
+
+{| class="wikitable"
+!Subteam member
+!Model
+!False Negatives
+!False Positives
+|-
+|David
+|Gaussian Naive Bayes
+|40
+|21
+|-
+|Nikhil
+|MLP
+|30
+|29
+|-
+|Jordan
+|Random Forest
+|30
+|30
+|-
+|Austin
+|Logistic Regression
+|31
+|25
+|-
+|}
+
+The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Exchange contact info for subteam
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Meet up with subteam to work on creating the model for the Titanic dataset
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Submit predictions for co-dominant model
+|In progress
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|}
+
+== September 8, 2021 ==
+'''Team Meeting Notes'''
+
+Lecture 3: Multiple Objectives
+
+Main idea: There is often more than one objective to minimize/maximize. How can our algorithm take into account multiple objectives?
+
+* Metrics for algorithms: accuracy, computational speed, scalability, reliability
+* Gene pool: set of genomes to be evaluated during the current generation
+* Genome: genotypic description of an individual
+** GA = set of values
+** GP = tree structure (parse tree)
+* Search space: Set of all possible genomes. For GP, set of all possible algorithms
+* Evaluation: associates a genome/individual with a set of scores. phenotype is the expression of a genotype
+** Confusion matrix: 2x2 grid with TP, FP, TN, FN results
+** Sensitivity (or recall, true positivity rate): TP/(TP + FN)
+** Specificity (true negative rate): TN/(TN + FP)
+** False negative rate: 1-TPR
+** False positive rate: 1-TNR
+** Precision (PPV): TP / (TP + FP)
+** Negative predictive value (NPV): TN / (TN + FN)
+** Accuracy: (TP + TN) / (P + N)
+
+Pareto Optimality: An individual is pareto optimal if there i s no other individual in the population that outperforms the individual on all objectives
+* The set of all pareto optimal individuals is called the "pareto frontier"
+* We want to drive selection by favoring Pareto individuals while also maintaining diversity by giving all individuals some probability of mating
+
+Nondominated Sorting Genetic Algorithm II (NGSA II)
+* Separate population into nondomination ranks (Rank I => pareto optimal; Rank II => pareto optimal after removing rank I individuals; Rank n => pareto optimal after removing rank n-1 individuals)
+* Individuals selected through a binary tournament
+** Lower pareto ranks beat higher pareto ranks
+** Ties on the same front are broken by higher crowding distance (summation of normalized euclidean distances to all points within the front)
+
+Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+* Each individual is given a strength S (how many others in the population it dominates)
+* Each individual is given a rank R (sum of S's of individuals that dominate it)
+** for ties, distance to the kth nearest neighbor (sigma^k) is calculated and fitness of R+1/(sigma^k+2) obtained
+
+'''Lab 2 Multi-Objectives'''
+
+Objective: Create a GP algorithm that optimizes multiple objectives. In this case, we want to minimize the mean squared error (MSE) and the tree size.
+
+The objective is applicable in the real world since we often want to minimize MSE (commonly a loss function in regression) while also utilizing the simplest model possible (to reduce overfitting and generalize better) which is taken care of by the min tree size objective.
+
+Notes:
+* Set seed to have reproducible results
+* Changed problem to more challenging base function compared to lab 2 part 1
+* Define pareto dominance function which returns true if an individual pareto dominates another (is better on both objectives)
+* Utilize DEAP's eaMuPlusLambda() function which takes in two extra params: mu (number of individuals to select for the next generation), lambda (number of children to produce at each generation). We set mu=50, lambda=100 in our case
+
+The pareto front AUC is 4.886 for the base case and the objective is have as small of an AUC as possible. This means that the non-dominated individuals ("Hall of fame" individuals) are all optimized to have min MSE and tree size.
+
+To try to reduce the AUC as much as possible I tried the following hyperparameter tuning and the results are as follows.
+
+{| class="wikitable"
+!Hyperparameter
+!Original value
+!New value
+!Change in AUC
+|-
+|MUTPB
+|0.2
+|0.1
+|4.89 -> 5.52
+|-
+|NGEN
+|50
+|100
+|4.89 -> 5.12
+|-
+|MU
+|50
+|40
+|4.89 -> 2.34
+|-
+|}
+
+From the hyperparameter tuning, it seems that increasing then number of generations and decreasing the mutation probability does not help with the results; however, decreasing the mu slightly from 50-40 decreased the AUC by more than half. This could be because having less individuals per generation eliminates more individuals quicker, thereby decreasing the tree size and making the function simpler. Interestingly, the best individual fitness is higher (which is worse since we are trying to minimize) but since the tree sizes are so small, the AUC is still much lower.
+[[files/dzhang351/lower_AUC.png]]
+
+DEAP GP information
+* using PrimitiveSetTyped() allows for type constraining the input and output of a particular primitive
+* a Terminal is a predefined constant and we can generate terminals by a function (ephemeral constant)
+* tree sizes can be bloated over time in a GP problem; to limit tree size we can set a max size param in our mate and mutate methods to reduce bloating
+
+My self-graded notebook:
+[[files/dzhang351/self-grade-notebook.png]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Class Notes
+|Completed
+|September 8, 2021
+|September 14, 2021
+|September 15, 2021
+|-
+|Self grade wiki notebook
+|Completed
+|September 8, 2021
+|September 14, 2021
+|September 15, 2021
+|-
+|Finish Lab 2
+|Completed
+|September 8, 2021
+|September 14, 2021
+|September 15, 2021
+|-
+|}
 
 == September 1, 2021 ==
 '''Team Meeting Notes'''
@@ -25,7 +355,48 @@ Tree Representation
 ** changing node or subtree
 
 Evaluating a tree: Feed a number of points into the function to get outputs and compare with the ground truth function. Can use MSE or other error function for evaluation.
-Idea behind EMADE: Add useful primitives that can optimize genetic programs. Use algorithms as primitives?
+
+Idea behind EMADE: Add useful primitives that can optimize genetic programs. We can even use other machine learning algorithms as primitives (making genetic programming potentially very expressive)
+
+'''Lab 2 Until Multi-Objective GP'''
+
+For genetic programming, we will use "gp.PrimitiveTree" instead of a list since an individual is represented with a tree-like structure (parse tree)
+
+The two new primitives I added were the power and sin functions.
+
+<code>pset.addPrimitive(np.power, arity=2)</code>
+
+<code>pset.addPrimitive(np.sin, arity=1)</code>
+
+My reasoning for adding power is because power can easily generate large numbers without having to use many nodes. I chose the sin function because it is expressive in terms of generating cyclical behavior.
+
+The mutation function that I added is below
+
+<code>toolbox.register("mutate", gp.mutShrink)</code>
+
+I chose to use gp.mutShrink because of the idea of Occam's razor (the simplest solution that performs well should be preferred over a more complicated one that performs similarly)
+
+After trying to run the GP loop, I had some issues with overflow (from both power and later testing exponentials using np.power and np.exp respectively).
+
+[[files/dzhang351/overflow_error.png]]
+
+Lab 2 Debugging notes: One error that I had was with the mutShrink method parameters. I initially assumed that the parameters would be the same as mutUniform, however mutShrink only takes in the individual as a parameter and does not need expression or pset. Removing those parameters resolved the syntax errors, however the overflow errors were still present resulting in NAN values in the summary outputs. Np.exp resulted in overflow while np.power resulted in invalid data types (due to complex numbers from negative fractional powers).
+
+Observations:
+After repeating sin(x), tan(x) terminals, one interesting observation is the variance in fitness outcome
+# Best individual is add(add(x, multiply(x, multiply(multiply(x, x), x))), multiply(add(multiply(x, x), x), x)), (1.1041911805293318e-16,)
+# Best individual is add(multiply(tan(x), tan(tan(sin(sin(x))))), tan(tan(sin(x)))), (0.07116831096996691,)
+# Best individual is add(multiply(tan(x), tan(x)), tan(x)), (0.21309774609405807,)
+
+* It seems that the simplest model (3) performed the worst while the most complicated model (1) performed the best in terms of minimizing the objective
+* Also, the difference between the min and max values are very high and the minimum value seems to flatline after a few iterations
+* After adding another mutate method of "mutateEphemeral", the variation seemed to be lower in results (consistently getting c * e-16 results)
+    toolbox.register("mutate", gp.mutEphemeral, mode="all")
+* Finally the last item I tested was the number of iterations on variance.
+** My hypothesis was that as number of iterations increased, the variance in optimal fitness between runs would decrease. I increased the number of runs to 100 (previously 40) and when I ran the GP multiple times, I realized that the variance was similar. It seems that the GP would converge on a solution and get "stuck" performing substantially worse on some rounds, while performing well on others. For example the output of GP min fitness would often switch between (2) and (1) from above which is a substantial difference.
+
+An example graph of one particular run of GP is shown below
+[[files/dzhang351/lab2p1.png]]
 
 '''Action Items:'''
 {| class="wikitable"
@@ -36,16 +407,22 @@ Idea behind EMADE: Add useful primitives that can optimize genetic programs. Use
 !Date Resolved
 |-
 |Review Class Notes
-|In Progress
+|Completed
 |September 1, 2021
 |September 8, 2021
-|
+|September 4, 2021
 |-
 |Complete Lab 2 until Multi Objective
-|In progress
+|Completed
 |September 1, 2021
 |September 8, 2021
-|
+|September 7, 2021
+|-
+|Resolve overflow issues for Lab 2
+|Completed
+|September 5, 2021
+|September 8, 2021
+|September 7, 2021
 |-
 |}
 
@@ -103,6 +480,9 @@ Summary
 
 After running the final output 5 times, I got a score of 100 3 times, and 99 2 times. This means that for the most part, my algorithm converged to the best possible population with its optimal population but not always since we only run the algorithm for 40 generations. 
 
+The following is my one-max output graph
+[[files/dzhang351/onemax_output.png]]
+
 N-Queens Problem
 
 * Objective: we are minimizing the number of queen conflicts on a chess board where conflicts only occur on the diagonals in this problem.
@@ -130,6 +510,9 @@ Custom Mutate Function (swapping 2 indices)
         return individual,
 
 After applying the custom mutate function that swaps more indices, it appears to perform relatively the same as the original mutate function (this is because mutate doesn't happen often and only swapping 2 indices is not a major change from the original)
+
+The following is my n-queens convergence graph
+[[files/dzhang351/n-queens_output.png]]
 
 '''Action Items:'''
 {| class="wikitable"

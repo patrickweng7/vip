@@ -1,3 +1,44 @@
+== Image Processing ==
+'''Meeting Times'''
+
+Wednesdays at 5:45p (hybrid style)
+
+[https://bluejeans.com/253303426/9283 Meeting Link]
+
+[https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
+
+=== Week of September 27th - October 3rd ===
+
+* NSGA-III Implementation - Tweak p parameter, test against working datasets
+* Mating/Mutation - New method
+* Trouble with seeds
+* Hyper feature ideas
+
+=== Week of September 20th - 26th ===
+
+* Selection Methods
+** NSGA-III Implementation
+* Hyper-feature & Primitive Packaging
+** Searching for combinations
+* Data Prep/PACE-ICE Setup
+** TF/Keras API for Image Data Preprocessing to prep dataset (completed augmentation of the dataset for EMADE runs)
+** PACE Storage workaround
+** Baseline run unsuccessful, retrying with seed file provided by Anish.
+* Mating/Mutation
+** Update on geometric semantic genetic programming methods.
+
+=== Week of September 13th - 19th ===
+
+This week we outlined our goals and began tasking ourselves. We will be focusing on a multi-label image classification problem using the chest x-ray dataset. This has been used by a group in the past but we are hoping to improve EMADE’s selection methods and mating/mutation process to better handle images with multiple labels. In particular, we are looking into NSGA-III and Lexicase as selection methods, and improving some existing features by looking for synergies and packaging them together so they’re not broken up by the evolution process.
+
+Question: if we’re comparing performance to the CheXNet paper, how freely can we modify the dataset such that the results are still comparable. 
+
+
+=== Week of September 6th - 12th ===
+[https://docs.google.com/document/d/1MQi36xly1XsjBzVa8GxB9-9LCIY_ahbkibp4lFlqkNI/edit Notes]
+
+We had our first sub team meeting! With the creation/branching off of a new subteam, we decided our overall objectives for the semester are to add new primitives to EMADE that can help with image processing tasks. We'd like to explore how we can use autoML for either image classification or object detection problems. The team agreed to find at least one good paper that had data readily available and a technique that wasn't just "here's our fancy neural network". We were wondering about how to make this a little more "emade-able"
+
 == Market Analysis and Portfolio Optimization (a.k.a Stocks) ==
 '''Meeting Times:'''
 * Meeting 1: Mondays from 5:50-6:30 (after VIP team meeting)
@@ -6,6 +47,40 @@
 '''Important Links:'''
 * [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-base EMADE fork]
 * [https://www.sciencedirect.com/science/article/pii/S1568494611000937 Basis paper]
+
+=== Week of September 20 ===
+* Literature review on following articles:
+** https://www.sciencedirect.com/science/article/pii/S092523120900040X (Prediction-based portfolio optimization model using neural networks)
+*** Focused on diversifying portfolio
+*** Ensuring portfolio has low risk rather than focused on short term time series analysis
+** https://ieeexplore.ieee.org/abstract/document/1257413/references#references (Support vector machine with adaptive parameters in financial time series forecasting)
+*** SVM in financial time series forecasting
+*** Based on the structural risk minimization (SRM) principle which seeks to minimize an upper bound of the generalization error consisting of the sum of the training error and a confidence interval.
+*** Five real futures contracts collated from the Chicago Mercantile Market are examined in the experiment. They are the Standard & Poor 500 stock index futures (CME-SP), United Sates 30-year government bond (CBOT-US), Unite States 10-year government bond (CBOT-BO), German 10-year government bond (EUREX-BUND), and French government stock index futures (MATIF-CAC40).
+** https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach (Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach)
+*** Used 15 technical indicators with different parameters
+*** The models generates two dimensional images of the time series for these indicators over a 15 day period
+*** These images are categorized as buy, sell, and hold
+*** Seems to outperform the buy and hold strategy for stocks
+
+A good resource to learn more about algorithmic trading: https://github.com/stefan-jansen/machine-learning-for-trading
+
+
+=== Week of September 13 ===
+
+* Determining semester long goal: Stock generalization or fundamental analysis
+* Stock generalization:
+** Goal: Finding models/individuals that perform well on multiple stocks
+** Model/individual performs well on stocks in one sector as well as a different sector
+* Fundamental Analysis
+** Using company quarterly balance sheets along with technical analysis to predict stock buy/sells
+** Difficult to implement since there is less fundamental analysis data and it can be difficult to manipulate
+
+* https://ieeexplore.ieee.org/abstract/document/4598507 (An empirical study of Genetic Programming generated trading rules in computerized stock trading service system)
+*** Trades based on rules generated
+*** Rules follow a tree based structure
+*** Comparison of GP tree based algorithm to MACD indicator and buy/hold strategy
+*** Data used was 30 companies from the Dow Jones Industrial Average (DJIA).
 
 
 === Week of April 19 ===
@@ -402,212 +477,197 @@
 
 == Modularity ==
 
-=== Week of January 25-February 1 ===
-* Met with team to discuss team goals for the semester, new research areas, and responsibilities
-** ''Semester Goals:''
-*** Look into more literature to determine how we can improve our current infrastructure
-*** Add complexity into ARLs and think of different ways to create them and measure their effectiveness
-*** Explore ways to quantify diversity and ways to modify the architecture to support this change
-*** Run experiments on the MNIST dataset once the architecture has matured a bit more
+=== Team ===
+'''''Modularity Sub-Team:'''''
+* [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
+* [[Notebook Tian Sun|Tian Sun]] (tsun90@gatech.edu)
+* [[Notebook Xufei Liu|Xufei Lu]] (xufeiliu2000@gatech)
+* [[Notebook Angela Young|Angela Young]] (ayoung97@gatech.edu)
+* [[Notebook Bernadette Gabrielle Santiago Bal|Bernadette Bal]] (bgsanbal@gatech.edu)
+'''Graduated Students'''
+* [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
+* [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
+* [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
-** ''Week Tasking''
-*** Create more resources for students such as recorded videos/documentation
-*** Think about the types of research and problems we want to explore
-*** Meeting times are currently set for Sundays at 2:00 PM EST
+=== Week of Sept 27-Oct 3 ===
 
-=== Week of February 1-8 ===
-* Did a literature review with everyone bringing in an article they found and discussing how it could pertain to our work
-** ''Week Tasking''
-*** Get more familiar with the existing ARL/modularity concepts
-*** Create documentation and explanations for the existing source code and think of how we can modify the architecture to allow for greater complexity
-*** Most members of the team want to focus on the architecture before expanding into other areas of research
-**** Ideas such as mutations/selection methods/diversity will likely be a later focus (maybe after midterms?)
-**** Still worth reading and exploring the existing literature
-*** ''Literature Review''
-**** [https://link.springer.com/article/10.1007/s10462-019-09706-7 A review of modularization techniques in artificial neural networks]
-***** The focus is more on modular neural networks (MNNs) which have a more graph structure compared to EMADE's tree structure, but still has some interesting ideas that we can glean a lot from, and the concept of MNNs may be useful for neural architecture search for the teams that are focused on that research
-***** The paper classified modularization techniques into four major classes, where each class represents the neural network attribute manipulated by the technique to achieve modularity, so the following MNN operations are split into the following four classes:
-*****# Domain: this is the input space or the data an MNN operates on, which in turn defines and constrains the problem we are trying to address.
-*****# Topology: this corresponds to an MNN’s architecture, which reflects the family of models that an MNN expresses.
-*****# Formation: this is how an MNN is constructed and what process is used to form its components.
-*****# Integration: this is how the different components of an MNN are composed and glued together to form a full network.
-*****# [[files/A review of modularization techniques in artificial neural networks.png]]
-***** Modularization techniques operating on the domain tend to act by finding a good partitioning of the input data, to which different modules can be assigned. This is the most similar with what we are hoping to achieve with EMADE in regards to data manipulating primitives
-****** We might be able to take this step further by finding good combinations of domain modifying primtives and learners that perform well in the domain
-***** Topology will likely just be finding the types of the learners that perform well in the domain, again, our modularization technique would likely combine the domain and topology step
-***** The formation step should just be traditional GP tree structures, not expecting too much change here
-***** Integration may be interesting as when we are forming individuals, we can use mutations to help integrate certain modules into individuals
-***** Neural networks are directed graphs, so most research in regards to modularization neural networks is how to cluster or partition the nodes into modules, where each module has dense connectivity between its nodes and sparse connectivity with nodes in other modules
-****** While this may not be the best comparison with our work due to the tree structure of EMADE, it is worse thinking about other ways to find possible modules outside of our current methodology
-****** Could do more research into graph partitioning, and subsequent research on subtree partitioning
-****** However, sociological approaches have focused more on the problem of community structure detection, which consists of the analysis of a network in an attempt to detect communities or modules, where the algorithm does not pre-specify the number or size of groups
-******* Has shown more success in a neural network context
-****** Another paper written by Newman, (need to find), introduces a modularity measure and was used to either guide the detection process towards the best graph division or evaluate the quality of the resulting partitioning. The logic behind the formula is that a good network division is one that places most of the network edges within groups, whilst minimizing the number of edges between groups
-****[https://link.springer.com/chapter/10.1007/978-3-540-88906-9_54 Mutation Only Genetic Algorithms]
-*****Interesting method brought from this article is increasing the mutation probability for less fit and decreasing the mutation probability for more fit individuals in the population.
-*****Similar to a mutation method that the NLP team implemented last semester
-****[https://ieeexplore.ieee.org/abstract/document/7748328 A Survey of Modularity in Genetic Programming]
-***** Previously there was no intrinsic value of a subroutine, since subroutine's fitness didn't differentiate from other building blocks of code.
-***** Sometimes, created routines aren't removed which leads to unfit routines (which actually may be an issue with our architecture)
-****** As the GP run happens, we track newly created building blocks that are added to the function set and should remove them if they are "unfit".
-***** Rosca and Ballard used subroutines or building blocks with their own fitness functions to identify useful ones and add them to a function set of an evolved genetic programs.
-***** Ways to keep track of usefulness
-****** Structural complexity - number of nodes in a tree for subroutine
-****** Evaluation complexity - number of nodes in a tree and number of times a call is made to the routine
-****** Evaluation complexity - keeps track of "call hierarchies"
-****** Description complexity - uses minimum description length MDL
-***** Subroutines are subtrees with a depth between 2 and 4 (for the original ARL architecture, our implementation only has a depth of 1)
-***** Paper describes some methods and heuristics to find these subroutines
-***** Also suggests that low fitness subroutines are replaced with mutations - etc randomly generated routines
-***** The original ARL papers had mixed results on traditional GP problems, the hope is that with larger building blocks in EMADE like machine learning models and image processing primitives we can see better results
-****[https://www.sciencedirect.com/science/article/pii/S0020025520302632 Asymptotic resolution bounds of generalized modularity and multi-scale community detection]
-****[https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.152.9427&rep=rep1&type=pdf A Brief Overview of Population Diversity Measures in Genetic Programming]
-*****The paper discusses several metrics used in the literature for measuring population diversity.
-*****The first category is edit-distance based measures, wherein nodes of individuals are directly compared in order to compute a distance between individuals. For example, one such edit-distance metric measures the number of substitutions, insertions, and deletions needed to transform one tree to another.
-*****The second category is space mapping distance, wherein genotypes of a population are mapped onto a plane, and the smallest rectangle containing all points is computed.
-*****The third category compares subtrees of individuals in order to determine similarity. One such technique involves calculating the difference between the union and intersection of two individuals.
-*****Less commonly used measures include history diversity, wherein the parents of individuals are tracked, and the distance between individuals is given by how distant their common ancestor is
-*****The last measure discussed suggests using entropy in order to measure the disorder of the population.
-**** [https://dl.acm.org/doi/pdf/10.1145/3376916 Indicator-based Multi-objective Evolutionary Algorithms: A Comprehensive Survey]
-***** Summary:
-****** '''Paper tries to resolve issue of Multi-Objective Evolutionary Algorithms (MOEAs) underperforming with >2/3 objectives by introducing IB-MOEAs'''
-******* '''Indicator-Based MOEAs (IB-MOEAs) -''' use '''quality indicators''' that are used to assess different metrics of '''approximation sets''' (paper defines this as an approximate Pareto front)
-******* '''Quality Indicators (QIs)''' - measure performance based on capacity, convergence, and '''diversity'''
-**** [https://dl.acm.org/doi/pdf/10.1145/3321707.3321718 Convergence and Diversity Analysis of Indicator-based Multi-Objective Evolutionary Algorithms]
-***** Summary: Authors from previous paper also made another analyzing the diversity and convergence of approximation sets/results from these IB-MOEAs
-***** Key Notes:
-****** '''Quality Indicators (QIs)''' are further clarified as ''functions that assign a real value to one or more approximated Pareto fronts, depending on their specific preferences''
-***** '''3.3 Diversity Analysis'''
-****** Used Solow-Polasky Diversity Indicator and the Riesz s-energy indicator
-**** [https://www.researchgate.net/profile/Michael_Emmerich/publication/235412985_On_Quality_Indicators_for_Black-Box_Level_Set_Approximation/links/0c960514cad7fc4ead000000.pdf On Quality Indicators for Black-Box Level Set Approximation]
-***** Summary: Lists several indicators that measure how well a set of points approximates a level set and goes into detail behind the math calculations behind different quality indicators
-***** Solow-Polasky Diversity Indicator is gone into detail here to discuss how to calculate diversity.
-****** Note that this ended up being used for diversity oriented search
-****** This makes it interesting for measuring bio-diversity, as its value can be interpreted as the number of species
+* Implemented workaround for add_all_subtrees large individuals bug
+* Fixed bug regarding incorrect arities in contract_arls
+** Example output
+```
+arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
+Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [3, 2, 1]
+individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new arity 1
+len individual after arl insert 4
+individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
+```
+** Individuals with incorrect arities still appear in the population
+** Problem with occurrences code, not properly including the entire ARL
+* PACE-ICE still causing issues
+** What we thought switching to PACE-ICE could help us with over Google Collab:
+*** Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+*** Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+*** No inactivity clicking script
+*** Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+** Switching back to Google Collab
+** Stocks data has been migrated into our repo and we're now ready to do those runs
 
+=== Week of Sept 20-Sept 26 ===
+* Bug causing the crashes has been identified
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
+*** Example
+           (node 0, arity 2)
+                 /  \
+ (node 1, arity 0) (node 2, arity 0)
 
-=== Week of February 8-15 ===
-* ''Week Tasking''
-** Created more general documentation for literature, concepts, goals, etc. on the new [[Modularity]] Wiki page 
-** Explored the codebase more and explained the existing architecture and some of its weaknesses
-** Discussed initial thoughts on how we want to rearchitecture the ARLs to add more complexity
-** [https://bluejeans.com/s/MkVzKyIhA0q Recorded Session]
-** Explored Sphinx a bit (haven't written any guides yet)
+             (ARL, arity 2)
+                    \
+                   (node 2, arity 0)
+** Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+** Large chunk of code just wrapped in a try except block
+* Problem with add_all_subtrees method
+** The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
+** This causes problems with decently sized individuals (eg, length of 82 and depth of 6)
+** Python really doesn't like this, grinds to a halt. Could be running out of memory or just taking a really long time to find all subtrees.
+** Workaround: Don't consider individuals above a certain size for ARLs
+** Future solution: Refactor code to generate ARLs as the subtrees are found
+* Mnist team working through getting everyone on PACE-ICE to do runs
+** There was some ambiguity in the instructions which caused some confusion
 
-=== Week of February 15-22 ===
-* ''Week Tasking''
-** Sphinx documentation is completed for all but 2 methods
-** Currently split into two task groups
-*** One to focus on the depth problem and how we're finding ARLs
-**** Is entwined with the concept of partial ARLs
-*** The other is focusing on database structure and how to store/use ARLs
-**** Also want to "duplicate" or insert more individuals to prevent too genetic material being lost
-*** Would like to have a discussion session talking about this
+=== Week of Sept 13-Sept 19 ===
+'''Extended ARL'''
+* Began doing extended ARL runs
+** Starting off with max depth 10 trees
+** Everything seems to be working, there exist ARLs with depth > 2
+** Example ARL
+ Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
+* New goal: Test the significance of the depth of ARLs on the performance of individuals
+** Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
+*** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
+*** Manually randomly select individuals from runs which look different from the original seeds
+*** Potential problem with limiting diversity?
+Old Seeds
+ Learner(ARG0, learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion':0, 'max_depth': 3, 'class_weight':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
+ Learner(ARG0, learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
+New Seeds (Used in addition to Old Seeds)
+ Learner(ARG0, learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
+ Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'BAGGED', None))
+ Learner(ARG0, ModifyLearnerFloat(learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None), 0.01))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, ModifyLearnerList(ModifyLearnerInt(ModifyLearnerFloat(learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None), 1.0), notEqual(-2.6349412187954435, 0.1), myIntSub(255, -6)), passList(myListAppend([1, 6], [-2, 14]))))
+** Problem 2: There are several uncommon bugs which are ending runs prematurely
+*** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
+*** Might have to do with a floating point error causing divide by zero errors
+*** Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
+ /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:134: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 802, in master_algorithm count = mutate(offspring, _inst.toolbox.mutateLearner, MUTLPB, needs_pset=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 600, in mutate mutate_function(mutant, inst.pset)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 26, in insert_modifyLearner slice = individual.searchSubtree(index)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree total += self[end].arity - 1
+ IndexError: list index out of range
 
-=== Week of February 22- March 1 ===
-* ''Week Tasking''
-** Continue work on the depth problem, genetic duplicates, and database storage
-** Everyone is properly tasked and making steady progress
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1097, in master_algorithm new_adfs, updated_individual_indices = _inst.adf_controller.update_representation(parents) # only modifies parent representation
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1160, in update_representation population_info = self._find_arls(population)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 568, in _find_arls self.search_individual(population[individual_num], individual_num, dictionary, self.max_adf_size)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1219, in search_individual self.generate_child_dict(individual, child_dict, next_dict, 0)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 623, in generate_child_dict child_idx = self.generate_child_dict(individual, child_dict, next_dict, child_idx)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 610, in generate_child_dict num_children_left = individual[node_idx].arity
+ IndexError: list index out of range
+* Fixed temporary commits from last semester that were causing issues
 
-=== Week of March 1-8 ===
-* ''Week Tasking''
-** Got feedback on Sphinx Documentation, need to add more guides on Differential Fitness and Selection Method work
-** Depth Problem
-*** All individual components are written, needs to be merged and tested
-*** Basically finding candidates, selecting candidates, converting to lambda, and contracting ARLs should all work individually
-*** Once testing is finished, we can hopefully run some experiments
-** Genetic Duplicates
-*** Looking into an easy way of duplicating rows in the database so we don't have to re-evaluate the duplicates, if not we'll rely on the prewritten insert methods
-** New material
-*** Related to the idea of running out of genetic material due to ARLs over time or small individuals getting contracted
-*** Added new parameters to insert new randomly created individuals at the end of every generation
-*** ARLs can also be in these newly created individuals since they're in the primitive set
-*** Functionality appears to be working
-**** Not sure if I should update the History table? Would I run into divisible by 4 errors if something happened?
-** Database Storage
-*** Designing the architecture for this
+'''Mnist Runs'''
+* Began working on moving away from Google Collab and towards PACE-ICE
+** Once finished, Extended ARL runs can also be done on PACE_ICE
 
-=== Week of March 8-15 ===
-* ''Week Tasking''
-** Work on presentation slides
-*** Planning on scheduling a practice presentation with Dr. Zutty and Dr. Rohling
-** Depth Problem
-*** Testing nearly completed, just need to connect with a few members then we can start experiments
-** Genetic Duplicates
-*** Currently testing, should be completed before the end of the week
-*** One member is having an issue with their environment, if anyone else has experienced this, could you help?
-**** Not an EMADE/virtual environment issue, same commands were run on a linux machine with no issue
-**** Occurs on running reinstall.sh on MacOS
-**** Image here[[files/Screen Shot 2021-03-08 at 5.26.28 PM.png]]
-** Merge above changes together and starting experiments this week
-** Database Storage
-*** Currently implementing, expecting 1-2 more weeks for writing/testing
+=== Week of Sept 6-Sept 12 ===
+09/08/21 - Met with team to discuss team goals for the semester, new research areas, and responsibilities
+'''Semester Goals:'''
+* Explore runs using stock data 
+* Explore left off work from last semester (from Spring 2021 final slides)
+** New Models
+*** Deep Ensembles with a diversity term[4] 
+*** A CNN architecture with decaying learning rate
+** Selection Method
+*** Modifying the evolutionary selection method to help encourage the spread of ARLs throughout the population and complexity. 
+** New Dataset Training
+*** Look at other datasets to expand ARL training to see which ARLs stored in the database are the most used and why.
+*** Practice on more image datasets and multi-class classification datasets.
+** Diversity Measures
+*** Create some quantifiable way to measure diversity, generalizable for EMADE. May use a diversity measure as a heuristic when finding ARLs.
+** ARL Database Storage
+*** Improve the way ARLs are stored in the database to keep any information from being lost
+** EMADE Integration
+*** Integrate ARLs with EMADE’s original architecture and other modularity techniques[2]
+** More Runs
 
-=== Week of March 15-22 ===
-* ''Week Tasking''
-** Presentation Day
-** Prepare Resources for First semesters
+09/10/21 - Time Conflict Meeting
 
-=== Week of March 22-29 ===
-* ''Week Tasking''
-** Starting Benchmark runs of MNIST
-*** Multiclass False Positives/Negatives seem to be outdated?
-** Quick literature review to determine what's feasible to complete before the semester ends
-** Depth Problem
-*** Continue Testing
+'''Regarding MNIST Runs'''
+* Could use:
+** datasets/../mnist, gen_mnist - for loading data (pickle formatting)
+** templates/../mnist, input_mnist - two objectives are 'precision' and 'recall'
+''Regarding Semester Goals''
+* Dr. Zutty/Gabe mentioned that another area of research could be looking into 'how ARLs are constructed'
+** hyperparameters
+** amount of ARLs built per generation (currently default is 5)
+** ranking criteria for ARLs
+* Also possible to look into writing a paper as we look back at our code
+** use LaTeX 'ACM SigConf' template
 
-=== Week of March 29-April 5 ===
-* ''Week Tasking''
-** Continue Benchmark runs of MNIST
-*** As people continue to do runs, do some analysis on the results, as this is our first attempt using streamdata and multi-class classification
-*** Multiclass False Positives/Negatives seem be bugged according to Alex and Anish, currently using F1 score and Accuracy score as objectives
-** Rest of semester will be focused on doing experiments and doing analysis
-*** Team didn't want to start a larger project like diversity due to time constraints
-** Depth Problem
-*** Continue Testing
-*** Work session today
-
-=== Week of April 5-12 ===
-* ''Week Tasking''
-** Current findings from MNIST
-*** Not too many valid individuals appear to be created
-*** Current setup has ~4 seeded individuals, with a Stream-to-Features primitive acting on the datapair
-*** Best run had about 15 valid individuals out of 900+
-*** Any good multiclass objectives? Currently using F1-score, and accuracy score happened to be identical.
-
-**Depth Problem/Added complexity
-*** Functions are properly being found and lambdas are being created
-*** Currently working on contracting those ARLs in individuals and integrating genetic duplicate code
-*** Question about learnerType, they don't appear in the primitive mapping. Are they treated as terminals? Or some other type? Where are they stored and how are they propagated?
-**** Might be causing a bug with the original architecture too
-** Added more members to database restructuring tasking
-*** Lots of unintentional confusion, need more indepth discussion on structure and tasking, discussion plan taking place later this week
-
-=== Week of April 12-19 ===
-* ''Week Tasking''
-** Current findings from MNIST
-*** Still not consistently getting too many valid individuals, though possible
-**** Likely due to identical/poor objectives and poor seeds
-*** First semesters have been assigned to creating new objectives for multiclass classification problems with non-encoded truth
-*** First semesters also assigned with finding better individuals to seed with
-
-**Depth Problem/Added complexity
-*** ARLs are properly being created, added to the database and primitive step
-*** Appear to be some edge cases that need to be addressed during creation, i.e. single nodes turning to ARLs
-*** Some other edge cases with contraction in the population
-*** Planning to fix those bugs today, start runs this week
-
-** Database restructuring tasking
-*** Everyone tasked and looking into the correct sections of EMADE
-
-** Final presentation goals
-*** Get seeding/objectives done ASAP
-*** Start runs on IceHammer ASAP
-*** Clean analysis tools
-*** Prepare documentation
-*** Prepare for final presentations and present findings from new architecture and MNIST
+'''Week Tasking'''
+* Set up a weekly subteam meeting time 
+* Contact previous semester students (Gabe) to continue modularity work
+** AWS storage for ARLs
+** Codebase ownership
+* Continue major areas of work from last semester: 
+** '''ARL Depth''': Vincent, Xufei 
+** '''MNIST Runs''': Bernadette, Angela, Tian, Xufei (Runs)
+*** Try and understand why there were errors with runs from the previous semester
+'''Current Meeting Time: 11-12PM @ CoC Lobby'''
 
 == NLP ==
+
+Meetings: 2:00 pm on Wednesdays, Virtual
+=== Week of September 20th - 27th ===
+* This week we designed the primitives/infrastructure needed to tackle the QA problem with EMADE.
+* There are two major issues, which we designed solutions for. The problems are as follows:
+** Problem 1: Unlike other datasets, we have two inputs that the model needs to handle separately: the context and the query.
+** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
+** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
+** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
+** Example from Steven's Notebook on how the output is obtained: "if our context was 'The Titanic sank in 1912' and we had the output vector (0 0 0 1 0 0 0 0 0 1), then our answer would be 'in 1912'".
+
+=== Week of September 13th - 20th ===
+* Dataset work
+* Decided on objective functions (F1 vs num params)
+* Coded up modified F1
+* Review of QA systems
+
+=== Week of September 6th - 12th ===
+* We had our first sub team meeting of the year
+* We've decided on our goal as using EMADE to look for less complex, yet as accurate Neural Architecture for state of the art Question Answering Systems, similar to how BORT was made as a less complex BERT: https://arxiv.org/abs/2010.10499
+* We outlined steps for achieving our goal
+** Setup everyone on EMADE/PACE
+** Work with dataset, make it work on EMADE
+** Implement primitives and infrastructure to make Question Answering problems work with EMADE
+** Collect and analyze run results
 
 === Week of April 19th ===
 
@@ -900,4 +960,63 @@ Subgroup meeting (Friday)
 === Week of Jan. 25th ===
 * Weekly meetings will be at 4PM EST on Fridays
 
-[[Category:AAD]]
+== Neural Architecture Search ==
+
+Meetings: 2:00 pm on Fridays, Virtual
+
+=== Week of September 6th - 12th ===
+* First Subteam meeting of the semester
+* Meeting began with some information about setting up emade on individuals machines as well as getting signed onto the team trello board.
+* Cameron Whaley followed up by giving background information about the subteam and topics of neuroevolution. 2 articles were provided to be read by the team and some helpful resources for remembering deep learning topics were provided.
+** Article 1: https://arxiv.org/pdf/1703.00548.pdf
+** Article 2: https://arxiv.org/pdf/2002.04634.pdf
+** Help resources: https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p
+* Finally, Cameron Bennett reviewed the top 6 ideas we plan to work on in order to improve neural architecture search in emade. These include:
+** Triviality Detection
+** Novelty Detection
+** Bug fix for swap_layer method
+** Speeding up emade processes
+** Adding unit tests
+** Introducing some pause functionality
+* Everyone's tasks for the week is to setup emade and ensure they can at least run locally on their own machine.
+
+=== Week of September 13th - 19th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* During the beginning of this meeting, Cameron Bennett went through 5 newly added tasks on the trello board in detail.
+* These tasks consisted of:
+** Debugging/Reproducing issue with test_swap line 300 EMADE.py
+** Modifying the reuse parameter within EMADE.py to allow reuse of all individuals after starting a previously stopped EMADE run
+** Adding CIFAR-10 Input Template to EMADE
+** Modifying eval_methods.py to check if test_data being input has 90% same classification
+** Adding a method for keeping track of NNLearner layer frequency
+* While discussing the above tasks, Cameron detailed starting points, purpose and ideal outcomes of each task so that members had a solid grasp of the expected outcome. 
+* After discussing each task, Cameron Whaley provided input regarding some blockers for the first task stating that he would need some time to reproduce the issue he noticed before anyone will be able to work on that task.
+* Once all questions from team members were answered, Cameron Bennett expressed that each member is responsible for finding and beginning work on a task as soon as they are setup in EMADE.
+* The remainder of the meeting consisted of Cameron Whaley answering debugging questions for each team members current PACE-ICE Emade setup. 
+* Connor Yurkon was able to finish his setup for PACE-ICE during the meeting.
+* Devesh and Lucas expressed a need for more time until they are set up fully. 
+
+=== Week of September 20th - 26th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* The beginning of this meeting consisted of updates from team members regarding their assigned tasks:
+** Connor communicated some blockers he ran into regarding the ability to debug the code he is currently trying to add to EMADE.py. It was suggested that he try to either utilize a dataset with a reducedInstances value of something small(such as 0.1) or he could try to reproduce the method functionality within a seperate python script since he knows what method he is trying to edit. 
+** Devesh has completed his task of adding the Input_Template file for CIFAR-10 data. He currently should have a pr from a forked version of EMADE which will be merged by Cameron Whaley at some point. [https://github.gatech.edu/emade/emade/pull/198 Attached PR]
+** Cameron Whaley remembered how he produced the swap_layer bug and has provided us an emade worker out file which should contain some evolved nnlearner individuals which we can use to identify our mutation problem.
+** Cameron Bennett has done a re-run of emade on the amazon dataset with the new triviality objective function. In an attempt to identify useful nnlearners, Cameron Whaley has provided him a jupyter notebook with some methods for analyzing individuals from a run. It is possible he will need to re-run in order to utilize a seeded amazon group.
+* After updates were given, the rest of the meeting time consisted of ideas for generating additional tasks for members. The ideas discussed are:
+** Introducing a global "supernet" which would operate like a dynamic acyclic graph which stores information about submodel accuracy as well as weights of most optimal subnet based on a prior generation run. This discussion was based on a paper provided by Devesh which analyzes the effectiveness of combining a supernet NAS with validation runs for verifying accuracy. This idea was a bit loaded and awfully similar to what EZCGP is currently working on. Therefore, we put it to the side and have decided not to move further with it. [https://www.ijcai.org/proceedings/2020/0441.pdf Linked Article]
+** Introducing Weight Sharing to the existing NNLearner evolution process in EMADE. One idea involving weight sharing was to create a method which can locate all of the shared subnets within every individual in a single generation and replace them with the most optimally trained weights. Ideally this would speed up the number of generations to see optimal performance out of similarly structured individuals. Currently, a task exists for anyone interested in exploring how to locate similar subnets within EMADE individuals.
+** Introducing writes to disk which would improve memory usage within EMADE. This is moreso a general infrastructure interest however, noone was able to generate any concrete ideas around it due to our unfamiliarity with EMADE memory usage. Cameron Whaley made a recommendation that we introduce a parameter to the existing Inputschema which allows users to set a maximum amount of time for training any nnlearner individual. The idea behind this is that, if we enable networks to learn for as long as possible, we could reach more optimal individuals sooner without having to go through the evolution process as frequent. This is something we'd like to experiment with and see what results can be generated by this. We've created a task for anyone interested in adding this parameter.
+* Before concluding, Connor requested that we have a meeting to help he and other members get a better understanding of EMADE directories and the evolution process.
+* Cameron Whaley has completed the run resume feature but we want to test it and determine success on results.
+
+=== Week of September 27th - October 1st ===
+* This meeting ran for the allotted hour and consisted of mainly team updates along with a work session.
+* Earlier in the week, a session was held in which team members got a better understanding of the evolutionary algorithm within EMADE.py. Cameron Whaley and Cameron Bennett cohosted the presentation and made a recording available [https://bluejeans.com/playback/s/SGxxpyPUJ5s0nYcJr3u8YIFWMHURHhIdWlyRUsbp6a90TRncYZaBXubs33FwJxj4 here].
+* This presentation covered the EMADE Object as a whole and sub methods such as create_representation, setObjectives and buildClassifier. In addition, we covered some helper methods within the EMADE object which might be useful for people debugging in emade such as: handleWorker, my_str and my_similar.
+* Our presentation included a couple of mating/mutation methods that we thought would be relevant for our team such as: swap_layer, cx_ephemerals and concat_healer. 
+* Finally, we finished off by going through the entirety of the main master algorithm loop within EMADE.py. This included a discussion of the different arguments within the master algorithm such as MUTPB, CXPB and reuse. Different chunks of the main loop were explained such as the one which handles creation of new individuals.
+* The remainder of the presentation is available for viewing on the bluejeans link above or [https://docs.google.com/presentation/d/1rVF5gObTu8hWLPCUKir1163ntRXxUsrYoe-9aw6hEog/edit#slide=id.gf4c8a6a88f_0_39 here] on google slides.
+* In addition to this presentation, we held a smaller work session with team member Lucas Zhang in which we talked about how standalone tree evaluator works within the context of his swap_layer task. Cameron Whaley provided him an analyze.ipynb notebook an discussed how he could leverage an existing master.out file full of marked crossover individuals(potentially buggy ones) to reproduce the swap_layer issue that causes individuals to go from properly compiling to failing with message "Tree missing valid datatype for primitive". 
+* Cameron B was unable to make the worksession held at our normally scheduled friday meeting and Cameron Whaley graciously hosted in place.
+[[Category-AAD]]

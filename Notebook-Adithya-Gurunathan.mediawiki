@@ -1,0 +1,350 @@
+'''Name:''' Adithya Gurunathan
+
+'''Email:''' agurunathan6@gatech.edu
+
+'''Cell Phone:''' 470-641-5177
+
+'''Interests:''' Machine Learning, Soccer, Poker, Coffee, Entrepreneurship
+
+= Fall 2021 =
+== Week 5: Sep 29, 2021 ==
+
+== Week 5: Sep 22, 2021 ==
+
+===Overview:===
+* Presentation on guidelines to effectively present
+* How to present a Pareto Optimiziation Curves
+* 
+
+
+===Lecture Notes:===
+* Submit as a group, csv file:
+  Passenger Id, Survived, Each Pareto Optimal Algorithm has a column
+* Self tournament is not a mmultiple objective selection operator
+* Compare the multi objective fitness parameters
+* Reimann sums for Pareto Optimization
+* Pareto Optimal on 2 objectives - extra objectives can help search to be better, add more diversity
+* 
+
+
+
+== Week 4: Sep 15, 2021 ==
+
+===Overview:===
+* Assigned to Sub-teams for Project
+* Obtained overview of Sci-kit learn and other ML-related libraries
+* Discussed about Titanic dataset
+
+===Lecture Notes:===
+*Received sub-team assignment based on GA (ML & Python Proficiency)
+*Assigned to sub-team #2
+  *Members: 
+    Adithya Gurunathan
+    Aditya Kumaran
+    Manas Harbola
+    Rohan Batra
+    Yisu
+
+
+*Introduced to Titanic Dataset on Kaggle
+    Problem: Implement a model predicting if a passenger on the Titanic either survived or died. Create and document 5 separate co-dominant models in your subteam and generate a prediction csv file for each model.
+* Codominance: Two algorithms are said to be codominance when neither dominates the other on every objective.
+* Objectives for Titanic Dataset: False Positive Rate (FPR) and False Negative Rate (FNR)
+* Reviewed preprocessing data notebook in Jupyter and learned how to adapt it for our training models
+* Breakout into sub-teams for introductions and setting up team meetings.
+
+
+== Week 3: Sep 8, 2021 ==
+
+===Overview:===
+* Translation of the vector of scores from evaluation into a fitness value
+
+===Lecture Notes:===
+* Gene Pool is the set of genome to be evaluated during the current generation
+  *Genome
+    Genotypic description of an individals
+    DNA
+    GA = set of values
+    GP = tree structure, string
+  *Search Space
+    Set of all possible genomes
+    For AAD - all possible algorithms
+    How big is search space
+    Why is this important for algorithm design?
+
+* Evaluation of a Genome associates a genome with a set of scores
+
+* Objectives
+
+* Objective Space
+
+* Evaluation
+
+* Classification Measures
+  * Data Set - Positive Samples (P), Negative Samples (N)
+  * Classifier
+  * Confusion Matrix 
+    (Actual Positive, Actual Negative, Predicted Positve, Predicted Negative)
+    (True Positive, False Negative, False Positive, True Negative)
+
+* Maximization Measures
+  * Sensitivity of True Positive Rate (TPR)
+    TPR = TP/P = TP/(TP+FN)
+  * Specificity (SPC) Or True Negative Value (TNR)
+    TNR = TN/N = TN/(TN+FP)
+  * Want to achieve 1 for both metrics
+
+* Minimization Measures
+  * False Negative Rate (FNR)
+    FNR = FN/P = FN/(TP+FN)
+    FNR = 1 - TPR
+  * Fallout or False Postive Rate (FPR)
+    FPR = FP/N = TN/(FP+TN)
+    FPR = 1 - SPC
+
+* Other Measures
+  * Precision or Postive Predictive Value (PPV) - Bigger is better
+    PPV = TP/(TP+FP)
+  * False Discoevery Rate (FDR) - Smaller is better
+    FDR = FP/(TP+FP)
+    FDR = 1 -PPV
+
+   * Negative Predictive Value (NPV) - Bigger is better
+     NPV = TN/(TN+FN)
+
+   * Accuracy (ACC)
+     ACC = (TP+TN)/PN
+     ACC = (TP+TN)/(TP+FP+TN+FN)
+
+* Objective Space
+
+* Pareto Optimality
+  * Individual is Pareto Optimal if there is no other individal in population that outperforms individual on all objectives
+  * Set of all Pareto Individals is known as Pareto Frontier - represent unique contributions
+  * Want to drive slection by favoring Pareto individuals
+    But also maintain diversity by giving all individuals some probability of mating
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II)
+  * Population is separated into nondomination ranks
+  * Individuals selected using binary tournament
+  * Lower Pareto ranks beat higher Pareto ranks
+  * Ties on same front are broken by crowding distance
+    Summation of normalized Euclidian distances to all points within the front
+    Highest crowding distance wins
+
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+  * Each individual is given a strength S
+    S is how many others in the population it dominates (draw horizontal and vertical lines, see how many points enclosed)
+  * Each individual recieves a rank R
+    R is sum of S's of the individuals that dominate it
+    Paretio individuals are nondominated and recieve an R of 0
+  * Distance to k^th nearest negither is calculated (sigma^k) and a fitness of R+1/(sigma^k + 2)
+
+== Week 2: Sep 1, 2021 ==
+
+===Overview:===
+* Attended lecture on Genetic Programming, learnt about Tree Representation, discussed Crossover, Mutation and Symbolic Regression in GP Algorithms
+* Completed Lab 2: Symbolic Regression
+
+===Lecture Notes:===
+* Genetic Algorithms are population-based solution, drawing concepts from natural selection, properties of DNA to modify and exchange information between individuals
+* Instead of taking an individual and having a function evaluator to obtain objective scores, the individual is the function itself
+  * Individual: [0,1,0,1,0,1] -> Evaluator -> Objective Score: 3
+    Input Data: [0,1,2,3,4,5] -> Individual (y = x^2) -> [0,1,4,916,25] -> Evaluator
+* Tree Representation: Representing program as a tree structure
+  * Nodes are called primitives - represent functions
+  * Leaves are called terminals - represent parameters
+* Trees are converted to Lisp preordered parse trees
+  * Operators are followed by inputs
+  * Tree for f(x) - 3*4 + 1 is expressed as [+,*,3,4,1]
+  * Parse tree of f(x) = 2-(0+1) is [-,2,+,0,1]
+* Crossovers are handled by exchanging subtrees in GP
+  * Start by randomly picking a point in each tree
+  * These points and everything below create subtrees
+  * Subtrees are exchanged to produce children
+* Mutation in GP involves:
+  * Inserting a node or subtree
+  * Deleting a node or subtree
+  * Changing a node
+* Example: Symbolic regression
+  * Using simple primitves, we can use GP to evolve a solution to y = sinx
+  * Primitves include: +,*,-,/
+  * Terminals include integers and variable input X
+  * Calculus utilizes Taylor series to approach this problem
+* Evaluating a tree
+  * Feed a number of input points into function to get outputs
+  * Run f(x) to get results, and measure error between output of f(x) & expected output (e.g. sum square error)
+* Primitives that make evolution easier:
+  * Power(), Factorial(), Sin(), Cos(), Tan()
+ 
+===Lab 2: Symbolic Regression (Part 1)===
+
+This lab explores the evolutionary algorithm by running it several times to observe the improve in best fit individuals. Attempted to reduce error to almost zero, by tring different mutation and primitives.
+
+* Tried deriving/inhering individuals from DEAP's PrimitiveTree instead of lists
+* Added primitves to primitve set and chose mutation for most optimized solution
+* Compiled primitve codde to generate evaluation function. Optimizing to find min values that approach zero faster
+* Modified lab code in 4 ways
+
+*Running algorithm with no modifications
+  * Original Lab 2
+  * Best individual: add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17)
+  * Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently
+  
+* Program with added mutation
+  * Best individual: add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16)
+  * Mutation added was mutShrink
+
+* Program with Primitives
+  * Added primitives were np.square and np.absolute
+  * Best individual was add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
+
+* Program with Primitives and Added Mutation
+  * Using mutInsert fir mutation
+  * First pair of primitives: (sin and square)
+  * Second pair of primitives: (absolute, cos)
+  * Best individual: add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+
+
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 26, 2021
+|-
+|Set up Notebook
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 26, 2021
+|-
+|Install and set up DEAP library for Python
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 28, 2021
+|-
+|Lab 1
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|-
+|}
+
+
+
+== Week 1: Aug 25, 2021 == 
+
+===Overview:===
+
+* Discussed course format and expectations, location of the course GitHub (https://github.gatech.edu/emade/emade/), Individual Notebooks, Assignment 1. 
+* Attended lecture on Introduction to Genetic Algorithms.
+* Completed Lab 1: Genetic Algorithms with DEAP 
+
+===Lecture Notes:===
+
+* Introduced to concept of Genetic Algorithms that mimic nature's evolutionary processes (mating, selection, mutation, reproduction, etc.) in order to maximize the fitness of individuals in a population of data
+* Keywords/ Concepts
+  *Individual: One specific candidate in population
+  *Population: Group of individuals whose properties will be altered
+  *Objective: A value used to characterize individuals that you are trying to maximize/minimize
+  *Fitness: Relative comparison to other individuals, e.g relative task performance
+  *Evaluation: Function that computes the objective of an individual
+  *Selection: Represents 'survivial of fittest', where better individual are preferred, allowing them to pass on their genes
+    - Fitness Proportionate: Greater the fitness value, higher the probability of being selected for mating
+    - Tournament: Competition among individuals, where winners are selected for mating
+  *Mating/Crossover: Represents mating between individuals
+  *Mutate: Introducing random modifications, to maintain diversity
+  *Algorithms: Various set of steps to create a solution or best individuals
+
+* Steps behind Genetic Algorithm:
+  1) Randomly initialize population
+  2) Determine fitness of population
+  3) Repeat following steps until best individual is good enough
+     a) Select parents from population
+     b) Perform crossover on parents creating population
+     c) Perform mutation of population
+     d) Determine fitness of population
+
+===Lab 1: Genetic Algorithms with DEAP===
+
+This lab explores One Max Problem & N-Queens Problem, and we will be defining genetic algorithms to solve them both.
+
+
+'''Setup:'''
+
+* Downloaded & installed Anaconda for Windows 10
+* Launched JupyterLab using Anaconda Navigator
+* Retrieved DEAP Problem from Calendar/Assignment 1st Semester /Week 1; saved file as .ipynb extension and imported it into JupyterLab
+* Installed DEAP using pip under new Terminal window in JupyterLab
+
+'''One Max Problem'''
+One Max Problem is a problem that only performs the calculation of the maximum value from number of binary strings. The goal is to produce an individual whose list sums up to max value, which is all 1s. I followed the following steps for this lab:
+
+* Import base, creator, * tools from Python random module and DEAP module
+* Define fitness objective and individual classes using DEAP's creator
+* Define tool functions for evaluation - evalOneMax(), mating, mutation and selection
+* Define individuals in population defined as 1s and 0s, population of 300
+* Define evaluation function (evalOneMax()) for fitness ibjective as sum of all 1s in a string
+* Define evolutionary loop of 40 generations, and performed tournament selection on population to clone selected offspring for creating instances from previous iteration
+* Ran mating function with 50% probability, Mutated individuals with 20% probability
+* Observations: After 40 gnerations, max fitness score (100.0) was almost always achieved, but not guaranteed.
+
+
+'''N Queens Problem'''
+The objective of N Queens Problem is to determine a configuration of n queens on a n x n chessboard such that no queen can be taken by another. For this version, each queen was only assigned to one column, with only one queen able to be on each line. I followed the following steps for the lab:
+
+* Import necessary DEAP modules, and define fitness objectives & evaluation function
+* Fitness Objective: Minimize number of conflicts between two queens on nxn chessboard. Fitness weighted negatively
+* Evaluation Function: Returns number of conflicts between queens along diagonal of chessboard
+* Individual: Defined as list of n numbers that denote the column location of n queens in a nxn chessboard
+* Define partially matched crossover function and mutation function to shuffle indices
+* Run main evolutionary loop for 100 generations
+* Findings: Algorithm often gets to a minimum of 1.0 quickly, but does not consistently achieve minimum of 0.0
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 26, 2021
+|-
+|Set up Notebook
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 26, 2021
+|-
+|Install and set up DEAP library for Python
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 28, 2021
+|-
+|Lab 1
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|-
+|}

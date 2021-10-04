@@ -1,26 +1,227 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
-==August 25th, 2021==
-
-
-===Bootcamp Notes: Genetic Programming===
-Genetic programming trees have nodes called primitives that represent functions and leaves called terminals that represent inputs. 
-
-Example 1 function: 3*4+1
-Example 1 parse tree: [+,*,3,4,1]
-Example 3 (symbolic regression): y=sinx Taylor polynomial
-3rd degree parse tree: [-, x, /, *, x, *, x, x, *, 3, 2]
-
-
-==August 25th, 2021==
-First Week! I was introduced to the team, wiki, genetic programming, and DEAP.
+==September 29th, 2021==
+We presented our Titanic project methods and results in Week 6 of bootcamp. We also completed peer evaluations for VIP.
 
 {| class="wikitable"
 !Task
 !Current Status
-!Date As
-signed
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluations
+|Complete
+|10/4/2021
+|9/29/2021
+|9/29/2021
+|-
+|Titanic Project Presentation
+|Complete
+|9/29/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+==September 22nd, 2021==
+In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Project GP
+|Complete
+|9/22/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Group work: On 9/23, the team developed a conceptual understanding of the assignment, drafted a plan, and decided on a primitive set for the GP (1.75hr). On 9/26, we finalized Aditi's evaluation function, tested the results on different trees, and discussed the evolutionary loop (2hr). The morning of Tuesday 9/28, I demonstrated my evolutionary loop to the team and we identified constants and functions that could change the accuracy (1.25hr). That evening, we reviewed our work, decided on final constants and functions, and created our presentation (2hr). Aditi added a plot of the average FPR and FNR for each generation. Wednesday 9/29 morning, we corrected each other's slides and practiced our presentation (1hr). 
+
+  def eval(individual, samples, y_truth, pset):
+    func = gp.compile(expr=individual, pset=pset)
+    y_pred = [func(*samples[x]) for x in range(len(samples))]
+    cnf_matrix = confusion_matrix(y_truth, y_pred)
+    return (cnf_matrix[0][1], cnf_matrix[1][0])
+
+<plot7>
+
+<plot8>
+
+Individual work: After our first meeting, I created an evaluation function, which was not used in the final group code, and researched NSGA2 selection. After the evaluation function was completed in our second meeting, I wrote the evolutionary loop, pareto front plot, and predictions.csv output of the pareto optimal individuals compiled on test.csv. One unique feature I implemented was the use of a ParetoFront object collect pareto optimal individuals from each generation, excluding trees with duplicate fitness (fp, fn):
+
+  hof = tools.ParetoFront(similar=lambda this, other : eval(this, X, pset) == eval(other, X, pset))
+  for each generation:
+    evolve pop
+    hof.update(pop)
+
+Registered functions and constants:
+  select: selNSGA2
+  mate: cxOnePointLeafBiased
+  max_height = 7
+  pop_count = 300
+  num_gen = 50
+  mate_prob = 0.5
+  mut_prob = 0.1
+
+==September 15th, 2021==
+Week 4 focused on the team project using the Titanic Kaggle dataset, preprocessing, and scikitlearn machine learning algorithms.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Project ML
+|Complete
+|9/15/2021
+|9/22/2021
+|9/22/2021
+|-
+|}
+
+===Titanic Project===
+Group work: Met with Aditi on Saturday 9/18 to discuss preprocessing. We decided to drop Cabin, use OneHotEncoder for Embarked, and fill the null Age values with an average of their PClass's Age. On Sunday, I met with Aditi and Rayan K to discuss the preprocessing more. On Tuesday evening, all four of us met to form our pareto front but the Rayan's hadn't made their classifiers yet so we worked on the null values produced from our OneHotEncoder. On Wednesday we used our Google Collaboratory files and GroupMe chat to finalize the pareto front.
+
+<plot6>
+
+Individual work: Before the Saturday meeting, I looked more at the data (head, tail, corr, isna, isna.sum) and implemented my MLPClassifier. After the meeting, I implemented OneHotEncoder and copied the rest of Aditi's preprocessing including the use of re to fill Ticket values. On Wednesday, I also modified the parameters of my learned to predict 0s most of the time to easily fit the low false positives and high false negatives in the group pareto front.
+
+Lecture notes: The goal is to create a pareto optimal set of models, one built by each teammate, based on the Boolean measures for minimization, false positives and negatives. The team should share preprocessing code and use the same partition to train and test models.
+
+
+==September 8th, 2021==
+Week 3 focused on how to compare the quality of evaluations using confusion matrices (binary) and Pareto (multi).
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 2
+|Complete
+|9/8/2021
+|9/15/2021
+|9/8/2021
+|-
+|Notebook Self-Evaluation
+|Complete
+|9/8/2021
+|9/15/2021
+|9/14/2021
+|-
+|}
+
+===Notebook Self-Evaluation===
+*Notebook maintenance: 25/25
+*Meeting notes: 15/15
+*Personal work & accomplishments: 5 + 10 + 5 + 10 = 30/35
+*Useful resource: 8 + 12 = 20/25
+*Total: 90/100
+*Notes: Some points were not applicable. Also I have not figured out how to add images yet.
+
+===Lab 2 Part 2: Multi-Objective Optimization===
+Multiple Objectives: We made a new, more complex evaluation function by including sin, cos, and tan as primitives and include a second objective, the tree size. We created a pareto dominance function to compare the fitness of two individuals. We created a 300-individual population and sorted it by comparison to a separate individual. The objective space separated into dominators, dominated, and others as shown:
+
+<plot3>
+
+Our genetic algorithm was a mu plus lambda algorithm with mu individuals selected for the next generation and lambda children produced at each generation. We the evolution (for the third in this notebook):
+
+<plot4>
+
+The success of the algorithm was inversely measured by the least squares area under the curve (AUC) of our pareto front (shown in red below in the plot of mean squared error by tree size after the evolutionary algorithm). The original lab algorithm produced AUCs between 2 and 5. I'm not quite sure but I think changing my mu to 100 decreased the AUC.
+
+<plot5>
+
+Other notes: Strongly typed primitives require a certain type of terminal input. Terminals generated by functions are called ephemeral constants. Also, DEAP trees must be kept within their 91-depth limit through bloat control.
+
+===Bootcamp Notes: Multi-Objective Optimization===
+Binary classification -evaluation-> confusion matrix
+*True Positive Rate, TPR, Sensitivity, Recall, Precision, Positive Predictive Value = TP/P = TP/(TP+FP)
+*True Negative Rate, TNR, Specificity = TN/N = 1-FNR = 1-FN/P
+*False Positive Rate, FPR, False Discovery Rate = FP/N = 1-TPR
+*Accuracy, ACC = (TP+TN)/(P+N)
+
+Multi classification -> objectives/phenotypes 
+*Pareto optimal - no other individual in the population outperforms it on all objectives
+*Pareto frontier - set of Pareto individuals, dominates all other individuals
+*We drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some mating probability.
+
+Nondominated Sorting Genetic Algorithm II (NSGA2)
+*Separate population into nondomination ranks. Pareto optimal is 0, would-be Pareto without the front is 1, esc.
+*Individuals are selected in binary tournament
+*Lower Pareto ranks beat higher Pareto ranks
+*Within a rank, winner is higher crowding distance - sum of normalized Euclidean distances to all points with the front
+
+Stength Pareto Evolutionary Algorithm II (SPEA2)
+Each individual is assigned...
+*Strength S = how many others in population it dominates
+*Rank R = sum of S of individuals that dominate it (Pareto -> R=0)
+*Distance to kth nearest neighbor sigk
+*Fitness R + 1/(sigk + 2) -used in binary tournament
+
+==September 1st, 2021==
+Week 2 focused on learning genetic programming trees.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 1
+|Complete
+|9/1/2021
+|9/8/2021
+|9/7/2021
+|-
+|}
+
+===Lab 2 Part 1: Genetic Programming===
+Individuals of gp.PrimitiveTree are trees like discussed in bootcamp. We created a tree and added primitives including two of my choice:
+
+pset.addPrimitive(np.maximum, arity=2)
+pset.addPrimitive(np.square, arity=1)
+
+We assigned individuals to outputs of gp.genHaldandHalf given our primitive set and max and min depth. After defining the evaluation function as the mean squared error of the tree's output and points (we used evenly numbers between -1 and 1 as points but the values are less important than the fitness). Then we registered mutations including mine below:
+
+toolbox.register("insert_mut", gp.mutInsert, pset=pset)
+
+We plotted the evolution:
+
+<plot2>
+
+===Bootcamp Notes: Genetic Programming===
+Genetic programming trees have nodes called primitives that represent functions and leaves called terminals that represent inputs. 
+
+Example 1 function: 3*4+1 parse tree: [+,*,3,4,1]
+
+Example 3 (symbolic regression): y=sinx 3rd Degree Taylor polynomial parse tree: [-,x,/,*,x,*,x,x,*,3,2]
+
+
+==August 25th, 2021==
+First Week! I was introduced to the team, wiki, genetic algorithms, and DEAP.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
 !Suspense Date
 !Date Resolved
 |-
@@ -28,24 +229,25 @@ signed
 |Complete
 |8/25/2021
 |9/1/2021
-|8/31/21
+|8/31/2021
 |-
 |Walkthrough
 |Complete
 |8/25/2021
 |9/1/2021
-|8/30/21
+|8/30/2021
 |-
 |}
 
 ===Lab 1: Genetic Algorithm Problems===
 One Max Problem: The algorithm tried to make the max-fitness individual all 1s in 40 generations using tournament selection, crossover, and mutation. The population had 300 individuals of 100 Boolean numbers each. The tournament size was 3, crossover probability 0.5, mutation (random new 0 or 1) probability 0.2.
 
-N Queens Problem: The algorithm found how to position n queens on an nxn board so that none could take each other. The algorithm minimized the number of diagonal conflicts and reached a stable bend in the minimum (and average) in around 25 generations.
+N Queens Problem: The algorithm found how to position n queens on an nxn board so that none could take each other. The algorithm minimized the number of diagonal conflicts and reached a stable bend in the average and minimum in around 25 generations. The max, average, and min number of conflicts is graphed below:
 
+<plot1>
 
 ===Walkthrough: DEAP===
-The walkthrough demonstrated how to use base, creator, and tools to create a population of two individuals with one hundred Bernoullis.
+The walkthrough demonstrated how to use base, creator, and tools to create a population of two individuals with one hundred Bernoulli (0 probability 1-p and 1 probability p).
 
 ===Bootcamp Notes: Genetic Algorithms===
 #Randomly initialize population
