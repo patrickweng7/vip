@@ -3,6 +3,18 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **September 29th, 2021**
+## **Meeting 6**
+### Class Notes:
+* Presented our powerpoint presentation regarding the titatnic project.
+* Compared MOGP and ML for the same project and made various conclusions 
+* Saw all other groups present and asked questions
+* We were informed to try a crossover on the hof (hall of fame) individuals.
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
+
 # **September 22nd, 2021**
 ## **Meeting 5**
 ### Class Notes:
