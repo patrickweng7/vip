@@ -228,12 +228,28 @@ This lab explores One Max Problem & N-Queens Problem, and we will be defining ge
 * Installed DEAP using pip under new Terminal window in JupyterLab
 
 '''One Max Problem'''
-One Max Problem is a problem that only performs the calculation of the maximum value from number of binary strings. The goal is to produce an individual whose list sums up to max value, which is all 1s.
+One Max Problem is a problem that only performs the calculation of the maximum value from number of binary strings. The goal is to produce an individual whose list sums up to max value, which is all 1s. I followed the following steps for this lab:
 
-*
+* Import base, creator, * tools from Python random module and DEAP module
+* Define fitness objective and individual classes using DEAP's creator
+* Define tool functions for evaluation - evalOneMax(), mating, mutation and selection
+* Define individuals in population defined as 1s and 0s, population of 300
+* Define evaluation function (evalOneMax()) for fitness ibjective as sum of all 1s in a string
+* Define evolutionary loop of 40 generations, and performed tournament selection on population to clone selected offspring for creating instances from previous iteration
+* Ran mating function with 50% probability, Mutated individuals with 20% probability
+* Observations: After 40 gnerations, max fitness score (100.0) was almost always achieved, but not guaranteed.
+
 
 '''N Queens Problem'''
+The objective of N Queens Problem is to determine a configuration of n queens on a n x n chessboard such that no queen can be taken by another. For this version, each queen was only assigned to one column, with only one queen able to be on each line. I followed the following steps for the lab:
 
+* Import necessary DEAP modules, and define fitness objectives & evaluation function
+* Fitness Objective: Minimize number of conflicts between two queens on nxn chessboard. Fitness weighted negatively
+* Evaluation Function: Returns number of conflicts between queens along diagonal of chessboard
+* Individual: Defined as list of n numbers that denote the column location of n queens in a nxn chessboard
+* Define partially matched crossover function and mutation function to shuffle indices
+* Run main evolutionary loop for 100 generations
+* Findings: Algorithm often gets to a minimum of 1.0 quickly, but does not consistently achieve minimum of 0.0
 
 
 ===Action Items===
