@@ -9,6 +9,43 @@ Interests:
 *Academic: Artificial Intelligence, Machine Learning, NLP, Cognition, Bio-Inspired Learning
 *Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
 
+== Sep 20, 2021 ==
+'''Team Meeting Notes:'''
+
+
+'''Sub-team Meeting Notes:'''
+* tasks:
+** if you're still confused about QA checkout the ppt I made (in last week's post) or the literature that steven linked in the slack.
+** look into emade codebase (namely emadedatapair, nnlearner layers, and where our data is handled) and see how we can incorporate the fact that we need to differentiate between the query and context data before they merge in an attention layer
+* we decided not to use an emadedatapair child for enforcing the embedding layer as we think the genetic process will handle it but we may use it to separate the context and query data during the embedding process as shown [https://arxiv.org/pdf/1611.01603.pdf here]
+
+'''Individual notes:'''
+* we may not need to use an emadedatapair to handle the data split. we may be able to just change the datapair.type to question_answering and handle our data accordingly.
+* looking into the code base this doesn't seem to be such a great idea because there are a lot of control flow statements based on the type and we'd have to not only change every instance of that but also include everything that is in the textdata type which would be duplicating a ton of code.
+* there seems to be a lot of code bloat in the codebase which will be tough not to contribute to as efficiently implementing our ideas may require an overhaul of some of the already implemented systems
+
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get people who still don't understand QA up to speed
+|Completed
+|Sep 20, 2021
+|Sep 22, 2021
+|Sep 22, 2021
+|-
+|get familiar with the relevant code and brainstorm how to effectively implement the query/context data split
+|Completed
+|Sep 20, 2021
+|Sep 25, 2021
+|Sep 25, 2021
+|}
+
 == Sep 13, 2021 ==
 '''Team Meeting Notes:'''
 * Things to consider when looking to solve a problem with emade:
