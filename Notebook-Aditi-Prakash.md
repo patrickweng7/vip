@@ -136,40 +136,39 @@ Attended lecture on multi-objective optimization and completed Lab 2's Multi-Obj
 ## Team Meeting Notes
 ### Lecture on Multi-Objective Optimizations:
 * Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
-Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
+* Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
 
-Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
-Limitations in memory limit how deep our algorithms can be. Full search space is the full set of possible algorithms. 
-How can we come up with good fitnesses to help us search these worlds?
-Objectives are our phenotype, evaluation function allows us to go from the genotype to the phenotype. 
-Binary classification vs. multiclass classification - 1 or 0 versus in a set of things
+* Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
+* Limitations in memory limit how deep our algorithms can be. Full search space is the full set of possible algorithms. 
+* How can we come up with good fitnesses to help us search these worlds?
+* Objectives are our phenotype, evaluation function allows us to go from the genotype to the phenotype. 
+* Binary classification vs. multiclass classification - 1 or 0 versus in a set of things
 
-Algorithm is for red objects, we are trying to find apples.
+* Algorithm is for red objects, we are trying to find apples.
 
-Precision or positive predictive value - overlooked but very important
-Assessing algorithm’s consistency of performance with itself, regardless of truth 
-Accuracy - bigger is better
-Blue and green form a tradeoff space between each other against Objective 1 and Objective 2
+* Precision or positive predictive value - overlooked but very important
+* Assessing algorithm’s consistency of performance with itself, regardless of truth 
+* Accuracy - bigger is better
+* Blue and green form a tradeoff space between each other against Objective 1 and Objective 2
 
-Dominated solution - there is an individual that would live in the space to the left and under a given point 
-Non dominated - there is no such individual 
-Co-dominant, none are dominated, form Pareto frontier 
-Want to keep diversity of genotypes, want all tree structures to stay in population, algorithms will continue to be diverse (their representations are diverse), want to reward this, stops algorithms from converging 
-Nondominated solution is called Pareto optimal in this class
-Would much rather have spread out points on Pareto frontier than clumped up individuals on either end in Pareto frontier
-Reward places that are off by themselves so we can keep that diversity 
-Higher crowding distance wins
+* Dominated solution - there is an individual that would live in the space to the left and under a given point 
+* Non dominated - there is no such individual 
+* Co-dominant, none are dominated, form Pareto frontier 
+* Want to keep diversity of genotypes, want all tree structures to stay in population, algorithms will continue to be diverse (their representations are diverse), want to reward this, stops algorithms from converging 
+* Nondominated solution is called Pareto optimal in this class
+* Would much rather have spread out points on Pareto frontier than clumped up individuals on either end in Pareto frontier
+* Reward places that are off by themselves so we can keep that diversity 
+* Higher crowding distance wins
 
-SPEA2: How many points does it dominate (look up and to the right)
-S is how many others in the population it dominates
-Rank is the sum of S’s of the individuals that dominate it 
+* SPEA2: How many points does it dominate (look up and to the right)
+* S is how many others in the population it dominates
+* Rank is the sum of S’s of the individuals that dominate it 
 
-Tiebreakers:
-Fractional so serves as tiebreaker, one with higher distance is going to have a smaller effect on rank, if crowding distance is smaller, you’ll be closer to 1, almost at the next range, favor larger distance because it will get inverted 
-Niching - trying to spread diversity 
-Both algorithms favor nondomination of something more highly than how different it is from everything else. 
-Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
-Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
+* Tiebreakers: Fractional so serves as tiebreaker, one with higher distance is going to have a smaller effect on rank, if crowding distance is smaller, you’ll be closer to 1, almost at the next range, favor larger distance because it will get inverted 
+* Niching - trying to spread diversity 
+* Both algorithms favor nondomination of something more highly than how different it is from everything else. 
+* Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
+* Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
 
 ### Lab 2 - Multi-Objective Genetic Programming
 This lab explored the problem of optimizing a set of primitives based on more than one objective to achieve a target function model. Here, we minimize the mean squared error and the size of the tree. We also add the sin, cos, and tan functions to our set of primitives and reinitialize the toolbox. We then define a function to evaluate our symbolic regression and note that this new problem, with an evaluation function that takes the sin, cos, and tangent of the points into consideration when evaluating the individuals for fitness, cannot be solved within 100 generations like the ones we worked on previously. 
