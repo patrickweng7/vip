@@ -18,6 +18,12 @@ During presentation day, each group walked through his project in front of the c
 I benefitted a lot from the presentation in Lecture 5 which thought us the art of presenting information to an audience. 
 I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
 
+**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals.
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
+
 Link to my presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit#slide=id.gf4beb00e17_2_0
 
 ## Lecture 5:
