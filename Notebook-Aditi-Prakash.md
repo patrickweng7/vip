@@ -187,11 +187,11 @@ Modifying the following hyperparameters reduced the AUC of the Pareto front to 0
 * MUTPB = 0
 
 Original Hyperparameters:
-NGEN = 50
-MU = 50
-LAMBDA = 100
-CXPB = 0.5
-MUTPB = 0.2
+* NGEN = 50
+* MU = 50
+* LAMBDA = 100
+* CXPB = 0.5
+* MUTPB = 0.2
 
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
@@ -201,9 +201,9 @@ Observations and Reflection: The original evolutionary loop produced individuals
 Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
 Strongly Typed Genetic Programming: 
-*Used PrimitiveSetTyped object to create primitive set with strongly typed primitives and terminals 
-*Ephemeral constants are produced by functions and therefore allow terminals which depend on other operations/randomness to be included in our trees, improving the diversity of our population.
-*Used static limits and tree size as an objective to limit excessively large trees given Python's limitations and the fact that we usually favor simpler individuals over more complex individuals that have the same fitness. 
+* Used PrimitiveSetTyped object to create primitive set with strongly typed primitives and terminals 
+* Ephemeral constants are produced by functions and therefore allow terminals which depend on other operations/randomness to be included in our trees, improving the diversity of our population.
+* Used static limits and tree size as an objective to limit excessively large trees given Python's limitations and the fact that we usually favor simpler individuals over more complex individuals that have the same fitness. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
