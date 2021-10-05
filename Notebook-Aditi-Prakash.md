@@ -135,7 +135,7 @@ Attended lecture on multi-objective optimization and completed Lab 2's Multi-Obj
 
 ## Team Meeting Notes
 ### Lecture on Multi-Objective Optimizations:
-Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
+* Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
 Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
 
 Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
