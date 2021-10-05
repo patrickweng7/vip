@@ -18,6 +18,8 @@ During presentation day, each group walked through his project in front of the c
 I benefitted a lot from the presentation in Lecture 5 which thought us the art of presenting information to an audience. 
 I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
 
+Link to my presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit#slide=id.gf4beb00e17_2_0
+
 ## Lecture 5:
 
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
