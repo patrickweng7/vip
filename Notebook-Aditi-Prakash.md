@@ -256,6 +256,8 @@ To improve the fitness of the evolved individuals, I added the floor and maximum
 
 We see that modifying the primitive set and the mutation function being used in the evolutionary loop caused the maximum fitness line to decrease much more quickly than it did for the original evolution, indicating that floor, maximum, and mutInsert ensure optimal fitness for all individuals in a population by minimizing the fitnesses of higher-extreme individuals. 
 
+Increasing the minimum and maximum tree depth when registering the expression function with the toolbox appeared to slow the improvement of the maximum, average, and minimum fitness across the same number of generations. This indicates that larger trees are not necessarily fitter or prone to becoming fitter through evolution than smaller trees. Evaluating tree size as an objective itself will reappear in the second part of Lab 2, at which point I will delve into the different outcomes that larger and smaller trees produce with the same evolution. 
+
 Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
 **Action Items:**
