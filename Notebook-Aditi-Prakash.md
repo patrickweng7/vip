@@ -176,18 +176,19 @@ This lab explored the problem of optimizing a set of primitives based on more th
 We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
 with fitness: (0.2786133308027132, 15.0). 
 
-DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation). This allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
 
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1isLlHDQdceJ9ZrUbcG3oIeYEq1j0an6Oi0SyJKpFyvM/edit?usp=sharing)
 
-* Improvements:
+Improvements:
 Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.97. 
-NGEN = 50
-MU = 60
-LAMBDA = 75
-CXPB = 0.4
-MUTPB = 0
+* NGEN = 50
+* MU = 60
+* LAMBDA = 75
+* CXPB = 0.4
+* MUTPB = 0
+
 
 Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
