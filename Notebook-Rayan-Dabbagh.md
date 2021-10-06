@@ -241,7 +241,7 @@ The scores are the following:
     * Nodes are called primitives and represent functions
     * Leaves are called terminals and represent parameters.
 
-![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
+![ML vs MOGP comparision](https://picc.io/7qfqxz8.jpg)
 
 **How is the Tree Stored?**
 
@@ -260,13 +260,13 @@ The scores are the following:
     * Start by randomly picking a point in each tree
     * The subtrees are exchanged to produce children
 
-![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
+![ML vs MOGP comparision](https://picc.io/CdIpXke.png)
 
 **Mutation in GP:**
 
     * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
 
-![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
+![ML vs MOGP comparision](https://picc.io/nJvcctx.png)
 
 **Example: Symbolic Regression**
 
