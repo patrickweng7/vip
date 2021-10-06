@@ -260,9 +260,13 @@ The scores are the following:
     * Start by randomly picking a point in each tree
     * The subtrees are exchanged to produce children
 
+![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
+
 **Mutation in GP:**
 
     * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
+
+![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
 
 **Example: Symbolic Regression**
 
