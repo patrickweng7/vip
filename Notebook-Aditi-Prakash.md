@@ -7,7 +7,7 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 5: September 22th, 2021
+# Week 5: September 22th, 2021t
 ## Overview
 Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
@@ -31,7 +31,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 * Diff is a fence posting problem 
 * AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
 
-## Titanic MOGP Problem 
+## Subteam Notes (Titanic MOGP Problem)
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
@@ -92,7 +92,7 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 * Don’t mix up the rows
 * Undersampling/oversampling 
 
-## Titanic ML Problem 
+## Subteam Notes (Titanic ML Problem)
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
