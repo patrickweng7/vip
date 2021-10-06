@@ -15,6 +15,37 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
+== October 4, 2021 ==
+'''Team Meeting Notes:'''
+* Scrum update included our addition of the CIFAR-10 dataset and then also some points on our novelty detection work. We currently have implemented a baseline for detecting all-1 or all-0 predictions.
+* Met with sub-team afterwards for 20 minutes to discuss tasks. I brought up my issue with point #3 below, and it was suggested to loop through each evaluated individual in the main evolutionary loop, convert that individual into its string representation, and then parse this string to count layer frequencies. Cameron Whaley sent me code to do the parsing that I can work from, but it does require slight modification to work for our neural network primitives.
+* Taking a step back, I'd like to improve the developer workflow within EMADE. There are a couple of pressing issues. 
+1. First and foremost, the EMADE repository is extremely large (because it includes raw datasets), and this pushes it over the 15 GB PACE storage limit. Therefore, we are unable to directly push/pull from PACE, and instead must SCP the necessary files between our personal computer and PACE. This is not particularly efficient and makes development troublesome. For that reason, I am looking into creating our own fork of EMADE, and deleting datasets that we don't use and cleaning up the repository.
+2. I want to develop a better unit testing process so that we don't have to verify changes by submitting jobs to PACE alone. 
+3. I want to clean up the codebase in some areas. Some simple ideas include replacing the print(), flush() paradigm with logging, and breaking up monolithic functions into smaller pieces.
+4. Finally, consider paring down EMADE just for running on PACE. Currently, the codebase includes a lot of complexity to handle running on Windows, which can be removed to decrease the size of the repository.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
 == October 1, 2021 ==
 '''Sub-Team Meeting Notes:'''
 * Cameron Bennett was missing from this meeting, so it was shorter and was used as a work-session (with everyone on the call).
@@ -23,6 +54,8 @@ Teammates:
     1. Add a pickled column called layerFrequencies to the History table in sql_connection_orm_base.py. This will be used to store our generation-specific layer dictionary.
     2. In EMADE.py, this is table is updated once per generation at line 1076. Update this method (add_history() in sql_connection_orm_master.py) to include the generation-specific layer dictionary.
     3. Look at each evaluated individual in a generation and add add its layer counts to this dictionary dictionary.
+
+Currently having trouble with the third point, because I still do not have a good mental image for what an individual looks like and what attributes it has. Will ask further on Slack and during our meeting Monday.
 
 '''Action Items:'''
 {| class="wikitable"
