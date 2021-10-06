@@ -40,6 +40,10 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch up on our individual works.
 
+**Group results showing the Pareto Front in Machine Learning and Genetic Programming (Approved by professor):**
+
+![ML vs MOGP comparision](https://picc.io/Efh2aD-.png)
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
