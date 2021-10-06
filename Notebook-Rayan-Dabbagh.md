@@ -26,6 +26,8 @@ I worked on the data preprocessing part in the project : The process of transfor
 
 **Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals.
 
+**Action Items:**
+
 |Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
 |Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
