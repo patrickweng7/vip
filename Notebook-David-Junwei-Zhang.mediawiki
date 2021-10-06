@@ -4,6 +4,68 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
+
+== October 6, 2021 ==
+'''Team Meeting Notes''
+
+Introduction to Emade
+Emade (Evolutionary Multi-objective Algorithm Designe Engine)
+* Combines multi-objective evolutionary search with high-level primitives
+* Evaluations much more expense with automated ml (due to higher level primitives)
+* Emade uses a MySql server behind the scenes
+* Emade installation and setup
+** Need to download installed git-lfs, clone git repo
+** run setup.py to install
+
+Emade input file
+* Used for EMADE configuration
+* python, mysql connection information (one master connection; all others are workers)
+* workers per host specifies how many evaluations run in parallel (keep this relatively low at 2-3 since it is resource intensive)
+
+-Headless chicken crosser: injects much randomness; second parent is randomly created
+-Default selection uses selNsga2 with binary tournament
+
+Connecting as worker
+* add -w flag (signals that this is not a master process)
+* make sure MySql accepts remote connections
+* connecting: Mysql -h hostname -u username -p
+* set reuse flag to 1 if need to pickup on last state
+
+Assignment
+* Run Emade as a group; one person 
+* Run for substantial number of generations
+* Make plot of non-dominated frontier and compare with ML, MOGP
+* Show successful trees; plots of AUC, evaluation time (visualize results)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install Emade
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|Install Mysql
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|Understand Mysql, EMADE concepts
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|}
+
+
 == September 29, 2021 ==
 '''Team Meeting Notes''
 
