@@ -13,37 +13,23 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
-Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
-
-Have to write genetic program yourself
-Evaluation function - at least two objective, False Positives and False Negatives
- 
-Can add additional objectives to make it better
-
-Comparison of Pareto Front that genetic programming finds against ML codominant set
-
-Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
-
-Bare minimum is to get comparison between ML and GP. 
-
-Generate predictions for every pareto optimal point
-
-Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
-
-Present findings next week 
-in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
-
-AUC will be useful to evaluation GAs
-Minimization - adding area, maximization - eating area
-
-Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
-
-Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
-
-Diff is a fence posting problem 
-
-AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
-
+* Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+* Have to write genetic program yourself
+* Evaluation function - at least two objective, False Positives and False Negatives
+* Can add additional objectives to make it better
+* Comparison of Pareto Front that genetic programming finds against ML codominant set
+* Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
+* Bare minimum is to get comparison between ML and GP. 
+* Generate predictions for every pareto optimal point
+* Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
+* Present findings next week 
+* In DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
+* AUC will be useful to evaluation GAs
+* Minimization - adding area, maximization - eating area
+* Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
+* Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
+* Diff is a fence posting problem 
+* AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
 
 ## Titanic MOGP Problem 
 ### Data Preprocessing
