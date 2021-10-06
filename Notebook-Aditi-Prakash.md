@@ -3,6 +3,8 @@ Name: Aditi Prakash
 
 Email: aprakash86@gatech.edu
 
+Bootcamp Subteam Team Members: Charlie Bauer, Rayan Dabbagh, Rayan Khoury
+
 Cell Phone: 704-794-3924  
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
