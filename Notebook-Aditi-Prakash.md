@@ -20,7 +20,8 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
 | Titanic ML, MOGP, EMADE Presentation | Pending | 10/25/21 | 10/25/21  | - |
-| Install EMADE | Pending | 10/13/21 | 10/13/21  | - |
+| Peer Evaluation | Pending | 9/29/21 | 10/6/21  | 10/4/21 |
+| Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
 
 # Week 5: September 22th, 2021
 ## Overview
