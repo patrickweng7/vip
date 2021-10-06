@@ -44,7 +44,7 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 
 ![ML vs MOGP](https://picc.io/Efh2aD-.png)
 
-One recommendation from the professor was to try and overlap the two graphs to better show the difference the two graphs.
+One recommendation from the professor was to overlap the two graphs to better show the difference between them.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
