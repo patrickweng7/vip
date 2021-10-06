@@ -56,6 +56,7 @@ AUC will be more comparable between us, can take AUC of ML learners as well, alw
 * Created hof using best individuals ever identified throughout evolution
 * Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
 * Predicted Survived feature for test.csv 
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
@@ -74,31 +75,32 @@ The AUC for MOGP was much better than that of ML. Evolution in MOGP favored dive
 
 # Week 4: September 15th, 2021
 ## Overview
-Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
+Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select an ML learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
-- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
-- Post csv representing predictions of your model that was co-dominant with rest of group. 
-- Sci-kit learn - classification (ex. Support Vector machine)
-- Do Pareto graphing for minimization objectives
-- Pandas documentation
-- Why did the decision classifier perform so well when we didn’t do that much?
-- Make sure submission samples are in the same order for everyone 
-- Pandas, sci-kit learn - dig deep 
-- Use n folds
-- Look at cabin values and encode Embarked 
-- Do k fold splits for all learners
-- Cross val score - average of false negatives and false positive 
-- Look at average for nan values across samples with similar features versus all samples
-- Create csv files with data that we’re using for preprocessing 
-- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
-- Don’t mix up the rows
-- Undersampling/oversampling 
+* nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+* Post csv representing predictions of your model that was co-dominant with rest of group. 
+* Sci-kit learn - classification (ex. Support Vector machine)
+* Do Pareto graphing for minimization objectives
+* Pandas documentation
+* Why did the decision classifier perform so well when we didn’t do that much?
+* Make sure submission samples are in the same order for everyone 
+* Pandas, sci-kit learn - dig deep 
+* Use n folds
+* Look at cabin values and encode Embarked 
+* Do k fold splits for all learners
+* Cross val score - average of false negatives and false positive 
+* Look at average for nan values across samples with similar features versus all samples
+* Create csv files with data that we’re using for preprocessing 
+* Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+* Don’t mix up the rows
+* Undersampling/oversampling 
 
 ## Titanic ML Problem 
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
+* Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
 * Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Imported pandas, numpy, and sklearn methods 
 * Mounted Drive to Colab and read in train and test sets as dataframes
@@ -112,13 +114,13 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 * Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
-* Obtain confusion matrix for predictions 
+* Obtained confusion matrix for predictions 
 * Modified XGBoost hyperparameters
-Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
+Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
 Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
 
 Findings:
-Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tend to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
