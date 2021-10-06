@@ -42,7 +42,9 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 
 **Group results showing the Pareto Front in Machine Learning and Genetic Programming (Approved by professor):**
 
-![ML vs MOGP comparision](https://picc.io/Efh2aD-.png)
+![ML vs MOGP](https://picc.io/Efh2aD-.png)
+
+One recommendation from the professor was to try and overlap the two graphs to better show the difference the two graphs.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
