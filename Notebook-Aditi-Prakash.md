@@ -7,7 +7,7 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 5: September 22th, 2021t
+# Week 5: September 22th, 2021
 ## Overview
 Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
