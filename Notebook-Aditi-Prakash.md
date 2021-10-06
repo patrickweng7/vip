@@ -3,7 +3,7 @@ Name: Aditi Prakash
 
 Email: aprakash86@gatech.edu
 
-Bootcamp Subteam Team Members: Charlie Bauer, Rayan Dabbagh, Rayan Khoury
+Bootcamp Subteam Team Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - rdabbagh3@gatech.edu, Rayan Khoury - rkoury7@gatech.edu
 
 Cell Phone: 704-794-3924  
 
