@@ -18,7 +18,9 @@ During presentation day, each group walked through his project in front of the c
 I benefitted a lot from the presentation in Lecture 5 which thought us the art of presenting information to an audience. 
 I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
 
-I worked on the data preprocessing part in the project : The process of transforming raw data into an understandable format for any audience. My team's preprocessing experimentation can be found in the link : https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
+I worked on the data preprocessing part in the project : The process of transforming raw data into an understandable format for any audience. 
+
+My team's preprocessing experimentation can be found in the link : https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
 
 **Data preprocessing:**
 
