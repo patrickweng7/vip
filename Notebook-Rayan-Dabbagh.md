@@ -22,7 +22,7 @@ I worked on the data preprocessing part in the project : The process of transfor
 
 **Data preprocessing:**
 
-![ML vs MOGP]https://picc.io/0tb7Fw_.png
+![ML vs MOGP comparision](https://picc.io/0tb7Fw_.png)
 
 **Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals.
 
