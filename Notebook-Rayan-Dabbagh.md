@@ -174,7 +174,9 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 * _Classification Measures:_
 
     * A data set made of positive and negative samples is inserted in a classifier which gives out one of the following results:
-        
+     
+![ML vs MOGP comparision](https://picc.io/v3yar4H.png)
+
 1- _Actual Positive:_
 
     * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
@@ -192,12 +194,16 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
     * Negative Predictive Value (NPV): NPV = TN/(TN+FN) -> Bigger is better
     * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) -> Bigger is better
 
+![ML vs MOGP comparision](https://picc.io/cLCDK7C.png)
+
 * _Pareto Optimality:_
 
     * An individual is Pareto optimal if there is no individual in the population that outperforms this individual on all objectives
     * The set of all Pareto individuals is known as the Pareto Frontier
     * These individuals represent unique contributions
     * We want to drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some probability of mating.
+
+![ML vs MOGP comparision](https://picc.io/Y_KaZQG.png)
 
 * _Strength Pareto Evolutionary Algorithm:_
 
