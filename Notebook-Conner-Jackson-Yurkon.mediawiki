@@ -20,9 +20,13 @@ Teammates:
 * Scrum update included our addition of the CIFAR-10 dataset and then also some points on our novelty detection work. We currently have implemented a baseline for detecting all-1 or all-0 predictions.
 * Met with sub-team afterwards for 20 minutes to discuss tasks. I brought up my issue with point #3 below, and it was suggested to loop through each evaluated individual in the main evolutionary loop, convert that individual into its string representation, and then parse this string to count layer frequencies. Cameron Whaley sent me code to do the parsing that I can work from, but it does require slight modification to work for our neural network primitives.
 * Taking a step back, I'd like to improve the developer workflow within EMADE. There are a couple of pressing issues. 
-1. First and foremost, the EMADE repository is extremely large (because it includes raw datasets), and this pushes it over the 15 GB PACE storage limit. Therefore, we are unable to directly push/pull from PACE, and instead must SCP the necessary files between our personal computer and PACE. This is not particularly efficient and makes development troublesome. For that reason, I am looking into creating our own fork of EMADE, and deleting datasets that we don't use and cleaning up the repository.  
-2. I want to develop a better unit testing process so that we don't have to verify changes by submitting jobs to PACE alone.   
+
+1. First and foremost, the EMADE repository is extremely large (because it includes raw datasets), and this pushes it over the 15 GB PACE storage limit. Therefore, we are unable to directly push/pull from PACE, and instead must SCP the necessary files between our personal computer and PACE. This is not particularly efficient and makes development troublesome. For that reason, I am looking into creating our own fork of EMADE, and deleting datasets that we don't use and cleaning up the repository. 
+ 
+2. I want to develop a better unit testing process so that we don't have to verify changes by submitting jobs to PACE alone. 
+  
 3. I want to clean up the codebase in some areas. Some simple ideas include replacing the print(), flush() paradigm with logging, and breaking up monolithic functions into smaller pieces.  
+
 4. Finally, consider paring down EMADE just for running on PACE. Currently, the codebase includes a lot of complexity to handle running on Windows, which can be removed to decrease the size of the repository.  
 
 '''Action Items:'''
