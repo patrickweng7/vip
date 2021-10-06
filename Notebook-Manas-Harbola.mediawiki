@@ -12,6 +12,51 @@
 
 = Fall 2021 =
 
+== Week 6: September 29th ==
+=== Class Summary === 
+*Listened to team presentations on Titanic MOGP/ML project
+*Presented Team 2's finding for MOGP/ML project
+**Discussed the difference in ML models and GP individual results
+**Discussed how we could have improved our models, including where models outperformed each other in certain fitness objectives
+*Subteam #2 Presentation: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+*Our subteam realized that we could have implemented one-hot encoding for the 'Embarked' feature in our dataset, because mapping embarked locations to specific can cause undesired predictions within the model, reducing accuracy.
+
+=== Lecture Notes ===
+*It was interesting to see how other teams tried to "reward" individuals in their MOGP algorithm that didn't predict false/true in earlier generations. For instance, Austin's subteam squared their fitness values for their objective values to discourage a 1.0 fpr/fnr predictions from their individuals
+*Some teams chose to use one-hot encoding for particular features in the dataset, which I think would have helped our team with the 'Embarked' feature
+
+=== Individual Notes ===
+*Completed VIP Peer Evaluation report due on Friday, October 8 @ 4pm
+*Took notes on how to better select primitives and MOGP objectives for future projects
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 29th, 2021
+|October 6th, 2021
+|October 6th, 2021
+|-
+|Peer Evaluations
+|Completed
+|September 29th, 2021
+|October 8th, 2021
+|October 6th, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 29th, 2021
+|October 6th, 2021
+|October 4th, 2021
+|-
+|}
+
 == Week 5: September 22th ==
 === Class Summary ===
 *Discussed last week's Titanic ML project and findings
@@ -36,7 +81,22 @@
 
 ===Team Meeting Notes===
 *Organized times to meetup on Discord
+*Meeting #1, Sept 25:
+**Discussed and concluded that preprocessing step for MOGP would remain the same, as we were satisfied with our current features
+**Discussed which primitives we would use - agreed on using subtract, add, multiply, sin, cos, and tan
+**Researched different selection algorithms as a group and decided to use SPEA2
+**Repurposed evaluation function from Lab 2 for evaluating both FPR and FNR objectives
+**Learned about activation functions in order map any real number to either 0 or 1. Our team chose f(x) = arctan(x) / (pi / 2) as our function. We decided that if f(x) < 0.5 we would map the result to a 0, otherwise a 1.
+*Meeting #2, Sept 26:
+**Designed and wrote genetic loop for our MOGP algorithm
+**Best individual is multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653
+**Created presentation slides for our findings and results
 
+===Individual Notes===
+*Wrote majority of genetic loop with help from team members on selection, mutation, and evaluation functions
+*Originally our evaluation function was causing our best individual to always have fitness (0, 1.0). I discovered that even though fpr = fp / N and fnr = fn / P, our evaluation function was somehow not counting P and N properly. Therefore, I rewrote the evaluation function to calculate tp, tn, fp, and fn. We also decided to make fnr and/or fpr = 1 whenever the divisor was 0 to handle divide by 0 errors.
+*Cleaned up genetic loop and refactored notebook cells after achieving satisfying individuals
+*If I had more time, I would have repurposed the metrics calculations from Lab 2 to better visualize each generation in our genetic loop. Also, I would want to experiment with the mating and mutation rates in the notebook as well.
 
 '''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 

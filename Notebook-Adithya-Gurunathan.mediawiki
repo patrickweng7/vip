@@ -7,7 +7,9 @@
 '''Interests:''' Machine Learning, Soccer, Poker, Coffee, Entrepreneurship
 
 = Fall 2021 =
-== Week 5: Sep 12, 2021 ==
+== Week 5: Sep 29, 2021 ==
+
+== Week 5: Sep 22, 2021 ==
 
 ===Overview:===
 * Presentation on guidelines to effectively present
@@ -144,6 +146,67 @@
 * Attended lecture on Genetic Programming, learnt about Tree Representation, discussed Crossover, Mutation and Symbolic Regression in GP Algorithms
 * Completed Lab 2: Symbolic Regression
 
+===Lecture Notes:===
+* Genetic Algorithms are population-based solution, drawing concepts from natural selection, properties of DNA to modify and exchange information between individuals
+* Instead of taking an individual and having a function evaluator to obtain objective scores, the individual is the function itself
+  * Individual: [0,1,0,1,0,1] -> Evaluator -> Objective Score: 3
+    Input Data: [0,1,2,3,4,5] -> Individual (y = x^2) -> [0,1,4,916,25] -> Evaluator
+* Tree Representation: Representing program as a tree structure
+  * Nodes are called primitives - represent functions
+  * Leaves are called terminals - represent parameters
+* Trees are converted to Lisp preordered parse trees
+  * Operators are followed by inputs
+  * Tree for f(x) - 3*4 + 1 is expressed as [+,*,3,4,1]
+  * Parse tree of f(x) = 2-(0+1) is [-,2,+,0,1]
+* Crossovers are handled by exchanging subtrees in GP
+  * Start by randomly picking a point in each tree
+  * These points and everything below create subtrees
+  * Subtrees are exchanged to produce children
+* Mutation in GP involves:
+  * Inserting a node or subtree
+  * Deleting a node or subtree
+  * Changing a node
+* Example: Symbolic regression
+  * Using simple primitves, we can use GP to evolve a solution to y = sinx
+  * Primitves include: +,*,-,/
+  * Terminals include integers and variable input X
+  * Calculus utilizes Taylor series to approach this problem
+* Evaluating a tree
+  * Feed a number of input points into function to get outputs
+  * Run f(x) to get results, and measure error between output of f(x) & expected output (e.g. sum square error)
+* Primitives that make evolution easier:
+  * Power(), Factorial(), Sin(), Cos(), Tan()
+ 
+===Lab 2: Symbolic Regression (Part 1)===
+
+This lab explores the evolutionary algorithm by running it several times to observe the improve in best fit individuals. Attempted to reduce error to almost zero, by tring different mutation and primitives.
+
+* Tried deriving/inhering individuals from DEAP's PrimitiveTree instead of lists
+* Added primitves to primitve set and chose mutation for most optimized solution
+* Compiled primitve codde to generate evaluation function. Optimizing to find min values that approach zero faster
+* Modified lab code in 4 ways
+
+*Running algorithm with no modifications
+  * Original Lab 2
+  * Best individual: add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17)
+  * Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently
+  
+* Program with added mutation
+  * Best individual: add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16)
+  * Mutation added was mutShrink
+
+* Program with Primitives
+  * Added primitives were np.square and np.absolute
+  * Best individual was add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
+
+* Program with Primitives and Added Mutation
+  * Using mutInsert fir mutation
+  * First pair of primitives: (sin and square)
+  * Second pair of primitives: (absolute, cos)
+  * Best individual: add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+
+
 
 
 ===Action Items===
@@ -228,12 +291,28 @@ This lab explores One Max Problem & N-Queens Problem, and we will be defining ge
 * Installed DEAP using pip under new Terminal window in JupyterLab
 
 '''One Max Problem'''
-One Max Problem is a problem that only performs the calculation of the maximum value from number of binary strings. The goal is to produce an individual whose list sums up to max value, which is all 1s.
+One Max Problem is a problem that only performs the calculation of the maximum value from number of binary strings. The goal is to produce an individual whose list sums up to max value, which is all 1s. I followed the following steps for this lab:
 
-*
+* Import base, creator, * tools from Python random module and DEAP module
+* Define fitness objective and individual classes using DEAP's creator
+* Define tool functions for evaluation - evalOneMax(), mating, mutation and selection
+* Define individuals in population defined as 1s and 0s, population of 300
+* Define evaluation function (evalOneMax()) for fitness ibjective as sum of all 1s in a string
+* Define evolutionary loop of 40 generations, and performed tournament selection on population to clone selected offspring for creating instances from previous iteration
+* Ran mating function with 50% probability, Mutated individuals with 20% probability
+* Observations: After 40 gnerations, max fitness score (100.0) was almost always achieved, but not guaranteed.
+
 
 '''N Queens Problem'''
+The objective of N Queens Problem is to determine a configuration of n queens on a n x n chessboard such that no queen can be taken by another. For this version, each queen was only assigned to one column, with only one queen able to be on each line. I followed the following steps for the lab:
 
+* Import necessary DEAP modules, and define fitness objectives & evaluation function
+* Fitness Objective: Minimize number of conflicts between two queens on nxn chessboard. Fitness weighted negatively
+* Evaluation Function: Returns number of conflicts between queens along diagonal of chessboard
+* Individual: Defined as list of n numbers that denote the column location of n queens in a nxn chessboard
+* Define partially matched crossover function and mutation function to shuffle indices
+* Run main evolutionary loop for 100 generations
+* Findings: Algorithm often gets to a minimum of 1.0 quickly, but does not consistently achieve minimum of 0.0
 
 
 ===Action Items===

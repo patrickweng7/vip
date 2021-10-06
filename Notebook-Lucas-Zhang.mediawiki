@@ -7,8 +7,7 @@ Email: lzhag462@gatech.edu
 
 Cell Phone; 912-257-6740
 
-Classes Taking: Machine Learning, Statistics and Applications, Systems and Networks, Design and Analysis of Algorithms, Freshman Leap Seminar
-
+Classes Taking: Deeping Learning, Digital Design Lab, Computer Networking I, Robotics and Perception, Ethics
 Interests: Machine Learning, Python, Web Development, Fitness, Healthcare
 == Fall 2021 Semester ==
 == Neural Architecture Search Members (Fall 2021): ==
@@ -23,21 +22,126 @@ Interests: Machine Learning, Python, Web Development, Fitness, Healthcare
 
 [[Notebook Conner Jackson Yurkon|Conner Jackson Yurkon]]
 
+[[Notebook Justin Hsu Hinckley|Justin Hsu Hinckley]]
 
 
-== AAD General Meeting: August 23, 2021 ==
+
+== AAD General Meeting: Monday, August 23, 2021 ==
 *First day of class
-*Talk about plan for the semester
+*Talked about plan for the semester
+* We had a brainstorming session to decide on which teams to have for the semester.
+* 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Access VIP notebook
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|-
+|Brainstorm for subteams
+|Completed
+|8/23/21
+|8/30/21
+|8/30/21
+|-
+|Submit sub-team preferences
+|Completed
+|8/23/21
+|8/31/21
+|8/30/21
+|}
 
 
 == AAD General Meeting: August 30, 2021 ==
+* We discussed the subteam ideas from the last general AAD meeting.
+* I was assigned to be on the Neural Architecture Search (NAS) subteam.
 
-== AAD General Meeting: September 6, 2021 ==
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out the LettuceMeet for NAS meeting time
+|Completed
+|8/30/21
+|9/6/21
+|9/1/21
+|-
+|Read the 2 papers assigned
+|Completed
+|8/30/21
+|9/10/21
+|9/9/21
+|}
+
+
+== AAD General Meeting: Monday, September 6, 2021 ==
 No Meeting due to Labor Day
 
-== Neural Architecture Search Meeting: September 10, 2021 ==
+== Neural Architecture Search Meeting: Friday, September 10, 2021 ==
 
-== AAD General Meeting: September 13, 2021 ==
+*Met with the other NAS subteam members for a little over an hour.
+*We went over the brainstorming ideas, todos etc. on the  [https://trello.com/b/RbwUW89F/nas-brainstorm our Trello board]. Access may only limited to NAS subteam members. 
+
+*Brainstorming ideas on [https://trello.com/b/RbwUW89F/nas-brainstorm Trello board]
+**Speeding up EMADE
+*** Goal is to generate a tokenization process which only needs to occur once. The results of this tokenization process will be made accessible by all future individuals generated rather than forcing individuals/EmadeDataPairs to undergo their own expensive tokenization process.
+
+**Novelty detection
+*** Goal is to incorporate some reward into made which encourages individuals to use components/layers which have not been used by other individuals prior. This would help diversify the number of individuals per generation allowing for the discovery of ideal individuals fast.
+
+**Triviality
+*** Goal is to set up some sort of penalization within made for individuals that simply guess the same clarifications constantly without any effective algorithmic considerations.
+
+**Add some test scripts for debugging
+*** Goal is to create a test file as a starting point for creating some test cases that quickly reproduce undesirable individuals. This test file will be created by using a simple dataset such as MNIST or Cifar-10 and add a template file that is small enough to generate around 5 generations for a local run.
+
+* We decided that our weekly meeting times are going to be Fridays from 2 pm to 3pm.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look over the trello board and get more familiar with emade
+|Completed
+|9/10/2021
+|9/20/21
+|9/15/21
+|}
+
+
+
+== AAD General Meeting: Monday, September 13, 2021 ==
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out Self-evaluation form
+|Completed
+|9/13/21
+|9/13/21
+|9/13/21
+|}
 
 == Self-Evaluation Form Fall 2021 ==
 * Notebook Maintenance  
@@ -58,6 +162,114 @@ No Meeting due to Labor Day
 ** Useful resource for the team. '''10/15'''
 
 Total Out of 100: '''43/100'''
+*Reflection:
+**I think the biggest thing that I can improve upon is to update my notebook more regularly.
+
+== Neural Architecture Search Meeting: Friday, September 17, 2021 ==
+*Met with my sub-team for an hour to make sure that everyone on our subteam had made setup.
+
+== AAD General Meeting: Monday, September 20, 2021 ==
+*Each team shared their updates.
+
+
+== Neural Architecture Search Meeting: Friday, September 24, 2021 ==
+
+== AAD General Meeting: Monday, September 27, 2021 ==
+*Each team shared their updates.
+
+== Neural Architecture Search Meeting: Friday, October, 1, 2021 ==
+*Justin Hsu Hinckley joined the NAS team from the stocks team
+*On 9/29/2021, I met with Cameron Bennett and Cameron Whaley to discuss setting up PACE and the task regarding "Debugging /Reproducing issue with test_swap line300 EMADE.py.
+
+*I wasn't able to attend Cameron Bennett and Cameron Whaley's presentation, "Guide to EMADE.py" live due to a time conflict so I watched a recording of it.
+Guide to EMADE.py Presentation Notes:
+*Agenda
+**EMADE Object
+**Helper Functions
+**Mating/Mutation Functions
+**Master Algorithm
+**Worker Algorithm
+*EMADE Object
+**Contains methods to feed input XML arguments into deap
+**On init: creates empty toolbox
+*create_representation(self, adfs=0, regression= False)
+**Does a few important things: self.pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair], EmadeDataPair)
+** Functionality to create Automatically Defined Functions (ADFs) added to toolbox
+*** Creates self.pset to store primitives/ADFs
+****Initialized by adding MAIN primitive to self.pset
+*setObjective(self, objectivesDict) and setDatasets(self, datasetDict)
+**Both assign their one argument as a class attribute
+**setObjectives uses objective bounds to define area for hypervolume (AUC) calculations
+**setDatasets creates constructs a deap creator,Individual, adds its fitness attributes, and adds it to the toolbox
+***Also registers the following to the toolbox: population (list of inds), selection algorithm, tournament algorithm, mating/mutation functions, evaluation functions, and misc function used to modify individuals.
+
+* buildClassifier(self)
+**Actually loads datasets using arguments from self.datasetDict()
+**Uses different loading function based on type of data
+**Loads datasets and metadata into EmadeDataPair object, which is assigned to self.datasetDict[dataset name]['dataPairArray']
+
+**Target data for test set is assigned to self.datasetDict[dataSet name]['truthDataArray'] + "truth data" datapair attribute 
+**Test set's target data is overwritten in the datapairs(s)
+
+*Helper Functions Used in EMADE.py
+** handleWorker(func, dataPair, return_dict, my_queue, ind_hash)
+***Purpose: Execute evaluation method in separate process and store within return_dict
+***Used By: evaluate_individual
+***Nested method: sigterm_handler_sub(signal, frame)
+***Terminates the evaluation process upon completion of evaluation
+
+**setObjectives(self, objectivesDict)
+***Purpose: Construct 3 tuples to define the space of our objective goals and achievability along with our weights for each
+***Affects FitnessMin within toolbox
+***Affected variables:
+****LROI: a hypercube defining the minimum acceptable objective values
+****SROI: a hypercube defining where solutions are known to be possible
+***Args: objectives_dict <= defined in launchEMADE.py
+
+**setDatasets(self, datasetDict)
+***Purpose: Registers the majority of the toolbox methods to be used
+***Args: datasetDict <- defined in launchEMADE.py
+***Notable assignments
+****self.toolbox.register("evaluate", evaluate)
+****self.toolbox.register("mutateSwapLayer", emade_operators.swap_layer)
+****self.toolbox.register("mutateAddLayer", emade_operators.add_layer)
+****self.toolbox.register("fitnessScale", HCDScaleMin)
+**my_str(individual)
+***Useful header when developing
+***Purpose: Return the string representation of an individual
+***Args:
+****Individual object
+*Mating/Mutation Functions
+**swap_layer(individual, upset)
+***Purpose: Randomly replaces a non-IO layer from an NNLearner with another layer
+**cx_ephemerals(ind1, ind2)
+***Purpose: Randomly select in each individual and exchange each subtree with the point as root between each individual.
+**swap_layer swaps a a single layer as opposed to cx_ephemerals swaps entire subtree.
+**concat_healer(individual, pset, oldbranch)
+***Purpose: Ensures newly concatenated layers are initialized within individual object
+*Master Algorithm
+
+
+
+
+
+== AAD General Meeting: Monday, October, 4, 2021 ==
+Each team shared their updates.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evaluation form
+|In-progress
+|10/4/2021
+|10/8/21
+|
+|}
 
 
 

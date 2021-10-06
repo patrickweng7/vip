@@ -2,6 +2,94 @@
 * Name: Rayan Khoury
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
+
+# **September 29th, 2021**
+## **Meeting 6**
+### Class Notes:
+* Presented our powerpoint presentation regarding the titatnic project.
+* Compared MOGP and ML for the same project and made various conclusions 
+* Saw all other groups present and asked questions
+* We were informed to try a crossover on the hof (hall of fame) individuals.
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
+
+# **September 22nd, 2021**
+## **Meeting 5**
+### Class Notes:
+* Discussed projects that were done the previous week. We discovered that the pareto optimal solutions are often lost due to codominance.
+* We were instructed to use Multiple Objective genetic programming to find a set of pareto optimal solutions for the same problem (titatnic).
+* Trees take the same input as the ML model
+* Strongly or loosely typed genetic programming is allowed
+* We are only allowed to use selection, mutation, crossover, however we were not allowed to use any other algorithms. 
+* Write our own genetic loop.
+* Compare pareto fronts of both ML and MOGP
+* Submit our submissions as a group on canvas
+* Create a powerpoint including our findings
+
+### Individual Notes, Group and Individual findings
+* Created Google Colab notebook with same preprocessing as Titanic ML assignment
+* Created an outline for implementation
+    * Selected primitive datasets
+    * Defined evaluation function
+    * Wrote evolutionary loop
+* Worked with strongly typed GP
+* Worked with the NSGA II as selection method
+* We used uniform mutation and and single-objective but we realised that it would not give us the best result. Thus, we referred to cxOnePointLeafBiased and mutNodeReplacement which improved our AUC greatly.
+* Created Hall of Fame (hof) using the best individuals in all generations
+* Predicted survived feature for test.csv
+* Best Learner: FPR = 0, FNR = 0.9122807017543859
+* Findings: 
+    * MOGP was much better than Ml in terms of AUC
+    * MOGP recognized individuals with high FPR and FNR rates, while the learners in the ML Pareto frontier tended to favour higher FNRs and lower FPRs.
+
+![ML vs MOGP comparision](https://picc.io/ITF22eB.png)
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/22/2021|09/15/2021|09/22/2021|
+|Attend group meetings|Complete|09/22/2021|09/15/2021|09/21/2021|
+|Complete model with MOGP|Complete|09/22/2021|09/15/2021|09/20/2021|
+|Complete ppt presentation|Complete|09/22/2021|09/15/2021|09/21/2021|
+
+# **September 15th, 2021**
+## **Meeting 4**
+### Class Notes:
+* Presentation Guidelines and skills:
+    * Make sure title slide has the following:
+        * Clear and appropriate title
+        * List of contributors
+        * Date of presentation
+    * If slides include graphs:
+        * Have a clear title
+        * Label axis and include a readable font
+        * Make sure the Pareto Front lines go the appropriate direction for minimization versus maximization
+    * Include page numbers as you will be able to go back to any given slide at anytime. 
+
+* Introduction to Machine Learning:
+    * Introduced to Kaggle and the titanic project
+    * Use scikit learn for predictors. 
+    * Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
+    * Pandas is the python equivalent of google sheets, it is used to read train.csv and test.csv
+    * Use isna to find N/A values and replace them with averages of their columns (Use this to clean your dataset).
+    * Divide training and testing data according to the following:
+        * x_train: top x rows of train.csv
+        * x_test: bottom(n-x) rows of train.csv
+        * y_train: survived x rows of train.csv
+        * y_test: survived(n-x) rows of train.csv
+* Group project
+    * We were divided into 4 groups were we are supposed to train and test data from the titanic example using different learners and find co-dominant solutions.
+    * Use scikit documentation to learn ML models and get predictions
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/15/2021|09/08/2021|09/14/2021|
+|Join the Group slack|Complete|09/15/2021|09/08/2021|09/10/2021|
+|Attend group meetings|Complete|09/15/2021|09/09/2021|09/12/2021|
+|Complete model with learner|Complete|09/15/2021|09/08/2021|09/14/2021|
+
+
 # **September 8th, 2021**
 ## **Meeting 3**
 ### Lecture 3 : Multiple Objectives
@@ -34,10 +122,15 @@
             * False Positive (FP) with a FP rate or FPR = FP/N = FP/(FP+TN)
             * True Negative (TN) with a TN rate or TNR = TN/N = TN/(TN+FP)
 * Other measures include:
-    * Precision or Positive Predictive Value (PPV): PPV = TP/(TP+FP) -> Bigger is better
-    * False Discovery Rate (FDR): FDR = FP(TP+FP) = 1 - PPV -> Smaller is better
-    * Negative Predictive Value (NPV): NPV = TN/(TN+FN) -> Bigger is better
-    * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) -> Bigger is better
+    * Precision or Positive Predictive Value (PPV): PPV = TP/(TP+FP) 
+    * False Discovery Rate (FDR): FDR = FP(TP+FP) = 1 - PPV 
+    * Negative Predictive Value (NPV): NPV = TN/(TN+FN)
+    * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) 
+
+![Maximization](https://picc.io/_AX345W.png)
+
+![Minimization](https://picc.io/sEK6d2x.png)
+
 * Pareto Optimality:
     * An individual is Pareto optimal if there is no individual in the population that outperforms this individual on all objectives
     * The set of all Pareto individuals is known as the Pareto Frontier
@@ -83,10 +176,16 @@
          * The output is produced at the root of the tree, whereas the input is at a terminal (usually in the beginning).
          * An example of a function could be f(x) = 3*4+1. When placed in a tree, the function could be read and executed as follows [+,*,3,4,1]
     * The tree is converted to a "lisp preordered parse tree". This generated by starting from the root and then expanding.
+
+![Tree](https://picc.io/jFjPnv1.png)
+
 5. Crossover in Genetic Programming:
     * Crossover is tree-based through the exchange of subtrees.
     * Is is initiated by picking a random position on any tree. This leads to the exchange of the points and everything under them, creating a subtree.
     * The subtrees are exchanged to produce children.
+
+![Crossover in GP](https://picc.io/p0bLTHh.png)
+
 6. Mutation in Genetic Programming:
     * Mutation occurs when inserting, modifying, or deleting a node or subtree
 *  An Example: Symbolic Regression

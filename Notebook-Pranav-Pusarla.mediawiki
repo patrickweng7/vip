@@ -57,6 +57,8 @@
 *Defined our mutation function as a shuffle function since we cannot change any of the numbers since they represent column values on board
 **Made my own mutation function switching first and last if probability lower than indpb
 
+[[files/ppusarla3/NQueens_graph.png|height=300px]]
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -232,6 +234,9 @@
 *For now, I'll stick with reducing ngen and lambda and see what happens
 *Reducing ngen from 50->25 and lambda from 100->50 gives us an AUC of 2.39
 
+[[files/ppusarla3/GP_bestTree.png|height=300px]]
+[[files/ppusarla3/GP_auc.png|height=300px]]
+
 '''<u>Self-Evaluation Rubric</u>'''
 Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp=sharing
 
@@ -259,6 +264,13 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 == September 15, 2021 ==
 === Class Notes: ===
 *Went over example titanic data processing notebook
+*Started by reading in the training and testing data sets from Kaggle
+**Split the training data set into X_train, X_test, y_train, y_test
+**X_test and y_test are part of the training data set but will be used for validation
+*Preprocessed data to remove irrelevant columns and replace any N/As
+**Foreshadowing one hot encoding the columns for Gender, Embarked
+*Imported and used classifiers from sklearn to run on the data set and get results
+*Plotted the confusion matrix to get the false positives and false negatives
 
 === Group Project Notes: ===
 *We started by going over the current pre-processing that was used in the example notebook
@@ -266,6 +278,7 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 *We also changed the random state to one that our whole group uses so we could get aligned results
 *Once we finished the preprocessing, we each picked an algorithm and ran the model to get the designated results
 **I picked gaussian process classifier and was able to tune the parameters (changing kernel) to get better results
+
 '''Results:'''
 {| class="wikitable"
 !Name
@@ -320,6 +333,8 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 **To solve this, we just created our own select tournament function that compares both values when choosing a winner
 *We also used hyperparameter optimization to try and find parameters that lowered the AUC and out-pareto the ML models
 
+[[files/ppusarla3/MLvsGPparetoFront.png|height=300px]]
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -339,4 +354,30 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |September 22, 2021
 |September 29, 2021
 |September 28, 2021
+|}
+
+== September 29, 2021 ==
+=== Class Notes: ===
+*We did group presentations based on our multi-objective evolutionary algorithm
+*I think one thing I observed is that many teams used boolean terminals
+**We did something different where we just created a boundary so anything over 0 was a 1 and under 0 was a 0
+*One thing that we missed in our algorithm that I saw in a few teams was adding constants so that our tree was not just the different operations on the inputs 
+*Some of the teams evaluation functions were very interesting
+**One team used the length of the tree * 20 + the squares of the false positives and false negatives
+**Our evaluation function was just the false positives and false negatives, looks like squares penalizes more
+*It looks like NSGA-II didn't work as well but could work better if combined with a custom selection algorithm
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update VIP Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 6, 2021
 |}

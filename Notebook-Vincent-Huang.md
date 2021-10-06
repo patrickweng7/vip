@@ -15,6 +15,34 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 |Investigate add_all_subtrees problem|
 |Do runs of extended ARLs|
 
+Currently at index 2
+Generated ARL:
+ arl5 : lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,-6,arl_arg_1),arl_arg_2))
+examining subtree (('Learner', 1, 2, -1), ('ARG0', 0, 0, 0))
+Currently at index 0
+Currently at index 1
+Ignoring inter-generation duplicate lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
+Updateing PSET Representation with 2 arls
+	arl4:
+lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
+Args in:  (<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>)
+	arl5:
+lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,-6,arl_arg_1),arl_arg_2))
+Args in:  (<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>)
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
+Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+Contracting ARL
+len individual before removal 6
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [3, 2, 1]
+len individual after removal 3
+individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> arity 3 newarity 1
+len individual after arl insert 4
+individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
+occurrence!  68 ((('Learner', 1, 2, -1), ('EqualizeHist', 1, 3, 0), ('-6', 0, 0, 1)), 0)
+
 ### Week 5: Sep 20
 
 unpickling data results in

@@ -4,18 +4,158 @@ Name: Xufei Liu
 
 Email: xliu725@gatech.edu
 
-Interests: Operations research, machine learning, bucket brigades
+Interests: Operations research, machine learning, combinatorics, stochastic processes
 
 = Fall 2021 =
 Subteam: Modularity 
 
 Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vincent Huang], [https://github.gatech.edu/emade/emade/wiki/Notebook_Angela_Young Angela Young], [https://github.gatech.edu/emade/emade/wiki/Notebook_Bernadette_Gabrielle_Santiago_Bal Bernadette Bai]
 
+== October 1, 2021 ==
+
+====== Lecture Notes ======
+* Peer evaluations due next week and open on Monday
+* Modularity
+** Depth is increased but Vincent still has to debug
+** Having trouble logging into the sql node, but could only sometimes connect
+*** Potential check: SQL might not let us connect based on what node we're connecting from, need to change sql settings
+*** Check the accounts that we made with wildcard host, we want user@% host.
+*** mysql -h nodename -u username -p
+*** Want username to be xliu725, but if we go to the node that we see that logging in locally (localhost), we get two users from two nodes
+** 'xliu725'@'%'
+** https://docs.pace.gatech.edu/interactiveJobs/interactive_cmd/ (may want an interactive job if we can't ssh)
+* Stocks
+** Team split up
+** EMADE full individuals are a length of list 4
+** Various crossovers allow you to cross over multiple individuals
+*** Can also crossbreed
+
+====== Action Items ======
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Peer evaluations due
+|Incomplete
+|10/1/2021
+|10/8/2021
+|
+|-
+|Clean up notebook
+|Incomplete
+|10/1/2021
+|10/8/2021
+|
+|-
+|Uploade new emade-cloud folder to google collab
+|Incomplete
+|10/1/2021
+|10/8/2021
+|
+|-
+|}
+
+== September 24, 2021 ==
+
+====== Subteam Meeting 9/25 ======
+* Continued to work to set up PACE
+** Found out walltime is 8 hours - worried that we can't get long-enough runs
+** May transition back to google collab for now
+* Bernadette and I managed to connect to our database for a minute before getting kicked out again. Will continue to work on this issue
+** Currently working on fixing the MNIST dataset as well
+* Vincent is looking into an error in the adf.py codebase that I may try to help debug as well.
+* Bernadette managed to merge the stocks team dataset and evaluation functions with our codebase on Vincent's github branch found here: https://github.gatech.edu/vhuang31/emade
+
+====== Personal Exploration ======
+* Currently working on setting up the rest of PACE-ICE
+** Managed to start an instance of the database but can't verify that it works
+** Keep getting error when I run mysql -h atl1-1-02-012-5-l
+* Connected for a moment once more but couldn't get it to function continuously
+* Working on getting emade into database as well
+** Recloned emade from Vincent's branch using git clone
+** Working on using SCP to get emade onto pace.
+** Code is: scp -r emade xliu725@pace-ice.pace.gatech.edu:~
+
+====== Action Items ======
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Figure out how to connect to the database and verify connection
+|Complete
+|9/24/2021
+|10/1/2021
+|9/30/2021
+|-
+|}
+
+
 == September 17, 2021 ==
 
-====== Subteam Meeting 9/23 ======
+====== Lecture Notes ======
+* Things we need to do for the next meeting dealing with images
+** Check out our branch
+** Make a subfolder for our images
+** Change it locally 
+** Push changes
+* PACE-ICE work
+** /storage/home/hpaceice1/shared-classes/materials/vip/AAD
+** Numhosts is how many workers are needed to run
+** Workers per host is number of subprocesses
+* Stocks
+** Working on recreating their paper 
+* Modularity 
+** Currently working on runs with mnist dataset
+** Issue with MacBooks trying to unpack files and messing up Google collab
+** Look at runs with stocks dataset in the future to see if that works
+** Potentially look at Jason’s algorithm when looking at mnist data
+** Not enough generations last semester which may have caused our messed up pareto fronts
 
-*Working together to set up PACE-ICE for emade.
+====== Subteam Meeting 9/23 ======
+* Working together to set up PACE-ICE for emade.
+** Can't connect to our cluster when we're trying to check the database
+** Figured out how to run the database and connect to PACE-ICE
+
+====== Personal Exploration ======
+* Working on installing PACE-ICE and getting it set up. Below are the commands that are run and debugging done (link with instructions is at https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE):
+** First I ssh'd into pace from terminal
+** Created the scratch folder and db folder within scratch
+** Had issues with the .my.cnf file and transferring it to pace using SCP
+*** Also needed to change the "USERNAME" to "xliu725".
+*** Instead, connected to PACE first and used vim to create the .my.cnf folder in the ~ directory by copying and pasting.
+** Ran mysql_install_db --datadir=$HOME/scratch/db
+** entered the user folder and started local MySQL instance
+*** mysqld_safe --datadir='/storage/home/hpaceice1/xliu725/scratch/db'
+* However, got stuck on the step where we're trying to check whether the database is working or not. Unsure why the command of mysql -h atl1-1-02-012-5-l won't work.
+
+====== Action Items: ======
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Look into PACE-ICE issues with .my.cnf
+|Complete
+|9/18/2021
+|9/23/2021
+|9/24/2021
+|-
+|Find the MNIST error with datasets
+|Complete
+|9/18/2021
+|9/23/2021
+|9/24/2021
+|-
+|}
 
 == September 10, 2021 ==
 
@@ -134,7 +274,7 @@ Comments: Could add more links and write more about personal exploration. Curren
 |Incomplete
 |9/3/2021
 |9/10/2021
-|
+|Removed
 |-
 |Email Zutty about moving the meeting times
 |Complete

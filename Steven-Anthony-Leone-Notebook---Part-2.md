@@ -5,15 +5,57 @@
 <b>Cell Phone:</b> (412)-378-7253 <br>
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
 <b>Sub Team:</b> NLP <br>
-<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang
+<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang, George Ye, Rishit Ahuja
 
 
 # Fall 2021
+
+## Week 6
+### General Meeting Notes
+* Stocks: 
+* * The stocks team was dissolved this week
+* Image Processing:
+* * Working on NSGA-III implementation, Hyper-feature & Primitive Packaging, and more mating and mutation functions.
+* Modularity: 
+* * Identified a bug that was causing crashes. 
+* * Working through getting everyone setup to do PACE-ICE runs
+* NAS:
+* * Looking into writing to disk
+* * Discussed introducing weight sharing to the existing NNLearner evolution process in EMADE
+* * Completed the Run-Resume feature
+* NLP:
+* * We presented our plan to implement QA systems into EMADE.
+* * We received feedback from Anish, and decided to just overload NNLearner with two EMADE data pairs.
+
+### Sub Team Meeting Notes
+* We received two new members, as the stocks team was dissolved
+* We focused on our tasks, and assigned everyone to start trying to get the SQUAD dataset loaded in.
+* I made a quick presentation on what we're trying to do this semester, and referred our new members to my notebook to look at the current state of research.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Create new XML and data load functions for QA in EMADE | In Progress | 09/27/2021 | ... | 10/10/2021 |
+
+
 ## Week 5
 ### General Meeting Notes
-* We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
-* Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
-* I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
+* Stocks: 
+* * Still determining the semester goal, whether it will be Stock generalization or fundamental analysis
+* * Found a couple more interesting papers
+* Image Processing: 
+* * Looking into NSGA-III and Lexicase as selection models.
+* * Will compare performance with the ChexNet paper
+* Modularity: 
+* * Achieved ARL's with depth > 2 for the first time, checking off a big semester goal
+* * Looking into more improvement now.
+* NAS:
+* * Debugged EMADE issues
+* * Members are responsible for finding and debugging work once EMADE is setup on PACE-ICE
+* NLP: 
+* * We informed the team of our progress, including selecting objectives. We decided that previous models using num params vs an accuracy objective weren't quite diverse enough. Adding other objectives will allow a better tradeoff space that will lead to diverse models.
+* * Having decided on our objectives and analyzed the dataset, we then had to tackle the building blocks of a QA system. The biggest challenge with them is how there are two inputs, the context and the query.
+* * I would research the current state of the nn-vip EMADE branch and present a best strategy for implementing a QA system.
 
 ### Sub Team Meeting
 * I presented to the sub team the information I compiled on NNLearners, shown in the section underneath Action Items, and how we could use them for QA systems.
@@ -23,7 +65,7 @@
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/22/2021 | 09/22/2021 |
-Research creating a new type of data pair | In Progress | 09/20/2021 | ...  | 10/03/2021 |
+Research creating a new type of data pair | Complete | 09/20/2021 | 09/27/2021  | 10/03/2021 |
 
 
 ### Researching NNLearners and how to implement QA
@@ -42,8 +84,22 @@ Research creating a new type of data pair | In Progress | 09/20/2021 | ...  | 10
 <img width="962" alt="Screen Shot 2021-09-13 at 7 11 24 PM" src="https://github.gatech.edu/storage/user/27405/files/6e678180-14c6-11ec-811b-bb9acf9a8258">
 
 ### General Meeting
-* We updated the team on our progress.
-* 3/5 of our members have gotten EMADE on PACE setup.
+* Stocks: 
+* * Conducting a literature review to find new ideas of what to implement.
+* * Their team also found a good resource on genetic programming generated trading.
+* Image Processing: 
+* * Defined goals and tasked themselves.
+* * Focusing on multi-label image classification
+* * Image classification or object detection are their overarching goals.
+* Modularity:
+* * Still coming up with goals for the semester.
+* * Potential areas of improvement include new models, selection methods, ARL Database storage, and more depth in ARL's.
+* Neural Architecture Search:
+* * Presented information about neural architecture search to new members.
+* * Came up with 6 different potential improvements, including triviality detection
+* NLP: 
+* * We updated the team on our progress.
+* * 3/5 of our members have gotten EMADE on PACE setup, and we're moving into a literature review of Question Answering Systems.
 
 ### Sub Team Meeting
 * We gave our updates on the assigned tasks so far

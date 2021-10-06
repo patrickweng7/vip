@@ -7,15 +7,18 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
-== September 27th, 2021==
+== October 4th, 2021==
 '''Main Meeting Notes:'''
-* Dr. Zutty wasn't present, so the team met with Anish to discuss a way to leverage EMADE architecture to create datapairs structured as "((Context, Query), Answer/Label)". We initially went with an approach of inventing our own datatype, but that would cause us to go in and modify each later in the "neural_networks_methods.py" script. Instead of inducing that risk, Anish suggested that we have an overloaded "nn_learner" method to take in "two inputs" and perform embedding separately and then do BiDaf on the context and query. 
-
-* Link to image of architecture Anish proposed: https://drive.google.com/file/d/16sbKZ2JRheoqeHsNChpx3daltsVClF0K/view?usp=sharing
+* Dr. Zutty told us that he's looking for the functionality in Cache V2 branch to generate multiple EMADE Data Pairs (since we have a context and query)
+* We don't want to change the "datasetDict" variable in "data.py" script since that variable is used throughout, so we want to use already existing functionality to minimize our risk and save debugging time
+* Steven wrote up a "load_qa_data_from_file()" that returns the question, context columns
 
 '''Subteam Meeting Notes:'''
-
-'''Individual Notes:'''
+* Still waiting on Dr. Zutty to get the code supporting the functionality of loading in multiple EMADE Data Pairs at once
+* "standalone_tree_evaluator.py" script can be thought of as a unit test to evaluate one individual (skip the evolutionary steps)
+* Two main subtasks: 
+1. Familiarizing ourselves with CacheV2 branch. Once we know where the functionality of loading in multiple EMADE Data Pairs is, we need to merge that functionality into "nn-vip branch"
+2. Coming up with seeded individuals to test according to literature on SqUad dataset
 
 '''Action Items:'''
 {| class="wikitable"
@@ -25,11 +28,62 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Suspense Date
 !Date Resolved
 |-
-|Design nn_learner method for context + query inputs
+|Reading through CacheV2 Branch and identifying differences between that barnch and nn-vip branch
 |Not yet started
-|September 29th, 2021
-|October 4th, 2021
+|October 6th, 2021
+|October 13th, 2021
 |
+|-
+|}
+
+
+
+== September 27th, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty wasn't present, so the team met with Anish to discuss a way to leverage EMADE architecture to create datapairs structured as "((Context, Query), Answer/Label)". We initially went with an approach of inventing our own datatype, but that would cause us to go in and modify each later in the "neural_networks_methods.py" script. Instead of inducing that risk, Anish suggested that we have an overloaded "nn_learner" method to take in "two inputs" and perform embedding separately and then do BiDaf on the context and query. 
+
+* Link to image of architecture Anish proposed: https://drive.google.com/file/d/16sbKZ2JRheoqeHsNChpx3daltsVClF0K/view?usp=sharing
+
+'''Subteam Meeting Notes:'''
+
+'''Individual Notes:'''
+* Solidifed our approach with Anish's help.
+
+* Want to build an overloaded "NNLearner" function that takes in "Emade Data Pair" for Question and "Emade Data Pair" for Context
+
+* General Steps:
+    1. XML File for SqUAd Dataset (EMADE.py file to get dataset in)
+        - "loadSquadDataset()" function + identification of return type
+        - "buildClassifier()" function
+    2. Input Layers ("QueryInputLayer" object + "ContextInputLayer" object) for neural_network_methods.py
+* Trello Board Link: https://trello.com/b/6lcDBEj1/distilling-qa-systems-with-emade
+* Subteam decided to migrate to a new repo for QA type work. Need to ask Steven on Monday how I should set up my environment
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Design XML + build_classifier() function pipeline for SqUAd dataset
+|Completed by Steven
+|September 29th, 2021
+|October 6th, 2021
+|October 6th, 2021
+|-
+|Ask Steven on Setup for new Repo for NLP subteam (fork of emade)
+|Already completed. I don't need to work on the fork of EMADE
+|September 30th, 2021
+|October 4th, 2021
+|October 4th, 2021
+|-
+|Complete Peer evaluation
+|Completed
+|October 4th, 2021
+|October 8th, 2021
+|October 4th, 2021
 |}
 == September 20th, 2021==
 '''Main Meeting Notes:'''

@@ -16,9 +16,115 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
+== October 4, 2021 ==
+
+== September 27, 2021 ==
+* Overview of Tasks
+** create our own fork so we have more control over pushing/code reviews and such
+** import SQUAD dataset into the database
+** look into possibly creating our own input layer and data types to be able to split up the query and context data
+** overload NNLearner method to accept multiple data pairs (query and context data)
+** integrate these changes and figure out what else we need to actually get EMADE to run
+* My Task
+** Figure out how to get NNLearner to accept multiple data types
+** Instead of overloading the method, I added an optional data_pair_2 parameter to NNLearner
+** Also, to clean up the clutter in the massive NNLearner method, I moved some of the logic to their own functions
+* Other
+** onboarding new additions from old Stocks team
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Modify NNLearner to accept a second data pair
+|Complete
+|September 27, 2021
+|October 4, 2021
+|October 4, 2021
+|-
+|De-clutter NNLearner by moving commonly used/logically related components into their own functions
+|Complete
+|September 27, 2021
+|October 4, 2021
+|October 4, 2021
+|-
+|Modify NNLearner to pass in query and context separately
+|Complete
+|September 27, 2021
+|October 4, 2021
+|October 4, 2021
+|}
+
+== September 20, 2021 ==
+* Overview of Tasks
+** Research the SQUAD (Stanford Question Answering Dataset) dataset as a potential 
+** Implement objective functions, such as the f1 objective function: https://github.com/white127/SQUAD-2.0-bidaf/blob/master/evaluate-v2.0.py
+** Currently, EMADE only seems to support passing in the same version of training data into each input layer -- however, we want to split up the query and context into distinct parts before passing them into distinct input layers, so that any relation between the two would be decided at the attention layer and not mixed up beforehand
+** Brainstorm how and where to split the query and context -- in a special input layer, or before the model is fitted to the training data?
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Research the how BiDAF (Bidirectional Attention Flow) works and how EMADE can generate better BiDAF models
+|Complete
+|September 20, 2021
+|September 27, 2021
+|September 27, 2021
+|-
+|Understand how NNLearner splits up and preprocesses data for other tasks, like text or images
+|Complete
+|September 20, 2021
+|September 27, 2021
+|September 27, 2021
+|-
+|Run EMADE more to understand how EmadeDataPair holds training/test data
+|Complete
+|September 20, 2021
+|September 27, 2021
+|September 27, 2021
+|}
+
 == September 13, 2021 ==
 * Self Grading Rubric
 ** https://gtvault-my.sharepoint.com/:w:/g/personal/kzheng74_gatech_edu/ERpSxhU7bTJHnC2plb5hZ-YBw8GXk3oq1evTbLDQYTu7Xg?e=taaRzy
+* EMADE
+** Read the neural_networks_methods.py, EMADE.py, and data.py files to understand where EMADE mutates/mates individuals, what layer or data types we would need to port over from keras into EMADE, and how each individual is trained/tested.
+* NLP
+** Understand how the query and context can be processed before going into the attention layer and an output is produced
+** Read https://arxiv.org/pdf/1611.01603.pdf and https://web.stanford.edu/~jurafsky/slp3/23.pdf and understand at a relatively high level how each layer finds important relations between words, phrases, and lines.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Read the two NLP papers and additional resources (other papers, keras documentation)
+|Complete
+|September 13, 2021
+|September 18, 2021
+|September 20, 2021
+|-
+|Trace the code to figure out what data types 
+|Complete
+|September 13, 2021
+|September 20, 2021
+|September 20, 2021
+|-
+|Add comments in the code to document what data types arguments, variables, and return types are
+|Complete
+|September 13, 2021
+|September 25, 2021
+|September 27, 2021
+|}
 
 == September 6, 2021 ==
 * NLP Problems
@@ -36,8 +142,8 @@ Team members:
 !Task
 !Current Status
 !Date Assigned
-!Suspense Date
 !Date Resolved
+!Suspense Date
 |-
 |SSH into PACE-ICE
 |Complete
@@ -46,27 +152,21 @@ Team members:
 |September 13, 2021
 |-
 |Start database server on PACE
-|In Progress
+|Complete
 |September 6, 2021
-|
+|September 10, 2021
 |September 13, 2021
 |-
 |Run EMADE on PACE
-|In Progress
+|Complete
 |September 6, 2021
-|
-|September 13, 2021
-|-
-|Run EMADE on PACE
-|In Progress
-|September 6, 2021
-|
+|September 14, 2021
 |September 13, 2021
 |-
 |Read research papers about BERT
-|In Progress
+|Complete
 |September 6, 2021
-|
+|September 14, 2021
 |September 13, 2021
 |}
 

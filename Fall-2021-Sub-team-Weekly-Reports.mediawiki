@@ -7,6 +7,13 @@ Wednesdays at 5:45p (hybrid style)
 
 [https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
 
+=== Week of September 27th - October 3rd ===
+
+* NSGA-III Implementation - Tweak p parameter, test against working datasets
+* Mating/Mutation - New method
+* Trouble with seeds
+* Hyper feature ideas
+
 === Week of September 20th - 26th ===
 
 * Selection Methods
@@ -482,6 +489,36 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Sept 27-Oct 3 ===
+
+* Implemented workaround for add_all_subtrees large individuals bug
+** Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
+** This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
+* Fixed bug regarding incorrect arities in contract_arls
+** Example output
+```
+arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
+Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [3, 2, 1]
+individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new arity 1
+len individual after arl insert 4
+individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
+```
+** Individuals with incorrect arities still appear in the population
+** Problem with occurrences code, not properly including the entire ARL
+* PACE-ICE still causing issues
+** What we thought switching to PACE-ICE could help us with over Google Collab:
+*** Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+*** Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+*** No inactivity clicking script
+*** Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+** Switching back to Google Collab
+** Stocks data has been migrated into our repo and we're now ready to do those runs
+
 === Week of Sept 20-Sept 26 ===
 * Bug causing the crashes has been identified
 ** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
@@ -610,6 +647,14 @@ New Seeds (Used in addition to Old Seeds)
 == NLP ==
 
 Meetings: 2:00 pm on Wednesdays, Virtual
+=== Week of September 27th - October 3rd ===
+* This week we began coding our changes to the infrastructure needed to work with QA problems
+* We redesigned our flow based off of feedback from Anish
+* Karthik provided us with a CSV
+* Steven matched the format of the dataset to be similar to Amazon, and implemented a load_qa_data_from_file
+* Devan created a presentation to catch up 2 new members
+* Kevin worked with the NNLearner to overload it
+
 === Week of September 20th - 27th ===
 * This week we designed the primitives/infrastructure needed to tackle the QA problem with EMADE.
 * There are two major issues, which we designed solutions for. The problems are as follows:
@@ -975,4 +1020,13 @@ Meetings: 2:00 pm on Fridays, Virtual
 * Before concluding, Connor requested that we have a meeting to help he and other members get a better understanding of EMADE directories and the evolution process.
 * Cameron Whaley has completed the run resume feature but we want to test it and determine success on results.
 
+=== Week of September 27th - October 1st ===
+* This meeting ran for the allotted hour and consisted of mainly team updates along with a work session.
+* Earlier in the week, a session was held in which team members got a better understanding of the evolutionary algorithm within EMADE.py. Cameron Whaley and Cameron Bennett cohosted the presentation and made a recording available [https://bluejeans.com/playback/s/SGxxpyPUJ5s0nYcJr3u8YIFWMHURHhIdWlyRUsbp6a90TRncYZaBXubs33FwJxj4 here].
+* This presentation covered the EMADE Object as a whole and sub methods such as create_representation, setObjectives and buildClassifier. In addition, we covered some helper methods within the EMADE object which might be useful for people debugging in emade such as: handleWorker, my_str and my_similar.
+* Our presentation included a couple of mating/mutation methods that we thought would be relevant for our team such as: swap_layer, cx_ephemerals and concat_healer. 
+* Finally, we finished off by going through the entirety of the main master algorithm loop within EMADE.py. This included a discussion of the different arguments within the master algorithm such as MUTPB, CXPB and reuse. Different chunks of the main loop were explained such as the one which handles creation of new individuals.
+* The remainder of the presentation is available for viewing on the bluejeans link above or [https://docs.google.com/presentation/d/1rVF5gObTu8hWLPCUKir1163ntRXxUsrYoe-9aw6hEog/edit#slide=id.gf4c8a6a88f_0_39 here] on google slides.
+* In addition to this presentation, we held a smaller work session with team member Lucas Zhang in which we talked about how standalone tree evaluator works within the context of his swap_layer task. Cameron Whaley provided him an analyze.ipynb notebook an discussed how he could leverage an existing master.out file full of marked crossover individuals(potentially buggy ones) to reproduce the swap_layer issue that causes individuals to go from properly compiling to failing with message "Tree missing valid datatype for primitive". 
+* Cameron B was unable to make the worksession held at our normally scheduled friday meeting and Cameron Whaley graciously hosted in place.
 [[Category-AAD]]

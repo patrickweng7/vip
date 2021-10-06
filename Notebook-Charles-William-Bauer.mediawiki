@@ -1,8 +1,8 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
-==September 15th, 2021==
-Week 4 focused on the team project using the Titanic Kaggle dataset and libraries pandas and scikitlearn.
+==September 29th, 2021==
+We presented our Titanic project methods and results in Week 6 of bootcamp. We also completed peer evaluations for VIP.
 
 {| class="wikitable"
 !Task
@@ -11,7 +11,81 @@ Week 4 focused on the team project using the Titanic Kaggle dataset and librarie
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Project
+|Peer Evaluations
+|Complete
+|10/4/2021
+|9/29/2021
+|9/29/2021
+|-
+|Titanic Project Presentation
+|Complete
+|9/29/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+==September 22nd, 2021==
+In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Project GP
+|Complete
+|9/22/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Group work: On 9/23, the team developed a conceptual understanding of the assignment, drafted a plan, and decided on a primitive set for the GP (1.75hr). On 9/26, we finalized Aditi's evaluation function, tested the results on different trees, and discussed the evolutionary loop (2hr). The morning of Tuesday 9/28, I demonstrated my evolutionary loop to the team and we identified constants and functions that could change the accuracy (1.25hr). That evening, we reviewed our work, decided on final constants and functions, and created our presentation (2hr). Aditi added a plot of the average FPR and FNR for each generation. Wednesday 9/29 morning, we corrected each other's slides and practiced our presentation (1hr). 
+
+  def eval(individual, samples, y_truth, pset):
+    func = gp.compile(expr=individual, pset=pset)
+    y_pred = [func(*samples[x]) for x in range(len(samples))]
+    cnf_matrix = confusion_matrix(y_truth, y_pred)
+    return (cnf_matrix[0][1], cnf_matrix[1][0])
+
+<plot7>
+
+<plot8>
+
+Individual work: After our first meeting, I created an evaluation function, which was not used in the final group code, and researched NSGA2 selection. After the evaluation function was completed in our second meeting, I wrote the evolutionary loop, pareto front plot, and predictions.csv output of the pareto optimal individuals compiled on test.csv. One unique feature I implemented was the use of a ParetoFront object collect pareto optimal individuals from each generation, excluding trees with duplicate fitness (fp, fn):
+
+  hof = tools.ParetoFront(similar=lambda this, other : eval(this, X, pset) == eval(other, X, pset))
+  for each generation:
+    evolve pop
+    hof.update(pop)
+
+Registered functions and constants:
+  select: selNSGA2
+  mate: cxOnePointLeafBiased
+  max_height = 7
+  pop_count = 300
+  num_gen = 50
+  mate_prob = 0.5
+  mut_prob = 0.1
+
+==September 15th, 2021==
+Week 4 focused on the team project using the Titanic Kaggle dataset, preprocessing, and scikitlearn machine learning algorithms.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Project ML
 |Complete
 |9/15/2021
 |9/22/2021
@@ -21,6 +95,8 @@ Week 4 focused on the team project using the Titanic Kaggle dataset and librarie
 
 ===Titanic Project===
 Group work: Met with Aditi on Saturday 9/18 to discuss preprocessing. We decided to drop Cabin, use OneHotEncoder for Embarked, and fill the null Age values with an average of their PClass's Age. On Sunday, I met with Aditi and Rayan K to discuss the preprocessing more. On Tuesday evening, all four of us met to form our pareto front but the Rayan's hadn't made their classifiers yet so we worked on the null values produced from our OneHotEncoder. On Wednesday we used our Google Collaboratory files and GroupMe chat to finalize the pareto front.
+
+<plot6>
 
 Individual work: Before the Saturday meeting, I looked more at the data (head, tail, corr, isna, isna.sum) and implemented my MLPClassifier. After the meeting, I implemented OneHotEncoder and copied the rest of Aditi's preprocessing including the use of re to fill Ticket values. On Wednesday, I also modified the parameters of my learned to predict 0s most of the time to easily fit the low false positives and high false negatives in the group pareto front.
 
@@ -62,11 +138,11 @@ Week 3 focused on how to compare the quality of evaluations using confusion matr
 ===Lab 2 Part 2: Multi-Objective Optimization===
 Multiple Objectives: We made a new, more complex evaluation function by including sin, cos, and tan as primitives and include a second objective, the tree size. We created a pareto dominance function to compare the fitness of two individuals. We created a 300-individual population and sorted it by comparison to a separate individual. The objective space separated into dominators, dominated, and others as shown:
 
-<plot 3>
+<plot3>
 
 Our genetic algorithm was a mu plus lambda algorithm with mu individuals selected for the next generation and lambda children produced at each generation. We the evolution (for the third in this notebook):
 
-<plot 4>
+<plot4>
 
 The success of the algorithm was inversely measured by the least squares area under the curve (AUC) of our pareto front (shown in red below in the plot of mean squared error by tree size after the evolutionary algorithm). The original lab algorithm produced AUCs between 2 and 5. I'm not quite sure but I think changing my mu to 100 decreased the AUC.
 

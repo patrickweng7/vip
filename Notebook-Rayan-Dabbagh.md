@@ -6,10 +6,35 @@
 
 * Phone number : 4049368747
 * Personal e-mail : rayan.dabbagh@gmail.com
+* Please find the reference materials by clicking on this link: https://github.gatech.edu/emade/emade/
                                                       
 # **Automated Algorithm Design**
 
 _GitHub: github.gatech.edu/emade/emade_
+
+## Lecture 6: Presentation day
+
+During presentation day, each group walked through his project in front of the class, and answered questions on diverse topics covered in the powerpoint. It was a good way to develop basic presentation skills while at the same time explain complex topics orally.
+I benefitted a lot from the presentation in Lecture 5 which thought us the art of presenting information to an audience. 
+I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
+
+I worked on the data preprocessing part in the project : The process of transforming raw data into an understandable format for any audience. 
+
+My team's preprocessing experimentation can be found in the link : https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
+
+**Data preprocessing:**
+
+![ML vs MOGP comparision](https://picc.io/0tb7Fw_.png)
+
+**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals. He also explained that NSGA II truncates any individual past the "k"th index in the list of selected individuals. Therefore, shuffling the individuals would have let individuals to enter the hall of fame throughout the evolutionary loop.
+
+**Action Items:**
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
+
+Link to my presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit#slide=id.gf4beb00e17_2_0
 
 ## Lecture 5:
 
@@ -24,6 +49,12 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * Our goal now is to improve on the accuracy of our algorithms.
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch up on our individual works.
+
+**Group results showing the Pareto Front in Machine Learning and Genetic Programming (Approved by professor):**
+
+![ML vs MOGP](https://picc.io/Efh2aD-.png)
+
+One recommendation from the professor was to overlap the two graphs to better show the difference between them.
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -143,7 +174,9 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
 * _Classification Measures:_
 
     * A data set made of positive and negative samples is inserted in a classifier which gives out one of the following results:
-        
+     
+![ML vs MOGP comparision](https://picc.io/v3yar4H.png)
+
 1- _Actual Positive:_
 
     * True Positive (TP) with the TP rate or TPR = TP/P = TP/(TP+FN)
@@ -161,12 +194,16 @@ _Go ahead and rate your skills in ML and Python (used for group forming)_
     * Negative Predictive Value (NPV): NPV = TN/(TN+FN) -> Bigger is better
     * Accuracy (ACC): ACC = (TP+TN)/(P+N) = (TP+TN)/(TP+FP+FN+TN) -> Bigger is better
 
+![ML vs MOGP comparision](https://picc.io/cLCDK7C.png)
+
 * _Pareto Optimality:_
 
     * An individual is Pareto optimal if there is no individual in the population that outperforms this individual on all objectives
     * The set of all Pareto individuals is known as the Pareto Frontier
     * These individuals represent unique contributions
     * We want to drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some probability of mating.
+
+![ML vs MOGP comparision](https://picc.io/Y_KaZQG.png)
 
 * _Strength Pareto Evolutionary Algorithm:_
 
@@ -210,6 +247,8 @@ The scores are the following:
     * Nodes are called primitives and represent functions
     * Leaves are called terminals and represent parameters.
 
+![ML vs MOGP comparision](https://picc.io/7qfqxz8.jpg)
+
 **How is the Tree Stored?**
 
     * The tree is converted to a lisp preordered parse tree
@@ -227,9 +266,13 @@ The scores are the following:
     * Start by randomly picking a point in each tree
     * The subtrees are exchanged to produce children
 
+![ML vs MOGP comparision](https://picc.io/CdIpXke.png)
+
 **Mutation in GP:**
 
     * Mutations can involve: Inserting a node or subtree, deleting a node or subtree, changing a node.
+
+![ML vs MOGP comparision](https://picc.io/nJvcctx.png)
 
 **Example: Symbolic Regression**
 
@@ -237,6 +280,10 @@ The scores are the following:
     * Primitives include: +, *, -, /
     * Terminals include integers and x
     * How did Calculus 1 solve this?  Taylor Series for sin(x)!
+
+Example of tree representing the Symbolic Regression Tree:
+
+![ML vs MOGP comparision](https://picc.io/KT2Dkiu.jpg)
 
 **Evaluating a tree:**
 
