@@ -26,7 +26,7 @@ My team's preprocessing experimentation can be found in the link : https://drive
 
 ![ML vs MOGP comparision](https://picc.io/0tb7Fw_.png)
 
-**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals.
+**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals. He also explained that NSGA II truncates any individual past the "k"th index in the list of selected individuals. Therefore, shuffling the individuals would have let individuals to enter the hall of fame throughout the evolutionary loop.
 
 **Action Items:**
 
