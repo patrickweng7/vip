@@ -7,6 +7,37 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== October 4th, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty told us that he's looking for the functionality in Cache V2 branch to generate multiple EMADE Data Pairs (since we have a context and query)
+* We don't want to change the "datasetDict" variable in "data.py" script since that variable is used throughout, so we want to use already existing functionality to minimize our risk and save debugging time
+* Steven wrote up a "load_qa_data_from_file()" that returns the question, context columns
+
+'''Subteam Meeting Notes:'''
+* Still waiting on Dr. Zutty to get the code supporting the functionality of loading in multiple EMADE Data Pairs at once
+* "standalone_tree_evaluator.py" script can be thought of as a unit test to evaluate one individual (skip the evolutionary steps)
+* Two main subtasks: 
+1. Familiarizing ourselves with CacheV2 branch. Once we know where the functionality of loading in multiple EMADE Data Pairs is, we need to merge that functionality into "nn-vip branch"
+2. Coming up with seeded individuals to test according to literature on SqUad dataset
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reading through CacheV2 Branch and identifying differences between that barnch and nn-vip branch
+|Not yet started
+|October 6th, 2021
+|October 13th, 2021
+|
+|-
+|}
+
+
+
 == September 27th, 2021==
 '''Main Meeting Notes:'''
 * Dr. Zutty wasn't present, so the team met with Anish to discuss a way to leverage EMADE architecture to create datapairs structured as "((Context, Query), Answer/Label)". We initially went with an approach of inventing our own datatype, but that would cause us to go in and modify each later in the "neural_networks_methods.py" script. Instead of inducing that risk, Anish suggested that we have an overloaded "nn_learner" method to take in "two inputs" and perform embedding separately and then do BiDaf on the context and query. 
@@ -37,16 +68,16 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Date Resolved
 |-
 |Design XML + build_classifier() function pipeline for SqUAd dataset
-|Not yet started
+|Completed by Steven
 |September 29th, 2021
 |October 6th, 2021
-|
+|October 6th, 2021
 |-
 |Ask Steven on Setup for new Repo for NLP subteam (fork of emade)
-|Will do on Monday
+|Already completed. I don't need to work on the fork of EMADE
 |September 30th, 2021
 |October 4th, 2021
-|
+|October 4th, 2021
 |-
 |Complete Peer evaluation
 |Completed
