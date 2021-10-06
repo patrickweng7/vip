@@ -241,6 +241,8 @@ The scores are the following:
     * Nodes are called primitives and represent functions
     * Leaves are called terminals and represent parameters.
 
+![ML vs MOGP comparision](https://picc.io/LIN_QFs.jpg)
+
 **How is the Tree Stored?**
 
     * The tree is converted to a lisp preordered parse tree
