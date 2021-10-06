@@ -69,6 +69,7 @@ Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch),
 Best Learner: FPR = 0, FNR =  0.9122807017543859
 
 MOGP Pareto Front:
+
 ![Genetic Programming Visualization](https://picc.io/Uot-hXd.png)
 
 Findings:
