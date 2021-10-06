@@ -275,6 +275,10 @@ The scores are the following:
     * Terminals include integers and x
     * How did Calculus 1 solve this?  Taylor Series for sin(x)!
 
+Example of tree representing the Symbolic Regression Tree:
+
+![ML vs MOGP comparision](https://picc.io/KT2Dkiu.jpg)
+
 **Evaluating a tree:**
 
     * We can feed a number of input points into the function to get outputs 
