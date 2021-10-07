@@ -361,6 +361,7 @@ To try to reduce the AUC as much as possible I tried the following hyperparamete
 
 From the hyperparameter tuning, it seems that increasing then number of generations and decreasing the mutation probability does not help with the results; however, decreasing the mu slightly from 50-40 decreased the AUC by more than half. This could be because having less individuals per generation eliminates more individuals quicker, thereby decreasing the tree size and making the function simpler. Interestingly, the best individual fitness is higher (which is worse since we are trying to minimize) but since the tree sizes are so small, the AUC is still much lower.
 [[files/dzhang351/lower_AUC.png|thumb|100x100px]]
+From the AUC graph above, we can see that the MSE is not particularly great, but compared to the previous AUC, the second objective (tree size) was greatly reduced which resulted in a reduction of nearly 100%. This means that the in terms of minimizing the squared errors, my updated model was relatively the same, but because of the reduction in complexity of the model and the fact that we are using multiple objectives, my model performed better as shown in a reduction in the AUC.
 
 DEAP GP information
 * using PrimitiveSetTyped() allows for type constraining the input and output of a particular primitive
@@ -369,6 +370,7 @@ DEAP GP information
 
 My self-graded notebook:
 [[files/dzhang351/self-grade-notebook.png|thumb|100x100px]]
+I did not include subteam results as we have not split into subteams yet.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -460,6 +462,7 @@ After repeating sin(x), tan(x) terminals, one interesting observation is the var
 
 An example graph of one particular run of GP is shown below
 [[files/dzhang351/lab2p1.png|thumb|100x100px]]
+As shown in the graph, we can see that the values converge very quickly to a solution. This is good in a sense that we are able to find a good solution very quickly that minimizes fitness, but also could be a problem in some cases. For example on some particular runs, I found that the solution converges to a very suboptimal one (ie: one run produces 1e-16 error while another run produces 0.0026 error) and when it does converge, it doesn't seem to be able to converge to another "more optimal" result. This may be due to the fact that mating through crossovers is not introducing enough genetic diversity after a solutions is found. One potential solution is possibly adding more randomness in crossovers or introducing mutations more when our population has seemed to converge in order to introduce more genetic diversity. 
 
 '''Action Items:'''
 {| class="wikitable"
@@ -545,6 +548,7 @@ After running the final output 5 times, I got a score of 100 3 times, and 99 2 t
 
 The following is my one-max output graph
 [[files/dzhang351/onemax_output.png|thumb|100x100px]]
+As shown from the one max output, since this is a maximization problem, after each generation the score increases for the min, max, and average until it reaches nearly max score.
 
 N-Queens Problem
 
