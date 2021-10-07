@@ -10,6 +10,25 @@
 
 # Fall 2021
 
+## Week 7
+### General Meeting Notes
+* Stocks:
+* Image Processing
+* Modularity: 
+* NAS: 
+* NLP:
+
+## Sub Team Meeting Notes
+* As we are still blocked on merging in the new code to work with multiple EMADE Data Pairs, I took time in the sub team meeting to present on how to test changes to EMADE on PACE-ICE. This involved using scp to transfer files, having an equivalent local copy setup, and running bash reinstall.ish to reinstall GPFramework while in the anaconda environment.
+* Next, we turned our attention to the tasks that will come forward.
+* As a way to get our two new members from the stocks team familiar with QA and NNLearners, I assigned them, and Shiyi, with coming up with some seeded individuals in a tree structure that we could test in standalone_tree_evaluator.py, looking at BiDAF and the SQUAD leaderboard as examples. This would also help us figure out what primitives to write to make QA work.
+* The rest of us would be on the team to get the changed EMADE, with support for multiple data pairs, to work.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Make an EMADE Branch with new CacheV2 and NNLearner functionality | Blocked | 10/03/2021 | ... | 10/10/2021 |
+
 ## Week 6
 ### General Meeting Notes
 * Stocks: 
