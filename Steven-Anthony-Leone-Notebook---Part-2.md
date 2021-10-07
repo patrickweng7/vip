@@ -35,7 +35,17 @@
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Create new XML and data load functions for QA in EMADE | In Progress | 09/27/2021 | ... | 10/10/2021 |
+Create new XML and data load functions for QA in EMADE | Complete | 09/27/2021 | 10/03/2021 | 10/03/2021 |
+
+
+### Creating new XML and data load functions for QA in EMADE
+
+* To implement this functionality, I did another deep dive into EMADE, this time into some of the core functionality of creating the objects that would eventually be used for the evolutionary process and to evaluate individuals.
+* To start, I added a method into data.py titled "load_qa_textdata_from_file". This function is similar to "load_textdata_from_file", but it accounts for two pieces of data that need loaded and represented in the individuals' trees separately, the context and query. This design isn't perfect; it isn't very re-usable for other projects that will use multiple data pairs. We can improve on this design as the semester progresses.
+* The code I made for "load_qa_textdata_from_file" is shown below.
+* (INSERT CODE)
+* Next, I began testing where the code would be ran from, in EMADE.py. 
+* (INSERT CODE)
 
 
 ## Week 5
