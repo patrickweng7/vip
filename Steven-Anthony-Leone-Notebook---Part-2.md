@@ -13,10 +13,17 @@
 ## Week 7
 ### General Meeting Notes
 * Stocks:
-* Image Processing
+** The stocks team was disbanded.
+* Image Processing:
+** Worked on implementation of NSGA-III, and new mutation methods.
 * Modularity: 
+** Will stick with Google Collab instead of PACE-ICE.
+** Fixed bug with incorrect rarities.
+** Will focus on unit testing and code reviews to avoid the same or similar errors from re-occurring.
 * NAS: 
-* NLP: We discussed our progress on loading in the QA dataset to EMADE, and told the team about our blocker with multiple data to be represented in the tree. Dr. Zutty informed us that there has been some progress on this front outside of the VIP; code already existed for multiple EmadeDataPairs. We further elaborated on this in our breakout meeting, discovering that the dataPairArray is a list of lists of EmadeDataPairs. 
+** Informed the team members about the evolutionary process in EMADE.py. Went through the master algorithm loop in EMADE. Discussed mutations and other functions needed.
+* NLP: 
+** We discussed our progress on loading in the QA dataset to EMADE, and told the team about our blocker with multiple data to be represented in the tree. Dr. Zutty informed us that there has been some progress on this front outside of the VIP; code already existed for multiple EmadeDataPairs. We further elaborated on this in our breakout meeting, discovering that the dataPairArray is a list of lists of EmadeDataPairs. 
 
 ## Sub Team Meeting Notes
 * As we are still blocked on merging in the new code to work with multiple EMADE Data Pairs, I took time in the sub team meeting to present on how to test changes to EMADE on PACE-ICE. This involved using scp to transfer files, having an equivalent local copy setup, and running bash reinstall.ish to reinstall GPFramework while in the anaconda environment.
