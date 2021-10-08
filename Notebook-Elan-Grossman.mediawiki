@@ -4,10 +4,89 @@ Team Member: Elan Grossman
 
 Email: egrossman3@gatech.edu
 Cell Phone; 770-595-8339
+Sub Team: [[Bootcamp Subteam 1]]
 
 [[files/Elan_Profile.jpg|thumb|80x80px]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
+
+== October 6th, 2021 ==
+
+'''Lecture Notes'''
+It's finally here! EMADE!!!
+
+Things we covered
+* Configuration of python and mysql db connection
+* Datasets: 
+** Must be saved as csv.gz files
+** Creates a dataset pair for each training and testing set
+** Can use multiple data sets if using k-fold
+* Objectives can be added through the evaluationFunctions.py file
+* We can optimize the algorithm by restricting values or creating upper and lower bounds
+* We can also limit the memory consumption of Emade to 30% of the CPU
+* Can use multiple workers in parallel by using clusters of computers
+** One computer is the master and the rest are workers
+* Paretofront can be found by querying database
+
+Our task:
+* Run Emade algorithm on our titanic dataset for multiple generations
+* Plot Pareto Front on top of ML and GA algorithms
+* Try to use different evaluation functions
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Peer Evaluations
+|In Progress
+|October 4th, 2021
+|October 8th, 2021
+|October 5th, 2021
+|-
+|Get Emade set up locally
+|In Progress
+|October 5th, 2021
+|October 13th, 2021
+|
+|-
+|Use Emade on Titanic
+|Not started
+|October 5th, 2021
+|October 25th, 2021
+|
+|}
+
+== September 29th, 2021 ==
+
+'''Lecture Notes'''
+Each team presented thier research in applying GA to the titanic problem.
+Of interest, these were interesting
+* Using constants in the primitive tree set. I actually tried this, but didn't see an increase or decrease in AUC
+* One team used loosely typed primitives and boolean values in their tree
+* One team penalized the tree hight
+* The use of a Hall of Fame to keep track of individuals that were in the pareto set for previous iterations. This was used to build a better pareto front, but they were suggested to also use them in sampling
+* Penalizing the tree height by multiplying by a constant if it was too large
+* One team took each combination of embarkment and sex and set the null values to the mode of each of the six combinations
+* Some teams used the NSGA II algorithm, but apparently it does not work out of the box as described in class
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Peer Evaluations
+|In Progress
+|October 4th, 2021
+|October 8th, 2021
+|
+|}
 
 == September 22nd, 2021 ==
 '''Team Meeting Notes'''
@@ -31,6 +110,8 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
 Initially, our methods proved a slightly lower AUC using this method than our ML AUC. However, when tweaking the model we were able to get slightly better results and reduced the AUC by 40%. One thing was to play around with the maximum size of the tree. It was initially set to 2 which meant each tree could only have 4 parameters each. My increasing the maximum nodes, it increased performance significantly
 
+[[files/egrossman3/MLvsGA.png|thumb|20x10px]]
+
 '''Extra Credit'''
 For my robotics class, we had an opportunity to implement particle filters for extra credit. I used DEAP to make a modified version of the particle filter algorithm where I used genetic algorithms to randomize and select particles as opposed to using a probability function. It was able to converge much more quickly to the true values, but was not as accurate over time. This is because the robot continues to move, so individuals lose a level of certainty over time and other individuals succeed. However, it does cover a wider range of solutions than the particle filter which converges completely.
 
@@ -50,6 +131,7 @@ For my robotics class, we had an opportunity to implement particle filters for e
 |September 29th, 2021
 |}
 
+
 == September 15th, 2021 ==
 '''Team Meeting Notes:'''
 * We reviewed the Titanic Dataset hosted by Kaggle: [https://www.kaggle.com/c/titanic/data]
@@ -61,6 +143,8 @@ For my robotics class, we had an opportunity to implement particle filters for e
 ** Then the train set was split into a different train and test set for modeling
 ** Multiple models were shown to us without any hyper-parameters set
 * Our goal as a team was to work together to modify the training and test sets and build an algorithm, one for each member, such that each was co-dominate with each other. In other words, no one algorithm would be dominant for number of False Positives and False Negatives, but one or the other
+
+
 
 '''Lab Notes'''
 * The Output of our work is located on our team page [[Bootcamp Subteam 1]]

@@ -7,15 +7,17 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
-== Week 5: September 22, 2021 ==
+== Week 7: October 6, 2021 ==
 === Lecture Notes ===
-* use same preprocessing, folds in data in a genetic algorithm on our Titanic problem
-* not allowed to use preprogrammed algorithms in DEAP
-* selection, mutation, crossover algorithms in DEAP are allowed
-* evaluate objects in false positive and false negative space
-* presentation: graph of false positive rate vs. false negative rate for GP pareto front and ML solutions
-** bonus: hyperparameter tuning, additional research to improve program
-* turn in to canvas a csv file with columns = [PassengerID, Survived_1, ..., Survived_n], where Survived_i is a pareto optimal program on our GP pareto frontier
+* What Is EMADE?
+** EMADE = Evolutionary Multi-objective Algorithm Design Engine
+** combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+* Install EMADE
+** download git-lfs
+* for next week
+** run emade as a group (1 person setup SQL and act as master)
+** make a plot of non-dominated frontier at the end of the run (compare ML, MOGP, and EMADE)
+** make plots to show analysis of EMADE running or show some successful trees
 
 === Action Items ===
 {| class="wikitable"
@@ -27,27 +29,152 @@
 |-
 |Update Notebook
 |
+|October 6, 2021
+|October 13, 2021
+|
+|-
+|Run EMADE As A Group (1 person setup SQL and act as master)
+|
+|October 6, 2021
+|October 13, 2021
+|
+|-
+|EMADE Titanic Assignment Presentation
+|
+|October 6, 2021
+|October 25, 2021
+|
+|}
+
+== Week 6: September 29, 2021 ==
+=== Presentation Notes ===
+* selection functions used by the groups
+** NSGA II
+** SPEA2
+** custom selTournament
+** NSGA II and selTournamentDCD
+* selecting from hall of fame may preserve more pareto individuals
+* adding terminals to GP can help improve performance (instead of just comparing)
+
+=== Suggestions For Our MOGP ===
+* try using one hot encoding for Mr, Miss, Mrs, Master, Rare
+** one hot encoding is useful in any case where there is more than 2 options to select from
+** one hot encoding is better since without it Master might be seen as more similar to Rare than Mr
+* fix the MOGP Pareto front graph (the axes are incorrectly scaled)
+* label each of the points in the ML graph and MOGP graph
+* add a third objective for a constant in the MOGP algorithm to add a constant to the fitness value for each individuals rather than manually adding it in the evaluation function
+* choose to keep either fare or ticket class, not both because they are related traits
+* create a graph with both ML and MOGP results on it for better comparison
+* pair NSGA-II with a selTournamentDCD for a better minimization of the AUC
+* try toolbox.decorate() for mate and mutation (refer to lab 2) to restrict mate and mutation tree lengths
+* have the evaluation function return FPR and FNR instead of FP and FN
+
+=== Questions ===
+* What is SPEA2 vs. NSGA-II?
+* What is a hall of fame?
+* How do I one hot encode something?
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 6, 2021
+|-
+|Review MOGP Code (then add code to notebook)
+|In Progress
+|September 29, 2021
+|October 13, 2021
+|
+|}
+
+== Week 5: September 22, 2021 ==
+=== Lecture Notes ===
+* for next week:
+** use same preprocessing, folds in data
+** but use GP instead of ML on the Titanic dataset
+** not allowed to use preprogrammed algorithms in DEAP (ex. mu+lambda)
+** allowed to use selection and mutation algorithms
+** create Pareto front for GP algorithm
+** compare ML and GP algorithms using AUC
+** submit a csv file for predictions with columns (PassengerID, Survived_1, ... Survived_n)
+
+=== Bootcamp Team Meeting ===
+* attempted to share code for evaluation function on Google Colab
+* made little progress as we did not know which evaluation function to use and how to force a boolean output
+
+=== Titantic Dataset MOGP ===
+* Additional Problems With GP
+** bloated tree size (size > 90)
+*** set a max tree size for selection and mutation
+*** add a penalizing factor into the evaluation function for large trees
+*** the speed of the GP was faster when tree size was maximized
+** forcing boolean output
+*** we used strongly typed GP but could use loosely typed GP to force a boolean output
+** unable to add terminals
+*** being able to add terminals could allow for improvement of our GP result
+*** our code currently only compares floats between columns rather than comparing them to a predetermined value
+** ensuring that the solutions were not all FP or all FN
+*** add squared penalizing factor for having high value of either FP or FN
+*** the added penalizing factor encouraged a more equal distribution of FP and FN
+* Evaluation Function
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        predictions = func(x_train[cols[0]],x_train[cols[1]],x_train[cols[2]],x_train[cols[3]],x_train[cols[4]],x_train[cols[5]],x_train[cols[6]],x_train[cols[7]],x_train[cols[8]],x_train[cols[9]])
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20
+        e2 = FP**2 + len(individual) * 20
+        return (e1, e2)
+
+* Takeaways
+** there are situations when our evaluation function would result in an increase in fitness over time (when our problem is a minimization problem)
+*** could be the result of poor crossover or mutation methods
+** compared to our ML algorithms, GP had a larger variation of results (most likely because of crossover and mutations)
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
 |September 22, 2021
 |September 29, 2021
-|
+|September 29, 2021
 |-
 |Meet With Group For Titanic Dataset Predictions
-|
+|Completed
 |September 22, 2021
 |September 29, 2021
-|
+|September 25, 2021
 |-
-|Titanic Dataset Predictions w/ Genetic Programming(submit to Canvas)
-|
+|Titanic Dataset MOGP Predictions (submit to Canvas)
+|Completed
 |September 22, 2021
 |September 29, 2021
-|
+|September 29, 2021
 |-
-|Titanic Dataset Predictions Presentation w/ Graph
-|
+|Titanic Dataset MOGP Predictions Presentation
+|Completed
 |September 22, 2021
 |September 29, 2021
-|
+|September 29, 2021
 |}
 
 == Week 4: September 15, 2021 ==
@@ -113,7 +240,7 @@
 |September 22, 2021
 |September 18, 2021
 |-
-|Titanic Dataset Predictions (submit to Canvas)
+|Titanic Dataset ML Predictions (submit to Canvas)
 |Completed
 |September 15, 2021
 |September 22, 2021

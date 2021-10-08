@@ -11,6 +11,32 @@ Subteam: Modularity
 
 Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vincent Huang], [https://github.gatech.edu/emade/emade/wiki/Notebook_Angela_Young Angela Young], [https://github.gatech.edu/emade/emade/wiki/Notebook_Bernadette_Gabrielle_Santiago_Bal Bernadette Bai]
 
+== October 8, 2021 ==
+
+====== Lecture Notes ======
+
+====== Action Items ======
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Uploade new emade-cloud folder to google collab
+|Incomplete
+|10/8/2021
+|10/15/2021
+|
+|-
+|Continue revising Gabriel's paper
+|Incomplete
+|10/8/2021
+|10/15/2021
+|
+|-
+|}
+
 == October 1, 2021 ==
 
 ====== Lecture Notes ======
@@ -30,6 +56,44 @@ Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vinc
 ** Various crossovers allow you to cross over multiple individuals
 *** Can also crossbreed
 
+====== Subteam Meeting 10/7 ======
+* Worked on debugging new PACE-ICE issues
+* Bernadette had a potential fix although it didn't work for me
+** After setting up a database instance, open up a new terminal to run the following commands
+*** qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+*** exit
+*** mysql -u root
+*** DELETE FROM mysql.user WHERE user='';
+*** GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' WITH GRANT OPTION;
+*** FLUSH PRIVILEGES;
+
+====== Personal Exploration ======
+* Focused mostly on reading the paper that Gabriel linked on overleaf.
+* Edited and fixed several grammatical mistakes throughout the paper
+* Paper summary
+** Looking at AutoML methods that can utilize modularity techniques inspired through genetic programming
+** Integrate ARLs (Adaptive Representation through Learning) through EMADE and look at datasets such as MNIST, CIFAR-10, CIFAR-100, SVHN, and stock benchmark
+** AutoML will search for the optimal hyper-parameters with little human interaction
+* Potential areas of improvement for the paper:
+** Improved selection 
+*** We weigh individuals with more ARLs as better, but that assumes that ARLs are significantly better. 
+***We could try weighing them less and see how little we can weigh them without them disappearing from our individual pool.
+** Population Updates
+*** Currently talks about introducing new random individuals in generation with genetic duplicates
+*** As a note, we may also want to start with a better seeding file as well
+*** Why are genetic duplicates needed if we're looking to expand diversity?
+* Potential areas to add for the paper:
+** Actual depth of ARLs
+*** Vincent is currently working on it this semester to have ARLs with more than size 2.
+*** Look at how it has different effects on different datasets
+** Find the optimal combination of mutation methods, population updates, diversity, etc for the best EMADE ARL model
+*** We have many potential avenues to explore and we need to run trials for most of them to determine which perform the best
+*** Will different datasets prefer different combinations of the above attributes? And if so, how do we guess which is needed for certain datasets?
+** More talk about work done on the titanic dataset? I believe we have a few results in past semesters for that.
+*** This could fit under Experiment and also in the introduction to the paper
+* Other modifications/potential edits to the paper:
+** Need to find old pictures of pareto fronts with super individuals and other things from our past runs for analysis.
+
 ====== Action Items ======
 {| class="wikitable"
 !Task
@@ -39,22 +103,22 @@ Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vinc
 !Completed Date
 |-
 |Peer evaluations due
-|Incomplete
+|Complete
 |10/1/2021
 |10/8/2021
-|
+|10/4/2021
 |-
 |Clean up notebook
-|Incomplete
+|Complete
 |10/1/2021
 |10/8/2021
-|
+|10/8/2021
 |-
 |Uploade new emade-cloud folder to google collab
 |Incomplete
 |10/1/2021
 |10/8/2021
-|
+|Moved to Next Week
 |-
 |}
 

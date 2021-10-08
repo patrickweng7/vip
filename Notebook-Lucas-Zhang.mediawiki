@@ -22,6 +22,8 @@ Interests: Machine Learning, Python, Web Development, Fitness, Healthcare
 
 [[Notebook Conner Jackson Yurkon|Conner Jackson Yurkon]]
 
+[[Notebook Justin Hsu Hinckley|Justin Hsu Hinckley]]
+
 
 
 == AAD General Meeting: Monday, August 23, 2021 ==
@@ -176,6 +178,7 @@ Total Out of 100: '''43/100'''
 *Each team shared their updates.
 
 == Neural Architecture Search Meeting: Friday, October, 1, 2021 ==
+*Justin Hsu Hinckley joined the NAS team from the stocks team
 *On 9/29/2021, I met with Cameron Bennett and Cameron Whaley to discuss setting up PACE and the task regarding "Debugging /Reproducing issue with test_swap line300 EMADE.py.
 
 *I wasn't able to attend Cameron Bennett and Cameron Whaley's presentation, "Guide to EMADE.py" live due to a time conflict so I watched a recording of it.
@@ -227,13 +230,46 @@ Guide to EMADE.py Presentation Notes:
 ***Purpose: Registers the majority of the toolbox methods to be used
 ***Args: datasetDict <- defined in launchEMADE.py
 ***Notable assignments
-****
+****self.toolbox.register("evaluate", evaluate)
+****self.toolbox.register("mutateSwapLayer", emade_operators.swap_layer)
+****self.toolbox.register("mutateAddLayer", emade_operators.add_layer)
+****self.toolbox.register("fitnessScale", HCDScaleMin)
+**my_str(individual)
+***Useful header when developing
+***Purpose: Return the string representation of an individual
+***Args:
+****Individual object
+*Mating/Mutation Functions
+**swap_layer(individual, upset)
+***Purpose: Randomly replaces a non-IO layer from an NNLearner with another layer
+**cx_ephemerals(ind1, ind2)
+***Purpose: Randomly select in each individual and exchange each subtree with the point as root between each individual.
+**swap_layer swaps a a single layer as opposed to cx_ephemerals swaps entire subtree.
+**concat_healer(individual, pset, oldbranch)
+***Purpose: Ensures newly concatenated layers are initialized within individual object
+*Master Algorithm
 
 
 
 
 
 == AAD General Meeting: Monday, October, 4, 2021 ==
+Each team shared their updates.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evaluation form
+|In-progress
+|10/4/2021
+|10/8/21
+|
+|}
 
 
 

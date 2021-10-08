@@ -10,6 +10,32 @@
 
 # Fall 2021
 
+## Week 7
+### General Meeting Notes
+* Stocks:
+* * The stocks team was disbanded.
+* Image Processing:
+* * Worked on implementation of NSGA-III, and new mutation methods.
+* Modularity: 
+* * Will stick with Google Collab instead of PACE-ICE.
+* * Fixed bug with incorrect rarities.
+* * Will focus on unit testing and code reviews to avoid the same or similar errors from re-occurring.
+* NAS: 
+* * Informed the team members about the evolutionary process in EMADE.py. Went through the master algorithm loop in EMADE. Discussed mutations and other functions needed.
+* NLP: 
+* * We discussed our progress on loading in the QA dataset to EMADE, and told the team about our blocker with multiple data to be represented in the tree. Dr. Zutty informed us that there has been some progress on this front outside of the VIP; code already existed for multiple EmadeDataPairs. We further elaborated on this in our breakout meeting, discovering that the dataPairArray is a list of lists of EmadeDataPairs. 
+
+## Sub Team Meeting Notes
+* As we are still blocked on merging in the new code to work with multiple EMADE Data Pairs, I took time in the sub team meeting to present on how to test changes to EMADE on PACE-ICE. This involved using scp to transfer files, having an equivalent local copy setup, and running bash reinstall.ish to reinstall GPFramework while in the anaconda environment.
+* Next, we turned our attention to the tasks that will come forward.
+* As a way to get our two new members from the stocks team familiar with QA and NNLearners, I assigned them, and Shiyi, with coming up with some seeded individuals in a tree structure that we could test in standalone_tree_evaluator.py, looking at BiDAF and the SQUAD leaderboard as examples. This would also help us figure out what primitives to write to make QA work.
+* The rest of us would be on the team to get the changed EMADE, with support for multiple data pairs, to work.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Make an EMADE Branch with new CacheV2 and NNLearner functionality | Blocked | 10/03/2021 | ... | 10/10/2021 |
+
 ## Week 6
 ### General Meeting Notes
 * Stocks: 
@@ -35,8 +61,18 @@
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Create new XML and data load functions for QA in EMADE | In Progress | 09/27/2021 | ... | 10/10/2021 |
+Create new XML and data load functions for QA in EMADE | Complete | 09/27/2021 | 10/03/2021 | 10/03/2021 |
 
+
+### Creating new XML and data load functions for QA in EMADE
+
+* To implement this functionality, I did another deep dive into EMADE, this time into some of the core functionality of creating the objects that would eventually be used for the evolutionary process and to evaluate individuals.
+* To start, I added a method into data.py titled "load_qa_textdata_from_file". This function is similar to "load_textdata_from_file", but it accounts for two pieces of data that need loaded and represented in the individuals' trees separately, the context and query. This design isn't perfect; it isn't very re-usable for other projects that will use multiple data pairs. We can improve on this design as the semester progresses.
+* The code I wrote for "load_qa_textdata_from_file" is shown below. The entire modified file "data.py" is accessible here: https://drive.google.com/file/d/10JjfNUzw98tY6Y_V4I_0IKjfos0wWdOO/view?usp=sharing
+* <img width="826" alt="Screen Shot 2021-10-06 at 9 17 08 PM" src="https://github.gatech.edu/storage/user/27405/files/d4c43798-803c-49ca-9eb2-847f510e4cb4">
+* Next, I began testing where the code would be ran from, in EMADE.py. It directly takes in a load_function from the xml file based off of the type of data. So, I set the type of data in a new xml file called input_squad.xml, based off of input_amzn.xml, to be "qatextdata", and had this type of data map to the "load_qa_textdata_from_file" function I made. The code I changed is visible below, and the entire modified file is accessible here: https://drive.google.com/file/d/11fuaMtMTbjcdmpRyq8LRHsEd6TZGSxUE/view?usp=sharing
+* <img width="1022" alt="Screen Shot 2021-10-06 at 9 18 14 PM" src="https://github.gatech.edu/storage/user/27405/files/d1634596-7da5-4dd8-a46a-c7ba5d79b1bb">
+* After this, however, when testing this with standalone_tree_evaluator.py, I did run into an architectural problem after this. EMADE only stores one list of EMADE Data pairs for each fold, stored as the "dataPairArray". We would have to modify many other parts if we were to add another array. This is an issue we will have to discuss at the coming meeting.
 
 ## Week 5
 ### General Meeting Notes

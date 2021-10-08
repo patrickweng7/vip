@@ -3,9 +3,27 @@ Name: Aditi Prakash
 
 Email: aprakash86@gatech.edu
 
+Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - rdabbagh3@gatech.edu, Rayan Khoury - rkoury7@gatech.edu
+
 Cell Phone: 704-794-3924  
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
+
+# Week 6: September 29th, 2021
+## Overview
+Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently). 
+
+## Team Meeting Notes
+### Notes on Titanic ML Assignment 
+* Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
+* In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Titanic ML, MOGP, EMADE Presentation | Pending | 10/25/21 | 10/25/21  | - |
+| Peer Evaluation | Pending | 9/29/21 | 10/6/21  | 10/4/21 |
+| Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
 
 # Week 5: September 22th, 2021
 ## Overview
@@ -13,92 +31,89 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
-Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+* Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
+* Have to write genetic program yourself
+* Evaluation function - at least two objective, False Positives and False Negatives
+* Can add additional objectives to make it better
+* Comparison of Pareto Front that genetic programming finds against ML codominant set
+* Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
+* Bare minimum is to get comparison between ML and GP. 
+* Generate predictions for every pareto optimal point
+* Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
+* Present findings next week 
+* In DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
+* AUC will be useful to evaluation GAs
+* Minimization - adding area, maximization - eating area
+* Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
+* Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
+* Diff is a fence posting problem 
+* AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
 
-Have to write genetic program yourself
-Evaluation function - at least two objective, False Positives and False Negatives
- 
-Can add additional objectives to make it better
-
-Comparison of Pareto Front that genetic programming finds against ML codominant set
-
-Once we’ve chosen preprocessed dataset, common valuation function, selection, mating, mutation, hyperparameters, can start doing any research on different operators, selection mechanisms, mutation - write your own, etc.
-
-Bare minimum is to get comparison between ML and GP. 
-
-Generate predictions for every pareto optimal point
-
-Each column is taking a tree structure (ex. Age < 18, predict true, run that alg on test.csv, another might be sex == female, survived, another algorithm)
-
-Present findings next week 
-in DEAP - sel_tournament is not a multi objective selection operator, just compares multi-objective fitnesses via tuples, (10, 11) < (11, 9) would be true with selection tournaments (only using first value)
-
-AUC will be useful to evaluation GAs
-Minimization - adding area, maximization - eating area
-
-Punctuated equilibrium - goes many generations before getting Pareto optimal, then stops, then keeps going ,etc. 
-
-Multiple dimensions - area under surface, computations are expensive, more solutions and interest in pop, interesting genetic diversity with more objectives, help mutation operators - shrink operation, if I have same FN and FP but favor one with less nodes, Occam’s razor, re-compute pareto optimal front on 2 objectives you care about 
-
-Diff is a fence posting problem 
-
-AUC will be more comparable between us, can take AUC of ML learners as well, always include trivial solutions for GP and ML solutions. Do FPR and FNR consistently. 
-
-
-## Titanic MOGP Problem 
+## Subteam Notes (Titanic MOGP Problem)
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
+* Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
 * Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
+* Primitive Set:
+![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
 * Researched strongly typed GP in DEAP
 * Chose NSGA II as selection method (handles both objectives)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Created hof using best individuals ever identified throughout evolution
 * Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
+* Change 30 generations to 50 generations and removed duplicate individuals from Hall of Fame for improve evolution
 * Predicted Survived feature for test.csv 
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
 Best Learner: FPR = 0, FNR =  0.9122807017543859
 
+MOGP Pareto Front:
+
+![Genetic Programming Visualization](https://picc.io/Uot-hXd.png)
+
 Findings:
-The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. 
+The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. Finding Pareto-optimal solutions was more difficult with ML, and less individuals existed on both extremes of both objectives, but genetic programming created a diverse set of individuals and had a much lower AUC. We also ensured that we took a split of the data that was the same split that we used to train our ML classifiers for the Titanic ML problem. Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
+
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
-| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/23/2021 | 9/23/2021 |
+| Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
+| Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
 
 # Week 4: September 15th, 2021
 ## Overview
-Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select a learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
+Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored Kaggle Titanic dataset. Discussed Titanic ML assignment wherein each member of our subteam is to select an ML learner, use it to predict the 'Survived' feature in the Titanic dataset, and determine the FNR and FPR of that learner. All of our learners must be codominant, meaning that no learner should outperform any other learner on both minimization objectives (FNR and FPR). Exchanged contact information with team and decided to meet throughout the week and create Slack channel for communication. Discussed preliminary ideas for data preprocessing and hyperparameter tuning.
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
-- nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
-- Post csv representing predictions of your model that was co-dominant with rest of group. 
-- Sci-kit learn - classification (ex. Support Vector machine)
-- Do Pareto graphing for minimization objectives
-- Pandas documentation
-- Why did the decision classifier perform so well when we didn’t do that much?
-- Make sure submission samples are in the same order for everyone 
-- Pandas, sci-kit learn - dig deep 
-- Use n folds
-- Look at cabin values and encode Embarked 
-- Do k fold splits for all learners
-- Cross val score - average of false negatives and false positive 
-- Look at average for nan values across samples with similar features versus all samples
-- Create csv files with data that we’re using for preprocessing 
-- Create a jupyter notebook to graph pareto frontier - everyone inputs their values
-- Don’t mix up the rows
-- Undersampling/oversampling 
+* nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
+* Post csv representing predictions of your model that was co-dominant with rest of group. 
+* Sci-kit learn - classification (ex. Support Vector machine)
+* Do Pareto graphing for minimization objectives
+* Pandas documentation
+* Why did the decision classifier perform so well when we didn’t do that much?
+* Make sure submission samples are in the same order for everyone 
+* Pandas, sci-kit learn - dig deep 
+* Use n folds
+* Look at cabin values and encode Embarked 
+* Do k fold splits for all learners
+* Cross val score - average of false negatives and false positive 
+* Look at average for nan values across samples with similar features versus all samples
+* Create csv files with data that we’re using for preprocessing 
+* Create a jupyter notebook to graph pareto frontier - everyone inputs their values
+* Don’t mix up the rows
+* Undersampling/oversampling 
 
-## Titanic ML Problem 
+## Subteam Notes (Titanic ML Problem)
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
+* Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
 * Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Imported pandas, numpy, and sklearn methods 
 * Mounted Drive to Colab and read in train and test sets as dataframes
@@ -112,13 +127,17 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 * Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
-* Obtain confusion matrix for predictions 
+* Obtained confusion matrix for predictions 
 * Modified XGBoost hyperparameters
-Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which also increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
+Final Learner: XGBoostClassifier(objective="multi:softprob", num_class=2,  eta=0.005, max_depth=10, subsample=0.98, colsample_bytree=0.9, eval_metric="auc", n_estimators=10000, scale_pos_weight=0.2). Setting the max_depth, subsample, and colsample_by_tree parameters to relatively high values allowed us to sample each row in the dataset multiple times as well as increase complexity of each decision tree, which led to higher accuracy as well as minimization of the FNR and FPR. The eval_metric parameter allowed us to determine the AUC for each gradient-boosted decision tree created by the XGBoostClassifier(), which enabled us to achieve Pareto optimality among the decision trees. The n_estimator value allowed us to build more trees in each level of the boosting process, which increased complexity, but it also reduced the efficiency of the algorithm significantly. This learner had 31 False Positives and 26 False Negatives. 
 Interestingly, using booster="gblinear" as opposed to the default booster="gbtree" dramatically decreased the FPR and increased the FNR. This indicates that the boosting technique is really the strength of XGBoost, as a linear booster did not distribute its false predictions evenly between the FNR and FPR. 
 
 Findings:
-Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tends to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly different FNR and FPR values, given the same preprocessed data. Charlie's performed much better in the FPR objective and mine performed much better in the FNR objective. This indicates that neural networks, specifically MLP classifiers, tend to favor false positive prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR as well as high accuracy. SVM and Decision Tree, the classifiers that Rayan D. and Rayan K. implemented, tended to distribute their false positives and negatives evenly prior to any hyperparameter tuning, and max_depth used without the appropriate splitter for SVM and max_iter and decision_function_shape for Decision Tree reduced the accuracy of each learner respectively. This indicates the loss function, number of iterations, and the depth of individuals are critical to the success of ML classifiers. These parameters are analogous to the evaluation function, number of generations, and max tree depth in MOGP, which are also important factors for evolving GP individuals. Moreover, mating, mutation, and selection are analogous to hyperparameter tuning as described above. When we solve the same Titanic problem next week using MOGP, we will be able to more closely determine the tradeoffs between and ML and MOGP approach in solving a classification problem and which problems call for which approach. Additional improvements can be made to our learners by continuing to tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy, as well as more advanced preprocessing techniques (normalization, removing noise, principal component analysis, etc.). 
+
+Pareto Front for ML Learners:
+
+![Titanic ML Pareto Graph](https://picc.io/qjd1y20.png) 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -135,62 +154,75 @@ Attended lecture on multi-objective optimization and completed Lab 2's Multi-Obj
 
 ## Team Meeting Notes
 ### Lecture on Multi-Objective Optimizations:
-Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
-Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
+* Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
+* Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
 
-Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
-Limitations in memory limit how deep our algorithms can be. Full search space is the full set of possible algorithms. 
-How can we come up with good fitnesses to help us search these worlds?
-Objectives are our phenotype, evaluation function allows us to go from the genotype to the phenotype. 
-Binary classification vs. multiclass classification - 1 or 0 versus in a set of things
+* Search space - all of the things that make up an individual (one max - 1,0 for each element in the list for how many elements there are)
+* Limitations in memory limit how deep our algorithms can be. Full search space is the full set of possible algorithms. 
+* How can we come up with good fitnesses to help us search these worlds?
+* Objectives are our phenotype, evaluation function allows us to go from the genotype to the phenotype. 
+* Binary classification vs. multiclass classification - 1 or 0 versus in a set of things
 
-Algorithm is for red objects, we are trying to find apples.
+* Algorithm is for red objects, we are trying to find apples.
 
-Precision or positive predictive value - overlooked but very important
-Assessing algorithm’s consistency of performance with itself, regardless of truth 
-Accuracy - bigger is better
-Blue and green form a tradeoff space between each other against Objective 1 and Objective 2
+* Precision or positive predictive value - overlooked but very important
+* Assessing algorithm’s consistency of performance with itself, regardless of truth 
+* Accuracy - bigger is better
+* Blue and green form a tradeoff space between each other against Objective 1 and Objective 2
 
-Dominated solution - there is an individual that would live in the space to the left and under a given point 
-Non dominated - there is no such individual 
-Co-dominant, none are dominated, form Pareto frontier 
-Want to keep diversity of genotypes, want all tree structures to stay in population, algorithms will continue to be diverse (their representations are diverse), want to reward this, stops algorithms from converging 
-Nondominated solution is called Pareto optimal in this class
-Would much rather have spread out points on Pareto frontier than clumped up individuals on either end in Pareto frontier
-Reward places that are off by themselves so we can keep that diversity 
-Higher crowding distance wins
+* Dominated solution - there is an individual that would live in the space to the left and under a given point 
+* Non dominated - there is no such individual 
+* Co-dominant, none are dominated, form Pareto frontier 
+* Want to keep diversity of genotypes, want all tree structures to stay in population, algorithms will continue to be diverse (their representations are diverse), want to reward this, stops algorithms from converging 
+* Nondominated solution is called Pareto optimal in this class
+* Would much rather have spread out points on Pareto frontier than clumped up individuals on either end in Pareto frontier
+* Reward places that are off by themselves so we can keep that diversity 
+* Higher crowding distance wins
 
-SPEA2: How many points does it dominate (look up and to the right)
-S is how many others in the population it dominates
-Rank is the sum of S’s of the individuals that dominate it 
+* SPEA2: How many points does it dominate (look up and to the right)
+* S is how many others in the population it dominates
+* Rank is the sum of S’s of the individuals that dominate it 
 
-Tiebreakers:
-Fractional so serves as tiebreaker, one with higher distance is going to have a smaller effect on rank, if crowding distance is smaller, you’ll be closer to 1, almost at the next range, favor larger distance because it will get inverted 
-Niching - trying to spread diversity 
-Both algorithms favor nondomination of something more highly than how different it is from everything else. 
-Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
-Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
+* Tiebreakers: Fractional so serves as tiebreaker, one with higher distance is going to have a smaller effect on rank, if crowding distance is smaller, you’ll be closer to 1, almost at the next range, favor larger distance because it will get inverted 
+* Niching - trying to spread diversity 
+* Both algorithms favor nondomination of something more highly than how different it is from everything else. 
+* Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
+* Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
 
 ### Lab 2 - Multi-Objective Genetic Programming
 This lab explored the problem of optimizing a set of primitives based on more than one objective to achieve a target function model. Here, we minimize the mean squared error and the size of the tree. We also add the sin, cos, and tan functions to our set of primitives and reinitialize the toolbox. We then define a function to evaluate our symbolic regression and note that this new problem, with an evaluation function that takes the sin, cos, and tangent of the points into consideration when evaluating the individuals for fitness, cannot be solved within 100 generations like the ones we worked on previously. 
 
-We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
+We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front using the Hall of Fame. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
 with fitness: (0.2786133308027132, 15.0). 
 
-DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation). This allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+
+Improvements:
+Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.3113. 
+* NGEN = 50
+* MU = 60
+* LAMBDA = 75
+* CXPB = 0.4
+* MUTPB = 0
+
+Original Hyperparameters:
+* NGEN = 50
+* MU = 50
+* LAMBDA = 100
+* CXPB = 0.5
+* MUTPB = 0.2
 
 Visualization:
-[Screenshots](https://docs.google.com/document/d/1isLlHDQdceJ9ZrUbcG3oIeYEq1j0an6Oi0SyJKpFyvM/edit?usp=sharing)
+[Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
 
-* Improvements:
-Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.97. 
-NGEN = 50
-MU = 60
-LAMBDA = 75
-CXPB = 0.4
-MUTPB = 0
+Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
 Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
+
+Strongly Typed Genetic Programming: 
+* Used PrimitiveSetTyped object to create primitive set with strongly typed primitives and terminals 
+* Ephemeral constants are produced by functions and therefore allow terminals which depend on other operations/randomness to be included in our trees, improving the diversity of our population.
+* Used static limits and tree size as an objective to limit excessively large trees given Python's limitations and the fact that we usually favor simpler individuals over more complex individuals that have the same fitness. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -236,10 +268,10 @@ Introduced concept of genetic programming with the goal of optimizing a function
 5. Measuring error (ex. Mean Squared Error)
 7. Identifying primitives that can make modeling a function easier 
 
-### Lab 2 - Genetic Programming
+### Lab 2 - Genetic Programming, Part 1 (Symbolic Regression)
 This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
 
-We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We also graphed the results and printed our statistics. 
+We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from (add, subtract, multiply, and negative) and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We used selTournament, one-point corssover, uniform mutation, and gp.genFull for our functions. As we registered the expression for generating our population, we defined a minimum and maximum height for our tree. We passed points=np.linspace(-1, 1, 1000) to register the evaluation function with the toolbox in order to generate 1000 random points between -1 and 1 to pass to each tree in our population. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We set a 0.5 probability of mating and a 0.2 probability of mutation. We graphed the results and printed our statistics. 
 
 Findings: The global maximum (a best individual with a fitness or MAE of 0) was almost reached. The best maximum individual reached a minimum fitness value of around 1.5. The average and minimum fitnesses approached a fitness of 0 closely (0 was an asymptote for these values). Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection.
   
@@ -249,6 +281,16 @@ Visualization:
 ![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
 
 * We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
+
+To improve the fitness of the evolved individuals, I added the floor and maximum operations from the numpy library. I also registered the mutInsert function as an additional mutational function to use in the evolutionary loop. This mutation function randomly selected a node in the given individual and creates a new subtree using that node as a child to that subtree. The following graph of fitness over time reflects those changes:
+
+![Genetic Programming Visualization after Floor and Maximum Primitives Added](https://picc.io/Un4_bet.png)
+
+We see that modifying the primitive set and the mutation function being used in the evolutionary loop caused the maximum fitness line to decrease much more quickly than it did for the original evolution, indicating that floor, maximum, and mutInsert ensure optimal fitness for all individuals in a population by minimizing the fitnesses of higher-extreme individuals. 
+
+Increasing the minimum and maximum tree depth when registering the expression function with the toolbox appeared to slow the improvement of the maximum, average, and minimum fitness across the same number of generations. This indicates that larger trees are not necessarily fitter or prone to becoming fitter through evolution than smaller trees. Evaluating tree size as an objective itself will reappear in the second part of Lab 2, at which point I will delve into the different outcomes that larger and smaller trees produce with the same evolution. 
+
+In addition, I experimented with higher and lower values for the probability of mutation and mating, but all such combinations slowed the fitness improvement of the individuals and caused the maximum fitness line to begin at a higher fitness value than without changes to the mutation and mating probabilities. This indicates that excessive mutation and mating can actual lead to worse-performing individuals emerging from the evolutionary loop than those that entered it. 
 
 Additional improvements can be made to the current genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can continue to tweak the probabilities of mutation and mating for offspring, change the tournament size, change our methods of mating, mutation, selection, etc., change the parameters of our mating and mutation (ex. points of mating, values that the data in our individuals can be mutated to), and change our evaluation function.
 
@@ -306,7 +348,7 @@ This lab explored the One Max problem and the n-queens problem and defined genet
 **One Max Problem:**
 For this problem, we followed many of the same steps that appeared in the Lecture 1 Notebook (see above). We define a main() function for the genetic algorithm, which evaluates the full population and initiates the evolutionary loop. Our population size was 300, and our probability of mating was 0.5 and our probability of mutation was 0.2. Within the evolutionary loop, we select individuals for each successive generation, clone them, and perform mutations/crossovers on them. We then evaluate the fitness of these offspring and replace the existing population with the offspring. Finally, we return the fitnesses of the individuals (based on the predefined fitness operation - the sum of the individual's entries) and print statistics such as the mean fitness, squared sum of the fitnesses, and standard deviation of the fitnesses). We loop for some number of generations (40, in this case) and report the best individual that has resulted from this evolution process. Within the DEAP framework, we used libraries like creator (including the create() method), tools (including the selBest() method and the selTournament, mutFlipBit, and cxTwoPoint attributes), and base (including the Toolbox(), register(), select(),  mate(), and mutate() methods). We kept track of our minimum, maximum, average, and standard deviation for the fitness values for each generation so as to determine if fitness was improving with evolution.
 
-**Findings:**
+Findings:
 
 The best individual was as follows: Best individual is [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], (100.0,). 
 
