@@ -55,9 +55,13 @@
 
 
 == Week 3: Sep 8, 2021 ==
+===Self Evaluation Form===
+https://drive.google.com/file/d/1wtvbb6bHFMIa8Im8UXZG4dJM4Is9ZHKi/view?usp=sharing
 
 ===Overview:===
-* Translation of the vector of scores from evaluation into a fitness value
+* Reviewed multiple objectives in MOGA & MOGP
+* Overview of Pareto Optimality
+Rated Python & ML skills
 
 ===Lecture Notes:===
 * Gene Pool is the set of genome to be evaluated during the current generation
@@ -139,6 +143,57 @@
     R is sum of S's of the individuals that dominate it
     Paretio individuals are nondominated and recieve an R of 0
   * Distance to k^th nearest negither is calculated (sigma^k) and a fitness of R+1/(sigma^k + 2)
+
+===Lab 2: Multi Objective Genetic Programming (Part 2)===
+
+* Followed instructions in notebook and plotted the Pareto frontier
+* Goal is to minimize the AUC, because we want to minize the tree size of Pareto individuals & mean squared error
+
+* Area Under Curve with original configuration: 2.423721990054
+* Best Individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))), fitness is (0.289613390243, 15.0)
+
+* To reduce AUC by at least 25% by parameter tuning:
+  * Removed sin and cos primitives:
+    * AUC: 1.0688239759291 , approx 56% reduction
+    * Best Individual: subtract(multiply(x, tan(multiply(x, x))), x), fitness of (0.6669255057183378, 8.0)
+  * Removed all three trigonometric primitive:
+    * AUC: 0.6912744703006891, approx 72% reduction
+    * Best individual: subtract(x,x), fitness of (0.7223441838209306, 3.0)
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 12th, 2021
+|- 
+|Complete Self-Evaluation rubric
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 13th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 12th, 2021
+|-
+|Finish Lab 2, Part 2
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 14th, 2021
+|}
+
+
 
 == Week 2: Sep 1, 2021 ==
 
