@@ -9,6 +9,35 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+
+## Week 6: September 29th - October 5th (2021)
+### Lecture overview:
+* Finish peer evaluation next week.
+* Listened to different groups' presentation
+* Presented my part in our group presentation:
+ > The selection of our select, mutate, and evaluate function.
+ > The improvement we made for the genetic loop.
+### Lecture note (I just record some of the ideas from each group):
+* Group4: 
+> AUC is around 0.2, a little bit higher than ours.
+> They let us realized that Embark might not be a good column to be included in our data. Just as I thought in week 5, because this feature would not affect the cabin position as my team thought.
+* Group3:
+> Used KNN,  MLP,  SVM, logistic regression, random forests
+* Group1:
+> They seem to get a better result in GP than us
+### Individual notes:
+* Finished peer evaluation
+* Re-done through the data processing and take a note of the change I got
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+
+|Peer evaluation|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
+|Record Notebook|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
+
+
+
+
 ## Week 5: September 23th - September 29nd (2021)
 ### Lecture overview:
 * Discussed last week's project
@@ -52,8 +81,16 @@ toolbox.register("select", tools.selSPEA2)
 toolbox.register("mate", gp.cxOnePoint)
 toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
 toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)`
-* My teammates made the slides and I went through the part I would present. Thanks Rohan
+* My teammates made the slides and I went through the part I would present. Thanks, Rohan
 > **Link:** https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Team meeting1|complete|September 22nd, 2021|September 29th, 2021|September 25th, 2021|
+|Team meeting2|complete|September 22nd, 2021|September 29th, 2021|September 26th, 2021|
+|Record Notebook|complete|September 22nd, 2021|September 29th, 2021|September 27th, 2021|
+|Complete Titanic MOGP Notebook|complete|September 22nd, 2021|September 29th, 2021|September 26nd, 2021|
+|Make presentation slides|complete|September 22nd, 2021|September 29th, 2021|September 27th, 2021|
 
 
 ## Week 4: September 16th - September 22nd (2021)
