@@ -116,6 +116,14 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 
 == Week 05 ==
 === September 22, 2021 ===
+'''Sub Team Meeting Notes:'''
+* Designed primitives/infrastructure needed to tackle the QA problem with EMADE.
+* Encountered a few problem that existing EMADE framework cannot resolve.
+** Problem 1: Unlike other datasets, we have two inputs that the model needs to handle separately: the context and the query.
+** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
+** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
+** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
+
 === September 20, 2021 ===
 '''Team Meeting Notes:'''
 * Market Analysis and Portfolio Optimization
@@ -178,7 +186,7 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 * Decided our objectives would be F1 and number of parameters, to strike a balance between a match/accuracy and complexity. 
 ** Steven is looking into F1 for QA systems and find out how they worked.
 ** Karthik created a Google Collab notebook to begin looking at the dataset.
-* We would familiarize ourselves with the different layers of a QA system before planning what primitives to make on Monday.
+* We would familiarize ourselves with the different layers of a QA system before planning what primitives to make.
 
 '''Action Items:'''
 {| class="wikitable"
