@@ -18,6 +18,11 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 * Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
 * In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
 
+## Individual Notes
+* Presented slides 1, 2, 4, 5 from slide deck: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+* Answered Dr. Zutty's questions regarding the primitives we chose to use (should look into using float primitives) and how using the HOF might have limited diversity in our resampling of the population during each iteration of the evolutionary loop. 
+* Talked to Charlie and Dr. Zutty after class about selNSGA and how it truncates individuals after the kth individual when performing selection. Dr. Zutty suggestted using selTournamentDCD and shuffling individuals so as to promote diversity in the Hall of Fame. 
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
@@ -68,7 +73,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 ![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Change 30 generations to 50 generations for improved evolution
-* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Personal Slides: 1, 2, 4, 5)
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
