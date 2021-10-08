@@ -130,7 +130,7 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 * Replaced Sex feature categories with 1 for male and 0 for female
 * Split training data into training and testing sets (test_size=0.33, random_state=10)
 
-##Individual Notes
+## Individual Notes
 * Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
 * One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
