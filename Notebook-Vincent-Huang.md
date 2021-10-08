@@ -11,16 +11,10 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 ### Week 7: Oct 4
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Fix population_info bug|
-|Investigate Incorrect arities problem|
+|Fix population_info bug|Incomplete|Oct 4|Oct 11|
+|Investigate Incorrect arities problem|Incomplete|Oct 4|Oct 11|
 
 ### Week 6: Sep 27
-|Task|Status|Assigned Date|Due Date|Date Completed|
-|----|------|-------------|--------|--------------|
-|Fix contract ARLs method|
-|Investigate add_all_subtrees problem|
-|Do runs of extended ARLs|
-
 * Implemented workaround for add_all_subtrees large individuals bug
 ** Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
 ** This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
@@ -49,6 +43,11 @@ individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("l
 ** Switching back to Google Collab
 ** Stocks data has been migrated into our repo and we're now ready to do those runs
 
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix contract ARLs method|Complete|Sep 27|Oct 3|Oct 2|
+|Investigate add_all_subtrees problem|Sep 27|Oct 3|Oct 1|
+|Do runs of extended ARLs|Sep 27|Oct 3|Oct 3|
 
 ### Week 5: Sep 20
 - Bug causing the crashes has been identified
