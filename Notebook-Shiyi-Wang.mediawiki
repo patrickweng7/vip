@@ -137,7 +137,62 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 === September 15, 2021 ===
 === September 13, 2021 ===
 '''Team Meeting Notes:'''
-* Started lecture on genetic programming.
+* Stocks
+** Conducting a literature review to find new ideas of what to implement.
+** Their team also found a good resource on genetic programming generated trading.
+* Image Processing
+** Defined goals and tasked themselves.
+** Focusing on multi-label image classification
+** Image classification or object detection are their overarching goals.
+* Modularity
+** Still coming up with goals for the semester.
+** Potential areas of improvement include new models, selection methods, ARL Database storage, and more depth in ARL's.
+* Neural Architecture Search
+** Presented information about neural architecture search to new members.
+** Came up with 6 different potential improvements, including triviality detection
+* NLP
+** We updated the team on our progress.
+** 3/5 of our members have gotten EMADE on PACE setup, and we're moving into a literature review of Question Answering Systems.
+
+'''Individual Progress'''
+* Attempted to solve MySQL connection issue on Campus.
+** Attempted to reconfigure Port number.
+** Attempted to solve through commnon error codes (credits to Steven Leone).
+* Resolved the connection issue after reconnect to Campus VPN.
+{| class="wikitable"
+!Index
+!Error Title
+!Cause of Error
+!How to Resolve
+|-
+|1
+|Server won't start
+|Port is likely in use via submitted job or terminal
+|qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
+|-
+|2
+|Malformed Credentials
+|Password is stored incorrectly in MySQL due to version discrepancies
+|SET PASSWORD FOR 'gt_username'@'%' = PASSWORD('password');
+|-
+|3
+|Access Denied
+|It's likely that this is a new database created, or permissions weren't granted correctly.
+|Re-grant privileges, specify user address
+|-
+|4
+|Can't Connect to MySQL
+|MySQL may be running in the wrong manner (not a terminal, not a submitted job)
+|Ensure proper server address (job or from terminal)
+|-
+|5
+|2003 MySQL cannot connect
+|PACE has too many users; the host address has changed for MySQL
+|After starting mysql, run qstat -n to find the name of the host it’s running on, and swap it in input.xml
+|}
+
+
+
 
 '''Action Items:'''
 {| class="wikitable"
