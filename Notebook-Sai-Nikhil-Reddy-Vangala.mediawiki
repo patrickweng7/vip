@@ -457,6 +457,28 @@ https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=shari
 * Hyperparameter tuning can be added as a bonus.
 
 === Sub-team meeting Notes (9/25) ===
+* Focused on the GP impementation for the titanic dataset. 
+* There was not much progress made in terms of the overall project as there were multiple eval functions were at our disposal and were not sure about which to use. 
+* Worked with David on narrowing down the eval function. chose which primitives and terminals to be used. 
+
+Eval Func:
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        args = [x_train[cols[i]] for i in range(9)]
+        predictions = func(*args) 
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        #prevent very unequal FN, FP results
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20   
+        e2 = FP**2 + len(individual) * 20
+        return (e1, e2)
+
+* Worked on the presentation and created slides 4-7.
 
 
 ===Action Items===
