@@ -58,7 +58,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Researched strongly typed GP in DEAP
+* Researched strongly typed GP in DEAP (reference: https://deap.readthedocs.io/en/master/tutorials/advanced/gp.html)
 * Chose NSGA II as selection method (handles both objectives)
 * Created hof using best individuals ever identified throughout evolution
 * Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
@@ -68,7 +68,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 
 ## Individual Notes
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
-* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
 * Primitive Set:
 ![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
@@ -206,7 +206,8 @@ This lab explored the problem of optimizing a set of primitives based on more th
 We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front using the Hall of Fame. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
 with fitness: (0.2786133308027132, 15.0). 
 
-DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+DEAP's Mu plus Lambda algorithm (reference: https://deap.readthedocs.io/en/master/api/algo.html), which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+
 
 Improvements:
 Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.3113. 
@@ -225,6 +226,8 @@ Original Hyperparameters:
 
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
+
+
 
 Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
