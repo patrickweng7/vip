@@ -44,8 +44,6 @@
     Manas Harbola
     Rohan Batra
     Yisu
-
-
 *Introduced to Titanic Dataset on Kaggle
     Problem: Implement a model predicting if a passenger on the Titanic either survived or died. Create and document 5 separate co-dominant models in your subteam and generate a prediction csv file for each model.
 * Codominance: Two algorithms are said to be codominance when neither dominates the other on every objective.
@@ -53,8 +51,42 @@
 * Reviewed preprocessing data notebook in Jupyter and learned how to adapt it for our training models
 * Breakout into sub-teams for introductions and setting up team meetings.
 
+===Titanic Dataset (ML) Project===
+====Sub Team Meeting Notes====
+* Created a Discord chat to discuss the assignment, share ideas and schedule meetings
+* Had a scheduled meeting at 2:45 PM on 18th September on a virtual call
+* Set up a Python notebook, opening it via Jupyter through Anaconda
+* Cleaned the dataset by removing following parameters, after discussing they do not affect passenger survival significantly:
+  * Name
+  * PassengerID
+  * Ticket Number
+  * Fare
+* Kept 'Embarked' & 'Sex', mapped them to numerical values for easier comprehension when using a dictionary
+* Other parameters that impacted survival rate could be reasons such as not willing to separate from their family, class, age, gender etc.
+* Created a NaN_ map to fill in missing Age and Embarked values
+* Ran different models using Sci Kit documentation
+  * Used RandomForestClassifier and MLP classifier - were co-dominant algorithms
+  * Found 3 other algorithms: AdaBoostClassifier, SVM, DecisionTreeClassifier. Changed parameters around in order to ensure algorithms were co-dominant. Led to a change in algorithmic accuracy, but not significant wnough to impact objective of confusion matrix
+* Wrote functions to plot scatter graphs and save 5 different csv files for each model
+* Pareto Optimal Frontier:
+  **  Rohan = DecisionTreeClassifier (min_samples_leaf=30). False Positive = 9, False Negative = 45
+  **  Manas = RandomForestClassifier (n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). False Positive = 18, False Negative = 29. 
+  **  Aditya = AdaBoostClassifier. False Positive = 32, False Negative = 21. 
+  **  Adithya =  MLP Classifier. False Positive = 26, False Negative = 26.
+  **  Yisu = SVM (used svm.SVC, sigmoid = kernel). False Positive = 0, False Negative = 104. 
+
+====Individual Notes====
+* Researched common models for classification, using MLP classifier
+* Researched on SciKit Learn, StackOverflow, Medium to understand how to select appropriate parameter values
+* Added code to generate prediction CSV
+* Added cells for plotting performance on FPR/FNR axis to demonstrate co-dominance with other algorithms
+
+
+
+
 
 == Week 3: Sep 8, 2021 ==
+
 ===Self Evaluation Form===
 https://drive.google.com/file/d/1wtvbb6bHFMIa8Im8UXZG4dJM4Is9ZHKi/view?usp=sharing
 
