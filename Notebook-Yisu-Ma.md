@@ -17,6 +17,8 @@
 * Presented my part in our group presentation:
  > The selection of our select, mutate, and evaluate function.
  > The improvement we made for the genetic loop.
+
+**Link:** https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 ### Lecture note (I just record some of the ideas from each group):
 * Group4: 
 > AUC is around 0.2, a little bit higher than ours.
