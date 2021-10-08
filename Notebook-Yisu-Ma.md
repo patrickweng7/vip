@@ -24,7 +24,7 @@
 * Group3:
 > Used KNN,  MLP,  SVM, logistic regression, random forests
 * Group1:
-> They seem to get a better result in GP than us
+> They seem to get a better result in GP than ours
 ### Individual notes:
 * Finished peer evaluation
 * Re-done through the data processing and take a note of the change I got
