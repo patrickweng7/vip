@@ -69,6 +69,7 @@ Assignment
 
 == September 29, 2021 ==
 '''Team Meeting Notes''
+This week, we had class presentations for ML vs MOGP comparison on the titanic dataset
 
 * Selecting from the HOF may preserve pareto individuals
 * Adding terminals can help improve performance greatly (instead of simply comparing)
@@ -82,6 +83,15 @@ Assignment
 ** pairing NSGA-II, selTournamentDCD
 * For non-strongly type GP, we can use an activation function (like tanh) or simply check if value > 0 or not to determine result
 * MOGP more diverse than ML solutions; teams also had better performance for MOGP compared to ML (lower AUC)
+
+ML vs MOGP comparison
+
+*Built in sklearn methods made it very easy to optimize and find a solution for ML
+*GP constrained by primitives and terminals, whereas ML algorithms are constrained by architecture
+*Tree size limit for GP (<91) makes limits complexity of algorithm compared to ML algorithms like MLP
+*Both ML and GP algorithms dependent on loss functions
+*ML results seemed to be more consistent between runs (GP mating and mutation resulted in highly different final individuals and GP sometimes gets “stuck” or shows increasing loss over time)
+
 
 Some questions
 * Why did GP solutions often have 0 FP or 0 FN while ML solutions almost never had those (more equal distribution of FP, FNs for the most part). Does the evaluation have to to with this?
@@ -102,10 +112,16 @@ Some questions
 |October 6, 2021
 |October 5, 2021
 |-
+|Rework GP to include some suggestions to try and get better performance
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
 |}
 
 == September 22, 2021 ==
 '''Team Meeting Notes'''
+This week we were assigned the same titanic dataset ML problem but now we are allowed to use multi-objective genetic programming (MOGP) to solve the problem. The goal is to obtain the same non-dominated pareto front and to compare the AUC of the ML model results with that of the MOGP.
 
 For next week: Continue with the titanic dataset but use GP
 * Can use strongly or loosely typed GP
@@ -117,7 +133,10 @@ For next week: Continue with the titanic dataset but use GP
 '''Subteam Notes'''
 Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
 
-These are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
+
+For my individual contribution, I coded most of the genetic programming part of the assignment including the evaluation function, terminals and primitives used, genetic operators, and the genetic programming loop. I also created the slides for 2-4, and 8-11 and presented the slides for our genetic programming implementation and ML vs MOGP comparison.
+
+The following are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
 
 GP Problems 
 
@@ -137,7 +156,7 @@ Eval Function used for multi-objectives
 
     def evaluation_func_multi(individual, x_train, y_train, pset):
         func = gp.compile(expr=individual, pset=pset)
-        args = [x_train[cols[i]] for i in range(len(9)]
+        args = [x_train[cols[i]] for i in range(9)]
         predictions = func(*args) 
         confusion = confusion_matrix(y_train, predictions)
         FN = confusion[1,0]
@@ -150,6 +169,16 @@ Eval Function used for multi-objectives
         e1 = FN**2 + len(individual) * 20   #add regularization term to error to prevent bloating
         e2 = FP**2 + len(individual) * 20   #(could alternatively add separate objective to minimize)
         return (e1, e2)
+
+* As shown above, I used an eval function that squared the FN and FP results so that it would penalize more uneven results (high FNR or FPR). I also added an error term for the tree size to prevent bloating and prefer the simpler model.
+* As Dr. Zutty mentioned in class, another way to penalize tree size is to simply include a third objective to minimize in the evaluation function instead of adding the "regularization factor".
+
+Pareto Front Comparison
+
+[[files/dzhang351/ml_auc.png|thumb|100x100px]]
+[[files/dzhang351/mogp_auc.png|thumb|100x100px]]
+
+One reason that the mogp_auc was significantly higher than that of the ml_auc for us was that we did not add any constant terminals. This means that we only compared the columns against each other with some transformation (like arithmetic operators), which would often not be sufficient. Also, some things to test to improve performance include trying a different selection instead of selLexicase like selNSGAII. Also, the evaluation function enforcing more equal FN and FP may have been good practically but could have also hurt the AUC since it can eliminate possibly better individuals that are not even (in terms of FN and FP) but still performant.
 
 Interesting findings 
 
@@ -222,6 +251,8 @@ Findings
 * I kept the default solver ('adam') and activation function ('relu') although I did try testing the stochastic gradient descent ('sgd') solver and sigmoid as the activation function. My reasoning for testing sigmoid as an activation is because it is good for predicting probability as an output. But since the results were not better than the defaults, I kept the sklearn default params for solver and activation function.
 * The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
 
+The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier. I also contributed to the MLP tuning process and worked with Nikhil to find the pareto-optimal fronts. Since MLP was comparatively good compared to the other models, we had to "adversely tune" some parameters to make sure that MLP did not dominate another algorithm (like Gaussian Naive Bayes)
+
 Table of Scores
 
 {| class="wikitable"
@@ -252,7 +283,6 @@ Table of Scores
 |-
 |}
 
-The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier.
 
 '''Action Items:'''
 {| class="wikitable"
