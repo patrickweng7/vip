@@ -19,7 +19,41 @@
 * Hyperparameters would highly likely affect the models and the codominant algorithm results.
 * In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
 * Try to write our own algorithm – using selection, crossover, mutation functions in Deap and try to figure out the best fit for our model.
-* 
+* There were some constraints on MOGP given in the class: Only using basic primitives and 
+No selTournament for selection, because it is not multi-objective
+* Submit .csv with columns of passengerID
+* Finally compare ML and GP.
+### Presentation Skills:
+* Use page numbers, allows the audience to target the page
+* Label the graph and organize the information in the slides
+* Do not read the whole slides
+### Groupwork notes
+* Meet on Discord on Weekends. (around 6 hours)
+* We went through the code template in Lab2 first and to see if we can get some hints from it.
+* We decided to keep our preprocessing data in our last lab. ie. same chosen parameters.
+* Since we are not allowed to use default algorithms in Deap (Tournament selection) we tried multiple different algorithms and decided to use SPEA2.
+* Cited the regression evaluation function from lab2
+* Helped Manas develop our genetic loop
+* Our final result:
+Best individual is `multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653`
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week5.PNG)
+* So we can see from the graph that GP does have a better result than ML
+
+
+### Individual notes:
+* Got a deep understanding of what we were doing in the lab
+* Sat a Max boundary for our mate and mutate function, so that our trees would not go beyond height 17. This would avoid our algorithum work crazy. Here are the codes:
+`toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
+toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))`
+* Tested different selection, mutation, and evaluation functions. Here are the functions we selected:
+`toolbox.register("evaluate", evalSymbReg, pset=pset)
+toolbox.register("select", tools.selSPEA2)
+toolbox.register("mate", gp.cxOnePoint)
+toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
+toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)`
+* My teammates made the slides and I went through the part I would present. Thanks Rohan
+> **Link:** https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 
 
 ## Week 4: September 16th - September 22nd (2021)
@@ -63,6 +97,9 @@ _      Aditya = AdaBoostClassifier. FP = 32, FN = 21.
     *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
     *  Adithya =  MLP. FP = 26, FN = 26.
     *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. _
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week4.png)
+
 ### Individual notes:
 * Although the whole team decided to keep consistency for the parameters we choose, I find that Cabin and Age could also significantly influence the final results and in this case, the Embarked parameter may not be important, because the cabin position may not be determined by the port that a passenger is from.
 * After reviewing Scikit Documentation (scikit-learn.org), I tried different functions to come up with codominant results with my teammates. But most of them fail. I asked Manas for help and finally, I used svm.SVC, sigmoid = kernel (SVM) to fit our codominant results. The result is kind of extreme because I got FP=0, FN=104, which means all of them are false negative.The SciKit documentation tells me which parameters each constructor takes in. 
