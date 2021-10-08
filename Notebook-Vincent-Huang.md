@@ -20,6 +20,7 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
     - This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
 - Fixed bug regarding incorrect arities in contract_arls
     - Example output
+
 ```
 arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
 Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
@@ -32,8 +33,8 @@ arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new 
 len individual after arl insert 4
 individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
 ```
-    - Individuals with incorrect arities still appear in the population
-    - Problem with occurrences code, not properly including the entire ARL
+-    - Individuals with incorrect arities still appear in the population
+     - Problem with occurrences code, not properly including the entire ARL
 - PACE-ICE still causing issues
     - What we thought switching to PACE-ICE could help us with over Google Collab:
         - Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
@@ -46,8 +47,8 @@ individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("l
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Fix contract ARLs method|Complete|Sep 27|Oct 3|Oct 2|
-|Investigate add_all_subtrees problem|Sep 27|Oct 3|Oct 1|
-|Do runs of extended ARLs|Sep 27|Oct 3|Oct 3|
+|Investigate add_all_subtrees problem|Complete|Sep 27|Oct 3|Oct 1|
+|Do runs of extended ARLs|Complete|Sep 27|Oct 3|Oct 3|
 
 ### Week 5: Sep 20
 - Bug causing the crashes has been identified
