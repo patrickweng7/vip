@@ -69,6 +69,7 @@ Assignment
 
 == September 29, 2021 ==
 '''Team Meeting Notes''
+
 This week, we had class presentations for ML vs MOGP comparison on the titanic dataset
 
 * Selecting from the HOF may preserve pareto individuals
@@ -131,8 +132,8 @@ For next week: Continue with the titanic dataset but use GP
 * As a group, submit a csv file for predictions for each Pareto optimal point
 
 '''Subteam Notes'''
-Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
 
+Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
 
 For my individual contribution, I coded most of the genetic programming part of the assignment including the evaluation function, terminals and primitives used, genetic operators, and the genetic programming loop. I also created the slides for 2-4, and 8-11 and presented the slides for our genetic programming implementation and ML vs MOGP comparison.
 
@@ -173,10 +174,10 @@ Eval Function used for multi-objectives
 * As shown above, I used an eval function that squared the FN and FP results so that it would penalize more uneven results (high FNR or FPR). I also added an error term for the tree size to prevent bloating and prefer the simpler model.
 * As Dr. Zutty mentioned in class, another way to penalize tree size is to simply include a third objective to minimize in the evaluation function instead of adding the "regularization factor".
 
-Pareto Front Comparison
+Pareto Front Comparison (ml first, then mogp)
 
-[[files/dzhang351/ml_auc.png|100x50px]]
-[[files/dzhang351/mogp_auc.png|100x50px]]
+[[files/dzhang351/ml_auc.png|50x50px]]
+[[files/dzhang351/mogp_auc.png|50x50px]]
 
 One reason that the mogp_auc was significantly higher than that of the ml_auc for us was that we did not add any constant terminals. This means that we only compared the columns against each other with some transformation (like arithmetic operators), which would often not be sufficient. Also, some things to test to improve performance include trying a different selection instead of selLexicase like selNSGAII. Also, the evaluation function enforcing more equal FN and FP may have been good practically but could have also hurt the AUC since it can eliminate possibly better individuals that are not even (in terms of FN and FP) but still performant.
 
