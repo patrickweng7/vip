@@ -31,7 +31,6 @@
 
 | Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
 |------|----------------|---------------|----------------|---------------|
-
 |Peer evaluation|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
 |Record Notebook|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
 
