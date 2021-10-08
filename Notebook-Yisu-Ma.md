@@ -18,9 +18,8 @@
 ### Lecture notes:
 * Hyperparameters would highly likely affect the models and the codominant algorithm results.
 * In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
-
-
-
+* Try to write our own algorithm – using selection, crossover, mutation functions in Deap and try to figure out the best fit for our model.
+* 
 
 
 ## Week 4: September 16th - September 22nd (2021)
@@ -35,6 +34,8 @@
 * Requested codominant results in groups final CSV files
 ### Groupwork notes
 * Sat up discord channel and met online during the weekend
+* Meeting on Saturday, 9/18 and Sunday, 9/19
+* We went through ideas we have and send a conclusion to the Discord channel
 * The meeting records are here:https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
 * Dropped the parameters that we thought are not important
 * Recorded codominant results in our CSV files
@@ -62,6 +63,19 @@ _      Aditya = AdaBoostClassifier. FP = 32, FN = 21.
     *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
     *  Adithya =  MLP. FP = 26, FN = 26.
     *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. _
+### Individual notes:
+* Although the whole team decided to keep consistency for the parameters we choose, I find that Cabin and Age could also significantly influence the final results and in this case, the Embarked parameter may not be important, because the cabin position may not be determined by the port that a passenger is from.
+* After reviewing Scikit Documentation (scikit-learn.org), I tried different functions to come up with codominant results with my teammates. But most of them fail. I asked Manas for help and finally, I used svm.SVC, sigmoid = kernel (SVM) to fit our codominant results. The result is kind of extreme because I got FP=0, FN=104, which means all of them are false negative.The SciKit documentation tells me which parameters each constructor takes in. 
+* This might be a manipulated result but we find that in order to achieve the codominance, we would have to intentionally modify the hyperparameters we have for some model either to lower FNR or raise FPR. Thanks to Manas's discovery.
+* For example, in my chosen model the kernel type to be used in the SVM algorithm would cause huge disagreement with other teammates' results.
+Below are the resources I found on the internet for different  kernel parameter:
+`
+ Linear Kernel: K(X,Y)=XTY
+ Polynomial kernel: K(X,Y)=(γ⋅XTY+r)d,γ>0
+ Radial basis function (RBF) Kernel: K(X,Y)=exp(∥X−Y∥2/2σ2) which in simple form can be written as exp(−γ⋅∥X−Y∥2),γ>0
+ Sigmoid Kernel: K(X,Y)=tanh(γ⋅XTY+r) which is similar to the sigmoid function in logistic regression.
+`
+* Reviewed 5 predictions.csv files and helped add Pareto Optimal Frontier cells in our notebook
 
 
 | Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
