@@ -17,10 +17,18 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 
 = Fall 2021 =
 == Week 07 ==
-=== October 04, 2021 ===
 === October 06, 2021 ===
+=== October 04, 2021 ===
 '''Team Meeting Notes:'''
-* Started lecture on genetic programming.
+* Image Processing
+** NSGA-III Implementation - Tweak p parameter, test against working datasets
+** Mating/Mutation - New method
+** Trouble with seeds
+** Hyper feature ideas
+* Modularity
+** Implemented workaround for add_all_subtrees large individuals bug.
+** Fixed bug regarding incorrect arities in contract_arls.
+** Switch back to Google Colab as PACE-ICE still causing issues.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -56,10 +64,18 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 |}
 
 == Week 06 ==
-=== September 27, 2021 ===
 === September 29, 2021 ===
+=== September 27, 2021 ===
 '''Team Meeting Notes:'''
-* Started lecture on genetic programming.
+* Image Processing
+** Selection Methods using NSGA-III Implementation.
+** Search for combinations of Hyper-feature & Primitive Packaging.
+** Baseline run unsuccessful, retrying with seed file.
+** Update on geometric semantic genetic programming methods.
+* Modularity
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL.
+** Problem with add_all_subtrees method: causes problems with decently sized individuals (eg, length of 82 and depth of 6).
+** MNIST team working through getting everyone on PACE-ICE to do runs.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -95,11 +111,20 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 |}
 
 == Week 05 ==
-=== September 20, 2021 ===
 === September 22, 2021 ===
+=== September 20, 2021 ===
 '''Team Meeting Notes:'''
-* Started lecture on genetic programming.
-
+* Market Analysis and Portfolio Optimization
+** Prediction-based portfolio optimization model using neural networks
+** Support vector machine with adaptive parameters in financial time series forecasting
+** Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach
+* Image Processing
+** Focus on a multi-label image classification problem using the chest x-ray dataset.
+** Improve EMADE’s selection methods and mating/mutation process to better handle images with multiple labels.
+** NSGA-III and Lexicase as selection methods
+** Improve existing features by looking for synergies and packaging them together.
+* Modularity
+**a
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -137,27 +162,25 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 === September 15, 2021 ===
 === September 13, 2021 ===
 '''Team Meeting Notes:'''
-* Stocks
-** Conducting a literature review to find new ideas of what to implement.
-** Their team also found a good resource on genetic programming generated trading.
+* Market Analysis and Portfolio Optimization
+** Stock generalization: Finding models/individuals that perform well on multiple stocks.
+** Fundamental Analysis: Using company quarterly balance sheets along with technical analysis to predict stock buy/sells.
+** Found empirical study of Genetic Programming generated trading rules in computerized stock trading service system.
 * Image Processing
-** Defined goals and tasked themselves.
-** Focusing on multi-label image classification
-** Image classification or object detection are their overarching goals.
+** Add new primitives to EMADE that can help with image processing tasks.
+** Explore how can use autoML for either image classification or object detection problems.
+** Further paper research in fundamental analysis.
 * Modularity
 ** Still coming up with goals for the semester.
 ** Potential areas of improvement include new models, selection methods, ARL Database storage, and more depth in ARL's.
 * Neural Architecture Search
 ** Presented information about neural architecture search to new members.
 ** Came up with 6 different potential improvements, including triviality detection
-* NLP
-** We updated the team on our progress.
-** 3/5 of our members have gotten EMADE on PACE setup, and we're moving into a literature review of Question Answering Systems.
 
 '''Individual Progress'''
 * Attempted to solve MySQL connection issue on Campus.
 ** Attempted to reconfigure Port number.
-** Attempted to solve through commnon error codes (credits to Steven Leone).
+** Attempted to solve through commnon error codes (table credits to Steven Leone).
 * Resolved the connection issue after reconnect to Campus VPN.
 {| class="wikitable"
 !Index
@@ -171,28 +194,15 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 |qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
 |-
 |2
-|Malformed Credentials
-|Password is stored incorrectly in MySQL due to version discrepancies
-|SET PASSWORD FOR 'gt_username'@'%' = PASSWORD('password');
-|-
-|3
 |Access Denied
 |It's likely that this is a new database created, or permissions weren't granted correctly.
 |Re-grant privileges, specify user address
 |-
-|4
+|3
 |Can't Connect to MySQL
 |MySQL may be running in the wrong manner (not a terminal, not a submitted job)
 |Ensure proper server address (job or from terminal)
-|-
-|5
-|2003 MySQL cannot connect
-|PACE has too many users; the host address has changed for MySQL
-|After starting mysql, run qstat -n to find the name of the host it’s running on, and swap it in input.xml
 |}
-
-
-
 
 '''Action Items:'''
 {| class="wikitable"
@@ -202,29 +212,23 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 !Suspense Date
 !Date Resolved
 |-
-|Continue in making of true positive training data
+|Continue to configure EMADE on PACE ICE
 |Completed
-|March 25, 2019
-|April 29, 2019
-|April 5, 2019
+|September 8, 2021
+|September 13, 2021
+|September 13, 2021
 |-
-|Setup a meeting with the deep learning team
+|Literature review on QA systems
 |Completed
-|April 1, 2019
-|April 8, 2019
-|April 6, 2019
+|September 13, 2021
+|September 15, 2021
+|September 20, 2021
 |-
-|Create a git large file system repository of the training data and test data we have in order to share withe the deep learning team
-|
-|April 1, 2019
-|April 17, 2019
-|
-|-
-|Create a set of existing algorithms
-|
-|April 1, 2019
-|April 17, 2019
-|
+|Understand different layers in QA Systems
+|Completed
+|September 13, 2021
+|September 15, 2021
+|September 20, 2021
 |}
 
 == Week 03 ==
