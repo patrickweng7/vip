@@ -31,6 +31,115 @@ Total: 90/100
 
 __TOC__
 
+== October 4, 2021 ==
+'''Team Notes:'''
+* We decided to use more Genetic Programming.
+** Designed EMADE trials as a group to figure out the best configuration produce the best results possible.
+*** Eval Functions being used:
+**** APPT, VPPT, PP, CDF Profit Dist, Tree Size, MSE, MAE
+** Dr. Zutty suggested creating and implementing the paper outside of EMADE as a sanity check and to continue if our results successfully match.
+** Rishi noted that our Profit calculation will be slightly different for us because we don't calculate tax rate.
+* Discovered that the TS-Fuzzy paper individually optimized the technical indicators on a stock-by-stock basis, instead of grouping the stocks together and creating a single unified model that optimizes the technical indicators together. I note that this is inefficient as running singular trials sequentially takes too much time.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline Paper
+|Suspended
+|September 3, 2021
+|September 27, 2021
+|
+|-
+|Research Fuzzy Models
+|In Progress
+|September 27, 2021
+|
+|
+|-
+|Sanity Check
+|Pending
+|October 7, 2021
+|
+|
+|}
+
+== September 27, 2021 ==
+'''Team Notes:'''
+* Added Sriram Mudireddy to our team
+* Replicating the results of the TS Fuzzy Paper:
+** Created a new branch [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-pace stocks-pace] to track this semester's progress
+** [https://github.gatech.edu/rbhatnager3/emade/tree/49134ca36c0d45aabd32b139172aaadfe988c73f] demonstrates our recent progress
+*** Moved away from exponential smoothing for finding the Buy/Sell signals to a fixed threshold bound calculated from the mean and SD of the training labels
+*** Changed Training Stocks: Previous paper used AAPL, BA, VZ, UMC, and AUO. Current paper uses AAPL, BA, VZ, CAT, JNJ, XOM, and S&P500
+**** More optimal because TS Fuzzy Paper uses American Stocks only
+*** I changed the optimal PLR threshold calculation to match the paper's values (between 0.5(SD of price data) and 1.0(SD of price data)), diverging from last semester's brute force genetic algorithm.
+** Issues: Abhiram pointed out that a main part of the paper involved using TS Fuzzy Rule-based models to identify the buy/sell signals after the test data is predicted with the Support Vector Regression. Will discuss with Dr. Zutty in our next meeting which will be virtual since Fall Break is coming.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline Paper
+|Suspended
+|September 3, 2021
+|September 27, 2021
+|
+|-
+|Research Fuzzy Models
+|In Progress
+|September 27, 2021
+|
+|
+|-
+|Run EMADE on the AAPL dataset (Abhiram)
+|Completed
+|September 27, 2021
+|
+|September 29, 2021
+|}
+
+== September 20, 2021 ==
+'''Team Notes:'''
+* Searched for good papers to quickly replicate and test in EMADE
+** Focused on looking for papers with Code so that replicating results would be easier and code changes would be more clear to implement
+** https://paperswithcode.com/paper/predicting-the-direction-of-stock-market
+*** I personally read and discovered that this paper has a data leak issue and thus isn't viable
+**** Conveyed my discovery to the team
+** Focused search to research papers that cite Spring 2021 semester research paper
+*** https://primo-pmtna03.hosted.exlibrisgroup.com/primo-explore/openurl?%3Fsid=Elsevier:Scopus&_service_type=getFullTxt&issn=15684946&isbn=&volume=38&issue=&spage=831&epage=842&pages=831-842&artnum=&date=2016&id=doi:10.1016%2Fj.asoc.2015.10.030&title=Applied%20Soft%20Computing%20Journal&atitle=A%20Takagi-Sugeno%20fuzzy%20model%20combined%20with%20a%20support%20vector%20regression%20for%20stock%20trading%20forecasting&aufirst=P.-C.&auinit=P.-C.&auinit1=P&aulast=Chang&vid=01GALI_GIT&institution=01GALI_GIT&url_ctx_val=&url_ctx_fmt=null&isSerivcesPage=true
+* PACE-ICE
+** Abhi ran EMADE using the same configuration as our last EMADE run from last semester
+*** 402 Generations
+*** Objectives: Average Profit per Transaction (APPT), Variance of Profit Per Transaction (VPPT), CDF of Profit Distribution
+*** Two individuals outperformed the original seed individuals and used np.argmin as the learner
+**** Simply picks the feature with the lowest value
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline Paper
+|In Progress
+|September 3, 2021
+|
+|
+|-
+|Re-read TS-Fuzzy Paper to understand it better
+|Completed
+|September 20, 2021
+|
+|September 27, 2021
+|}
+
 == September 13, 2021 ==
 '''Team Notes:'''
 * Our main goal at this point is to develop a general outline for the paper
