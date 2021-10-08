@@ -15,11 +15,11 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 |Investigate Incorrect arities problem|Incomplete|Oct 4|Oct 11|
 
 ### Week 6: Sep 27
-* Implemented workaround for add_all_subtrees large individuals bug
-** Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
-** This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
-* Fixed bug regarding incorrect arities in contract_arls
-** Example output
+- Implemented workaround for add_all_subtrees large individuals bug
+    - Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
+    - This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
+- Fixed bug regarding incorrect arities in contract_arls
+    - Example output
 ```
 arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
 Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
@@ -32,16 +32,16 @@ arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new 
 len individual after arl insert 4
 individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
 ```
-** Individuals with incorrect arities still appear in the population
-** Problem with occurrences code, not properly including the entire ARL
-* PACE-ICE still causing issues
-** What we thought switching to PACE-ICE could help us with over Google Collab:
-*** Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
-*** Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
-*** No inactivity clicking script
-*** Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
-** Switching back to Google Collab
-** Stocks data has been migrated into our repo and we're now ready to do those runs
+    - Individuals with incorrect arities still appear in the population
+    - Problem with occurrences code, not properly including the entire ARL
+- PACE-ICE still causing issues
+    - What we thought switching to PACE-ICE could help us with over Google Collab:
+        - Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+        - Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+        - No inactivity clicking script
+        - Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+    - Switching back to Google Collab after giving PACE-ICE one more try
+    - Stocks data has been migrated into our repo and we're now ready to do those runs
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
