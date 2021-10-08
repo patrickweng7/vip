@@ -114,17 +114,19 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Imported pandas, numpy, and sklearn methods 
 * Mounted Drive to Colab and read in train and test sets as dataframes
 * Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
 * Set PassengerID as index
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+
+##Individual Notes
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
 * One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
-* Replaced Sex feature categories with 1 for male and 0 for female
 * Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
 * Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
-* Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
 * Obtained confusion matrix for predictions 
