@@ -11,7 +11,7 @@ Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
 # Week 6: September 29th, 2021
 ## Overview
-Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently). 
+Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently).
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
@@ -26,13 +26,13 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Titanic ML, MOGP, EMADE Presentation | Pending | 10/25/21 | 10/25/21  | - |
-| Peer Evaluation | Pending | 9/29/21 | 10/6/21  | 10/4/21 |
+| Titanic ML, MOGP, EMADE Presentation | Completed | 10/25/21 | 10/25/21  | - |
+| Peer Evaluation | Completed | 9/29/21 | 10/6/21  | 10/4/21 |
 | Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
 
 # Week 5: September 22th, 2021
 ## Overview
-Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Attended meta-presentation on good presentation techniques (detailed graphs, concise bullet points, key takeaways, etc.) in preparation for next week's Titanic ML and MOGP presentation. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
