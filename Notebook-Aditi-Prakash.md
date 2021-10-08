@@ -53,18 +53,22 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
+* Researched strongly typed GP in DEAP
+* Chose NSGA II as selection method (handles both objectives)
+* Created hof using best individuals ever identified throughout evolution
+* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
+* Removed duplicate individuals from Hall of Fame for improve evolution
+* Predicted Survived feature for test.csv 
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+
+## Individual Notes
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
 * Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
 * Primitive Set:
 ![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
-* Researched strongly typed GP in DEAP
-* Chose NSGA II as selection method (handles both objectives)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
-* Created hof using best individuals ever identified throughout evolution
-* Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
-* Change 30 generations to 50 generations and removed duplicate individuals from Hall of Fame for improve evolution
-* Predicted Survived feature for test.csv 
-* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+* Change 30 generations to 50 generations for improved evolution
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Personal Slides: 1, 2, 4, 5)
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
