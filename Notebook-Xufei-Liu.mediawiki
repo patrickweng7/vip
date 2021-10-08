@@ -142,6 +142,13 @@ Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vinc
 ** Recloned emade from Vincent's branch using git clone
 ** Working on using SCP to get emade onto pace.
 ** Code is: scp -r emade xliu725@pace-ice.pace.gatech.edu:~
+* Managed to get PACE-ICE and the database working through the following steps:
+* Fixed the .my.cnf file through vim by adding in a port number (I choose 3313)
+** Terminal 1: qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+** Terminal 1: mysqld_safe --datadir='/storage/home/hpaceice1/xliu725/scratch/db' (do not cd into /usr)
+** Terminal 2: ssh atl1-1-02-012-5-1
+** Terminal 2: mysql -u root
+** Then I ran the SQL commands found on this page: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE
 
 ====== Action Items ======
 {| class="wikitable"
