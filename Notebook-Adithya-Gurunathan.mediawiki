@@ -12,21 +12,118 @@
 == Week 5: Sep 22, 2021 ==
 
 ===Overview:===
-* Presentation on guidelines to effectively present
-* How to present a Pareto Optimiziation Curves
-* 
-
+* Discussed last week's project
+* Attended presentation on guidelines to effectively present
+* Introduction to this week's assignment
 
 ===Lecture Notes:===
-* Submit as a group, csv file:
-  Passenger Id, Survived, Each Pareto Optimal Algorithm has a column
-* Self tournament is not a mmultiple objective selection operator
-* Compare the multi objective fitness parameters
-* Reimann sums for Pareto Optimization
-* Pareto Optimal on 2 objectives - extra objectives can help search to be better, add more diversity
-* 
+* Week 5 Assignment
+  * Utilize MOGP to find a set of pareto optimal algorithms for the titanic dataset
+  * Tree will take in same inputs as the ML model
+  * Both strongly/ loosely typed GP allowed
+  * Use selection, crossover, mutator, to write genetic loop
+  * Write evaluation function, with False Negative and False Positive Rate as criteria
+  * Comparison of Pareto Front of MOGP and GP
+  * Submit .csv files with columns of passengerID, each representing pareto optimal algorithms
+  * Create a presentation for Week 6, to share and present findings
 
+* Effective Presentation Guidelines
+  * Ensure to introduce team on first slide
+  * Include title, date on first slide
+  * Page numbers are essential for audience to reference material afterwards
+  * Write text in slides, but do not present by reading off it
 
+===Titanic Dataset (MOGP) Project===
+====Sub Team Meeting Notes====
+* Discussed steps required to attain desired output for the experiment
+* Chose same relevant columns as previous week's assignment (Pclass, Sex, SAge, SibSp, Parch & Embarked)
+* Pre-processed data, and used NaN_ maps for encoding of string values
+* Used primitives (arithmetic & logical) from Lab 2 to fulfil requirements of this Lab
+
+* Functions used for our lab
+  * Selection: SPEA2
+  * Evaluate: EvalSymbReg
+  * Mate: cxOnePoint
+  * Mutate: mutUniform
+
+* Wrote an evaluation function evalSymbReg()
+  * Using activation function arctan() to map values from function to values between 0 & 1.
+  * Activation function threshold was set to 0.5: Lower values were treated as zero, higher values treated as 1
+  * Computed False Negatives, False Positives, True Negatives, True Positives
+  * When TP OR TN = 0, function will set FNR/FPR to 1
+
+* Designed and wrote our genetic loop
+  * Population: 100, with 30 Generations
+  * In each subloop, select next generation individuals and clone them. Apply crossover & mutation
+  * Mating probability set to 0.4
+  * Indiviuals with invalid fintesses were evaluated
+  * HallOfFame (hOF) was updated with best individuals across generations in population
+
+* Key Findings:
+  * Best Individual: multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex)
+  * Fitness: (0.0, 0.37966101694915255)
+  * MOGP AUC: 0.1256530649754448
+  * ML AUC: 0.18129
+
+* Conclusion
+  * To improve accuracy of genetic programming models, we experimented with mate, mutate, selection methods
+  * Tried different primitves used in Lab 2 to optain optimal solutions for our program
+  * Area under curve is lower for MOGP than ML models
+  * MOGP is more dominant than ML models
+
+* Worked on presentation content to include findings and takeaway
+  Link: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+====Individual Notes====
+  * Read up on different symbolic regression evaluation functions and how they work
+  * Researched the differences between NSGA II and SPEA2 selection algorithms
+  * Contributed to group discussions and code development for genetic loop
+  * Worked on presentation material
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|- 
+|Completed Python notebook
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 29th, 2021
+|- 
+|Made Presentation
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|}
 
 == Week 4: Sep 15, 2021 ==
 
