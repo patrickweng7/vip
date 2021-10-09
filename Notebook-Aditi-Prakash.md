@@ -200,7 +200,7 @@ Attended lecture on multi-objective optimization and completed Lab 2's Multi-Obj
 * Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
 * Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
 
-### Lab 2 - Multi-Objective Genetic Programming
+## Lab 2 - Multi-Objective Genetic Programming
 This lab explored the problem of optimizing a set of primitives based on more than one objective to achieve a target function model. Here, we minimize the mean squared error and the size of the tree. We also add the sin, cos, and tan functions to our set of primitives and reinitialize the toolbox. We then define a function to evaluate our symbolic regression and note that this new problem, with an evaluation function that takes the sin, cos, and tangent of the points into consideration when evaluating the individuals for fitness, cannot be solved within 100 generations like the ones we worked on previously. 
 
 We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front using the Hall of Fame. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
@@ -282,7 +282,7 @@ Introduced concept of genetic programming with the goal of optimizing a function
 5. Measuring error (ex. Mean Squared Error)
 7. Identifying primitives that can make modeling a function easier 
 
-### Lab 2 - Genetic Programming, Part 1 (Symbolic Regression)
+## Lab 2 - Genetic Programming, Part 1 (Symbolic Regression)
 This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
 
 We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from (add, subtract, multiply, and negative) and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We used selTournament, one-point corssover, uniform mutation, and gp.genFull for our functions. As we registered the expression for generating our population, we defined a minimum and maximum height for our tree. We passed points=np.linspace(-1, 1, 1000) to register the evaluation function with the toolbox in order to generate 1000 random points between -1 and 1 to pass to each tree in our population. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We set a 0.5 probability of mating and a 0.2 probability of mutation. We graphed the results and printed our statistics. 
