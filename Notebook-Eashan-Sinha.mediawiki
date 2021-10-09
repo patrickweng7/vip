@@ -224,7 +224,99 @@ pset.addPrimitive(np.mod, arity=2)</pre>
 == Week 3 (9/8 - 9/14) ==
 
 === Lecture Notes (9/1) ===
+* We first rated ourselves out of five on our '''Python''' and our '''Machine Learning''' knowledge and familiarity.
+* I gave myself a 4 for Python and a 2 for Machine Learning
 
+'''Multiple Objectives -- The MO in MOGA and MOGP'''
+
+* Conducted class survey of what we look for in a mate:
+** Personality
+** Intelligence
+** Humility
+* Everyone has different objectives and preferences for what objectives they would want their partners to have
+* However, an algorithm particularly looks for '''fitness''' in its mates
+* We will focus on the translation of the vector of scores from evaluation into a fitness value
+* Gene pool is the set of genome to be evaluated during the current generation
+** Genome
+*** Genotypic description of an individuals
+*** DNA
+*** GA = set of values
+*** GP = tree structure, string
+** Search Space
+*** Set of all possible genome
+*** For Automated Algorithm Design
+*** Set of all possible algorithms
+*** How big is the search space?
+*** Why is this important for algorithm design?
+* The Evaluation of a Genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores
+** TP = True Positive
+** FP = False Positive
+* '''Objectives''' = Set of measurements each genome (or individual)  is scored against
+* Objective Space – Set of objectives 
+* Evaluation – Maps an genome/individual
+** From a location in search space to a location in objective space
+
+'''Classification Measures'''
+
+* '''Confusion Matrix'''
+** 2 x 2 table --> predicted positives & predicted negatives x actual positives & actual negatives
+* We’re going to stay in a '''binary world''' in this lecture
+* '''Binary Classification''': It can only be 1 or 0, one thing or the other, positive or negative, as shown above
+* '''Multi Classification''': It can be in a set of things (the desired object can be one of many things)
+* Apple example = The goal is to retrieve all apples but the algorithm looks at only red objects so we get the above confusion matrix
+'''True Positive Rate (Sensitivity / Recall)''': The number of true positives / number of positives = '''Hit Rate'''
+'''True Negative Rate (Specificity)''': True negatives/actual negatives
+* The stepped line is called the '''Pareto Frontier'''
+* '''Minimization Measures'''
+** We want to push that '''Pareto Frontier''' down to the origin as much as possible
+** Apple Example: We can check to see if our rows are correct by summing TP + FN = AP and FP + TN = AN
+* '''Other Measures''':
+** Precision or Positive Predictive Value
+** False Discovery Rate
+** Negative Predictive Value
+** Accuracy
+
+'''Objective Space'''
+
+* We don’t have to be limited to accuracy based on algorithm purposes
+* There are a lot of other things that can tell us the quality of our algorithm
+* Each individual is evaluated using objective functions
+** MSE
+** Cost
+** Complexity
+** TPR
+** FPR
+
+'''Pareto Optimality'''
+
+* An individual is '''Pareto optimal''' if there is no other individual in the population that outperforms the individual on '''ALL''' objectives
+* The set of all Pareto individuals is known as the Pareto frontier
+* These individuals represent unique contributions
+* We want to drive selection by favoring Pareto individuals
+** But maintain diversity by giving all individuals some probability of mating
+* '''Pareto Optimal''' solutions are usually ones that we’re trying to reach but nondominating points are those that we have already reached
+
+'''Nondominated Sorting Genetic Algorithm II (NSGA II)'''
+
+* Population is separated into nondomination ranks
+* Individuals are selected using a binary tournament
+* Lower Pareto ranks beat higher Pareto ranks
+* Ties on the same front are broken by crowding distance 
+** We have four total ranks here
+** The best rank is 0
+* Now we want to randomly select individuals based on a binary tournament in which two points are compared to each other.
+* Tiebreakers are through '''crowding distance'''.
+* A more normalized distribution with each point being relatively equally distanced from each other is more desirable than a front with points that are more distanced from each other
+* A measure of how ‘alone’ a point is in a distribution shows whether it has a high crowding distance– if it is more alone, and far away from other points on its front, then it has a higher crowding distance and we choose that point as the winner of the tiebreaker because we want to explore the areas near it and see if we can achieve a better point from there
+
+'''Strength Pareto Evolutionary Algorithm 2 (SPEA2)'''
+* Each individual is given a strength S
+** S is how many others in the population it dominates
+* Each individual receives a rank R
+** R is the sum of S’s of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+* A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
+* We want to favor things that have a further distance. We want them to have a lesser fitness
 
 === Lab 2 - Genetic Programming and Multi-Objective Optimization ===
 
@@ -286,10 +378,8 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 === Lecture Notes (9/15) ===
 
 ==== Intro to Machine Learning ====
-
-
-
-==== Extra Notes ====
+* Went over '''SciKit-Learn''' and its documentation
+* Looked at Kaggle for examples of ML done on Titanic Dataset to predict survivors
 * Assigned to subteams:
 * My teammates:
 ** Pranav Pusarla
@@ -299,6 +389,7 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 * Introduced to '''scikit-learn''': https://scikit-learn.org/stable/index.html
 * We will be using skcikit-learn to import many Machine Learning algorithms/models that we can use to analyze our Titanic Disaster and more accurately predict survival.
 * We went through some of the source code in the Jupyter Notebook for the Titanic Project
+* We were tasked with doing the preprocessing of the data 
 
 === Group Project -- Titanic- Machine Learning from Disaster ===
 
@@ -306,8 +397,54 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 * Project setup same way as previous labs
 
 ==== ''Sub Team Notes (9/19)'' ====
-* 
+* Met with all team members at the '''Inspire Atlanta''' Apartments lobby
+* We all first started going through the provided python notebook
+* Then we started going over the current preprocessing methods that existed in the notebook
+* We then decided to one-hot encode the 'Embarked' and 'Sex' columns in order to represent each category by 1s and 0s
+** Using <pre>pd.get_dummies(...)</pre>
+* Furthermore, we removed the 'Name', 'Ticket', and 'Cabin' columns using <pre>test_data.drop(...)</pre>
+* After preprocessing our data, we each chose an algorithm (ML) to get a Pareto Optimal Front in which each of our algorithms were codominant
+* '''My Contribution'''
+** Utilized the '''MLPClassifier''', which uses an Multi-Layer Perceptron Algorithm that trains using Backpropogation
+** Tweaked the classifier to obtain optimal results
+** Obtained results that outperformed some of the other algorithms by team members
+** Worked to improve other algorithms to continue to obtain a pareto optimal front with all algorithms being utilized
 
+==== Algorithm Results ====
+{| class="wikitable"
+!Name
+!Algorithm
+!False Positives
+!False Negatives
+|-
+|Elan
+|Random Forest Classifier
+|25
+|29
+|-
+|Eashan
+|Neural Network
+|21
+|31
+|-
+|Pranav
+|Gaussian Process Classifier
+|19
+|35
+|-
+|Jessi
+|Gradient Descent
+|7
+|79
+|-
+|Leul
+|Support Vector Classifier
+|5
+|93
+|}
+
+==== Our Pareto Front ====
+https://drive.google.com/file/d/1lLVaUdBj782mNr_BzCkZT0j36cDt1RX6/view?usp=sharing
 
 === Action Items ===
 {| class="wikitable"
@@ -348,6 +485,15 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 
 * Went over action items for Presentation next week (9/29)
 
+'''Presentation Guidelines'''
+
+* Make sure '''title slide''' has clear title, contributors, and date of presentation
+* Make sure '''Graphs''' have:
+** Clear title
+** Axis labels
+** Readable Font size
+** Pareto Front lines go in the right direction for min v. max problems
+* We were shown an example of a pareto-optimal calculation
 
 === Group Project -- Titanic- Machine Learning from Disaster ===
 
@@ -356,7 +502,7 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 
 ==== ''Sub Team Notes (9/24)'' ====
 
-* 
+* https://github.gatech.edu/emade/emade/wiki/Bootcamp-Subteam-1
 
 
 
@@ -440,3 +586,42 @@ https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=shari
 |October 5, 2021
 |}
 
+== Week 7 (10/06 - 10/12) ==
+
+=== Lecture Notes (10/06) ===
+
+* Viewed Titanic Machine Learning from Disaster presentations from all groups
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
