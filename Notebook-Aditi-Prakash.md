@@ -26,9 +26,10 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Titanic ML, MOGP, EMADE Presentation | Completed | 10/25/21 | 10/25/21  | - |
+| Titanic ML, MOGP, EMADE Presentation | Completed | 10/6/21 | 10/25/21  | - |
 | Peer Evaluation | Completed | 9/29/21 | 10/6/21  | 10/4/21 |
 | Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
+| Update Notebook | Completed | 9/29/2021 | 10/6/2021 | 10/3/2021 |
 
 # Week 5: September 22th, 2021
 ## Overview
@@ -92,8 +93,8 @@ The AUC for MOGP was much better than that of ML. Evolution in MOGP favored dive
 | --- | ----------- | --- | ----------- |----------- |
 | Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
 | Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
-| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
-| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/29/2021 | 9/25/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
 
 # Week 4: September 15th, 2021
 ## Overview
@@ -157,6 +158,7 @@ Pareto Front for ML Learners:
 | Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
 | Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+| Update Notebook | Completed | 9/15/2021 | 9/22/2021 | 9/19/2021 |
 
 # Week 3: September 8th, 2021
 
