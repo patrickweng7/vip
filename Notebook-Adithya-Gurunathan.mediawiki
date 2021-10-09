@@ -12,15 +12,101 @@
 ===Overview:===
 * Worked on Notebook for Midterm Evaluation
 * Attended lecture on Introduction to emade
-* Tried adding images to notebooj,
+* Received instructions for next assignment
 
 ===Lecture Notes:===
 * What is EMADE
-  * EMADE is 
+  * EMADE is Evolutionary Multi-Objective Algorithm Design Engine
+  * Combines a multi-objective evolutionary search with high-level primitves to automate process of designing ML algorithms
 
+* Setup Instructions
+  * Configure a mysql 5.x server on machine
+  * Download and install git-lfs
+  * Clone EMADE repository
+  * Run setup module to install the package
+    Commands: conda env create -f emade.yml
+    python setup.py install
+
+* Running EMADE
+  * Navigate to top level directory and run
+    python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+
+* Input File
+  * input file is an xml document configuring all moving parts in EMADE
+  * Configure python to run where all EMADE python dependencies are installed
+
+* Databse Configuration:
+  * Configure MySQL connection
+    If running locally, server can be localhost or 127.0.0.1
+  * Username and password are for MySQL & user should have full permissions to database
+
+* Datasets
+  * EMADE runs across multiple datasets - preprocessed into gzipped csv files
+  * Each train and test file create a DataPair object in EMADE
+  * Can decompress them or use an editor such as gvim to view while zipped
+  * Each row corresponds to an instance, each column is a feature, final column is truth
+  * EMADE reserves last column for fitting models (train data) and scoring (test data)
+
+* Input File, continued:
+  * Objectives are described next
+  * Weight specifies if it should be minimized (-1.0) or maximized (1.0)
+  * <evaluationFunction> specifies name of a method in src/GPFrameowrk/evalFunctions.py
+  * Achievable and goal are used for steering optimization, lower and upper used for bounding
+
+* Parameters
+  * Evaluation specifies where eval func specified in objectives section live, how much memory allowed to use
+  * <workersPerHost> specifies how many evaluations to run in parallel
+  * Evolution parameters: hyperparameters that affect evolutionary process
+
+* Connect Worker Process to a Peer
+  * Use -w flag along with peer's server info in dbconfig to allow computer act as a worker process for peer's master process
+    python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+  * dbconfig in input file specifies IP address and not localhost
+
+* EMADE Outputs
+  * Connect to a mySQL server from commandline
+  * Select database
+  * Helpful Queries:
+      Select * from individuals;
+      Select * from individuals where `FullDataSet False Negatives` is not null;
+      Select * from individuals join paretofront on individuals.hash=paretofront.hash
+  
+* EMADE Structure
+  * src/GPFramework is mainbody of code
+  * datasets/ is where test datasets live
+  * templates/ is where input files live
+
+===Assignment===
+* Run EMADE as a group - 1 person have SQL server set up and act as master process, rest connect workers
+* Run for substantial generations
+* Learn SQL
+* Make plot of non-dominated frontier, compare with ML & MOGP
+* Presentation of Monday the 25th
 
 ===Individual Notes:===
 * Tried adding images to notebook, still experiencing error when doing so
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 6, 2021
+|October 13, 2021
+|October 8, 2021
+|-
+|Run EMade
+|
+|October 6, 2021
+|October 13, 2021
+|October 9, 2021
+|}
+
 
 == Week 6: Sep 29, 2021 ==
 
