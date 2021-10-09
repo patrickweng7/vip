@@ -27,6 +27,128 @@
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 * [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
 
+=='''Week 7:''' Oct. 3 - Oct. 9 ==
+'''Self Work'''
+* WAS ABLE TO DEBUG ISSUE WITH PACE-ICE (not being able to get into <code>mysql</code>)
+** Small modification of Gabe's instructions from last week: 
+** I got PACE-ICE working--and instead of ssh’ing back into <code>ssh atl1-1-02-012-5-l # whatever name</code> I exited back into the login node (ran <code>exit</code> after running <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code>) and was able to run <code>mysql -u root</code> from there and follow the rest of the EMADE instructions 
+=== Subteam Meeting: Oct. 7 ===
+* Met new member, Diptendu! Part of disbanded Stocks team
+* Goal to get runs over fall break
+* Tried to debug PACE-ICE issues with team. 
+
+=== AAD Time Conflict Meeting: Oct. 8 ===
+'''Missed Class Updates''': 
+* Hackathon Oct. 16
+* Youssef and Diptendu to join our team
+'''Modularity Updates''':
+* Debugged issues with setting up conda environment and setting up packages with EMADE
+** My Fix: <code>activate conda env_name</code> ... easy fix 
+* dataset of stocks is your target, so the paper is going to cover:
+** general background on what arls are, emade, automated ml
+** methodology - how did you implement the arl process, pseudocode, block diagrams, actual code, how you make arls in the evolutionary process, what is the pool you're selecting from
+*** 3.1 - how are they constructed and how are they used
+* analysis auc over time with different objectives, what types of individuals are being found, general conclusions at end with how arls are working with emade
+* selections are being biased towards arls with them - rory
+** baseline framework, experimentation, hypothesis, what could show promise
+** are there targeted mutations that might help, are there selection methods that help, what could we do to tweak
+* really need a strong positive result, hard to prove otherwise
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|PACE-ICE runs 
+|Pending
+|10/08/2021
+|10/15/2021
+|10/??/2021
+|-
+|Help other teammates debug PACE-ICE
+|Pending
+|10/08/2021
+|10/14/2021
+|10/??/2021
+|-
+|}  
+
+=='''Week 6:''' Sept. 30 - Oct. 2 ==
+=== AAD Time Conflict Meeting: Oct. 1 ===
+'''Missed Class Updates''': 
+* 
+'''Self Work''':
+* Paper: https://www.overleaf.com/1338174365qrqxskrvkfyj
+* Debugging with PACE-ICE using Gabe's method in chat:
+After the db is started, request a new job using <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code> (doesn't matter if the node is the same)
+Type <code>exit</code> to get back to the login node, then <code>ssh atl1-1-02-012-5-l # whatever name</code>
+Once you're in the node, type <code>mysql -u root</code>
+Then run the following sql queries:
+<code>DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;</code>
+Check this works, by exit then <code>mysql -u USERNAME</code> to make sure you can login as your new user
+Then follow the rest of the steps in the guide and it will hopefully work
+** Still not working, having authentication issue when running <code>ssh</code>
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Debugging... Again
+|Complete!!!!
+|09/23/2021
+|10/05/2021
+|10/05/2021
+|-
+|Add to Paper 
+|Complete
+|10/01/2021
+|10/08/2021
+|10/08/2021
+|-
+|}  
+
+=='''Week 5:''' Sept 19-25 ==
+=== Subteam Meeting: Sept 23 ===
+'''Debugging session for PACE-ICE'''
+* Gabe was here, let us know the time for a run is 8 hours, this might be too short 
+* Was able to run <code> mysql -h root </code> for a short period of time but for some reason after 5 minutes it was not working anymore? 
+* Possibly look into using another node, <code>.my.cnf</code> file
+* Did not get far :(
+
+=== AAD Time Conflict Meeting: Sept 24 ===
+* None, Dr. Zutty absent 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Issues with PACE-ICE
+|Incomplete
+|09/23/2021
+|09/30/2021
+|Ongoing
+|-
+|Look into making/start paper outline
+|Complete
+|09/23/2021
+|10/01/2021
+|09/30/2021
+|-
+|}  
+
 =='''Week 4:''' Sept 12-18 ==
 === Subteam Meeting: Sept 16 ===
 * Helped team get setup with database 
@@ -72,26 +194,19 @@
 !Due Date
 !Completed Date
 |-
-|Self-Graded Notebook Rubric
+|Look into Installing PACE-ICE
 |Complete
-|09/10/2021
 |09/17/2021
-|09/17/2021
+|09/23/2021
+|09/23/2021
 |-
-|Try running MNIST
+|Merge Stocks data into our branch
 |Complete
-|09/10/2021
-|09/14/2021
-|09/14/2021
-|-
-|Make new database on AWS for data
-|Complete
-|09/10/2021
-|09/15/2021
 |09/16/2021
+|09/23/2021
+|09/23/2021
 |-
 |}  
-
 
 == Week 3: Sept 5-11 ==
 === Subteam Meeting: Sept 3 ===
