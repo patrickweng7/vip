@@ -24,6 +24,8 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 ** When Dr. Zutty uploads the new code, merge it with NN-VIP
 ** Read up on State of the Art QA models (SQUAD leaderboard, BiDAF, papers, Transformer Models)
 ** Make Trees w/ Primitives to be Seeded Individuals
+
+'''Individual Progress'''
 * I was specifically assigned to come up with some seeded individuals in a tree structure that we could test in standalone_tree_evaluator.py, looking at BiDAF and the SQUAD leaderboard as examples. This would also help us figure out what primitives to write to make QA work.
 
 '''Action Items:'''
@@ -130,6 +132,14 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 ** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
 ** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
 
+'''Individual Progress'''
+* [https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)]
+** 1. Embedding Layers
+*** BiDAF has 3 embedding layers whose function is to change the representation of words in the Query and the Context from strings into vectors of numbers.
+** 2. Attention and Modeling Layers
+*** These Query and Context representations then enter the attention and modeling layers. These layers use several matrix operations to fuse the information contained in the Query and the Context. The output of these steps is another representation of the Context that contains information from the Query. This output is referred to in the paper as the “Query-aware Context representation.”
+** 3. Output Layer
+*** The Query-aware Context representation is then passed into the output layer, which will transform it to a bunch of probability values. These probability values will be used to determine where the Answer starts and ends.
 === September 20, 2021 ===
 '''Team Meeting Notes:'''
 * Market Analysis and Portfolio Optimization
