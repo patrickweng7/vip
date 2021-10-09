@@ -166,7 +166,7 @@ Pareto Front for ML Learners:
 Attended lecture on multi-objective optimization and completed Lab 2's Multi-Objective programming exercise. Filled out survey sheet with ML and Python self-ratings.  
 
 ## Team Meeting Notes
-### Lecture on Multi-Objective Optimizations:
+### Lecture on Multi-Objective Optimization:
 * Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
 * Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
 
@@ -274,7 +274,7 @@ Comments: I keep my notebook as detailed as possible and ensure that when I look
 Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
 
 ## Team Meeting Notes
-### Lecture on Genetic Algorithms
+### Lecture on Genetic Programming
 Introduced concept of genetic programming with the goal of optimizing a function (represented as a tree structure) to achieve a particular target output.  
 1. Nodes: primitives, represent functions 
 2. Leaves: terminals, represent parameters 
