@@ -133,13 +133,35 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 ** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
 
 '''Individual Progress'''
-* [https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)]
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)]
 ** 1. Embedding Layers
 *** BiDAF has 3 embedding layers whose function is to change the representation of words in the Query and the Context from strings into vectors of numbers.
 ** 2. Attention and Modeling Layers
 *** These Query and Context representations then enter the attention and modeling layers. These layers use several matrix operations to fuse the information contained in the Query and the Context. The output of these steps is another representation of the Context that contains information from the Query. This output is referred to in the paper as the “Query-aware Context representation.”
 ** 3. Output Layer
 *** The Query-aware Context representation is then passed into the output layer, which will transform it to a bunch of probability values. These probability values will be used to determine where the Answer starts and ends.
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb Word Embedding, Character Embedding and Contextual Embedding in BiDAF — an Illustrated Guide]
+** Step 1. Tokenization
+*** In BiDAF, the incoming Query and its Context are first tokenized, i.e. these two long strings are broken down into their constituent words.
+** Step 2. Word Level Embedding
+*** The resulting words are then subjected to the embedding process, where they are converted into vectors of numbers.
+** Step 3. Character Level Embedding
+*** Character level embedding uses one-dimensional convolutional neural network (1D-CNN) to find numeric representation of words by looking at their character-level compositions.
+** Step 4. Highway Network
+*** At this point, we have obtained two sets of vector representations for our words — one from the GloVe (word) embedding and the other from 1D-CNN (character) embedding. The next step is to vertically concatenate these representations.
+** Step 5. Contextual Embedding
+*** The contextual embedding layer consists of Long-Short-Term-Memory (LSTM) sequences. An LSTM is a neural network architecture that can memorize long-term dependencies. When we enter an input sequence (such as a string of text) into a normal forward LSTM layer, the output sequence for each timestep will encode information from that timestep as well as past timesteps. In other words, the output embedding for each word will contain contextual information from words that came before it.
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07 Attention Mechanism in Seq2Seq and BiDAF — an Illustrated Guide]
+** 1. Comparison of Sequences and Calculation of Attention Scores
+** 2. Conversion of Attention Scores to Attention Distribution
+** 3. Multiplying Attention Distribution with Encoder Hidden States to Get Attention Output
+* Reflection on [https://arxiv.org/pdf/1611.01603.pdf Bidirectional Attention Flow For Machine Comparison]
+** 1. Character Embedding Layer maps each word to a vector space using character-level CNNs.
+** 2. Word Embedding Layer maps each word to a vector space using a pre-trained word embedding model.
+** 3. Contextual Embedding Layer utilizes contextual cues from surrounding words to refine the embedding of the words. These first three layers are applied to both the query and context.
+** 4. Attention Flow Layer couples the query and context vectors and produces a set of query aware feature vectors for each word in the context.
+** 5. Modeling Layer employs a Recurrent Neural Network to scan the context.
+** 6. Output Layer provides an answer to the query.
 === September 20, 2021 ===
 '''Team Meeting Notes:'''
 * Market Analysis and Portfolio Optimization
