@@ -406,6 +406,8 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 ** For example, the tree for '''f(x) = 3*4+1''' can be written as '''[+,*,3,4,1,]'''
 ** Parse tree of '''f(x) = 2-(0+1)''' is '''[-,2,+,0,1]'''
 
+[[files/TreeRepresentation1.png]]
+
 * Crossovers in GP are handled by simply exchanging subtrees
 ** Start by randomly picking a point in each tree
 ** These points and everything below create subtrees
@@ -437,16 +439,24 @@ In this lab, I ran the evolutionary algorithm several times to observe the impro
 '''First try, no modifications:'''
 *Best individual was add(add(multiply(x, add(x, subtract(x, x))), multiply(x, multiply(add(x, multiply(x, x)), x))), x), (1.0195405384704813e-16,)
 
+[[files/mharbola3/lab2_sogp_first_try.png|center|height=300px]]
+
 '''Second try, add primitives:'''
 *Added primitives were ''np.square'' and ''np.absolute''
 *Best individual was add(add(multiply(absolute(absolute(absolute(add(multiply(square(x), x), square(x))))), x), square(absolute(x))), x), (8.620776339403237e-17,)
+
+[[files/mharbola3/lab2_sogp_second_try.png|center|height=300px]]
 
 '''Third try, add mutations, no primitives:'''
 *Added mutation was ''mutShrink''
 *Best individual is add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16,)
 
+[[files/mharbola3/lab2_sogp_third_try.png|center|height=300px]]
+
 '''Fourth try, added primitives and mutation:'''
 *Best individual is Best individual is add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+[[files/mharbola3/lab2_sogp_fourth_try.png|center|height=300px]]
 
 ===Actions Items===
 {| class="wikitable"
