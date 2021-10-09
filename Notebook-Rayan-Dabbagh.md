@@ -275,13 +275,11 @@ The scores are the following:
 
 ## Lecture 2: Genetic Programming
 
-### Personal notes:
-
 ### Team notes:
 
 Teams are not formed yet (Teams are formed in week 4).
 
-### Class notes:
+### Class notes and Personal notes (Lab 2 walkthrough):
 
 **Tree Representation is very used:**
 
@@ -364,11 +362,11 @@ _We add three new primitives, then re-instantiate our primitive set. Then, we de
                                                    
 ## **Lecture 1: Genetic Algorithms**
 
-### Personal notes:
-
 ### Team notes:
 
-### Class notes:
+Teams are not formed yet (Teams are formed in week 4).
+
+### Class notes and Personal notes (Lab 1 walkthrough):
 
 ### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 
