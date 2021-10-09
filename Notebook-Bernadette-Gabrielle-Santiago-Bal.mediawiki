@@ -27,8 +27,79 @@
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 * [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
 
-=='''Week 4:''' Sept 12-17 ==
+=='''Week 4:''' Sept 12-18 ==
+=== Subteam Meeting: Sept 16 ===
+* Helped team get setup with database 
+* Team will get setup on Colab again to do MNIST runs 
+* Look into superindividual issue with MNIST run last time 
+* Issue with getting setup on MNIST, Gabe mentioned it could be an issue with how files are being packed/unpacked on Mac
+* Spent rest of meeting trying to debug MNIST issues and colab with team
+* Transition to runs with stocks dataset instead? Will have to merge specifiic files with ours. 
 
+=== AAD Time Conflict Meeting: Sept 17 ===
+'''Missed Class Updates''': 
+* Adding images to notebook again (see last meeeting's notes) 
+* PACE-ICE Notes
+** Shared Directory: {{code|inline=y|/storage/home/hpaceice1/shared-classes/materials/vip/AAD}}
+** Running PACE-ICE
+*** templates/input_.....xm l
+{{code|<queue>pace-ice</queue>
+numHosts - how many different nodes in the cluster, how many top level worker processes do you want to run
+workersperhost - how many subprocesses do o you want
+numhostsxworkersperhost - how many parallel evaluations happening at once
+nodesperhost - lock this in at 1
+cpusperhostnode -  should be same as worokers perhost
+ramperhostcpu- multipliative , each host, each job pack has 8gb per parallel evaluation so 32 gb total
+numnodesmaster - should be 1
+cpuspermasternode - should be 1
+rampermastercpu - should be as big as you need to hold the dataset and them some}}
+* Modularity Updates
+** Make subfolder for your name in files
+** Git add/commit/push file changes. Now you can add them in your notebook
+'''Modularity Updates''':
+* Potentially changed resources after old team left
+** EMADE: Just fork off Gabe's code base 
+** DATABASE: Make a new AWS server (my task) 
+** COLAB: Accounts are still usable 
+* MNIST Data
+** Dr. Zutty has made changes over summer
+*** '''gen_mnist data set''' - /datasets/....../mnist - loads data in pickle format
+*** '''input_mnist template flie''' - uses precision and recall as two objectives
+* Potentially look into how ARLs are constructed
+** Currently set to 5 ARLs per generation 
+** Try to change hyperparameters? amount used, how they're built, ranking criteria
+* Could also write a paper like the stocks team 
+** ACM SIGCONF template on Overleaf could be useful 
+** Potentially submit to GECCO? Submission due date is January 20th
+'''Self Work''':
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Self-Graded Notebook Rubric
+|Complete
+|09/10/2021
+|09/17/2021
+|09/17/2021
+|-
+|Try running MNIST
+|Complete
+|09/10/2021
+|09/14/2021
+|09/14/2021
+|-
+|Make new database on AWS for data
+|Complete
+|09/10/2021
+|09/15/2021
+|09/16/2021
+|-
+|}  
 
 
 == Week 3: Sept 5-11 ==
@@ -62,6 +133,20 @@ Semester goals are to cover left off tasks from previous semesters]
 ** ACM SIGCONF template on Overleaf could be useful 
 ** Potentially submit to GECCO? Submission due date is January 20th
 '''Self Work''':
+* Asked Gabe for help, made a new database on [https://aws.amazon.com/rds/ AWS RDS]
+* Changed the following settings:
+** Engine Options: MySQL v5.7.33
+** Settings: Kept username, made password mypassword (classic) 
+** Connectivity: Made a new security group rule that allows all inbound/outbound traffic. Check this exists after the database is created 
+** Checked with MySQL, works 
+* Google Colab 
+** Ran into seeding error. Messaged chat and the fix was to manually remove duplicate individuals
+{{code|learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None)
+5b1525640ac8b194bca0d9eaa953584154c2fc4216866aacbe00d8d364a6c730
+Got error (pymysql.err.IntegrityError) (1062, "Duplicate entry '5b1525640ac8b194bca0d9eaa953584154c2fc4216866aacbe00d8d364a6c730' for key 'PRIMARY'")
+[SQL: INSERT INTO individuals (hash, elapsed_time, retry_time, age, evaluation_status, evaluation_gen, evaluation_start_time, tree, error_string, pickle, `FullDataSet Recall Score`, `FullDataSet F1 Score`, `FullDataSet Cohen Kappa Score`) VALUES (%(hash)s, %(elapsed_time)s, %(retry_time)s, %(age)s, %(evaluation_status)s, %(evaluation_gen)s, %(evaluation_start_time)s, %(tree)s, %(error_string)s, %(pickle)s, %(FullDataSet Recall Score)s, %(FullDataSet F1 Score)s, %(FullDataSet Cohen Kappa Score)s)]
+[parameters: {'hash': '5b1525640ac8b194bca0d9eaa953584154c2fc4216866aacbe00d8d364a6c730', 'elapsed_time': 0, 'retry_time': None, 'age': 0.0, 'evaluation_status': 'NOT_EVALUATED', 'evaluation_gen': 0, 'evaluation_start_time': None, 'tree': "learnerType('KNN', {'K': 3, 'weights': 0}, 'SINGLE', None)", 'error_string': None, 'pickle': b"\x80\x04\x95\xb3\x04\x00\x00\x00\x00\x00\x00\x8c#GPFramework.sql_connection_orm_base\x94\x8c\rMutableObject\x94\x93\x94)\x81\x94\x8c\x0cdeap.creator ... (1844 characters truncated) ... \x81\x94}\x94hj)sb\x8c\x08hash_val\x94\x8c@5b1525640ac8b194bca0d9eaa953584154c2fc4216866aacbe00d8d364a6c730\x94\x8c\x0cfitness_attr\x94}\x94hmhgsubb.", 'FullDataSet Recall Score': None, 'FullDataSet F1 Score': None, 'FullDataSet Cohen Kappa Score': None}]
+(Background on this error at: http://sqlalche.me/e/13/gkpj) while committing waiting and retrying}}
 === Notebook Rubric ===
 Notebook Maintenance
 * Name and Contact Info: 5
