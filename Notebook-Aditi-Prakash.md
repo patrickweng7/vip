@@ -14,7 +14,7 @@ Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently).
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
+### Notes on Titanic ML and MOGP Assignment + Presentation
 * Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
 * In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
 
@@ -36,7 +36,7 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Attended meta-presentation on good presentation techniques (detailed graphs, concise bullet points, key takeaways, etc.) in preparation for next week's Titanic ML and MOGP presentation. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
+### Notes on Titanic MOGP Assignment 
 * Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
 * Have to write genetic program yourself
 * Evaluation function - at least two objective, False Positives and False Negatives
