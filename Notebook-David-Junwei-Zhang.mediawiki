@@ -4,8 +4,73 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
-== September 29, 2021 ==
+
+== October 6, 2021 ==
 '''Team Meeting Notes''
+
+Introduction to Emade
+Emade (Evolutionary Multi-objective Algorithm Designe Engine)
+* Combines multi-objective evolutionary search with high-level primitives
+* Evaluations much more expense with automated ml (due to higher level primitives)
+* Emade uses a MySql server behind the scenes
+* Emade installation and setup
+** Need to download installed git-lfs, clone git repo
+** run setup.py to install
+
+Emade input file
+* Used for EMADE configuration
+* python, mysql connection information (one master connection; all others are workers)
+* workers per host specifies how many evaluations run in parallel (keep this relatively low at 2-3 since it is resource intensive)
+
+- Headless chicken crossover: injects much randomness; second parent is randomly created
+
+- Default selection uses selNsga2 with binary tournament
+
+Connecting as worker
+* add -w flag (signals that this is not a master process)
+* make sure MySql accepts remote connections
+* connecting: Mysql -h hostname -u username -p
+* set reuse flag to 1 if need to pickup on last state
+
+Assignment
+* Run Emade as a group; one person 
+* Run for substantial number of generations
+* Make plot of non-dominated frontier and compare with ML, MOGP
+* Show successful trees; plots of AUC, evaluation time (visualize results)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install Emade
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|Install Mysql
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|Understand Mysql, EMADE concepts
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|}
+
+
+== September 29, 2021 ==
+'''Team Meeting Notes'''
+
+This week, we had class presentations for ML vs MOGP comparison on the titanic dataset
 
 * Selecting from the HOF may preserve pareto individuals
 * Adding terminals can help improve performance greatly (instead of simply comparing)
@@ -20,10 +85,27 @@ Interests: Machine Learning, Optimization, Tennis
 * For non-strongly type GP, we can use an activation function (like tanh) or simply check if value > 0 or not to determine result
 * MOGP more diverse than ML solutions; teams also had better performance for MOGP compared to ML (lower AUC)
 
+ML vs MOGP comparison
+
+*Built in sklearn methods made it very easy to optimize and find a solution for ML
+*GP constrained by primitives and terminals, whereas ML algorithms are constrained by architecture
+*Tree size limit for GP (<91) makes limits complexity of algorithm compared to ML algorithms like MLP
+*Both ML and GP algorithms dependent on loss functions
+*ML results seemed to be more consistent between runs (GP mating and mutation resulted in highly different final individuals and GP sometimes gets “stuck” or shows increasing loss over time)
+
+
 Some questions
 * Why did GP solutions often have 0 FP or 0 FN while ML solutions almost never had those (more equal distribution of FP, FNs for the most part). Does the evaluation have to to with this?
 * What is * represent when placed inside a param in python?
 ** Use * to represent a variable number of parameters being passed in
+
+'''Subteam Notes'''
+
+This week we did not split up into subteams but worked on reviewing the GP models invidually to try to improve the results that we had from last week given the feedback.
+
+Main takeaways from individual learning
+* one hot encoding instead of mapping 1,2,3...etc to categorical variables (this is because adding numbers will sometimes wrongly assign weight to certain values and the difference between different categories will be encoded unequally)
+* trying new selection (like selNSGAII over selLexicase) and different mating/mutations for MOGP and utilizing the HOF can greatly improve performance of GP
 
 '''Action Items:'''
 {| class="wikitable"
@@ -37,12 +119,18 @@ Some questions
 |In Progress
 |September 29, 2021
 |October 6, 2021
-|
+|October 5, 2021
 |-
+|Rework GP to include some suggestions to try and get better performance
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
 |}
 
 == September 22, 2021 ==
 '''Team Meeting Notes'''
+This week we were assigned the same titanic dataset ML problem but now we are allowed to use multi-objective genetic programming (MOGP) to solve the problem. The goal is to obtain the same non-dominated pareto front and to compare the AUC of the ML model results with that of the MOGP.
 
 For next week: Continue with the titanic dataset but use GP
 * Can use strongly or loosely typed GP
@@ -52,9 +140,12 @@ For next week: Continue with the titanic dataset but use GP
 * As a group, submit a csv file for predictions for each Pareto optimal point
 
 '''Subteam Notes'''
+
 Met as a subteam on Saturday 9/25 to go over GP implementation for titanic dataset. We had a bit of trouble and did not get much progress. Our main issues included how to force boolean output and what evaluation function to use.
 
-These are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
+For my individual contribution, I coded most of the genetic programming part of the assignment including the evaluation function, terminals and primitives used, genetic operators, and the genetic programming loop. I also created the slides for 2-4, and 8-11 and presented the slides for our genetic programming implementation and ML vs MOGP comparison.
+
+The following are some of the GP problems that I faced and some of the solutions/notes that I took down while debugging
 
 GP Problems 
 
@@ -74,7 +165,7 @@ Eval Function used for multi-objectives
 
     def evaluation_func_multi(individual, x_train, y_train, pset):
         func = gp.compile(expr=individual, pset=pset)
-        args = [x_train[cols[i]] for i in range(len(9)]
+        args = [x_train[cols[i]] for i in range(9)]
         predictions = func(*args) 
         confusion = confusion_matrix(y_train, predictions)
         FN = confusion[1,0]
@@ -87,6 +178,16 @@ Eval Function used for multi-objectives
         e1 = FN**2 + len(individual) * 20   #add regularization term to error to prevent bloating
         e2 = FP**2 + len(individual) * 20   #(could alternatively add separate objective to minimize)
         return (e1, e2)
+
+* As shown above, I used an eval function that squared the FN and FP results so that it would penalize more uneven results (high FNR or FPR). I also added an error term for the tree size to prevent bloating and prefer the simpler model.
+* As Dr. Zutty mentioned in class, another way to penalize tree size is to simply include a third objective to minimize in the evaluation function instead of adding the "regularization factor".
+
+Pareto Front Comparison (ml first, then mogp)
+
+[[files/dzhang351/ml_auc.png|50x50px]]
+[[files/dzhang351/mogp_auc.png|50x50px]]
+
+One reason that the mogp_auc was significantly higher than that of the ml_auc for us was that we did not add any constant terminals. This means that we only compared the columns against each other with some transformation (like arithmetic operators), which would often not be sufficient. Also, some things to test to improve performance include trying a different selection instead of selLexicase like selNSGAII. Also, the evaluation function enforcing more equal FN and FP may have been good practically but could have also hurt the AUC since it can eliminate possibly better individuals that are not even (in terms of FN and FP) but still performant.
 
 Interesting findings 
 
@@ -159,6 +260,8 @@ Findings
 * I kept the default solver ('adam') and activation function ('relu') although I did try testing the stochastic gradient descent ('sgd') solver and sigmoid as the activation function. My reasoning for testing sigmoid as an activation is because it is good for predicting probability as an output. But since the results were not better than the defaults, I kept the sklearn default params for solver and activation function.
 * The final models that we ended up using and their false negative and false positive scores are displayed in the table below. For reference, our models all scored around 80-85% in overall accuracy.
 
+The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier. I also contributed to the MLP tuning process and worked with Nikhil to find the pareto-optimal fronts. Since MLP was comparatively good compared to the other models, we had to "adversely tune" some parameters to make sure that MLP did not dominate another algorithm (like Gaussian Naive Bayes)
+
 Table of Scores
 
 {| class="wikitable"
@@ -189,7 +292,6 @@ Table of Scores
 |-
 |}
 
-The model that I ended up going with using for my co-dominant model was the Gaussian Naive Bayes classifier.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -298,6 +400,7 @@ To try to reduce the AUC as much as possible I tried the following hyperparamete
 
 From the hyperparameter tuning, it seems that increasing then number of generations and decreasing the mutation probability does not help with the results; however, decreasing the mu slightly from 50-40 decreased the AUC by more than half. This could be because having less individuals per generation eliminates more individuals quicker, thereby decreasing the tree size and making the function simpler. Interestingly, the best individual fitness is higher (which is worse since we are trying to minimize) but since the tree sizes are so small, the AUC is still much lower.
 [[files/dzhang351/lower_AUC.png|thumb|100x100px]]
+From the AUC graph above, we can see that the MSE is not particularly great, but compared to the previous AUC, the second objective (tree size) was greatly reduced which resulted in a reduction of nearly 100%. This means that the in terms of minimizing the squared errors, my updated model was relatively the same, but because of the reduction in complexity of the model and the fact that we are using multiple objectives, my model performed better as shown in a reduction in the AUC.
 
 DEAP GP information
 * using PrimitiveSetTyped() allows for type constraining the input and output of a particular primitive
@@ -305,7 +408,8 @@ DEAP GP information
 * tree sizes can be bloated over time in a GP problem; to limit tree size we can set a max size param in our mate and mutate methods to reduce bloating
 
 My self-graded notebook:
-[[files/dzhang351/self-grade-notebook.png|thumb|150x150px]]
+[[files/dzhang351/self-grade-notebook.png|thumb|100x100px]]
+I did not include subteam results as we have not split into subteams yet.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -396,7 +500,8 @@ After repeating sin(x), tan(x) terminals, one interesting observation is the var
 ** My hypothesis was that as number of iterations increased, the variance in optimal fitness between runs would decrease. I increased the number of runs to 100 (previously 40) and when I ran the GP multiple times, I realized that the variance was similar. It seems that the GP would converge on a solution and get "stuck" performing substantially worse on some rounds, while performing well on others. For example the output of GP min fitness would often switch between (2) and (1) from above which is a substantial difference.
 
 An example graph of one particular run of GP is shown below
-[[files/dzhang351/lab2p1.png|thumb|150x150px]]
+[[files/dzhang351/lab2p1.png|thumb|100x100px]]
+As shown in the graph, we can see that the values converge very quickly to a solution. This is good in a sense that we are able to find a good solution very quickly that minimizes fitness, but also could be a problem in some cases. For example on some particular runs, I found that the solution converges to a very suboptimal one (ie: one run produces 1e-16 error while another run produces 0.0026 error) and when it does converge, it doesn't seem to be able to converge to another "more optimal" result. This may be due to the fact that mating through crossovers is not introducing enough genetic diversity after a solutions is found. One potential solution is possibly adding more randomness in crossovers or introducing mutations more when our population has seemed to converge in order to introduce more genetic diversity. 
 
 '''Action Items:'''
 {| class="wikitable"
@@ -481,7 +586,8 @@ Summary
 After running the final output 5 times, I got a score of 100 3 times, and 99 2 times. This means that for the most part, my algorithm converged to the best possible population with its optimal population but not always since we only run the algorithm for 40 generations. 
 
 The following is my one-max output graph
-[[files/dzhang351/onemax_output.png|thumb|150x150px]]
+[[files/dzhang351/onemax_output.png|thumb|100x100px]]
+As shown from the one max output, since this is a maximization problem, after each generation the score increases for the min, max, and average until it reaches nearly max score.
 
 N-Queens Problem
 
@@ -512,7 +618,7 @@ Custom Mutate Function (swapping 2 indices)
 After applying the custom mutate function that swaps more indices, it appears to perform relatively the same as the original mutate function (this is because mutate doesn't happen often and only swapping 2 indices is not a major change from the original)
 
 The following is my n-queens convergence graph
-[[files/dzhang351/n-queens_output.png|thumb|150x150px]]
+[[files/dzhang351/n-queens_output.png|thumb|100x100px]]
 
 '''Action Items:'''
 {| class="wikitable"

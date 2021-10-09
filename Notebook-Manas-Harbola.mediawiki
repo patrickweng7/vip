@@ -92,6 +92,9 @@
 **Best individual is multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653
 **Created presentation slides for our findings and results
 
+[[files/mharbola3/titanic_mogp_fitness_graph.png|center|height=300px]]
+[[files/mharbola3/titanic_mogp_pareto_front.png|center|height=300px]]
+
 ===Individual Notes===
 *Wrote majority of genetic loop with help from team members on selection, mutation, and evaluation functions
 *Originally our evaluation function was causing our best individual to always have fitness (0, 1.0). I discovered that even though fpr = fp / N and fnr = fn / P, our evaluation function was somehow not counting P and N properly. Therefore, I rewrote the evaluation function to calculate tp, tn, fp, and fn. We also decided to make fnr and/or fpr = 1 whenever the divisor was 0 to handle divide by 0 errors.
@@ -99,6 +102,7 @@
 *If I had more time, I would have repurposed the metrics calculations from Lab 2 to better visualize each generation in our genetic loop. Also, I would want to experiment with the mating and mutation rates in the notebook as well.
 
 '''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+'''Team Prediction CSV''': https://drive.google.com/file/d/1KALnPrR3gzMZsj1A-MwHfa7Doa3NMw_l/view?usp=sharing
 
 ===Action Items===
 {| class="wikitable"
@@ -179,7 +183,7 @@
 *Added code to generate prediction CSVs for everybody's model
 *Added cells for plotting model performance on FPR/FNR axis to demonstrate co-dominance.
 
-insert frontier graph image here
+[[files/mharbola3/titanic_ml_pareto_front.png|center|height=300px]]
 
 ===Action Items===
 {| class="wikitable"
@@ -340,6 +344,10 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 ***AUC: 0.6912744703006891 (approx. 71.01% reduction)
 ***Best Individual: subtract(x, x), with fitness (0.7223441838209306, 3.0)
 
+[[files/mharbola3/lab2_mogp_objective_space.png|center|height=300px]]
+[[files/mharbola3/lab2_mogp_fitness_graph.png|center|height=300px]]
+[[files/mharbola3/lab2_mogp_pareto_front.png|center|height=300px]]
+
 ===Action Items===
 {| class="wikitable"
 !Task
@@ -398,6 +406,8 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 ** For example, the tree for '''f(x) = 3*4+1''' can be written as '''[+,*,3,4,1,]'''
 ** Parse tree of '''f(x) = 2-(0+1)''' is '''[-,2,+,0,1]'''
 
+[[files/TreeRepresentation1.png]]
+
 * Crossovers in GP are handled by simply exchanging subtrees
 ** Start by randomly picking a point in each tree
 ** These points and everything below create subtrees
@@ -429,16 +439,24 @@ In this lab, I ran the evolutionary algorithm several times to observe the impro
 '''First try, no modifications:'''
 *Best individual was add(add(multiply(x, add(x, subtract(x, x))), multiply(x, multiply(add(x, multiply(x, x)), x))), x), (1.0195405384704813e-16,)
 
+[[files/mharbola3/lab2_sogp_first_try.png|center|height=300px]]
+
 '''Second try, add primitives:'''
 *Added primitives were ''np.square'' and ''np.absolute''
 *Best individual was add(add(multiply(absolute(absolute(absolute(add(multiply(square(x), x), square(x))))), x), square(absolute(x))), x), (8.620776339403237e-17,)
+
+[[files/mharbola3/lab2_sogp_second_try.png|center|height=300px]]
 
 '''Third try, add mutations, no primitives:'''
 *Added mutation was ''mutShrink''
 *Best individual is add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16,)
 
+[[files/mharbola3/lab2_sogp_third_try.png|center|height=300px]]
+
 '''Fourth try, added primitives and mutation:'''
 *Best individual is Best individual is add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+[[files/mharbola3/lab2_sogp_fourth_try.png|center|height=300px]]
 
 ===Actions Items===
 {| class="wikitable"

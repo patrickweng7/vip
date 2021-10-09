@@ -389,6 +389,7 @@ https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=shari
 ** random forest
 ** logistic regression
 ** gaussian naive bayes
+* I ended up choosing the MLP and found the pareto-optimal fronts. 
 * Predictions were found using all of the 4 models and saved as 4 seperate csv files
 
 {| class="wikitable"
@@ -457,6 +458,43 @@ https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=shari
 * Hyperparameter tuning can be added as a bonus.
 
 === Sub-team meeting Notes (9/25) ===
+* Focused on the GP impementation for the titanic dataset. 
+* There was not much progress made in terms of the overall project as there were multiple eval functions were at our disposal and were not sure about which to use. 
+* Worked with David on narrowing down the eval function. chose which primitives and terminals to be used. 
+
+Eval Func:
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        args = [x_train[cols[i]] for i in range(9)]
+        predictions = func(*args) 
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        #prevent very unequal FN, FP results
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20   
+        e2 = FP**2 + len(individual) * 20
+        return (e1, e2)
+
+* Problems Encountered:
+*** Bloat Control Tree Size
+*** Selection and Mutation contains a max tree size. 
+*** Eval function contains a penalizing factor. 
+*** When the tree size was reduced, the speed got faster.
+** Boolean Output
+*** Strongly typed was used for GP, but loosely typed could have been used as well. 
+** Terminals
+*** Were not able to be added, attempted to as it would improve the GP results and would allow for comparison to a constant. 
+*** As a result, only floats between columns could be compared.
+** FP/FN
+*** Had to make sure that not a specific results was not completely FN or FP and that there was a variation. 
+*** Square the FN and FP values --> Increases distribution 
+
+* After comparing the results from ML and GP, we came to a conclusion that the GP results were more diverse. On the other hand, the ML results kept altering through each iteration.
+* Worked on the presentation and created slides 4-7.
 
 
 ===Action Items===
@@ -498,7 +536,106 @@ https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=shari
 |September 28, 2021
 |}
 
-== Week 5 (9/27 - 9/31) ==
+== Week 5 (9/27 - 10/1) ==
 
 === Lecture Notes (9/29) ===
 * All of the groups presented their work.
+
+* Link to Group's Presentation: https://docs.google.com/presentation/d/1Y9sf7qndm_UrH_mqs4xi4icQ8vgb7XDbQAEICgRYTFI/edit?usp=sharing
+
+* My Presentation: 
+** We started with a variety of machine learning models popular for classification problems including SVM, Random Forests, KNN, Logistic Regression, MLP.
+** After testing general performance of each algorithm, we decided that SVM, Random Forests, Logistic Regression, and MLP were the most effective models
+** From the pair of models we each tried to optimize the model and tweak hyperparameters offered within sklearn but were unable to create a non-dominated pareto front
+** We removed SVM and used the Gaussian Naive Bayes classifier since it was able to produce a model with a higher discrepancy between false negatives and false positives (which made it easier to create the non-dominated pareto front).
+** Discussed the 4 models in depth and the FN/FP values of each. 
+
+* Comments/Questions from presentations: 
+** MOGP showcased a variety of solutions than ML solutions. In addition, in all of the presentations the MOGP's AUC was loser than that of the ML. 
+** Hall of Fame and One Hot Encode need to be explored.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|-
+|Review Notes on GP 
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|}
+
+== Week 6 (10/4 - 10/8) ==
+
+=== Lecture Notes (10/6) ===
+* Introduction to EMADE
+** EMADE: Evolutionary Multi-objective Algorithm Design Engine
+** It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms. 
+
+* Assignments for this week:
+** Follow the install instructions
+** Configure a mysql 5.x server on your machine
+** Downloaded and install git-ifs
+** Cloned the EMADE repository
+** Run the setup to install the package. 
+
+* Running EMADE
+* What is in the Input File?
+** The input file is an xml document that configures all the moving parts in EMADE, we will step through it now.
+
+*Group Assignment:
+** Run EMADE
+** 1 person sets up the sql server and acts as the master process, while the others should connect their works.
+** Run for substantial number of generations.
+** Make a plot of non-dominated frontier.
+** Compare with ML and MOGP assignments.
+** Successful Trees, Plots of AUC, Evacuation Time. 
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 8, 2021
+|-
+|Review Notes
+|In Progress
+|October 6, 2021
+|October 13, 2021
+|
+|-
+|Meet with group
+|In Progress
+|October 6, 2021
+|October 13, 2021
+|
+|-
+|Install EMADE and SQL 
+|In Progress
+|October 6, 2021
+|October 13, 2021
+|
+|-
+|MOGP Code
+|In Progress
+|October 6, 2021
+|October 13, 2021
+|
+|}

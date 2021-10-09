@@ -21,8 +21,11 @@
 * Sub Team #2 Presentation: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 
 '''Individual Notes:'''
+* Presented and explained the slides including Data Pre-Processing Procedure and the final comparison between MOGP and ML findings.
 * Wrote the code for generating a csv file containing the best MOGP algorithm results and submitted it as a group.
 * Completed Mid-Term Peer Evaluation for my teammates.
+
+CSV File: https://drive.google.com/file/d/1U3DTjQCR9zZx5LvaO1SqspM6T-hH7Dig/view?usp=sharing
 
 '''<i>Action Items</i>'''
 {| class="wikitable"
@@ -84,8 +87,10 @@
 * Decided content to be added to our presentation.
 * Programmed our own genetic loop.
 
+[[files/VIPgraph.PNG|center|thumb]] [[files/GraphImage.png|height=300px]] 
+
 '''Individual Notes:'''
-* Did a lot of research on working of symbolic regression evaluation function and difference between NSGA II and SPEA2 for selection algorithms.
+* Did a lot of research on working of symbolic regression evaluation function and difference between NSGA II and SPEA2 for selection algorithms. Finalized evaluation function and data selection.
 * Worked on programming the genetic loop. As it had to be completely original, coding one took a while and required each one of us to do our own research for the same.
 * I designed the layout of the presentation and was responsible for verifying the code and information to be included.
 * Added code for area under the curve to ensure an apt comparison of ML and MOGP.
@@ -179,15 +184,17 @@
 **  Adithya =  MLP Classifier. False Positive = 26, False Negative = 26.
 **  Yisu = SVM (used svm.SVC, sigmoid = kernel). False Positive = 0, False Negative = 104. 
 
+[[files/GrpahPresentation.png|center|thumb]] 
+
 '''Individual Contribution:'''
 * I decided to use the DecisionTreeClassifier as each one of us were responsible for implementing our own algorithms.
 * Made changes to its parameter, min_samples_leaf=30, to ensure it has an optimal value and co-dominance with other algorithms.
 * This then got me a good accuracy with an algorithm that fit well with the other four algorithms we planned on using.
 * Learned more about different parameters of this model from the Sci Kit learn documentation. I had initially tried different models like more kernel functions and nearest neighbor algorithms, but none fit as well in with the other algorithms we planned to choose.
 * I explored multiple functions and learned more about their parameter usage as well.
-* Two other members and I thought of mapping alphabetical values to numerical to ensure optimized and accurate supervised learning algorithmic values for the final solution.
+* Two other members and I thought of mapping alphabetical values to numerical ones to ensure optimized and accurate supervised learning algorithmic values for the final solution.
 
-Image
+CSV File: https://drive.google.com/file/d/1ZWLsUhp5cQVxyHYLrqaqe6KKr5hG-_Yl/view?usp=sharing
 
 '''<i>Action Items</i>'''
 {| class="wikitable"
@@ -283,14 +290,15 @@ https://drive.google.com/file/d/1nv79npHVXmHw1cMCW4aEE8cNPSBdqY_t/view?usp=shari
 
 ===Lab 2 (Part 2): Multi-Objective Genetic Programming===
 * Followed instructions given in the python notebook and tried to minimize the mean squared error along with the tree size.
-* We also plotted the Pareto frontier. The main reason why we are trying to minimize area under the curve is to reduce distance of the Pareto curve with the axes and increase the probability of finding optimized and better individuals to minimize the two objectives.
+* I also plotted the Pareto frontier. The main reason why we are trying to minimize area under the curve is to reduce distance of the Pareto curve with the axes and increase the probability of finding optimized and better individuals to minimize the two objectives.
 * The area under the curve with the original parameters was: 2.463792426733847
 * Best individual is: negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x)))) with fitness: (0.27530582924947056, 25.0)
-Images
+[[files/2.2.1.png]] [[files/2.2.2.png]] [[files/2.2.3.png]]
 * Now, our goal is to reduce AUC by at least 25% by changing the parameters.
 * To achieve this goal, I attempted to remove the three trigonometric functions.
 * First, when I just removed the tan function, the area under the curve increased; however, once I removed all three functions, the area under the curve reduced and became 0.6912744703006891.
 * Best individual is: subtract(x, x) with fitness: (0.7223441838209306, 3.0). This was the best individual in this case.
+[[files/2.2.2.3.png]] [[files/2.2.2.2.png]] [[files/2.2.2.1.png]]
 
 '''<i>Action Items</i>'''
 {| class="wikitable"
@@ -362,23 +370,27 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 * Compiled the primitive tree to generate the evaluation function, which finds the squared sum of the difference between our desired function's output and our individual's output. In this case we are trying to find minimum values that approaches zero faster.
 * I tried modifying the code in three different ways:
 ** <u>The original program</u>:
-***original lab 2
+[[files/Original Lab 2.png|center|thumb]]
 
-***First Attempt: Best individual is add(add(negative(negative(multiply(x, x))), multiply(subtract(multiply(x, x), negative(x)), multiply(x, x))), x), (1.0123748708878107e-16,)
-***Second Attempt: Best individual is add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17,)
-***Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently.
+*** First Attempt: Best individual is add(add(negative(negative(multiply(x, x))), multiply(subtract(multiply(x, x), negative(x)), multiply(x, x))), x), (1.0123748708878107e-16,)
+*** Second Attempt: Best individual is add(add(add(multiply(add(multiply(multiply(x, x), x), multiply(x, x)), x), multiply(x, x)), x), subtract(x, x)), (8.59033944318508e-17,)
+*** Depicts requirement for a more optimized and consistent solution to obtain minimum efficiently.
 ** <u>Program with added mutation</u>
 
-***First Mutation (mutInsert): Best individual is add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, negative(negative(x))))), x), (1.1585916677755867e-16,)
+*** First Mutation (mutInsert): Best individual is add(multiply(x, add(add(multiply(x, multiply(x, x)), x), multiply(x, negative(negative(x))))), x), (1.1585916677755867e-16,)
 
-***part2lab 2....Even after running the code for a number of times the error is lesser and the solution is more consistent and optimized than the original program.
+[[files/part2Lab2.png|center|thumb]] 
 
-***Second Mutation (mutShrink): Best individual is add(add(multiply(x, x), multiply(x, multiply(x, x))), add(x, multiply(x, multiply(multiply(x, x), x)))), (9.522005638492831e-17,)
+Even after running the code for a number of times the error is lesser and the solution is more consistent and optimized than the original program.
 
-***part2lab21....Values were usually close to zero, but in some cases the value was very high (for maximum) and not as consistent. 
+*** Second Mutation (mutShrink): Best individual is add(add(multiply(x, x), multiply(x, multiply(x, x))), add(x, multiply(x, multiply(multiply(x, x), x)))), (9.522005638492831e-17,)
+
+[[files/part2lab21.png|center|thumb]]
+
+Values were usually close to zero, but in some cases the value was very high (for maximum) and not as consistent. 
 ** <u>Program with only added primitives</u>
 
-***extralab2
+[[files/extralab2.png|center|thumb]]
 
 *** Best individual is add(add(multiply(x, x), multiply(multiply(add(square(x), x), x), x)), x), (1.0172711918255375e-16,)
 
@@ -386,11 +398,10 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 *** We used the mutInsert mutation as it seemed more consistent.
 
 *** First pair of primitives (sin and square): Best individual is add(x, add(multiply(add(x, square(x)), multiply(x, x)), multiply(x, x))), (1.0123748708878107e-16,)
+[[files/lab2primitive1.png|center|thumb]]
 
-***lab2primitive1
-
-***Second pair of primitives (absolute, cos): Best individual is add(add(cos(add(cos(subtract(x, x), cos(add(negative(x), subtract(x, negative(multiply(x, x)))), x)), x), x), cos(subtract(x, x), x)), add(x, x)), (0.0,)
-***finallab2
+*** Second pair of primitives (absolute, cos): Best individual is add(add(cos(add(cos(subtract(x, x), cos(add(negative(x), subtract(x, negative(multiply(x, x)))), x)), x), x), cos(subtract(x, x), x)), add(x, x)), (0.0,)
+[[files/finallab2.png|center|thumb]]
 
 <b>In this lab, I attempted to reduce error to bring it almost to zero. This can be seen best in the graph where I used the absolute and cos primitives with the mutInsert mutation.</b>
 
@@ -481,7 +492,7 @@ So for this tree representation the function will be, f(x) = 3 * 4 + 1 and the p
 * Ran main evolutionary loop for 100 generations. 
 * Current algorithm did not always achieve the global minimum (0.0) but was consistently close.
 * Visualization done to achieve more efficiency and speed using graphs as follows (100 generations graph):
-[[files/N Queens Problem Visualization.png|center|thumb]]
+[[files/FirstLab.png|center|thumb]]
 * Iterations can be reduced with change is parameters and functions. This is clear as we can see that the minimum is easily obtained around the 25th generation. I am trying to work on making few changes in the algorithm for improved results by changing the mutation and mating probabilities.
 
 For both problems we also found the basic statistics such as mean, minimum, maximum, and standard deviation, which helped to show that the final required output could be obtained in earlier generations itself with some tweaks made in the code.

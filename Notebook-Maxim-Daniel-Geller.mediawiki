@@ -9,6 +9,46 @@
 '''Fun Fact:''' I visited 9 different countries last summer when I studied abroad in France at GT's Lorraine campus!
 
 = Fall 2021 =
+
+== Week 7: October 4th - October 10th ==
+
+* EMADE updates
+
+I discovered the issue with the seed files was the use of an extra input ARG0 in the InputLayer() that did not belong in there. The neural_network_methods.py file also did not have code for compiling NNLearners when the multi label flag was on, so I added a couple of lines to compile models with the AUC for the PR curve as the metric since binary cross entropy does not work as expected for a multi label problem. As a result, I decided that EMADE should optimize for this objective as well rather than accuracy; luckily, the code for this method already existed.
+
+Now that the code has been properly configured for a baseline run, we can test comparing to our modifications involving selection methods, hyper features, and crossover methods to see if we can find a significant difference in the metrics. 
+
+The NNLearner that has performed the best so far is: NNLearner(ARG0, OutputLayer(GlobalAveragePoolingLayer2D(InputLayer())), passInt(255), FtrlOptimizer)
+
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Run EMADE on new chest x-ray dataset 
+|Completed
+|September 20th, 2021
+|October 4th, 2021
+|October 4th, 2021
+|-
+|Commit changes to EMADE functionality to team branch 
+|Not started
+|October 7th, 2021
+|October 11th, 2021
+|
+|-
+|Continue evolving baseline individuals 
+|In Progress
+|October 4th, 2021
+|October 12th, 2021
+|
+|-
+|}
+
 == Week 6: September 27th - October 3rd ==
 I was able to reinstall EMADE on my personal directory on PACE-ICE after resolving my storage issues. I also created an anaconda environment everyone in my team can share in our class folder which should be helpful. My only major blocker at the moment is being unable to generate a baseline run because I get hash collisions (telling me NNLearners are already there) when I try to seed a fresh database which makes no sense at all. I reached out to Cameron and Anish for help as well. 
 

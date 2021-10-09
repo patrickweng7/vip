@@ -11,10 +11,89 @@ Interests: Writing fiction, Music, Reading, Sports
 == October 6, 2021 (Week 7) == 
 
 === Lecture Notes: ===
-*  
+*  Upload pictures (Friday deadline)
+*  Intro to emade
+    *  Evolutionary MultiObjective Algorithm Design Engine
+    *  Still deap, but primitives are ML functions
+    *  Still cleans data, preprocesses
+        *  ML evaluations are expensive (time,space)
+    *  Combines MO evolutionary search with high-level primitives to automate the process of designing ML algorithms
+    *  Tasks
+        *  Install emade, instructions are in Readme.txt in master
+        *  Uses a MySQL 5.x server (or MariaDB)
+        *  Download and install git-lfs
+        *  Clone emade repo
+        *  Maybe run virtual framework?
+        *  Run “python setup.py install”
+    *  Emade requirements
+        *  Navigate to the top level directory
+        *  Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
+    *  Input file
+        *  .xml file that configures EMade
+        *  First block configures python
+            *  <localPythonCommand> python3 </localPythonCommand>
+        *  Next block configures MySQL
+            *  <server> 127.0.0.1 </server> for localhost
+            *  Configure username and password
+            *  Going to need to make our own database, tables automatically added in
+            *  Reuse = 1 for master if emade has already been run
+        *  Next are datasets
+            *  Five folds of the same datasets (shuffling which 20% is used as the test set) and then averaging results
+        *  Datasets/titanic has a sample file titanic_data_splitter.py
+            *  Produces .csv.gz files with test and train data partitioned from input
+            *  Can replace preprocessing code with ours
+            *  Can change k number of splits
+        *  .gz files need GVIM to open, numpy.loadText also works
+        *  Emade reserves the last column for fitting models (while using train data) and scoring (for test data). Last column is truth data.
+        *  Objectives
+            *  Minimize is better (weight -1.0)
+            *  Names will be used as columns in the database
+            *  <evaluationFunction> specifies name of method in python src/GPFramework/evalFunctions.py
+        *  Parameters
+            *  Evaluation specifies where eval functions in Objectives live and how much memory each worker is allowed to use before marking an individual as “fatal”
+            *  <workersPerHost> specifies how many evaluations to run in parallel
+            *  2 or 3 is a lot for laptops
+    *  Evolution parameters
+            *  Hyperparameters, “magic constants” that affect evolutionary process
+            *  Initial pop size, launchSize, inQueueSize, etc.
+            *  Mating probabilities
+    *  Headless chicken crossover
+        *  Creates a new individual to mate with an existing individual. Adds randomness
+        *  If it’s useful, GP is probably not the best idea for a solution to that problem
+    *  Connecting a work process to a peer
+        *  "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
+    *  Understanding EMade output
+        *  Mysql -h hostname -u username -p
+        *  Prompts for password
+        *  Need this to work for EMade
+        *  Selected database command: “use database_name”
+        *  Queries:
+            *  Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+        *  After some time individuals will complete
+    *  Emade Structure
+        *  Src/GPFramework is the main body f the code
+        *  gtMOEP.py has the main EMadde engine, genetic loop, including evaluation function
+        *  gr_framwork_helper.py is where primitive set is built for Emade, points to where primitives live:
+            *  methods.py
+            *  signal_methods.py
+            *  spatial_methods.py
+        *  data.py provisions DataPair object passed between primitives
+        *  input files are in templates/
+    *  Assignment
+        *  Run Emade together. 1 person has SQL server set up and 1 acts as master process, rest connect as workers.
+        *  Run for many generations (like last project; maybe 30, 40)
+        *  Learn some SQL, try to mine some information from database
+        *  Plot non-dominated frontier at the end of the run, compare with ML and MOGP assignments
+            *  Going to want to put in own preprocessed data
+            *  Try to get all on the same graph
+        *  Make any other plots + figures to show analysis of Emade, try to find some successful trees
+            *  Average evaluation time of a generation, etc.
+        *  Presentation on Monday, 25th October
+
 
 === Individual Notes: ===
-*  
+*  Git is already downloaded on my system; git-lfs is also present.
+*  Cloned emade repo (took a notable amount of time and memory).
 
 === Action Items: ===
 {| class="wikitable"

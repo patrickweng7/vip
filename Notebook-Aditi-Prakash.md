@@ -11,23 +11,28 @@ Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
 # Week 6: September 29th, 2021
 ## Overview
-Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently). 
+Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently).
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
 * Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
 * In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
 
+## Individual Notes
+* Presented slides 1, 2, 4, 5 from slide deck: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+* Answered Dr. Zutty's questions regarding the primitives we chose to use (should look into using float primitives) and how using the HOF might have limited diversity in our resampling of the population during each iteration of the evolutionary loop. 
+* Talked to Charlie and Dr. Zutty after class about selNSGA and how it truncates individuals after the kth individual when performing selection. Dr. Zutty suggestted using selTournamentDCD and shuffling individuals so as to promote diversity in the Hall of Fame. 
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Titanic ML, MOGP, EMADE Presentation | Pending | 10/25/21 | 10/25/21  | - |
-| Peer Evaluation | Pending | 9/29/21 | 10/6/21  | 10/4/21 |
+| Titanic ML, MOGP, EMADE Presentation | Completed | 10/25/21 | 10/25/21  | - |
+| Peer Evaluation | Completed | 9/29/21 | 10/6/21  | 10/4/21 |
 | Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
 
 # Week 5: September 22th, 2021
 ## Overview
-Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Attended meta-presentation on good presentation techniques (detailed graphs, concise bullet points, key takeaways, etc.) in preparation for next week's Titanic ML and MOGP presentation. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
 ## Team Meeting Notes
 ### Notes on Titanic ML Assignment 
@@ -53,18 +58,22 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
-* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
-* Primitive Set:
-![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
-* Researched strongly typed GP in DEAP
+* Researched strongly typed GP in DEAP (reference: https://deap.readthedocs.io/en/master/tutorials/advanced/gp.html)
 * Chose NSGA II as selection method (handles both objectives)
-* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Created hof using best individuals ever identified throughout evolution
 * Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
-* Change 30 generations to 50 generations and removed duplicate individuals from Hall of Fame for improve evolution
+* Removed duplicate individuals from Hall of Fame for improve evolution
 * Predicted Survived feature for test.csv 
 * Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+
+## Individual Notes
+* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
+* Primitive Set:
+![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
+* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
+* Change 30 generations to 50 generations for improved evolution
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
@@ -114,17 +123,19 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Imported pandas, numpy, and sklearn methods 
 * Mounted Drive to Colab and read in train and test sets as dataframes
 * Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
 * Set PassengerID as index
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+
+## Individual Notes
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
 * One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
-* Replaced Sex feature categories with 1 for male and 0 for female
 * Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
 * Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
-* Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
 * Obtained confusion matrix for predictions 
@@ -195,7 +206,8 @@ This lab explored the problem of optimizing a set of primitives based on more th
 We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front using the Hall of Fame. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
 with fitness: (0.2786133308027132, 15.0). 
 
-DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+DEAP's Mu plus Lambda algorithm (reference: https://deap.readthedocs.io/en/master/api/algo.html), which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+
 
 Improvements:
 Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.3113. 
@@ -214,6 +226,8 @@ Original Hyperparameters:
 
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
+
+
 
 Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
