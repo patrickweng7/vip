@@ -13,7 +13,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
-## Week 7
+## Week 7, Oct 4th
 ### General Meeting Notes
 * Stocks:
 * * The stocks team was disbanded.
@@ -21,7 +21,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Worked on implementation of NSGA-III, and new mutation methods.
 * Modularity: 
 * * Will stick with Google Collab instead of PACE-ICE.
-* * Fixed bug with incorrect rarities.
+* * Fixed bug with incorrect arities.
 * * Will focus on unit testing and code reviews to avoid the same or similar errors from re-occurring.
 * NAS: 
 * * Informed the team members about the evolutionary process in EMADE.py. Went through the master algorithm loop in EMADE. Discussed mutations and other functions needed.
@@ -39,7 +39,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Make an EMADE Branch with new CacheV2 and NNLearner functionality | Blocked | 10/03/2021 | ... | 10/10/2021 |
 
-## Week 6
+## Week 6, Sep 27th
 ### General Meeting Notes
 * Stocks: 
 * * The stocks team was dissolved this week
@@ -77,7 +77,7 @@ Create new XML and data load functions for QA in EMADE | Complete | 09/27/2021 |
 * <img width="1022" alt="Screen Shot 2021-10-06 at 9 18 14 PM" src="https://github.gatech.edu/storage/user/27405/files/d1634596-7da5-4dd8-a46a-c7ba5d79b1bb">
 * After this, however, when testing this with standalone_tree_evaluator.py, I did run into an architectural problem after this. EMADE only stores one list of EMADE Data pairs for each fold, stored as the "dataPairArray". We would have to modify many other parts if we were to add another array. This is an issue we will have to discuss at the coming meeting.
 
-## Week 5
+## Week 5, Sep 20th
 ### General Meeting Notes
 * Stocks: 
 * * Still determining the semester goal, whether it will be Stock generalization or fundamental analysis
@@ -117,7 +117,7 @@ Research creating a new type of data pair | Complete | 09/20/2021 | 09/27/2021  
 ** To deal with the requirement of two inputs per data point, the context and the query, we could make primitives that specifically return an embedding of exactly one of the inputs. For example, one could be named "ContextEmbeddingLayer" and another could be "QueryEmbeddingLayer".
 * Analyzing these solutions from the mindset of attempting to increase and maintain diversity in individuals, I think these solutions will work well. As opposed to the original thought process of constraining NNLearners to always have one type of input or output, this will maintain the normal constraints of mating individuals, which should still allow for any individuals to be mated, increasing our diversity.
 
-## Week 4
+## Week 4, Sep 13th
 
 ### Self Evaluation Rubric
 <img width="962" alt="Screen Shot 2021-09-13 at 7 11 24 PM" src="https://github.gatech.edu/storage/user/27405/files/6e678180-14c6-11ec-811b-bb9acf9a8258">
@@ -177,7 +177,7 @@ Self Evaluation Rubric | Complete | 09/20/2021 | 09/20/2021 | 09/20/2021 |
 
 
 
-## Week 3
+## Week 3, Sep 6th
 * There was no General Meeting this week
 * We decided on Wednesday at 2 pm for our Weekly Sub Team Meetings
 
@@ -211,7 +211,7 @@ Look into State of the Art Question Answering Systems | Complete | 09/07/2021 | 
 * However, I do believe this paper is helpful for our task in that it is a state of the art model for the SQUAD dataset. We can use it as inspiration to make a seeded individual, by writing this out in a tree structure. 
 
 
-## Week 2
+## Week 2, August 30th
 ### General Meeting Notes
 * During the general meeting, I informed the whole team of ideas discussed in our brainstorm meeting. Devan also suggested added more primitives for more than embeddings.
 * The sub team for NLP was officially formed with members decided.
@@ -224,7 +224,7 @@ Finalize Semester Goals | Complete | 08/30/2021 | 09/07/2021  | 09/13/2021 |
 Start Progress Towards Semester Goals | Complete | 08/30/2021 | 09/12/2021 | 09/13/2021 |
 
 
-## Week 1
+## Week 1, Aug 23rd
 ### General Meeting Notes 
  * We discussed potential sub team ideas
  * A brainstorming channel in the slack was created for the NLP sub team.
