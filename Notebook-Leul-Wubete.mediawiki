@@ -21,7 +21,7 @@ Interests: Soccer, Walking, Eating, Breathing
   - Clone emade repo
   - Run python setup.py install
 * Emade necessities
-  - Navigate to top level directory Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
+  - Navigate to top-level directory Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
 * Input (files):
   - .xml file to configure emade
   - first block is for python configuration where it says "<localPythonCommand> python3 </localpythoncommand>"
@@ -36,7 +36,7 @@ Interests: Soccer, Walking, Eating, Breathing
   - Produces .csv.gz files with test and train data partitioned from input
   - Can replace preprocessing code with ours, k number splits
   - .gz files need GVIM to open, numpy.loadText also works
-  - Emade reserves last column: fitting models, using train data, and scoring for test data. Last column is truth data.
+  - Emade reserves the last column: fitting models, using train data, and scoring for test data. Last column is truth data.
 *  Objectives
   - Minimize it (-1.0 weight)
   - Names will be used as columns in DB.
@@ -46,22 +46,22 @@ Interests: Soccer, Walking, Eating, Breathing
     individual as “fatal"
   - <workersPerHost> specifies how many evaluations to run in parallel, eval > 2 is tasking for a normal device
   - Evolution parameters:
-            ~ Hyperparameters, “magic constants” that affect evolutionary process
+            ~ Hyperparameters, “magic constants” that affect the evolutionary process
             ~  Initial pop size, launchSize, inQueueSize, etc.
             ~  includes Mating probabilities
             ~ Check out headless chicken crossover
 * Connecting a work process to a peer
   - "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
 * EMADE output formats
-  -  Mysql -h hostname -u username -p, asks for password
+  -  Mysql -h hostname -u username -p, asks for a password
         ~  Selected database command: “use database_name”
         ~  Queries:
            - Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select 
              max(generation) from paretofront);
 * Structure:
-  - Src/GPFramework is the main body f the code
+  - Src/GPFramework is the main body of code
   - gtMOEP.py has the main emade engine (genetic loop, including evaluation function)
-  - gr_framwork_helper.py is where primitive set is built for Emade, points to where primitives live:
+  - gr_framwork_helper.py is where the primitive set is built for Emade, points to where primitives live:
     ~  methods.py
     ~  signal_methods.py
     ~  spatial_methods.py
@@ -69,10 +69,10 @@ Interests: Soccer, Walking, Eating, Breathing
   -  input files are in templates/
 
 *  Assignment:
-        -  Run Emade together. 1 person has SQL server set up and 1 acts as master process, rest connect as workers.
+        -  Run Emade together. 1 person has an SQL server set up and 1 acts as a master process, the rest connects as workers.
         -  Run for many generations (like last project; maybe 30, 40)
-        -  Learn some SQL, try to mine some information from database
-        -  Plot non-dominated frontier at the end of the run, compare with ML and MOGP assignments
+        -  Learn some SQL, try to mine some information from the database
+        -  Plot non-dominated frontier at the end of the run, compared with ML and MOGP assignments
             ~  Going to want to put in own preprocessed data
             ~  Try to get all on the same graph
         -  Make any other plots + figures to show analysis of Emade, try to find some successful trees
