@@ -9,6 +9,26 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
+# Week 7: October 6th, 2021
+## Overview
+Attended lecture on introduction to EMADE and its moving parts (input file, launchGTMOEP.py, MySQL to observe EMADE output, master and worker processes, gp_framework_helper for primitive set). Received assignment to solve Titanic problem with EMADE and compare Pareto frontier, individuals, and other EMADE statistics to ML and MOGP Titanic assignment results. Began installing emade, git, and conda so as to set up conda virtual enviroment for EMADE and install all necessary packages, libraries, and dependencies as specified on EMADE GitHub page.  
+
+## Team Meeting Notes
+### Lecture on EMADE
+* Introduced concept of EMADE (engine to perform multi-objective algorithm design using genetic programming and a primitive set containing both simple primitives and ML learners from Python packages).  
+* Looked at EMADE repository on GitHub and got a view of input file that specifies MySQL database configuration for EMADE output and parameters of evolution, launchGTMOEP.py which initiates the evolutionary process, and the gp_framework_helper.py file that contains references to primitives used to create EMADE individuals).
+* Received information about presentation on Monday, October 25th where bootcamp and returning students will present their EMADE presentations and hackathon on Saturday, October 16th, where new students can receive help from returning students for EMADE setup and analyzing output from running EMADE on Titanic dataset. 
+
+## Subteam Notes
+* Worked with rest of team asynchronously to set up master and worker processes for EMADE. I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/14/21  | |
+| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/14/21  | |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | |
+
 # Week 6: September 29th, 2021
 ## Overview
 Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently).
@@ -21,7 +41,7 @@ Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty a
 ## Individual Notes
 * Presented slides 1, 2, 4, 5 from slide deck: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
 * Answered Dr. Zutty's questions regarding the primitives we chose to use (should look into using float primitives) and how using the HOF might have limited diversity in our resampling of the population during each iteration of the evolutionary loop. 
-* Talked to Charlie and Dr. Zutty after class about selNSGA and how it truncates individuals after the kth individual when performing selection. Dr. Zutty suggestted using selTournamentDCD and shuffling individuals so as to promote diversity in the Hall of Fame. 
+* Talked to Charlie and Dr. Zutty after class about selNSGA and how it truncates individuals after the kth individual when performing selection. Dr. Zutty suggested using selTournamentDCD and shuffling individuals so as to promote diversity in the Hall of Fame. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
