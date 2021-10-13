@@ -71,7 +71,7 @@ Interests: Writing fiction, Music, Reading, Sports
             *  Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
         *  After some time individuals will complete
     *  Emade Structure
-        *  Src/GPFramework is the main body f the code
+        *  Src/GPFramework is the main body of the code
         *  gtMOEP.py has the main EMadde engine, genetic loop, including evaluation function
         *  gr_framwork_helper.py is where primitive set is built for Emade, points to where primitives live:
             *  methods.py
@@ -94,6 +94,30 @@ Interests: Writing fiction, Music, Reading, Sports
 === Individual Notes: ===
 *  Git is already downloaded on my system; git-lfs is also present.
 *  Cloned emade repo (took a notable amount of time and memory).
+*  Followed instructions at https://github.gatech.edu/emade/emade in the README.md to install emade and its dependencies
+    *  Already had Anaconda installed on my system, but added the path to its directory to the PATH environment variable
+    *  Opened Anaconda Prompt; navigated to cloned emade repo
+    *  Ran "conda install opencv" and resolved other dependencies by running "conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn and subsequently pip install xgboost lmfit multiprocess hmmlearn deap opencv-python"
+    *  Had to reinstall an older version of numpy due to conflicts (1.19.2)
+    *  Ran "reinstall" to rebuild all files
+    *  Installed MySQL server and MySQL Workbench (GUI version)
+*  Arranged group call, shared my screen, created database and acted as master for group's run of Emade.
+*  Attempted to run emade
+    *  Edited the input_titanic.xml to configure the database. Set server (localhost), username, password according to my computer's MySQL configuration.
+    *  Edited titanic_data_splitter.py in datasets/titanic to preprocess data the same way as in ML and MOGP
+    *  Ran emade, repeatedly got dependency errors, repeatedly installed missing dependencies
+    *  Created database named "titanic" using https://www.mysqltutorial.org/mysql-create-database/ tutorial (helpful link). Database can be viewed under "schemas" in MySQL Workbench.
+    *  Ran "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml" at the top-level directory
+    *  Database file automatically created in top-level directory, named "EMADE_10-12-2021_17-48-20.db"
+    *  Mypickle file created, named "myPickleFile#####.dat"
+    *  Checked master#####.out and master#####.err, worker#####.out and worker#####.err for event logs. Ignored 'cudart64_110.dll' dlerror, since I don't have a GPU on my system.
+*  MySQL Workbench shows that none of the individuals were evaluated, shows null for all objectives.
+*  master#####.out shows repeating output, leading me to believe that there is an issue with evolution or function calls.
+    *  "Starting Year 0
+    *  Querying database for elements remaining in queue
+    *  508 elements remaining in queue, query complete in 0.00 seconds
+    *  Good night"
+*  Plan to debug this in session with my group.
 
 === Action Items: ===
 {| class="wikitable"
