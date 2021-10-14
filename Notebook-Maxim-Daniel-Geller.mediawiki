@@ -12,6 +12,7 @@
 
 == Week 8: October 11th - October 17th ==
 
+Some bugs I found in evolution
 ```
 Received: NNLearner(GradientWeighted(Cv2Transpose(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_1), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.AXIS_1), lessThan(1.0, 3.2975888724293227), myIntToFloat(128), myFloatIntAdd(3.0083306759663166, 0)), OutputLayer(InputLayer()), 9, AdamOptimizer)
 	With Hash 52e1d26f5ab451ef001d73945a80b573d7d353753d105317dfc8514b342041f8
@@ -36,6 +37,26 @@ Received: NNLearner(GradientWeighted(Cv2Transpose(ARG0, TriState.STREAM_TO_FEATU
     return cv2.transpose(data)
 TypeError: Expected Ptr<cv::UMat> for argument 'src'
  Stack Trace: Cv2Transpose 
+
+Received: NNLearner(RMS2D(EmadeDataMultiplyFloat(ThresholdToZeroFloat(Fraction(Log(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL), TriState.FEATURES_TO_FEATURES, passAxis(Axis.FULL), greaterThan(1.0, 1.0)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(Axis.AXIS_0)), myFloatMult(myFloatAdd(-1.290955640033229, 10.0), 0.1)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(passAxis(Axis.AXIS_0))), myFloatDiv(10.0, myFloatSub(myFloatDiv(0.01, 0.01), passFloat(1.0)))), TriState.STREAM_TO_FEATURES, Axis.AXIS_0, 3), OutputLayer(InputLayer()), 32, AdamOptimizer)
+	With Hash f19c6dd228c0e7a73a6ff8d899734eb2dd47e1331b63c2fe7ec5bc491da473ef
+	Computed in: 31.2136070728302 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Unsupported TriState TriState.STREAM_TO_FEATURES provided to LogTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 540, in primitive_wrapper
+    raise ValueError('Unsupported TriState {} provided to {}'.format(mode, p_name))
+ValueError: Unsupported TriState TriState.STREAM_TO_FEATURES provided to Log
+ Stack Trace: Log 
 ```
 
 == Week 7: October 4th - October 10th ==
