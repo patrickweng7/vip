@@ -11,6 +11,20 @@ Subteam: Modularity
 
 Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vincent Huang], [https://github.gatech.edu/emade/emade/wiki/Notebook_Angela_Young Angela Young], [https://github.gatech.edu/emade/emade/wiki/Notebook_Bernadette_Gabrielle_Santiago_Bal Bernadette Bai]
 
+== October 15, 2021 ==
+
+====== Lecture Notes ======
+* This Saturday, we will have a hackathon
+* Modularity
+** Squeue error for permission, and squeue is slurm
+** Need to use new code from newer emade branch to not get an squeue error.
+
+====== Notes ======
+* First run cd/usr
+* Then mysqld_safe --datadir='/storage/home/hpaceice1/xliu725/scratch/db'
+* New terminal: qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+* mysql -u root
+
 == October 8, 2021 ==
 
 ====== Lecture Notes ======
@@ -23,7 +37,12 @@ Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vinc
 ====== Personal Exploration ======
 * After getting emade set up:
 **ssh into pace-ice and allocate a node/start the database. I found that I can start the database by just running mysqld_safe and NOT cd /usr
+** qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+** mysqld_safe --datadir='/storage/home/hpaceice1/xliu725/scratch/db'
+** module load anaconda3/2020.02
+** module load gcc
 ** conda activate emade (name of the environment)
+** mysql -h atl1-1-02-012-5-l
 ** Create a database in a new terminal after ssh’ing onto the atl-… address with command CREATE DATABASE <name>;
 ** Later, you can also delete a database if you type DROP DATABASE <name>;
 ** exit mysql and find the template file. Then use vim input_titanic or something similar to edit
