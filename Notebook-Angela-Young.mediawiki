@@ -364,6 +364,68 @@ NAS
 |October 8, 2021
 |}
 
+== Week 7: October 11, 2021 ==
+
+=== Main Team Meeting ===
+
+None due to Fall Break
+
+=== Sub Team Meeting: October 14 ===
+* Met virtually today
+* Xufei and Bernadette seemed to get the PACE-ICE server running
+* I realized I should clone Vincent's fork of EMADE and got started on that
+
+=== Individual Exploration: October 14 ===
+* Deleted the old copy of EMADE that was Gabe's fork
+* Had to refer to my own notebook to see what I did to reinstall EMADE last semester, and the steps were somewhat out of order so I'll condense the commands to run here
+** git lfs install
+** git clone https://github.gatech.edu/vhuang31/emade.git
+** *Open a new terminal window*
+** cd emade
+** conda create --name emade  --- deleted old conda enviroment to replace
+** conda activate emade
+** conda install python=3.7
+** conda install opencv
+** conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn 
+** pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
+* Ran into an issue installing hmmlearn. Also needed to go eat so I decided to work on it another day
+
+=== Individual Exploration: October 16 ===
+* Continued trying to get EMADE set up
+* Saw a command for if hmmleanr fails to install on Windows but I use a Mac so I didn't think it would work
+* Tested it, and it did work! So the next steps for installing emade for me includes making sure hmmlearn is built
+** conda install -c conda-forge hmmlearn
+* Now to see if all the files build correctly
+** bash reinstall.sh
+* Got tensorflow error just like last semester 😡 
+* Running the "which" commands that seemed to work last semester... 
+** which python3
+** which python
+** which pip
+* tensorflow uses Python 3.7 while my conda env seems to be running Python 3.6
+** Not sure how to fix this error 😭 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Reclone EMADE
+|incomplete
+|October 14, 2021
+|October 18, 2021
+|-
+|-
+|Resolve hmmlearn error
+|Completed
+|October 14, 2021
+|October 18, 2021
+|October 16, 2021
+|}
+
 = Spring 2021 =
 [https://bluejeans.com/904633358 Main Team Meeting Link]
 * [[Modularity|Modularity Subteam]]
@@ -1821,7 +1883,7 @@ GitHub: https://github.com/maximgeller/Titanic-Multiple-Objectives
 Download and set up EMADE
 
 ====== Switching python verisons: ======
- 
+* conda install python=3.6
 
 === Action Items ===
 {| class="wikitable"
