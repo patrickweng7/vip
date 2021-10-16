@@ -354,8 +354,8 @@ NAS
 |Get EMADE transferred to PACE-ICE
 |canceled since not using PACE-ICE
 |September 27, 2021
-|-
-|-
+|/
+|/
 |-
 |Complete peer-evals
 |Complete
@@ -382,9 +382,8 @@ None due to Fall Break
 ** git clone https://github.gatech.edu/vhuang31/emade.git
 ** *Open a new terminal window*
 ** cd emade
-** conda create --name emade  --- deleted old conda enviroment to replace
+** conda create -n emade python=3.7  --- deleted old conda enviroment to replace
 ** conda activate emade
-** conda install python=3.7
 ** conda install opencv
 ** conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn 
 ** pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
@@ -392,7 +391,7 @@ None due to Fall Break
 
 === Individual Exploration: October 16 ===
 * Continued trying to get EMADE set up
-* Saw a command for if hmmleanr fails to install on Windows but I use a Mac so I didn't think it would work
+* Saw a command for if hmmlearn fails to install on Windows but I use a Mac so I didn't think it would work
 * Tested it, and it did work! So the next steps for installing emade for me includes making sure hmmlearn is built
 ** conda install -c conda-forge hmmlearn
 * Now to see if all the files build correctly
@@ -404,6 +403,12 @@ None due to Fall Break
 ** which pip
 * tensorflow uses Python 3.7 while my conda env seems to be running Python 3.6
 ** Not sure how to fix this error 😭 
+* Going to start over but use this command to create a conda env with the right version of Python
+** conda create -n emade python=3.7
+* FIX: edit the reinstall file
+** vim reinstall.sh
+** Change `python3` to `python` since running which python3 makes it use the wrong version
+** Running which python makes it use the anaconda version which is the version we want to use
 
 === Action Items ===
 {| class="wikitable"
@@ -414,14 +419,20 @@ None due to Fall Break
 !Date Completed
 |-
 |Reclone EMADE
-|incomplete
+|Complete
 |October 14, 2021
 |October 18, 2021
-|-
+|October 16, 2021
 |-
 |Resolve hmmlearn error
 |Completed
 |October 14, 2021
+|October 18, 2021
+|October 16, 2021
+|-
+|Resolve tensorflow error
+|Completed
+|October 16, 2021
 |October 18, 2021
 |October 16, 2021
 |}
