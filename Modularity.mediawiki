@@ -129,6 +129,40 @@ Our current ARL architecture is fairly simplistic, as we sometimes chose the sim
 ** (Previous outdated page) [[ADF-Entropy-Informed-ADF-Generation]]
 
 = Resources =
+== PACE-ICE Guide ==
+'''IMPORTANT NOTE:''' Our team members ran into some issues following the wiki guide--check back here if you run into errors while following the guide!
+[[PACE-ICE Set Up|https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE#How_to_get_started_with_PACEICE_Old_Guide]]
+'''<u>Starting Up the Database</u>'''
+This section refers to the following instructions in the guide:
+<blockquote>Do cd /usr to get into MariaDB (yes, with the slash) then start a local MySQL instance by running.
+mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</blockquote>
+* If you run into an error mentioning you are unable to get into the MariaDB instance:
+** First make sure you have run <code>cd /usr</code>
+** Previous step not working: Change the port in your <code>.my.cnf</code> file:
+(From the PACE-ICE Guide)
+<blockquote>If there are other mysql servers running you may need to specify a port:
+
+Add port=3307 (or some other port number) to your .my.cnf file in the line before [mysqld_safe]
+
+</blockquote>
+'''<u>Setting up MYSQL/Logging into PACE-ICE</u>'''
+This section refers to the following instructions in the guide:
+<blockquote>Optional: Check that the DB Is working</blockquote>
+When the guide asks you to run the <code>mysql -h</code> command, or to remove the empty usernames and you are running into errors, try the following:
+* Start the database (<code>mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>) in one terminal
+* Create a new terminal. Run <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code>
+* Run <code>exit</code> to get back into the login node (check the terminal command starts with username@loginetcetc) 
+* Run <code>mysql -u root</code>
+
+If these steps have worked correctly, statements should be printed out indicating you have logged into mysql/are in the MariaDB. Then run the following commands as stated in the guide:
+(Note: Replace USERNAME with your gatech username) 
+<code>
+DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+</code>
+
+Check this works, by <code>exit</code> then <code>mysql -u USERNAME</code> to make sure you can login as your new user
 
 == Presentation Slides ==
 * [https://docs.google.com/presentation/d/1fPMmlTXOuPC2PACyJzmm3X6htNpVnMZcQhw1Da-9VPo/edit?usp=sharing Fall 2019 Midterm Presentation]
