@@ -7,8 +7,35 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
-
+### Week 8: Oct 11
+Removed lambdas with 1 node and all args
 ### Week 7: Oct 4
+new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
+new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl6', 'lambda arl_arg_0,arl_arg_1: (EqualizeHist(arl_arg_0,-6,arl_arg_1))', <function <lambda> at 0x7f7428ad32f0>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>])
+new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl7', 'lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))', <function <lambda> at 0x7f7428ad3268>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>])
+new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl8', 'lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,0),arl_arg_2))', <function <lambda> at 0x7f7428ad39d8>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  80 ((('Learner', 1, 2, -1), ('EqualizeHist', 2, 3, 0), ('ARG0', 0, 0, 0), ('0', 0, 0, 2)), 0)
+len new individual 6
+new individual [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+curr_idx 0 newindv len 6 subtreeidx 0 instance len 4
+curr_idx 1 newindv len 6 subtreeidx 1 instance len 4
+curr_idx 2 newindv len 6 subtreeidx 2 instance len 4
+curr_idx 3 newindv len 6 subtreeidx 3 instance len 4
+curr_idx 4 newindv len 6 subtreeidx 3 instance len 4
+Contracting ARL
+len individual before removal 6
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [4, 2, 1, 0]
+len individual after removal 2
+individual after removal [('-6', 0, 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 1)]
+arl to insert <deap.gp.Primitive object at 0x7f7428c5a598> arity 4 newarity 2
+len individual after arl insert 3
+individual after arl insert [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+occurrence!  80 ((('EqualizeHist', 2, 3, -1), ('-6', 0, 0, 1), ('0', 0, 0, 2)), 5)
+len new individual 3
+new individual [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+curr_idx 5 newindv len 3 subtreeidx 0 instance len 3
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
 |Fix population_info bug|Incomplete|Oct 4|Oct 11|
