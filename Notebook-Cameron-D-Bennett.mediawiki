@@ -38,6 +38,10 @@ Total Out of 100: '''91/100'''
 == October 11, 2021 ==
 '''Team Meeting Notes:'''
 * No SCRUM meeting took place this week, instead we had a hackathon that allowed team members to come together and get work done in preparation for their mid-term presentations.
+* This hackathon allowed me to get updates on everyone's prior tasks and sort of rearranging their workloads. I myself was able to show Justin H some code for creating a new table within EMADE's generated SQL database. I made an NNLearnerStatistics table that will keep track of NNLearners over multiple generations. I was hoping Justing could make a method that utilizes this SQL table to pull all of the evolving tree structures for a specific individual based on its hash value. 
+* Devesh is currently testing time-stopping for Keras fit's and I'm very excited to see it implemented as I noticed that when I ran emade, I was getting some very long elapsed times on fitting certain NNLearners. The time ranges seemed to be anywhere from 5 minutes to 2.5 hours(in a worst-case). I've attached a screenshot [https://drive.google.com/file/d/1KB27eBjHYLYZ694Mi0iwYoJCp1tsgAle/view?usp=sharing here].
+* Connor has made some changes to the EMADE repo which allows us to keep the entire repo on PACE-ICE including the git folder. Now we can directly pull commits to pace without utilizing more memory than necessary.
+* Lucas was able to work with MySQL workbench and do emade runs to check if any frequent error messages popped up.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -46,10 +50,32 @@ Total Out of 100: '''91/100'''
 !Date Assigned
 !Suspense Date
 !Date Resolved
+|-
+|Fix Bug with Nested NNLearners
+|Completed
+|10/11/21
+|10/16/21
+|10/14/21
+|-
+|Rework EMADE until almost all NNLearners are valid
+|Completed
+|10/14/21
+|10/18/21
+|10/15/21
+|-
+|Fix bug with accuracy error
+|Incomplete
+|10/15/21
+|10/20/21
 |
+|-
 |}
 
 '''Individual Notes:'''
+* Thanks to the fork of EMADE that Cameron W has provided, our EMADE branch for NN-VIP is currently producing only NNLearners. I spent this last week working off of a branch to fix 2 issues he noticed with the NNLearners being generated. Essentially, he noticed NNLearners were being nested which generates a bad tree structure that we don't want to allow. Additionally, we weren't sure ADF's were being generated or used as we would like. I fixed the first issue by redefining the MAIN primitive typed set and then adding some more passthrough layers to enforce a specific input to our NNLearner EmadeDataPair input. I resolved the second issue by modifying the create_representations method within EMADE.py.
+* After making these changes, I noticed a ton of errors being produced by EMADE such as "Output dims of Concat layer invalid" or "parameter for label X is invalid". Most of these issues stemmed seemingly stemmed from minor bugs in the wrappers for layers in the Neural Network Methods file. I spent some time locally debugging, as well as removing most broken primitives, in order to get EMADE producing valid NNLearners that it can at least compile. I was able to do this but now am noticing that there seems to be a consistent accuracy error produced in all of my NNLearner individuals seen [https://drive.google.com/file/d/1FSRtK-vADkCAPgt1_f2jYEBwt8B5-7AU/view?usp=sharing here]. I'm not sure what's causing this but after speaking with Cameron W during our hackathon, it seems to be an issue with the NNLearner method misinterpreting dimension sizes and leading to incorrect activation type usage. 
+* I plan on attempting a new EMADE run to see if Cameron W's fix for the accuracy error will produce more useful results for us.
+* Finally, I spent the past 2 weeks reviewing the paper regarding CoDEEPNEAT implementation using Keras. I believe I understand the structure of CoDEEPNEAT well enough to say that we can easily implement that using a lot of the preexisting logic within EMADE. Outside of using ADF's as modules, we could benefit from adding mutation, mating, and evaluation methods that operate separately for individuals and their internal ADF methods. Additionally, we would need to find a way to "speciate" or classify both ADF's into groups as well as individuals. I can't foresee a timeline on this quite yet but I suspect we might be closer to obtaining this implementation for testing than we think.
 
 == October 4, 2021 ==
 '''Team Meeting Notes:'''
@@ -89,6 +115,7 @@ Total Out of 100: '''91/100'''
 ** How can we test and validate the growth of individuals within EMADE using existing library testing resources?
 * After speaking with Dr. Zutty, it became apparent to me that we don't seem to have any analysis methods for keeping track of NNLearners and their size over the course of multiple generations. I've decided to add a task for that to the Trello board and work on that for this week.
 * My attempt at adding statistics for NNlearners has involved me adding a separate SQL table with NNLearner tree structures along with their generation and history information so that people can trace through the evolution of a single individual identified by a hash.
+* The task regarding triviality detection has been closed, I was unable to identify any significant difference in my EMADE run before incorporating it versus after. Instead of focusing on triviality detection, I will be shifting focus towards ensuring NNLearner individuals can compile properly.
 
 == September 27, 2021 ==
 '''Team Meeting Notes:'''
@@ -122,10 +149,10 @@ Total Out of 100: '''91/100'''
 |9/27/21
 |-
 |Identify valid NNLearners within EMADE run.
-|Incomplete
+|Completed
 |9/19/21
 |9/31/21
-|
+|10/2/21
 |}
 
 '''Individual Notes:'''
