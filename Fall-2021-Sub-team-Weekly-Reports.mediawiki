@@ -503,10 +503,41 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 
 
 
-=== Week of Oct 11-Oct 16 ===
+=== Weeks of Oct 4 -Oct 16 ===
+* Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
+** This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
+*** If we contract an ARL and therefore the root index of another ARL is changed
+**** Solution: If we sort in reverse index DFS order, I believe we should be able to safely contract without changing the root indices of other ARLs.
+**** Just in case this is not true, implemented sanity check to ensure that we completely remove a given ARL before removing nodes from another one.
+*** If two ARLs overlap, then after the first one has been contracted, the overlapping nodes are gone and the second ARL either attempts to contract nodes which have been deleted (Index out of bound crash) or it contracts nodes which it isn't supposed to based on their indexes (Arity problems)
+**** Solution: Use a set to keep track of which indices have already been marked for contraction, and don't attempt to contract an ARL who has nodes which have already been marked for contraction.
+* Major bug regarding contraction which has been causing nearly all other bugs mentioned during previous weeks:
+** Our framework currently uses two major systems for identifying where ARLs occur in individuals
+*** Firstly, the population_info stores the root indices for each occurrence of an ARL within the population
+*** Example:
+    
+                 Learner
+            /               \
+     MorphDilateCross    learnerType
+       /   |  \
+    ARG0   3   5
 
-=== Week of Oct 4-Oct 10 ===
+*** We also stored encoded ARL primitives to tell where additional args were
+*** Example
 
+                                            Learner
+                                /                              \
+                      MorphDilateCross                      learnerType
+         /       /       |        |        \       \
+    arl_arg0 arl_arg1 arl_arg2 arl_arg3 arl_arg4 arl_arg5
+
+*** Originally, the code deleted all the nodes it found within the ARL occurrence, and this caused us to potentially have more args than we expected
+*** In the above example, we had already fixed arl_arg0 = ARG0, arl_arg2 = '3', and arl_arg3 = '5', but it still expects 5 arguments
+*** Attempted solution: Don't contract args
+*** This again caused problems because we weren't contracting the nodes which were fixed args, and therefore had more nodes than expected
+*** Final solution: Update arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since (to my understanding) we don't want to contract it.
+* Decided to give PACE-ICE one last try
+** Most of the team now on PACE-ICE and planning on starting stocks runs soon
 
 === Week of Sept 27-Oct 3 ===
 
