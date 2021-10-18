@@ -504,6 +504,8 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 
 
 === Weeks of Oct 4 -Oct 16 ===
+* Fixed implementation detail regarding ARLs were being created with only a single non-arg node
+** Now has a check to make sure that there exists > 1 non-arg node before creating the ARL.
 * Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
 ** This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
 *** If we contract an ARL and therefore the root index of another ARL is changed
