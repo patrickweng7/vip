@@ -1328,15 +1328,15 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |10/07/2021
 |-
 |Setup PACE ICE
-|In Progress
+|Completed
 |10/07/2021
-|10/11/2021
-|
+|10/18/2021
+|10/17/2021
 |-
 |Runs EMADE on stock data
 |Not Started
 |10/07/2021
-|10/14/2021
+|10/25/2021
 |
 |-
 |Team Meeting & Notes
@@ -1345,4 +1345,60 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |10/11/2021
 |10/07/2021
 |}
+
+== Week of 10/11/2021 ==
+
+=== PACE ICE Setup ===
+* Configured my cisco VPN in order to access gatech VPN.
+** Used [https://faq.oit.gatech.edu/content/how-do-i-get-started-globalprotect-campus-vpn#gpmacos How to Setup Global Protect VPN]
+** Connected to anyc.vpn.gatech.edu.
+* SSH into pace ice using: ssh dmaity6@pace-ice.pace.gatech.edu
+* Cloned [https://github.gatech.edu/vhuang31/emade Modularity Emade Repo] to local computer and then used scp to transfer made to PACE ICE.
+* Created a scratch and db folder in order to setup MySQL.
+* Created a configuration filed that initializes the mySQL instance.
+** Needed to set port number to 3439 in order to create a working connection
+* Installed the database: mysql_install_db --datadir=$HOME/scratch/db
+* Started and tested a local instead of MySQL in pace: mysqld_safe --datadir='/storage/home/hpaceice1/dmaity6/scratch/db'
+* Steps to create new user in MySQL
+** mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+** qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+** mysql -u root
+** DELETE FROM mysql.user WHERE user=''; GRANT ALL PRIVILEGES ON *.* TO 'dmaity6'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;
+** check to see if it works: mysql -u dmaity6
+* Create new conda environment:
+** module load anaconda3/2020.02
+** module load gcc
+** conda create -n dmaity6 python=3.6
+* Configured the needed XML files for datasets: atl1-1-02-012-5-l:3439
+* Create pbsmysql.pbs: mysqld_safe --datadir='/storage/home/hpaceice1/mgeller6/scratch/db'
+* Create launchEMADE.pbs
+* Run EMADE to make sure it is working.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup PACE ICE
+|Completed
+|10/11/2021
+|10/18/2021
+|10/17/2021
+|-
+|Runs EMADE on stock data
+|Not Started
+|10/11/2021
+|10/25/2021
+|
+|-
+|Document PACE ICE Setup
+|Completed
+|10/11/2021
+|10/18/2021
+|10/17/2021
+|}
+
 
