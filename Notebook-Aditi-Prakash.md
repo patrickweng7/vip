@@ -9,7 +9,7 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 7: October 13th, 2021
+# Week 8: October 13th, 2021
 ## Overview
 Workday for EMADE and MySQL remote connection setup. 
 
