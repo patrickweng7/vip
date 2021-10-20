@@ -9,10 +9,25 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 7: October 6th, 2021
+# Week 7: October 13th, 2021
 ## Overview
-Attended lecture on introduction to EMADE and its moving parts (input file, launchGTMOEP.py, MySQL to observe EMADE output, master and worker processes, gp_framework_helper for primitive set). Received assignment to solve Titanic problem with EMADE and compare Pareto frontier, individuals, and other EMADE statistics to ML and MOGP Titanic assignment results. Began installing emade, git, and conda so as to set up conda virtual enviroment for EMADE and install all necessary packages, libraries, and dependencies as specified on EMADE GitHub page.  
+Workday for EMADE and MySQL remote connection setup. 
 
+## Team Meeting Notes
+* Worked with Rayan, Rayan, and Charlie to help set up their EMADE engines and install all dependencies. They are working on installing all remaining dependencies, after which we can test MySQL remote connections to the server I have created . 
+
+## Subteam Notes
+Met with team on Friday to ensure team could run worker processes and connect to the MySQL server I created. Worked with Charlie during Saturday's hackathon to add our group's preprocessing to the titanic_splitter.py file and run EMADE with the updated train-test folds. Noticed Pareto front individuals gradually developing and being stored in titanic schema in my localhost. We are planning to remove the 3rd objective from the evaluation function to ensure a direct comparison to the Titanic ML and MOGP projects. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Done | 10/6/21 | 10/20/21  | |
+| Run EMADE on preprocessed Titanic Data | In Progress | 10/6/21 | 10/14/21  | |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
+| Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
+
+# Week 7: October 6th, 2021
 ## Team Meeting Notes
 ### Lecture on EMADE
 * Introduced concept of EMADE (engine to perform multi-objective algorithm design using genetic programming and a primitive set containing both simple primitives and ML learners from Python packages).  
