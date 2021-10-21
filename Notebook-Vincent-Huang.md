@@ -7,6 +7,7 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
+upload local to remote via mysqldump and cntrl f and --hex blob
 ### Week 8: Oct 11
 Removed lambdas with 1 node and all args
 ### Week 7: Oct 4
