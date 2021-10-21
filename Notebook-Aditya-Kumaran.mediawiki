@@ -8,6 +8,46 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== October 20, 2021 (Week 9) == 
+
+=== Lecture Notes: ===
+*  Workday, class tried to get Emade master process to run. 
+*  Group members tried to connect as workers - senior students told us that they don't actually need to join through MySQL, but can rather just put my IP, user, and password into the .xml file and run emade with a "-w" flag at the end of the main conda command. One group member tried joining the process as a worker.
+
+=== Individual Notes: ===
+*  Learned that I was actually running emade correctly, just not for long enough. Apparently returning infinity for fitness is typical in early generations, since emade is essentially trying different combinations of primitives, and evolution of a good genetic algorithm will take a few generations. Attempting to run for 30 generations.
+*  Faced an error while running the end of the 0th generation:
+"File "C:\Users\akuma\OneDrive\Desktop\emade\emade\src\GPFramework\selection_methods.py", line 104, in sel_nsga2
+    selected_pop = tools.selTournamentDCD(individuals, k)
+  File "C:\Users\akuma\anaconda3\envs\emade\lib\site-packages\deap\tools\emo.py", line 163, in selTournamentDCD
+    raise ValueError("selTournamentDCD: individuals length must be a multiple of 4")
+ValueError: selTournamentDCD: individuals length must be a multiple of 4"
+*  This arises because the sel_nsga2 is passed in an 'individuals' array, whose length needs to be divisible by four to avoid errors. Easily fixable by finding the remainder elements and slicing the list length. Did fix the problem.
+*  Tried running emade again - NOTE: With few workers, running generations takes an extremely long time, so definitely keep 'reuse' set to 1 in the .xml to avoid wasting your running time. Laptop almost ran out of battery while running first four generations; I'll try to run the rest overnight.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 20, 2021
+|-
+|Run EMade
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 21, 2021
+|}
+
+
 == October 13, 2021 (Week 8) == 
 
 === Lecture Notes: ===
