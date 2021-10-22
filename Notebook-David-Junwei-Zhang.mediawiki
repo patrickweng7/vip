@@ -7,8 +7,66 @@ Interests: Machine Learning, Optimization, Tennis
 
 == October 20, 2021 ==
 '''Team Meeting Notes'''
+
 Seeding: <code>python3 src/GPFramework/seeding_from_file.py templates/input_titanic.xml test.txt</code>
 Change reuse to 1 if using seeding and create new db to populate data
+
+'''Subteam Notes'''
+
+While working with my subteam, we ran into many issues with dependencies and emade installation. Some common issues and potential fixes include
+* GP framework not defined
+** run setup install and reinstall.sh
+* MySql password and connection errors
+** make sure password is set, or if needed, reset the password
+** sudo can be used to pkill the db process (this may also delete all dbs) but a password can be reset this way
+* SQL alchemy error when trying to use seeding file; set reuse to 1 and create new db named "titanic_seeding" to test seeding and its impact on the GP evolution
+** https://docs.sqlalchemy.org/en/14/errors.html#error-e3q8 addresses the error message
+** According to sql alchemy, the most common error is the "operational error" and is not necessarily in the control of the programmer and is often as a result of a disconnect or failed memory allocation. It may be helpful to look into why the disconnect occured in the first place
+** <code>ALTER USER 'yourusername'@'localhost' IDENTIFIED WITH mysql_native_password BY 'youpassword';</code> solves this issue!
+reference: https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded
+
+The following is the code that I currently have within MySQL to setup and query the titanic db
+* Basic queries for individuals and pareto front
+    use titanic;
+    show tables;
+    select * from paretofront;	#pareto front
+    select * from individuals natural join paretofront;	#pareto fron joined with individual info
+    select tree from individuals where error_string is null;	#all non error individuals
+    select * from individuals where error_string is null and evaluation_status != "in_progress";
+
+* Create seeding db
+    create database titanic_seeding;	#db for seeding results
+    use titanic_seeding;
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Connect worker nodes and make sure all group members get emade working
+|In progres
+|October 20, 2021
+|
+|October 25, 2021
+|-
+|Work on slides for midterm
+|In progress
+|October 20, 2021
+|
+|October 25, 2021
+|-
+|Edit GP in Emade and test different input xmls and their impact
+|In progress
+|October 20, 2021
+|
+|October 25, 2021
+|-
+|}
+
 
 == October 13, 2021 ==
 '''Team Meeting Notes'''
