@@ -13,8 +13,7 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 ### Week 9: Oct 18
 Removed lambdas with 1 node and all args
 **Code Commits**
-- [commit](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
-- Changes
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
     - Refactored contract arls method
     - Added utility sanity check functions
     - Removed try catch blocks causing error suppression
@@ -54,9 +53,8 @@ new individual [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learni
 curr_idx 5 newindv len 3 subtreeidx 0 instance len 3
 
 **Code Commits**
-- [commit](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
-- Changes:
--- Fixed incorrect data type for ARL selection, removed unused and depreciated code
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
+    - Fixed incorrect data type for ARL selection, removed unused and depreciated code
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
@@ -156,7 +154,8 @@ individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("l
     - There was some ambiguity in the instructions which caused some confusion
 
 **Code Commits**
-- [Revert changes to titanic input XML file causing crashes](https://github.gatech.edu/vhuang31/emade/commit/fd1794ba0ccabe5c3edbf8205653ba6cd9adb6c2)
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/fd1794ba0ccabe5c3edbf8205653ba6cd9adb6c2)
+    - Revert changes to titanic input XML file causing crashes
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
