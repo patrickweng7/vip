@@ -9,7 +9,7 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 # Fall 2021
 
 ### Week 10: Oct 25
-Midterm Presentation
+- [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)
 upload local to remote via mysqldump and cntrl f and --hex blob
 mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u admin -p --hex-blob titanic_noarl1 &> noarl1.sql
 #### Code Commits
@@ -21,9 +21,9 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Figure out how to use emade visualization tools|Complete|Oct 25|Oct 25|
-|Work on midterm presentation|Complete|Oct 25|Oct 25|
-|Midterm presentation|Complete|Oct 25|Oct 25|
+|Figure out how to use emade visualization tools|Complete|Oct 24|Oct 25|Oct 25|
+|Work on midterm presentation|Complete|Oct 18|Oct 25|Oct 25|
+|Midterm presentation|Complete|Oct 18|Oct 25|Oct 25|
 
 ### Week 9: Oct 18
 
@@ -40,43 +40,65 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
     - Added restriction for large individuals for ARL canidate formation
     - Added arl_argument index position information to population information
     - Added restriction for arl lambda to have at least 2 non arl argument nodes
-- [Changes](https://github.gatech.edu/vhuang31/emade/commit/08bbedc7ab033f7cd075c30a0c4a17b680aa49ec)
-- [Hotfix](https://github.gatech.edu/vhuang31/emade/commit/ebc3364f9f37c5f6ce4d375d357f3b8c8dba162c)
-- [Hotfix](https://github.gatech.edu/vhuang31/emade/commit/0eda0acf98452d10f9b1bb18f8eab0273d946055)
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/08bbedc7ab033f7cd075c30a0c4a17b680aa49ec) ([Hotfix](https://github.gatech.edu/vhuang31/emade/commit/ebc3364f9f37c5f6ce4d375d357f3b8c8dba162c)) ([Hotfix](https://github.gatech.edu/vhuang31/emade/commit/0eda0acf98452d10f9b1bb18f8eab0273d946055))
     - Fixed ARL Lambda method replacing fixed ARL arguments with variable ARL argument placeholders
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Fix population_info bug|Incomplete|Oct 4|Oct 11|
-|Investigate Incorrect arities problem|Incomplete|Oct 4|Oct 11|
+|Hi|
 
 ### Week 7-8: Oct 4 and Oct 11
-new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
-new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl6', 'lambda arl_arg_0,arl_arg_1: (EqualizeHist(arl_arg_0,-6,arl_arg_1))', <function <lambda> at 0x7f7428ad32f0>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>])
-new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl7', 'lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))', <function <lambda> at 0x7f7428ad3268>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>])
-new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl8', 'lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,0),arl_arg_2))', <function <lambda> at 0x7f7428ad39d8>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
-Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
-occurrence!  80 ((('Learner', 1, 2, -1), ('EqualizeHist', 2, 3, 0), ('ARG0', 0, 0, 0), ('0', 0, 0, 2)), 0)
-len new individual 6
-new individual [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
-curr_idx 0 newindv len 6 subtreeidx 0 instance len 4
-curr_idx 1 newindv len 6 subtreeidx 1 instance len 4
-curr_idx 2 newindv len 6 subtreeidx 2 instance len 4
-curr_idx 3 newindv len 6 subtreeidx 3 instance len 4
-curr_idx 4 newindv len 6 subtreeidx 3 instance len 4
-Contracting ARL
-len individual before removal 6
-individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
-Nodes to remove:  [4, 2, 1, 0]
-len individual after removal 2
-individual after removal [('-6', 0, 0), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 1)]
-arl to insert <deap.gp.Primitive object at 0x7f7428c5a598> arity 4 newarity 2
-len individual after arl insert 3
-individual after arl insert [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
-occurrence!  80 ((('EqualizeHist', 2, 3, -1), ('-6', 0, 0, 1), ('0', 0, 0, 2)), 5)
-len new individual 3
-new individual [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
-curr_idx 5 newindv len 3 subtreeidx 0 instance len 3
+- Fixed implementation detail regarding ARLs were being created with only a single non-arg node
+    - Now has a check to make sure that there exists > 1 non-arg node before creating the ARL.
+- Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
+    - This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
+        - If we contract an ARL and therefore the root index of another ARL is changed
+            - Solution: If we sort in reverse index DFS order, I believe we should be able to safely contract without changing the root indices of other ARLs.
+            - Just in case this is not true, implemented sanity check to ensure that we completely remove a given ARL before removing nodes from another one.
+        - If two ARLs overlap, then after the first one has been contracted, the overlapping nodes are gone and the second ARL either attempts to contract nodes which have been deleted (Index out of bound crash) or it contracts nodes which it isn't supposed to based on their indexes (Arity problems)
+**** Solution: Use a set to keep track of which indices have already been marked for contraction, and don't attempt to contract an ARL who has nodes which have already been marked for contraction.
+- Major bug regarding contraction which has been causing nearly all other bugs mentioned during previous weeks:
+    - Our framework currently uses two major systems for identifying where ARLs occur in individuals
+        - Firstly, the population_info stores the root indices for each occurrence of an ARL within the population
+        - Example:
+```
+                 Learner
+            /               \
+     MorphDilateCross    learnerType
+       /   |  \
+    ARG0   3   5
+```
+-
+    -
+        - We also stored encoded ARL primitives to tell where additional args were
+        - Example
+```
+                                            Learner
+                                /                              \
+                      MorphDilateCross                      learnerType
+         /       /       |        |        \       \
+    arl_arg0 arl_arg1 arl_arg2 arl_arg3 arl_arg4 arl_arg5
+```
+-
+    -
+        - Originally, the code deleted all the nodes it found within the ARL occurrence, and this caused us to potentially have more args than we expected
+        - In the above example, we had already fixed arl_arg0 = ARG0, arl_arg2 = '3', and arl_arg3 = '5', but it still expects 5 arguments
+        - Attempted solution: Don't contract args
+        - This again caused problems because we weren't contracting the nodes which were fixed args, and therefore had more nodes than expected
+        - Final solution: Update arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since (to my understanding) we don't want to contract it.
+- Still have a bug
+```
+      File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 517, in _contract_arls
+       print(f"{new_individual}")
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 97, in __str__
+       string = prim.format(*args)
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 204, in format
+       return self.seq.format(*args)
+     IndexError: tuple index out of range
+
+    print(f"{[(node.name,node.arity) for node in new_individual]}")
+    [('arl6', 4), ('EqualizeAdaptHist', 4), ('ARG0', 0), ('0', 0), ('0', 0), ('1.0', 0), ('2', 0), ('passQuadState', 1), ('3', 0), ('4.262076198386659', 0)]
+```
 
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
