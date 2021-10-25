@@ -35,6 +35,133 @@ Teammates:
 
 Total Out of 100: '''91/100'''
 
+== October 18, 2021 ==
+'''Team Meeting Notes:'''
+* This week, Dr. Zutty discussed specifications for midterm presentations next week. He noted that we will be having our meeting in a separate room that week and should come prepared with a 15-minute presentation of our progress.
+* Dr. Zutty also noted that he wanted our presentations to take on a scientific structure meaning we should include experimental setup information along with specific results to be discussed. 
+* The remainder of the meeting was spent divvying up talking points for our presentation. We plan to discuss these 3 points in our presentation:
+** How can we maximize the time that EMADE is being productive and working on useful individuals.
+** How can we grow individuals to great sizes which compare to that of VGG16.
+** How can we test and validate the growth of individuals within EMADE using existing library testing resources. 
+* Devesh and Cameron W seem to have good points to talk about for the first topic.
+* I hope to have enough data to thoroughly discuss the second topic
+* Justin and Lucas seem to want to discuss the final point
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make Powerpoint Slides
+|Completed
+|10/18/21
+|10/25/21
+|10/24/21
+|-
+|Do 6 runs of EMADE for testing complexity of individuals using ADFs
+|Completed
+|10/18/21
+|10/22/21
+|10/22/21
+|-
+|Get Baseline run of EMADE
+|Complete
+|10/18/21
+|10/22/21
+|10/20/21
+|-
+|}
+
+'''Individual Notes:'''
+* This week I spent more time trying to setup EMADE locally on my M1 macbook and after getting dependencies to a point where EMADE could run without error, I ran into a wierd issue. Essentially, EMADE hangs(randomly) when trying to combine layers to compile and fit an NNLearner. It's difficult to narrow down what is causing the hanging but I fear it may be an underlying issue with the tensorflow API's, specifically dealing with a method called randomUniform which gets called to generate a tensorf of a certain distribution type.
+* This week, I ran 6 trials of EMADE varying the allowed size of ADF's within our version of EMADE. I'm noticing that keeping ADF's smaller seems to improve the average accuracy of the resulting individuals.
+* The majority of the topics I'll be discussing are included within the powerpoint linked to [https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit?usp=sharing here]
+
+== October 11, 2021 ==
+'''Team Meeting Notes:'''
+* No SCRUM meeting took place this week, instead we had a hackathon that allowed team members to come together and get work done in preparation for their mid-term presentations.
+* This hackathon allowed me to get updates on everyone's prior tasks and sort of rearranging their workloads. I myself was able to show Justin H some code for creating a new table within EMADE's generated SQL database. I made an NNLearnerStatistics table that will keep track of NNLearners over multiple generations. I was hoping Justing could make a method that utilizes this SQL table to pull all of the evolving tree structures for a specific individual based on its hash value. 
+* Devesh is currently testing time-stopping for Keras fit's and I'm very excited to see it implemented as I noticed that when I ran emade, I was getting some very long elapsed times on fitting certain NNLearners. The time ranges seemed to be anywhere from 5 minutes to 2.5 hours(in a worst-case). I've attached a screenshot [https://drive.google.com/file/d/1KB27eBjHYLYZ694Mi0iwYoJCp1tsgAle/view?usp=sharing here].
+* Connor has made some changes to the EMADE repo which allows us to keep the entire repo on PACE-ICE including the git folder. Now we can directly pull commits to pace without utilizing more memory than necessary.
+* Lucas was able to work with MySQL workbench and do emade runs to check if any frequent error messages popped up.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix Bug with Nested NNLearners
+|Completed
+|10/11/21
+|10/16/21
+|10/14/21
+|-
+|Rework EMADE until almost all NNLearners are valid
+|Completed
+|10/14/21
+|10/18/21
+|10/15/21
+|-
+|Fix bug with accuracy error
+|Incomplete
+|10/15/21
+|10/20/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* Thanks to the fork of EMADE that Cameron W has provided, our EMADE branch for NN-VIP is currently producing only NNLearners. I spent this last week working off of a branch to fix 2 issues he noticed with the NNLearners being generated. Essentially, he noticed NNLearners were being nested which generates a bad tree structure that we don't want to allow. Additionally, we weren't sure ADF's were being generated or used as we would like. I fixed the first issue by redefining the MAIN primitive typed set and then adding some more passthrough layers to enforce a specific input to our NNLearner EmadeDataPair input. I resolved the second issue by modifying the create_representations method within EMADE.py.
+* After making these changes, I noticed a ton of errors being produced by EMADE such as "Output dims of Concat layer invalid" or "parameter for label X is invalid". Most of these issues stemmed seemingly stemmed from minor bugs in the wrappers for layers in the Neural Network Methods file. I spent some time locally debugging, as well as removing most broken primitives, in order to get EMADE producing valid NNLearners that it can at least compile. I was able to do this but now am noticing that there seems to be a consistent accuracy error produced in all of my NNLearner individuals seen [https://drive.google.com/file/d/1FSRtK-vADkCAPgt1_f2jYEBwt8B5-7AU/view?usp=sharing here]. I'm not sure what's causing this but after speaking with Cameron W during our hackathon, it seems to be an issue with the NNLearner method misinterpreting dimension sizes and leading to incorrect activation type usage. 
+* I plan on attempting a new EMADE run to see if Cameron W's fix for the accuracy error will produce more useful results for us.
+* Finally, I spent the past 2 weeks reviewing the paper regarding CoDEEPNEAT implementation using Keras. I believe I understand the structure of CoDEEPNEAT well enough to say that we can easily implement that using a lot of the preexisting logic within EMADE. Outside of using ADF's as modules, we could benefit from adding mutation, mating, and evaluation methods that operate separately for individuals and their internal ADF methods. Additionally, we would need to find a way to "speciate" or classify both ADF's into groups as well as individuals. I can't foresee a timeline on this quite yet but I suspect we might be closer to obtaining this implementation for testing than we think.
+
+== October 4, 2021 ==
+'''Team Meeting Notes:'''
+* This week's SCRUM meeting I discussed the team's desire to utilize standalone tree evaluator in order to gauge successful individuals for my triviality detection EMADE run. Additionally, this evaluator could have been used to evaluate individuals producing a swap_layer error message.
+* The team expressed an interest in having another work session this week for people to make progress on their tasks.
+* Cameron W shared some news to the team about some merge conflicts that have come up in the nn-vip branch of the main EMADE repo. These conflicts will prevent some people from making progress on their tasks because currently, EMADE is unable to compile simple things like datasets in order to start a run. 
+* Cameron assured us he should be able to figure things out by tomorrow and that we would just need to be on hold until then.
+* I got updates from individuals about their tasks and assured Justin H that I would generate some new tasks on the Trello board for him.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Trello Board
+|Completed
+|10/4/21
+|10/11/21
+|10/8/21
+|-
+|Add NNLearner Statistics to EMADE SQL
+|Completed
+|10/4/21
+|10/14/21
+|10/12/21
+|
+|}
+
+'''Individual Notes:'''
+* I spoke with Dr. Zutty about the team's direction and some things we need to consider in order to make the right type of progress. He informed me that I should make sure I keep in mind the big picture question of: "How can we make EMADE competitive with VGG16 and large structure architectures like it." This includes answering questions such as:
+** How can we get rid of trivial and unimportant individuals to preserve resources as best as possible?
+** How can we grow individuals to great sizes which compare to that of VGG16?
+** How can we improve performance of growing individuals for tasks competing VGG16?
+** How can we test and validate the growth of individuals within EMADE using existing library testing resources?
+* After speaking with Dr. Zutty, it became apparent to me that we don't seem to have any analysis methods for keeping track of NNLearners and their size over the course of multiple generations. I've decided to add a task for that to the Trello board and work on that for this week.
+* My attempt at adding statistics for NNlearners has involved me adding a separate SQL table with NNLearner tree structures along with their generation and history information so that people can trace through the evolution of a single individual identified by a hash.
+* The task regarding triviality detection has been closed, I was unable to identify any significant difference in my EMADE run before incorporating it versus after. Instead of focusing on triviality detection, I will be shifting focus towards ensuring NNLearner individuals can compile properly.
+
 == September 27, 2021 ==
 '''Team Meeting Notes:'''
 * This scrum meeting we discussed the 3 high level ideas that interested us from the week prior in our subteam meeting. Those topics include:
@@ -67,10 +194,10 @@ Total Out of 100: '''91/100'''
 |9/27/21
 |-
 |Identify valid NNLearners within EMADE run.
-|Incomplete
+|Completed
 |9/19/21
 |9/31/21
-|
+|10/2/21
 |}
 
 '''Individual Notes:'''

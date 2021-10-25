@@ -15,6 +15,156 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
+== October 25, 2021 ==
+'''Midterm Presentation Notes:'''
+* We gave our presentation on our NAS subteam progress. We discussed improvements such as time stopping, new analysis tools, tokenization changes, and minor novelty detection changes. This presentation also presented several strong baselines for our future work to compare against. We had several experimental runs.
+* Important points:
+    1. NLP subteam shared that the EMADE branch `EMADE-304-allow-cachev2-to-consume-aligned-datapairs` is useful for their Q&A tasks. They merged this with nn-vip and so we might need to do the same in the future.
+    2. Image processing team reminded us to consider the selection algorithm -- oftentimes our focus is downstream of the master algorithm but this is still important to vary when evaluating EMADE's performance on our tasks.
+    3.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon).
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 16, 2021 ==
+'''Team Meeting Notes:'''
+* Met from 1 - 5 PM as part of a team-wide hackathon.
+* I spent the time attempting to clone my personal EMADE fork onto PACE and was successfully able to do so.
+* Shared this with the rest of the sub-team and created these steps:
+    1. Fork https://github.gatech.edu/cwhaley9/emade.
+    2. Create an SSH key on PACE & on your GaTech GitHub account (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
+    3. Clone the `nn-vip` branch of your personal fork onto PACE using SSH: `git clone -b nn-vip <remote_repo>`. The repository takes ~5 GB, so make sure that you have enough storage on PACE. You can check this using pace-quota.
+    4. Add Cameron’s fork as a remote: `git remote add upstream git@github.gatech.edu:cwhaley9/emade.git`.
+    5. To avoid duplicate merge commits, read this post for best practices: https://stackoverflow.com/questions/38641546/github-clean-up-fork-after-pull-request. If something goes wrong after creating a PR to Cameron’s fork, see this post: https://stackoverflow.com/questions/9646167/clean-up-a-fork-and-restart-it-from-the-upstream/9646323#9646323.
+    6. `cd emade` and run `cp -R pace my_pace`. Do NOT add your personal credentials to any of the files in `pace/`. These will be erroneously tracked by git. Instead, make the required changes to the files in `my_pace/` because these are ignored by git.
+* Reduced size of repository to just 4 GB after deleting unused and unnecessary files.
+* This should greatly speed development work on PACE because we no longer have to SCP files between PACE and our local computers.
+* The next step is to better document the developer setup process on PACE so that all of this documentation is contained in one location.
+* Once this is done, I can work to implement the layer frequencies method again.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon).
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 15, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for an hour to discuss our tasks and work together for some time.
+* We mainly used the time as a work session to share ideas and ask questions.
+* I started to prune the repository to prepare it for cloning onto PACE.
+* I did some research into directories taking up large amounts of space in PACE (the quota is only 15 GB).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 11, 2021 ==
+'''Team Meeting Notes:'''
+* Gave scrum updates for each team.
+* Discussed our work to enable reuse on the nn-vip branch as well as our progress on novelty detection.
+* Mentioned some bugs that had been fixed since last meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 8, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for an hour with sub-team to give updates on our weekly tasks.
+* Discussed issues with the latest merge onto the nn-vip branch, and initially decided to work off of Cameron Whaley's fork while the issue on that branch was sorted out. I fixed this issue by reverted the previous three commits and merging [https://github.gatech.edu/emade/emade/pull/200 a PR] onto this branch.
+* Setup a potential work meeting on Monday to work on some of our tasks together.
+* Mentioned possibility of pruning Whaley's EMADE fork to the bare minimum necessary for our team's development on PACE. This would greatly simplify the developer experience on our team.
+* Will implement my task this weekend now that the branch issue is sorted out.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
 == October 4, 2021 ==
 '''Team Meeting Notes:'''
 * Scrum update included our addition of the CIFAR-10 dataset and then also some points on our novelty detection work. We currently have implemented a baseline for detecting all-1 or all-0 predictions.

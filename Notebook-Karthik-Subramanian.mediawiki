@@ -1,5 +1,6 @@
 == Team Member ==
 [[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+
 Team Member: Karthik Subramanian
 
 Email: ksubramanian40@gatech.edu
@@ -7,6 +8,195 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== October 25th, 2021==
+'''Main Meeting Notes:'''
+* In regards to our presentation, Dr. Zutty might have an nn_learner that takes in multiple Emade Data Pairs (just email him)
+* Presentations happened (returning students + bootcamp students)
+
+* Bootcamp Team 1:
+    * Dropped irrelevant values, replaced null values (fare and age imputed with mean), one hot encoded "sex" and "embarked" columns
+    * ML Algorithms: SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier
+    * Objective functions used were FPR and FNR
+    * GP: primitives (add, subtract, multiply, cos), tournament selection, one point leaf biased crossover, node replacement mutation
+    * EMADE: doubled headless chicken rate, reduced most of mutations, 
+    * Got AUC of 0, but forgot to split train.csv into X_train and X_test (learning moment)
+    * 42 generations, EMADE AUC of 0.1379883
+    * Learning moments:
+        1. Too many infs (primitive not found)
+        2. Check if EMADE is running
+        3. Adaboost learner 
+
+* Neural Architecture Search:
+    * Create neural networks automatically in EMADE
+    * Problems
+       * EMADE couldn't outperform seeds
+       * Most individuals were not neural networks
+       * Few restrictions for out dimensions, batch sizes, etc
+       * Nested NNLearners taking up lot of time (no ensembling techniques to take advantage of)
+    * Goal: have EMADE create more complex architectures and make EMADE competitive with VGG16 and other SOTA architectures
+    * Time Stopping
+       * Lower training time same as minimizing number of parameters
+       * Put hard stop on how much time to train
+    * Preprocessing
+       * Text tokenization, One Hot Encoding for Multiclass Target Data
+       * Modify data pair once, then feed into individual
+    * Growing Deeper Complex Individuals
+       * CoDEEPNeat (latest and most effective NAS)
+       * Construct smaller neural network structures called 'modules' and build up from there
+    * NNLearner SQL Table
+       * Table to access specific NNLearner individuals over time
+       * Singles out only NNLearner-based individuals instead of any individual  
+    * Novelty detection
+       * Reward individuals for new architectural features/structures
+       * Track layers EMADE generates over all individuals
+* Bootcamp 2
+    * Preprocessing: Dropped Name, PassengerID, Ticket Number, Fare columns
+    * Mapping: Mapped alphabetical values of Sex and Embarked columns using column maps
+    * MOGP Design: Used SPEA2 for selection, symbolic regression used
+    * MOGP Eval: FPR and FNR (minimize two objectives). Convert float to 0 or 1 using activation function. 30 generations
+    * EMADE
+        * Should have spent more time on processing data and trying out more primitives + individuals
+    * In the future, decide who would run master and worker (or use PACE)
+
+* Image Processing
+    * Objective: Improve EMADE on image processing tasks (GP Approach)
+    * Multilabel Image Classification is the focus for this semester
+    * CheXNet paper (pneumonia classification problem on chest x-ray scans). Look for pneumonia or not 
+    * Chestnet Dataset
+         * Previous VIP team had some preprocessing on (resizing, normalization, horizontal flipping)
+         * New augmentations: rotations, shearing, horizontal/vertical translation
+    * Baseline
+         * Precision/Recall AUC (saw that the labels are a bit unbalanced since we care about one class)
+         * Suspicious AUC
+    * Selection Methods
+         * NSGA-III, lexicase, hypervolume indicators (promise in solving many-objective optimization problems)
+    * Mating and Mutation
+         * Geometric crossover operators (manually adjust the diversity manually). See at a given time if we can tune hyperparameters to directly 
+           improve diversity
+    * Hyper-features
+         * Combine 2 or more primitives that work well together to produce improved individuals with better fitness scores
+         * Pixel visibility improved
+         * Grey level transformation (enhance contrast and brightness), Sobel Filter (edge detection)
+
+* Bootcamp 3
+    * Preprocessing
+         * Dropped PassengerID, Ticket, Cabin
+         * Relatives column = sum(subsp, parch)
+         * Used one-hot encoding for genders as well as name titles
+         * Imputed with mean of feature (to handle remaining missing values)
+     * ML Models
+         * Gaussian Naive Bayes
+         * MLP
+         * SVM
+     * GP
+         * selLexicase
+         * Squared FP and Squared FN (handling to see if these values were high)
+     * EMADE
+         * FPR and FNR evaluation function
+         * selTournamentDCD() error
+         * Wished they could run more generations in EMADE to get a hopefully better Pareto front
+* Stocks
+    * 
+'''Subteam Meeting Notes:'''
+
+
+'''Action Items:'''
+
+== October 18th, 2021==
+'''Main Meeting Notes:'''
+* Start thinking about how you can statistically verify that your code is making a significant impact relative to the problem you want to solve and relative to a baseline
+
+* Runs take time (number of workers, wall time, number of processes, etc). Plan it out in advance!
+'''Subteam Meeting Notes:'''
+* Working on midpoint presentation coming up on Monday (that's priority right now)
+* Link to presentation (NLP Subteam): https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+'''Individual Notes:'''
+* Developed a Python script to generate training/testing data for the SqUad dataset. This script does the train/test split and then generates a csv file that contains (question, answer) pairs and another CSV file containing (context, answer) pairs. The script and dataset can be found here: https://drive.google.com/drive/folders/1LEtzzI0s5sEz9jr47oa1jqoX4qXGqlbT?usp=sharing
+
+* Thanks to Steven's help, I was able to get standalone_tree_evaluator working. I just need to input the SQL database credentials
+
+* Having trouble getting run for at least a few generations (at the start, my processes are queued in pace and then they close all of a sudden. Need to look at my configs)
+* Preparing for presentation
+
+* UPDATE 10/20/21: I modified the above Python script mentioned to do 5 fold cross-validation as well (Link is: https://drive.google.com/drive/folders/1z6Ro2vYwkOx19wGjTl2rfwg7nx-1YElY?usp=sharing)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Be able to run "standalone_tree_evaluator.py" in PACE (EMADE 304 branch)
+|Works for the most part. Working on running the pbs script
+|October 16th, 2021
+|October 20th, 2021
+|October 22nd, 2021
+|-
+|Develop script to generate question.csv and context.csv with train/test split
+|Completed
+|October 18th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Develop input_squad.xml + add numberinput parameter of 2
+|Steven Already Developed it and it's in the fork!
+|October 20th, 2021
+|October 21st, 2021
+|October 20th, 2021
+|-
+|Pull down the fork that Steven had on EMADE 304. He made some hotfixes
+|Completed. Updated the reinstall.sh from nn-vip branch
+|October 20th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Work on slide about squad data preprocessing in preparation for midpoint presentation
+|In Progress
+|October 20th, 2021
+|October 21st, 2021
+|October 24th, 2021
+|}
+== October 11th, 2021==
+'''Subteam Meeting Notes:'''
+* Need to merge changes from nn-vip into the EMADE 304 branch Dr. Zutty gave
+'''Individual Notes:'''
+* Dr. Zutty provided a snippet/branch in Cache V2 which supports loading in multiple EMADE Data Pairs. We need to modify the input.xml to contain multiple trials (so a data pair for train_context/test_context and for train_question/test_question)
+* Using the example xml file in the branch Dr. Zutty provided, I have developed a Python script to generate EmadeDataPairs for both the question and context as we have discussed in the past few weeks. Plan on talking to Steven about this and seeing if I have the necessary ingredients for the modified "input_squad.xml" file
+* Went through diffs between EMADE-304 and nn-vip branch and trying to identify merge conflicts we need to ask Dr. Zutty about
+* On October 16th, there was a "workday"/hackathon for AAD. Steven, Kevin and I were working on resolving the merge conflicts between EMADE 304 branch and nn-vip. We have merged the nn-vip branch into EMADE 304 and working on getting "standalone_tree_evaluator.py" to run in PACE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reading through CacheV2 Branch and identifying differences between that branch and nn-vip branch
+|On Hold due to codebase cleanup
+|October 6th, 2021
+|October 13th, 2021
+|October 13th, 2021
+|-
+|Discuss with Steven my code for generating the multiple EMADE Data Pairs prior to the input_squad.xml integration
+|Completed
+|October 13th, 2021
+|October 14th, 2021
+|October 13th, 2021
+|-
+|Look through fork Steven made and identify what files we need to ask Dr. Zutty about to resolve those merge conflicts
+|Completed
+|October 13th, 2021
+|October 15th, 2021
+|October 14th, 2021
+|-
+|Resolve merge conflicts between nn-vip and EMADE-304 branch
+|Completed
+|October 14th, 2021
+|October 15th, 2021
+|October 15th, 2021
+|}
 == October 4th, 2021==
 '''Main Meeting Notes:'''
 * Dr. Zutty told us that he's looking for the functionality in Cache V2 branch to generate multiple EMADE Data Pairs (since we have a context and query)
@@ -18,7 +208,12 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 * "standalone_tree_evaluator.py" script can be thought of as a unit test to evaluate one individual (skip the evolutionary steps)
 * Two main subtasks: 
 1. Familiarizing ourselves with CacheV2 branch. Once we know where the functionality of loading in multiple EMADE Data Pairs is, we need to merge that functionality into "nn-vip branch"
+
 2. Coming up with seeded individuals to test according to literature on SqUad dataset
+
+'''Individual Notes:'''
+* Glad that we realized earlier from Dr. Zutty that there is a function to load in multiple EMADE Data Pairs. Was a bit concerned that if we changed our load function and type in the "data.py" script, that would cause unnecessary hours of debugging + maintainability nightmare
+* Goal is to familiarize myself with Cache V2 so that I know how we need to structure the "nn-vip" branch during the data engineering aspect of our project
 
 '''Action Items:'''
 {| class="wikitable"
@@ -28,7 +223,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Suspense Date
 !Date Resolved
 |-
-|Reading through CacheV2 Branch and identifying differences between that barnch and nn-vip branch
+|Reading through CacheV2 Branch and identifying differences between that branch and nn-vip branch
 |Not yet started
 |October 6th, 2021
 |October 13th, 2021
@@ -47,7 +242,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 '''Subteam Meeting Notes:'''
 
 '''Individual Notes:'''
-* Solidifed our approach with Anish's help.
+* Solidified our approach with Anish's help.
 
 * Want to build an overloaded "NNLearner" function that takes in "Emade Data Pair" for Question and "Emade Data Pair" for Context
 
@@ -57,7 +252,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
         - "buildClassifier()" function
     2. Input Layers ("QueryInputLayer" object + "ContextInputLayer" object) for neural_network_methods.py
 * Trello Board Link: https://trello.com/b/6lcDBEj1/distilling-qa-systems-with-emade
-* Subteam decided to migrate to a new repo for QA type work. Need to ask Steven on Monday how I should set up my environment
+* Subteam decided to migrate to a new repo for QA-type work. Need to ask Steven on Monday how I should set up my environment
 
 '''Action Items:'''
 {| class="wikitable"

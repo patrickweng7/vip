@@ -7,6 +7,184 @@ Cell Phone: +1 4047897798
 
 Interests: Soccer, Walking, Eating, Breathing
 
+== October 20, 2021 (Week 9) == 
+
+=== Lecture Notes: ===
+*  Helped by non-first-year made students, finally achieved running made on an M1 laptop.
+*  Student helpers told us that all we need to do to plot multiple lines in a single chart is to use matplotlib.plt n number of times, then finally use .show() to simultaneously plot all lines.
+
+=== Progross notes: ===
+*  EMADE needs to be run for a few generations to get rid of the (inf, inf, inf) "error". This is just a result of having initially horrible individuals. The Pareto front will gain more individuals as time progresses.
+*  Fixed selTournamentDCD() error due to it not accepting individual array whose length is not a multiple of 4, did big brain moves, which I will mention in our EMADE presentation slides: [https://docs.google.com/presentation/d/1Y9sf7qndm_UrH_mqs4xi4icQ8vgb7XDbQAEICgRYTFI/edit#slide=id.p]
+*  Groupmates needed my master MySQL connection, change the connection IP for the group member's login to '%'
+* FOR SOME ROUTERS, YOU NEED TO ALLOW PORT FORWARDING IN ORDER FOR PEOPLE TO CONNECT TO YOUR REMOTE MYSQL SERVER!
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|October 19, 2021
+|October 25, 2021
+|October 20, 2021
+|-
+|Run EMade, make master process, allow remote connection
+|Done
+|October 24, 2021
+|October 25, 2021
+|October 21, 2021
+|-
+|Finish EMADE presentation
+|Done
+|October 24, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+
+== Oct. 13, 2021 (Week 8) == 
+
+=== Lecture Notes: ===
+*  regular work period, my group and I tried to figure out how to run made together.
+*  1 master program and rest should be worker nodes for MySQL program. 
+*  Joining a working process to groups' server: "mysql -h hostname -u username -d database_name -p" and prompts for password.
+
+=== Takeaway Notes: ===
+* Pumpkin donuts are actually pretty good.. I advise you to try them.
+*  Macbook M1 has many issues when it comes to being supported by the required EMADE packages. It's a very experimental process to set up the environment to run a worker or master.
+* Met with some group members on Saturday from 1 - 5 PM, one group member was able to get the work process running and find a few FN/FP rates.
+* Zutty helped me debug my M1 compatibility issues, we got pretty close, but as soon as we fixed one bug, another dependency kept showing up.
+* Spent my time looking up how to install certain libraries specifically for the M1 chip. I will continue to try and solve these package issues.
+* In the meantime, I am discussing with my team about our upcoming demo and how we will join our worker processes. Most likely going to find our results this weekend.
+* Currently trying to install EMADE and MySql on an intel Macbook Pro for the sake of time and being on track for upcoming demos.
+* I will be the first M1 mac to run EMADE, soon.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Done
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Run EMade
+|
+|October 13, 2021
+|October 25, 2021
+|October 21, 2021
+|}
+== Oct. 6, 2021 ==
+
+=== Takeaway Notes: ===
+* Git-lfs installed through homebrew, Emade repo is being cloned and SQL is currently installing
+* Met with my new team, discussed MySQL, installed EMADE
+* Decided to ask a few questions for next class: Possible conda and package dependency issues? How to move forward after installing MySQL?
+* Installed MySQL Workbench
+
+* What is EMADE?
+  - Evolutionary Multiobjective Algorithm Design Engine
+  - Primitives are ML functions
+  - involves data optimizing / selection
+*TODO:
+  - Install Emade and MySQL
+  - download and install git-lfs
+  - Clone emade repo (readme.txt)
+  - Run python setup.py install
+* Emade necessities
+  - Navigate to top-level directory Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
+* Input (files):
+  - .xml file to configure emade
+  - first block is for python configuration where it says "<localPythonCommand> python3 </localpythoncommand>"
+  - block 2 configures MySQL "<server> 127.0.0.1 </server>" for localhost
+  - Set up user/pass
+  - We will make our own database but tables are provided
+  - Reuse = 1 for master if it's not our first time accessing EMADE
+  - May not be a good choice to always use 1 because it may not rerun all the generations
+* Datasets
+  - Five folds of the same datasets, shuffling used here, which 20% is test set, and then averaging results
+  - In Datasets/titanic, sample file titanic_data_splitter.py
+  - Produces .csv.gz files with test and train data partitioned from input
+  - Can replace preprocessing code with ours, k number splits
+  - .gz files need GVIM to open, numpy.loadText also works
+  - Emade reserves the last column: fitting models, using train data, and scoring for test data. Last column is truth data.
+*  Objectives
+  - Minimize it (-1.0 weight)
+  - Names will be used as columns in DB.
+  - <evaluationFunction> in python src/GPFramework/evalFunctions.py, it specifies method name
+*  Params:
+  - Evaluation specifies where eval functions in Objectives live and how much memory each worker is allowed to use before marking an 
+    individual as “fatal"
+  - <workersPerHost> specifies how many evaluations to run in parallel, eval > 2 is tasking for a normal device
+  - Evolution parameters:
+            ~ Hyperparameters, “magic constants” that affect the evolutionary process
+            ~  Initial pop size, launchSize, inQueueSize, etc.
+            ~  includes Mating probabilities
+            ~ Check out headless chicken crossover
+* Connecting a work process to a peer
+  - "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
+* EMADE output formats
+  -  Mysql -h hostname -u username -p, asks for a password
+        ~ mysql -u root -p
+        ~  Selected database command: “use database_name”
+        ~  Queries:
+           - Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select 
+             max(generation) from paretofront);
+* Structure:
+  - Src/GPFramework is the main body of code
+  - gtMOEP.py has the main emade engine (genetic loop, including evaluation function)
+  - gr_framwork_helper.py is where the primitive set is built for Emade, points to where primitives live:
+    ~  methods.py
+    ~  signal_methods.py
+    ~  spatial_methods.py
+  -  data.py provisions DataPair object passed between primitives
+  -  input files are in templates/
+
+*  Assignment:
+        -  Run Emade together. 1 person has an SQL server set up and 1 acts as a master process, the rest connects as workers.
+        -  Run for many generations (like last project; maybe 30, 40)
+        -  Learn some SQL, try to mine some information from the database
+        -  Plot non-dominated frontier at the end of the run, compared with ML and MOGP assignments
+            ~  Going to want to put in own preprocessed data
+            ~  Try to get all on the same graph
+        -  Make any other plots + figures to show analysis of Emade, try to find some successful trees
+            ~  Average evaluation time of a generation, etc.
+        -  Presentation on Monday, 25th October
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Done
+|October 6, 2021
+|October 13, 2021
+|October 10, 2021
+|-
+|Run/Setup emade
+|Done
+|October 6, 2021
+|October 13, 2021
+|October 10, 2021
+|}
+
+
 == Sept. 29, 2021 ==
 
 === Lecture ===

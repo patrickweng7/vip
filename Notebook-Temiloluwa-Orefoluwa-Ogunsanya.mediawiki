@@ -6,8 +6,111 @@ Cell Phone: 646-301-2180
 
 Interests: Machine Learning, Gaming, Chess, Anime
 
+=Fall 2021=
+
+== October 20th, 2021 ==
+* Doing a run of emade to do compare against Max's baseline run. 
+* Running python:<code>src/GPFramework/seeding_from_file.py templates/input_chestxray.xml SeedingFiles/seeding_test_chest_augment</code>
+
+* Running into some errors listed below: 
+* initially had issues with local MySql Server
+** Solution was a clean reinstall 
+* Issue:<code> No module named 'keras.backend.tensorflow_backend'; 'keras.backend' is not a package </code>
+* Solution: references this stack overflow post: https://stackoverflow.com/questions/60970093/modulenotfounderror-no-module-named-keras-backend-tensorflow-backend <code> >> pip install tensorflow==2.6.0 pip install Keras==2.2.0 </code>
+
+* Issue: <code> cannot import name 'stop_words' from from sklearn.feature_extraction </code>
+* Solution: Renamed to  _stop_words for my local run
+
+== October 13th, 2021 ==
+* Reviewed Maxim's pull request and re-based my changes on top of it
+* Updated and pushed my semantic addition changes up to our emade fork.
+* https://github.gatech.edu/amehra37/emade/pull/3 
+* This change modifies EMADE.py and didLaunch.py, adding the semantic operators and letting them be accessible through the XML.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push semantic crossover and mutation code
+|Complete
+|October 13th, 2021
+|
+|-
+|Compare EMADE run against Maxim's benchmark
+|in-progress
+|October 13th, 2021
+|
+|
+|}
+
+
+== October 5th, 2021 ==
+* Ran into some issues when implementing the semantic mutation due to difficulting in parsing GTMOEP.py and difficulty in understanding where to place my new operator
+* raised this in the sub-team meeting. Was pointed out that I was not operating on the correct branch
+* Updated my branch to the image-processing (vip-nn) branch
+* also found the DEAP actually has an implementation of semantic crossover and mutation: https://deap.readthedocs.io/en/master/api/tools.html#deap.gp.cxSemantic which would save time as initially I believed I would need to code this myself
+* Taking steps to add these DEAP opeators to EMADE. 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push semantic crossover and mutation code
+|in-progress
+|October 5th, 2021
+|
+|
+|-
+|Set up PACE-ice
+|in-progress
+|October 5th, 2021
+|
+|
+|-
+|Compare EMADE run against Maxim's benchmark
+|in-progress
+|October 5th, 2021
+|
+|
+|}
+
 == September 29th, 2021 ==
 * Working on implementation of the GSGP mutation and mating methods to add to PACE.
+* Read a couple of pages from this paper:https://link.springer.com/chapter/10.1007/978-3-319-44003-3_1
+* Gave me a deeper understanding of semantics and how they play a part in genetic programming
+* essential if the semantics of a individual is graphed on a plane. Semantic mutation attempts to permutate the primitives such that the semantics move along a linear path
+* semantic crossover plots the two individuals as two points on the line. It does crossover such that the semantics of the new individual is near the midpoint of the line segment that would join the two individuals.
+* It also provided some logic on how we could attempt to limit the primitive exponential size increase while also increasing overall generilizability. 
+
+* Pulled down the fork of Emade and began coding a direct implementation as per the outline in the paper. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Pull image processing EMADE fork
+|Complete
+|September 29th, 2021
+|
+|September 29th, 2021
+|-
+|Implement cxSemantic and mutSemantic
+|in-progress
+|September 26th, 2021
+|
+|
+|}
 
 == September 22nd, 2021 ==
 * Did a literature review of Geometric semantic Genetic programming
@@ -20,6 +123,26 @@ between two individuals that gets duplicated. With semantic cross we try to ensu
 * This ensures that the we avoid creating trivial individuals
 * A semantic exploration of the individual space can help come upon solutions that provide better results. The papers above describe that there was an improvement in performance in GSGP over typical mutation/mating methods
 * One downside of GSGP is that the size of the individual increases greatly. This individual size increase could potentially have an impact in PACE due to the space limitation. This will need to be explored during PACE runs.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue literature review of semantic crossover
+|Complete
+|September 25th, 2021
+|
+|September 25th, 2021
+|-
+|Ensure ability to run EMADE
+|Complete
+|September 26th, 2021
+|
+|September 26th, 2021
+|}
 
 
 == September 16th, 2021 ==
@@ -32,6 +155,21 @@ between two individuals that gets duplicated. With semantic cross we try to ensu
 ** data prep and pre-processing
 
 * The focus that I am working is mating and mutation and an implementation of semantic crossover.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do literature review of semantic crossover and mutation
+|Complete
+|September 19th, 2021
+|
+|September 19th, 2021
+|}
 
 == September 9th, 2021 ==
 * Had first team meeting for the image classification team
@@ -49,6 +187,20 @@ between two individuals that gets duplicated. With semantic cross we try to ensu
 Image segmentation would likely be more difficult than a pure classification problem. Ideally the training set would be something more involved than the MNIST data set. 
 
 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do literature review of image processing related paper
+|Complete
+|September 15th, 2021
+|
+|September 15th, 2021
+|}
 
 == August 30th, 2021 ==
 * Posted in Image Classification interest about an interesting classification paper
@@ -69,6 +221,22 @@ genetic algorithms can be used to optimize center vector placement, which is typ
 
 * Asssigned to the Image Classification team. Put in meeting date rankings. 
 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Select subteam
+|Complete
+|August 30th, 2021
+|
+|August 30th, 2021
+|}
+
+= Fall 2021=
 == April 30th, 2021 ==
 '''Team Meeting Notes:'''
 * Final presentation for the semester

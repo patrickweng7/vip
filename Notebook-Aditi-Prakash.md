@@ -9,28 +9,69 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-# Week 6: September 29th, 2021
+# Week 8: October 13th, 2021
 ## Overview
-Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently). 
+Workday for EMADE and MySQL remote connection setup. 
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
-* Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
-* In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
+* Worked with Rayan, Rayan, and Charlie to help set up their EMADE engines and install all dependencies. They are working on installing all remaining dependencies, after which we can test MySQL remote connections to the server I have created . 
+
+## Subteam Notes
+Met with team on Friday to ensure team could run worker processes and connect to the MySQL server I created. Worked with Charlie during Saturday's hackathon to add our group's preprocessing to the titanic_splitter.py file and run EMADE with the updated train-test folds. Noticed Pareto front individuals gradually developing and being stored in titanic schema in my localhost. We are planning to remove the 3rd objective from the evaluation function to ensure a direct comparison to the Titanic ML and MOGP projects. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Titanic ML, MOGP, EMADE Presentation | Pending | 10/25/21 | 10/25/21  | - |
-| Peer Evaluation | Pending | 9/29/21 | 10/6/21  | 10/4/21 |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Done | 10/6/21 | 10/20/21  | |
+| Run EMADE on preprocessed Titanic Data | In Progress | 10/6/21 | 10/14/21  | |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
+| Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
+
+# Week 7: October 6th, 2021
+## Team Meeting Notes
+### Lecture on EMADE
+* Introduced concept of EMADE (engine to perform multi-objective algorithm design using genetic programming and a primitive set containing both simple primitives and ML learners from Python packages).  
+* Looked at EMADE repository on GitHub and got a view of input file that specifies MySQL database configuration for EMADE output and parameters of evolution, launchGTMOEP.py which initiates the evolutionary process, and the gp_framework_helper.py file that contains references to primitives used to create EMADE individuals).
+* Received information about presentation on Monday, October 25th where bootcamp and returning students will present their EMADE presentations and hackathon on Saturday, October 16th, where new students can receive help from returning students for EMADE setup and analyzing output from running EMADE on Titanic dataset. 
+
+## Subteam Notes
+* Worked with rest of team asynchronously to set up master and worker processes for EMADE. I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/14/21  | |
+| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/14/21  | |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | |
+
+# Week 6: September 29th, 2021
+## Overview
+Presented Titanic ML and MOGP assignments and received feedback from Dr. Zutty and Dr. Rohling. Watched other subteams' Titanic presentations and asked questions about their approach and design choices for their ML learners and MOGP individuals. Received instructions for peer evaluations (due 10/8/21, only complete peer evaluations for those you have interacted with frequently).
+
+## Team Meeting Notes
+### Notes on Titanic ML and MOGP Assignment + Presentation
+* Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. 
+* In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
+
+## Individual Notes
+* Presented slides 1, 2, 4, 5 from slide deck: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+* Answered Dr. Zutty's questions regarding the primitives we chose to use (should look into using float primitives) and how using the HOF might have limited diversity in our resampling of the population during each iteration of the evolutionary loop. 
+* Talked to Charlie and Dr. Zutty after class about selNSGA and how it truncates individuals after the kth individual when performing selection. Dr. Zutty suggested using selTournamentDCD and shuffling individuals so as to promote diversity in the Hall of Fame. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Titanic ML, MOGP, EMADE Presentation | Completed | 10/6/21 | 10/25/21  | - |
+| Peer Evaluation | Completed | 9/29/21 | 10/6/21  | 10/4/21 |
 | Install EMADE | Pending | 10/6/21 | 10/13/21  | - |
+| Update Notebook | Completed | 9/29/2021 | 10/6/2021 | 10/3/2021 |
 
 # Week 5: September 22th, 2021
 ## Overview
-Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
+Discussed Titanic ML assignment and findings related to data preprocessing and hyperparameter tuning and their impact on minimization objectives. Began research for Titanic MOGP assignment, wherein our goal is to us DEAP and genetic programming to develop a Pareto frontier of trees with simple primitives and our dataset's features as inputs. Attended meta-presentation on good presentation techniques (detailed graphs, concise bullet points, key takeaways, etc.) in preparation for next week's Titanic ML and MOGP presentation. Decided to meet with team on Thursday to exchange initial findings and develop a plan of action for the week. 
 
 ## Team Meeting Notes
-### Notes on Titanic ML Assignment 
+### Notes on Titanic MOGP Assignment 
 * Loosely typed Gp, strongly typed gp, simple primitives, not allowed to use default algorithms in DEAP, no mu + lambda, have to code algorithm yourself, can use selection,crossover, mutation operations, but cannot use algorithms
 * Have to write genetic program yourself
 * Evaluation function - at least two objective, False Positives and False Negatives
@@ -53,18 +94,22 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 ### Data Preprocessing
 * Created Google Colab notebook with same preprocessing as Titanic ML assignment
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
-* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity
-* Primitive Set:
-![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
-* Researched strongly typed GP in DEAP
+* Researched strongly typed GP in DEAP (reference: https://deap.readthedocs.io/en/master/tutorials/advanced/gp.html)
 * Chose NSGA II as selection method (handles both objectives)
-* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Created hof using best individuals ever identified throughout evolution
 * Created graph of fitness across generations - ordinality of average FPR and FNR changed after evolution
-* Change 30 generations to 50 generations and removed duplicate individuals from Hall of Fame for improve evolution
+* Removed duplicate individuals from Hall of Fame for improve evolution
 * Predicted Survived feature for test.csv 
 * Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619
+
+## Individual Notes
+* Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
+* Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
+* Primitive Set:
+![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
+* Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
+* Change 30 generations to 50 generations for improved evolution
+* Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
 
 Sample Learner: logical_and(not_equal(Sex, negative(multiply(multiply(C, Parch), Age))), greater(Ticket, SibSp))
 
@@ -83,8 +128,8 @@ The AUC for MOGP was much better than that of ML. Evolution in MOGP favored dive
 | --- | ----------- | --- | ----------- |----------- |
 | Meet with Team to Discuss Evolutionary Loop and Evaluation Function | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
 | Plot MOGP individuals with Pareto frontier and compare to ML results | Completed | 9/22/2021 | 9/29/2021 | 9/23/2021 |
-| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
-| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/25/2021 | 9/29/2021 |
+| Create Slide Deck for Titanic ML and MOGP Presentation | Completed | 9/22/2021 | 9/29/2021 | 9/25/2021 |
+| Update Notebook for Week 5 | Completed | 9/22/2021 | 9/29/2021 | 9/26/2021 |
 
 # Week 4: September 15th, 2021
 ## Overview
@@ -114,17 +159,19 @@ Received bootcamp subteam assignments (I am in Bootcamp Subteam 4) and explored 
 ### Data Preprocessing
 * Created Google Colab notebook for group preprocessing
 * Notebooks with preprocessing and preprocessing experimentation here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
-* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Imported pandas, numpy, and sklearn methods 
 * Mounted Drive to Colab and read in train and test sets as dataframes
 * Dropped Name feature (irrelevance) and Cabin feature (too sparse to work with)
 * Set PassengerID as index
+* Replaced Sex feature categories with 1 for male and 0 for female
+* Split training data into training and testing sets (test_size=0.33, random_state=10)
+
+## Individual Notes
+* Created ParetoFront.ipynb for group to input objective values for individual learner and confirm co-dominance
 * Replaced null values of Embarked feature with mode of Embarked column and null values of Ticket feature with '100'. Held off on replacing Age and Fare null values here and replaced them later with median value of each respective feature for a given Pclass. This is so that the null values in the Age and Fare columns are not replaced with values that are not representative of the central value of those features for all samples of a particular type (in this case, a particular Pclass). 
 * One hot encoded Embarked feature values so as to not incorrectly assign a magnitude of value to each Embarked class (ie. 'Embarked': {'C': 0, 'Q': 1, 'S': 2} might cause our learner to assume a relationship between Survived and Embarked for rows with an Embarked class of 'S' and no relationship between Survived and Embarked for rows with an Embarked class of 'C'). Created three columns, 0, 1, 2, each of which is assigned either the value 0 or 1 for each sample based on the Embarked class for that sample. 
-* Replaced Sex feature categories with 1 for male and 0 for female
 * Extracted numerical part of Ticket feature and re-assigned Ticket column values to numerical portion (type=integer). This is so as to consider the relationship between ticket assignments and survival empirically (for instance, those with lower ticket numbers may have purchased their tickets earlier than those with higher ticket numbers, which could indicate residence in a particular location of the ship (ex. the upper or lower deck) at the time of the crash, impacting survival). This feature engineering had little to no impact on the FNR and FPR of the model. 
 * Replaced null Age and Fare values with median values based on Pclass of passenger (see above). 
-* Split training data into training and testing sets (test_size=0.33, random_state=10)
 * Selected XGBoost learner due to its speed and ability to handle null data
 * Initially ran XGBoost predictions with default hyperparameters 
 * Obtained confusion matrix for predictions 
@@ -146,6 +193,7 @@ Pareto Front for ML Learners:
 | Titanic ML Learner Predictions| Completed | 9/15/2021 | 9/22/2021 | 9/17/2021 |
 | Create Subteam Slack | Completed | 9/15/2021 | 9/18/2021 | 9/15/2021 |
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
+| Update Notebook | Completed | 9/15/2021 | 9/22/2021 | 9/19/2021 |
 
 # Week 3: September 8th, 2021
 
@@ -153,7 +201,7 @@ Pareto Front for ML Learners:
 Attended lecture on multi-objective optimization and completed Lab 2's Multi-Objective programming exercise. Filled out survey sheet with ML and Python self-ratings.  
 
 ## Team Meeting Notes
-### Lecture on Multi-Objective Optimizations:
+### Lecture on Multi-Objective Optimization:
 * Accuracy, speed, memory helps define metrics that an algorithm might look for in a mate
 * Scalability, reliability, adaptability, consistency (tradeoff between precision and accuracy)
 
@@ -189,13 +237,14 @@ Attended lecture on multi-objective optimization and completed Lab 2's Multi-Obj
 * Kth nearest neighbor - look at Euclidean distance in a space for all points to a kth neighbor 
 * Larger the distance, the better, minimizes the 1/sigma, which minimizes the rank + 1/sigma 
 
-### Lab 2 - Multi-Objective Genetic Programming
+## Lab 2 - Multi-Objective Genetic Programming
 This lab explored the problem of optimizing a set of primitives based on more than one objective to achieve a target function model. Here, we minimize the mean squared error and the size of the tree. We also add the sin, cos, and tan functions to our set of primitives and reinitialize the toolbox. We then define a function to evaluate our symbolic regression and note that this new problem, with an evaluation function that takes the sin, cos, and tangent of the points into consideration when evaluating the individuals for fitness, cannot be solved within 100 generations like the ones we worked on previously. 
 
 We then define the pareto dominance function, which compares two individuals and returns the individual which dominates the other in the objective space. We initialize 300 individuals and leave one individual as the comparison individual. We then sort the population we created by each individual's Pareto dominance as compared to the "spare" individual. Plotting the objective space, we are able to visualize the individuals that minimize both objectives and exist along the Pareto front using the Hall of Fame. Running the evolutionary algorithm, we identify the Best Individual: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x))))
 with fitness: (0.2786133308027132, 15.0). 
 
-DEAP's Mu plus Lambda algorithm, which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+DEAP's Mu plus Lambda algorithm (reference: https://deap.readthedocs.io/en/master/api/algo.html), which takes in a mu and lambda value (number of individuals to select for each successive generation, and the number of children to produce at each generation), allows us to control the size of the population as well as the selection process between individuals. We identify that the size of our trees grows over generations, but the MAE quickly drops to a sub-1 value over generations. Visualizing our pareto front, we see that the Area Under Curve: 2.3841416372199005 indicates the amount of objective space that exists below our current Pareto front. 
+
 
 Improvements:
 Modifying the following hyperparameters reduced the AUC of the Pareto front to 0.3113. 
@@ -214,6 +263,8 @@ Original Hyperparameters:
 
 Visualization:
 [Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
+
+
 
 Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
@@ -258,7 +309,7 @@ Comments: I keep my notebook as detailed as possible and ensure that when I look
 Attended lecture on genetic programming and completed Lab 2 on the same topic. Continued to discuss course expectations and direction after 10-week bootcamp. 
 
 ## Team Meeting Notes
-### Lecture on Genetic Algorithms
+### Lecture on Genetic Programming
 Introduced concept of genetic programming with the goal of optimizing a function (represented as a tree structure) to achieve a particular target output.  
 1. Nodes: primitives, represent functions 
 2. Leaves: terminals, represent parameters 
@@ -268,7 +319,7 @@ Introduced concept of genetic programming with the goal of optimizing a function
 5. Measuring error (ex. Mean Squared Error)
 7. Identifying primitives that can make modeling a function easier 
 
-### Lab 2 - Genetic Programming, Part 1 (Symbolic Regression)
+## Lab 2 - Genetic Programming, Part 1 (Symbolic Regression)
 This lab explored the problem of optimizing a set of primitives to achieve a target function model. This exercise is in contrast to typical machine learning or data modeling, wherein we attempt to fit a function to data. Here, we use the mean squared error to obtain the fitness of each individual in the population; that is, we determine the MAE between our primitives-based function and the target function.   
 
 We first create our fitness and individual classes, where individuals are of the PrimitiveTree type. We then initialize the set of primitives our trees can draw from (add, subtract, multiply, and negative) and register our objects with the DEAP toolbox. We also define our evaluation function (which uses the MAE between the modeled function and the actual function) and register the evaluation, selection, mating, and mutation operators with the DEAP toolbox. We used selTournament, one-point corssover, uniform mutation, and gp.genFull for our functions. As we registered the expression for generating our population, we defined a minimum and maximum height for our tree. We passed points=np.linspace(-1, 1, 1000) to register the evaluation function with the toolbox in order to generate 1000 random points between -1 and 1 to pass to each tree in our population. We then programmed the same evolutionary algorithm that was used in Lab 1 for the n-queens problem and obtained the best individual after 40 generations. We set a 0.5 probability of mating and a 0.2 probability of mutation. We graphed the results and printed our statistics. 

@@ -2,14 +2,14 @@
 * Name: Diptendu Maity
 * Email: dmaity6@gatech.edu
 * Phone Number: 972-489-4321
+* Subteam: Modularity
 
 === Teammate Info ===
-* Rishit Mohan Ahuja: rishitmahuja@gatech.edu
-* Sriram Mudireddy; smudireddy3@gatech.edu
+* Bernadette Gabrielle Santiago Bal: bgsanbal@gatech.edu
+* Vincent Huang: vhuang31@gatech.edu
+* Xufei Liu: xufeiliu2000@gatech.edu
+* Angela Young: ayoung97@gatech.edu
 * Youssef Walid Elmougy: yelmougy3@gatech.edu
-* Justin Hsu Hinckley: jhinckley6@gatech.edu
-* Abhiram Venkata Tirumala: abhiram.tirumala@gatech.edu
-* George Ye: george.ye45@gatech.edu
 
 == Week of 1/20/21 ==
 
@@ -1178,12 +1178,6 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 !Suspense Date
 !Date Resolved
 |-
-|Setup PACE on Computer
-|In Progress
-|9/13/2021
-|9/20/2021
-|
-|-
 |Literature Review: Research team goals for stock team
 |Completed
 |9/13/2021
@@ -1203,7 +1197,7 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 ** It is hard to implement because there is not much data out there.
 * Research Paper to focus on: [https://ieeexplore.ieee.org/abstract/document/4598507 An empirical study of Genetic Programming generated trading rules in computerized stock trading service system]
 
-=== Noted on Research Paper ===
+=== Notes on Research Paper ===
 * The application of genetic programming as a means to automatically generate such trading rules on the stock markets is highlighted in the study.
 * The results show that for the stocks that were studied, the use of GP-based trading rules ensures a positive dollar return in all market scenarios.
 * Genetic Programming based trading rules offer greater returns over the simple buy and hold approach than the MACD trading signal.
@@ -1299,6 +1293,191 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |9/29/2021
 |10/04/2021
 |10/01/2021
+|}
+
+== Week of 10/4/2021 ==
+
+=== About Modularity ===
+* Finding ways to abstract individuals to encourage code reuse/explainability and improve EMADE’s search/optimization capabilities
+* Creating “building blocks” that can help with the genetic process
+* Modularity subteam has been focusing on a structure known as Adaptive Representation through Learning (ARLs)
+* The adaptive representation through learning (ARL) algorithm extends the GP engine with machinery for adapting the problem vocabulary by creating and using new subroutines.
+* AR demonstrates the potential to improve problem-solving efficiency and to dynamically create hierarchies of subroutines.
+* It is possible to achieve the predicted effects of AR without relying on additional domain knowledge to estimate which blocks of code are useful.
+
+=== Team Meeting Notes ===
+* Set up PACE ICE in order to run stock data
+* Vincent is working on fixing the bugs associated with arls
+* Might need to switch to google co-lab if PACE ICE is not working.
+* Main goal it to setup PACE ICE for all group members
+* Run titanic data to see how ARLs are performing before running on stock data
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize myself with modularity semester goals
+|Completed
+|10/04/2021
+|10/07/2021
+|10/07/2021
+|-
+|Setup PACE ICE
+|Completed
+|10/07/2021
+|10/18/2021
+|10/17/2021
+|-
+|Runs EMADE on stock data
+|Bug Issues
+|10/07/2021
+|10/25/2021
+|10/20/2021
+|-
+|Team Meeting & Notes
+|Completed
+|10/07/2021
+|10/11/2021
+|10/07/2021
+|}
+
+== Week of 10/11/2021 ==
+
+=== PACE ICE Setup ===
+* Configured my cisco VPN in order to access gatech VPN.
+** Used [https://faq.oit.gatech.edu/content/how-do-i-get-started-globalprotect-campus-vpn#gpmacos How to Setup Global Protect VPN]
+** Connected to anyc.vpn.gatech.edu.
+* SSH into pace ice using: ssh dmaity6@pace-ice.pace.gatech.edu
+* Cloned [https://github.gatech.edu/vhuang31/emade Modularity Emade Repo] to local computer and then used scp to transfer made to PACE ICE.
+* Created a scratch and db folder in order to setup MySQL.
+* Created a configuration filed that initializes the mySQL instance.
+** Needed to set port number to 3439 in order to create a working connection
+* Installed the database: mysql_install_db --datadir=$HOME/scratch/db
+* Started and tested a local instead of MySQL in pace: mysqld_safe --datadir='/storage/home/hpaceice1/dmaity6/scratch/db'
+* Steps to create new user in MySQL
+** mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+** qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+** mysql -u root
+** DELETE FROM mysql.user WHERE user=''; GRANT ALL PRIVILEGES ON *.* TO 'dmaity6'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;
+** check to see if it works: mysql -u dmaity6
+* Create new conda environment:
+** module load anaconda3/2020.02
+** module load gcc
+** conda create -n dmaity6 python=3.6
+* Configured the needed XML files for datasets: atl1-1-02-012-5-l:3439
+* Create pbsmysql.pbs: mysqld_safe --datadir='/storage/home/hpaceice1/mgeller6/scratch/db'
+* Create launchEMADE.pbs
+* Run EMADE to make sure it is working.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup PACE ICE
+|Completed
+|10/11/2021
+|10/18/2021
+|10/17/2021
+|-
+|Runs EMADE on stock data
+|Bug Issues
+|10/11/2021
+|10/25/2021
+|10/20/2021
+|-
+|Document PACE ICE Setup
+|Completed
+|10/11/2021
+|10/18/2021
+|10/17/2021
+|}
+
+== Week of 10/18/2021 ==
+
+=== Run EMADE on Titanic Data Set Using Google Colab===
+* Need to check out ARL update on Git Repo:
+** git checkout ARL_Update
+** git reset --hard 
+** Key: 64fd0a18cb44524070bb013ca5505c21c587cddd
+* Update titanicTemplate.xml file
+* chmod +x [https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh CloudCopy.sh]
+* upload emade-cloud to gdrive, rename it to emade-oldarl
+* edit templates/input_titanic.xml to have the correct database information
+* Run the google colab file as a worker and make sure there are no errors.
+
+===Midterm Presentation Preperation===
+* [https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing Presentation link]
+* Stocks Experimental Data
+** Default Evolutionary Parameters
+** Comparing Baseline, Stocks with ARLs, Stocks without ARLs
+** Goals of 30 Generations
+** Goals of 5 of Runs for each comparison
+** Profit Percentage (over 100 day test dataset)
+** Number of transactions
+** Average MAE
+** Tree Size
+* Technical Indicators
+** Signals predicting price movements for future time steps that are produced by looking at patterns in the data.
+** Patterns: stock price, volume, interest, etc.
+** TI’s used in runs:
+*** TA-Lib Indicators: SMA, EMA, MACD, BETA, OBV, etc.
+*** Non TA-Lib Indicators: MFI (Money Flow Index), Klinger Volume Oscillator (KVO), Volume Weighted Moving Average (VWMA), Fibonacci Retracement (FIBRET), etc.
+* Stock Runs with ARLs
+** Taking a look at the density graph, the x-axis are various TIs and y-axis is are various machine learning models that are used with the specific TIs. 
+** The higher the score the better that specific pair of TI and ML model worked.
+** Emade will take account of this and ARLs will make sure that these well-performing pairs get passed on to the next generation without getting mutated. 
+** Compare the result with baseline, no ARL, and ARL stock runs. 
+* Current Issues
+** PACE-ICE vs Google Colab
+*** Google Colab have limited computing power
+*** Unable to connect to database
+** Merging stocks codebase with ARL codebase
+*** Different individuals to be seeded, different evaluation methods, different GP Framework includes seeding from file, etc.
+**** Migrating stock files in process
+*** Individuals aren't evaluating
+
+===Team Meeting Notes===
+* Not able to run stock data due to big issues.
+* Need to spend time debugging pace ICE and integrating stock data set in order to prepare for run.
+* Prepare for presentation. 
+* Run EMADE on collab as a worker for titanic dataset in order to see impact of ARLs
+* Worked through debugging issues in order to do made runs for a titanic set
+* Figured out what we want to cover for the midterm presentation.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Midterm presentation Preparation
+|Completed
+|10/18/2021
+|10/25/2021
+|10/24/2021
+|-
+|Runs EMADE on titanic data
+|Completed
+|10/21/2021
+|10/25/2021
+|10/23/2021
+|-
+|Document Team Meeting Notes
+|Completed
+|10/18/2021
+|10/25/2021
+|10/25/2021
 |}
 
 

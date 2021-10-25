@@ -27,33 +27,326 @@
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 * [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
 
-=== '''Week 3:''' Sept 5-11 ===  
-==== '''Subteam Meeting''' Sept 8 ====
+=='''Week 7:''' Oct. 3 - Oct. 9 ==
+'''Self Work'''
+* WAS ABLE TO DEBUG ISSUE WITH PACE-ICE (not being able to get into <code>mysql</code>)
+** Small modification of Gabe's instructions from last week: 
+** I got PACE-ICE working--and instead of ssh’ing back into <code>ssh atl1-1-02-012-5-l # whatever name</code> I exited back into the login node (ran <code>exit</code> after running <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code>) and was able to run <code>mysql -u root</code> from there and follow the rest of the EMADE instructions 
+=== Subteam Meeting: Oct. 7 ===
+* Met new member, Diptendu! Part of disbanded Stocks team
+* Goal to get runs over fall break
+* Tried to debug PACE-ICE issues with team. 
+
+=== AAD Time Conflict Meeting: Oct. 8 ===
+'''Missed Class Updates''': 
+* Hackathon Oct. 16
+* Youssef and Diptendu to join our team
+'''Modularity Updates''':
+* Debugged issues with setting up conda environment and setting up packages with EMADE
+** My Fix: <code>activate conda env_name</code> ... easy fix 
+* dataset of stocks is your target, so the paper is going to cover:
+** general background on what arls are, emade, automated ml
+** methodology - how did you implement the arl process, pseudocode, block diagrams, actual code, how you make arls in the evolutionary process, what is the pool you're selecting from
+*** 3.1 - how are they constructed and how are they used
+* analysis auc over time with different objectives, what types of individuals are being found, general conclusions at end with how arls are working with emade
+* selections are being biased towards arls with them - rory
+** baseline framework, experimentation, hypothesis, what could show promise
+** are there targeted mutations that might help, are there selection methods that help, what could we do to tweak
+* really need a strong positive result, hard to prove otherwise
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|PACE-ICE runs 
+|Pending
+|10/08/2021
+|10/15/2021
+|10/??/2021
+|-
+|Help other teammates debug PACE-ICE
+|Pending
+|10/08/2021
+|10/14/2021
+|10/??/2021
+|-
+|}  
+
+=='''Week 6:''' Sept. 30 - Oct. 2 ==
+=== AAD Time Conflict Meeting: Oct. 1 ===
+'''Missed Class Updates''': 
+* 
+'''Self Work''':
+* Paper: https://www.overleaf.com/1338174365qrqxskrvkfyj
+* Debugging with PACE-ICE using Gabe's method in chat:
+After the db is started, request a new job using <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code> (doesn't matter if the node is the same)
+Type <code>exit</code> to get back to the login node, then <code>ssh atl1-1-02-012-5-l # whatever name</code>
+Once you're in the node, type <code>mysql -u root</code>
+Then run the following sql queries:
+<code>DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;</code>
+Check this works, by exit then <code>mysql -u USERNAME</code> to make sure you can login as your new user
+Then follow the rest of the steps in the guide and it will hopefully work
+** Still not working, having authentication issue when running <code>ssh</code>
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Debugging... Again
+|Complete!!!!
+|09/23/2021
+|10/05/2021
+|10/05/2021
+|-
+|Add to Paper 
+|Complete
+|10/01/2021
+|10/08/2021
+|10/08/2021
+|-
+|}  
+
+=='''Week 5:''' Sept 19-25 ==
+=== Subteam Meeting: Sept 23 ===
+'''Debugging session for PACE-ICE'''
+* Gabe was here, let us know the time for a run is 8 hours, this might be too short 
+* Was able to run <code> mysql -h root </code> for a short period of time but for some reason after 5 minutes it was not working anymore? 
+* Possibly look into using another node, <code>.my.cnf</code> file
+* Did not get far :(
+
+=== AAD Time Conflict Meeting: Sept 24 ===
+* None, Dr. Zutty absent 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Issues with PACE-ICE
+|Incomplete
+|09/23/2021
+|09/30/2021
+|Ongoing
+|-
+|Look into making/start paper outline
+|Complete
+|09/23/2021
+|10/01/2021
+|09/30/2021
+|-
+|}  
+
+=='''Week 4:''' Sept 12-18 ==
+=== Subteam Meeting: Sept 16 ===
+* Helped team get setup with database 
+* Team will get setup on Colab again to do MNIST runs 
+* Look into superindividual issue with MNIST run last time 
+* Issue with getting setup on MNIST, Gabe mentioned it could be an issue with how files are being packed/unpacked on Mac
+* Spent rest of meeting trying to debug MNIST issues and colab with team
+* Transition to runs with stocks dataset instead? Will have to merge specifiic files with ours. 
+
+=== AAD Time Conflict Meeting: Sept 17 ===
+'''Missed Class Updates''': 
+* Adding images to notebook again (see last meeeting's notes) 
+* PACE-ICE Notes
+** Shared Directory: /storage/home/hpaceice1/shared-classes/materials/vip/AAD
+* Modularity Updates
+** Make subfolder for your name in files
+** Git add/commit/push file changes. Now you can add them in your notebook
+'''Modularity Updates''':
+* Potentially changed resources after old team left
+** EMADE: Just fork off Gabe's code base 
+** DATABASE: Make a new AWS server (my task) 
+** COLAB: Accounts are still usable 
+* MNIST Data
+** Dr. Zutty has made changes over summer
+*** '''gen_mnist data set''' - /datasets/....../mnist - loads data in pickle format
+*** '''input_mnist template flie''' - uses precision and recall as two objectives
+* Potentially look into how ARLs are constructed
+** Currently set to 5 ARLs per generation 
+** Try to change hyperparameters? amount used, how they're built, ranking criteria
+* Could also write a paper like the stocks team 
+** ACM SIGCONF template on Overleaf could be useful 
+** Potentially submit to GECCO? Submission due date is January 20th
+'''Self Work''':
+* Tried [https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE Setting Up PACE-ICE]
+* Issues with .my.cnf file 
+* <code>mysql -h atl1-1-02-012-5-l</code> command not working, trying to debug by changing socket path and port number. Maybe <code>.my.cnf</code> file
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Look into Installing PACE-ICE
+|Complete
+|09/17/2021
+|09/23/2021
+|09/23/2021
+|-
+|Merge Stocks data into our branch
+|Complete
+|09/16/2021
+|09/23/2021
+|09/23/2021
+|-
+|}  
+
+== Week 3: Sept 5-11 ==
+=== Subteam Meeting: Sept 3 ===
 * First meeting with subteam for the semester 
 * Hashed out group roles/tasks
 * We need to try and contact previous semester for lost resources (google colab, AWS server)
-* Semester goals are to cover left off tasks from previous semesters
+* [https://docs.google.com/document/d/1nrIWrMjVsJGYhjUZHZEiTStSvHmNjziNbVNA94ekhBM/edit?usp=sharing
+Semester goals are to cover left off tasks from previous semesters]
+** Continue MNIST runs -- potentially merge this with stock team data? 
 
-==== '''AAD Time Conflict Meeting''' Sept 10 ====
+=== AAD Time Conflict Meeting: Sept 10 ===
+'''Missed Class Updates''': 
+* How to Add images to Notebook:
+** Clone Wiki locally to add images
+** Make subfolder for your name in files
+** Git add/commit/push file changes. Now you can add them in your notebook
+'''Modularity Updates''':
+* Potentially changed resources after old team left
+** EMADE: Just fork off Gabe's code base 
+** DATABASE: Make a new AWS server (my task) 
+** COLAB: Accounts are still usable 
+* MNIST Data
+** Dr. Zutty has made changes over summer
+*** '''gen_mnist data set''' - /datasets/....../mnist - loads data in pickle format
+*** '''input_mnist template flie''' - uses precision and recall as two objectives
+* Potentially look into how ARLs are constructed
+** Currently set to 5 ARLs per generation 
+** Try to change hyperparameters? amount used, how they're built, ranking criteria
+* Could also write a paper like the stocks team 
+** ACM SIGCONF template on Overleaf could be useful 
+** Potentially submit to GECCO? Submission due date is January 20th
+'''Self Work''':
+* Asked Gabe for help, made a new database on [https://aws.amazon.com/rds/ AWS RDS]
+* Changed the following settings:
+** Engine Options: MySQL v5.7.33
+** Settings: Kept username, made password mypassword (classic) 
+** Connectivity: Made a new security group rule that allows all inbound/outbound traffic. Check this exists after the database is created 
+** Checked with MySQL, works 
+* Google Colab 
+** Ran into seeding error. Messaged chat and the fix was to manually remove duplicate individuals
+=== Notebook Rubric ===
+Notebook Maintenance
+* Name and Contact Info: 5
+* Teammate Names and Contact Info: 5
+* Organization: 4
+* Updated Weekly: 6
+Meeting Notes:
+* Main meeting notes: 5
+* Subteam efforts: 4
+Personal Work & Accomplishments:
+* To-do items: 3
+* To-do consistency: 2
+* To-dos & cancellations checked & dated: 8
+* Level of Detail: 11
+Useful Resource:
+* References: 7
+* Resource for Team: 11
+Total: 71/100
+Comments: Haven't updated To-Do's, Need to add more detail for other members to reference
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Self-Graded Notebook Rubric
+|Complete
+|09/10/2021
+|09/17/2021
+|09/17/2021
+|-
+|Try running MNIST
+|Complete
+|09/10/2021
+|09/14/2021
+|09/14/2021
+|-
+|Make new database on AWS for data
+|Complete
+|09/10/2021
+|09/15/2021
+|09/16/2021
+|-
+|}  
+
+
+== Week 2: Aug 29-Sept 4 ==  
+=== AAD Time Conflict Meeting: Aug 27 ===
 * Was in Seattle - Missed
 * New team: Me, Xufei, Tian, Vincent, Angela 
 * Possible area of interest: working with stocks data and primitives 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Ask Xufei for work updates 
+|Complete
+|08/29/2021
+|09/03/2021
+|09/03/2021
+|-
+|}  
 
-=== '''Week 2:''' Aug 29-Sept 4 ===  
-==== '''AAD Time Conflict Meeting''' Aug 27 ====
-* Was in Seattle - Missed
-* New team: Me, Xufei, Tian, Vincent, Angela 
-* Possible area of interest: working with stocks data and primitives 
-
-=== '''Week 1:''' Aug 23-28 ===  
+== Week 1: Aug 23-28 ==  
 '''Currently in the time conflict section. Fridays 3-4PM'''
-==== '''AAD Time Conflict Meeting''' Aug 27 ====
+=== AAD Time Conflict Meeting: Aug 27 ===
 * We're possibly considering merging with the stocks subteam who is also in the time conflict section. 
 * Possible Research Ideas:
 ** Stocks team has found that some trees are being reused. Could be interesting to test their dataset with our code.
 ** Adding complexity (implementing new primitives, evaluation functions)
 ** Changing how to store primitives in the database (downside of how arls are created is that some of the data can no longer be accessed as it's condensed) 
-** Baseline runs  
+** Baseline runs
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Look into potential avenues of work for semester 
+|Complete
+|08/27/2021
+|09/03/2021
+|09/03/2021
+|-
+|Send subteam preferences
+|Complete
+|08/29/2021
+|08/31/2021
+|08/31/2021
+|-
+|}  
 
 = '''Spring 2021''' =
 '''''Modularity Sub-Team:'''''

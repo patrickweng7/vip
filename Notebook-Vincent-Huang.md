@@ -8,52 +8,167 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
 
-### Week 6: Sep 27
+### Week 10: Oct 25
+- [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)
+- Visualization tools
+    - Follow instructions on emade-viz repo README for environment setup and installation
+    - emade-viz app takes in the input schema xml file
+    - Unfortunately could not get it to work with remote aws instance database, so had to download the database to local in order to run the tool
+    - Use command
+```
+mysqldump --column-statistics=0 -h [remote database host name] -u [remote database username] -p --hex-blob [remote database schema name] &> [local dump file].sql
+```
+-
+    - On the ADFonlyAUC branch, this will output the AUC for each generation, which I then plugged into some new notebooks I made regarding AUC over time analysis and ARL size analysis
+
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/73aa08adc7ff013b7118c3bee361349753ab60af)
+    - Added MNIST new objectives support to AUC visualization tool (commented out to preserve functionality)
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/18bfb97c973d9bbd3a51f6d06e00e774e1fa395a)
+    - Added AUC over time analysis graph notebook
+    - Added ARL size analysis visualization notebook
+
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Fix contract ARLs method|
-|Investigate add_all_subtrees problem|
-|Do runs of extended ARLs|
+|Figure out how to use emade visualization tools|Complete|Oct 24|Oct 25|Oct 25|
+|Work on midterm presentation|Complete|Oct 18|Oct 25|Oct 25|
+|Midterm presentation|Complete|Oct 18|Oct 25|Oct 25|
 
-Currently at index 2
-Generated ARL:
- arl5 : lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,-6,arl_arg_1),arl_arg_2))
-examining subtree (('Learner', 1, 2, -1), ('ARG0', 0, 0, 0))
-Currently at index 0
-Currently at index 1
-Ignoring inter-generation duplicate lambda arl_arg_0,arl_arg_1: (Learner(arl_arg_0,arl_arg_1))
-Updateing PSET Representation with 2 arls
-	arl4:
-lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
-Args in:  (<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>)
-	arl5:
-lambda arl_arg_0,arl_arg_1,arl_arg_2: (Learner(EqualizeHist(arl_arg_0,-6,arl_arg_1),arl_arg_2))
-Args in:  (<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>)
+### Week 9: Oct 18
+- Implemented ARL match helper method
+    - Variation on dfs
+    - We expect there to be (arity of parent node in original subtree) - (arity of parent node in ARL) arl arguments
+    - We iterate over each child in the individual's tree, and if the current node does not match a child in the ARL, it must be an argument, so mark it as an argument.
+    - This way we can identify which nodes in the individual should be deleted during contraction, and which nodes should be set as arguments to the new ARl primitive
+- Refactored contract ARLs method
+    - Iterate through individuals which contain ARL occurrences
+    - For each occurrence, use the ARL match method to identify which nodes to contract
+    - If there is no overlap, add the nodes to a removal set
+    - Reverse sort the nodes to remove so that we don't change the index of future nodes to remove
+    - Insert the arl with the arguments identified during match ARL
+- Refactored ARL Lambda function
+    - Similar to match ARL function in that it also runs a modified dfs where the arity of the original parent node is used to calculate missing children
+    - Instead of marking "missing" children as arguments, instead inserts a placeholder arl_arg_# for the argument.
+
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
+    - Refactored contract arls method
+    - Added utility sanity check functions
+    - Removed try catch blocks causing error suppression
+    - Added helper function for matching ARL instance within individual
+    - Fixed parent node arities not being updated
+    - Fixed ARG0 begin removed during contraction
+    - Fixed only a single ARL of each type being allowed for an individual
+    - Added restriction for large individuals for ARL canidate formation
+    - Added arl_argument index position information to population information
+    - Added restriction for arl lambda to have at least 2 non arl argument nodes
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/08bbedc7ab033f7cd075c30a0c4a17b680aa49ec) ([Hotfix](https://github.gatech.edu/vhuang31/emade/commit/ebc3364f9f37c5f6ce4d375d357f3b8c8dba162c)) ([Hotfix](https://github.gatech.edu/vhuang31/emade/commit/0eda0acf98452d10f9b1bb18f8eab0273d946055))
+    - Fixed ARL Lambda method replacing fixed ARL arguments with variable ARL argument placeholders
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix incorrect arities problem|Completed|Oct 11|Oct 18|Oct 17|
+|Fix ARL fixed arguments being deleted|Completed|Oct 11|Oct 18|Oct 18|
+
+### Week 7-8: Oct 4 and Oct 11
+- Fixed implementation detail regarding ARLs were being created with only a single non-arg node
+    - Now has a check to make sure that there exists > 1 non-arg node before creating the ARL.
+- Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
+    - This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
+        - If we contract an ARL and therefore the root index of another ARL is changed
+            - Solution: If we sort in reverse index DFS order, I believe we should be able to safely contract without changing the root indices of other ARLs.
+            - Just in case this is not true, implemented sanity check to ensure that we completely remove a given ARL before removing nodes from another one.
+        - If two ARLs overlap, then after the first one has been contracted, the overlapping nodes are gone and the second ARL either attempts to contract nodes which have been deleted (Index out of bound crash) or it contracts nodes which it isn't supposed to based on their indexes (Arity problems)
+**** Solution: Use a set to keep track of which indices have already been marked for contraction, and don't attempt to contract an ARL who has nodes which have already been marked for contraction.
+- Major bug regarding contraction which has been causing nearly all other bugs mentioned during previous weeks:
+    - Our framework currently uses two major systems for identifying where ARLs occur in individuals
+        - Firstly, the population_info stores the root indices for each occurrence of an ARL within the population
+        - Example:
+```
+                 Learner
+            /               \
+     MorphDilateCross    learnerType
+       /   |  \
+    ARG0   3   5
+```
+-
+    -
+        - We also stored encoded ARL primitives to tell where additional args were
+        - Example
+```
+                                            Learner
+                                /                              \
+                      MorphDilateCross                      learnerType
+         /       /       |        |        \       \
+    arl_arg0 arl_arg1 arl_arg2 arl_arg3 arl_arg4 arl_arg5
+```
+-
+    -
+        - Originally, the code deleted all the nodes it found within the ARL occurrence, and this caused us to potentially have more args than we expected
+        - In the above example, we had already fixed arl_arg0 = ARG0, arl_arg2 = '3', and arl_arg3 = '5', but it still expects 5 arguments
+        - Attempted solution: Don't contract args
+        - This again caused problems because we weren't contracting the nodes which were fixed args, and therefore had more nodes than expected
+        - Final solution: Update arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since (to my understanding) we don't want to contract it.
+- Still have a bug
+```
+      File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 517, in _contract_arls
+       print(f"{new_individual}")
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 97, in __str__
+       string = prim.format(*args)
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 204, in format
+       return self.seq.format(*args)
+     IndexError: tuple index out of range
+
+    print(f"{[(node.name,node.arity) for node in new_individual]}")
+    [('arl6', 4), ('EqualizeAdaptHist', 4), ('ARG0', 0), ('0', 0), ('0', 0), ('1.0', 0), ('2', 0), ('passQuadState', 1), ('3', 0), ('4.262076198386659', 0)]
+```
+
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
+    - Fixed incorrect data type for ARL selection, removed unused and depreciated code
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix population_info bug|Complete|Oct 4|Oct 11|Oct 10|
+|Investigate Incorrect arities problem|Complete|Oct 4|Oct 11|Oct 8|
+
+### Week 6: Sep 27
+- Implemented workaround for add_all_subtrees large individuals bug
+    - Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
+    - This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
+- Fixed bug regarding incorrect arities in contract_arls
+    - Example output
+
+```
+arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
 Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
 occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
 Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
-Contracting ARL
-len individual before removal 6
 individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
 Nodes to remove:  [3, 2, 1]
-len individual after removal 3
 individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
-arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> arity 3 newarity 1
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new arity 1
 len individual after arl insert 4
 individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
-occurrence!  68 ((('Learner', 1, 2, -1), ('EqualizeHist', 1, 3, 0), ('-6', 0, 0, 1)), 0)
+```
+-    - Individuals with incorrect arities still appear in the population
+     - Problem with occurrences code, not properly including the entire ARL
+- PACE-ICE still causing issues
+    - What we thought switching to PACE-ICE could help us with over Google Collab:
+        - Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+        - Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+        - No inactivity clicking script
+        - Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+    - Switching back to Google Collab after giving PACE-ICE one more try
+    - Stocks data has been migrated into our repo and we're now ready to do those runs
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix contract ARLs method|Complete|Sep 27|Oct 3|Oct 2|
+|Investigate add_all_subtrees problem|Complete|Sep 27|Oct 3|Oct 1|
+|Do runs of extended ARLs|Complete|Sep 27|Oct 3|Oct 3|
 
 ### Week 5: Sep 20
-
-unpickling data results in
-AttributeError: Can't get attribute 'Individual' on <module 'deap.creator' from '/home/vincent/anaconda3/lib/python3.6/site-packages/deap/creator.py'>
-
-
-
-
-Looks like the contract_arls method is in a try except block and if it encounters an error it just ignores it?
-
-
 - Bug causing the crashes has been identified
     - First tried getting the pickled individuals
         - Got from MySQL Workbench by right clicking and saving as file, then opening python terminal and loading it
@@ -109,6 +224,9 @@ Looks like the contract_arls method is in a try except block and if it encounter
 - Mnist team working through getting everyone on PACE-ICE to do runs
     - There was some ambiguity in the instructions which caused some confusion
 
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/fd1794ba0ccabe5c3edbf8205653ba6cd9adb6c2)
+    - Revert changes to titanic input XML file causing crashes
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|

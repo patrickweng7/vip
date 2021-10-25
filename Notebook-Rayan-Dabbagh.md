@@ -18,15 +18,25 @@ During presentation day, each group walked through his project in front of the c
 I benefitted a lot from the presentation in Lecture 5 which thought us the art of presenting information to an audience. 
 I was able to apply what I learned in lecture 5 during my presentation, and I can definitely say that I improved as a speaker!
 
-I worked on the data preprocessing part in the project : The process of transforming raw data into an understandable format for any audience. 
+### Personal notes:
+
+I worked on the data preprocessing part in the project : The process of transforming raw data into an understandable format for any audience. First, I made sure I took whatever is needed in my model. I dropped the name and cabin columns and set my index key to the PassengerId column. Then I made sure to map my train and test data according while filling NaN with true. Then, I introduced the encoder and framed my test and train and store them in an array. After that, I processed my train data and test data in the Pclass and checked for the median. I then loaded my data with the lambda function which manages the dataset. I also used out map to determine the median and filled the Nan with train and test data accordingly under Modified Fare. Finally, I assigned x_train to !survived and y_train to survived and use these variables for the train-test split. Along with the preprocessing I did initially, I added one hot encoding for Embarked feature, replaced null values of Age and Fare with median values of those features based on the Pclass, extracted numerical part of Ticket and replaced Ticket values with numerical part, and converted Sex to numerical feature, test_size = 0.33, random_state = 10.
+
+### Team notes:
+
+The below summarizes our team results:
 
 My team's preprocessing experimentation can be found in the link : https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS
 
-**Data preprocessing:**
+**Data preprocessing gathered by team:**
 
 ![ML vs MOGP comparision](https://picc.io/0tb7Fw_.png)
 
-**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals. He also explained that NSGA II truncates any individual past the "k"th index in the list of selected individuals. Therefore, shuffling the individuals would have let individuals to enter the hall of fame throughout the evolutionary loop.
+Link to our presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit#slide=id.gf4beb00e17_2_0
+
+### Class notes:
+
+**Critique from professor/students:** We were informed to try a crossover on the hall of fame individuals. He also explained that NSGA II truncates any individual past the "k"th index in the list of selected individuals. Therefore, shuffling the individuals would have let individuals to enter the hall of fame throughout the evolutionary loop. A student explained how adding floats in our primitive set would improve the fitness of our individuals. We took all these comments into consideration, and will make sure to make the best out of it for our final project.
 
 **Action Items:**
 
@@ -34,13 +44,25 @@ My team's preprocessing experimentation can be found in the link : https://drive
 |---|---|---|---|---|
 |Notebook Update|Complete|09/29/2021|10/06/2021|09/04/2021|
 
-Link to my presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit#slide=id.gf4beb00e17_2_0
-
 ## Lecture 5:
 
 In class, we discussed last week's project (Titanic Dataset). We got notified of this week's task. We also assisted to a presentation which revolves around the art of giving presentations. At the end of the class, we had a discussion with our group members to schedule future meetings.
 
-**Prof's notes:**
+### Personal notes: 
+
+In my personal time, I was looking at our group findings (listed in the "team notes" section), and tried to draw conclusions from those.I noticed that the Multiple Objective Genetic Programming was more efficient than Machine Learning in terms of AUC. The main reason is because the MOGP one was able to efficiently identify individuals with high FPR and FNR rates, while the learners in the ML Pareto frontier yielded higher FNRs and lower FPRs.
+
+### Team notes:
+
+I created a Google Colab notebook with same preprocessing as Titanic ML assignment to use it with my team. We placed our focus on finding primitives to predict on each sample's features. Rayan and I researched strongly typed GP in DEAP and chose NSGA II as selection method 
+We tried mutUniform and cxOnePoint. We were able to develop the hall of fame using best individuals ever identified throughout evolution while at the same time develop a graph of fitness throughout the generations.At the end, Aditi and I changed 30 generations to 50 generations and removed duplicate individuals from Hall of Fame for improve evolution
+predicted Survived feature for test.csv.
+
+**Group results showing the Pareto Front in Machine Learning and Genetic Programming (Approved by professor):**
+
+![ML vs MOGP](https://picc.io/Efh2aD-.png)
+
+### Class notes:
 
 * Manipulating the hyper parameters is an important factor required to obtain co-dominant algorithms.
 * Be aware that the above may sometimes result in a reduction in the Pareto optimal fitness scores.
@@ -49,10 +71,6 @@ In class, we discussed last week's project (Titanic Dataset). We got notified of
 * Our goal now is to improve on the accuracy of our algorithms.
 * We have to use basic primitives to generate desired solutions.
 * During the weekend, my team and I have set meetings to catch up on our individual works.
-
-**Group results showing the Pareto Front in Machine Learning and Genetic Programming (Approved by professor):**
-
-![ML vs MOGP](https://picc.io/Efh2aD-.png)
 
 One recommendation from the professor was to overlap the two graphs to better show the difference between them.
 
@@ -67,28 +85,16 @@ One recommendation from the professor was to overlap the two graphs to better sh
 
 ## Lecture 4:
 
-**Prof's notes:**
+### Personal notes:
 
 We were divided into groups depending on our mastery of the Python programming language and our ability to write efficiently machine learning algorithms. I rated myself a 4/5 in Machine Learning and a 4.5/5 in Python.
 
 We got split into  project groups and then introduced to Kaggle Competitions. The project was called Titanic. For now, I am using Scikit for predictors and models. I am also consolidating my skills in Panda ( special library in Python ).
 
-Our Results are scored based on objectives: false positive and false negative. I used train.csv, test.csv, predictions.csv, and the python notebook to structure our project. Within the python notebook, I used Panda in order to train and test my dataset. I needed to clean data sets, using "isna" to find N/A values and replace them with averages/modes of their columns.
+My Results are scored based on objectives: false positive and false negative. I used train.csv, test.csv, predictions.csv, and the python notebook to structure our project. Within the python notebook, I used Panda in order to train and test my dataset. I needed to clean data sets, using "isna" to find N/A values and replace them with averages/modes of their columns.
 
-The professor talked about encoding any strings to ints and replacing them in their columns (more useful in ML). He also introduced a new definition, "feature": something that describes data. In this case, not the "survived" column. We were then tasked to allocate training data for training and testing.
+### Team notes:
 
-**Important:**
-*         x_train = top x rows of train.csv
-*         y_train = survived x rows of train.csv
-*         x_test = bottom (n - x) rows of train.csv
-*         y_test = survived (n - x) rows of train.csv
-*         Use Scikit score function to evaluate predictions
-Within our groups, our algorithms must be codominant. That being said, the train and test partitions must be the same. To ensure codominance, we have to check that the random state parameter is to be the same.
-
-At the end, we will have to submit our final predictions file with results codominant within our groups.
-
-**Project Notes:**
- 
 - nans, strings, balance data, fold data, make sure everyone is using same X_train, y_train, X_test, y_test
 - Post csv representing predictions of your model that was co-dominant with rest of group. 
 - Sci-kit learn - classification (ex. Support Vector machine)
@@ -124,6 +130,19 @@ At the end, we will have to submit our final predictions file with results codom
 Findings:
 Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values of the FNR and FPR, given the same preprocessed data as an input. Charlie's performed much better in the FPR objective and Aditi's performed much better in the FNR objective. From the above, we can deduce that neural networks, specifically MLP classifiers, favor FP prediction at the risk of accuracy while XGBoost favors even distribution of the FNR and FPR. We have to further tweak the hyperparameters to achieve a particular FNR, FPR, and accuracy.
 
+### Class notes:
+
+The professor talked about encoding any strings to ints and replacing them in their columns (more useful in ML). He also introduced a new definition, "feature": something that describes data. In this case, not the "survived" column. We were then tasked to allocate training data for training and testing.
+
+*         x_train = top x rows of train.csv
+*         y_train = survived x rows of train.csv
+*         x_test = bottom (n - x) rows of train.csv
+*         y_test = survived (n - x) rows of train.csv
+*         Use Scikit score function to evaluate predictions
+Within our groups, our algorithms must be codominant. That being said, the train and test partitions must be the same. To ensure codominance, we have to check that the random state parameter is to be the same.
+
+At the end, we will have to submit our final predictions file with results codominant within our groups. 
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
@@ -133,6 +152,21 @@ Comparing Charlie's and Aditi's learners, I noticed a discrepancy in the values 
 | Meet to Discuss Individual Learners' Performance | Completed | 9/15/2021 | 9/18/2021 | 9/18/2021 |
 
 ## Lecture 3:
+
+### Personal notes:
+
+The individuals in the original evolutionary loop led to a large AUC (~2.46).
+
+The minimum tree size of individuals grew and the mean squared error decreased almost immediately at the start of the evolution. Once I modified the hyperparameters, I noticed a change in these variables. Indeed, the average and minimum tree size of individuals stopped fluctuating, and the minimum mean squared error decreased, like before. I also noticed that the individuals in the Pareto Front were more diverse, and they had a much lower AUC (~0.33). 
+
+Conclusion drawn: Tweaking the hyperparameters of evolution such as the number of children to produce for each generation improved the performance of our individuals. In addition, I noticed that we can further improve our genetic programming algorithm such that we obtain an individual with the optimal fitness in a minimum number of generations. We can play with the  probabilities of mutation and mating for offspring and alter our methods of mating,..
+
+### Team notes:
+
+Teams are not formed yet (Teams are formed in week 4).
+
+### Class notes:
+
 
 * Recognize the power of multiple objective optimization in supplying a population of solutions not just a single objective.
 
@@ -241,6 +275,12 @@ The scores are the following:
 
 ## Lecture 2: Genetic Programming
 
+### Team notes:
+
+Teams are not formed yet (Teams are formed in week 4).
+
+### Class notes and Personal notes (Lab 2 walkthrough):
+
 **Tree Representation is very used:**
 
     * We can represent a program as a tree structure.
@@ -321,6 +361,12 @@ _We add three new primitives, then re-instantiate our primitive set. Then, we de
 |Lab 2 Notes|Complete|09/08/2021|09/01/2021|09/03/2021|  
                                                    
 ## **Lecture 1: Genetic Algorithms**
+
+### Team notes:
+
+Teams are not formed yet (Teams are formed in week 4).
+
+### Class notes and Personal notes (Lab 1 walkthrough):
 
 ### Each new generation is created through the manipulation/mutation of individuals. Their fitness is then evaluated.
 

@@ -103,6 +103,20 @@ Full note for the meeting: https://docs.google.com/document/d/1nrIWrMjVsJGYhjUZH
 *discussed the problem of the super individual from last semester causing a right angle poreto front
 **changes to the current seeding file might be necessary
 *We will use PACE-ICE for this semester and on.
+==== Individual Work ====
+*Google Collab setup
+**Updated emade cloud we using for runs on burner account drive.
+**Established initial run as master
+*PACE-ICE integrating
+**Refer to PACE-ICE guide to setup emade upon PACE-ICE
+**ssh into PACE-ICE account
+**clone Emade full repository again for upload
+**Encounter error when clone and fetch emade repository our team is using
+***Error occurred at Emade-vip folder.
+**my.cnf created using command $ cat << EOF > ~/.my.cnf
+***NOTE: modification using nono .my.cnf in future if needed
+**Encountered error /usr/libexec/mysqld: unknown variable 'user=tsun90'
+****Searching for a resolution
 ==== Action Items ====
 {| class="wikitable"
 !Task
@@ -130,10 +144,16 @@ Full note for the meeting: https://docs.google.com/document/d/1nrIWrMjVsJGYhjUZH
 |Sep 17, 2021
 |-
 |Initial runs on MINST
-|In progress
+|Continued
 |Sep 10, 2021
 |Sep 17, 2021
-|
+|Sep 17, 2021
+|-
+|PACE set-up
+|Continued
+|Sep 16, 2021
+|Sep 23, 2021
+|Sep 23, 2021
 |}
 
 === Sep 17. 2021 ===
@@ -148,6 +168,148 @@ Full note for the meeting: https://docs.google.com/document/d/1nrIWrMjVsJGYhjUZH
 ***old branches may cause problem
 ***too few individuals and generations
 ***continue for runs
+==== SubTeam meeting notes: ====
+*Working to migrate emade from local to PACE-ICE server
+**my.cnf configured correctly
+**Emade repository uploaded onto PACE-ICE after using git-lfs
+**still working on error when starting MySQL instance.
+*Vincent change to local in debug ARL
+==== Individual Work: ====
+* Continued in configure PACE-ICE with: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE
+**Reconfigured my.cnf to user=USERNAME to attempt to solve the issue
+***Failed
+**searching online for possible resolutions
+**refer to this document https://dev.mysql.com/doc/refman/5.6/en/mysql-install-db.html
+***Using command scripts/mysql_install_db --user=USERNAME --basedir=$HOME/scratch --datadir=$HOME/scratch/db now
+****successed!
+**Continued in setup annoconda environment for python to use Emade
+**reinstalled Emade successful
+**pds file configured.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|NootBook Maintenance
+|Finished
+|Sep 17, 2021
+|Srp 24, 2021
+|Sep 24, 2021
+|-
+|PACE set-up
+|Finished
+|Sep 23, 2021
+|Sep 30, 2021
+|Sep 28, 2021
+|}
+=== September 24, 2021 ===
+*No main team meeting today
+==== SubTeam Meeting Note ====
+*Continued on debugging pace-ice
+**may use google collb again to do runs if pace-ice continue falling us for midterm presentation purpose.
+*Bernadette and Xufei was successful connect to MySQL for a moment and failed afterward.
+*I encounter error when connecting to MySQL with command MySQL -u tsun90
+**change the variable user in my.cnf back to tsun90.
+***no improvement
+*Vincent is looking into an error in the adf.py and continue using local runs to debug
+*stocks team dataset and evaluation functions migrated to our repository now.
+*will do Titanic runs to see if everything works fine.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|NootBook Maintenance
+|Finished
+|Sep 24, 2021
+|Oct 1, 2021
+|Oct 1, 2021
+|-
+|PACE debug
+|Finished
+|Sep 30, 2021
+|Oct 1, 2021
+|Oct 1, 2021
+|}
+=== October 1, 2021 ===
+==== Main meeting note ====
+* Peer evaluations due next Friday and open on Monday
+*Modularity
+**Vicent increased depth but encountered bugs.
+**unable to logging into the sql node as host.
+***check: MySQL might not let us connect based on what node we're connecting from, need to change account settings
+***we need account USERNAME'@'%' to enable remote connections
+***NOTE: flush privileges
+**Establish interactive job https://docs.pace.gatech.edu/interactiveJobs/interactive_cmd/
+*Stocks
+**EMADE full individuals are at length of 4.
+==== SubTeam Meeting note ====
+*Short meeting due to midterm schedules of team member
+*Debug section for PACE-ICE
+**Many people successes in connect to the pace-ice node now with the new fix we implemented.
+==== INdividual Work ====
+*PACE-ICE debug
+**workaround previous error:
+*** After the db is started, request a new job using qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00 (doesn't matter if the node is the same)
+Type exit to get back to the login node, then ssh atl1-1-02-012-5-l # whatever name
+Once you're in the node, type mysql -u root
+****Encountered new error regarding sock file
+**Searching for possible resolutions
+***https://serverfault.com/questions/497194/mysql-bind-on-unix-socket-permission-denied
+****Cannot use this, not able to restart MySQL services
+**Changing Sock address with winSCP
+***Not working, my.cnf appears to be unchanged
+****try different strategy on this
+****try to reconfigure MySQL datasheet with mysqld_install_db
+*****NOT WORKING
+***delete the file and re-upload my.cnf
+****NOT WORKING
+***reinstall mysqld after re-upload
+****NOT WORKING
+***use nono command to view file
+****it appears the file I modified with my command is not my.cnf file I using, the file using is not appeared in the folder in scp our with dir command.
+*****May explore this further later
+***sock issue resolved, pace-ice connection established.
+==== Action Table ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|NootBook Maintenance
+|Finished
+|Oct 1, 2021
+|Oct 8, 2021
+|Oct 7, 2021
+|-
+|PACE debug
+|Finished
+|Oct 1, 2021
+|Oct 8, 2021
+|Oct 7, 2021
+|-
+|peer Evaluation
+|In Progress
+|Oct 1, 2021
+|Oct 8, 2021
+|
+|}
+=== October 8, 2021 ===
+==== Main meeting note ====
+*New team member may join
+*hacktown next sarturday
+*Conda issue
+**no permission for installing conda
+**not allowed to setup conda environment
+**conda must installed inside home 
 == Jan 20, 2021 ==
 === Team meeting notes: ===
 * Course introduction, syllabus, introduction to notebooks.

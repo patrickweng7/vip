@@ -23,6 +23,166 @@ Subteam Teammates:
 ** -2 Level of Detail
 ** -2 Usefulness to team
 
+
+==Oct 21-22, 2201==
+'''Subteam Meeting Notes'''
+* We tested some of our best trees from last semester to see how those results compared to the TS-Fuzzy paper
+** We compared pretty well based on our profit percentages from the individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None))
+** Performance using code from last semester's paper: 
+[[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
+** Performance using code from this semester's paper: 
+[[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
+*** The decreased performance could be because this individual was optimized for the objectives from last semester, and some of those changed for this semester's paper (so this would be a seed individual rather than necessarily an end product)
+** Performance from TS-Fuzzy model reported by paper: 
+[[files/rbhat3/paper_perf.png|thumb|50x50px]]
+*** Based on last year's performance, we're about better overall
+*** Based on this semester's performance, we're slightly worse overall (but, again, we would still need to run EMADE using this individual as a seed instead of using it as our standard)
+* We finished our experimentation design: 
+** Objectives: profit, CDF, variance, error
+*** In order to make profit a minimization, we'll test for loss (the negative of profit)
+*** We'll test all possible combinations of two, three, or all of these
+** Compute time: 768 hours (will take 8 hours on PACE)
+*** Should result in about 430 generations
+** Wall time: 8 hours
+** Hosts: 3
+** Workers per host: 4
+** CPUs per host: 8
+* We'll create and rehearse our presentation over the weekend
+
+'''Team Meeting Notes'''
+* Can train on last semester’s train data and test on this semester’s test data to see how well our algorithms from last semester generalize to new stocks 
+** This would be a different type of analysis to using train and test data from this semester’s paper to do our main analysis
+* PACE
+** Processors per worker and workers per host should be the same
+** Compute time equals number of jobs times number of cores per worker
+* Objectives: to make profit a minimization we’ll take the negative of profit
+** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound
+
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read paper and begin replicating it
+|In progress 
+|Sept 17, 2021
+|
+|
+|-
+|Finalize experiment design
+|Complete 
+|Oct 15, 2021
+|Oct 22, 2021
+|Oct 21, 2022
+|-
+|Prepare for presentation
+|In progress 
+|Oct 21, 2021
+|Oct 25, 2021
+|Oct 25, 2022
+|}
+
+
+
+==Oct 14-15, 2021==
+'''Subteam Meeting Notes'''
+* Began process of replicating the PLR-SVR model from the paper
+* Abhiram got functional code but couldn't match the paper's results, so we tried to fix this error
+* I spent my time debugging the PLR code
+** I found that we were using the wrong value for the threshold, but this fix alone didn't lead to us being able to duplicate the results from the paper
+* We'll ask Dr. Zutty about this tomorrow and continue to try and match these results
+
+'''Team Meeting Notes'''
+* Dr. Zutty will look at our code and see why we can’t reproduce the paper’s results
+* Contingency plan: just write the paper analyzing our process and the use of autoML in time series analysis and just compare our results to the paper’s
+** Just use same datasets and say we couldn’t replicate the results, but we were able to beat them
+** In this case, we could also compare to other paper’s results without having to replicate their results 
+* In the paper, focus on how we’re searching the space, objective functions used, etc.
+* Next steps:
+** Continue to debug PLR-SVR code
+** Design of experiments: full matrix of parameters (what info to collect, what we will be testing per run, what resources we’ll need, how long each run will be for, etc.)
+** Maybe start writing the paper?
+
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read paper and begin replicating it
+|In progress 
+|Sept 17, 2021
+|
+|
+|-
+|Finalize experiment design
+|In progress 
+|Oct 15, 2021
+|Oct 22, 2021
+|Oct 21, 2022
+|}
+
+
+==Oct 6-7, 2021==
+'''Individual Notes'''
+* Taking a more in-depth dive into the paper
+* Implementation notes:
+** Don’t think we have the TS-Fuzzy algo implemented
+* Concept Notes:
+** TS Fuzzy model used to predict trading points, SVR predicts buy/sell
+*** TS Fuzzy calculates the daily dynamic thresholds
+** Input space: buy/sell points used as TIs
+** Output space: trade signals  
+** TS Fuzzy model controls dynamic threshold used to identify turning points
+** Section 3.1.3 lists principles for making trading decisions 
+** Equations 8 and 9 (page 7): formula for trading signal 
+*** Important quote on trading signals: “The range of trading signal is 0.0–1.0. The turning points are the points at which the trading signal intersects the threshold. The threshold is equal to 0.5. If the downslope of the trading signal is lower than the intersection point, the intersection point is a sell point. On the contrary, if the down slope of the trading signal is over the intersection point, the intersection point is a buy point.”
+** Table 1: 28 combinations of TIs, hyper parameters (8 distinct TIs)
+*** I believe all are already implemented
+*** SRA used to select with TIs to use for each stock (process detailed in section 4.2, page 7)
+*** TIs normalized using min-max scaling (should be implemented already)
+
+'''Subteam Meeting Notes'''
+* SVR is implemented
+* We need to figure out how to structure our experiments (i.e. figure out the best evolutionary parameters) 
+** Objective functions:
+*** CDF and total profit or profit per transaction are our two best 
+*** Others that are possible: variance, MSE, MAE, 
+*** Probably not, but maybe consider: num elements
+** Compute time
+* Learn fuzzy logic to better understand the paper ([http://cs.bilkent.edu.tr/~zeynep/files/short_fuzzy_logic_tutorial.pdf resource])
+* Buy/sell decisions determined by Fuzzy logic 
+** i.e. the fuzzy logic determines the dynamic threshold for whether the trading signal outputting by SVR is a buy/sell
+* SRA used to determine features (i.e. select TIs)
+** This isn’t important (can be handled by emade)
+* Instead of replicating the fuzzy logic, it will probably be easier to replicate the the PLR-SVR and/or PLR-BPN approaches and then use that as a our basis for comparison 
+** We need to fix profit percentage calculation to account for tax and commission rates
+* Next steps: try to replicate the PLR-SVR
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read paper and begin replicating it
+|In progress 
+|Sept 17, 2021
+|
+|
+|}
+
+
+
 ==Oct 1, 2021==
 '''Team Meeting Notes'''
 * Peer evals releasing on Monday

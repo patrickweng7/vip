@@ -8,13 +8,256 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== October 25, 2021 (Week 10) == 
+
+=== Lecture Notes: ===
+*  Presented Emade findings at Monday (main group) session, compared with ML and MOGP.
+*  Presentation link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+*  Watched other bootcamp teams as well as senior subteams present their project findings.
+
+=== Individual Notes: ===
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|-
+|Predicting Titanic Survivors with ML, MOGP, and Emade
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|-
+|Choose Subteam
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|}
+
+
+== October 20, 2021 (Week 9) == 
+
+=== Lecture Notes: ===
+*  Workday, class tried to get Emade master process to run. 
+*  Group members tried to connect as workers - senior students told us that they don't actually need to join through MySQL, but can rather just put my IP, user, and password into the .xml file and run emade with a "-w" flag at the end of the main conda command. One group member tried joining the process as a worker.
+
+=== Individual Notes: ===
+*  Learned that I was actually running emade correctly, just not for long enough. Apparently returning infinity for fitness is typical in early generations, since emade is essentially trying different combinations of primitives, and evolution of a good genetic algorithm will take a few generations. Attempting to run for 30 generations.
+*  Faced an error while running the end of the 0th generation:
+"File "C:\Users\akuma\OneDrive\Desktop\emade\emade\src\GPFramework\selection_methods.py", line 104, in sel_nsga2
+    selected_pop = tools.selTournamentDCD(individuals, k)
+  File "C:\Users\akuma\anaconda3\envs\emade\lib\site-packages\deap\tools\emo.py", line 163, in selTournamentDCD
+    raise ValueError("selTournamentDCD: individuals length must be a multiple of 4")
+ValueError: selTournamentDCD: individuals length must be a multiple of 4"
+*  This arises because the sel_nsga2 is passed in an 'individuals' array, whose length needs to be divisible by four to avoid errors. Easily fixable by finding the remainder elements and slicing the list length. Did fix the problem.
+*  Tried running emade again - NOTE: With few workers, running generations takes an extremely long time, so definitely keep 'reuse' set to 1 in the .xml to avoid wasting your running time. Laptop almost ran out of battery while running first four generations; I'll try to run the rest overnight.
+*  Have been running emade continuously for 3 days, only 10 generations completed. Note that more workers help, but also that each consecutive generation takes longer to run (more individuals added). Would certainly help to have access to PACE workspace to run Emade evaluations.
+*  However, within the 10 generations completed, some individuals have been evaluated with increasing success, and the fitnesses are returning floats, as opposed to (inf, inf, inf). Since the presentation of findings is tomorrow, my group and I will try to produce a preliminary pareto frontier with this data, to compare to our ML and MOGP simulations.
+*  Groupmates needed my master MySQL connection "Users and Privileges" -> "Login" -> "Limit to Hosts Matching" to be set to '%' (wildcard) so that they could join. They also needed to be on the university wifi network to join (Gatech VPN should also work).
+*  While graphing the pareto frontier, it's important for all the pareto individuals to be sorted in order for the plt.plot(, , drawstyle='steps_post') frontier plotter to plot the correct connections.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 20, 2021
+|-
+|Run EMade
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 21, 2021
+|-
+|Prepare Pareto Frontier and Presentation
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+
+== October 13, 2021 (Week 8) == 
+
+=== Lecture Notes: ===
+*  Workday, class tried to get Emade master process to run. 
+*  MySQL configuration to join as worker to group members' servers uses the following command: "mysql -h hostname -u username -d database_name -p" and prompts for password.
+
+=== Individual Notes: ===
+*  MySQL Server stopped, required uninstalling MySQL suite and reinstalling. This did fix the problem.
+*  Discussed reason for "File "C:\Users\akuma\anaconda3\lib\site-packages\multiprocess-0.70.12.2-py3.8.egg\multiprocess\process.py", line 82, in __init__ assert group is None, 'group argument must be None for now'
+AssertionError: group argument must be None for now" error. Hypothesized that Python 3.8.8 is incompatible with multiprocess package.
+*  Attempted to devolve python to 3.7 within conda. Successfully solved the previous error.
+*  Met with group again, ran emade; faced with the following error: 
+"Received: myDeapDataSub(ARG0, 3)
+	With Hash 98bec47afa4c45adc5b0ccf9c42d04f7f0e8f926dea03b1e5c3f1a4b60ba4fe7
+	Computed in: 0.0010066032409667969 seconds
+	With Fitnesses: (inf, inf, inf)
+	With Age: 0
+	With Error:  Tree missing valid primitive for data type
+ At least one objective returned inf. 	
+FullDataSet (inf, inf, inf)
+Received: sp_sqrt(ARG0)
+	With Hash 323a96841ee2ae6a74f9ed3c280328d83d45a969e741446f6408f1b003da5828
+	Computed in: 0.00099945068359375 seconds
+	With Fitnesses: (inf, inf, inf)
+	With Age: 0
+	With Error:  Tree missing valid primitive for data type
+ At least one objective returned inf."
+*  Created own evaluation functions for False Negative Rate and False Positive Rate in evalFunctions.py
+*  Cross-checked preprocessed data, saw that columns were being shuffled while being converted from pandas data to numpy arrays.
+*  Downloaded GVIM to view .gz files in conjunction with the input spreadsheet; decided that data processing wasn't the issue. 
+*  Discussed with group, came to the consensus that the error has to do with invalid numbers/types of primitives being used in our tree. Couldn't find a solution, since the primitives weren't chosen in input_titanic.xml. Resolved to seek help from Slack.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 13, 2021
+|October 20, 2021
+|October 18, 2021
+|-
+|Run EMade
+|
+|October 13, 2021
+|October 25, 2021
+|October 21, 2021
+|}
+
 == October 6, 2021 (Week 7) == 
 
 === Lecture Notes: ===
-*  
+*  Upload pictures (Friday deadline)
+*  Intro to emade
+    *  Evolutionary MultiObjective Algorithm Design Engine
+    *  Still deap, but primitives are ML functions
+    *  Still cleans data, preprocesses
+        *  ML evaluations are expensive (time,space)
+    *  Combines MO evolutionary search with high-level primitives to automate the process of designing ML algorithms
+    *  Tasks
+        *  Install emade, instructions are in Readme.txt in master
+        *  Uses a MySQL 5.x server (or MariaDB)
+        *  Download and install git-lfs
+        *  Clone emade repo
+        *  Maybe run virtual framework?
+        *  Run “python setup.py install”
+    *  Emade requirements
+        *  Navigate to the top level directory
+        *  Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
+    *  Input file
+        *  .xml file that configures EMade
+        *  First block configures python
+            *  <localPythonCommand> python3 </localPythonCommand>
+        *  Next block configures MySQL
+            *  <server> 127.0.0.1 </server> for localhost
+            *  Configure username and password
+            *  Going to need to make our own database, tables automatically added in
+            *  Reuse = 1 for master if emade has already been run
+        *  Next are datasets
+            *  Five folds of the same datasets (shuffling which 20% is used as the test set) and then averaging results
+        *  Datasets/titanic has a sample file titanic_data_splitter.py
+            *  Produces .csv.gz files with test and train data partitioned from input
+            *  Can replace preprocessing code with ours
+            *  Can change k number of splits
+        *  .gz files need GVIM to open, numpy.loadText also works
+        *  Emade reserves the last column for fitting models (while using train data) and scoring (for test data). Last column is truth data.
+        *  Objectives
+            *  Minimize is better (weight -1.0)
+            *  Names will be used as columns in the database
+            *  <evaluationFunction> specifies name of method in python src/GPFramework/evalFunctions.py
+        *  Parameters
+            *  Evaluation specifies where eval functions in Objectives live and how much memory each worker is allowed to use before marking an individual as “fatal”
+            *  <workersPerHost> specifies how many evaluations to run in parallel
+            *  2 or 3 is a lot for laptops
+    *  Evolution parameters
+            *  Hyperparameters, “magic constants” that affect evolutionary process
+            *  Initial pop size, launchSize, inQueueSize, etc.
+            *  Mating probabilities
+    *  Headless chicken crossover
+        *  Creates a new individual to mate with an existing individual. Adds randomness
+        *  If it’s useful, GP is probably not the best idea for a solution to that problem
+    *  Connecting a work process to a peer
+        *  "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
+    *  Understanding EMade output
+        *  Mysql -h hostname -u username -p
+        *  Prompts for password
+        *  Need this to work for EMade
+        *  Selected database command: “use database_name”
+        *  Queries:
+            *  Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+        *  After some time individuals will complete
+    *  Emade Structure
+        *  Src/GPFramework is the main body of the code
+        *  gtMOEP.py has the main EMadde engine, genetic loop, including evaluation function
+        *  gr_framwork_helper.py is where primitive set is built for Emade, points to where primitives live:
+            *  methods.py
+            *  signal_methods.py
+            *  spatial_methods.py
+        *  data.py provisions DataPair object passed between primitives
+        *  input files are in templates/
+    *  Assignment
+        *  Run Emade together. 1 person has SQL server set up and 1 acts as master process, rest connect as workers.
+        *  Run for many generations (like last project; maybe 30, 40)
+        *  Learn some SQL, try to mine some information from database
+        *  Plot non-dominated frontier at the end of the run, compare with ML and MOGP assignments
+            *  Going to want to put in own preprocessed data
+            *  Try to get all on the same graph
+        *  Make any other plots + figures to show analysis of Emade, try to find some successful trees
+            *  Average evaluation time of a generation, etc.
+        *  Presentation on Monday, 25th October
+
 
 === Individual Notes: ===
-*  
+*  Git is already downloaded on my system; git-lfs is also present.
+*  Cloned emade repo (took a notable amount of time and memory).
+*  Followed instructions at https://github.gatech.edu/emade/emade in the README.md to install emade and its dependencies
+    *  Already had Anaconda installed on my system, but added the path to its directory to the PATH environment variable
+    *  Opened Anaconda Prompt; navigated to cloned emade repo
+    *  Ran "conda install opencv" and resolved other dependencies by running "conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn and subsequently pip install xgboost lmfit multiprocess hmmlearn deap opencv-python"
+    *  Had to reinstall an older version of numpy due to conflicts (1.19.2)
+    *  Ran "reinstall" to rebuild all files
+    *  Installed MySQL server and MySQL Workbench (GUI version)
+*  Arranged group call, shared my screen, created database and acted as master for group's run of Emade.
+*  Attempted to run emade
+    *  Edited the input_titanic.xml to configure the database. Set server (localhost), username, password according to my computer's MySQL configuration.
+    *  Edited titanic_data_splitter.py in datasets/titanic to preprocess data the same way as in ML and MOGP
+    *  Ran emade, repeatedly got dependency errors, repeatedly installed missing dependencies
+    *  Created database named "titanic" using https://www.mysqltutorial.org/mysql-create-database/ tutorial (helpful link). Database can be viewed under "schemas" in MySQL Workbench.
+    *  Ran "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml" at the top-level directory
+    *  Database file automatically created in top-level directory, named "EMADE_10-12-2021_17-48-20.db"
+    *  Mypickle file created, named "myPickleFile#####.dat"
+    *  Checked master#####.out and master#####.err, worker#####.out and worker#####.err for event logs. Ignored 'cudart64_110.dll' dlerror, since I don't have a GPU on my system.
+*  MySQL Workbench shows that none of the individuals were evaluated, shows null for all objectives.
+*  master#####.out shows repeating output, leading me to believe that there is an issue with evolution or function calls.
+    *  "Starting Year 0
+    *  Querying database for elements remaining in queue
+    *  508 elements remaining in queue, query complete in 0.00 seconds
+    *  Good night"
+*  Plan to debug this in session with my group.
 
 === Action Items: ===
 {| class="wikitable"
@@ -31,9 +274,9 @@ Interests: Writing fiction, Music, Reading, Sports
 |October 10, 2021
 |-
 |Run EMade
-|
+|Debugging
 |October 6, 2021
-|October 13, 2021
+|October 25, 2021
 |October 10, 2021
 |}
 

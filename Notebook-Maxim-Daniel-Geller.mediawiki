@@ -9,6 +9,596 @@
 '''Fun Fact:''' I visited 9 different countries last summer when I studied abroad in France at GT's Lorraine campus!
 
 = Fall 2021 =
+
+== Week 10: October 25th - October 31st ==
+
+Presentation Week!
+
+NLP Team
+
+* Building question and answering systems with EMADE
+* Their base model is called BiDAF: Bidirectional Attention Flow
+* Goal: distill the state of the art model with EMADE
+* Literature Review team looked to find ways to reduce the complexity since all the top performing models were really complex
+* No results yet because the primitives are not complete
+* Creating seed primitives from literature review
+
+Bootcamp 1
+
+* dropped name, ticket, and cabin columns
+* one hot encoding for sex and embarked columns
+* what kind of NN did they use for ML run?
+* how did they decide on their crossover (one point leaf biased) and mutation (node replacement) methods?
+* GP: best individual? Notice there are only embarked and sex used, would including more features result in better performance?
+
+NAS
+
+* Initial infrastructure needs improvements: nested NN learners, EMADE does not explore search space
+* Allow EMADE to create more complex architectures
+* Objectives: accuracy and number of parameters
+* Created a timed stopping callback — lots of variation!
+* Created a new table in MySQL database to track individual statistics of NNLearners
+
+Bootcamp 2
+
+* Challenges and lessons learned from EMADE installation
+* Saw more individuals with fitness over every generation as well as number of individuals on the pareto front
+* Found that EMADE trees had more complex primitives but shorter tree depth compared to GP trees.
+
+Bootcamp 3
+* Used strongly typed genetic programming!
+* Also dropped name, ticket, and cabin columns
+* They ran into the individuals not divisible by 4 error but they solved it which is good
+
+
+
+== Week 9: October 18th - October 24th ==
+
+This week we as a team are wrapping up any code that needs to be done and doing code review so that nothing that breaks EMADE gets merged into our main working branch. I did a lot of code review by testing the changes Dhruv and Harris made with selection as well as both Aryaan’s and Temi’s work with mating and mutation functions. Unfortunately, none of the three PR’s are ready yet because they are either not properly registered in EMADE. I spent a lot of time debugging and troubleshooting why they weren’t running locally nor on PACE. The only lead I have is with Aryaan’s mating functions: it tries to multiply a float with a primitive which is not a valid operation.
+
+Otherwise, I am getting ready for the presentation by mining some individuals to bring up for discussion from the baseline as well as synthesizing everyone’s work. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and merge pace-updates branch
+|Completed
+|October 13th, 2021
+|October 15th, 2021
+|October 18th, 2021
+|-
+|Prepare presentation slides 
+|Completed
+|October 17th, 2021
+|October 24th, 2021
+|October 24th, 2021
+|-
+|Begin a comparison run using new IP techniques
+|Completed
+|October 13th, 2021
+|October 18th, 2021
+|October 23rd, 2021
+|-
+|}
+
+== Week 8: October 11th - October 17th ==
+
+I've decided to try running EMADE locally to avoid the 8 hour walltime on PACE, and also just to confirm the changes I made that will help it run on PACE work as intended. My team now has the ability to run on PACE using a single shared environment and can pull down the latest changes to use NN methods. 
+
+One concern/issue I have right now is with how the AUC evaluation function is working. As evidenced further down in the error code, a given model fits with about 0.18 AUC, but the evaluation function puts it at ~0.0938 for all of the seeded individuals, which I am very skeptical of. I am worried it could be labeling them all the same (with a 0) and for some reason this is being counted as correct. Not sure how I would investigate this further though.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and merge pace-updates branch
+|In Progress
+|October 13th, 2021
+|October 15th, 2021
+|October 14th, 2021
+|-
+|Commit changes to EMADE functionality to team branch 
+|Completed
+|October 7th, 2021
+|October 11th, 2021
+|October 13th, 2021
+|-
+|Continue evolving baseline individuals 
+|In Progress
+|October 4th, 2021
+|October 17th, 2021
+|
+|-
+|Begin a comparison run using new IP techniques
+|Awaiting branch merges
+|October 13th, 2021
+|October 18th, 2021
+|
+|-
+|}
+
+Some bugs I found in evolution. Most have to do with the data types, so it should not be a terrribly difficult fix.
+```
+Received: NNLearner(GradientWeighted(Cv2Transpose(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_1), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.AXIS_1), lessThan(1.0, 3.2975888724293227), myIntToFloat(128), myFloatIntAdd(3.0083306759663166, 0)), OutputLayer(InputLayer()), 9, AdamOptimizer)
+	With Hash 52e1d26f5ab451ef001d73945a80b573d7d353753d105317dfc8514b342041f8
+	Computed in: 30.905400037765503 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 2544, in cv2_transpose_helper
+    return cv2.transpose(data)
+TypeError: Expected Ptr<cv::UMat> for argument 'src'
+ Stack Trace: Cv2Transpose 
+---
+Received: NNLearner(RMS2D(EmadeDataMultiplyFloat(ThresholdToZeroFloat(Fraction(Log(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL), TriState.FEATURES_TO_FEATURES, passAxis(Axis.FULL), greaterThan(1.0, 1.0)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(Axis.AXIS_0)), myFloatMult(myFloatAdd(-1.290955640033229, 10.0), 0.1)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(passAxis(Axis.AXIS_0))), myFloatDiv(10.0, myFloatSub(myFloatDiv(0.01, 0.01), passFloat(1.0)))), TriState.STREAM_TO_FEATURES, Axis.AXIS_0, 3), OutputLayer(InputLayer()), 32, AdamOptimizer)
+	With Hash f19c6dd228c0e7a73a6ff8d899734eb2dd47e1331b63c2fe7ec5bc491da473ef
+	Computed in: 31.2136070728302 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Unsupported TriState TriState.STREAM_TO_FEATURES provided to LogTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 540, in primitive_wrapper
+    raise ValueError('Unsupported TriState {} provided to {}'.format(mode, p_name))
+ValueError: Unsupported TriState TriState.STREAM_TO_FEATURES provided to Log
+ Stack Trace: Log 
+---
+Received: NNLearner(ARG0, InputLayer(), 91, AdamOptimizer)
+	With Hash c8171196f8e8fea2f3f9154ad2e7e0e410778453892953e6c8a4c1b39b1dc7e3
+	Computed in: 32.464717626571655 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********local variable 'curr_layer' referenced before assignmentTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 944, in NNLearner
+    curr_layer, input_layers = add_layerlist(layerlist.mylist, input_layers)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 942, in add_layerlist
+    return curr_layer, input_layers
+UnboundLocalError: local variable 'curr_layer' referenced before assignment
+ Stack Trace: layerlist before pop   ['input'] 
+---
+Received: NNLearner(MorphOpenCross(ECDF(mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), passInt(3)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), equal(ifThenElseFloat(falseBool, 10.0, 10.0), myFloatMult(4.367807167497753, 100.0)), greaterThanEqual(myFloatIntSub(0.1, -4), myIntToFloat(50))), InputLayer(), 83, AdamOptimizer)
+	With Hash 3616875e8b8637f3866689ac17bedd5d62883832eefa649a7888be1d13920bd5
+	Computed in: 40.843586444854736 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********y should be a 1d array, got an array of shape (2500, 15) instead.Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 828, in fit_transform_wrapper
+    method)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\feature_selection_methods.py", line 23, in feature_selection_helper
+    new_train_data = function.fit_transform(train_data, target)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\base.py", line 693, in fit_transform
+    return self.fit(X, y, **fit_params).transform(X)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\feature_selection\_univariate_selection.py", line 353, in fit
+    score_func_ret = self.score_func(X, y)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\feature_selection\_univariate_selection.py", line 282, in f_regression
+    dtype=np.float64)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 807, in check_X_y
+    y = column_or_1d(y, warn=True)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 847, in column_or_1d
+    "got an array of shape {} instead.".format(shape))
+ValueError: y should be a 1d array, got an array of shape (2500, 15) instead.
+ Stack Trace: mySelPercentile 
+Received: NNLearner(RMS2D(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_0, 9), PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer()), 32, AdamOptimizer)
+	With Hash 6008169707b1ce20a7cbd3e7b4566c945d25395c1db21178e13eb10f5f55f7b6
+	Computed in: 56.24171185493469 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********__call__() takes from 2 to 3 positional arguments but 4 were givenTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+TypeError: __call__() takes from 2 to 3 positional arguments but 4 were given
+ Stack Trace: RMS2D 
+---
+Received: NNLearner(ARG0, OutputLayer(LSTMLayer(7, tanhActivation, 50, falseBool, falseBool, InputLayer())), myIntDiv(myOr(passBool(trueBool), notEqual(100.0, 100.0)), 55), AdamOptimizer)
+	With Hash e6dcaa08a54097bb1c655caa840161c4df74517a0c8a54e412ceaeb1ed3bbe61
+	Computed in: 38.218483448028564 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Input 0 of layer lstm is incompatible with the layer: expected ndim=3, found ndim=4. Full shape received: [None, 224, 224, 1]Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 944, in NNLearner
+    curr_layer, input_layers = add_layerlist(layerlist.mylist, input_layers)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 941, in add_layerlist
+    curr_layer = layer(curr_layer)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\layers\recurrent.py", line 644, in __call__
+    return super(RNN, self).__call__(inputs, **kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\engine\base_layer.py", line 737, in __call__
+    self.name)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\engine\input_spec.py", line 177, in assert_input_compatibility
+    str(x.shape.as_list()))
+ValueError: Input 0 of layer lstm is incompatible with the layer: expected ndim=3, found ndim=4. Full shape received: [None, 224, 224, 1]
+ Stack Trace: layerlist before pop   ['input', <tensorflow.python.keras.layers.recurrent_v2.LSTM object at 0x0000026DB946B438>, 'output'] 
+---
+Received: NNLearner(HighpassSobelDerivative(MorphDilateCross(StdDeviation(BitwiseNOT(ARG0, TriState.FEATURES_TO_FEATURES, Axis.FULL), passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.AXIS_0), myIntAdd(4, 150)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.FULL)), passBool(myNot(trueBool)), ifThenElseBool(myAnd(falseBool, falseBool), greaterThan(0.01, 100.0), ifThenElseBool(myOr(trueBool, falseBool), equal(1.0, 10.0), trueBool)), greaterThan(myFloatMult(10.0, 0.1), passFloat(-0.0665111375350147))), passTriState(passTriState(passTriState(TriState.STREAM_TO_STREAM))), passAxis(passAxis(passAxis(Axis.AXIS_0))), ifThenElseBool(notEqual(myFloatIntAdd(0.01, 8), myFloatIntDiv(0.01, 9432)), lessThan(myFloatAdd(10.0, 0.01), passFloat(0.1)), myNot(passBool(falseBool))), myNot(passBool(greaterThan(-4.879138550789609, 10.0))), myIntSub(-8, trueBool), myFloatToInt(myFloatMult(myFloatMult(10.0, 1.0), myIntToFloat(0))), equal(myFloatIntSub(myFloatIntAdd(100.0, 255), myOr(trueBool, falseBool)), myFloatIntDiv(myFloatIntMult(0.01, 150), myIntDiv(80, 32)))), OutputLayer(InputLayer()), 98, AdamOptimizer)
+	With Hash 5a7c6d951959e0cda7edc31a3d1efed027c8f824917725cf94c8327fff44bea2
+	Computed in: 42.30118727684021 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********iteration over a 0-d arrayTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 683, in primitive_wrapper
+    instance.get_features().set_data(data)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\data.py", line 1268, in set_data
+    for i in data:
+TypeError: iteration over a 0-d array
+ Stack Trace: BitwiseNOT 
+---
+Received: NNLearner(ARG0, OutputLayer(PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer())), 75, AdamOptimizer)
+	With Hash 8843709f482d97c52f48e6a53d42c43818e6350f22d535442bb35df92c9e8132
+	Computed in: 48.821751832962036 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********__call__() takes from 2 to 3 positional arguments but 4 were givenTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 425, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+TypeError: __call__() takes from 2 to 3 positional arguments but 4 were given
+ Stack Trace:
+---
+Received: NNLearner(GaussianPeakEM(MeanWithHole(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 128, 150), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL)), OutputLayer(InputLayer()), 90, AdamaxOptimizer)
+	With Hash 09903053ada955696ea343cf01d9604b294870d3a50bf4920aa1c66d7f535807
+	Computed in: 39.77496528625488 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********could not broadcast input array from shape (151,151) into shape (11,11)Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 4122, in mean_with_hole_helper
+    kernel[x-h : x+h+1, x-h : x+h+1 ] = zeros[0:hole_size, 0:hole_size]
+ValueError: could not broadcast input array from shape (151,151) into shape (11,11)
+ Stack Trace: MeanWithHole 
+---
+Received: NNLearner(Cv2NotEqual(ARG0, ARG0, TriState.STREAM_TO_FEATURES, TriState.FEATURES_TO_FEATURES, Axis.AXIS_0, Axis.FULL), OutputLayer(InputLayer()), 98, FtrlOptimizer)
+	With Hash 868f27e4c185945270584593eb3d0b7d3b9daa2caa8df1a86877e0332d9995a4
+	Computed in: 44.10815119743347 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********'list' object has no attribute 'dtype'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 687, in primitive_wrapper
+    if data.dtype == object:
+AttributeError: 'list' object has no attribute 'dtype'
+ Stack Trace: Cv2NotEqual 
+---
+Received: DBSCANClustering(NNLearner(ARG0, OutputLayer(InputLayer()), 97, FtrlOptimizer), 10.0, 100.0)
+	With Hash 0b37e4746327c2b9311ad36036cec688ef3e85c5bbd646d1a2fe16a8493cd6c5
+	Computed in: 49.18932580947876 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Found array with dim 3. Estimator expected <= 2.Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 960, in clustering_wrapper
+    resultVector = clusterer.fit_predict(clusterMatrix)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\cluster\_dbscan.py", line 391, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\cluster\_dbscan.py", line 312, in fit
+    X = self._validate_data(X, accept_sparse='csr')
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\base.py", line 420, in _validate_data
+    X = check_array(X, **check_params)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 641, in check_array
+    % (array.ndim, estimator_name))
+ValueError: Found array with dim 3. Estimator expected <= 2.
+ Stack Trace: layerlist before pop   ['input', 'output'] 
+ 
+ 
+ Model: "model" 
+ _________________________________________________________________ 
+ Layer (type)                 Output Shape              Param #    
+ ================================================================= 
+ input_1 (InputLayer)         [(None, 224, 224, 1)]     0          
+ _________________________________________________________________ 
+ flatten (Flatten)            (None, 50176)             0          
+ _________________________________________________________________ 
+ dense (Dense)                (None, 15)                752655     
+ ================================================================= 
+ Total params: 752,655 
+ Trainable params: 752,655 
+ Non-trainable params: 0 
+ _________________________________________________________________ 
+ None 
+ Train on 2500 samples, validate on 500 samples 
+ Epoch 1/25 
+ 
+   97/2500 [>.............................]  - ETA: 44s - loss: 2.2263 - auc: 0.0911 
+  194/2500 [=>............................]  - ETA: 22s - loss: 1.2673 - auc: 0.0910 
+  291/2500 [==>...........................]  - ETA: 14s - loss: 1.3410 - auc: 0.1347 
+  388/2500 [===>..........................]  - ETA: 11s - loss: 1.5125 - auc: 0.1383 
+  485/2500 [====>.........................]  - ETA: 8s - loss: 1.5372 - auc: 0.1543  
+  582/2500 [=====>........................]  - ETA: 7s - loss: 1.5695 - auc: 0.1607 
+  679/2500 [=======>......................]  - ETA: 6s - loss: 1.5957 - auc: 0.1652 
+  776/2500 [========>.....................]  - ETA: 5s - loss: 1.5902 - auc: 0.1733 
+  873/2500 [=========>....................]  - ETA: 4s - loss: 1.6270 - auc: 0.1717 
+  970/2500 [==========>...................]  - ETA: 3s - loss: 1.6406 - auc: 0.1741 
+ 1067/2500 [===========>..................]  - ETA: 3s - loss: 1.6622 - auc: 0.1732 
+ 1164/2500 [============>.................]  - ETA: 3s - loss: 1.6618 - auc: 0.1738 
+ 1261/2500 [==============>...............]  - ETA: 2s - loss: 1.6842 - auc: 0.1734 
+ 1358/2500 [===============>..............]  - ETA: 2s - loss: 1.6740 - auc: 0.1762 
+ 1455/2500 [================>.............]  - ETA: 2s - loss: 1.6771 - auc: 0.1778 
+ 1552/2500 [=================>............]  - ETA: 1s - loss: 1.6824 - auc: 0.1783 
+ 1649/2500 [==================>...........]  - ETA: 1s - loss: 1.6810 - auc: 0.1802 
+ 1746/2500 [===================>..........]  - ETA: 1s - loss: 1.6908 - auc: 0.1793 
+ 1843/2500 [=====================>........]  - ETA: 1s - loss: 1.6918 - auc: 0.1799 
+ 1940/2500 [======================>.......]  - ETA: 0s - loss: 1.6858 - auc: 0.1817 
+ 2037/2500 [=======================>......]  - ETA: 0s - loss: 1.6860 - auc: 0.1819 
+ 2134/2500 [========================>.....]  - ETA: 0s - loss: 1.6875 - auc: 0.1822 
+ 2231/2500 [=========================>....]  - ETA: 0s - loss: 1.6894 - auc: 0.1821 
+ 2328/2500 [==========================>...]  - ETA: 0s - loss: 1.6951 - auc: 0.1822 
+ 2425/2500 [============================>.]  - ETA: 0s - loss: 1.6864 - auc: 0.1840 
+ 2500/2500 [==============================]  - 5s 2ms/sample - loss: 1.6923 - auc: 0.1829 - val_loss: 1.7488 - val_auc: 0.1837
+ Epoch 2/25 
+ 
+   97/2500 [>.............................]  - ETA: 2s - loss: 1.5301 - auc: 0.2080 
+  194/2500 [=>............................]  - ETA: 1s - loss: 1.6729 - auc: 0.1948 
+  291/2500 [==>...........................]  - ETA: 1s - loss: 1.6043 - auc: 0.2085 
+  388/2500 [===>..........................]  - ETA: 1s - loss: 1.6994 - auc: 0.1933 
+  485/2500 [====>.........................]  - ETA: 1s - loss: 1.7058 - auc: 0.1958 
+  582/2500 [=====>........................]  - ETA: 1s - loss: 1.6906 - auc: 0.1929 
+  679/2500 [=======>......................]  - ETA: 1s - loss: 1.7191 - auc: 0.1916 
+  776/2500 [========>.....................]  - ETA: 1s - loss: 1.7272 - auc: 0.1906 
+  873/2500 [=========>....................]  - ETA: 1s - loss: 1.7124 - auc: 0.1959 
+  970/2500 [==========>...................]  - ETA: 1s - loss: 1.6869 - auc: 0.2013 
+ 1067/2500 [===========>..................]  - ETA: 1s - loss: 1.7101 - auc: 0.1972 
+ 1164/2500 [============>.................]  - ETA: 1s - loss: 1.7039 - auc: 0.1961 
+ 1261/2500 [==============>...............]  - ETA: 0s - loss: 1.7263 - auc: 0.1922 
+ 1358/2500 [===============>..............]  - ETA: 0s - loss: 1.7183 - auc: 0.1927 
+ 1455/2500 [================>.............]  - ETA: 0s - loss: 1.7129 - auc: 0.1939 
+ 1552/2500 [=================>............]  - ETA: 0s - loss: 1.7272 - auc: 0.1923 
+ 1649/2500 [==================>...........]  - ETA: 0s - loss: 1.7312 - auc: 0.1908 
+ 1746/2500 [===================>..........]  - ETA: 0s - loss: 1.7458 - auc: 0.1890 
+ 1843/2500 [=====================>........]  - ETA: 0s - loss: 1.7501 - auc: 0.1879 
+ 1940/2500 [======================>.......]  - ETA: 0s - loss: 1.7539 - auc: 0.1866 
+ 2037/2500 [=======================>......]  - ETA: 0s - loss: 1.7487 - auc: 0.1862 
+ 2134/2500 [========================>.....]  - ETA: 0s - loss: 1.7542 - auc: 0.1849 
+ 2231/2500 [=========================>....]  - ETA: 0s - loss: 1.7458 - auc: 0.1860 
+ 2328/2500 [==========================>...]  - ETA: 0s - loss: 1.7452 - auc: 0.1859 
+ 2425/2500 [============================>.]  - ETA: 0s - loss: 1.7332 - auc: 0.1875 Restoring model weights from the end of the best epoch. 
+ 
+ 2500/2500 [==============================]  - 2s 901us/sample - loss: 1.7283 - auc: 0.1884 - val_loss: 1.7488 - val_auc: 0.1837
+ Epoch 00002: early stopping 
+ NN: testing   (500, 224, 224, 1) 
+ DBSCANClustering 
+---
+Received: NNLearner(LowpassFilterEllipsoid(MySum(ARG0, TriState.FEATURES_TO_FEATURES, Axis.AXIS_2), passTriState(TriState.FEATURES_TO_FEATURES), passAxis(Axis.AXIS_2), myNot(falseBool)), OutputLayer(InputLayer()), 83, AdamOptimizer)
+	With Hash df36aa71df8b89005a2e1bdab0c9951f8d505596daa7fdeeb3c3206515590c37
+	Computed in: 39.93278384208679 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********tuple index out of rangeTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 658, in primitive_wrapper
+    for i in range(data_given.shape[axis.value]):
+IndexError: tuple index out of range
+ Stack Trace: MySum 
+---
+Received: NNLearner(ARG0, EmbeddingLayer(100, ARG0, heWeights, OutputLayer(InputLayer())), 7, AdamOptimizer)
+	With Hash b57438ae15a99fccc72921332fecd7ab977b5a9a31e86738503b2e23c1ecd9f6
+	Computed in: 36.05369758605957 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********'function' object has no attribute 'value'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 489, in EmbeddingLayer
+    initializer = initializer.value()
+AttributeError: 'function' object has no attribute 'value'
+ Stack Trace:
+---
+Received: NNLearner(MorphTophatRect(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 128, 50), InputLayer(), 22, AdamOptimizer)
+	With Hash 087cac95073272cbadde193e9a95a959de19025b7a863c3a19eb6012cfc550ac
+	Computed in: 37.111648082733154 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 1911, in morph_tophat_rect_helper
+    data = cv2.morphologyEx(data, cv2.MORPH_TOPHAT, kernel)
+TypeError: Expected Ptr<cv::UMat> for argument 'src'
+ Stack Trace: MorphTophatRect 
+---
+Received: NNLearner(Cv2NotEqual(ARG0, ARG0, TriState.STREAM_TO_FEATURES, TriState.FEATURES_TO_FEATURES, Axis.AXIS_0, Axis.AXIS_0), OutputLayer(PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer())), 98, AdamOptimizer)
+	With Hash 49ccf37d4c19be89e43aff1c3a82b3caa054b12bb12b61db06eb8e83cd266462
+	Computed in: 34.48358416557312 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src1'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 2660, in cv2_compare_helper
+    result = cv2.compare(data, second_data, compare_mode)
+TypeError: Expected Ptr<cv::UMat> for argument 'src1'
+ Stack Trace: Cv2NotEqual 
+---
+
+```
+
+== Week 7: October 4th - October 10th ==
+
+* EMADE updates
+
+I discovered the issue with the seed files was the use of an extra input ARG0 in the InputLayer() that did not belong in there. The neural_network_methods.py file also did not have code for compiling NNLearners when the multi label flag was on, so I added a couple of lines to compile models with the AUC for the PR curve as the metric since binary cross entropy does not work as expected for a multi label problem. As a result, I decided that EMADE should optimize for this objective as well rather than accuracy; luckily, the code for this method already existed.
+
+Now that the code has been properly configured for a baseline run, we can test comparing to our modifications involving selection methods, hyper features, and crossover methods to see if we can find a significant difference in the metrics. 
+
+The NNLearner that has performed the best so far is: NNLearner(ARG0, OutputLayer(GlobalAveragePoolingLayer2D(InputLayer())), passInt(255), FtrlOptimizer)
+
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Run EMADE on new chest x-ray dataset 
+|Completed
+|September 20th, 2021
+|October 4th, 2021
+|October 4th, 2021
+|-
+|Commit changes to EMADE functionality to team branch 
+|Not started
+|October 7th, 2021
+|October 11th, 2021
+|
+|-
+|Continue evolving baseline individuals 
+|In Progress
+|October 4th, 2021
+|October 12th, 2021
+|
+|-
+|}
+
 == Week 6: September 27th - October 3rd ==
 I was able to reinstall EMADE on my personal directory on PACE-ICE after resolving my storage issues. I also created an anaconda environment everyone in my team can share in our class folder which should be helpful. My only major blocker at the moment is being unable to generate a baseline run because I get hash collisions (telling me NNLearners are already there) when I try to seed a fresh database which makes no sense at all. I reached out to Cameron and Anish for help as well. 
 

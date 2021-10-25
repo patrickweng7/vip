@@ -7,6 +7,16 @@ Wednesdays at 5:45p (hybrid style)
 
 [https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
 
+=== Week of October 12th - October 17th ===
+
+* Changed inputSchema to be compatible with PACE. Able to run individual EMADE installations with a shared conda environment.
+* Baseline runs showing a very limited set of primitives that do not cause trees to error out, means there are bugs we need to fix
+** Realistically won't get new runs with bug fixes until after midterm presentation. 
+* Implementing new geometric (simulated binary and blended) and semantic crossover methods to test whether we can improve diversity during the evolutionary process. Done with the implementation just testing now.
+* Testing NSGA-III to make sure we have no bugs with the implementation.
+* Hyper features have also been implemented. Just need to be tested.
+* For this week - now that most of the hyper features, selection methods and crossover methods have been implemented we need to just test against our baseline EMADE run (once we have acceptable results) and compare the accuracy. Other work for this week is just to get started on the mid semester presentation.
+
 === Week of September 27th - October 3rd ===
 
 * NSGA-III Implementation - Tweak p parameter, test against working datasets
@@ -477,6 +487,8 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 
 == Modularity ==
 
+[[MODULARITY GUIDE|https://github.gatech.edu/emade/emade/wiki/Modularity]]
+
 === Team ===
 '''''Modularity Sub-Team:'''''
 * [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
@@ -488,6 +500,57 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
+
+
+
+=== Weeks of Oct 4 -Oct 16 ===
+* Fixed implementation detail regarding ARLs were being created with only a single non-arg node
+** Now has a check to make sure that there exists > 1 non-arg node before creating the ARL.
+* Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
+** This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
+*** If we contract an ARL and therefore the root index of another ARL is changed
+**** Solution: If we sort in reverse index DFS order, I believe we should be able to safely contract without changing the root indices of other ARLs.
+**** Just in case this is not true, implemented sanity check to ensure that we completely remove a given ARL before removing nodes from another one.
+*** If two ARLs overlap, then after the first one has been contracted, the overlapping nodes are gone and the second ARL either attempts to contract nodes which have been deleted (Index out of bound crash) or it contracts nodes which it isn't supposed to based on their indexes (Arity problems)
+**** Solution: Use a set to keep track of which indices have already been marked for contraction, and don't attempt to contract an ARL who has nodes which have already been marked for contraction.
+* Major bug regarding contraction which has been causing nearly all other bugs mentioned during previous weeks:
+** Our framework currently uses two major systems for identifying where ARLs occur in individuals
+*** Firstly, the population_info stores the root indices for each occurrence of an ARL within the population
+*** Example:
+    
+                 Learner
+            /               \
+     MorphDilateCross    learnerType
+       /   |  \
+    ARG0   3   5
+
+*** We also stored encoded ARL primitives to tell where additional args were
+*** Example
+
+                                            Learner
+                                /                              \
+                      MorphDilateCross                      learnerType
+         /       /       |        |        \       \
+    arl_arg0 arl_arg1 arl_arg2 arl_arg3 arl_arg4 arl_arg5
+
+*** Originally, the code deleted all the nodes it found within the ARL occurrence, and this caused us to potentially have more args than we expected
+*** In the above example, we had already fixed arl_arg0 = ARG0, arl_arg2 = '3', and arl_arg3 = '5', but it still expects 5 arguments
+*** Attempted solution: Don't contract args
+*** This again caused problems because we weren't contracting the nodes which were fixed args, and therefore had more nodes than expected
+*** Final solution: Update arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since (to my understanding) we don't want to contract it.
+* Still have a bug
+      File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 517, in _contract_arls
+       print(f"{new_individual}")
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 97, in __str__
+       string = prim.format(*args)
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 204, in format
+       return self.seq.format(*args)
+     IndexError: tuple index out of range
+
+    print(f"{[(node.name,node.arity) for node in new_individual]}")
+    [('arl6', 4), ('EqualizeAdaptHist', 4), ('ARG0', 0), ('0', 0), ('0', 0), ('1.0', 0), ('2', 0), ('passQuadState', 1), ('3', 0), ('4.262076198386659', 0)]
+* Decided to give PACE-ICE one last try
+** Most of the team now on PACE-ICE and planning on starting stocks runs soon
 
 === Week of Sept 27-Oct 3 ===
 
@@ -646,14 +709,21 @@ New Seeds (Used in addition to Old Seeds)
 
 == NLP ==
 
+Midterm Presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+
 Meetings: 2:00 pm on Wednesdays, Virtual
-=== Week of September 27th - October 3rd ===
-* This week we began coding our changes to the infrastructure needed to work with QA problems
-* We redesigned our flow based off of feedback from Anish
-* Karthik provided us with a CSV
-* Steven matched the format of the dataset to be similar to Amazon, and implemented a load_qa_data_from_file
-* Devan created a presentation to catch up 2 new members
-* Kevin worked with the NNLearner to overload it
+=== Week of October 12th - October 16th ===
+* With the code for aligned data pairs created, we created a merged branch that mixed this functionality with NNLearners.
+* Reviewed trivial vs non trivial merge conflicts.
+* Merged branch: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+* Resolved 5,000 + merge conflicts at Hackathon Saturday.
+* Working in a new branch now, running into errors with the input.
+* Literature review team has read several papers and made trees for 6 individuals to seed: https://docs.google.com/document/d/1id8NqEuLTB7ds_75bMjUKTYzc1aBUD6-0TaOfPCsW5c/edit?usp=sharing
+
+=== Week of October 5th - October 9th ===
+* Divided our team into two teams, one to get the branch working, and one to do a literature review and start working on primitives and making seeded individuals based off of state of the art.
+* We obtained a new branch that could use aligned data pairs.
+* We setup a new fork to work with this on: https://github.gatech.edu/sleone6/emade
 
 === Week of September 20th - 27th ===
 * This week we designed the primitives/infrastructure needed to tackle the QA problem with EMADE.
@@ -1029,4 +1099,52 @@ Meetings: 2:00 pm on Fridays, Virtual
 * The remainder of the presentation is available for viewing on the bluejeans link above or [https://docs.google.com/presentation/d/1rVF5gObTu8hWLPCUKir1163ntRXxUsrYoe-9aw6hEog/edit#slide=id.gf4c8a6a88f_0_39 here] on google slides.
 * In addition to this presentation, we held a smaller work session with team member Lucas Zhang in which we talked about how standalone tree evaluator works within the context of his swap_layer task. Cameron Whaley provided him an analyze.ipynb notebook an discussed how he could leverage an existing master.out file full of marked crossover individuals(potentially buggy ones) to reproduce the swap_layer issue that causes individuals to go from properly compiling to failing with message "Tree missing valid datatype for primitive". 
 * Cameron B was unable to make the worksession held at our normally scheduled friday meeting and Cameron Whaley graciously hosted in place.
+
+=== Week of October 4th - October 8th ===
+* This week's meeting consisted of team updates in addition to some helpful debugging tips provided by Cameron B:
+** Cameron B has finished his task of triviality detection and concluded that the individuals produced using the triviality evaluation method are not much different from the individuals being produced without them. The strongest indicator of this was that in comparing 2 emade runs (1 run without triviality method and 1 with) by generation 5, both runs had the same number of individuals with the structure shown [https://drive.google.com/file/d/1yNSxFgcHl5CvTEbmL-DE6j8gRAyU36Mp/view?usp=sharing here]. Additionally, it was noticed that the majority of the NNLearners being produced did not provide any valid indications of success due to the overbearing amount of errors that are appearing. An ideal next step will be to isolate these errors and handle them before trying to integrate additional changes.
+** Cameron W worked on merging some changes from the nn branch of emade this week which has led to some conflict issues within the existing nn-vip branch. In an attempt to resolve the issues, he issued a PR of some reverted commits from the branch. However, he also proposed that we utilize a forked version of EMADE separate from the main repo in order to allow us more freedom to change EMADE and make PR's to a unified master branch custom to our purposes. For this reason, we are all currently shifting to working off a fork of the EMADE branch from Cameron's account. Finally, Cameron W has contributed some changes to the EMADE repo(on his own fork) which force emade to only produce NNLearners. Ideally this will allow us to isolate issues with NNLearners quicker and debug issues at a better pace.
+** Connor has provided a PR with some dataset removals which will lighten the size of EMADE in hopes of being able to utilize the github repo for EMADE within PACE. 
+** Devesh is working on connecting the input template parameter for nnlearner training time to the keras fit method which will limit the amount of time an individual is allowed to train by a specified amount. 
+** Justin H is currently finished setting up PACE-Ice on his machine and is ready to work on his first task. Cameron W has suggested that he contribute a PR which removes the existing amazon dataset and cleans up the script for generating the amazon files.
+** Lucas Z has also finished setting up PACE-Ice on his machine and is ready to work on his first task. His first task is to do an Emade run and look at the error strings being generated by the NNLearners within the run. From this he should be able to debug issues found within primitives present in EMADe.
+* In addition to the updates provided above, there was a discussion had about how automatically defined functions could be leveraged to in a way similar to modules within the CoDEEPNEAT neuroevolution process. Cameron B shared some high level knowledge about the CoDEEPNEAT structure and Cameron W proposed ADF's be used as the "modules" within our context. In order to analyze the viability of this, we will need to rewrite some of the ADF generating code.
+
+=== Week of October 11th - October 15th ===
+* This week's meeting consisted of team updates in addition to a work session:
+** Cameron W ran into 2 issues earlier in the week after pushing his updated nn-vip branch on EMADE which were:
+*** Nested NNLearners. See example. Basically, a neural network is created, modifies a datapair with its classifications, then returns that datapair to... another neural network which overwrites those classifications with its own. Emade is making a ton of these and they take a really long time to evaluate (like, hours on a V100 gpu). It's always been possible for emade to make nested NNLearners, but with my changes it's a lot more frequent. The current fix is to auto-fail any individual with >1 NNLearner primitive, but I'd prefer to stop them from generating in the first place
+*** ADFs mostly aren't valid. I modified the ADFs that emade makes so that their input is a datapair and they return a layerlist. So emade is making subtrees of layers (good), but not all of them have a layer primitive that can handle a datapair (like an embedding layer) so they mostly fail.
+** Cameron B attempted some changes to resolve these compilation issues. 
+*** In order to solve prevent nested NNLearners, a second data pair(EmadeDataPairNNF) was created and the 'MAIN' PrimitiveTypedSet had it's output changed to this second datapair to prevent it from being a nestable primitive to itself. Additionally, passthrough layers for datapairs and other primitives were used to remove any generate errors caused by DEAP while generating new individuals. The changes can be seen in this method screenshot [https://drive.google.com/file/d/1stLyEPliYeShUBzM3SL0veoCT12XMBtc/view?usp=sharing here]. 
+*** In order to fix some of the ADF issues, ADFs are now structured to only take in a layerlist input and output a layerlist input. Any input or output layers necessary are added within the NNLearner method or through the use of an input terminal. 
+*** Finally, the 'MAIN' PrimitiveSetTyped is no longer allowed to generate nnlayerlists with primitives outside of the adf's generated. This is an attempt at implementing a module/blueprint structure similar to that seen within this paper discussing [https://arxiv.org/pdf/2002.04634.pdf CoDEEPNEAT].
+** Devesh is currently taking a different strategy with implementing his task, he will attempt an emade run which simply hardcodes the parameter for time limit to fit. If this works then it should be easier to then connect that value back to the input template file/schema. 
+** Justin H has provided a PR for the cleaned-up Amazon dataset along with the new script. He is currently working on adding a testing method that utilizes an NNLearner statistics table, within the SQL database, to generate all of the evolving tree structures of a single individual(provided their hash value) over the course of its lifetime.
+** Connor Y has provided a PR that allows team members to keep the entirety of EMADE on Pace including the git folder. This will allow people using pace to simply pull down any changes directly from the repo instead of having to SCP frequently. He is currently back on track with his task to generate an NNLearner layer frequency counter within EMADE.
+** During the hackathon, Cameron W proposed a fix for the accuracy error issue noticed when doing EMADE runs. Currently, in the nn-vip-learner-fix branch of our forked repo most all NNLearners that are generated can compile but they all produce the same accuracy error score which is likely due to some issue within the NNLearner method. We'll run EMADE again with the changes to see if we get different scores this time around. Image of the issue [https://drive.google.com/file/d/1FSRtK-vADkCAPgt1_f2jYEBwt8B5-7AU/view?usp=sharing here]
+** Just an update on the current structure of NNLearners can be seen here from a local run of about 4 hours:
+*** NNLearner(((((ARG0)))), adf_8(adf_1(adf_13(adf_2(InputLayerTerminal)))), ((((110)))), ((((RMSpropOptimizer)))))
+*** adf_1: DenseLayer(((DenseLayerUnit32)), ((seluActivation)), Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize1), (Conv2DPaddingTypeSame), Conv2DLayer(Conv2DFilterUnit16, eluActivation, Conv2DKernelSize3, Conv2DPaddingTypeSame, InputLayerTerminal)))
+*** adf_2: DenseLayer(((((DenseLayerUnit256)))), ((((seluActivation)))), Conv2DLayer((((Conv2DFilterUnit16))), (((tanhActivation))), (((Conv2DKernelSize3))), (((Conv2DPaddingTypeSame))), Conv2DLayer(((Conv2DFilterUnit48)), ((reluActivation)), ((Conv2DKernelSize3)), ((Conv2DPaddingTypeValid)), DenseLayer((DenseLayerUnit32), (tanhActivation), DenseLayer(DenseLayerUnit256, tanhActivation, ARG0)))))
+*** adf_8: Conv2DLayer(((((Conv2DFilterUnit16)))), ((((eluActivation)))), ((((Conv2DKernelSize1)))), ((((Conv2DPaddingTypeValid)))), DenseLayer((((DenseLayerUnit32))), (((defaultActivation))), Conv2DLayer(((Conv2DFilterUnit16)), ((softmaxActivation)), ((Conv2DKernelSize5)), ((Conv2DPaddingTypeSame)), Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize5), (Conv2DPaddingTypeValid), Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize3, Conv2DPaddingTypeSame, InputLayerTerminal)))))
+*** adf_13: Conv2DLayer(((((Conv2DFilterUnit48)))), ((((defaultActivation)))), ((((Conv2DKernelSize3)))), ((((Conv2DPaddingTypeValid)))), Conv2DLayer((((Conv2DFilterUnit48))), (((defaultActivation))), (((Conv2DKernelSize3))), (((Conv2DPaddingTypeSame))), DenseLayer(((DenseLayerUnit256)), ((tanhActivation)), DenseLayer((DenseLayerUnit32), (defaultActivation), DenseLayer(DenseLayerUnit256, reluActivation, InputLayerTerminal)))))
+
+***	With Hash 49406ee03fd77e55df659f0828aee6e9050f0d6c8033cd14c2dccaa2ecd22f62
+***	Computed in: 259.7485730648041 seconds
+***	With Fitnesses: (0.43836, 304586.0, 883.0)
+***	With Age: 1.0
+
+
+=== Week of October 18th - October 22nd ===
+* This week's meeting consisted of team updates and a lot of preparation for midterm presentations
+* By this point in time, we've completed around 6 runs in EMADE as a group. 2 to test our TimeStopping functionality, and 4 to test the complexity performance of individuals on the cifar-10 dataset. 
+* This meeting saw PowerPoint slides divided amongst team members:
+** Cameron W will be discussing changes to EMADE infrastructure along with the newly implemented preprocessing setup
+** Devesh will be discussing his additions of Time Stopping to EMADE and its performance benefits
+** Justin H will be discussing his newly implemented testing methods to be used for analyzing neural nets
+** Connor and Lucas will be discussing recruitment and plans for future tasks
+** Cameron B will be describing an experiment with varying ADF sizes for generating NNLearners
+* Links to the slides are included [https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit?usp=sharing here]
+* At some point, we will have a meeting to handle the merging of all of our newly implemented logic into a single branch within our fork of EMADE
 [[Category-AAD]]

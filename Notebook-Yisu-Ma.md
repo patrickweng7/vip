@@ -9,6 +9,36 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+
+## Week 6: September 29th - October 5th (2021)
+### Lecture overview:
+* Finish peer evaluation next week.
+* Listened to different groups' presentation
+* Presented my part in our group presentation:
+ > The selection of our select, mutate, and evaluate function.
+ > The improvement we made for the genetic loop.
+
+**Link:** https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+### Lecture note (I just record some of the ideas from each group):
+* Group4: 
+> AUC is around 0.2, a little bit higher than ours.
+> They let us realized that Embark might not be a good column to be included in our data. Just as I thought in week 5, because this feature would not affect the cabin position as my team thought.
+* Group3:
+> Used KNN,  MLP,  SVM, logistic regression, random forests
+* Group1:
+> They seem to get a better result in GP than ours
+### Individual notes:
+* Finished peer evaluation
+* Re-done through the data processing and take a note of the change I got
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Peer evaluation|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
+|Record Notebook|complete|September 29th, 2021|October 5th, 2021|October 1st, 2021|
+
+
+
+
 ## Week 5: September 23th - September 29nd (2021)
 ### Lecture overview:
 * Discussed last week's project
@@ -18,9 +48,50 @@
 ### Lecture notes:
 * Hyperparameters would highly likely affect the models and the codominant algorithm results.
 * In order to examine our multi-objective solutions, we would need to use Pareto Optimization Curves 
+* Try to write our own algorithm – using selection, crossover, mutation functions in Deap and try to figure out the best fit for our model.
+* There were some constraints on MOGP given in the class: Only using basic primitives and 
+No selTournament for selection, because it is not multi-objective
+* Submit .csv with columns of passengerID
+* Finally compare ML and GP.
+### Presentation Skills:
+* Use page numbers, allows the audience to target the page
+* Label the graph and organize the information in the slides
+* Do not read the whole slides
+### Groupwork notes
+* Meet on Discord on Weekends. (around 6 hours)
+* We went through the code template in Lab2 first and to see if we can get some hints from it.
+* We decided to keep our preprocessing data in our last lab. ie. same chosen parameters.
+* Since we are not allowed to use default algorithms in Deap (Tournament selection) we tried multiple different algorithms and decided to use SPEA2.
+* Cited the regression evaluation function from lab2
+* Helped Manas develop our genetic loop
+* Our final result:
+Best individual is `multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653`
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week5.PNG)
+* So we can see from the graph that GP does have a better result than ML
 
 
+### Individual notes:
+* Got a deep understanding of what we were doing in the lab
+* Sat a Max boundary for our mate and mutate function, so that our trees would not go beyond height 17. This would avoid our algorithum work crazy. Here are the codes:
+`toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
+toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))`
+* Tested different selection, mutation, and evaluation functions. Here are the functions we selected:
+`toolbox.register("evaluate", evalSymbReg, pset=pset)
+toolbox.register("select", tools.selSPEA2)
+toolbox.register("mate", gp.cxOnePoint)
+toolbox.register("expr_mut", gp.genFull, min_=0, max_=2)
+toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=pset)`
+* My teammates made the slides and I went through the part I would present. Thanks, Rohan
+> **Link:** https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
 
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Team meeting1|complete|September 22nd, 2021|September 29th, 2021|September 25th, 2021|
+|Team meeting2|complete|September 22nd, 2021|September 29th, 2021|September 26th, 2021|
+|Record Notebook|complete|September 22nd, 2021|September 29th, 2021|September 27th, 2021|
+|Complete Titanic MOGP Notebook|complete|September 22nd, 2021|September 29th, 2021|September 26nd, 2021|
+|Make presentation slides|complete|September 22nd, 2021|September 29th, 2021|September 27th, 2021|
 
 
 ## Week 4: September 16th - September 22nd (2021)
@@ -35,6 +106,8 @@
 * Requested codominant results in groups final CSV files
 ### Groupwork notes
 * Sat up discord channel and met online during the weekend
+* Meeting on Saturday, 9/18 and Sunday, 9/19
+* We went through ideas we have and send a conclusion to the Discord channel
 * The meeting records are here:https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
 * Dropped the parameters that we thought are not important
 * Recorded codominant results in our CSV files
@@ -62,6 +135,22 @@ _      Aditya = AdaBoostClassifier. FP = 32, FN = 21.
     *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
     *  Adithya =  MLP. FP = 26, FN = 26.
     *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. _
+
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aad%20week4.png)
+
+### Individual notes:
+* Although the whole team decided to keep consistency for the parameters we choose, I find that Cabin and Age could also significantly influence the final results and in this case, the Embarked parameter may not be important, because the cabin position may not be determined by the port that a passenger is from.
+* After reviewing Scikit Documentation (scikit-learn.org), I tried different functions to come up with codominant results with my teammates. But most of them fail. I asked Manas for help and finally, I used svm.SVC, sigmoid = kernel (SVM) to fit our codominant results. The result is kind of extreme because I got FP=0, FN=104, which means all of them are false negative.The SciKit documentation tells me which parameters each constructor takes in. 
+* This might be a manipulated result but we find that in order to achieve the codominance, we would have to intentionally modify the hyperparameters we have for some model either to lower FNR or raise FPR. Thanks to Manas's discovery.
+* For example, in my chosen model the kernel type to be used in the SVM algorithm would cause huge disagreement with other teammates' results.
+Below are the resources I found on the internet for different  kernel parameter:
+`
+ Linear Kernel: K(X,Y)=XTY
+ Polynomial kernel: K(X,Y)=(γ⋅XTY+r)d,γ>0
+ Radial basis function (RBF) Kernel: K(X,Y)=exp(∥X−Y∥2/2σ2) which in simple form can be written as exp(−γ⋅∥X−Y∥2),γ>0
+ Sigmoid Kernel: K(X,Y)=tanh(γ⋅XTY+r) which is similar to the sigmoid function in logistic regression.
+`
+* Reviewed 5 predictions.csv files and helped add Pareto Optimal Frontier cells in our notebook
 
 
 | Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |

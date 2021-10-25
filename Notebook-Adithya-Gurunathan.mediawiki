@@ -7,26 +7,252 @@
 '''Interests:''' Machine Learning, Soccer, Poker, Coffee, Entrepreneurship
 
 = Fall 2021 =
-== Week 5: Sep 29, 2021 ==
+== Week 7: Oct 6, 2021 ==
+
+===Overview:===
+* Worked on Notebook for Midterm Evaluation
+* Attended lecture on Introduction to emade
+* Received instructions for next assignment
+
+===Lecture Notes:===
+* What is EMADE
+  * EMADE is Evolutionary Multi-Objective Algorithm Design Engine
+  * Combines a multi-objective evolutionary search with high-level primitves to automate process of designing ML algorithms
+
+* Setup Instructions
+  * Configure a mysql 5.x server on machine
+  * Download and install git-lfs
+  * Clone EMADE repository
+  * Run setup module to install the package
+    Commands: conda env create -f emade.yml
+    python setup.py install
+
+* Running EMADE
+  * Navigate to top level directory and run
+    python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+
+* Input File
+  * input file is an xml document configuring all moving parts in EMADE
+  * Configure python to run where all EMADE python dependencies are installed
+
+* Databse Configuration:
+  * Configure MySQL connection
+    If running locally, server can be localhost or 127.0.0.1
+  * Username and password are for MySQL & user should have full permissions to database
+
+* Datasets
+  * EMADE runs across multiple datasets - preprocessed into gzipped csv files
+  * Each train and test file create a DataPair object in EMADE
+  * Can decompress them or use an editor such as gvim to view while zipped
+  * Each row corresponds to an instance, each column is a feature, final column is truth
+  * EMADE reserves last column for fitting models (train data) and scoring (test data)
+
+* Input File, continued:
+  * Objectives are described next
+  * Weight specifies if it should be minimized (-1.0) or maximized (1.0)
+  * <evaluationFunction> specifies name of a method in src/GPFrameowrk/evalFunctions.py
+  * Achievable and goal are used for steering optimization, lower and upper used for bounding
+
+* Parameters
+  * Evaluation specifies where eval func specified in objectives section live, how much memory allowed to use
+  * <workersPerHost> specifies how many evaluations to run in parallel
+  * Evolution parameters: hyperparameters that affect evolutionary process
+
+* Connect Worker Process to a Peer
+  * Use -w flag along with peer's server info in dbconfig to allow computer act as a worker process for peer's master process
+    python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+  * dbconfig in input file specifies IP address and not localhost
+  
+* EMADE Structure
+  * src/GPFramework is mainbody of code
+  * datasets/ is where test datasets live
+  * templates/ is where input files live
+
+===Assignment===
+* Run EMADE as a group - 1 person have SQL server set up and act as master process, rest connect workers
+* Run for substantial generations
+* Learn SQL
+* Make plot of non-dominated frontier, compare with ML & MOGP
+* Presentation of Monday the 25th
+
+===Individual Notes:===
+* Tried adding images to notebook, still experiencing error when doing so
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 6, 2021
+|October 13, 2021
+|October 8, 2021
+|-
+|Run EMade
+|
+|October 6, 2021
+|October 13, 2021
+|October 9, 2021
+|}
+
+
+== Week 6: Sep 29, 2021 ==
+
+===Overview:===
+* Presentation Day
+* Took notes from other group's presentation on how we could improve our model
+* Submitted CSV file for our lab containing best MOGP algorithms
+
+===Lecture Notes:===
+* Link to Group 2 Presentation: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+* Discussed one-hot encoding for columns like Embarked to prevent ML models from creating causal link between non-binary integer values
+
+===Individual Notes:===
+* Presented and explained about ML vs MOGP AUC, and the primitives used in our lab
+* Wrote code with teammate for generating a csv file containing best MOGP algorithms
+  Link: https://drive.google.com/file/d/1U3DTjQCR9zZx5LvaO1SqspM6T-hH7Dig/view?usp=sharing
+* Completed Mid-term Peer Evaluation for teammamtes
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 29, 2021
+|October 6, 2021
+|September 29, 2021
+|-
+|VIP Peer Evaluation Survey
+|Complete
+|September 29, 2021
+|October 6, 2021
+|September 29, 2021
+|}
 
 == Week 5: Sep 22, 2021 ==
 
 ===Overview:===
-* Presentation on guidelines to effectively present
-* How to present a Pareto Optimiziation Curves
-* 
-
+* Discussed last week's project
+* Attended presentation on guidelines to effectively present
+* Introduction to this week's assignment
 
 ===Lecture Notes:===
-* Submit as a group, csv file:
-  Passenger Id, Survived, Each Pareto Optimal Algorithm has a column
-* Self tournament is not a mmultiple objective selection operator
-* Compare the multi objective fitness parameters
-* Reimann sums for Pareto Optimization
-* Pareto Optimal on 2 objectives - extra objectives can help search to be better, add more diversity
-* 
+* Week 5 Assignment
+  * Utilize MOGP to find a set of pareto optimal algorithms for the titanic dataset
+  * Tree will take in same inputs as the ML model
+  * Both strongly/ loosely typed GP allowed
+  * Use selection, crossover, mutator, to write genetic loop
+  * Write evaluation function, with False Negative and False Positive Rate as criteria
+  * Comparison of Pareto Front of MOGP and GP
+  * Submit .csv files with columns of passengerID, each representing pareto optimal algorithms
+  * Create a presentation for Week 6, to share and present findings
 
+* Effective Presentation Guidelines
+  * Ensure to introduce team on first slide
+  * Include title, date on first slide
+  * Page numbers are essential for audience to reference material afterwards
+  * Write text in slides, but do not present by reading off it
 
+===Titanic Dataset (MOGP) Project===
+====Sub Team Meeting Notes====
+* Discussed steps required to attain desired output for the experiment
+* Chose same relevant columns as previous week's assignment (Pclass, Sex, SAge, SibSp, Parch & Embarked)
+* Pre-processed data, and used NaN_ maps for encoding of string values
+* Used primitives (arithmetic & logical) from Lab 2 to fulfil requirements of this Lab
+
+* Functions used for our lab
+  * Selection: SPEA2
+  * Evaluate: EvalSymbReg
+  * Mate: cxOnePoint
+  * Mutate: mutUniform
+
+* Wrote an evaluation function evalSymbReg()
+  * Using activation function arctan() to map values from function to values between 0 & 1.
+  * Activation function threshold was set to 0.5: Lower values were treated as zero, higher values treated as 1
+  * Computed False Negatives, False Positives, True Negatives, True Positives
+  * When TP OR TN = 0, function will set FNR/FPR to 1
+
+* Designed and wrote our genetic loop
+  * Population: 100, with 30 Generations
+  * In each subloop, select next generation individuals and clone them. Apply crossover & mutation
+  * Mating probability set to 0.4
+  * Indiviuals with invalid fintesses were evaluated
+  * HallOfFame (hOF) was updated with best individuals across generations in population
+
+* Key Findings:
+  * Best Individual: multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex)
+  * Fitness: (0.0, 0.37966101694915255)
+  * MOGP AUC: 0.1256530649754448
+  * ML AUC: 0.18129
+
+* Conclusion
+  * To improve accuracy of genetic programming models, we experimented with mate, mutate, selection methods
+  * Tried different primitves used in Lab 2 to optain optimal solutions for our program
+  * Area under curve is lower for MOGP than ML models
+  * MOGP is more dominant than ML models
+
+* Worked on presentation content to include findings and takeaway
+  Link: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+
+====Individual Notes====
+  * Read up on different symbolic regression evaluation functions and how they work
+  * Researched the differences between NSGA II and SPEA2 selection algorithms
+  * Contributed to group discussions and code development for genetic loop
+  * Worked on presentation material
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|- 
+|Completed Python notebook
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 29th, 2021
+|- 
+|Made Presentation
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|}
 
 == Week 4: Sep 15, 2021 ==
 
@@ -44,8 +270,6 @@
     Manas Harbola
     Rohan Batra
     Yisu
-
-
 *Introduced to Titanic Dataset on Kaggle
     Problem: Implement a model predicting if a passenger on the Titanic either survived or died. Create and document 5 separate co-dominant models in your subteam and generate a prediction csv file for each model.
 * Codominance: Two algorithms are said to be codominance when neither dominates the other on every objective.
@@ -53,11 +277,92 @@
 * Reviewed preprocessing data notebook in Jupyter and learned how to adapt it for our training models
 * Breakout into sub-teams for introductions and setting up team meetings.
 
+===Titanic Dataset (ML) Project===
+====Sub Team Meeting Notes====
+* Created a Discord chat to discuss the assignment, share ideas and schedule meetings
+* Had a scheduled meeting at 2:45 PM on 18th September on a virtual call
+* Set up a Python notebook, opening it via Jupyter through Anaconda
+* Cleaned the dataset by removing following parameters, after discussing they do not affect passenger survival significantly:
+  * Name
+  * PassengerID
+  * Ticket Number
+  * Fare
+* Kept 'Embarked' & 'Sex', mapped them to numerical values for easier comprehension when using a dictionary
+* Other parameters that impacted survival rate could be reasons such as not willing to separate from their family, class, age, gender etc.
+* Created a NaN_ map to fill in missing Age and Embarked values
+* Ran different models using Sci Kit documentation
+  * Used RandomForestClassifier and MLP classifier - were co-dominant algorithms
+  * Found 3 other algorithms: AdaBoostClassifier, SVM, DecisionTreeClassifier. Changed parameters around in order to ensure algorithms were co-dominant. Led to a change in algorithmic accuracy, but not significant wnough to impact objective of confusion matrix
+* Wrote functions to plot scatter graphs and save 5 different csv files for each model
+* Pareto Optimal Frontier:
+  **  Rohan = DecisionTreeClassifier (min_samples_leaf=30). False Positive = 9, False Negative = 45
+  **  Manas = RandomForestClassifier (n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). False Positive = 18, False Negative = 29. 
+  **  Aditya = AdaBoostClassifier. False Positive = 32, False Negative = 21. 
+  **  Adithya =  MLP Classifier. False Positive = 26, False Negative = 26.
+  **  Yisu = SVM (used svm.SVC, sigmoid = kernel). False Positive = 0, False Negative = 104. 
+
+====Individual Notes====
+* Researched common models for classification, using MLP classifier
+* Researched on SciKit Learn, StackOverflow, Medium to understand how to select appropriate parameter values
+* Added code to generate prediction CSV
+* Added cells for plotting performance on FPR/FNR axis to demonstrate co-dominance with other algorithms
+
+'''<i>Action Items</i>'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 25th, 2021
+|-
+|Held team meeting #1
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 26th, 2021
+|- 
+|Held team meeting #2
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|- 
+|Completed Python notebook
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 29th, 2021
+|- 
+|Made Presentation
+|Completed
+|September 22nd, 2021
+|September 29th, 2021
+|September 28th, 2021
+|}
+
+
 
 == Week 3: Sep 8, 2021 ==
 
+===Self Evaluation Form===
+https://drive.google.com/file/d/1wtvbb6bHFMIa8Im8UXZG4dJM4Is9ZHKi/view?usp=sharing
+
 ===Overview:===
-* Translation of the vector of scores from evaluation into a fitness value
+* Reviewed multiple objectives in MOGA & MOGP
+* Overview of Pareto Optimality
+Rated Python & ML skills
 
 ===Lecture Notes:===
 * Gene Pool is the set of genome to be evaluated during the current generation
@@ -139,6 +444,56 @@
     R is sum of S's of the individuals that dominate it
     Paretio individuals are nondominated and recieve an R of 0
   * Distance to k^th nearest negither is calculated (sigma^k) and a fitness of R+1/(sigma^k + 2)
+
+===Lab 2: Multi Objective Genetic Programming (Part 2)===
+
+* Followed instructions in notebook and plotted the Pareto frontier
+* Goal is to minimize the AUC, because we want to minize the tree size of Pareto individuals & mean squared error
+
+* Area Under Curve with original configuration: 2.423721990054
+* Best Individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))), fitness is (0.289613390243, 15.0)
+
+* To reduce AUC by at least 25% by parameter tuning:
+  * Removed sin and cos primitives:
+    * AUC: 1.0688239759291 , approx 56% reduction
+    * Best Individual: subtract(multiply(x, tan(multiply(x, x))), x), fitness of (0.6669255057183378, 8.0)
+  * Removed all three trigonometric primitive:
+    * AUC: 0.6912744703006891, approx 72% reduction
+    * Best individual: subtract(x,x), fitness of (0.7223441838209306, 3.0)
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 12th, 2021
+|- 
+|Complete Self-Evaluation rubric
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 13th, 2021
+|-
+|Review lecture slides
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 12th, 2021
+|-
+|Finish Lab 2, Part 2
+|Completed
+|September 8th, 2021
+|September 15th, 2021
+|September 14th, 2021
+|}
+
 
 == Week 2: Sep 1, 2021 ==
 

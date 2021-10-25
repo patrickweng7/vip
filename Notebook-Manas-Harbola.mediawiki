@@ -12,6 +12,186 @@
 
 = Fall 2021 =
 
+== Week 9: October 20th ==
+=== Class Summary ===
+*Working session with VIP AAD alumni to use EMADE on Titanic dataset
+*VIP Alumni were able to able to help us resolve our issues with running EMADE locally and helped us shift our focus to running EMADE worker processes
+
+=== Team Meeting Notes ===
+*Team was able to successfully run worker processes on seperate computers while connected to MySQL database.
+*Team struggled to understand why EMADE is running slow across master processes and worker processes
+**Team was unable to get past 11 generations, after over 3 days of uptime on EMADE
+*Team worked on creating final presentation on 10/25.
+
+=== Individual Notes ===
+*Before team meeting, I was successfully able to get EMADE running as a master process on my computer after switching from Python 3.9 to 3.8 to Conda 3.7
+*During team meeting, I fixed my issue with connecting to the remote MySQL database after realizing the following:
+**GT ethernet is NOT on the same network as eduroam - you MUST be on the same network as the MySQL database is on
+**MySQL database must allow any type of host to connect to it, specified by a wildcard flag '%'
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 20th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Team Meeting #1
+|Completed
+|October 20th, 2021
+|October 24th, 2021
+|October 24th, 2021
+|-
+|Run EMADE on Titanic Dataset
+|Completed
+|October 20th, 2021
+|October 24th, 2021
+|October 24th, 2021
+|-
+|Create EMADE final presentation
+|Completed
+|October 20th, 2021
+|October 25th, 2021
+|October 24th, 2021
+|-
+|}
+
+== Week 8: October 13th ==
+=== Class Summary ===
+*Working session to get EMADE running on the Titanic dataset.
+*Dr. Zutty was answering questions students were having regarding setting up MySQL and EMADE
+
+=== Team Meeting Notes ===
+*Team was successfully able to get EMADE to recognize/write to our MySQL database.
+*Team is experiencing an issue where our fitness values for individuals are (inf, inf, inf)
+*Team is also experiencing EMADE error stating "Tree missing valid primitive for data type"
+*Discovered problem might have to do with the false positive and false negative evaluation functions defined in evalFunctions.py
+
+=== Individual Notes ===
+*Helped team create custom evaluation functions to find FPR and FNR.
+*Discovered that splitting test CSV data shuffles columns in alphabetical order.
+*Trying to figure out how to resolve issue with primitives in EMADE through Slack and team help.
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Team Meeting #1
+|Completed
+|October 13th, 2021
+|October 16th, 2021
+|October 16th, 2021
+|-
+|Run EMADE on Titanic Dataset
+|In Progress
+|October 13th, 2021
+|October 20th, 2021
+|N/A
+|-
+|}
+
+== Week 7: October 6th == 
+
+=== Class Summary ===
+*Discussed preparing notebooks for midterm grading on 10/8
+*Received introduction to EMADE and MySQL
+*Notified of final presentation deadline October 25th
+
+=== Lecture Notes ===
+*Received introductory presentation to EMADE (Evolutionary Multi-Objective Algorithm Design Engine)
+*EMADE "combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms"
+*On startup, EMADE requires an input XML file to configure the following:
+**Python application path
+**MySQL Connection Information/Credentials
+**Dataset paths
+**Objective functions (available objectives can be found in "src/GPFramework/evalFunctions.py"
+**Evaluation functions and workers per host
+**Evolution Parameters
+*Connecting worker process to peer can be specified using "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
+*EMADE Output can be viewed on MySQL databases
+*EMADE structure info:
+**src/GPFramework is the core:
+***gtMOEP.py is the main EMADE engine
+***gp_framework_helper.py is where primitive set is built
+**"datasets/" is where test datasets live
+**"templates/" is where input files live
+
+=== Team Meeting Notes ===
+*Team members were all able to successfully install EMADE and MySQL on their laptops
+*Configured input XML file for EMADE to run Titanic dataset
+*Modified data splitter script to one-hot encode "Embarked" feature in dataset and to integrate team preprocessing steps used for MOGP assignment
+*Currently experiencing issue where EMADE is unable to evaluate individuals in queue - keep getting "508 individuals left on queue" error. This is blocking our team from being able to run the evolutionary loop of EMADE.
+=== Individual Notes ===
+*Installed Anaconda and installed necessary dependencies for EMADE
+*Successfully cloned and installed EMADE from GitHub
+*Installed and setup MySQL on laptop
+*Currently trying to find a fix issue with running EMADE and looking to ask Dr. Zutty for advice during 10/13 meeting.
+**Personal suspicions are the we haven't properly configured the XML file with our python environment, but reading the output logs more carefully might point to the problem
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 6th, 2021
+|October 13th, 2021
+|October 13th, 2021
+|-
+|Add Photos to Notebook for Midterm
+|Completed
+|October 6th, 2021
+|October 8th, 2021
+|October 8th, 2021
+|-
+|Review Lecture Notes
+|Completed
+|October 6th, 2021
+|October 13th, 2021
+|October 12th, 2021
+|-
+|Install EMADE and MySQL
+|Completed
+|October 6th, 2021
+|October 13th, 2021
+|October 12th, 2021
+|-
+|Team Meeting #1
+|Completed
+|October 6th, 2021
+|October 12th, 2021
+|October 12th, 2021
+|-
+|Run EMADE on Titanic Dataset
+|In Progress
+|October 6th, 2021
+|October 13th, 2021
+|N/A
+|-
+|}
+
 == Week 6: September 29th ==
 === Class Summary === 
 *Listened to team presentations on Titanic MOGP/ML project
@@ -92,13 +272,20 @@
 **Best individual is multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex) with fitness (fpr, fnr) = (0.0, 0.37966101694915255) and pareto front AUC of about 0.125653
 **Created presentation slides for our findings and results
 
+[[files/mharbola3/titanic_mogp_fitness_graph.png|center|height=300px]]
+[[files/mharbola3/titanic_mogp_pareto_front.png|center|height=300px]]
+
 ===Individual Notes===
 *Wrote majority of genetic loop with help from team members on selection, mutation, and evaluation functions
 *Originally our evaluation function was causing our best individual to always have fitness (0, 1.0). I discovered that even though fpr = fp / N and fnr = fn / P, our evaluation function was somehow not counting P and N properly. Therefore, I rewrote the evaluation function to calculate tp, tn, fp, and fn. We also decided to make fnr and/or fpr = 1 whenever the divisor was 0 to handle divide by 0 errors.
 *Cleaned up genetic loop and refactored notebook cells after achieving satisfying individuals
 *If I had more time, I would have repurposed the metrics calculations from Lab 2 to better visualize each generation in our genetic loop. Also, I would want to experiment with the mating and mutation rates in the notebook as well.
 
+[[files/mharbola3/titanic_mogp_genetic_loop_1.png|center|height=300px]]
+[[files/mharbola3/titanic_mogp_genetic_loop_2.png|center|height=300px]]
+
 '''Team Presentation''': https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit?usp=sharing
+'''Team Prediction CSV''': https://drive.google.com/file/d/1KALnPrR3gzMZsj1A-MwHfa7Doa3NMw_l/view?usp=sharing
 
 ===Action Items===
 {| class="wikitable"
@@ -179,7 +366,7 @@
 *Added code to generate prediction CSVs for everybody's model
 *Added cells for plotting model performance on FPR/FNR axis to demonstrate co-dominance.
 
-insert frontier graph image here
+[[files/mharbola3/titanic_ml_pareto_front.png|center|height=300px]]
 
 ===Action Items===
 {| class="wikitable"
@@ -340,6 +527,10 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 ***AUC: 0.6912744703006891 (approx. 71.01% reduction)
 ***Best Individual: subtract(x, x), with fitness (0.7223441838209306, 3.0)
 
+[[files/mharbola3/lab2_mogp_objective_space.png|center|height=300px]]
+[[files/mharbola3/lab2_mogp_fitness_graph.png|center|height=300px]]
+[[files/mharbola3/lab2_mogp_pareto_front.png|center|height=300px]]
+
 ===Action Items===
 {| class="wikitable"
 !Task
@@ -398,6 +589,8 @@ https://drive.google.com/file/d/1Pf-QiG10gAFf0VANSVCnFhZwgSxYGQd5/view?usp=shari
 ** For example, the tree for '''f(x) = 3*4+1''' can be written as '''[+,*,3,4,1,]'''
 ** Parse tree of '''f(x) = 2-(0+1)''' is '''[-,2,+,0,1]'''
 
+[[files/TreeRepresentation1.png]]
+
 * Crossovers in GP are handled by simply exchanging subtrees
 ** Start by randomly picking a point in each tree
 ** These points and everything below create subtrees
@@ -429,16 +622,24 @@ In this lab, I ran the evolutionary algorithm several times to observe the impro
 '''First try, no modifications:'''
 *Best individual was add(add(multiply(x, add(x, subtract(x, x))), multiply(x, multiply(add(x, multiply(x, x)), x))), x), (1.0195405384704813e-16,)
 
+[[files/mharbola3/lab2_sogp_first_try.png|center|height=300px]]
+
 '''Second try, add primitives:'''
 *Added primitives were ''np.square'' and ''np.absolute''
 *Best individual was add(add(multiply(absolute(absolute(absolute(add(multiply(square(x), x), square(x))))), x), square(absolute(x))), x), (8.620776339403237e-17,)
+
+[[files/mharbola3/lab2_sogp_second_try.png|center|height=300px]]
 
 '''Third try, add mutations, no primitives:'''
 *Added mutation was ''mutShrink''
 *Best individual is add(x, multiply(x, add(multiply(x, x), add(multiply(multiply(x, x), x), x)))), (1.1608501979530989e-16,)
 
+[[files/mharbola3/lab2_sogp_third_try.png|center|height=300px]]
+
 '''Fourth try, added primitives and mutation:'''
 *Best individual is Best individual is add(add(multiply(add(x, multiply(x, x)), x), multiply(x, multiply(multiply(x, x), x))), x), (9.846703645016068e-17,)
+
+[[files/mharbola3/lab2_sogp_fourth_try.png|center|height=300px]]
 
 ===Actions Items===
 {| class="wikitable"
@@ -505,6 +706,8 @@ In this lab, I ran the evolutionary algorithm several times to observe the impro
 * For 40 generations, select the offspring for next generation, perform tournament selection, mate, and mutate
 * '''Observations:''' Maximum fitness score was almost always achieved after 40 generations, although it wasn't guaranteed. However, the maximum fitness score by the 40th generation was always between 97.0-100.0.
 
+[[files/mharbola3/lab1_onemax_fitness_graph.png|center|height=300px]]
+
 '''N Queens Problem:''' Objective is to determine a configuration of n queens on a nxn chessboard such that no queen can be taken by another. For this version, each queen is assigned to one column and only one queen can be on each line. The following steps were followed for this lab:
 * Import necessary DEAP modules
 * Define fitness and individual classes as well as fitness objective and evaluation function
@@ -515,6 +718,7 @@ In this lab, I ran the evolutionary algorithm several times to observe the impro
 * Run main evolutionary loop for 100 generations
 * Algorithm doesn't consistently achieve minimum of 0.0 but gets consistently close to it
 
+[[files/mharbola3/lab1_n_queens_fitness_graph.png|center|height=300px]]
 
 === Action Items ===
 {| class="wikitable"

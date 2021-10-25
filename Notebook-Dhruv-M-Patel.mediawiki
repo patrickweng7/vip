@@ -18,7 +18,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
-==Oct 4th, 2021==
+==Oct 25th, 2021==
 ===Meeting Notes===
 
 ===Subteam Notes===
@@ -33,15 +33,204 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |-
 |
 |In Progress
-|Oct 4, 2021
-|Oct 11, 2021
+|Oct 25, 2021
+|Nov 1, 2021
 |
 |-
 |Update Wiki Notebook
 |In Progress
+|Oct 25, 2021
+|Nov 1, 2021
+|
+|-
+|}
+
+==Oct 18th, 2021==
+===Meeting Notes===
+* Presentation is NEXT WEEK!
+* When doing your runs:
+** 1 master - 1 core is constant
+** CPU hours should add up to how much time is left in the class
+** Number of hosts means how many worker jobs
+** Number of CPU per worker is core count per worker
+* Design an experiment to test your changes/parameters
+* With all these different parameter tweaks, give thought to how will we show that we made improvement
+** Pair things together?
+** Do one parameter change at a time?
+* We should each run EMADE in our pairs, individual changes
+* Use those to compare against the baseline
+
+===Subteam Notes===
+* Max tested PACE and it works, though primitives are erroring out for the nn tree
+* nsga2 is hard-coded
+** Need to register nsga3 into toolbox
+** Call it in the code
+** Why’s it not pulling from the XML
+* We have four changes from the baseline, test all of them SEPARATELY
+** Geo. Crossover
+** Semantic Crossover
+** Hyper Features
+** NSGA-3 selection
+** Compare which of these four had the best changes
+* Objectives are: area under PR curve, and number of parameters
+
+'''Work Notes'''
+* Checking status
+** Qstat command
+** -n lists node the job is on
+** -u <user> specifies the user’s jobs
+** qstat -q pace-ice-gpu to check GPU usage
+** qsub pbsmysql.pbs
+* PACE-ICE config
+** MySQL has 8hr walltime
+** EMADE use 7:40hr walltime
+** # hosts is 1, # workers per host is 1
+** RAM per host/master is 8GB
+** Anaconda Environment /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/
+* PACE-ICE Anaconda environment
+** First log in
+** Module load anaconda3 /2020.02
+** Loads anaconda environment in your pace
+** conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/
+** Once you’re in the environment, you can run reinstall script. When editing src folder, need to run reinstall script.
+* Launch scripts (courtesy of Maxim)
+** MySQL launch script: Pace files/pbsmysql.pbs
+** To start mySQL, cd into /usr/ and then mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db’
+** EMADE one is Pace files/launchEMADEchest.pbs
+** First time you run, you need to seed the run (see the launchEMADEchest script)
+
+'''Problems'''
+* Some minor SQL problems solved
+* Changed relative paths in XML to absolute paths
+* EMADE_master terminating after few minutes but worker keeps going
+** No individuals for worker to evaluate because waiting for master
+** Aryaan getting same issue
+** Error logs are bare, doesn't tell why job is killed
+
+'''Mid-semester Presentation'''
+* [https://docs.google.com/presentation/d/100keUAjam-8e1-SMLtejP9ZQN38nmCJ_yA1t2HW-JPs/edit?usp=sharing Presentation Link]
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Run comparison trials
+|Complete
+|Oct 18, 2021
+|Oct 25, 2021
+|Oct 23, 2021
+|-
+|Create mid-sem presentation
+|Complete
+|Oct 18, 2021
+|Oct 25, 2021
+|Oct 24, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Oct 18, 2021
+|Oct 25, 2021
+|Oct 25, 2021
+|-
+|}
+
+==Oct 11th, 2021==
+===Meeting Notes===
+* Fall Break -- no vip general meeting
+
+===Subteam Notes===
+* Start making presentation early next week 10/19
+* Reminder: mid-sem presentation is on 10/25
+* Do comparison run after merging our changes in
+* Be prepared to talk about what we worked on individually/in your pairings (will need to put it on the slides)
+* Before Monday goals: verify changes don't screw up the code, commit changes, create PR, review others' PR, merge changes
+
+''' Work Notes '''
+* Due to fall break, this was slow week
+* Peer reviewed others' code
+* Merged in my changes
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Tie loose ends
+|Complete
+|Oct 11, 2021
+|Oct 18, 2021
+|Oct 17, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Oct 11, 2021
+|Oct 18, 2021
+|Oct 18, 2021
+|-
+|}
+
+==Oct 4th, 2021==
+===Meeting Notes===
+* Peer evals are open! Due this Friday 10/8
+* We are trying to minimize area under curve for precision recall
+** Reason: we have multi-label data, traditional accuracy metrics do not work.
+* Focus now: what we added is working correctly and generate comparison data (baseline data almost done)
+* Anything put in the shared folder counts against personal quota (based on file ownership), Zutty can change it to his account and make it read-only
+** We will test if we can do this with a conda environment
+** Possibly database as well!
+* Max needs to commit his changes to codebase to our fork of the repo. It will allow anyone to run on pace-ice-gpu
+* Our datasets in PACE are stored in:
+** /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/datasets/chest_xrays/
+
+===Subteam Notes===
+* 224x224 size images
+* Maxim gonna send his PACE setup so we can run EMADE on our pace-ice
+* Aiming for end of fall break, getting runs working
+* Monil working on testing some hyper features in EMADE, works locally
+** Don’t need to launch emade run to test it, can use stand-alone tree evaluator
+** There are template trees to help you
+** Can use directly with your primitive, assigns fitness scores to tree
+* Dhruv/Harris are going to test NSGA3 (don’t need image dataset)
+* Will need actual EMADE run before mid-sem presentation to check improvement from baseline or not
+* Aryaan/Temi looking at mating and crossover methods
+* '''Goals before mid-sem presentation:''' Need baseline run and comparison runs
+** Can show improvement OR deterioration
+** What works, what doesn’t. What to try next.
+** Most of us can make comparison runs
+
+'''Work Notes'''
+* Just use Titanic or another template dataset to test if the method works
+* Inside the template file, we use <selection> to specify the selection method
+** Nested inside <selections> (list of <selection>)
+*** Nested in <evolutionParameters> (where we also specify <mutations>, <matings>, etc.)
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Ensure NSGA3 works in run
+|Complete
 |Oct 4, 2021
 |Oct 11, 2021
-|
+|Oct 11, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Oct 4, 2021
+|Oct 11, 2021
+|Oct 13, 2021
 |-
 |}
 

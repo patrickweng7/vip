@@ -9,16 +9,41 @@ Cell Phone: 208-515-8082
 
 = Fall 2021 =
 
-== October 4, 2021 ==
+== October 25, 2021 ==
 
 === Lecture Notes ===
-First meeting with the NAS subteam.
-* Gave progress updates
-* Got more help on PACE ICE setup
-* I helped Lucas with some PACE ICE issues we were working on together
+NLP Presentation:
+* In progress
+Image Processing:
+* Focusing on a more specific image processing task: CheXNet, which is chest X-rays
+* Baseline results:
+** Ran for 30 generations
+** Used precision-recall AUC because it was more accurate for their data
+** Had individuals with very low AUC, which seems suspicious.
+* Looked at 3 selection methods: NSGA-III, Lexicase, and Hypervolume indicators
+* Compared results from NSGA-III with NSGA-II which is already in EMADE
+* What is different about NSGA-III:
+** At the start, defines reference points to try and maintain diversity among its individuals.
+* Problems:
+** Had Master process die 5-10 minutes in with no error messages.
+* Implemented semantic mutation and mating methods such as dp.mutSemantic()
+* Had issues with semantic operators in generating valid architectures with non-seeded runs.
+* Most generated individuals couldn't generate valid fitness scores
+* With Geometric crossover, had similar errors with typing.
+* Made "hyper-features" which is the combination of multiple primitives that work well together, they combined grey level with sobel edge detection as one "hyper-feature".
+Stocks:
+* Goals:
+* Demonstrate how EMADE can beat the state of the art using trading algorithms generated.
+* Write a paper and publish on findings.
+* Use technical indicators to determine whether we should buy/sell a stock at a specific time.
+* 
 
 === Sub-team Notes ===
-
+Presented our midterm presentation (https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit#slide=id.gf74dd2f3e8_0_51) to the other subteams/bootcamp students.
+I presented slides 18-20 which displayed the work I accomplished on the team.
+Items I presented:
+* Creating new SQL Table for NNLearners to track metrics over time
+* Talked about new analysis methods that displayed NNLearner Statistics and reduced parentheses.
 
 === Action Items ===
 {| class="wikitable"
@@ -30,9 +55,135 @@ First meeting with the NAS subteam.
 |-
 |Update Notebook
 |Completed
-|September 13, 2021
-|September 20, 2021
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|}
+
+== October 18, 2021 ==
+
+=== Lecture Notes ===
+Gave status updates from last week and the hackathon.
+Discussed how we would break-down our midterm presentation, I was assigned the "New Testing/Analysis Tools" section since my work was mostly in this area.
+Slides assigned:
+* NNLearner SQL Table
+* New Analysis Methods
+Link to presentation slides: https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit#slide=id.gf74dd2f3e8_0_64
+
+=== Sub-team Notes ===
+My work over the weekend:
+* Assigned to work on two tasks this week:
+1. Creating function that takes an individual's string representation and removes unnecessary parentheses
+* These are generated because we have passthrough layers that do not modify input but created nested parentehses.
+* Allows us to more easily view individuals' structure
+2. Create function that substitutes ADF's with the actual representation of the ADF.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 18, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Create function to remove unneeded parentheses
+|Completed
+|October 18, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+== October 11, 2021 ==
+
+=== Lecture Notes ===
+No lecture: Fall Break.
+
+=== Sub-team Notes ===
+My progress:
+* Finished script to pull amazon dataset automatically
+* Main commit here on my personal fork: (https://github.gatech.edu/jhinckley6/emade/commit/bf5dbccdbc65f206e03d90ec74a47c92ae0bf337)
+* Problems encountered:
+** Getting data from Kaggle: followed Pokemon example by Dr. Zutty
+** Kaggle data being bz2'd instead of uncompressed: used module bz2 and method bz2.BZ2File
+** Had to transform the data from Kaggle to match out datasets, need the format to be "review",(0|1) - 0 if __label__1 and 1 if __label__2
+** test.ft.txt was only 400,000 lines, small enough to put in memory, but train.ft.txt is 3,600,000 lines, too large to easily put into memory.
+*** We only need 5% (180,000) of the train.ft.txt, but we need a representative sample, so we must use `sklearn.model_selection.StratifiedShuffleSplit`.
+*** To get a representative sample, it seemed like I needed all the data, but what I found is that I only need to provide the labels (0 or 1), which can be stored into memory easily.
+*** Using the labels I can get the indices of the sample, so then I can read only the 180,000 lines into memory to process and save into a .gz compressed file.
+Things to note:
+* Originally we had a train_full.csv which had all 3,600,000 lines, but I did not generate this file. If we did need it, instead of putting it all into memory, we could write the file line by line, then afterwards gzip the plaintext file.
+* The new stratified sample is different from the original, since it is being randomly generated (although the script has a set seed).
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 11, 2021
+|October 18, 2021
 |In Progress
+|}
+
+== October 4, 2021 ==
+
+=== Lecture Notes ===
+First meeting with the NAS subteam.
+* Gave progress updates
+* Got more help on PACE ICE setup
+* I helped Lucas with some PACE ICE issues we were working on together
+
+=== Sub-team Notes ===
+* Watched Standalone Tree Evaluator video: (https://bluejeans.com/playback/s/pvervaaE157asZmWHMtm0NNq8AxVnDoNZZ8JzvomrLJgH25qF0hm2lka4OzbefGm)
+* Went through overview of the nn-vip branch of EMADE: (https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p)
+* Worked through PACE issues:
+** Determined that my problems with gzipped files were due to not cloning with Git LFS installed.
+** Found problems with my input_amazon.xml file where there was not the correct PACE setup.
+Meeting (10/8/2021):
+* Went over progress reports:
+** Cameron Bennett is working on way to debug EMADE locally using VSCode
+** Problems with our EMADE branch, we had a merge that broke our nn-vip branch
+** Cameron Whaley worked on a solution by creating a new branch nn-vip-rewind but we can't figure out how to make a pull request to fix nn-vip
+*** Discussed moving over to Cameron Whaley's personal EMADE fork
+*** During subteam meeting Conner Yurkon figured out how to remind our main nn-vip branch, however, we decided to make issues less difficult in the future we can still use Cameron's personal fork.
+* I helped Lucas with PACE ICE errors
+* I decided to take on the issue of creating a script to download the Amazon dataset so that we can git clone from inside PACE ICE more easily without using SCP.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 8, 2021
+|-
+|Write script to pull amazon dataset
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 13, 2021
+|-
+|Watch EMADE overview and standalone tree evaluator videos
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 8, 2021
 |}
 
 == September 27, 2021 ==

@@ -314,6 +314,7 @@ NLP
 === Main Team Meeting ===
 
 * Peer evals due Friday at 4pm!
+* Notebooks are also due Friday in the evening
 
 Image Processing
 * Continued on implementing selection methods and mating/mutation methods
@@ -335,7 +336,11 @@ NAS
 * Gave presentation to new members on EMADE and the mating/mutation methods that would be relevant to the team
 
 === Sub Team Meeting: October 7 ===
-*
+* Met virtually today
+* Bernadette got PACE-ICE to connect to the MySQL server!
+* Attempted to replicate her steps but was unsuccessful
+* Xufei discussed reading a paper and potentially doing some paper writing of our own
+* New team member! Diptendu is from Stocks and is interested to see how our runs will go
 
 
 === Action Items ===
@@ -347,17 +352,152 @@ NAS
 !Date Completed
 |-
 |Get EMADE transferred to PACE-ICE
-|incomplete
+|canceled since not using PACE-ICE
 |September 27, 2021
-|October 7, 2021
-|September , 2021
+|/
+|/
 |-
 |Complete peer-evals
-|incomplete
+|Complete
 |October 4, 2021
 |October 8, 2021
-|October , 2021
+|October 8, 2021
 |}
+
+== Week 7: October 11, 2021 ==
+
+=== Main Team Meeting ===
+
+None due to Fall Break
+
+=== Sub Team Meeting: October 14 ===
+* Met virtually today
+* Xufei and Bernadette seemed to get the PACE-ICE server running
+* I realized I should clone Vincent's fork of EMADE and got started on that
+
+=== Individual Exploration: October 14 ===
+* Deleted the old copy of EMADE that was Gabe's fork
+* Had to refer to my own notebook to see what I did to reinstall EMADE last semester, and the steps were somewhat out of order so I'll condense the commands to run here
+** git lfs install
+** git clone https://github.gatech.edu/vhuang31/emade.git
+** *Open a new terminal window*
+** cd emade
+** conda create -n emade python=3.7  --- deleted old conda enviroment to replace
+** conda activate emade
+** conda install opencv
+** conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn 
+** pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
+* Ran into an issue installing hmmlearn. Also needed to go eat so I decided to work on it another day
+
+=== Individual Exploration: October 16 ===
+* Continued trying to get EMADE set up
+* Saw a command for if hmmlearn fails to install on Windows but I use a Mac so I didn't think it would work
+* Tested it, and it did work! So the next steps for installing emade for me includes making sure hmmlearn is built
+** conda install -c conda-forge hmmlearn
+* Now to see if all the files build correctly
+** bash reinstall.sh
+* Got tensorflow error just like last semester 😡 
+* Running the "which" commands that seemed to work last semester... 
+** which python3
+** which python
+** which pip
+* tensorflow uses Python 3.7 while my conda env seems to be running Python 3.6
+** Not sure how to fix this error 😭 
+* Going to start over but use this command to create a conda env with the right version of Python
+** conda create -n emade python=3.7
+* FIX: edit the reinstall file
+** vim reinstall.sh
+** Change `python3` to `python` since running which python3 makes it use the wrong version
+** Running which python makes it use the anaconda version which is the version we want to use
+* Next is to get emade copied into PACE-ICE!
+* Make a copy of emade but without the .git directories (use cmd + shift + . to see hidden files) I called this `emade1`
+** cd ~
+** scp -r emade1 ayoung97@pace-ice.pace.gatech.edu:~
+* Change the dirctory name in PACE-ICE
+** 
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Reclone EMADE
+|Complete
+|October 14, 2021
+|October 18, 2021
+|October 16, 2021
+|-
+|Resolve hmmlearn error
+|Completed
+|October 14, 2021
+|October 18, 2021
+|October 16, 2021
+|-
+|Resolve tensorflow error
+|Completed
+|October 16, 2021
+|October 18, 2021
+|October 16, 2021
+|}
+
+== Week 7: October 18, 2021 ==
+
+=== Main Team Meeting ===
+
+None due to Fall Break
+
+=== Sub Team Meeting: October 21 ===
+* Got set up again on Google Colab to try to complete some runs on the Stocks dataset
+* Unfortunately I kept running into various bugs that prevented me from even starting one
+
+== Week 8: October 25, 2021 ==
+
+=== Main Team Meeting: Mid-Term Presentations ===
+
+* In the Ford building atrium today!
+ 
+NLP
+* Natural language processing: Question answering (information retrieval)
+* Used SQUAD Dataset from Stanford that has 100K answerable and 50K unanswerable questions
+* Also went over 2 separate papers for their projects!
+
+Bootcamp 1 
+* Ran some preprocessing
+* Emphasized how they did learn from their mistakes and completed their models
+** Accidentally deleted the survived column
+
+NAS
+* Was hard to get new individuals that outperformed the seeds
+* Most individuals in EMADE aren't neural networks
+* Short term goal is to use EMADE to create more complex architecture
+
+Bootcamp 2
+* Ran into a lot of issues when trying to run EMADE
+* Discussed how they would've liked to have known what the typical number of individuals to use was
+
+Image Processing
+* New team this semester
+* Conducted experiments based on an existing paper and dataset
+* Also worked to find selection methods as well as mating and mutation methods
+
+Bootcamp 3
+* Added a thrid objective of tree size to their evaluation function
+* Foudn that runs were completed faster on a Macbook with an M1 chip
+
+Stocks
+* Use EMADE on time series data
+*
+
+Bootcamp 4
+*
+
+Modularity
+* That's us!
+* [https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit Slides]
 
 = Spring 2021 =
 [https://bluejeans.com/904633358 Main Team Meeting Link]
@@ -1816,7 +1956,7 @@ GitHub: https://github.com/maximgeller/Titanic-Multiple-Objectives
 Download and set up EMADE
 
 ====== Switching python verisons: ======
- 
+* conda install python=3.6
 
 === Action Items ===
 {| class="wikitable"
