@@ -65,6 +65,13 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * EMADE, had to modify sel_nsga2 to achieve selTournamentDCD()'s requirement of having an individuals array divisible by 4 (should be fixed by DEAP == 1.2.2... we normally run into this issue once a semester if I recall correctly).
 * * AdaBoostLearner was the individual with the most appearances in their results
 * * Takeaways: Important to use trial and error, it is crucial to connect worker nodes
+* Stocks
+* * Overarching Objectives: How to use EMADE for regression on time series data, and how to use emade to optimize market trading algorithms?
+* * Idea: Model other papers and use technical analysis to predict future trigger points for the stock
+* * Relative performance of primitives based on CDF metric shows that some primitives are working great
+* * Objective functions include profit percentage, average profit per transaction, pdf of profit, and variance of profit per transaction
+* * Designing new experiments based on AAPL and other stocks
+
 
 ## Week 9, Oct 18th
 
