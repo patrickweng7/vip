@@ -12,8 +12,18 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 ### Week 10: Oct 25
 ### Week 9: Oct 18
 Removed lambdas with 1 node and all args
-Code Commits
-- [Refactored contract arls method, added utility sanity check functions, removed try catch blocks causing error suppression, added helper function for matching ARL instance within individual, fixed parent node arities not being updated, fixed ARG0 begin removed during contraction, fixed only a single ARL of each type being allowed for an individual, added restriction for large individuals for ARL canidate formation, added arl_argument index position information to population information](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
+**Code Commits**
+- [commit](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
+- Changes
+-- Refactored contract arls method
+-- Added utility sanity check functions
+-- Removed try catch blocks causing error suppression
+-- Added helper function for matching ARL instance within individual
+-- Fixed parent node arities not being updated
+-- Fixed ARG0 begin removed during contraction
+-- Fixed only a single ARL of each type being allowed for an individual
+-- Added restriction for large individuals for ARL canidate formation
+-- Added arl_argument index position information to population information
 ### Week 7-8: Oct 4 and Oct 11
 new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
 new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl6', 'lambda arl_arg_0,arl_arg_1: (EqualizeHist(arl_arg_0,-6,arl_arg_1))', <function <lambda> at 0x7f7428ad32f0>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>])
@@ -43,7 +53,9 @@ new individual [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learni
 curr_idx 5 newindv len 3 subtreeidx 0 instance len 3
 
 **Code Commits**
-- [Fixed incorrect data type for ARL selection, removed unused and depreciated code](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
+- [commit](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
+- Changes:
+-- Fixed incorrect data type for ARL selection, removed unused and depreciated code
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
