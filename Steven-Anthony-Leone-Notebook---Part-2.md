@@ -35,7 +35,15 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * CoDEEPNeat, latest and most effective Neural Architecture Search
 * * Some individuals are taking too long to train 
 * * New analysis methods
+* * Dimensionality issues between layers
+* * Throwing away non NNLearners
 * Bootcamp 2
+* * Data Preprocessing Procedure: dropped name, passengerID, ticket number, and far
+* * Mapped alphabetical values of 'sex' and 'embarked'
+* * MOGP: Used False positive and negative rates, minimizing these two objectives
+* * EMADE: had a difficult installation process
+* * Created a virtual conda environment, used python 3.7
+* * Adaboostlearner was their best type of individual
 
 ## Week 9, Oct 18th
 
