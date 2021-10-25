@@ -55,7 +55,16 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * In theory, should outperform NSGA II
 * * Added two new mating and mutation methods based around semantic, Geometric Semantic Crossover and Geometric Semantic Mutation
 * * Added "Hyper-features" for Image Processing and GP
-* * Bootcamp 3
+* Bootcamp 3
+* * Worked on titanic dataset
+* * used one hot encoding for genders
+* * dropped passengerID, ticket, and cabin
+* * Added a gender_embarked column
+* * started with a variety of machine learning models popular for classification problems, including svm, rf, logistic regression, and MLP neural networks (multilayer perceptrons)
+* * GP evaluation function used False positive and negative rate
+* * EMADE, had to modify sel_nsga2 to achieve selTournamentDCD()'s requirement of having an individuals array divisible by 4 (should be fixed by DEAP == 1.2.2... we normally run into this issue once a semester if I recall correctly).
+* * AdaBoostLearner was the individual with the most appearances in their results
+* * Takeaways: Important to use trial and error, it is crucial to connect worker nodes
 
 ## Week 9, Oct 18th
 
