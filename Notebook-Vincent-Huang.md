@@ -7,12 +7,28 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
+
+### Week 10: Oct 25
+Midterm Presentation
 upload local to remote via mysqldump and cntrl f and --hex blob
 mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u admin -p --hex-blob titanic_noarl1 &> noarl1.sql
-### Week 10: Oct 25
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/73aa08adc7ff013b7118c3bee361349753ab60af)
+    - Added MNIST new objectives support to AUC visualization tool (commented out to preserve functionality)
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/18bfb97c973d9bbd3a51f6d06e00e774e1fa395a)
+    - Added AUC over time analysis graph notebook
+    - Added ARL size analysis visualization notebook
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Figure out how to use emade visualization tools|Complete|Oct 25|Oct 25|
+|Work on midterm presentation|Complete|Oct 25|Oct 25|
+|Midterm presentation|Complete|Oct 25|Oct 25|
+
 ### Week 9: Oct 18
-Removed lambdas with 1 node and all args
-**Code Commits**
+
+
+#### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
     - Refactored contract arls method
     - Added utility sanity check functions
@@ -23,6 +39,16 @@ Removed lambdas with 1 node and all args
     - Fixed only a single ARL of each type being allowed for an individual
     - Added restriction for large individuals for ARL canidate formation
     - Added arl_argument index position information to population information
+    - Added restriction for arl lambda to have at least 2 non arl argument nodes
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/08bbedc7ab033f7cd075c30a0c4a17b680aa49ec)
+- [Hotfix](https://github.gatech.edu/vhuang31/emade/commit/ebc3364f9f37c5f6ce4d375d357f3b8c8dba162c)
+- [Hotfix](https://github.gatech.edu/vhuang31/emade/commit/0eda0acf98452d10f9b1bb18f8eab0273d946055)
+    - Fixed ARL Lambda method replacing fixed ARL arguments with variable ARL argument placeholders
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Fix population_info bug|Incomplete|Oct 4|Oct 11|
+|Investigate Incorrect arities problem|Incomplete|Oct 4|Oct 11|
 
 ### Week 7-8: Oct 4 and Oct 11
 new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
@@ -52,7 +78,7 @@ len new individual 3
 new individual [('arl5', 2, 0), ('-6', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
 curr_idx 5 newindv len 3 subtreeidx 0 instance len 3
 
-**Code Commits**
+#### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/2d5d323d3d8a7edb162d3f90fd82b2633de6ecc9)
     - Fixed incorrect data type for ARL selection, removed unused and depreciated code
 
@@ -153,7 +179,7 @@ individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("l
 - Mnist team working through getting everyone on PACE-ICE to do runs
     - There was some ambiguity in the instructions which caused some confusion
 
-**Code Commits**
+#### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/fd1794ba0ccabe5c3edbf8205653ba6cd9adb6c2)
     - Revert changes to titanic input XML file causing crashes
 
