@@ -9,9 +9,10 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 # Fall 2021
 upload local to remote via mysqldump and cntrl f and --hex blob
 mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u admin -p --hex-blob titanic_noarl1 &> noarl1.sql
-### Week 8: Oct 11
+### Week 10: Oct 25
+### Week 9: Oct 18
 Removed lambdas with 1 node and all args
-### Week 7: Oct 4
+### Week 7-8: Oct 4 and Oct 11
 new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
 new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl6', 'lambda arl_arg_0,arl_arg_1: (EqualizeHist(arl_arg_0,-6,arl_arg_1))', <function <lambda> at 0x7f7428ad32f0>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>])
 new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl7', 'lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))', <function <lambda> at 0x7f7428ad3268>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>])
