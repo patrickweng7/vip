@@ -15,11 +15,19 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 ## Week 10, Oct 25th
 
-### General Meeting Notes
+### Presentation Notes
 
 ## Week 9, Oct 18th
 
+Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+
 ## Week 8, Oct 11th
+### General Meeting:
+* No General Meeting this week
+
+TODO: Fill in Notes
+
+Accomplishments of Week: Merging in changes
 
 ## Week 7, Oct 4th
 ### General Meeting Notes
