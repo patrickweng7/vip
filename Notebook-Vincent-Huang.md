@@ -8,8 +8,7 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
 upload local to remote via mysqldump and cntrl f and --hex blob
-mysqldump --hex-blob -P 3306 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u
- admin -p titanic_oldarl1 &> oldarl.sql
+mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u admin -p --hex-blob titanic_noarl1 &> noarl1.sql
 ### Week 8: Oct 11
 Removed lambdas with 1 node and all args
 ### Week 7: Oct 4
