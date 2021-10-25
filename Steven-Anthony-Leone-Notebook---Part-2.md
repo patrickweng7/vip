@@ -13,6 +13,12 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Week 10, Oct 25th
+
+## Week 9, Oct 18th
+
+## Week 8, Oct 11th
+
 ## Week 7, Oct 4th
 ### General Meeting Notes
 * Stocks:
