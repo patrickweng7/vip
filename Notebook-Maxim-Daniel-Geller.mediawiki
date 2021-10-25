@@ -10,13 +10,53 @@
 
 = Fall 2021 =
 
+== Week 10: October 25th - October 31st ==
+
+Presentation Week!
+
+NLP Team
+
+* Building question and answering systems with EMADE
+* Their base model is called BiDAF: Bidirectional Attention Flow
+* Goal: distill the state of the art model with EMADE
+* Literature Review team looked to find ways to reduce the complexity since all the top performing models were really complex
+* No results yet because the primitives are not complete
+* Creating seed primitives from literature review
+
+Bootcamp 1
+
+* dropped name, ticket, and cabin columns
+* one hot encoding for sex and embarked columns
+* what kind of NN did they use for ML run?
+* how did they decide on their crossover (one point leaf biased) and mutation (node replacement) methods?
+* GP: best individual? Notice there are only embarked and sex used, would including more features result in better performance?
+
+NAS
+
+* Initial infrastructure needs improvements: nested NN learners, EMADE does not explore search space
+* Allow EMADE to create more complex architectures
+* Objectives: accuracy and number of parameters
+* Created a timed stopping callback — lots of variation!
+* Created a new table in MySQL database to track individual statistics of NNLearners
+
+Bootcamp 2
+
+* Challenges and lessons learned from EMADE installation
+* Saw more individuals with fitness over every generation as well as number of individuals on the pareto front
+* Found that EMADE trees had more complex primitives but shorter tree depth compared to GP trees.
+
+Bootcamp 3
+* Used strongly typed genetic programming!
+* Also dropped name, ticket, and cabin columns
+* They ran into the individuals not divisible by 4 error but they solved it which is good
+
+
+
 == Week 9: October 18th - October 24th ==
 
-* final push
+This week we as a team are wrapping up any code that needs to be done and doing code review so that nothing that breaks EMADE gets merged into our main working branch. I did a lot of code review by testing the changes Dhruv and Harris made with selection as well as both Aryaan’s and Temi’s work with mating and mutation functions. Unfortunately, none of the three PR’s are ready yet because they are either not properly registered in EMADE. I spent a lot of time debugging and troubleshooting why they weren’t running locally nor on PACE. The only lead I have is with Aryaan’s mating functions: it tries to multiply a float with a primitive which is not a valid operation.
 
-* pull request reviews
-
-* prezo prep
+Otherwise, I am getting ready for the presentation by mining some individuals to bring up for discussion from the baseline as well as synthesizing everyone’s work. 
 
 '''Action Items'''
 {| class="wikitable"
@@ -30,25 +70,19 @@
 |Completed
 |October 13th, 2021
 |October 15th, 2021
-|October 15th, 2021
+|October 18th, 2021
 |-
-|Commit changes to EMADE functionality to team branch 
+|Prepare presentation slides 
 |Completed
-|October 7th, 2021
-|October 11th, 2021
-|October 13th, 2021
-|-
-|Continue evolving baseline individuals 
-|Completed
-|October 4th, 2021
 |October 17th, 2021
-|October 14th, 2021
+|October 24th, 2021
+|October 24th, 2021
 |-
 |Begin a comparison run using new IP techniques
-|Awaiting branch merges
+|Completed
 |October 13th, 2021
 |October 18th, 2021
-|
+|October 23rd, 2021
 |-
 |}
 
