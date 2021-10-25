@@ -26,7 +26,17 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 |Midterm presentation|Complete|Oct 18|Oct 25|Oct 25|
 
 ### Week 9: Oct 18
-
+- Implemented ARL match helper method
+    - Variation on dfs
+    - We expect there to be (arity of parent node in original subtree) - (arity of parent node in ARL) arl arguments
+    - We iterate over each child in the individual's tree, and if the current node does not match a child in the ARL, it must be an argument, so mark it as an argument.
+    - This way we can identify which nodes in the individual should be deleted during contraction, and which nodes should be set as arguments to the new ARl primitive
+- Refactored contract ARLs method
+    - Iterate through individuals which contain ARL occurrences
+    - For each occurrence, use the ARL match method to identify which nodes to contract
+    - If there is no overlap, add the nodes to a removal set
+    - Reverse sort the nodes to remove so that we don't change the index of future nodes to remove
+    - Insert the arl with the arguments identified during match ARL
 
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
@@ -106,8 +116,8 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Fix population_info bug|Incomplete|Oct 4|Oct 11|
-|Investigate Incorrect arities problem|Incomplete|Oct 4|Oct 11|
+|Fix population_info bug|Complete|Oct 4|Oct 11|Oct 10|
+|Investigate Incorrect arities problem|Complete|Oct 4|Oct 11|Oct 8|
 
 ### Week 6: Sep 27
 - Implemented workaround for add_all_subtrees large individuals bug
