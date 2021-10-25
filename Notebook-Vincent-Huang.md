@@ -15,15 +15,16 @@ Removed lambdas with 1 node and all args
 **Code Commits**
 - [commit](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
 - Changes
--- Refactored contract arls method
--- Added utility sanity check functions
--- Removed try catch blocks causing error suppression
--- Added helper function for matching ARL instance within individual
--- Fixed parent node arities not being updated
--- Fixed ARG0 begin removed during contraction
--- Fixed only a single ARL of each type being allowed for an individual
--- Added restriction for large individuals for ARL canidate formation
--- Added arl_argument index position information to population information
+    - Refactored contract arls method
+    - Added utility sanity check functions
+    - Removed try catch blocks causing error suppression
+    - Added helper function for matching ARL instance within individual
+    - Fixed parent node arities not being updated
+    - Fixed ARG0 begin removed during contraction
+    - Fixed only a single ARL of each type being allowed for an individual
+    - Added restriction for large individuals for ARL canidate formation
+    - Added arl_argument index position information to population information
+
 ### Week 7-8: Oct 4 and Oct 11
 new_arl_pool instance ([12.0, (0, 80), (0, 99)], 'arl5', 'lambda arl_arg_0,arl_arg_1,arl_arg_2,arl_arg_3: (Learner(EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2),arl_arg_3))', <function <lambda> at 0x7f7428ad3a60>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.TriState'>, <class 'GPFramework.constants.QuadState'>, <class 'GPFramework.gp_framework_helper.LearnerType'>])
 new_arl_pool instance ([12.0, (1, 80), (1, 99)], 'arl6', 'lambda arl_arg_0,arl_arg_1: (EqualizeHist(arl_arg_0,-6,arl_arg_1))', <function <lambda> at 0x7f7428ad32f0>, [<class 'GPFramework.data.EmadeDataPair'>, <class 'GPFramework.constants.QuadState'>])
