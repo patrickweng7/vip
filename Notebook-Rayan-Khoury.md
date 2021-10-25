@@ -3,6 +3,24 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **October 13th, 2021**
+## **Meeting 8**
+### Class Notes:
+* Emade Installation Session
+    * Cloned Emade using Git Bash
+    * Added Conda 
+    * Created Conda virtual environment named "EnvironmentEmade"
+    * Installed Emade dependencies using conda and git
+    * Installed SQL
+    * SQL connection to Aditi's server was successful 
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Work on EMADE Presentation|Complete|10/20/2021|10/13/2021|10/15/2021|
+|Update Notebook|Complete|10/20/2021|10/13/2021|10/14/2021|
+|Write Python scripts|Complete|10/20/2021|10/13/2021|10/17/2021|
+|Run EMADE on preprocessed Titanic Data|Complete|10/20/2021|10/13/2021|10/17/2021|
+
 # **October 6th, 2021**
 ## **Meeting 7**
 ### Class Notes:
