@@ -17,7 +17,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 ### Presentation Notes
 * NLP
-* * We presented our work so far
+* * We presented our work so far: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
 * Bootcamp 1
 * * Learning and Implementing ML, MOGP, and EMADE for Titanic Dataset from Kaggle
 * * First, pre-processing data
@@ -35,8 +35,8 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * CoDEEPNeat, latest and most effective Neural Architecture Search
 * * Some individuals are taking too long to train 
 * * New analysis methods
-* * Dimensionality issues between layers
-* * Throwing away non NNLearners
+* * Dimensionality issues between layers: they're still working on this, 
+* * Throwing away non NNLearners: used strongly typed GP, made a new type of EMADE Data Pair that requires an NNLearner to be used
 * Bootcamp 2
 * * Data Preprocessing Procedure: dropped name, passengerID, ticket number, and far
 * * Mapped alphabetical values of 'sex' and 'embarked'
@@ -44,6 +44,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * EMADE: had a difficult installation process
 * * Created a virtual conda environment, used python 3.7
 * * Adaboostlearner was their best type of individual
+* Image Processing 
 
 ## Week 9, Oct 18th
 
