@@ -16,6 +16,17 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ## Week 10, Oct 25th
 
 ### Presentation Notes
+* NLP
+* * We presented our work so far
+* Bootcamp 1
+* * Learning and Implementing ML, MOGP, and EMADE for Titanic Dataset from Kaggle
+* * First, pre-processing data
+* * Replacing Null Values, One-Hot Encoding
+* * SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier
+* * Genetic Programming worked better than the ML for this group
+* * EMADE -> doubled headless chicken rate
+* * Biggest setback was messing up dataset
+* 
 
 ## Week 9, Oct 18th
 
