@@ -27,7 +27,37 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
         3. Adaboost learner 
 
 * Neural Architecture Search:
-    * 
+    * Create neural networks automatically in EMADE
+    * Problems
+       * EMADE couldn't outperform seeds
+       * Most individuals were not neural networks
+       * Few restrictions for out dimensions, batch sizes, etc
+       * Nested NNLearners taking up lot of time (no ensembling techniques to take advantage of)
+    * Goal: have EMADE create more complex architectures and make EMADE competitive with VGG16 and other SOTA architectures
+    * Time Stopping
+       * Lower training time same as minimizing number of parameters
+       * Put hard stop on how much time to train
+    * Preprocessing
+       * Text tokenization, One Hot Encoding for Multiclass Target Data
+       * Modify data pair once, then feed into individual
+    * Growing Deeper Complex Individuals
+       * CoDEEPNeat (latest and most effective NAS)
+       * Construct smaller neural network structures called 'modules' and build up from there
+    * NNLearner SQL Table
+       * Table to access specific NNLearner individuals over time
+       * Singles out only NNLearner-based individuals instead of any individual  
+    * Novelty detection
+       * Reward individuals for new architectural features/structures
+       * Track layers EMADE generates over all individuals
+* Bootcamp 2
+    * Preprocessing: Dropped Name, PassengerID, Ticket Number, Fare columns
+    * Mapping: Mapped alphabetical values of Sex and Embarked columns using column maps
+    * MOGP Design: Used SPEA2 for selection, symbolic regression used
+    * MOGP Eval: FPR and FNR (minimize two objectives). Convert float to 0 or 1 using activation function. 30 generations
+    * EMADE
+        * Should have spent more time on processing data and trying out more primitives + individuals
+    * In the future, decide who would run master and worker (or use PACE)
+    
 
 '''Subteam Meeting Notes:'''
 
