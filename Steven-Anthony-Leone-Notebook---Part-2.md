@@ -45,6 +45,17 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Created a virtual conda environment, used python 3.7
 * * Adaboostlearner was their best type of individual
 * Image Processing 
+* * New this semester
+* * Wanted a narrower scope
+* * Dataset Preparation: Image Resizing, normalization, horizontal flipping, newer augmentations
+* * Augmented 1000 out of 5000
+* * Having suspicious baseline results, including an incredibly low AUC
+* * Implemented NSGA III to use
+* * Pre defines set of reference points to maintain diversity among its solutions
+* * In theory, should outperform NSGA II
+* * Added two new mating and mutation methods based around semantic, Geometric Semantic Crossover and Geometric Semantic Mutation
+* * Added "Hyper-features" for Image Processing and GP
+* * Bootcamp 3
 
 ## Week 9, Oct 18th
 
