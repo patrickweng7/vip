@@ -45,6 +45,19 @@ Met with subteam again on 10/22 to discuss connecting worker nodes and the resul
 Met with subteam on 10/23 to resolve connecting worker node issues.
 * ERROR 2003 (HY000): Can't connect to MySQL server
 
+In order to connect as a worker node
+* I used the command <code>python3 src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w</code>
+* edited input_titanic.xml to point to the IP of the master worker, and set the username and password accordingly
+* set reuse to 1 (so that data will be reused from previous runs)
+
+EMADE changes
+* changed evalFunctions.py by adding two methods, false_negative_rate and false_positive rate and changed input_titanic.xml to point to those two evaluation functions instead of false positives and false negatives
+* modified sel_nsgaII to reduce errors by making sure individuals array is divisible by 4
+
+Our team ran emade for a few hours with 2 connected worker nodes and we were able to generate around ~60 individuals and 20 in the pareto front. This was substantially better than the 3 individuals in the pareto front that we were able to generate the day before. The following is the pareto front comparison between ML, MOGP, and EMADE.
+
+[[files/dzhang351/pareto_front_comparison.png|100px]]
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -56,19 +69,19 @@ Met with subteam on 10/23 to resolve connecting worker node issues.
 |Connect worker nodes and make sure all group members get emade working
 |In progres
 |October 20, 2021
-|
+|October 23, 2021
 |October 25, 2021
 |-
 |Work on slides for midterm
 |In progress
 |October 20, 2021
-|
+|October 25, 2021
 |October 25, 2021
 |-
 |Edit GP in Emade and test different input xmls and their impact
 |In progress
 |October 20, 2021
-|
+|October 24, 2021
 |October 25, 2021
 |-
 |}
@@ -112,7 +125,7 @@ the following tables appear within the titanic db in mysql and I am able to acce
 
 I ran the query <code>select * from individuals natural join paretofront;</code> to retrieve all the individuals that were pareto optimal and then plotted my pareto front in matplotlib. Below is my initial result using emade (default params and input file). Some next steps include normalizing to include FNR and FPR rather than FN and FP and to edit the GP implementation and titanic data splitter to match the ML data splits so that a proper comparison can be made.
 
-[[files/dzhang351/prelim_paretofront_emade.png|50x50px]]
+[[files/dzhang351/prelim_paretofront_emade.png|100px]]
 
 '''Action Items:'''
 {| class="wikitable"
