@@ -26,7 +26,16 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Genetic Programming worked better than the ML for this group
 * * EMADE -> doubled headless chicken rate
 * * Biggest setback was messing up dataset
-* 
+* Neural Architecture Search
+* * Creates Neural Networks in EMADE with the NNLearner
+* * Previous Semesters had individuals that could barely improve off of seeded individuals
+* * Dimensionality Errors (no rule enforced on connecting layers)
+* * Worked around Time Stopping
+* * Preprocessing: text tokenization, one hot encoding for multi class target data
+* * CoDEEPNeat, latest and most effective Neural Architecture Search
+* * Some individuals are taking too long to train 
+* * New analysis methods
+* Bootcamp 2
 
 ## Week 9, Oct 18th
 
