@@ -37,6 +37,9 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
     - If there is no overlap, add the nodes to a removal set
     - Reverse sort the nodes to remove so that we don't change the index of future nodes to remove
     - Insert the arl with the arguments identified during match ARL
+- Refactored ARL Lambda function
+    - Similar to match ARL function in that it also runs a modified dfs where the arity of the original parent node is used to calculate missing children
+    - Instead of marking "missing" children as arguments, instead inserts a placeholder arl_arg_# for the argument.
 
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/1e8e1a0a255de2f7198f2419a978477fb6a578ce)
@@ -55,7 +58,8 @@ mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazona
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Hi|
+|Fix incorrect arities problem|Completed|Oct 11|Oct 18|Oct 17|
+|Fix ARL fixed arguments being deleted|Completed|Oct 11|Oct 18|Oct 18|
 
 ### Week 7-8: Oct 4 and Oct 11
 - Fixed implementation detail regarding ARLs were being created with only a single non-arg node
