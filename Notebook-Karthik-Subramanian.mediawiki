@@ -57,7 +57,20 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
     * EMADE
         * Should have spent more time on processing data and trying out more primitives + individuals
     * In the future, decide who would run master and worker (or use PACE)
-    
+
+* Image Processing
+    * Objective: Improve EMADE on image processing tasks (GP Approach)
+    * Multilabel Image Classification is the focus for this semester
+    * CheXNet paper (pneumonia classification problem on chest x-ray scans). Look for pneumonia or not 
+    * Chestnet Dataset
+         * Previous VIP team had some preprocessing on (resizing, normalization, horizontal flipping)
+         * New augmentations: rotations, shearing, horizontal/vertical translation
+    * Baseline
+         * Precision/Recall AUC (saw that the labels are a bit unbalanced since we care about one class)
+         * Suspicious AUC
+    * Selection Methods
+         * NSGA-III, lexicase, hypervolume indicators (promise in solving many-objective optimization problems)
+
 
 '''Subteam Meeting Notes:'''
 
@@ -77,6 +90,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 
 * Thanks to Steven's help, I was able to get standalone_tree_evaluator working. I just need to input the SQL database credentials
 
+* Having trouble getting run for at least a few generations (at the start, my processes are queued in pace and then they close all of a sudden. Need to look at my configs)
 * Preparing for presentation
 
 * UPDATE 10/20/21: I modified the above Python script mentioned to do 5 fold cross-validation as well (Link is: https://drive.google.com/drive/folders/1z6Ro2vYwkOx19wGjTl2rfwg7nx-1YElY?usp=sharing)
@@ -89,7 +103,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Date Resolved
 |-
 |Be able to run "standalone_tree_evaluator.py" in PACE (EMADE 304 branch)
-|Works for the most part. Need to update my input_squad.xml with the database credentials (set reuse to 0 and use amazon database credentials)
+|Works for the most part. Working on running the pbs script
 |October 16th, 2021
 |October 20th, 2021
 |October 22nd, 2021
@@ -107,7 +121,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 |October 20th, 2021
 |-
 |Pull down the fork that Steven had on EMADE 304. He made some hotfixes
-|Completed. Need to fix an error when running bash reinstall.sh (Steven will update the repo one more time)
+|Completed. Updated the reinstall.sh from nn-vip branch
 |October 20th, 2021
 |October 20th, 2021
 |October 20th, 2021
