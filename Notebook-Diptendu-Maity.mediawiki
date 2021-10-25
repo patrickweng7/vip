@@ -1197,7 +1197,7 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 ** It is hard to implement because there is not much data out there.
 * Research Paper to focus on: [https://ieeexplore.ieee.org/abstract/document/4598507 An empirical study of Genetic Programming generated trading rules in computerized stock trading service system]
 
-=== Noted on Research Paper ===
+=== Notes on Research Paper ===
 * The application of genetic programming as a means to automatically generate such trading rules on the stock markets is highlighted in the study.
 * The results show that for the stocks that were studied, the use of GP-based trading rules ensures a positive dollar return in all market scenarios.
 * Genetic Programming based trading rules offer greater returns over the simple buy and hold approach than the MACD trading signal.
@@ -1415,8 +1415,68 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 * Run the google colab file as a worker and make sure there are no errors.
 
 ===Midterm Presentation Preperation===
+* Stocks Experimental Data
+** Default Evolutionary Parameters
+** Comparing Baseline, Stocks with ARLs, Stocks without ARLs
+** Goals of 30 Generations
+** Goals of 5 of Runs for each comparison
+** Profit Percentage (over 100 day test dataset)
+** Number of transactions
+** Average MAE
+** Tree Size
+* Technical Indicators
+** Signals predicting price movements for future time steps that are produced by looking at patterns in the data.
+** Patterns: stock price, volume, interest, etc.
+** TI’s used in runs:
+*** TA-Lib Indicators: SMA, EMA, MACD, BETA, OBV, etc.
+*** Non TA-Lib Indicators: MFI (Money Flow Index), Klinger Volume Oscillator (KVO), Volume Weighted Moving Average (VWMA), Fibonacci Retracement (FIBRET), etc.
+* Stock Runs with ARLs
+** Taking a look at the density graph, the x-axis are various TIs and y-axis is are various machine learning models that are used with the specific TIs. 
+** The higher the score the better that specific pair of TI and ML model worked.
+** Emade will take account of this and ARLs will make sure that these well-performing pairs get passed on to the next generation without getting mutated. 
+** Compare the result with baseline, no ARL, and ARL stock runs. 
+* Current Issues
+** PACE-ICE vs Google Colab
+*** Google Colab have limited computing power
+*** Unable to connect to database
+** Merging stocks codebase with ARL codebase
+*** Different individuals to be seeded, different evaluation methods, different GP Framework includes seeding from file, etc.
+**** Migrating stock files in process
+*** Individuals aren't evaluating
 
 ===Team Meeting Notes===
+* Not able to run stock data due to big issues.
+* Need to spend time debugging pace ICE and integrating stock data set in order to prepare for run.
+* Prepare for presentation. 
+* Run EMADE on collab as a worker for titanic dataset in order to see impact of ARLs
+* Worked through debugging issues in order to do made runs for a titanic set
+* Figured out what we want to cover for the midterm presentation.
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Midterm presentation Preparation
+|Completed
+|10/18/2021
+|10/25/2021
+|10/24/2021
+|-
+|Runs EMADE on titanic data
+|Completed
+|10/21/2021
+|10/25/2021
+|10/23/2021
+|-
+|Document Team Meeting Notes
+|Completed
+|10/18/2021
+|10/25/2021
+|10/25/2021
+|}
 
 
