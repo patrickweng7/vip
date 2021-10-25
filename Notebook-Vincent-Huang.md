@@ -10,8 +10,17 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 ### Week 10: Oct 25
 - [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)
-upload local to remote via mysqldump and cntrl f and --hex blob
-mysqldump --column-statistics=0 -h database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com -u admin -p --hex-blob titanic_noarl1 &> noarl1.sql
+- Visualization tools
+    - Follow instructions on emade-viz repo README for environment setup and installation
+    - emade-viz app takes in the input schema xml file
+    - Unfortunately could not get it to work with remote aws instance database, so had to download the database to local in order to run the tool
+    - Use command
+```
+mysqldump --column-statistics=0 -h [remote database host name] -u [remote database username] -p --hex-blob [remote database schema name] &> [local dump file].sql
+```
+-
+    - On the ADFonlyAUC branch, this will output the AUC for each generation, which I then plugged into some new notebooks I made regarding AUC over time analysis and ARL size analysis
+
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/73aa08adc7ff013b7118c3bee361349753ab60af)
     - Added MNIST new objectives support to AUC visualization tool (commented out to preserve functionality)
