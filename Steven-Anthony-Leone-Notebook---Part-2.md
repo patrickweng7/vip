@@ -82,6 +82,17 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Number of valid individuals increased with generations
 * * Had more diverse individuals with MOGP
 * * EMADE worked well with large primitive sets for them
+* Modularity
+* * Trying to introduce ARL's, or Adaptive Representation through Learning
+* * A way to introduce reusability in EMADE
+* * Evaluation -> Selection -> Genetic Operations -> ARLS -> Evaluation
+* * ARLS are useful because they might improve a population's overall fitness
+* * Should allow a population to converge faster
+* * This semester, continuing their work on increasing the complexity of ARLS via increasing tree depth
+* * Goals include allowing search functions to consider larger subtrees depth to increase the potency of ARLs
+* * Improve ARL candidate selection via a new weighting function
+* * Fixed a lot of bugs this semester, like individuals only having one of each ARL
+* * Fixed Arity of parent nodes not being updated
 
 
 ## Week 9, Oct 18th
