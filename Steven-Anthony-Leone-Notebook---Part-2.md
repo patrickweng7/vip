@@ -80,6 +80,8 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * AUC for EMADE was .26380
 * * Pareto Front for gen 20 had 314 valid individuals
 * * Number of valid individuals increased with generations
+* * Had more diverse individuals with MOGP
+* * EMADE worked well with large primitive sets for them
 
 
 ## Week 9, Oct 18th
