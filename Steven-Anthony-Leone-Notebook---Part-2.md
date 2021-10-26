@@ -71,6 +71,15 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Relative performance of primitives based on CDF metric shows that some primitives are working great
 * * Objective functions include profit percentage, average profit per transaction, pdf of profit, and variance of profit per transaction
 * * Designing new experiments based on AAPL and other stocks
+* Bootcamp 4
+* * Data preprocessing: dropped name and cabin.
+* * One hot encoded for embarked feature
+* * replaced null values
+* * Then moved on to MOGP Evolution. Tried one point crossover but the results weren't great.
+* * Revised MOGP by replacing selection with select
+* * AUC for EMADE was .26380
+* * Pareto Front for gen 20 had 314 valid individuals
+* * Number of valid individuals increased with generations
 
 
 ## Week 9, Oct 18th
