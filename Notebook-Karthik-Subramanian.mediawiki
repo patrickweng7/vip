@@ -112,8 +112,45 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
         * Explore approaches to portfolio optimization outside of stock price prediction
         * Other applications of autoML to time-series analysis
         * Improve EMADE's time-series analysis capabilities
+* Bootcamp 4
+    * Preprocessing
+        * Dropped Name, Cabin columns
+        * One-hot encoding for Embarked features
+        * Replaced nulls of Age and Fare with Pclass's median
+    * ML
+        * MLP, Decision Tree, SVM, XGBoost
+        * Handle cases of nonlinear feature relationships 
+    * Primitives
+        * Strongly typed
+        * mathematical, logical operations
+        * Ensure boolean features outputted
+    * MOGP
+        * One point crossover, mutUniform mutation, mutNodeReplacement
+        * FPR and FNR used (best individual had FPR = 0, FNR = 0.91228)
+    * EMADE
+        * 20 generations
+        * 23 pareto optimal individuals
+        * converted FN and FP to rates
+* Modularity
+    * Abstract parts of individuals and create "building blocks" that can help with genetic process
+    * ARLs (Adaptive Representation through Learning)
+         * Introduce modularity and reusability in EMADE (once a "good" section of tree is found, make it a new primitive)
+    * Eval --> Selection --> Genetic Operations --> ARLs --> Evaluation workflow to implement ARLs
+    * Why ARLs?
+         * Global pool of "good" bits could help all individuals
+         * Should speed up convergence of population
+         * frequency, fitness important to identify valuable subtrees
+    * Working on trying to increase complexity of ARLs by increasing tree depth
+    * Experiments using Titanic dataset (False Positives, False Negatives as objectives)
+    * More data needed to gain insight into effects of ARL complexity performance
+         * size may not inherently imply usefulness
+    * Stock runs with ARLs
+         * Reusing technical indicators from Stocks subteam
+         * compare ARLs vs. no ARLs and see significance
+    * Studying explainable blocks
 '''Subteam Meeting Notes:'''
 
+'''Individual Notes:'''
 
 '''Action Items:'''
 
