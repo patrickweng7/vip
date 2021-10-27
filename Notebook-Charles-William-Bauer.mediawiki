@@ -6,7 +6,7 @@ We
 
 ==October 25th, 2021==
 *Continue to split weeks by meeting date, moving to Monday meetings.
-Week 10
+Week 10 featured the all-VIP presentations.
 
 {| class="wikitable"
 !Task
@@ -22,6 +22,58 @@ Week 10
 |10/25/2021
 |-
 |}
+
+===Titanic Project===
+Aditi and I added to our slides to include the revised MOGP and EMADE. Then we rehearsed the presentation with Rayan K. I presented the slides on the MOGP results, revisions, and EMADE pareto front. The presentation can be accessed below:
+https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing
+
+===Presentation Notes===
+Natural Language Processing
+*Reduce complexity of Q&A systems
+*Implement NNLearners as seeds in EMADE using BiDAF primitives that handle text values
+*F1 evaluation based on TP, FP, FN
+
+Bootcamp 1
+*Preprocessing: OneHotEncoded ‘Sex’ and ‘Embarked’
+*ML: SVM, Gradient Descent, NN, Random Forest, Gaussian Process
+*MOGP: cxOnePointLeafBiased, mutNodeReplacement, tournament selection
+*EMADE: preprocessing outperformed untouched split, AdaBoost favored, many “primitive not found” errors, reuse=1
+
+Neural Architecture Search
+*EMADE’s NNLearner creates a NN using TensorFlow
+*Most randomly generated individuals underperformed seeds or were not NN
+*Created TimedStopping Callback class to stop training after time threshold, allowed creation of more individuals that evaluated quicker
+*Tokenization and OneHotEncoding for each individual before evaluation also saved time
+*CoDEEPNeat applied to EMADE
+*NNLearner SQL table for accessing specific NNLearners throughout generations
+*Extracted layer frequencies to reward novel layer types
+
+Bootcamp 2
+*Preprocessing: column mapped ‘Sex’ and ‘Embarked’
+*MOGP: SPEA2, cxOnePoint, mutUniform, evalSymbReg - activation function converted predictions to ints
+*EMADE: evaluated thousands of individuals each generation because their first generation had reuse
+
+Image Processing
+*Multilabel image classification using ImageDataGenerator for image resize, normalization, horizontal flipping
+*Objectives: Precision-Recall Error AUC, number of parameters
+*Implemented NSGA-III selection; Geometric Semantic crossover and mutation - simulated binary: cxprob biased on beta, blended cx: alpha; how can they work on tree structures
+*Hyper-features: grey level transformation - mapping pixels to output
+
+Bootcamp 3
+*Preprocessing: added ‘relatives’ = ‘sibsp’ + ‘parch’, parsed titles from ‘name’ and one-hot encoded, mapped age and fare to int
+*SVM, MLP, Logistic Regression, Gaussian Naïve Bayes
+*MOGP: selLexicase, cxOnePoint, mutUniform, eval (FN^2, FP^2) – doesn’t change results
+*EMADE: change objectives to rates, modified sel_nsga2 to call on individuals divisible by 4
+
+Stocks
+*Compared regression primitives by technical indicator using median CDF performance
+*Objectives: profit percentage, average profit per transaction, variance of profit per transaction, MSE, CDF of profit using Monte Carlo approach
+*Compared to Takagi-Sugeno fuzzy model
+
+Modularity
+*Adaptive Representations through Learning combine primitives
+*Compared by frequency and aggregate fitness
+*Experiment suggested size of ARL not inherently valuable
 
 ==October 20th, 2021==
 Week 9
@@ -33,12 +85,6 @@ Week 9
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Presentation 2
-|Complete
-|10/6/2021
-|10/25/2021
-|10/25/2021
-|-
 |Titanic Project EMADE
 |Complete
 |10/6/2021
@@ -47,7 +93,7 @@ Week 9
 |-
 |}
 
-===t===
+===Titanic Project===
 
 ==October 13th, 2021==
 Week 8 focused on connecting to Aditi's master process as a worker.
@@ -131,6 +177,19 @@ We presented our Titanic project methods and results in Week 6 of bootcamp. We a
 
 ===Titanic Project===
 Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+    #selNSGA2 on Generation 0 to define assignCrowdingDist()
+    pop = toolbox.select(pop, len(pop))
+    
+    for g in range(1, 15):
+        offspring = tools.selTournamentDCD(pop, len(pop) - len(pop) % 4)
+        offspring = list(map(toolbox.clone, offspring))
+        #mate and mutate
+        pop = toolbox.select(offspring, len(pop))
+        #update hof and logbook
+
+Presentation: I presented the slides about the MOGP hall of fame, results, and comparison to ML. The presentation can be accessed below:
+https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=sharing
 
 ==September 22nd, 2021==
 In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
