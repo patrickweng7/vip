@@ -1,11 +1,28 @@
 == Image Processing ==
+
+[[Image Processing Overview|https://github.gatech.edu/emade/emade/wiki/Image-Processing]]
+
 '''Meeting Times'''
 
-Wednesdays at 5:45p (hybrid style)
+Wednesdays at 5:45p (hybrid style, in VIP room)
 
 [https://bluejeans.com/253303426/9283 Meeting Link]
 
 [https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
+
+=== Week of October 25th - October 31st ===
+
+[https://docs.google.com/presentation/d/100keUAjam-8e1-SMLtejP9ZQN38nmCJ_yA1t2HW-JPs/edit?usp=sharing Midterm Presentation Slide Deck]
+
+We discussed what had to be finished before we could proceed to the next phase of the semester and onboard new students to the team. We decided that based on the weirdness of the evaluation functions on multilabel data, we want to focus on a binary classification task instead: whether a disease is present or not.
+
+* Figure out what's happening with NSGA-III
+* Dive into Lexicase
+* Research workaround to geometric and semantic mating and mutation
+* Research new hyperfeature combinations
+* Bug squash in primitives around EMADE so they work with image data
+
+=== Week of October 18th - October 24th ===
 
 === Week of October 12th - October 17th ===
 
@@ -296,194 +313,6 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 ** We'll continue looking for alternatives to the genetic labelling we used last semester
 ** If people have differing interests we might spilt into fluid groups temporarily 
 * Not everyone could make the meeting, so we didn't make any concrete decisions (we'll do that on Monday when everyone should be in the meeting)
-
-== ezCGP ==
-
-=== Week of January 25-February 1 ===
-* Met with team to discuss team semester's goals
-* ''Semester Goals:''
-** Daniel - Continue CIFAR-10 experiments to identify bottlenecks in the system and fix them
-*** Get CIFAR working without transfer learning
-** Hemang - Implementing new primitives (recurrent neural networks/transformers)
-
-=== Week of February 1-8 ===
-* Research some papers
-** Research on Transformers and Hyperparameter tuning using genetic evolution
-** Genetic Algorithm for optimizing Recurrent Neural Network: http://aqibsaeed.github.io/2017-08-11-genetic-algorithm-for-optimizing-rnn/
-** Lightweight GPT implementation: https://github.com/karpathy/minGPT
-** Decided to implement lightweight GPT as a primitive for image classification
-* Updated Problem file and removed references to transfer learning ([https://github.com/ezCGP/ezCGP/blob/feature/130-update-problem/problems/problem_cifar_no_transfer.py commit])
-** Got access to PACE-ICE
-** Will test the updated problem file this week
-** Will review results in order to better
-* Tested minGPT
-** Base model can generate CIFAR-10 like images (not classification)
-** Trained on Google Colab: 10+ hours of training for decent results
-** Training times are likely prohibitive for the use of untrained architectures within genetic programming applications
-
-=== Week of February 8-15 ===
-* Got PACE-ICE setup up for our accounts
-** Made a shared .conda configuration file 
-* Tried to do a run problem file but would die after ~2 hours 
-** Likely due to memory issues 
-** Resources used:
- Rsrc Used:  cput=01:53:05,vmem=49973120kb,walltime=01:29:21,mem=14667336kb,energy_used=0
-** Results after running:
- 234/234 - 10s - loss: 0.8955 - precision: 0.7541 - recall: 0.5941 - val_loss: 1.2060- val_precision: 0.6891 - val_recall: 0.5253
-* Working with Rodd to remove extra image data from individuals (related to Augmentor pipeline)
-** Hopefully with reduce memory usage and make faster
-* Replaced normalization primitive with equalize ([https://github.com/ezCGP/ezCGP/pull/132 PR]) since normalization didn't work with pillow image formatting
-** Used pillow function to perform equalization
-* We want to have better baseline results by the next meeting
-** Want to analyze them in order to determine necessary improvements
-
-=== Week of February 15-22 ===
-* Worked to run ezCGP without transfer learning
-** Had issues with batch size, incompatible shapes
-* Ran with transfer learning again 
-* Added multi-channel support to normalize/equalize ([https://github.com/ezCGP/ezCGP/pull/132 PR] merged)
-* Test with transfer learning for a full run:
- 234/234 - 8s - loss: 0.1286 - accuracy: 0.0077 - precision: 0.9644 - recall: 0.9552 - val_loss: 1.4547 - val_accuracy: 0.0261 - val_precision: 0.7209 - val_recall: 0.6990
-* Test with no transfer learning
- 234/234 - 5s - loss: 0.5966 - accuracy: 2.3433e-05 - precision: 0.9073 - recall: 0.7457 - val_loss: 1.7232 - val_accuracy: 1.0016e-05 - val_precision: 0.5513 - val_recall: 0.4054
-* Cherry-picked best results from generation 0 (initPop0-6) 
-* Would fail after 1 generation
-** Unable to visualize individual because it died before then 
-* We will be working to iron out bugs that are inhibiting our testing
-** There seem to be some issues with batch_size and selection that we need to investigate further 
-
-=== Week of February 22-March 1 ===
-* Decided to benchmark and fine-tune individual evaluation training times
-** Run experiments to figure out training time and batch size for each individual
-** Seed architectures that are known to perform well
-* Resolved Pipeline Bugs:
-** Fixed issues with the pipeline not going to next generation 
-*** An issue with return types in the non-transfer learn block definition
-** Fixed issue with accuracy not being the categorical accuracy 
-** The operator was being unnecessarily added to the augmentor pipeline 
-*** Was causing runs to be lower as more unnecessary operators were being added
-*** Temporary fix for pipeline wrapper ([https://github.com/ezCGP/ezCGP/commit/452d03194f475db1429b632e3b9d2faf6ffbd8ae Commit Link])
-* Ran ezCGP without transfer learning on CIFAR 10
-* 8 hours of run, 7 generations
- 234/234 - 7s - loss: 0.0573 - categorical_accuracy: 0.9811 - precision: 0.9833 - recall: 0.9789 - val_loss: 4.2954 - val_categorical_accuracy: 0.4552 - val_precision: 0.4639 - val_recall: 0.4467
-* Perform runs without pretrained imagenet weights on transfer learning
-** Essentially using Resnet architecture to see if ezCGP training parameters are sufficient for converging on CIFAR 10 with a fit individual
-** Initial Run:
-  234/234 - 8s - loss: 0.1108 - accuracy: 3.7828e-04 - precision: 0.9676 - recall: 0.9618 - val_loss: 1.3538 - val_accuracy: 7.3117e-04 - val_precision: 0.7209 - val_recall: 0.6968
-* Action Items:
-** Visualize individuals and plot Pareto front
-** Come up with detailed methods to analyze results and fine-tune training parameters accordingly
-** Run with categorical accuracy and bug fix from Thursday 
-
-=== Week of March 1-March 8 ===
-* From 8 hours of run, 7 generations managed to get categorical accuracy ~47%
-** Visualized individual
-** Updated the old script to display block structure ([https://github.com/ezCGP/ezCGP/pull/151 PR])
-** Seems to be successfully adding conv2D layers, need to see why not adding dense layers
-** Maybe remove some preprocessing
-** Seems to be overfitting by looking at previous individuals, thoughts?
-* [[files/Visualize Individual.png|center|thumb|1654x1654px]]
-* Tried to run some tests on transfer learning but had issues producing individuals 
-
-=== Week of March 8-March 15 ===
-* Tested no transfer learning problem file with max and avg pooling layers and accuracy is similar ~ 56 %
-** Still a bit of overfitting  
-* Working to add dense layers
-** Some issues with shape mismatch
-** Likely going to add a dense block after conv2D block size 
-** Right there isn't good of a way to check shape when adding primitives
-
-* Worked on producing training time benchmarks outside of ezCGP:
-
-* Replicated the structure to train VGG16 with the same parameters as in ezCGP
-* Checked convergence with imagenet weights and no pretrained weights on CIFAR10
-* Result:
-** 20 epochs with given batch size is likely sufficient to reach convergence on this dataset with good accuracy.
-** VGG16 seems converge in around 15 epochs, but more complex architectures might need more training.[[files/Graph of pre train weigths.png|center|thumb|868x868px]]
-
-=== Week of March 15-March 22 ===
-* Worked on Presentation 
-** Completed corresponding slides
-** Created plot and visualization
-*** Pareto fronts for no transfer learning
-** Discuss new member projects 
-* Presentation (https://docs.google.com/presentation/d/1fMtCogms23wqFeJDX-Sf56T6UzzbgvGezD7s9RCG6gY/edit?usp=sharing)  
-
-=== Week of March 22-March 29 ===
-* Still working on adding max-pooling / dropout layers and dense layer 
-* Ran into some issues with the framework not adding max-pooling even though individuals should be able to evolve to have them (aka we add the parameters and the primitive)
-* We decided to use some of the same structures for our after-transfer learning block for the dense layer
-** Still having some issues with shape.
-
-=== Week of March 29-April 5 ===
-* Added maxpooling and drop layers
-** Ran for 50 generations with 8 Individuals 
-** Got an accuracy of 68.4% (much better than 56% from before)
-** Looking at the individuals the diversity was very limtied
-*** After a few generations only one individual was present with small mutations
-** Example of good individual:
- [[files/Example Indiivdual.png|center|thumb|1654x1654px]]
-** Individuals with droppout layer also had really high loss in the beginning so were most likely to be dropped
-* Ran again with 20 individuals
-** A bit more diversity but still 2-4 individuals solely presented in later generations  
-** Accuracy was about 56% (lower than run where we just optimized one individual)
-* Introduced stack to new members
-** Will have them working on visualization of individuals, mating, and seeding existing architectures 
-
-=== Week of April 5-April 12 ===
-* Made small additions for experimenting:
-** Added average pooling 
-** Hard-coded some dense layers 
-** Still similar results 
-* Analyzed why individuals usually have 4-5 nodes
-** Examining all the individuals before selection seems to have varying sizes 
-** Individuals with 6-8 nodes are being generated just not chosen
-** Experimented with changing objective score to be loss and accuracy (maybe would help)
-* New members are working on visualization and mating
-** Mating Team read ([https://link.springer.com/content/pdf/10.1007%2F978-3-319-77553-1_13.pdf A Comparative Study on Crossover in Cartesian Genetic Programming])
-** Visualization Team working on:
-*** Shown inactive nodes
-**** https://drive.google.com/file/d/1lw63Fr-gPE1fFt6OB_oE9BKD6x9qydIy/view?usp=sharing (Can't add image)
-*** Adding node number
-*** Add parameter names
-
-=== Week of April 12-April 19 ===
-* Visualization Team 
-** Added parameters 
-** https://drive.google.com/file/d/1EulCP3usaOVv_TKthWYu6-vivBZYirGn/view?usp=sharing
-* Mating Team
-** Finished last week's paper and now working on implementing benchmark problems (symbolic regression)
-* Dense Layers
-** Added dense layers 
-**** https://drive.google.com/file/d/1_VS1VLRB6Hg92iv3W33UxtDBJFJED4eJ/view?usp=sharing (Can't add image)
-** Best accuracy is 55%
-** Seems to be issues with the GPU building model:
-***  Allocator (GPU_0_bfc) ran out of memory trying to allocate 93.97GiB (rounded to 100900274176)
-*** Error polling for event status: failed to query event: CUDA_ERROR_ILLEGAL_ADDRESS: an illegal memory access was encountered
-** Unable to do a full run
-*** Sometimes an individual would die 
-*** Had to assign dead individual fitness to get generations to work
-
-=== Week of April 19-April 26 ===
-* Research primitives 
-** Scraped layers used by common pre-trained networks 
-** Pull layer data from files in tensorflow.keras.applications's github page
-** Visualization Plot (https://drive.google.com/file/d/1r7tOgLmRnifylaTwBclGOTXpnb81L6df/view?usp=sharing)
-* Mating 
-** Experimented with one-point crossover mating
-** Created several individuals 
-*** Example: (1 / (1 + np.power(data1, -4))) + (1 / (1 + np.power(data2, -4))) #Pagie1 equation
-*** Individual: https://drive.google.com/file/d/10R8LHvZqb9pcCWlr1DmxYk2Ozo1lInhb/view?usp=sharing
-* Dense 
-** Think that capping the parameters fix the gpu issues
-** Still need to test more
-* Presentation 
-** Working on slides
-** Assigned presentables
-
-=== Week of April 26-April 30 ===
-* Slides completed and assigned
-* Presentation: https://docs.google.com/presentation/d/1eMU46VktpHKwrQK5wQQ_oSM8ZK6Zzxky1rn5YFm27iw/edit?usp=sharing
 
 == Modularity ==
 
