@@ -94,6 +94,11 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Fixed a lot of bugs this semester, like individuals only having one of each ARL
 * * Fixed Arity of parent nodes not being updated
 
+### Sub Team Meeting Notes
+* We dedicated this week to getting the necessary primitives to get results
+* We decided that basing a model off of the BiDaf model was the best route to go.
+* Our embedding layers currently in EMADE would suffice
+
 
 ## Week 9, Oct 18th
 
