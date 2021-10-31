@@ -97,7 +97,18 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Sub Team Meeting Notes
 * We dedicated this week to getting the necessary primitives to get results
 * We decided that basing a model off of the BiDaf model was the best route to go.
-* Our embedding layers currently in EMADE would suffice
+* Our embedding layers currently in EMADE would suffice. We still needed a Bidirectional Attention Layer, a Modeling layer, and an Output layer.
+* We assigned ourselves into three groups to implement these remaining layers. 
+* Bidirectional Attention Layer: This will be the hardest layer to implement. We assigned myself, Karthik, Devan, and Rishit to implement this primitive.
+* Modeling Layer: This is essentially just an LSTM layer. We assigned George to this.
+* Output layer: This will take some effort, so we assigned Kevin and Shiyi to this task.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Assign Primitive Development | Complete | 10/25/2021 | 10/27/2021 | 11/01/2021 |
+Email Dr. Zutty about 2 Data Pair NNLearners | Complete | 10/25/2021 | 10/30/2021 | 11/01/2021 |
+Implement Bidirectional Attention Layer | In Progress | 10/25/2021 | ... | 11/01/2021 |
 
 
 ## Week 9, Oct 18th
@@ -136,7 +147,7 @@ Accomplishments of Week: Merging in changes
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Make an EMADE Branch with new CacheV2 and NNLearner functionality | Blocked | 10/03/2021 | ... | 10/10/2021 |
+Make an EMADE Branch with new CacheV2 and NNLearner functionality | Complete | 10/03/2021 | 10/10/2021 | 10/10/2021 |
 
 ## Week 6, Sep 27th
 ### General Meeting Notes
