@@ -7,14 +7,19 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
-== Week 10: October 20, 2021 ==
+== Week 10: October 25, 2021 ==
 === EMADE Presentations & Subteam Recruitment ===
+* ML vs MOGP vs EMADE presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp-vs-emade.pdf
+
 * Natural Language Processing
 ** meeting time: Wednesday 2pm
+** BiDAF (bidirectional attention flow)
+*** uses NNLearnner (a kind of learner in EMADE)
+**** layers of neural networks are primitives in EMADE
 * Neural Architecture Search
 ** meeting time: Friday 2pm
 ** future work
-*** adding more testinng/analysis methods
+*** adding more testing/analysis methods
 *** creating resources/documentation for setting up EMADE locally
 *** restructuring EMADE primitives to enforce valid connections
 *** speeding up training time for neural nets
@@ -22,9 +27,41 @@
 *** improving EMADE ability to recognize bad individuals
 *** implement speciation for ADF's and individuals separately
 * Image Processing
-**
-* Bootcamp Overall Notes
+** data preprocessing
+*** used image data generator to resize, normalize, and horizontally flip
+*** other image augmentations include rotation, shearing, and translations
+* Stocks Portfolio Optimization
+** used EMADE for regression time series and optimization of market trading
+** objective functions
+*** (maximization) profit percentage, average profit per transaction
+*** (minimization) cdf of profit, variance of profit per transaction
+* Bootcamp Presentation Notes
 ** consider not dropping the "cabin" feature because the location of the cabin in the ship probably has an effect on survival
+** an activation function can be used to force a boolean output in genetic programming
+** squaring FP and FN don't actually change the order of our pareto front individual
+** connecting worker nodes to the master is crucial to speeding up the process of EMADE
+
+=== Takeaways From EMADE ===
+* important to use trial and error when using new programs
+** setting up EMADE was difficult for our team because we had Windows, Mac, and Mac M1 laptops
+** we had to look around the internet and use trial and error to get EMADE set up
+* if the evaluation function is updated, make sure to create a new database as the pareto front of the previous individuals will not be measured by the same metrics
+* use <code>grep -rl "error string"</code> to trace the root cause of the error and reduce the amount of individuals with error strings
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|Completed
+|October 13, 2021
+|October 25, 2021
+|October 23, 2021
+|}
 
 == Week 9: October 20, 2021 ==
 === Lecture Notes ===
@@ -87,16 +124,16 @@
 |
 |-
 |Run EMADE As A Group (1 person setup SQL and act as master)
-|Completed
+|In Progress
 |October 6, 2021
 |October 25, 2021
-|October 23, 2021
+|
 |-
 |EMADE Titanic Assignment Presentation
-|Completed
+|In Progress
 |October 6, 2021
 |October 25, 2021
-|October 24, 2021
+|
 |}
 
 == Week 7: October 6, 2021 ==
@@ -152,6 +189,7 @@
 |}
 
 == Week 6: September 29, 2021 ==
+* ML vs MOGP presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp.pdf
 === Presentation Notes ===
 * selection functions used by the groups
 ** NSGA II
