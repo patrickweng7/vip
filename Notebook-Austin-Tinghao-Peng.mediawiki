@@ -7,6 +7,56 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 11: November 1, 2021 ==
+=== Image Processing - Subteam Meeting ===
+* broke the class up into subteams after scrum
+* introduction to image processing subteam
+* the goal of this subteam help improve EMADE's image processing algorithms
+** we will use ChexNet dataset to perform multiclass classification
+* binary vs. muticlass vs. multilabel classification
+** binary classification
+*** classifies an instance into 1 of 2 classes
+*** in terms of image processing -> disease or not (given a chest xray scan)
+** multiclass classification
+*** classifies an instance into 1 of 3 or more classes
+*** in terms of image processing -> classifying a xray scan to have 1 of 14 diseases
+** multilabel classification
+*** classifies an instance into 0 or more classes
+*** in terms of image processing -> classifying an xray scan to have 0, 1, 2, ..., 14 diseases (any combination of diseases as well)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Checkout PACE-ICE Guide On Image Processing Subteam Slack (pinned post)
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Clone Aryaan's EMADE fork (Image-Processing(nn-vip))
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Read Literatures (CheXNet, AAD VIP published research paper - check slack)
+|In Progress
+|November 1, 2021
+|November 15, 2021
+|
+|}
+
 == Week 10: October 25, 2021 ==
 === EMADE Presentations & Subteam Recruitment ===
 * ML vs MOGP vs EMADE presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp-vs-emade.pdf
@@ -155,7 +205,7 @@
 ** make a plot of non-dominated frontier at the end of the run (compare ML, MOGP, and EMADE)
 ** make plots to show analysis of EMADE running and show some successful trees
 
-=== Action Items ===
+'''Action Items'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -217,7 +267,7 @@
 * What is a hall of fame?
 * How do I one hot encode something?
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -287,7 +337,7 @@
 *** could be the result of poor crossover or mutation methods
 ** compared to our ML algorithms, GP had a larger variation of results (most likely because of crossover and mutations)
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -363,7 +413,7 @@
 |25
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -488,7 +538,7 @@
 === Notebook Self-Evaluation ===
 [[files/apeng39/notebook-evals/w3-notebook-eval.jpg]]
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -559,7 +609,7 @@
 |[[files/apeng39/w2-ss4-mutUniform-lineGraph.png]]
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -587,36 +637,35 @@
 * Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
 * A mutation introduces random modifications to the algorithm to help maintain diversity.
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
-
-=== Keywords ===
-* '''individual''': one specific candidate in the population (with properties like DNA)
-* '''population''': a group of individuals whose properties will be altered
-* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
-* '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
-* '''evaluation''': a function that computes the objective of an individual
-* '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
-** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
-** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
-* '''mate/crossover''': represents mating between individuals
-** anything up to n-point crossover is possible
+* keywords
+** '''individual''': one specific candidate in the population (with properties like DNA)
+** '''population''': a group of individuals whose properties will be altered
+** '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
+** '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
+** '''evaluation''': a function that computes the objective of an individual
+** '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
+*** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
+*** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
+** '''mate/crossover''': represents mating between individuals
+*** anything up to n-point crossover is possible
 [[files/apeng39/w1-ss1-crossover1.png]]
 [[files/apeng39/w1-ss2-crossover2.png]]
-* '''mutate''': introduces random modifications; purpose is to maintain diversity
+** '''mutate''': introduces random modifications; purpose is to maintain diversity
 [[files/apeng39/w1-ss3-mutate.png]]
-* '''algorithms''': various evolutionary algorithms to create a solution or best individual
+** '''algorithms''': various evolutionary algorithms to create a solution or best individual
 
 === Lab 1 ===
-==== Part 1: One Max Problem ====
-* The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
-** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
+* Part 1: One Max Problem ====
+** The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
+*** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
 
-==== Part 2: N Queens Problem ====
-* Learning Points
-** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
-** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
-** Python slicing arr[start:stop:step] (start through not past stop, by step)
-** arr[:] makes a shallow copy of the array
-** you can resize an array to the desired length using [0] * size
+* Part 2: N Queens Problem ====
+** Learning Points
+*** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
+*** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
+*** Python slicing arr[start:stop:step] (start through not past stop, by step)
+*** arr[:] makes a shallow copy of the array
+*** you can resize an array to the desired length using [0] * size
 
 * My Mutation Methods
  <nowiki>def mutOppositeHalves(individual, indpb):
@@ -674,7 +723,7 @@
 |[[files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png]]
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
