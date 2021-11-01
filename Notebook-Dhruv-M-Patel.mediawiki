@@ -18,7 +18,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
-==Oct 25th, 2021==
+==Nov 1st, 2021==
 ===Meeting Notes===
 
 ===Subteam Notes===
@@ -33,15 +33,121 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |-
 |
 |In Progress
-|Oct 25, 2021
 |Nov 1, 2021
+|Nov 8, 2021
 |
 |-
 |Update Wiki Notebook
 |In Progress
+|Nov 1, 2021
+|Nov 8, 2021
+|
+|-
+|}
+
+==Oct 25th, 2021==
+===Meeting Notes===
+Mid-sem presentations
+''' NLP: '''
+* Trying to simulate the Bi-DAF model by first creating a word embedding and obtaining an output based on the context of the word
+* Using the SQUAD dataset from Stanford with 100,000 answered and 50,000 unanswered questions.
+* Trying to get close to the SOTA which is an F1 of 93.214
+* They are also trying to get new evaluation metrics. For example, F1(new type), EM, MAP and MRR
+* Haven’t completed all the primitives yet such as the output layer which is why they do not have any results yet.
+* They are planning on using Facebook’s dataset. Dynamic/Episodic memory is the best as of now. 
+
+''' NAS: '''
+* Hard for emade to outpace the seeded runs
+* Long training times due to nesting
+* Overall goal is to make EMADE competitive with VGG16 and other large structure architectures
+* Objectives: minimize accuracy errors and number of parameters
+* Used time stopping of 600 vs 2500 seconds, latter ended in 1500 but generated less valid individuals and slightly better accuracy error (-0.05)
+* Higher number of layers → higher num of error individuals (though 2-5 was less than baseline)
+* Used only dense layers and convoluted layers
+* Tracking layer frequencies across generations
+* Created NNLearner table to track NNLearner individuals’ statistics
+
+''' Stocks (market and time series analysis): '''
+* Objectives: use EMADE for regression on time series data and optimize market trading algorithm ; beat SOTA using EMADE
+* They are trying to model papers and use technical indicators to predict price change points
+* What are the best primitives to use: modelled TI’s versus the different regression techniques that are implemented
+* Maximize profit percentage and average profit per transaction, minimize CDF of profit and variance of profit per transaction (four obj functions total)
+* Best performance was with the least complex tree (only one TI)
+* They are using minimization rather than maximization functions since they work better on EMADE.
+* Having struggles with replicating the paper, primarily the fuzzy logic
+* Hope to end the semester with a research paper
+* 
+''' Modularity: '''
+* ARL: adaptive representation through learning
+* ARL’s are implemented between the genetic operations and the evaluation phase
+* Must be a complete tree
+* It basically abstracts away complexity
+* ARL’s should allow the population to converge faster
+* Goal: allow search function to consider larger subtrees depth. Improve ARL candidate selection through a new weighting function (occurrences * ARL size / fitness of individual)
+* Runs with both the old ARL’s and newer ARL’S are worse than with no ARL’s
+* More data is needed to see effects of ARL complexity on performance
+* Size != usefulness
+* Using ARLs with Stocks
+* Used various technical indicators
+* Problems with Google Colab’s limited computing power and merging stocks’ codebase into the ARL codebase
+* Individuals not evaluating because of cachev2 updates
+* Study if selection during runs is biased
+* Look into ARL construction (changes to hyperparameters, amount, etc.)
+* More TI from stocks subteam
+
+Our Image-Proc subteam's presentation is linked in previous week's notebook entry
+
+===Subteam Notes===
+* CheXNet data was looking for just pneumonia (1 for pneumonia, 0 for everything else)
+** Binary → {1, 0}
+* We can continue pursuing this, or change our dataset labels (to do multilabel classification)
+** Multilabel → { [1, 2,...], [3, 6, …] … }
+* Challenge in how EMADE looks at labels for each images
+* Decided to pursue binary classification for disease detection
+* Temi: refactor semantic crossover and mutation to receive expected data type
+* Monil: Build a tree, open a pull request 
+* Heidi: reprocess data
+* Aryaan: literature search geometric crossover and mutation
+* Dhruv: test NSGA3 locally and see if you can find errors. Otherwise, revert changes (aside from toolbox register), test to make sure it works with reverted changes, and push changes + create pull request.
+* Harris: PACE-ICE run, lexicase
+* Max: bug squashing tree errors
+
+''' Work Notes '''
+* Test normal code works (so it’s not a Pace issue)
+** Not working, master process still kills itself
+** Could be a Pace issue or an issue with my account on Pace
+** Contacting Dr.Zutty to try and troubleshoot 1 on 1
+** Terminates between lines 1093 and 1103 (1093 prints, 1103 doesn’t)
+** adjustForDataset method doesn't exist in the base.py file of DEAP (file where class Toolbox is defined. I'm using the pace conda environment so it's not a deap-version issue
+** Line 300 registers it, line 1859 defines it
+
+* Trying it out with the main Image-Proc(nn-vip) branch rather than my selectionImageProc offset
+** If it works, then that means it’s my branch issue. Otherwise it is a pace issue
+** Result: master still dies a few minutes in
+** This is a Pace problem / my account on Pace problem
+
+* Test registering NSGA3 works (but call NSGA2 in the code) → then push code up
+* Test actual NSGA3 works (again), may need to carefully check code to see where error could be occurring due to lack of error logs
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Troubleshoot EMADE run
+|Complete
 |Oct 25, 2021
 |Nov 1, 2021
-|
+|Oct 31, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Oct 25, 2021
+|Nov 1, 2021
+|Nov 1, 2021
 |-
 |}
 
