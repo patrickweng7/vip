@@ -205,9 +205,11 @@ NAS
 === Individual Exploration: September 20 ===
 * Got started setting up potentially doing a PACE-ICE run
 * Used new PACE-ICE guide for reference ([[Guide to Using PACE ICE#Configuring_EMADE_on_PACE_New_Guide | link]])
-* Terminal command: ssh ayoung97@pace-ice.pace.gatech.edu and then enter GT password next
+ ssh ayoung97@pace-ice.pace.gatech.edu 
+ and then enter GT password next
 ** Need to be on campus or using VPN
-* Set up SSH Key with command: cat ~/.ssh/id_rsa.pub
+* Set up SSH Key with command: 
+ cat ~/.ssh/id_rsa.pub
 * ...cry
 
 === Sub Team Meeting: September 23 ===
@@ -218,7 +220,7 @@ NAS
 * Continued following ([[Guide to Using PACE ICE#Setting_Up_MySQL | Guide]])
 * Unsure if .my.cnf file was configured correctly
 ** Try using vim to create file
-** vim .my.cnf
+ vim .my.cnf
 ** Paste in contents then change USERNAME to ayoung97
 ** To save and quit: :wq
 * Also got error when attempting to install the database
@@ -226,7 +228,8 @@ NAS
 
 === Individual Exploration: September 27 ===
 * Actually used vim to create the .my.cnf file, also deleted 'scratch-old' directory in PACE-ICE
-* Local MySQL instance command: mysqld_safe --datadir='/storage/home/hpaceice1/ayoung97/scratch/db'
+* Local MySQL instance command: 
+ mysqld_safe --datadir='/storage/home/hpaceice1/ayoung97/scratch/db'
 * Tested to see if the database is working
 
 
@@ -378,42 +381,42 @@ None due to Fall Break
 === Individual Exploration: October 14 ===
 * Deleted the old copy of EMADE that was Gabe's fork
 * Had to refer to my own notebook to see what I did to reinstall EMADE last semester, and the steps were somewhat out of order so I'll condense the commands to run here
-** git lfs install
-** git clone https://github.gatech.edu/vhuang31/emade.git
-** *Open a new terminal window*
-** cd emade
-** conda create -n emade python=3.7  --- deleted old conda enviroment to replace
-** conda activate emade
-** conda install opencv
-** conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn 
-** pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
+ git lfs install
+ git clone https://github.gatech.edu/vhuang31/emade.git
+ *Open a new terminal window*
+ cd emade
+ conda create -n emade python=3.7  --- deleted old conda enviroment to replace
+ conda activate emade
+ conda install opencv
+ conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn 
+ pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
 * Ran into an issue installing hmmlearn. Also needed to go eat so I decided to work on it another day
 
 === Individual Exploration: October 16 ===
 * Continued trying to get EMADE set up
 * Saw a command for if hmmlearn fails to install on Windows but I use a Mac so I didn't think it would work
 * Tested it, and it did work! So the next steps for installing emade for me includes making sure hmmlearn is built
-** conda install -c conda-forge hmmlearn
+ conda install -c conda-forge hmmlearn
 * Now to see if all the files build correctly
-** bash reinstall.sh
+ bash reinstall.sh
 * Got tensorflow error just like last semester 😡 
 * Running the "which" commands that seemed to work last semester... 
-** which python3
-** which python
-** which pip
+ which python3
+ which python
+ which pip
 * tensorflow uses Python 3.7 while my conda env seems to be running Python 3.6
 ** Not sure how to fix this error 😭 
 * Going to start over but use this command to create a conda env with the right version of Python
-** conda create -n emade python=3.7
+ conda create -n emade python=3.7
 * FIX: edit the reinstall file
-** vim reinstall.sh
-** Change `python3` to `python` since running which python3 makes it use the wrong version
+ vim reinstall.sh
+* Change `python3` to `python` since running which python3 makes it use the wrong version
 ** Running which python makes it use the anaconda version which is the version we want to use
 * Next is to get emade copied into PACE-ICE!
 * Make a copy of emade but without the .git directories (use cmd + shift + . to see hidden files) I called this `emade1`
-** cd ~
-** scp -r emade1 ayoung97@pace-ice.pace.gatech.edu:~
-* Change the dirctory name in PACE-ICE
+ cd ~
+ scp -r emade1 ayoung97@pace-ice.pace.gatech.edu:~
+* Change the directory name in PACE-ICE
 ** 
 
 
@@ -454,12 +457,27 @@ None due to Fall Break
 * Got set up again on Google Colab to try to complete some runs on the Stocks dataset
 * Unfortunately I kept running into various bugs that prevented me from even starting one
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Finish working on mid-term presentation slides
+|Complete
+|October 21, 2021
+|October 25, 2021
+|/
+|}
+
 == Week 8: October 25, 2021 ==
 
 === Main Team Meeting: Mid-Term Presentations ===
 
 * In the Ford building atrium today!
- 
+
 NLP
 * Natural language processing: Question answering (information retrieval)
 * Used SQUAD Dataset from Stanford that has 100K answerable and 50K unanswerable questions
@@ -485,14 +503,14 @@ Image Processing
 * Also worked to find selection methods as well as mating and mutation methods
 
 Bootcamp 3
-* Added a thrid objective of tree size to their evaluation function
-* Foudn that runs were completed faster on a Macbook with an M1 chip
+* Added a third objective of tree size to their evaluation function
+* Found that runs were completed faster on a Macbook with an M1 chip
 
 Stocks
 * Use EMADE on time series data
 * Objective: want to be better than randomly buying and selling
 * Chose a new paper to work with this semester 
-** Coudln't replicate last semester's paper
+** Couldn't replicate last semester's paper
 ** Having trouble replicating this semester's paper too
 
 Bootcamp 4
@@ -501,6 +519,39 @@ Bootcamp 4
 Modularity
 * That's us!
 * [https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit Slides]
+
+=== Sub Team Meeting: October 28 ===
+* No meeting due to mid-term presentations
+* Split up tasks to work on for the rest of the semester
+** Will be assisting Vincent with ARL depth runs
+
+== Week 9: November 1, 2021 ==
+
+=== Personal Exploration: November 1 ===
+* Learned how to make code blocks in "MediaWiki" -_-
+* Just start a new line with a space
+ Like this line
+
+=== Main Team Meeting ===
+*
+
+=== Sub Team Meeting: October 28 ===
+*
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|task
+|Inomplete
+|November 1, 2021
+|November , 2021
+|/
+|}
 
 = Spring 2021 =
 [https://bluejeans.com/904633358 Main Team Meeting Link]
@@ -513,6 +564,7 @@ Members:
 *[[Notebook Bernadette Gabrielle Santiago Bal|Bernadette Gabrielle Santiago Bal]]
 *[[Notebook Vincent H Huang|Vincent H Huang]]
 *[[Notebook Xufei Liu|Xufei Liu]]
+
 == Week 1: January 25, 2021 ==
 
 === Main Team Meeting ===
