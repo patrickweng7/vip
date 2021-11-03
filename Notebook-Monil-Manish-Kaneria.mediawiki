@@ -16,6 +16,64 @@ Interests: Machine Learning, Python, Soccer, Chess
 ** Main meetings 5-5:50pm on Mondays
 
 
+== October 25, 2021 ==
+
+'''Team Meeting Notes:'''
+* MidTerm Presentations
+
+* NLP
+** Simulating the Bi-DAF model by first creating a word embedding and obtaining an output based on the context of the word
+** Using the SQUAD dataset from Stanford with 100,000 answered and 50,000 unanswered questions.
+** Trying to get close to the SOTA which is an F1 of 93.214
+** Haven’t completed all the primitives yet such as the output layer which is why they do not have any results yet.
+** Planning on using Facebook’s dataset. Dynamic/Episodic memory is the best as of now.
+
+* NAS
+** Overall goal is to make EMADE competitive with VGG16 and other large structure architectures
+** Objectives: minimize accuracy errors and number of parameters
+** Used time stopping of 600 vs 2500 seconds, latter ended in 1500 but generated less valid individuals and slightly better accuracy error (-0.05)
+** Higher number of layers → higher num of error individuals (though 2-5 was less than baseline)
+** Used only dense layers and convoluted layers
+** Tracking layer frequencies across generations
+** Created NNLearner table to track NNLearner individuals’ statistics
+
+* Stocks
+** Objectives: use EMADE for regression on time series data and optimize market trading algorithm ; beat SOTA using EMADE
+They are trying to model papers and use technical indicators to predict price change points
+** Best primitives to use: modelled TI’s versus the different regression techniques that are implemented
+**Maximize profit percentage and average profit per transaction, minimize CDF of profit and variance of profit per transaction (four obj functions total)
+** Best performance was with the least complex tree (only one TI)
+They are using minimization rather than maximization functions since they work better on EMADE.
+
+* Modularity
+** Goal: allow search function to consider larger subtrees depth. Improve ARL candidate selection through a new weighting function (occurrences * ARL size / fitness of individual)
+** Runs with both the old ARL’s and newer ARL’S are worse than with no ARL’s
+** More data is needed to see effects of ARL complexity on performance
+** Using ARLs with Stocks
+*** Used various technical indicators
+*** Problems with Google Colab’s limited computing power and merging stocks’ codebase into the ARL codebase
+*** Individuals not evaluating because of cachev2 updates
+** ARL: adaptive representation through learning
+*** ARL’s are implemented between the genetic operations and the evaluation phase
+*** Must be a complete tree
+*** It basically abstracts away complexity
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare my slides for the mid-term presentation
+|Completed
+|October 20, 2021
+|October 24, 2021
+|October 24, 2021
+|}
+
+
 == October 20, 2021 ==
 
 '''Sub Team Notes:'''
