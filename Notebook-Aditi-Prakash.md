@@ -8,7 +8,7 @@ Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - r
 Cell Phone: 704-794-3924  
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
-[[files/aprakash86/'Image 1.png'|thumb|123x123px]]
+[[aprakash86/'Image 1.png'|thumb|123x123px]]
 
 
 # Week 10th: October 25th, 2021
