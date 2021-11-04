@@ -7,6 +7,171 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 11: November 1, 2021 ==
+=== 11/1/2021 In-Class Subteam Meeting ===
+* assigned to Image Processing subteam
+* the goal of this subteam is to help improve EMADE's image processing algorithms
+** we will use ChexNet dataset to perform multiclass classification
+* binary vs. muticlass vs. multilabel classification
+** binary classification
+*** classifies an instance into 1 of 2 classes
+*** in terms of image processing -> disease or not (given a chest xray scan)
+** multiclass classification
+*** classifies an instance into 1 of 3 or more classes
+*** in terms of image processing -> classifying a xray scan to have 1 of 14 diseases
+** multilabel classification
+*** classifies an instance into 0 or more classes
+*** in terms of image processing -> classifying an xray scan to have 0, 1, 2, ..., 14 diseases (any combination of diseases as well)
+* consider which part of the team you want to be on
+** hyperfeatures
+** selection methods
+** mating/mutation methods
+** data preprocessing
+
+=== 11/3/2021 Subteam Meeting ===
+* EMADE branches overview
+
+master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
+
+* *_methods.py (files contain primitives)
+* launchEMADE.py (launches EMADE.py)
+* PACE-ICE is currently under maintenance until Friday, November 1
+** try to login and complete PACE-ICE setup then
+* assigned to selection methods tasks team
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Checkout And Setup PACE-ICE
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Clone Aryaan's EMADE fork (Image-Processing(nn-vip))
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 3, 2021
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Read CheXNet
+|Complete
+|November 1, 2021
+|November 15, 2021
+|November 3, 2021
+|-
+|Read "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification"
+|Complete
+|November 1, 2021
+|November 15, 2021
+|November 3, 2021
+|}
+
+== Week 10: October 25, 2021 ==
+=== EMADE Presentations & Subteam Recruitment ===
+* ML vs MOGP vs EMADE presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp-vs-emade.pdf
+
+* Natural Language Processing
+** meeting time: Wednesday 2pm
+** BiDAF (bidirectional attention flow)
+*** uses NNLearnner (a kind of learner in EMADE)
+**** layers of neural networks are primitives in EMADE
+* Neural Architecture Search
+** meeting time: Friday 2pm
+** future work
+*** adding more testing/analysis methods
+*** creating resources/documentation for setting up EMADE locally
+*** restructuring EMADE primitives to enforce valid connections
+*** speeding up training time for neural nets
+*** integrating weight sharing
+*** improving EMADE ability to recognize bad individuals
+*** implement speciation for ADF's and individuals separately
+* Image Processing
+** data preprocessing
+*** used image data generator to resize, normalize, and horizontally flip
+*** other image augmentations include rotation, shearing, and translations
+* Stocks Portfolio Optimization
+** used EMADE for regression time series and optimization of market trading
+** objective functions
+*** (maximization) profit percentage, average profit per transaction
+*** (minimization) cdf of profit, variance of profit per transaction
+* Bootcamp Presentation Notes
+** consider not dropping the "cabin" feature because the location of the cabin in the ship probably has an effect on survival
+** an activation function can be used to force a boolean output in genetic programming
+** squaring FP and FN don't actually change the order of our pareto front individual
+** connecting worker nodes to the master is crucial to speeding up the process of EMADE
+
+=== Takeaways From EMADE ===
+* important to use trial and error when using new programs
+** setting up EMADE was difficult for our team because we had Windows, Mac, and Mac M1 laptops
+** we had to look around the internet and use trial and error to get EMADE set up
+* if the evaluation function is updated, make sure to create a new database as the pareto front of the previous individuals will not be measured by the same metrics
+* use <code>grep -rl "error string"</code> to trace the root cause of the error and reduce the amount of individuals with error strings
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|Completed
+|October 13, 2021
+|October 25, 2021
+|October 23, 2021
+|}
+
+== Week 9: October 20, 2021 ==
+=== Lecture Notes ===
+* student run lecture and work day to get EMADE running
+* helped us figure out how to graph multiple lines on the same graph with matplotlib
+** allowed us to graph ML, MOGP, and EMADE pareto fronts all on the same graph
+
+=== Bootcamp Team Meeting ===
+* got EMADE master running
+* my computer would run EMADE without errors but did not produce any evaluated values (TP, FP, TN, FN) in the database
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|In Progress
+|October 13, 2021
+|October 25, 2021
+|
+|-
+|Run EMADE As A Group (1 person setup SQL and act as master)
+|Completed
+|October 6, 2021
+|October 25, 2021
+|October 23, 2021
+|-
+|EMADE Titanic Assignment Presentation
+|Completed
+|October 6, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+
 == Week 8: October 13, 2021 ==
 === Bootcamp Team Meeting ===
 * work session during class
@@ -32,7 +197,7 @@
 |Run EMADE As A Group (1 person setup SQL and act as master)
 |In Progress
 |October 6, 2021
-|October 13, 2021
+|October 25, 2021
 |
 |-
 |EMADE Titanic Assignment Presentation
@@ -61,7 +226,7 @@
 ** make a plot of non-dominated frontier at the end of the run (compare ML, MOGP, and EMADE)
 ** make plots to show analysis of EMADE running and show some successful trees
 
-=== Action Items ===
+'''Action Items'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -95,6 +260,7 @@
 |}
 
 == Week 6: September 29, 2021 ==
+* ML vs MOGP presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp.pdf
 === Presentation Notes ===
 * selection functions used by the groups
 ** NSGA II
@@ -122,7 +288,7 @@
 * What is a hall of fame?
 * How do I one hot encode something?
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -192,7 +358,7 @@
 *** could be the result of poor crossover or mutation methods
 ** compared to our ML algorithms, GP had a larger variation of results (most likely because of crossover and mutations)
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -268,7 +434,7 @@
 |25
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -393,7 +559,7 @@
 === Notebook Self-Evaluation ===
 [[files/apeng39/notebook-evals/w3-notebook-eval.jpg]]
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -464,7 +630,7 @@
 |[[files/apeng39/w2-ss4-mutUniform-lineGraph.png]]
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status
@@ -492,36 +658,35 @@
 * Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
 * A mutation introduces random modifications to the algorithm to help maintain diversity.
 * A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
-
-=== Keywords ===
-* '''individual''': one specific candidate in the population (with properties like DNA)
-* '''population''': a group of individuals whose properties will be altered
-* '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
-* '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
-* '''evaluation''': a function that computes the objective of an individual
-* '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
-** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
-** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
-* '''mate/crossover''': represents mating between individuals
-** anything up to n-point crossover is possible
+* keywords
+** '''individual''': one specific candidate in the population (with properties like DNA)
+** '''population''': a group of individuals whose properties will be altered
+** '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
+** '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
+** '''evaluation''': a function that computes the objective of an individual
+** '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
+*** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
+*** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
+** '''mate/crossover''': represents mating between individuals
+*** anything up to n-point crossover is possible
 [[files/apeng39/w1-ss1-crossover1.png]]
 [[files/apeng39/w1-ss2-crossover2.png]]
-* '''mutate''': introduces random modifications; purpose is to maintain diversity
+** '''mutate''': introduces random modifications; purpose is to maintain diversity
 [[files/apeng39/w1-ss3-mutate.png]]
-* '''algorithms''': various evolutionary algorithms to create a solution or best individual
+** '''algorithms''': various evolutionary algorithms to create a solution or best individual
 
 === Lab 1 ===
-==== Part 1: One Max Problem ====
-* The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
-** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
+* Part 1: One Max Problem ====
+** The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
+*** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
 
-==== Part 2: N Queens Problem ====
-* Learning Points
-** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
-** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
-** Python slicing arr[start:stop:step] (start through not past stop, by step)
-** arr[:] makes a shallow copy of the array
-** you can resize an array to the desired length using [0] * size
+* Part 2: N Queens Problem ====
+** Learning Points
+*** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
+*** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
+*** Python slicing arr[start:stop:step] (start through not past stop, by step)
+*** arr[:] makes a shallow copy of the array
+*** you can resize an array to the desired length using [0] * size
 
 * My Mutation Methods
  <nowiki>def mutOppositeHalves(individual, indpb):
@@ -579,7 +744,7 @@
 |[[files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png]]
 |}
 
-=== Action Items ===
+'''Action Items:'''
 {| class="wikitable"
 !Task
 !Current Status

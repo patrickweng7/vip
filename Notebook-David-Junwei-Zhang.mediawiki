@@ -5,10 +5,208 @@ Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
 
+== November 1, 2021 ==
+'''Team Meeting Notes'''
+
+Met with the NLP subteam and was introduced to the team and briefly introduced to the different goals/objectives for the semester
+
+Tasks: read bidaf, get environment set up with PACE/ICE
+
+scp, ssh
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read BIDAF paper and get familiar with NLP concepts
+|In progress
+|November 1, 2021
+|
+|November 8, 2021
+|-
+|Get environment setup with PACE/ICE
+|In progress
+|November 1, 2021
+|
+|November 8, 2021
+|-
+|}
+
+== October 25, 2021 ==
+'''Team Meeting Notes'''
+
+Our presentation link: https://docs.google.com/presentation/d/1Y9sf7qndm_UrH_mqs4xi4icQ8vgb7XDbQAEICgRYTFI/edit?usp=sharing
+
+Midterm presentations
+
+NLP Subteam: Goal maintain similar accuracy, F1 score while reducing complexity of models
+
+BiDAF model (bidirectional attention flow) layers
+* Character embedding layer
+* Word embedding layer
+* Contextual Embedding layer
+* Attention flow layer
+* Modeling Layer
+* Output layer
+
+NNLearner: type of learner in emade
+* Layers of neural networks are primitives in EMADE
+
+Evaluation metrics: F1, EM, MAP, MPR, Num params
+Literature review goal: use current state of the art systems as seeds for EMADE primitives
+
+Bootcamp 1
+* Used gp.cxOnePointLeafBiased for crossover
+* Custom selection tournament function
+
+Neural Architecture
+* CODeepNeat: current state of the art for neural architecture search
+** Changes include additional classes for EmadeDataPairs
+** Separation of primitive sets and terminals
+** More adf generation, changed inputs to adfs
+
+* NNLearner SQL table
+* Singles out only NNlearn based individuals
+* Automates process of acquiring nn individuals
+
+Bootcamp 2
+* Used arctan activation function to coerce values to boolean outcome in MOGP
+* MOGP performed better than ML
+* Emade performed well even with much fewer generations than MOGP
+
+Image Processing Group
+*Data preprocessing
+** Used Image Data Generator to conduct resizing, normalization, horizontal flipping
+** Other augmentations: rotations, shearing, horizontal and vertical translations
+* NSGAIII compared against NSGAII and lexicase
+** NSGAIII pre-defines set of reference points to maintain diversity
+** Reference point set depends on number of objectives
+
+Stocks Team
+* Objectives
+** Use EMADE for regression time series
+** Use EMADE to optimize market trading
+** Beat SOTA using EMADE
+
+* Objective functions
+** Profit percentage (max)
+** Average profit per transaction (max)
+** CDF of profit (min)
+** Variance of Profit per transaction (min)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Complete
+|October 25, 2021
+|October 29, 2021
+|October 30, 2021
+|-
+|Submit preferences for which VIP subteam to work on for the rest of the semester
+|Complete
+|October 25, 2021
+|October 29, 2021
+|October 30, 2021
+|-
+|Review subteam presentations to help decide subteam interests
+|Complete
+|October 25, 2021
+|October 28, 2021
+|October 30, 2021
+|-
+|}
+
 == October 20, 2021 ==
 '''Team Meeting Notes'''
+
+We had a working session during the team meeting and I tested out seeding.
+
 Seeding: <code>python3 src/GPFramework/seeding_from_file.py templates/input_titanic.xml test.txt</code>
 Change reuse to 1 if using seeding and create new db to populate data
+
+'''Subteam Notes'''
+
+While working with my subteam, we ran into many issues with dependencies and emade installation. Some common issues and potential fixes include
+* GP framework not defined
+** run setup install and reinstall.sh
+* MySql password and connection errors
+** make sure password is set, or if needed, reset the password
+** sudo can be used to pkill the db process (this may also delete all dbs) but a password can be reset this way
+* SQL alchemy error when trying to use seeding file; set reuse to 1 and create new db named "titanic_seeding" to test seeding and its impact on the GP evolution
+** https://docs.sqlalchemy.org/en/14/errors.html#error-e3q8 addresses the error message
+** According to sql alchemy, the most common error is the "operational error" and is not necessarily in the control of the programmer and is often as a result of a disconnect or failed memory allocation. It may be helpful to look into why the disconnect occured in the first place
+** <code>ALTER USER 'yourusername'@'localhost' IDENTIFIED WITH mysql_native_password BY 'youpassword';</code> solves this issue!
+reference: https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded
+
+The following is the code that I currently have within MySQL to setup and query the titanic db
+* Basic queries for individuals and pareto front
+    use titanic;
+    show tables;
+    select * from paretofront;	#pareto front
+    select * from individuals natural join paretofront;	#pareto fron joined with individual info
+    select tree from individuals where error_string is null;	#all non error individuals
+    select * from individuals where error_string is null and evaluation_status != "in_progress";
+
+* Create seeding db
+    create database titanic_seeding;	#db for seeding results
+    use titanic_seeding;
+
+Met with subteam again on 10/22 to discuss connecting worker nodes and the results of running emade.
+
+Met with subteam on 10/23 to resolve connecting worker node issues.
+* ERROR 2003 (HY000): Can't connect to MySQL server
+
+In order to connect as a worker node
+* I used the command <code>python3 src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w</code>
+* edited input_titanic.xml to point to the IP of the master worker, and set the username and password accordingly
+* set reuse to 1 (so that data will be reused from previous runs)
+
+EMADE changes
+* changed evalFunctions.py by adding two methods, false_negative_rate and false_positive rate and changed input_titanic.xml to point to those two evaluation functions instead of false positives and false negatives
+* modified sel_nsgaII to reduce errors by making sure individuals array is divisible by 4
+
+Our team ran emade for a few hours with 2 connected worker nodes and we were able to generate around ~60 individuals and 20 in the pareto front. This was substantially better than the 3 individuals in the pareto front that we were able to generate the day before. The following is the pareto front comparison between ML, MOGP, and EMADE.
+
+[[files/dzhang351/pareto_front_comparison.png|100px]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Connect worker nodes and make sure all group members get emade working
+|In progres
+|October 20, 2021
+|October 23, 2021
+|October 25, 2021
+|-
+|Work on slides for midterm
+|In progress
+|October 20, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Edit GP in Emade and test different input xmls and their impact
+|In progress
+|October 20, 2021
+|October 24, 2021
+|October 25, 2021
+|-
+|}
+
 
 == October 13, 2021 ==
 '''Team Meeting Notes'''
@@ -30,6 +228,10 @@ Errors
 .//src/GPFramework/gtMOEP.py
 
 
+'''Subteam Notes'''
+
+Met with my subteam on 10/16 (hackathon) to work on setting up emade. At the end of the session, I was able to populate the db successfully. One thing I noticed was that most individuals resulted in errors (had an error string in the db), but that is supposed to be normal.
+
 After running
 <code>python3 src/GPFramework/launchGTMOEP.py templates/input_titanic.xml</code>, 
 the following tables appear within the titanic db in mysql and I am able to access the data successfully
@@ -44,7 +246,7 @@ the following tables appear within the titanic db in mysql and I am able to acce
 
 I ran the query <code>select * from individuals natural join paretofront;</code> to retrieve all the individuals that were pareto optimal and then plotted my pareto front in matplotlib. Below is my initial result using emade (default params and input file). Some next steps include normalizing to include FNR and FPR rather than FN and FP and to edit the GP implementation and titanic data splitter to match the ML data splits so that a proper comparison can be made.
 
-[[files/dzhang351/prelim_paretofront_emade.png|50x50px]]
+[[files/dzhang351/prelim_paretofront_emade.png|100px]]
 
 '''Action Items:'''
 {| class="wikitable"

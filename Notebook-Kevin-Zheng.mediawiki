@@ -16,6 +16,128 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
+== October 25, 2021 ==
+* NAS
+** Difficulty outperforming seeded individuals -- 
+** Incompatible layer types in an individual resulting in invalid individuals -- might be a problem for NLP, might need to fix by ensuring all added primitives can take in and output the proper dimension data
+** 8-hour walltime reduces effectiveness -- perhaps save individuals in pickle, to be reused the next run?
+** Time limit for large individuals -- how much does this reduce complexity/training time?
+* Image Processing
+** Space issues with large dataset -- perhaps can use AWS S3 or other external database to hold data?
+** Master process kills itself after 5-10 minutes -- why does EMADE do that?
+** Crossover -- what crossover functions are best?
+* Stocks
+* Modularity
+* NLP Future Tasks
+** Implement BiDAF attention, modelling, and output layers
+** figure out how to use BERT as our embedding layers
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Figure out what inputs/outputs are required in the output layer
+|Completed
+|October 25, 2021
+|October 25, 2021
+|November 1, 2021
+|-
+|Figure out what a trainable weight vector is
+|In Progress
+|October 25, 2021
+|
+|November 1, 2021
+|-
+|Implement the output layer primitive in EMADE
+|In Progress
+|October 25, 2021
+|
+|November 1, 2021
+|}
+
+== October 18, 2021 ==
+* Overview of Tasks
+** Work with Karthik to prepare the SQUAD dataset for QA use
+** https://drive.google.com/drive/folders/1z6Ro2vYwkOx19wGjTl2rfwg7nx-1YElY?usp=sharing
+** Steps
+*** Divide the data into 5 folds for k-fold cross validation
+*** Choose the first fold as the test fold
+*** Take each fold, and split the question and context into 
+*** This results in 20 files -- 5 test context, 5 test question, 5 train context, and 5 train question csv files
+*** Take the files and scp them to the datasets/squad folder in PACE-ICE
+*** Change the xml file to take in those datasets and perform an EMADE run
+* Presentation
+** Prepare for the midterm presentation
+** https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Figure out how to split data into 5 folds, then into question and context files
+|Completed
+|October 18, 2021
+|October 22, 2021
+|October 23, 2021
+|-
+|Move the data files to PACE-ICE
+|Completed
+|October 22, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Start a run of EMADE
+|In Progress
+|October 22, 2021
+|
+|October 25, 2021
+|-
+|Write part of presentation and prepare to present
+|Complete
+|October 18, 2021
+|October 23, 2021
+|October 25, 2021
+|}
+
+== October 11, 2021 ==
+* Overview of Tasks
+** Merge NN-VIP into cache-v2
+** Go through each of the files with git merge conflicts, and decide how to resolve them
+** Understand the effects of each merge conflict, and why one branch's version should be taken over the other
+** https://docs.google.com/document/d/1prvy-xLAVbOCMULqTokVUEyk1qh7zAj_zUujzQYGtOg/edit?usp=sharing
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Read through each merge conflict between NN-Vip and Emade-304-cache-v2
+|Completed
+|October 4, 2021
+|October 17, 2021
+|October 18, 2021
+|-
+|Document which branch's version should be taken in each merge conflict
+|Completed
+|October 11, 2021
+|October 17, 2021
+|October 18, 2021
+|-
+|Work with Steven, Devan, and Karthik to merge the branch
+|Completed
+|October 11, 2021
+|October 17, 2021
+|October 18, 2021
+|}
+
 == October 4, 2021 ==
 * Overview of Tasks
 ** Steven already is able to split up the query and context data
@@ -30,9 +152,9 @@ Team members:
 !Suspense Date
 |-
 |Read and understand the differences between the nn-vip and cache-v2 branches
-|In Progress
+|Complete
 |October 4, 2021
-|
+|October 17, 2021
 |October 18, 2021
 |}
 

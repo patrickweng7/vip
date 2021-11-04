@@ -8,6 +8,239 @@
 
 = Fall 2021 =
 
+== Week 11: November 1st - November 7th ==
+
+===November 1st, 2021 Team Meeting Notes===
+*Assigned team: NLP
+*Scrums:
+** Image processing
+*** difference between multi-class and multi-label: multi-label is more tricky
+*** Need to squash bugs
+** Modularity
+*** improving midterm presentation
+*** problems encountered:
+**** Stocks uses Cache V2 but they are not using it, which caused some issues
+*** hopefully to get better data than presented in midterm presentation
+*** Tips from Dr. Zutty:
+**** Do the merge
+**** Make a fresh branch when merging with Cache V2
+** NLP
+*** Figured out required primitives
+*** About halfway done with Bidirectional Attention Layer
+*** Output layer is almost done
+*** Modeling layer is done
+*** Dr. Zutty inputs:
+**** Make sure we are doing Unit tests
+** NAS
+*** goals for next week: look into literatures about predicting performance, also optimize hyperparameters without going through training 
+*** Old version of Tensorflow is deprecating, make changes accordingly
+* Subteam (NLP) Notes:
+** Joined NLP slack
+** NLP is trying to find a way to represent words as numbers and features
+** given a passage and a question, being able to return an answer (the answer will be a word for word excerpt taken from the passage)
+** primitives are layers to the network, output from one layer is input to another layer
+** resources:
+*** BI-DIRECTIONAL ATTENTION FLOW FOR MACHINE COMPREHENSION: https://arxiv.org/pdf/1611.01603.pdf
+*** PACE ICE Setup Video Tutorial: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be
+*** PACE ICE Guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE
+*** There's a MySQL common errors table on emade github
+** Meeting: Wednesdays at 2pm, meeting virtually, Bluejeans link will be sent in slack on the day of
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read reference articles provided by the NLP subteam
+|Completed
+|November 1st, 2021
+|November 7th, 2021
+|November 3rd, 2021
+|-
+|Setup PACE ICE following the video provided by the NLP subteam
+|In progress
+|November 1st, 2021
+|November 7th, 2021
+|
+|}
+
+===November 1st, 2021 sub-team Meeting Notes===
+*PACE-ICE is under maintenance from November 3, 6:00 am to November 5, 11:59 pm, therefore new members like myself cannot set it up until PACE's maintenance is done
+*Finding a workaround to debugging as we cannot use PACE to debug
+**set up a local conda environment to run primitive code outside of EMADE
+*NN/NLP Introduction (presented by Steven)
+**Neural Networks
+***only need to understand this at a high level for now
+***ML: we focus more on supervised learning
+***Neural Network: 
+[[files/Jessi/images/nn.png]]
+**After we trained our data, which process we don't need to know for now:
+***be aware of overfitting (high variance) - the data fits the trained data really well but does not necessarily fit other real-world data 
+****To fix this, we use Regularization
+***There could also be underfitting
+**Recurrent Layer (RNN)
+***Used a lot in NLP
+***Focus on input and output layers
+[[files/Jessi/images/rnn.png|thumb|100x70px]]
+***We feed in x, output y, along with another output that feeds into itself that changes its state
+**LSTM (long-short term memory)
+***basically a fancy recurrent layer with multiple activations
+***We use this a lot recently
+**Attention Layer
+***Focus on the keywords in the query, while paying less attention to other words in the passage
+***long story short: attention allows us to pay more attention to some words than others
+**NN learner
+**ARGs
+***ARG0 is question or query
+***ARG1 is the passage
+**primitives are found in neural_network_methods.py, 90% of our work is going to be in that file
+*Intro to QA (presented by Devan)
+**NLP is teaching computers how to understand natural language including the many nuisances associated with it
+**QA is asking questions and get answers based on the context given in the query and the passage from which the answer will be produced
+**BiDAF Model:
+[[files/Jessi/images/bidaf.png]]
+
+
+== Week 10: October 25th - October 31th ==
+
+===October 25th, 2021 Team Meeting Notes===
+* Sub team presentations
+**Natural Language Processing (NLP)
+***Problem: question and answering system 
+***Vision: Make machines understand natural language
+***Method:
+****Use SQUAD dataset
+****BiDAF
+***Literature review
+****Deep Learning Approaches for question answer system by Yashvardhan Sharma and Sahil Gupta
+****Machine Comprehension Using Match-LSTM
+***Next steps
+****Implement output layer form BiDaf
+***New Members
+**** Meeting time: Wednesday 2:00 pm
+**** Learn about question answering
+**** Solve cool problems with Neural Architecture Search
+
+**NAS
+***Goal: Improve productivity of emade
+***Time Stopping: Lower training time is the same as minimizing the number of parameters
+***Preprocessing:
+****Text tokenization
+****One hot encoding for multiclass target data
+****Growing complex individuals
+*** Changes in EMADE: Changed inputs to adfs
+*** NNLearner SQL table
+*** New analysis methods:
+****nn_ind_from_has(hash)
+****Given an individual’s hash, return all generations that individual is a part of
+***Recruiting:
+****Meeting: Friday 2 - 3pm
+****Automate ways to find optimal neuro networks 
+****Creating more tutorials and documentation on Emade
+
+* Bootcamp team presentations
+** Team 1 (my team): we presented first
+** Team 2:
+*** Data preprocessing: Dropped columns that won’t help in predicting if a passenger survived or not such as ‘’name”, “passenger ID”, etc.
+*** MOGP design: Used SPEA2 for select function
+*** MOGP results:
+**** Got 0.12 AUC
+**** one hot encoding might have improved results
+***Emade:
+****Used FP and FN instead of FPR and FNR because slow computer no time to rerun
+****Used one hot encoding this time
+****Only got 10 generations due to slow PC and PC crashes
+****Also found that AdaBoostLeaner being the favored primitive, same as what we found
+
+* I had another class at 6:30 so I was only able to stay and take notes on the presentations above.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook weekly
+|Completed
+|October 25th, 2021
+|November 1st, 2021
+|October 30th, 2021
+|-
+|Read Subteams' presentation slides, rank them based on my preference and submit my rankings to Canvas
+|In progress
+|October 25th, 2021
+|November 1st, 2021
+|
+|}
+
+== Week 9: October 20th - October 26th ==
+
+===October 20th, 2021 Team Meeting Notes===
+*Emade Installation Work Session
+*Created data preprocess files
+*Successfully ran workers
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Change Emade input file to achieve better AUC
+|Completed
+|October 20th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Make Presentation
+|Completed
+|October 20th, 2021
+|October 25th, 2021
+|October 24th, 2021
+|-
+|Rehearse Presentation
+|Completed
+|October 20th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|}
+
+===October 22th, 2021 Sub Team Meeting Notes===
+*Most of the team is able to connect to master through SQL and run Emade correctly
+*Edited the data preprocessing files so that Emade doesn't keep returning infinity values
+*Next steps to complete individually:
+** 1. Make sure the default files work with the input_titanic.xml and the titanic database (completed)
+** 2. Copy the input_titanic file -> emade_titanic with the database changed to emade_titantic and the datasets changed to train and test preprocessed csv.gzs (completed)
+** 3. Copy the emade_titanic.xml -> super_titanic.xml Database is now super_titanic, change mutation and mating functions (in-progress)
+
+===October 24th, 2021 Sub Team Meeting Notes===
+* Team efforts:
+** Made presentation
+** successfully ran EMADE for 70 generations with working preprocessed data and input file
+** Results:
+<blockquote> 
+Emade Algorithm AUC = 0.1311417 <br>
+ Genetic Algorithm AUC = 0.1798859 <br>
+ ML AUC = 0.3201224
+</blockquote>
+
+[[files/Jessi/images/EMADEvsMLvsGP.png]]
+** Rehearsed presentation
+** Link to our presentation: https://docs.google.com/presentation/d/1YIiVWW3tQe2RZSRNIsomlLb2mUbaaj1bZN-rHt9KRb0/edit?usp=sharing
+* My contributions:
+** My PC has a lot of RAM so I left it on to run EMADE overnight and got to 216 generations, however in the morning we realized that the preprocessed datasets are faulty (The test preprocessed dataset doesn't have a "survived" column, and that's why we kept getting "inf" values) Therefore the data we obtained by running EMADE thus far have been useless
+** After we fixed the preprocessed datasets and input file, I ran EMADE for another 36 generations with working preprocessed data and input file
+** While EMADE is running, I worked on the presentation slides and took charge of presenting the Multi-objective Genetic Programming (MOGP) portion of the presentation. 
+**I wrote the slides for the MOGP part as well as edited some of the slides of my teammates' parts
+**I rehearsed the MOGP part of the presentation by practicing presenting it and timing myself to make sure that I stay within my allotted time (3 minutes)
+
 == Week 8: October 13th - October 19th ==
 
 ===October 13th, 2021 Team Meeting and October 16th, 2021 Hackathon Notes===
@@ -39,10 +272,10 @@ python src/GPFramework/launchGTMOEP.py -w templates/input_titanic.xml
 !Date Resolved
 |-
 |Resolve issues with SQL client 
-|In progress
+|Completed
 |October 16th, 2021
 |October 20th, 2021
-|
+|October 20th, 2021
 |}
 
 == Week 7: October 6th - October 12th ==

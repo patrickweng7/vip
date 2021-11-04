@@ -7,6 +7,179 @@
 '''Interests:''' Machine Learning, Soccer, Poker, Coffee, Entrepreneurship
 
 = Fall 2021 =
+
+
+== Week 10: Oct 25, 2021 ==
+
+===Overview:===
+* Presentation Day - presented our EMADE findings, and compared with ML/ MOGP findings earlier this semester
+* Presentation Link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+* Watched presentations fron the different subteams in AAD
+
+===Lecture Notes:===
+
+* Team presented our work and findings on ML, MOGP, and EMADE models in the Titanic Dataset
+  * Talked about the Pareto frontiers, AUC, and how we chose certain parameters
+  * Highlighted the difficulties and mistakes we made to improve them in future
+  * Explained the shortcomings of our model for EMADE, and why we were only able to run in for 10 gens
+* Understood the work done in other subteams at AAD, such as NLP, Image Processing, NAS, Stocks, Modularity
+
+===Individual Notes:===
+
+* Presented on ML and MOGP models we used in our semester so far, and why explained why we chose certain parameters and arrived at certain results
+* Took notes on other sub-team presentations to find out which team I would like to work with
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|-
+|Predicting Titanic Survivors with ML, MOGP, and Emade
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|-
+|Choose Subteam
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|}
+
+
+== Week 9: Oct 20, 2021 ==
+
+===Overview:===
+* Working session with VIP AAD alumni to use EMADE on Titanic Dataset
+* Alumni guided us on how to resolve certain issues, and helped with troubleshooting joining as a worker process with my team
+
+===Lecture Notes:===
+
+* Configuration and discussion on how to run all processes to use EMADE
+* Team learnt how to resolve our issues with EMADE running locally, and guided rest of the team in joining the EMADE worker processes
+
+===Sub-team Meeting Notes:===
+
+* Team was able to ensure that host process was working smoothly, and spent the rest of time troubleshooting the other worker processes
+* Encountered difficulty with slow running time for EMADE across master processes and worker processes
+  * Team was barely at 11th generation after over 3 days of runtime on EMADE, much slower than the usual expected speed
+* Worked on the final presentation on 10/25, discussed content and delegated work
+
+===Individual Notes:===
+
+* Worked on setting up worker process and running EMADE
+  * Due to hardware limitations on laptop, setup involved several backtracks and work arounds to ensure MySQL was running correctly
+* Helped with others setting up EMADE and connecting their worker processes
+* Worked on mid-term presentation slides for 10/25
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 13th, 2021
+|October 21th, 2021
+|October 21th, 2021
+|-
+|Sub-team Meeting
+|Completed
+|October 13th, 2021
+|October 16th, 2021
+|October 16th, 2021
+|-
+|Running EMADE on Titanic Dataset
+|In Progress
+|October 13th, 2021
+|October 20th, 2021
+|N/A
+|-
+|}
+
+
+== Week 8: Oct 13, 2021 ==
+
+===Overview:===
+* Class was spent working on Emade master process to run & joining worker processes
+* Sub-team meetings were spent troubleshooting, and ensuring MySQL server was running smoothly
+
+===Lecture Notes:===
+
+* Workday: Learn about setting up and troubleshotting a MySQL server.
+  * Server host command: mysql -h hostname -u username -d database_name -p
+* Clarified doubts on process with Dr.Zutty, and resolved difficulties running EMADE
+
+===Sub-team Meeting Notes:===
+
+* Team managed to set up EMADE to recognize & write to our MySQL database
+* Worked on steps to set up the generation process for EMADE
+* Resolved Python version error, where Python 3.8.8 was incompatible with multiprocess package
+* Errors we encountered:
+  * Issue where fitness values for individuals were (inf, inf, inf)
+  * EMADE error stated that "Tree missing valid primitve for data type"
+* Solution:
+  * We investigated and decided problem might have to do with false positive and false negative evaluation functions in evalFunctions.py
+
+===Individual Notes:===
+
+* Did research to investigate why the fitness values for individuals were returning as infinity
+* Helped with creating our custom evaluation functions for FNR and FPR
+* Cross-checked preprocessed data we had, to ensure that the columns were shuffled whilst being converted from pandas data to numpy arrays
+* Worked on the process of joining the MySQL server for worker processes. Troubleshooted multiple issues with setup, such as version conflict and unexpected crashing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 17th, 2021
+|-
+|Review lecture notes
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 14th, 2021
+|-
+|Worked on multiple issues
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Tried setting up worker process for MySQL
+|In progress
+|October 13th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Sub-Team Meetings
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 16th - 19th, 2021
+|}
+
 == Week 7: Oct 6, 2021 ==
 
 ===Overview:===
@@ -75,8 +248,18 @@
 * Make plot of non-dominated frontier, compare with ML & MOGP
 * Presentation of Monday the 25th
 
+===Sub-team Meeting Notes:===
+* Team members successfuly installed EMADE and MySQL on their laptops
+* Configured input XML file to run Titanic Dataset, after meeting with Dr.Zutty
+* Modified data splitter script to one-hot encode "Embarked" feature to improve algorithm. Reflected changes in our MOGP model as well.
+* Debugging error where EMADE is unable to evaluate individuals in queue. Plan to fix the issue in the next sub-team meeting.
+
 ===Individual Notes:===
-* Tried adding images to notebook, still experiencing error when doing so
+* Installed Anaconda and installed necessary dependencies for EMADE
+* Cloned and installed EMADE from GitHub
+* Set up Git and MySQL on computer
+* Researched how MySQL worked, and the specific commands for various functions
+* Resolved issues faced during sub-team meeting, such as debugging the algorithm for Titanic dataset
 
 === Action Items: ===
 {| class="wikitable"
@@ -92,7 +275,7 @@
 |October 13, 2021
 |October 8, 2021
 |-
-|Run EMade
+|Run EMADE
 |
 |October 6, 2021
 |October 13, 2021

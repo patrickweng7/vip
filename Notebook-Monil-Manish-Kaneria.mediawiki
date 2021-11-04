@@ -11,9 +11,250 @@ Interests: Machine Learning, Python, Soccer, Chess
 == Fall 2021 ==
 
 * Image Processing subteam
-** Teammates: Harris Barton, Maxim Geller, Aryaan Mehra, Temi O, Heidi Yap, Dhruv Patel
+** Teammates: Harris Barton, Maxim Geller, Aryaan Mehra, Temi O, Heidi Yap, Dhruv Patel, Austin Peng, Eashan Sinha, Elan Grossman, Rohan Batra 
 ** Subteam meetings 5:45-6:45pm on Wednesdays
 ** Main meetings 5-5:50pm on Mondays
+
+
+== October 27, 2021 ==
+
+'''Sub Team Notes:'''
+* We decided to pursue binary classification for disease detection
+* Tasks for the week:
+** Fix modifications & merge
+** Onboard new members
+** Reprocess data (disease or no disease)
+** Change objectives (ROC-AUC, # parameters)
+** Create new tasks
+
+* I will be working on producing a Standalone tree for the Hyperfeatures primitive to get test results 
+* Then I will open up a pull request to merge my Hyperfeatures-Image-Proc branch in to our affective master, Image-Processing(nn-vip).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|}
+
+
+
+== October 25, 2021 ==
+
+'''Team Meeting Notes:'''
+* MidTerm Presentations
+
+* NLP
+** Simulating the Bi-DAF model by first creating a word embedding and obtaining an output based on the context of the word
+** Using the SQUAD dataset from Stanford with 100,000 answered and 50,000 unanswered questions.
+** Trying to get close to the SOTA which is an F1 of 93.214
+** Haven’t completed all the primitives yet such as the output layer which is why they do not have any results yet.
+** Planning on using Facebook’s dataset. Dynamic/Episodic memory is the best as of now.
+
+* NAS
+** Overall goal is to make EMADE competitive with VGG16 and other large structure architectures
+** Objectives: minimize accuracy errors and number of parameters
+** Used time stopping of 600 vs 2500 seconds, latter ended in 1500 but generated less valid individuals and slightly better accuracy error (-0.05)
+** Higher number of layers → higher num of error individuals (though 2-5 was less than baseline)
+** Used only dense layers and convoluted layers
+** Tracking layer frequencies across generations
+** Created NNLearner table to track NNLearner individuals’ statistics
+
+* Stocks
+** Objectives: use EMADE for regression on time series data and optimize market trading algorithm ; beat SOTA using EMADE
+**They are trying to model papers and use technical indicators to predict price change points
+** Best primitives to use: modelled TI’s versus the different regression techniques that are implemented
+**Maximize profit percentage and average profit per transaction, minimize CDF of profit and variance of profit per transaction (four obj functions total)
+** Best performance was with the least complex tree (only one TI)
+**They are using minimization rather than maximization functions since they work better on EMADE.
+
+* Modularity
+** Goal: allow search function to consider larger subtrees depth. Improve ARL candidate selection through a new weighting function (occurrences * ARL size / fitness of individual)
+** Runs with both the old ARL’s and newer ARL’S are worse than with no ARL’s
+** More data is needed to see effects of ARL complexity on performance
+** Using ARLs with Stocks
+*** Used various technical indicators
+*** Problems with Google Colab’s limited computing power and merging stocks’ codebase into the ARL codebase
+*** Individuals not evaluating because of cachev2 updates
+** ARL: adaptive representation through learning
+*** ARL’s are implemented between the genetic operations and the evaluation phase
+*** Must be a complete tree
+*** It basically abstracts away complexity
+
+* Here are our Midterm Presentation slides: [https://github.gatech.edu/mkaneria3/VIP-FALL2021-ImageProcessing/blob/master/Image%20Processing%20Midterm%20Presentation.pdf]
+** I worked on the Hyperfeature slides.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare my slides for the mid-term presentation
+|Completed
+|October 20, 2021
+|October 24, 2021
+|October 24, 2021
+|}
+
+
+== October 20, 2021 ==
+
+'''Sub Team Notes:'''
+* Max tested PACE and it works, though primitives are erroring out for the nn tree
+* Code not using nsga3, nsga2 is hard-coded
+** Need to register nsga3 into toolbox
+** Call it in the code
+
+* We have four changes from the baseline, test all of them SEPARATELY
+** Geo. Crossover
+** Semantic Crossover
+** Hyper Features
+** NSGA-3 selection
+** Compare which of these four had the best changes
+
+* I worked on getting the hyper-feature code on emade as a primitive and Heidi decided to set up pace, fix any issues and get it ready for a run of emade for hyper-features.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 23, 2021
+|-
+|Prepare my slides for the mid-term presentation
+|In-Progress
+|October 20, 2021
+|October 24, 2021
+|}
+
+
+== October 18, 2021 ==
+
+'''Team Meeting Notes:'''
+* Presentation is NEXT WEEK!
+* When doing runs:
+** CPU hours should add up to how much time is left in the class
+** 1 master - 1 core is constant
+** Number of hosts means how many worker jobs
+** Number of CPU per worker is core count per worker
+* With all these different parameter tweaks, give thought to how will we show that we made improvement.
+
+* I combined my code(contrast enhancement) with Heidi's code(edge detection filter).
+* I also tested the code locally. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Combine my code with Heidi's code to complete the hyper-feature
+|Completed
+|October 13, 2021
+|October 18, 2021
+|October 18, 2021
+|-
+|Test the completed hyper-feature locally
+|Completed
+|October 13, 2021
+|October 18, 2021
+|October 12, 2021
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|In-Progress
+|October 13, 2021
+|October 20, 2021
+|
+|}
+
+
+== October 13, 2021 ==
+
+'''Sub Team Notes:'''
+* Reminder: mid-term presentation is on 10/25
+* Start preparing presentation slides from 10/19
+* Be prepared to talk about what we worked on individually/in your pairings (will need to put it on the slides)
+* verify changes, commit changes, create pull requests, review others' PR, merge changes
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test the grey level transform primitive in emade
+|In-Progress
+|September 6, 2021
+|October 13, 2021
+|October 13, 2021
+|-
+|Combine my code with Heidi's code to complete the hyper-feature
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|-
+|Test the completed hyper-feature locally
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|}
+
+
+== October 11, 2021 ==
+
+'''Team Meeting Notes:'''
+* No Meeting - Fall Break
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test the grey level transform primitive in emade
+|In-Progress
+|September 6, 2021
+|October 13, 2021
+|
+|}
 
 == October 6, 2021 ==
 

@@ -13,6 +13,116 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Week 10, Oct 25th
+
+### Presentation Notes
+* NLP
+* * We presented our work so far: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* Bootcamp 1
+* * Learning and Implementing ML, MOGP, and EMADE for Titanic Dataset from Kaggle
+* * First, pre-processing data
+* * Replacing Null Values, One-Hot Encoding
+* * SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier
+* * Genetic Programming worked better than the ML for this group
+* * EMADE -> doubled headless chicken rate
+* * Biggest setback was messing up dataset
+* Neural Architecture Search
+* * Creates Neural Networks in EMADE with the NNLearner
+* * Previous Semesters had individuals that could barely improve off of seeded individuals
+* * Dimensionality Errors (no rule enforced on connecting layers)
+* * Worked around Time Stopping
+* * Preprocessing: text tokenization, one hot encoding for multi class target data
+* * CoDEEPNeat, latest and most effective Neural Architecture Search
+* * Some individuals are taking too long to train 
+* * New analysis methods
+* * Dimensionality issues between layers: they're still working on this, 
+* * Throwing away non NNLearners: used strongly typed GP, made a new type of EMADE Data Pair that requires an NNLearner to be used
+* Bootcamp 2
+* * Data Preprocessing Procedure: dropped name, passengerID, ticket number, and far
+* * Mapped alphabetical values of 'sex' and 'embarked'
+* * MOGP: Used False positive and negative rates, minimizing these two objectives
+* * EMADE: had a difficult installation process
+* * Created a virtual conda environment, used python 3.7
+* * Adaboostlearner was their best type of individual
+* Image Processing 
+* * New this semester
+* * Wanted a narrower scope
+* * Dataset Preparation: Image Resizing, normalization, horizontal flipping, newer augmentations
+* * Augmented 1000 out of 5000
+* * Having suspicious baseline results, including an incredibly low AUC
+* * Implemented NSGA III to use
+* * Pre defines set of reference points to maintain diversity among its solutions
+* * In theory, should outperform NSGA II
+* * Added two new mating and mutation methods based around semantic, Geometric Semantic Crossover and Geometric Semantic Mutation
+* * Added "Hyper-features" for Image Processing and GP
+* Bootcamp 3
+* * Worked on titanic dataset
+* * used one hot encoding for genders
+* * dropped passengerID, ticket, and cabin
+* * Added a gender_embarked column
+* * started with a variety of machine learning models popular for classification problems, including svm, rf, logistic regression, and MLP neural networks (multilayer perceptrons)
+* * GP evaluation function used False positive and negative rate
+* * EMADE, had to modify sel_nsga2 to achieve selTournamentDCD()'s requirement of having an individuals array divisible by 4 (should be fixed by DEAP == 1.2.2... we normally run into this issue once a semester if I recall correctly).
+* * AdaBoostLearner was the individual with the most appearances in their results
+* * Takeaways: Important to use trial and error, it is crucial to connect worker nodes
+* Stocks
+* * Overarching Objectives: How to use EMADE for regression on time series data, and how to use emade to optimize market trading algorithms?
+* * Idea: Model other papers and use technical analysis to predict future trigger points for the stock
+* * Relative performance of primitives based on CDF metric shows that some primitives are working great
+* * Objective functions include profit percentage, average profit per transaction, pdf of profit, and variance of profit per transaction
+* * Designing new experiments based on AAPL and other stocks
+* Bootcamp 4
+* * Data preprocessing: dropped name and cabin.
+* * One hot encoded for embarked feature
+* * replaced null values
+* * Then moved on to MOGP Evolution. Tried one point crossover but the results weren't great.
+* * Revised MOGP by replacing selection with select
+* * AUC for EMADE was .26380
+* * Pareto Front for gen 20 had 314 valid individuals
+* * Number of valid individuals increased with generations
+* * Had more diverse individuals with MOGP
+* * EMADE worked well with large primitive sets for them
+* Modularity
+* * Trying to introduce ARL's, or Adaptive Representation through Learning
+* * A way to introduce reusability in EMADE
+* * Evaluation -> Selection -> Genetic Operations -> ARLS -> Evaluation
+* * ARLS are useful because they might improve a population's overall fitness
+* * Should allow a population to converge faster
+* * This semester, continuing their work on increasing the complexity of ARLS via increasing tree depth
+* * Goals include allowing search functions to consider larger subtrees depth to increase the potency of ARLs
+* * Improve ARL candidate selection via a new weighting function
+* * Fixed a lot of bugs this semester, like individuals only having one of each ARL
+* * Fixed Arity of parent nodes not being updated
+
+### Sub Team Meeting Notes
+* We dedicated this week to getting the necessary primitives to get results
+* We decided that basing a model off of the BiDaf model was the best route to go.
+* Our embedding layers currently in EMADE would suffice. We still needed a Bidirectional Attention Layer, a Modeling layer, and an Output layer.
+* We assigned ourselves into three groups to implement these remaining layers. 
+* Bidirectional Attention Layer: This will be the hardest layer to implement. We assigned myself, Karthik, Devan, and Rishit to implement this primitive.
+* Modeling Layer: This is essentially just an LSTM layer. We assigned George to this.
+* Output layer: This will take some effort, so we assigned Kevin and Shiyi to this task.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Assign Primitive Development | Complete | 10/25/2021 | 10/27/2021 | 11/01/2021 |
+Email Dr. Zutty about 2 Data Pair NNLearners | Complete | 10/25/2021 | 10/30/2021 | 11/01/2021 |
+Implement Bidirectional Attention Layer | In Progress | 10/25/2021 | ... | 11/01/2021 |
+
+
+## Week 9, Oct 18th
+
+Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+
+## Week 8, Oct 11th
+### General Meeting:
+* No General Meeting this week
+
+TODO: Fill in Notes
+
+Accomplishments of Week: Merging in changes
+
 ## Week 7, Oct 4th
 ### General Meeting Notes
 * Stocks:
@@ -37,7 +147,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Make an EMADE Branch with new CacheV2 and NNLearner functionality | Blocked | 10/03/2021 | ... | 10/10/2021 |
+Make an EMADE Branch with new CacheV2 and NNLearner functionality | Complete | 10/03/2021 | 10/10/2021 | 10/10/2021 |
 
 ## Week 6, Sep 27th
 ### General Meeting Notes

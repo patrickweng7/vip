@@ -7,16 +7,272 @@ Cell Phone: 470-334-5880
 
 Classes Taking: Machine Learning, Design & Analysis Algorithms, Intro to Cognitive Science, Math Statistics I
 
-Interests: Cooking, Ultimate Frisbee, HipHop, Phone Photography, Cats 🐈
+Interests: Cooking, Ultimate Frisbee, Phone Photography, Cats 🐈
 
 Subteam: [[Natural Language Processing]] (Current) [[Modularity]] (Past)
 
-Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]]
-
-Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeRjyic1YlTf10oYrC027/view?usp=sharing Shiyi Wang's Fall 2021 Self Evaluation]
+Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]], [[Notebook George Ye | George Ye]]
 
 = Fall 2021 =
-== Week 08 ==
+== Week 11 ==
+=== Nov 3, 2021 ===
+'''Subteam Meeting Notes:'''
+* Every returning and new member introduced him/herself in the meeting.
+* Debugged BIDAF.py
+=== Nov 1, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Decided to focus on binary classification task.
+** Research workaround geometric and semantic mating and mutation.
+** Research new hyperfeature combinations.
+* Modularity
+** Migrating modularity into Cache V2.
+** Extended ARL group continue doing runs and running experiments.
+* NLP
+** Implemented Modeling layer and output layer.
+** Halfway through Bi-directional attention layer.
+* NAS
+** Ideas we plan to work on in order to improve neural architecture search in EMADE: Triviality Detection, Novelty Detection, Bug fix for swap_layer method, Speeding up EMADE processes, Adding unit tests, Introducing some pause functionality.
+** Updating to Tensorflow 2.6 on PACE.
+
+'''Subteam Meeting Notes'''
+* Presented NLP and Q&A Systems to bootcamp students.
+
+== Week 10 ==
+=== October 27, 2021 ===
+'''Subteam Meeting Notes:'''
+* Discussed the dimensionality issue between different layers.
+* Decided to focus on implementing BiDAF and set aside the Literature Review Primitives.
+* Steven shared his homework code for BiDAF layers (with comments for dimensionality for different layers).
+* Steven, Rishit, Karthik, Devan working on Attention layer, George on Modeling, me and Kevin on output layer.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|-
+|Implement Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|}
+
+=== October 25, 2021 ===
+'''Team Meeting Notes:'''
+* NLP
+** Presented the work so far in Literature Review
+** Answered the question about non-tree structures in Literatures.
+* Bootcamp Team #1
+** Data Preprocessing
+*** Drop Columns, replace null columns, one hot encoding.
+** Machine Learning
+*** SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier.
+** Genetic Programming
+*** Individual (Primitive Tree), Evaluation (FPR, FNR), Crossover (cxOnePointLeafBiased), Mutate (muNodeReplacement), Selection (Selection Tournament).
+** EMADE
+*** Double Headless Chicken rate and reduce most of the mutations.
+* Neural Architecture Search
+** Initial Infrastructure
+*** Hard to outperform seeds
+*** Most individuals are not neural networks.
+*** No rules being enforced when connecting layers (dimensionality errors)
+** Time Stopping
+*** Expectation: Lower training time same as minimizing number of parameters.
+*** Implementation: Check train time at the end of each epoch.
+** Preprocessing
+*** Text Tokenization, One Hot Encoding for multi-class Target Data.
+*** Hard to compare for valid individuals.
+** Growing Complex Individuals - CoDEEPNeat
+*** Separated primitive sets and terminals between ADFs and MAIN primitive.
+** Results
+*** Decrease in the Average Accuracy Error.
+*** Increase in Average elapsed time.
+** Testing & Analysis
+*** NNLearner SQL Table.
+*** Analysis Methods - nn_ind_from_hash, view_nn_statistics, simplify_parents.
+*** Tracking layer frequencies across generations.
+* Bootcamp Team #2
+** Data Preprocessing
+*** Drop column, fill Null will statistical values
+** Machine Learning
+*** Decision Tree, Random Forest, ADA Boost, MLP, SVM
+** MOGP
+*** SPEA2 for select function.
+** EMADE
+*** Conda + Python 3.7 was the only working combination (Python 3.8/3.9 does not support multiprocess).
+* Image Processing
+** Objectives
+*** Improve EMADE on image processing tasks
+*** Future work: Object detection, image segmentation, image registration
+** Literature Review
+*** Arrived at CheXnet Paper - Pneumonia Detection on Chest X-Rays.
+** Dataset Preparation
+*** Used the Tensorflow API (ImageDataGenerator) to conduct the image resizing, normalization, horizontal flipping.
+*** Newer augmentations: rotation, shearing, etc.
+** Baseline Results on 30 Generations
+*** Evaluation Objectives: Precision-Recall AUC, Number parameters.
+*** Suspicious AUC: due to objective functions, or dataset issues.
+** Selection Methods
+*** NSGA III vs. NSGA II: Pre-defines set of reference points to maintain diversity among its solutions.
+** Mating & Mutation Methods
+*** Added two mating and mutation methods based around semantic: Geometric Semantic Crossover & mutation.
+*** Trimming primitive set and simpler seed individuals could yield better results.
+*** Added two Geometric Crossover Operators: Simulated Binary & Blended Crossover.
+** Hyper-features for Image Processing & GP
+*** Grey level transformation
+* Bootcamp Team #3
+** Data Preprocessing
+*** Drop columns, one hot encoding for genders and name titles, add columns for relatives, gender_embarked, replace values with mean.
+** Machine Learning
+*** SVM, Random Forests, KNN, Logistic Regression, MLP, Gaussion Naive Bayes.
+** MOGP
+*** Strongly typed primitives to enforce boolean outcome.
+*** Selection (tools.selLexicase), Mate (One Point Crossover), Mutate (mutUniform).
+** Machine Learning vs. MOGP
+*** ML more consistent vetween runs.
+** EMADE
+*** Modified sel_nsga2 to achieve selTournamentDCD()'s requirement of having an "individual" array divisible by 4.
+*** Allow port forwarding on the master'ss home router if the workers will be joining remotely. No VPN was needed to connect.
+** Pareto Front Comparison
+*** Why ML is better than MOGP? May be not enough generations.
+* Stocks
+** Primitive Analysis
+*** The ML algorithm in the individual uses historical data and technical indicators to predict future trigger points for the stocks.
+*** This study is to determine which technical indicators and which ML learners have the best performance.
+** Objective functions
+*** Profit Percentage, Average Profit Per Transaction, CDF of Profit, Variance of Profit per Transaction.
+** Experiment Design
+*** Create a pool of objectives and pick out stocks to conduct EMADE runs on.
+*** Run EMADE using all possible combination of objectives.
+** Comparison to Paper Results
+*** Takagi-Sugeno Fuzzy Model with an SVR model to forecast stock prices.
+* Bootcamp Team #4
+** Data Preprocessing
+*** Drop columns, one hot encoding, replace null with median.
+** Machine Learning
+*** MLP, Decision Tree, SVM, XGBoost
+** Primitives for MOGP
+*** Strongly typed, logical terminals enable to pass tree inputs to logical operators directly.
+** MOGP
+*** Mate (cxOnePoint), Mutate (mutUniform), Selection (selTournamentDCD).
+** EMADE - 20 Generations
+*** AdaBoostLearner (9) > baggedLearner (2) = randShuffle (2) handle data directly.
+*** Time expensive and more gradual evolution.
+*** Optimal when cost of tuning individuals manually is higher than cost of automating evolution.
+* Modularity
+** Intro
+*** Modularity: Explore ways to abstract parts of individuals.
+*** ARL Implementation: Search the population for combinations of parent and children nodes.
+*** ARL Complexity: Increase complexity of ARLs via increasing tree depth.
+** Goal
+*** Allow the search function to consider larger subtrees depth to increase the potency of ARLs.
+*** Improve ARL candidate via a new selection functions.
+** Bug fixed
+*** Contracting overlapping ARLs would either cause multiple deletions.
+** Titanic Experimental Setup
+*** Default Evolutionary Parameters
+** Stock Runs with ARLs
+*** Merging stocks code with ARL codebase, different individuals, evaluation methods, etc.
+** Results
+*** Higher AUC with new ARLs
+*** More data is needed to gain insight into effects of ARL Complexity on performance.
+*** From preliminary data, size may not inherently imply usefulness.
+
+'''Individual Progress'''
+* Completed one more dry run before the midterm presentation.
+* Built the tree for Machine Comprehension Using Match-LSTM and Answer Pointer using [https://github.com/cwhaley112/TreeVis TreeVis].
+ NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete one more dry run before the [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_3_9 midterm presentation]
+|Completed
+|October 25, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Visualize the trees for paper
+|Completed
+|October 25, 2021
+|October 25, 2021
+|October 25, 2021
+|}
+
+== Week 09 ==
+=== October 20, 2021 ===
+'''Subteam Meeting Notes'''
+* Discussed slides preparations
+** Literature review slides (3 papers + visualizations)
+** Dataset prep
+** Current EMADE status runs on QA
+** New eval methods
+** Future plans
+* Scheduled the dry run on Sunday for the midterm presentation on Monday.
+
+'''Individual Progress'''
+* Summarized BIDAF in plain context
+** BiDAF is a one of the state-of-art QA systems that aims to pinpoint the location of the Answer within a Context stems from its layered design.
+** Each of these layers is like a transformation engine that transforms the vector representation of words.
+* Literature Reviewed [https://arxiv.org/pdf/1608.07905.pdf Machine Comprehension Using Match-LSTM and Answer Pointer]
+** Investigated on Match-LSTM
+*** In textual entailment, two sentences are given where one is a premise and the other is a hypothesis. 
+*** To predict whether the premise entails the hypothesis, the match-LSTM model goes through the tokens of the hypothesis sequentially. 
+*** At each position of the hypothesis, attention mechanism is used to obtain a weighted vector representation of the premise. 
+*** This weighted premise is then to be combined with a vector representation of the current token of the hypothesis and fed into an LSTM, which we call the match-LSTM. 
+*** The match-LSTM essentially sequentially aggregates the matching of the attention-weighted premise to each token of the hypothesis and uses the aggregated matching result to make a final prediction.
+** Investigated on Answer Pointer Layer
+*** Improvement on Pointer Net, a sequence-to-sequence model proposed to constrain the output tokens to be from the input sequences.
+* Completed the slides design for [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_5_16 paper 3], [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_5_26 vis3], and [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_3_9 Literature Review Team Goal].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete the slides assigned
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Investigate on Match-LSTM
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Investigate on Answer Pointer Layer
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Summarize BIDAF in plain context
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
 === October 18, 2021 ===
 '''Team Meeting Notes:'''
 * Plan on using CPU Hours
@@ -38,6 +294,59 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 ** ADFs mostly aren't valid
 *** Solution: ADFs are now structured to only take in a layerlist input and output a layerlist input.
 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try implement primitives in Literature
+|Completed
+|October 18, 2021
+|October 25, 2021
+|October 18, 2021
+|}
+
+== Week 08 ==
+=== October 16, 2021 ===
+'''Hackathon Meeting Notes:'''
+* Resolved 5,000 + merge conflicts at Hackathon.
+* Running into errors with the input - Key error for number of input.
+* Literature review team has read several papers and made trees for 6 seeding individuals.
+
+'''Individual Progress:'''
+* Discovered 3 more papers (now 6 papers in total) with tree-structure infrastructure.
+** [https://arxiv.org/pdf/1608.07905.pdf Machine Comprehension Using Match-LSTM and Answer Pointer]
+*** This paper proposes an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model to constrain the output tokens to be from the input sequences. 
+*** This paper proposes two ways of using Pointer Net for the task. Experiments show that both of the models substantially outperform the best results using logistic regression and manually crafted features.
+** [https://arxiv.org/pdf/1610.09996.pdf End-to-End Answer Chunk Extraction and Ranking for Reading Comprehension]
+*** This paper proposes dynamic chunk reader (DCR), an end-to-end neural reading comprehension (RC) model that is able to extract and rank a set of answer candidates from a given document to answer questions. 
+*** DCR is able to predict answers of variable lengths, whereas previous neural RC models primarily focused on predicting single tokens or entities. 
+*** DCR encodes a document and an input question with recurrent neural networks, and then applies a word-by-word attention mechanism to acquire question-aware representations for the document, followed by the generation of chunk representations and a ranking module to propose the top-ranked chunk as the answer.
+*** Experimental results show that DCR achieves state-of-the-art exact match and F1 scores on the SQuAD dataset.
+** [https://arxiv.org/pdf/1908.05147.pdf SG-Net: Syntax-Guided Machine Reading Comprehension]
+*** This paper proposes using syntax to guide the text modeling by incorporating explicit syntactic constraints into attention mechanism for better linguistically motivated word representations. 
+*** In detail, for self-attention network (SAN) sponsored Transformer-based encoder, this paper introduces syntactic dependency of interest (SDOI) design into the SAN to form an SDOI-SAN with syntax-guided self attention.
+*** Syntax-guided network (SG-Net) is then composed of this extra SDOI-SAN and the SAN from the original Transformer encoder through a dual contextual architecture for better linguistics inspired representation. 
+*** To verify its effectiveness, the proposed SG-Net is applied to typical pre-trained language model BERT which is right based on a Transformer encoder. 
+*** Extensive experiments on popular benchmarks including SQuAD 2.0 and RACE show that the proposed SG-Net design helps achieve substantial performance improvement over strong baselines.
+* Tree Generated based on my understanding of the models in the literatures.
+ Paper #1: MATCH-LSTM & Answer Pointer
+ NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
+
+ Paper #2: Dynamic chunk reader
+ NNLearner(ARG0, ARG1, rankerLayer(chunkRepLayer(attentionLayer(encoderLayer(ARG0, ARG1)))))
+
+ Paper #3: SG-Net
+ NNLearner(ARG0, ARG1, taskLayer(dualContextAggregation(SGSelfAttentionLayer(transformerEncoder(ARG1))), AG0))
+
+=== October 13, 2021 === 
+'''Sub Team Meeting Notes:'''
+=== October 11, 2021 ===
+'''Team Meeting Notes:'''
+* Fall Break. No Class on Monday.
 
 == Week 07 ==
 === October 06, 2021 ===
@@ -60,16 +369,16 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 !Date Resolved
 |-
 |Further readings on QA models
-|Ongoing
+|Completed
 |October 4, 2021
 |October 11, 2021
-|
+|October 11, 2021
 |-
 |Work on seeding individuals
-|Ongoing
+|Completed
 |October 4, 2021
 |October 11, 2021
-|
+|October 11, 2021
 |-
 |Complete Peer Evaluation
 |Completed
@@ -256,6 +565,12 @@ Fall 2021 Week 04 Self-grading: [https://drive.google.com/file/d/13bnkVUBPj4NqeR
 |September 13, 2021
 |September 20, 2021
 |September 15, 2021
+|-
+|Complete the [https://drive.google.com/file/d/13bnkVUBPj4NqeRjyic1YlTf10oYrC027/view?usp=sharing Fall 2021 Self Evaluation]
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 13, 2021
 |}
 
 === September 13, 2021 ===

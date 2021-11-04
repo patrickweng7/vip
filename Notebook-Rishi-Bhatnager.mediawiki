@@ -24,14 +24,70 @@ Subteam Teammates:
 ** -2 Usefulness to team
 
 
-==Oct 21-22, 2201==
+==Oct 25, 2022==
+'''Individual Notes'''
+* I helped make and revise [https://docs.google.com/presentation/d/1lQG83vSyWI1dqOSJg99hHIOyeu1lj4umVpzzBjLG_cA/edit?usp=sharing our presentation]
+* I also rehearsed my slides (1, 2, 16-19)
+
+'''Team Meeting Notes'''
+''Midterm presentation day. I had a time conflict before 6:30 and after 8, notes for the presentations for which I was present are below:''
+
+Image Processing
+* Dataset used: CheXNet (detecting pneumonia using chest X-rays)
+* Baselines results:
+** 30 generations
+** Objectives: precision-recall AUC, Number of parameters
+** Two trees: both received .094 AUC, one with 255 parameters and another with 30
+* Updated selection methods (ex: NSGA III)
+** Couldn’t run for multiple generations because of PACE issues) 
+* Mating and mutation methods: simulated binary and blended crossover
+
+Bootcamp 3
+* ML models used: GNB, Random Forest, KNN, Logistic Regression, MLP
+
+Bootcamp 4
+* ML models used: MLP, Decision Tree, SVM, XGBoost
+* Primitive set for MOGP: Boolean functions and basic mathematical operations
+* MOGP Parameters:
+** 300 genrations
+** One point crossover mating
+** Uniform mutation
+* MOGP performance: .151 AUC
+* EMADE: .26 AUC
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read paper and begin replicating it
+|In progress 
+|Sept 17, 2021
+|
+|
+|-
+|Prepare for presentation
+|Complete 
+|Oct 21, 2021
+|Oct 25, 2021
+|Oct 25, 2022
+|}
+
+
+==Oct 21-22, 2021==
 '''Subteam Meeting Notes'''
 * We tested some of our best trees from last semester to see how those results compared to the TS-Fuzzy paper
 ** We compared pretty well based on our profit percentages from the individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None))
-** Performance using code from last semester's paper: [[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
-** Performance using code from this semester's paper: [[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
+** Performance using code from last semester's paper: 
+[[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
+** Performance using code from this semester's paper: 
+[[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
 *** The decreased performance could be because this individual was optimized for the objectives from last semester, and some of those changed for this semester's paper (so this would be a seed individual rather than necessarily an end product)
-** Performance from TS-Fuzzy model reported by paper: [[files/rbhat3/paper_perf.png|thumb|50x50px]]
+** Performance from TS-Fuzzy model reported by paper: 
+[[files/rbhat3/paper_perf.png|thumb|50x50px]]
 *** Based on last year's performance, we're about better overall
 *** Based on this semester's performance, we're slightly worse overall (but, again, we would still need to run EMADE using this individual as a seed instead of using it as our standard)
 * We finished our experimentation design: 
@@ -44,6 +100,16 @@ Subteam Teammates:
 ** Hosts: 3
 ** Workers per host: 4
 ** CPUs per host: 8
+* We'll create and rehearse our presentation over the weekend
+
+'''Team Meeting Notes'''
+* Can train on last semester’s train data and test on this semester’s test data to see how well our algorithms from last semester generalize to new stocks 
+** This would be a different type of analysis to using train and test data from this semester’s paper to do our main analysis
+* PACE
+** Processors per worker and workers per host should be the same
+** Compute time equals number of jobs times number of cores per worker
+* Objectives: to make profit a minimization we’ll take the negative of profit
+** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound
 
 
 '''Action Items'''
@@ -65,6 +131,12 @@ Subteam Teammates:
 |Oct 15, 2021
 |Oct 22, 2021
 |Oct 21, 2022
+|-
+|Prepare for presentation
+|In progress 
+|Oct 21, 2021
+|Oct 25, 2021
+|Oct 25, 2022
 |}
 
 

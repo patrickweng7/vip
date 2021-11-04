@@ -1,8 +1,120 @@
 === Harris Barton ===
 * Email: Hbarton7@gatech.edu
 * Phone: 850-687-9318
-* Interests: Machine Learning, Software Engineering, Digital Signal Processing, BJJ, Chess
+* Subteam: Image Processing
+* 2 semesters in VIP AAD
+* 3rd year CS Major concentrating in Theory and Intelligence.
+* Interests: Machine Learning, Software Engineering, Digital Signal Processing, BJJ (No-Gi)
 = Fall 2021 = 
+== November 1st, 2021 == 
+'''Meeting Notes/Accomplishments:'''
+* We were suggested by Dr. Zutty to look through the dataset and see what the distribution looks like for the dataset when we constrain the problem to images with only one label, but keep it a multi-class problem Multi-class and Multi-label are different things).
+* Our idea to make it a binary classification problem kind of complicates things with the selection methods since our study into selection methods was basically to improve EMADES many-objective optimization capability. Making this a binary classifier kind of throws that investigation out of the window. 
+* We have 4 new members added to our team. Fortunately, we have 4 "sub-subteams" working on different tasks and we might be able to basically split them up into our sub-subteams accordingly. So tasking doesn't seem to be a big issue. 
+== October 25th, 2021 == 
+'''Meeting Notes/Accomplishments:'''
+* Presentations happening today!
+* Image Processing team is presenting 5th. 
+'''NLP Sub-team Presentation Notes:'''
+* Seems to have made good progress.
+* Doing some complicated NLP stuff that I don't understand.
+* They documented the specifics of their literature review which we did not which is something that I am starting to think about more. However, it would've been hard to go in depth in ours since our presentation is already very long without going in depth. 
+'''Neural Architecture Search Presentation Notes:'''
+* Automatically creating neural networks with EMADE (this is the main idea of the team).
+* EMADE had trouble outperforming the seeds, and the individuals were not actually neural networks. 
+* They experimented with time stopping in order to lower training time. Apparently dataset was too big to check each batch. 
+* It seems that with time stopping earlier at 600 seconds yielded better results than stopping at 2500 seconds, this is an interesting concept that more training time does not necessarily make a better model. 
+* They have made some interesting changes to EMADE. 
+** They made additional classes for EmadeDataPairs.
+** Separated primitive sets and terminals between adfs and main primitives. 
+** Changed inputs to adfs
+* Did a seeded experiment on cifar-10 but the slide went super fast and I need to ask them to reiterate exactly what they did here. 
+* They did something interesting with SQL which basically adds a table for accessing specific NNLearning individuals over time.
+* Added interesting analysis methods, thinking we might benefit from creating some helper functions for analysis. 
+'''Bootcamp team 2 Presentation:'''
+* Used 5 different ML models, had decent results.
+* Used SPEA2 as their selection method, which is different from a decent bit of teams. It seems like NSGA-II is kind of the default there.
+* Used a squishifier function as my bootcamp team did last semester, which is interesting as it seemed like at the time we were the only ones who had done that. 
+* Did not do the bounds correctly in the pareto front.
+'''Our turn to present:''' 
+* I had a meeting at 7:30pm, so I had to leave after our presentation.
+'''Subteam Meeting Notes:'''
+* We have changed the problem we are trying to solve to a 0-1 binary classification problem. We just now noticed that the paper is essentially doing this in that they have two labels: with and without pneumonia. This will probably simplify things and might be a factor in the weird stuff that has been going on with our individuals as of late. 
+* This means that NSGA-II may be able to do a decent job, since we have changed the problem back to a non-many objective optimization problem.
+* Since Dhruv and I were working together, we kinda had him in charge of running and testing the selection methods we implemented and I think that I should start doing runs as well to kind of double the productivity that we can accomplish between Dhruv and I. 
+* We are going to continue trying to get runs in with our selection methods changed since we were not able to get decent runs in before the presentation.
+* I want to get a run in with the current EMADE implementation of lexicase and see how that compares with the NSGA-II and NSGA-III. 
+'''Action Items:'''
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Completed
+|October 25th, 2021
+|November 1st, 2021
+|October 27th, 2021
+|- 
+|Do Presentation
+|Completed
+|October 25th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|- 
+|Do PACE Run
+|IP
+|October 25th, 2021
+|November 1st, 2021
+|November 1st, 2021
+|}
+== October 18th, 2021 == 
+'''Meeting Notes/Accomplishments:'''
+* Mid-term presentations next week. 
+* When doing our runs, we need to keep in mind the following:
+** 1 master - 1 core is constant
+** CPU hours should add up to how much time is left in the class
+** Number of hosts means how many worker jobs
+** Number of CPU per worker is core count per worker 
+* We are going to to our EMADE runs in pairs, so dhruv and I will get a run in with NSGA-III on the ChexNet dataset before the presentation and hopefully be able to interpret the results and compare against the baseline. 
+'''Subteam Meeting Notes:'''
+* We noticed that nsga-III was hard-coded into EMADE, and this is a bit interesting and we are thinking this might be some sort of indication that we should have hard coded nsga-III into the code or if there was something wrong with simply calling NSGA-III and registering it into the toolbox.
+* There are 4 changes to the code that we are hoping to test/compare with the baseline. Namely, 
+** Hyper Features
+** NSGA-III
+** Geometric Crossover
+** Semantic Crossover
+* Hopefully, we will be able to see which of these changes resulted in an improvement over the baseline, and if so, then we can look at how to combine the two and see if the results improve over the separate changes.
+'''Action Items:'''
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Completed
+|October 11th, 2021
+|October 13th, 2021
+|October 13th, 2021
+|- 
+|Do Run with NSGA-III
+|Issues Encountered
+|October 17th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|- 
+|Work on presentations
+|Completed
+|October 17th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|}
+== October 11th, 2021 == 
+Fall Break, no meeting.
 == October 4th, 2021 ==
 '''Meeting Notes/Accomplishments:'''
 * Peer evaluations are due this week. 
@@ -28,16 +140,16 @@
 |October 6th, 2021
 |- 
 |Do Peer Evaluations
-|In Progress
+|Completed
 |October 4th, 2021
 |October 8th, 2021
 |October 7th, 2021
 |- 
 |Look more into the extended lexicase method
-|In Progress
+|Completed
 |October 4th, 2021
 |October 18th, 2021
-|IP
+|October 19th, 2021
 |}
 == September 27th, 2021 ==
 '''Meeting Notes/Accomplishments:'''

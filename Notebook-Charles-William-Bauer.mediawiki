@@ -1,6 +1,181 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
+==November 1st, 2021==
+Bootcamp joined the main meeting and I joined a subteam.
+
+==October 25th, 2021==
+*Continue to split weeks by meeting date, moving to Monday meetings.
+Week 10 featured the all-VIP presentations.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Presentation 2
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+Aditi and I added to our slides to include the revised MOGP and EMADE. Then we rehearsed the presentation with Rayan K. I presented the slides on the MOGP results, revisions, and EMADE pareto front. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing
+
+===Presentation Notes===
+Natural Language Processing
+*Reduce complexity of Q&A systems
+*Implement NNLearners as seeds in EMADE using BiDAF primitives that handle text values
+*F1 evaluation based on TP, FP, FN
+
+Bootcamp 1
+*Preprocessing: OneHotEncoded ‘Sex’ and ‘Embarked’
+*ML: SVM, Gradient Descent, NN, Random Forest, Gaussian Process
+*MOGP: cxOnePointLeafBiased, mutNodeReplacement, tournament selection
+*EMADE: preprocessing outperformed untouched split, AdaBoost favored, many “primitive not found” errors, reuse=1
+
+Neural Architecture Search
+*EMADE’s NNLearner creates a NN using TensorFlow
+*Most randomly generated individuals underperformed seeds or were not NN
+*Created TimedStopping Callback class to stop training after time threshold, allowed creation of more individuals that evaluated quicker
+*Tokenization and OneHotEncoding for each individual before evaluation also saved time
+*CoDEEPNeat applied to EMADE
+*NNLearner SQL table for accessing specific NNLearners throughout generations
+*Extracted layer frequencies to reward novel layer types
+
+Bootcamp 2
+*Preprocessing: column mapped ‘Sex’ and ‘Embarked’
+*MOGP: SPEA2, cxOnePoint, mutUniform, evalSymbReg - activation function converted predictions to ints
+*EMADE: evaluated thousands of individuals each generation because their first generation had reuse
+
+Image Processing
+*Multilabel image classification using ImageDataGenerator for image resize, normalization, horizontal flipping
+*Objectives: Precision-Recall Error AUC, number of parameters
+*Implemented NSGA-III selection; Geometric Semantic crossover and mutation - simulated binary: cxprob biased on beta, blended cx: alpha; how can they work on tree structures
+*Hyper-features: grey level transformation - mapping pixels to output
+
+Bootcamp 3
+*Preprocessing: added ‘relatives’ = ‘sibsp’ + ‘parch’, parsed titles from ‘name’ and one-hot encoded, mapped age and fare to int
+*SVM, MLP, Logistic Regression, Gaussian Naïve Bayes
+*MOGP: selLexicase, cxOnePoint, mutUniform, eval (FN^2, FP^2) – doesn’t change results
+*EMADE: change objectives to rates, modified sel_nsga2 to call on individuals divisible by 4
+
+Stocks
+*Compared regression primitives by technical indicator using median CDF performance
+*Objectives: profit percentage, average profit per transaction, variance of profit per transaction, MSE, CDF of profit using Monte Carlo approach
+*Compared to Takagi-Sugeno fuzzy model
+
+Modularity
+*Adaptive Representations through Learning combine primitives
+*Compared by frequency and aggregate fitness
+*Experiment suggested size of ARL not inherently valuable
+
+==October 20th, 2021==
+The final run of EMADE for the titanic project occurred in Week 9.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic EMADE
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+*Removed size objective from input
+*Ran 20 generations on EMADE with Aditi as master and myself as worker
+*My computer disconnected after a few hours untouched (ex overnight)
+
+Important evolution parameters:
+initialPopulationSize = 200
+launchSize = 200
+minQueueSize = 50
+
+*I created a notebook to plot the pareto front and Aditi added graphs and connected to the database
+*I reviewed the revised MOGP and ran for 15 generations
+
+==October 13th, 2021==
+Week 8 focused on connecting to Aditi's master process as a worker.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Input Modifications
+|Complete
+|10/6/2021
+|10/20/2021
+|10/16/2021
+|-
+|Worker Process
+|Complete
+|10/6/2021
+|10/25/2021
+|10/16/2021
+|-
+|}
+
+===Hackathon: Titanic Input Modifications===
+*Worked with Aditi to change titanic_input.xml and run EMADE
+*Changed database info, set reuse to 1, reduced population size
+*Troubleshooted erroring individuals and traced src code
+
+===Bootcamp: EMADE Worker Process===
+*Worked with Aditi in class to setup the database and allow remote connections
+*Around 10 days later her IP address changed
+*Successfully ran worker process
+
+==October 6th, 2021==
+During Week 7, I set up EMADE during the team meeting and independently using the README.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Setup
+|Complete
+|10/6/2021
+|10/25/2021
+|10/13/2021
+|-
+|}
+
+===EMADE Setup & Master Process===
+*Created conda environment separate from default
+*Setup and master process ran smoothly after this change to the instructions
+
+Environment cmd:
+conda activate emade_env
+
+MySQL connection:
+mysql -h hostname -u username -D database name -p
+mysql -h 128.61.41.95 -u root -D titanic2 -p
+	password: -----
+*Allow remote connections
+
+Run worker process:
+python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+*reuse=1 starts with old data
+*EMADE makes launchSize new trees when it has less than minQueueSize to evaluate
+
 ==September 29th, 2021==
 We presented our Titanic project methods and results in Week 6 of bootcamp. We also completed peer evaluations for VIP.
 
@@ -13,11 +188,11 @@ We presented our Titanic project methods and results in Week 6 of bootcamp. We a
 |-
 |Peer Evaluations
 |Complete
+|9/29/2021
 |10/4/2021
 |9/29/2021
-|9/29/2021
 |-
-|Titanic Project Presentation
+|Titanic Presentation 1
 |Complete
 |9/29/2021
 |9/29/2021
@@ -27,6 +202,18 @@ We presented our Titanic project methods and results in Week 6 of bootcamp. We a
 
 ===Titanic Project===
 Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+    #selNSGA2 on Generation 0 to define assignCrowdingDist()
+    pop = toolbox.select(pop, len(pop))
+    for g in range(1, 15):
+        offspring = tools.selTournamentDCD(pop, len(pop) - len(pop) % 4)
+        offspring = list(map(toolbox.clone, offspring))
+        #mate and mutate
+        pop = toolbox.select(offspring, len(pop))
+        #update hof and logbook
+
+Presentation: I presented the slides about the MOGP hall of fame, results, and comparison to ML. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=sharing
 
 ==September 22nd, 2021==
 In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
@@ -38,7 +225,7 @@ In Week 5, our team approached the Titanic dataset with multi-objective genetic 
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Project GP
+|Titanic MOGP
 |Complete
 |9/22/2021
 |9/29/2021
@@ -85,7 +272,7 @@ Week 4 focused on the team project using the Titanic Kaggle dataset, preprocessi
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Project ML
+|Titanic ML
 |Complete
 |9/15/2021
 |9/22/2021

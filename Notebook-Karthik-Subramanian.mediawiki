@@ -8,6 +8,196 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== November 1st, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty advised that we write some basic unit tests to ensure that our new QA primitives work properly
+
+'''Subteam Meeting Notes:'''
+
+'''Individual Notes:'''
+* Me, Kevin, Shiyi worked on a first draft of an implementation of the bidirectional attention layer. We found a great article that helped us understand the paper on BiDAF. Link to the article: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07
+
+* Initial Draft of Code can be found at this gist: https://github.gatech.edu/gist/ksubramanian40/35a233744bd46a6c64489e2ddade6873
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rough draft of Bidirectional Attention Layer implementation
+|Completed
+|November 1st, 2021
+|November 2nd, 2021
+|November 1st, 2021
+|-
+|}
+== October 25th, 2021==
+'''Main Meeting Notes:'''
+* In regards to our presentation, Dr. Zutty might have an nn_learner that takes in multiple Emade Data Pairs (just email him)
+* Presentations happened (returning students + bootcamp students)
+
+* Bootcamp Team 1:
+    * Dropped irrelevant values, replaced null values (fare and age imputed with mean), one hot encoded "sex" and "embarked" columns
+    * ML Algorithms: SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier
+    * Objective functions used were FPR and FNR
+    * GP: primitives (add, subtract, multiply, cos), tournament selection, one point leaf biased crossover, node replacement mutation
+    * EMADE: doubled headless chicken rate, reduced most of mutations, 
+    * Got AUC of 0, but forgot to split train.csv into X_train and X_test (learning moment)
+    * 42 generations, EMADE AUC of 0.1379883
+    * Learning moments:
+        1. Too many infs (primitive not found)
+        2. Check if EMADE is running
+        3. Adaboost learner 
+
+* Neural Architecture Search:
+    * Create neural networks automatically in EMADE
+    * Problems
+       * EMADE couldn't outperform seeds
+       * Most individuals were not neural networks
+       * Few restrictions for out dimensions, batch sizes, etc
+       * Nested NNLearners taking up lot of time (no ensembling techniques to take advantage of)
+    * Goal: have EMADE create more complex architectures and make EMADE competitive with VGG16 and other SOTA architectures
+    * Time Stopping
+       * Lower training time same as minimizing number of parameters
+       * Put hard stop on how much time to train
+    * Preprocessing
+       * Text tokenization, One Hot Encoding for Multiclass Target Data
+       * Modify data pair once, then feed into individual
+    * Growing Deeper Complex Individuals
+       * CoDEEPNeat (latest and most effective NAS)
+       * Construct smaller neural network structures called 'modules' and build up from there
+    * NNLearner SQL Table
+       * Table to access specific NNLearner individuals over time
+       * Singles out only NNLearner-based individuals instead of any individual  
+    * Novelty detection
+       * Reward individuals for new architectural features/structures
+       * Track layers EMADE generates over all individuals
+* Bootcamp 2
+    * Preprocessing: Dropped Name, PassengerID, Ticket Number, Fare columns
+    * Mapping: Mapped alphabetical values of Sex and Embarked columns using column maps
+    * MOGP Design: Used SPEA2 for selection, symbolic regression used
+    * MOGP Eval: FPR and FNR (minimize two objectives). Convert float to 0 or 1 using activation function. 30 generations
+    * EMADE
+        * Should have spent more time on processing data and trying out more primitives + individuals
+    * In the future, decide who would run master and worker (or use PACE)
+
+* Image Processing
+    * Objective: Improve EMADE on image processing tasks (GP Approach)
+    * Multilabel Image Classification is the focus for this semester
+    * CheXNet paper (pneumonia classification problem on chest x-ray scans). Look for pneumonia or not 
+    * Chestnet Dataset
+         * Previous VIP team had some preprocessing on (resizing, normalization, horizontal flipping)
+         * New augmentations: rotations, shearing, horizontal/vertical translation
+    * Baseline
+         * Precision/Recall AUC (saw that the labels are a bit unbalanced since we care about one class)
+         * Suspicious AUC
+    * Selection Methods
+         * NSGA-III, lexicase, hypervolume indicators (promise in solving many-objective optimization problems)
+    * Mating and Mutation
+         * Geometric crossover operators (manually adjust the diversity manually). See at a given time if we can tune hyperparameters to directly 
+           improve diversity
+    * Hyper-features
+         * Combine 2 or more primitives that work well together to produce improved individuals with better fitness scores
+         * Pixel visibility improved
+         * Grey level transformation (enhance contrast and brightness), Sobel Filter (edge detection)
+
+* Bootcamp 3
+    * Preprocessing
+         * Dropped PassengerID, Ticket, Cabin
+         * Relatives column = sum(subsp, parch)
+         * Used one-hot encoding for genders as well as name titles
+         * Imputed with mean of feature (to handle remaining missing values)
+     * ML Models
+         * Gaussian Naive Bayes
+         * MLP
+         * SVM
+     * GP
+         * selLexicase
+         * Squared FP and Squared FN (handling to see if these values were high)
+     * EMADE
+         * FPR and FNR evaluation function
+         * selTournamentDCD() error
+         * Wished they could run more generations in EMADE to get a hopefully better Pareto front
+* Stocks
+    * Objectives
+         * EMADE for regression on time series data? optimize market trading algorithms? EMADE beating SOTA trading algorithms?
+    * Use various Technical Indicators, decide if an individual should buy/sell stock on certain day
+    * Best primitives to use for predicting buy/sell
+    * Median CDF (lesser is better)
+    * Objective Functions
+        1. Profit percentage (max)
+        2. Average Profit per Transaction (Maximization)
+        3. CDF  of Profit (minimization). Show model is better than randomly deciding buy/sell 
+        4. Variance
+    * Pool of objectives to pick out stocks to conduct EMADE runs on. Run EMADE on all possible combos of objectives and compare AUC
+    * Compare Pareto Individuals across trials to that in the existing literature
+    * Future Work
+        * Explore approaches to portfolio optimization outside of stock price prediction
+        * Other applications of autoML to time-series analysis
+        * Improve EMADE's time-series analysis capabilities
+* Bootcamp 4
+    * Preprocessing
+        * Dropped Name, Cabin columns
+        * One-hot encoding for Embarked features
+        * Replaced nulls of Age and Fare with Pclass's median
+    * ML
+        * MLP, Decision Tree, SVM, XGBoost
+        * Handle cases of nonlinear feature relationships 
+    * Primitives
+        * Strongly typed
+        * mathematical, logical operations
+        * Ensure boolean features outputted
+    * MOGP
+        * One point crossover, mutUniform mutation, mutNodeReplacement
+        * FPR and FNR used (best individual had FPR = 0, FNR = 0.91228)
+    * EMADE
+        * 20 generations
+        * 23 pareto optimal individuals
+        * converted FN and FP to rates
+* Modularity
+    * Abstract parts of individuals and create "building blocks" that can help with genetic process
+    * ARLs (Adaptive Representation through Learning)
+         * Introduce modularity and reusability in EMADE (once a "good" section of tree is found, make it a new primitive)
+    * Eval --> Selection --> Genetic Operations --> ARLs --> Evaluation workflow to implement ARLs
+    * Why ARLs?
+         * Global pool of "good" bits could help all individuals
+         * Should speed up convergence of population
+         * frequency, fitness important to identify valuable subtrees
+    * Working on trying to increase complexity of ARLs by increasing tree depth
+    * Experiments using Titanic dataset (False Positives, False Negatives as objectives)
+    * More data needed to gain insight into effects of ARL complexity performance
+         * size may not inherently imply usefulness
+    * Stock runs with ARLs
+         * Reusing technical indicators from Stocks subteam
+         * compare ARLs vs. no ARLs and see significance
+    * Studying explainable blocks
+'''Subteam Meeting Notes:'''
+* Focus shifts to implementing the BiDAF based architecture
+* Each person responsible for implementing one of the layers
+* BiDAF Paper: https://arxiv.org/pdf/1611.01603.pdf
+
+'''Individual Notes:'''
+* Me, Steven, Rishit, Devan responsible for building the bidirectional attention layer using Keras
+* A question I have from reading the BiDAF Paper Steven linked regards the Attention Layer. I understand conceptually that Attention in our case
+aims to figure out how the context fits into the query and query fits into the context (hence bidirectional). However, on a small detail, I see that the paper computes a similarity matrix among tokens in context to tokens to the query (given the contextual embeddings). However, does Keras Attention layer already existing give the similarity matrix for us? If so, can we treat it as a black box?
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the Paper Steven linked on BiDAF. Get a basic understanding on how bidirectional attention works
+|Completed
+|October 27th, 2021
+|October 31st, 2021
+|October 31st, 2021
+|-
+|}
 == October 18th, 2021==
 '''Main Meeting Notes:'''
 * Start thinking about how you can statistically verify that your code is making a significant impact relative to the problem you want to solve and relative to a baseline
@@ -15,11 +205,14 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 * Runs take time (number of workers, wall time, number of processes, etc). Plan it out in advance!
 '''Subteam Meeting Notes:'''
 * Working on midpoint presentation coming up on Monday (that's priority right now)
-
+* Link to presentation (NLP Subteam): https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
 '''Individual Notes:'''
 * Developed a Python script to generate training/testing data for the SqUad dataset. This script does the train/test split and then generates a csv file that contains (question, answer) pairs and another CSV file containing (context, answer) pairs. The script and dataset can be found here: https://drive.google.com/drive/folders/1LEtzzI0s5sEz9jr47oa1jqoX4qXGqlbT?usp=sharing
 
+* Thanks to Steven's help, I was able to get standalone_tree_evaluator working. I just need to input the SQL database credentials
 
+* Having trouble getting run for at least a few generations (at the start, my processes are queued in pace and then they close all of a sudden. Need to look at my configs)
+* Preparing for presentation
 
 * UPDATE 10/20/21: I modified the above Python script mentioned to do 5 fold cross-validation as well (Link is: https://drive.google.com/drive/folders/1z6Ro2vYwkOx19wGjTl2rfwg7nx-1YElY?usp=sharing)
 '''Action Items:'''
@@ -31,10 +224,10 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Date Resolved
 |-
 |Be able to run "standalone_tree_evaluator.py" in PACE (EMADE 304 branch)
-|In Progress. I'm having a problem with it and Steven found a fix, so he will need to push it to the fork.
+|Works for the most part. Working on running the pbs script
 |October 16th, 2021
 |October 20th, 2021
-|
+|October 22nd, 2021
 |-
 |Develop script to generate question.csv and context.csv with train/test split
 |Completed
@@ -49,7 +242,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 |October 20th, 2021
 |-
 |Pull down the fork that Steven had on EMADE 304. He made some hotfixes
-|Completed. Need to fix an error when running bash reinstall.sh (Steven will update the repo one more time)
+|Completed. Updated the reinstall.sh from nn-vip branch
 |October 20th, 2021
 |October 20th, 2021
 |October 20th, 2021
@@ -58,7 +251,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 |In Progress
 |October 20th, 2021
 |October 21st, 2021
-|
+|October 24th, 2021
 |}
 == October 11th, 2021==
 '''Subteam Meeting Notes:'''
