@@ -1545,4 +1545,68 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 ** MOGP AUC: 0.15
 ** EMADE AUC: 0.2638
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Midterm presentation Practice
+|Completed
+|10/25/2021
+|10/25/2021
+|10/25/2021
+|-
+|Midterm Presentation Notes
+|Completed
+|10/25/2021
+|11/01/2021
+|10/23/2021
+|}
 
+== Week of 11/01/2021 ==
+
+=== Team Meeting Notes ===
+* Introduced the new members
+* Set the new objectives for the semester based ob midterm progress and reflection
+* Will partake in fixing bugs errors and merging our branch with cachev2.
+* Will try doing stock runs after the branch has been merged.
+* Will do titanic runs on Google Colab until PACE-ICE gets sorted out.
+* Create documentation for new members to set up google colab so they can partake in runs.
+
+=== Google Colab Documentation ===
+* Clone the [https://github.gatech.edu/vhuang31/emade/tree/master repo]
+* If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file [https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh here]
+* If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+* This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl)
+* In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates.
+* Open input_titanicADFON.xml in a text editor
+* Near the top of the file, there should be a dbConfig. Rename the database to the schema name you are trying to join.
+* In google drive, make a copy of this [https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing Google Collab Notebook]
+* In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to.
+* Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process.
+* Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+* Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Onboard New Members
+|Completed
+|11/01/2021
+|11/08/2021
+|10/05/2021
+|-
+|Fix bugs to merge branch with cachev2
+|In Progress
+|10/25/2021
+|11/08/2021
+|
+|}
