@@ -9,6 +9,50 @@ Interests:
 *Academic: Artificial Intelligence, Machine Learning, NLP, Cognition, Bio-Inspired Learning
 *Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
 
+== Oct 25, 2021 ==
+'''Team Meeting Notes:'''
+* Presentations:
+**to be filled in once i get my other notebook back
+
+'''Sub-team Meeting Notes:'''
+* Goal: get BIDAF primitives built in EMADE so we can do baseline runs.
+* We need embedding, attention(bidriectional), modeling, and output layers:
+** we can utilize preexisting embedding or quickly make a wrapper layer running the through an LSTM.
+**We split into three groups to implement the remaining layers:
+**#Bidirectional Attention Layer: the most annoying one to implement. Me, Steven, Karthik, and Rishit.
+**#Modeling Layer: runs input through LSTMs. George.
+**#Output layer: runs input through LSTMs, dense, and softmax. Kevin and Shiyi.
+* much of the difficulty is ensuring the dimensions and data it properly handled
+
+'''Individual notes:'''
+* For the attention layer the main things are:
+** Make the Similarity Matrix, S, of dimensitons T x J where the element (t,j) represents the similarity of the two words. Here T and J are the lengths of the context and query data, respectively.
+** We then use that for the next two steps: context2query and query2context.
+** We get two matrices of size 2d x T where d is the number of hidden layers, which represent the importance each word in the query has to each word in the context and which words in the context are important with respect to the query.
+** Finally we return a matrix of size 8d x T which is a concatenation of the the attention matrices and the original input.
+* We took inspirations from a [https://github.com/galsang/BiDAF-pytorch github repo] for how to create layer wrappers using keras/pytorch.
+* Steven and I planned it out initially while everyone helped to implement it.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Attention Layer Planning
+|Completed
+|Oct 27, 2021
+|Oct 29, 2021
+|Oct 29, 2021
+|-
+|Attention Layer Implementation
+|Completed
+|Oct 27, 2021
+|Oct 30, 2021
+|Oct 30, 2021
+|}
+
 == Oct 18, 2021 ==
 '''Team Meeting Notes:'''
 * general tips on determining wall time from Jason for experiment design:
