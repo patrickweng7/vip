@@ -21,7 +21,11 @@ I joined the NAS vip subteam! I met with them during Monday's class and during s
 
 
 ===EMADE Setup===
-I cloned nn-vip branch from cwhaley9's fork. I went through Guide to Using PACE ICE with my command prompt and MariaDB without WinSCP. I created an environment with the package installs needed for EMADE but didn't know how to run setup.py install from my MariaDB opened in pace. I will look at https://www.youtube.com/watch?v=LashYCCJF3E next.
+I cloned nn-vip branch from cwhaley9's fork. I went through Guide to Using PACE ICE with my command prompt and MariaDB without WinSCP. I created an environment with the package installs needed for EMADE but was stuck on how to copy emade into PACE. I learned this can be done with WinSCP or with:
+
+scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+
+Then I watched Cameron's video https://www.youtube.com/watch?v=LashYCCJF3E, but I still received "qsub:  script is written in DOS/Windows text format" error. Justin gave the command: sed -i $'s/\r//' FILENAME. I ran this command for each .pbs before the command: qsub FILENAME.
 
 ==October 25th, 2021==
 *Continue to split weeks by meeting date, moving to Monday meetings.
