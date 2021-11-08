@@ -8,6 +8,27 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== November 8, 2021 (Week 12) == 
+
+=== Lecture Notes: ===
+
+=== Individual Notes: ===
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 8, 2021
+|}
+
 == November 1, 2021 (Week 11) == 
 
 === Lecture Notes: ===
@@ -30,6 +51,25 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Need to clone modularity branch of Emade. https://github.gatech.edu/vhuang31/emade
 *  Meet Thursday at 11 am, virtual (30 to 60 mins). https://gatech.bluejeans.com/2224273722
 *  Cloned Vincent's Emade repository
+*  Followed the following process to get on-boarded with the team's runs:
+    *  If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file here https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+    *  If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+    *  This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl)
+    *  In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates
+    *  Open input_titanicADFON.xml in a text editor
+    *  Near the top of the file, there should be a dbConfig similar to this one. Edit it to match the following details, with the database renamed to the schema name the run you're trying to join is
+    *  <dbConfig>
+        <server>database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com</server>
+        <username>admin</username>
+        <password>mypassword</password>
+        <database>INSERT_SCHEMA_NAME_HERE</database>
+        <reuse>1</reuse>
+    </dbConfig>
+    *  In google drive, make a copy of this Google Collab Notebook https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing
+    *  In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to
+    *  Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
+    *  Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+    *  Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run. (edited) 
 
 === Action Items: ===
 {| class="wikitable"
@@ -38,6 +78,12 @@ Interests: Writing fiction, Music, Reading, Sports
 !Date Assigned
 !Suspense Date
 !Date Resolved
+|-
+|Clone Modularity Repo, get setup on Google Collab
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
 |-
 |Update Weekly Notebook
 |Complete
