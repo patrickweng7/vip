@@ -23,6 +23,19 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * We divided our meeting into two groups. Our returning members went into a breakout room to continue working on the Bidirectional Attention Layer, while I gave a presentation on NNLearners and Deep Learning. The presentations, which I edited from last year, are linked in my weekly work below.
 * Then I switched with Devan, and went to work with the returning members while Devan taught our new members about NLP and QA specific topics.
 
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Complete New Primitive Development | Complete | 11/01/2021 | 10/27/2021 | 11/08/2021 |
+Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/03/2021 |
+Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
+
+## Preparing Presentations for New Members
+* I modified last year's PowerPoints to ... (finish)
+
+## Debugging Primitives with Standalone Tree Evaluator
+* I ...
+
 ## Week 10, Oct 25th
 
 ### Presentation Notes
