@@ -357,6 +357,23 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Nov 2 - Nov 8 ===
+* Introduced first semester students to the team and our work
+** Onboarding session regarding what our team does and the tools we use (eg, google collab)
+* Extended ARL Updates
+** Bug within match_arl algorithm
+*** Identifying ARL in individual compares the name of the node within the ARL and the name of the node in the individual to determine if the ARL exists within the individual
+*** There was a bug which occurred when a node had children with the same name
+*** The algorithm didn't properly check if a child node had already been matched within the ARL, causing the match to fail and subsequently the contraction to not happen
+*** This might've been responsible for the pre-midterm run's poor results
+*** Solution: use a set of indices to make sure that matched nodes aren't rematched
+** Completed an Extended ARL run with the fix
+*** Goal of at least 2 runs a week to get plenty of data for the final presentation
+*** Planning on having first semesters help out with runs
+** Began writing/updating documentation and writing unit tests for new code
+* Cache V2 updates
+** Began writing ARL changes to the Cache V2 branch
+
 === Week of Oct 26 - Nov 1 ===
 * Reassessed and adjusted goals and timelines for rest of semester
 ** Part of the Stocks group will focus on migrating modularity into Cache V2, as part of the problems with integrating stocks data with modularity was that stocks used CacheV2 functionality
