@@ -13,7 +13,15 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
-## Week 11, Oct 25th
+## Week 11, Nov 1st
+### General Meeting Notes
+* We received our New Members this week and ...
+
+### Sub Team Meeting Notes
+* At this sub team meeting, it was the first time we had the whole team with the new members together for a whole hour.
+* First, we introduced ourselves to each other.
+* We divided our meeting into two groups. Our returning members went into a breakout room to continue working on the Bidirectional Attention Layer, while I gave a presentation on NNLearners and Deep Learning. The presentations, which I edited from last year, are linked in my weekly work below.
+* Then I switched with Devan, and went to work with the returning members while Devan taught our new members about NLP and QA specific topics.
 
 ## Week 10, Oct 25th
 
@@ -110,7 +118,22 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Assign Primitive Development | Complete | 10/25/2021 | 10/27/2021 | 11/01/2021 |
 Email Dr. Zutty about 2 Data Pair NNLearners | Complete | 10/25/2021 | 10/30/2021 | 11/01/2021 |
-Implement Bidirectional Attention Layer | In Progress | 10/25/2021 | ... | 11/01/2021 |
+Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 11/08/2021 |
+
+
+### Implementing Bidirectional Attention Layer: Part 1
+* Devan and I met on Friday to work on the Bidirectional Attention Layer this week
+* As neither of has had experience implementing primitives prior to this, we first spent a lot of time reading through neural_network_methods.py to discover how to implement a new primitive.
+* I discovered that NNLearner uses a new class defined in the file, called a LayerList, to keep track of the layers. Then, the NNLearner function iterates through these layers to build the deep neural network.
+* So, if we wanted to add a layer, we would have to create a subclass of Keras.layers.Layer, and override the build() and call() functions.
+* While I was doing this, Devan found a template from someone else who implemented BiDAF. It wasn't split into layers, but we could use it as a reference for learning keras and TensorFlow.
+* After a little over an hour, and with the skeleton of the Bidirectional Attention Layer done, we finished up work for the time being, until Sunday.
+
+### Implementing Bidirectional Attention Layer: Part 2
+* I met with Kevin, Rishit, and Karthik on Sunday this week to work on the Bidirectional Attention Layer.
+* (TODO: Finish in details of meeting)
+* (TODO: Link result code as of this meeting)
+
 
 
 ## Week 9, Oct 18th
@@ -123,7 +146,7 @@ Accomplishments of Week: Debugging Merged changes, fully implementing eval metho
 
 TODO: Fill in Notes
 
-Accomplishments of Week: Merging in changes
+Accomplishments of Week: Merging in changes at Hackathon
 
 ## Week 7, Oct 4th
 ### General Meeting Notes
