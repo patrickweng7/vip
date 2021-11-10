@@ -18,7 +18,8 @@ Teammates:
 == November 8, 2021 ==
 '''Team Meeting Notes:'''
 * General scrum updates from each sub-team.
-* I finished consolidating the documentation for running EMADE on PACE. I also wrote three bash scripts to automate the setup process, cutting the the required time investment from 1 - 2 hours down to just 8 minutes. You can find this documentation [https://github.gatech.edu/cwhaley9/emade/wiki/Running-EMADE-on-PACE-using-CIFAR-10 here]. It guides users through the setup from start to finish, with helpful guides linked along the way.
+* I finished consolidating the documentation for running EMADE on PACE. I also wrote three bash scripts to automate the setup process, cutting the the required time investment from 2 - 3 hours down to just 6 minutes. 13% of the time (48 s) is spent cloning the repository & 62% (3:42 s) downloading CIFAR-10, leaving just 25% (1:30 s) for general setup. Space usage is also just 5.3 GB / 15 GB max. I think that further improvements can be made by focusing on the time spent downloading CIFAR-10. The download script seems to hang for the majority of the time before beginning the download, and so I believe there is an issue here.
+* You can find this documentation [https://github.gatech.edu/cwhaley9/emade/wiki/Running-EMADE-on-PACE-using-CIFAR-10 here]. It guides users through the setup from start to finish, with helpful guides linked along the way.
 * The three bash scripts were added in [https://github.gatech.edu/cwhaley9/emade/commit/f333b2e7f3bc99de044f522545a9c3534a2d8d14 this commit]. They will create the MySQL infrastructure needed by EMADE, personalize the PBS files, and provide convenient utilities to start an EMADE run using the CIFAR-10 dataset.
 * With this completed, I can refocus on the novelty detection task. I spent a lot of time previously debugging setup issues, and even getting a single run was difficult (especially before we could clone EMADE onto PACE using git). In our 15 minutes sub-team meeting today, I worked with Devesh to determine an appropriate method of tracking generation-wide layer frequencies, and ironed out a general plan to tackle this. We identified certain areas of the code that might be modified to achieve this.
 
@@ -41,6 +42,13 @@ Teammates:
 |10/4/21
 |10/8/21
 |10/10/21
+|-
+| Investigate hanging time in the gen_cifar10.py script, and merge nn-vip-env into nn-vip.
+|In Progress
+|11/10/21
+|11/15/21
+|
+|-
 |}
 
 == November 6, 2021 ==
