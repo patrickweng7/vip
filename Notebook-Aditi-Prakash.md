@@ -16,135 +16,129 @@ Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 Final VIP Presentations - Bootcamp Teams and Main Teams. 
 
 ## Team Meeting Notes
-* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice. Received feedback from Dr. Zutty to ensure that all of our pareto frontiers are placed on the same graph going forward for easy comparison. Heard from following teams on their current areas of focus:
+* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice to maximize diversity of individuals being selected from during each generation, and thereby maximize diversity of the final pareto front for each generation (spreads individuals across tradeoff space between FNR and FPR). Received feedback from Dr. Zutty to ensure that all of our pareto fronts are placed on the same graph going forward for easy comparison. Heard from following teams on their current areas of focus and considered which teams best align with my research interests:
 
 NLP:
-Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
-Uses work of NN team
+* Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
+* Uses work of NN team
 
 Bootcamp Subteam 1:
-Jessi, Pranav, Eashan, Elan
-SVM, Gradient Decision Boost, NN, Random Forest, Gaussian
-Pareto optimal results - FPR increasing, FNR decreasing
-Add, subtract, multiply, cos, gp.mutNodeReplacement (individuals, pset), Evaluation - FNR and FPR, Selection - custom selection tournament
-Crossover - gp.cxOnePointLeafBased (ind1, ind2, termpb - random) 
-Custom algorithm - whichever individual has a lower sum of scores is the winner
-More diversity, lower AUC
-Headless Chicken rate - crossover with an individual with a randomly generated tree, decreased mutations except for ephemeral with need more randomness, reduced mutations
-Need to split train into train and test, got one pareto optimla individual because they didn’t do this
-0.133 vs. 0.137 - preprocessed vs not preprocessing (42 vs. 115)
-Adaboost, too many inf, emade kills CPUs, check twice that reuse = 1
-MOGP was only able to beat ML due to the fact that it fills out the Pareto front 
-gp.cxOnePointLeadBiased - always random 
+* Jessi, Pranav, Eashan, Elan
+* SVM, Gradient Decision Boost, NN, Random Forest, Gaussian
+* Pareto optimal results - FPR increasing, FNR decreasing
+* Add, subtract, multiply, cos, gp.mutNodeReplacement (individuals, pset), Evaluation - FNR and FPR, Selection - custom selection tournament
+* Crossover - gp.cxOnePointLeafBased (ind1, ind2, termpb - random) 
+* Custom algorithm - whichever individual has a lower sum of scores is the winner
+* More diversity, lower AUC
+* Headless Chicken rate - crossover with an individual with a randomly generated tree, decreased mutations except for ephemeral with need more randomness, reduced mutations
+* Need to split train into train and test, got one pareto optimla individual because they didn’t do this
+* 0.133 vs. 0.137 - preprocessed vs not preprocessing (42 vs. 115)
+* Adaboost, too many inf, emade kills CPUs, check twice that reuse = 1
+* MOGP was only able to beat ML due to the fact that it fills out the Pareto front 
+* gp.cxOnePointLeadBiased - always random 
 
 Neural Architecture Search:
-Create Neural Networks automatically using primitives
-Text processing for sentiment classification
-EMADE cannot evolve seeds very much 
-Most individuals are not NN learners in EMADE, have to restrict EMADE to only work with NN learners
-Want EMADE to move past seeded individuals and explore search space well
-Minimize accuracy error, minimize number of parameters
-Lowering training time would have same effect as limiting number of parameters
-Time stopping of 600
-Time stopping of 2500
-600 time stop generated many more valid individuals, so we can create new individuals with genetic programming even though 2500 had a smaller AUC
-Modify original DataPair once, feed data into individuals 
-Preprocessing helped average evaluation time for individuals.
-CoDEEPNeat - additional class for EMADEDataPairs, limited main primitives set type access to primitives is only ADFS that has access to it, main primitive is blueprint, adfs are modules, represents CoDEEP NEAT structure
-Limited primitives in modules to just layers 
-Separate table to track NNLearner individuals over time, where to improve in encouraging more complexity
-Detect and reward novelty, novelty - dropout, embedding, convolutional layer
-Might have a highly optimized NN with only dense layers, helps with certain scenarios like images
-Trello board 
-Split layer list primitive into different classes based on Tensor dimension they take in 
-Novelty can make an objective become a subjective 
-2500 was more distributed than the 600 one (600 is way too small) 
+* Create Neural Networks automatically using primitives
+* Text processing for sentiment classification
+* EMADE cannot evolve seeds very much 
+* Most individuals are not NN learners in EMADE, have to restrict EMADE to only work with NN learners
+* Want EMADE to move past seeded individuals and explore search space well
+* Minimize accuracy error, minimize number of parameters
+* Lowering training time would have same effect as limiting number of parameters
+* Time stopping of 600
+* Time stopping of 2500
+* 600 time stop generated many more valid individuals, so we can create new individuals with genetic programming even though 2500 had a smaller AUC
+* Modify original DataPair once, feed data into individuals 
+* Preprocessing helped average evaluation time for individuals.
+* CoDEEPNeat - additional class for EMADEDataPairs, limited main primitives set type access to primitives is only ADFS that has access to it, main primitive is blueprint, adfs are modules, represents CoDEEP NEAT structure
+* Limited primitives in modules to just layers 
+* Separate table to track NNLearner individuals over time, where to improve in encouraging more complexity
+* Detect and reward novelty, novelty - dropout, embedding, convolutional layer
+* Might have a highly optimized NN with only dense layers, helps with certain scenarios like images
+* Trello board 
+* Split layer list primitive into different classes based on Tensor dimension they take in 
+* Novelty can make an objective become a subjective 
+* 2500 was more distributed than the 600 one (600 is way too small) 
 
 Bootcamp Subteam 2:
-Drop Name, PassengerID, TicketNumber, Fare
-Map Sex and Embarked to numerical
-Fill nulls with medians, mode
-
-AUC of 0.18129 with ML
-
-SPEA2 and NSGA tried, SPEA2 worked better
-Simple primitives 
-Evaluation - activation function 
-
-AUC 0.125
-Didn’t one hot encode embarked feature, would have improved 
-Conda + Python 3.7
-
-EMADE
-Struggled to get FNR and FPR methods working
-MySQL very slow - only 10 generations in 3 days, hard to connect 
-Ended with pareto optimal set of 65
-Trees grow slower than MOGP
-EMADE gave better generations even with less generations 
-Should have checked if certain number of generations takes a certain amount of time 
+* Drop Name, PassengerID, TicketNumber, Fare
+* Map Sex and Embarked to numerical
+* Fill nulls with medians, mode
+* AUC of 0.18129 with ML
+* SPEA2 and NSGA tried, SPEA2 worked better
+* Simple primitives 
+* Evaluation - activation function 
+* AUC 0.125
+* Didn’t one hot encode embarked feature, would have improved 
+* Conda + Python 3.7
+* Struggled to get FNR and FPR methods working
+* MySQL very slow - only 10 generations in 3 days, hard to connect 
+* Ended with pareto optimal set of 65
+* Trees grow slower than MOGP
+* EMADE gave better generations even with less generations 
+* Should have checked if certain number of generations takes a certain amount of time 
 
 Image Processing:
-Multilabel image processing 
-CheXNet Paper - pneumonia classification on xray scans
-Image resizing, normalization, horizontal flipping 
-30 Generations (Precision-Recall AUC), Number of Parameters
-NSGA-II, Lexicase, Tournament, Fuzzy 
-NSGA-III defines reference points to maintain diversity in solutions
-In theory, should outperform NSGA-II
-Only ran for one generation before stopping 
-EMADE master process would kill itself
-No errors in log
-Semantic crossover and semantic mutation 
-Individual * logistic *(random1 - random2)
-Primitives not set up to handle image data, majority of generated individuals not able to generate a valid fitness score
-Geometric crossover operators 
-Simulated Binary
-Blended Crossover
-Very little information about mutation and crossover for image processing problems 
-Gray level transform that increases contrast with image filter
-Hyperfeatures - two or more features which improve fitness 
-Enhancing contrasts helps with edge detection 
-Brainstorming-image-processing channel in Slack
-Lexicase picks a random objective 
-Loosely typed GP problem - everything is coming out as a float 
-Geometric crossover makes sense when you have a numeric genome 
-Simulated binary and blended crossover work more rigidly than single point crossover 
-NSGA II - works less well with more than 2 objectives 
+* Multilabel image processing 
+* CheXNet Paper - pneumonia classification on xray scans
+* Image resizing, normalization, horizontal flipping 
+* 30 Generations (Precision-Recall AUC), Number of Parameters
+* NSGA-II, Lexicase, Tournament, Fuzzy 
+* NSGA-III defines reference points to maintain diversity in solutions
+* In theory, should outperform NSGA-II
+* Only ran for one generation before stopping 
+* EMADE master process would kill itself
+* No errors in log
+* Semantic crossover and semantic mutation 
+* Individual * logistic *(random1 - random2)
+* Primitives not set up to handle image data, majority of generated individuals not able to generate a valid fitness score
+* Geometric crossover operators 
+* Simulated Binary
+* Blended Crossover
+* Very little information about mutation and crossover for image processing problems 
+* Gray level transform that increases contrast with image filter
+* Hyperfeatures - two or more features which improve fitness 
+* Enhancing contrasts helps with edge detection 
+* Brainstorming-image-processing channel in Slack
+* Lexicase picks a random objective 
+* Loosely typed GP problem - everything is coming out as a float 
+* Geometric crossover makes sense when you have a numeric genome 
+* Simulated binary and blended crossover work more rigidly than single point crossover 
+* NSGA II - works less well with more than 2 objectives 
 
-Bootcamp Subteam 4:
-Started with a variety of learners, changed svm to gaussian because they couldn’t create Pareto optimal front 
-Added logic primitives and some arithmetic primitives 
-Added 3rd objective of tree size to evaluation function 
-Added FNR and FPR to input file 
-Allowed port forwarding on master’s home router if workers will be joining remotely 
-Weren’t able to run as many generations with EMADE as they would have liked, ML algorithm’s AUC was better 
-EMADE and MOGP - more diverse Pareto front 
-Grep -rl error string helped trace root cause of error 
+Bootcamp Subteam 3:
+* Started with a variety of learners, changed svm to gaussian because they couldn’t create Pareto optimal front 
+* Added logic primitives and some arithmetic primitives 
+* Added 3rd objective of tree size to evaluation function 
+* Added FNR and FPR to input file 
+* Allowed port forwarding on master’s home router if workers will be joining remotely 
+* Weren’t able to run as many generations with EMADE as they would have liked, ML algorithm’s AUC was better 
+* EMADE and MOGP - more diverse Pareto front 
+* Grep -rl error string helped trace root cause of error 
 
 Stocks:
-Primitives Analysis:
-Relative performance of primitives based on CDF metric (lower is better)
-Boosting regression across all technical indicator generally has a good performance 
-MyDeltaWilliamsR, modify seeded individuals to create better results in EMADE 
-Profit Percentage, Average Performance Per Transaction, CDF of Profit, Variance of Profit Per Transaction 
-Want to minimize CDF
-MyBollingerBand
-Create pool of objectives and pick out stocks to conduct EMADE runs 
-Run EMADE using all possible combinations of the objectives and compare the AUC across trials
-Objectives: Loss Percentage Objective, Average Loss Per Transaction, etc. 
-Takagi-Sugeno fuzzy, Support Vector Regressio and fuzzy logic 
-Cannot replicate paper
-Not able to replicate PLR-SVR 
-Explore approaches to portfolio optimization, stock price prediction 
-Improve EMADE’s time-series analysis (weather series, heart rate data)
+* Primitives Analysis:
+* Relative performance of primitives based on CDF metric (lower is better)
+* Boosting regression across all technical indicator generally has a good performance 
+* MyDeltaWilliamsR, modify seeded individuals to create better results in EMADE 
+* Profit Percentage, Average Performance Per Transaction, CDF of Profit, Variance of Profit Per Transaction 
+* Want to minimize CDF
+* MyBollingerBand
+* Create pool of objectives and pick out stocks to conduct EMADE runs 
+* Run EMADE using all possible combinations of the objectives and compare the AUC across trials
+* Objectives: Loss Percentage Objective, Average Loss Per Transaction, etc. 
+* Takagi-Sugeno fuzzy, Support Vector Regressio and fuzzy logic 
+* Cannot replicate paper
+* Not able to replicate PLR-SVR 
+* Explore approaches to portfolio optimization, stock price prediction 
+* Improve EMADE’s time-series analysis (weather series, heart rate data)
+
+Modularity:
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Done | 10/6/21 | 10/20/21  | |
-| Run EMADE on preprocessed Titanic Data | In Progress | 10/6/21 | 10/14/21  | |
-| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
-| Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
+| Submit Subteam Preferences  | Done | 10/30/21 | 11/1/21  | 10/31/21 |
 
 # Week 9: October 20th, 2021
 ## Overview
