@@ -7,6 +7,125 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 12: November 8, 2021 ==
+=== 11/8/2021 In-Class Subteam Meeting ===
+* reviewed assigned tasks (I was assigned the task of implementing and running lexicase)
+* continued to setup PACE-ICE on my laptop
+
+
+=== 11/10/2021 Subteam Meeting ===
+* set up mysql on PACE-ICE
+
+=== Setting Up PACE-ICE Notes ===
+* when transferring EMADE onto the remote server use scp run the following command on your LOCAL terminal
+** <code>scp -r <relative-path-to-EMADE> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
+* when creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account(use vim to open file)
+** use vim to open the file and add the following contents into the <code>.my.cnf</code> file
+** make sure to replace USERNAME with your username (ex. apeng39)
+** make sure to replace port=33XX with any two numbers other than 07 (ex. port=3399)
+<pre>
+[mysqld]
+datadir=scratch/db
+socket=mysqldb.sock
+user=USERNAME
+symbolic-links=0
+port=33XX
+
+[mysqld_safe]
+log-error=mysqldb.log
+pid-file=mysqldb.pid
+
+[mysql]
+socket=scratch/db/mysqldb.sock
+</pre>
+
+* run <code>/usr/local/mysql_install_db --datadir=$HOME/scratch/db</code>
+* run <code>/usr/local/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
+** make sure to replace USERNAME with your username
+* when logging into mysql and setting up a password run <code>mysql -h atl1-1-02-012-5-l:<PORT></code>, specifying the port number you added in the <code>.my.cnf</code> file
+** then run the following code in the mysql shell making sure to replace USERNAME with your username, and PASSWORD with your password
+<pre>
+DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+</pre>
+
+** now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted
+
+* setting up PACE-ICE Anaconda (first, navigate to your emade folder)
+** run <code>module load anaconda3/2020.02</code>
+** run <code>conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
+** run <code>./reinstall.sh</code>
+** run <code>python setup.py install</code>
+
+* running MYSQL and EMADE ON PACE-ICE
+** on your remote account's home directory create <code>pbsmysql.pbs</code> with the following content (make sure to replace USERNAME!)
+<pre>
+#!/bin/bash
+#PBS -N mysqldb
+#PBS -q pace-ice
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=08:00:00
+#PBS -M USERNAME@gatech.edu
+
+mysqld_safe --innodb_lock_wait_timeout=1000
+/usr/local/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+</pre>
+
+** also create <code>launchEMADE.pbs</code> (making sure to replace USERNAME!)
+<pre>
+#PBS -N emade-chest
+#PBS -l nodes=1:ppn=4
+#PBS -l pmem=4gb
+#PBS -l walltime=8:00:00
+#PBS -q pace-ice-gpu
+#PBS -o emade-chest.out
+cd ~/emade
+echo "Started on `/bin/hostname`" # prints the name of the node job started on
+module load jdk/1.8.0_202
+module load openmpi/3.1.6
+module load gcc
+module load anaconda3/2020.02
+export CC=gcc
+conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/ # this is my conda environment name, yours could be different
+
+echo "STARTING EMADE"
+python src/GPFramework/launchEMADE.py templates/INPUT_FILE.xml # use your XML file
+</pre>
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 15, 2021
+|
+|-
+|Run the current implementation of lexicase on chest data
+|
+|November 8, 2021
+|November 15, 2021
+|
+|-
+|Read literature about new implementations of lexicase
+|
+|November 8, 2021
+|November 15, 2021
+|
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|
+|November 8, 2021
+|November 15, 2021
+|
+|}
+
 == Week 11: November 1, 2021 ==
 === 11/1/2021 In-Class Subteam Meeting ===
 * assigned to Image Processing subteam
@@ -51,7 +170,7 @@ master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip)
 |In Progress
 |November 1, 2021
 |November 8, 2021
-|
+|November 8, 2021
 |-
 |Clone Aryaan's EMADE fork (Image-Processing(nn-vip))
 |Complete
