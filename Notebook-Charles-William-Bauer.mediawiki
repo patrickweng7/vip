@@ -11,7 +11,13 @@ After setting up NN EMADE, I learned about its code.
 !Suspense Date
 !Date Resolved
 |-
-|NN Study
+|Step up nn-vip EMADE on PACE by sharing a new conda environment and cloning the repo into pace with ssh.
+|In progress
+|11/8/2021
+|11/15/2021
+|
+|-
+|Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
 |In progress
 |11/1/2021
 |11/15/2021
@@ -21,6 +27,44 @@ After setting up NN EMADE, I learned about its code.
 
 ===Neural Network Study===
 Wednesday 11/10 the Camerons presented concepts behind nn-vip to me, Rayan, and Pranav. Cameron B referred us to a list of resources on the Trello page.
+
+EMADE.py - Called by command prompt (command is in README) to run launchEMADE.py which calls didLaunch.py which calls EMADE.py with XML param
+create_representation()
+*Create primitive set: MAIN = overarching nn; others are ADFs (automatically defined functions) = possible layers 
+*Define how emade generates individuals
+buildClassifier()
+*Takes filepath to datasets from XML
+*Uses args to load data
+*Stores target data and labels
+*Splits train and test
+*datasetDict[datasetName][‘truthDataArray’] + “truth data” datapair
+*Instantiate EmadeDataPairs – truth data is actual and target data is output; allows us to track past evaluations
+handleWorker() - Called by evaluateIndividual called by evaluate
+setObjectives()
+setDatasets() - Mainly sets up deap.toolbox
+my_str() - Parses individual to str to access in MySQL
+swap_layer() - Replaces layer with another (not input or output layers)
+healer methods deprecated
+mutate() -> clean_individual() – ensures individual isn’t mutated to state that can’t be evaluated
+master_algorithm() - reuse=1 -> resume; connects to database; randomly creates initial population; evolutionary loop – mating/mutation, sends offspring to evaluation, periodically checks queue to see if move to next gen
+worker_algorithm() - evaluates individuals, gets more if under 25% capacity being evaluated
+
+Supervised learning – map input to output with unknown function approximated by learning a model
+Activation – introduces non-linearity; rectified linear unit (ReLU) – if result of transformation < 0 return 0 else return value; sigmoid returns 0 or 1
+Dense layer- interprets each input the same way
+Convolution layer- like a dense layer but excludes certain weights; not fully connected (using all neurons); helps with spatial relationships in image processing; treats inputs differently based on initial layers; ex. treats center pixels more important for birds and treats upper pixels for sunsets
+Recurrent layer- have memory; detects important of ordering of data; ex. does a layer on one word and then does a layer on that output and another word
+Long short term memory layer- most complex implementation; modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; vanishing gradient problem - if one output is 0 then the next ones are also 0, why RNNs are not used anymore
+Attention is all you need transformer- not a layer but a subarchitecture that focus on self-attention mini-layer, add layer takes output of recent layer and adds to output of far back layer
+Loss function – objective/evaluation of nn based on truth data; higher output is worse; ex. binary cross entropy, categorical cross entropy, mean squared error; NN tries to minimize loss by following gradients and back-propagating to change weights accordingly
+Reducing overfitting: more data; validation data – sees how model does on withheld data during training; Regularization term penalizes complexity (L1 lasso or L2 ridge); More data; Dropout layers
+gp_framework_helper.py – lets you see the individuals, output types, very important for testing
+standalone_tree_evaluator.py – very important for debugging; put in one individual to make sure your desired functionality still works
+
+nnm.py – keras nn background
+NNLearner: recursively creates nn in keras then uses strongly type GP creatively; ARG0 (dataset), ouput layer (has subtree layers), 100, optimizer
+nnm.LayerList is primitive set type that has dataset, other info to make nn, functionally [input, layer,…, output]
+
 
 ==November 1st, 2021==
 I joined the NAS vip subteam! I met with them during Monday's class and during subteam meetings on Friday and Saturday.
@@ -32,11 +76,11 @@ I joined the NAS vip subteam! I met with them during Monday's class and during s
 !Suspense Date
 !Date Resolved
 |-
-|NN-VIP EMADE Setup on PACE
+|Step up nn-vip EMADE on PACE by creating a new conda environment, cloning the repo, and scp-ing the repo into pace.
 |In progress
 |11/1/2021
 |11/15/2021
-|
+|11/8/2021
 |-
 |}
 
