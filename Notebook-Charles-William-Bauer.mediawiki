@@ -30,106 +30,69 @@ I tried using Connor's video and guide to setup PACE using the shared conda envi
 
 Below is a compilation of commands. The last section, CLONE SSH is in progress.
 
-WinSCP https://winscp.net/eng/download.php
-
-MariaDB https://mariadb.org/download/?rel=10.6.4&prod=mariadb&os=windows&cpu=x86_64&pkg=msi&mirror=acorn
-TCP 3305
-
+    WinSCP https://winscp.net/eng/download.php
+    MariaDB https://mariadb.org/download/?rel=10.6.4&prod=mariadb&os=windows&cpu=x86_64&pkg=msi&mirror=acorn TCP 3305
+    
 FOLDERS
 
-ssh cbauer32@pace-ice.pace.gatech.edu
-
-    WinSCP .my.cnf into pace
-
-mkdir scratch
-
-cd scratch
-
-mkdir db
-
-mysql_install_db --datadir=$HOME/scratch/db
-
-cd /usr
-
-mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+    ssh cbauer32@pace-ice.pace.gatech.edu
+        WinSCP .my.cnf into pace
+    mkdir scratch
+    cd scratch
+    mkdir db
+    mysql_install_db --datadir=$HOME/scratch/db
+    cd /usr
+    mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
 
 
 NEW CONDA
 
-ssh cbauer32@pace-ice.pace.gatech.edu
-
-cd scratch
-
-export CC=gcc
-
-module load anaconda3/2021.05
-
-module load gcc
-
-conda create -n env_emade python=3.6
-
-conda install opencv numpy pandas tensorflow keras scipy=1.4.1 psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient 
-pymysql scikit-learn
-
-pip install xgboost lmfit multiprocess hmmlearn deap opencv-python keras-pickle-wrapper
+    ssh cbauer32@pace-ice.pace.gatech.edu
+    cd scratch
+    export CC=gcc
+    module load anaconda3/2021.05
+    module load gcc
+    conda create -n env_emade python=3.6
+    conda install opencv numpy pandas tensorflow keras scipy=1.4.1 psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn
+    pip install xgboost lmfit multiprocess hmmlearn deap opencv-python keras-pickle-wrapper
 
 
 SHARED CONDA
 
-ln -s /storage/home/hpaceice1/shared-classes/materials/vip/AAD/nlp_subgroup/shared_conda ~/.conda
+    ln -s /storage/home/hpaceice1/shared-classes/materials/vip/AAD/nlp_subgroup/shared_conda ~/.conda
 
 
 CLONE URL
 
-git clone -b nn-vip https://github.gatech.edu/cwhaley9/emade
-
-    move each .pbs from emade/pace to emade, delete emade/pace folder
-
-scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
-
-    or use WinSCP to transfer clone to pace
-
-sed -i $'s/\r//' FILENAME
-
-qsub FILENAME for each .pbs
-
-conda activate env_emade
-
-cd emade
-
-python setup.py install
+    git clone -b nn-vip https://github.gatech.edu/cwhaley9/emade
+        move each .pbs from emade/pace to emade, delete emade/pace folder
+    scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+        or use WinSCP to transfer clone to pace
+    sed -i $'s/\r//' FILENAME
+    qsub FILENAME for each .pbs
+    conda activate env_emade
+    cd emade
+    python setup.py install
 
 
 CLONE SSH
-vim ~/.ssh/config
-
-esc :i
-
-    Host pace-ice
-
-       HostName pace-ice.pace.gatech.edu
-
-       User cbauer32
-
-esc :wq
-
-ssh-keygen
-
-    enter once, type same pass twice
-
-ssh-copy-id cburdell3@pace-ice.pace.gatech.edu
-
-generate new ssh key for github.gatech.edu following
-https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
-https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-
-separate git bash window
-
-ssh -T git@github.gatech.edu
-
-eval "$(ssh-agent -s)"
-
-git clone -b nn-vip git@github.gatech.edu:cwhaley9/emade
+    vim ~/.ssh/config
+    esc :i
+        Host pace-ice
+            HostName pace-ice.pace.gatech.edu
+            User cbauer32
+    esc :wq
+    ssh-keygen
+        enter once, type same pass twice
+    ssh-copy-id cburdell3@pace-ice.pace.gatech.edu
+    generate new ssh key for github.gatech.edu following
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+    separate git bash window:
+    ssh -T git@github.gatech.edu
+    eval "$(ssh-agent -s)"
+    main window:
+    git clone -b nn-vip git@github.gatech.edu:cwhaley9/emade
 
 Looking at: https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey
 
