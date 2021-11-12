@@ -50,19 +50,30 @@ master_algorithm() - reuse=1 -> resume; connects to database; randomly creates i
 worker_algorithm() - evaluates individuals, gets more if under 25% capacity being evaluated
 
 Supervised learning – map input to output with unknown function approximated by learning a model
+
 Activation – introduces non-linearity; rectified linear unit (ReLU) – if result of transformation < 0 return 0 else return value; sigmoid returns 0 or 1
+
 Dense layer- interprets each input the same way
+
 Convolution layer- like a dense layer but excludes certain weights; not fully connected (using all neurons); helps with spatial relationships in image processing; treats inputs differently based on initial layers; ex. treats center pixels more important for birds and treats upper pixels for sunsets
+
 Recurrent layer- have memory; detects important of ordering of data; ex. does a layer on one word and then does a layer on that output and another word
+
 Long short term memory layer- most complex implementation; modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; vanishing gradient problem - if one output is 0 then the next ones are also 0, why RNNs are not used anymore
+
 Attention is all you need transformer- not a layer but a subarchitecture that focus on self-attention mini-layer, add layer takes output of recent layer and adds to output of far back layer
+
 Loss function – objective/evaluation of nn based on truth data; higher output is worse; ex. binary cross entropy, categorical cross entropy, mean squared error; NN tries to minimize loss by following gradients and back-propagating to change weights accordingly
+
 Reducing overfitting: more data; validation data – sees how model does on withheld data during training; Regularization term penalizes complexity (L1 lasso or L2 ridge); More data; Dropout layers
+
 gp_framework_helper.py – lets you see the individuals, output types, very important for testing
 standalone_tree_evaluator.py – very important for debugging; put in one individual to make sure your desired functionality still works
 
 nnm.py – keras nn background
+
 NNLearner: recursively creates nn in keras then uses strongly type GP creatively; ARG0 (dataset), ouput layer (has subtree layers), 100, optimizer
+
 nnm.LayerList is primitive set type that has dataset, other info to make nn, functionally [input, layer,…, output]
 
 
