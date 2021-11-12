@@ -32,6 +32,7 @@ EMADE.py - Called by command prompt (command is in README) to run launchEMADE.py
 create_representation()
 *Create primitive set: MAIN = overarching nn; others are ADFs (automatically defined functions) = possible layers 
 *Define how emade generates individuals
+
 buildClassifier()
 *Takes filepath to datasets from XML
 *Uses args to load data
@@ -39,14 +40,23 @@ buildClassifier()
 *Splits train and test
 *datasetDict[datasetName][‘truthDataArray’] + “truth data” datapair
 *Instantiate EmadeDataPairs – truth data is actual and target data is output; allows us to track past evaluations
+
 handleWorker() - Called by evaluateIndividual called by evaluate
-setObjectives()
-setDatasets() - Mainly sets up deap.toolbox
-my_str() - Parses individual to str to access in MySQL
-swap_layer() - Replaces layer with another (not input or output layers)
+
+setObjectives() - sets up objectives
+
+setDatasets() - sets up deap.toolbox
+
+my_str() - parses individual to str to access in MySQL
+
+swap_layer() - replaces layer with another (not input or output layers)
+
 healer methods deprecated
+
 mutate() -> clean_individual() – ensures individual isn’t mutated to state that can’t be evaluated
+
 master_algorithm() - reuse=1 -> resume; connects to database; randomly creates initial population; evolutionary loop – mating/mutation, sends offspring to evaluation, periodically checks queue to see if move to next gen
+
 worker_algorithm() - evaluates individuals, gets more if under 25% capacity being evaluated
 
 Supervised learning – map input to output with unknown function approximated by learning a model
