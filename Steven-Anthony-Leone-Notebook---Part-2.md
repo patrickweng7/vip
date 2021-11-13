@@ -13,6 +13,22 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Week 12, Nov 8th
+### General Meeting Notes
+# Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
+# We used the trello board to layout tasks.
+# I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
+# Karthic began leading a team to explore our issue with the output layer
+# Devan began leading a team to debug NNLearner2
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
+Debug Persistent issue with Merge | In Progress | 11/08/2021 | ... | 11/16/2021 |
+Debug Primitives | In Progress | 11/08/2021 | ...| 11/16/2021 |
+
+
 ## Week 11, Nov 1st
 ### General Meeting Notes
 * We received our New Members this week and ...
