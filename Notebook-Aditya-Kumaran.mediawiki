@@ -33,6 +33,10 @@ Interests: Writing fiction, Music, Reading, Sports
     *  CacheV2 branch has a documentation folder in emade/docsrc/source, might be helpful to use.
 
 === Individual Notes: ===
+*  When trying to run the Collab notebook, we got an error saying 'No module found: GPFramework'. This ended up being because the 'bash reinstall.sh' script wasn't running properly. We decided to change this command with:
+    *  !python3 setup.py sdist
+    *  !python3 setup.py install
+*  Script runs properly now, and I can join the runs as a worker process.
 
 === Action Items: ===
 {| class="wikitable"
@@ -89,7 +93,7 @@ Interests: Writing fiction, Music, Reading, Sports
     *  In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to
     *  Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
     *  Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
-    *  Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run. (edited) 
+    *  Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run. 
 
 === Action Items: ===
 {| class="wikitable"
