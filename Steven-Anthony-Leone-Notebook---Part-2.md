@@ -15,11 +15,11 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
-# Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
-# We used the trello board to layout tasks.
-# I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
-# Karthic began leading a team to explore our issue with the output layer
-# Devan began leading a team to debug NNLearner2
+* Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
+* We used the trello board to layout tasks.
+* I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
+* Karthic began leading a team to explore our issue with the output layer
+* Devan began leading a team to debug NNLearner2
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
