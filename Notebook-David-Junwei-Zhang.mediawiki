@@ -22,13 +22,18 @@ Worked on setting up input.xml
 * instead of running an entire GP loop, we can run standalone tree evaluator to test functionality
 * ran <code>python3 src/GPFramework/standalone_tree_evaluator.py templates/input_twitter.xml</code>
 
-Noticed that in the new branch, launchGTMOEP.py no longer existed but was replaced with launchEMADE.py, to run emade I simply changed the file name and ran <code>python3 src/GPFramework/launchEMADE.py templates/input_titanic.xml</code> instead
+* Noticed that in the new branch, launchGTMOEP.py no longer existed but was replaced with launchEMADE.py, to run emade I simply changed the file name and ran <code>python3 src/GPFramework/launchEMADE.py templates/input_titanic.xml</code> instead
 
+* From the large merge, I also realized that there were many other dependencies that needed to be installed not specified in either setup.py or reinstall.sh. I had to install the following packages manually using homebrew (on Mac)
+** brew install libomp
+** dlopen() Library not loaded Reason: image not found
+*** fix: install sphyinx library using pip3 or conda
+** conda install transformer
+** ImportError: cannot import name 'stop_words' from 'sklearn.feature_extraction'
+*** fix: went to src/GPFramework/text_processing_methods.py and changed the import to <code>from sklearn.feature_extraction import _stop_words as stop_words</code>
 
-From the large merge, I also realized that there were many other dependencies that needed to be installed not specified in either setup.py or reinstall.sh. I had to install the following packages manually using homebrew (on Mac)
-* brew install libomp
-* dlopen() Library not loaded Reason: image not found
-** fix: istall sphyinx library using pip3 or conda
+One thing that may be better is if requirements.txt is constantly kept up to date so that reinstall.sh is sufficient and that there is less manual dependency installations which may be time consuming.
+
 
 '''Action Items:'''
 {| class="wikitable"
@@ -41,7 +46,7 @@ From the large merge, I also realized that there were many other dependencies th
 |Create input.xml for dataset with 2 data pairs (twitter dataset)
 |In progress
 |November 8, 2021
-|
+|November 13, 2021
 |November 15, 2021
 |-
 |Get standalone tree evaluator to run on one instance of an individual
