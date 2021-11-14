@@ -2,21 +2,18 @@
 * Email: aryaan@gatech.edu
 * Phone: 678-979-6968
 * Interests: Machine Learning, finance, swimming
-* Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, 
+* Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, Eashan
 = Fall 2021 = 
-== November 10th, 2021 == 
-'''Subteam Meeting Notes:''' 
-*
-*
-== November 3rd, 2021 == 
-'''Subteam Meeting Notes:''' 
-*
-*
-== November 1st, 2021 == 
-'''Team Meeting Notes:''' 
-* Consideration from Jason: reprocess data to just have single label for train/test (if there are not too too many multi-label cases)
-* To get vector out for checking the results of the objective function: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
-* Food for thought for next semester: what about where in the image a disease is present, not just whether it exists or not (room for future work here! A bounding box for object detection!)
+== November 3rd - 10th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* This week during the subteam meeting Heidi and I had a work session where we corrected the dataset that we had made the previous week. We had initially spent time making the dataset binary and not multi-class since we thought it would solve the issue we were having with the evaluation function i.e. we believed that the error with the Precision-Recall curve was due to the multi-label nature of the dataset itself and we have worked on making it multi-class rather than binary or multi-label to solve this issue. The code we wrote to solve this issue can be found here: https://github.gatech.edu/athite3/chestxray
+* We have also been working to emulate the Neural Network team for dataset creation so that future teams that work with the Chest X-ray dataset can easily download it. We have compressed all of our work into two python scripts; https://github.gatech.edu/athite3/chestxray/blob/master/Preprocessing_Consolidated.py and https://github.gatech.edu/athite3/chestxray/blob/master/download_dataset.py which we will merge into the dataset folder of our forked repo (Image-Processing (nn-vip)).
+* I have also begun working on adjusting our pull request for the geometric operators that Eashan and I will be working on. That PR and all the changes we are making can be found here: https://github.gatech.edu/amehra37/emade/pull/4/files
+* We are looking into the different crossover operators in DEAP that could work with a strongly-typed GP which is what EMADE is built on. Some of the mating/mutation operators that we are going to work on implementing are (they can also be found in the DEAP documentation here: https://deap.readthedocs.io/en/master/api/tools.html): 
+** cxPartialyMatched()
+** cxUniformPartialyMatched()
+** cxOrdered()
+* We will be looking at the code-base (https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py) closely to make sure that the changes we are making are in adherence to EMADE and strongly-typed GP to prevent any other type errors similar to the ones we've made before.
 {| class="wikitable"
 !Assignment 
 !Current Status
@@ -24,14 +21,53 @@
 !Suspense Date
 !Date Resolved
 |-
-|Make new Dataset
+|Make new Multi-class Dataset 
+|Completed
+|November 1st, 2021
+|November 9th, 2021
+|November 9th, 2021
+|-
+|Compete a literature review of DEAP's existing mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 9th, 2021
+|November 9th, 2021
+|-
+|Add in new mating/mutation operators
 |In Progress
+|November 1st, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Test new operators on PACE
+|In Progress
+|November 1st, 2021
+|November 17th, 2021
+|November 17th, 2021
+|}
+
+== November 1st, 2021 == 
+'''Team Meeting Notes:''' 
+* Consideration from Jason: reprocess data to just have single label for train/test (if there are not too too many multi-label cases)
+** This is something that we will be switching since we want to work on a different type of problem. Since we want to not just work on basic image classification and we want to see how EMADE performs on multi-class images we will be editing the dataset to have multiple classes just not multiple labels. I will be working with Heidi on this project to make sure that everyone on the team has this new dataset to test on for future EMADE runs.
+* To get vector out for checking the results of the objective function: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
+* We also determined that Temi and I will be working with Eashan (bootcamp student) for the rest of the work we do on the mating and mutations methods that we decide to implement in the future.
+* Food for thought for next semester: what about where in the image a disease is present, not just whether it exists or not (room for future work here with a bounding box for object detection!)
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make new Binary Dataset (Disease/No disease)
+|Completed
 |October 29th, 2021
 |October 29th, 2021
 |November 1st, 2021
 |-
-|Figure out the Geometric Primitives
-|In Progress
+|Figure out the Geometric Primitives and/or search for new ones
+|Completed
 |October 29th, 2021
 |October 29th, 2021
 |November 1st, 2021
@@ -44,7 +80,21 @@
 ** Refactor geometric crossover and mutation to receive expected data type and add in further methods for testing
 ** Help Heidi make the new dataset which will only be binary in nature i.e. disease or no disease (edit here - we later decided to not have a binary problem or a multi-label problem but rather we went with a multi-class problem where every image has only one type of disease but there could be multiple diseases rather than disease/no disease)
 * The following was the issue with the datatype mismatch while testing the geometric crossover methods on PACE:
-
+'''
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 122, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 112, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 805, in master_algorithm
+    count = mate(offspring, _inst.toolbox.mateSimBinary, sim_binary_xover, OUTP)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 556, in mate
+    mating_function(tree1, tree2)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 628, in sim_binary_xover
+    ind1[i] = 0.5 * (((1 + beta) * x1) + ((1 - beta) * x2))
+TypeError: unsupported operand type(s) for *: 'float' and 'Primitive'
+'''
+* Will be working to either find a work-around to this issue or will move on with testing other types of geometric primitives which work with strongly typed GP. Clarification here - strongly typed means that primitive types are enforced i.e it is not loosely typed. We need to find a way to maintain the types of the trees that are being evolved while working on these types of crossover methods.
 * Help all the new bootcamp students set up PACE, get up to speed with where we are with changes to EMADE for image processing.
 {| class="wikitable"
 !Assignment 
