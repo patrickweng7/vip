@@ -549,7 +549,7 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |November 1, 2021
 |}
 
-== November 8th, 2021 ==
+== November 1st, 2021 ==
 === Class Notes: ===
 * I joined NAS (Neural Architecture Search) group
 * We went through group scrum where each group presented about their weekly updates
@@ -581,4 +581,92 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |November 1, 2021
 |November 8, 2021
 |November 8, 2021
+|}
+
+== November 8th, 2021 ==
+=== Class Notes: ===
+* Was sick so unable to attend class :(
+
+=== Mini-Meeting Notes: ===
+* Met with both Camerons on Wednesday November 10th to learn more about neural networks and EMADE concepts
+* Basic EMADE Concepts
+** EMADE object contains method to fit information into xml files
+** two primitive set types: 'MAIN' and adf
+** Helper functions used in EMADE
+*** handleWorker - evaluate individual in separate process and report results
+*** setObjectives - setting objectives to minimize/maximize
+*** myStr - returns string of individual
+** Mating/Mutation functions
+*** swap_layer
+*** cx_ephemerals
+*** concat_healer
+** master algorithm does everything except for compiling/evaluating individuls which worker algorithm does
+* Neural Net Concepts
+** learn model that maps inputs to outputs well
+** uses a set of layers where each layer has a set of nodes
+** each layer consists of operation and activation segment
+** Activation Functions: sigmoid, tanh, ReLU, Leaky ReLU, Maxout, ELU
+** Steps to train neural network
+*** Feedforward to get result from evaluating the model
+*** Difference in loss function used to backpropagate to change layer values
+** Overfitting: model conforms too closely to training data
+** Underfitting: model is too generalized
+** Types of Layers: Dense, Convolutional, Recurrent, LSTM
+** NLP (Natural Language Processing)
+*** working on classifying reviews as positive/negative (sentiment analysis problem)
+* EMADE in nn-vip
+** Abstract Data Types (ADTs)
+*** EmadeDataPair
+**** contains train/test data
+**** contains important information about data
+** Running EMADE
+*** starting command - python launchEMADE.py input.xml - parses xml file, checks computing env, then moves to didLaunch.py
+*** master algorithm - initiates database, tracks population status, handles mutating/mating, handles queue of individuals to be evaluated
+*** worker algorithm - connects to database and retrieves individuals for evaluation
+** NNLearner
+*** neural_network_methods.py - stores functions for layer primitives, loss functions, optimization...
+*** NNLearner - able to store different neural network layers on top of each other - nnmLayerList 
+
+=== NAS Meeting Notes: ===
+* Finished setting up EMADE locally on computer
+* Started to work on configuring EMADE on PACE
+* New articles with literature review to read about neural networks and EMADE
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE working locally 
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|November 9, 2021
+|-
+|Get EMADE working on PACE
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|
+|-
+|Literature Review
+|In Progress
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Update final presentation slides
+|In Progress
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Update VIP Notebook
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
 |}
