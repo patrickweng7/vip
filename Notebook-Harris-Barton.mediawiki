@@ -5,12 +5,90 @@
 * 2 semesters in VIP AAD
 * 3rd year CS Major concentrating in Theory and Intelligence.
 * Interests: Machine Learning, Software Engineering, Digital Signal Processing, BJJ (No-Gi)
-= Fall 2021 = 
+= Fall 2021 =  
+== November 15th, 2021 == 
+'''Meeting notes:'''
+* We have a very clear goal in sight for the final presentation. Namely, we want to see if we can improve EMADES image processing capabilities. As a baseline, we are going to see how EMADE can currently handle the chest x-ray dataset and then see how our separate changes can improve the performance, characterized by ROC and F1-score. Additionally, if we see that we can improve performance with one of the changes separately or multiple, then we will begin investigating combinations of these changes, maybe lexicase and some sort of cross over methods, if they both seem to be improving performance separately. 
+'''Subteam Meeting Notes''':
+* 
+== November 8th, 2021 ==
+'''Meeting Notes:'''
+* 
+'''Subteam Meeting Notes''':
+* We used this session as kind of a work session. Austin is working with me on lexicase implementation and literature search and we used this time attempting to resolve some issues involving him getting on PACE. 
+* I also found 2 more papers which I intend to read before the meeting next week which are implementations of lexicase. One is something called epsilon lexicase, which is implemented in DEAP. Sadly, DEAPS link to the paper they used to implement epsilon lexicase does not work so I am not sure if this is that one or not. 
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Completed
+|November 8th, 2021
+|November 10th, 2021
+|November 15th, 2021
+|- 
+|Read Lexicase Papers
+|Completed
+|November 8th, 2021
+|November 10th, 2021
+|November 15th, 2021
+|}
 == November 1st, 2021 == 
 '''Meeting Notes/Accomplishments:'''
 * We were suggested by Dr. Zutty to look through the dataset and see what the distribution looks like for the dataset when we constrain the problem to images with only one label, but keep it a multi-class problem Multi-class and Multi-label are different things).
 * Our idea to make it a binary classification problem kind of complicates things with the selection methods since our study into selection methods was basically to improve EMADES many-objective optimization capability. Making this a binary classifier kind of throws that investigation out of the window. 
 * We have 4 new members added to our team. Fortunately, we have 4 "sub-subteams" working on different tasks and we might be able to basically split them up into our sub-subteams accordingly. So tasking doesn't seem to be a big issue. 
+* Currently, the lexicase implemented inside of EMADE is sort of a "half-baked" version of lexicase. More specifically, the current lexicase method we have inside of EMADE bases selection on a fitness value aggregated over all of the test cases. The more popular and new lexicase that might be useful for solving this problem considers test cases one at a time in random order. 
+* I, hopefully along with somebody from the new students, will begin looking through papers and current implementations of lexicase in order to see if we are able to get an implementation in EMADE in a reasonable time so that we can begin running experiments and comparison our current lexicase in EMADE, NSGA-III, and our new lexicase in our image processing task.
+* This week, I began to read a paper implementing lexicase which DEAP actually used as a framework in their implementation. The paper can be found here
+ http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf. 
+'''Paper Notes/Thoughts:'''
+* This paper is apparently what the developers of DEAP used in order to implement lexicase inside of DEAP. At a high level, this paper compares this lexicase selection method with other parent selection methods on a subset of problems which they refer to as "uncompromising problems" which they define as a problem characterized by the requirement that solutions must perform optimally on each of many test cases. 
+* The pseudocode for their lexicase goes something like this:
+ To select a parent for use in a genetic operation:
+ 1) Initialize:
+ a) Set candidates to be the entire population.
+ b) Set cases to be a list of all of the test cases
+ in random order.
+ 2) Loop:
+ a) Set candidates to be the subset of the
+ current candidates that have exactly the
+ best performance of any individual currently
+ in candidates for the first case in cases.
+ b) If candidates contains just a single individual then return it.
+ c) If cases contains just a single test case then
+ return a randomly selected individual from
+ candidates.
+ d) Otherwise remove the first case from cases
+ and go to Loop.
+* The problems that this paper compares its selection methods on are 
+ 1. '''finite algebras problem'''
+ 2. '''digit multiplier problem'''
+ 3. '''factorial symbolic regression problem'''
+ 4. '''The wc problem'''
+* The results, as shown below, seem to indicate that lexicase can do well on some uncompromising problems. Namely, problems which must perform optimally on each of the many test cases. 
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Completed
+|November 1st, 2021
+|November 8th, 2021
+|November 3rd, 2021
+|- 
+|Read Lexicase Paper
+|Completed
+|November 1st, 2021
+|November 8th, 2021
+|November 7th, 2021
+|}
 == October 25th, 2021 == 
 '''Meeting Notes/Accomplishments:'''
 * Presentations happening today!
