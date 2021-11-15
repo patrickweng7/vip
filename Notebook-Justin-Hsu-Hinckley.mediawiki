@@ -98,7 +98,7 @@ Problem:
 Fixing problems with primary key duplicate inserts into NNStatisticsTable:
 * Fixed the problem by checking if the individual is already in the table, if it is, do not insert and instead update the entry
 
-```              if (my_str(evaluatedIndividual).__contains__("NNLearner")):
+                 if (my_str(evaluatedIndividual).__contains__("NNLearner")):
                     cur_nnstatistics = database.selectNN(my_hash_id)
                     if cur_nnstatistics is None:
                         database.insertNN(hash=my_hash_id,
@@ -113,7 +113,7 @@ Fixing problems with primary key duplicate inserts into NNStatisticsTable:
                             individual=cp.deepcopy(evaluatedIndividual),
                             age=evaluatedIndividual.age,
                             error_string=data.error_string
-                        )```
+                        )
 
 Solutions:
 * A possible solution to this would be to attach some additional variable to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
