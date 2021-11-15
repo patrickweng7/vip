@@ -134,6 +134,9 @@ Stocks:
 * Improve EMADE’s time-series analysis (weather series, heart rate data)
 
 Modularity:
+* Using arity of primitives to create "super-primitives" with same functionality as individuals created from base primitive set
+* Observing interesting spikes in fitness of pareto optimal individuals during EMADE runs
+* Want to ensure that goal of minimal size does not become a criteria (ie. not evolving only simple modular primitives and foregoing complex modular primitives) 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -185,6 +188,7 @@ Met with team on Friday to ensure team could run worker processes and connect to
 
 ## Subteam Notes
 * Worked with rest of team asynchronously to set up master and worker processes for EMADE. I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections. 
+* I used https://whatismyipaddress.com/ip/128.61.41.136 to identify my IP address and share this with my team members so they could replace the host name string in their input_titanic.xml file and connect to the server I had created. After much research on MySQL's permission configurations, I attempted to changed the bind address specified in my.cnf in the MySQL bin folder to 0.0.0.0, so that any IP address would be allowed to connect to my MySQL server. However, this did not work, at which point I found this article: https://linuxize.com/post/mysql-remote-access/ which indicated that access needed to be granted via the GRANT command to all users with the following command: GRANT ALL ON database_name.* TO user_name@'ip_address' IDENTIFIED BY 'user_password';. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
