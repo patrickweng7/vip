@@ -62,7 +62,61 @@ Modularity:
 * Onboarded new students to google collab
 
 === Sub-team Notes ===
+I ran into problems creating analysis logic in EMADE to track nnlearners across all of its generations.
+Problem:
+* New hashes are generated for individuals every generation which prevents us from properly keeping track of a single hash.
+* We can't guarantee that one child has exactly 1 of 2 parents, since mating and mutation happens potentially multiple times to the same individuals:
+```
+            print('Mutating offspring (Swap Layer)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateSwapLayer, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
+            print('Mutating offspring (Modify Activations)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateActivationParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
 
+            print('Mutating offspring (Modify Optimizers)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateOptimizerParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
+            print('Mutating offspring (Modify Weight Initializers)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateWeightInitializerParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+```
+* This means that child X could have been the child of A and B, but B could have been the child of C and D, therefore meaning X's parents are actually all of A, B, C, and D, not just A,B.
+* We need to decide how to track these parents in a way that allows us to gather meaningful metrics on complexity.
+
+Fixing problems with primary key duplicate inserts into NNStatisticsTable:
+* Fixed the problem by checking if the individual is already in the table, if it is, do not insert and instead update the entry
+
+```              if (my_str(evaluatedIndividual).__contains__("NNLearner")):
+                    cur_nnstatistics = database.selectNN(my_hash_id)
+                    if cur_nnstatistics is None:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string # TODO: insert error message
+                        )
+                    else:
+                        database.updateNN(
+                            row=data,
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            age=evaluatedIndividual.age,
+                            error_string=data.error_string
+                        )```
+
+Solutions:
+* A possible solution to this would be to attach some additional variable to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
 
 === Action Items ===
 {| class="wikitable"
