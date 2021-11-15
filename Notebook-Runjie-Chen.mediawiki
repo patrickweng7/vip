@@ -8,6 +8,25 @@
 
 = Fall 2021 =
 
+== Week 13: November 15th - November 21th ==
+
+===November 15th, 2021 Team Meeting Notes===
+* New members should continue to keep notebook updated with detail
+* Clearly identify individual contributions and provide evidence of them
+* If reading papers, include notes for them on our notebooks
+Scrums:
+* Modularity
+** Dividing BootCamp students into different tasks
+*** recursive function
+*** fix: cloudcopy.sh is downloading stuff over and over again
+* NLP (our team)
+** Found that there are still quite a few bugs after the big merge
+** divided the team into subteams to focus on specific tasks
+** Reducing the scope to only regression to for this semester
+** Input: context & query, Output: start and end index of the context (extract the answer from the context as a substring)
+** Need Dr.Zutty's advice on a weird issue that we are encountering
+*** memory issues
+
 == Week 12: November 8th - November 14th ==
 
 ===November 8th, 2021 Team Meeting Notes===
@@ -49,12 +68,21 @@ Sub-team notes:
 ** F1 means weighted average between precision and recall
 ** Always do bash reinstall after making local changes
 *My Progress:
-** Mostly set up EMADE on PACE-ICE (there are a few errors present in the master.err file that I need to resolve)
-*** Running into weird module not found issues after installing everything, need to ask teammates for help during our next meeting
+** I'm mostly set up with EMADE on PACE-ICE (there are a few errors present in the master.err file that I need to resolve)
+*** I ran into weird module not found issues after installing everything, need to ask teammates for help during our next meeting
 *** Fix: manually install these modules again
 ** Read the paper "An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)", now I have a better grasp of what NLP is doing and understand the concepts of BiDAF much better now, especially the output layer as that's the layer that I got assigned to be focusing on
 *** I would recommend this paper to any new NLP team members as it explains the BiDAF model really well
 **** https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b
+*** My notes of the paper:
+**** Bi-Directional Attention Flow (BiDAF) is an NLP model that is very influencial in the Question and Answer domain.
+**** Specifically, BiDAF is a closed-domain, extractive Q&A model that can only answer factoid questions. 
+**** BiDAF has 3 major parts: Embedding layers, Attention and Modeling layers, Output layer
+**** I'm focusing on the Output layer, so I'm abstracting the technical details of the Embedding, Attention, and Modeling layers and just gained an overview of what these layers do. 
+**** Imagine each word in the context as minions with en empty brain, after going through the Embedding layers, the minions learns about their own and each other's identity.
+**** After going through the attention layer, each minions knows their own importance to the query. 
+**** After going through the attention layer, each minions knows each other's importance to the query. 
+**** Finally, the output layer returns two probability vectors. One vector represent the probability of each word in the context to be the start index of the answer, another vector represent the probability of each word in the context to be the end index of the answer. This is determined based on each word's importance to the query which were the ouputs from the previous layers
 
 
 ===Action Items===
