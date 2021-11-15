@@ -16,6 +16,65 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
+== November 15, 2021 ==
+* I commented dimensions onto every variable on every layer for better code maintainability
+* I either directly wrote or fixed every function and every layer in our BiDaf model (embedding, attention, modeling, and output)
+
+== November 8, 2021 ==
+* currently our layers are unable to be compiled into a model
+* Embedding Layer
+** GloVe word embedding
+*** takes in a (# of words,) tensor of strings as input
+*** returns a (# of words, d1) tensor of floats
+** get Bidaf character embedding working
+*** takes in a (1,) tensor of a string as input
+*** returns a (# of characters, d2) tensor of floats
+* Attention Layer
+** patch bugs in attention layer relating to dimensions
+** takes in a (T,2d) tensor and a (J,2d) tensor as inputs, from the embedding layer
+** runs context-to-query and query-to-context attention on the embedded context and query
+** outputs a megamerged (T,8d) tensor
+* Modeling Layer
+** takes in a (T,8d) tensor from the attention layer
+** runs it through a couple Bidirectional LSTMS
+** outputs the (T,8d) megamerged tensor, a (T,2d) tensor from the first lstm, and a (T,2d) tensor from the second lstm
+* Output Layer
+** takes in the (T,8d) megamerged tensor, the (T,2d) tensor, and the (T,2d) tensor from the modeling layer
+** concatenate a couple tensors, run a trainable weight vector on them, and softmax the resulting row
+** outputs two (T,) tensors p1 (the probabilities that a certain word would be the start index) and p2 (the probabilities that a certain word would be the end index)
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Implement Embedding Layer
+|Complete
+|November 8, 2021
+|November 10, 2021
+|November 15, 2021
+|-
+|Fix Attention Layer
+|Completed
+|November 8, 2021
+|November 14, 2021
+|November 15, 2021
+|-
+|Fix Modeling Layer
+|In Progress
+|November 8, 2021
+|November 14, 2021
+|November 15, 2021
+|-
+|Fix Output Layer
+|Complete
+|November 8, 2021
+|November 14, 2021
+|November 15, 2021
+|}
+
 == November 1, 2021 ==
 * Output Layer
 ** finished the output layer implementation
