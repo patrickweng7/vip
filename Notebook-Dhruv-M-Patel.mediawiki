@@ -19,7 +19,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
-==Nov 8th, 2021==
+==Nov 15th, 2021==
 ===Meeting Notes===
 
 ===Subteam Notes===
@@ -34,15 +34,61 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |-
 |
 |In Progress
-|Nov 8, 2021
 |Nov 15, 2021
+|Nov 22, 2021
 |
 |-
 |Update Wiki Notebook
 |In Progress
+|Nov 15, 2021
+|Nov 22, 2021
+|
+|-
+|}
+
+==Nov 8th, 2021==
+===Meeting Notes===
+* We will likely have a finals hackathon the weekend of 11/20-21
+* Another word for semantic: behavioral performance...try this out! It might be easier to find something in literature for this.
+* Keyword: behavioral genetic programming
+* Keep our final prezo deadline in mind! May not have enough time for this
+* Use new install script for env, specify TF version
+* pace-check-queue pace-ice-gpu to check GPU queues
+
+===Subteam Notes===
+* No subteam notes, workday during 11/10 subteam meeting
+
+''' Work Notes '''
+* Final comparison: NSGA II on 3, NSGA III on 14 obj, Lexicase on 14, Lexicase on Testcase with 3 for pareto optimal
+* Tried to do some runs but couldn’t uninstall GPFramework (during the reinstall.sh script call) which I needed to do so my new changes were used. Blinking cursor stuck after “y” prompt
+** Update: fixed this issue, but sometimes re-occurs
+* Pushed up changes where NSGA3 is called in Emade.py code
+** [https://github.gatech.edu/emade/emade/commit/085d297c4abe02689bfcae198e071b4dd0f265bb Code Link]
+* Getting File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/e$    distances = numpy.sum(fn * reference_points, axis=2) / norm.reshape(1, -1) ValueError: operands could not be broadcast together with shapes (45,560,2) (560,14)
+** Basically the fn variable seems to be a 3-dimensional matrix for some reason while the ref_points is (correctly) 2-dimensional. 560 comes from the nsga3 formula. In addition, I can't just cast the fn variable as it is part of the actual deap code rather than my code (I don't think it's a good idea to edit import'd code).
+** I have no idea why the fn variable becomes 3-dimensional. It is created inside the emo.py (deap file) using the best_point and reference_points parameter. Best_points is default set to numpy.min(...) as I do not pass one in.
+* Still can’t set up a new environment because package not found errors when using yaml script. Also can’t test NSGA3 with Titanic data because of the above error
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Try to test NSGA3 again
+|Complete
 |Nov 8, 2021
 |Nov 15, 2021
-|
+|Nov 20, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 8, 2021
+|Nov 15, 2021
+|Nov 22, 2021
 |-
 |}
 
