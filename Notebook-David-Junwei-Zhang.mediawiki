@@ -29,11 +29,30 @@ Another notes
 * hash based on string representation of individual (and should generally not change)
 * ADF1, ADF2, ADF3 exist for each master process tree 
 
+'''Subteam Notes'''
+
+Met with subteam on 11/17 to redistribute tasks
+* created new statistics team to work on experiments
+* added more members to the NNlearner 2 data pair team and integration team
+
+This week, I worked on comparing the differences in general_methods.py with create_representation in EMADE.py
+* 2 data pair logic not implemented in general_methods.py which is used in standalone tree evaluator
+* EMADE.py is updated though
+* During subteam meeting, we discussed whether it was easier to edit general_methods.py with the differences to handle 2 data pairs so that standalone tree evaluator would work; however, after checking the code base, we decided that it would be easier to simply go ahead and run GP runs with seeded NNlearner and NNlearner2 individuals.
+
+* Ran runs with EMADE without seeding, but only a few rows had NNlearner
+for example: running <code>select * from individuals where tree like "%NNLearner%";</code> only returns 5 rows
+
+The next steps I will take will be to figure out how to run EMADE with seeding to enforce NNLearner to begin with. Then once NNLearner is working without err, I will try to run NNLearner2 and debug any issues that may occur.
+
+[[files/dzhang351/first_run_no_seeding.png|100px]]
+
 == November 8, 2021 ==
 '''Team Meeting Notes'''
 
 * Met with subteam and formed more specific groups within trello
 * Placed on the NNlearner with 2 data pairs team focusing on adding the nnlearner2 method that works with 2 data pairs for text type data
+* Decreased the scope of this semester's project by only focusing on returning the start index of the answer
 
 '''Subteam Notes'''
 
