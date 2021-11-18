@@ -12,6 +12,12 @@
 * I realized I did not setup mysql correctly on PACE.
 * Currently working on a fix and will add any solutions I find.
 
+=== 11/17/2021 Subteam Meeting ===
+* mysql is still a problem so I am deleting my scratch/ folder and redoing the setup
+* see Week 12: Setting Up PACE-ICE Notes for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload another dataset to test run EMADE.
+
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -27,7 +33,7 @@
 |
 |-
 |Run the current implementation of lexicase on chest data
-|
+|In Progress
 |November 8, 2021
 |November 22, 2021
 |
@@ -55,19 +61,17 @@
 * set up mysql on PACE-ICE
 
 === Setting Up PACE-ICE Notes ===
-* when transferring EMADE onto the remote server use scp run the following command on your LOCAL terminal
-** <code>scp -r <relative-path-to-EMADE> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
-* when creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account(use vim to open file)
-** use vim to open the file and add the following contents into the <code>.my.cnf</code> file
-** make sure to replace USERNAME with your username (ex. apeng39)
-** make sure to replace port=33XX with any two numbers other than 07 (ex. port=3399)
+* I transferred my local EMADE fork onto the remote server using the following command
+** <code>scp -r <relative-path-to-local-EMADE-folder> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
+* When creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account (use vim to open file) and add the following contents to the file.
 <pre>
 [mysqld]
 datadir=scratch/db
 socket=mysqldb.sock
-user=USERNAME
+user=USERNAME # replace USERNAME with your GT username (ex. apeng39)
 symbolic-links=0
-port=33XX
+# uncomment the following line if you use a port and change the port number to the one you use
+# port=3304 
 
 [mysqld_safe]
 log-error=mysqldb.log
@@ -77,41 +81,34 @@ pid-file=mysqldb.pid
 socket=scratch/db/mysqldb.sock
 </pre>
 
-* run <code>mysql_install_db --datadir=$HOME/scratch/db</code>
-* run <code>/usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
-** make sure to replace USERNAME with your username
+* I then ran the following lines in the command prompt (making sure to replace USERNAME with your GT username)
+** <code>mysql_install_db --datadir=$HOME/scratch/db</code>
+** <code>/usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
+
 * ssh into the node with `ssh USERNAME@atl1-1-02-012-5-l` and login
-* then run mysql and setting up a password run <code>mysql -h atl1-1-02-012-5-l:<PORT></code>, specifying the port number you added in the <code>.my.cnf</code> file
-** then run the following code in the mysql shell making sure to replace USERNAME with your username, and PASSWORD with your password
+** Note: replace USERNAME with your GT username
+* Inside the node I setup, I ran <code>mysql -u root</code>
+** Within the mysql prompt, run the following code replacing USERNAME and PASSWORD with your desired USERNAME and PASSWORD for your mysql account.
 <pre>
 DELETE FROM mysql.user WHERE user='';
 GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 </pre>
 
-** now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted
+* Double check that now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted.
+* Within the mysql shell run the following lines to setup a database.
+<pre>
+CREATE DATABASE chestxray;
+</pre>
 
-* setting up PACE-ICE Anaconda (first, navigate to your emade folder)
+* setting up PACE Anaconda (navigate to my EMADE folder)
 ** run <code>module load anaconda3/2020.02</code>
 ** run <code>conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
 ** run <code>./reinstall.sh</code>
 ** run <code>python setup.py install</code>
+** run <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database.
 
-* running MYSQL and EMADE ON PACE-ICE
-** on your remote account's home directory create <code>pbsmysql.pbs</code> with the following content (make sure to replace USERNAME!)
-<pre>
-#!/bin/bash
-#PBS -N mysqldb
-#PBS -q pace-ice
-#PBS -l nodes=1:ppn=1
-#PBS -l walltime=08:00:00
-#PBS -M USERNAME@gatech.edu
-
-mysqld_safe --innodb_lock_wait_timeout=1000
-/usr/local/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
-</pre>
-
-** also create <code>launchEMADE.pbs</code> (making sure to replace USERNAME!)
+* Finally, create a file called <code>launchEMADEchest.pbs</code> with the contents below.
 <pre>
 #PBS -N emade-chest
 #PBS -l nodes=1:ppn=4
@@ -119,18 +116,22 @@ mysqld_safe --innodb_lock_wait_timeout=1000
 #PBS -l walltime=8:00:00
 #PBS -q pace-ice-gpu
 #PBS -o emade-chest.out
-cd ~/emade
-echo "Started on `/bin/hostname`" # prints the name of the node job started on
-module load jdk/1.8.0_202
-module load openmpi/3.1.6
-module load gcc
-module load anaconda3/2020.02
-export CC=gcc
-conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/ # this is my conda environment name, yours could be different
 
+cd ~/emade
+echo "Started on `/bin/hostname`"  # prints the name of the node job started on
+export CC=gcc
+module load anaconda3/2020.02
+conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
 echo "STARTING EMADE"
-python src/GPFramework/launchEMADE.py templates/INPUT_FILE.xml # use your XML file
+# The next line seeds the run if you're starting from scratch. if you're resuming a run then comment it out.
+# python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+# This line launches EMADE
+python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 </pre>
+
+* run <code>qsub launchEMADEchest.pbs</code>
+* Now, you should be ready to run EMADE with <code>python3 src/GPFramework/launchEMADE.py templates/input_chestxray.xml</code>
+** The script should create EMADE_master.eXXXXX files after running for a while and check it for any errors or outputs.
 
 '''Action Items:'''
 {| class="wikitable"
