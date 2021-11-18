@@ -15,12 +15,19 @@
 This week I hope to accomplish setting up a new environment and launching a new baseline run using our newly-processed data on new accuracy metrics to receive a new baseline for our comparisons which we are currently working on.
 
 === Setup EMADE with TF 2.6 on PACE-ICE ===
+
 0. load the tensorflow-gpu/2.6.0, cuda/11.2, and anaconda3/2021.05 modules on PACE
+
 1. create new conda env running python 3.8.5
+
 2. add conda-forge as a package channel: conda config --add channels conda-forge
+
 3. install the cudatoolkit (not actually sure if necessary because of the PACE module) and cuDNN (I am pretty sure this one is still necessary) [https://anaconda.org/conda-forge/cudatoolkit/11.2.2/download/linux-64/cudatoolkit-11.2.2-he111cf0_8.tar.bz2] [https://anaconda.org/Esri/cudnn/8.1.0.77/download/linux-64/cudnn-8.1.0.77-h90431f1_0.tar.bz2]
+
 4. conda install numpy pandas keras==2.6.0 scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn nltk
+
 5. pip install xgboost lmfit multiprocess hmmlearn deap opencv-contrib-python opencv-python keras-pickle-wrapper
+
 6. bash reinstall.sh
 
 I ran into tons of package and dependency issues before getting down to this configuration which I hope works. I am also using the conda installed opencv but I am not sure it is necessary. Awaiting for Aryaan and Heidi to finish processing the data so I can test it. I was able to get EMADE running on the new NAS branch locally on windows by installing a GPU compiled version of TF 2.5, but my flimsy graphics card does not have enough memory for the kinds of neural networks that come through. 
