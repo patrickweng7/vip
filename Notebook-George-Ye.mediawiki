@@ -25,14 +25,35 @@ Interests: Machine Learning, Basketball, Video Games
 * Custom modeling layer code for BiDaf:
 
 ```
-stuff
+class BidafModeling(Layer):
+    def __init__(self, out_dim, activation = 'tanh', dropout = 0.2, regularizer = 0, **kwargs):
+        super(BidafModeling, self).__init__(kwargs)
+        if regularizer == 0:
+            regularizer = None
+        else:
+            regularizer = l2(10**(-1*regularizer))
+        self.lstm_1 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer, dropout=dropout))
+        self.lstm_2 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer))
+
+    
+    def call(self, inputs):
+        inputs = tf.reshape(inputs, [inputs.shape[1], inputs.shape[0], 1])
+        lstm_1_output = self.lstm_1(inputs)
+        lstm_1_output = tf.expand_dims(lstm_1_output, -1)
+        lstm_2_output = self.lstm_2(lstm_1_output)
+        return tf.reshape(lstm_2_output, [lstm_2_output.shape[1], lstm_2_output.shape[0]])
 ```
 
 
 * Custom EMADE function for layer as primitive:
 
 ```
-stuff
+def BidafModelingFunc(output_dim, layerlist, activation = 'tanh', regularizer = 0, dropout=0.2):
+    """
+    Create Bidaf Modeling layer
+    """
+    layerlist.append(BidafModeling(output_dim, activation=activation, regularizer=regularizer, dropout=dropout))
+    return layerlist
 ```
 
 
