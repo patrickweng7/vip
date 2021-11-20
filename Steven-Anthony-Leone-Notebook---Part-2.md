@@ -30,12 +30,13 @@ Have code ready for Code Freeze | In Progress | 11/15/2021 | ... | 11/21/2021 |
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
-* Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
-* We used the trello board to layout tasks.
-* I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
-* Karthic began leading a team to explore our issue with the output layer
-* Devan began leading a team to debug NNLearner2
-* Kevan would look at word embeddings
+* NLP: 
+* * Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
+* * We used the trello board to layout tasks.
+* * I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
+* * Karthic began leading a team to explore our issue with the output layer
+* * Devan began leading a team to debug NNLearner2
+* * Kevan would look at word embeddings
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
@@ -49,6 +50,18 @@ Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 ### General Meeting Notes
 * We received our New Members this week and began onboarding them.
 * I gave them a brief intro to our project and gathered information about their background in order to decide what to present on Wednesday.
+* NLP:
+* * I updated the whole team on our progress. We believed our primitives should work at this point, and we listed out the remaining tasks left before we could get results.
+* Modularity: 
+* * They were reassessing and adjusting goals and timelines for the semester
+* * The ARL group is still going to be doing runs and experimenting
+* NAS:
+* * Noticed a bug with their ADF's.
+* * Already working on final presentation material.
+* Image Processing
+* * At this point, they have been divided into teams working on Selection Methods, Mating/Mutations, Hyperfeatures, and some general infrastructure work.
+* * Some of their members were re assigned tasks this week.
+* * Having some errors on PACE.
 
 ### Sub Team Meeting Notes
 * At this sub team meeting, it was the first time we had the whole team with the new members together for a whole hour.
@@ -202,7 +215,11 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 * * Made some runs and bug fixes, but won't realistically be able to move them in until after their presentation
 
 ### Sub Team Meeting Notes
-* Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+* This week was dedicated to debugging merge changes and preparing for our midpoint presentation
+* Most of this meeting was dedicated towards making our midpoint presentation
+* I created a slide deck, and we talked about what we wanted to include in it.
+* The slides can be found here: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* We would rehearse on Sunday.
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
