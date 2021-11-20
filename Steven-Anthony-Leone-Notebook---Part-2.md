@@ -176,15 +176,51 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 
 ## Week 9, Oct 18th
 
+### General Meeting Notes:
+* At this week, we had one week until our presentation
+
+## Sub Team Meeting Notes
+
 Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Finish Eval Method Implementation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Debug Merge Bugs | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Run EMADE on new branch with no errors | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Make presentation slides | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+
+
 
 ## Week 8, Oct 11th
 ### General Meeting:
 * No General Meeting this week
 
-TODO: Fill in Notes
+### Sub Team Meeting
+* At our Sub Team meeting, we began looking at the EMADE-304 branch and deciding how best to merge it over.
+* We planned to use the Hackathon to finish merging EMADE-304 over.
+* We would look over the code over the next 2 days, and then have a meeting on Friday to discuss our thoughts.
 
-Accomplishments of Week: Merging in changes at Hackathon
+### Friday Meeting
+* I put together a list of trivial vs non-trivial merge conflicts: https://docs.google.com/document/d/1B-0uHdawDfCY-5BLZQUiuz-dleC9MDwqVhYU6WmliRc/edit?usp=sharing
+# We discussed it, moved files around, and decided to use it as a basis for which files to look at first on Saturday.
+
+### Hackathon
+* Karthik, Kevin and I met at the Hackathon on Saturday to work on the merges, while our Literature Review Team kept looking at papers for inspiration with different primitives and state of the art models.
+* We used my document to keep track of which files we had to change still, and which we had already worked on.
+* The three of us looked through each file together to determine which ones to edit.
+* Most changes ended up being trivial. GP_framework_helper.py, general_methods.py, and data.py had the most non-trivial methods.
+* Our branch is now up on my fork of EMADE: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+* We merged the nn-vip branch into EMADE-304
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Look over Merge Conflicts | Complete | 10/13/2021 | 10/14/2021 | 10/15/2021 |
+Resolve Merge Conflicts | Complete | 10/13/2021 | 10/16/2021 | 10/16/2021 |
 
 ## Week 7, Oct 4th
 ### General Meeting Notes
