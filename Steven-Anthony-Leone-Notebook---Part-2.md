@@ -23,10 +23,10 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Retask  Members from output layer team| In Progress | ... | ... | ... |
-Further Debug Primitives with Standalone Tree Evaluator | In Progress | ... | ... | ... |
-Meet w/ Devan on double NNLearners | In Progress | ... | ...| ... |
-Have code ready for Code Freeze | In Progress | ... | ...| ... |
+Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
+Further Debug Primitives with Standalone Tree Evaluator | In Progress | 11/15/2021 | ... | 11/21/2021 |
+Meet w/ Devan on double NNLearners | In Progress | 11/17/2021 | 11/21/2021| 11/21/2021 |
+Have code ready for Code Freeze | In Progress | 11/15/2021 | ... | 11/21/2021 |
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
@@ -35,13 +35,14 @@ Have code ready for Code Freeze | In Progress | ... | ...| ... |
 * I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
 * Karthic began leading a team to explore our issue with the output layer
 * Devan began leading a team to debug NNLearner2
+* Kevan would look at word embeddings
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
-Debug Persistent issue with Merge | In Progress | 11/08/2021 | ... | 11/16/2021 |
-Debug Primitives | In Progress | 11/08/2021 | ...| 11/16/2021 |
+Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
+Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 
 
 ## Week 11, Nov 1st
@@ -63,10 +64,10 @@ Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/
 Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
 
 ### Preparing Presentations for New Members
-* I modified last year's PowerPoints to ... (finish)
+* I modified last year's PowerPoints to inform the new members about deep learning and NLP.
 
 ### Debugging Primitives with Standalone Tree Evaluator
-* I ...
+* I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
 
 ## Week 10, Oct 25th
 
@@ -185,6 +186,20 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 
 ### General Meeting Notes:
 * At this week, we had one week until our presentation
+* NLP:
+* * We talked with Dr. Zutty about our issue with standalone tree evaluator. We were able to resolve it. As it turns out, the EMADE-304 branch was only updated for base EMADE, and not standalone tree evaluator. So, we would have to move changes from 1 over to the other in order to use standalone tree evaluator.
+* Modularity:
+* * Finished fixing ARL implementation bugs
+* * Found a logic bug with some ARL primitives that needs fixed, deals with "tuple index out of range"
+* * Have many members from the stocks team now, are trying to move forward with that side of things
+* NAS:
+* * Prepping for midterm presentation and doing runs
+* * Divided up slides
+* * Looking into how to push all of their code changes into a single branch
+* Image Processing: 
+* * Made their input schema compatible with PACE
+* * tested NSGA-III with their new implementation
+* * Made some runs and bug fixes, but won't realistically be able to move them in until after their presentation
 
 ### Sub Team Meeting Notes
 * Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
