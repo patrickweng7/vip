@@ -20,6 +20,13 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Sub Team Meeting Notes
 
 ### Action Items
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Retask  Members from output layer team| In Progress | ... | ... | ... |
+Further Debug Primitives with Standalone Tree Evaluator | In Progress | ... | ... | ... |
+Meet w/ Devan on double NNLearners | In Progress | ... | ...| ... |
+Have code ready for Code Freeze | In Progress | ... | ...| ... |
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
@@ -55,10 +62,10 @@ Complete New Primitive Development | Complete | 11/01/2021 | 10/27/2021 | 11/08/
 Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/03/2021 |
 Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
 
-## Preparing Presentations for New Members
+### Preparing Presentations for New Members
 * I modified last year's PowerPoints to ... (finish)
 
-## Debugging Primitives with Standalone Tree Evaluator
+### Debugging Primitives with Standalone Tree Evaluator
 * I ...
 
 ## Week 10, Oct 25th
@@ -179,9 +186,8 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 ### General Meeting Notes:
 * At this week, we had one week until our presentation
 
-## Sub Team Meeting Notes
-
-Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+### Sub Team Meeting Notes
+* Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
