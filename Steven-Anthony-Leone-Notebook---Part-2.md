@@ -13,6 +13,14 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Week 13, Nov 15th
+### General Meeting Notes
+
+
+### Sub Team Meeting Notes
+
+### Action Items
+
 ## Week 12, Nov 8th
 ### General Meeting Notes
 * Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
@@ -31,7 +39,8 @@ Debug Primitives | In Progress | 11/08/2021 | ...| 11/16/2021 |
 
 ## Week 11, Nov 1st
 ### General Meeting Notes
-* We received our New Members this week and ...
+* We received our New Members this week and began onboarding them.
+* I gave them a brief intro to our project and gathered information about their background in order to decide what to present on Wednesday.
 
 ### Sub Team Meeting Notes
 * At this sub team meeting, it was the first time we had the whole team with the new members together for a whole hour.
