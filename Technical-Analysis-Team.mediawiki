@@ -1,0 +1,78 @@
+
+== Overview ==
+We intend to focus our efforts on the research and analysis of pre-existing stock technicals implemented within the framework of EMADE in hopes of being able to optimize an algorithm that would be capable of detecting signals and patterns within stock time series data.
+
+[https://docs.google.com/presentation/d/1qtREPTDNfk5UYTgU2iZ5Jdzaok2YCeb4dGJ-IV0uP50/edit#slide=id.p Final Presentation]
+
+=== Proposal ===
+----
+[[Proposal Spring 2018]]
+
+=== Goals ===
+----
+We hope to be able to utilize past developments and stock analysis tools within EMADE to achieve more optimal results. Our aim to achieve that through a series of sub-goals that will allow for a greater focus and specificity within our overall task. 
+* The implementation of selected stock technicals as primitives within EMADE.
+* The analysis of the individuals created by EMADE to evaluate to determine the more essential primitives and be able to narrow the focus of the algorithm analyzing our stock data.
+* The use of an optimal individual created by EMADE to be able to predict future stock prices to a certain degree of accuracy:
+** Our current goal is focused on a binary BUY/SELL classifier.
+** We will begin by training on past data sets and hope to eventually work towards a more immediate analysis using an API to classify real time stock data.
+
+=== Current Team Members ===
+----
+* [[User-Jrick6|James Rick]] 
+* [[Jaswanth Sai Pyneni]] 
+* [[Yalini Senthil Kumar]] 
+* [[Guergana Plamenova Ilieva]] 
+* Alen Polakof
+* Sierre Olson
+* Blake Weis
+* Johnny Maroun
+
+=== Task Assignments and Schedule ===
+----[[Spring 2018]]
+
+=== Stock Technicals ===
+----We selected a variety of calculations used in more typical stock analysis to program as primitives within EMADE. Each was chosen for a specific purpose and will later be labeled as effective or not depending on the individuals produced within EMADE.
+* Acceleration Bands:
+** Developed by Price Headley, Acceleration Bands displays the upper and lower envelope bands around a simple moving average. 
+** This technical is important in that it factors in a stock's typical volatility over standard settings, and is thus helpful in observing trending stocks by noting points in time where a breakout or break has investment potential.
+** Formula:
+*** Upper Band = Simple Moving Average (High * ( 1 + 4 * (High - Low) / (High + Low)))
+*** Middle Band = Simple Moving Average
+*** Lower Band = Simple Moving Average (Low * (1 - 4 * (High - Low)/ (High + Low)))
+* Accumulation/ Distribution:
+** This is a calculation that uses the position at the close of a period paired with the period's high/low range in order to better quantify the amount of volume flowing in or out.
+** As a momentume indicator, accumulation/distribution gauges supply and demand by finding the convergences or divergences between the stock price and volume flow. This can be used to confirm whether a security is trending.
+** Formula: 
+*** AD = cumulative((((Close - Low) - (High - Close)) / (High - Low))* Volume))
+* Aroon:
+** Tushar Chande developed this indicator in order to attempt to determine whether a particular instrument is trending and to quantify the strength of that trend. 
+** Unlike more typical momentum oscillators, Aroon focuses on time relative to price rather than price relative to time. This allows for identification of emerging trends and consolidations. 
+** Formula: 
+*** AroonUP = ((Number of periods - Number of periods since highest high)/Number of periods)*100
+*** AroonDown = ((Number of periods - Number of periods since lowest low) / Number of periods)*100
+* Average True Range
+* Bandwith
+* Ease of Movement
+* Force Index
+* MACD
+* Price Channel
+* Relative Strength Index (RSI)
+* Fast Stochastic
+* Linear Regression
+* Money Flow Index
+* Rate of Change
+* William's Percent Range
+* Bollinger Bands
+** Study created by John Bollinger 
+** Plots upper and lower envelope bands around the price of the instrument 
+** Width of the bands is based on the standard deviation of the closing prices from a moving average of price
+** Formula:
+*** Middle Band = n-period moving average
+*** Upper Band = Middle Band + ( y * n-period standard deviation)
+*** Lower Band = Middle Band - ( y * n-period standard deviation)
+**** n = number of periods
+**** y = factor to apply to the standard deviation value, (typical default for y = 2)
+
+=== Additional Resources ===
+----[https://www.tradingtechnologies.com/help/x-study/technical-indicator-definitions/list-of-technical-indicators/ List of Technical Indicators]

@@ -1,0 +1,597 @@
+== Team Member ==
+Team Member: Katie Jooyoung Kim
+
+Email: jkim3581@gatech.edu
+
+My wiki structure is as follows: 
+* One entry per week
+* An entry contains a combination of
+** VIP meeting (i.e. class) notes
+** Lab notes
+** Sub-team meeting notes 
+** Personal Investigation
+** Action Items 
+While the VIP meeting and sub-team meeting notes are completed in accordance with the date, the lab and personal investigation notes will be updated whenever I have new insights. 
+
+== Jan 8th, 2020 (VIP Meeting) ==
+
+'''VIP Meeting Notes:'''
+* Lecture 1: Introduction to the VIP and Genetic Algorithms
+* Genetic algorithms consist of mating and mutation of individuals
+** Iterative algorithm, eventually produce the best individual 
+** Individuals evaluated with objective value
+** Goal is to increase or decrease the objective value through the evolutionary algorithm.
+** Selection probability is proportional to fitness value
+
+[[files/Objective_value.png]]
+
+'''Lab 1 class notes:'''
+* The fitness values that are used to evaluate the individuals are either a maximisation target or a minimisation target
+* We use a tuple for the weights argument in the above code
+'''Lab 1 personal notes:'''
+* N Queens mutation exercise:
+** I chose to shift the entire list to the right by a randomly chosen integer between 1 and n-1 with probability indpb (code below)
+[[files/Lab1.png|none|thumb|641x641px|Lab 1 N Queens mutation exercise]]
+'''Personal investigation:'''
+* Better understanding of PMX (Partially-Matched Crossover) [http://www.wardsystems.com/manuals/genehunter/crossover_of_enumerated_chromosomes.htm here].
+* Understand why we use a tuple in the above example
+** The reason for setting it as a tuple is revealed in the Multiple Objective Optimisation part
+** As we may have multiple objectives, we want an iterable
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 1
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|-
+|Go over Lab 1
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|-
+|Familiarise myself with the Wiki
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|-
+|Personal Investigation
+|Jan 8th, 2020
+|Jan 31st, 2020
+|Jan 22nd, 2020
+|}
+
+== Jan 15th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Lecture 2: Genetic Programming (subfield of genetic algorithms)
+* GP provides a population-based solution
+** The individual is a function 
+** Tournament selection with a smaller tournament size is better than a tournament with the entire population for preserving varied traits  
+** Fitness objective allows us to optimise the search space: we can use a tournament to select the best parents for the offspring 
+** The search space is the entire set of solutions (functions) that solve the problem in hand  
+
+* Tree representation
+** Each individual is represented as a tree with primitives (nodes) and terminals (leaves)
+** Terminals are the inputs to particular primitives
+** Individual is stored in memory as a pre-order tree 
+** ex. f(x) = 3*4 + 1 = [+, *, 3, 4, 1]
+* Crossover in GP: we can exchange the sub-trees
+* Mutation in GP: 
+** In GA, we only changed single genomes in the list, but in a GP tree, we don't have a fixed number of genomes
+** Hence, we can insert a node of sub-tree, remove a node or sub-tree, or change a single node 
+* Symbolic regression: register operators to the primitive set
+** In real analysis, we use polynomials as building blocks of a Taylor series 
+* The idea of EMADE is to add high-level Machine Learning functions as primitives to make the evolution process more powerful  
+'''Lab 2 personal notes:'''
+* gp.mutUniform used with gp.genFull mutates a tree by replacing a sub-tree with a randomly generated full tree 
+[[files/Lab2mutation.png|none|thumb|1204x1204px|Mutate tree by randomly choosing a node and inserting a sub-tree created with gp.genFull]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 2
+|Jan 15th, 2020
+|Jan 22nd, 2020
+|Jan 16th, 2020
+|-
+|Go over Lab 2
+|Jan 15th, 2020
+|Jan 22nd, 2020
+|Jan 22nd, 2020
+|}
+== Jan 22nd, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Lecture 3: Multiple Objective Optimisation
+** Pareto dominance: an individual is Pareto if there is no other individual in the population that outperforms the individual on all objectives 
+*** Pareto individuals form a Pareto frontier
+*** We want to favour Pareto individuals while still maintaining diversity by giving all individuals some probability of mating
+*** We want higher distance between Pareto individuals because we want algorithms from the more sparsely populated areas (maintain diversity)
+** False Negatives: Type I error, False Positives: Type II error
+** We try to minimise the FNR (False Negative Rate) and FPR (False Positive Rate) 
+** Sensitivity = TPR (True Positive Rate) = hit rate = recall, specificity = TNR 
+[[files/Lab3.png|none|thumb|510x510px|Area Under Curve exercise in Lab 3]]
+
+'''Lab 3 notes:''' 
+* AUC reduction exercise 
+** Toggled with mating and mutation rates 
+** Higher mating rate led to lower AUC 
+** Achieved 25% decrease in Area Under Curve with (mating probability, mutation probability) = (0.7, 0.3)  
+'''Personal investigation:''' 
+* Understand why a higher mating rate leads to lower AUC
+** We are using deap.algorithms.eaMuPlusLambda 
+** This algorithm performs only ONE of crossover, mutation or reproduction (documentation [https://deap.readthedocs.io/en/master/api/algo.html#deap.algorithms.varOr link]) 
+** Since the chosen mutation function randomly changes a sub-tree to a completely new sub-tree while the mating function combines individuals that have already been evolved to fit the objective value, it is more likely to have higher accuracy (and hence lower AUC) with a higher probability of mating than of mutating 
+* In biology:
+** Genotype is the genetic constitution of an individual organism (in the context of Automated Algorithm Design, the genomes)
+** Phenotype is the set of observable characteristics of an individual (in the context of Automated Algorithm Design, objective scores)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 3
+|Jan 22nd, 2020
+|Jan 29th, 2020
+|Jan 29th, 2020
+|-
+|Go over Lab 3
+|Jan 22nd, 2020
+|Jan 29th, 2020
+|Jan 29th, 2020
+|-
+|Personal Investigation
+|Jan 22nd, 2020
+|Feb 19th, 2020
+|Feb 12th, 2020
+|}
+
+== Jan 29th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Clustering
+** Find the closest cluster center from the data point for each data point  
+** Can give different results each time depending on the cluster centers  
+** Minimise variance around each center point  
+** We will not necessarily find the global solution (convergence to local minimum solution)  
+** Elbow method gives us a good idea of how many clusters we should use  
+* Team task for next week:
+** Using the Titanic dataset, try out different ML models to come up with a Pareto optimal set within the group   
+** Clean up data, engineer features, split the data into folds  
+'''Sub-Team Meeting Notes:'''
+* On the Titanic dataset, we decided to drop the columns Name, Ticket, Cabin, and Embarked 
+* We each chose a classification algorithm to apply on the dataset modified as above 
+* I chose the Random Forest classification algorithm, implemented via sklearn.ensemble.RandomForestClassifier 
+[[files/Randomforest.png|none|thumb|726x726px|Confusion Matrix results using the Random Forest classifier]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sub-team meeting 
+|Jan 29th, 2020
+|Feb 5th, 2020
+|Feb 1st, 2020
+|-
+|Create Pareto frontier set as a team
+|Jan 29th, 2020
+|Feb 5th, 2020
+|Feb 4th, 2020
+|}
+
+== Feb 5th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* 6 minute presentation next week (guidelines posted on GitHub)
+* This time, instead of using ML libraries, we will use multiple objective genetic programming (MOGP) to evolve a classifier
+* We cannot use any built-in DEAP algorithms
+* We submit one spreadsheet as a group, where
+** The columns each signify the prediction results of each Pareto individual
+** Aim to have at least 5 Pareto individuals 
+* In the presentation, we must
+** Discuss the feature creation process
+** Discuss the evolutionary loop that we came up with as a group
+** Performance of individual ML algorithms that we used
+** Analyse the trees that come out of multiple objective genetic programming 
+** Compare and contrast; make general comparisons of traditional ML methods with evolved classifiers
+* Team ideas: 
+** Use comparison operators as the primitives
+** Minimise percentage of FN and FP
+** Change all categorical variables to numeric values 
+'''Sub-Team Meeting Notes:'''
+* We use the features Age, Sex, SibSp, ParCh, Fare, and PClass   
+* Our primitive set contains the operators add, subtract, multiply, negative, greater, less, and square  
+* Whenever the tree returns a float result greater than 0, we take it that it has predicted 1 for survival, and otherwise it has predicted 0  
+* FP finds every position where our evaluation was greater than the true answer, and FN finds every position where our evaluation was smaller than the true answer  
+* We chose one-point crossover for the mating algorithm  
+* The mutation algorithm changes a subtree of an existing tree for a randomly generated full tree  
+* We chose higher mutation probabilities when one or both of the individuals are on the Pareto frontier  
+* Discussion
+** We have certain individuals on the Pareto frontier ending up with 0 FP/FN values
+** This indicates that some individuals have a strong preference towards predicting 1 or 0[[files/Pareto frontier fitness .png|none|thumb]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sub-team Meeting
+|Feb 5th, 2020
+|Feb 12th, 2020
+|Feb 10th, 2020
+|-
+|Create Pareto frontier as a team 
+|Feb 5th, 2020
+|Feb 12th, 2020
+|Feb 11th, 2020
+|}
+
+== Feb 12th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+*Sub-team presentations today 
+*Other groups differed from us in the following aspects: 
+**Using sin, cos, arctan, and sigmoid as primitives 
+**Using minimal Euclidean distance to origin as fitness scores 
+**Using alternative ML algorithms 
+**Using the name feature as well in the data cleaning process 
+** Passive aggressive ML algorithm
+** Using heatmap with survival rate to decide which features to use 
+** Combining features: define new feature family size = SibSp + ParCh
+*Once we put ML and MOGP together, we obtain EMADE 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare Presentation
+|Feb 10th, 2020
+|Feb 12th, 2020
+|Feb 12th, 2020
+|-
+|Investigate why individuals on Pareto frontier have 0 FP/FN
+|Feb 11th, 2020
+|Feb 12th, 2020
+|Feb 12th, 2020
+|-
+|In-class Presentation https://docs.google.com/presentation/d/1Ua2wgkX03OrGl3nXhy6C6K-CST-cDyyKyDBDAIvVCnQ/edit?usp=sharing
+|Feb 12th, 2020
+|Feb 12th, 2020
+|Feb 12th, 2020
+|-
+|Read passive aggressive algorithm article https://www.bonaccorso.eu/2017/10/06/ml-algorithms-addendum-passive-aggressive-algorithms/
+|Feb 12th, 2020
+|Feb 29th, 2020
+|Feb 29th, 2020
+|}
+== Feb 19th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+*EMADE: Evolutionary Multi-objective Algorithm Design Engine
+**Combines multi-objective evolutionary search with high-level primitives to automate the process of designing ML algorithms 
+
+*Input file is an XML document that configures all the moving parts in EMADE 
+*Evaluation specifies the maximum memory that a worker can consume 
+*workersPerHost recommended to be 2 or 3 
+*-w flag at end of command specifies that my computer runs as a worker 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete peer evaluations
+|Feb 19th, 2020
+|Feb 21st, 2020
+|Feb 19th, 2020
+|-
+|Configure EMADE
+|Feb 19th, 2020
+|Feb 29th, 2020
+|Feb 29th, 2020
+|}
+== Feb 29th, 2020 (VIP Hackathon) ==
+'''Hackathon Notes:'''
+*Spent most of the time trying to resolve Anaconda problems
+*Ended up re-installing on March 1st, managed to run EMADE afterwards 
+'''Personal Investigation:'''
+*Passive aggressive algorithm article (assigned as an action item on February 12th)
+**Online learning: 
+***Data becomes available in sequential order
+***Instead of learning on the entire training data set at once, we update the predictor when new data becomes available
+***Has the advantage that if the distribution that we draw the samples from changes, the coefficients will slowly be replaced
+***Algorithm has the capacity to "forget" what it has learned before 
+**Passive aggressive algorithm:
+***Samples can continue arriving for an indefinite amount of time
+***Given a weight vector, the prediction is simply the sign of the dot product between the weight vector and the observation (binary classification with labels +1, -1)
+***The task is to update the weight vector correctly
+***Use the Hinge loss function (one used by SVM)
+***Online algorithms must deal with the existence of noisy samples, which may deflect the weight variable disproportionately
+***If we keep having fluctuating samples, we may end up having a vector that just changes direction continuously 
+[[files/Master6824.png|none|thumb|522x522px|Output of running EMADE]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE
+|Feb 29th, 2020
+|Mar 4th, 2020
+|Mar 1st, 2020
+|-
+|Connect to team members' SQL
+|Feb 29th, 2020
+|Marh 9th, 2020
+|
+|}
+== Mar 4th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+*Series of commands to run to get EMADE running: 
+**reinstall.bat (if code has been modified)
+**python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+*Decided on group meeting March 5th 
+*Obtained Master/Worker results as follows 
+[[files/Master.png|none|thumb|665x665px|Master output]]
+[[files/Worker.png|none|thumb|874x874px|Worker output]]
+
+'''Sub-Team Meeting Notes:'''
+*Did not manage to connect to each other's MySQL servers
+*Decided to each run ~30 generations, then combine the results
+*In the presentation, I took charge of interpreting some of the trees that were generated
+*Tree 1: AdaBoostLearner(ARG0, learnerType('RandForest', {'n_estimators': 100, 'class_weight': 0, 'criterion': 0}), 0, 0.1)
+**FP, FN, NumEl: 15.6, 19.2, 14
+**AdaBoostLearner: 
+***ARG0: data pair that we are feeding in 
+***learnerType: Random Forest classifier 
+***0: number of estimators in ensemble, set to 50 when function is called 
+***0.1: shrinks contribution of each classifier (how much the new model in the current iteration contributes to the overall classifier)
+*Tree 2: myPlanckTaper(AdaBoostLearner(myTangentMath(ARG0, 0), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), falseBool, myIntAdd(150, 0)), passTriState(1), myIntToFloat(9)), 0.1, passTriState(1))
+**FP, FN, NumEl: 10.6, 21.6, 80
+**myPlanckTaper: signal transform method, changing float value to 0 or 1
+***AdaBoostLearner: 
+****myTangentMath(ARG0, 0)
+****ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), falseBool, myIntAdd(150, 0))
+*****learnerType: Boosting (GradientBoostingClassifier)
+*****falseBool: new value for the Boosting learnerType parameter
+*****myIntAdd(150, 0)
+****passTriState(1): stream to stream 
+****myIntToFloat(9)
+***0.1: epsilon parameter for the Planck-taper window function
+***passTriState(1):  stream to stream 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sub-team meeting 1
+|Mar 4th, 2020
+|Mar 5th, 2020
+|Mar 5th, 2020
+|-
+|Prepare presentation (Sub-team meeting 2)
+|Mar 4th, 2020
+|Mar 9th, 2020
+|Mar 7th, 2020
+|}
+
+== Mar 9th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+*Sub-team presentations 
+*Feedback: 
+**Our interpretation of the Planck-taper window was wrong; it is not used for binary selection (0/1), but rather for modifying the data after the AdaBoostLearner has been applied 
+*ADF team:
+**Based on statistical analysis, identify functions that could be added as primitives to improve upon the current primitive set 
+**Currently seems to be running only on the Titanic dataset 
+*NLP team:
+**IMDB movie reviews  
+**Using nltk, spacy, textblob 
+**For evaluating the Titanic classification problem, we use FN/FP as metrics, but for regression problems we should use the RMSE (root mean squared error)  
+*Research Fundamentals team: 
+**Bloat is when there is an increase in the mean program size without corresponding improvement in fitness 
+**Bloat control based on a bloat metric & control measures 
+**Punish individuals from highly populated species 
+**Punish species without modifying fitness 
+*ezCGP: 
+**3 steps: data augmentation, pre-processing, training 
+**CIFAR-10 dataset of images 
+**Automated data augmentation: creating new data by altering the existing one, goal is to have more training samples
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Take notes of existing sub-team presentations
+|Mar 9th, 2020
+|Mar 9th, 2020
+|Mar 9th, 2020
+|}
+
+== Mar 23rd, 2020 (VIP/Sub-Team Meeting) ==
+'''VIP Meeting Notes:'''
+*Joined ADF team ("Automatically Defined Functions")
+'''ADF Sub-Team Meeting Notes:'''
+*Bulk of code in emade.py
+*Input XML file
+**shouldUseAdfs boolean 
+*Seeding
+**Inserts a generation 0 from a text file into the database
+**Ensure that first generation that will be evaluated consist of valid individuals (instead of simply using random individuals)
+**Speeds up runs
+*Workers need to sinc with the updated primitives
+*Workers and Masters start working at the same time
+*No distinguishable difference bteween normal primitives and ADFs (except for the name)
+*GCP database 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sub-team logistics
+|Mar 23rd, 2020
+|Mar 30th, 2020
+|Mar 25th, 2020
+|}
+
+== Mar 30th, 2020 (Sub-Team Meeting) ==
+'''ADF Sub-Team Meeting Notes:'''
+*How we collect data: 
+**Using GCP and using local runs
+**Google Cloud Platform (GCP): dedicated database storage and computing resources
+*Collecting data from runs, then look at the analysis to see the impacts of ADFs
+*AUC as a metric
+*Are ADFs being used enough in the population, or just by one or two individuals?
+*EMADE-viz (separate fork) to collect AUC data
+*Project idea: Differential Fitness
+**Parent-child tracking necessary
+**Calculate differential fitnesses to implement them into ADF generation
+*Project idea: ADF-based selection methods
+*Project idea: ADFs that change
+*How are ADFs skewing the usage of primitives?
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get seeded run of the ADF sub-team fork running
+|Mar 30th, 2020
+|Apr 3rd, 2020
+|Apr 3rd, 2020
+|}
+
+== Apr 1st, 2020 & Apr 6th, 2020 (Project Team Meeting) ==
+'''Review of ADF Sub-Team Introductory Slides:'''
+*EMADE makes ML algorithms into primitives and optimises them using genetic algorithms
+**Check for individuals already in the database (seeding)
+**Creates new random individuals
+**Selects individuals to create the new generation (based on fitness score)
+**ADF DISCOVERY AND CREATION (adfs.py)
+**Mate and mutate selected individuals (master algorithm) 
+**New generation starts
+*DEAP is used to create the representation of each new individual as a primitive tree
+*Individual is inserted into database, updated in database as they are evaluated
+*Data type of an individual is a GP primitive type tree 
+*WAITING_FOR_MASTER is an individual waiting for the next generation
+*Learner methods: 
+**Takes EmadeDataPair (training and testing data) and a model
+**Fits model on training, tests on testing
+**If an individual has no learner, it is likely to be invalid
+**Modifiers help optimise learner hyperparameters
+'''Differential Fitness Project Team Meeting Notes:'''
+*Instead of checking whether the individual fitness is not infinite, we check if the differential fitness is positive (or above a certain threshold value)
+**This is to check whether there has been an improvement going from parent to child  
+*To calculate differential fitness, we must distinguish the parents from the children 
+**To find the parents, we return the parents' hashes based on the input hashes of the children 
+**Hashes act as the unique identifier of the individuals  
+*EMADE.py line 828: offspring list is final 
+*At the location where we generate the unique identifier, we will add an entry to the global dictionary
+**(key, val) = (child has, hash of parents) 
+*EMADE.py line 1101: pass in a reference to database
+**At this point, the parents are in the database, not the memory 
+**So we need to retrieve the data from the database to calculate the fitness 
+*adfs.py line 318: _find_adfs function
+**Iterate through each individual in the population to see if an individual is valid (i.e. has finite fitness) 
+**Check for common subtrees 
+**Check whether differential fitness is positive or not 
+**Edge cases: both parents invalid then valid child 
+***In this case, assign a specific value for the differential fitness 
+*Steps: 
+**1. Track parent-child individuals 
+**2. Query database to get the parents
+**3. Calculate the differential fitness given a child and its parents  
+*Child must have improved upon both its parents: 
+**In the case of False Positives and False Negatives, both metrics must be better than the better parent to have a positive differential fitness
+*Split of tasks: 
+**One person for tracking the parent-child relationships
+**One person querying the database
+**One person calculating the fitness (I was assigned with this task)
+*Minimisation: child fitness - parent fitness  
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review ADF Introductory Slides
+|Apr 1st, 2020
+|Apr 8th, 2020
+|Apr 1st, 2020
+|-
+|Project Team Meeting
+|Apr 1st, 2020
+|Apr 2nd, 2020
+|Apr 2nd, 2020
+|-
+|Finish coding differential fitness calculation function
+|Apr 6th, 2020
+|Apr 13th, 2020
+|Apr 13th, 2020
+|}
+== Apr 13th, 2020 (Sub-Team Meeting) ==
+'''Sub-Team Meeting Notes:'''
+*Finalisation of function calc_diff.py  
+[[files/Calc diff.png|none|thumb|1000x1000px|Function skeleton for calc_diff]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare for final presentation
+|Apr 13th, 2020
+|Apr 20th, 2020
+|Apr 19th, 2020
+|-
+|Complete peer evaluations
+|Apr 17th, 2020
+|Apr 22nd, 2020
+|Apr 20th, 2020
+|}
+
+== Apr 20th, 2020 (Sub-Team Meeting) ==
+'''VIP Meeting Notes'''
+
+'''ADF: my group :)'''
+
+'''Research Fundamentals:''' 
+* Goal is to eliminate bloat (increase in program size without improvement in fitness)
+* Alternative metrics to quantify bloat
+* Bloat control by
+** Initialising with small population
+** Increasing population through speciation 
+'''NLP 1:''' 
+* Toxicity dataset: imbalanced labels 0/1
+* Google Colab
+* remotemysql.com
+* Time constraints for runs on huge-scale datasets
+'''NLP 2:''' 
+* Summarising text
+* PACE
+* Named entities: more named entities leads to more information 
+* Term Frequency-Inverse Document Frequency: metric for determining relative importance of word
+'''EZCGP'''
+* Using CIFAR-10 dataset (collection of 60,000 colour images)
+* Attempt to add transfer learning: 
+* TensorFlow primitives

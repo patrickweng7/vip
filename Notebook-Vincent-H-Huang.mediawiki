@@ -1,0 +1,1323 @@
+<h2>Team Member Information</h2>
+
+<b>Name:</b> Vincent Huang<br>
+<b>Major:</b> CS, Math<br>
+<b>Contact:</b> vhuang31@gatech.edu<br>
+
+== Spring 2021 ==
+=== Week of April 26 ===
+* Worked on final presentation!
+Also updated the emade visualizations to work with the current objectives
+
+    def gen_pareto(objective1, objective2, schema):
+        def update(score):
+            is_dominated = False
+            dominates_one = False
+            has_twin = False
+            to_remove = []
+            for i, hofer in enumerate(paretofront):    # hofer = hall of famer
+                if not dominates_one and hofer[0] < score[0] and hofer[1] < score[1]:
+                    is_dominated = True
+                    break
+                elif hofer[0] > score[0] and hofer[1] > score[1]:
+                    dominates_one = True
+                    to_remove.append(i)
+                elif hofer[0] ==score[0] and hofer[1] == score[1]:
+                    has_twin = True
+                    break
+            for i in reversed(to_remove):       # Remove the dominated hofer
+                paretofront.remove(paretofront[i])
+            if not is_dominated and not has_twin:
+                paretofront.append(score)
+            paretofront.sort()
+        plt.clf()
+        mycursor.execute("SELECT DISTINCT evaluation_gen FROM individuals ORDER BY evaluation_gen DESC")
+        myresult = mycursor.fetchone()
+        final_year = myresult[0]
+        paretofront = []
+        mycursor.execute(f"SELECT `{objective1}`, `{objective2}` FROM {schema}.individuals WHERE (evaluation_status ='EVALUATED' OR evaluation_status ='WAITING_FOR_MASTER') AND evaluation_gen = '{final_year}'")
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            if result[0] != None and result[1] != None:
+                update(result)
+        paretofront.insert(0, [0, 1])
+        paretofront.append([1, 0])
+        x = [score[0] for score in paretofront]
+        y = [score[1] for score in paretofront]
+        plt.plot(x, y, '-', drawstyle='steps-post')
+        plt.axis([0, 1, 0, 1])
+        plt.xlabel(objective1)
+        plt.ylabel(objective2)
+        plt.title(f"{schema} generation {final_year}")
+        plt.draw()
+        print(f"{schema} generation {final_year} objectives {objective1}, {objective2} pareto front: \t\t{paretofront}")
+        plt.savefig(f'{schema}_{title}_{objective1}_{objective2}.png', bbox_inches='tight')
+        paretofront = []
+        plt.clf()
+        mycursor.execute(f"SELECT `{objective1}`, `{objective2}` FROM {schema}.individuals WHERE (evaluation_status ='EVALUATED' OR evaluation_status ='WAITING_FOR_MASTER')")
+        myresult = mycursor.fetchall()
+        for result in myresult:
+            if result[0] != None and result[1] != None:
+                update(result)
+        paretofront.insert(0, [0, 1])
+        paretofront.append([1, 0])
+        x = [score[0] for score in paretofront]
+        y = [score[1] for score in paretofront]
+        plt.plot(x, y, '-', drawstyle='steps-post')
+        plt.axis([0, 1, 0, 1])
+        plt.xlabel(objective1)
+        plt.ylabel(objective2)
+        plt.title(f"{schema} aggregated")
+        plt.draw()
+        print(f"{schema} aggregated objectives {objective1}, {objective2} pareto front: \t\t{paretofront}")
+        plt.savefig(f'{schema}_{title}_{objective1}_{objective2}.png', bbox_inches='tight')
+        plt.clf()
+    schemas = [
+        "mnist_baserun_1",
+        "mnist_baserun_2",
+        "mnist_baserun_4",
+        "mnist_old_4",
+        "mnist_old_5",
+        "mnist_old_6",
+        "mnist_new_4",
+        "mnist_new_8",
+        "mnist_new_9"
+    ]
+    objectives = [
+        "FullDataSet F1 Score",
+        "FullDataSet Cohen Kappa Score"
+    ]
+    for schema in schemas:
+        for i in range(len(objectives)):
+            for j in range(i+1, len(objectives)):
+                gen_pareto(objectives[i], objectives[j], schema)
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Work on final presentation
+|Complete
+|4/26/2021
+|4/27/2021
+|4/30/2021
+|-
+|Generate pareto front graphs
+|Complete
+|4/26/2021
+|4/27/2021
+|4/30/2021
+|}
+=== Week of April 19 ===
+* How to run Mnist
+** Checkout the mnist branch
+** The mnist dataset has been removed from the repo for size reasons, so need to re-download the dataset from the original EMADE repo
+** Open up MySQL workbench and connect to the database
+** Create a new schema using the button with the cylinder symbol
+** Update the input_mnist.xml file to have the correct databse/schema name, username, and password.
+** Run python src/GPFramework/seeding_from_file.py templates/input_mnist.xml seeding_mnist_benchmark
+** Run ./run_emade.sh templates/input_mnist.xml
+** We can then check the status of individuals within the database with SELECT * FROM schema_name.individuals;
+* Mnist runs analysis
+** Did 2 baseline mnist runs, so that we have data to compare to when we start running modularity changes on the mnist data set.
+** Ran each for 49 generations (There is a cap of 50 generations for EMADE, including generation 0)
+** Note during the last generation, there will be some individuals with status WAITING_FOR_MASTER, this is ok because they're the last generation and therefore they do not actually have to wait for the master to add them to the selection/mutation/etc pool, as there is no next generation.
+** For some reason, baseline runs of mnist tend to have few valid individuals compared to titanic.
+** However, my runs had a decent number of individuals. Not as many as Angela and Xufei's run, but more than my other teammates.
+*** This may have been caused by some having the exact same evaluation scores, meaning they're small variations on already valid individuals
+*** The same thing occurred with Angela's and Xufei's run, but to a more significant degree.
+** Example good non-seeded valid individuals
+*** Accuracy 0.8986: Learner(MySum(Cv2GreaterThan(ARG0, ARG0, passTriState(1), 3), 2, 0), learnerType(\'KNN\', {\'K\': 3, \'weights\': 0}, \'SINGLE\', None))
+*** Accuracy 0.8967: Learner(MySum(ScalarMultiply(ARG0, passTriState(passTriState(2)), 1, passFloat(10.0)), 2, 0), learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None))
+*** Accuracy 0.8894: Learner(MyProd(ARG0, 2, 0), learnerType('SVM', {'C': 1.0, 'kernel': 0}, 'SINGLE', None))
+
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Do mnist baseline runs
+|Complete
+|4/19/2021
+|4/25/2021
+|4/26/2021
+|}
+
+
+=== Week of April 12 ===
+* Worked again on documenting methods written
+    def generate_child_dict(self, individual, child_dict, next_dict, node_idx=0):
+    Given an individual, generates a "child" and "next" dictionary.
+    The child dictionary maps a node's index to a list the indicies of that node's children's indicies.
+    If a node has no children, then it will map to an empty list.
+    The next dictionary maps a node's index to the index of the "next" node in the preorder traversal.
+    Example:
+                   1
+                  / \
+                 2   5
+                /\
+               3  4
+    node 1: child = [2, 5] next = 6
+    node 2: child = [3, 4] next = 5
+    node 3: child = []     next = 4
+    node 4: child = []     next = 5
+    Args:
+        individual The individual to generate child and next dicts for
+        child_dict The dictionary to store the child dict in (pass by reference). Should be empty on intital call.
+        next_dict The dictionary to store the next dict in (pass by reference). Should be empty on intial call.
+        node_idx The root node index. Should be 0 on initial call.
+    Returns:
+        The next index of the current node.
+    Todo:
+        rename method to reflect it also generates a next_dict. (Maybe generate_child_next_dicts() ?)
+* Expressed interest in expanding current implementation to trees of greater than depth 2, but will wait for current implementation and experiments to finish before moving forward.
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Continue documentation on methods
+|Complete
+|4/12/2021
+|4/17/2021
+|4/19/2021
+|-
+|Update name of generate_child_dict (blocked by experiments, don't want to make any changes which may introduce bugs)
+|Incomplete
+|3/12/2021
+|
+|
+|}
+
+=== Week of April 5 ===
+* Added the following snippet of code to search_individual
+    #ignore depth 0 trees (0th node's local arity is 0)
+    if node_subtree[0][1] == 0:
+        continue
+* This fixes a bug caused as a consequence of the previous week's work
+** Because we now add to the dictionary outside of the search_all_subtrees method, we no longer have a way to stub the additional of small subtrees which we do not want
+** This is because we need the small subtrees within the return of the recursive call in order to build upon them to form smaller trees
+** However, because of last week's change, this now means that small subtrees are now being added to the dictionary
+** This can be hot-fixed by simply checking if the tree had depth 0, but ideally it should not be within the return value at all
+** Note that this should be fixed by rewriting the code such that it only needs to be called once on the root
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Fix bugs within the find subtrees process
+|Complete
+|3/29/2021
+|4/1/2021
+|4/5/2021
+|}
+
+=== Week of March 29 ===
+* Moved the following snippet of code from inside of the add_all_subtrees method into search_individual.
+    for node_subtree in node_subtrees:
+    # use node[0:2] to cut off the third element, which is the node arity in the original
+        node_subtree_tuple = tuple(tuple(node[0:4]) for node in node_subtree)
+        print(f"{node_subtree_tuple}")
+        if node_subtree_tuple not in dictionary:
+            init_value = self.evaluate(node_subtree_tuple, individual)
+            dictionary[node_subtree_tuple] = [init_value, (node_idx, individual_id)]
+        else:
+            dictionary[node_subtree_tuple] = dictionary[node_subtree_tuple] + [(node_idx, individual_id)]
+            dictionary[node_subtree_tuple][0] += self.evaluate(node_subtree_tuple, individual)
+* This code was responsible for actually adding the subtrees to the dictionary, but since we call the method on all nodes of the subtree, there exists a scenario where the same subtree may be added multiple times to the dictionary.
+** This bug doesn't manifest itself until we move to > 3 depth subtrees though, and because we are currently only doing depth 1 and 2 subtrees, it will only present itself in future work.
+** Suppose we have a tree with root, child, grandchild and we are using depth 3.
+** When running on the root, we add the child-grandchild subtree to the dictionary.
+** However, when we run the method again on the child, this will then cause the child-grandchild subtree to be added to the dictionary again.
+* Therefore the code should be moved into search_individual and run only once at the very end of the method.
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Fix bugs within the find subtrees process
+|Complete
+|3/22/2021
+|3/27/2021
+|3/29/2021
+|}
+
+=== Week of March 15 ===
+
+* Worked on midterm presentation!
+** Created the following image to better explain the add_all_subtrees method
+[[files/Add all subtrees example.png|thumb]]
+
+* Psuedo code for the method:
+
+    add_all_subtrees(node, dict):
+        children_subtrees = [add_all_subtrees(child, dict) for each child]
+        subtrees = []
+        for num_child_combo from 0 -> num_children:
+            for child_combo in combinations(children_subtrees, num_child_combo):
+                expanded_combos = [combo + child_subtree
+                                    for combo in child_combo
+                                    for child_subtree in child_subtrees]
+                for expanded_combo in expanded combos:
+                    node_app_combo = node + expanded_combo
+                    dict.add(node_app_combo)
+                    subtrees.append(node_app_combo)
+        return subtrees
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Work on midterm presentation
+|Complete
+|3/15/2021
+|3/16/2021
+|3/22/2021
+|}
+
+=== Week of March 8 ===
+
+* Had trouble testing my changes
+** Turns out the cause was some cached items, we need to run bash reinstall (very important!!!) in order for any changes to take place.
+** The first run will make changes fine, but simply running launchEMADE again will not introduce the changes
+** This can also be fixed by running the ./run_emade script, which automatically runs bash reinstall and then launchEMADE
+* Added the implementation of the node_idx parameter, which allows us to control which node of the individual we start on, by index. 
+** This means that we need the index of the next node we want to generate subtrees for, so changed child_dict to also generate a next_dict for convenience.
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Work on midterm presentation
+|Complete
+|3/15/2021
+|3/16/2021
+|3/22/2021
+|-
+|Finish implementation of add_all_subtrees
+|Complete
+|3/15/2021
+|3/16/2021
+|3/22/2021
+|}
+
+=== Week of March 1 ===
+
+        # Example
+        # Each node is represented as (node name, number of children)
+        # Note that in this case node name is a number, but in actuality it'll be the name of the function the node is
+        #
+        #                   (1, 3)
+        #        /            |            \
+        #     (2, 2)        (3, 2)        (4, 0)
+        #    /     \       /      \
+        # (5, 0) (6, 0) (7, 0) (8, 0)
+        #
+        # Now suppose that we are calling add_all_subtrees on the root (1, 3)
+        #
+        # children subtrees should be
+        # [
+        #     [[(2, 0)], [(2, 1), (5, 0)], [(2, 1), (6, 0)], [(2, 2), (5, 0), (6, 0)]], #subtree root 2
+        #     [[(3, 0)], [(3, 1), (7, 0)], [(3, 1), (8, 0)], [(3, 2), (7, 0), (8, 0)]], #subtree root 3
+        #     [[(4, 0)]]                                                                #subtree root 4
+        # ]
+        #
+        # combinations(children_subtrees, subtree_root_num_children) should be
+        # subtree_root_num_children = 0
+        # [[]]
+        #
+        # subtree_root_num_children = 1
+        # [[subtree root 2], [subtree root 3], [subtree root 4]]
+        #
+        # subtree_root_num_children = 2
+        # [[subtree root 2, subtree root 3], [subtree root 2, subtree root 4], [subtree root 3, subtree root 4]]
+        #
+        # subtree_root_num_children = 3
+        # [[subtree root 2, subtree root 3, subtree root 4]]
+        print(f"begin expanding children")
+        for subtree_root_num_children in range(0, node.arity):
+            # As an example, suppose child_subtrees_combination = [subtree root 2, subtree root 3]
+            # child_subtrees_combinations_combinations pre-loop:
+            # [[]]
+            #
+            # child_subtrees_combinations_combinations after child_subtrees = subtree root 2:
+            # [
+            #     [(2, 0)],
+            #     [(2, 1), (5, 0)],
+            #     [(2, 1), (6, 0)],
+            #     [(2, 2), (5, 0), (6, 0)]
+            # ]
+            #
+            # child_subtrees_combinations_combinations after child_subtrees = subtree root 3:
+            # [
+            #     [(2, 0), (3, 0)],
+            #     [(2, 0), (3, 1), (7, 0)],
+            #     [(2, 0), (3, 1), (8, 0)],
+            #     [(2, 0), (3, 2), (7, 0), (8, 0)],
+            #
+            #     [(2, 1), (5, 0), (3, 0)],
+            #     [(2, 1), (5, 0), (3, 1), (7, 0)],
+            #     [(2, 1), (5, 0), (3, 1), (8, 0)],
+            #     [(2, 1), (5, 0), (3, 2), (7, 0), (8, 0)],
+            #
+            #     [(2, 1), (6, 0), (3, 0)],
+            #     [(2, 1), (6, 0), (3, 1), (7, 0)],
+            #     [(2, 1), (6, 0), (3, 1), (8, 0)],
+            #     [(2, 1), (6, 0), (3, 2), (7, 0), (8, 0)],
+            #
+            #     [(2, 2), (5, 0), (6, 0), (3, 0)],
+            #     [(2, 2), (5, 0), (6, 0), (3, 1), (7, 0)],
+            #     [(2, 2), (5, 0), (6, 0), (3, 1), (8, 0)],
+            #     [(2, 2), (5, 0), (6, 0), (3, 2), (7, 0), (8, 0)]
+            # ]
+            for child_subtrees_combination in combinations(children_subtrees, subtree_root_num_children):
+                child_subtrees_combinations_combinations = [[]]
+                # suppose we currently have child_subtrees = subtree root 3
+                # and child_subtrees_combinations_combinations currently looks like
+                # [
+                #     [(2, 0)],
+                #     [(2, 1), (5, 0)],
+                #     [(2, 1), (6, 0)],
+                #     [(2, 2), (5, 0), (6, 0)]
+                # ]
+                for child_subtrees in child_subtrees_combination:
+                    # suppose curr_child_subtrees_combination = [(2, 1), (5, 0)]
+                    # and suppose child_subtree = [(3, 1), (7, 0)]
+                    # then curr_child_subtrees_combination + child_subtree = [(2, 1), (5, 0), (3, 1), (7, 0)]
+
+                    new_child_subtrees_combinations_combinations = [
+                        [curr_child_subtrees_combination + child_subtree for child_subtree in child_subtrees]
+                        for curr_child_subtrees_combination in child_subtrees_combinations_combinations
+                    ]
+                    child_subtrees_combinations_combinations = new_child_subtrees_combinations_combinations
+                # now we simply prepend (node.name, subtree_root_num_children) to each child_subtrees_combinations_combination
+                # then we can append it to the node_subtrees
+                for child_subtrees_combinations_combination in child_subtrees_combinations_combinations:
+                    child_subtrees_combinations_combination.insert(0, (node.name, subtree_root_num_children))
+                node_subtrees += child_subtrees_combinations_combinations
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Continue implementing the add_all_subtrees method
+|Complete
+|2/21/2021
+|3/7/2021
+|3/12/2021
+|}
+
+=== Week of February 22 ===
+
+==== Work Notes: ====
+* Task: write the add_all_subtrees method
+* Method description
+** This method finds all possible subtree arl candidates (of depth between 1 and N) and adds them to the dictionary 
+** We can determine leaf nodes via arity == 0 
+** Note that when adding to the dictionary, the key to the entry is the subtree, so an entry may look like
+*** [(node1.name, 1, 2), (node2.name, 3), node3.name, node4.name] 
+*** The numbers in the tuple is the undex for the child within the tree 
+** If the key does not exist, then the value can be initialized to [evaluate(subtree, individual), place where the subtree exists] 
+** Otherwise, we may update the existing value by adding evaluate(subtree, individual) to value[0] and appending the result to the end of the current entry.  {| class="wikitable" !Task !Status !Assigned Date !Due Date !Date Completed |- |Implementing the add_all_subtrees method |Incomplete |2/21/2021 |3/7/2021 | |- |Update documentation for add_all_subtrees |Complete |2/21/2021 |3/7/2021 |2/27/2021 |}
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Implement the add_all_subtrees method
+|Complete
+|2/21/2021
+|3/7/2021
+|3/12/2021
+|-
+|Update documentation for add_all_subtrees
+|Complete
+|2/21/2021
+|3/7/2021
+|3/12/2021
+|}
+
+=== Week of February 15 ===
+
+==== Meeting Notes: ====
+* ADFs are selected based on differential fitness (the difference between the child's and parent's fitness)
+* There are also other methods of selecting ARLs, like based on frequency and size.
+* It should be noted that updating the ARL selection method and modifying the maximum depth are intertwined
+* Therefore it makes little sense to modify them independently
+
+==== Work Notes: ====
+* Updated documentation for _get_best_adfs
+
+    Given a dictionary of potential adf candidates from the population, selects the best candidates via the _generate_adf method.
+    The non-duplicate candidates are then converted into lambda functions before being given a unique name as an identifier and returned.
+    Args:
+    populationInfo:  dictionary containing information about the parent children combinations
+    size: The maximum number of ARLs to be selected. Note that duplicates and ARLs which cannot be converted to lambdas will count towards this limit, but not included in the returned set.
+    Returns:
+    Set of ARLs to be added to the primitive set. They will be in the following tuple format:
+    (executable lambda function, flat input type list, return type, root node, children node, function string)
+
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Continue reading papers for better understanding of ARLs
+|Complete
+|2/8/2021
+|2/21/2021
+|2/21/2021
+|-
+|Find range of depths that ARLs are most commonly created with
+|Complete
+|2/8/2021
+|2/21/2021
+|2/21/2021
+|-
+|Install and learn how to use Sphinx
+|Complete
+|2/15/2021
+|2/21/2021
+|2/21/2021
+|-
+|Update documentation for ADF method
+|Complete
+|2/15/2021
+|2/21/2021
+|2/21/2021
+|}
+=== Week of February 8 ===
+
+==== Meeting Notes: ====
+* EMADE codebase overview
+** adfs.py
+*** Contains most of the ADF team's work
+** sql_connection_orm_xxx.py
+*** Functions for inserting and retrieving ARLs into the database
+** xxx_methods.py
+*** Most likely contains functions related to primitives, such as signal_methods.py, operating_methods.py, spacial_methods.py, etc
+** data.py
+*** describes how data is made, stored, and represented
+*** important when working with new datasets
+*** EmadeDataPair contains the training and testing data
+*** all ARLs must take in and output an EmadeDataPair
+** EMADE.py
+*** contains the main functions of EMADE, including mating, mutation, etc
+** database_tree_evaluator.py, standalone_tree_evaluator.py
+*** Used to evaluate a singular individual without needing to mess with the database
+* Current ADF implementation overview
+** update_representation
+*** called in EMADE.py after selection, calls all the other functions needed for adf
+** __find_adfs
+*** finds the nodes to be converted into an arl.
+*** searches the individual and calculates all possible candidates.
+** __find_best_adfs
+*** Selects the best adfs from the list of candidates.
+*** More research is needed into defining what makes an ARL good
+*** currently, we generate arls based on how frequently a candidate appears in the individual.
+** _generate_adf
+*** actually creates the adf
+*** Currently makes 3 arls per generation
+** ARL naming schema
+*** Learner is the root node
+*** names are nested, so adf_adf_Learner_1_3 is a nested adf where adf id 1 is contained within 3
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Continue reading papers for better understanding of ARLs
+|Complete
+|2/8/2021
+|2/21/2021
+|2/21/2021
+|-
+|Find range of depths that ARLs are most commonly created with
+|Complete
+|2/8/2021
+|2/21/2021
+|2/21/2021
+|}
+=== Week of February 1 ===
+
+==== Meeting Notes: ====
+* Summary of [https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.152.9427&rep=rep1&type=pdf A Brief Overview of Population Diversity Measures in Genetic Programming]
+**The paper discusses several metrics used in the literature for measuring population diversity
+**The first category is edit-distance based measures, wherein nodes of individuals are directly compared in order to compute a distance between individuals. For example, one such edit-distance metric measures the number of substitutions, insertions, and deletions needed to transform one tree to another.
+**The second category is space mapping distance, wherein genotypes of a population are mapped onto a plane, and the smallest rectangle containing all points is computed.
+**The third category compares subtrees of individuals in order to determine similarity. One such technique involves calculating the difference between the union and intersection of two individuals.
+**Less commonly used measures include history diversity, wherein the parents of individuals are tracked, and the distance between individuals is given by how distant their common ancestor is
+**The last measure discussed suggests using entropy in order to measure the disorder of the population.
+*Although I had initially mentioned measuring population diversity over time, and had also read a paper on it, I believe that it's more important to continue developing the ARL architecture.
+**In particular, I feel that increasing the depth of ARLs past one might bring more significant changes, so I would like to work on that
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Find and read relevant papers for ideas
+|Complete
+|2/1/2021
+|2/8/2021
+|2/7/2021
+|-
+|Update summary of paper on group page
+|Complete
+|2/1/2021
+|2/8/2021
+|2/7/2021
+|}
+<h2>Fall 2020</h2>
+
+=== Week 16: December 2 ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Do the final presentation!
+|Complete
+|12/2/2020
+|12/2/2020
+|12/2/2020
+|-
+|Update and finalize notebook
+|Complete
+|12/2/2020
+|12/3/2020
+|12/2/2020
+|}
+
+=== Week 15: November 25 ===
+
+==== Meeting Notes: ====
+* First semester students should brainstorm and research potential topics for next semester and will give their findings during the final presentation
+
+==== Work Notes: ====
+* Began brainstorming future work and improvement tasks for next semester 
+* Updating the modularity fork of EMADE to the latest version and pulling the latest Cache V2 changes in seemed interesting, but it looks like Cache V2 is still being actively being worked on, so it might be best to avoid that task for now.
+* Ultimately decided on researching methods of evaluating diversity over time
+** This issue ultimately encompasses several other important issues that were suggested to work on
+** This would help us identify if individuals in the final generation were too similar to each other, allowing us to tell if our search space was restricted too much
+** Evaluating diversity over time would also allow us to quantify the effects of seeding vs not seeding runs on the search space
+** Lastly, it would also give us insight into how giving preference to individuals with ARLs in them affects our population's diversity
+* Looked into techniques and papers regarding measuring diversity for genetic programming
+** For NSGA II, we typically use the crowding distance of an individual and give preference to those with higher crowding distances
+*** Can use use this as an evaluation of diversity? Average crowding distance probably won't work, but perhaps some other metric of crowding distance will. More research is required. 
+** "A brief overview of population diversity measures in genetic programming." (2006) by Hien and Nguyen
+*** https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.152.9427&rep=rep1&type=pdf 
+** "Diversity in Genetic Programming: An Analysis of Measures and Correlation With Fitness." (2004) by Burke, Gustafson, and Kendall
+*** https://www.researchgate.net/publication/3418773_Diversity_in_Genetic_Programming_An_Analysis_of_Measures_and_Correlation_With_Fitness 
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Brainstorm potential future work for next semester
+|Complete
+|11/25/2020
+|12/2/2020
+|11/28/2020
+|-
+|Look into and find existing research and/or resources for future work
+|Complete
+|11/25/2020
+|12/2/2020
+|11/28/2020
+|-
+|Add slides and prepare script for final presentation
+|Complete
+|11/25/2020
+|12/2/2020
+|11/28/2020
+|}
+
+  [[files/AltSelectionAUC.png|thumb]]
+
+[[files/AltSelectionPVal.png|thumb]]
+
+=== Week 14: November 18 ===
+
+==== Meeting Notes: ====
+* We have tools which help us visualize and analyze run data
+* The AUC over time graph compares the AUC of each run with the standard deviation displayed as a vertical bar, and the overlapping regions displayed as purple
+** This graph can be useful for evaluating the deviation of each run as time progresses.
+** For example, in the graph to the right we can see that the deviation increases as time passes, showing that individuals are becoming more varied
+** This also allows us to see how much the two runs have in common.
+** If the two bars are completely separate, then most likely something significant has occurred
+* The P values over time graph has a red line showing the threshold for statistical significance
+** This threshold is arbitrary, but most commonly is set to 5% or 1%
+** The P value represents the percentage chance that a result is due to random chance
+** We want a low value in order to achieve statistical significance
+==== Work Notes: ====
+* Joined a New Selection run as a worker on Google Collab and ran for roughly 19 hours 
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Join the New Selection EMADE run as a worker process
+|Complete
+|11/18/2020
+|11/25/2020
+|11/20/2020
+|-
+|Learn more about analysis tools
+|Complete
+|11/18/2020
+|11/25/2020
+|11/20/2020
+|}
+
+=== Week 13: November 11 ===
+==== Work Notes: ====
+* Joined a New Selection run as a worker on Google Collab and ran for roughly 22 hours 
+* When attempting to do a local run of EMADE, encountered an error regarding <code>ModuleNotFoundError: No module named 'registry_helper'</code>
+** Doing a bash reinstall fixed the error, although other group members attempted to do the same and it did not fix the error for them. 
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Join the New Selection EMADE run as a worker process
+|Complete
+|11/11/2020
+|11/18/2020
+|11/16/2020
+|}
+
+=== Week 12: November 4 ===
+
+==== Meeting Notes: ====
+* We can use google collab in order to facilitate working together
+** Manually copy EMADE into a google drive
+*** Note that non-titanic data sets can be omitted, as the files are relatively large and the team is currently only using the titanic dataset
+** Edit the XML input files as needed in order to connect to the master process
+*** The only thing that should need to be modified is the database schema name, as the IP/user/pass should remain the same
+** If running the master process, make sure to seed. Otherwise, workers do not need to run the seeding script
+** Also if doing a master process, you will need to create a new schema for each new run.
+** If joining as a worker process don't forget to include the -w flag for the run
+** Copy and paste the refresh script into console (This prevent google collab form timing out)
+*** Code taken from https://stackoverflow.com/questions/54057011/google-colab-session-timeout
+ function ClickConnect(){
+     document.querySelector("#top-toolbar > colab-connect-button").shadowRoot.querySelector("#connect").click()
+ }
+ <code>setInterval(ClickConnect,60000)</code>
+
+==== Work Notes: ====
+* Joined a Differential Fitness run as a worker on Google Collab successfully and ran for roughly 16 hours
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Try out an EMADE run using Google Collab 
+|Complete
+|11/4/2020
+|11/11/2020
+|11/6/2020
+|-
+|Join the DiffFitness EMADE run as a worker process through Collab
+|Complete
+|11/4/2020
+|11/11/2020
+|11/6/2020
+|}
+
+=== Week 11: October 28 ===
+
+==== Meeting Notes: ====
+* Seeding runs
+** Without seeding, EMADE randomly generates individuals and it can take a long time to randomly generate a valid individual from scratch
+** Seeding a run will populate the database with given individuals 
+*** Usually these individuals are things we know will be valid and perform well, such as established ML models like Neural networks, Random forest, etc
+*** It should be noted that the default seeding individuals may vay, depending on the dataset being used. For datasets such as MNIST, the titanic seeds should not be used.
+*** Furthermore, seeding MUST be done with the reuse flag on, or else EMADE will clear the database of the seeded individuals.
+** In order to do a seeded run, run the following command
+***   <code>python src/GPFramework/seeding_from_file.py templates/[template file] [seeding file]</code>
+
+==== Work Notes: ====
+* I have a windows computer, but usually do my work in a linux ubuntu subsystem for convenience's sake.
+* However, it should be noted that if students have a setup similar to mine, WSL ubuntu does not support opening GUIs, so installing MySQL workbench in that environment will be difficult.
+* A workaround is to simply install MySQL Workbench for windows
+** If the run is being performed locally, we can connect to the linux subsystem through windows
+** https://stackoverflow.com/questions/54377052/how-to-connect-to-wsl-mysql-from-host-windows
+** The ADF subteam uses an external AWS server, so we can connect to that just fine.
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Clone the Modularity fork of EMADE  
+|Complete
+|10/28/2020
+|11/4/2020
+|10/31/2020
+|-
+|Perform a seeded run of EMADE
+|Complete
+|10/28/2020
+|11/4/2020
+|10/31/2020
+|-
+|Install MySQL Workbench
+|Complete
+|10/28/2020
+|11/4/2020
+|10/31/2020
+|}
+
+=== Week 9: October 14 ===
+[[files/3dpareto fall2020.png|thumb|3D visualization of EMADE individuals]]
+
+==== Work Notes: ====
+* Network connection to peers for EMADE worker processes
+** Initially tried connecting through personal routers, but had difficulty doing so.
+*** This may have been caused by firewall issues and portforwarding, which we weren't able to figure out
+** Then tried using Cisco anyconnect VPN to connect to each other, which also did not work
+*** Professor Zutty suggested that we may have been using the incorrect external IP address
+** Finally ended up using google cloud, which was successful
+* Worked on visualizing EMADE results into 3D pareto front of tree size, false positives, and false negatives
+** The graph itself was fairly difficult to interpret, given 3D scatter plots are inherently hard to view on a 2d plane
+** Also tried adding red triangulation between dominant individuals, but that made the graph even harder to read.
+[[files/3dparetohighlighted fall2020.png|thumb|3D visualization of EMADE individuals, with red triangulation between dominant individuals]]
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|View results of EMADE and create graphics
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|-
+|Complete a run of EMADE over the network
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|}
+
+=== Week 8: October 7 ===
+
+==== Meeting Notes: ====
+* Errors regarding <code>selTournamentDCD: Individuals length must be a multiple of 4</code> are caused by DEAP, reverting to DEAP v1.2.2 fixes this issue
+
+==== Work Notes: ====
+* Helped teammates configuring EMADE to run locally
+* Modify <code>templates/input_titanic.xml</code> to match the following information
+* Note that username and password are arbitrary, but they must match with the db username and password
+    <dbConfig>
+        <server>localhost</server>
+        <username>root</username>
+        <password>password</password>
+        <database>titanic</database>
+        <reuse>1</reuse>
+    </dbConfig>
+* Open up the mysql console using <code>sudo mysql</code>
+** If it prompts you for a password, enter in your computer's password
+* Create the titanic database using <code>CREATE DATABASE titanic;</code>
+* Create the root user (or whatever you used for the username) <code>CREATE USER 'root'@'localhost' IDENTIFIED BY 'password';</code>
+* Grant the root user all permissions <code>GRANT ALL PRIVILEGES ON * . * TO 'root'@'localhost';</code>
+** Alternatively, the following command may work for granting root all permissions on all databases <code>GRANT ALL PRIVILEGES ON * . * TO 'root'@'%';</code>
+* Refresh permissions <code>FLUSH PRIVILEGES;</code>
+* Quit the mysql console
+* To perform a run of EMADE, use the following command: <code>python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml</code>
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|View results of EMADE and create graphics
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|-
+|Complete a run of EMADE over the network
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|}
+
+=== Week 7: September 30 ===
+
+==== Work Notes: ====
+* Worked with the team for installing EMADE
+* Encountered problems in the following areas:
+** Verifying if MySql was working correctly
+** Connecting to peers for master and worker threads
+** Understanding and interpreting the results of EMADE
+* The team has scheduled a help desk meeting to hopefully work through these problems
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete a run of EMADE locally
+|Complete
+|9/30/2020
+|10/14/2020
+|10/3/2020
+|-
+|View results of EMADE and create graphics
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|-
+|Complete a run of EMADE over the network
+|Complete
+|9/30/2020
+|10/14/2020
+|10/14/2020
+|}
+
+=== Week 6: September 23 ===
+
+==== Meeting Notes ====
+* We presented our group's findings and results and I believe the presentation went fairly well
+** I personally presented the data preprocessing and ML algorithms section
+* Points for improvement that Dr Zutty commented on (for both our presentation and other groups' presentations)
+** When converting non-numeric values into numerical ones, make sure to use one hot encoding to ensure there is no implicit bias
+*** Example: A, B, C -> 0, 1, 2 implies that B is "closer" to C than A is.
+** celTournament only optimizes for a single objective, so this selection operator will cause results to be biased towards one objective if using multiobjective programming
+** NSGA II is deterministic, performs truncation after performing NSGA II sort.
+*** Solution would be to apply a binary tournament after NSGA II sort
+** For pareto front, make sure that (1.0, 0) and (0, 1.0) are included to make sure AUC is bounded correctly
+* An interesting approach was creating a "Hall of Fame" which was comprised of the pareto front of the previous generation and giving them a improved chance of winning in the tournament. 
+
+==== Work Notes ====
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Install EMADE
+|Complete
+|9/23/2020
+|9/30/2020
+|9/27/2020
+|}
+
+=== Week 5: September 16 ===
+
+==== Meeting Notes ====
+* Presentation guidelines
+** Make sure names of contributors is on slide
+** Title and date of presentation
+** Graphs, especially Pareto front graph and fitness over time graphs
+*** Title for overall graph and axis
+*** Readable size font
+** Include code and technical details since this is a technical presentation
+*** Should be able to stand on its own without the actual presentation
+** Page numbers so commenters can reference the exact slide
+** Include Takeaway and conclusion slides
+
+==== Work Notes ====
+* Primarily worked on ML algorithm visualization and presentation slides
+** Used matplotlib to graph the pareto front
+*** Highlighted the dominant individuals in red
+*** Other non-dominant individual models were in blue
+*** Made sure to include the trivial solutions of (1, 0) and (0, 1)
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Implement MOGP for titanic data set
+|Complete
+|9/16/2020
+|9/23/2020
+|9/19/2020
+|-
+|Visualize results of MOGP
+|Complete
+|9/16/2020
+|9/23/2020
+|9/20/2020
+|-
+|Visualize results of ML models for comparison
+|Complete
+|9/16/2020
+|9/23/2020
+|9/21/2020
+|-
+|Work on Presentation
+|Complete
+|9/16/2020
+|9/23/2020
+|9/22/2020
+|-
+|Create csv with results of each model
+|Complete
+|9/16/2020
+|9/23/2020
+|9/23/2020
+|}
+
+=== Week 4: September 9 ===
+
+==== Meeting Notes ====
+* Main meeting
+** Discussed how to use Kaggle and some basic machine learning algorithms within the example notebook
+* Subteam meeting
+** Set up contact information (using groupme)
+** Discussed data preprocessing and cleaning
+*** Dropped the Name, Ticket, and Cabin columns, as we felt they weren't accurate predictors of survival.
+*** Used the PassengerId as the index for the rows
+*** Implemented the Deck modification idea found here: https://www.kaggle.com/gunesevitan/titanic-advanced-feature-engineering-tutorial/data#1.-Exploratory-Data-Analysis
+**** Grouped certain decks together based on physical proximity
+**** Filled in NaN values with a default "Missing" value
+*** For missing values, we used the median for the Age, the mean for the Fare, and the mode for the Embarked columns
+*** Discussed using KFold cross validation to improve variance
+
+==== Work Notes ====
+* Decision Tree and Random Forest used the example notebook's training and testing data, which was created via <code>train_test_split</code>
+
+* Cross validation via K Fold
+** The main challenge in using cross validation was caused by using the passenger id as the index.
+*** Because sklearn's KFold method returns a list of indices for training and testing, we could not directly plug in these indices.
+*** This was solved by keeping the passengerId as a separate list and instead using the KFold indices on that list.
+*** Luckily, it seems like all passengers were assigned an ID so we did not have to deal with that
+** Another challenge was dealing with the different data types (python list, numpy array, pandas DataFrame)
+*** This was solved by simply casting everything to a numpy array.
+** I tried n_splits of 5, 7, 10, and 20 and found that using 10 tended to produce the best results
+** For each fold, I fit and scored the data 5 times and took the average in an attempt to iron out any random inconsistencies.
+** I then took the fold with the highest accuracy and used the corresponding model trained with that data to run on the final test data for the online submission
+** It should be noted that the numbers for True/False Positive/Negative are much lower, since K Fold tests on 1/10th of the data, as opposed to 1/3rd for <code>train_test_split</code>
+** Strangely, using cross validation did not seem to improve the results for the online submission. However, in the first place there was only a 5% difference for the local improvements, so this could be explained as due to good/bad luck.
+{| class="wikitable"
+!Model
+!Local Prediction Accuracy
+!Online Submission Accuracy
+!True Positive
+!True Negative
+!False Positive
+!False Negative
+|-
+|Decision Tree
+|.75
+|.727
+|71
+|151
+|40
+|33
+|-
+|Random Forest
+|.81
+|.744
+|80
+|161
+|30
+|24
+|-
+|Random Forest with Cross Validation
+|.86
+|.741
+|26
+|50
+|9
+|4
+|}
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Subteam meeting logistics
+|Complete
+|9/9/2020
+|9/16/2020
+|9/9/2020
+|-
+|Apply KFold cross validation and report results
+|Complete
+|9/10/2020
+|9/16/2020
+|9/12/2020
+|-
+|Use Decision Trees and Random Forests to predict survivability
+|Complete
+|9/10/2020
+|9/16/2020
+|9/12/2020
+|-
+|Double check with team to ensure codominance
+|Complete
+|9/10/2020
+|9/16/2020
+|9/15/2020
+|}
+
+=== Week 3: September 2 ===
+
+==== Meeting Notes ====
+* Classification Measures
+** We have a data set with positive and negative samples
+** We feed that data into a classifier which produces 4 types of result
+{| class="wikitable"
+!
+!Prediction: positive
+!Prediction: negative
+|-
+!Actual: positive
+|True positive
+|False negative (Type II error)
+|-
+!Actual: negative
+|False positive (Type I error)
+|True negative
+|}
+* Maximization Measures (we want to maximize these)
+** True positive rate (sensitivity) = True positive / Actual positive
+** True negative rate (specificity) = True negative / Actual negative
+** Precision = True positive / Positive prediction
+** Negative predictive value = True negative / Negative prediction
+** Accuracy = (True positive + True negative) / All samples
+* Minimization Measures (we want to minimize these)
+** False positive rate = 1 - True negative rate
+** False negative rate = 1 - True positive rate
+** False discovery rate = 1 - Precision
+** Error = 1 - Accuracy
+* [[files/Pareto frontier example.png|thumb|example Pareto frontier]]Objective space
+** Each individual is evaluated using objective function (examples above)
+** Each objective score can be visualized as a point in the objective space
+** This can also be referred to as the phenotype of the individual
+** An individual is Pareto (optimal) if there does not exist another individual which outperforms the individual on all objectives
+** The set of all Pareto individuals is known as the Pareto Frontier (or the non-dominated frontier)
+
+* Nondominated Sorting Genetic Algorithm (NSGA II)
+** Population is separated into nondominated ranks
+** The initial Pareto frontier becomes rank 0
+** Then, we remove the points on the Pareto frontier and find the new Pareto frontier and classify it into a new rank
+** We continue this process until all points are ranked
+** We can then use tournament selection with these ranks to select individuals
+** To break ties within the same rank, we can use the crowding distance
+*** Summation of normalized Euclidian distances to all points within the frontier
+*** Higher crowding distance wins because we want individuals which are in sparser areas to win
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** Each individual is given a strength S, where S = number of individuals which that particular individual dominates.
+** Rank each individual by the number of individuals that dominate it.
+** Once again, we select individuals with the lowest rank
+** Instead of crowding distance, we calculate the distance to the kth nearest neighbor and use R + 1/(distance_k + 2)
+** This also rewards sparsely populated individuals
+
+==== Work Notes ====
+* Initial observations and performance
+** The original algorithm quickly reduced mean square error (blue and green lines) to 0, but the tree size continuously increased (read and orange lines).
+** This was not good because we are trying to minimize the tree size, and neither the minimum nor the average seems to be consistently decreasing.
+** Looking at the Pareto Front, the original algorithm didn't seem to have a bias for tree size[[files/Multiobjovertimebefore.png|none|thumb|Original performance over generations for multi-objective function.]] [[files/Multiobjparetobefore.png|none|thumb|Original Pareto frontier]]
+* Modifications
+** In an attempt to reduce the tree size, I change the mutation function to mutShrink.  While this didn't actually help (it actually made it worse), it did greatly reduce the mean squared error for smaller tree sizes, resulting in a smaller area under the pareto front curve.
+** I also made minor adjustments to the eaMuPlusLambda function, such as increasing lambda to 200 and mutation probability to .2
+** Observations I made was that the new individuals tended to heavily favor the sin primitive.  For example, the best performing individual for generation 50 was:  <code>subtract(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(sin(x)))))))))))))))), sin(sin(sin(sin(sin(x))))))</code>
+** I believe this strange behavior (along with several others) may have been caused by the evaluation function, which randomly generates numbers between -1 and 1.  There are quite many functions which look similar within that domain, so constricting the generated points to such a small area may have caused some weirdness.
+[[files/Multiobjovertimeafter.png|none|thumb|Performance over time of the modified algorithm
+]]
+[[files/Multiobjparetoafter.png|none|thumb|Pareto Frontier of modified algorithm]]
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete Lab 2
+|Complete
+|9/2/2020
+|9/9/2020
+|9/5/2020
+|-
+|Email prof Zutty with skill levels
+|Complete
+|9/2/2020
+|9/9/2020
+|9/2/2020
+|}
+
+=== Week 2: August 26 ===
+[[files/Tree Example.png|thumb|example tree]]
+
+==== Meeting Notes ====
+[[files/Crossover using trees.png|thumb|crossover]]
+*Genetic Programming: Instead of taking an individual and evaluating it, we now have the individual as a function which takes in data and outputs data which will then be evaluated.
+* Tree Representation: Represent the individual as a tree structure.
+** Nodes are called "primitives"
+*** Represent functions such as +, *, - , /, ^, root, sin, cos, tan, etc
+** Leaves are called "terminals"
+*** Represent parameters such as integers, variables, etc
+** The output is produced at the root of the tree
+* Lisp Preordered Parse Tree
+**The tree is parsed like a DFS, (ie, bottom-up, left to right)
+**In the displayed example, the parsed function would be x - ((x * (x * x)) / (3 * 2))  and the parsed list would be [-, x, /, *, x, *, x, x, *, 3, 2]
+*Details of Genetic Programming using Tree Representation
+**Cross-over is done through swapping subtrees
+**Mutation can be done through
+***Addition of nodes/subtrees
+***Deletion of nodes/subtrees
+***Modification of node values
+
+==== Work Notes ====
+* Definition: arity- The number of parameters a specific function has
+* Adding primitives
+** I initially added the power and divide operations, because they were common operators and would complete the set of "basic operators" (in addition to addition, subtraction, multiplication that we already had).  However, these operators did not work. Divide did not work because of divide by 0 errors, and power would not accept fractional exponents because of the potential to generate imaginary numbers.
+** My final selection would be the square and absolute value functions.
+* Mutation function[[files/Lab2improvedtreegp.png|thumb|improved results]]
+** I decided to use the mutNodeReplacement function, which replaces a random primitive with another.
+** I believe this mutation function performed slightly better than the originally chosen one, although it was hard to tell.
+* Performance notes
+** In my final improvements, I decided to remove the absolute value function from the list of primitives. It didn't contribute to improving the algorithm, and it may have slowed it down because the individuals had a larger selection of primitives to try out.
+** I also removed the maximum line from the graph. Because I included the square function, results could sometimes get very very large, and it made the average and minimum impossible to see clearly.
+** Regarding min and max number of primitives for the tree depth, I decided to keep it at 0 and 1. I found that increasing the max would also increase the number of generations needed to reach the 0 solution.
+** Compared to the original which usually got the optimal solution in around 10 generations, my improvements would usually achieve the optimum solution in 7 generations.
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete first half of Lab 2
+|Complete
+|8/26/2020
+|9/2/2020
+|8/27/2020
+|}
+<h3>Week 1: August 19</h3>
+
+==== Meeting Notes ====
+Definitions:
+* Genetic algorithm: created through mating/mutation of individuals in the previous population, evaluated through the fitness function.
+* Individual: Specific candidate in the population, a solution to your problem
+* Population: group of individuals
+* Objective The value used to characterize individuals that you are trying to optimize
+* Fitness: An evaluation which is used for a relative comparison to other individuals
+* Evaluation: a function which computes the objective for an individual
+* Fitness Proportionate Selection: Randomly pick individuals, where the greater the fitness value, the greater the chance of selecting that individual
+* Tournament Selection: Randomly pick groups of individuals to compete against one another and select the winner
+* Mating: Select random features from multiple individuals to create a new individual
+* Mutate: introduces random mutations within an individual in order to maintain diversity
+The genetic algorithm overview:
+# Randomly initialize population
+# Determine fitness of population
+# Select parents from population
+# Perform crossover on parents to create new population
+# Perform mutation of population
+# Determine fitness of population
+# Repeat steps 3 through 7 until an individual which meets the minimum requirements in created.
+
+==== Work Notes ====
+* Set up development environment successfully
+** Installed on WSL1 ubunutu
+** Encountered minor problem when installing git-lfs, but issue [https://github.com/git-lfs/git-lfs/issues/3964] says there shouldn't be any problems.
+** TODO: still need to install MySQL server
+* Lab 1
+** Custom mutation function
+*** Initially implemented a shift mutation function, but quickly realized that shifting a n-queens solution doesn't affect the number of conflicts.
+*** Instead implemented a geometric distribution swap function.  Randomly swapped indices a number of times, where the number of swaps was determined by a geometric distribution.  Depending on the indpb, this mutation algorithm could be biased towards a smaller number of swaps, instead of always swapping n times.   However, it was difficult to determine if using this mutation function was any better/worse than the initially provided one.
+**Adjusting parameters in order to minimize generations needed to achieve passing solution
+***Lowering mutation rate greatly improved the number of generations needed
+***A non-zero mutation rate is still needed, since sometimes the solutions would get "stuck" in a valley and wouldn't improve further
+***Found that a middling mating rate was best, too low or two high would slow down the convergence
+***Final values were .7 mate chance and .1 mutation chance
+***Using that values relatively consistently achieved the 0 conflicts solution around generation 20, as opposed to around generation 40 using the initial parameters.
+**Questions
+***Is it possible to run an evolutionary algorithm on an evolutionary algorithm?
+****We would be trying to minimize the number of generations it takes for minimum fitness
+****Input parameters would be mate chance and mutation chance
+****Evaluation function would run the algorithm x times (say 100) and take the average time it takes to achieve 0 solution
+****Maybe introduce a heavy penalty if algorithm doesn't ever achieve 0 solution to value consistent algorithms
+
+[[files/Vhuang31 lab1 nqueens example run with updated parameters.png|thumb|left|Example run with updated parameters]]
+<br><br><br><br><br><br><br><br><br><br><br><br>
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Create Notebook
+|Complete
+|8/19/2020
+|8/26/2020
+|8/21/2020
+|-
+|Join Slack
+|Complete
+|8/19/2020
+|8/26/2020
+|8/19/2020
+|-
+|Set up development environment
+|Complete
+|8/19/2020
+|8/26/2020
+|8/21/2020
+|-
+|Complete Lab 1
+|Complete
+|8/19/2020
+|8/26/2020
+|8/21/2020
+|}

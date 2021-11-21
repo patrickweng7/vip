@@ -1,0 +1,227 @@
+== Jan 8th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Introduction to VIP program
+* Lecture 1: Genetic Algorithms
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 1
+|Done
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|-
+|Lab 1
+|Done
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|-
+|Make Wiki Notebook
+|Done
+|Jan 8th, 2020
+|Jan 15th, 2020
+|Jan 15th, 2020
+|}
+
+== Jan 15th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Lecture 2: Genetic Programming
+** Same as Genetic Algorithms except Mating and Mutation are different due to change in representation of genome of individuals
+** Uses graphs: tree structure
+** Nodes --Primitives (+,-,*,%)
+** Leaves - Terminals
+** Instead of evaluating genome, the genome tree itself is the function/evaluation
+** Mutations, many ways to mutate individuals: change primitive function of a node, randomly generate a tree and insert it into the genome tree, delete a tree and move its children up etc.
+* DEAP
+** Primitive function set
+** Arity: number of inputs to a primitive function in the Primitive function set
+* Symbolic Regression
+** y = sin(x)
+** Primitive set: +, -, *, /, !, exp (exponents)
+** Terminals: x, constants
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 2
+|Done
+|Jan 15th, 2020
+|Jan 22nd, 2020
+|Jan 22th, 2020
+|-
+|Lab 2 (Part I)
+|Done
+|Jan 15th, 2020
+|Jan 22nd, 2020
+|Jan 22th, 2020
+|}
+
+== Jan 22nd, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Lecture 3: Multiple Objectives
+** Gene Pool: set of genome to be evaluated during the current generation\
+*** Genome: Genotypic description of an individual analogous to DNA
+*** Search Space: set of all possible genomes (Important to consider as it may affect how many generations we should run for and whether we need to add more primitives
+** Evaluation: A function that takes in an individual (as a set of parameters in GA or a string in GP) and maps each individual to a set of scores based on objectives we want to maximize or minimize
+*** Some examples of these scores include True Positives (TP) and False Positives (FP)
+*** Objectives: The set of measurements against which each individual is scored against
+*** Phenotype
+** Objective Space: Set of objectives
+** Evaluation is essentially a function from the Search Space to the Objective Space (the phenotype description of each genome in the search space
+** Classification Measures: Confusion Matrix
+** Maximization Measures:
+*** Sensitivity/True Positive Rate (TPR): TPR = TP/P = TP/(TP + FN)
+**** Also known as hit rate or recall
+*** Specificity (SPC) or True Negative Rate (TNR): TNR = TN/N = TN/(TN + FP)
+** Minimization Measures:
+*** False Negative Rate (FNR): FNR = FN/P = FN/(TP + FN) = 1 - TPR
+*** Fallout or False Positive Rate (FPR): FPR = FP/N = FP/(TN + FP) = 1 - TNR
+** Other Measures:
+*** (Want to maximize) Precision of Positive Predictive Value (PPV): PPV = TP/(TP + FP)
+*** (Want to minimize) False Discovery Rate (FDR): FDR = FP/(TP + FP) = 1 - PPV
+*** (Want to maximize) Negative Predictive Value (NPV): NPV = TN/(TN + FN)
+*** (Want to maximize) Accuracy (ACC): ACC = (TP + TN)/(P + N) = (TP + TN)/(TP + TN + FP + FN)
+** Fitness Computation
+*** Objective Space: Each individual is evaluated using objective functions including mean squared error, cost, complexity, TPR, TNR etc.
+*** The Objective score calculated for each individual can be used to map each individual to a point in the Objective Space (Phenotype of the individual)
+** Pareto Optimality:
+*** An individual is Pareto if there is no other individual that outperforms it in '''all''' objectives
+*** The set of Pareto individuals forms the Pareto Frontier
+*** Selection favors Pareto individuals but is able to maintain diversity by giving all individuals some chance of mating
+** Non-Dominated Sorting Genetic Algorithm II (NSGA ||)
+*** Population separated into non-domination ranks where the lower ranked non-domination frontier individuals dominate all individuals in higher ranked frontiers
+*** Individuals Selected using binary tournament
+*** Ties on any given front are broken using crowding distance
+**** Crowding Distance: Summation of normalized Euclidean distances to all points within the front
+**** The higher crowding distance individual wins the tie
+** Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+*** Each Individual possesses a strength ''S'': the number of individuals in the population the given individual dominates
+*** Each Individual possess a rank ''R'': R is the sum of the ''strength'' ''S'' 's of the individuals that dominate the given individual
+*** The distance to the k<sup>th</sup> nearest neighboring individual (σ<sup>k</sup>) is calculated to obtain fitness: R + 1/ (σ<sup>k</sup> + 2)
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Lecture 3
+|Done
+|Jan 22th, 2020
+|Jan 29th, 2020
+|Jan 29th, 2020
+|-
+|Lab 2 (Part II)
+|Done
+|Jan 22th, 2020
+|Jan 29th, 2020
+|Jan 29th, 2020
+|}
+
+== Jan 29th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Introduction to Kaggle and Titanic Machine Learning problem
+* Scikit-learning libraries
+* Formed sub-teams
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set Meeting Time 
+|Done
+|Jan 29th, 2020
+|Feb 5th, 2020
+|Jan 29th, 2020
+|-
+|Titanic ML Part I
+|Done
+|Jan 22th, 2020
+|Feb 5th, 2020
+|Jan 22th, 2020
+|}
+
+== Jan 31st, 2020 (Sub-Team Meeting) ==
+'''Sub-Team Meeting Notes:'''
+* Discussed plans for Titanic ML assignment
+* Discussed different algorithms using Scikit-learn
+* Ran into issues with importing scikit-learn/sklearn
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn GitHub 
+|Done
+|Jan 31st, 2020
+|Feb 5th, 2020
+|Feb 5th, 2020
+|-
+|Fix Import Issue
+|Done
+|Jan 31st, 2020
+|Feb 5th, 2020
+|Feb 5th, 2020
+|}
+
+== Feb 5th, 2020 (VIP Meeting) ==
+'''VIP Meeting Notes:'''
+* Introduction to part II of Titanic ML problem
+* Presentation tips
+feature creation process
+
+performance of individual machine 
+
+analyze tree out of multiple objective
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set Meeting Time 
+|Done
+|Jan 29th, 2020
+|Feb 5th, 2020
+|Jan 29th, 2020
+|-
+|Titanic ML Part II
+|Done
+|Jan 22th, 2020
+|Feb 5th, 2020
+|Feb 5th, 2020
+|}
+
+Titanic ML presentation notes:
+
+Every group had their own unique way of cleaning data
+
+NSGAII due to lots of crowding
+
+Different crossover and mutation rates didn't change much
+
+ML vs GP:
+
+ML: 3
+
+GP: 2

@@ -1,0 +1,1245 @@
+== Team Member ==
+
+Team Member: Napa (Tan) Vananupong
+
+Email: tanvana@gatech.edu
+
+
+Interests: ezGCP, jobs in Seattle
+
+
+
+
+
+
+
+
+= Spring 2020 =
+
+== Jan 6, 2020 ==
+'''Team Meeting Notes:'''
+* The ezCGP team is going to be looking at how different primitives and implementing multiprocessing on CPUs affects certain measurable variables: such as speed, fitness, and diversity.
+* We talked about what the team did last semester, where they achieved CPU parallelization but it was quite slow for neural networks, which is an area that can be improved upon this semester with multiple CPUs because last semester it was running on a single CPU.
+* The ezCGP team is looking into splitting up the team into at least 2 subteams, one focusing on multiple CPUs and one focusing on the implementation of new primitives from the CIFAR-10 paper: https://arxiv.org/pdf/1704.00764.pdf?fbclid=IwAR1a_ozAzRo7MYYCFvUFQ79Pc8uwAbooquUUqmwxsJIVyqNRyn5kXHgRlUk
+* Semester Goals: 
+** 1. ezCGP paper
+** 2. Implement new primitives from the top CIFAR10 papers
+** 3. Get working on multiple gpuâ€™s
+** 4. Statistically significant results as we change infrastructure
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get onto ezCGP github on gatech.github acc and also personal account as I will be pushing to both simultaneously.
+|Completed
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 11, 2020
+|-
+|Divide into subteams
+|Completed 
+|Jan 6, 2020
+|Jan 6, 2020
+|Jan 11, 2020
+|-
+|Read through the ezGCP design document and install appropriate things
+|Completed
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 11, 2020
+|-
+|Read the CIFAR-10 paper
+|In Progress 
+|Jan 6, 2020
+|Jan 11, 2020
+|
+|-
+|}
+
+
+== Jan 11, 2020 ==
+'''Team Meeting Notes:'''
+* The ezCGP team talked about what to work on from last semester and some errors they ran into last semester, including a deepcopy error (duplicates of individuals in a population) and failure to pass hyperparameters and arguments.
+* The ezCGP team is adopting usage of ZenHub where when we have an issue, this is the posting/naming format:  [Team Name] Task Name
+* This is the branch naming convention of the ezCGP team:
+*insert pic idk how rn*
+
+* We split up into 3 groups, or 'subteams', being:
+** Multi Processing on GPU
+Goal is to get image processing + classification evaluating faster
+
+** Primitive Enhancement
+Goal is to get better accuracy
+
+** Classical Problem -> tabled for a few weeks until new students brought on board
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Installation of ezCGP files from design document
+|Completed : Everything running smoothly except when I tried to conda install --file requirements.txt and I get this error: Solving environment: failed with initial frozen solve. Retrying with flexible solve.
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - tensorflow-gpu==1.12.0
+
+Which I resolved by commenting out (in requirements.txt) : 
+* commnet out this one -> #tensorflow-gpu==1.12.0         # choose this to run on an environment for PACE ICE GPU 
+* and uncommenting this line instead: tensorflow==1.12.0            # choose this to run on a separate environment for CPU only
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 13, 2020
+|-
+|Make a new branch and try to simultaneously push to both the gatech.edu github and the personal (public) github to see if the remote origin instruction lines work properly
+|In Progress
+|Jan 6, 2020
+|Jan 11, 2020
+|
+|-
+|Read the CIFAR-10 paper
+|In Progress 
+|Jan 6, 2020
+|Jan 11, 2020
+|
+|-
+|}
+
+== Jan 13, 2020 ==
+'''Team Meeting Notes:'''
+* Gave scrum meeting talking about overview of Saturday's meeting, the subteams, the problems we will be looking at, and the variables we are looking to measure.
+* Rod gave new students an overview and lesson of ezCGP: *insert ppt* 
+* We went over cartesian programming and the data structures i.e genomes, nodes, activated vs deactivated nodes.
+* We went over all the main files in the ezGCP folder and what they contain, what they do
+* Went over how to make a genome, how to tell which nodes are activated or deactivated, how to write function and use the inputs and outputs. 
+* insert pic of the board
+*insert pic idk how rn*
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a new branch and try to simultaneously push to both the gatech.edu github and the personal (public) github to see if the remote origin instruction lines work properly
+|In Progress
+|Jan 6, 2020
+|Jan 11, 2020
+|
+|-
+|Read the CIFAR-10 paper
+|Completed
+|Jan 6, 2020
+|Jan 11, 2020
+| Jan 13, 2020
+|-
+|Go through the code and ezCGP files to understand our lesson
+|In Progress
+|Jan 13, 2020
+| -
+| Jan 25, 2020
+|-
+|}
+
+
+== Jan 20, 2020 ==
+* MLK holiday so we did not meet as a class
+
+== Jan 18, 2020 ==
+'''Team Meeting Notes:'''
+* Planned to dos for next week to start on: problem as class not dict
+* Create diagram for code and relations
+* We went over the structure of an open dict and its parts i.e keys (functions, args, inputs) and values (strings, int, whatever data type of output).
+* Talked about block class and what changes should be made, notes made on whiteboard attached below
+* insert pic of the board
+*insert pic idk how rn*
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a new branch and try to simultaneously push to both the gatech.edu github and the personal (public) github to see if the remote origin instruction lines work properly
+|In Progress
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 26, 2020
+|-
+|Create diagram for next version of the code to show objects and their respective relationships
+|In Progress
+|Jan 18, 2020
+|Jan 25, 2020
+| 
+|-
+|Go through the code and ezCGP files to understand our lesson
+|In Progress
+|Jan 13, 2020
+| Jan 18, 2020
+| Jan 25, 2020
+|-
+|}
+== Jan 25, 2020 ==
+'''Team Meeting Notes:'''
+* how do i insert pics omg
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a new branch and try to simultaneously push to both the gatech.edu github and the personal (public) github to see if the remote origin instruction lines work properly
+|In Progress
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 26, 2020
+|-
+|Go through the code and ezCGP files to understand our lesson
+|Completed
+|Jan 13, 2020
+|Jan 18, 2020
+|Jan 25, 2020
+|-
+|}
+
+== Jan 27, 2020 ==
+'''Team Meeting Notes:'''
+* Mr. Rodd went over the important classes and code we would have to understand and work on, mainly the block class and the genome class, to understand what is a block and what is a genome.
+* *insert pics of whiteboard lesson*
+* how do i insert pics omg *insert pic of notes of tensorflow and how to build nn in notebook*
+* Learning Tensorflow and how to build a neural net and layers with: https://pythonprogramming.net/tensorflow-introduction-machine-learning-tutorial/
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a new branch and try to simultaneously push to both the gatech.edu github and the personal (public) github to see if the remote origin instruction lines work properly
+|Completed
+|Jan 6, 2020
+|Jan 11, 2020
+|Jan 26, 2020
+|-
+|Learn/Review Tensorflow version 1.0 (1.12) 
+|In Progress
+|Jan 27, 2020
+|Feb 1, 2020
+|
+|-
+|}
+
+== Feb 1, 2020 ==
+'''Team Meeting Notes:'''
+* Sam taught us the basics of how to make a primitive and went over it on the whiteboard *insert pics* basically got the gist of where to make the primitive (operators.py) where to test if it works (with problem.py and tester.py, adjusting the parameters and layers tested as needed)
+* Given papers to read and choose primitives from if there was a primitive we wanted to implement in the papers  * *
+* Was assigned primitives to implement on github issues: https://github.com/ezCGP/ezCGP/issues
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn/Review Tensorflow version 1.0 (1.12) 
+|In Progress
+|Jan 27, 2020
+|Feb 1, 2020
+|Feb 3, 2020
+|-
+|Go through code and implement a primitive to subtract tensors
+|In Progress
+|Feb 1, 2020
+|Feb 3, 2020
+|
+|-
+|}
+
+== Feb 3, 2020 ==
+'''Team Meeting Notes:'''
+* Regular meeting where I continued individual work on my primitives
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go through code and implement a primitive to subtract tensors
+|In Progress
+|Feb 1, 2020
+|Feb 3, 2020
+|
+|-
+|}
+
+== Feb 9, 2020 ==
+'''Team Meeting Notes:'''
+* Finished the subtraction primitive and pushed to github successfully: https://github.com/ezCGP/ezCGP/issues/41
+* Resolved the github issue I was having earlier on Monday
+* Was assigned new task of making the subtraction primitive work with Dense Layer as at the moment it was only designed for Conv Layer, so I need to make it work with 1D inputs in addition to the 2D inputs it currently works with: https://github.com/ezCGP/ezCGP/issues/45
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go through code and implement a primitive to subtract tensors
+|Completed
+|Feb 1, 2020
+|Feb 3, 2020
+|Feb 9, 2020
+|-
+|Fix subtraction primitive in Operators.py to work with Dense Layers (1D inputs)
+|In Progress
+|Feb 9, 2020
+|
+|
+|-
+|}
+
+== Feb 10, 2020 ==
+'''Team Meeting Notes:'''
+* After this new assignment we will all be working on our own part for the presentation deliverables. The idea is that Henry, Ford, and I will run our own primitives and test the different layers to compare the fitness etc of the individuals after going through each layer to test if that layer is very 'essential' and what works better with what.
+* Working on new task (assigned yesterday) of making the subtraction primitive work with Dense Layer as at the moment it was only designed for Conv Layer, so I need to make it work with 1D inputs in addition to the 2D inputs it currently works with: https://github.com/ezCGP/ezCGP/issues/45
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+
+|Fix subtraction primitive in Operators.py to work with Dense Layers (1D inputs)
+|In Progress
+|Feb 9, 2020
+|Feb 10, 2020
+|
+|-
+|}
+== Feb 15, 2020 ==
+'''Team Meeting Notes:'''
+* Finished fixing the subtraction primitive to work on dense layer (https://github.com/ezCGP/ezCGP/issues/45)
+* Assigned a new issue: https://github.com/ezCGP/ezCGP/issues/59, where we (me and Ford and Henry) will do different runs (differing parameters) on the new primitives to check fitness, accuracy, and then combining all our results so we can run a t-test to check for any significance in our findings.
+* Set up PACE and File Zilla to edit the files and run on pace, otherwise if you don't have file zilla you will just have to use VIM to edit each time. Turns out File Zilla is not compatible with my MAC OS (Sierra) so I cant download it during this class because I have to go home and run a software update on my laptop which takes a while.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install file zilla and set up PACE and learn to use it
+|In Progress - (see issue w file zilla above)
+|Feb 15, 2020
+|
+|
+|-
+|Run Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to.
+|In Progress
+|Feb 15, 2020
+|
+|
+|-
+|}
+== Feb 17, 2020 ==
+'''Team Meeting Notes:'''
+* So it turns out File Zilla is not compatible with my version of Mac OS so I will need to upgrade to Catalina (was on Sierra). This took about a day and another day to fix all the path issues along with other issues that came with the upgrade. Anaconda had to be re-routed and changed several things so the environments I already had would still work (this information - the issue and the fix - can be found on Stack Overflow). Would totally recommend to never upgrade to Catalina because Chrome and various other applications crash often. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install file zilla and set up PACE and learn to use it
+|In Progress - (see issue w file zilla above)
+|Feb 15, 2020
+|Feb 16,2020
+|Feb 17,2020
+|-
+|Run Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to.
+|In Progress
+|Feb 15, 2020
+|Feb 17, 2020
+|
+|-
+|}
+== Feb 22, 2020 ==
+*Due to being away for a job interview in NYC, was undable to meet in person but I started one run last week which has completed. One run takes about ... a day.. like 24 hours? Very long wait.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to.
+|Completed (1 run)
+|Feb 15, 2020
+|Feb 16,2020
+|Feb 22,2020
+|-
+|}
+
+== Feb 24, 2020 ==
+'''Team Meeting Notes:'''
+* Was caught up with last saturday's meeting where Ford and Henry ran their respective runs and ran into a few issues that have now been fixed - i.e you have to change the email address or else you wont get notified when pace is working or done, it will notify sam instead. I also ran my run last week so we compared results and it turns out we didn't run enough generations in our 8 hour alotted period. Ford Lascari was able to get 9 generations, but that is mainly because adding the flatten layer killed many individuals early on. To reduce the run_time of individual.evaluate we are going to change some global parameters: 
+* 1. Change epochs to 5 instead of 10 in problem.py. An epoch is a pass over the data. Less passes over the data will mean more generations before we run out of time
+* 2. add a batch_size keyword paramater to TrainingBlock in problem.py and change the batch_size from the default 128 to 256
+* The other subteam debugged evolutionary code and made a new dataset class.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run NEW Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to WITH the new changes listed above, scrapping the last runs.
+|In Progress
+|Feb 24, 2020
+|
+|
+|-
+|}
+== Feb 29, 2020 ==
+'''Team Meeting Notes:'''
+* Hackathon with the whole VIP.
+* PACE is down... this is a huge problem for Ford and Henry and I because we can't do our runs without it as it requires huge CPU power. Trying to come up with alternatives if it doesn't work again by Monday. So far I have 1 run down but we wanted 3.
+* Besides ^ our issue, Tensorflow is changing to 2.0 and all the stuff we currently have is no longer going to work because its on version 1.12. Therefore we will have to change everything (fix/tweak) in the code to work with the new framework. The entire class time is spent with the leaders of the group going over the aforementioned changes and also new classes to be implemented with some disagreements.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run NEW Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to WITH the new changes listed above, scrapping the last runs.
+|In Progress
+|Feb 24, 2020
+| Feb 27, 2020
+| Feb 27, 2020
+|-
+|}
+
+== March 2, 2020 ==
+'''Team Meeting Notes:'''
+* PACE is still down! Since each run takes a long time and the presentation is already coming up next monday and we need to allow time for putting together results and statistics and graphs and the presentation, we have decided that if PACE still doesn't work by Wednesday we will use the alternative method of running it on google something *forgot what its called fill in later* or use Trai's computer?
+* UPDATED INFORMATION ABOUT RUNS
+-we are going to exclude the res_block in order to save time. That means comment it out from utils/training_block.py.
+-If pace isn't working by Thursday we will use colab and ask Trai for help.
+* Everyone working on their respective assignment for presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run NEW Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to WITH the new changes listed above, scrapping the last runs.
+|In Progress
+|Feb 24, 2020
+| Feb 27, 2020
+| 
+|-
+|}
+== March 7, 2020 (and March 8) ==
+'''Team Meeting Notes:'''
+* PACE works again but we have made some changes to the runs to make it in time for the presentation on Monday.
+*We are going to change the number of evolutionary runs from 3 to 2 and increase the number of generations for each run. This means that afer the pbs script finishes we can run it again and it will continue from where it left off.
+*To recap, each run has its own folder (i.e benchmark_runs/run1). For each run folder we are running the pbs script 2 times, one after the other. This means that if you see the "Wall Limit Reached" thing, just run the PBS script again Sam has code which starts the run back from where it left off. We want to do two runs, meaning that we need two run folders.
+*Summary of what we've done: I ran evolutionary runs without any new primitives so we can get a baseline, Ford added the flatten and the dense primitives for a separate run, and Henry added mutatable activations. We are meeting again tomorrow to put everything together (t test, combine results, create graphs, etc). 
+*insert to do from board*
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run NEW Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to WITH the new changes listed above, scrapping the last runs.
+|Completed
+|Feb 24, 2020
+| Feb 27, 2020
+| March 7, 2020
+|-
+|Presentation deliverables of slides and information research to back up the points made too
+|Completed
+|Feb 27, 2020
+| March 7, 2020
+| March 8, 2020
+|-
+|}
+== March 9, 2020 ==
+'''Team Meeting Notes:'''
+*Team Presentations
+* My part: Me and Henry ran two evolutionary runs with identical parameters except his has Mutatable parameters and mine did not so mine was the baseline runs to compare the improvement and changes that adding mutatable Params would do. 
+After running the evaluation on both our runs and visualizing the results as u can see there is not a statistically significant improvement or change as the accuracy only improves from bah to blah  and the P value was greater than .05. 
+One possible Explanation for the statistically insignificant results are that maybe we did not run enough generations - I ran 5 and 6 generations, and Henry ran for 15 and 16 generations, before our runs terminated due to the wall time limit of pace. We ran the eval for 30 epochs. 
+We also noticed that the best individuals with the mutatable activations used reLu and eLu. This is probably because relu and elu have advantages in in deep neural network learning like sparsity (whereas sigmoid and tanh rend to have very dense representations), and a constant stable gradient. Relu and elu has the advantage of the non saturation of its gradients which accelerated the convergence of stochastic gradient descent compared to the sigmoid and tanh functions. Lastly whereas sigmoid and tanh neurons require expensive operations like exponential, reLu can be implemented by threshokdinf a matrix of activations at zero. what this means is moving forward we may decide to remove less popular activations like sigmoid and tanh and focus on improving accuracy with relu and elu combined with other techniques like dropout.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run NEW Evolutionary runs without any new primitives that we made so we can get a baseline (control) to compare results to WITH the new changes listed above, scrapping the last runs.
+|Completed
+|Feb 24, 2020
+| Feb 27, 2020
+| March 7, 2020
+|-
+|Presentation deliverables of slides and information research to back up the points made too
+|Completed
+|Feb 27, 2020
+| March 7, 2020
+| March 8, 2020
+|-
+|}
+
+== March 13 - 22 == 
+*Spring Break
+
+== March 23, 2020 ==
+'''Team Meeting Notes:'''
+*Returned from Spring Break and had main meeting, talked about each team did over break.
+* Michael Jurado had assigned us tasks to work on: 
+** 1. Push new primitives into master (Ford, Henry, TAN) on old repo
+** 2. Henry + TAN work on migrating tf primitives to new framework (old tf primitives were written for tensorflow 1.1.2. Now we are moving the framework to tensorflow 2.0)
+** 3. Read The Team's paper: https://slack-files.com/T8AQ8LX5G-FV40BD63X-fe9c7aaeea
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push new primitives that I made into master on old repo
+|In Progress
+|March 23, 2020
+| 
+|
+|-
+|Work on migrating tf primitives to new framework
+|In Progress
+|March 23, 2020
+|
+| 
+|-
+|Read the ezCGP paper we are working on
+|In Progress
+|March 23, 2020
+|
+| 
+|-
+|}
+
+== March 30, 2020 ==
+'''Team Meeting Notes:'''
+* I have read our team paper
+* Continuing to work on migrating primitives to new framework.
+* 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push new primitives that I made into master on old repo
+|In Progress
+|March 23, 2020
+| 
+|
+|-
+|Work on migrating tf primitives to new framework
+|In Progress
+|March 23, 2020
+|
+| 
+|-
+|Read the ezCGP paper we are working on
+|Completed
+|March 23, 2020
+|March 30, 2020
+| March 30, 2020
+|}
+
+== April 6, 2020 ==
+'''Team Meeting Notes:'''
+* I have read our team paper
+* Continuing to work on migrating primitives to new framework
+* Primitives I completed on my branch so far: relu, sigmoid, dropout, flatten, batch normalization, identity
+* Primitives I will migrate by Monday: add_tensors, sub_fa2a, sub_tensors, mult_tensors, global avg pool, avg pool, max pool, grayscale
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push new primitives that I made into master on old repo
+|In Progress
+|March 23, 2020
+| 
+|
+|-
+|Work on migrating tf primitives to new framework
+|In Progress
+|March 23, 2020
+|
+| 
+|-
+|Read the ezCGP paper we are working on
+|Completed
+|March 23, 2020
+|March 30, 2020
+| March 30, 2020
+|}
+== April 13, 2020 ==
+'''Team Meeting Notes:'''
+* Met with team and talked about what I did last week 
+* Finished migrating tensorflow primitives to new framework, pushed to github on my branch: https://github.com/ezCGP/ezExperimental/blob/tan_edits/tensorflow_operator.py
+* Primitives I completed on my branch so far: relu, sigmoid, dropout, flatten, batch normalization, identity, add_tensors, mult_tensors, sub_fa2a, greyscale, avgpool, maxpool, global avg pool.
+* Primitives I migrated since last week: add_tensors, sub_fa2a, sub_tensors, mult_tensors, global avg pool, avg pool, max pool, grayscale
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push new primitives that I made into master on old repo
+|Completed
+|March 23, 2020
+| 
+|March 23, 2020
+|-
+|Work on migrating tf primitives to new framework
+|Completed
+|March 23, 2020
+|
+|April 13, 2020
+|-
+|Read the ezCGP paper we are working on
+|Completed
+|March 23, 2020
+|March 30, 2020
+| March 30, 2020
+|}
+
+== April 17 Weekend (17-19), 2020 ==
+'''Team Meeting Notes:'''
+*  Slacked with team and wrapped up for the semester.
+*  Pushed final changes to primitives from my branch to github
+* Merged ^ to master branch (graph branch): https://github.com/ezCGP/ezExperimental/commit/a3d7386b8ed868c87158dae0f6c12bb77c553816
+* Working on end of semester presentation!
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Push new primitives that I made into master on old repo
+|Completed
+|March 23, 2020
+| 
+|March 23, 2020
+|-
+|Work on migrating tf primitives to new framework
+|Completed
+|March 23, 2020
+|
+|April 13, 2020
+|-
+|Team End of Semester Presentation
+|Completed
+|April 17, 2020
+|April 19, 2020
+|April 20, 2020
+|}
+
+== April 17 Weekend (17-19), 2020 ==
+'''Team Meeting Notes:'''
+* End of semester final presentation!
+* My Final VIP class meeting & basically graduating! <3 <3 <3 its been real tech
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team End of Semester Presentation!
+|Completed
+|April 17, 2020
+|April 19, 2020
+|April 20, 2020
+|}
+
+
+
+
+
+
+
+========== End of Current (Spring 2020 Section)===========
+
+==Jan 14, 2019 ==
+""Scrum:""
+* The Deep Learning team is replacing the python package (DEAP) with a different framework. Because DEAP has the tree structure for building genome but they are taking cartesian genetic programming approach which makes a one column graph because it gives advantages to bloat. 
+* The endgoal is to merge it with emade.
+* The EEG team is working on classifiers so that a finger can move.
+* The Visualisation team is working on getting EMADE and software setup.
+* The Caching team is making categories and setting times.
+
+== January 27, 2019 ==
+'''Stock Team Meeting Notes:'''
+* Made sure EMADE was up and running as well as all the old stock team's files and functions 
+* Researched Time Series Prediction Models for stock
+* identified goals and models to implement in the near future
+*https://ieeexplore.ieee.org/abstract/document/157878
+'''Our Goals'''
+* Implement more time series forecasting methods
+
+**Markov Models
+**ARIMA (AutoRegressive Integrated Moving Average)
+
+*Find out how optimization performs with technical indicators we have vs without
+
+'''Current Issues'''
+* gathering stock data
+
+'''Our current goals for this week are: '''
+* research more models to implement/ different ways to implement the markov models
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create online notebook on wiki
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 3, 2019
+|-
+|Research time series prediction methods with james, trying to figure out what to do because my 'group' has no one..
+|Completed
+|January 28, 2019
+|February 1, 2019
+|January 31, 2019
+|-
+|Clone new forked repository into my computer and made Github branch of it (nvananupong3) (stock-emade)
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 1, 2019
+|}
+
+== February 4, 2019 ==
+=== Stock Sub-team Report ===
+'''Meetings are Fridays at 4:30'''
+
+==== Our Goals: ====
+* Implement more time series prediction methods in EMADE
+* Run EMADE on stock data with time series primitives
+* Compare results to using technical indicators done last semester
+
+==== Progress Made Since Last Week: ====
+* Two new members have downloaded and set up everything
+* Everyone caught up to date to what we are doing
+* Going over primitives and data pairs and how to run unit tests etc. 
+* Found primitives to implement
+
+==== Our current goals for this week are:  ====
+* Implement the classical time series forecasting methods we researched (autoregression, moving average, exponential smoothing, and their variations)
+
+==== Notes ====
+*Discussed researched time series forecasting methods (classical, SVMs, machine learning)
+*Went over how to write/run unit tests for primitives
+*Jiseok found some classical time series forecasting methods first from https://machinelearningmastery.com/time-series-forecasting-methods-in-python-cheat-sheet/
+*Made Jiseok our team leader
+*Went over EMADE stuff again
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Acquired more team members and chose leader (jiseok)
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 3, 2019
+|-
+|Had first team meeting, assigned primitives to implement 
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 1, 2019
+|}
+
+== February 11, 2019 ==
+=== Stock Sub-team Report ===
+'''Meetings are Fridays at 4:30'''
+
+==== Progress ====
+* Have at least two primitives implemented with unit tests (AR and ARIMA)
+* Added reinstall script in unit tests
+
+==== Goals ====
+* Meet today and review code
+* Discuss what hyperparameters to include
+* Continue implementing more primitives
+
+==== Issues ====
+*Autoregression package only has univariate case implemented
+*Stock data has 5 streams (open, high, low, close, volume)
+*Reinstall script has to be run twice
+
+==== Notes ====
+* We talked on our SLACK channel about how our implementations are going, unit tests, goals for the week
+* Our team leader was sick and we all had homework for another class due at midnight so we did not meet up in person but through slack 
+* Autoregression and ARIMA implemented as a primitive in EMADE with unit tests running
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement 1st primitive (SES)
+|Completed
+|January 28, 2019
+|February 1, 2019
+|February 11, 2019
+|}
+
+== February 16, 2019 ==
+
+=== Stock Subteam Report ===
+'''Meetings are on Friday or Saturday evenings (around 5pm)'''
+
+==== Progress ====
+* Pushed implemented primitives and their respective unit tests (AR, ARIMA, SES)
+* Added shell file to run reinstall script in unit tests directory
+* Figured out labeling scheme from previous work
+
+==== '''Goals ''' ====
+* Implement remaining classical primitives (currently 3/11) by next sub-team meeting
+* Find a better solution to the reinstall script
+'''Issues'''
+* Solution to reinstall script is still a workaround, possibly change unit tests so they are callable from top directory
+* Unsure whether to implement all 11 primitives or only implement the most general few, many are generalizations of each other (ie. SES < HWES)
+
+====Notes ====
+*Pushed code to Github
+* We went over EMADE again and learned more information for implementation (parameters, streams, mode [stream to stream..feature to feature etc], data_pair) 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|Implement 2nd primitive (HWES)
+|Completed
+|January 28, 2019
+|February 4, 2019
+|February 20, 2019
+|}
+
+== February 23, 2019 ==
+
+====Notes ====
+* Spent hours trying to work with google cloud, I don't have an access code..
+* One of the team members (Yoonwoo) made the instance on his google cloud, created instance and we were all linked to his instance
+* generated the sql code on my terminal and gave it to him so we can connect to google cloud instance through SSH
+* Worked on installing EMADE on the instance and anaconda
+* Installing PUTTY for MAC
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|Finished Midterm Peer Evaluations
+|Completed
+|January 28, 2019
+|February 14, 2019
+|February 15, 2019
+|}
+
+== February 25, 2019 ==
+'''Team Meeting Notes:'''
+* Scrum reports
+'''Stocks Sub-Team Notes:'''
+* Kept working on resolving git lfs issue
+* Researched some machine learning models to implement
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish installing EMADE
+|Completed
+|February 23, 2019
+|March 2, 2019
+|March 2, 2019
+|-
+|Update template and seeding files
+|Completed 
+|February 23, 2019
+|March 2, 2019
+|March 2, 2019
+|}
+
+== March 25, 2019 ==
+'''Team Meeting Notes:'''
+* 1st semester students joined subteams, we have 4 new members 
+'''Stocks Sub-Team Notes:'''
+* New members joined slack channel and I added them to github 
+* Set meeting time for Thursday 7:30 pm
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Introduce project to new members
+|Completed
+|March 25, 2019
+|March 28, 2019
+|March 28, 2019
+|}
+
+== March 28, 2019 ==
+'''Stocks Sub-Team Notes:'''
+* Only a few members showed up and the new members are very new to this stuff
+* New members cloned repo
+* Walked through EMADE code
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Started working on the old preprocessing file so it can take in user input to choose number of days etc for stock prediction
+|Completed
+|March 28, 2019
+|April 1, 2019
+|March 31, 2019
+|-
+|Run EMADE again
+|Completed 
+|March 28, 2019
+|April 1, 2019
+|March 31, 2019
+|}
+
+== April 1, 2019 ==
+'''Team Meeting Notes:'''
+* Scrum reports
+'''Stocks Sub-Team Notes:'''
+* Other members showed up
+* Split up into data parsing and primitive implementation groups, Im trying to do data parsing now but I have no experience so there is a lot to learn
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Pushed my preprocessing file (preprocessing so user input can be accepted)
+|Completed
+|April 1, 2019
+|April 5, 2019
+|April 1, 2019
+|-
+
+== April 5, 2019 ==
+'''Stocks Sub-Team Notes:'''
+* Work session
+* Introduced new members working on models to deep learning
+* Decided to rework pipeline after reading two papers from https://machinelearningmastery.com/findings-comparing-classical-and-machine-learning-methods-for-time-series-forecasting/
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement/improve time series preprocessing methods as primitives
+|In progress this week
+|April 5, 2019
+|April 22, 2019
+|
+|-
+|Move model primitives to methods.py
+|In progress this week 
+|April 5, 2019
+|April 22, 2019
+|
+|-
+|Fix memory allocation errors when running
+|No progress this week
+|April 1, 2019
+|April 22, 2019
+|
+|}
+
+== April 8, 2019 ==
+'''Team Meeting Notes:'''
+* Scrum reports
+'''Stocks Sub-Team Notes:'''
+* Keep working on tasks, try to finish by next week to have enough time to run EMADE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix memory allocation errors when running
+|No progress this week
+|April 1, 2019
+|April 22, 2019
+|
+|}
+
+== April 13, 2019 ==
+'''Stocks Sub-Team Notes:'''
+* Another work session
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+
+{|Still looking at the preprocessing inputs thing because apparently my period is wrong
+|No progress this week
+|April 1, 2019
+|April 22, 2019
+|
+|}
+
+== April 15, 2019 ==
+'''Team Meeting Notes:'''
+* 
+'''Stocks Sub-Team Notes:'''
+presented what we've been doing so far
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Move model primitives to methods.py
+|In progress this week 
+|April 5, 2019
+|April 22, 2019
+|
+|-
+|Fix memory allocation errors when running
+|In progress this week
+|April 1, 2019
+|April 22, 2019
+|
+|-
+|Run EMADE
+|In progress this week
+|April 15, 2019
+|April 22, 2019
+|
+|-
+|Prepare for final presentation
+|In progress this week
+|April 15, 2019
+|April 22, 2019
+|
+|}
+
+== April 20, 2019 ==
+'''Stocks Sub-Team Notes:'''
+* Final work session, mainly creating presentation and dividing up portions to members
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+
+|Run EMADE
+|(Completed)
+|April 15, 2019
+|April 22, 2019
+|April 21, 2019
+|-
+|Prepare for final presentation
+|Completed
+|April 15, 2019
+|April 22, 2019
+|April 21, 2019
+|}
+
+== April 22, 2019 ==
+'''Team Meeting Notes:'''
+* Final presentations
+* Had to leave early due to conflict at 5:30 pm for CX4230 
+'''Contributions/Final Grade:'''
+* Although our group did not produce any results, I felt that we, especially the 2nd semester people (like myself and Jiseok and Yoonwoo), deserve As because of the amount of time it took to get started and set up things like EMADE, EMADE with google cloud, etc, finding the paper to research, implementing primitives all before the last two weeks when we got new semester students. I felt like those two spent even more time than I did, and know more than me, and a lot of times they were helping me out so I personally think they should get As even if we didn't get results it was difficult to do much with our small team and then getting new people just 2 weeks or something before the end of the semester does not really help speed up the process of anything actually because we just spend more time teaching. 
+
+Furthermore I actually chose this to be 1 credit hour this semester but spent the equivalent of a 3 credit hours course on this class, which might be because I am not that good at it yet but I am still learning and I feel like some of the stuff takes a while to grasp , remember, and understand. 
+
+Sometimes when we tried to run EMADE and the time we first initially set it up on google cloud it took hours and hours. And there were only 3 members in the whole team until like 2 or 3 weeks ago. Also there is apparently one more first semester student I have never even seen her and she never joined our github or slack or even showed up to the final presentation. It also took a really long time for me to understand preprocessing because I've never done that till now. Then when the new semester students joined we spent a lot of time just trying to teach them what to do instead of working on parts. Although the first semester students are really great too. 
+
+* https://github.gatech.edu/nvananupong3/emade/commits/emade_stock (some of these commits were done on other people's computers)
+
+= Fall 2019 =
+
+== August 26, 2019 ==
+Goals for this week:
+* Join a new team
+* Set a meeting time because I have time conflict
+
+
+== August 30, 2019 ==
+
+Plan for next week/ TO DOs:
+* Read the neat-GP paper 
+* Joined slack channel and team Bloat Removal
+* Figure out how much bloat is present in MNIST/other problems w piseno
+* Sign up for helpdesk w my team
+
+== August 31, 2019 ==
+Plan for next week/TO DOs:
+* Figure out how to measure bloat 
+* Play around w neat 
+* Determine (quantify) bloat somehow either by taking the change in the average tree size for the population or use hashes to figure out on an individual level but that seems difficult 
+* Try to figure out the hashing thing with jeffrey 
+* Trying to the above with Deep first because its already difficult
+
+== September13, 2019 ==
+'''Team Meeting Notes:'''
+To cache data in emade, we have to find a way to find the differences in the data. The data in EMADE is stored in nodes, and each node passes its data to the next node. In EMADE, the data is cached, which means that to detect if the node data is the same or not, you can check if the cache has changed or stayed the same. If the data changed, then that bloating occurred and the goal of our team is to remove these nodes that are bloated - thus, remove the nodes whose cache changed. The nodes who's data's cache did not change can be kept.
+
+TO DOS:
+* I've researched how DEAP implements a tree
+* Found implementation and how it works, it is implemented as a list of nodes ordered by DFS, each node has arity, terminal nodes arity = 0
+Plan for this weekend:
+Finish implementing method w jeff, if its easier, take some individuals from EMADE after the runs, and play around w them, cuz we can get strings from database and instantiate with DEAP. 
+*The first thing is to get  EMADE again on either one of our personal laptops since neither of us has it, or have it on GCP.
+
+== September20, 2019 ==
+'''Team Meeting Notes:'''
+In order to understand how branch detection processing works, we have to actually find out how the cached data is transformed in each node, and how it is passed through each  node, to detect the bloat. 
+You can find the cached datasets in SQL database, and how it classifies each individual and stores them is by their unique hashcode. Thus, to reach specific individuals, we must generate their unique hash code to access their referential key and access them this way in order to delete the bloated ones from the table.
+
+What TO DO next week:
+* Downloaded EMADE again 
+*Get EMADE running
+* Implement bloat metrics with the subteam 
+* Try to understand how to create datasets with Piseno 
+
+== September27, 2019 ==
+'''Team Meeting Notes:'''
+We are still trying to implement a successful way to eliminate the bloated individuals from the dataset. We have figured out how the transformation of each node's data works, and how each node transfers the cached data from itself to the next node. It does so by concatenating the current node's name + hash string. The nodes that do not change their cached information are the bloated ones, as they create quantity without increase in quality or diversity. 
+
+Plan for next week/ TO DOs: 
+Implement an AWS instance
+* Understand how different benchmarking methods work (i.e regression vs data number sets classification)
+* Compare neat GP and not neat GP methods
+
+== October 4, 2019 ==
+'''Team Meeting Notes:'''
+We talked about future works and Eric assigned me a new task as I was feeling a little lost in my previous tasks. Talked about the different methods of bloat control and removal we read about in the NEAT GP paper. Trying to come up with possible new methods to develop new approaches to bloat control - could be ways to improve upon the NEAT way or just find a better approach. One blocker I have is I find it very hard to even think about how I would integrate such methods into EMADE.
+
+Plan for next week/ TO DOs:
+*I will be reading new literature to try to discover new ways to implement NEAT that are better than right now, i.e improve on the NEAT way
+* Since we are already working off of NEAT that is the first goal of preference, but the next one is to find other methods besides NEAT that can reduce bloat and perform better. Will read the literature and summarize a way to implement these methods on my notebook.

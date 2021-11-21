@@ -1,0 +1,665 @@
+'''Email:''' cbauer32@gatech.edu
+'''Cell:''' 312-898-5398
+
+==November 15th, 2021==
+This week I wrote summaries for relevant papers in my notebook.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research the activation functions and dimensions that are commonly used for each layer
+|In progress
+|11/15/2021
+|12/6/2021
+|
+|-
+|Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
+|In progress
+|11/1/2021
+|11/22/2021
+|
+|-
+|}
+
+===Layer Research===
+Example: LSTM prefers TNH (sigmoid with -1, 1) over ReLU.
+Neuralnetworkmethods.py -define each nn layer
+Gpframeworkhelper.py -take each nn layer and add to pset
+
+===Neural Network Study===
+NeuroEvolution of Augmenting Topologies
+
+===Main Meeting: EMADE Setup===
+During the main meeting, I successfully bashed pace_run_cifar10.sh. The error was that I had cloned emade onto my windows computer and then scp transfered to pace. This converted the .sh, .pbs, and others to windows format instead of linux. I could convert each file with sed -i $'s/\r//' FILENAME, but instead I re-cloned emade directly onto pace to make sure I got every file.
+
+==November 8th, 2021==
+After setting up NN EMADE on PACE initially, I explored alternative methods. I also learned about teams' projects from their explanations.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Step up nn-vip EMADE on PACE by sharing the conda environment and cloning the repo into pace with ssh.
+|In progress
+|11/8/2021
+|11/15/2021
+|11/13/2021
+|-
+|Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
+|In progress
+|11/1/2021
+|11/22/2021
+|
+|-
+|}
+
+===EMADE Setup on PACE Method 2===
+I tried using Connor's video and guide to setup PACE using the shared conda environment and cloning the repo into pace with ssh. I was unable to clone with ssh.
+
+Guide: https://github.gatech.edu/cwhaley9/emade/wiki/Running-EMADE-on-PACE-using-CIFAR-10
+
+Below is a compilation of commands. The last section, CLONE SSH is in progress.
+
+    WinSCP https://winscp.net/eng/download.php
+    MariaDB https://mariadb.org/download/?rel=10.6.4&prod=mariadb&os=windows&cpu=x86_64&pkg=msi&mirror=acorn TCP 3305
+    
+FOLDERS
+
+    ssh cbauer32@pace-ice.pace.gatech.edu
+        WinSCP .my.cnf into pace
+    mkdir scratch
+    cd scratch
+    mkdir db
+    mysql_install_db --datadir=$HOME/scratch/db
+    cd /usr
+    mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+
+
+NEW CONDA
+
+    ssh cbauer32@pace-ice.pace.gatech.edu
+    cd scratch
+    export CC=gcc
+    module load anaconda3/2021.05
+    module load gcc
+    conda create -n env_emade python=3.6
+    conda install opencv numpy pandas tensorflow keras scipy=1.4.1 psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn
+    pip install xgboost lmfit multiprocess hmmlearn deap opencv-python keras-pickle-wrapper
+
+
+SHARED CONDA
+
+    ln -s /storage/home/hpaceice1/shared-classes/materials/vip/AAD/nlp_subgroup/shared_conda ~/.conda
+
+
+CLONE URL
+
+    git clone -b nn-vip https://github.gatech.edu/cwhaley9/emade
+    scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+        or use WinSCP to transfer clone to pace
+    sed -i $'s/\r//' FILENAME
+    qsub FILENAME for each .pbs
+    conda activate env_emade
+    cd emade
+    python setup.py install
+
+
+CLONE SSH
+    vim ~/.ssh/config
+    esc :i
+        Host pace-ice
+            HostName pace-ice.pace.gatech.edu
+            User cbauer32
+    esc :wq
+    ssh-keygen
+        enter once, type same pass twice
+    ssh-copy-id cburdell3@pace-ice.pace.gatech.edu
+    generate new ssh key for github.gatech.edu following
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+    separate git bash window:
+    ssh -T git@github.gatech.edu
+    eval "$(ssh-agent -s)"
+    main window:
+    git clone -b nn-vip git@github.gatech.edu:cwhaley9/emade
+
+Looking at: https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey
+
+===Neural Network Study===
+Wednesday 11/10 the Camerons presented concepts behind nn-vip to me, Rayan, and Pranav. Cameron B referred us to a list of resources on the Trello page.
+
+EMADE.py - Called by command prompt (command is in README) to run launchEMADE.py which calls didLaunch.py which calls EMADE.py with XML param
+create_representation()
+
+Primitive set: MAIN = overarching nn; others are ADFs (automatically defined functions) = possible layers 
+
+buildClassifier()
+*Takes filepath to datasets from XML
+*Uses args to load data
+*Stores target data and labels
+*Splits train and test
+*datasetDict[datasetName][‘truthDataArray’] + “truth data” datapair
+*Instantiate EmadeDataPairs – truth data is actual and target data is output; allows us to track past evaluations
+
+handleWorker() - called by evaluateIndividual called by evaluate
+
+
+setObjectives() - sets up objectives
+
+setDatasets() - sets up deap.toolbox
+
+my_str() - parses individual to str to access in MySQL
+
+swap_layer() - replaces layer with another (not input or output layers)
+
+healer methods deprecated
+
+mutate() -> clean_individual() – ensures individual isn’t mutated to state that can’t be evaluated
+
+master_algorithm() - reuse=1 -> resume; connects to database; randomly creates initial population; evolutionary loop – mating/mutation, sends offspring to evaluation, periodically checks queue to see if move to next gen
+
+worker_algorithm() - evaluates individuals, gets more if under 25% capacity being evaluated
+
+Supervised learning – map input to output with unknown function approximated by learning a model
+
+Activation – introduces non-linearity; rectified linear unit (ReLU) – if result of transformation < 0 return 0 else return value; sigmoid returns 0 or 1
+
+Dense layer- interprets each input the same way
+
+Convolution layer- like a dense layer but excludes certain weights; not fully connected (using all neurons); helps with spatial relationships in image processing; treats inputs differently based on initial layers; ex. treats center pixels more important for birds and treats upper pixels for sunsets
+
+Recurrent layer- have memory; detects important of ordering of data; ex. does a layer on one word and then does a layer on that output and another word
+
+Long short term memory layer- most complex implementation; modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; vanishing gradient problem - if one output is 0 then the next ones are also 0, why RNNs are not used anymore
+
+Attention is all you need transformer- not a layer but a subarchitecture that focus on self-attention mini-layer, add layer takes output of recent layer and adds to output of far back layer
+
+Loss function – objective/evaluation of nn based on truth data; higher output is worse; ex. binary cross entropy, categorical cross entropy, mean squared error; NN tries to minimize loss by following gradients and back-propagating to change weights accordingly
+
+Reducing overfitting: more data; validation data – sees how model does on withheld data during training; Regularization term penalizes complexity (L1 lasso or L2 ridge); More data; Dropout layers
+
+gp_framework_helper.py – lets you see the individuals, output types, very important for testing
+standalone_tree_evaluator.py – very important for debugging; put in one individual to make sure your desired functionality still works
+
+nnm.py – keras nn background
+
+NNLearner: recursively creates nn in keras then uses strongly type GP creatively; ARG0 (dataset), ouput layer (has subtree layers), 100, optimizer
+
+nnm.LayerList is primitive set type that has dataset, other info to make nn, functionally [input, layer,…, output]
+
+
+==November 1st, 2021==
+I joined the NAS vip subteam! I met with them during Monday's class and during subteam meetings on Friday and Saturday.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Step up nn-vip EMADE on PACE by creating a new conda environment, cloning the repo, and scp-ing the repo into pace.
+|In progress
+|11/1/2021
+|11/15/2021
+|11/8/2021
+|-
+|}
+
+
+===EMADE Setup on PACE===
+I cloned nn-vip branch from cwhaley9's fork. I went through Guide to Using PACE ICE with my command prompt and MariaDB without WinSCP. I created an environment with the package installs needed for EMADE but was stuck on how to copy emade into PACE. I learned this can be done with WinSCP or with:
+
+scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+
+Then I watched Cameron's video https://www.youtube.com/watch?v=LashYCCJF3E, but I still received "qsub:  script is written in DOS/Windows text format" error. Justin gave the command: sed -i $'s/\r//' FILENAME. I ran this command for each .pbs before the command: qsub FILENAME.
+
+==October 25th, 2021==
+*Continue to split weeks by meeting date, moving to Monday meetings.
+Week 10 featured the all-VIP presentations.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Presentation 2
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+Aditi and I added to our slides to include the revised MOGP and EMADE. Then we rehearsed the presentation with Rayan K. I presented the slides on the MOGP results, revisions, and EMADE pareto front. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing
+
+===Presentation Notes===
+Natural Language Processing
+*Reduce complexity of Q&A systems
+*Implement NNLearners as seeds in EMADE using BiDAF primitives that handle text values
+*F1 evaluation based on TP, FP, FN
+
+Bootcamp 1
+*Preprocessing: OneHotEncoded ‘Sex’ and ‘Embarked’
+*ML: SVM, Gradient Descent, NN, Random Forest, Gaussian Process
+*MOGP: cxOnePointLeafBiased, mutNodeReplacement, tournament selection
+*EMADE: preprocessing outperformed untouched split, AdaBoost favored, many “primitive not found” errors, reuse=1
+
+Neural Architecture Search
+*EMADE’s NNLearner creates a NN using TensorFlow
+*Most randomly generated individuals underperformed seeds or were not NN
+*Created TimedStopping Callback class to stop training after time threshold, allowed creation of more individuals that evaluated quicker
+*Tokenization and OneHotEncoding for each individual before evaluation also saved time
+*CoDEEPNeat applied to EMADE
+*NNLearner SQL table for accessing specific NNLearners throughout generations
+*Extracted layer frequencies to reward novel layer types
+
+Bootcamp 2
+*Preprocessing: column mapped ‘Sex’ and ‘Embarked’
+*MOGP: SPEA2, cxOnePoint, mutUniform, evalSymbReg - activation function converted predictions to ints
+*EMADE: evaluated thousands of individuals each generation because their first generation had reuse
+
+Image Processing
+*Multilabel image classification using ImageDataGenerator for image resize, normalization, horizontal flipping
+*Objectives: Precision-Recall Error AUC, number of parameters
+*Implemented NSGA-III selection; Geometric Semantic crossover and mutation - simulated binary: cxprob biased on beta, blended cx: alpha; how can they work on tree structures
+*Hyper-features: grey level transformation - mapping pixels to output
+
+Bootcamp 3
+*Preprocessing: added ‘relatives’ = ‘sibsp’ + ‘parch’, parsed titles from ‘name’ and one-hot encoded, mapped age and fare to int
+*SVM, MLP, Logistic Regression, Gaussian Naïve Bayes
+*MOGP: selLexicase, cxOnePoint, mutUniform, eval (FN^2, FP^2) – doesn’t change results
+*EMADE: change objectives to rates, modified sel_nsga2 to call on individuals divisible by 4
+
+Stocks
+*Compared regression primitives by technical indicator using median CDF performance
+*Objectives: profit percentage, average profit per transaction, variance of profit per transaction, MSE, CDF of profit using Monte Carlo approach
+*Compared to Takagi-Sugeno fuzzy model
+
+Modularity
+*Adaptive Representations through Learning combine primitives
+*Compared by frequency and aggregate fitness
+*Experiment suggested size of ARL not inherently valuable
+
+==October 20th, 2021==
+The final run of EMADE for the titanic project occurred in Week 9.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic EMADE
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+*Removed size objective from input
+*Ran 20 generations on EMADE with Aditi as master and myself as worker
+*My computer disconnected after a few hours untouched (ex overnight)
+
+Important evolution parameters:
+initialPopulationSize = 200
+launchSize = 200
+minQueueSize = 50
+
+*I created a notebook to plot the pareto front and Aditi added graphs and connected to the database
+*I reviewed the revised MOGP and ran for 15 generations
+
+==October 13th, 2021==
+Week 8 focused on connecting to Aditi's master process as a worker.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Input Modifications
+|Complete
+|10/6/2021
+|10/20/2021
+|10/16/2021
+|-
+|Worker Process
+|Complete
+|10/6/2021
+|10/25/2021
+|10/16/2021
+|-
+|}
+
+===Hackathon: Titanic Input Modifications===
+*Worked with Aditi to change titanic_input.xml and run EMADE
+*Changed database info, set reuse to 1, reduced population size
+*Troubleshooted erroring individuals and traced src code
+
+===Bootcamp: EMADE Worker Process===
+*Worked with Aditi in class to setup the database and allow remote connections
+*Around 10 days later her IP address changed
+*Successfully ran worker process
+
+==October 6th, 2021==
+During Week 7, I set up EMADE during the team meeting and independently using the README.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Setup
+|Complete
+|10/6/2021
+|10/25/2021
+|10/13/2021
+|-
+|}
+
+===EMADE Setup & Master Process===
+*Created conda environment separate from default
+*Setup and master process ran smoothly after this change to the instructions
+
+Environment cmd:
+conda activate emade_env
+
+MySQL connection:
+mysql -h hostname -u username -D database name -p
+mysql -h 128.61.41.95 -u root -D titanic2 -p
+	password: -----
+*Allow remote connections
+
+Run worker process:
+python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+*reuse=1 starts with old data
+*EMADE makes launchSize new trees when it has less than minQueueSize to evaluate
+
+==September 29th, 2021==
+We presented our Titanic project methods and results in Week 6 of bootcamp. We also completed peer evaluations for VIP.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluations
+|Complete
+|9/29/2021
+|10/4/2021
+|9/29/2021
+|-
+|Titanic Presentation 1
+|Complete
+|9/29/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+    #selNSGA2 on Generation 0 to define assignCrowdingDist()
+    pop = toolbox.select(pop, len(pop))
+    for g in range(1, 15):
+        offspring = tools.selTournamentDCD(pop, len(pop) - len(pop) % 4)
+        offspring = list(map(toolbox.clone, offspring))
+        #mate and mutate
+        pop = toolbox.select(offspring, len(pop))
+        #update hof and logbook
+
+Presentation: I presented the slides about the MOGP hall of fame, results, and comparison to ML. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=sharing
+
+==September 22nd, 2021==
+In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic MOGP
+|Complete
+|9/22/2021
+|9/29/2021
+|9/29/2021
+|-
+|}
+
+===Titanic Project===
+Group work: On 9/23, the team developed a conceptual understanding of the assignment, drafted a plan, and decided on a primitive set for the GP (1.75hr). On 9/26, we finalized Aditi's evaluation function, tested the results on different trees, and discussed the evolutionary loop (2hr). The morning of Tuesday 9/28, I demonstrated my evolutionary loop to the team and we identified constants and functions that could change the accuracy (1.25hr). That evening, we reviewed our work, decided on final constants and functions, and created our presentation (2hr). Aditi added a plot of the average FPR and FNR for each generation. Wednesday 9/29 morning, we corrected each other's slides and practiced our presentation (1hr). 
+
+  def eval(individual, samples, y_truth, pset):
+    func = gp.compile(expr=individual, pset=pset)
+    y_pred = [func(*samples[x]) for x in range(len(samples))]
+    cnf_matrix = confusion_matrix(y_truth, y_pred)
+    return (cnf_matrix[0][1], cnf_matrix[1][0])
+
+<plot7>
+
+<plot8>
+
+Individual work: After our first meeting, I created an evaluation function, which was not used in the final group code, and researched NSGA2 selection. After the evaluation function was completed in our second meeting, I wrote the evolutionary loop, pareto front plot, and predictions.csv output of the pareto optimal individuals compiled on test.csv. One unique feature I implemented was the use of a ParetoFront object collect pareto optimal individuals from each generation, excluding trees with duplicate fitness (fp, fn):
+
+  hof = tools.ParetoFront(similar=lambda this, other : eval(this, X, pset) == eval(other, X, pset))
+  for each generation:
+    evolve pop
+    hof.update(pop)
+
+Registered functions and constants:
+  select: selNSGA2
+  mate: cxOnePointLeafBiased
+  max_height = 7
+  pop_count = 300
+  num_gen = 50
+  mate_prob = 0.5
+  mut_prob = 0.1
+
+==September 15th, 2021==
+Week 4 focused on the team project using the Titanic Kaggle dataset, preprocessing, and scikitlearn machine learning algorithms.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic ML
+|Complete
+|9/15/2021
+|9/22/2021
+|9/22/2021
+|-
+|}
+
+===Titanic Project===
+Group work: Met with Aditi on Saturday 9/18 to discuss preprocessing. We decided to drop Cabin, use OneHotEncoder for Embarked, and fill the null Age values with an average of their PClass's Age. On Sunday, I met with Aditi and Rayan K to discuss the preprocessing more. On Tuesday evening, all four of us met to form our pareto front but the Rayan's hadn't made their classifiers yet so we worked on the null values produced from our OneHotEncoder. On Wednesday we used our Google Collaboratory files and GroupMe chat to finalize the pareto front.
+
+<plot6>
+
+Individual work: Before the Saturday meeting, I looked more at the data (head, tail, corr, isna, isna.sum) and implemented my MLPClassifier. After the meeting, I implemented OneHotEncoder and copied the rest of Aditi's preprocessing including the use of re to fill Ticket values. On Wednesday, I also modified the parameters of my learned to predict 0s most of the time to easily fit the low false positives and high false negatives in the group pareto front.
+
+Lecture notes: The goal is to create a pareto optimal set of models, one built by each teammate, based on the Boolean measures for minimization, false positives and negatives. The team should share preprocessing code and use the same partition to train and test models.
+
+
+==September 8th, 2021==
+Week 3 focused on how to compare the quality of evaluations using confusion matrices (binary) and Pareto (multi).
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 2
+|Complete
+|9/8/2021
+|9/15/2021
+|9/8/2021
+|-
+|Notebook Self-Evaluation
+|Complete
+|9/8/2021
+|9/15/2021
+|9/14/2021
+|-
+|}
+
+===Notebook Self-Evaluation===
+*Notebook maintenance: 25/25
+*Meeting notes: 15/15
+*Personal work & accomplishments: 5 + 10 + 5 + 10 = 30/35
+*Useful resource: 8 + 12 = 20/25
+*Total: 90/100
+*Notes: Some points were not applicable. Also I have not figured out how to add images yet.
+
+===Lab 2 Part 2: Multi-Objective Optimization===
+Multiple Objectives: We made a new, more complex evaluation function by including sin, cos, and tan as primitives and include a second objective, the tree size. We created a pareto dominance function to compare the fitness of two individuals. We created a 300-individual population and sorted it by comparison to a separate individual. The objective space separated into dominators, dominated, and others as shown:
+
+<plot3>
+
+Our genetic algorithm was a mu plus lambda algorithm with mu individuals selected for the next generation and lambda children produced at each generation. We the evolution (for the third in this notebook):
+
+<plot4>
+
+The success of the algorithm was inversely measured by the least squares area under the curve (AUC) of our pareto front (shown in red below in the plot of mean squared error by tree size after the evolutionary algorithm). The original lab algorithm produced AUCs between 2 and 5. I'm not quite sure but I think changing my mu to 100 decreased the AUC.
+
+<plot5>
+
+Other notes: Strongly typed primitives require a certain type of terminal input. Terminals generated by functions are called ephemeral constants. Also, DEAP trees must be kept within their 91-depth limit through bloat control.
+
+===Bootcamp Notes: Multi-Objective Optimization===
+Binary classification -evaluation-> confusion matrix
+*True Positive Rate, TPR, Sensitivity, Recall, Precision, Positive Predictive Value = TP/P = TP/(TP+FP)
+*True Negative Rate, TNR, Specificity = TN/N = 1-FNR = 1-FN/P
+*False Positive Rate, FPR, False Discovery Rate = FP/N = 1-TPR
+*Accuracy, ACC = (TP+TN)/(P+N)
+
+Multi classification -> objectives/phenotypes 
+*Pareto optimal - no other individual in the population outperforms it on all objectives
+*Pareto frontier - set of Pareto individuals, dominates all other individuals
+*We drive selection by favoring Pareto individuals but maintain diversity by giving all individuals some mating probability.
+
+Nondominated Sorting Genetic Algorithm II (NSGA2)
+*Separate population into nondomination ranks. Pareto optimal is 0, would-be Pareto without the front is 1, esc.
+*Individuals are selected in binary tournament
+*Lower Pareto ranks beat higher Pareto ranks
+*Within a rank, winner is higher crowding distance - sum of normalized Euclidean distances to all points with the front
+
+Stength Pareto Evolutionary Algorithm II (SPEA2)
+Each individual is assigned...
+*Strength S = how many others in population it dominates
+*Rank R = sum of S of individuals that dominate it (Pareto -> R=0)
+*Distance to kth nearest neighbor sigk
+*Fitness R + 1/(sigk + 2) -used in binary tournament
+
+==September 1st, 2021==
+Week 2 focused on learning genetic programming trees.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 2 Part 1
+|Complete
+|9/1/2021
+|9/8/2021
+|9/7/2021
+|-
+|}
+
+===Lab 2 Part 1: Genetic Programming===
+Individuals of gp.PrimitiveTree are trees like discussed in bootcamp. We created a tree and added primitives including two of my choice:
+
+pset.addPrimitive(np.maximum, arity=2)
+pset.addPrimitive(np.square, arity=1)
+
+We assigned individuals to outputs of gp.genHaldandHalf given our primitive set and max and min depth. After defining the evaluation function as the mean squared error of the tree's output and points (we used evenly numbers between -1 and 1 as points but the values are less important than the fitness). Then we registered mutations including mine below:
+
+toolbox.register("insert_mut", gp.mutInsert, pset=pset)
+
+We plotted the evolution:
+
+<plot2>
+
+===Bootcamp Notes: Genetic Programming===
+Genetic programming trees have nodes called primitives that represent functions and leaves called terminals that represent inputs. 
+
+Example 1 function: 3*4+1 parse tree: [+,*,3,4,1]
+
+Example 3 (symbolic regression): y=sinx 3rd Degree Taylor polynomial parse tree: [-,x,/,*,x,*,x,x,*,3,2]
+
+
+==August 25th, 2021==
+First Week! I was introduced to the team, wiki, genetic algorithms, and DEAP.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab 1
+|Complete
+|8/25/2021
+|9/1/2021
+|8/31/2021
+|-
+|Walkthrough
+|Complete
+|8/25/2021
+|9/1/2021
+|8/30/2021
+|-
+|}
+
+===Lab 1: Genetic Algorithm Problems===
+One Max Problem: The algorithm tried to make the max-fitness individual all 1s in 40 generations using tournament selection, crossover, and mutation. The population had 300 individuals of 100 Boolean numbers each. The tournament size was 3, crossover probability 0.5, mutation (random new 0 or 1) probability 0.2.
+
+N Queens Problem: The algorithm found how to position n queens on an nxn board so that none could take each other. The algorithm minimized the number of diagonal conflicts and reached a stable bend in the average and minimum in around 25 generations. The max, average, and min number of conflicts is graphed below:
+
+<plot1>
+
+===Walkthrough: DEAP===
+The walkthrough demonstrated how to use base, creator, and tools to create a population of two individuals with one hundred Bernoulli (0 probability 1-p and 1 probability p).
+
+===Bootcamp Notes: Genetic Algorithms===
+#Randomly initialize population
+#Determine fitness using objective
+#Repeat i-iv until the best individual is good enough
+##Select parents from population (fitness proportionate or tournament)
+##Perform Mate/Crossover – choose a point (or multiple) to switch lists after
+##Perform Mutation – random modifications of values to maintain diversity
+##Determine fitness of population
+
+When? Search space is very large, discontinuous, non-linear, local extrema dense

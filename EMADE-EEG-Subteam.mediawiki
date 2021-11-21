@@ -1,0 +1,48 @@
+
+== Members ==
+
+Spring 2019: Ali Alnamos, Scott Heston, Jas Pyneni, Nicholas Wan, Rahul Zhade    
+
+Fall 2018: Ali Alnamos, Scott Heston, Austin Jang, Suraj Masand, Alex Oshin, James Wang, Joel Ye, Rahul Zhade, and Akanksha Jhunjhunwala  
+
+==End of Semester Presentation Fall 2018==
+
+https://docs.google.com/presentation/d/1uGKfml_yK3BlX_asRXpHlGFH3lwDDQ1C2y6t24Pk9oI/edit?usp=sharing
+
+==Introduction== 
+
+We are attempting to use GP to identify the features within EEG signal that can be extracted quickly to obtain low inference time when fed into a CNN or other machine learner. Our final goal is to develop a bio-feedback study in collaboration with the Emory School of Medicine to advance our understanding of neural plasticity after strokes.
+
+For more information, see our presentation [https://docs.google.com/presentation/d/1O_ZOTz9rIN4BOYHLjUkWCz-LJFwMMXVaSArDesK1fWA/edit?usp=sharing here].
+
+== Current Work ==
+We are using GP and EMADE to determine the most effective preprocessing of raw EEG data to classify whether an individual has had a lesion in the motor cortex. Although this is already an unstudied problem because EEG is not used for diagnosis of strokes, we hope that the preprocessing routines EMADE develops for this problem will be revealing for future, more complex problems. 
+
+We have previously run EMADE on time-series data with all human subjects' data present in both validation and training sets; that is to say we have produced individuals that cannot be used diagnose new strokes but can remember the "neural fingerprint" of a particular subject. The demands of EEG data have been lessoned by our '''rewrite of EMADE to read in binary data instead of text-encoded data''', which has greatly reduced the RAM requirements of EMADE for large datasets. Still, it is necessary to perform our runs on Google Cloud or AWS due to limited RAM on student laptops. '''We have produced a [[Guide to Running on AWS]] from our experience'''. With this dataset, we obtain a preliminary idea of the primitives in EMADE: specifically making sure we can perform a fast-Fourier transform, sum across channels, and feel the results into several types of learners. This dataset has be solved to 0 false positives and 0 false negatives with simple end-to-end XGBoost, so it does not give an interested non-dominated front. However, we use it as validation to show the new features and our process to run on the cloud work.  
+
+We are now moving on to develop an algorithm that could generalize to new anatomies and thus be used for lesion ''diagnosis''. We reiterate that this is an unstudied problem and not currently feasible with only EEG data (clinically, an MRI would be used at a cost of several thousand dollars per study).      
+
+Successful individuals for disjoint on time datasets were very simple, ex: SingleLearner(myFFT(ARG0, 2),learnerType('xgboost', {'learning_rate': 0.037,'max_depth': 5,'subsample': 0.80,'xglambda': 0.8,'alpha': 0.4,'num_boost_round': 242, 'objective': 'reg:linear', 'eval_metric':'mae','silent': 1})) i.e. Single Learner using FFT for feature transform of stream data, xgboost with default settings as learner.   
+
+== Future Work / Goals ==
+We would like to each develop an individual based on heuristic argument from signal processing and neuroscience domain knowledge in order to start a proper genetic run before the end of the semester.
+
+We would also like to debug the large-data return error (integer out of range) in order to perform a genetic run on a hard number of validation anatomies, although this may take until next semester.  
+
+== Roadblocks (errors) ==
+One of our major roadblocks is that our seeded individuals for the lesion dataset cannot run to completion. There are several errors that seem to be dependent on the algorithms involved in each of the individuals. In general; however, a severely reduced dataset runs well. Unfortunately, if we reduce the number of anatomies too much, we cannot be sure to have a statistically significant classifier.  
+
+We believe that if we can find the source of these errors (either through debugging the code or through using a specific subset of algorithms / individuals), we can generate individuals more efficiently and get more meaningful results.
+
+== Nov 19, 2018 Update ==
+After fixing some bugs and reducing our dataset, we were able to get EMADE to generate some individuals that were classifying with a high accuracy (on the reduced dataset). We have about 10 individuals on the pareto front, of which 4 gave back perfect accuracy. However, when running some of these individuals on the expanded data set, the accuracy was significantly reduced. We will continue working on optimizing these individuals, whose structures are shown below.
+{| class="wikitable"
+![[files/Tree7.png|thumb]]
+!
+{| class="wikitable"
+![[files/Tree4.png|thumb]]
+|}
+|-
+![[files/Tree2.png|thumb]]
+![[files/Tree5.png|thumb]]
+|}

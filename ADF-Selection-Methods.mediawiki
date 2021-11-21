@@ -1,0 +1,14 @@
+This is a project idea for the [[Automatically Defined Functions|ADF subteam]]. This is an open ended project that will require more people and involve creating and testing Selection Methods based on ADFs.
+
+=== Selection Methods in EMADE ===
+Selection methods are located in the selection_methods.py file and can be completely custom functions. They must take in a set of individuals and a number of individuals to return. The individuals returned by a selection method are the individuals chosen to mate and produce offspring. Selection methods can take in more args that may help inform the selection process. A selection method can be informed by parsing the trees of individuals or being passed prepossessed information on the ADFs and fitness values of individuals. The only good reason to pass prepossessed data to the selection method is if it includes data that cannot be gleaned from the population of individuals being selected.
+
+=== Work That Needs to be Done ===
+* Design Selection methods based on ADFs in the individual or population
+** This can be a modified version of an existing method, like NSGA2 select that gives penalties to individuals with ADFs that have been seen too much, or they can be entirely novel ideas, like picking individuals based on the type and number of ADFs in the individual.
+** We have no idea what would be a good selection method. Researching the topic will most likely be very helpful
+* Implement and debug the selection methods
+** We need to make sure it works and that it is behaving as expected before running tests
+* Test selection methods
+** We need to compare these selection methods to existing selection methods to see what differences, if any, they make to the population.
+** This will likely require novel metrics and using the [[EMADE Visualization Subteam|VIZ]] [https://github.gatech.edu/adachille3/emade-viz code] to analyze and present differences in the population over time. Other than AUC, you should consider looking at prevalence of ADFs and the biasing of the population toward more/less types of ADFs or even size of individuals.

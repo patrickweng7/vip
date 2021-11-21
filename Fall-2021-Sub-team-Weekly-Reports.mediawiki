@@ -1,0 +1,1127 @@
+== Image Processing ==
+
+[[Image Processing Overview|https://github.gatech.edu/emade/emade/wiki/Image-Processing]]
+
+'''Meeting Times'''
+
+Wednesdays at 5:45p (hybrid style, in VIP room)
+
+[https://bluejeans.com/253303426/9283 Meeting Link]
+
+[https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
+
+=== Week of November 8th - November 14th ===
+
+This week we used our meeting as a work session in order to work on our respective tasks.
+* Bug with hyperfeature implementation in EMADE hopefully solved, PR will be opened this week, focus turns to new sharpening hyperfeature.
+* New EMADE environment still in progress, all the recent changes to GPFramework code caused us to find out we cannot use a shared conda environment the way we hoped because of the constant reinstallations necessary. It will only work if when we all our code changes are in and we run experiments separately.
+* Newly-processed dataset merging in this week, will make testing easier for the multi-class problem. 
+* New members continuing and hopefully all finishing PACE-ICE setup this week. 
+* Implementing new genetic operators this week, will merge if they show improved performance
+** partially matched and ordered crossover
+* Found an implementation of Lexicase that should match what we need, will verify with Jason at scrum before proceeding.
+
+=== Week of November 1st - November 7th ===
+
+Selection Methods
+* The p-value was very high which was causing the selection methods to fail. 
+* Next steps:
+** Fix environment errors
+** Testing the new changes for nsga 3
+** New member and Harris will try out Lexicase
+
+Hyperfeatures
+* Errors with the load environment problems on the standalone tree evaluator and trying to debug the new problem once PACE is back online
+* Trying out implementing a new hyper feature:
+* Sharpening features in addition to the edge detectors
+
+Mating/Mutations
+* Need to figure out how to adapt geometric and semantic CX to work with strongly typed GP, nothing found in literature about it.
+
+Data/Infra
+* Need to create new dataset
+* Max has been working on fixing bugs for the baseline run that we worked on
+* Someone new can definitely work on squashing bugs for the emade runs (since the data types don’t match)
+
+New team assignments:
+* Rohan - hyper features
+* Elan - data prep/infrastructure, doing runs on pace
+* Austin - selection methods
+* Eashan - mating, mutations
+
+
+=== Week of October 25th - October 31st ===
+
+[https://docs.google.com/presentation/d/100keUAjam-8e1-SMLtejP9ZQN38nmCJ_yA1t2HW-JPs/edit?usp=sharing Midterm Presentation Slide Deck]
+
+We discussed what had to be finished before we could proceed to the next phase of the semester and onboard new students to the team. We decided that based on the weirdness of the evaluation functions on multilabel data, we want to focus on a binary classification task instead: whether a disease is present or not.
+
+* Figure out what's happening with NSGA-III
+* Dive into Lexicase
+* Research workaround to geometric and semantic mating and mutation
+* Research new hyperfeature combinations
+* Bug squash in primitives around EMADE so they work with image data
+
+=== Week of October 12th - October 17th ===
+
+* Changed inputSchema to be compatible with PACE. Able to run individual EMADE installations with a shared conda environment.
+* Baseline runs showing a very limited set of primitives that do not cause trees to error out, means there are bugs we need to fix
+** Realistically won't get new runs with bug fixes until after midterm presentation. 
+* Implementing new geometric (simulated binary and blended) and semantic crossover methods to test whether we can improve diversity during the evolutionary process. Done with the implementation just testing now.
+* Testing NSGA-III to make sure we have no bugs with the implementation.
+* Hyper features have also been implemented. Just need to be tested.
+* For this week - now that most of the hyper features, selection methods and crossover methods have been implemented we need to just test against our baseline EMADE run (once we have acceptable results) and compare the accuracy. Other work for this week is just to get started on the mid semester presentation.
+
+=== Week of September 27th - October 3rd ===
+
+* NSGA-III Implementation - Tweak p parameter, test against working datasets
+* Mating/Mutation - New method
+* Trouble with seeds
+* Hyper feature ideas
+
+=== Week of September 20th - 26th ===
+
+* Selection Methods
+** NSGA-III Implementation
+* Hyper-feature & Primitive Packaging
+** Searching for combinations
+* Data Prep/PACE-ICE Setup
+** TF/Keras API for Image Data Preprocessing to prep dataset (completed augmentation of the dataset for EMADE runs)
+** PACE Storage workaround
+** Baseline run unsuccessful, retrying with seed file provided by Anish.
+* Mating/Mutation
+** Update on geometric semantic genetic programming methods.
+
+=== Week of September 13th - 19th ===
+
+This week we outlined our goals and began tasking ourselves. We will be focusing on a multi-label image classification problem using the chest x-ray dataset. This has been used by a group in the past but we are hoping to improve EMADE’s selection methods and mating/mutation process to better handle images with multiple labels. In particular, we are looking into NSGA-III and Lexicase as selection methods, and improving some existing features by looking for synergies and packaging them together so they’re not broken up by the evolution process.
+
+Question: if we’re comparing performance to the CheXNet paper, how freely can we modify the dataset such that the results are still comparable. 
+
+
+=== Week of September 6th - 12th ===
+[https://docs.google.com/document/d/1MQi36xly1XsjBzVa8GxB9-9LCIY_ahbkibp4lFlqkNI/edit Notes]
+
+We had our first sub team meeting! With the creation/branching off of a new subteam, we decided our overall objectives for the semester are to add new primitives to EMADE that can help with image processing tasks. We'd like to explore how we can use autoML for either image classification or object detection problems. The team agreed to find at least one good paper that had data readily available and a technique that wasn't just "here's our fancy neural network". We were wondering about how to make this a little more "emade-able"
+
+== Market Analysis and Portfolio Optimization (a.k.a Stocks) ==
+'''Meeting Times:'''
+* Meeting 1: Mondays from 5:50-6:30 (after VIP team meeting)
+* Meeting 2: Thursdays from 5:30-6:15
+
+'''Important Links:'''
+* [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-base EMADE fork]
+* [https://www.sciencedirect.com/science/article/pii/S1568494611000937 Basis paper]
+
+=== Week of November 15 ===
+* Last week we discussed constraining one of the objectives for the purposes of comparison between runs
+** We chose this objective to be the Loss Percentage objective since it will both provide a basis for comparison between the runs and with the paper
+* Best performing individual from the Lastest EMADE run (Loss, Avg Loss, Var Profit, and CDF as objectives): https://drive.google.com/file/d/13cH3K8wtKv-6ce0cwOn3MK-ogmOV8HM6/view?usp=sharing
+* Primitive Analysis of the latest run (Pivot table where the values represent average Loss): https://drive.google.com/file/d/1-mkrx2bLEzR_NbkwhIfUasryAxRfUcMm/view?usp=sharing
+* Next Steps:
+** Look into methods of comparison between runs using AUC and objectives
+** Complete the rest of the runs in our tracker: https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing
+
+=== Week of November 8 ===
+* We haven't been able to fully replicate the paper, so we will move forward with conducting our own runs and then comparing results to the paper 
+* We have begun running our experiments, which will be our primary focus for the next couple of weeks
+* We're in the preliminary stages of this, but once we get done with a couple of the runs, we'll start analyzing them as we go
+** We will focus on analyzing the primitives and learners used by the best performing individuals and comparing that as well as individuals' results to those of the paper
+
+
+=== Week of September 20 ===
+* Literature review on following articles:
+** https://www.sciencedirect.com/science/article/pii/S092523120900040X (Prediction-based portfolio optimization model using neural networks)
+*** Focused on diversifying portfolio
+*** Ensuring portfolio has low risk rather than focused on short term time series analysis
+** https://ieeexplore.ieee.org/abstract/document/1257413/references#references (Support vector machine with adaptive parameters in financial time series forecasting)
+*** SVM in financial time series forecasting
+*** Based on the structural risk minimization (SRM) principle which seeks to minimize an upper bound of the generalization error consisting of the sum of the training error and a confidence interval.
+*** Five real futures contracts collated from the Chicago Mercantile Market are examined in the experiment. They are the Standard & Poor 500 stock index futures (CME-SP), United Sates 30-year government bond (CBOT-US), Unite States 10-year government bond (CBOT-BO), German 10-year government bond (EUREX-BUND), and French government stock index futures (MATIF-CAC40).
+** https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach (Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach)
+*** Used 15 technical indicators with different parameters
+*** The models generates two dimensional images of the time series for these indicators over a 15 day period
+*** These images are categorized as buy, sell, and hold
+*** Seems to outperform the buy and hold strategy for stocks
+
+A good resource to learn more about algorithmic trading: https://github.com/stefan-jansen/machine-learning-for-trading
+
+
+=== Week of September 13 ===
+
+* Determining semester long goal: Stock generalization or fundamental analysis
+* Stock generalization:
+** Goal: Finding models/individuals that perform well on multiple stocks
+** Model/individual performs well on stocks in one sector as well as a different sector
+* Fundamental Analysis
+** Using company quarterly balance sheets along with technical analysis to predict stock buy/sells
+** Difficult to implement since there is less fundamental analysis data and it can be difficult to manipulate
+
+* https://ieeexplore.ieee.org/abstract/document/4598507 (An empirical study of Genetic Programming generated trading rules in computerized stock trading service system)
+*** Trades based on rules generated
+*** Rules follow a tree based structure
+*** Comparison of GP tree based algorithm to MACD indicator and buy/hold strategy
+*** Data used was 30 companies from the Dow Jones Industrial Average (DJIA).
+
+
+=== Week of April 19 ===
+''Subteam Meeting (Monday):''
+* Sriram implementing Fibonacci Retracement
+* David W will experiment with other evaluation functions and how to assess effectiveness of individual TIs
+* We discussed increasing the window size: since our current dataset is fairly small, we will increase the window size from 30 to 40 (so we don’t make the number of windows too small), but on our next run when we have a larger dataset we will increase our window size further 
+* Ran EMADE with window size of 40 and using the same eval functions as last run and add on CDF: profit percentage, average profit per transaction, variance of profit percentage, and CDF
+
+''Subteam Meeting (Thursday):''
+* Image is how the performance of our best individual from the last run compared to the random distribution. What's interesting is how well it performed despite being so simple (only used one TI).
+** The individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None))
+[[files/random_experiment.jpg]]
+* David W will continue his experiment by looking for a correlation amongst top performing individuals: which TI’s are most prevalent in good performing individuals
+* Fibonacci Retracement was added to emade (one of the first leading indicators we've added)
+* For next run:
+** We're considering using CDF as an objective function without using full profit percentage and without profit percentage variance
+** We will add larger datasets
+*** Update: we added XLP (consumer staples ETF) for a relatively stable stock and SH (S&P 500 short) for a downward-trending stock that would be extremely difficult to make a profit off of (so we can see how well emade outperforms the random distribution and if maybe it can find the optimal buy points and make profit). For both stocks, we used a train period of 7 years (2010-16) and a test period of 3 years (2017-19).
+
+=== Week of April 12 ===
+''Subteam Meeting (Monday):''
+* Discussed improvements to our EMADE implementation in preparation for a run next Monday
+* Discussed adding another dataset to our folds to evaluated indiviuals' performance on larger datasets
+** Would give us a baseline to see how EMADE performs on data that isn't the data from the paper
+** Ideas: S%P 500, XLP, ETFs in the range of 2010 to 2019
+* Discussed looking for more technical indicators to add
+** Abhiram developed visualizations to compare an individual with a Monte-Carlo random distribution
+[[files/AAD Stocks random experiment.png|200px|thumb]]
+
+''Subteam Meeting (Thursday):''
+* Discussed new technical indicators to be added (Fibonacci, Stochastic RSI, Beta, Aroon, VWMA, VWAP)
+* Max and Kartik developed an eval function that computes the normal CDF of the individual's profit compared to its closest random experiment result
+** Abhiram reviewed the code to make sure it works
+* Discussed running EMADE separately on each stock, thinking that the optimal individual would be different for different stocks
+** Abhiram ran an experiment EMADE run for a few generations on just AAPL and VZ data, and found that good individuals correlated to good performance on other stocks
+* Devesh is working on a matric to compute the error in an individual's buy-sell decisions to the nearest local min and local maxes
+* Plan to do an EMADE run on Monday using these new functions.
+
+=== Week of April 5 ===
+''Subteam Meeting (Monday):''
+* Continued to onboard first semester students
+* Discussed potential applications of the material from the Stats lecture: prevailing idea was to see if we can conduct Welch’s test on indivduals’ profit percentage on various stocks
+* Rishi and Abhiram finished the talib methods are completed (but final optimizations and fixing seeds still need to be done before an EMADE run)
+
+''Subteam Meeting (Thursday):''
+* We discussed new possibilities for evaluation functions 
+** One suggestion (from Devesh) was if we could try to implement an evaluation function that determines how close our buy and sell points are to the nearest local max and min points
+* Set up first semesters with colab and our SQL server
+* Max’s random experiments found that we didn’t do that much better than random trading besides on AUO
+** Potential solution: instead of having a profit percentage evaluation function, we compute the z-score of individuals’ profit percentage so we can normalize it relative to random trading (because a given profit percentage is more impressive on some stocks compared to others, so this will give an unbiased way for emade to compare stocks)
+* Began a run of EMADE
+=== Week of March 22 ===
+''Subteam Meeting (Monday):''
+*Onboarding new students:
+**Made a presentation that reviews the basics of EMADE, and what exactly the stocks team is doing with regards to coding
+**discussed the paper we are using, tasked them with reading the paper and coming on Thursday with questions
+*Discussed what Dr. Zutty meant by Monte-Carlo simulations to compare individuals
+**Dr. Zutyy came into the meeting to explain what he meant, and the purpose of it
+**Kartik and Max will run an experiment with this
+''Subteam Meeting (Thursday):''
+*Onboarding new students:
+**Questions about what PLR is and what Exponential Smoothing is
+*Max ran an experiment with this new random methodology, and how some interesting results
+* Rishi and Abhiram will prepare the rest of the TA-lib functions for a run possibly next week
+=== Week of March 15 ===
+''Subteam Meeting (Thursday):''
+*Discussed takeaways from our presentation on Monday
+**Increasing evolvability of EMADE individuals - reducing places where EMADE can error
+*Dr. Zutty mentioned after the presentation to use a Monte Carlo algorithm to compare to our EMADE individuals
+**Randomly decide on buy or sell decisions, and compare profit to that of the EMADE individual (should correlate to the stock price trend)
+**We decided that this method had too high of a variance, and that we should instead compareit  with a buy-and-hold scenario
+*Discussed possibilities for new fitness functions in EMADE
+**Number of Transactions is neither something we want to minimize or maximize generally
+**Mean Absolute Error is something that doesn't generally correlate well to profit percentage
+**Average Profit Per Transaction (Maximize)
+**Variance of Profit per Transactions (Minimize)
+**(Individual Profit Percentage) - (Profit from Buy-and-hold)
+*People were tasked with thinking of other fitness functions to optimize
+=== Week of March 8 ===
+''Subteam Meeting (Monday):''
+* Discussed improvements to our code base and preparation for an EMADE run later this week
+* Dicussed the model that is used in the paper, and tried to replicate it in EMADE using our primitives
+** Found that the profit calculation was different than what we had been using, as it accounted for transaction fees and taxes(?)
+** Decided not to include tax in the calculation because usually tax is calculated at end of fiscal year
+* TA-Lib primitives are being developed to replace the ones that we already have - Will still have to make more volume-based and complex primitives as they are not in TA-Lib
+
+''Subteam Meeting (Thursday):''
+* New EMADE Run!
+** Modified the evolution parameters to prioritize evolving the seeded individuals by crossover and mutation more than generating new ones
+** Increased the population size to 1024 to increase the chance of a valid individual being created
+** Ran EMADE for about 30 generations (large population size impacted performance) in 4 hours, only 2 valid individuals were made that were not seeded individuals
+*** Both of these individuals performed pretty mediocre and were not complex at all
+* Looking into another run next week with some new changes:
+** decrease population size to same as before (about 60/generation)
+** decrease mutation probabilities
+** Found that many individuals were erroring because the mode and axis were not set properly, otherwise was a very promising individual
+*** Possible to Hard-code the TI primitives to be STREAM_TO_FEATURES no matter what? All primitives will only work in STREAM_TO_FEATURES Mode?
+*** This method will make a lot more valid individuals in fewer generations
+** Use the New TA-Lib primitives instead
+=== Week of March 1 ===
+''Subteam Meeting (Monday):''
+* Some general confusion as to the purpose of the genetic algorithm in the paper. A couple people will work on trying to figure this out
+* ta-lib looks like good replacement for how we can write primitives
+* PLR and exponential smoothing should be good to go
+
+''Subteam Meeting (Thursday):''
+* Still some confusion on how the paper is finding the optimal threshold using its GA. Our plan is to just figure out the optimal threshold ourselves and use that so we can move on.
+* We are going to try and start wrapping up writing TI primitives so we can focus our efforts elsewhere. We will emphasize writing primitives for TIs included in ta-lib, although the library is lacking in certain areas (e.g. volume indicators), so we'll still need to code some ourselves.
+* We are planning on doing a run of emade within a week, and so we'll be preparing for that in the coming days.
+
+=== Week of February 22 ===
+''Subteam Meeting (Monday):''
+* Discussed new improvements to the PLR Code
+* New Technical Indicators implemented:
+** Abhiram wrote BIAS, DeltaSMA, DeltaBIAS, DeltaMACD, DeltaSTOCH, DeltaWILLR, and DeltaRSI primitives
+** Youssef wrote BiasEMA, DeltaEMA, and finished documentation that was not provided for other TI primitives
+** Krithik, Joseph, Youssef, and Kinnera will work on making more volume-based TI primitives
+* Found that some of our price data were inconsistent with that of the paper, Rishi will look into a different source to get accurate data
+
+''Subteam Meeting (Thursday):''
+* Kartik and Abhiram looked into why our trading signals have flat parts between segments
+** Main reason for this be because is a trend has an even length, the peak will fall between two adjacent points, and is therefore offset but the current calculation
+* Abhiram and David looked into Exponential Smoothing and how it works, implemented Proof of Concept
+* Rishi fetched new stock data from AlphaVantage, far more consistent with paper
+* Max looked into a Python library that calculates Technical indicators, discussed how we could integrate that to generate many more TIs
+* Looked into how the GA threshold optimization works, and will probably use DEAP to try it out
+* Goals (optimistically by next week):
+** Integrate Exponential Smoothing and Trading Point Decision in EMADE as a fitness function
+** Finish PLR code, generate labels for all 6 datasets
+** Build GA algorithm to find the optimal threshold value that makes the most profit
+** Prepare Datasets for EMADE runs, as well as XML template
+=== Week of February 15 ===
+''Subteam Meeting (Monday):''
+* In terms of dealing with our data, we are planning on creating a Monte Carlo fold per stock so we can most effectively test our pipeline and create a good predictive model for a given stock
+* We considered the possibility of adding stream-to-stream primitives, but this isn't a priority at the moment
+* Tasks include fixing Abhiram's PLR code to match the paper's results and adding the paper's primitives to EMADE
+
+''Subteam Meeting (Thursday):''
+* Continued to discuss the main paper, as well as how we could use a [https://doi.org/10.1109/TSMCC.2008.2007255 related paper] (one common author and a citation of the main paper)
+* There was some confusion on the methodology of the papers and how to replicate the PLR code. We will continue to try and make sense of the paper over the weekend, but to ensure we do not fall into the same trap as last semester, Krithik will begin looking around for another paper in case we choose to shift our focus away from this one.
+** Update (2/22): Abhiram and Kartik were able to replicate the PLR code of the paper
+
+=== Week of February 8 ===
+''Subteam Meeting (Monday):''
+* Discussed Weekly Meeting time and checked with Max and Joseph if they were available
+* Kinnera found some potential papers that we would look at, most had interesting results, but we wanted to use data from American Markets
+* Looked into sources of the paper we used last semester and found some good candidates
+
+''Subteam Meeting (Thursday):''
+* Found a good paper to use: https://www.sciencedirect.com/science/article/pii/S1568494611000937
+** Combination of different techniques to build a stock prediciton model:
+*** Stock Market Data - Rishi, David, Kinnera
+**** Uses various stock tickers that have various long-term trends
+**** APPL for long-term bullish (primary dataset)
+*** PLR (Piecewise Linear Representation) - Abhiram, Max, Karthik
+**** a simple algorithm that recursively finds a piecewise linear fit to the raw stock price data
+**** Useful to simplify the time series into simple trends
+**** Uses a GA procedure to find an optimal threshold that produces the most profit
+**** The local mins and maxes of the output piecewise function are converted into buy-sell labels to train a model with
+*** Technical Indicator Inputs - Krithik, Joseph, Max, Youssef
+**** Use Several technical indicators as inputs to the model
+**** Most of these are already developed in EMADE, just the BIAS indicator, and difference in technical indicators between days need to be developed
+**** Simple task, should take less than a couple of hours
+*** Neural Networks
+**** Uses an ANN for regression training, predicts a value between 0 and 1
+**** Maybe expand the NN capabilities of EMADE, but MLPRegressor from sklearn should do fine
+*** Exponential Smoothing - Max?
+**** After output in generated from the neural network, the values are put into another algorithm to turn the continuous value into a buy-sell decision
+* Hopefully we can develop all of these component in 1-2 weeks and start EMADE run after
+* A lot of code can be reused from last semester, so this would not be starting fresh
+
+=== Week of February 1 ===
+''Subteam Meeting (Monday):''
+* Goals for this semester:
+** Create a model capable of making a profit on test data
+** Find and outperform a new research paper 
+* We're planning on exploring some changes to our dataset 
+** Instead of just using S&P, we my try to include other stocks/ETFs. Options on the table:
+*** Blue-chip stocks in various industries
+*** Sector ETFs/indices
+*** Small cap stocks 
+** We might try to go more granular than daily data (hourly or half-hourly). This could help minimize the effects of non-technical factors such as company news, but it'd also make data more volatile. 
+*** We could also look for abnormalities in volume data to account for these factors (e.g. technical analysis could not predict the huge spike in the prices of GME or AMC, but maybe we could infer something is going on based on the fact that their volumes also had a massive spike)
+** This may change once we find a new research paper (depending on what dataset it uses)
+* Some of the tasks being distributed include looking for a new paper and looking into fundamental analysis
+
+''Subteam Meeting (Thursday):''
+* Meetings on Thursdays at 5:30 seems to work for everyone
+* Slow couple of days, most people are planning on doing their weekly work over the weekend
+* Max will look into unsupervised clustering to find out how to treat trends
+* Others will continue tasks from earlier in the week, namely looking for a new paper that is more consistent and better aligns with our new goals (or maybe even one of the ones we liked but didn't choose last semester)
+
+=== Week of January 25 ===
+''Subteam Meeting (Thursday):''
+* Intro meeting to discuss goals for the semester: ideally we would like to be able to make real-time trades (and build a model formidable enough to do so)
+** Can use [https://alpaca.markets/algotrading Alpaca], which has a testing environment so we don't need to use real money
+* Abhiram told us that over break he fixed our primitives: we had assumed that EMADE would give us all of the data, but Abhiram explained that instead we get a sliding window of the data (a list of lists). There are many different commits, but the updated file is [https://github.gatech.edu/rbhatnager3/emade/blob/stocks-experimental/src/GPFramework/stock_methods.py here].
+* We expressed a couple of different ideas on where to go for the semester:
+** We seemed to agree that we did not want to follow a paper as rigidly as we did last semester (it didn't go too well then, and now we also have a better idea of what we want to do, what we can do, how to do it, etc.)
+** We might find another paper that looks interesting and (loosely) use it for ideas
+** We'll definitely continue to add primitives to EMADE
+** We'll continue looking for alternatives to the genetic labelling we used last semester
+** If people have differing interests we might spilt into fluid groups temporarily 
+* Not everyone could make the meeting, so we didn't make any concrete decisions (we'll do that on Monday when everyone should be in the meeting)
+
+== Modularity ==
+
+[[MODULARITY GUIDE|https://github.gatech.edu/emade/emade/wiki/Modularity]]
+
+=== Team ===
+'''''Modularity Sub-Team:'''''
+* [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
+* [[Notebook Tian Sun|Tian Sun]] (tsun90@gatech.edu)
+* [[Notebook Xufei Liu|Xufei Lu]] (xufeiliu2000@gatech)
+* [[Notebook Angela Young|Angela Young]] (ayoung97@gatech.edu)
+* [[Notebook Bernadette Gabrielle Santiago Bal|Bernadette Bal]] (bgsanbal@gatech.edu)
+'''Graduated Students'''
+* [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
+* [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
+* [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
+
+=== Week of Nov 2 - Nov 8 ===
+* Introduced first semester students to the team and our work
+** Onboarding session regarding what our team does and the tools we use (eg, google collab)
+* Extended ARL Updates
+** Bug within match_arl algorithm
+*** Identifying ARL in individual compares the name of the node within the ARL and the name of the node in the individual to determine if the ARL exists within the individual
+*** There was a bug which occurred when a node had children with the same name
+*** The algorithm didn't properly check if a child node had already been matched within the ARL, causing the match to fail and subsequently the contraction to not happen
+*** This might've been responsible for the pre-midterm run's poor results
+*** Solution: use a set of indices to make sure that matched nodes aren't rematched
+** Completed an Extended ARL run with the fix
+*** Goal of at least 2 runs a week to get plenty of data for the final presentation
+*** Planning on having first semesters help out with runs
+** Began writing/updating documentation and writing unit tests for new code
+* Cache V2 updates
+** Began writing ARL changes to the Cache V2 branch
+
+=== Week of Oct 26 - Nov 1 ===
+* Reassessed and adjusted goals and timelines for rest of semester
+** Part of the Stocks group will focus on migrating modularity into Cache V2, as part of the problems with integrating stocks data with modularity was that stocks used CacheV2 functionality
+** Extended ARL group will continue doing runs and running experiments
+
+=== Week of Oct 19 - Oct 25 ===
+* Midterm presentation!
+** [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)
+* Added new visualization functionality
+** [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/73aa08adc7ff013b7118c3bee361349753ab60af)
+*** Added MNIST new objectives support to AUC visualization tool (commented out to preserve functionality)
+** [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/18bfb97c973d9bbd3a51f6d06e00e774e1fa395a)
+*** Added AUC over time analysis graph notebook
+*** Added ARL size analysis visualization notebook
+
+=== Weeks of Oct 4 - Oct 18 ===
+* Fixed implementation detail regarding ARLs were being created with only a single non-arg node
+** Now has a check to make sure that there exists > 1 non-arg node before creating the ARL.
+* Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts, but this code was non-functional
+** This was originally implemented because our framework contains the root node of ARL occurrences, and therefore contracting ARLs may cause several problems.
+*** If we contract an ARL and therefore the root index of another ARL is changed
+**** Solution: If we sort in reverse index DFS order, I believe we should be able to safely contract without changing the root indices of other ARLs.
+**** Just in case this is not true, implemented sanity check to ensure that we completely remove a given ARL before removing nodes from another one.
+*** If two ARLs overlap, then after the first one has been contracted, the overlapping nodes are gone and the second ARL either attempts to contract nodes which have been deleted (Index out of bound crash) or it contracts nodes which it isn't supposed to based on their indexes (Arity problems)
+**** Solution: Use a set to keep track of which indices have already been marked for contraction, and don't attempt to contract an ARL who has nodes which have already been marked for contraction.
+* Major bug regarding contraction which has been causing nearly all other bugs mentioned during previous weeks:
+** Our framework currently uses two major systems for identifying where ARLs occur in individuals
+*** Firstly, the population_info stores the root indices for each occurrence of an ARL within the population
+*** Example:
+    
+                 Learner
+            /               \
+     MorphDilateCross    learnerType
+       /   |  \
+    ARG0   3   5
+
+*** We also stored encoded ARL primitives to tell where additional args were
+*** Example
+
+                                            Learner
+                                /                              \
+                      MorphDilateCross                      learnerType
+         /       /       |        |        \       \
+    arl_arg0 arl_arg1 arl_arg2 arl_arg3 arl_arg4 arl_arg5
+
+*** Originally, the code deleted all the nodes it found within the ARL occurrence, and this caused us to potentially have more args than we expected
+*** In the above example, we had already fixed arl_arg0 = ARG0, arl_arg2 = '3', and arl_arg3 = '5', but it still expects 5 arguments
+*** Attempted solution: Don't contract args
+*** This again caused problems because we weren't contracting the nodes which were fixed args, and therefore had more nodes than expected
+*** Final solution: Update arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since (to my understanding) we don't want to contract it.
+* Still have a bug
+      File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 517, in _contract_arls
+       print(f"{new_individual}")
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 97, in __str__
+       string = prim.format(*args)
+     File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 204, in format
+       return self.seq.format(*args)
+     IndexError: tuple index out of range
+
+    print(f"{[(node.name,node.arity) for node in new_individual]}")
+    [('arl6', 4), ('EqualizeAdaptHist', 4), ('ARG0', 0), ('0', 0), ('0', 0), ('1.0', 0), ('2', 0), ('passQuadState', 1), ('3', 0), ('4.262076198386659', 0)]
+* Decided to give PACE-ICE one last try
+** Most of the team now on PACE-ICE and planning on starting stocks runs soon
+
+=== Week of Sept 27-Oct 3 ===
+
+* Implemented workaround for add_all_subtrees large individuals bug
+** Gabe suggested instead of completely ignoring large individuals for ARL consideration or refactoring current framework, to only consider subtrees which take in an EMADE Data pair
+** This should be a lot easier to implement than refactoring current architecture; added to the to-do list.
+* Fixed bug regarding incorrect arities in contract_arls
+** Example output
+```
+arl4: lambda arl_arg_0,arl_arg_1,arl_arg_2: (EqualizeHist(arl_arg_0,arl_arg_1,arl_arg_2))
+Indiv copy:  Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+occurrence!  68 ((('EqualizeHist', 2, 3, -1), ('ARG0', 0, 0, 0), ('-6', 0, 0, 1)), 1)
+Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+individual before removal [('Learner', 2, 0), ('EqualizeHist', 3, 1), ('ARG0', 0, 2), ('-6', 0, 3), ('0', 0, 4), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 5)]
+Nodes to remove:  [3, 2, 1]
+individual after removal [('Learner', 2, 0), ('0', 0, 1), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 2)]
+arl to insert <deap.gp.Primitive object at 0x7f205264e6d8> original arity 3 new arity 1
+len individual after arl insert 4
+individual after arl insert [('Learner', 2, 0), ('arl4', 1, 1), ('0', 0, 2), ("learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'BAGGED', None)", 0, 3)]
+```
+** Individuals with incorrect arities still appear in the population
+** Problem with occurrences code, not properly including the entire ARL
+* PACE-ICE still causing issues
+** What we thought switching to PACE-ICE could help us with over Google Collab:
+*** Faster Runs (ARLs code doesn't benefit from GPUs on PACE-ICE as much as NN/CV subteams do)
+*** Longer Runs (Guide notes a 8 hour limit for PACE-ICE, Google Collab has a 12 hour limit)
+*** No inactivity clicking script
+*** Not terribly difficult to switch to with the new guide (We have now spent 3 weeks trying to get it to work)
+** Switching back to Google Collab
+** Stocks data has been migrated into our repo and we're now ready to do those runs
+
+=== Week of Sept 20-Sept 26 ===
+* Bug causing the crashes has been identified
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL
+*** Example
+           (node 0, arity 2)
+                 /  \
+ (node 1, arity 0) (node 2, arity 0)
+
+             (ARL, arity 2)
+                    \
+                   (node 2, arity 0)
+** Caused a list index out of bounds error whenever an individual containing such an arl was iterated through in mating, mutating, inserting modify learner, finding all subtrees, etc
+** Large chunk of code just wrapped in a try except block
+* Problem with add_all_subtrees method
+** The current ARL creation code stores all possible subtrees in memory and randomly chooses a number of them, weighted based on its "goodness" (fitness of individual the ARL was created from)
+** This causes problems with decently sized individuals (eg, length of 82 and depth of 6)
+** Python really doesn't like this, grinds to a halt. Could be running out of memory or just taking a really long time to find all subtrees.
+** Workaround: Don't consider individuals above a certain size for ARLs
+** Future solution: Refactor code to generate ARLs as the subtrees are found
+* Mnist team working through getting everyone on PACE-ICE to do runs
+** There was some ambiguity in the instructions which caused some confusion
+
+=== Week of Sept 13-Sept 19 ===
+'''Extended ARL'''
+* Began doing extended ARL runs
+** Starting off with max depth 10 trees
+** Everything seems to be working, there exist ARLs with depth > 2
+** Example ARL
+ Learner(arl_arg_0,ModifyLearnerBool(learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}),arl_arg_1))
+* New goal: Test the significance of the depth of ARLs on the performance of individuals
+** Problem 1: It takes a while for individuals with significant depth to appear, and therefore it takes ARLs with significant depth even longer to appear
+*** Working on a seeding file which has more complex individuals so larger ARLs can generate more quickly
+*** Manually randomly select individuals from runs which look different from the original seeds
+*** Potential problem with limiting diversity?
+Old Seeds
+ Learner(ARG0, learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion':0, 'max_depth': 3, 'class_weight':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
+ Learner(ARG0, learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
+New Seeds (Used in addition to Old Seeds)
+ Learner(ARG0, learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
+ Learner(EqualizeHist(ARG0, 2, 3), learnerType('RAND_FOREST', {'n_estimators': 100, 'criterion': 0, 'max_depth': 3, 'class_weight': 0}, 'SINGLE', None))
+ Learner(ARG0, learnerType('LIGHTGBM', {'max_depth': -1, 'learning_rate': 0.1, 'boosting_type': 0, 'num_leaves': 31}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'BAGGED', None))
+ Learner(ARG0, ModifyLearnerFloat(learnerType('ARGMIN', {'sampling_rate': 1}, 'SINGLE', None), 0.01))
+ Learner(ARG0, learnerType('ARGMAX', {'sampling_rate': 1}, 'ADABOOST', {'n_estimators': 50, 'learning_rate': 1.0}))
+ Learner(ARG0, ModifyLearnerList(ModifyLearnerInt(ModifyLearnerFloat(learnerType('DEPTH_ESTIMATE', {'sampling_rate': 1, 'off_nadir_angle': 20.0}, 'SINGLE', None), 1.0), notEqual(-2.6349412187954435, 0.1), myIntSub(255, -6)), passList(myListAppend([1, 6], [-2, 14]))))
+** Problem 2: There are several uncommon bugs which are ending runs prematurely
+*** Both have to do with invalid value encountered in double_scalars individuals[j].fitness.values[l]
+*** Might have to do with a floating point error causing divide by zero errors
+*** Dr. Zutty mentioned that it could be caused by an unregistered primitive, check the primitives.
+ /home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py:134: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 802, in master_algorithm count = mutate(offspring, _inst.toolbox.mutateLearner, MUTLPB, needs_pset=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 600, in mutate mutate_function(mutant, inst.pset)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 26, in insert_modifyLearner slice = individual.searchSubtree(index)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 180, in searchSubtree total += self[end].arity - 1
+ IndexError: list index out of range
+
+ /home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:735: RuntimeWarning: invalid value encountered in double_scalars individuals[j].fitness.values[l]
+ Traceback (most recent call last):
+ File "src/GPFramework/didLaunch.py", line 126, in main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+ File "src/GPFramework/didLaunch.py", line 116, in main database_str=database_str, reuse=reuse, debug=True)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1097, in master_algorithm new_adfs, updated_individual_indices = _inst.adf_controller.update_representation(parents) # only modifies parent representation
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1160, in update_representation population_info = self._find_arls(population)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 568, in _find_arls self.search_individual(population[individual_num], individual_num, dictionary, self.max_adf_size)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 1219, in search_individual self.generate_child_dict(individual, child_dict, next_dict, 0)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 623, in generate_child_dict child_idx = self.generate_child_dict(individual, child_dict, next_dict, child_idx)
+ File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/adfs.py", line 610, in generate_child_dict num_children_left = individual[node_idx].arity
+ IndexError: list index out of range
+* Fixed temporary commits from last semester that were causing issues
+
+'''Mnist Runs'''
+* Began working on moving away from Google Collab and towards PACE-ICE
+** Once finished, Extended ARL runs can also be done on PACE_ICE
+
+=== Week of Sept 6-Sept 12 ===
+09/08/21 - Met with team to discuss team goals for the semester, new research areas, and responsibilities
+'''Semester Goals:'''
+* Explore runs using stock data 
+* Explore left off work from last semester (from Spring 2021 final slides)
+** New Models
+*** Deep Ensembles with a diversity term[4] 
+*** A CNN architecture with decaying learning rate
+** Selection Method
+*** Modifying the evolutionary selection method to help encourage the spread of ARLs throughout the population and complexity. 
+** New Dataset Training
+*** Look at other datasets to expand ARL training to see which ARLs stored in the database are the most used and why.
+*** Practice on more image datasets and multi-class classification datasets.
+** Diversity Measures
+*** Create some quantifiable way to measure diversity, generalizable for EMADE. May use a diversity measure as a heuristic when finding ARLs.
+** ARL Database Storage
+*** Improve the way ARLs are stored in the database to keep any information from being lost
+** EMADE Integration
+*** Integrate ARLs with EMADE’s original architecture and other modularity techniques[2]
+** More Runs
+
+09/10/21 - Time Conflict Meeting
+
+'''Regarding MNIST Runs'''
+* Could use:
+** datasets/../mnist, gen_mnist - for loading data (pickle formatting)
+** templates/../mnist, input_mnist - two objectives are 'precision' and 'recall'
+''Regarding Semester Goals''
+* Dr. Zutty/Gabe mentioned that another area of research could be looking into 'how ARLs are constructed'
+** hyperparameters
+** amount of ARLs built per generation (currently default is 5)
+** ranking criteria for ARLs
+* Also possible to look into writing a paper as we look back at our code
+** use LaTeX 'ACM SigConf' template
+
+'''Week Tasking'''
+* Set up a weekly subteam meeting time 
+* Contact previous semester students (Gabe) to continue modularity work
+** AWS storage for ARLs
+** Codebase ownership
+* Continue major areas of work from last semester: 
+** '''ARL Depth''': Vincent, Xufei 
+** '''MNIST Runs''': Bernadette, Angela, Tian, Xufei (Runs)
+*** Try and understand why there were errors with runs from the previous semester
+'''Current Meeting Time: 11-12PM @ CoC Lobby'''
+
+== NLP ==
+
+Midterm Presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+
+Meetings: 2:00 pm on Wednesdays, Virtual
+
+=== Week of November 8th - November 12th ===
+* Resolved issues of Big Merge
+* Divided into new teams to tackle remaining issues
+* Branch currently runs and works on one data pair
+* Confirmed keras model works outside of emade using our primitives
+* Currently getting a memory error
+
+=== Week of November 1st - November 5th ===
+* Steven and Devan gave a presentation on EMADE, Deep Learning, NLP, and QA to our New Members on Wednesday.
+* Karthik, Shiyi and George worked on testing the Bidirectional Attention -> Modeling -> Output layer pipeline. Corrections were made to the implementation of some of these layers in Tensorflow/Keras.
+* Output layer currently doesn't return words, just the probability vectors - we may have to add one last primitive to do this.
+* Kevin is working on trying to figure out how to integrate the word embedding into the above pipeline
+* New members are onboarding and we have some tasks planned for them!
+* Steven integrated QA Primitives into neural_network_methods.py and debugged. EMADE now builds, and unit tests pass.
+* Steven has been testing QA primitives with standalone_tree_evaluator.py to see if we can get meaningful results and that everything runs smoothly. However, we're having some issues with getting our primitives to be recognized in string representation.
+
+=== Week of October 25th - October 29th ===
+* We presented out midterm presentation and pitched to new members: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* We then held a meeting and split up into teams to implement primitives needed from BiDAF. These included a Bidirectional Attention Layer, a modeling layer, and an output layer.
+* George implemented a modelling layer primitive
+* Kevin worked on the output layer
+* The Bidirectional attention layer requires a bit more work, so the bulk of us worked on this together. We completed code for the similarity matrix needed to compute the output, and will be implementing query2context and the context2query matrices this week, in addition to the concatenation function at the end.
+
+
+=== Week of October 12th - October 16th ===
+* With the code for aligned data pairs created, we created a merged branch that mixed this functionality with NNLearners.
+* Reviewed trivial vs non trivial merge conflicts.
+* Merged branch: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+* Resolved 5,000 + merge conflicts at Hackathon Saturday.
+* Working in a new branch now, running into errors with the input.
+* Literature review team has read several papers and made trees for 6 individuals to seed: https://docs.google.com/document/d/1id8NqEuLTB7ds_75bMjUKTYzc1aBUD6-0TaOfPCsW5c/edit?usp=sharing
+
+=== Week of October 5th - October 9th ===
+* Divided our team into two teams, one to get the branch working, and one to do a literature review and start working on primitives and making seeded individuals based off of state of the art.
+* We obtained a new branch that could use aligned data pairs.
+* We setup a new fork to work with this on: https://github.gatech.edu/sleone6/emade
+
+=== Week of September 20th - 27th ===
+* This week we designed the primitives/infrastructure needed to tackle the QA problem with EMADE.
+* There are two major issues, which we designed solutions for. The problems are as follows:
+** Problem 1: Unlike other datasets, we have two inputs that the model needs to handle separately: the context and the query.
+** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
+** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
+** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
+** Example from Steven's Notebook on how the output is obtained: "if our context was 'The Titanic sank in 1912' and we had the output vector (0 0 0 1 0 0 0 0 0 1), then our answer would be 'in 1912'".
+
+=== Week of September 13th - 20th ===
+* Dataset work
+* Decided on objective functions (F1 vs num params)
+* Coded up modified F1
+* Review of QA systems
+
+=== Week of September 6th - 12th ===
+* We had our first sub team meeting of the year
+* We've decided on our goal as using EMADE to look for less complex, yet as accurate Neural Architecture for state of the art Question Answering Systems, similar to how BORT was made as a less complex BERT: https://arxiv.org/abs/2010.10499
+* We outlined steps for achieving our goal
+** Setup everyone on EMADE/PACE
+** Work with dataset, make it work on EMADE
+** Implement primitives and infrastructure to make Question Answering problems work with EMADE
+** Collect and analyze run results
+
+=== Week of April 19th ===
+
+Breakout Meeting
+* Dr. Zutty joined at Cameron's request to discuss NNLearners as subtrees
+* Cameron pushed update to PACE files and team branch (adjusted seeding file, naming) on git
+* Steven found a couple individuals that don't perform well in standalone tree evaluator to test evolution
+* Karthik is playing around with FNR and FPR metrics
+* Hua had a few runs (both gpu and cpu only) but they yielded poor results
+* Nishant, Prahlad, and Harris have ran EMADE and will review results
+* Sumit, Anshul, Heidi, and myself are working through PACE
+* Discussed high level goals achieved this term:
+** Streamlining PACE env
+** EMADE producing competitive individuals
+
+Subgroup Meeting
+* Cameron W. continuing with many workers implementation
+** Many workers successfully spin up but will attach to the same gpu even when specified not to
+** Update 4/25: Cameron pushed large update to github, fully implementing many workers
+*** Huge performance increase; typical run completes ~1 generation per hour on Amazon dataset, with many workers 15 generations completed in 2.5 hours (~6 gen per hour)
+** Run results: 8 hours, 23 generations, best individuals are on par with seeded ones
+** Individual with 93.2% accuracy: https://drive.google.com/file/d/1zOHhgbm6-QYRa4SMTrDbp0BiDB0I_iEk/view?usp=sharing
+** Still not getting much more depth than seeded individuals
+* Sumit having issues with conda environment (specifically with keras and sklearn packages). 
+** Is using the same yml file as everyone else so might be a compiler error.
+* Steven working on seeding individuals that performed poorly in the standalone tree evaluator
+* Karthik cloning new branch and will get FNR/FPR running
+* Hua getting competitive results in his PACE runs
+* Nishant, Harris, Prahlad, Cameron B., and myself are troubleshooting miscellaneous PACE issues
+** End of meeting was used for helping each other out
+
+Final Week Tasks/Dates:
+* Working on presentation
+* Practice run of presentation - Wednesday @ 6pm
+* Code freeze - Wednesday @ 12pm
+** A few people still debugging/altering primitives. This is their deadline
+* Last set of runs
+* Reviewing results and compiling in presentation
+
+=== Week of April 12th ===
+
+Breakout Meeting
+* Anshul and Sumit are finishing up their PACE installation
+* Cameron B., Harris, Hua, Karthik, Nishantm Prahlad, and myself have PACE set up
+* Karthik created shell [https://github.gatech.edu/cwhaley9/PACE-files/blob/master/pace-login.sh file] to automate SSH connection and launch of EMADE
+* Cameron resolved GPU issue
+** Completed GPU multi-run 
+*** Three 8 hour runs where ouput of run seeded the next
+*** 5-6 individuals evaluated (best individual had 0.932 accuracy)
+* Steven completed two runs (8 hour GPU, 24 hour CPU only)
+** Showed pareto front of his completed run (best individual had 0.9296 accuracy)
+
+Subgroup Meeting
+* Team is tasked per [https://docs.google.com/document/d/1V-etbhOdzUfgjwMLX7qtFNQEVGNnmrx5GfaQxfeosJ4/edit Gdoc]
+* Harris, Karthik, and Nishant will explore PACE this weekend and learn how querying the db works
+* Temi got PACE set up
+* Hua test run got stuck in gen 1, to troubleshoot
+* Cameron working on a pull request to have many workers available in one run, re-use turned on to allow 24 hour runs
+** Oddly a non-LSTM individual in a run had an accuracy ~0.9
+* Steven expanding on analysis he showed in the breakout meeting
+** Will seed run with bad individuals to see if evolution works
+* I will port NLP primitives Notion doc to [https://wiki.vip.gatech.edu/mediawiki/index.php/Guide_to_NLP_Primitives wiki]
+
+=== Week of April 5th ===
+
+Breakout Meeting
+* Steven wrote script that generates kfold splits on a given dataset
+* Meeting was used for helping everyone get set up in PACE
+
+Subgroup Meeting
+* Anshul gave Neural Nets 101 [https://docs.google.com/presentation/d/1CB7nFttRU0psaFTDHHWIScy8nFkvT0X5bTc3T_En808/edit#slide=id.gc84dce302c_2_50 presentation] 
+* Cameron and Steven helped with PACE 
+** Team is mostly set up, new tasks will be distributed
+*** Tackling the "evolution problem" (complexity of individuals) - will require most members
+*** Fixing pretrained embedding layers
+*** Increasing number of workers on pace (if possible)
+* Karthik created a quick shell script to automate the logging into pace and running EMADE
+* Steven will have long run over the weekend
+* Cameron noted issue in PACE which caused gpu runs to fail
+** Update: Cameron found solution to issue, resolved by adding the following line to the "launchEMADE_amazon.pbs" file
+*** export LD_LIBRARY_PATH="/usr/local/pace-apps/manual/packages/cuda/11.1/lib64"
+
+=== Week of March 29th ===
+Breakout Meeting
+* New and old members introduced themselves
+* Cameron and Anshul offered to give lectures on the basics of EMADE and NNs during Friday's meeting
+* Cameron investigating NNLearner not sending individuals to evaluation and not getting print statements (Zutty offered a few places to look)
+* Steven revised code, ran EMADE and hit runtime wall, will be designated PACE helper
+* All new members and all old members (less Cameron and Steven) are tasked with setting up PACE
+
+Subgroup Meeting
+* Most members had issues with accessing wiki (to follow PACE set up guide)
+* Cameron gave EMADE 101 "the basics" [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p presentation]
+** Will give EMADE 102 "the NNLearner" presentation in next breakout
+** Will create PACE install guide video
+*** Update 4/4: PACE install [https://www.youtube.com/watch?v=LashYCCJF3E guide]
+* Anshul to give Neural Nets 101 presentation next availability as well
+* Cameron figured out why NNLearners were failing
+** Amazon dataset is ~20x larger than toxicity dataset, caused PACE to crash (after tokenizing dataset)
+** Will try the following revisions:
+*** Reducing size of train dataset (simplest)
+*** Using scipy sparse matrices
+*** Splitting the dataset into folds
+*** Varying the MAXLEN parameter used for tokenization & increasing memory in PACE runs
+* Steven using standalone tree evaluator, doing a deep-dive in EMADE (researching source code)
+
+=== Week of March 22nd ===
+Subgroup Meeting
+* Team discussed pivoting based on Dr. Zutty's feedback on midterm presentation
+** Team will refocus any efforts that will not help investigation of trivial solutions
+*** Any members not focused on investigation will get PACE set up and help with troubleshooting/runs
+* Team discussed how best to onboard new members
+** All new members will get set up in PACE
+* Steven and Cameron troubleshooting trivial results
+** Cameron brainstormed areas to investigate to isolate issue
+* Sumit wrapped up benchmarking and will get set up in PACE
+
+=== Week of March 15th ===
+Breakout Meeting
+* Team will prioritize midterm [https://docs.google.com/presentation/d/1bpIN_1nL6PB8fMq1yvEDQnuy_ktcSY87HV2nxNsvmas/edit#slide=id.gc84dce302c_2_50 presentation]
+* Cameron and Steven
+** Cameron will study which primitives result in individuals with infinity fitness
+** Steven will debug PACE instance
+* Alex, Anshul, and Sumit
+** Alex built NNLearner in EMADE using LSTM model
+** Anshul and Sumit will focus on presentation
+* I will copy previous term's slide deck as a framework for this term's presentation
+Subgroup Meeting
+* Primarily discussed presentation, set up additional meeting on Sunday to have a practice run
+* Cameron resolved a few issues and started another EMADE run
+* Sumit will add FastText functionality to EMADE
+Sunday Meeting
+* Discussed work new members will do
+* Flow and organization of presentation was iteratively improved through discussion
+* Practice run of presentation, ended at 16:20
+* Minor revisions made post practice run
+
+=== Week of March 8th ===
+Breakout Meeting
+*Cameron and Steven
+**Cameron and Steven's runs had warning GPU was not used
+***Tried upgrading cuda library - no effect
+****.pbs script needed to be updated to request GPU nodes
+****Cameron will update guide to include this step
+*Alex, Anshul, and Sumit
+**Alex is reviewing other Kaggle models, will try building from scratch
+**Anshul is recreating old model from scratch to see if error was specific to notebook
+**Sumit is exploring other baseline models
+***Most use fasttext embeddings (not yet implemented in EMADE)
+*I will compare PyTorch Lightning with PyTorch methods
+Subgroup Meeting
+*Cameron and Steven
+**Cameron's 8 hour run did not get past gen 0
+**Steven's Amazon run went 6 hours  (68 generations) before encountering an error in mutation
+***Error may be on DEAP's side
+**Neither run had particularly strong individuals (need to seed runs)
+**Both are running into database issues when running seeding_from_file.py
+***MySQL OperationalError 2002
+*Alex, Anshul, and Sumit
+**Alex will run EMADE model
+**Anshul is building LSTM model from scratch outside of EMADE
+**'''Sumit ran baseline fasttext model, 91% accuracy'''
+*I am comparing the existing PyTorch methods file to PyTorch Lightning
+*This week we will focus on the midterm presentation
+
+=== Week of March 1st ===
+Breakout Meeting
+* Cameron and Steven
+** Both instances of PACE set up
+*** Cameron will start an Amazon dataset run
+*** Steven ran into a tourney selection issue
+* Alex, Anshul, and Sumit
+** Alex working on Kaggle Colab notebook
+*** May start from scratch and update embeddings file
+** Anshul and Sumit are working on Amazon dataset in Colab
+*** Colab is disconnecting and reconnecting on model fit process and yielding no error
+*** Reached out to Stocks team for guidance
+* I opened up the discussion about the PyTorch implementation
+** What are the difficulties oh a hybrid implementation? What will it require?
+Subgroup Meeting
+* Cameron and Steven
+** Cameron had outdated Amazon file, updated, and restarted run
+** Steven is running Amazon dataset on PACE but hitting max recursion error
+*** Anish guided Steven through issue in-meeting
+* Alex, Anshul, and Sumit
+** Alex working on running Amazon Dataset
+** Colab issue persists
+*** Sumit resolved unrelated issue then took video of the disconnection/connection issue
+*** Anshul will post to stackoverflow and switch gears to a different baseline model
+* Will review PyTorch installation/requirements
+** Team discussed starting with population level implementation
+*** Once implemented, will discuss with team about finer levels of implementation
+
+===Week of Feb. 22nd===
+Breakout Meeting
+*Cameron and Steven
+**Troubleshooting PACE-ICE instances
+***Cameron will build and maintain de facto yaml file to prevent new members from the same pain
+*Alex, Anshul, and Sumit
+**Alex working on Kaggle and LSTM notebook
+***Working through issues with embeddings
+***Once resolved, will add LSTM primitive
+**Anshul is working on Amazon dataset in Colab
+***Colab is disconnecting and reconnecting on model fit process and yielding no error
+**Sumit will focus on Anshul's Colab notebook to help troubleshoot
+*I will add remaining primitives to the documentation
+Subgroup Meeting
+*Cameron and Steven
+**Cameron resolved PACE issues and will run test next
+**Steven troubleshooting PACE (had working session in meeting with Anish's guidance)
+***PACE now works using selection nsga2 but tourney still has issues
+*Alex, Anshul, and Sumit
+**Alex will create documentation on EMADE data types and data pairs in Sphinx
+**Anshul is working on Kaggle notebook
+***Colab is disconnecting to runtime, reached out to stocks team for help
+**Sumit and Anish are also lending help on Colab notebook
+*I am finishing [https://www.notion.so/Natural-Language-Processing-6ab51406b2164470ab0fb16675dbdee6 documentation] today
+**Will dive into PyTorch, starting with Anish's PyTorch [https://github.gatech.edu/emade/emade/blob/nn/src/GPFramework/pytorch_methods.py methods] file
+=== Week of Feb. 15th ===
+Breakout Meeting
+*Cameron and Steven
+**Setting up PACE-ICE instances
+**MySQL and disk quota roadblocks but working through
+**Will reach out to Anuurag, Maxim, or Pulak to resolve
+*Alex, Anshul, and Sumit
+**Alex to reach out to Zutty about potential documentation work
+**Anshul is working on Amazon dataset
+**Sumit found more literature
+*Anish finished Amazon train/test split dataset, will work on literature method for pre-processing dataset next
+*I will add half of the remaining primitives to the documentation
+Subgroup Meeting
+*Cameron and Steven
+**Completed setting up PACE-ICE instances
+**Steven tested instance on toxicity dataset, will run a short pass on Amazon dataset
+*Alex, Anshul, and Sumit
+**Alex working on prepping CIFAR10 dataset
+***Hitting a few roadbumps using the chest x-ray script
+***Will need to reshape and onehotencode
+***Will reach out to Zutty about documentation
+**Anshul is working on Kaggle notebook
+***Resolved error where embeddings were not stacking properly
+***Colab is disconnecting to runtime
+**Sumit working on Amazon dataset
+*Anish has Amazon [https://github.gatech.edu/athite3/amznreviews/tree/master dataset] all ready to go (passed off to Steven)
+*I am plugging away on [https://www.notion.so/Natural-Language-Processing-6ab51406b2164470ab0fb16675dbdee6 documentation], will request Zutty join next breakout to discuss refactoring to PyTorch
+=== Week of Feb. 8th ===
+Monday Breakout
+* Cameron and Steven are setting up PACE-ICE
+* Anish is finishing up pre-processing and will dabble with chest x-ray dataset
+* Alex, Anshul, and Sumit are collecting literature for baseline of Amazon (have one paper from Kaggle so far)
+* I will be adding document level primitives to the [https://www.notion.so/Natural-Language-Processing-6ab51406b2164470ab0fb16675dbdee6 Notion page]
+Weekly Meeting
+*Team is focused on getting their machines set up and finalizing the pre-processing of the Amazon dataset
+**Sumit found a few papers that used the Amazon dataset
+***[https://ieeexplore.ieee.org/document/8768887 Linguistically independent sentiment analysis]
+***[https://www.sciencedirect.com/science/article/abs/pii/S0167739X20309195 An Attention-based Bidirectional CNN-RNN Deep Model for sentiment analysis]
+**Cameron and Steven are getting PACE set up -- currently getting MySQL working
+**Alex is working on learning how to format data (specifically the Amazon dataset) for use in EMADE and wants to create an example walkthrough document
+**Anish is half done with dataset pre-processing
+**I'm working on document level primitives
+Next week look ahead
+* Should have a few runs in PACE
+* Primitives documentation should be nearly complete
+
+=== Week of Feb. 1st ===
+Subgroup meeting (Monday)
+* Discussed overarching goals of group
+** What areas or work were of interest to members
+** Issue concerning EMADE's Neural Architecture Search implementation finding only trivial solutions
+*** Does issue lie in:
+**** Pre-processing of unbalanced datasets
+**** Implementation (or other?)
+** Focusing on just NLP as previous term was dabbling in several areas (and had more members)
+Subgroup meeting (Friday)
+* Finalized team's direction for the term
+** Refocusing team's efforts to just NLP applications
+** Discussed first steps and divided into subteams to task efficiently
+** Toxicity dataset was highly unbalanced, obscuring reason why EMADE NAS is only finding trivial solutions
+*** By using Amazon dataset (50/50 binary classification), underlying NAS issue will hopefully be easier to resolve
+* Term goals
+** Compare EMADE to Keras on [https://www.kaggle.com/bittlingmayer/amazonreviews Amazon dataset]
+*** Alex, Anshul, and Sumit will focus on Keras implementation
+*** Cameron and Steven will focus on EMADE implementation
+** Ensure NAS implementation in EMADE works properly and robustly
+*** Anish has started troubleshooting effort to find where NAS implementation is failing
+**** He's working on a cross validation and dataset balancing
+** Document NLP primitives
+*** I will document NLP primitives in Notion (or other formats as requested)
+
+=== Week of Jan. 25th ===
+* Weekly meetings will be at 4PM EST on Fridays
+
+== Neural Architecture Search ==
+
+Meetings: 2:00 pm on Fridays, Virtual
+
+=== Week of September 6th - 12th ===
+* First Subteam meeting of the semester
+* Meeting began with some information about setting up emade on individuals machines as well as getting signed onto the team trello board.
+* Cameron Whaley followed up by giving background information about the subteam and topics of neuroevolution. 2 articles were provided to be read by the team and some helpful resources for remembering deep learning topics were provided.
+** Article 1: https://arxiv.org/pdf/1703.00548.pdf
+** Article 2: https://arxiv.org/pdf/2002.04634.pdf
+** Help resources: https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p
+* Finally, Cameron Bennett reviewed the top 6 ideas we plan to work on in order to improve neural architecture search in emade. These include:
+** Triviality Detection
+** Novelty Detection
+** Bug fix for swap_layer method
+** Speeding up emade processes
+** Adding unit tests
+** Introducing some pause functionality
+* Everyone's tasks for the week is to setup emade and ensure they can at least run locally on their own machine.
+
+=== Week of September 13th - 19th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* During the beginning of this meeting, Cameron Bennett went through 5 newly added tasks on the trello board in detail.
+* These tasks consisted of:
+** Debugging/Reproducing issue with test_swap line 300 EMADE.py
+** Modifying the reuse parameter within EMADE.py to allow reuse of all individuals after starting a previously stopped EMADE run
+** Adding CIFAR-10 Input Template to EMADE
+** Modifying eval_methods.py to check if test_data being input has 90% same classification
+** Adding a method for keeping track of NNLearner layer frequency
+* While discussing the above tasks, Cameron detailed starting points, purpose and ideal outcomes of each task so that members had a solid grasp of the expected outcome. 
+* After discussing each task, Cameron Whaley provided input regarding some blockers for the first task stating that he would need some time to reproduce the issue he noticed before anyone will be able to work on that task.
+* Once all questions from team members were answered, Cameron Bennett expressed that each member is responsible for finding and beginning work on a task as soon as they are setup in EMADE.
+* The remainder of the meeting consisted of Cameron Whaley answering debugging questions for each team members current PACE-ICE Emade setup. 
+* Connor Yurkon was able to finish his setup for PACE-ICE during the meeting.
+* Devesh and Lucas expressed a need for more time until they are set up fully. 
+
+=== Week of September 20th - 26th ===
+* This meeting ran for the allotted hour and consisted of task layouts and debugging people's emade issues.
+* The beginning of this meeting consisted of updates from team members regarding their assigned tasks:
+** Connor communicated some blockers he ran into regarding the ability to debug the code he is currently trying to add to EMADE.py. It was suggested that he try to either utilize a dataset with a reducedInstances value of something small(such as 0.1) or he could try to reproduce the method functionality within a seperate python script since he knows what method he is trying to edit. 
+** Devesh has completed his task of adding the Input_Template file for CIFAR-10 data. He currently should have a pr from a forked version of EMADE which will be merged by Cameron Whaley at some point. [https://github.gatech.edu/emade/emade/pull/198 Attached PR]
+** Cameron Whaley remembered how he produced the swap_layer bug and has provided us an emade worker out file which should contain some evolved nnlearner individuals which we can use to identify our mutation problem.
+** Cameron Bennett has done a re-run of emade on the amazon dataset with the new triviality objective function. In an attempt to identify useful nnlearners, Cameron Whaley has provided him a jupyter notebook with some methods for analyzing individuals from a run. It is possible he will need to re-run in order to utilize a seeded amazon group.
+* After updates were given, the rest of the meeting time consisted of ideas for generating additional tasks for members. The ideas discussed are:
+** Introducing a global "supernet" which would operate like a dynamic acyclic graph which stores information about submodel accuracy as well as weights of most optimal subnet based on a prior generation run. This discussion was based on a paper provided by Devesh which analyzes the effectiveness of combining a supernet NAS with validation runs for verifying accuracy. This idea was a bit loaded and awfully similar to what EZCGP is currently working on. Therefore, we put it to the side and have decided not to move further with it. [https://www.ijcai.org/proceedings/2020/0441.pdf Linked Article]
+** Introducing Weight Sharing to the existing NNLearner evolution process in EMADE. One idea involving weight sharing was to create a method which can locate all of the shared subnets within every individual in a single generation and replace them with the most optimally trained weights. Ideally this would speed up the number of generations to see optimal performance out of similarly structured individuals. Currently, a task exists for anyone interested in exploring how to locate similar subnets within EMADE individuals.
+** Introducing writes to disk which would improve memory usage within EMADE. This is moreso a general infrastructure interest however, noone was able to generate any concrete ideas around it due to our unfamiliarity with EMADE memory usage. Cameron Whaley made a recommendation that we introduce a parameter to the existing Inputschema which allows users to set a maximum amount of time for training any nnlearner individual. The idea behind this is that, if we enable networks to learn for as long as possible, we could reach more optimal individuals sooner without having to go through the evolution process as frequent. This is something we'd like to experiment with and see what results can be generated by this. We've created a task for anyone interested in adding this parameter.
+* Before concluding, Connor requested that we have a meeting to help he and other members get a better understanding of EMADE directories and the evolution process.
+* Cameron Whaley has completed the run resume feature but we want to test it and determine success on results.
+
+=== Week of September 27th - October 1st ===
+* This meeting ran for the allotted hour and consisted of mainly team updates along with a work session.
+* Earlier in the week, a session was held in which team members got a better understanding of the evolutionary algorithm within EMADE.py. Cameron Whaley and Cameron Bennett cohosted the presentation and made a recording available [https://bluejeans.com/playback/s/SGxxpyPUJ5s0nYcJr3u8YIFWMHURHhIdWlyRUsbp6a90TRncYZaBXubs33FwJxj4 here].
+* This presentation covered the EMADE Object as a whole and sub methods such as create_representation, setObjectives and buildClassifier. In addition, we covered some helper methods within the EMADE object which might be useful for people debugging in emade such as: handleWorker, my_str and my_similar.
+* Our presentation included a couple of mating/mutation methods that we thought would be relevant for our team such as: swap_layer, cx_ephemerals and concat_healer. 
+* Finally, we finished off by going through the entirety of the main master algorithm loop within EMADE.py. This included a discussion of the different arguments within the master algorithm such as MUTPB, CXPB and reuse. Different chunks of the main loop were explained such as the one which handles creation of new individuals.
+* The remainder of the presentation is available for viewing on the bluejeans link above or [https://docs.google.com/presentation/d/1rVF5gObTu8hWLPCUKir1163ntRXxUsrYoe-9aw6hEog/edit#slide=id.gf4c8a6a88f_0_39 here] on google slides.
+* In addition to this presentation, we held a smaller work session with team member Lucas Zhang in which we talked about how standalone tree evaluator works within the context of his swap_layer task. Cameron Whaley provided him an analyze.ipynb notebook an discussed how he could leverage an existing master.out file full of marked crossover individuals(potentially buggy ones) to reproduce the swap_layer issue that causes individuals to go from properly compiling to failing with message "Tree missing valid datatype for primitive". 
+* Cameron B was unable to make the worksession held at our normally scheduled friday meeting and Cameron Whaley graciously hosted in place.
+
+=== Week of October 4th - October 8th ===
+* This week's meeting consisted of team updates in addition to some helpful debugging tips provided by Cameron B:
+** Cameron B has finished his task of triviality detection and concluded that the individuals produced using the triviality evaluation method are not much different from the individuals being produced without them. The strongest indicator of this was that in comparing 2 emade runs (1 run without triviality method and 1 with) by generation 5, both runs had the same number of individuals with the structure shown [https://drive.google.com/file/d/1yNSxFgcHl5CvTEbmL-DE6j8gRAyU36Mp/view?usp=sharing here]. Additionally, it was noticed that the majority of the NNLearners being produced did not provide any valid indications of success due to the overbearing amount of errors that are appearing. An ideal next step will be to isolate these errors and handle them before trying to integrate additional changes.
+** Cameron W worked on merging some changes from the nn branch of emade this week which has led to some conflict issues within the existing nn-vip branch. In an attempt to resolve the issues, he issued a PR of some reverted commits from the branch. However, he also proposed that we utilize a forked version of EMADE separate from the main repo in order to allow us more freedom to change EMADE and make PR's to a unified master branch custom to our purposes. For this reason, we are all currently shifting to working off a fork of the EMADE branch from Cameron's account. Finally, Cameron W has contributed some changes to the EMADE repo(on his own fork) which force emade to only produce NNLearners. Ideally this will allow us to isolate issues with NNLearners quicker and debug issues at a better pace.
+** Connor has provided a PR with some dataset removals which will lighten the size of EMADE in hopes of being able to utilize the github repo for EMADE within PACE. 
+** Devesh is working on connecting the input template parameter for nnlearner training time to the keras fit method which will limit the amount of time an individual is allowed to train by a specified amount. 
+** Justin H is currently finished setting up PACE-Ice on his machine and is ready to work on his first task. Cameron W has suggested that he contribute a PR which removes the existing amazon dataset and cleans up the script for generating the amazon files.
+** Lucas Z has also finished setting up PACE-Ice on his machine and is ready to work on his first task. His first task is to do an Emade run and look at the error strings being generated by the NNLearners within the run. From this he should be able to debug issues found within primitives present in EMADe.
+* In addition to the updates provided above, there was a discussion had about how automatically defined functions could be leveraged to in a way similar to modules within the CoDEEPNEAT neuroevolution process. Cameron B shared some high level knowledge about the CoDEEPNEAT structure and Cameron W proposed ADF's be used as the "modules" within our context. In order to analyze the viability of this, we will need to rewrite some of the ADF generating code.
+
+=== Week of October 11th - October 15th ===
+* This week's meeting consisted of team updates in addition to a work session:
+** Cameron W ran into 2 issues earlier in the week after pushing his updated nn-vip branch on EMADE which were:
+*** Nested NNLearners. See example. Basically, a neural network is created, modifies a datapair with its classifications, then returns that datapair to... another neural network which overwrites those classifications with its own. Emade is making a ton of these and they take a really long time to evaluate (like, hours on a V100 gpu). It's always been possible for emade to make nested NNLearners, but with my changes it's a lot more frequent. The current fix is to auto-fail any individual with >1 NNLearner primitive, but I'd prefer to stop them from generating in the first place
+*** ADFs mostly aren't valid. I modified the ADFs that emade makes so that their input is a datapair and they return a layerlist. So emade is making subtrees of layers (good), but not all of them have a layer primitive that can handle a datapair (like an embedding layer) so they mostly fail.
+** Cameron B attempted some changes to resolve these compilation issues. 
+*** In order to solve prevent nested NNLearners, a second data pair(EmadeDataPairNNF) was created and the 'MAIN' PrimitiveTypedSet had it's output changed to this second datapair to prevent it from being a nestable primitive to itself. Additionally, passthrough layers for datapairs and other primitives were used to remove any generate errors caused by DEAP while generating new individuals. The changes can be seen in this method screenshot [https://drive.google.com/file/d/1stLyEPliYeShUBzM3SL0veoCT12XMBtc/view?usp=sharing here]. 
+*** In order to fix some of the ADF issues, ADFs are now structured to only take in a layerlist input and output a layerlist input. Any input or output layers necessary are added within the NNLearner method or through the use of an input terminal. 
+*** Finally, the 'MAIN' PrimitiveSetTyped is no longer allowed to generate nnlayerlists with primitives outside of the adf's generated. This is an attempt at implementing a module/blueprint structure similar to that seen within this paper discussing [https://arxiv.org/pdf/2002.04634.pdf CoDEEPNEAT].
+** Devesh is currently taking a different strategy with implementing his task, he will attempt an emade run which simply hardcodes the parameter for time limit to fit. If this works then it should be easier to then connect that value back to the input template file/schema. 
+** Justin H has provided a PR for the cleaned-up Amazon dataset along with the new script. He is currently working on adding a testing method that utilizes an NNLearner statistics table, within the SQL database, to generate all of the evolving tree structures of a single individual(provided their hash value) over the course of its lifetime.
+** Connor Y has provided a PR that allows team members to keep the entirety of EMADE on Pace including the git folder. This will allow people using pace to simply pull down any changes directly from the repo instead of having to SCP frequently. He is currently back on track with his task to generate an NNLearner layer frequency counter within EMADE.
+** During the hackathon, Cameron W proposed a fix for the accuracy error issue noticed when doing EMADE runs. Currently, in the nn-vip-learner-fix branch of our forked repo most all NNLearners that are generated can compile but they all produce the same accuracy error score which is likely due to some issue within the NNLearner method. We'll run EMADE again with the changes to see if we get different scores this time around. Image of the issue [https://drive.google.com/file/d/1FSRtK-vADkCAPgt1_f2jYEBwt8B5-7AU/view?usp=sharing here]
+** Just an update on the current structure of NNLearners can be seen here from a local run of about 4 hours:
+*** NNLearner(((((ARG0)))), adf_8(adf_1(adf_13(adf_2(InputLayerTerminal)))), ((((110)))), ((((RMSpropOptimizer)))))
+*** adf_1: DenseLayer(((DenseLayerUnit32)), ((seluActivation)), Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize1), (Conv2DPaddingTypeSame), Conv2DLayer(Conv2DFilterUnit16, eluActivation, Conv2DKernelSize3, Conv2DPaddingTypeSame, InputLayerTerminal)))
+*** adf_2: DenseLayer(((((DenseLayerUnit256)))), ((((seluActivation)))), Conv2DLayer((((Conv2DFilterUnit16))), (((tanhActivation))), (((Conv2DKernelSize3))), (((Conv2DPaddingTypeSame))), Conv2DLayer(((Conv2DFilterUnit48)), ((reluActivation)), ((Conv2DKernelSize3)), ((Conv2DPaddingTypeValid)), DenseLayer((DenseLayerUnit32), (tanhActivation), DenseLayer(DenseLayerUnit256, tanhActivation, ARG0)))))
+*** adf_8: Conv2DLayer(((((Conv2DFilterUnit16)))), ((((eluActivation)))), ((((Conv2DKernelSize1)))), ((((Conv2DPaddingTypeValid)))), DenseLayer((((DenseLayerUnit32))), (((defaultActivation))), Conv2DLayer(((Conv2DFilterUnit16)), ((softmaxActivation)), ((Conv2DKernelSize5)), ((Conv2DPaddingTypeSame)), Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize5), (Conv2DPaddingTypeValid), Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize3, Conv2DPaddingTypeSame, InputLayerTerminal)))))
+*** adf_13: Conv2DLayer(((((Conv2DFilterUnit48)))), ((((defaultActivation)))), ((((Conv2DKernelSize3)))), ((((Conv2DPaddingTypeValid)))), Conv2DLayer((((Conv2DFilterUnit48))), (((defaultActivation))), (((Conv2DKernelSize3))), (((Conv2DPaddingTypeSame))), DenseLayer(((DenseLayerUnit256)), ((tanhActivation)), DenseLayer((DenseLayerUnit32), (defaultActivation), DenseLayer(DenseLayerUnit256, reluActivation, InputLayerTerminal)))))
+
+***	With Hash 49406ee03fd77e55df659f0828aee6e9050f0d6c8033cd14c2dccaa2ecd22f62
+***	Computed in: 259.7485730648041 seconds
+***	With Fitnesses: (0.43836, 304586.0, 883.0)
+***	With Age: 1.0
+
+
+=== Week of October 18th - October 22nd ===
+* This week's meeting consisted of team updates and a lot of preparation for midterm presentations
+* By this point in time, we've completed around 6 runs in EMADE as a group. 2 to test our TimeStopping functionality, and 4 to test the complexity performance of individuals on the cifar-10 dataset. 
+* This meeting saw PowerPoint slides divided amongst team members:
+** Cameron W will be discussing changes to EMADE infrastructure along with the newly implemented preprocessing setup
+** Devesh will be discussing his additions of Time Stopping to EMADE and its performance benefits
+** Justin H will be discussing his newly implemented testing methods to be used for analyzing neural nets
+** Connor and Lucas will be discussing recruitment and plans for future tasks
+** Cameron B will be describing an experiment with varying ADF sizes for generating NNLearners
+* Links to the slides are included [https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit?usp=sharing here]
+* At some point, we will have a meeting to handle the merging of all of our newly implemented logic into a single branch within our fork of EMADE
+
+=== Week of October 25th - October 29th ===
+* This week's meeting consisted of team updates and a debrief from our presentation earlier in the week
+* Devesh and Cameron W have verified that our Time stopping callback is working as expected. There appears to have been a bug with the way we were setting our steps per epoch and validation steps. After correcting this, we're seeing more consistent results with elapsed time. 
+* Cameron W provided some additional classes which will be utilized for enforcing constraints based on dimensionality of nnlearner layers being used. Additionally, he might have found a fix for adding back the concate layer into our accessible pool of primitives.
+* It was discovered that out NNLearner Statistics table is not functioning as expected and we currently have Justin H looking for a new way of tracking individuals without using their hash value which gets changed with every emade run. 
+* Devesh is working on connecting the Time stopping functionality to our existing InputSchema file. 
+* Cameron B is still working on setting up EMADE locally on his laptop.
+* Upgraded to python 3.8 and tensorflow 2.6 before PACE maintenance
+
+=== Week of November 1st - November 5th ===
+* This week's meeting consisted of updates and discussion around final presentaion material.
+* It was decided that our team will focus on the following high level points for our presentation and split up slides accordingly:
+** Automating Time Stopping(Devesh K)
+** CoDEEPNEAT and modifying ADF's(Cameron B)
+** Infrastructure and preprocess improvements(Cameron W)
+** Novelty Detection and experimentation(Connor Y)
+** Tracking Individual NNLearner Evolution(Justin H and Lucas Z)
+** Setting up EMADE locally and on Pace(Pranav P, Rayan K and Charlie B)
+* Cameron B made a video for setting EMADE up locally in addition to providing some yml files that can be used for both mac and linux anaconda setup.
+* Cameron W noticed that ADF's don't seem to be consistent within the population of individuals upon further inspection. It seems this has to do with the way in which deap is dynamically generating ADFs upon compilation of an individual within EMADE. We are currently taking 2 different approaches to resolve this issue:
+** Revising our usage of ADFs from deap and seeing if there is a built in way to keep ADF's consistent
+** Generate a method which creates ADF's as primitives which can be fed to the primitive set type for the NNLearner Main Primitive.
+* Connor Y expressed an interest in contributing to documentation for pace setup
+* Devesh has finished connecting the TimeStopping logic to the inputSchema for EMADE
+* Justin is working on a solution for mapping hash values of offspring to their parents via a linked list within SQL.
+
+=== Week of November 8th - November 12th ===
+* This week's meeting consisted of updates along with a 30 minute work session. 
+* Earlier in the week, we hosted an hour long presentation for new members of the NAS team in which we ran through 3 presentations which covered a high level of EMADE.py, NLP/NN concepts and the combined knowledge of NN-VIP branch. Links can be found here: [https://docs.google.com/presentation/d/1rVF5gObTu8hWLPCUKir1163ntRXxUsrYoe-9aw6hEog/edit?usp=sharing EMADE.py] [https://docs.google.com/presentation/d/1CB7nFttRU0psaFTDHHWIScy8nFkvT0X5bTc3T_En808/edit?usp=sharing NN/NLP] [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p NN-VIP]
+* New members have all gotten EMADE setup and running either locally or on pace-ice. Their next steps will be to begin adding slides to ur final presentation which discuss 3 different things:
+** Process of setting up EMADE locally as well as on pace-ice.
+** Literature review along with presentation material provided earlier in the week.
+** Differences between EMADE bootcamp branch and NN-VIP branch within NAS fork.
+* Connor and Devesh are in progress to integrating novelty detection. Currently awaiting changes but they have started modifying their versions of EMADE in an attempt to include a frequency storage. 
+* Cameron W has started on a new feature to integrate weight sharing into now consistend ADF modules. Additionally, he is seeking a new name for the ADF's within NNLearners of EMADE.
+* Cameron B has started on some changes to integrate mating and mutation within ADFs of EMADE. These changes will likely result in some necessary changes to both the master algorithm and SQL connection files.
+* Justin H ran into a blocker while creating some testing/analytics logic in EMADE whose intent is to track nnlearner individuals over multiple generations. This task is meant to give us more visuals and metrics for analyzing growth of NNLearner's over time. Unfortunately, new hashes are generated for individuals every generation which prevents us from properly keeping track of a single hash. A possible solution to this would be to attach some additional variable(lineage name!) to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
+* We are also looking to give new name for ADFs we are commonly using in NNLearners.
+[[Category-AAD]]

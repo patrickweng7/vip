@@ -1,0 +1,1043 @@
+== Team Member ==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+Team Member: Michael Jurado
+
+Email: mjurado3@gatech.edu
+Cell Phone; 706-870-3999
+
+Interests: Machine Learning, Python, Classical Music, Automated Trading
+
+== January 11, 2019 ==
+'''Team Notes:'''
+* Stock market team has evaporated
+* Maybe its a good idea to change the objective of the stock prediction from a classification problem to a regression problem. This is what I mean:
+currently the team is trying to determine if the stock price will go up or down the next day. Maybe it would be better to look one day in advance. This kind of analysis seems to be more standard and benchmarkable. (https://towardsdatascience.com/neural-networks-to-predict-the-market-c4861b649371)
+'''Deep Learning Sub Team Notes:'''
+* We went over what is CGP, Cartesian genetic programming. 
+* Rodd talked about how that individuals are now represented as DAG's rather than trees.
+* Mating is not clearly defined for CGP. 
+* Rodd's code is still untested
+* Perhaps our application of for processing of cancerous cells would be a good application
+learning team
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look at Rodd's code and try to understand it.
+|No progress this week. I asked Rodd to add me to the github but he hasen't. Im sure he will get to it
+|Jan 7, 2019
+|}
+
+== January 16, 2019 ==
+'''Team Notes:'''
+* Professor Rowling talked about how the Deep team needs to choose if we are going to pursue CGP-CNN improvement or ezCGP.  
+* Maybe its a good idea to change the objective of the stock prediction from a classification problem to a regression problem. This is what I mea
+'''Deep Learning Team Notes:'''
+* From what I can tell, some of the group members have concerns the CGP-CNN code is too bloated.
+* Rodd suggested we read the first couple pages of a paper on Cartesian Genetic Programming, the Conclusion, and then the rest of the body.
+* Here are some notes on ezCGP I took during class:
+* the genome size in Rodd's implementation is fixed. The program inputs are stored in the back of this list and the program outputs are just behind that.
+* Each gene in the genome is a dictionary containing "ftn", "inputs", and "output" keys.  
+* Mutating active genes later on in the genome have more dramatic effects on the genotype.
+* These Are some of the sections of code Rodd said we should pay special attention to: Genome(), Mutate(), and then  Block()
+
+learning team
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read Introduction
+|Halfway through
+|Jan 14, 2019
+|Jan 16. 2019
+|Jan 16. 2019
+|-
+|Read Conclusion
+|Not Started
+|Jan 14, 2019
+|Jan 16, 2019
+|Jan 16, 2019
+|-
+|Read Body
+|Not Started
+|Jan 14, 2019
+|
+|
+|-
+|Look at Rodd's code and try to understand it.
+|I've looked at some of it including the Block class.
+|Jan 7, 2019
+|Jan 2/2/2019
+|
+|}
+
+== Feb 2, 2019 ==
+'''Team Notes:'''
+
+''''''Deep Learning Team Notes:''''''
+* group was split up into emade team and Deep Learning Team. However, on Thursday Rodd changed his mind and everyone is working on incorporating tensor-flow into the project.
+* Created a UML to help in understanding the project: https://drive.google.com/file/d/1IUITnDyluTy5kT4hAyfyEQqcGSrkBqNn/view?usp=sharing. Still need to work on it.
+* A tensorflow branch was added by Anniruddha
+* As I understand it, our current goal is to have a working (evaluate-able) block with tensor primitives
+
+==== .'''Action Items:''' ====
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Learn About TensorFlow 
+|Reading Tutorial (https://adventuresinmachinelearning.com/python-tensorflow-tutorial/) 
+|Feb 2, 2019 
+| Feb 2, 2019
+| Feb 2, 2019
+|- 
+|Schedule meeting and Attend It 
+|Scheduled the meeting 
+|Feb 2, 2019 
+| Feb 3, 2019
+| Feb 3, 2019
+|}
+Feb 4, 2019 (This was for last weeks notes)
+
+'''Team Notes:'''
+
+''''''Deep Learning Team Notes:''''''
+* Jason suggested we test individual by seeding an already tested individual and comparing the results to insure consistency.
+
+==== .'''Action Items:''' ====
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Create evaluable individual 
+|Currently Have evaluable individual  
+|Feb 4, 2019 
+| Feb 8, 2019
+| Feb 8, 2019
+|-
+|Create Batch support for tensorblock
+|created a method that generates a random batch
+|Feb 8, 2019
+|Feb 14, 2019
+|Feb 14, 2019
+|}
+
+== Feb 17, 2019 ==
+
+''''Deep Learning Team Notes:''''''
+* Since we could evaluate individuals we decided to try out various primitives to ascertain functionality and also fix batch support. However, this seemed to require changing the structure of the code and altering how to feed_dict is used.
+* For the meeting I brought a prototype next_batch function that returned random batches of a specified length inside the individual class. However, aniruddha specified that he would prefer a sequential batch generator. 
+
+=== .'''Action Items:''' ===
+{| class="wikitable"  !Task  !Current Status  !Date Assigned  !Suspense Date  !Date Resolved  |-  |create sequential batch generator  |Completed already    |Feb 11, 2019  | Feb 14, 2019 | Feb 14, 2019 |- |Fix batch generator to accept any integer size batch |not done |Feb 14, 2019 | | |}
+
+Feb 18, 2019
+
+"Team Notes:
+* stock team is having difficulty with running unit-tests
+* caching sub-team having problems 
+
+=== Deep Learning Subteam notes ===
+* On Thursday we will add validation data to the evaluation. 
+* Aniruddha thinks it would be good to allow next_batch to iterate over all of the data. I should defintely get this done before Thursday.
+* Rodd confirmed that back-compatibility to symbolic regression.Rather have different branches. We all need to pick an untested primitive to test. 
+* I pointed out that we still haven't tested a mutate method yet, so if that does not work then we may have to temper our expectations of what we will have on Monday
+
+=== Action Items ===
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|add validation dataset 
+|validation dataset initialized but not used  
+|Feb 18, 2019 
+| Feb 21, 2019
+| Feb 21, 2019
+|-
+|run main.py
+|not started 
+|Feb 18, 2019
+|Feb 22, 2019
+|Feb 22, 2019
+|}
+
+== Feb 21, 2019 ==
+
+=== Deep Learning Notes: ===
+* Ani fixed the batch size crash when batch size does not divide evenly into num samples. However, I changed the code to clean up inside the loop.
+* Main.py does not seem to work because of not being able to pickle tensorflow objects.
+
+== Feb 25, 2019 ==
+Deep Learning Notes:
+* Jason mentioned that it would be useful to run main.py with another data-set and a different problem specification.
+* Currently, we are main.py with an extremely small population size and a low number of generations. I think that we should add graphing analysis back into the code in order to gauge the effectiveness of the evolutionary process.
+
+=== Action Items ===
+{| class="wikitable" 
+!Task 
+!Current Status 
+!Date Assigned 
+!Suspense Date 
+!Date Resolved 
+|- 
+|Make sure mutate is working 
+|not checked  
+|Feb 25, 2019 
+| Feb 28, 2019
+| Feb 28, 2019
+|-
+|try evolution on a separate problem
+|
+|Feb 25, 2019
+|March 4, 2019
+|March 4, 2019
+|-
+|Add graphing functionality back in
+|Graphing capability exists but is not compatible with mnist problem
+|Feb 25, 2018
+|March 7. 2019
+|March 7. 2019
+|}
+
+== Feb 28. 2019 ==
+
+=== Deep Learning notes: ===
+* We need to start working on the presentation
+* It would be useful to think of what we can add to ezCGP (i.e. cite papers)
+
+== March 4, 2019 ==
+
+=== Team Notes: ===
+* next week presentations
+
+=== Deep Learning notes: ===
+* specifically decide slides
+* Thursday meeting will discuss what results we must include
+* {| class="wikitable" !Task  !Current Status !Date assigned !Suspense Date !Date resolved |- |Make sure that mnist can run for multiple generations |At the time nobody had attempted this |March 4, 2019 |March 7, 2019 |March 8, 2019 |}
+
+== March 6, 2019 ==
+
+=== Deep Learning Notes: ===
+* Ran into problem where my ram was completely full after a couple of generations. During deepcopy step where individuals were mutated, the memory usage would exceed 100% causing the program to crash
+* To fix this i tried making sure the tensorflow graphs were cleared after the individual was evaluated. I also tried forcing garbage collection. This had no effect.
+* Sometimes tensorflow will error out during training of a model
+* Will discuss with group tomorrow
+
+== March 7, 2019 ==
+
+=== Deep Learning Notes: ===
+* Found out the memory bloat error was caused by batch dataset structures not being cleared. Was copying the training dataset many times over.
+* Tensorflow error fixed by feeding the data in batches
+
+* Need to show validation accuracy vs number of generations with mnist and cifar
+* Jinghou was assigned to create the graphing software. I was assigned to do runs on mnist
+
+* {| class="wikitable" !Task !Current Status  !Date Assigned !Suspense Date !Date Resolved |- |make sure mnist runs for multiple generations on cifar  | |march 7, 2019 |March, 8, 2019 |March 8. 2019 |- |make graphs for that run  | |march 7. 2019 |March 7, 2019 |March 7, 2019 |}
+
+== March 8, 2019 ==
+
+=== Deep Learning Notes: ===
+* Generated graphs and intermediate results of evolutionary progress overnight. 
+* During a meeting with ani, we discussed that the validation accuracy on cifar would be better if more epochs were run.
+
+== March 14, 2019 ==
+
+=== Deep Learning Notes: ===
+* Jason suggested using tired datasets. Jason recommended testing different types of primitives and finding the maximum number to use.
+* Rodd suggestion: check active nodes throughout time. Use this information to inform us of how big the genome size should be
+* Michal P suggested that we split the team into an experimentation and a functionality branch.
+* We may want to try out cifar-100 and later on imageNet
+* May want to try a regression task to ezcgp
+
+== March 17, 2019 ==
+
+=== Deep Learning Notes: ===
+* Discussed team separation:[[files/TeamPlan.png|https://vip.gatech.edu/wiki/index.php/files/TeamPlan.png]] 
+* I choose team B.
+* Separate branch: Talebi-tubbies
+
+=== Action Items ===
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Date
+!Suspense Date
+!Date Resolved
+|-
+|Experiment with LSTM
+|The lstm is predicting the same value on all new data
+|3/17/2019
+|4/11/2019
+|
+|-
+|Find a benchmarkable regression problem
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|}
+
+== March 25, 2019 ==
+
+=== Deep Learning Notes ===
+* LSTM not working. Rodd + other group members unable to give help
+* Found three regression problems we could do: 
+** https://archive.ics.uci.edu/ml/datasets/Solar+Flare: predicting when solar flares will happen?
+** https://www.kaggle.com/tags/weather: predicting temperature
+** https://www.kaggle.com/gabriellima/house-sales-in-king-county-usa: predicting housing prices <--- I am leaning toward this one
+
+== March 28, 2019 ==
+
+=== Deep Learning Notes ===
+* Decided on Housing dataset
+* Downloaded dataset and fed it into problem.py
+* Discussed goals: want to have regression working by next Monday
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Date
+!Suspense  Date
+!Date Resolved
+|-
+|Get Regression working
+|Dataset is fed in
+|3/29/2019
+|4/1/2019
+|4/1/2019
+|-
+|
+|
+|
+|
+|
+|}
+
+== April 1, 2019 ==
+
+=== Deep Learning Notes ===
+* Sub-team B seems to want to head in the regression direction: https://www.kaggle.com/borismarjanovic/price-volume-data-for-all-us-stocks-etfs
+*I added regression https://github.com/ezCGP/ezCGP/commit/eaaace935df0a8534e7c614faf3113b5b7e35254
+*Team needs to decide what direction to go in. Can either continue with housing, move to stock regression, or cifar-100
+
+== April 11, 2019 ==
+
+=== Deep Learning Notes ===
+* Discussed with Rodd the possibility of regression. We decided against regression for the following reasons:
+** We need to implement a whole new set of primitives to do interesting work in that direction
+** We need to find a way to feed the time series data into the LSTM networks that will break the current batch system
+** We should do this next semester
+{| class="wikitable" !Action Items !Current Status !Start Date !Suspense Date !Date resolved |- |Run full evolution on housing dataset |only run with dense layers |4/11/2019 | | |- |Change graphs so they feature new score metrics |Current graphs work but they have the wrong axis |4/11/2019 | | |- |add average percent change metric | |4/11/2019 |4/11/2019 | |}
+
+== April 15, 2019 ==
+
+=== '''Deep Learning Notes''' ===
+* Discussed Expectations for our final presentation.
+* Here is how i've decided to split up the rest of the semester work load for subteam B
+** Sam: He will relabel the axis of the graph to match the regression task
+** Johnny: He will create an animation of the pareto front
+** Me: I will train the best individual and benchmark it against kaggle
+
+* Subteam A has asked me to run cifar-10, cifar-100, and mnist on icehammer
+
+=== Action Items ===
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Date
+!Suspend Date
+!Completion Date
+|-
+|Complete training graphs
+|We have run the evolution and have the best individual 
+|April 15, 2019
+|4/21/2019
+|4/21/2019
+|-
+|Complete benchmark graphs
+|Not started although we have seen multiple results on kaggle
+|April 15, 2019
+|4/21/2019
+|4/21/2019
+|-
+|
+|
+|
+|
+|
+|}
+
+== April 18, 2019 ==
+
+=== Deep Learning Notes: ===
+* Whole team worked on presentation
+* Johnny has fixed the pareto front graphing glitch he was experiencing
+* Sam is having much trouble graphing on his mac
+I have run Mnist, cifar-10, and cifar-100 on icehammer for as many generations as possible. However, cifar-10 will not move past the first generation and just halts on the machine. One of the team members will run cifar-10 on their own pc
+
+=== Action Items ===
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Date
+!Suspense Date
+!Completion Date
+|-
+|Add graphs to presentation
+|not done
+|4/18/2019
+|4/23/2019
+|4/23/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== April 22, 2019- Final entry ==
+
+=== Deep Learning Notes ===
+* Goals for next semester include incorporating regression into framework and running regression mutating things like the number of nodes in the dense layers
+* Adding time series support would be excellent
+
+=== Minimum grade i deserve: B. Hopefully i will receive an A ===
+Reasons why i deserve an A
+* I ran a ton of tests and debugged a lot of code this semester.
+* Even after we split off into subteam A and subteam B i still ran tests for sub-team A
+* I committed a lot of code
+** In my commits there are a lot of optimizations, bug fixes, and enhancements
+** In fact: I added regression support myself: https://github.com/ezCGP/ezCGP/commit/eaaace935df0a8534e7c614faf3113b5b7e35254 and the scoring function
+** Also, I acted as an official subteam leader choosing tasks for Sam and Johnny, who were themselves very helpful teammates. 
+
+* Although my notebook may look sparse in some areas i definitely made a huge time commitment this semester.
+* ('''I also did both my peer evaluations!!!''')
+
+== August 19, 2019 -First Entry ==
+'''Deep Learning Notes'''
+* Mai and Trai joined deep learning team 
+* Dr Rohling wants us to come up with a gameplan detailing what success looks like for the semester to present next class
+* We should have ideally three people working on each subteam
+* We have identified two unique areas which could be developed: feature addition to emade (i.e more primitives) and parallization (i.e. evaluating multiple individuals simultaneoudly)
+
+=== Action Items ===
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Datdsfdse
+!Suspense Date
+!Completion Date
+|-
+|Come up with Gameplan
+|We talked about it in class
+|8/18/2019
+|8/26/2019
+|8019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== August 25, 2019 ==
+
+=== Deep Learning Notes ===
+* Created a rough presentation that outlines the semester plans. https://docs.google.com/presentation/d/1CUDOAWzBPTPcjmkoCfKI4vsWj9RRN_GYMSOhbgiDjBo/edit?usp=sharing
+
+== August 26, 2019 ==
+
+=== Deep Learning Notes ===
+* At a certain point the addition of features to ezcgp will not help achieve better results. Pardsfdsfallization is neccessary to explore a larger parameter space. However, parallization is a bad idea if the 
+* structure of ezcgp isnt finished beforehand. The main thing that ezcgp is missing right now is multiple blocks.
+* There are a couple of next step forwards which we discussed:
+** Create a preprocessing block that uses regular opencv methods
+** Allow ezcgp to create multiple tensorflow. One feeding into the other one. This would allow us to make sure that weird shapes do not break the evolutionary process
+** Create a preprocessing block out of tensorflow: [https://www.tensorflow.org/tfx/transform/api_docs/python/tft/pca https://www.tensorflow.org/tfx/tram/api_docs/python/tft/pca] 
+
+* Decided to go with second option following Rodd's plan. The downside of this approach is that adding this feature will not help results. The upside is that it will make the framework more robust.
+
+=== Action items ===
+{| class="wikitable"
+!Action Items
+!Current Status
+!Start Date
+!Suspense Date
+!Completion Date
+|-
+|Create tensorflow block that does not need to be trained
+|None
+|8/26/2019
+|8/30/2019
+|8/30/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== August 30, 2019 ==
+
+=== Deep Learning Notes ===
+* We were able to use the learning_required flag to differentiate blocks that need to be trained from blocks that dont need to be trained
+* Blocks.py seems to be a little bit bloated now.
+* Worked with Trai and Mai to help them look through the code
+* We currently do not have support for multiple blocks feeding into eachother
+* Next meeting planned for Saturday
+
+=== Action Items ===
+{| class="wikitable"
+!`
+!Current Status
+!Start Date
+!Suspense Date
+!Completion 
+|-
+|Preprocessing blocks should feed into Training Blocks  
+|None
+|8/30/2019
+|9/7/2019
+|9/7/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== Sept 7, 2019 ==
+
+=== Deep Learning Notes ===
+* Split off into two subteams for the day
+* Jingua, Sam, and Mai would work on differentiating Preprocessing blocks from Training blocks while Trai and I would work on cleaning up Blocks.py
+* I had to install anaconda and a text editor on my new laptop first, but Trai brought up some really good points about problems with the architecure of ezcgp after I showed him my uml diagram I made last year: https://drive.google.com/file/d/1IUITnDyluTy5kT4hAyfyEQqcGSrkBqNn/view?usp=sharing:
+** Why does Mate and Mutate inheret from Genome? Shouldn't it rather be a Genome implements Mate and Mutate? 
+** Block inherets from Mate and Mutate? Shouldn't is rather just use the mate and mutate libraries? 
+
+* In summary, the inheritance structure caused unneccessary confusuion. In Trai's opinion this should be refactored earlier on to prvent confusion in the future. I on the other hand am willing to ignore this for the sake of iincreaing functionality of ezcgp since all of the changes needed in ezcgp are in blocks.py, universe.py, and problem.py and not the other files.
+* However, Trai and I were able to add functionality to read in custom datasets through a db manager rather than through problem.py. This way the code is a bit more modularized and problem.py is cleaned up quite a bit.
+* Jingua and Sam were able to successfully have evolution run with preprocessing blocks being fed into training blocks.
+* Mai and Trai expressed interest in starting in startng parrallization or at least create a gameplan for parallization. Sam, Jingua, and I agreed that the next step for the other branch would be to add operators for non tensorflow preprocessing methods.
+{| class="wikitable"
+!Action Items
+!Current Status
+!Started
+!Suspense
+!Completion
+|-
+|Merge DbManager into multiple blocks branch
+|None
+|9/7/2019
+|9/8/2019
+|9/8/2019
+|-
+|Look Over changes Sam and Jingua Made
+|Heard description from Sam
+|9/7/2019
+|9/8/2019
+|9/8/2019
+|-
+|
+|
+|
+|
+|
+|}
+
+== Sept 9, 2019 ==
+
+=== Deep Learning Notes: ===
+* Created scrum note
+
+== Sept 12, 2019 ==
+
+=== Deep Learning Notes: ===
+* Made a commit to the github fixing the merge of DbManager and the Dataset class which now works. The Dataset class removes clutter from the blocks code by removing all the next_batch code.
+
+== Sept 13, 2019 ==
+
+=== Deep Learning Notes ===
+* Today we had our normal Friday team meetings.
+* Trai and Mai worked on coming up with an architecutral plan for multiprocessing.
+* Sam, Jinghua, and I added support for OpenCV preprocessing blocks. 
+** We managed to add a opencv gaussian blur primitive
+* I brought to the groups attention an important design concern which we need to address. For preprocessing blocks sometimes it is neccessary to apply the preprocessing to both the x_val data and the x_train data while sometimes it is neccessary to apply only preporcessing to the x_train data and none to the x_val data. Other times hower it is neccessary to apply some preprocessing methods both the x_val and x_train dataset but to do additionaly preprocessing to the x_train to distinguish the two. For example with DataAugmentation it is customary to normalize both the training set and testing set but augmenting the dataset should only be done to the training set.
+* Jingua came up with a good idea to fix this problem: add a optional flag to each primitive that specifies whether or not the primitive should be applied to the training and validation set.
+* Another idea is to split it up at the block level make each block have an optional flag that specifies whether or not to apply to both training and validation sets.
+* We will discuss these options at the meeting and also tag up with Trai and Mai to see what progress they have made with parallization. 
+* The overall plan seems to be that we will first add the aforementioned preprocessing feature, and then we will add some interesting and important primitves to get samples of useful machine learning processes represented using the block structure. Once we have a few individuals we will figure out mating and implement it.
+
+== Sept 15, 2019 ==
+
+=== Deep Learning Notes ===
+
+=== Action Items ===
+{| class="wikitable"
+!Item
+!Current Status
+!Start Date
+!Suspense Date
+!Completion Date
+|-
+|Need to add ability to differentiate between blocks which apply transform to val
+|Discussed a plan
+|9/15/2019
+|9/20/2019
+|9/20/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== Sept 20, 2019 ==
+
+=== Deep Learning Notes ===
+* Jinghua and I added flag to preprocessing block to allow option of applying transform to validation data. 
+* Unfortunately, the code is even more bloated in blocks.py
+* Parallization sub-team still working through details of parallization. Running into problems with memory usage. I showed trai how to safely deepcopy individuals before a deepcopy. However, the memory usage is very high.
+
+== Sept 23, 2019 ==
+
+=== Deep Learning Notes ===
+* Trai and Mai are really struggling to debug with all the print statements (Need a way to add logging so that all print statements can essentially be turned off with a flag)
+* I am really getting a large sense that the code is beginning to look very hacky. Therefore, I am assigning everyone a task and a file to look at. The assignments should be assigned at the very latest by Tuesday.
+* Also I noticed a problem with gaussian blur. It was not really applying the gaussian blur to the input.
+* Overall, we all need to be more careful with our commits and regular maintaining the code especially after long meetings {| class="wikitable" !Item !Current Status !Start Date !Suspense Date !Completion Date |- |Need to implement a logger |None  |9/23/2019 |9/23/2019 |9/23/2019 |- |Verify gaussian blur |None |9/23/2019 |9/26/2019 |9/26/2019 |- | | | | | |}
+*
+# Verify Gaussian Blur works: Assigned to myself - Done
+# Code is Bloated in Blocks: Assigned to Jinghua - Open
+# Convert universe.py to logging: assigned to mai and trai - Open
+# Convert main.py print statements and Block.py print Statements: assigned to Sam and Michael - Mostly done. Some logging errors
+* Sam Is going to ask Rodd to research primitives and also for advice on how to look through the literature to find primatives.
+
+== Sept 29. 2019 ==
+
+=== Deep Learning Notes ===
+* I decided to try to implement more data augmentation primitves. While I was investigating a random_rotation primitive I discovered a Fixable flaw with our operators dictionary:
+** In data augmentation it is often neccessary to create more samples from fewer samples. So a random rotation primitive should take a certain percentage of the samples rotate them and add them back into the dataset. However, I tried this and received a shape error. The root of the problem was that If you augment a dataset you also need a way to '''add labels''' for each thing you add to the dataset.
+** An immediate fix I thought of is threading the labels through the operators and then optionally doing operations on the labels for each operator. I will bring this up during the meeting and also try to pivot more towards getting more data augmentation primitives so we can begin to replicate the performance of other deep learning approaches online.
+
+=== Action Items ===
+{| class="wikitable"
+!item
+!Current Status
+!Start 
+!Suspense Date
+!Completion Date
+|-
+|Come up with plan to deal with new data augmentation error
+|Just found the error
+|9/29/2019
+|10/2/2019
+|10/2/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== Oct 2, 2019 ==
+
+=== Deep Learning Notes ===
+* I pulled in Jinghua's refactoring changes into the github. It really was easy to merge with multiple-blocks branch,
+* I modified the operators.py so that each operator has an include_labels flag. This allows certain data augmentation primitives, like random rotation, to add samples only to the training set. I added temporary Exceptions in blocks.py in places. The purpose of these Exceptions is to point out grey areas in logic about certain initializations of blocks. For example, you can specify a block is meant to apply to the validation set but can pass in include_labels operators into the skeleton block. The two options are to apply the transform to the validation (which could ruin the fitness of individuals), ignore those primitives and just pass them through in ambiguous cases, or set the block to dead and give the individual a horrible fitness. I will discuss this with the group on Saturday,
+* I have layed out a loose plan on slack for what to accomplish by Monday. For the data augmentation subteam this goal is too add a LARGE amount of useful primitives to ezcgp so that good individuals can be created. I also might recommend that we invent a way to hardcode (or seed) individuals directly into ezcgp. This would assist evolution and also give us a more robust way to test data augmention processes.
+
+=== My Commits (These are the commits I have made this semester in reverse order): ===
+*https://github.com/ezCGP/ezCGP/commit/90e40e4e57a7e8b6f938a151c7311a4b26ab1c9a -> threading labels through operators
+*https://github.com/ezCGP/ezCGP/commit/7ba5d3878d5df05f7a1f093b145dd0caad527f4e -> merged Jinghua's code. Yes Q11BUL is me. I had not run git config yet
+*https://github.com/ezCGP/ezCGP/commit/47c7b3938940a322a4bf4e10dd88775be0ec3c11 -< fixed random rotations but discovered data augmentation bug dealing with labels
+*https://github.com/ezCGP/ezCGP/commit/06cc66b806b38d930fdd23c557c15d5d707b0969 -> fixed greyscale norm with Samual Zhang
+*https://github.com/ezCGP/ezCGP/commit/fc3d8593c30193ff595d35558d96a5535a39d280 -> removed preprocessing from dataset loader
+*https://github.com/ezCGP/ezCGP/commit/ece8be7d31a8a4169333e592980639cd97ed4438 ->added logging system. Very useful
+*https://github.com/ezCGP/ezCGP/commit/0f093c4c0cc9ca8e9e700beddcba7da55bf87d6a -> fixed error with mutating when there is only one primitive in skeleton block. Sam and Jinghua helped
+*I would say that pretty much all of my other commits were also a team effort. (Remember I am Q11BUL also ;)
+
+== October 5, 2019 ==
+
+=== Deep Learning Notes: ===
+* Jinghua and I added several data augmentation primitives to operators.py. I pushed up a random noise primitive while she pushed up horizontal filp and salt and pepper noise, which adds sharp discontinuities to the image in the form of white and black pixels. 
+* I also pushed up an apply augmentation wrapper for primitves which reduces redundancy in the code: https://github.com/ezCGP/ezCGP/commit/e500c8954df7904ed90d187d9e9d525a21a9118c
+
+* Rodd began work of how to convert individual strings into proper individuals for seeding.
+
+== October 7, 2019 ==
+
+=== Deep Learning Notes ===
+* Trai and Mai discussed how mpi currently has a large io overhead. We believe the cause of it is due to large dataset overhead.
+* Late last week I tried an evolutionary run on my pc but the code errored. I will push up the code and Jinghua and I can figure out why the code is breaking.
+
+=== Action Items ===
+{| class="wikitable"
+!Item
+!Current Status
+!Start
+!Suspense Date
+!Completion Date
+|-
+|Figure out why code is breaking during full evolutonary run
+|Code errors out
+|October 7, 2019
+|October 9, 2019
+|Oct 9, 2019
+|-
+|Diminish IO overhead and see if training time decreases
+|Only clear some data structures
+|October 7, 2019
+|Oct 9, 2019
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== October 9, 2019 ==
+
+=== Deep Learning Notes ===
+* Found out the code breaks when genome_main_count is set to one block. The error lies in the mutate method and can be fixed by setting genome_main_count to a number greater that.
+* Reduced ram usage during evaluation step by clearning genome_output_values and genome_validation_output for each block after the data passes through it. Pushed up changes: https://github.com/ezCGP/ezCGP/commit/85262bc648d568992bbb0f7403634e32e096ab25
+
+== October 12, 2019 ==
+
+=== Deep Learning Notes: ===
+* Team went on moral boost hiking trip. It was very fun
+
+== October 19, 2019 ==
+
+=== Deep Learning Notes ===
+* Team completed most of our presentation, which follows the following format:
+** What is ezcgp -> Last Year recap -> what has changed (i.e parallization, multiple blocks) -> results -> rest of semester goals -> hiring goals for new semester students
+* I need to collect the ice-hammer results of our full evolutionary run on ice-hammer to show in our presentation
+* Trai needs to collect timing data so we can know the exact effect that adding more cpus has on the evolutionary process.
+* Asked Jason Zutty for after hours access to the baker building to check on ezcgp results on the 17th.
+
+=== Action Items ===
+{| class="wikitable"
+!Items
+!Current Status
+!Start
+!Suspense Date
+!Completion Date
+|-
+|Gather Results from Ice-Hammer Run 
+|Ice-hammer has run at least 7 generations
+|October 19, 2019
+|
+|
+|-
+|Post graphs to presentation
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== October 20, 2019 ==
+
+=== Deep Learning Notes ===
+* Cifar-10 full evolutonary run only ran for 8 generations and then crashed. Discovered the error came from a debug line of code that raises an Exception when an individual errors. (Individuals should sometimes error out during evaluation but it should not end the evolutionary run).
+* [[files/Cifar-10 multiple blocks first run.jpg|thumb]]
+The validation accuracy is lower than last semester and the best individual created has multiple redundancies in it. I believe that results will improve if we allow the evolutionary process to run longer with a larger population size. The next major run our team attempts should utilize mpi.
+* Also i found that we were not properly hardcoding the random seed for the evolutionary run. This will be changed later.
+
+== October 21, 2019 ==
+* Added random seed for python random. Previously we had only a random seed for numpy.random despite the fact that we use both modules.
+
+== October 28, 2019 ==
+* I am going to split off from Sam and Jinghua to help Mai and Trai fix parallization. My hypothesis for why mpi is so slow is that we are scattering the dataset to each individual. I created a branch called mpi_fix, https://github.com/ezCGP/ezCGP/commits/mpi-fix, which seeks to share a single dataset on each cpu core.
+
+== October 29, 2019 ==
+* According to Trai, my previous mpi_fix was not needed as the dataset is already distributed to each core. My next attempt will try to reduce the memory footprint of individuals sent to workers with the scatter command.
+
+== Nov 4, 2019 ==
+* Had an idea about how to reduce the scatter time. Instead of scattering individuals, made up of type class Individual, i will instead scatter lists of '''genome_lists'''.
+* A genome_list is a compact representation of what an individual's blocks contain with little data bloat. Rather than scatter the complex class structure of an entire individual I just extract the bare minimum amount of information to reconstruct an individual of class Individual.
+* Added commits to mpi_fix branch: https://github.com/ezCGP/ezCGP/commit/a13e5c671b5298c3f7eb7f8da607f0b2b17e68c7
+* It seems that the time to scatter a population of individuals took about 30-60 minutes depending on the pop_size and number of cores. Now it takes on the order of seconds
+
+== Nov 10, 2019 ==
+* Now that the code is in a seemingly stable state I will try running it on ice-hammer with 120 threaded cpu cores.
+
+== Nov 11, 2019 ==
+* Started an email chain with ice-hammer admin Saul Crumpton asking for help with my various errors.
+
+== Nov 15, 2019 ==
+* Running on ice-hammer has largely been unsuccessful. 
+* I seem to have fixed my runMPI.sh errors, but now the runs seem to be extremely slow and to be actually running sequentially rather than in parallel. I am going to try to bring Mai and Trai into the Baker Building (with visitor's passes) to help me debug it.
+
+== Nov 17, 2019 ==
+* Mai and Trai helped me debug my runMPI.sh submission script. From what we can tell, our jobs are running on the correct nodes at full capacity. One major change that we implemented was using the oversubscribe flag with mpiexec. Results are still pending.
+
+== Nov 21, 2019 ==
+* Our previous HPC run also failed with this error:
+ORTE has lost communication with a remote daemon.  HNP daemon   : [[48670,0],0] on node ice111  Remote daemon: [[48670,0],7] on node ice169This is usually due to either a failure of the TCP network  connection to the node, or possibly an internal failure of  the daemon itself. We cannot recover from this failure, and  therefore will terminate the job.  --------------------------------------------------------------------------
+* It has been suggested by Jason and Austin that our code should be able to handle this. However, i believe that proper seeding could make this a non-issue. In other words, if the run crashes and we have seeding then we can just start it up again with our saved seeds.
+* Decided to try another run
+
+== Nov 22, 2019 ==
+* Tried another run and the code appears to be halting. Furthermore,  the code has not written any generation files.
+* Recently Jason notified me  of a new resource which we could use to run ezCGP on: h[https://pace.gatech.edu/sites/default/files/pace-ice_orientation_2.pdf ttps://pace.gatech.edu/sites/default/files/pace-ice_orientation_2.pdf]
+* I believe it would be wise to transistion to this platform since it would allow the entire team to do runs.
+
+== Nov 25, 2019 ==
+* Rodd and I added a lot of print statements to our mpi_universe.py script to see how long certain lines of code are taking to run on the HPC. Specifically, we want to know whether or not the code is being caught up in a large evaluation (seems very likely). For some reason, the previous logging code does not seem to function at all on the hpc so we will probably have to revert to print statements.
+* Will try pace over the holiday
+
+== Nov 25, 2019 - Dec 2, 2019 ==
+* Over the break i went into overdrive mode with pace. Eventually Sam was able to fix an mpi_script which i had written and shared on slack. We were finally able to get multiple cores to work together without any errors on an HPC.
+* However, we quickly discovered that running tensorflow-cpu was far too slow compared to tensorflow-gpu. The initial reasoning behind using tensorflow-cpu was that we believed that having a lage number of cpus would make the increased per-individual evaluating worth it. However, tensorflow-gpu is 40x faster than cpu! In 12 hours of running with a population size of 12 we were only able to run 5 generations.
+* Transitioning to pace was an excellent idea because the entire team was able to help in benchmarking and debugging the code
+
+== Winter Break Recap 2019-2020 ==
+
+=== Deep Learning Notes (Recap of Winter Break Changes) ===
+* Sam and I found several foundational errors in ezCGP. One of them involved not deepcopying individuals' genome_list. What was unintentionally happening was that individuals had genome lists which were all pointing to the same data structure. When we fixed this problem the accuracy increased from around 60% accuracy to 85% accuracy. 
+* Furthermore, we discussed the next semester priorities of ezCGP as well as how to divide up the work. We decided upon splitting the team up into a primitives team and a gpu-parallelization team with the thought that the new semester students would choose the primitives team.
+
+== Jan 6, 2020 ==
+
+=== Deep Learning Notes ===
+* Jason mentioned in class that a good metric to determine significance of a feature change in ezcgp would be to compare results using a one-tailed welsh t-test. I believe there are several architecture choices we need to justify like, for example, why mating is done the way it is, why reprocessing is done the way it is, and why our evolutionary loop is different than standard practice. 
+
+== Jan 13, 2020 ==
+
+=== Deep Learning Notes ===
+* I unfortunately was not able to attend class due to the gre. 
+* However, recently Sam and I discussed that perhaps we are doing data augmentation slightly wrong. Specifically, in data-augmentation samples are not usually appended to the training set. In fact, the original data is never directly passed into the learner. Furthermore, there is a more space efficient and more standard way to do data augmentation by using a keras library: https://machinelearningmastery.com/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks/. Perhaps we could wrap the block structure around a standard library?
+
+=== Action Items ===
+{| class="wikitable"
+!Items
+!Current Status
+!Date Started
+!Suspense Date
+!Completion Date
+|-
+|Research standard data-augmentation strategies
+|
+|Jan 13
+|Jan 27, 2019
+|Jan 27, 2019
+|}
+
+== Jan 27, 2020 ==
+
+=== Deep Learning Notes ===
+* Rodd came up with a proposed structure for fixing the blocks class: https://github.com/ezCGP/ezCGP/issues/27
+* I however found two other libraries besides keras that we could use: https://github.com/ezCGP/ezCGP/issues/26
+
+== Feb 3, 2020 ==
+
+=== Deep Learning Notes ===
+* Added fixAugment branch to fix data_augmentation. The data augmentation branch will use the Augmentor python library. 
+* Came up with an operator (primitive) design paradigm for data_augmentation: https://github.com/ezCGP/ezCGP/commit/5b05e300e67a2cd2f2c3502d95cc7233673188fc
+* I've assigned most of the new students with revieing a tensorflow tutorial so that they can design primitives.
+
+== Feb 4, 2020 ==
+
+=== Deep Learning Notes ===
+* I've assigned multiple tasks for each new student that will help teach them about tensorflow and about ezCGP:
+** https://github.com/ezCGP/ezCGP/issues/39
+** https://github.com/ezCGP/ezCGP/issues/40
+** https://github.com/ezCGP/ezCGP/issues/41
+** https://github.com/ezCGP/ezCGP/issues/42
+** https://github.com/ezCGP/ezCGP/issues/43
+
+== Feb 6, 2020 ==
+
+=== Deep Learning Notes ===
+* I recently met up with a new ezCGP recruit named William Y. Li, who wants to work with software and infrastruture changes. So I assigned him the task or changing the Dataset class to work with the Augmentor library. The integration should not be hard and will give the student a chance to learn about Data Augmentation, which is important in state-of-the-art machine learning as well as familiarity with how ezCGP is using tensorflow in the blocks.py class
+** https://github.com/ezCGP/ezCGP/issues/44
+
+== Feb 7, 2020 ==
+
+=== Deep Learning Notes ===
+* Most of the new ezCGP students have completed the work assigned to them with the exception of a couple of them; they have pushed up to the primitives branch of ezCGP. I will try to meet with the students that I have not checked up with and help them debug and catch up with the other students. 
+* I have completed most of the new data augmentation block but have not tested it yet. After, I have run a simple test I will push it up and share the results with Rodd and William and try to run a benchmark.
+
+== Feb 18, 2020 ==
+
+=== Deep Learning Notes ===
+Added augmentor block prototype. The idea is to evolve a data augmentation pipeline in ezCGP.
+* https://github.com/ezCGP/ezCGP/commit/f7ea1e08191e804caba387e755149e6825c7c15d
+
+== Feb 22, 2020 ==
+
+=== Deep Learning Notes ===
+* Added a new DataSet class as well as example usage: https://github.com/ezCGP/ezCGP/commit/a298f5e315ea02825256a606bd75459c9814de45
+** The motivation for the DataSet class is to give ezCGP a way to pass around data between blocks for image classification. In the most basic usage, the dataset class should allow the user to query mini-batches from the dataset. However, the dataset class also contans a train and a test augmentor pipline, which by default do nothing. The idea is that ezCGP will be able to evolve preprocessing and data augmentation blocks.
+
+== Feb 28, 2020 ==
+
+=== Deep Learning Notes ===
+* Looked at Rodd's code and changed the operators build_weights functionality with Sam. The build_weights functon in ezCGP specifies the probablity of sampling certain primitives when mutating and filling out a genome randomly. Sam and I simplified the build_function and removed about 30 lines of code. We also added a weights argument to the operator_dict for each primitive. https://github.com/ezCGP/ezExperimental/commit/7e115b7a879178b0e8903661c0905175e456fd61
+
+== Feb 29, 2020 ==
+
+=== Deep Learning Notes ===
+* Rodd rejected our changes, so we reverted our previous edits. Rodd's reasoning for specifiying the weights in the operator class rather than the operator file was that the user should be able to customize weights. Furthermore, by pushing up our changes we made the codebase incompatbile with local edits that Rodd had not commited. However, his design breaks his own class hierarchy and also adds significant bloat and confusion via the uncommented build_weights function. So I created an issue about build_weights and redesigning operators.py: https://github.com/ezCGP/ezCGP/issues/62
+
+== March 1, 2020 ==
+
+=== Deep Learning Notes ===
+* Based on the design discussion/debate with Trai, Rodd, and I about tensorflow 2.0, we tried to implement a TensorflowGraphEvaluate function in the new ezCGP framework: https://github.com/ezCGP/ezExperimental/commit/9f81ee8087852f31f6ac99f1c26b35a8a57de4a6. The code is not functional and is likely using structure wrong.
+
+== March 8, 2020 ==
+
+=== Deep Learning Notes ===
+* After merging Rodd's symbolic regression code on March 4th, I began work on incorportating tensorflow 2.0 into the structure. I just finished: https://github.com/ezCGP/ezExperimental/commit/2a7f088b87d08a538920a182c45a75adc0986c30. The smbolic_regression code still works although we may need to abstract our the Dataset Class into a generic dataholder class that varies for different types of data.
+* I showed Trai and Mai the code, and they believe the structure is too convoluted. Unfortunately Rodd coded most of the new class layout completely on his own without any comments, so I am having difficulty understanding the structure. Mai and Trai seemed confused about some of the layout of the code even though Rodd, Mai, and Trai all agreed on a single structure. I believe that Mai and Trai should be given two weeks to redesign the code based on their own understanding of the UML that they made since they are skilled at code design.
+[[files/20200302 202355.jpg|thumb]]
+
+== March 13, 2020 ==
+
+=== Deep Learning Notes ===
+* I identified three broad tasks for our team to tackle in the remaing part of the semester and posted it on slack:[[files/Rsz slackproof1.png|thumb]]
+
+== March 30, 2020 ==
+
+=== Deep Learning Notes ===
+* Attempted to abstract out the data types that are allowed to be fed into ezCGP. Rodd's original code hardcoded everything as a numpy datapair. However, our framework needs a way to accept other types of data, like the dataset class. Furthermore, the way that data is loaded into ezCGP has to be standardized across problems. This is my tentative attempt to solve this problem: https://github.com/ezCGP/ezExperimental/commit/88fdf3b5fdcd69ef6f6ebb917a77f2e5ab392320
+
+== April 5, 2020 ==
+
+=== Deep Learning Notes ===
+* Started workign with Mai and Trai on integrating mpi into the new framework. I managed to fix some of the problems they were facing when testing out mpi_universe.py:  https://github.com/ezCGP/ezExperimental/commit/2520319aed160170fd7b6de8f6ea98e396644a1c. Other bugs still persist like prohibitively high memory usage across multiple processes.
+* I also noticed that every individual creates 4 "mutation offspring" per generation. According to Rodd this is a standard practice in CGP but I feel that this might be a far too shallow evolution. We need to benchmark this evolution strategy against the more standard evolutionary algorithm used in emade.
+
+== April 6, 2020 ==
+
+=== Deep Learning Notes ===
+* Reorganized data loading structure in ezCGP after a conversation with Mai and Trai. I removed the ezData class entirely because it was a blank abstract class that didn't serve a practical function. I also created a seperate folder in the new framework that contains all the supported datatypes in ezCGP. Furthermore I consolidated the database code in a single folder: https://github.com/ezCGP/ezExperimental/commit/97290021e0be078d7a62346c5422f749df04311c
+[[files/Rsz 1ezdata.png|thumb]]
+
+== April 7, 2020 ==
+
+=== Deep Learning Notes ===
+* I believe that ezCGP is suited for improving transfer learning techniques. I envision a 3 or 4 block evolutionary process where data-augmentation, state-of-the-art networks, and finetuning are all combined into a single evolutionary pipeline. 
+* The best way to fit transfer learning into ezCGP is probably to view the intermediate outputs of a pre-trained neural network as a simple preprocessing method. I plan to make a formal write up of this experiment in a few  days. 
+
+== April 13, 2020 ==
+
+=== Deep Learning Notes ===
+* I put together a demo showing how this could easily be added to ezCGP given that we have a completed data augmentation and preprocessing block structure incorporated into the framework: https://github.com/ezCGP/ezExperimental/commit/ede8887b09fa0deb17a905013a6c509cb9c6ffa2
+
+== April 14, 2020 ==
+
+=== Deep Learning Notes ===
+* William I filled in the multiple block capability of ezCGP. Namely, we added a data augmentation and preprocessing block:https://github.com/ezCGP/ezExperimental/commit/4ac3c04646c7f9fc9c8360705ae57f2c4a519fb4 The commit allows a dataset object to pass between the data augmentation block, to the preprocessing block, to the training.
+** Augmentation Block: contains primitives like random rotate 
+** Preprocessing Block: contains various choices for normalization and preprocessing, like dividing each image by 255 in order to get the pixels between 0 and 1.
+** Training Block: contains the neural network architecture. Currently this block only builds the graph structure and trains for only a few minibatches before returning (in order to test faster).
+
+* William helped me with this effort: https://github.com/ezCGP/ezExperimental/commit/cf8fc3ad27be9953b08409d3d30e8bba6059ea70
+
+== April 16, 2020 ==
+
+=== Deep Learning Notes ===
+* Although Henry implemented several of the primitives from the last framework he neglected to include the arguments in the primitives. This is probably due to not understanding how arguments for primitives work in ezCGP. Rodd and I were able to debug and fix arguments in the experimental ezCGP branch so that Henry and Tan can continue to add primitives: https://github.com/ezCGP/ezExperimental/commit/918bd40ddd5186522c1b698107c10aecdfc016f1
+
+== April 17, 2020 ==
+
+=== Deep Learning Notes ===
+* Although Henry added a couple arguments from the old framework, he neglected to add a few of them. So I added the missing primitives: https://github.com/ezCGP/ezExperimental/commit/2eef9d20295fbca0bb3d6bc77459ec2d94c3a0e7
+* Speaking of arguments in ezCGP, a refactor might be in order. From what I can tell, each block in ezCGP is given its own valid arguments from which it can sample from. I've noticed that there is an arg_count variable in the code which is hard coded to 50. According to Rodd, this number is used to randomly initialize args in ezCGP. I believe that this should be done without hard coding a number. Else, there should be documentation justifying this choice.
+* Also I merged in William's branch into the master. I added some of the primitives that I had originally tasked for William like, horizontal_flip, random_crop, normalize, res_net_norm, and res_net. Res_net_norm is based on the normalization performed on imageNet. Res_net is a wrapper for tensorflow.keras.applications.resnet_v2.ResNet152V2[[files/BlockArgs.png|thumb]]
+
+== April 18, 2020 ==
+
+=== Deep Learning Notes ===
+* I asked Rodd to test out the new ezCGP code. Not only did he encounter errors, but also the code filled up his gpu and he ran out of memory. So I invoked tf.keras.backend.clear_session() commands in order to free up the gpu: https://github.com/ezCGP/ezExperimental/commit/4df5a884845cee26bbda6b578b901958fccaa395
+
+== April 19, 2020 ==
+
+=== Deep Learning Note ===
+* I finished the training loop inside BlockTensorFlowEvaluate: https://github.com/ezCGP/ezExperimental/blame/1c5d3c096bac6169775d9ad69dfb6f5bec9485ba/evaluate.py. This means I am ready for a full evolutionary run to test the framework.
+* The training loop trains each individual's neural network for 15 epochs with a training batch sizr of 256. In order to speed up trainng and weed out bad individuals I added code to stop training if the validation accuracy begins to decline. Although this may seem like harsh early stopping, there are many individuals to evaluate in a generation.[[files/TrainingLoop.png|thumb]]
+
+== April 26, 2020 ==
+
+=== Final Entry ===
+Unfortunately I was not able to run a full test of ezCGP with multiple blocks. I ran into gpu utilization problems that I was not able to resolve. Although I may revist ezCGP during the Summer to make sure that it runs, it is largely up to Rodd to clean up the code, merge Mai and Trai's code in, and run a full test. Since the framework is so new, I forsee that there will be a lot of unexpected bugs with the code. It is my hope the code is cleaned up and working before next semester begins, so that more experiments and architectures can be tried out on ezCGP.
+
+I am satisfied with all of my teammates efforts semester. Although I seemed to be doing a disproportionate share of the work in the later part of the semester, I cannot blame this on a lack of effort for any of the other students on the team due to the coronavius pandemic. 
+
+In conclusion, I beilieve that in order for ezCGP to be successful, the following steps must be taken:
+* [[files/Indiv def.evaluate(indiv.png|thumb]]Refactor the backend of the code: The code structure must be simplified and organized in order for the project to succeed. Although I tried to add comments and organize code files into folders (see April 6th), the code-base is still disorganized, uncommented, and highly complex. When debugging the code with me, Trai described the code as "twisted" due to the confusing stack of functions being used to evaluate individuals. For example, in the code snippet shown to the right, individuals are evaluated with a function call that looks like this: indiv_def.evaluate(indiv, problem.data). I believe that a simpler way to use this would be to call indiv.evaluate(problem.data).
+* Run Experiments: At the end of the semester, I got very close to running an experiment invloving data augmentation, transfer learning, and neural architecture search using the primitives used in state of the art achitectures. After running this experiment and collecting the results, we should also try to tackle other research areas also. Moreover, running experiments will help the team locate bugs and errors.

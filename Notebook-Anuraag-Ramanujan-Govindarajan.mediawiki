@@ -1,0 +1,2299 @@
+
+== Team Member ==
+
+Team Member: Anuraag Govindarajan
+
+Email: anurajan86@gatech.edu
+
+Cell Phone: 864-417-9423
+
+Interests: Data Analytics, Machine Learning
+
+Current Self-grade rubric: [[Media:selfrubric.pdf]]
+
+
+== December 2, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Stocks'''
+
+* Focus on applications of stock market trend analysis in EMADE
+* Technical Indicator Primitives:
+** Simple Moving Average
+** Exponential Moving Average
+** Moving Average Convergence and Divergence
+** Stochastic Oscillator
+** Relative Strength
+** William's R%
+** Ease of Movement
+** On-Balance Volume
+** Bollinger Bands
+** CCI
+** Money Flow Index
+* Compared various runs and profits to baseline paper
+* Used 10-day time periods for predictions
+
+'''EzCGP'''
+
+* Worked on cleaning up OpenCV based preprocessing primitives
+* Switched to Precision and Recall, from Accuracy and F1 Score, as objective scores
+* Genome Seeding - saving 20 best individuals after each generation
+** Done because of time limitations
+* Worked on increasing accuracy without using transfer learning
+* Also worked on breaking plateau by adding primitives or increasing randomness
+* Super Convergence - cyclical learning structure
+
+'''Modularity'''
+
+* Looking for ways to abstract out parts of individuals
+* Essentially, creating evolutionary building blocks
+* ARL - Adaptive Representation through Learning
+* Differential Fitness - difference between an individual and its most fit parent
+* Alternative Selection
+* Data Pair Restriction - only allowed subtrees that return an EmadeDataPair object to be used
+* Alternate Selection Upgraded - merged Alternative Selection with Data Pair restrictions
+
+'''Sub-Team Notes'''
+
+* Finish presentation slides
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Presentation Slides
+|Completed
+|November 23, 2020
+|December 2, 2020
+|December 2, 2020
+|-
+|}
+
+== November 30, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Work on presentation slides
+* Finish up baseline run on Chest x-ray
+* Analyze results
+* Talked with Anish about results with Chest x-ray Emade runs
+** Found a paper that discusses x-ray results with various models
+** Paper link: https://assets.researchsquare.com/files/rs-65954/v1/52207f6d-bfed-4fa7-832e-3a9e3e0700c1.pdf
+** Paper mentioned effectiveness of MobileNet and Inception V3
+** We decided to test add Inception V3 to emade and test it, and it performed with high accuracy
+** However, chest x-ray dataset is heavily skewed towards one label (many of the images have that disease)
+** This causes many of the models to learn to just predict that one label
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do baseline Chest X-Ray run on emade
+|Completed
+|November 23, 2020
+|November 30, 2020
+|November 29, 2020
+|-
+|Finish Presentation Slides
+|In Progress
+|November 23, 2020
+|December 2, 2020
+|
+|-
+|}
+
+A Couple of Presentation Slides:
+
+[[files/finalslide1.png|600px|Slide 1|center]]
+
+* In the above one, we give a short intro to YOLO
+
+[[files/finalslide2.png|600px|Slide 2|center]]
+
+* In this one, we give a summary of our findings and recommendations with the bounded box approach
+
+== November 23, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Test out Maxim's new PACE documentation
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze results of Chest X-Ray YOLO Run
+|Complete
+|November 9, 2020
+|November 16, 2020
+|November 16, 2020
+|-
+|Test PACE Documentation
+|Complete
+|November 16, 2020
+|November 23, 2020
+|November 22, 2020
+|-
+|}
+
+* New documentation fixes the old problems we were running into on PACE
+* Old error was caused by running the line "import sep"
+* This error was fixed by:
+** module load gc
+** export CC=gcc
+** I believe these lines may have fixed the strange errors from before
+
+== November 16, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Localization is very expensive for Chest X-Ray
+* For Chest X-Ray specifically, less than 1% of images are referenced in the bounded box csv file
+* In addition to the sparseness of localized data, there are some other issues:
+** Some of the disease labels are not even in the bounded box data
+** The images are not easily classifiable because many of the diseases are not very localizable
+* Looking at some of the ground truth data, it can be difficult to distinguish a disease with the human eye
+
+* Look more into architectures that account for path dependence and shift invariance and include CRF layers and anti-aliasing filters
+** See the following link: https://ml4health.github.io/2019/pdf/73_ml4h_preprint.pdf
+* It is possible that YOLO is not the best architecture for this specific dataset, since localization is tricky
+** Single stage detector such as YOLO and SSD sacrifice accuracy for speed
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze results of Chest X-Ray YOLO Run
+|In Progress
+|November 9, 2020
+|November 16, 2020
+|
+|-
+|}
+
+[[files/xraycomp.png|600px|Comparison|center]]
+
+* This image shows a comparison between a healthy chest x ray (left) and one with Cardiomegaly (right)
+* While we can clearly see a difference, it is also clear why this may cause some problems with classification, especially with bounded boxes
+* To reiterate the above point, localization is tricky with chest x rays.
+* With Cardiomegaly itself, it is hard to put a clear bounded box over the infected area.
+
+== November 9, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Worked on improving YOLO performance on Chest X-Ray
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fine Tune Model and Test again
+|Completed
+|November 2, 2020
+|November 9, 2020
+|November 8, 2020
+|-
+|}
+
+Another example detection:
+
+[[files/00020986_000.png|600px|Example Detection|center]]
+
+== November 2, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Worked on training chest x-ray as a bounded box problem with YOLO
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start generating model for chest x ray
+|Completed
+|September 28, 2020
+|November 6, 2020
+|November 3, 2020
+|-
+|}
+
+* Had to temporarily download all of the chest x ray images (~45gb)
+** Needed to do this because bounded box csv file only labeled some of the images
+** So I needed to write a script that found all of the images that are referenced in the bounded box csv file
+* Once I had these images isolated, I split into train, test, and validation sets
+* I used an image to text script to represent each image as a text file
+** Detections in the image are represented as lines in the text files in the format: '''[label, normalized x, normalized y, normalized width, normalize height]'''
+* I had to do this for every image in all of the image sets
+* Next, I created a .names file that simply contains all of the disease labels line by line
+* Additionally, I wrote scripts to handle other requirements
+* I was able to train using another GitHub repository for 150 epochs
+* The performance metrics from training can be seen below.
+
+[[files/results.png|600px|Performance Metrics|center]]
+
+* Example detection from testing can also be seen below.
+
+[[files/00015425_012.png|600px|Example Detection|center]]
+
+* Issues with bounded box approach:
+** The bounded box csv only contains images for 8 of the 15 diseases
+*** This could be because these are the only 8 diseases that can be pinpointed
+** Though the model successfully trained for 150 epochs, the detection rate was horrible and it wasn't able to detect most diseases
+** Perhaps more thorough training may be required, otherwise bounded box approach is not effective
+
+== October 26, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Get new members sorted out
+
+'''Sub-Team Notes'''
+
+* The bounded box csv file has individual diseases for each bounded box
+** So I think I can train a yolo model to detect diseases in images using bounded boxes
+** This would also allow the images to have multiple disease detections
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start generating model for chest x ray
+|In Progress
+|September 28, 2020
+|November 6, 2020
+|
+|-
+|}
+
+== October 19, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Mid-term Presentation Day
+
+'''Sub-Team Notes'''
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start generating model for chest x ray
+|In Progress
+|September 28, 2020
+|October 26, 2020
+|
+|-
+|Fill out presentation slides
+|Completed
+|October 5, 2020
+|October 19, 2020
+|October 18, 2020
+|-
+|}
+
+== October 12, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* I will give the introduction and motivation behind integrating Chest x-ray
+* Team will then talk about findings related to primitives
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out presentation slides
+|In Progress
+|October 5, 2020
+|October 19, 2020
+|
+|-
+|}
+
+A couple of slides:
+
+[[files/slidecxr1.png|600px|Function|center]]
+
+
+
+[[files/slidecxr2.png|600px|Function|center]]
+
+== October 5, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* I fixed ice hammer issues.
+* Found some issues with the first github repo I considered using
+* Submitting job files and training model should be easy now
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix Ice Hammer Issues
+|Completed
+|October 5, 2020
+|October 9, 2020
+|October 6, 2020
+|-
+|Do Seeding Run on Chest X-Ray
+|Completed
+|October 5, 2020
+|October 12, 2020
+|October 7, 2020
+|-
+|}
+
+== September 28, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Keep up with Notebooks
+* Peer Evals are out and due at end of week
+* Pace import sep issues are extending to other groups
+
+'''Sub-Team Notes'''
+
+* Team is now working on integrating emade into Colab
+* Running on Colab will probably be easier
+** Especially temporarily for short runs
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluations
+|In Progress
+|September 28, 2020
+|September 29, 2020
+|Completed
+|-
+|}
+
+* We are going to shift focus from the Pace issue for now.
+* Group will now make sure things are running smoothly on Colab before doing a run
+* Fixed SQL problems on ice hammer to get a run going on there
+** Remote Desktop reconfiguration caused issues
+** New IP Address for host
+** Had to redownload MySQL requirements
+** re-created user and privileges
+* Once a run is done, we will try to graphs of performance metrics
+* Will need to save the weights file
+
+== September 21, 2020 ==
+
+'''Team Meeting Notes'''
+
+
+'''Sub-Team Notes'''
+
+* I completely restarted the conda environment creation process on pace.
+* Starting to generate a pre-trained model using this repository:
+** https://github.com/vinaya8/Transfer-Learning-on-Chest-X-Ray-Images
+
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do seeding test on chest x-ray dataset
+|Completed
+|September 11, 2020
+|September 25, 2020
+|September 25, 2020
+|-
+|}
+
+* I was getting this strange Import Error:
+
+[[files/import error.png|600px|Function|center]]
+
+* In attempt to fix error, I restarted emade process on pace.
+** I deleted all relevant conda directories, and I deleted the emade directory
+** re-cloned emade
+*** made a .netrc file so that emade would not keep prompting me for username and password when cloning
+** deleted irrelevant datasets and other files from emade for space reasons
+** re-loaded anaconda and re-created conda environment
+
+== September 14, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Fill out self-grading rubric
+
+'''Sub-Team Notes'''
+
+* Browsed through several potential repositories that we can use to create a pre-trained model
+** Convolutional Neural Network Model (ideally trained for >= 100 epochs)
+* https://github.com/gregwchase/nih-chest-xray
+* https://github.com/paloukari/NIH-Chest-X-rays-Classification
+* https://github.com/rohanpillai20/Image-Classification-by-Keras-and-Tensorflow
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do seeding test on chest x-ray dataset
+|In Progress
+|September 11, 2020
+|September 18, 2020
+|
+|-
+|Find GitHub Repo for pre-training
+|Complete
+|September 7, 2020
+|September 18, 2020
+|September 17, 2020
+|-
+|}
+
+* Worked on seeding chest x ray dataset with seeding test cv
+* Used scp to move new yml file to pace
+* Ran into issues with creating a new conda environment
+** There was a disk quota exceeded issue
+** .git folder inside emade was taking up too much space (used du -c command to see storage details)
+** Can remove .git directory as long as you keep track of local changes for version control
+** Removing git directory fixed disk quota issues
+** Conda env create sill causing problems, though
+*** Because of new path changes on pace, anaconda commands are not working
+*** Fixed this by deleting and re-creating conda module on pace
+** Still working on fixing conda problems
+
+== September 7, 2020 ==
+
+'''Team Meeting Notes'''
+
+
+'''Sub-Team Notes'''
+
+* I finally got PACE access
+* Re-cloned the emade github repo into emade and switched to nn-vip branch
+* Uploaded fraction of chest x-ray images into datasets file
+** For this initial run, I just took 5000 images, instead of the whole dataset
+** I created label csv files for my train and test folders, such that only the images in those folders are in the csv
+** Image names are already compatible with emade load image format
+* Edited xml file to be compatible with image data
+* Updated mysql to create a new dataset with privileges
+** ran into some issues with mysql (more details under action items)
+* I performed a run on emade with the chest x ray data to confirm that it worked
+* Next, I will seed individuals into the dataset before running
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do preliminary run on chest x-ray dataset
+|Completed
+|August 28, 2020
+|September 11, 2020
+|September 11, 2020
+|-
+|Find GitHub Repo for pre-training
+|In Progress
+|September 7, 2020
+|September 11, 2020
+|
+|-
+|}
+
+* There were some new paths and hosts on PACE, so I re-started the mysql process
+* I kept the same my cnf and pbs files, but changed the paths to the log and pid files
+* Recreated the db directory
+* Once job submitted and ran without errors, I created a new user and database and flushed privileges
+* Was able to change template file to incorporate new host for database and username
+* Below is a little script I used to take a fraction of the data and create a new csv:
+
+[[files/takedata.png|400px|Function|center]]
+
+== August 31, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Discussed ways to go about training model on Chest x-ray dataset and then integrating into emade
+
+'''Sub-Team Notes'''
+
+* Ran into pace access issues this week
+* Emailed Dr. Zutty for him to forward on
+* Once Pace is working, we can continue trying the base emade run with the dataset
+** Goal with this is to get familiar with emade on pace and make sure everything runs
+* Looked for public GitHub repositories that we could potentially load custom data into
+** This would be useful to generate a Neural Network model outside emade that we can move into emade
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find New Dataset
+|Completed
+|August 24, 2020
+|September 4, 2020
+|September 3, 2020
+|-
+|Do preliminary run on chest x-ray dataset
+|In Progress
+|August 28, 2020
+|September 11, 2020
+|
+|-
+|}
+
+== August 24, 2020 ==
+
+'''Team Meeting Notes'''
+
+
+'''Sub-Team Notes'''
+
+* Got a BlueJeans meeting link for Mondays
+* Looked through chest x-ray dataset
+** https://www.kaggle.com/nih-chest-xrays/data
+* Need to find a similar benchmark dataset for NN branch and integration into emade
+* Some possible datasets for future use
+** https://stanfordmlgroup.github.io/competitions/chexpert/
+*** This is a different dataset with similar (chest x-ray) images
+** https://www.kaggle.com/c/cifar-10
+*** This is just a standard basic image identification dataset
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find New Dataset
+|In Progress
+|August 24, 2020
+|August 31, 2020
+|
+|-
+|Look through Chest x-ray dataset
+|Complete
+|August 24, 2020
+|August 31, 2020
+|August 28, 2020
+|-
+|Do preliminary run on chest x-ray dataset
+|Incomplete
+|August 28, 2020
+|September 4, 2020
+|
+|-
+|}
+
+== August 17, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Make sure you decide which sub-team you will be on by next week
+* Decided to join NLP sub-team
+
+'''Sub-Team Notes'''
+
+* About 12 members in meeting
+* Talked about toxicity dataset
+* Anish and Mohan made changes to NLP branch over summer at GTRI
+* We want to be able to apply emade to more than just toxicity dataset
+* We can have a group working on getting results with other datasets, not just toxicity
+* Neural network architecture
+** Mutates over several generations
+** Build a model that optimizes types of mutations used
+* We also want to do hypothesis testing
+* Google doc link: https://meet.google.com/linkredirect?authuser=0&dest=https%3A%2F%2Fdocs.google.com%2Fdocument%2Fd%2F1jrezh0mv2DKAzgtlhbHza7O9h7FKutCCPlP5enfTmP4%2Fedit%3Fusp%3Dsharing
+* Anish and Mohan over summer:
+** Worked on layer functions
+** Add Keras layers to layer list
+** Described some of the seeding individuals for toxicity
+** Look through node in nn branch code to understand changes
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join/Meet with NLP Sub-team
+|Completed
+|August 17, 2020
+|August 24, 2020
+|August 21, 2020
+|-
+|Decide on weekly meeting time
+|Completed
+|August 17, 2020
+|August 24, 2020
+|August 21, 2020
+|-
+|}
+
+== April 20, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Notes from Presentations'''
+
+Automatically Defined Functions (ADF's)
+
+* Projects:
+** Primitive Analysis
+*** Find the effects of ADF's on the population
+*** Tries to find the 'useful' components of an individual
+*** ADF's not as diverse as pareto fronts
+*** passTriState is the most frequent learner primitive
+** ADF Selection
+*** created a tournament method that favors individuals with more ADF's
+*** ADF Frequency and Area under the curve are fairly weakly correlated
+** Differential Fitness
+*** optimize search space in GP
+*** measure change in individual from its parents
+* Compare Baseline runs with ADF's to run with No ADF
+* See how ADF's can be used to modify the evolutionary process
+
+Research Fundamentals
+
+* neat-GP is a bloat control technique that aims to control bloat naturally, using heuristics
+* A lack of explicit bloat removal provides a significant performance boost over other bloat control strategies
+* Speciation
+** species are assigned based on shared topological structure of trees
+** species are assigned greedily
+* Crossover
+** identifies common region between two individuals
+* It's possible that the distance metric is not well suited to Emade because of the shapes of the trees
+* Presentation showed results from tests with various speciation thresholds
+
+NLP
+
+* includes NLP and Neural Network teams
+* GloVe Embeddings
+** a word-to-vector mapping layer in a Neural Network
+* Image Warping
+** better incorporate image data
+* Toxicity Dataset Problems
+** dataset of toxic comments
+** could classify target data as SPARSE
+* Text summarization
+** involves stemming and lemmatization of words and sentences
+** enabled emade to run on Google Colab
+
+EZCGP
+
+* Evolutionary Parameters
+** ran 39 generations over 41 hours
+** achieved better test accuracies than similar models without augmentation
+**  validation accuracy and F1 score are very close
+* VGG-16
+** 16-layer Convolutional Neural Network
+** test accuracy after 10 epochs: 66.32%
+* LeNet-5
+** test accuracy after 10 epochs: 62.72%
+* Discussed several other architectures and their accuracies
+
+'''Sub-Team Notes'''
+
+* Team met to put final presentation together
+* We wrote a script that performs various statistical tests on out files
+* We fixed some of the objective functions so that they work with multi-dimensional data
+* Added an evaluation function that measures accuracy on multi dimensional data
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss/Make Final Presentation with group
+|Completed
+|April 10, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|Get Final Results on Emade
+|Completed
+|April 10, 2020
+|April 20, 2020
+|April 18, 2020
+|-
+|Get Statistical Analysis Results
+|Completed
+|April 17, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|}
+
+Function for Multi-dimensional data:
+
+[[files/multidim.png|600px|Function|center]]
+
+Statistical Analysis:
+
+[[files/stats.png|600px|Analysis|center]]
+
+== April 20, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Notes from Presentations'''
+
+Automatically Defined Functions (ADF's)
+
+* Projects:
+** Primitive Analysis
+*** Find the effects of ADF's on the population
+*** Tries to find the 'useful' components of an individual
+*** ADF's not as diverse as pareto fronts
+*** passTriState is the most frequent learner primitive
+** ADF Selection
+*** created a tournament method that favors individuals with more ADF's
+*** ADF Frequency and Area under the curve are fairly weakly correlated
+** Differential Fitness
+*** optimize search space in GP
+*** measure change in individual from its parents
+* Compare Baseline runs with ADF's to run with No ADF
+* See how ADF's can be used to modify the evolutionary process
+
+Research Fundamentals
+
+* neat-GP is a bloat control technique that aims to control bloat naturally, using heuristics
+* A lack of explicit bloat removal provides a significant performance boost over other bloat control strategies
+* Speciation
+** species are assigned based on shared topological structure of trees
+** species are assigned greedily
+* Crossover
+** identifies common region between two individuals
+* It's possible that the distance metric is not well suited to Emade because of the shapes of the trees
+* Presentation showed results from tests with various speciation thresholds
+
+NLP
+
+* includes NLP and Neural Network teams
+* GloVe Embeddings
+** a word-to-vector mapping layer in a Neural Network
+* Image Warping
+** better incorporate image data
+* Toxicity Dataset Problems
+** dataset of toxic comments
+** could classify target data as SPARSE
+* Text summarization
+** involves stemming and lemmatization of words and sentences
+** enabled emade to run on Google Colab
+
+EZCGP
+
+* Evolutionary Parameters
+** ran 39 generations over 41 hours
+** achieved better test accuracies than similar models without augmentation
+**  validation accuracy and F1 score are very close
+* VGG-16
+** 16-layer Convolutional Neural Network
+** test accuracy after 10 epochs: 66.32%
+* LeNet-5
+** test accuracy after 10 epochs: 62.72%
+* Discussed several other architectures and their accuracies
+
+'''Sub-Team Notes'''
+
+* Team met to put final presentation together
+* We wrote a script that performs various statistical tests on out files
+* We fixed some of the objective functions so that they work with multi-dimensional data
+* Added an evaluation function that measures accuracy on multi dimensional data
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss/Make Final Presentation with group
+|Completed
+|April 10, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|Get Final Results on Emade
+|Completed
+|April 10, 2020
+|April 20, 2020
+|April 18, 2020
+|-
+|Get Statistical Analysis Results
+|Completed
+|April 17, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|}
+
+Function for Multi-dimensional data:
+
+[[files/multidim.png|600px|Function|center]]
+
+Statistical Analysis:
+
+[[files/stats.png|600px|Analysis|center]]
+
+== April 17, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Error causing strange output: individual length must be a multiple of 4
+** Comes from selTournamentDCD function
+* The way to fix this error is to update the version of Deap
+** Did this by cloning an updated, corrected version of deap from github
+** Then, I used the scp command to move it from my local drive to Pace
+** From here, I was able to pip uninstall deap and then reinstall the new version
+** Finally, I bash reinstalled inside emade to make sure everything is up to date
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss/Make Final Presentation with group
+|In Progress
+|April 10, 2020
+|April 20, 2020
+|
+|-
+|Get Final Results on Emade
+|In Progress
+|April 10, 2020
+|April 20, 2020
+|
+|-
+|}
+
+* This image shows the successful scp of the cloned version of deap from GitHub
+
+[[files/newdeap.png|600px|Fixing Deap Version|center]]
+
+== April 10, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Team has made a lot of progress in the last week with regard to Emade on Pace
+* We discussed splitting up workload:
+** Some of us run with primitives to get results
+** Some of us take results and perform statistical analysis
+* Alex made Google Doc with instructions on Emade Pace Setup:
+** https://docs.google.com/document/d/1VIv4EM1KhaUToZpEhKNx3lQs-Hu7QSOk4VEqZcx2tIs/edit?usp=sharing
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss Final Presentation with group
+|In Progress
+|April 10, 2020
+|April 17, 2020
+|
+|-
+|Get Emade Running on Pace and help others with it
+|Completed
+|March 27, 2020
+|April 10, 2020
+|April 6, 2020
+|-
+|}
+
+* We had to experiment with several SQL commands to make sure emade works
+* We found out that multiple people cannot run SQL at the same time on the same port
+* Team members chose their own ports and added them to the .my.cnf file
+* We also had to update the template xml files accordingly (with new port)
+* I also ran into 'Access Denied' errors and other errors in relation to SQL
+* The user 'root' on my computer did not have a password, which was a problem.
+* To fix this, I had to follow these steps:
+** I ran the command: FLUSH PRIVILEGES;
+** I ran the command: UPDATE USER SET password=password('password') where USER='root';
+** I then ran Flush Privileges again.
+* These steps allowed me to get mysql properly running with access for the user root with password 'password'.
+* We also decided to clear the database between emade runs to not pollute it too much.
+
+== April 3, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Made significant progress in running Emade on Pace
+* SQL seems to be working fully now.
+* Need to fix Individual multiple of 4 error
+* Team is close to moving forward with statistical analysis on Emade results
+* Plan is to run Emade with different combinations of NLP primitives to see what yields best results
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix SQL Errors
+|Completed
+|March 20, 2020
+|April 3, 2020
+|April 2, 2020
+|-
+|Get Emade Running on Pace and help others with it
+|In Progress
+|March 27, 2020
+|April 10, 2020
+|
+|-
+|}
+
+== March 27, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* First meeting with online distance format
+* Discussed next steps following midterm presentation
+* Need to get PACE working with EMADE asap
+* Got AnyConnect VPN working to access pace off campus
+* Still running into errors when it comes to MySQL
+** These errors were not there before; they appeared the day before our presentation
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get VPN connected and working for Pace access
+|Completed
+|March 20, 2020
+|April 3, 2020
+|March 22, 2020
+|-
+|Fix SQL Errors
+|In Progress
+|March 20, 2020
+|April 3, 2020
+|
+|-
+|}
+
+== March 9, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Presentation Day
+
+'''Sub-Team Notes'''
+
+* Decided to run Emade locally to get some data for presentation
+** Emade ran successfully, but out file started outputting strange results (see image below)
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run Emade locally to get some temporary results
+|Completed
+|March 2, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|}
+
+[[files/runprob.png|500px|Emade output|center]]
+
+
+* Some of our presentation slides:
+
+[[files/midslide1.png|600px|Slide 1|center]]
+
+[[files/midslide2.png|600px|Slide 2|center]]
+
+[[files/midslide3.png|600px|Slide 3|center]]
+
+== March 6, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Had hackathon last weekend
+
+'''Sub-Team Notes'''
+
+* Presentation Monday
+* Worked on presentation slides
+* Determined presentation time that works for time conflicts
+* Determined who would present what slides
+* Worked further on perfecting pbs scripts and sql setup
+* Will soon be able to run emade primitive tests fully
+* Some minor bugs to fix before we reach testing stage
+* Hoping to generate some graphs for the presentation
+* Edited mycnf file so that mysql runs properly
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Midterm Presentation
+|Completed
+|February 28, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|}
+
+Fixed .my.cnf file:
+
+[[files/mycnf2.png|700px|.my.cnf|center]]
+
+Fixed MySQL.pbs file
+
+[[files/sqlpbs.png|700px|MySQL PBS|center]]
+
+== February 28, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Learned about how master and workers collaborate in PACE
+
+'''Sub-Team Notes'''
+
+* Hackathon tomorrow
+* Pace offline for weekend, so we will outline presentation
+* Think of other things to do during hackathon
+* Discussed presentation time
+* Pulak running into errors with getting Emade to request jobs
+* Slurm, Ice, Pace
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Put together Midterm Presentation
+|In Progress
+|February 28, 2020
+|March 9, 2020
+|
+|-
+|Get Emade running on Pace
+|In Progress
+|
+|
+|
+|-
+|}
+
+== February 21, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Close to getting unit tests running on emade
+* Able to successfully run emade, getting some minor installation errors
+* Created correct run emade pbs script
+* Created my cnf file for mysql
+* Got environment set up with an environment.yml file
+* Moving Emade onto Pace works better with scp/sftp rather than direct cloning
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create .my.cnf file for SQL
+|Completed
+|February 21, 2020
+|February 28, 2020
+|February 22, 2020
+|-
+|Install necessary packages on Pace
+|ICompleted
+|February 7, 2020
+|February 21, 2020
+|February 22, 2020
+|-
+|}
+
+
+[[files/emadescript.png|500px|Run Emade PBS|center]]
+
+[[files/firstout.png|500px|First job our file|center]]
+
+== February 14, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Ran into Git LFS problem when we cloned emade directly onto Pace
+* Decided to fix problem by performing git/dataset deletions locally and moving emade from local onto pace with scp command
+* Need to work on reinstallation process so everything runs
+* Was able to run Emade to the point of getting a .out file, but there is a runtime error
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out different way to move emade onto Pace
+|In Progress
+|February 14, 2020
+|February 28, 2020
+|
+|-
+|Install necessary packages on Pace
+|In Progress
+|February 7, 2020
+|February 21, 2020
+|
+|-
+|}
+
+[[files/scp.png|500px|Moving Emade with scp|center]]
+
+== February 7, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* We need to run EMADE using the individual primitives
+* We should run EMADE using a combination of primitives
+** We can determine pareto fronts for both and compare
+* Hopefully, improvements will show when all primitives are being used
+* Need to get MySQL working on Pace-Ice
+* https://docs.pace.gatech.edu/software/mysql/
+
+* Got conda environment installed and working in Pace
+* Got MySQL working on pace
+* Created a MySQL pbs script that is able to run with qsub command
+* Here are a couple images of the process:
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get SQL PBS script working on Pace
+|Completed
+|February 7, 2020
+|February 14, 2020
+|February 9, 2020
+|-
+|Install necessary packages on Pace
+|In Progress
+|February 7, 2020
+|February 21, 2020
+|
+|-
+|}
+
+[[files/condainstall.png|500px|Installing Conda Env|center]]
+
+[[files/packageinstall.png|500px|Installing Packages|center]]
+
+* Links used in process:
+** https://docs.pace.gatech.edu/software/mysql/#mysql-on-pace
+** https://docs.pace.gatech.edu/software/anacondaEnv/
+
+== January 31, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* We created a key in pace and linked it to the Gatech Github in order to run emade on Pace-Ice
+* Discussed creating unit tests for each of the primitives to make sure they are effective
+
+Links we used to get pace-ice working and create/add PBS script
+
+* https://pace.gatech.edu/sites/default/files/pace-ice_orientation_1.pdf
+* http://latisresearch.umn.edu/creating-a-PBS-script
+* https://hpcc.usc.edu/support/documentation/running-a-job-on-the-hpcc-cluster-using-pbs/
+* https://pace.gatech.edu/sites/default/files/presentation_spring2020_0.pdf
+* https://help.github.com/en/enterprise/2.19/user/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up PBS script
+|Completed
+|January 31, 2020
+|February 7, 2020
+|February 5, 2020
+|-
+|Set up SSH key
+|Completed
+|January 31, 2020
+|February 7, 2020
+|February 5, 2020
+|-
+|}
+
+The image below shows a successful run with our pbs script
+
+[[files/qsub.png|700px|Successful Run|center]]
+
+== January 24, 2020 ==
+
+'''Team Meeting Notes'''
+
+'''Sub-Team Notes'''
+
+* Working on meeting time for NLP time conflict students
+* Discussed next steps for team
+* We need to get Pace-Ice running for the team
+* Try to get EMADE running on Pace
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn how to use PACE
+|Completed
+|January 24, 2020
+|January 31, 2020
+|January 28, 2020
+|-
+|Run Emade on PACE
+|In Progress
+|January 24, 2020
+|January 31, 2020
+|
+|-
+|}
+
+The image below shows how we got pace-ice initially working.
+
+[[files/pace-ice.png|700px|Bash Image|center]]
+
+== January 17, 2020 ==
+
+'''Team Meeting Notes'''
+
+* What should we be measuring?
+** Time it takes to evaluate individuals
+** Variances
+** Accuracy (AUC?)
+*Need to develop some more NLP primitives
+*Try to think of this from the point of view of a scientist writing a paper
+**Think of a name of the paper 
+
+'''Sub-Team Notes'''
+
+* Possible will decide on a new meeting time just for NLP
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think of new ways to evaluate Emade performance
+|Completed
+|January 17, 2020
+|January 24, 2020
+|January 21, 2020
+|-
+|}
+
+== January 10, 2020 ==
+
+'''Team Meeting Notes'''
+
+* Statistics review of Hypothesis Testing
+* How do we prove we are making changes to emade
+** Are improvements due to our changes or randomness?
+* We can do hypothesis testing
+* We're going to use t-statistic to test
+* Python's SciPy library allows us to do hypothesis testing
+** Use SciPy. Stats
+** Ttest_ind
+
+* Problem
+** We don't have a hypothesis
+** There is a way to compute t statistic without a population mean and standard deviation
+** This is known as Welch's t-test
+
+* How to design experiments
+** If we want strong results, we wither need differences in sample means that overwhelm the sample variance, or a high sample number to reduce the effect of variance
+
+'''Sub-Team Notes'''
+
+* Decided on Time Conflict Meeting Time/Place
+* Agreed to come up with hypothesis tests for NLP
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Statistical Analysis Notes
+|Completed
+|January 10, 2020
+|January 17, 2020
+|January 12, 2020
+|-
+|}
+
+== December 2, 2019 ==
+
+'''Team Meeting Notes'''
+
+Teams presented
+
+* Automatic Preprocessing
+** Review of what preprocessing is
+** Discussed how it simplifies running Emade
+** Contrast between manual and automatic preprocessing
+** Recent work on image data and issues run into
+
+* ezCGP
+** 3 blocks:
+*** Data Augmentation
+*** Preprocessing
+*** Primitives
+** Current algorithm in sequential runs (Mating)
+** Parallelization Speedup (run time vs CPU)
+** Visualization of a genome
+
+* ADF
+** MVP Architecture
+** Update Representation method (updates primitive sets and population with new ADF's
+** Ensure uniqueness before inserting ADF's into PSET
+** Showed us an example of an ADF individual
+** Talked about future direction and next steps/goals
+
+* NLP
+** Overview of what NLP is
+** Text summarization vs text classification
+** Emade doesn't handle text data very well
+** Text Summarization:
+*** Abstractive vs Extractive
+*** Wanted to change from an unsupervised problem to a supervised problem
+*** Integration into Emade
+*** Each individual/group presented their respective primitives (Ex: Text Rank)
+** Text Classification:
+*** Stemming and Lemmatization
+*** Sentiment
+*** Word level and Sentence level to generate score
+** Discussed overall goals for future of NLP team
+
+* Bloat
+** Bloat - increase in mean program size without corresponding improvement in fitness
+** Bloat causes time, memory, and breeding problems
+** Simple Bloat Quantification
+** Discussed integration into Emade
+'''Sub-Team Notes'''
+
+* We worked together to create our presentation
+* Discussed who should talk about what
+* Discussed future plans and how to improve accuracies
+* I decided to talk about the Keras model I built for the Titanic dataset, which yielded a high accuracy.
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Presentation
+|Completed
+|November 25, 2019
+|December 2, 2019
+|December 2, 2019
+|-
+|}
+
+* The image below shows a slide from our presentation.
+
+[[files/Slide1.png|700px|Presentation Slide|center]]
+
+Link to Presentation: https://docs.google.com/presentation/d/1GSIrOEssa06AZDewUNgxEtssS3OQrKnxbpkuIrEwlXY/edit
+
+== November 25, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Teams gave updates on where they stand in their respective projects
+* EzCGP is developing a machine learning-esque model
+** Involves data augmentation and ML model steps, much like an ML problem
+
+'''Sub-Team Notes'''
+
+* Discussed how to approach final presentation
+* Talked with Pulak and Brandon on possible ways to improve accuracies for seed generation
+* Discovered a Kaggle code sample that could help with progress
+* Talked with team members about broad applications of Emade
+* Discussed possible specific applications of NLP/Emade with Alex
+** We talked about current uses of NLP in SAT grading
+** We also discussed how in some scenarios NLP would be useful and in some scenarios it wouldn't
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on my portion of Presentation
+|Completed
+|November 25, 2019
+|December 2, 2019
+|December 1, 2019
+|-
+|Do Peer Evaluations
+|Completed
+|November 25, 2019
+|December 2, 2019
+|November 28, 2019
+|-
+|}
+
+* This images shows some the training of a Sequential Keral Model:
+
+[[files/Sequential.png|700px|Keras Model Code Sample|center]]
+
+* The image below shows my accuracy calculation
+
+[[files/Accuracy.png|700px|Accuracy Calculation|center]]
+
+== November 22, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Visit News dataset using emade
+* Each sub-team gave updates on status and progression
+
+'''Sub-Team Notes'''
+
+* Talked about the plans for the hackathon
+* Need to created presentation on various things for the final meeting
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Beat NNClassifer Accuracy on Titanic Dataset with Keras
+|Complete
+|November 22, 2019
+|November 29, 2019
+|November 24, 2019
+|-
+|}
+
+* This image shows that I attempted the same data cleaning/feature imputation as I did earlier this semester
+
+[[files/Preprocessing.png|700px|Data Preprocessing|center]]
+
+== November 18, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Each sub-team gave updates on their status and progression
+
+'''Sub-Team Notes'''
+
+* Looking at datasets
+** Specifically, the News and Image datasets
+* Talked about seed generation for Emade
+* Discussed how to make benchmark architectures for NLP
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Play around with Keras on Titanic Dataset
+|In Progress
+|November 18, 2019
+|November 25, 2019
+|November 24, 2019
+|-
+|}
+
+* This image shows some of the stuff I played around with in Keras
+* I tried different Keras models and different activation functions
+* I also tried different optimizers and loss functions.
+
+[[files/Keras.png|700px|Keras Sample|center]]
+
+* I used this website to learn more about Keras:
+* https://keras.io/getting-started/sequential-model-guide/
+
+== November 11, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Each team gave updates on their status and progress.
+
+'''Sub-Team Notes'''
+
+* Looking at datasets
+** Specifically, the News and Image datasets
+* Image dataset appeared to have tons of images that are part of the same greater picture
+* News dataset appeared to have an article title followed by the first sentence/line of the article
+* Team is working on generating a seed for Emade based on the News dataset
+* One problem with generating good results with the News dataset is:
+** Since it currently takes the first line following the article title, it often takes the location
+** It is nearly impossible to determine an accurate category to sort the article into using just a location
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Explore and Analyze the data in the EMADE repository
+|Incomplete
+|November 4, 2019
+|November 18, 2019
+|November 15, 2019
+|-
+|}
+
+[[files/NewsData.png|700px|News Data Sample|center]]
+
+== November 4, 2019 ==
+
+'''Team Meeting Notes'''
+
+* All sub-teams gave updates on status and progression
+
+'''Sub-Team Notes'''
+
+* Officially joined Neural Network sub-team
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE running and connect to database
+|Complete
+|November 4, 2019
+|November 11, 2019
+|November 6, 2019
+|-
+|Explore and Analyze the data in the EMADE repository
+|In Progress
+|November 4, 2019
+|November 11, 2019
+|
+|-
+|}
+
+* I tested it with one other team member by creating a database connection
+* I changed one of the xml files so it had the accurate host server
+* I was able to successfully run emade as a worker
+* The image below should show the connection to the database I created
+
+[[files/dbconfig.png|400px|Database Configuration|center]]
+
+== October 28, 2019 ==
+
+'''Team Meeting Notes'''
+
+* First Monday Meeting
+* Sub-teams give updates at the beginning of each meeting on progress and updates
+* Sitting with the NLP sub-team
+
+'''Sub-Team Notes'''
+
+* Install EMADE (slightly different from last time)
+* Unofficially joined Neural Network subsection of NLP team
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE part 2 for NLP team
+|Complete
+|October 28, 2019
+|November 1, 2019
+|October 30, 2019
+|-
+|}
+
+* Emade installation was unsuccessful on first try
+* I made a new emade folder and cloned the new github repository into that
+
+* This image shows the detailed installation steps for emade:
+
+[[files/Installation.png|500px|Installation Steps|center]]
+
+== October 21, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Revisit Titanic Project using Emade this time
+* Create presentation that summarizes results from three methods
+
+'''Sub-Team Notes'''
+
+* We ran EMADE for about 12 hours
+* One of us was the master and the rest of us were workers
+* Our results were good, but not as good as the multi-object GP method
+* Perhaps we should have run it longer
+* We created a presentation that compared the three methods:
+** Machine Learning
+** Multi-objective Genetic Programming
+** EMADE
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic with EMADE
+|Complete
+|October 9, 2019
+|October 21, 2019
+|October 20, 2019
+|-
+|EMADE Presentation
+|Complete
+|October 9, 2019
+|October 21, 2019
+|October 21, 2019
+|-
+|}
+
+Click to see an enlarged image of one of the individual trees from our EMADE run
+
+[[files/EmadeTree.png|500px|Individual from Emade|center]]
+
+Click to see a slide from our presentation. It compares individuals from the three Pareto Fronts.
+* These include Machine Learning, Multi-Objective GP, and EMADE
+
+[[files/ThreeParetos.png|500px|Three Pareto Fronts|center]]
+
+== October 16, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Revisit Titanic Project using Emade this time
+
+'''Sub-Team Notes'''
+
+* We need to run Emade on the Titanic dataset
+* This will be our third time trying to develop a codominant graph, this time using much more complex emade primitives
+* Emade installation is important and is a long process
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic with EMADE
+|In Progress
+|October 9, 2019
+|October 21, 2019
+|
+|-
+|}
+
+* This image shows the SQL Connection I made to the Titanic Database
+** It is from MySQL Workbench
+** I was one of the workers
+
+[[files/TitanicWorkbench.png|700px|Database Connection|center]]
+
+== October 9, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Introduction to EMADE
+** Discussion of how to install EMADE
+** MySQL Connection Establishment
+** Cross Folding and Monte Carlo trials
+** Each train and test file create a DataPair object in emade
+** Emade can run across multiple datasets
+** Data is preprocessed into gzipped csv files
+** Emade is an Evolutionary Multi-objective Algorithm Design Engine
+* Objectives
+** The names will be used as columns in the database
+** Weight specifies if it should be minimized (-1.0) or maximized (1.0)
+** Evaluation Function specifies the name of a method
+** Achievable and goal are used for steering the optimization, lower and upper are used for bounding
+* Workers per Host specifies how many evaluations to run in parallel
+* Evolution Parameters
+** There are several parameters that control/affect the evolutionary process
+** Parameters include initial population size, elite pool size, launch size, min queue size, outlier penalty, etc.
+* Understanding EMADE Output
+** The best place to look at the outputs of emade are is in the MySQL databases
+** Use select and other SQL queries to access specific data
+* EMADE Structure
+** scr/GPFramework is the main body of code
+** Contains actual evolutionary loop
+** Primitive Set is built in gp_framework_helper.py
+** Next week, we will talk more about the primitves and datapair objects
+
+'''Sub-Team Notes'''
+
+* Week Assignment
+** Run EMADE as a group
+*** 1 person should have the sql server set up and act as the master process, the rest should connect their workers
+** Run for a substantial number of generations (like last assignment)
+** Teach yourselves some SQL
+** Make a plot of your non-dominated frontier at the end of the run, compare with ML and MOGP assignments
+** Make any other plots and figures to show your analysis of EMADE running on the Titanic problem
+*** See if you can find some successful trees
+** Presentation on Monday the 21st
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Installing EMADE
+|Complete
+|October 9, 2019
+|October 16, 2019
+|October 10, 2019
+|-
+|Group SQL Connection Assignment and Plots
+|Incomplete
+|October 9, 2019
+|October 16, 2019
+|
+|-
+|}
+
+== October 2, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Teams presenting their evolutionary frameworks and non dominant plots
+* DEAP: Distributed Evolutionary Algorithms in Python
+* AUC/Generation plot should decrease over time
+
+'''Sub-Team Notes'''
+
+* Our algorithm overfitted as it had a greater area under the curve for predictions on the test set than the train set
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install eMade
+|In Progress
+|October 2, 2019
+|October 9, 2019
+|October 9, 2019
+|-
+|Finish editing Notebook
+|Complete
+|October 2, 2019
+|October 4, 2019
+|October 2, 2019
+|-
+|}
+
+Link to Google Colab ipynb file: [[https://colab.research.google.com/drive/1Kb7CTv_J9LeTJJIzNRU4STscfK-DkWIF#scrollTo=L1yZYD3Ie2Nq]]
+
+== September 25, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Given Sub-Team Assignment for the week
+* Discussed how to find the bounds of an objective
+
+'''Sub-Team Notes'''
+
+* Task is to create a common evolutionary framework
+* Use Lab 2 as a skeleton
+* Can use the most basic primitives
+* Result should be a non-dominant frontier
+* Need to create an AUC/gen plot
+* Determine better selection methods for evolutionary loop
+* We decided to use Strongly Typed Multi-Objective GP
+* We cleaned the data and feature set in the way we saw fit
+* We played around with various algorithms before landing on the best one
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Common Evolutionary Framework
+|Completed
+|September 25, 2019
+|October 2, 2019
+|October 1, 2019
+|-
+|Make Presentation
+|Completed
+|September 18, 2019
+|October 2, 2019
+|October 3, 2019
+|-
+|}
+
+Our Non Dominant Frontier:
+
+[[files/NonDominant.png|400px|Our Non Dominant Graph|center]]
+
+== September 18, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Presented our findings and our codominant algorithm graph
+* Learned about some flaws in our presentation as well as other presentations
+
+'''Sub-Team Notes'''
+
+* Remember to graph codominance as a step function in which the steps go right before going down
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read Closer Look at Multi-Objective Optimization
+|Completed
+|September 18, 2019
+|September 25, 2019
+|September 25, 2019
+|-
+|}
+
+Our Codominant Graph (Click to Enlarge):
+
+[[files/FiveCodominant.png|center|400px|Our Codominant Graph]]
+
+There is a mistake in this graph. The steps should be oriented right first, then down, instead of down first then right.
+
+== September 11, 2019 ==
+
+'''Team Meeting Notes'''
+
+* How to Optimize an Algorithm:
+** Adjust hyperparameters
+** Change primitives
+** Change mutation/mating rates
+** Change selection algorithms
+*Task:
+** Each person must come up with their own variation of the Titanic algorithm
+
+'''Sub-Team Notes'''
+
+* Every team member is tasked with creating a Titanic ML algorithm
+* We modified the feature set of the model to make the algorithms more accurate
+** We adjusted the values that some of the features map to through
+** Combined sex and pclass into one value that numerically gives an advantage to women and upper class
+** Each of us chose one of five algorithms we found to be codominant.
+** Link to GitHub: [[https://github.com/Daniel-Martin576/emadeTitanic]]
+** Link to branch I made to test neural network classifier on predictions.csv:
+***[[https://github.com/Daniel-Martin576/emadeTitanic/tree/anuraag]]
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Lab - Create Algorithm
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 17, 2019
+|-
+|Read Closer Look at Multi-Objective Optimization
+|In Progress
+|September 11, 2019
+|September 18, 2019
+|
+|-
+|Read DEAP GP Documentation
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 12, 2019
+|-
+|}
+
+== September 4, 2019 ==
+
+'''Team Meeting Notes'''
+
+*Talked about Second Semester Teams
+*What do we want from an algorithm?
+**Space Efficiency, Time Efficiency
+**Maximize True Positives, Minimize False Positives
+**Security, precision of results, ease of usability, cost effectiveness, etc.
+*Objective Space
+**The evaluation of a genome associates a genome/individual with a set of scores
+**Objectives are the set of measurements each genome is evaluated against
+*Classification Measures
+**Type I Error (False Positive)
+**Type II Error (False Negative)
+*Maximization Measures
+**Sensitivity or True Positive Rate (hit rate)
+**Specificity or True Negative Rate
+*Minimization Measures
+**False Negative Rate
+**Fallout or False Positive Rate
+*Other Measures
+**Precision or Positive Predictive Value
+***TP / (TP + FP)
+**Negative Predictive Value
+***TN / (TN + FN)
+**False Discovery Rate
+***FP / (TP + FP)
+**Accuracy
+***(TP + TN) / (P + N)
+
+'''Sub-Team Notes'''
+
+* N/A (No Sub-Team Assigned Yet)
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do second part of Lab 2
+|Completed
+|September 4, 2019
+|September 11, 2019
+|September 11, 2019
+|-
+|Review Lecture 3 Notes
+|Completed
+|September 4, 2019
+|September 11, 2019
+|September 11, 2019
+|-
+|}
+
+* Practice with Multi-Objective Genetic Programming and more Symbolic Regression
+* The new evaluation function is slightly more complicated to ensure greater minimization of errors
+* This time, we are minimizing the mean squared error and the size of the tree
+* Pareto Dominance - outcome is beneficial to one without harming others
+* Observed that, after running algorithm, tree size slowly increased and MSE slowly decreased over time
+* Learned what Mu plus Lambda evolutionary algorithm is
+
+== August 28, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Discussed Presentation Meeting dates and Hackathon meeting dates
+* Reviewed Genetic Algorithms
+* Learned about trees and how they are stored (lisp preorder parse trees)
+* Talked about crossovers and mutations in genetic programming and examples of them
+* Symbolic Regression and how to use Taylor Series to evolve a program
+* Ways to evaluate trees (inputs/outputs)
+
+'''Sub-Team Notes'''
+
+* N/A (No Sub-Team Assigned Yet)
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do first part of Lab 2
+|Completed
+|August 28, 2019
+|September 4, 2019
+|September 4, 2019
+|-
+|Review Lecture 2 Notes
+|Completed 
+|August 28, 2019
+|September 4, 2019
+|August 29, 2019
+|-
+|}
+
+* Skimmed through the source code for PrimitiveTree and GP compile
+* Learned how to represent individuals as tree structures using NumPy and DEAP
+* Created primitives divide and mod in addition to ones provided
+* Looked over DEAP Genetic Programming Documentation
+* Learned the distinction between loosely-typed and strongly-typed GP
+* Added a mutation method that changes one of the ephemeral constants of a tree
+* Steps to Evolutionary Algorithm:
+** Evaluate entire population
+** Begin evolution
+** Select and clone next generation individuals
+** Apply crossovers and mutations to offspring
+** Evaluate individuals with invalid fitness
+** Replace population
+
+== August 21, 2019 ==
+
+'''Team Meeting Notes'''
+
+* Team leaders introduced project, grading, and schedule
+
+* Talked about installation of Anaconda and Jupyter Notebook
+
+* Notes included definitions of important terms and a breakdown of Genetic Algorithms
+
+* One Max Problem was introduced
+
+'''Sub-Team Notes'''
+
+* N/A (No Sub-Teams Assigned Yet)
+
+'''Action Items'''
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start Wiki notebook
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 26, 2019
+|-
+|Join Team Slack
+|Completed 
+|August 21, 2019
+|August 28, 2019
+|August 21, 2019
+|-
+|Complete Lab 1 (Genetic Algorithms with DEAP)
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 27, 2019
+|}
+
+* Learned what DEAP is and how to create types
+* All code blocks in lab 1 notebook ran without error
+* Learned about the steps to the evolutionary algorithm process
+* Practiced tinkering around with parameters in the N Queens Problem
+* Learned how DEAP tools such as toolbox, base, and creator work together to construct algorithms

@@ -1,0 +1,915 @@
+== Team Member ==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+
+Team Member: Aditya Kumaran
+
+Email: akumaran6@gatech.edu
+Cell Phone: +1 4708380468
+
+Interests: Writing fiction, Music, Reading, Sports
+
+== November 15, 2021 (Week 13) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Testing chest x-ray dataset. Will try to incrementally improve performance by including combinations of changes, testing ROC and F1-score.
+*  NLP:
+    *  Can run regular data sets. Identified output layer problem - need to predict both start and end index; decided just to predict start index. Returns two tensors - probability of word being start index and then probability of word being end index.
+    *  Reducing scope to just regression for this semester.
+*  Neural Architecture Search:
+    *  Starting final presentation. New members will be talking about setting up emade, and the differences between bootcamp emade and NAS emade.
+*  Modularity:
+    *  Doing runs, debugging ARL selection methods and Cloudcopy.sh script for Google Collab runs.
+
+=== Subteam Meeting Notes: ===
+*  Talked with Gabe about visualization problems, AUC increasing. Learned that it was a run issue, possibly with workers not completing their evaluations. Could just be a run-specific minor issue.
+*  Going to run visualization tool on the new runs. Might add HoF (according to Dr. Roehling's recommendation). Vincent will rerun graphs for AUC size effect on individuals.
+*  Recursive copying bug in CloudCopy.sh - on Macs specifically. Will fix that, make the copying better.
+*  I'll be working on the visualization task with Angela and Adithya. We might coordinate some time during the hackathon to meet.
+
+=== Individual Notes: ===
+*  Cloned the emade-viz repo at "https://github.gatech.edu/vhuang31/emade-viz/tree/ADFonlyAUC". Not a large repository, so it didn't take much time or memory.
+*  Followed the instructions to get set up:
+    *  Installed Anaconda and created a virtual environment for EMADE-Viz by running "conda env create -f environment.yml" from the home directory of the repo. Environment was called emade-viz, was activated with "conda activate emade-viz".
+    *  Download the packages specified in the requirements.txt file using "pip install". Many were repeats from the environment.yml file, so this didn't take long.
+    *  Ran "flask run" from the primary directory of the repo, was given the following IP address for the visualization server: "http://127.0.0.1:5000/".
+*  Uploading the relevant .xml file from each run should give us access to the visualization tools.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 15, 2021
+|}
+
+== November 8, 2021 (Week 12) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Looking at selection methods. Lexicase.
+    *  Mating, mutations. Reprocessing data to work for 14 different classes of data.
+    *  Branched off of NAS team, now setting up new environment. Windows 10 has package conflicts, so probably PACE-ICE.
+    *  Dr. Zutty advised to set up a new environment with Python 3.8. Might try WSL also.
+*  NLP:
+    *  Presentation on Deep Learning
+    *  Implemented primitives (first layer, modelling, outputs)
+    *  Tested with input/output, giving correct results
+    *  Will focus on integrating new primitives
+    *  Issues with output layer, will have to look at probability vectors.
+*  Neural Architecture Search:
+    *  Want to set up an experimental loop to get data for final presentation.
+    *  ADFs not same across individuals (different ADF1s). Old implementation, outdated.
+    *  Might revive usage to generate consistency, might randomly generate ADFs themselves. Will have to redefine usages of ADFs in emade, might be too much work.
+    *  Individual is made up of 4 trees: Main and 3 ADFs. Mating and mutation is done independently on each tree. Mutation goes tree by tree. Evaluation compiles code and runs. Selection looks at individual object as a whole, and its objective fitness. If you want master list of ADFs, you can override names by changing ADF names before running.
+*  Modularity:
+    *  Extended ARL had a bug - using name, parents' arity didn't check if a child ARL was already used. Caused matching to fail. Any ARL with two children with the same name would fail: potentially bad results.
+    *  CacheV2 branch has a documentation folder in emade/docsrc/source, might be helpful to use.
+
+=== Individual Notes: ===
+*  When trying to run the Collab notebook, we got an error saying 'No module found: GPFramework'. This ended up being because the 'bash reinstall.sh' script wasn't running properly. We decided to change this command with:
+    *  !python3 setup.py sdist
+    *  !python3 setup.py install
+*  Script runs properly now, and I can join the runs as a worker process.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 8, 2021
+|}
+
+== November 1, 2021 (Week 11) == 
+
+=== Lecture Notes: ===
+*  Was assigned to Modularity subteam. Met Vincent, Angela, and Youssef - Leul and Adithya are starting this semester with me.
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Switching from detecting pneumonia to detecting any disease
+*  NLP:
+    *  Split into teams to test different combinations of their layers.
+*  Neural Architecture Search:
+    *  Upgraded to python 3.8 and tensorflow 2.6
+    *  Time stopping callback was glitchy, is fixed.
+*  Modularity:
+    *  Migrating branch to CacheV2 to be compatible with Stocks
+    *  ARL sub-subteam is going to keep running emade
+    *  I'll mostly be helping with running emade
+
+
+=== Individual Notes: ===
+*  Need to clone modularity branch of Emade. https://github.gatech.edu/vhuang31/emade
+*  Meet Thursday at 11 am, virtual (30 to 60 mins). https://gatech.bluejeans.com/2224273722
+*  Cloned Vincent's Emade repository
+*  Followed the following process to get on-boarded with the team's runs:
+    *  If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file here https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+    *  If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+    *  This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl)
+    *  In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates
+    *  Open input_titanicADFON.xml in a text editor
+    *  Near the top of the file, there should be a dbConfig similar to this one. Edit it to match the following details, with the database renamed to the schema name the run you're trying to join is
+    *  <dbConfig>
+        <server>database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com</server>
+        <username>admin</username>
+        <password>mypassword</password>
+        <database>INSERT_SCHEMA_NAME_HERE</database>
+        <reuse>1</reuse>
+    </dbConfig>
+    *  In google drive, make a copy of this Google Collab Notebook https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing
+    *  In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to
+    *  Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
+    *  Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+    *  Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone Modularity Repo, get setup on Google Collab
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|}
+
+
+== October 25, 2021 (Week 10) == 
+
+=== Lecture Notes: ===
+*  Presented Emade findings at Monday (main group) session, compared with ML and MOGP.
+*  Presentation link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+*  Watched other bootcamp teams as well as senior subteams present their project findings.
+
+=== Individual Notes: ===
+*  I presented the Emade (and MySQL) portion of our presentation, discussing our struggles and successes with the latter part of analysis of the titanic datasets.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|-
+|Predicting Titanic Survivors with ML, MOGP, and Emade
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|-
+|Choose Subteam
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 25, 2021
+|}
+
+
+== October 20, 2021 (Week 9) == 
+
+=== Lecture Notes: ===
+*  Workday, class tried to get Emade master process to run. 
+*  Group members tried to connect as workers - senior students told us that they don't actually need to join through MySQL, but can rather just put my IP, user, and password into the .xml file and run emade with a "-w" flag at the end of the main conda command. One group member tried joining the process as a worker.
+
+=== Individual Notes: ===
+*  Learned that I was actually running emade correctly, just not for long enough. Apparently returning infinity for fitness is typical in early generations, since emade is essentially trying different combinations of primitives, and evolution of a good genetic algorithm will take a few generations. Attempting to run for 30 generations.
+*  Faced an error while running the end of the 0th generation:
+"File "C:\Users\akuma\OneDrive\Desktop\emade\emade\src\GPFramework\selection_methods.py", line 104, in sel_nsga2
+    selected_pop = tools.selTournamentDCD(individuals, k)
+  File "C:\Users\akuma\anaconda3\envs\emade\lib\site-packages\deap\tools\emo.py", line 163, in selTournamentDCD
+    raise ValueError("selTournamentDCD: individuals length must be a multiple of 4")
+ValueError: selTournamentDCD: individuals length must be a multiple of 4"
+*  This arises because the sel_nsga2 is passed in an 'individuals' array, whose length needs to be divisible by four to avoid errors. Easily fixable by finding the remainder elements and slicing the list length. Did fix the problem.
+*  Tried running emade again - NOTE: With few workers, running generations takes an extremely long time, so definitely keep 'reuse' set to 1 in the .xml to avoid wasting your running time. Laptop almost ran out of battery while running first four generations; I'll try to run the rest overnight.
+*  Have been running emade continuously for 3 days, only 10 generations completed. Note that more workers help, but also that each consecutive generation takes longer to run (more individuals added). Would certainly help to have access to PACE workspace to run Emade evaluations.
+*  However, within the 10 generations completed, some individuals have been evaluated with increasing success, and the fitnesses are returning floats, as opposed to (inf, inf, inf). Since the presentation of findings is tomorrow, my group and I will try to produce a preliminary pareto frontier with this data, to compare to our ML and MOGP simulations.
+*  Groupmates needed my master MySQL connection "Users and Privileges" -> "Login" -> "Limit to Hosts Matching" to be set to '%' (wildcard) so that they could join. They also needed to be on the university wifi network to join (Gatech VPN should also work).
+*  While graphing the pareto frontier, it's important for all the pareto individuals to be sorted in order for the plt.plot(, , drawstyle='steps_post') frontier plotter to plot the correct connections.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 20, 2021
+|-
+|Run EMade
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 21, 2021
+|-
+|Prepare Pareto Frontier and Presentation
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+
+== October 13, 2021 (Week 8) == 
+
+=== Lecture Notes: ===
+*  Workday, class tried to get Emade master process to run. 
+*  MySQL configuration to join as worker to group members' servers uses the following command: "mysql -h hostname -u username -d database_name -p" and prompts for password.
+
+=== Individual Notes: ===
+*  MySQL Server stopped, required uninstalling MySQL suite and reinstalling. This did fix the problem.
+*  Discussed reason for "File "C:\Users\akuma\anaconda3\lib\site-packages\multiprocess-0.70.12.2-py3.8.egg\multiprocess\process.py", line 82, in __init__ assert group is None, 'group argument must be None for now'
+AssertionError: group argument must be None for now" error. Hypothesized that Python 3.8.8 is incompatible with multiprocess package.
+*  Attempted to devolve python to 3.7 within conda. Successfully solved the previous error.
+*  Met with group again, ran emade; faced with the following error: 
+"Received: myDeapDataSub(ARG0, 3)
+	With Hash 98bec47afa4c45adc5b0ccf9c42d04f7f0e8f926dea03b1e5c3f1a4b60ba4fe7
+	Computed in: 0.0010066032409667969 seconds
+	With Fitnesses: (inf, inf, inf)
+	With Age: 0
+	With Error:  Tree missing valid primitive for data type
+ At least one objective returned inf. 	
+FullDataSet (inf, inf, inf)
+Received: sp_sqrt(ARG0)
+	With Hash 323a96841ee2ae6a74f9ed3c280328d83d45a969e741446f6408f1b003da5828
+	Computed in: 0.00099945068359375 seconds
+	With Fitnesses: (inf, inf, inf)
+	With Age: 0
+	With Error:  Tree missing valid primitive for data type
+ At least one objective returned inf."
+*  Created own evaluation functions for False Negative Rate and False Positive Rate in evalFunctions.py
+*  Cross-checked preprocessed data, saw that columns were being shuffled while being converted from pandas data to numpy arrays.
+*  Downloaded GVIM to view .gz files in conjunction with the input spreadsheet; decided that data processing wasn't the issue. 
+*  Discussed with group, came to the consensus that the error has to do with invalid numbers/types of primitives being used in our tree. Couldn't find a solution, since the primitives weren't chosen in input_titanic.xml. Resolved to seek help from Slack.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 13, 2021
+|October 20, 2021
+|October 18, 2021
+|-
+|Run EMade
+|
+|October 13, 2021
+|October 25, 2021
+|October 21, 2021
+|}
+
+== October 6, 2021 (Week 7) == 
+
+=== Lecture Notes: ===
+*  Upload pictures (Friday deadline)
+*  Intro to emade
+    *  Evolutionary MultiObjective Algorithm Design Engine
+    *  Still deap, but primitives are ML functions
+    *  Still cleans data, preprocesses
+        *  ML evaluations are expensive (time,space)
+    *  Combines MO evolutionary search with high-level primitives to automate the process of designing ML algorithms
+    *  Tasks
+        *  Install emade, instructions are in Readme.txt in master
+        *  Uses a MySQL 5.x server (or MariaDB)
+        *  Download and install git-lfs
+        *  Clone emade repo
+        *  Maybe run virtual framework?
+        *  Run “python setup.py install”
+    *  Emade requirements
+        *  Navigate to the top level directory
+        *  Run “python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml"
+    *  Input file
+        *  .xml file that configures EMade
+        *  First block configures python
+            *  <localPythonCommand> python3 </localPythonCommand>
+        *  Next block configures MySQL
+            *  <server> 127.0.0.1 </server> for localhost
+            *  Configure username and password
+            *  Going to need to make our own database, tables automatically added in
+            *  Reuse = 1 for master if emade has already been run
+        *  Next are datasets
+            *  Five folds of the same datasets (shuffling which 20% is used as the test set) and then averaging results
+        *  Datasets/titanic has a sample file titanic_data_splitter.py
+            *  Produces .csv.gz files with test and train data partitioned from input
+            *  Can replace preprocessing code with ours
+            *  Can change k number of splits
+        *  .gz files need GVIM to open, numpy.loadText also works
+        *  Emade reserves the last column for fitting models (while using train data) and scoring (for test data). Last column is truth data.
+        *  Objectives
+            *  Minimize is better (weight -1.0)
+            *  Names will be used as columns in the database
+            *  <evaluationFunction> specifies name of method in python src/GPFramework/evalFunctions.py
+        *  Parameters
+            *  Evaluation specifies where eval functions in Objectives live and how much memory each worker is allowed to use before marking an individual as “fatal”
+            *  <workersPerHost> specifies how many evaluations to run in parallel
+            *  2 or 3 is a lot for laptops
+    *  Evolution parameters
+            *  Hyperparameters, “magic constants” that affect evolutionary process
+            *  Initial pop size, launchSize, inQueueSize, etc.
+            *  Mating probabilities
+    *  Headless chicken crossover
+        *  Creates a new individual to mate with an existing individual. Adds randomness
+        *  If it’s useful, GP is probably not the best idea for a solution to that problem
+    *  Connecting a work process to a peer
+        *  "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w"
+    *  Understanding EMade output
+        *  Mysql -h hostname -u username -p
+        *  Prompts for password
+        *  Need this to work for EMade
+        *  Selected database command: “use database_name”
+        *  Queries:
+            *  Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+        *  After some time individuals will complete
+    *  Emade Structure
+        *  Src/GPFramework is the main body of the code
+        *  gtMOEP.py has the main EMadde engine, genetic loop, including evaluation function
+        *  gr_framwork_helper.py is where primitive set is built for Emade, points to where primitives live:
+            *  methods.py
+            *  signal_methods.py
+            *  spatial_methods.py
+        *  data.py provisions DataPair object passed between primitives
+        *  input files are in templates/
+    *  Assignment
+        *  Run Emade together. 1 person has SQL server set up and 1 acts as master process, rest connect as workers.
+        *  Run for many generations (like last project; maybe 30, 40)
+        *  Learn some SQL, try to mine some information from database
+        *  Plot non-dominated frontier at the end of the run, compare with ML and MOGP assignments
+            *  Going to want to put in own preprocessed data
+            *  Try to get all on the same graph
+        *  Make any other plots + figures to show analysis of Emade, try to find some successful trees
+            *  Average evaluation time of a generation, etc.
+        *  Presentation on Monday, 25th October
+
+
+=== Individual Notes: ===
+*  Git is already downloaded on my system; git-lfs is also present.
+*  Cloned emade repo (took a notable amount of time and memory).
+*  Followed instructions at https://github.gatech.edu/emade/emade in the README.md to install emade and its dependencies
+    *  Already had Anaconda installed on my system, but added the path to its directory to the PATH environment variable
+    *  Opened Anaconda Prompt; navigated to cloned emade repo
+    *  Ran "conda install opencv" and resolved other dependencies by running "conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn and subsequently pip install xgboost lmfit multiprocess hmmlearn deap opencv-python"
+    *  Had to reinstall an older version of numpy due to conflicts (1.19.2)
+    *  Ran "reinstall" to rebuild all files
+    *  Installed MySQL server and MySQL Workbench (GUI version)
+*  Arranged group call, shared my screen, created database and acted as master for group's run of Emade.
+*  Attempted to run emade
+    *  Edited the input_titanic.xml to configure the database. Set server (localhost), username, password according to my computer's MySQL configuration.
+    *  Edited titanic_data_splitter.py in datasets/titanic to preprocess data the same way as in ML and MOGP
+    *  Ran emade, repeatedly got dependency errors, repeatedly installed missing dependencies
+    *  Created database named "titanic" using https://www.mysqltutorial.org/mysql-create-database/ tutorial (helpful link). Database can be viewed under "schemas" in MySQL Workbench.
+    *  Ran "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml" at the top-level directory
+    *  Database file automatically created in top-level directory, named "EMADE_10-12-2021_17-48-20.db"
+    *  Mypickle file created, named "myPickleFile#####.dat"
+    *  Checked master#####.out and master#####.err, worker#####.out and worker#####.err for event logs. Ignored 'cudart64_110.dll' dlerror, since I don't have a GPU on my system.
+*  MySQL Workbench shows that none of the individuals were evaluated, shows null for all objectives.
+*  master#####.out shows repeating output, leading me to believe that there is an issue with evolution or function calls.
+    *  "Starting Year 0
+    *  Querying database for elements remaining in queue
+    *  508 elements remaining in queue, query complete in 0.00 seconds
+    *  Good night"
+*  Plan to debug this in session with my group.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 6, 2021
+|October 13, 2021
+|October 10, 2021
+|-
+|Run EMade
+|Debugging
+|October 6, 2021
+|October 25, 2021
+|October 10, 2021
+|}
+
+== September 29, 2021 (Week 6) == 
+
+=== Lecture Notes: ===
+*  Presented ML and MOGP findings, compared types of algorithms
+*  Presentation: https://docs.google.com/presentation/d/1E5DIPJOt7uBeqUeYklg6TE7X7PTdOsaFdUjTDCrttkU/edit#slide=id.p
+*  Discussed using one-hot encoding for columns like Embarked to prevent Machine Learners from creating links between non-binary integer values (can't cast letters to numbers, because it'll make some seem closer and more related than others).
+
+=== Individual Notes: ===
+*  Group submitted our .csv from last week's GP model
+*  Completed the Mid-Term Peer Review Survey for my four teammates.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 29, 2021
+|October 6, 2021
+|September 29, 2021
+|-
+|VIP Peer Evaluation Survey
+|Complete
+|September 29, 2021
+|October 6, 2021
+|September 29, 2021
+|}
+
+
+== September 22, 2021 (Week 5) == 
+
+=== Lecture Notes: ===
+*  Discussed last week's project
+    *  Often lost pareto optimal solutions in favour of codominance
+*  Introduced this week's task
+    *  Multiple objective genetic programming to find a set of pareto optimal algorithms for the same titanic data set
+    *  Tree takes in the same inputs as ML model
+    *  Simple primitives allowed (logical, mathematical)
+    *  Strong or loosely typed GP allowed
+    *  Need to write an algorithm – allowed to use selection, crossover, mutator, but no stealing algorithms. Need to write our own genetic loop.
+        *  Don’t use selTournament for selection – it’s not multiple objective, only ever actually considers the first value in a tuple.
+    *  Need to write evaluation function – false negative and false positive rate are the criteria.
+    *  Compare pareto front of ML and GP frontiers
+    *  Submit .csv with columns of passengerID, and one each of the pareto optimal algorithms’ prediction of an individual's survival
+    *  Create a presentation to share our findings; compare ML and GP.
+*  Presentation about presentation
+    *  Group members on the first slide, title, date
+    *  Pareto frontier lines are important
+    *  Area under the curve
+        *  Can always make a 1.0 false positive and 1.0 false negative
+        *  Want to minimize area under curve
+        *  GP often has punctuated equilibrium (takes a few generations to find a new pareto individual)
+    *  Page numbers are helpful for audience to reference material
+    *  Can write text in slides, but don’t read off of it
+
+
+=== Individual Notes: ===
+*  Designed MOGP model to predict survivors from the same input data set as last week.
+*  Chose the same relevant columns as last week (Pclass, Sex, Age, SibSp, Parch, and Embarked) for the same reasons.
+*  Preprocessed data in the same way, using NaN maps and encoding for string values.
+*  Used arithmetic and logical operations, as well as terminals (constants) as primitives in pset; renamed arguments based on our relevant columns.
+*  Registered functions to toolbox:
+    *  Select = SPEA2, commonly used as a benchmark for multi-objective evolutionary algorithms.
+    *  Evaluate = EvalSymbReg. Experimented with multiple evaluation and selection algorithms and used symbolic regression in the current program.
+    *  Mate = cxOnePoint.
+    *  Mutate = mutUniform.
+*  Used toolbox.decorate() to make a new tree with each generation (with max height 17) for mate and mutate.
+*  Wrote evaluation function evalSymbReg()
+    *  Used an activation function arctan() to map the values from func (which is gp.compile) to values between 0 and 1. Set a threshold at 0.5; lower values are treated as 0, higher values are treated as 1.
+    *  Computed false positives, false negatives, true negatives, true positives, FPR, FNR
+    *  Accounted for the cases when total positives or negatives = 0, function will set FPR/FNR to 1.
+*  Wrote self-programmed genetic loop, took inspiration from Lab 2
+    *  Set population to 100, with 30 generations (initially set 50 generations, but slow algorithm meant that we had to reduce the time to check accuracy constantly)
+    *  Evaluated the entire population
+    *  In a subloop, selected next generation individuals and cloned them. Applied crossover and mutation.
+    *  Set mating probability to 0.2, mutation probability to 0.4.
+    *  Evaluated individuals with invalid fitnesses. 
+    *  Updated hallOfFame with best individuals in the population.
+*  Findings:
+    *  Best individual is: multiply(cos(add(subtract(Sex, Age), add(add(Sex, Sex), Parch))), Sex)
+with fitness: (0.0, 0.37966101694915255)
+    *  Pareto Front: Area Under Curve = 0.1256530649754448
+*  Reflections
+    *  In order to improve the accuracy of our genetic programming models, we experimented with multiple  mate, mutate, and selection methods.
+    *  We also modified our parameters to minimize our false positive and false negatives.
+    *  We also tried and tested a variety of primitives used in LAB 2 to attain optimal solutions for our program.
+*  Comparing GP and ML (via AuC)
+    *  ML (approx) = 0.18129
+    *  GP = 0.1256530649754448
+*  Conclusions
+    *  The area under curve is lower for MOGP than ML models.
+    *  Overall, MOGP is more dominant than ML models.
+    *  The ML results are less scattered over the place than MOGP, but due to a lower area under the curve, it performed better.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" GP model
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" presentation
+|Complete
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|}
+
+== September 15, 2021 (Week 4) == 
+
+=== Lecture Notes: ===
+*  Split into temporary project groups
+*  Introduced to Kaggle Competitions, Titanic project
+*  Use Scikit for predictors and models. Learn about pandas, etc.
+*  Results are score based on objectives: false positive, false negative.
+*  Use files train.csv, test.csv, predictions.csv, and the python notebook to structure project.
+*  Python Notebook:
+    *  Pandas is like Excel/Google Sheets for python, can be used to read train.csv and test.csv
+    *  Need to clean data sets (train and test the same way); use isna to find N/A values and replace them with averages/modes of their columns.
+    *  Encode any strings to ints and replace them in their columns (more useful in ML).
+    *  "Feature" = something that describes data. In this case, not the "survived" column.
+    *  Allocate training data for training and testing: (not to be confused with test.csv data)
+        *  x_train = top x rows of train.csv
+        *  y_train = survived x rows of train.csv
+        *  x_test = bottom (n - x) rows of train.csv
+        *  y_test = survived (n - x) rows of train.csv
+    *  Use Scikit score function to evaluate predictions
+*  In groups, our algorithms must be codominant - to do so, the train and test partitions need to be the same. The random state parameter needs to be the same to ensure codominance - common method of preprocessing all around.
+*  We have to individually submit our final predictions file with results codominant with our groups.
+*  Use Scikit documentation to learn ML modules, models, etc.
+
+=== Individual Notes: ===
+*  Scheduled online meeting with subteam.
+*  Communicated via discord, went through Python Notebook found at Reference Materials at https://github.gatech.edu/emade/reference_material/tree/master/Lectures/Lecture_4_ML
+*  Brainstormed attributes that might factor into the survival of an individual on the Titanic, made a list at https://docs.google.com/document/d/1WVhgmRNwyJxAAaGPhp5YT6-aHzeGc_kS8ewx94U4Myw/edit
+*  I shared my screen and communicated with group as we began editing the Titanic python notebook.
+*  Chose that Pclass (affects availability of lifeboats), Sex (women and children boarded lifeboats first), Age (Elderly were given preference), SibSp (those with larger families would have wanted to stay together), Parch (those with dependents would have wanted to protect each other), and Embarked (Presumably the port you boarded from would affect which cabins were available, and therefore where you were when the ship sank) were influential to the model, dropped the other parameters.
+*  Created a NaN_map to fill in missing Age and Embarked values. Created a column map to alias Embarked and Sex values to comparable integer values for the model to interpret.
+*  Tried using first DecisionTreeClassifier and eventually RandomForestClassifier and changed their input parameters. Ex.- one iteration ran RandomForestClassifier(n_estimators = 100, max_depth = 5, min_samples_leaf = 5, criterion = entropy, random_state = 2). These were tried and adjusted through trial and error, using the SciKit documentation to learn which parameters each constructor takes in. NOTE: RandomForestClassifier requires importing 'ensemble' from sklearn.
+*  Further adjusted values to try and optimize the preliminary prediction scores. Printed confusion matrices for each iteration and saved 5 (one for each group member) trials as predictions.csv. NOTE: Although adjusting parameters did change the accuracy scores slightly, the change wasn't monumental enough to affect the confusion matrices' objectives throughout the experiment. We can conclude that the algorithms are all codependent.
+*  Created a GitHub repository for shared files (Python notebook, generated csv files) and shared with group members: https://github.gatech.edu/akumaran6/Titanic-Problem
+*  Pareto Optimal Frontier using varying classifiers:
+    *  Aditya = AdaBoostClassifier. FP = 32, FN = 21.
+    *  Rohan = DecisionTreeClassifier (min_samples_leaf=30). FP = 9, FN = 45. 
+    *  Manas = RandomForestClassifier (parameters above). FP = 18, FN = 29. 
+    *  Adithya =  MLP. FP = 26, FN = 26.
+    *  Yisu = SVM (used svm.SVC, sigmoid kernel). FP = 0, FN = 104. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|-
+|Meet with assigned group to work on "Titanic - Machine Learning From Disaster" ML project
+|Complete
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|}
+
+== Self-Assessment (September 11, 2021) ==
+
+https://drive.google.com/file/d/1ugXxwFcjq7Q7bHHLOAo8wkhAZRtk9Bai/view?usp=sharing
+
+*  Student Name: Aditya Kumaran
+*  VIP Team: N/A
+*  Semester: 1
+
+*  Notebook Maintenance:
+    *  Name and contact info: 5
+    *  Teammate names and contact are easy to find: N/A
+    *  Organization: 5
+    *  Updated at least weekly: 5
+*  Meeting Notes:
+    *  Main meeting notes: 5
+    *  Sub-teams' efforts: N/A
+*  Personal Work and Accomplishments:
+    *  To-do items: clarity, easy to find: 5
+    *  To-do list consistency (weekly or more): 5
+    *  To-dos and cancellations are checked and dated: 5
+    *  Level of detail: personal work and accomplishments: 13
+*  Useful Resource:
+    *  References: 9
+    *  Useful resource for the team: 15
+
+*  Column totals: Poor = 0, Intermediate = 0, Exemplary = 97
+*  Total out of 100: 97
+
+== September 8, 2021 (Week 3) == 
+
+=== Lecture Notes: ===
+*  Multiple Objective Optimization:
+    *  Multiple metrics together, like finding a mate in nature
+        *  Algorithms look for speed, reliability, memory usage, consistency, accuracy
+        *  Genome = description of an algorithm
+            *  DNA
+            *  GA = set of values
+            *  GP = input for functions (tree structure, string)
+            *  Drive selection by favouring pareto optimal indivudals (But also want to maintain diverstity by fiving all individuals some possibility of mating)
+        *  Nondominated sorting genetic algorithm II (NSGA II)
+            *  If we remove the pareto frontier, then the next set of points becomes the next rank, and then loop doing that.
+            *  Lower ranked individuals beat higher ranked individuals
+            *  Ties are broken by “crowding distance” (summation of normalized Euclidian distances to all other points within the front)
+                *  Higher crowding distance wins
+        *  Strength pareto evoluationary algorithm 2 (SPEA2)  
+            *  Each individual has strength S (number of others in the population it dominates)
+            *  Each individual has rank R (sum of the S’s of individuals that dominate it)
+            *  Paretos are nondominated and have rank 0
+            *  Fitness = R + 1/(dk + 2), where dk is the distance to the kth nearest neighbour
+
+=== Individual Notes: ===
+*  Continued Lab 2, starting section "Multi-Objective Genetic Programming"
+*  Created new fitness and individual classes for multi-objective problem - aim to minimize objectives 'mean squared error' and 'tree size'.
+*  Added primitives sin, cos, tan (all arity=1) and reinitialized toolbox with functions from last week.
+*  Added an objective to evaluation function, by compounding primitive functions with 'points' in the mean squared term.
+*  Defined pareto_dominance() function to visualize objective space. 
+*  Initialized population of 300 with an additional individual for comparison.
+*  Sorted population into dominated and dominators with respect to the comparison individual. Plotted sorted population in objective space.
+*  Ran main evolutionary algorithm.
+    *  Best individual is: negative(cos(multiply(add(cos(sin(cos(sin(cos(tan(x)))))), cos(x)), tan(x)))) with fitness: (0.2786133308027132, 15.0)
+    *  Area Under Curve: 2.3841416372199005
+*  The goal now is to reduce the area under the graph by 25%
+    *  I first tried to add the mutate function with the altMutate function (mutInsert) by using both one after the other.
+    *  Best individual is: subtract(multiply(x, sin(subtract(add(x, x), cos(x)))), cos(x)) with fitness: (0.1636098302024022, 12.0)
+    *  Area Under Curve: 3.619531087140837 (increased)
+    *  Then I tried completely replacing the mutate function with altMutate
+    *  Best individual is: tan(multiply(subtract(subtract(cos(sin(x)), multiply(x, multiply(subtract(cos(multiply(x, multiply(x, x))), multiply(x, x)), negative(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(sin(negative(x)), cos(multiply(x, x))))))))))))), multiply(x, x)), negative(cos(negative(cos(cos(multiply(subtract(cos(x), multiply(x, x)), negative(cos(negative(cos(add(x, x))))))))))))) with fitness: (0.0422300662166498, 63.0)
+    *  Area Under Curve: 12.279788182341475 (increased significantly)
+    *  It seems that complicating the evaluation leads to a greater area, so I'll try to make the calculations simpler.
+    *  I tried changing the variables in the evolutionary algorithm: MU=100, LAMBDA=120.
+    *  Best individual is: subtract(sin(multiply(x, subtract(sin(x), cos(x)))), cos(x)) with fitness: (0.24471230030517566, 11.0)
+    *  Area Under Curve: 2.7332976348871716 (increased, but closer to the original)
+    *  Finally, I removed the np.tan(points**3) from the calculation of the sqerrors, increased MU to 150, and decreased LAMBDA to 50.
+    *  Best individual is: subtract(multiply(x, x), cos(x)) with fitness: (0.5796581408872937, 6.0)
+    *  Area Under Curve: 1.796355292509189
+    *  Based on the best individuals above, it seems my estimation was correct, and simpler functions lead to lower 'area under curve' values.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Self-Grade Rubric
+|Complete
+|September 8, 2021
+|September 15, 2021
+|September 12, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|September 8, 2021
+|September 15, 2021
+|September 12, 2021
+|-
+|Finish "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
+|Complete
+|September 8, 2021
+|September 15, 2021
+|September 12, 2021
+|}
+
+== September 1, 2021 (Week 2) == 
+
+=== Lecture Notes: ===
+* Learned how to add images to notebook via 'git clone'
+* Introduced to genetic algorithms:
+    *  Individual is now the function itself
+    *  Practices running data through the individual instead of evaluating the individual AS the data.
+        *   Ex.- 0,1,2,3,4,5 -> Individual -> 0,1,4,9,16,15 -> Evaluate
+ 	*   Individual function here is squaring
+ 	*   Evaluator would match output data to truth data for accuracy
+    *  Tree representation 
+        *   Represents a program.
+        *   Made up of nodes (primitives, functions) and leaves (terminals, end of the tree. Parameters or input data)
+        *   Read bottom to top node
+        *   Stored as a ‘lisp treeordered parse tree’
+        *   [+,*,3,4,1]
+             *  First is root
+             *  Next two are '*' and 1
+             *  '*' has two inputs, and they come before 1
+    *  Crossover
+        *  Single-point crossover is just exchanging subtrees
+             *  Starts by randomly selecting a point in the tree
+             *  Subtrees are swapped to produce children
+    *  Mutation
+        *  Inserting a node or subtree
+        *  Deleting a node or subtree
+        *  Changing a node
+
+
+=== Individual Notes: ===
+*  Imported libraries from deap required for genetic programming (algorithms, base, creator, tools, gp)
+*  Created fitness and individual classes, which will be represented as a tree structure made of primitives. Evaluation compiles the primitive tree from leaves to root node.
+*  Initialized primitive set and added primitives like mathematical operators (add, subtract, multiply, negative). Added custom primitives np.deg2rad(arity=1) and np.ceil(arity=1). Using functions with arity=2 often lead to errors, but I think these have to do with the functions' domains - this is most consistent when choosing functions with a domain of all reals that output reals as well.
+*  Registered four tool functions for expr (returns a tree based on a primitive set and maximum and minimum depth), individual, population, and compile (makes the tree into a function).
+*  Defined evaluation function, comparing the compiled function with the function we're trying to generate by minimizing mean squared error.
+*  Registered genetic operators for evaluate, select (tournament select, 3 per pod), mate (one point crossover), expr_mut, mutate. Added alternate mutation method, gp.mutInsert (inserts branch at a random position in individual).
+*  Performed the customary evolutionary loop and outputted the same statistics.
+    *  Achieved 1.16e-16 minimum fitness in best individual: add(x, multiply(x, add(multiply(x, x), add(x, multiply(x, multiply(x, x))))))
+*  Tried adding images to notebook; git push failed. Going to try troubleshooting in lesson.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 2, 2021
+|-
+|Begin "Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb" with JupyterLab
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 1, 2021
+|}
+
+
+== August 25, 2021 (Week 1) == 
+
+=== Lecture Notes: ===
+* Learned about project requirements: Anaconda, JupyterLab, Python deap
+* Introduced to EMade's GitHub, Wiki, Personal Progress Notebooks, Python Jupyter Notebooks, Slack
+* Introduced to Genetic Algorithms:
+    *  Allegories for how DNA works.
+    *  Population-based solution.
+    *  Many solutions to your problem, each being a “genome” and can mutate either individually or in groups 
+* "Individual"
+    *  Specific candidate in the population
+    *  Like one person's DNA
+* "Population"
+    *  Group of individuals that will be altered
+* "Objective"
+    *  Performance measure of individual
+    *  Is an objective measurement, not relative
+* "Fitness"
+    *  Relative measure of performance
+* "Evaluation"
+    *  Computes the objective of an individual
+* "Selection"
+    *  Gives preference to better individuals to pass on their genes
+    *  Can be:
+        *  Fitness Proportionate = fitness value is proportional to the probability of being selected for mating
+        *  Tournament = from a group of individuals, the winner (best individual) is selected for mating. More random than fitness proportionate.
+* "Mating"/"Crossover"
+    *  Represents mating between individuals, in that DNA is taken from both places
+    *  Can be a single point splice, double point splice, etc.
+* "Mutation"
+    *  Making a small change to an individual (changing a person's DNA)
+    *  Purpose is to maintain diversity
+* Algorithms
+    *  Initialize population
+    *  Evaluate population to get objective, fitness
+    *  Loop through:
+        1. Select parents
+        2. Mating actions
+        3. Mutations
+        4. Determine fitness
+        5. (until the best individual is acceptable)
+
+=== Individual Notes: ===
+* Downloaded and installed Anaconda Individual Version for Windows 10
+* Using Anaconda Navigator, I launched JupyterLab
+* Retrieved the DEAP Problem from the Calendar, under the Assignments column for the first week. Saved the file as .ipynb
+* Imported the .ipynb into JupyterLab via 'New -> Text File'
+* Opened a new Terminal window in JupyterLab, and used 'pip install deap' to install deap
+
+''' OneMax Problem '''
+* Using toolbox.register and tools.initRepeat, we'll create an individual with a list of 100 booleans (either 0 or 1).
+* Writing the evalOneMax() function to evaluate the total fitness of an individual, we sum all of the 100 bits an individual carries.
+* Defined four tool functions for evaluation (evalOneMax()), mating (2 point crossover), mutation (independent probability of bit flipping = 5%), and selection (tournament style, 3 per pod).
+* Initialized population of 300, mapped the evaluation function to the population using: map(toolbox.evaluate, pop). Assigned individuals their fitness values as properties.
+* Defined an evolutionary loop (40 generations), and performed tournament selection on the population, cloning the selected offspring to create separate instances from the previous iteration.
+* Matched the even terms with their adjacent odd terms and called toolbox.mate() with 50% probability. Deleted the mated offspring's fitness values.
+* Mutated individuals with 20% probabilities, deleted the mutated offspring's fitness values. 
+* Re-evaluated the modified offspring and assigned their newly evaluated fitness values. Replaced old population with offspring.
+* Calculated max, min, mean, and standard deviation statistics for new population.
+* Ran main():
+    * Achieved 100% maximum fitness in 31 generations.
+    * Achieved 100% maximum fitness in 39 generations.
+    * Achieved 100% maximum fitness in over 40 generations (99% maximum in 40 generations).
+    * Achieved 100% maximum fitness in 34 generations.
+    * Achieved 100% maximum fitness in 39 generations.
+
+''' N Queens Problem '''
+* Created fitness and individual classes for an nxn chessboard (sample is 20x20). Fitness is weighted negatively, since the goal is to minimize conflicts between the queens on the board.
+* Created individuals using toolbox_q.permutation (returns randomized list of numbers less than n, representing the queens' columns), since there is only one queen per column.
+* Count the number of queens on each diagonal for evalNQueens(individual), and sum the total number of conflicts on both left and right diagonals.
+* Writing the partially matched crossover function for two individuals. Chose two random crossover points, and swapped the individuals' bits between those indices.
+* Wrote the mutation function for individuals with a given probability of each attribute to be swapped with another random index (indpb).
+* Implemented custom mutation function, swapping an additional term that's halfway between the index term and the randomly selected term.
+    * def mutationCustom(individual, indpb):
+    *     size = len(individual)
+    *     for i in range(size):
+    *         if random.random() < indpb:
+    *             far_index = random.randint(0, size - 2)
+    *             if far_index >= i:
+    *                 far_index += 1
+    *             middle_index = (i + far_index) / 2
+    *             individual[i], individual[middle_index], individual[far_index] = \
+    *                 individual[middle_index], individual[far_index], individual[i]
+    * 
+    *     return (individual, )
+* Registered four tool functions for evaluation (evalNQueens()), mating (partially matched), mutation (independent probability of bit flipping = 2/n), and selection (tournament style, 3 per pod).
+* Performed the same evolutionary loop as in OneMax and outputted the same statistics.
+* Ran main() with mutShuffleIndexes():
+    * Achieved 0 minimum fitness in 32 generations.
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 81 generations.
+* Ran main() with mutationCustom():
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 15 generations.
+    * Achieved 0 minimum fitness in more than 100 generations (1.0 minimum in 100 generations).
+    * Achieved 0 minimum fitness in 74 generations.
+* Learned that my custom mutation function often gets to a minimum of 1.0 quickly, but routinely fails to reach a minimum of 0.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up personal notebook page
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 25, 2021
+|-
+|Join Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 25, 2021
+|-
+|Complete "Lab 1 - Genetic Algorithms with DEAP.ipynb" with JupyterLab
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 29, 2021
+|}

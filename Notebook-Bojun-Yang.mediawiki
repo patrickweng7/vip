@@ -1,0 +1,1436 @@
+==Team Member==
+*Team Member: Bojun Yang
+
+*Email: byang301@gatech.edu
+
+*Cell Phone: 508-315-2723
+Team: ezCGP
+
+==Week 2 August 28, 2019: Bootcamp Meeting==
+* Taylor series are back, review them
+* Todos: action items from a class meeting or team meeting
+
+==Week 1 August 21, 2019==
+
+=== '''Bootcamp Notes''': ===
+* Genetic Algorithms: new generations of algorithms are created through mating and mutating individuals
+** fitness: metric for performance
+** exchange "DNA" between parents
+** individual: one specific candidate with properties such as DNA
+** population: group of individuals whose properties will be altered
+** objective: value used to characterize individuals you are trying to maximize or minimize
+** fitness: how the individual compares to others
+** evaluation: functions that computes the objective of an individual
+** selection: gives preference to good genes, also has randomness
+*** fitness proportionate: take the better fitness guys
+*** tournament: select winners of a tournament
+* mates/crossovers: one/two point
+* mutations
+* algorithm - until best individual is good enough
+*# randomly init pop
+*# get pop fitness
+*# repeat
+*## select parents
+*## crossover
+*## mutate
+*## get new pop fitness
+* python notebook is good
+
+=== Lab 1 Genetic Algorithms with DEAP: ===
+Mutation code to choose an index and flip both ends of the array with the chosen index remaining the same.
+[[files/Lab1MutationCode.png|alt=|thumb|696x696px|Ex:
+ind = [1,2,3,4,5,6,7,8,9]; flip_indx = 5
+
+return [6,7,8,9,5,1,2,3,4]
+|none]]
+
+=== To Dos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install Python 3.6
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 23, 2019
+|-
+|Install EMADE (Git, Git LFS, Anaconda 3)
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 23, 2019
+|-
+|Complete Lab 1 - Genetic Algorithms with DEAP
+|Completed
+|August 21, 2019
+|August 28, 2019
+|August 24, 2019
+|}
+
+== Week 2 August 28, 2019 ==
+
+=== Bootcamp Notes: ===
+* Genetic Programming
+** like genetic algorithms but individuals and solutions are computer programs represented by trees
+** Individual: genome, genotype, tree; made up of primitives and terminals
+*** primitive: a function that operates on inputs and returns values
+*** terminal: a value that a primitive consumes
+** Pareto: individual considered Pareto if no other individual outperforms it in all objectives
+** Pareto frontier: set of all Pareto individuals (lower rank the better)
+*** want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some chance of mating
+
+=== Lab 2: Genetic Programming and Multi-Objective Optimization ===
+'''Part 1: Symbolic Regression'''
+[[files/Lab2NewPrimitives.png|none|thumb|Added positive and maximum primitives
+arity means how many parameters the primitive takes
+]]
+[[files/Lab2MorePrimitives.png|none|thumb|Added more primitives after I couldn't get the fitness to increase.]]
+[[files/FitnessGraph.png|none|thumb|After adding more primitives, global maximum of fitness increased but some generations did not have valid data due to invalid operations such as divide by zero, etc]]
+
+=== To Dos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Part 1 of Lab 2
+|Completed
+|August 28, 2019
+|September 4, 2019
+|September 3, 2019
+|}
+
+== Week 3 September 4, 2019 ==
+
+=== Bootcamp Notes: ===
+* interesting subteams: automatically defined function, natural language processing
+* what we want in algorithms
+** space efficiency
+** minimize error
+** true positives
+*** minimize false positives
+** time efficiency
+** security
+** usability, HCI
+** cost-effectivenenss
+* Confusion Matrix 
+{| class="wikitable"
+!
+!Predicted P
+!Predicted N
+|-
+|'''Actual P'''
+|True P
+|False N
+(Type II error)
+|-
+|'''Actual N'''
+|False P
+(Type I error)
+|True N
+|}
+* sensitivity: true positive rate, hit rate, or recall; TP/P=TP(TP+FN)
+* specificity: true negative rate' TN/N=TN/(TN+FP)
+* precision: positive predicted value; TP/(TP+FP)
+* false discovery rate; FP/(TP+FP)=1-PPV
+* negative predictive value: TN/(TN+FN)
+* accuracy: (TP+TN)/(P+N)
+* genotype is the genes, phenotype is the expression
+
+=== Lab 2: Genetic Programming and Multi-Objective Optimization ===
+'''Part 1: Multi-Objective Genetic Programming'''
+[[files/OriginalEvolutionaryAlgo.png|none|thumb|The original evolutionary algorithm's AUC=2.3841416372199005]]
+[[files/NewAlgo.png|none|thumb|I decreased NGEN to 25 but it had minimal effect. However, decreasing MUTPB(probability that an offspring is produced by a mutation) to 0, the UAC drastically decreased to <1.0]]
+[[files/NewalgoUAC.png|none|thumb|Pareto front using MUTPB = 0 has UAC = 0.37128371460260434]]
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Part 2 of Lab 2
+|Completed
+|September 4, 2019
+|September 11, 2019
+|September 10, 2019
+|}
+
+== Week 4 September 11, 2019 ==
+
+=== Bootcamp Notes: ===
+* find 5 co-dominant algorithms for Titanic on Kaggle
+
+=== Sub-Team Notes: ===
+* Team: Tejas, Anuraag, Daniel, Hoa
+* women and children are probably more likely to survive
+* discussed how to weight sex and age so that the algorithms focus more on these parameters
+
+=== Titanic ML Assignment: ===
+* Youtube videos for research
+** https://www.youtube.com/watch?v=fS70iptz-XU (51:10)
+*** helpful in understanding what features to focus on but a little too long
+** https://www.youtube.com/watch?v=Z5kqCBDcMnQ&t=18s (16:33)
+*** ok walkthrough of basic data trimming, not a great video
+* https://towardsdatascience.com/a-beginners-guide-to-kaggle-s-titanic-problem-3193cb56f6ca
+** some helpful insights to the data with graphs
+
+* Around 70% of women survived even though there women made up of about 35% of total passengers
+* More rich men survived than poor men. Almost all rich women survived while about 50% of poor women survived
+* Passengers from Cherbourg were more likely to survive than the other embarkment locations
+[[files/Selecting feature set.png|none|thumb|Combined 'Sex' and 'Pclass' so that if passenger is female and high class, the higher the number is. Female is associated with a 5 while male is associated with 1. When they get multiplied by their respective Pclass, the gender is amplified with regards to how rich they are.
+C = 4, Q, = 2, S =1 to signify that C had the highest percentage of survivors.
+]]
+[[files/Codominant pareto front.png|none|thumb|The 5 selected algorithms are relatively consistently codominant.]]
+[[files/Codominantalgos.png|none|thumb|The codominant algorithms]]
+* highest score was .83 (rare)
+* interesting note: if set max_depth for random forest classifier to 2, we can consistently obtain a score of 0.83 but this disrupts co-dominance
+* algorithms:
+** neural_network.MLPClassifier()
+*** works with data represented as dense numpy arrays
+** svm.SVC(kernel='linear')
+*** C-Support Vector Classification
+** RandomForestClassifier(n_estimators = 200, random_state = 100)
+*** fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting
+*** 200 trees in forest, 100 a random seed
+** GaussianNB()
+*** Gaussain Naive Bayes
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with team to figure out common feature set
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 15, 2019
+|-
+|Complete Titanic ML Assignment
+|Completed
+|September 11, 2019
+|September 18, 2019
+|September 17, 2019
+|}
+
+== Week 5 September 18, 2019 ==
+
+=== Bootcamp Notes: ===
+Strategies to clean up data
+* vectorization/encoding
+** consider tristate (1,2,3) ex: embarked (a,b,c)
+** if encoded into 1,2,3 then 3 is further from 1 than 2 when c is not necessarily more different from a than b is
+** make it into a bit map {| class="wikitable" !Embarked !A !B !C |- !A !1 !0 !0 |- !B !0 !1 !0 |- !C !0 !0 !1 |}
+* whitening: removing underlying correlation. normalizing all data so it's on the same scale
+** some algorithms are sensitive to this, some are
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Bootcamp Notes
+|Completed
+|September 18, 2019
+|September 25, 2019
+|September 24, 2019
+|}
+
+== Week 6 September 25, 2019 ==
+
+=== '''Bootcamp Notes:''' ===
+Assignment Notes:
+* come up with another common feature set or keep it the same and a common evolutionary framework
+** stick with simple primitives (&, |, !, *, +, -, %)
+* Goal: let genetic programming framework output a pareto front that has a lot of co-dominant individuals
+example submission file for x co-dominant 
+{| class="wikitable"
+!passid
+!survived model1
+!...
+!survived modelx
+|-
+|1
+|1
+|0
+|0
+|-
+|2
+|0
+|1
+|0
+|-
+|3
+|1
+|1
+|1
+|}
+* bound your objectives with 1 and 1
+* the area under the curve (AUC) is the Riemann sum of the co-dominant individuals
+* plot AUC vs Generation
+
+=== Team Meeting 9/29/2019: ===
+* did more feature trimming. added normalization to everything we could
+* discussed why we should vectorize gender even though it only has two possible values
+* tried to use weakly typed and strongly typed algo. went with strongly typed in the end
+* plotted a pareto front of 50 generations
+
+=== Multi-Objective GP Titanic: ===
+* feature trimming
+** dropped Name, Ticket, Cabin
+** basic feature imputation on Age, Fare, Embarked
+** normalized Age, Sibsp, Parch, Fae
+*** Transformed data into standard normal distribution
+*** Scaled data has 0 mean and unit variance
+*** Obtain an instance of a scaler by fitting to the training data and transform training and testing data
+** vectorized Sex, Embarked, Pclass[[files/Datafeatures.png|none|thumb|code for dropping columns, imputation, and vectorization]]
+* Used strongly typed multi-objective programming
+* Changed the evaluation function from Lab2 to be based off of false positive and false negatives
+* why is tournament select bad
+** it compares two individuals together by only looking at the first value
+* nsga
+** sorts population, and calculates crowd dist
+** maybe: tournament of nsga
+*** select tournament.dcd
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Work Session
+|Completed
+|September 25, 2019
+|October 2, 2019
+|September 29, 2019
+|-
+|Refine Feature Set with Vectorization and Whitening
+|Completed
+|September 25, 2019
+|October 2, 2019
+|September 28, 2019
+|-
+|Review Lab2 Before Team Meeting
+|Completed
+|September 25, 2019
+|September 29, 2019
+|September 28, 2019
+|}
+* find a better selection method than select.tournament()
+** select.tournament
+*** does works for multi-objectives but it's not good
+*** why is it not great for multi-objectives tho?
+*** DEAP API
+some notes from 10/2/2019:
+* the video was good, individual was good
+* gotta make own evolutionary loop
+* evolutionary settings
+* good to have a slide with pop number, etc parameters
+** the high level parameters
+* install emade
+
+== Week 7 October 2, 2019 ==
+
+=== Bootcamp Notes: ===
+* had presentations
+* should have wrote our own evolutionary loop
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish adding to journal before 10/4
+|Completed
+|October 2, 2019
+|October 4, 2019
+|October 3, 2019
+|-
+|Make sure emade is installed
+|Completed
+|October 2, 2019
+|October 9, 2019
+|A long time ago
+|}
+
+== Week 8 October 9, 2019 ==
+
+=== Bootcamp Notes: ===
+Intro to EMADE
+* Evolutionary Multi-Objective Algorithm Design Engine
+* combines multi-objective evolutionary search with high level primitives to automate the process of designing machine learning algorithms
+* to run: navigate to top level directory and run "python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+** src/GPFramework/launchGTMOEP.py: module to start a run of EMADE
+** templates/input_titanic.xml
+*** input file describing EMADE how to run the titanic problem
+*** configures all the moving parts of EMADE
+*** first block is for configuring python
+*** EMADE automatically detects cluster management software for gridengine and SLURM
+*** next block configures a MySQL connection
+**** reuse: 0 wipe out old and use new, 1 use existing database
+*** if running locally server can be localhost or 127.0.0.1
+*** make server, user, and db in MySQL
+*** fold prevents overfitting. each has own training set and testing set
+*** files are prepared with titanic_data_splitter.py
+**** each row corresponds to an instance (person), each column is a feature, the final column is the truth data
+***** EMADE reserves the last column for fitting models (train data) and scoring (test data)
+*** objectives
+**** names will be used as columns in the database
+**** weight specifies max or min
+**** <evaluationFunction> specifies the name of a method in src/GPFramework/evalFunctions.py
+**** achievable and goal are used for steering the optimization, lower and upper for bounding
+*** more params
+**** evaluation specifies where evaluation functions specified in the objectives section live and how much memory each worker is allowed to use before marking an individual as "fatal"
+**** <workersPerHost> how many evaluations to run in parallel
+***** 2-3 for a laptop
+*** evolution parameters
+**** all of the carious magic constants or hyperparameters that affect the evolutionary process
+*** only individuals with a machine learning algorithm can be evaluated
+**** headless chicken: lower half of a tree can work on it's (guessing)
+* connecting a worker to a peer
+** should have same xml file
+* assignment
+** run EMADE as a group. 1 person has to set up the sql server and act as the master process. the rest should connect their works
+** run for a substantial # of generations
+** learn some SQL and play with the database to see what information you can mine
+** plot of non-dominated frontier at the end of the run
+*** compare with ML, and MOGP assignments
+** presentation on Monday 21st
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up mySQL
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 14, 2019
+|-
+|Run EMADE as a group
+|Completed
+|October 9, 2019
+|October 16, 2019
+|October 14, 2019
+|}
+
+== Week 9 October 16, 2019 ==
+
+=== Bootcamp Notes: ===
+* in class work session and hackathon
+** make sure everyone is running emade correctly
+** had issues connecting the server due to ip addresses
+*** need to allow a range of ip address or else we won't be able to connect
+** set up everyone's machines to run as workers before the hackathon was over
+
+=== Pareto Front Movie: ===
+I wrote python to create an animation of each generations pareto front using pandas, matplotlib animation, and numpy.
+[[files/Findnondominatedpoints.png|none|thumb|543x543px|Finds the non-dominated individuals (pareto-front) with in p, a population, and returns corresponding fp and fn values]]
+[[files/CreateAllData.png|none|thumb|540x540px|Gets pareto front for each generation/year. Plots and saves it for debugging purposes.]]
+[[files/AnimateParetoFront.png|none|thumb|540x540px|Using matplotlib and ffmpeg, creates animation of the pareto front of all the generations. Uses the previous xPlot and yPlot from the script above that gets the pareto front from all generations.]]
+End Product
+[[files/ParetoFrontFinal.gif|none|thumb|345x345px|Final Pareto Front Gif]]
+^ Click to see
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run the workers for as long as we can until 10/19 
+|Completed
+|October 16, 2019
+|October 19, 2019
+|October 21, 2019
+|-
+|Write code to parse through pareto front and create animation of generation's pareto front
+|Completed
+|October 16, 2019
+|October 20, 2019
+|October 21, 2019
+|-
+|Finish editing the presentation
+|Completed
+|October 16, 2019
+|October 20, 2019
+|October 21, 2019
+|}
+
+== Week 10 October 21, 2019 ==
+
+=== Bootcamp Notes: ===
+* Our presentation: https://docs.google.com/presentation/d/1PIjGJwwqcjAKTKR6EBEMrHfVfPn1Rtaz0Y0uGcPY48w/edit#slide=id.g6407ecb1d9_2_23
+* All teams presented their results on EMADE
+* Our results:
+** Ran 40 generations
+** Steady trend of decreasing AUC and individuals moving closer to the origin
+** Year 1: AUC = 0.36
+*** Didn’t have a lot of individuals with low fp and high fn
+** Year 40: AUC = 0.18
+*** AUC decreased as more individuals with lower either lower fp or fn or both started appearing
+** Following the trend, AUC will continue to decrease in future generations
+** Visuals
+*** 3D Pareto Front[[files/3dparetofront.png|none|thumb|3D pareto front with fp, fn, and number of elements]]
+*** Individuals from GP and EMADE[[files/IndividualsVisualization.png|none|thumb|Visualization of Individual from GP and EMADE]]
+
+=== Subteam presentations ===
+* Automatically Defined Functions
+** reusing code GP and how we can achieve that
+* ezCGP
+** cartesian gp framework
+** uses DAGs
+** represented by a list of linear functions
+*** each node can take results from a previous node
+** separates pre-processing and processing. lots of blocks you can use
+* NLP
+** natural language processing
+** having trouble with assigning meaning to words
+** needs to read lots of papers and categorize them
+** NN-subteam
+*** do neural nets in EMADE
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think about which subteam to join
+|Completed
+|October 21, 2019
+|October 28, 2019
+|October 28, 2019
+|}
+
+== Week 11 October 28, 2019 ==
+'''Joined ezCGP'''
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up git and make sure you can push and pull to both repos
+|Completed
+|October 28, 2019
+|November 11, 2019
+|November 1, 2019
+|-
+|Read through design doc
+|Completed
+|October 28, 2019
+|November 3, 2019
+|November 1, 2019
+|}
+Couldn't get the git to work until 11/11 because I did not have access to the repos.
+
+== Week 11 November 2, 2019 ==
+Missed meeting due to interview scheduled at this time. Caught up by looking at the design doc and code base to get more familiar with how ezCGP actually works.
+
+== Week 12 November 4, 2019 ==
+
+=== Meeting Notes: ===
+* ieemportant files in the code base are universe.py, main.py
+* looked through the files to get a feel for how things run
+* our assignment:
+** visualizing one block individual
+** save the individual to a file and try to visualize
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize with how ezCGP is run
+|Completed
+|November 4, 2019
+|November 9, 2019
+|November 9, 2019
+|}
+
+== Week 12 November 9, 2019 ==
+
+=== Meeting Notes: ===
+* we want to output an individual formatted into a csv and import that csv into DrawIO to visualize the individual
+* worked on outputting an individual to a csv
+[[files/Outputindividualezcgp.png|none|thumb|Outputs individuals in csv form to outputs_visualization folder]]
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Write vis.py to output csv for visualization in DrawIO
+|Completed
+|November 12, 2019
+|November 30, 2019
+|November 23, 2019
+|}
+
+== Week 13 November 11, 2019 ==
+
+=== Meeting Notes: ===
+* had an interview for internship, I was not present for this scrum meeting
+
+== Week 14 November 18, 2019 ==
+
+=== Meeting Notes: ===
+* regular scrum meet with the rest of the teams
+* since we didn't meet over the weekend, we met after the meeting to work on more visualization
+** Work on DrawIO to figure what we need to output in order to draw the boxes
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out how DrawIO works
+|Completed
+|November 18, 2019
+|November 30, 2019
+|November 20, 2019
+|}
+
+== Week 14 November 23, 2019 ==
+
+=== Meeting Notes: ===
+* completed most of visualization
+** wrote visualization.py to output individual blocks in csv format to input into DrawIO
+** commit: [https://github.com/ezCGP/ezCGP/commit/c9be8079cf5ec49a8d6a4c71fc60c287daf078e9 https://github.com/eCGP/ezCGP/commit/c9be8079cf5ec49a8d6a4c71fc60c287daf078e9] [[files/DrawIOprogress.png|none|thumb|Visualization of functions within blocks]]
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit vis.py to add fitness for each block
+|Completed
+|November 23, 2019
+|November 30, 2019
+|November 28, 2019
+|}
+
+== Week 15 November 25, 2019 ==
+
+=== Meeting Notes: ===
+* did scrum
+* worked on integrating our visualization.py with draw.io
+* edited visualization.py to output formatted csv files for each all individuals in a generation
+presentation slides: https://docs.google.com/presentation/d/1jAWlWmQj94DfXsNsuke80kzpa3EUEJJKMgvQ2TTC_zg/edit#slide=id.p
+
+design doc: https://docs.google.com/document/d/1X8jGDXHAKkMBgOCYCtgT5v-wSqSLjVhxtZnGqr2hwz4/edit
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Design Doc
+|Completed
+|November 25, 2019
+|December 2, 2019
+|December 1, 2019
+|-
+|Work on Final Presentation
+|Completed
+|November 25, 2019
+|December 2, 2019
+|December 1, 2019
+|-
+|Peer Evals
+|Completed
+|November 23, 2019
+|December 4, 2019
+|November 25, 2019
+|}
+
+== January 6, 2020 VIP Meeting ==
+* presentation about what results are considered statistically significant
+* focus on producing results with our research that are statistically significant
+* set meeting up for Saturday
+* helped with some small logistics with onboarding Tan and Ford
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reading CGP CNN Paper
+|Completed
+|January 6, 2020
+|January 11, 2020
+|January 10, 2020
+|-
+|Pull github and get pushing working (since I got a new laptop)
+|Completed
+|January 6, 2020
+|January 11, 2020
+|January 10, 2020
+|}
+
+== January 11, 2020 Team Meeting ==
+* Cleaned up and restructured github repo and implemented naming strategy for branches
+** implemented zenhub to keep track of member's contributions and tasks
+* Takeaways from last semester
+** parallelization of cpus is a lot slower than using GPUs
+** fixed GPU
+** a lot of errors
+*** Accuracy was low (went up after errors below were fixed)
+*** deep copying (fixed)
+*** argument errors (fixed)
+* This semester's goals
+** Primitives Team
+*** a lot of functionalities haven't been tested
+*** benchmark new primitives
+*** aim for accuracy
+** GPU/Parallelization Team
+*** let us run tests faster so we can compare results
+*** performance benchmark
+*** aim for performance
+** show statistically significant results
+* Zenhub tasks format: [TeamName] TaskName
+** let's us evaluate work completed by members
+I will mainly be on the GPU team
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research and watch videos on MPI
+|Completed
+|January 11, 2020
+|January 20, 2020
+|January 19, 2020
+|-
+|Basic understanding of CNNS
+|Completed
+|January 11, 2020
+|January 20, 2020
+|January 20, 2020
+|}
+
+== January 18, 2020 Team Meeting ==
+* did overview on how ezCGP uses MPI[[files/Mpi overview cpugpu architectures.jpg|none|thumb|Basic scatter and gather implementation. CPU-GPU Architectures]]Trai went over how mpi works. He explained the basics of gathering, scattering, and barriers. Bottom left we talked about possible cpu gpu architectures we could implement to run ezCGP.
+* HPC videos to watch: jan: 15 -22. feb 26 - march 5th
+* Horovod installation: https://github.com/horovod/horovod/blob/master/docs/gpus.rst
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete collective communication exercise
+|Completed
+|January 11, 2020
+|January 20, 2020
+|January 20, 2020
+|-
+|Research into horovod
+|Completed
+|January 11, 2020
+|January 20, 2020
+|January 20, 2020
+|}
+
+== January 20, 2020 VIP Meeting ==
+* Did not meet as a class due to MLK
+
+== January 25, 2020 Team Meeting ==
+* Goals
+** install Horovod on GCP
+** see if 2 GPUs can be activated with 2 CPUs using Horovod
+* I looked through the documentation on MPI4py and started to write a script to use gather, scatter
+* Listened in on pre-processing team to get a better understanding of CGP primitives
+* Had a lot of unusually hard homeworks due over the weekend so was unable to work on too much cgp stuff
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Keep watching the mpi videos on high performance computing
+|[https://github.com/ezcgp/ezcgp/issues/28 Completed]
+|January 25, 2020
+|February 1, 2020
+|February 1, 2020
+|-
+|Get access to gcp and be able to ssh into it
+|Completed
+|January 25, 2020
+|February 1, 2020
+|February 1, 2020
+|}
+
+== January 27, 2020 VIP Meeting ==
+* Did scrum, then worked with Sam to get to know GCP better
+* ssh instructions:
+Command master list (ask Jason for compute, bucket, and admin access):Google Cloud SSH into our instance:<code>gcloud compute ssh ezcgp-multi-gpu-1</code>
+
+Google Cloud Copy into Bucket (think data storage into cloud hard drive):<code>gsutil -m cp <local_file_name> [gs://vip-ezcgp gs://vip-ezcgp]</code>
+
+Google Cloud Startup Script Upload: <code>gcloud compute instances add-metadata ezcgp-multi-gpu --metadata-from-file startup-script=gcp_startup_script.sh</code> (gcp_start_up_script.sh) is the startup script file)Google Cloud Startup Script Run after SSH into the node:<code>sudo google_metadata_script_runner --script-type startup --debug</code>
+
+Google Cloud setup for new instances:
+
+<code>gcloud compute ssh ezcgp-multi-gpu-1</code> (login)
+
+<code>sudo google_metadata_script_runner --script-type startup --debug</code>  (download install.sh)
+
+<code>bash install.sh</code> to install the environment and download ezCGP (follow the prompt)
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Write a script using mpi4py to assign ranks of each cpu to an array and pass it back to the root cpu
+|[https://github.com/ezcgp/ezcgp/issues/30 Completed]
+|January 27, 2020
+|February 1, 2020
+|February 1, 2020
+|}
+
+== February 1, 2020 Team Meeting ==
+[[files/Mpitest.png|none|thumb]]
+Wrote script to apply the mpi knowledge that I learned. Verified it worked with my laptop that has 4 cores.
+
+Talked to Trai and Mai about getting benchmarking up with horovod. They will get it running and then give it to me to benchmark. 
+* let team know that I will be missing our next weekend meeting due to travel
+
+=== Todos: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Wait for Trai and Mai to get horovod working and then work on it with them
+|Postponed (we have to refactor code first)
+|February 1, 2020
+|February 5, 2020
+|February 5, 2020
+|}
+
+== February 3, 2020 VIP Meeting ==
+* worked with Sam and Jason on GCP instance access. Wasn't able to ssh in
+* Also tried to figure out a way so we don't have to install conda for each user for GCP.
+* While I was trying to run a tester.py, found out that our version of tensorflow was depreciated, Sam said we might need to refactor all of our code
+
+=== '''Todos:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out whether we need to refactor code and upgrade TF
+|Completed
+|February 3, 2020
+|February 5, 2020
+|February 5, 2020
+|}
+
+== February 10, 2020 VIP Meeting ==
+* I missed our 2/8/2020 team meeting due to travel. 
+* caught up on our progress
+** turns out our tensor flow is too depreciated to keep using so we have to refactor all of our code.
+
+== February 15, 2020 Team Meeting ==
+* Listened to Rodd and Trai discuss how to implement refactor
+** mpi_universe should be our only universe since doing sequential just means mpi with 1 core
+** debated on what parameters and fucntions to put into problem.py
+* Met with Trai to get overview of our object oriented refactor. notes below
+'''Refactor notes'''
+* Migrating project, upgrading tensor flow
+* Redesign project so that we improve the scalability in terms of adding new objects and data (memory)
+* Base graph interface: we explicitly call tensor flow and built the tensor flow graph
+** Not good bc it’s not swappable (needs to be hard coded)
+** We need to create an abstract graph object and we call those graphs
+** Additional layer in the middle
+*** Middle man
+*** Base graph interface
+*** Obj oriented design
+** Redesign data set, data manager
+*** Specify what functionality they have
+*** In our code base we only reference list and son data
+*** Encapsulate these under a data set object
+** Implement mpi_universe object 
+MPI_Universe Object
+* Get added to ezExperimental
+* mpi_universe inherit universe 
+Object builder
+* init_population
+* Needs to build the pop in a new class
+* Job of class
+** Instantiate the pops
+** So you don’t need to explicitly build
+* Individual as well
+'''Todos:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement MPI Universe Object
+|Completed
+|February 15, 2020
+|February 24, 2020
+|February 24, 2020
+|-
+|Design Object Builders
+|Completed
+|February 15, 2020
+|February 24, 2020
+|February 24, 2020
+|}
+
+== February 21-23, 2020 ==
+Redesigned the structure of the our object oriented approach
+* we want Universe to be a sequential run
+* MPI Universe will be a parallel run
+* Discussing on whether we want have mutate, mate, eval methods to do hardcoded deepcopys and other similar operations within the block level mutate function or in the mutate_definition that will be passed into the block level mutate function
+** There may be situations where we shouldn’t do those ops
+** But also we want to avoid cases like last semester where we forget one deep copy and it screws us over
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Redesign
+|Completed
+|February 15, 2020
+|February 24, 2020
+|February 21, 2020
+|-
+|Implement evaluate.py
+|Completed
+|February 15, 2020
+|February 24, 2020
+|February 23, 2020
+|}
+Github commit: https://github.com/ezCGP/ezExperimental/commit/6bf3a60889bff475c1fc04820bf08e213592dd0a 
+
+== February 24, 2020 VIP Meeting ==
+* Learned how NSGA II actually works by using pareto front and crowding distance
+* Discussed with Jason and Rodd if mating within sub-populations is significantly different from mating within a while population
+
+== February 29, 2020 VIP Hackathon/Work Session ==
+* went over how TF 2.0 builds graphs
+* presented to the team what we did with the refactoring
+* worked on the midterm presentations
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Midterm Presentation
+|Completed
+|February 29, 2020
+|March 8, 2020
+|March 7, 2020
+|}
+
+== March 2, 2020 VIP Meeting ==
+* there seems to be some conflict within the team due to the new object oriented design and the old design
+
+== March 7, 2020, Team Meeting ==
+Worked on the presentations and new commits
+
+== March 9, 2020 VIP Meeting ==
+Had presentations today
+* Presentation: https://docs.google.com/presentation/d/1DaGSf2-x87oNFT5oukKR1jfI0m2wtXs--56K3mf7q38/edit?usp=sharing
+** we need to get results that show statistical significance
+
+== March 13 - 28, 2020 ==
+Due to spring break and Covid-19, I had to move out of campus dorms and drive from Atlanta to Massachusetts. 
+
+== April 8, 2020 Pace Workshop ==
+* set up PACE and tested it to make sure we can schedule runs
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up PACE and verify it works
+|Completed
+|April 8, 2020
+|April 13, 2020
+|April 8, 2020
+|}
+
+== April 13 - 18, 2020 ==
+* Worked with Trai to benchmark CPU vs GPU on the new framework
+** Design: https://docs.google.com/document/d/1fbEIsBqCYSX9vYj-YeHuyEFx5O3c9EvIZ3JyAVAJg_8/edit
+** Results here: https://docs.google.com/spreadsheets/d/1rOFnxdjoBhH4a54PYNLC5CVXp4UEwLkbyPrgh-U1_S4/edit#gid=0
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Benchmark Different CPU vs GPU on GCloud
+|Completed
+|April 15, 2020
+|April 20, 2020
+|April 19, 2020
+|-
+|Complete Final Presentation
+|Completed
+|April 13, 2020
+|April 20, 2020
+|April 19, 2020
+|}
+Presentation: https://docs.google.com/presentation/d/1TV78U_DNYqzz7cwFAqhuXwjJl6Ou8qVV0f8nkKiARjY/edit#slide=id.g74620e3515_4_101
+
+== Final Thoughts ==
+I had a good time working with everyone on the team this semester, especially trying to learn as much as possible from Trai in terms of high performance computing and software architecture. I think I deserve an A because I devoted a lot of my time to learn high performance computing, redesign and refactor code for the new framework, and benchmark the working version of the new framework. I started by getting caught up to speed with basic knowledge of high performance computing and researching frameworks we could use for GPU parallelization. I was very involved in the redesign of the framework after we found incompatibilities with getting Horovod and TF1.0 to work. We had multiple discussions that spanned 3-5 hours each to discuss the structure and logic of the old code, propose new designs, and point out existing flaws that could be improved on. I also helped implement the new framework by working on the base structure and code of our universe.py and made the benchmarking graphs for the presentation. My contributions are documented within my previous journal entries. I want to point out the two week hiatus starting in Spring Break was because I had to move all the way back to MA right after Spring break due to the pandemic situation. 
+
+In conclusion, I had a good time working with our team and on the high perf team. I look forward to continuing the work next semester.
+
+= Week 2: August 24, 2020 =
+'''Lecture Meeting notes:'''
+* First meeting of semester, only Rodd, Ford, and Henry left in group
+'''Team Meeting Notes:'''
+* Our team is Rodd, Ford, Henry, Daniel, Hemang, and me
+* Research team: Ford and me
+** Search for research papers that have things that could be useful to ezCGP
+* Code maintainence team: Henry, Daniel, Hemang
+** Add primitives
+** Have code ready to run baseline test on CIFAR10
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide on Goals for the Semester
+|Completed
+|August 24, 2020
+|August 27, 2020
+|August 27, 2020
+|-
+|Find 15-20 papers of interest
+|Completed
+|August 27, 2020
+|September 10, 2020
+|September 10, 2020
+|}
+Link to research papers summaries: https://docs.google.com/document/d/1sUXz6G7NzK3DBTghrP5NcNCTOsGDh9N7JJOryhQY51w/edit#
+
+= Week 3: August 31,  2020 =
+'''Lecture Meeting Notes:'''
+* Solidified timelines for research group
+'''Team Meeting Notes:'''
+* Work session for both teams
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find 15-20 papers of interest
+|Completed
+|August 27, 2020
+|September 10, 2020
+|September 10, 2020
+|-
+|Select 3-5 papers to read in-depth
+|Completed
+|August 31, 2020
+|September 17, 2020
+|September 17, 2020
+|}
+Link to research papers summaries: https://docs.google.com/document/d/1sUXz6G7NzK3DBTghrP5NcNCTOsGDh9N7JJOryhQY51w/edit#
+
+= Week 4: September 7,  2020 =
+'''Lecture Meeting Notes:'''
+* No meeting, Labor day
+'''Team Meeting Notes:'''
+* Got list of 15-20 papers of interest and updated team on progress of find ing 3-5 papers to read in depth
+* New naming scheme for issues in github: feature/issueNumber-issueDescription
+* Discussed a more structured process for committing and merging code, testing updates, and github organization
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find 15-20 papers of interest
+|Completed
+|August 27, 2020
+|September 10, 2020
+|September 10, 2020
+|-
+|Select 3-5 papers to read in-depth
+|Completed
+|August 31, 2020
+|September 17, 2020
+|September 17, 2020
+|}
+Link to research papers summaries: https://docs.google.com/document/d/1sUXz6G7NzK3DBTghrP5NcNCTOsGDh9N7JJOryhQY51w/edit#
+
+= Week 5: September 14,  2020 =
+'''Lecture Meeting Notes:'''
+* Worked on reading more research papers in preparation for Thursday's team meeting
+'''Team Meeting Notes:'''
+* Presented to team the 4 research papers I picked to read in depth, summaries are linked below. Main ideas listed on wiki
+Aging evolution
+* Uses a queue to keep track of population and the “dead” individuals in each cycle are dequeued while new children are enqueued
+* Parents are chosen by randomly sampling S individuals and taking the highest-accuracy model in the sample
+* Allows us to explore the search space more instead of zooming in on good models too early
+* Mutation = exploration; parent = exploitation
+* S = 1 → random search; 1 < S <= P → evolution of varying greediness
+Speed up techniques
+* Rich initialization
+** Using a good hand-designed initial network arch helps the efficient arch search more than using a randomly initialized network arch
+** ResNet and DenseNet
+* Early termination of network training
+** Early termination based on a reference curve
+** Construct reference curve by using previous accuracy curves of network training and use to decide if the current architecture is promising or not
+** Terminate if accuracies for the the architecture evaluation dataset of current arch are worse than the values of the reference curve by N consecutive times
+** When the best fitness among the offspring exceeds the parent’s fitness, the values of the reference curve are updated by taking the average of the reference curve and the accuracy curve of the best offspring
+Sub-search space exploration
+* Population → subpopulation
+** Subpopulation: assigned with primitives having different weights
+*** Evolve these with their own weighted primitives
+*** Periodically share promising individuals within subpopulations and adaptively adjust the weights of primitives based on statistic information on surviving individuals
+*** → gradually identify important terminals and functions (primitives)
+
+* Info sharing among sub-pops and search efficiency improvement
+** Sub-search space init
+*** Terminal part of EV of first sub-pop is set according to the entropy of each feature
+*** Some more specific details of implementation
+** Sub-search space adaptation
+*** EV is updated based on the distribution of terminals and functions in the current sub-popo in each generation
+*** Surviving individuals → better fitness → more likely to contain important primitives that are used in promising solutions
+** Learning between sub-pops (performed every pi generations during evolution of each sub-pop)
+*** Migration
+**** Immigration: best individual of each sub-pop is substituted by the best-so-far individual J of the whole pop
+**** Emigration: random individual is selected from each sub-pop and compared with another random individual in other sub-pops. Latter will be replaced by former if former is better
+*** Monte-Carlo-based EV generation
+**** A new EV is generated considering the existing EVs by Monte-Carlo methods (MC) and is assigned to a random sub-pop
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Select 3-5 papers to read in-depth
+|Completed
+|August 31, 2020
+|September 17, 2020
+|September 17, 2020
+|-
+|Self-Eval
+|Completed
+|September 14
+|September 19, 2020
+|Septemver 19, 2020
+|}
+Link to research papers summaries: https://docs.google.com/document/d/1sUXz6G7NzK3DBTghrP5NcNCTOsGDh9N7JJOryhQY51w/edit#
+
+Self-Eval: https://drive.google.com/file/d/1d61KT9l3Z4Q0V4Q2GneOBcVoapTUKz59/view?usp=sharing
+
+= Week 6: September 21,  2020 =
+'''Lecture Meeting Notes:'''
+* none
+'''Team Meeting Notes:'''
+* Decide which features we want to implement from papers into ezCGP
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think about which features we can implement into ezCGP
+|Completed
+|September 21, 2020
+|September 28, 2020
+|September 26, 2020
+|}
+
+= Week 7: September 28,  2020 =
+'''Lecture Meeting Notes:'''
+* gave updates
+'''Team Meeting Notes:'''
+* Learned about augmentor pipeline
+* Need to get conda env wokring on PACE
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize with new code base
+|Completed
+|September 28, 2020
+|October 5, 2020
+|September 30, 2020
+|}
+
+= Week 8: October 5,  2020 =
+'''Lecture Meeting Notes:'''
+* gave updates
+* remember to update wikis
+'''Team Meeting Notes:'''
+* not happened yet
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make slides for presentation
+|Completed
+|October 5, 2020
+|October 19, 2020
+|October 15, 2020
+|}
+= Week 9: October 12,  2020 =
+'''Lecture Meeting Notes:'''
+* Discussed tasking for midterm presentation
+** I'm responsible for the research section and updates with Ford
+'''Team Meeting Notes:'''
+* Reviewed presentation and made final edits
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make slides for presentation
+|Completed
+|October 5, 2020
+|October 19, 2020
+|October 15, 2020
+|}
+= Week 10: October 19,  2020 =
+'''Lecture Meeting Notes:'''
+* Presentation Day
+* Midterm Presentation: https://docs.google.com/presentation/d/1mDjWHefrsxjaRfNSOVlTNI4f-g0Tl0ANK-P-5Z-d6bw/edit
+* Presented about diversity and exploration and how to reduce computation time
+[[files/Noisy Training and Aging Evolution.png|none|thumb]]
+[[files/Reducing Computation Time with Reference Curve.png|none|thumb]]
+
+'''Team Meeting Notes:'''
+* Discussed what tasks we can give the new students: mostly development side work so they can get familiar with the code base
+* Discussed research team's future goals
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing aging evolution
+|In Progress
+|October 22, 2020
+|November 9, 2020
+|
+|}
+= Week 11: October 26,  2020 =
+'''Lecture Meeting Notes:'''
+* Met with new students and gave quick overview of ezcgp
+* assigned tasks to the new students so they can get access to the github repo asap
+'''Team Meeting Notes:'''
+* Met with Rodd to review code and to get some background info necessary to start implementing paper
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing aging evolution
+|In Progress
+|October 22, 2020
+|November 9, 2020
+|
+|}
+= Week 12: November 2,  2020 =
+'''Lecture Meeting Notes:'''
+* The week was not too productive due to tests and other school work
+'''Team Meeting Notes:'''
+* 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing aging evolution
+|Completed
+|October 22, 2020
+|November 9, 2020
+|November 9, 2020
+|}
+= Week 13: November 9,  2020 =
+'''Lecture Meeting Notes:'''
+* Updates
+'''Team Meeting Notes:'''
+* N/A
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing early termination
+|In Progress
+|October 22, 2020
+|December 2, 2020
+|
+|}
+= Week 14: November 16,  2020 =
+'''Lecture Meeting Notes:'''
+* Updates
+'''Team Meeting Notes:'''
+* Worked on aging evolution
+** not really a straightforward way to do it with a queue since our implementation has to use a list to represent the population
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing early termination
+|In Progress
+|October 22, 2020
+|December 2, 2020
+|
+|-
+|Final Presentation
+|In Progress
+|October 22, 2020
+|December 2, 2020
+|
+|}
+= Week 15: November 22,  2020 =
+'''Lecture Meeting Notes:'''
+* Thanksgiving week
+'''Team Meeting Notes:'''
+* Implemented a new individual class for aging evolution
+* Implemented a new method to prune individuals that are too "old" within a population
+* https://github.com/ezCGP/ezCGP/commit/a04cdc1a307c2ab3fecd286e95cd4259a41a46fc
+* Finish final presentation slides
+* Final Presentation: https://docs.google.com/presentation/d/1cbx_daOsFvMZIgBQvVnmiJBmmm-Lvha61Mfe68Ej7c8/edit
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Begin implementing early termination
+|Completed
+|October 22, 2020
+|December 2, 2020
+|November 30, 2020
+|-
+|Final Presentation
+|Completed
+|October 22, 2020
+|December 2, 2020
+|November 30, 2020
+|}

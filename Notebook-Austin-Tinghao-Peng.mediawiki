@@ -1,0 +1,932 @@
+'''Name:''' Austin T. Peng
+
+'''Email:''' [mailto:apeng39@gatech.edu apeng39@gatech.edu]
+
+'''Cell Phone:''' 510-364-3210
+
+'''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
+
+= Fall 2021 =
+== Week 13: November 15, 2021 ==
+=== 11/15/2021 In-Class Subteam Meeting ===
+* I realized I did not setup mysql correctly on PACE.
+* Currently working on a fix and will add any solutions I find.
+
+=== 11/17/2021 Subteam Meeting ===
+* mysql is still a problem so I am deleting my scratch/ folder and redoing the setup
+* see Week 12: Setting Up PACE-ICE Notes for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload another dataset to test run EMADE.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 22, 2021
+|
+|-
+|Run the current implementation of lexicase on chest data
+|In Progress
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Read literature about new implementations of lexicase
+|
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|
+|November 8, 2021
+|November 22, 2021
+|
+|}
+
+== Week 12: November 8, 2021 ==
+=== 11/8/2021 In-Class Subteam Meeting ===
+* reviewed assigned tasks (I was assigned the task of implementing and running lexicase)
+* continued to setup PACE-ICE on my laptop
+
+
+=== 11/10/2021 Subteam Meeting ===
+* set up mysql on PACE-ICE
+
+=== Setting Up PACE-ICE Notes ===
+* I transferred my local EMADE fork onto the remote server using the following command
+** <code>scp -r <relative-path-to-local-EMADE-folder> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
+* When creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account (use vim to open file) and add the following contents to the file.
+<pre>
+[mysqld]
+datadir=scratch/db
+socket=mysqldb.sock
+user=USERNAME # replace USERNAME with your GT username (ex. apeng39)
+symbolic-links=0
+# uncomment the following line if you use a port and change the port number to the one you use
+# port=3304 
+
+[mysqld_safe]
+log-error=mysqldb.log
+pid-file=mysqldb.pid
+
+[mysql]
+socket=scratch/db/mysqldb.sock
+</pre>
+
+* I then ran the following lines in the command prompt (making sure to replace USERNAME with your GT username)
+** <code>mysql_install_db --datadir=$HOME/scratch/db</code>
+** <code>/usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
+
+* ssh into the node with `ssh USERNAME@atl1-1-02-012-5-l` and login
+** Note: replace USERNAME with your GT username
+* Inside the node I setup, I ran <code>mysql -u root</code>
+** Within the mysql prompt, run the following code replacing USERNAME and PASSWORD with your desired USERNAME and PASSWORD for your mysql account.
+<pre>
+DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+</pre>
+
+* Double check that now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted.
+* Within the mysql shell run the following lines to setup a database.
+<pre>
+CREATE DATABASE chestxray;
+</pre>
+
+* setting up PACE Anaconda (navigate to my EMADE folder)
+** run <code>module load anaconda3/2020.02</code>
+** run <code>conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
+** run <code>./reinstall.sh</code>
+** run <code>python setup.py install</code>
+** run <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database.
+
+* Finally, create a file called <code>launchEMADEchest.pbs</code> with the contents below.
+<pre>
+#PBS -N emade-chest
+#PBS -l nodes=1:ppn=4
+#PBS -l pmem=4gb
+#PBS -l walltime=8:00:00
+#PBS -q pace-ice-gpu
+#PBS -o emade-chest.out
+
+cd ~/emade
+echo "Started on `/bin/hostname`"  # prints the name of the node job started on
+export CC=gcc
+module load anaconda3/2020.02
+conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
+echo "STARTING EMADE"
+# The next line seeds the run if you're starting from scratch. if you're resuming a run then comment it out.
+# python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+# This line launches EMADE
+python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
+</pre>
+
+* run <code>qsub launchEMADEchest.pbs</code>
+* Now, you should be ready to run EMADE with <code>python3 src/GPFramework/launchEMADE.py templates/input_chestxray.xml</code>
+** The script should create EMADE_master.eXXXXX files after running for a while and check it for any errors or outputs.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 22, 2021
+|
+|-
+|Run the current implementation of lexicase on chest data
+|
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Read literature about new implementations of lexicase
+|
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|
+|November 8, 2021
+|November 22, 2021
+|
+|}
+
+== Week 11: November 1, 2021 ==
+=== 11/1/2021 In-Class Subteam Meeting ===
+* assigned to Image Processing subteam
+* the goal of this subteam is to help improve EMADE's image processing algorithms
+** we will use ChexNet dataset to perform multiclass classification
+* binary vs. muticlass vs. multilabel classification
+** binary classification
+*** classifies an instance into 1 of 2 classes
+*** in terms of image processing -> disease or not (given a chest xray scan)
+** multiclass classification
+*** classifies an instance into 1 of 3 or more classes
+*** in terms of image processing -> classifying a xray scan to have 1 of 14 diseases
+** multilabel classification
+*** classifies an instance into 0 or more classes
+*** in terms of image processing -> classifying an xray scan to have 0, 1, 2, ..., 14 diseases (any combination of diseases as well)
+* consider which part of the team you want to be on
+** hyperfeatures
+** selection methods
+** mating/mutation methods
+** data preprocessing
+
+=== 11/3/2021 Subteam Meeting ===
+* EMADE branches overview
+
+master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
+
+* *_methods.py (files contain primitives)
+* launchEMADE.py (launches EMADE.py)
+* PACE-ICE is currently under maintenance until Friday, November 1
+** try to login and complete PACE-ICE setup then
+* assigned to selection methods tasks team
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Checkout And Setup PACE-ICE
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Clone Aryaan's EMADE fork (Image-Processing(nn-vip))
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 3, 2021
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Read CheXNet
+|Complete
+|November 1, 2021
+|November 15, 2021
+|November 3, 2021
+|-
+|Read "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification"
+|Complete
+|November 1, 2021
+|November 15, 2021
+|November 3, 2021
+|}
+
+== Week 10: October 25, 2021 ==
+=== EMADE Presentations & Subteam Recruitment ===
+* ML vs MOGP vs EMADE presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp-vs-emade.pdf
+
+* Natural Language Processing
+** meeting time: Wednesday 2pm
+** BiDAF (bidirectional attention flow)
+*** uses NNLearnner (a kind of learner in EMADE)
+**** layers of neural networks are primitives in EMADE
+* Neural Architecture Search
+** meeting time: Friday 2pm
+** future work
+*** adding more testing/analysis methods
+*** creating resources/documentation for setting up EMADE locally
+*** restructuring EMADE primitives to enforce valid connections
+*** speeding up training time for neural nets
+*** integrating weight sharing
+*** improving EMADE ability to recognize bad individuals
+*** implement speciation for ADF's and individuals separately
+* Image Processing
+** data preprocessing
+*** used image data generator to resize, normalize, and horizontally flip
+*** other image augmentations include rotation, shearing, and translations
+* Stocks Portfolio Optimization
+** used EMADE for regression time series and optimization of market trading
+** objective functions
+*** (maximization) profit percentage, average profit per transaction
+*** (minimization) cdf of profit, variance of profit per transaction
+* Bootcamp Presentation Notes
+** consider not dropping the "cabin" feature because the location of the cabin in the ship probably has an effect on survival
+** an activation function can be used to force a boolean output in genetic programming
+** squaring FP and FN don't actually change the order of our pareto front individual
+** connecting worker nodes to the master is crucial to speeding up the process of EMADE
+
+=== Takeaways From EMADE ===
+* important to use trial and error when using new programs
+** setting up EMADE was difficult for our team because we had Windows, Mac, and Mac M1 laptops
+** we had to look around the internet and use trial and error to get EMADE set up
+* if the evaluation function is updated, make sure to create a new database as the pareto front of the previous individuals will not be measured by the same metrics
+* use <code>grep -rl "error string"</code> to trace the root cause of the error and reduce the amount of individuals with error strings
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|Completed
+|October 13, 2021
+|October 25, 2021
+|October 23, 2021
+|}
+
+== Week 9: October 20, 2021 ==
+=== Lecture Notes ===
+* student run lecture and work day to get EMADE running
+* helped us figure out how to graph multiple lines on the same graph with matplotlib
+** allowed us to graph ML, MOGP, and EMADE pareto fronts all on the same graph
+
+=== Bootcamp Team Meeting ===
+* got EMADE master running
+* my computer would run EMADE without errors but did not produce any evaluated values (TP, FP, TN, FN) in the database
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|In Progress
+|October 13, 2021
+|October 25, 2021
+|
+|-
+|Run EMADE As A Group (1 person setup SQL and act as master)
+|Completed
+|October 6, 2021
+|October 25, 2021
+|October 23, 2021
+|-
+|EMADE Titanic Assignment Presentation
+|Completed
+|October 6, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+
+== Week 8: October 13, 2021 ==
+=== Bootcamp Team Meeting ===
+* work session during class
+* goal is to be able to run <code>mysql -h hostname -u username -D database -p</code> and connect master and worker programs
+* Errors
+** I had an error where my csv files were not downloaded and unzipped properly (because it was a gzip file).
+** I solved the problem by installing git-lfs and the cloning the EMADE repository again.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run <code>mysql -h hostname -u username -D database -p</code>
+|In Progress
+|October 13, 2021
+|October 20, 2021
+|
+|-
+|Run EMADE As A Group (1 person setup SQL and act as master)
+|In Progress
+|October 6, 2021
+|October 25, 2021
+|
+|-
+|EMADE Titanic Assignment Presentation
+|In Progress
+|October 6, 2021
+|October 25, 2021
+|
+|}
+
+== Week 7: October 6, 2021 ==
+=== Lecture Notes ===
+* What Is EMADE?
+** EMADE = Evolutionary Multi-objective Algorithm Design Engine
+** combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+* Install EMADE
+** download git-lfs
+** clone git repo
+* connecting as a worker
+** add -w flag (signals that this is not a master process)
+** make sure mysql accepts remote connections
+** to connect use mysql -h hostname -u username -p
+** set the reuse flag to 1 if need to pickup on last state
+* assignment
+** run emade as a group (1 person setup SQL and act as master)
+** run emade with a reasonable number of generations
+** make a plot of non-dominated frontier at the end of the run (compare ML, MOGP, and EMADE)
+** make plots to show analysis of EMADE running and show some successful trees
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review MOGP Code (then add code to notebook)
+|Completed
+|September 29, 2021
+|October 13, 2021
+|October 13, 2021
+|-
+|Update Notebook
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 13, 2021
+|-
+|Clone EMADE
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 13, 2021
+|-
+|Install mysql
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 13, 2021
+|}
+
+== Week 6: September 29, 2021 ==
+* ML vs MOGP presentation slides: https://github.gatech.edu/emade/emade/wiki/files/apeng39/presentations/titanic-ml-vs-gp.pdf
+=== Presentation Notes ===
+* selection functions used by the groups
+** NSGA II
+** SPEA2
+** custom selTournament
+** NSGA II and selTournamentDCD
+* selecting from hall of fame may preserve more pareto individuals
+* adding terminals to GP can help improve performance (instead of just comparing)
+
+=== Suggestions For Our MOGP ===
+* try using one hot encoding for Mr, Miss, Mrs, Master, Rare
+** one hot encoding is useful in any case where there is more than 2 options to select from
+** one hot encoding is better since without it Master might be seen as more similar to Rare than Mr
+* fix the MOGP Pareto front graph (the axes are incorrectly scaled)
+* label each of the points in the ML graph and MOGP graph
+* add a third objective for a constant in the MOGP algorithm to add a constant to the fitness value for each individuals rather than manually adding it in the evaluation function
+* choose to keep either fare or ticket class, not both because they are related traits
+* create a graph with both ML and MOGP results on it for better comparison
+* pair NSGA-II with a selTournamentDCD for a better minimization of the AUC
+* try toolbox.decorate() for mate and mutation (refer to lab 2) to restrict mate and mutation tree lengths
+* have the evaluation function return FPR and FNR instead of FP and FN
+
+=== Questions ===
+* What is SPEA2 vs. NSGA-II?
+* What is a hall of fame?
+* How do I one hot encode something?
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 6, 2021
+|-
+|Review MOGP Code (then add code to notebook)
+|Completed
+|September 29, 2021
+|October 13, 2021
+|October 13, 2021
+|}
+
+== Week 5: September 22, 2021 ==
+=== Lecture Notes ===
+* for next week:
+** use same preprocessing, folds in data
+** but use GP instead of ML on the Titanic dataset
+** not allowed to use preprogrammed algorithms in DEAP (ex. mu+lambda)
+** allowed to use selection and mutation algorithms
+** create Pareto front for GP algorithm
+** compare ML and GP algorithms using AUC
+** submit a csv file for predictions with columns (PassengerID, Survived_1, ... Survived_n)
+
+=== Bootcamp Team Meeting ===
+* attempted to share code for evaluation function on Google Colab
+* made little progress as we did not know which evaluation function to use and how to force a boolean output
+
+=== Titantic Dataset MOGP ===
+* Additional Problems With GP
+** bloated tree size (size > 90)
+*** set a max tree size for selection and mutation
+*** add a penalizing factor into the evaluation function for large trees
+*** the speed of the GP was faster when tree size was maximized
+** forcing boolean output
+*** we used strongly typed GP but could use loosely typed GP to force a boolean output
+** unable to add terminals
+*** being able to add terminals could allow for improvement of our GP result
+*** our code currently only compares floats between columns rather than comparing them to a predetermined value
+** ensuring that the solutions were not all FP or all FN
+*** add squared penalizing factor for having high value of either FP or FN
+*** the added penalizing factor encouraged a more equal distribution of FP and FN
+* Evaluation Function
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        predictions = func(x_train[cols[0]],x_train[cols[1]],x_train[cols[2]],x_train[cols[3]],x_train[cols[4]],x_train[cols[5]],x_train[cols[6]],x_train[cols[7]],x_train[cols[8]],x_train[cols[9]])
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20
+        e2 = FP**2 + len(individual) * 20
+        return (e1, e2)
+
+* Takeaways
+** there are situations when our evaluation function would result in an increase in fitness over time (when our problem is a minimization problem)
+*** could be the result of poor crossover or mutation methods
+** compared to our ML algorithms, GP had a larger variation of results (most likely because of crossover and mutations)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 29, 2021
+|-
+|Meet With Group For Titanic Dataset Predictions
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Titanic Dataset MOGP Predictions (submit to Canvas)
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 29, 2021
+|-
+|Titanic Dataset MOGP Predictions Presentation
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 29, 2021
+|}
+
+== Week 4: September 15, 2021 ==
+=== Lecture Notes ===
+* This week's goal is to download the Titanic dataset (from Kaggle competition), preprocess the data for machine learning, use scikit-learn, and evaluate objectives in a false positive and false negative space.
+* introduction to sci-kit, pandas, 
+* assigned to bootcamp groups with
+** David Zhang
+** Nikhil Vangala
+** Jordan Stampfli
+* within the subteam: preprocess data together, train data, try to get codominant models within your subteam
+* decisions to make: how to encode data, how to fold data (train and test percentage), how to balance data (false positives, false negatives)
+
+=== Bootcamp Team Meeting ===
+* share code for preprocessing data on Google Colab
+* split train.csv data to 67% training, 33% testing
+* chose 4 codominant models
+** multi-layer perceptron classifier
+** random forest classifier
+** gaussian naive bayes classifier
+** logistic regression classifier
+* found and made predictions using the above 4 models and saved as 4 seperate csv files
+
+{| class="wikitable"
+!Model
+!False Negative
+!False Positive
+|-
+|multi-layer perceptron
+|30
+|27
+|-
+|random forest
+|30
+|30
+|-
+|gaussian naive bayes
+|40
+|21
+|-
+|logistic regression
+|31
+|25
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook (format, images, etc.)
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|-
+|Meet With Group For Titanic Dataset Predictions
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|-
+|Titanic Dataset ML Predictions (submit to Canvas)
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 18, 2021
+|}
+
+== Week 3: September 8, 2021 ==
+=== Lecture Notes ===
+* algorithms look for accuracy, efficiency, reliability, scalability, consistency
+* the evaluation of a genome associates an individual with a set of scores (true positive, false positive, etc.)
+* objectives are a set of measurements each individual is scored against
+* data set (positive and negative samples) feed into a classifier which results in a confusion matrix
+
+{| class="wikitable"
+|+confusion matrix
+|-
+|
+|predicted positive
+|predicted negative
+|-
+|actual positive
+|true positive (TP)
+|false negative (FN), type II error
+|-
+|actual negative
+|false positive (FP), type I error
+|true negative (TN)
+|}
+
+* Maximization Measures
+** sensitivity or true positive rate (TPR)
+*** aka hit rate or recall
+*** TPR = TP/P = TP/(TP+FN)
+** specificity (SPC) or true negative rate (TNR)
+*** TNR = TN/N = TN/(TN+FP)
+
+* Minimization Measures
+** false negative rate (FNR)
+*** FNR = FN/P = FN/(TP+FN)
+*** FNR = 1-TPR
+** fallout or false positive rate (FPR)
+*** FPR = FP/N = FP/(FP+TN)
+*** FPR = 1-TNR = 1-SPC
+
+* Other Measures
+** precision or positive predictive value (PPV) - maximization
+*** PPV = TP/(TP+FP)
+** false discovery rate - minimization
+*** FDR = FP/(TP+FP)
+*** FDR = 1-PPV
+*** negative predictive value (NPV) - maximization
+*** NPV = TN/(TN+FN)
+** accuracy (ACC) - maximization
+*** ACC = (TP+TN)/(P+N)
+
+* Objective Space
+** each individual is evaluated using objective functions
+*** ex. mean squared error, cost, complexity, TPR, FPR, etc.
+** objective scores give each individual a point in objective space
+
+* Pareto Optimality
+** '''Pareto optimal''': if there is no other individual in the population that outperforms the individual on all objectives
+** '''Pareto frontier''': the set of all Pareto individuals
+** we want to drive selection by favoring Pareto individuals, but maintain diversity by giving all individuals some probability of mating
+
+[[files/apeng39/w3-ss1-pareto-optimality.png]]
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II)
+** separate population into nondomination ranks
+** select individuals using a binary tournament
+** lower Pareto ranks beat higher Pareto ranks (in minimizing problems)
+** ties on the same front are broken by crowding distance
+*** summation of normalized Euclidean distances to all points within the front
+*** higher crowding distance wins
+
+* Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+** each individual is given a strength S, where S is the number of other individuals it dominates
+** each individual receives a rank R, where R is the sum of all S's of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+** a distance to the kth nearest neighbor (\sigma^k) is calculated and fitness of R + 1/(\sigma^k+2)
+
+=== Lab 2: Part 2 ===
+* In this lab, there were two objectives to be minimized: mean squared error and the size of the tree.
+* In addition, three new primitives sin, cos, tan were added.
+* The rest of the program was initialized similarly to Lab 2: Part 1.
+* Using the fitness levels of the individuals, the Pareto front was determined with a key.
+** blue = the given individual
+** green = dominated by the given individual
+** red = dominates the given individual
+** black = uncomparable
+* The initial run of my code returned the approximated function negative(cos(add(x, sin(subtract(add(x, sin(sin(sin(cos(x))))), cos(x)))))) with fitness: (0.18701281145428028, 15.0) for the given function np.negative(points) + np.sin(points**2) + np.tan(points**3) - np.cos(points). The area under the curve (AUC) was 3.578671731976013.
+* I implemented several versions of the program to produce at least a 25% decrease in AUC. Every time I run the program, I get a different value for the AUC so I will simply list the general way I altered each factor to cause at least a 25% decrease in AUC.
+** decreased NGEN -> decreased AUC, increased NGEN -> increased AUC
+*** makes sense since increasing the number of generations should give the algorithm more opportunities to find the individual with the highest fitness
+** decreased MU -> decreased AUC, increased MU -> increased AUC
+*** makes sense since increasing the number of individuals to select for the next generation allows the algorithm to have a higher chance of picking an individual with the highest fitness
+** decreased LAMBDA -> decreased AUC, increased LAMBDA -> increased AUC
+*** makes sense since increasing the number of children allows for a higher probability of the children containing parts of their parent with higher fitness
+** altering CXPB and MUTPB didn't seem to have an obvious effect on the AUC, however, I did observe that the spread of values for AUC became wider
+
+
+=== Notebook Self-Evaluation ===
+[[files/apeng39/notebook-evals/w3-notebook-eval.jpg]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook Self Assessment
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Update Notebook (format, images, etc.)
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Lab 2: Part 2
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
+== Week 2: September 1, 2021 ==
+=== Lecture Notes ===
+* Tree Representation
+** nodes are called primitives and represent functions
+** leaves are called terminals and represent parameters
+** the output is produced at the root of the tree
+** the tree is converted to a lisp preordered parse tree (think preorder traversal)
+
+[[files/apeng39/w2-ss1-lisp-preordered-parse-tree.png]]
+
+* Crossover In Genetic Programming (GP)
+** crossover in tree-based GP is simply exchanging subtrees
+
+[[files/apeng39/w2-ss2-crossover-gp.png]]
+
+* Mutation In GP
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+
+* Evaluating A Tree
+** we feed several input points to get outputs
+** the error between the function's outputs and truth can be measured through a sum square error
+
+* What Can Make Evolution Easier?
+** if we had better primitives, it would be easier to evolve algorithms
+** ex. if we wanted to approximate sin(x), we could use +,-,*,/, but we could also use factorial, exponent, summation, etc.
+
+=== Lab 2: Part 1 ===
+* For my two primitives, I added the sine and absolute value methods.
+* I decided to use mutNodeReplacement() method from the DEAP package for my second mutation method. Based on the line graphs created using matplotlib, I saw that both mutUniform() and mutNodeReplacement() resulted in similar graphs. The mutNodeReplacement() method, however, resulted in a lower maximum fitness than mutUniform().
+* I altered the function being approximated within the evaluation method found that almost all the time, the genetic algorithm was able to find a near-perfect approximation for the given function.
+* I also noticed that the more complicated I made the function being approximated in the evaluation method, I would need to increase the minimum and maximum heights of the tree being generated to achieve a better approximation.
+
+{| class="wikitable"
+|+'''comparing mutation methods'''
+|-
+|mutNodeReplacement
+|mutUniform
+|-
+|[[files/apeng39/w2-ss3-mutNodeReplacement-lineGraph.png]]
+|[[files/apeng39/w2-ss4-mutUniform-lineGraph.png]]
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Format Notebook (code, images)
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 3, 2021
+|-
+|Lab 2: Part 1
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}
+
+
+== Week 1: August 25, 2021 ==
+=== Lecture Notes ===
+* The concept of genetic algorithms is that each new generation of algorithms is created through the mating or mutation of individuals in the previous population. Through many iterations of this process, it produces the best individual.
+* Mating or crossover is the creation of a new algorithm using a specified number of parts of the previous algorithm depending on the number of split points.
+* A mutation introduces random modifications to the algorithm to help maintain diversity.
+* A simple genetic algorithm problem is the One Max problem which essentially wants to produce a list of all 1's given a list of binary numbers.
+* keywords
+** '''individual''': one specific candidate in the population (with properties like DNA)
+** '''population''': a group of individuals whose properties will be altered
+** '''objective''': a value used to characterize individuals that you are trying to maximize or minimize (goal is to increase objective through an evolutionary algorithm)
+** '''fitness''': relative comparison to other individuals; how well does the individual accomplish the task relative to the rest of the population?
+** '''evaluation''': a function that computes the objective of an individual
+** '''selection''': represents 'survival of the fittest'; gives preference to better individuals, allowing them to pass on their genes
+*** '''fitness proportionate''': the greater the fitness value, the higher the probability of being selected for mating
+*** '''tournament''': several tournaments among individuals (number of individuals in each tournament is dependent on the tournament size); winners are selected for mating
+** '''mate/crossover''': represents mating between individuals
+*** anything up to n-point crossover is possible
+[[files/apeng39/w1-ss1-crossover1.png]]
+[[files/apeng39/w1-ss2-crossover2.png]]
+** '''mutate''': introduces random modifications; purpose is to maintain diversity
+[[files/apeng39/w1-ss3-mutate.png]]
+** '''algorithms''': various evolutionary algorithms to create a solution or best individual
+
+=== Lab 1 ===
+* Part 1: One Max Problem ====
+** The objective of this problem is to create a genetic algorithm that returns the maximum amount of 1s in a binary list of size n.
+*** When I ran the algorithm with a much larger population (n=10000) it seemed like it took fewer generations for an individual in the population to reach maximum fitness.
+
+* Part 2: N Queens Problem ====
+** Learning Points
+*** Python map(function, iterable) takes a function and maps an iterable (tuple, list, etc.) to it
+*** Python zip() takes in iterables and returns an iterator of tuples with each tuple having elements from all the iterables
+*** Python slicing arr[start:stop:step] (start through not past stop, by step)
+*** arr[:] makes a shallow copy of the array
+*** you can resize an array to the desired length using [0] * size
+
+* My Mutation Methods
+ <nowiki>def mutOppositeHalves(individual, indpb):
+    """ Randomly picks two indexes from each half of the individual and swaps them with a probability of indpb.
+    :param individual: Individual to be mutated.
+    :param indpb: Independent probability for each attribute to be exchanged to another position.
+    :returns: A tuple of one individual.
+    """"
+    size = len(individual)
+    front_half = random.randint(0, size/2)
+    back_half = random.randint(size/2, size-1)
+    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+    return individual,
+<nowiki></nowiki>
+
+ <nowiki>def mutRandomHalves(individual, indpb):
+    """ Randomly picks a "midpoint" from the individual and picks two indexes from each half of midpoint,
+     swapping them with a probability of indpb.
+    :param individual: Individual to be mutated.
+    :param indpb: Independent probability for each attribute to be exchanged to another position.
+    :returns: A tuple of one individual.
+    """
+    size = len(individual)
+    midpoint = random.randint(0, size-2)
+    front_half = random.randint(0, size/2)
+    back_half = random.randint(size/2, size-1)
+    individual[front_half], individual[back_half] = individual[back_half], individual[front_half]
+    return individual,
+<nowiki></nowiki>
+
+* Observations & Reflection
+** To test the effectiveness of my mutation methods, I ran each evolution (100 generations) 100 times and plotted the fitness values.
+** I saw that my mutOppositeHalves() method performed the best, finding the global minimum of 0, 60 out of 100 evolutions. My mutRandomHalves() and the provided mutShuffleIndexes performed slightly worse producing the global minimum approximately 55 times out of 100 evolutions.
+** However, for the methods I wrote, the maximum shown on the line graphs for each generation ended to be lower than the method provided.
+** I struggled a bit with writing the code to make a bar graph using matplotlib mainly because of the data types that the toolbox returned. I kept feeding matplotlib a list of tuples when it wanted a list of ints.
+
+{| class="wikitable"
+|+'''mutOppositeHalves'''
+|-
+|[[files/apeng39/w1-ss4-mutOppositeHalves-barGraph.png]]
+|[[files/apeng39/w1-ss5-mutOppositeHalves-lineGraphComparison.png]]
+|}
+
+{| class="wikitable"
+|+'''mutRandomHalves'''
+|-
+|[[files/apeng39/w1-ss6-mutRandomHalves-barGraph.png]]
+|[[files/apeng39/w1-ss7-mutRandomHalves-lineGraphComparison.png]]
+|}
+
+{| class="wikitable"
+|+'''mutShuffleIndexes'''
+|-
+|[[files/apeng39/w1-ss8-mutShuffleIndexes-barGraph.png]]
+|[[files/apeng39/w1-ss9-mutShuffleIndexes-lineGraphComparison.png]]
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install DEAP
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 26, 2021
+|-
+|Lab 1
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|-
+|Update Notebook
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|}
+

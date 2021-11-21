@@ -1,0 +1,371 @@
+
+== About this Guide  ==
+
+This wiki entry is to help you understand how to understand your data and how it relates to your learning problem, and how to properly format text-based data to be compatible with EMADE.
+
+== CSV Format ==
+
+For text-based data, EMADE currently only supports the use of comma-separated value (CSV) files. CSV files must also be zipped using the GZIP format (so that their full filetype is .csv.gz) to work with EMADE. [https://www.7-zip.org/ 7-Zip] is a free file archiver that is compatible with the GZIP format.
+
+== Understanding Your Data ==
+
+It's key to understand both your data format and problem before applying machine learning techniques. Text-based data is appropriate to use when both your input and output can be expressed with an array of floating point or integer numbers. EMADE supports both formats, and does not strictly distinguish between the two because of the nature of Python.
+
+After determining that your data can be expressed in a numerical format, you should determine what constitutes an 'instance' of your problem. An instance is a pair of input and output data, where the output is assumed to be produced through some underlying function of the input data. The entire data set is comprised of multiple instances. The size and shape of input and output data may vary across instances, but the shape of the output data should be uniquely determined by the shape of the input data. There are three main paradigms of this relationship between the size of input and output data that EMADE supports: feature data, many-to-one data, and many-to-many data.
+
+{| class="wikitable"
+!Instance 1:
+|Input
+|Output
+|-
+!Instance 2:
+|Input
+|Output
+|-
+!Instance 3:
+|Input
+|Output
+|-
+|⋮
+|⋮
+|⋮
+|}
+
+=== Feature Data ===
+
+The most common data paradigm is feature data, in which each input entry is a fixed size (N), and each output entry is a single value.
+
+{| class="wikitable"
+!Instance
+|Input
+|Output
+|-
+!1
+|X<sub>(1,1)</sub>,X<sub>(1,2)</sub>,…,X<sub>(1,N)</sub>
+|Y<sub>1</sub>
+|-
+!2
+|X<sub>(2,1)</sub>,X<sub>(2,2)</sub>,…,X<sub>(2,N)</sub>
+|Y<sub>2</sub>
+|-
+!3
+|X<sub>(3,1)</sub>,X<sub>(3,2)</sub>,…,X<sub>(3,N)</sub>
+|Y<sub>3</sub>
+|-
+|⋮
+|⋮
+|⋮
+|}
+
+A specific input value X<sub>(i,j)</sub> of the instance i is typically referred to as an attribute of that instance (in this case attribute j), and the output value Y<sub>i</sub> is referred to as the truth value. EMADE accepts feature data directly in this format, replicated below with each individual CSV entry in a cell.
+
+{| class="wikitable"
+|X<sub>(1,1)</sub>
+|X<sub>(1,2)</sub>
+|…
+|X<sub>(1,N)</sub>
+|Y<sub>1</sub>
+|-
+
+|X<sub>(2,1)</sub>
+|X<sub>(2,2)</sub>
+|…
+|X<sub>(2,N)</sub>
+|Y<sub>2</sub>
+|-
+
+|X<sub>(3,1)</sub>
+|X<sub>(3,2)</sub>
+|…
+|X<sub>(3,N)</sub>
+|Y<sub>3</sub>
+|-
+
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|}
+
+This is an example of a feature data CSV file where N=3, and there are 3 instances.
+
+{| class="wikitable"
+|0.123
+|1
+|9
+|1
+|-
+
+|1.409
+|1
+|17
+|0
+|-
+
+|0.769
+|0
+|6
+|1
+|}
+
+=== Many-to-One Data ===
+
+The next data paradigm is many-to-one data, where in each input entry there are a variable number of values which must be a multiple of some value N, and each output entry is a single value. That is, the number of input values may differ across instances. A example of this paradigm is multi-channel time-series data. Every instance must contain all N channels, but across different instances, the time series can be of varying lengths. The bolded values <b>X</b><sub>(i,j)</sub> will refer to N consecutive entries of input values of instance i at 'position' j. The value L(i) will be used to denote the number of input entries in instance i.
+
+{| class="wikitable"
+!Instance
+|Input
+|Output
+|-
+!1
+|<b>X</b><sub>(1,1)</sub>,<b>X</b><sub>(1,2)</sub>,…,<b>X</b><sub>(1,L(1))</sub>
+|Y<sub>1</sub>
+|-
+!2
+|<b>X</b><sub>(2,1)</sub>,<b>X</b><sub>(2,2)</sub>,…,<b>X</b><sub>(2,L(2))</sub>
+|Y<sub>2</sub>
+|-
+!3
+|<b>X</b><sub>(3,1)</sub>,<b>X</b><sub>(3,2)</sub>,…,<b>X</b><sub>(3,L(3))</sub>
+|Y<sub>3</sub>
+|-
+|⋮
+|⋮
+|⋮
+|}
+
+The first line of the CSV file should contain a single entry "N=x", where 'x' should be the value of the length of each entry <b>X</b><sub>(i,j)</sub>. EMADE also requires that each block of N input values <b>X</b><sub>(i,j)</sub> have a corresponding 'timestamp' T<sub>(i,j)</sub>. Note that although the below table has rows of equal length, this is not necessarily required.
+
+{| class="wikitable"
+|N=x
+|-
+
+|T<sub>(1,1)</sub>
+|<b>X</b><sub>(1,1)</sub>
+|T<sub>(1,2)</sub>
+|<b>X</b><sub>(1,2)</sub>
+|…
+|T<sub>(1,N(1))</sub>
+|<b>X</b><sub>(1,L(1))</sub>
+|Y<sub>1</sub>
+|-
+
+|T<sub>(2,1)</sub>
+|<b>X</b><sub>(2,1)</sub>
+|T<sub>(2,2)</sub>
+|<b>X</b><sub>(2,2)</sub>
+|…
+|T<sub>(2,L(2))</sub>
+|<b>X</b><sub>(2,L(2))</sub>
+|Y<sub>2</sub>
+|-
+
+|T<sub>(3,1)</sub>
+|<b>X</b><sub>(3,1)</sub>
+|T<sub>(3,2)</sub>
+|<b>X</b><sub>(3,2)</sub>
+|…
+|T<sub>(3,L(3))</sub>
+|<b>X</b><sub>(3,L(3))</sub>
+|Y<sub>3</sub>
+|-
+
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|}
+
+This is an example of a many-to-one CSV file where N=2, and there are 3 instances.
+
+{| class="wikitable"
+|N=2
+|-
+
+|0.0
+|0.173
+|0.627
+|0
+|-
+
+|0.0
+|0.121
+|0.494
+|0.1
+| -1.34
+|7.72
+|0.2
+|0.0256
+|5.51
+|0
+|-
+
+|0.0
+|0.705
+|0.0607
+|0.1
+|0.621
+|3.56
+|1
+|}
+
+=== Many-to-Many Data ===
+
+The final and most general data paradigm is many-to-many data, in which for both the input and output entries there are a variable number of values which must be a multiple of some values N and M, respectively. That is, the number of input values and output values may differ across instances. However, it is required that for every 'block' of N input values, there is exactly one corresponding block of M output values. An example of this paradigm is a filter design problem, where a waveform is used to predict another waveform. The bolded values <b>X</b><sub>(i,j)</sub>/<b>Y</b><sub>(i,j)</sub> will refer to N/M consecutive entries of input/output values of instance i at 'position' j. The value L(i) will be used to denote the number of input and output entries in instance i.
+
+{| class="wikitable"
+!Instance
+|Input
+|Output
+|-
+!1
+|<b>X</b><sub>(1,1)</sub>,<b>X</b><sub>(1,2)</sub>,…,<b>X</b><sub>(1,L(1))</sub>
+|<b>Y</b><sub>(1,1)</sub>,<b>Y</b><sub>(1,2)</sub>,…,<b>Y</b><sub>(1,L(1))</sub>
+|-
+!2
+|<b>X</b><sub>(2,1)</sub>,<b>X</b><sub>(2,2)</sub>,…,<b>X</b><sub>(2,L(2))</sub>
+|<b>Y</b><sub>(2,1)</sub>,<b>Y</b><sub>(2,2)</sub>,…,<b>Y</b><sub>(2,L(2))</sub>
+|-
+!3
+|<b>X</b><sub>(3,1)</sub>,<b>X</b><sub>(3,2)</sub>,…,<b>X</b><sub>(3,L(3))</sub>
+|<b>Y</b><sub>(3,1)</sub>,<b>Y</b><sub>(3,2)</sub>,…,<b>Y</b><sub>(3,L(3))</sub>
+|-
+|⋮
+|⋮
+|⋮
+|}
+
+The first line of the CSV file should contain two entries, "N=x" and "M=y", where 'x' should be the value of the length of each input entry <b>X</b><sub>(i,j)</sub>, and 'y' should be the value of the length of each output entry <b>Y</b><sub>(i,j)</sub>. EMADE also requires that each block of input and output values <b>X</b><sub>(i,j)</sub> and <b>Y</b><sub>(i,j)</sub> have a corresponding 'timestamp' T<sub>(i,j)</sub> and S<sub>(i,j)</sub>, respectively. Note that although the below table has rows of equal length, this is not necessarily required. As well, note that each instance now takes two rows of values, rather than one as in the other data paradigms.
+
+{| class="wikitable"
+|N=x
+|M=y
+|-
+
+|T<sub>(1,1)</sub>
+|<b>X</b><sub>(1,1)</sub>
+|T<sub>(1,2)</sub>
+|<b>X</b><sub>(1,2)</sub>
+|…
+|T<sub>(1,L(1))</sub>
+|<b>X</b><sub>(1,L(1))</sub>
+|-
+
+|S<sub>(1,1)</sub>
+|<b>Y</b><sub>(1,1)</sub>
+|S<sub>(1,2)</sub>
+|<b>Y</b><sub>(1,2)</sub>
+|…
+|S<sub>(1,N(1))</sub>
+|<b>Y</b><sub>(1,L(1))</sub>
+|-
+
+|T<sub>(2,1)</sub>
+|<b>X</b><sub>(2,1)</sub>
+|T<sub>(2,2)</sub>
+|<b>X</b><sub>(2,2)</sub>
+|…
+|T<sub>(2,L(2))</sub>
+|<b>X</b><sub>(2,L(2))</sub>
+|-
+
+|S<sub>(2,1)</sub>
+|<b>Y</b><sub>(2,1)</sub>
+|S<sub>(2,2)</sub>
+|<b>Y</b><sub>(2,2)</sub>
+|…
+|S<sub>(2,L(2))</sub>
+|<b>Y</b><sub>(2,L(2))</sub>
+|-
+
+|T<sub>(3,1)</sub>
+|<b>X</b><sub>(3,1)</sub>
+|T<sub>(3,2)</sub>
+|<b>X</b><sub>(3,2)</sub>
+|…
+|T<sub>(3,L(3))</sub>
+|<b>X</b><sub>(3,L(3))</sub>
+|-
+
+|S<sub>(3,1)</sub>
+|<b>Y</b><sub>(3,1)</sub>
+|S<sub>(3,2)</sub>
+|<b>Y</b><sub>(3,2)</sub>
+|…
+|S<sub>(3,N(3))</sub>
+|<b>Y</b><sub>(3,L(3))</sub>
+|-
+
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|⋮
+|}
+
+This is an example of a many-to-many CSV file where N=2,M=1, and there are 3 instances.
+
+{| class="wikitable"
+|N=2
+|M=1
+|-
+
+|0.0
+|0.88
+|5.18
+|0.1
+|0.947
+|5.49
+|-
+
+|0.0
+|9.52
+|0.1
+|10.411
+|-
+
+|0.0
+| -0.773
+|3.44
+|0.1
+| -0.676
+|5.24
+|0.2
+| -0.572
+|0.143
+|-
+
+|0.0
+| -0.104
+|0.1
+|1.92
+|0.2
+| -2.73
+|-
+
+|0.0
+|0.521
+|4.71
+|0.1
+| -1.92
+|4.95
+|0.2
+| -0.261
+|5.30
+|-
+
+|0.0
+|7.29
+|0.1
+| -4.65
+|0.2
+|4.06
+|-
+|}

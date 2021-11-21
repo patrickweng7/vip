@@ -1,0 +1,199 @@
+
+== Team Member ==
+[[files/Bryce In Montana .jpg|thumb]]
+Team Member: Bryce K. Jackson
+
+Email: bjackson86@gatech.edu
+
+Cell Phone: 229-560-8882
+
+Year: 2nd - Sophomore
+
+Interests: ML, Soccer, Whitewater Kayaking, Climbing
+
+== Fall 2020 ==
+
+=== Titanic Genetic Programming Project ===
+* All of the code and explanation is in the Jupyter notebook for genetic programming located at this repository: https://github.gatech.edu/amcquilkin3/subteam-1-titanic-ml
+* Defined the primitive set as the following operations:
+** Addition
+** Subtraction
+** Multiplication
+** Negation
+** Maximization
+** Minimization
+
+* Started the main part of the evolutionary algorithm with the following parameters:
+** 75 generations
+** Initial population of 200
+** Crossover probability: 35%
+** Crossover probability if in the hall of fame: 70%
+** Mutation probability: 20%
+* Best individual for the training set: subtract(subtract(maximum(maximum(Embarked, subtract(minimum(subtract(add(maximum(maximum(Embarked, subtract(minimum(subtract(maximum(multiply(Parch, Age), add(Fare, Age)), multiply(Parch, SibSp)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(maximum(maximum(Embarked, subtract(minimum(subtract(add(Fare, Age), multiply(Fare, Parch)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(Embarked, Embarked), maximum(negative(Parch), maximum(multiply(multiply(Age, Pclass), negative(Embarked)), Parch))), Age))), Parch), Embarked), maximum(add(Embarked, Embarked), maximum(subtract(maximum(Embarked, Parch), minimum(multiply(minimum(Embarked, Age), Age), Embarked)), minimum(add(Embarked, Age), maximum(Fare, Fare))))), minimum(minimum(Age, Age), Embarked)))), Parch), Age), multiply(Fare, Parch)), minimum(maximum(Fare, Age), multiply(Sex, maximum(multiply(Parch, Age), add(Fare, Age))))), minimum(minimum(add(Embarked, Embarked), maximum(negative(Parch), maximum(multiply(multiply(Age, Pclass), negative(add(Embarked, Embarked))), Parch))), minimum(minimum(Age, multiply(subtract(Pclass, Parch), Age)), Embarked)))), Parch), minimum(Age, Embarked)), Age) with fitness: (0.0, 191.0)
+* Best individual on the test set: subtract(subtract(maximum(Embarked, subtract(Age, minimum(multiply(Age, Parch), Embarked))), minimum(minimum(Age, multiply(add(Embarked, Sex), negative(minimum(Age, Sex)))), Embarked)), Age)
+** Accuracy: 0.8171641791044776
+** Fitness: (162, 1)
+[[files/Pareto front draft 6.png|none|thumb]]
+
+=== September 9, 2020 ===
+'''Lecture Notes''': 
+* Introduction to Titanic Kaggle assignment.
+* Used the same subteams as teh last time. 
+* Brief overview of how to complete Titnalic GP assignment
+* Set up Slack and a group chat and set up meeting times for how we were going to move foward.
+'''ML Projec'''t:
+* All of the code and explanation is in the Jupyter notebook for machine learning located at this repository: https://github.gatech.edu/amcquilkin3/subteam-1-titanic-ml 
+* Started out by reading train.csv and test.csv with '''Pandas''' 
+* Set the index of the data frame to the passenger id, since it already can be used as a unique identifier for any given passenger 
+* Looked over features and determined that Ticket no. and Name were not at all related to a passenger's survival of the shipwreck, so those features were dropped 
+* Since most of the entries from Cabin are missing, it's best to drop this feature as well 
+* The missing entries from Age and Fare can be replaced with their mean, and the missing ones from Embarked can be replaced with its mode
+** Afterwards, we shouldn't have any missing entries 
+
+* Now we need to convert non-numerical features to numerical feature
+** Embarked: Cherbourg becomes 0, Queenstown becomes 1, and Southampton becomes 2
+** Sex: Male becomes 0 and Female becomes 1
+*My Confusion Matrix for Logistic Regression [[files/Screenshot 2020-09-30 135913.png|thumb|none]]
+*Our Groups Pareto Front[[files/Pareto Front Subteam 1 draft 2.png|thumb|Pareto front for subteam 1|none]] 
+
+=== [[files/VIP AAD notebook rubric Bryce.docx|Self Graded Rubric]] ===
+
+=== September 2, 2020 ===
+
+==== '''Lecture Notes''': ====
+* Definitions
+** '''Gene Pool:''' Set of genomes to be evaluated during the current generation
+*** '''Genome''': Description of an individual - DNA
+**** '''for GA:''' Set of values
+**** '''for GP:''' Tree structure/string
+*** '''Search Space:''' Set of all possible algorithms/genomes
+**'''True positive''' - how often are we identifying the desired object (Big is good)
+**'''False Positive''' - how often are we identifying something other than the desired object (Big is bad)
+** '''Sensitivity rate/True Positive Rate:''' rate at which the classifier predicts true positives (trying to maximize)
+** '''Specificity rate/True Negative Rate:''' rate at which the classifier predicts true negatives (trying to maximize)
+** '''False Negative Rate:''' 1 - TPR (trying to minimize)
+** '''False Positive Rate:''' 1 - TNR (trying to minimize)
+**'''Pareto Optimality:'''
+*** An individual is Pareto is there is no other individual in the population that outperforms the individual on all objectives
+*** Set of Pareto individuals is known as '''Pareto Frontier'''
+*Group Assignments: Group #1- Alex Mcquilkin, Anjana Chamarthi, Jiaxuan Chen
+
+* Accuracy, specificity, sensitivity, precision, and more
+** Confusion matrices help us visualize this
+* These vectors can be fed into ML models (typically classifiers)
+
+==== Lab Notes: ====
+* Followed the lab to solve the multiple objective problem with symbolic regression
+* Plotted Pareto Frontier to visualize how individual solutions can dominate each other
+* First, we initialized all of our fitness algorithms and the individuals and then plotted the sorted population in objective space.
+** [[files/Objective Space 1.png|none|thumb]]
+** The blue point is the given individual we set aside and compared all the other individuals to. The black points are uncomparable, the green points are dominated by the given individual, and the red points dominate the given individual.
+
+* Next, we defined and ran the main evolutionary algorithm and plotted the results. 
+* [[files/Genetic Programming.png|none|thumb]]
+* Finally, we graphed the results on a Pareto front. 
+* [[files/Preato Front.png|none|thumb]]
+
+=== August 26, 2020 ===
+
+==== '''Lecture Notes''': ====
+* Genetic Algorithms can be represented as a tree structure
+* Nodes (primitives) represent functions
+* Lisp Preordered Parse Tree
+** Example: f(x) = 3 * 4 + 1 can be written as [+, *, 3, 4, 1]
+** [function, input1, input2]
+* Crossover in GP
+** The basis of crossover is exchanging subtrees
+** Mutation can involve:
+*** Inserting a node or subtree
+*** Deleting a node or subtree
+*** Changing a node
+
+==== '''<u>Lab Notes</u>''': ====
+* Definitions: 
+** <u>DEAP's PrimitiveTree class</u>- The tree is represented with a list where the nodes are appended in a depth-first order. The nodes appended to the tree are required to have an attribute arity which defines the arity of the primitive.
+** <u>Arity</u>- specifies the amount of arguments each primitive takes.
+* '''''Symbolic Regression'''''
+** Adding Primatives
+*** Originally added the divide and the positive numpy functions but this didn't work very well because the divide function produced a lot of divide by zero errors.
+*** I ended up switching divide for absolute value for better results
+** Mutation Function
+*** I decided to use the mutNodeReplacement function, which replaces a random primitive with another.
+*** [[files/Graph of Symbolic Regression Work.png|thumb|none]]
+** Additonal Notes
+*** A solution seems to normally be achieved around 7 generations, no matter what combination of primitives I use. 
+
+=== August 19, 2020 ===
+
+==== '''Team Meeting Notes:''' ====
+* '''''Genetic Algorithms''''': involves numerous matings/mutations of individuals in the previous population to create a new generation that will produce the best individual (one with the highest possible fitness).
+* '''''Key Words''''':
+** Bitstring Encoding - solution's genome (encoding) represented as string of 1's and 0's (for example 11011100001)
+** Crossover - process that reproduces an offspring using two parent solutions
+*** One Point - to produce offspring: choose arbitrary point in genome of set length, swap subset of Parent A after point with Parent B's subset after point (or vice versa)
+*** Two Point - to produce offspring: choose two arbitrary points in genome of set length, swap two subsets of Parent A with Parent B's subsets (or vice versa)
+** Mutate - a process that randomly flips a bit of offspring solution
+** Fitness: An evaluation which is used for a relative comparison to other individuals
+** Evaluation: a function which computes the objective for an individual
+** Fitness Proportionate Selection: Randomly pick individuals, where the greater the fitness value, the greater the chance of selecting that individual
+** Tournament Selection: Randomly pick groups of individuals to compete against one another and select the winner
+** Mating: Select random features from multiple individuals to create a new individual
+
+==== Lab: ====
+* Setup
+** Set up Anaconda (to get iJuniper)
+** Cloned the lab
+* Work
+**One Max Problem
+***Mating occurred with a 50% chance and is executed as a two-point crossover function 
+***Mutate is defined as flipping a bit in our bitstring to either 1 or 0 respectively with an independent probability of flipping each individual bit of 5% and occurs at a 20% rate 
+***Reached a global maximum fitness in 40 generations almost every time 
+**The N Queens Problem
+***Lowering mutation rate greatly improved the number of generations needed
+***Best individual is [10, 15, 3, 16, 7, 9, 2, 14, 19, 17, 12, 4, 6, 18, 11, 13, 8, 0, 5, 1], (0.0,)[[files/N Queen Problem.png|thumb|none]]
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 19, 2020
+|-
+|Set Up Jupyter Notebooks
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 21, 2020
+|-
+|Lecture 1 - GA Walkthrough
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 25, 2020
+|-
+|Lab 1- DEAP
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 25, 2020
+|-
+|Lab 2- GP for a regression problem
+|Completed
+|August 26, 2020
+|September 2, 2020
+|August 30, 2020
+|-
+|Lab 3- GP Part II
+|Completed
+|September 2, 2020
+|September 9, 2020
+|August 8, 2020
+|}
+__FORCETOC__

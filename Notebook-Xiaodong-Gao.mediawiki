@@ -1,0 +1,451 @@
+== Team Member ==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+Team Member: Xiaodong Gao
+
+Email: xgao319@gatech.edu
+
+Cell Phone: Please email me if you need my phone number; I prefer to keep my privacy. 
+
+Interests: Machine Learning, Cloud Computing, Software Engineering, Computer Graphics and Vision, Hiking/Wilderness
+
+
+
+
+
+
+
+
+
+
+== January 15th, 2020 ==
+'''Team Meeting Notes:'''
+# '''Theory: Genetic Programming with Lisp Preordered Parse Tree'''  
+#The tree is converted to a lisp preordered parse tree, in which operator followed by inputs  
+##Cross over in genetic programming with trees: simply exchanging sub nodes;  
+##Randomly pick a point in each tree; each point represents its subtree; 
+##Then exchange these sub nodes.  
+#Mutation methods:  
+##Node insertion & deletion;     
+##Node modification  
+#Symbolic Regression is the process of combining primitive mathematical symbols to form the algorithm/function that best fits the dataset.   
+#Evaluating a tree:
+## Get inputs;
+## Feed inputs to the function and get outputs
+## Loss functions such as mean square loss Ephemeral types are terminal values initiated by functions.  In addition, the tree can be represented by a list of signs and variables. For instance: [*, -, 2, 3, +, x, 5], in which * is the head node, and [2, 3, x, 5] are the leaf nodes. 
+# '''Notes on code & implementation:'''
+#    creator.create() is a function that creates derivative classes from DEAP's base classes. It has the following paradigm:
+##   creator.create(string className, class baseClass, baseClassParameters);
+#    gp.addPrimitive() is a function that imports pre-defined operations as primitives in the LPPT. It has the following structure:
+##   For the root node: gp.addPrimitive("MAIN", arity = 1), where arity is the number of inputs of a primitive operation;
+##   For non-root nodes: gp.addPrimitive(function externalFunction, int arity), where the external function is imported to form a primitive.
+#    base.Toolbox() is a function space for declaring and defining crucial GP components.
+##   toolbox.register() registers a component and declares its definitive method. For instance:
+##   toolbox.register("individual", tools.initIterate, creator.Individual, fillingFunction). initIterate creates an iterator that refers to the tree, Individual refers to the variable's component in GP, and fillingFunction is what defines the iterator. 
+
+== January 22nd, 2020 ==
+Search Space: set of all possible genome
+
+For algorithm design: all possible algorithms
+
+Evaluation of a genome/individual:
+# True positive: identifying the desired
+# False positive: identifying something other than desired objects
+# Objective space:  a set of objective scores as as the two above
+Maximization Measures:
+# Sensitivity / True Positive Rate: (TP / P) = TP / (TP + FN);
+# Specificity / True Negative Rate: (TN / N) = TN / (TN + FP);
+With Sensitivity and Specificity as x and y axes, the greater the values the better the measure
+
+Minimization Measures:
+# False Negative rate: 1 - TP
+# False Positive rate: 1 - TN
+These graphs are the reverse of the one above: the smaller the better
+
+Precision / Positive Predictive Value: TP / (TP + FP)
+
+False Discovery Rate: FP / (FP + FN)
+
+Each Individual is evaluated using objective functions such as:
+# Mean squared error
+# Cost, complexity
+# True & false positive values
+Pareto Optimality:
+# An individual is pareto if there is no other individual in the population that outperforms the individual on all objectives
+# The set of all Pareto individuals is the pareto frontier, marked by a stare-shaped line.
+# The unique shape facilitates the calculation of Reiman Sum -- Area Under Curve, which is a value that’s expected to go down as the population evolves. The shape also encourages the diversity of solutions.
+Pareto individuals are favored but not completely dominant in selection.
+
+Nondominated Sorting Genetic Algorithm II
+# Population is separated to nondomination ranks.
+# Those on the frontier have rank zero,
+# The second rank has rank 1
+# Lower Pareto Ranks beat higher ranks in a binary tournament.
+Ties on the same front are broken by the crowding distance.
+# Summation of normalized Euclidian distances to all points in the front.
+# Higher crowding distance wins, since higher distance indicates more space for exploitation, which might yield a favorable movement toward the optimal origin.
+Strength Pareto Evolutionary Algo II
+# Each individual is given a strength S: how many others in the population it dominates(calculated with virtual axes).
+# Each individual receives a rank R.
+# R is the sum of the strengths of the individuals that dominate it.
+# Paretos receive a nondominated rank of 0
+# Distance to the kth nearest neighbors are calculated and a fitness is obtained.
+
+'''Machine Learning For Disaster Titanic Github Repo (Team):'''
+* https://github.gatech.edu/xgao319/VIP----Automated-Algorithm-Design-3
+
+== January 29th, 2020 ==
+
+==== 1.) Data Pre-processing and Engineering ====
+Load data as Pandas objects, and then take off missing rows/columns<blockquote>(train_data.columns[train_data.isna().any()].tolist())</blockquote>-Here isna works on column, return boolean vector (check if NA, basically missing information)
+
+-.any turn true if any of the rows are true
+
+==== 2.) Clipping Useless Features in the Dataset and Filling Missing Columns ====
+ train_data.drop(columns=['Name', 'Ticket', 'Cabin'], inplace=True)
+ train_data.set_index(keys=['PassengerId'], drop=True, inplace=True)
+ train_nan_map = {'Age': train_data['Age'].mean(), 'Fare': train_data['Fare'].mean(), 'Embarked': train_data['Embarked'].mode()[0]}
+ test_nan_map = {'Age': test_data['Age'].mean(), 'Fare': test_data['Fare'].mean(), 'Embarked': test_data['Embarked'].mode()[0]}
+-Since certain columns are missing features, the best way is to just fill them with random data with the dataset average. 
+ train_data.fillna(value=train_nan_map, inplace=True)
+ test_data.fillna(value=test_nan_map, inplace=True)
+-inplace attribute allows the function to modify the data itself
+ <nowiki>columns_map = {'Embarked': {'C': 0, 'Q': 1, 'S': 2}, 'Sex': {'male': 0, 'female': 1}}</nowiki>
+ train_data.replace(columns_map, inplace=True)
+ test_data.replace(columns_map, inplace=True)
+-change C to 0, Q to 1 etc (since everything needs to be a number)
+ X_train = train_data.loc[:, train_data.columns != 'Survived']
+ y_train = train_data.loc[:, 'Survived']
+-don’t give column of survived
+
+-the y becomes
+ X_train, X_test, y_train, y_test = train_test_split(X_train, y_train, test_size=0.33, random_state=10)
+-with truth data, how big the test size will be (random state)
+
+-gives test feature and test truth data
+
+-x test y test is subset of x train and y train (come from train.csv because it is supervised)
+
+-test.csv does not have survived column, we use this for submitting final answer
+
+-lose matrices from 7 technically
+
+-then print the data
+
+-nans should be empty
+
+-891 rows from test, 295 rows train
+
+BUILDING MODEL using scikit (Classification)
+
+-know how to explain the models
+
+==== 3.) Code Demonstration ====
+ tree_clf = tree.DecisionTreeClassifier()
+ tree_clf.fit(X_train.values, y_train.values)
+ print(tree_clf.score(X_test.values, y_test.values))
+-from sklearn (import)
+
+-first, create the object no need for modifications
+
+-second, fit the model to data, takes in matrix of features and vector of truth data
+
+-third, call score method, tells overall accuracy by passing test values and supervised truth these are not from test.csv, it’s subset)
+
+Or use
+ svm_clf = svm.SVC(kernel='linear')
+ svm_clf.fit(X_train.values, y_train.values)
+ print(svm_clf.score(X_test.values, y_test.values))
+ y_pred = svm_clf.predict(X_test.values)
+ y_truth = y_test.values
+y_pred
+
+-prints out the 1’s or 0’s
+
+2.)
+ tn, fp, fn, tp = confusion_matrix(y_truth, y_pred).ravel()
+ print("Confusion Matrix")
+ print(confusion_matrix(y_truth, y_pred, labels=[0, 1]))
+ print("True Negatives", tn)
+ print("False Positives", fp)
+ print("False Negatives", fn)
+ print("True Positives", tp)
+-print out confusion matrix
+
+3.) you can use the plotting
+
+==== 4.) Organizing Predicted Data ====
+ predictions = svm_clf.predict(test_data.values)
+-from test.csv, gives out a vector prediction
+ pred_df = pd.DataFrame(predictions, index=test_data.index, columns=['Survived'])
+-put in dataframe
+ pred_df.to_csv('predictions.csv', header=True, sep=',')
+-single column with index of test data (892, survived 1 or 0)
+
+What are these machine learning models doing?
+
+Straightforward e.g.
+
+Feature 2 vs Feature 1 (y vs x)
+
+-Plotting positive (truth = 1)  examples and negative examples (truth = 0)
+
+-Tries to separate true and false, finds a line in the plot (i.e. North of the line is + and South of the line is -)
+
+-Maybe positives under - (could circle the region of negatives)
+
+-If there is something that doesn’t belong in there, makes false positive or false negative
+
+-Some models fit better than the others hyperparameters control it
+
+== Titanic Dataset Processing Presentation with ML and GP ==
+
+=== Data Preprocessing ===
+* Splitting the dataset to train and test sets. We fit the models with the training set and test their accuracies with the test set;
+* Normalizing and “boxing” several features (exp. age 0-16 to 1.0)
+* We also combined different features to facilitate training.
+
+* Heatmaps showing the correlation between different elements, helping us eliminate redundant features and creating new features
+** [[files/HeatmapCorr.png|thumb|362x362px|Heatmap for feature correlation]]Ex: Sibsp and Parch had weak correlations by themselves, but when combined was a strong predictor of survival)
+* Histograms show how survival corresponds to different ranges in a feature, which enables us to normalize and “box” several features
+** Ex: age 0-16 to 1.0)
+* Trimmed feature set: sex, age, family size (SibSp+Parch)
+
+=== Evolutionary Loop ===
+* Instantiate population to 30 using population() method defined by toolbox earlier
+* Create list by mapping evaluation function to each individual in population and assign them with respective fitnesses
+* Select individuals and clone them to make sure we make them as instances
+** Tournament selection defined by toolbox.select()
+
+* Two ways to introduce variance into the population
+* toolbox.mate utilizes deap’s cxOnePoint, (one point crossover) resulting in two new individuals
+* toolbox.mutate utilizes deap’s mutUniform (replaces random subtree with output of deap’s genFull)
+* Once individuals have been changed, fitnesses must be reevaluated and the population is replaced with the offspring
+* Print out the pareto dominant individuals
+
+* pareto_dominance:
+** helper function for use in find_pareto
+** takes in an individual ind1 and an array of individuals data
+** returns an array of booleans of the same size as data, where an element in the array is False if the corresponding element in data is dominated by ind1
+
+* find_pareto:
+** takes in an array of individuals data
+** returns the subset of data containing only those individuals that are Pareto dominant in data
+** for each individual ind in data, eliminates all of the individuals dominated by i from the array to return
+
+* AUC of ML approach was lower than GP approach by approximately 0.079 units
+* One individual from GP approach has been dominated by ML models
+* None of ML models are dominated by individuals from GP approach
+* ML approach had higher performance than GP approach because its AUC was lower
+** Lower AUC imply that the ML models had lower FN, FP values than GP individuals.
+
+== EMADE NLP Introduction: Dataset and EMADE ==
+
+=== EMADE Architecture: ===
+To process texts, EMADE utilizes an XML configuration file that allows easy access to dataset attributes. 
+
+A python function then reads/traverses the XML configuration file, parses the attributes and loads the dataset accordingly. 
+
+Currently there are two datasets available, and I have chosen Toxicity as the one to be processed by EMADE. 
+
+==== Implementing New Primitives in EMADE ====
+NNLearner is the pivot of all neural based primitives in EMADE.  
+
+A quick review: EMADE stores primitives as the nodes of a tree data structure. Classical DEAP primitives are mostly arithmetic operations, while 
+
+EMADE supports primitives based on neural networks/machine learning algorithms. These ML primitives are trained with EMADE DataPairs objects 
+
+(which consist of training and testing sets) and, after training, are used on the testing sets along with other primitives(which are oftentimes transformation 
+
+operations in Computer Vision and NLP).   
+
+The pivot that supports this paradigm in EMADE is the NNLearners class located in neural_network_methods.py. It implements the backbone of ML primitives 
+
+in EMADE. The classes uses branching statements to choose from Keras models implemented in another file(to be specified later). Currently it supports models such 
+
+as DNN and GRU. Adding new models will be quite easy:  
+# Edit the model file to add new models 
+# Add the model to NNLearner for branching and comparison 
+Then, to add the primitive, define a new function in neural_network_methods.py that appends the string representation used in the branching statements in NNLearner. 
+
+(Specify later)
+
+==== Introductory Parallel Processing with SCOOP ====
+SCOOP is a library that utilizes the MapReduce algorithm to enable parallel processing. It re-implements the Future library and extends it with several components to support parallel processing.  
+
+SCOOP introduces the concept of serialization with pickle. It can only parallelize serializable objects, as defined by Python's pickle library. Some common data structures that are pickable:  
+# Primitives such as boolean, integer, float etc 
+# Classes/objects at the top of OOP level 
+This standard is important because parallel processing is dependent on data. Pickle serializes abstract objects that reside in computer memory to byte streams, which are concrete, universal and thus easily processed. 
+
+These objects are then fed to the MapReduce algorithm that's introduced by Hadoop for parallel processing. As its name implies, MapReduce has two components: 
+# Mapping: converting data to key:value pairs or numerial representations. This can generalize to any operation that optimizes data for computation. The map function follows the same format as the one in Future: 
+ data_parallel = list(future.map(cumulative_function, dataset)) # returns a list generated from the iterator
+# Reduction: the process by which data are combined to form the end-result. In SCOOP the reduction functions can be any operation that processes data to produce results. These functions, when passed to MapReduce, are executed on the input cumulatively. For instance, a simple definition of an "add" function: 
+ (lambda x, y : x + y)
+# can be applied to a string of the following format: ['a', 'b', 'c']. Passing this to the reduce function with future.reduce(add, target_string) results in the following executions: 
+ result = (("a" + "b") + "c") + d. 
+# It is possible that in this step, the data are distributed to different workers for processing through the broker. The mapping function imported from SCOOP's future module is parallel and executed with the following command: 
+ python -m scoop file.py
+Similar to Hadoop, SCOOP can produce detailed debugging infos including worker ID and node information. 
+
+==== SCOOP Parallel Processing Conditions and Mechanisms ====
+Map functions are responsible for spawning sub-tasks in the root worker, which then distributes these tasks to other works through the broker. This means that certain mechanisms, such as the one that's mentioned, must be placed under the main function with the following format:   
+
+''<code>from scoop import future</code>'' 
+
+''<code>class someClass(someParent):  # serializable classes and functions</code>''
+
+''<code>def someFunc(self, par):</code>''
+
+''<code>someOp()</code>'' 
+
+''<code>func someFunc(somePar):</code>''
+
+''<code>someOp()</code>'' 
+
+''<code>if __init__ == '__main__':</code>''
+
+''<code>future.map(targetFunc, data)</code>''  
+
+Everything that's outside of the __main__ block will be processed by each individual worker, including serializable/pickable functions and classes. Oftentimes the creation of the data list and their distribution through the map function is placed here. If these are not placed under the main block then a single worker will execute all tasks(since none are distributed).  
+
+=== Natural Language Processing Paradigm ===
+
+==== Multi-Label Classification: ====
+results of a classification model include multiple classes, with "multi-hot" encoded vectors. 
+
+Imagine a neural network with an input layer, some hidden layers, and an output layer(this is identical with almost all mainstream classification models). 
+
+What's different is how the output data are processed. The logits are fed to the Sigmoid function(which by property clamps data between 0 and 1).  
+
+==== Binary Cross-Entropy ====
+Softmax is replaced because of the dependency between features/classes, given how the class scores are summed together to calculate a single score. This dependency
+
+violates the principle of independence(since we want the classes to follow a Bernoulli Distribution) and thus has to be substituted with the Sigmoid function. 
+
+The processed logits are fed to the Cross-Entropy loss function, which propagates the error back through the network for training. When this loss function is used with Cross-Entropy, 
+
+this combination is called the Binary Cross-Entropy(BCE) loss function. Each class is compared to a "background class" that's used to calculate the error.  
+ nn.compile(multi_layers, ["BCE_Loss"]);  # Keras pseudocode
+We can use an intuitive threshold value that separates the resultant classes. In this case I plan to choose 0.5. 
+
+=== Dataset Preprocessing and Engineering ===
+
+===== Data Cleaning and Summary =====
+The dataset is pretty straightforward: a text body that's followed by its category.  
+
+We load the dataset and plot the number of each class with the following code:  
+ import matplotlib.pyplot as plt
+ import pandas as pd
+
+ comments = pd.read_csv('/path/train_data.csv')
+ comments = comments[(comments["comment_text"] != "")]
+ comments.dropna()
+ 
+ labels = comments["toxicity", "insult", "obscene"] # not the full list. Just written here to illustrate stuff
+ figsize = plt.rcParams["figure.figsize"]
+ figsize[0] = 10
+ figsize[1] = 8
+
+ plt.rcParams["figure.figsize"] = figsize
+ labels.sum(axis=0).plot().bar()
+What's written above yields a plot that summarizes each category.    
+
+==== Strategies for Encoding Text Data(theoretical, haven't implemented) ====
+Since neural networks take numerial values as input, it is necessary to convert text data(sentence corpus and words) to numerial data structures. 
+
+The first thing that comes to mind is one-hot encoding. To achieve this we need three components: 
+# Take in the sentence corpus and tokenize the words. Then pass these individuals to a set data structure to get the unduplicated size. 
+# Convert words to one-hot encodings with the info on the number of unique words in each corpus(in this case we only have one gargantuan corpus).
+# Convert sentence corpus to numerial embeddings with word_tokenize from NLTK, based on the encodings generated in the previous step.  
+For the third component, we use the following code: 
+ from keras.preprocessing.text import one_hot
+ from keras.preprocessing.sequence import pad_sequences
+ from nltk.tokenize import word_tokenize # in this case, sentence_corpus is a list containing text information
+
+ word_counter = lambda sentence_corpus : len(word_tokenize(sentence)) # we need the length of each individual sentence to encode sentences
+ 
+ longest_sentence = max(sentence_corpus, key=word_counter)
+ longest_length = len(longest_sentence)
+ 
+ padded_corpus = pad_sequences(sentence_corpus, longest_length, padding='post') # append zeros to the end
+This way we have sentences that are represented numerically. Then we can either calculate/train custom encodings or use pre-existing dataset. A common one is Stanford's GloVe dataset. 
+
+Thinking about the concept first, a nice logic for generating one-hot encodings is to iterate over all words, append them to a list, and then past the list to a set structure's constructor. Then we can simply get the number of unique words and use them for encoding. However, this does have a drawback. Imagine a dataset with a tremendous amount of vocabulary. All these wasted dimensions will result in very poor result due to the "curse of dimensionality". Thus, after demonstrating a PoC, I will use GloVe instead.  
+ <code>all_words = []</code>
+ <code>for corpus in corpus_array:</code>
+     <code>for word in word_tokenize(corpus):</code>
+         <code>all_words.append(word)</code>
+         <code>onehot_length = len(set(all_words))</code>
+Then it's easy to generate one_hot encoded sentences with keras. But before that we should process our sentences to float tokens and write some helper functions that will later form the pipeline.   
+ <code>import numpy as np</code>
+ <code># TODO: import tokenizer</code>
+ <code># generates embedding dictionary</code>
+ 
+ <code>def import_glove(file_path):</code>
+     <code>embedding_dict = dict()</code>
+     <code>glove_file = open(file_path, encoding='utf-8')</code>
+     <code>for line in glove_file.split('\n'):</code>
+         <code>records = line.split()</code>
+         <code>word = records[0]</code>
+         <code>embedding = np.asarray(records[1:], dtype='float32')</code>
+         <code>embedding_dict[word] = embedding</code>
+     <code>glove_file.close()</code>
+     <code>return embedding_dict</code>
+ 
+ <code># generates a matrix of word embeddings. row: word index, column: embedding attributes</code>
+ <code>def glove_matrix(vocab_size, tokenizer, embedding_dict):</code>
+     <code>matrix = np.zeros((vocab_size, 100)) # TODO: verify tokenizer</code>
+     <code>for word, index in tokenizer.word_index.items():</code>
+         <code>embedding = embedding_dict[word]</code>
+             <code>if embedding is not None:</code>
+                 <code>matrix[index] = embedding</code>
+     <code>return matrix</code>
+ 
+ <code># train_datasets param should be in dictionary format</code>
+ <code># outputs tokenized datasets. Can be used with the embedding</code>
+ <code>def tokenize_dataset(word_num, sentence_max, datasets):</code>
+     <code>tokenizer = Tokenizer(num_words = word_num)</code>
+     <code>tokenizer.fit(datasets["train"])</code>
+     <code>vocab_size = len(tokenizer.word_index) + 1</code>
+     <code>for key, dataset in datasets:</code>
+         <code>datasets[key] = tokenizer.text_to_sequence(dataset)</code>
+         <code>datasets[key] = pad_sequences(dataset, padding='post', maxlen=sentence_max)</code>
+ <code>return datasets</code>
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue in making of true positive training data
+|No progress this week
+|March 25, 2019
+|April 29,2019
+|
+|-
+|Complete mid-term peer evaluation
+|Completed 
+|March 25, 2019
+|April 1, 2019
+|March 28, 2019
+|-
+|Setup a meeting with the deep learning team
+|
+|April 1, 2019
+|April 8,2019
+|
+|-
+|Create a git large file system repository of the training data and test data we have in order to share withe the deep learning team
+|
+|April 1, 2019
+|April 17,2019
+|
+|-
+|Create a set of existing algorithms
+|
+|April 1, 2019
+|April 17,2019
+|}

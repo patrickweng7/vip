@@ -1,0 +1,1035 @@
+{{AAD_navbar}}
+== Team Member ==
+
+* Team member: Jinghua Zhang, Deep subteam
+
+* Email: jzhang866@gatech.edu
+
+* Cell Phone: 4045782612
+
+=Fall 2019 Semester Notebook=
+
+==Week 1: August 19 & August 24, 2019 ==
+Vip classtime + Subteam Meeting:
+*set up semester plan for the ezCGP subteam
+**First month the subteam should focus on implementing the high level structure of block structure (enable preprocessing block and training block)
+**Then, team could split to two sub-subteams: one team focus on implementing parallel computing, the other team focus on adding preprocessing primitives and achieve state-of-art results on some benchmark dataset 
+* Made the graph of the semester plan in presentation: https://docs.google.com/presentation/d/1CUDOAWzBPTPcjmkoCfKI4vsWj9RRN_GYMSOhbgiDjBo/edit
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think about how the multiple blocks structure should be implemented
+|Finished
+|August 24
+|August 26
+|August 26, 2019 
+|}
+
+==Week 2: August26 & August 30 ==
+Vip classtime + Subteam Meeting:
+* Decide with the team that the main goal for the several weeks is implementing multiple-block structure:
+** First enable add tensorflow preprocessing (only passing data, not training)
+** Next add preprocessing operators and test
+** Finally testing multiple-block structure
+* Enable tensorflow preprocessing feature in block.py
+** First add learning_required flag in block.py and change the loss function and optimizer to be normal processing output: be able to handle only "passing through data" but not backpropogate and training
+** Add "preprocessing tensorflow operator" in operator.py using tensorflow methods (a dummy Identity layer)
+* Git commit: https://github.com/ezCGP/ezCGP/commit/686eaf39939713f5476980d21d5b260566604635
+* Helped new members to catch up with our code base, answer questions
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Enable tensorflow preprocessing feature in block.py
+|Finished
+|August 26
+|September 3 
+|August 28, 2019 
+|}
+
+==Week 3: September 7 ==
+Subteam Meeting:
+* Worked with Sam and Mai to refactor the block input in problem.py
+** Create parent-child hierarchy for Block to use in problem.py: skeleton_block is the parent, containing all the necessary parameters related to blocks; TrainingBlock and PreprocessingBlock are the children blocks having specific default parameters
+*** Having the SkeletonBlock abstract class helps the user recognize what variables are contained in the class structure while a dictionary could not.  The SkeletonBlock class has some default variable values and when user come in, they could still instantiate it in problem.py and tailor the blocks however they want.
+* Debug why with only one training block is not working
+* Code commits: 
+** https://github.com/ezCGP/ezCGP/commit/a3f1cee8369521612bec64ff0e4d5e0059ba2a7f
+** https://github.com/ezCGP/ezCGP/commit/3634a51cdc1e64f78bb680b87354607ef11bcb3f
+** https://github.com/ezCGP/ezCGP/commit/8b81561154ec62453581c49585e8a65ecf95c667
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Refactor block input problem.py
+|Finished
+|September 7
+|September 9 
+|September 9 
+|-
+|Debug why only one training block is not working
+|Finished
+|September 7
+|September 9
+|September 9
+|}
+
+== Week 4: September 9 & September 13 ==
+Vip classtime + Subteam Meeting:
+* Worked with Sam and Michael, add non-tensorflow preprocessing block:
+** Make sure that current block.py implementation could handle the case
+** Debug "NoneType not comparable": because of the input will be changed to np.ndarray instead of tf.tensor
+** Add OpenCV operator: GaussianBlur
+* Code Commits:
+** https://github.com/ezCGP/ezCGP/commit/242c1f59c91a6682f2b694fedd0b6ad646a3988e
+** https://github.com/ezCGP/ezCGP/commit/23b33c2efd818a7d3dd664ce0962e3267d966f93
+** https://github.com/ezCGP/ezCGP/commit/aca600c5ba36ae514d8ab95ab4ea02e7da87835a
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|add non-tensorflow preprocessing functionality
+|Finished
+|September 9
+|September 16
+|September 13
+|-
+|Add OpenCV operator
+|Finished
+|September 9
+|September 16
+|September 13
+|}
+
+== Week 5: September 16 & September 20 ==
+Vip classtime + Subteam Meeting:
+* Need to add a apply_to_validation flag to indicate whether this preprocessing function should be applied to validation/testing data
+** The necessity of this flag is because some functions (e.g. normalization) should be applied for both validation set and training set while other functions (e.g. data augmentation) should only be applied to training set since this is to enlarging training dataset
+** Worked with Michael to add this flag
+** Code commit (contained some Michael's commit since worked in pair):
+*** https://github.com/ezCGP/ezCGP/commit/ea45a2fda07e5d90eaa3e5e7530ec89f63454e94
+*** https://github.com/ezCGP/ezCGP/commit/7a3eac7437ba875902264992d747b5c0387a2a8d
+*** https://github.com/ezCGP/ezCGP/commit/62e18159151bf06c4e5a538d35129687cd1f521e
+*** https://github.com/ezCGP/ezCGP/commit/a5089c00d147a3ea5342d794a5ba3c78f7d16e76
+*** https://github.com/ezCGP/ezCGP/commit/0f093c4c0cc9ca8e9e700beddcba7da55bf87d6a
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|add a apply_to_validation flag
+|Finished
+|September 16
+|September 23 
+|September 20 
+|}
+
+== Week 6: September 23 + September 29 ==
+Vip classtime + personal cleaning up block.py:
+* Clean up block.py
+** Block.py is very bloated because we added a lot of flags without careful planning
+** Mainly seperated the evaluate giant code block into tensorflow_evaluate() and non_tensorflow_evaluate() and several helper methods
+** Refactored tensorblock_evaluate(), combining cases of large dataset and non-large dataset
+** Deleted some not useful comments, add some useful loggings for example "operator not compatible with block input" for "NoneType not comparable" logging
+* Code commits:
+** https://github.com/ezCGP/ezCGP/commit/938dfae08af9aeee5dfceaee751e4267a02f8609
+** https://github.com/ezCGP/ezCGP/commit/cba441473abfdfbfd07e4cd6067d0b6baa8bd3ff
+** https://github.com/ezCGP/ezCGP/commit/f45e1cd4cc6ad017d6840663bb9764491198e3e5
+** https://github.com/ezCGP/ezCGP/commit/d2683a6a271e64946eb3d586f4ea64192055ce0f
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clean up block.py
+|Finished
+|September 23
+|September 30
+|September 29
+|}
+
+== Week 7: September 30 & October 5 ==
+Vip classtime:
+* add more useful primitives to ezcgp so that we could obtain a good training individual
+** Added Gaussian noise, horizontal flip, salt pepper noise as data augmentation methods
+* Code commit: https://github.com/ezCGP/ezCGP/commit/bc8ac23be619749a610ce47c166058d64ae23c58
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|add more useful primitives
+|Finished
+|September 30
+|October 7
+|October 5
+|}
+
+== Week 8: October 7 ==
+Vip classtime:
+* Discussed with team the possible downside of the I/O bottleneck of the parallelization
+* Worked with team trying to figure out the reason that caused memory leak
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement garbage collection in the code
+|Finished
+|October 7
+|October 13
+| ---
+|}
+
+== Week 9: October 19 ==
+Vip Subteam:
+* TEAM CAMPING!!!! 
+**[[files/EzMountainer.jpg|none|thumb]]
+* Still trying to figure out the reason of memory leak
+* Created and revised the presentation slide
+** Slide: https://docs.google.com/presentation/d/1N7GMRFuyraEj19g2omaQebRJHewAQ5qppXPgKaIcW7Y/edit?usp=sharing
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare for the midterm presentation
+|Finished
+|October 14
+|October 21
+|October 19
+|}
+
+== Week 10: October 21 & 25 ==
+Vip classtime:
+* Midterm Presentation!
+** https://docs.google.com/presentation/d/1N7GMRFuyraEj19g2omaQebRJHewAQ5qppXPgKaIcW7Y/edit?usp=sharing
+* '''Meeting Notes''' (Copied from Samuel Zhang)
+* '''Mating''' Discussed how there is a “find_active” (or similar) method that gets the list of active genes (aka layers + metadata). Majority of the mating should occur with these. However, *a small percentage (e.g. 10%) should be with the inactive nodes just to have genetic diversity* with mating.  Possible mating methods:  1) Whole block swapping by type (e.g. training with training), and solve any block output to input shape compatibility issues. This is what we will start off with for this semester, since it is easier. To keep diversity with inactive nodes, we might also spontaneously turn on some inactive nodes (maybe mutate into them?)  2) Partial block swapping, by swapping only parts of a block, most notably layers:      Introduces a host of primitive shape compatibility issues similar to number 1's block to block (e.g. dense -> conv doesn’t work), which can be solved a number of ways:              2a) Assigning primitives to groups by output shape (e.g. max pooling w/ fractional pooling). Then, in those groups, assign a hierarchical layout of which groups can output to which other groups and simply pick layers in that group or child groups to substitute or add in between incompatible layers              2b) Doing an exhaustive search of preemptive compatibility searching (see the mating.py code Rodd wrote, I don’t fully understand it yet, but the comments are good)              2c) Killing the individual and essentially relying on random chance to return to that individual if it is good (probably not preferred, but it is what we use in mutation (e.g. try catch self.dead), so we could just be consistent for mating). '''Selection'''  Ultimately, we should keep a baseline number of best individuals for next generation before mating. Therefore, for each generation, a certain percentage would be allocated from each process:        Just for example, say 33% of previous pareto optimal individuals, 33% of mutated, 33% of mated children There are other ways to do selection after mutation/mating, but '''we should talk about that after mating'''. Trai and Mai have their own k-select method for post-mutating right now, I believe.
+*Worked on ezCGP Design Documentation (Wrote Code structure and Mutation section)
+**Design Doc Link: https://docs.google.com/document/d/1X8jGDXHAKkMBgOCYCtgT5v-wSqSLjVhxtZnGqr2hwz4/edit?usp=sharing
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start Drafting on mating
+|Finished
+|October 21
+|Oct 28
+|Oct 25
+|-
+|Work on Design Doc
+|Finished
+|October 25
+|Oct 28
+|Oct 27
+|}
+
+== Week 11: October 28 & November 2 ==
+Vip classtime & subteam meeting:
+* Continue working on editing design doc
+* Started implementing whole block mating methods with Sam, haven't completed yet, waiting for the parallelization team
+** The implementation is taking 2 random individuals from the population, swapping one of their block
+* Code commit (with Sam together): https://github.com/ezCGP/ezCGP/commit/6ae112721de3ba389453928b6441e6ef03a18727
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add mating - whole block swapping
+|Finished
+|October 28
+|Nov 4
+|Nov 5
+|-
+|Modify Design Doc (block.py section)
+|Finished
+|Oct 28
+|Nov 2
+|Nov 2
+|}
+
+== Week 12: November 4 & November 9 ==
+Vip classtime: 
+* Continue implementing whole block mating methods
+** Made sure mating is successful in sequential run. Resolved memory leak in mating
+** Code commits (with Sam): 
+*** https://github.com/ezCGP/ezCGP/commit/e3ec50cd63c52d351075eed17296dae70dc64273
+*** https://github.com/ezCGP/ezCGP/commit/0d8b2725ccd567247f2c6c69ed9f83f2b9cac762
+*** https://github.com/ezCGP/ezCGP/commit/5aed86910067a6ed1f5a4cfae0542e0094606eb9
+* the parallelization team found that the memory leak of parallelization runs come from  genome_outputs_values
+** genome_outputs_valued contains dataset (~200 MB size) and are not cleared after each run
+* The team worked on merging multiple-block branch with the parallelization branch
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure mating is working in sequential run
+|Finished
+|Nov 4
+|Nov 11
+|Nov 4
+|-
+|Merge branches
+|Finished
+|Nov 9
+|Nov 11
+|Nov 9
+|}
+
+== Week 13: November 11 ==
+Vip classtime:
+* Found out there is "index out of range" error in the merged ezHPC branch, but end up not having subteam meetings
+** This is caused by a missed case when handling dead individual.
+** Fatal bug fixed
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the bug in ezHPC
+|Finished
+|Nov 11
+|Nov 18
+|Nov 22
+|}
+
+== Week 14: November 18 & November 23 ==
+Vip classtime:
+* Discussed with Sam and Rodd about the proper sequence of mutating and mating
+* Worked with Mai to integrate mating with multiple processors
+* Fixed the "index out of range" error
+** Caused by not properly handle dead individuals, genome_output_values will be none
+** Code commit: 
+*** https://github.com/ezCGP/ezCGP/commit/ca609e290a6b3db1a5f02173bed7c7b98dc9a4cb
+*** https://github.com/ezCGP/ezCGP/commit/b71f5ae6c1926d7becfa82bf6c3371e08570c8a4
+*** https://github.com/ezCGP/ezCGP/commit/a633c0698fd013e1b250780af1d9921f2307bbfc
+*** https://github.com/ezCGP/ezCGP/commit/635a9d45c0bb1fc17f6071d53800b1098342e1a5
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix "index out of range" error
+|Finished
+|Nov 11
+|Nov 25
+|Nov 23
+|}
+
+== Week 15: November 25 & December 1 ==
+Vip classtime:
+* Rodd discussed with the team about how to properly handle seed (convert a saved pop to continue training)
+* Prepare for final presentation
+** Slide: https://docs.google.com/presentation/d/1jAWlWmQj94DfXsNsuke80kzpa3EUEJJKMgvQ2TTC_zg/edit?usp=sharing
+* Run mpi universe with different seeds on PACE
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare for final presentation
+|Finished
+|Nov 25
+|December 2
+| December 2
+|-
+|Obtain training result on PACE
+|Finished
+|December 1
+|December 2
+|December 2
+|}
+
+== Final Reflection and Grade Evaluation ==
+Before midterm, I contributed much code on 1) constructing multiple-block structure where we solved flags for tf/non-tf and preprocessing issues; 2) reconstructing block.py which reduced much bloated code; 3) adding many useful primitives.
+
+After midterm, I mainly contributed on building mating methods, fixing bugs, and obtaining training result on PACE.
+
+In general, I believe I deserve an A for this class.
+
+= Spring 2019 Semester Notebook =
+== January 7, 2019, VIP Class ==
+'''Meeting Notes:'''
+* Mr. Rodd became the subteam leader, new repository "ezCGP": https://github.com/ezCGP/ezCGP. 
+* Review CGP : DAG graph, genom = [node1, node2, ..., output, input]. 
+**Each node is a dictionary = {"ftn": sum, "inputs": [0, 1], "args":[5]}. 
+**Arg is also a list, the "args" parameter takes in the index of argument needed.
+* Newly implemented details: 
+**Hierarchy class: Genome() -> Mate(Genome) or Mutate(Genome) -> Block(Mate, Mutate)
+**Individual class have three blocks, one for preprocessing, one for deep methods, one for ??
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Send Rodd github email
+|Completed
+|Jan 7, 2019
+|Jan 7, 2019
+|Jan 7, 2019
+|-
+|Study code "ezCGP"repository, https://github.com/ezCGP/ezCGP. 
+|The details are recorded below. Completed
+|Jan 7, 2019
+|Jan 14, 2019
+|Feb 14, 2019
+|}
+
+'''Code Study'''
+*universe.py
+**Overview:
+***create_universe initialize population. 
+***For each generation, run_universe create offspring_list is parent1 mate parent2, then append offspring to population
+**Questions: line 76, miss a comma; evaluator_queue()?; every time append new offspring_list to population, wouldn’t it be super big?; in universe, when initializing individual, we did not pass in skeleton parameter?
+
+*individual.py
+**self.skeleton = {'input': [datatype, datatype],'output': [datatype],1: {**kwargs},2: {},3: {}} where **kwargs are arguments for initiating Block(**self.skeleton[i])
+**//want to know what **kwargs example
+**Overview: Initialize skeleton and blocks; Have evaluate, mutate and mate functions
+
+*Genome class (strongly typed)
+**self.args = [None]*genome_arg_count, self.genome = [None]*(output+input+genommainctn). self.genome[node_index] = {"ftn": ftn,"inputs": input_nodes, "args": arg_nodes} where input_nodes, arg_nodes are all index. 
+**fillArgs, fillgenome use randomFtn, randomInput, randomArg to fill all the genome list. (random)
+**self.active_nodes is a list of active main nodes that connected to output
+**Question: line 222 self[node_index], node_index is not defined
+
+*Mutate methods class
+**mutate_single_geno: if count is a function, replace self[node_inde][“fan”] with a random function; similarly replace input or arguments.
+
+*Block class
+**//todo: understand evaluate function
+
+== January 14, 2019, VIP Class ==
+'''Meeting Notes:'''
+*fixed size genome list, containing main node -> input node -> output node
+*nodes: inputs = [18, 25]: go back to the 18th and 25th nodes and grab the outputs
+*active nodes, backtrack to see which nodes are connected to out nodes, and then evaluate only the active nodes
+*mutate: randomly select active nodes?
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read CGP paper https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6815728 I, II, III, conclusion part
+|Completed
+|Jan 14, 2019
+|Jan 24, 2019
+|Jan 22, 2019
+|-
+|Read CGP paper https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6815728 Body part
+|Completed
+|Jan 14, 2019
+|Jan 24, 2019
+|Jan 24, 2019
+|-
+|Run ezCGP symbolic regression branch and generate chart to elaborate
+|Completed
+|Jan 21, 2019
+|Jan 27, 2019
+|Jan 28, 2019
+
+|}
+
+== January 24, 2019, Subteam Meeting ==
+'''Deep Subteam Meeting Notes:'''
+*next week we will split into 'emade integration' and 'neural network' groups
+*use the 'projects' and 'issues' tab to post ideas and problems (respectively)
+*start think about what metrics we should use to compare evolutionary processes
+'''Project Progress
+*Running ezCGP code for overnight, genode list length 20, num_universe = 20, seed in range [10, 70]
+*Changed some code to analysis number of active nodes, average generation convergence speed, etc.
+*All work is tracked through folk of ezCGP repository, https://github.com/jzhang866/ezCGP
+*Generated graph
+[[files/result.png|400x400px|frameless]]
+
+== January 28, 2019, VIP Class ==
+'''Meeting Notes:'''
+*Logistic Running Result Analysis: 
+**with more primitives? subtract (or simply negative constant), factory, …
+**when to stop simulation? Symbolic we are stop with certain test accuracy, however in reality, we shouldn't have such training on test dataset.
+**add more arguments? Negative numbers
+**multithreading?
+**blocks to restrict the kind of primitives? preprocessing/classifier block/…
+*uml graph to elaborate class structures (Michael Andrew Jurado)
+
+== January 31, 2019, Subteam Meeting==
+'''Subteam Meeting Note:'''
+*We changed the idea of forming two subteams; right now we only form one subteam: deep
+*Mainly we talked over what is the tensorflow flow will be like with the tensorflow flag being true
+*see blocks tf.summary, tensorboard to visualize graph (tensorboard_show method in blocks.py)
+*We should have some restrictions to sequence of different layers: e.g. pooling layer only added to convolutional layer (not pooling after pooling)
+*use operator dictionary to force tensor flow layers to do what it should be
+'''Future Team Tasks:'''
+*add more primitives (first basic tensorflow functions, such as add, subtract...)
+*build/run/train graph, every step is a small goal
+*add more restrictions to blocks to that we could force layers to follow certain rule
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure code works for building the graph
+|Completed
+|Jan 31, 2019
+|Feb 4, 2019
+|Feb 3, 2019
+|}
+
+== February 3, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Worked from 3 pm to 6 pm. Add basic Tensorflow functions, change problem_mnist.py
+*make sure the code works for initializing basic Individual object
+*Contributed to figuring out the block_input_type, output_tpye should be tf.tensor, and helped debug evaluate function. 
+*next step: change the evaluate function for Tensorflow
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement and convert ezCGP from NumPy to Tensorflow
+|Completed
+|Feb 3, 2019
+|Feb 4, 2019
+|Feb 11, 2019
+|-
+|debug Feed_dict showing none bug
+|ICompleted
+|Feb 3, 2019
+|Feb 11, 2019
+|Feb 7, 2019
+|}
+
+== February 4, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*Das and Michale figured out that the bug is caused by None key in feed_dict in tensorblock_evaluate function, going to fix the problem during Thursday Subteam Meeting.
+*Going to test whether the tensorflow computational graph is being constructed as expected or not, one approach is to print out active nodes.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debug None key in feed_dict
+|Completed
+|Feb 4, 2019
+|Feb 11, 2019
+|Feb 7, 2019
+|-
+|print out active nodes to find whether individual is initialized successfully  
+|In Progress
+|Feb 4, 2019
+|Feb 11, 2019
+|Feb 7, 2019
+|}
+
+== February 7, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Contributed on debugging with Samual and Das:
+**None key in feed_dict is because we set self.feed_dict = self.input before initializing input items to be tensor
+**Inconsistency matrix dimensions between operations fixed by reshaping input dimension and flatting output before calculating loss
+**Code commited: [https://github.com/ezCGP/ezCGP/commit/29d22bf6aa9ac73926ac16fd49f94e404b45f898 Code Commit] by CodeSammich
+*Code state: 
+**Right now the code could run the individual initialization and evaluation step, and the training loss of outputs is decreasing across runs.
+**We have tested dense_layer is working for tensorflow.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debug feed_dict and evaluate function
+|Completed
+|Feb 4, 2019
+|Feb 11, 2019
+|Feb 7, 2019
+|}
+
+== February 11, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*The group has made great process since moving to tensorflow integration.
+*Next step is to integrate batch data input, clean up the code, test different primitives, and finally run the main.py.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Integrate batch data input
+|Completed
+|Feb 11, 2019
+|Feb 18, 2019
+|Feb 14, 2019
+|-
+|Debug and Run main.py
+|Completed
+|Feb 11, 2019
+|No due date
+|Feb 22, 2019
+|-
+|Test different primitives
+|Completed
+|Feb 11, 2019
+|Feb 18, 2019
+|Feb 14, 2019
+|}
+
+== February 14, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Tested add_tensors, sub_tensors, mult_tensors, max_pool_layer primitives work; didn't test conv_layer, because it takes too long to run.
+*Learned how batch input integration works, learning tensorflow run and get_default_graph function= =
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Integrate batch data input
+|Completed
+|Feb 11, 2019
+|Feb 18, 2019
+|Feb 14, 2019
+|-
+|Test tensorflow primitives 
+|Completed
+|Feb 11, 2019
+|Feb 18, 2019
+|Feb 14, 2019
+|}
+
+== February 18, 2019, VIP Meeting ==
+'''Subteam meeting'''
+* The team aims to successfully run main.py to run the whole evolutionary process instead of tester.py
+* Update validation method: current method is 1- f1-score, so we only know the training accuracy. However, we would like to test how our algorithm does for test accuracy.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debug main.py and universe.py to run the whole generation process
+|Completed
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 22, 2019
+|-
+|Integrate validation score and pass in validation set through problem.py
+|Completed
+|Feb 18, 2019
+|Feb 25, 2019
+|Feb 21, 2019
+|}
+
+==February 21 & 22, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Tried to fix the deepcopy bug in run_universe.py with Samuel. We tried to using json.load and json.dump to convert the dictionary to string, and then converge back. Finally this problem is removed because Das cleared up all tensorflow variables before exiting, the bug disappeared.
+*The code right now is able to assign randomly selected part of dataset to be validation set. The fitness is still 1-accuracy and 1-f1score, however we could see the test score on the validation set in each generation.
+'''Individual on Feb 22'''
+* Changed code in randomInput funciton in genome.py and fixed the bug where np.random.choice(a) where a is empty list.
+* Changed code in universe.py to be able to run through the whole generation process and see the loss is decreasing.
+* Code commit: [https://github.com/ezCGP/ezCGP/commit/9a25057b290a9ab69728ef8433fb2bc6c70bb50a Main.py runnable]
+* Next step is to print out active nodes, and make sure the individuals are being mutated. If not, why.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure that individual is being mutated
+|In Progress
+|Feb 22, 2019
+|March 4, 2019
+|March 4, 2019
+|-
+|Help clean the code and add more comments.
+|In Progress
+|Feb 22, 2019
+|No due date
+|
+|}
+
+==February 25, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*This week's goal: 1) make sure individual mutation is actually happening 2) integrate the code with google cloud
+*Future work:
+**working on tiered datasets (reference: Jason's dissertation report)
+**should we check when we should stop an iteration earlier if we know that these layers are not going to work well
+**Work on a new dataset other than mnist to test main.py
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure that individual is being mutated
+|In Progress
+|Feb 25, 2019
+|March 4, 2019
+|March 4, 2019
+|-
+|Help clean the code and add more comments.
+|In Progress
+|Feb 25, 2019
+|No due date
+|
+|-
+|Help to integrate with Google Cloud
+|In Progress
+|Feb 25, 2019
+|No due date
+|No future plan
+|}
+
+==February 28, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Tested whether mutation actually working by printing out active functions for each mutant
+**With only one dense layer, mutation works. After 6-7 generation, the mutants keeps selecting the same best mutants.
+*Discussed how to apply tiered  dataset in order to quit training at the very begining
+**however for max pooling or conv layer, these layers require as many dataset as possible, therefore tiered dataset might harm the functionality of these layers
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure that individual is being mutated
+|In Progress
+|Feb 25, 2019
+|March 4, 2019
+|March 4, 2019
+|-
+|Help clean the code and add more comments.
+|In Progress
+|Feb 25, 2019
+|No due date
+|
+|-
+|Help to integrate with Google Cloud
+|In Progress
+|Feb 25, 2019
+|No due date
+|No future plan
+|}
+
+==March 4, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*It's going to be presentation next week, goal for this week
+**Run whole iteration on Michael/Gibran's computer GPU and obtain the result
+**Start editing the powerpoint and prepare
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Editing the powerpoint
+|Finished
+|March 4, 2019
+|March 11, 2019
+|March 7, 2019
+|-
+|Help clean the code and add more comments.
+|In Progress
+|Feb 25, 2019
+|No due date
+|
+|-
+|Help write code for generating summary graph and save numpy file
+|Finished
+|March 4, 2019
+|March 11, 2019
+|Marh 7, 2019
+|}
+
+==March 7, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Help edit and add slides for presentation
+*Add graph for result analysis
+**Commits: https://github.com/ezCGP/ezCGP/commit/91752939eaea6676511039e65a78e37e5856cab3, https://github.com/ezCGP/ezCGP/commit/7d64981e1b3eabec88520d88b51612fd18304f20https://github.com/ezCGP/ezCGP/commit/856ebd163512922309f6cc6994365721203804d3
+**Mainly save generation into numpy file, create folder structure for each generation
+**At the end of training process, have result_analysis.py to retrieve data from saved numpy file, and generate graph to analysis number of active nodes, fitness score and AUC for each generation
+*Rehearse presentation and add comments in slides
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add graph for training result analysis
+|Finished
+|March 4, 2019
+|March 11, 2019
+|March 7, 2019
+|-
+|Help clean the code and add more comments.
+|In Progress
+|Feb 25, 2019
+|No due date
+|
+|-
+|Edit slide and prepare for the certain slides that I am going to present
+|Finished
+|March 4, 2019
+|March 11, 2019
+|March 10, 2019
+|}
+
+==March 11, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*Midterm Presentation Day!
+*Presentation link: https://docs.google.com/presentation/d/1UmH5CSSlO2NPVMmBe_Kqo3sie2gQs4Sm2fldg9JC6lE/edit?usp=sharing
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss future subteam plans
+|Finished
+|March 11, 2019
+|No Due Date
+|March 28, 2019
+|}
+
+==March 14, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Discuss next step of the subteam:
+**Able to do research related: read more papers about structure of cgp, block implementation, Primitives experiment
+**Regreesion problems: for example, stock dataset etc. Not constrained only on classification problems
+**Functionality needs to be improved: feed in larger dataset in a user determined way; be able to change parameters all in problem.py instead of still needting to go to universe.py or block.py to tune parameters; enable other permutations such as arguments...
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss future plans and subteam split
+|In Progress
+|March 14, 2019
+|After Spring Break
+|}
+
+==March 25, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*First semester students come in, Rodd taught them what is the basic structure of ezCGP, and showed them basic tensorflow
+*Aniruddha talked about splitting the team during the spring break, we were elaborating more about what each subteam is focussing on
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss future plans and subteam split
+|Finished
+|March 14, 2019
+|April 1, 2019
+|March 28, 2019 
+|}
+
+
+==March 28, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Split the team and talked about each subteam's goal
+[[files/VIP_Unofficial_Team_Plan.jpg|800x800px|frameless]]
+*Team A: Aniruddha, Michael P., Gibran, Jinghua Z
+**Next step tasks: Add argument permutation, enable to feed in large dataset and enable users to feed in dataset in the way they define (provide a function pointer) 
+*Team B: Michel J, Samuel, Johnny
+**Next step: choose a regression problem benchmark, modify the code to enable regression problem
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss future plans and subteam split
+|Finished
+|March 14, 2019
+|April 1, 2019
+|March 28, 2019 
+|}
+
+==April 1, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*Talked to Rodd and learn about the needed for argument mutation
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start to implement argument mutation
+|Finished
+|April 1, 2019
+|April 8, 2019
+|April 4, 2019 
+|}
+
+
+==April 4, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Implemented argument mutation
+**collaborate with Ani Das, Michael P, Rodd
+**Add argPow2 and argFilterSize classes that implement mutation for number of hidden number of layers and filter sizes
+**Updated the argument_permutation primitive in the operator.py
+**Need to make sure that permutation is actually happing 
+**code commit link: https://github.com/ezCGP/ezCGP/commit/7859504fcd3751ee51f0de5110e46df916d4bae3
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start to implement argument mutation
+|Finished
+|April 1, 2019
+|April 8, 2019
+|April 4, 2019 
+|-
+|Make sure that mutation actually happend
+|Finished
+|April 4, 2019
+|April 8, 2019
+|April 5, 2019 
+|}
+
+==April 8, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*Make sure that argument mutation happens
+*Thinking about how to feed in large data in a more user friendly manner
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|make sure that mutation actually works
+|Finished
+|April 4, 2019
+|April 8, 2019
+|April 4, 2019 
+|-
+|Start to think about how to take big dataset and allow user to provide data-loading function
+|Finished
+|April 8, 2019
+|April 15, 2019
+|April 11, 2019 
+|}
+
+==April 11, 2019, Subteam Meeting ==
+'''Subteam meeting'''
+*Helped implement large_dataset fed in
+**Add large_dataset_parameter in operator.py, default to be None
+**If large dataset is fed in, enable users to feed in a list of file names and function pointer to data loading function provided by user
+**tested implementation through cifar-10 dataset
+**code pushed with Das and Michael: https://github.com/ezCGP/ezCGP/commit/d37cb835b3543be569af8024a586aab190fa4f38
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add large_dataset implementation
+|Finished
+|April 11, 2019
+|April 11, 2019
+|April 11, 2019 
+|}
+
+==April 15 & April 18, 2019, VIP Meeting ==
+'''Subteam meeting'''
+*Created the final presentation power point
+*Mainly working on adding and changing the structure of presentation power point, assign presentation work to first semester students
+*Look into result_analysis.py error
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare Final Presentation
+|Finished
+|April 15, 2019
+|April 22, 2019
+|April 22, 2019 
+|}
+
+==April 22, 2019, VIP Meeting ==
+*Final presentation, link: https://docs.google.com/presentation/d/10t_-9TvkV_GwWpHTPa6wG7tWbhio_NAjP8u-f-bfWqE/edit
+*Future work:
+**Add more advanced layers that would help CIFAR-100 accuracy
+**TPU/Google cloud integration
+**Training with larger population size ...
+
+==Final reflection and grade==
+Before midterm, I contributed on fixing and debugging the ezcgp structure on tensorflow version and mutation methods. After midterm, I mainly worked on constructing script for result analysis, generating graphs; helping with the adding argument mutation and large dataset fed in. It's kinda weird to say, but I think I deserve a A for this 2 credit class.

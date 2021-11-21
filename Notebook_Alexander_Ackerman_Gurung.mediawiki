@@ -1,0 +1,970 @@
+[[files/Alex Gurung.jpg|thumb|356x356px]]
+
+== Team Member ==
+Team Member: Alexander A. Gurung
+
+Email: agurung7@gatech.edu
+
+Cell Phone; 703-835-1897
+
+Interests: Machine Learning, Linguistics
+
+== January 7, 2019 ==
+'''Team Meeting Notes:'''
+* Introductions to the team/the schedule for the semester
+* Went over changes in notebook structure (and how it is now online)
+* In bootcamp group was introduced to genetic algorithms and their underlying principles
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start notebook
+|Completed
+|January 7, 2019
+|January 14, 2019
+|January 9, 2019
+|-
+|Join Slack
+|Completed 
+|January 7, 2019
+|January 14, 2019
+|January 9, 2019
+|-
+|Complete Lab 1
+|Completed
+|January 7
+|January 14, 2019
+|January 14, 2019
+|}
+
+== January 8-9, 2019 ==
+'''Progress made:'''
+* Setup emade and got jupyter notebook working with the correct virtual environment
+'''Problems & Solutions:'''
+
+Below all arose when attempting to setup emade according to instructions on README
+* Error with 'no Visual C++ installation'
+** Attempted to solve by downloading Visual Studio installer and installing Visual Studio Build Tools 2017
+** The problem seemed to be happening during the hmmlearn step, so I ran the line below to fix the problem
+** 'conda install -c conda-forge hmmlearn'
+* "error: numpy 1.15.4 is installed but numpy<=1.14.5,>=1.13.3 is required by {'tensorflow'}"
+** uninstalled numpy ('pip uninstall numpy')
+** 'pip install numpy==1.14.5' to get the correct version
+* Running jupyter notebook while in my virtual environment wasn't working
+** To run jupyter notebook ordinarily, use 'conda activate base'
+** To run jupyter notebook using this virtual environment, run 'conda install nb_conda'
+*** This is the most helpful, as it allows you to decide which python version to create notebooks in
+*** Found here: https://stackoverflow.com/questions/37085665/in-which-conda-environment-is-jupyter-executing
+
+== January 13-14, 2019 ==
+'''Progress made:'''
+
+Worked through Lab 1, making modifications as required
+* Added section-reversal mutation and adjusted hyper-parameters to improve performance of n-queens
+
+== January 25-26, 2019 ==
+'''Progress made:'''
+* Worked through Lab 2, making modifications as required
+** Added primitives (other numpy functions) and registered another mutation function (from https://deap.readthedocs.io/en/master/api/tools.html#module-deap.tools)
+
+== January 28, 2019 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work through part 2 of Lab 1
+|Complete
+|January 28, 2019
+|February 04, 2019
+|February 04, 2019
+|}
+'''Progress made:'''
+* Learned about multi-objective genetic programming
+
+== February 02-03, 2019 ==
+'''Progress made:'''
+* Worked through part 2 of Lab 2
+** Had some issues reducing the area under the curve, tried modifying the hyperparameters but wasn't sure what the logical changes to make would be
+
+== February 04, 2019 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Dataset Problem
+|Complete
+|February 04, 2019
+|February 11, 2019
+|February 11, 2019
+|}
+* Split into teams
+* Need to look through titanic dataset and the sample notebook and then work through the problem myself
+** Once I get my best model, get confusion matrix (and that of all my group members) and graph pareto front
+
+== February 10-11, 2019 ==
+* Worked through titanic dataset
+** In fixing the nan values, thought that the married "Mr." or "Mrs." indicator should influence our approximate age
+*** So instead of just taking the average of the overall dataset and filling in the nans with that, use the mean of the married individuals
+** Also one-hotted the embarked location, since it didn't seem like the information was irrelevant, but no discernible relationship between categories to justify 1-3 assignment
+[[files/Sample head.png|center|frameless|521x521px|Head of training data post-modification]]
+* For training, ran a selection of models and determined that DecisionTreeClassifier converged the quickest
+** Basically retrained the model with a ton of different hyperparameters and found the best result[[files/AlexG Train dtc.png|center|frameless|564x564px|Code snippet for optimizing hyperparameters]]
+
+== Feburary 11, 2019 ==
+* Team meeting, started genetic programming assessment of Titanic dataset
+* Started figuring out integration with dataset based on code from Lab 2, but still work to do
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|GP Titanic Dataset
+|Completed, although modifications could be made
+|February 11, 2019
+|February 18, 2019
+|February 17, 
+|}
+
+== February 14, 2019 ==
+* Got data integration with GP working, and decided on a way of evaluating the fitness of an individual
+* Biggest issue to be resolved if I have time is interpreting the function output as a classification problem
+** Right now I throw the function output into a sigmoid function (because it has an unlimited domain and output between zero and 1, so I could just take the upper half and say that meant survived, and the lower half and say it meant died)
+*** This is a pretty hacky solution I took from my past experience with neural networks, but I know it could be fixed with strongly typed deap
+*** However, I don't want to just make the changes unless I know what strongly typed boolean output actually does since I know how the sigmoid method of doing things works [[files/Spring 2019 Group 5 Titanic GP Eval.png|center|thumb|479x479px]]
+
+== February 17, 2019 ==
+* Helped team member Reagan with how I got my GP working, and started working on graphs and optimizing my models, as well as uploading to kaggle
+* Accuracy on kaggle was 77%, which was about what I got with my previous non-GP attempts
+** I think the limiting factor at this point is my data parsing, so to get better results I would need to work on that
+[[files/2019 Titanic GP Group 5 res.png|center|thumb|391x391px]]
+
+== February 18, 2019 ==
+* Team meeting, installing EMADE
+** I'd already installed emade, so just pulled the new code and made sure that I could run a server 
+** The main issue I had was displaying unicode and setting up a mysql server, just need to modify template files {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Install EMADE |Completed |February 18 |February 25 |February 18 |}
+
+== February 24, 2019 ==
+[[files/Agurung showmysqlWorking.png|center|thumb|794x794px]]
+* Setup xml file for my machine, running emade on titanic
+
+== February 25, 2019 ==
+* VIP meeting, worked primarily on getting people's EMADE working and setting up master/workers
+* Scheduled meeting to finalise
+
+== February 28, 2019 ==
+* Sub-team (bootcamp) meeting
+** Attendees: Me, Reagan and Michael
+** We setup MySQL on those who didn't have it installed, and got a system working with a master and worker processes
+*** Main takeaway was that creating a worker process on the same computer as the master is more finicky than using a different computer (which is what we were working towards anyway)
+*** We just had to change 'templates/input_titanic.xml' with the appropriate information for the server (e.g. the server's ip address)
+** Still need to train
+
+== March 4, 2019 ==
+* VIP meeting, started working on presentation
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|VIP Presentation
+|Complete
+|March 4
+|March 11
+|March 10
+|}
+
+== March 7, 2019 ==
+* Bootcamp team meeting
+** Attendees: Me, Reagan and Michael 
+* Finished the bulk of the presentation, looking to add visualization for the EMADE Titanic section but that's to be done as possible
+
+== March 10, 2019 ==
+* Anthony D'Achille reached out to me about working on visualization
+* Our schedules didn't line up so he sent me the instructions how to the the system
+** I installed everything from https://github.gatech.edu/adachille3/emade-viz
+** Ran and got visualizations
+** Still have potential issue about only going to generation 49, not sure what's causing that but asked Anthony about it
+* Added visualizations to presentation
+
+== March 11, 2019 ==
+Link to presentation: https://docs.google.com/presentation/d/1AGwtz55ku6jxk3XwWodttra_TJMcSllMKsmHGdcp1TE/edit?usp=sharing
+
+== March 25, 2019 ==
+* Got placed into the cache subteam
+* Met with cache team, did introductions to the team and general plan moving forward
+* First step is to get acquainted with the cache branch/internals of emade
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Merge assigned files
+|In progress/unsure how to proceed
+|March 25
+|April 1st
+|April 1st
+|}
+
+== March 31st, 2019 ==
+* Got Google Cloud instance running
+* Have an authentication issue with github that am still working to resolve
+* Did a diff on the two files
+** gtMOEP.py
+*** "Georgia Tech Multiple Objective Evolutionary Programming Module"
+*** handleWorker(func, dataPair, return_dict, my_queue):
+**** place result from function directly in table
+**** no longer try to delete generated data
+*** evaluate_individual(individual, dataset):
+**** mem_limit = _inst.mem_limit/100.0*virtual_memory().total/(1024 * 1024)    #Puts in GB
+**** ^ actually calculate memory limit
+**** used to just hard code to 8GB
+**** Changed a comment
+***** total_mem = int(os.popen('ps -p %d -o %s | tail -1' % (my_process.pid, 'rss')).read()) / 1024.0Â  # KB
+***** Was MB, now KB
+**** test_data_classes no longer just result
+***** test_data_classes = [np.array(inst.get_target()) for inst in result.get_test_data().get_instances()]
+***** now delete generated data
+** seeding_from_file.py
+*** Was the same as the file on main branch
+*** Basic functionality of the file is to read seeded individuals (in string text in the file)
+
+== April 1st, 2019 ==
+* Made fork of my own
+* ran diff again but on grid_slurm_integration branch
+** seeding_files
+*** When saving to database, used to be try except but now just write to database
+** gtMOEP
+*** no longer use scoop
+*** import dill - pickle but for more objects
+*** ix bug in python 3.5 on win32 related to UNICODE
+*** no longer set elapsed_time to -1 on create
+*** return creator now
+*** add method setCacheInfo
+**** sets the cacheDict attribute
+*** for train_data_array, switch out using datasetDict and batchSize
+**** instead use cacheDict and useCache
+*** change years_elapsed to generations?
+*** remove time from printing out elements left in queue
+*** removed acceptable and goal from dynamic_args
+*** if using cache, clear cache at end of generation
+*** evals_per_worker from 5 to 25
+*** print if age is too high for hash?
+*** calculate time, don't use elapsed
+*** smaller time limit, 9000 to 3600
+*** also some of the changes said above from master of fork
+
+== April 5th, 2019 ==
+* Met with subteam to iron out details of sub-sub teams
+* Personal work:
+** been figuring out how current caching works by going through relevant files, and then researching optimization strategies for cache invalidation
+** Some notes
+*** Data.py
+**** If using cache
+***** If saving data
+****** Save data and label of feature and label array respectively
+***** If hash data
+****** Get the hash (sha) of the feature array
+****** Dump to pickle file
+***** If hash data
+****** Return data with hash
+***** Else
+****** Return data with just the points, no base directory or fold
+*** Data.py store_in_cache, remove_data
+**** Store:
+***** Compress and save, get write time and put in database
+**** Remove:
+***** Removes the tree (called in one_for_all to remove stuff not saved properly?)
+*** launchGTMOEP
+**** cacheLimit gets hyperparameters
+***** cacheLimit
+***** central?
+***** useCache
+***** timeThreshold
+***** Database string
+**** Dump cache_dict into picklefile
+*** Didn't see much on cache invalidation, so looked around and found call to cleanup_cache_table in gtMOEP
+**** actual method in sql_connection_orm.py
+** Knapsack problem
+*** http://www.es.ele.tue.nl/education/5MC10/Solutions/knapsack.pdf
+*** http://di2ag.thayer.dartmouth.edu/Papers/Conference/cache.pdf
+
+== April 7th, 2019 ==
+* Was having some issues with gcloud so set up ssh key and all that so I can work more easily
+[[files/AlexGurung Knapsack Introduction.png|center|thumb|499x499px|starting work on cache invalidation using knapsack problem
+]]
+* Still need to actually save set of solutions
+* Resources looked at:
+** http://di2ag.thayer.dartmouth.edu/Papers/Conference/cache.pdf
+*** not super helpful but says can use divide and conquer algorithm
+**** what about subproblem overlap?
+** http://www.es.ele.tue.nl/education/5MC10/Solutions/knapsack.pdf
+*** Looking at knapsack problem specifically, this is where I'm going to be looking for a lot of guidance
+** https://www.dyclassroom.com/dynamic-programming/0-1-knapsack-problem
+*** haven't looked too in depth on this one, but has info on saving the solution
+* One consideration is how large this array is going to be since our cache size is massive
+* https://www.youtube.com/watch?v=8LusJS5-AGo
+** helpful video on tracing it
+
+== April 8th, 2019 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on cache invalidation further
+|Completed
+|April 8th
+|April 15th
+|April 10th
+|}
+* Met with subteam, basic consensus was need to continue working on cache invalidation
+* Especially focusing on transfering the code into EMADE
+* Other sub-subteam members were mostly working on getting their GCP instance working so I'll keep working on the invalidation
+
+== April 10th, 2019 ==
+* Wrote a variety of implementation of the knapsack problem/solutions that are optimized in different ways
+** The hope is that the benefit from caching better value subtrees offsets the time cost of running a more complicated algorithm
+** [[files/Cache Invalidation-Knapsack Problem Optimisation.png|center|thumb|727x727px|Knapsack problem method (with different optimisations)]] One of the outputs
+ Optimal solution for weight 40000 took time 9.66s and has value 18306
+ 1% of weight bucket solution for weight 40000 took time 0.01s and has value 12854
+ Fixed 100 bucket solution for weight 40000 took time 0.03s and has value 16159
+ Square bucket solution for weight 40000 took time 0.05s and has value 17532
+ Heap solution for weight 40000 took time 0.00s and has value 8195
+*Observations:
+**log(N) is terrible, the buckets are too small in number to be at all useful (maybe could multiple by a scalar, not sure if it's worth pursuing)
+***The reason it's there to begin with is so that the size will expand in O(log n) just like heapify, but since there's a logical bound on our data i'm not sure if we need to worry too much about time complexity
+***(especially as the solutions the heap method comes up with are much worse)
+**Pure DP knapsack algorithm is incredibly slow, like crashes my computer and is estimated to take 45 minutes slow
+***Thus we need the optimisations
+**Square (which means that the array would be square assuming the weight is larger than the number of objects), increasing only as the size of our inputs increases)
+***This was consistently in the middle, it provided the 2nd best results in the 2nd most time (although still significantly less time)
+***I'm wary about scalability depending on the size of the objects but I need to look more into how large those sets are
+**Fixed is pretty good but I'm wary about the implications when you get to larger numbers (which are hard to test for the aformentioned reason that my computer breaks when finding the optimal solution)
+***Limiting yourself to 100 buckets could prove to be a bottleneck in the future (although it will most likely provide more accurate results than the heap solution)
+**1% is promising because, out of the knapsack optimisation techniques, it took the least amount of time and still had respectable results. (Fixed took 3 times longer and only had 1.3x better results). However, I'm wary about scalability since it might need to be modified if the weights become much larger
+***For example, in EMADE we use 10,000,000 as our max cache size, and at that scale even 1% might take too long
+**The heap solution irritates me because it is very quick, so the other algorithms need to find significantly better solutions to be viable
+
+== April 15th, 2019 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Presentation
+|Completed
+|April 15th
+|April 22nd
+|April 22nd
+|-
+|Finish changes to cache invalidation
+|In progress
+|April 15th
+|April 22nd
+|
+|}
+* Met with subteam, this is the final stretch so just need to finish up implementing the new cache invalidation
+
+== April 18th, 2019 ==
+* Met with subteam, seems that there are more problems with internal cache mechanism
+* Need to work on presentation and merging my method with EMADE
+
+== April 21st, 2019 ==
+* Fixed some bugs in my EMADE implementation, running to make sure it works (doesn't throw errors, still need benchmarking to really test)
+
+== August 19th-25th, 2019 ==
+
+=== <u>August 19th, 2019</u> ===
+
+==== Meeting Notes ====
+* Organized into teams and discussed future plans
+* I joined the NLP subteam (although may consider doing a little work on caching as per my previous semester's work)
+* Our main goal for the week is to decide what sub-problems to approach and how to split up the work
+* Mohan gave us a brief introduction into the work he did over the summer
+
+=== <u>August 24th, 2019</u> ===
+'''Sub-team Meeting Notes'''
+* We met up to discuss current state of affairs and knowledge of sub-team members
+* Mohan gave us an overview of his presentation from over the summer
+* We looked at the possibility of including neural networks into EMADE as a primitive
+* We also discussed ways the current methods of text encoding could be improved
+
+== August 26th-September 08th, 2019 ==
+(Labour day weekend so no team meeting on September 02)
+
+=== '''<u>August 26th, 2019</u>''' ===
+'''Meeting Notes'''
+* resented where we are in discussions, 
+* Jason suggested using ADFs for incorporating neural networks
+* We worked on a doc with future goals and order of responsibilities
+* I want to work on extractive text summarization since I think it's a good test of text encoding and is approached in other papers with a genetic algorithm
+* We realized we would like to get GCP credits
+* Goals for next meeting is to do a literature review on whatever information each team member needs to learn (e.g. how bag of words works, word2vec, text summarization)
+
+=== <u>August 27th, 2019</u> ===
+* I remembered the NEAT paper I'd read a few years ago and thought that it could be a good way of approaching neural networks in the context of EMADE
+* More work will need to be done on seeing how it can be incorporated within the greater context, and whether it's worth using HyperNEAT instead
+
+=== <u>August 31st, 2019</u> ===
+* Sub-team meeting, we worked on getting EMADE running and discussed work moving forward
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get emade working
+|In progress
+|August 31
+|September 09
+|September 06
+|-
+|Make progress on text summarization
+|In progress
+|August 31
+|September 09
+|September 09
+|}
+
+== September 06, 2019 ==
+* Sub-team meeting, got EMADE somewhat working (although switch to GCP credits may change things)
+* Split branch for time conflict students and figured out different goals
+** We will be working on NLP applications and directly-NLP related work (e.g. lemmatization)
+** Time-conflict will work on implementing neural networks (Keras layers, ADFs, or NEAT as possible approaches)
+* Doing research on best way to determine fitness of extractive text summarization
+
+== Septermber 09, 2019 ==
+* Overall team meeting, split up work for next week and started figuring out priorities
+* Started looking at papers/current research into genetic algorithms and text summarization
+** Main issue I can see is figuring out how to best evaluate fitness of individuals
+** Then I'm not super sure what those individuals will look like in terms of structure
+* Some papers seem to represent individuals as essentially weights on various features
+** https://www.sciencedirect.com/science/article/pii/S1877050915006869
+* I'm not sure I like this system (while it may work) in the context of emade since it doesn't actually involve creating a tree of functions given inputs
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out best way to represent individuals and fitness
+|In progress
+|September 09
+|September 16
+|
+|}
+
+== September 13, 2019 ==
+* Sub-team meeting, mostly just updates on how work is going
+* Seems like sub-team working on lemmatization might be useful for my summarization
+** Thinking about incorporating lemmatization as a primitive
+* 
+* Resources:
+** https://heartbeat.fritz.ai/extractive-text-summarization-using-neural-networks-5845804c7701
+*** they use feed-foward network, not our goal but has some useful data processing
+** https://medium.com/sciforce/towards-automatic-text-summarization-extractive-methods-e8439cd54715
+*** overview of methods used
+** https://ieeexplore.ieee.org/document/6407852
+*** 'Single document extractive text summarization using Genetic Algorithms'
+*** much more complicated paper
+*** weighting system of sentences
+** https://www.sciencedirect.com/science/article/pii/S1877050915006869
+*** 'Evolutionary Algorithms for Extractive Automatic Text Summarization'
+*** they propose a feature set of things that we could implement (probably a subset of their full list)
+*** propose a fitness function consisting of combining feature set
+*** need to look closer, but think genetic algorithms are determining weights of feature set
+ * TF/ISF (f1): To remove the impact of higher frequency terms which are not useful in final summary this
+ feature is used. 
+  * ISF vs IDF? Could use this as a way to remove unnecessary terms or to rank some sentences more highly
+ 
+ * Sentence Location (f2): In this sentences are given on the basis of location of the sentence in text
+ document. Value 1 to first sentence, value 4/5 to second, 3/5 to third, 2/5 to fourth, 1/5 to fifth and 0 to all
+ other sentences.
+  * Not sure I like this method of sentence ranking, might just make it a curve high at beginning and end
+ 
+ * Cue Word (f3): This feature scores sentences on the basis of existence of cue word in the sentence. A set of
+ cue words like "In Conclusion" "In Summary" etc. has to be prepared for scoring.
+  * This seems more hard-coded, not sure how that will work with other languages/different kinds of text
+ 
+ * Title Similarity (f4): If title of document is available then a score is given to a sentence on the basis of
+ similarity in between the words in the title and the sentence.
+  * What if our document doesn't have a title? Would need to format data a certain way
+ 
+ * Proper Noun (f5): Proper nouns if exists in the sentence, more weight (generally frequency of terms) is
+ given to the sentence.
+  * Proper Nouns vs Named Entities
+ 
+ * Word Co-occurrence (f6): There may be chances that few terms are co-occurring in the sentences in the
+ same manner and position. These co-occurring words can be given higher weight.
+  * How would we determine co-occurence, bigram frequency?
+ 
+ * Sentence Similarity (f7): Vocabulary overlap in between two sentences.
+  * How do we measure this? compare set of words? 2 * num_words_in_common / (num_words in a + num_words in b)
+ 
+ * Numerical Value in Sentence (f8): Sentences contain numerical data may be important ones for summary so
+ they may be assigned some weight.
+  * This is similar to Named Entity, might want to just look at that
+ 
+ * Font Style (f9): This feature gives higher weight to words written in upper-case and lower weight to words
+ written in title case or lower case.
+  * This is kind of strange, easy to implement though.
+ 
+ * Lexical Similarity (f10): This score is sometimes calculated as sentence similarity but sometimes semantic
+ similarity at one higher level (synonyms) can be used.
+  * NEEDS MORE RESEARCH
+ 
+ * TextRank (f11): Ranking of nodes (sentences) in a graph. After ranking of nodes similarly to web page
+ ranking the scores are used for the final calculation of sentence score.
+  * 
+ 
+ * Sentence Length (f12): Too long and too sentence short sentences should be avoided in summary, so
+ accordingly a threshold could be fixed and then sentences could be scored.
+  * Seems like a pre-processing step, but could be incorporated as a primitive with limits as input variables
+ 
+ * Positive Keyword (f13): The keywords frequently occur in summary should be given higher weight similar
+ to cue words.
+  * Maybe input to primitive could be extent to weight higher?
+ 
+ * Negative Keyword (f14): The keywords frequently never occur in summary should be given negative
+ weight and sentence Containing them should be excluded from the final summary.
+  * I'm not sure what this means, what's the summary?\
+^ subset of notes on features
+
+== September 16, 2019 ==
+Team meeting
+* me and mohan are still working on imagining what individuals/fitness will look like, and how to put this into emade
+
+* Other sub-sub-team seems to making progress on their primitives, I think they still need to test their performance but after that we may be able to use some of their work in our emade implementation of extractive text summarization
+* Mohan and I need to plan some more and figure out the best steps moving forwards, since we could spend a lot of time implementing pre-processing and not make much progress on the actual task
+
+== September 20th, 2019 ==
+* Those of us that could make it from the nlp subteam met up to talk about what work we've gotten done
+* Mohan and I planned out our next steps
+** General simplifying step is constructing this as a supervised problem (while previously it was unsupervised - would have required a lot of modification to emade)
+** https://summari.es - sample data set of summaries
+*** '''''NOTE:''''' We only want '''extractive''' summaries
+
+=== General Algorithm Plan: ===
+'''Input''': Document
+
+'''Output''': [0, 1, 0, 0, 1, ...] where 0 means we don't keep this sentence, 1 means we do
+
+==== Pre-processing ====
+* Document -> [Sentence 1, sentence 2, ...]
+
+* Sentence_x -> SENTENCE VALUE
+Now we take [S_VAL_1, S_VAL_2, ...] and pass it into emade with the 'truth value' being the dataset's corresponding [0, 1, 0, ...]
+
+Can construct a possible tree that might take this list of values and returns another list of values, so we think this will work in emade
+
+[[files/Extractive Text Summarization Plan.jpg|center|thumb|596x596px|Fall 2019 plan for extractive text summarization]]
+Potential problem I'm anticipating: we need to parse the sentences from the document in the same way that the dataset does, otherwise our arrays won't line up
+
+== September 23rd, 2019 ==
+* Team meeting
+* Mohan and I are working on finding a dataset, need something supervised and in the same format we want
+* Jason made some suggestions with an old summarization app, but we couldn't find a solid dataset for it
+
+== September 27th, 2019 ==
+* Difficulties finding dataset, most do a complicated mix of selecting phrases and then combining them at the end
+* If Mohan and I can't find a good dataset by Monday we may end up creating our own dataset
+
+== September 30th, 2019 ==
+* Team meeting
+* Still having difficulties finding a good dataset - we think creating a dataset is the way to go
+
+===== Strategy for dataset creation: =====
+* Use a very inefficient dynamic programming approach to find the optimal set of sentences using some features that we implement
+* Idea is that we can create an optimal dataset and hope EMADE finds a better feed-forward system with/or without the features we make
+Mohan and I split up the features to implement and are going through them to see which ones we think will be the most informative and useful
+
+== October 7th, 2019 ==
+* Over the past week we've been mostly just researching different ways of encoding the information within emade
+** Issue before any progress can be made is sentence tokenization
+*** Basic issue is having a way to consistently parse documents into lists of sentences
+*** Could use NLTK: 
+**** ("NLP Pipeline: Sentence Tokenization") https://medium.com/@makcedward/nlp-pipeline-sentence-tokenization-part-6-86ed55b185e6
+**** ("Tokenize Words and Sentences with NLTK") https://www.guru99.com/tokenize-words-sentences-nltk.html
+*** There's also a spacy equivalent
+*** (Also keras? Mohan said he used it but not sure how good it is)
+*** I believe we already use nltk for other services, but the other group is looking into spacy so the additional dependency may not be too big of an issue
+** Secondary issue with using EMADE: sentence encoding
+*** Need a way of encoding information of each sentence into a value or set of values that emade can operate on
+*** ("Multilingual Universal Sentence Encoder for Semantic Retrieval") https://ai.googleblog.com/2019/07/multilingual-universal-sentence-encoder.html
+*** Not sure if we should do an entire encoding step in pre-processing or give EMADE the tools to create it's own representation
+**** Create primitives or steps in loader to get sentence position, key words, etc. etc.
+* Team meeting:
+** Jason brought up the idea of using MTurk to generate a human-labeled dataset that will hopefully be more accurate (and closer to the "true" value) than our algorithm to generate.\
+** I sent an email with a general cost estimate given the size of the dataset and other papers that use mturk workers
+
+== October 19th, 2019 ==
+* Mohan and I have been waiting to hear back about funding for mturk workers, so not much work has been able to be done concerning dataset creation
+* Mostly been debating one-step encoding vs tools
+** We're planning on following our original strategy of writing primitives that take in text data (most likely sentence data) and return float values
+** Since these primitives are the only ones that take in text, EMADE should say any tree that doesn't use them is an invalid individual so we don't need to worry about EMADE integration of text data
+** This means our loader function will merely tokenize the document into sentences and return it as a list of features, and then we'll design primitives around taking elements from that list
+** Primitives will be modeled from list above, we'll probably start small with key words and other basic primitives to test that valid individuals and summaries are returned
+
+== October 21-27, 2019 ==
+* Presentations on October 21st!!
+* I'm also going through MTurk and validating all of the inputs which is a very time intensive process - making sure the provided answers are valid
+** Things of note:
+*** next time around may want to be more specific about desired task output/make it so all inputs are valid
+*** Right now the same person can contribute multiple times, not sure if this is good or bad (on one hand it helped us get data quicker, on the other hand it may affect the legitimacy of our data)
+*** Some common errors: "Yes" or "No" responses, summaries not involving text from the dataset
+*** Originally we didn't want one sentence summaries, but we think that as they constitute valid summaries in someone's mind we should accept them
+* I went through all of the data and pulled it from MTurk, now me and mohan need to generate the data, truth pairs
+* We're hoping to get the time conflict students to help implement primitives to throw in EMADE
+
+== October 28-November 3rd ==
+* Finished setting up truth data pairs and generated initial csv files
+** Involved writing a basic vote-reconciliation algorithm to combine MTurk results
+* Generated some basic stats on how the summaries compare to the original articles
+[[files/Initial MTurk Article Summary Proportion.png|center|thumb]]
+* ^ Is a histogram of proportions of article summary length to original article (by sentences)
+** For the most part the summaries are significantly shorter than the original articles, but there are a few outliers which are about as long as or as long as the original article
+** These articles also seem to be the ones with >3 reviewers, which I'm not sure how that happened
+* We gave time conflict students a brief overview and primitives to work on including TF-ISF and sentence location
+
+== November 4-November 10 ==
+* I worked on padding the data so we can construct arrays from it (as otherwise different articles and summaries have different length representations)
+* Our longest article has 255 sentences, so one possible issue we may run into is just resource intensive-ness, as we've had to modify every article to be 255 sentences long
+** This was done just by adding blank spaces (separated by our marker '||'), which in theory should be essentially disregarded by our classifiers
+** I don't know how long most articles are, but 255 sentences seems very long
+* I sent the padded csv to the rest of the team and Mohan checked it over to make sure it was in the correct format
+* First Semester:
+** First semester students came back with their methods, they seemed to be mostly working with a few questions
+*** We also gave students who weren't there the first week primitives to work on
+** Moving forward we want them to get their primitives EMADE-ready: mostly just making sure the dimensions are correct, then they should be able to push to the branch
+
+== November 11-17th ==
+* Mohan looked over padded csv and made sure the columns were labeled correctly
+* We started looking at how we're going to actually pass the data into EMADE, since the input/output isn't in a standard structure
+** Jason said that EMADE should be able to handle multi-class output (multi-class in the sense that the resulting feature has >1 dimensions)
+** However, since we need to keep all of these values (one per sentence, 255 per article) throughout the process, our standard classification algorithms won't work
+*** The current system is to pass rows in as 'X' values, but we want columns to be 'X' values since we're classifying essentially statistics on sentences (which are the vertical components, articles are the horizontal)
+
+* Mohan and I think the easiest way of doing this is to write a dummy method that takes in a classifier and applies it vertically (note this may be more inefficient since it has to create 255 classifiers, but it's still iterating over the same data so hopefully it's not too much slower)
+** This way we can quickly create a bunch of vertical_SomeClassifier methods which just pass the classifier into the dummy method
+
+* Time conflict students should be EMADE-ready, I think some people were confused by the dimension changes but we're hoping that they get everything ready for next time
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create algorithm for multi-class input
+|Completed, Mohan needs to integrate into emade
+|November 11
+|November 17
+|November 13
+|}
+
+== November 18th - 24th ==
+* I optimized the num_named_entities primitive (it originally looped over the matrix twice, I vectorized it and applied a map)
+** [[files/Optimized num to named entities.png|center|thumb|679x679px]]There may be a more efficient system, but my new code was ~2x faster than the original and took <5 minutes on my computer on the whole dataset
+** This is still slow but doable within the context of EMADE (especially with a more powerful computer), Mohan was having issues running it on his computer though
+* We're still waiting on first semester students but me and Mohan are hoping they get them in so we can start testing
+* The vertical classifier code has been written and tested - num_named_entities produced extremely bad results though (using a Logistic regression classifier)
+** One issue we run into is that some columns get all zero values, which classifiers obviously don't like
+** This is an easy fix though, we just check for that case and return the constant value
+* One possible explanation for the bad results is the sparse-ness of the dataset, especially since the padding is really large for most articles
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go through primitives and check for accuracy
+|Completed, had to make some optimization modifications for textrank and num_named_entities
+|November 18th
+|November 24th
+|November 23rd
+|}
+
+== November 25th-December 1st ==
+* Thanksgiving break so this week was a little slow
+* Main goal was getting primitives from first semesters and getting results
+* We eventually got the primitives and wrote tests for them (some required small changes, but all ran)
+* However, running on EMADE was very difficult, we kept getting weird errors where the primitives would stall (even on Ice Hammer)
+* Mohan wrote some alternative primitives which did run, our results were pretty good (although suspicious because of the padding issue, we would need to look more into the produced summaries)
+*Final Presentation Link! 
+**https://docs.google.com/presentation/d/1KPcNsmbxPipkDncRDKeScHZCRR71gXoDNyumCGimTVc/edit?usp=sharing {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Evaluate on EMADE |Mohan was having some difficulty, but got results with his own primitives |November 25 |December 1st |December 1st |- |Final Presentation |Completed and practiced |November 25 |December 1st |December 1st |}
+
+== January 10, 2020 ==
+* First time-conflict team meeting
+* Went over statistical methods
+** Seems like general idea is to run more rigorous tests on all of the work we did last semester
+* Ideas moving forward:
+** How do we compare results between primitives?
+** Students T-tests and welch's t-test
+** Should we compare variance?
+
+== January 17, 2020 ==
+* What should we be comparing?
+* AUC, time until valid individual, etc.
+* We need to start organizing the nlp team and figuring out how to run rigorous tests
+* First step is getting EMADE running, use pace?
+
+== January 24, 2020 ==
+* '''MAIN UPDATE: STARTED RUNNING THINGS ON PACE-ICE'''
+* We had difficulties getting the team organized
+* Goal is to get emade running on pace
+Work done over the week:
+* https://pace.gatech.edu/sites/default/files/presentation_spring2020_0.pdf
+* Followed the instructions above to ssh in and start installing EMADE
+* Issues of space, not sure the best way to go about installing all the dependencies for EMADE (the repo fits but not the conda env)
+
+== January 31, 2020 ==
+* Team is having issues with pace
+* Deleted .git/ and datasets not related to what we're doing, this helped get enough space
+* still having issues with mysql - I can get it running and other pbs scripts running but the workflow for incorporating it into the template file seems unclear
+
+* seems like mohan's team is having a similar issue
+
+== February 07, 2020 ==
+* Team meeting, second semesters are just getting on pace and getting unit tests running
+'''Main Issues:'''
+* So we've spent a few weeks trying to get EMADE working but the below problems are making running on PACE difficult
+* The mySQL version are different between what's on PACE and what is needed
+** As a result, some functions cannot be run (like setting the innodb_timeout thing)
+** Furthermore, the character sets are different
+* We've also run into space limitations, but deleting .git/ and some datasets fixed it
+* I also ran into the problem that some templates are expecting the files that would be downloaded with git LFS not otherwise
+** The fix was just to set the character set in the call to the database - '''NOTE: THIS REQUIRED CHANGING THE CODE'''
+* We also had issues getting the connections between nodes working with mySQL, but this was fixed by setting the user permissions properly
+
+== February 14, 2020 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE running on PACE
+|Completed, both with Titanic and summary data
+|February 14
+|February 21
+|February 19
+|}
+* committed to getting EMADE working, we're really close
+* Zack is going to help the second semesters get their unit tests working
+* Other people are going to be talking to mohan and trying to get EMADE working with the gcp instance that Jason set up
+'''UPDATES:'''
+* I got emade working!!
+* The main issue I was running into was the difference in mySQL versions caused a bunch of different problems, but everything works now
+** '''2 MAIN CHANGES:'''
+*** I had to change the character set in every call to the database by adding ''"?charset=utf8"'' to the end of every command in launchEMADE.py
+*** I had to change the mysql .my.cnf file to include '''innodb_lock_wait_timeout=1000''' 
+I want to do more tests but I'm helping other people catch up to speed with getting things running on PACE
+* the main source of suspicions comes from the number of invalid individuals (inf fitness) even after 10 hours of running
+* However, some are valid so hopefully everything's fine
+
+== February 21, 2020 ==
+* Shifting over to getting everyone on PACE
+* All second semesters should have their respective unit tests running by now
+* Anshul and Anuraag have been helping me with PACE and sorting out the mysql errors, I'm helping people get everything set up
+* I'm running into some issues with the summary dataset specifically, I'm not sure what the problem is but I think it comes from the padding I did earlier in the semester
+** Will look into later, for now the old dataset works and the primary task is getting PACE working
+
+== February 28, 2020 ==
+* PACE is down.
+* We have the hackathon on saturday but PACE's downtime makes it hard for us to make much progress
+* Anuraag has gotten mysql working and I'm compiling a list of tasks people need to do to get EMADE working on pace
+
+===== TODO LIST FOR EMADE ON PACE: =====
+* Upload EMADE branch with scp or sftp
+* delete .git/ directories and any unneeded datasets (to save space)
+* copy environment.yml into pace using scp or sftp
+* module load anaconda3/2019.10
+** so we can use conda
+ conda env create -f environment.yml
+** installs the conda environment with almost all of the needed dependencies
+
+* conda activate emade
+** using emade...
+* pip install textblob
+* pip install spacy
+* python -m spacy download en_core_web_sm
+* upload the new launchEMADE.py and sql_connection_orm.py
+* upload mysqldb.pbs and runEmade.pbs
+* qsub mysqld.pbs
+* use qstat and qstat -n to find the node where mysql is running
+* ssh into the node and run mysql
+** create database that you need and create users with corresponding username/passwords
+** you may need to flush privileges, also make to use '%' as the location the user request can come from
+* change your template file correspondingly in both runEMADE and modify the file directly to point to the hosted mysql server
+* ./reinstall.sh
+* qsub runEmade.pbs
+
+== February 29, 2020 ==
+* Hackathon, mostly just worked on presentation since PACE was down
+
+== March 2, 2020 ==
+* PACE was down for longer than they said, but is finally back up
+* Running into new issues when we're running things, Anuraag and I can no longer connect to mysql
+* Unit tests still work but having a lot more trouble running things on PACE
+* Anuraag, me and Tushna met on Saturday to try and work through the problems
+** We spent most of the day pushing through errors but still weren't able to get mysql back to its old state
+** It doesn't throw any errors but the job just shuts off
+* It feels like something has changed since PACE has come back online
+* Zach and I have been talking about different statistical measures and tests we can run, but we don't have any data as of now to use
+* Anuraag is running things on his own laptop but because we're using the old dataset it's taking hours and still doesn't have any valid individuals
+
+== March 2-29, 2020 ==
+* (gap week because of presentations) + Spring break (extended because of covid)
+
+== March 30th, 2020 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get emade working on PACE
+|It works again, although is very tempermental
+|March 30
+|April 6
+|April 4th
+|}
+* I got the vpn set up and reran the pbs scripts and emade started running, then quickly errored out
+** After a lot of debugging I found that the environmental variables were reset so I had to re-go through the mysql setup process
+** There's also a problem with running mysql multiple times that I don't have an elegant solution for
+* The results are still taking a long time to produce valid fitnesses/don't within the time frame
+* People have been hard to get ahold of but hopefully they're able to run things
+
+== April 6th, 2020 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get other people running pace
+|I don't know what problems people are having, but I sent them the document and have been answering questions as they get sent to me
+|March 30
+|April 6
+|
+|-
+|Make a document showing people how to setup emade on pace
+|Frame completed but could be more detailed
+|March 30
+|April 6
+|April 5
+|-
+|
+|
+|
+|
+|
+|}
+* Document process:
+** I added the steps that I needed to take with hopefully enough variation such that people can easily go from what we needed for our team to what might be needed for their's
+*** for example, we had some issues with installation of dependencies but other teams may not need the same things
+*People haven't been sending me that many questions but I talked to Anshul about where people are at and what he needs to do
+*Runs that I've been doing haven't found any items without infinite fitness so there may be problems
+
+== April 10-17, 2020 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get other people running pace and getting results
+|Called and resolved almost all errors, we're getting results for the different primitives and Zach should be creating a script to analyse the results
+|April 10
+|April 17
+|
+|-
+|Put the document onto the main page
+|Added google doc link that we've been using but should really make another page - if have time in the next couple days will figure out how to do that
+|April 10
+|April 17
+|April 16
+|-
+|Fix lingering errors with EMADE and primitives
+|Have seeding almost working (can put individuals in the db but they aren't running) and I fixed most problems people had and am getting results
+|April 10
+|April 17
+|April 16
+|}
+* Document process:
+** Adding to main page, also added some updates concerning ports
+
+* Pushed through a lot of errors - some primitives weren't in the primitives list (gp_framework_helper.py), I needed to change what the trees looked like for summarydata  (EMADE.py), I also added a port number to .my.cnf so multiple mysql servers could be run
+* Anshul and I have been working through his problems, the TextRank primitive errors out and needed to be added to the list but I think he's mostly caught up now
+* Met with Tusheet, Tushna and Anuraag on Thursday and got through almost all of their problems
+* Zack is working on the data analysis side of things and I gave him some of the working data to mess around with
+* We agreed to demo our presentation on Sunday so we need to get things ready before then
+
+== April 18, 2020 ==
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get presentation ready
+|Fixed some lingering bugs and am waiting on other people to tell me their results so we can start fixing our presentation
+|April 17
+|April 20
+|April 20
+|}
+
+I found issues with the way our objectives were found so I modified the template file and added an accuracy measure for multi-dimensional data
+* Tusheet was running stuff last when we talked on Thursday but has since said he's run into some problems so I helped resolve those
+* Tushna also told me she had problems today so I told her what I think she needs to do to fix it (she has a different tensorflow installation)
+I told the other how to fix their objectives and ran emade again
+* Both with NumNamedEntities and Tfisf, although looking into the database Tfisf seems to be taking too long to run
+* Hopefully this data will give us something more useful
+I've started work on the presentation, waiting on updates for real results though
+
+== April 19, 2020 ==
+* Me, Tushna Anuraag, Tusheet and Zack called to get stuff together before the presentation
+** Noone else has managed to get emade running properly - I helped them through some more errors but it looks like I'm going to have to do all of the runs
+* We called with Jason and Greg and went through our presentation up until this point and they gave us pointers on changes to make
+* Greg gave the advice that we could switch out our data for the runs with NumNamedEntities since it stays the same each time, and that it may produce better results
+** As such I created new datasets and re-ran emade with both individually (combining the two primitives isn't possible at the moment) and gave the results to zack
+** These definitely produced more promising results and more complex trees
+* I haven't heard from Tushna any changes to make for Tfisf to make it running more quickly so a combined comparison can be made, so I've had to do without. Ditto for textrank which hasn't been stable so I haven't been able to create another dataset with it
+* Some bug checking could be done on the way objectives are being evaluated and our multi-dimension handling of data but for now it's working and producing correct primitives.
+
+== April 20, 2020 ==
+* last minute changes to presentation and some more data from running emade overnight
+* Helped zack a little with data analysis
+* The main barrier is just that noone else has been able to get runs of emade working properly, especially with these recent changes to objectives and multi-dimensional data
+** Hopefully they should be more or less set up for next semester but there's definitely a learning curve to getting things working with PACE-ICE and it seems like we run into new errors every time people try and run
+** If people keep updating the documentation and adding errors+how to resolve them it may make life easier for new people
+* This semester's progress has been particularly slow in terms of our initial objectives but I hope that by getting PACE-ICE working and making headway into multi-dimensional data next semester will be easier
+** The other issue has been getting our decently-sized team all on the same page and working with emade on pace-ice, even once we got emade running the issues we ran into with primitives should have been resolved last semester or at least at the beginning of this semester

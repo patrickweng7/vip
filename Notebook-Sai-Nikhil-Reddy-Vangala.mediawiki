@@ -1,0 +1,712 @@
+'''Name:''' Sai Nikhil Vangala
+
+'''Email:''' [mailto:svangala3@gatech.edu]
+
+'''Cell Phone:''' 502-600-3086
+
+'''VIP:''' Automated Algorithm Design
+
+'''Interests:''' Artificial Intelligence, Machine Learning, Cloud Computing, Tennis, Watching Sports
+
+= Fall 2021 =
+
+== Week 1 (8/23 - 8/27) ==
+
+=== Lecture Notes (8/25) ===
+* With genetic algorithms, each new generation is created through mating/mutation of individuals in the process.
+* Keywords:
+** Individual: One specific candidate in the population
+** Population: group of individuals whose properties will be altered.
+** Objective: a value used to characterize individuals that you are trying to maximize or minimize
+** Fitness:  relative comparison to other individuals.
+** Evaluation: a function that computes the objective of an individual. 
+** Selection: represents 'survival of the fittest'; gives preference to better individuals therefore allowing them to pass on their genes.
+*** Fitness Proportionate: Great fitness value means higher the probability of being selected for mating.
+*** Tournament: Several tournaments among individuals; winners are selected for mating.
+** Mate/Crossover: represents mating between individuals
+** Mutate: introduces random modifications; purpose is to maintain diversity
+** Algorithms: various evolutionary algorithms to create a solution or best individual
+*** Randomly initialize population
+*** Determine fitness of population
+*** Repeat….
+**** Select parents from population
+**** Perform mutation of population
+****Determine fitness # of population
+*** Until best individual is good enough.
+
+
+===Lab 1: Genetic Algorithms with DEAP===
+* One Max Problem: Very simply genetic algorithm problem in which we search for a 1 filled solution, basically to find a bit string containing all 1s with a set length.
+** Imported all of the required modules such as DEAP.
+** Defined the classes (fitness objective and individual) using DEAP's Creator.
+** Defined the bit string individuals as a list of Booleans represented by 1s and 0s.
+** Defined the genetic algorithm's genetic operators: evaluate, mate, mutate, select.
+*** Evaluated the population
+*** Ran the evolutionary process, 40 generations
+*** Added selection
+*** Used tournament selection on the population
+*** Two-point crossover mating function
+*** Flipping a bit in our bit string to either 1 or 0 respectively with an independent probability of flipping each individual bit of 5% for mutation
+** 100.0 for the global maximum fitness was the norm in most of 40 generations, however due to the population's initial randomization, crossover and mutation probabilities, and the bit flips, there were clear discrepancies. In addition, this method is more effective than random search as there is optimization of the search space using respective fitness objectives.
+
+
+* N Queens Problem: The problem is to determine a configuration of n queens on a nxn chessboard such that no queen can be taken by one another. In this version, each queen is assigned to one column, and only one queen can be on each line.
+** Imported all of the required modules such as DEAP.
+** Defined the classes (fitness objective and individual) using DEAP's Creator.
+** Defined the toolbox and the evaluation function.
+** Defined the crossover function: Two-Point.
+** Defined the mutation function: partially matched crossover because it represents swapping around pairs of queen positions between two parent individuals: More effective. 
+** Mutation that I added
+    def mutUniform(individual, expr, pset):
+    """Randomly select a point in the tree *individual*, then replace the
+    subtree at that point as a root by the expression generated using method
+    :func:`expr`.
+    :param individual: The tree to be mutated.
+    :param expr: A function object that can generate an expression when
+                 called.
+    :returns: A tuple of one tree.
+    """
+    index = random.randrange(len(individual))
+    slice_ = individual.searchSubtree(index)
+    type_ = individual[index].ret
+    individual[slice_] = expr(pset=pset, type_=type_)
+    return individual,
+** Defined and ran evolutionary loop, 100 generations. 
+** Although 100 generations were looped, the algorithm was not able to always achieve a global minimum of 0.0
+** Original:
+*** Best individual is [1, 6, 4, 11, 0, 18, 13, 17, 19, 12, 3, 9, 16, 5, 2, 15, 10, 8, 7, 14], (1.0,)
+** Added Mutation Effect:
+*** Best individual is [7, 12, 0, 5, 13, 11, 16, 8, 1, 9, 18, 3, 15, 17, 19, 4, 10, 14, 6, 2], (0.0,)
+** Generated a visualization to speed up the algorithm improvement process and plotted the average, minimum, and maximum over 100 generations.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Lab 1: Genetic Algorithms with DEAP
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|-
+|Notebook
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|-
+|Review Notes
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|-
+|Set-Up Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2021
+|}
+
+
+
+== Week 2 (8/30 - 9/3) ==
+
+=== Lecture Notes (9/1) ===
+* Reviewed material on Genetic Algorithms form last week's meeting.
+* Tree Representation
+** We can represent a program as a tree structure
+*** Nodes are called primitives and represent functions
+*** Leaves are called terminals and represent parameters.
+**** The input can be thought of as a particular type of terminal
+**** The output is produced at the root of the tree.
+
+* How is the Tree Stored?
+
+** The tree is converted  into a '''lisp preordered parse tree'''
+** The operator would be followed by inputs
+** The tree for f(X) = 3 * 4 + 1 can be written as: [+,*,3,4,1]
+** We do a depth-first traversal in this pre-ordered parse tree
+
+* Crossover in Genetic Programming
+** Basically exchanging subtrees
+** Start by randomly picking a point in each tree
+** These points and everything below create subtrees
+** The subtrees are exchanged to produce children
+** We take what's left of parent 1 and what's left of parent 2 and swap and create 2 child algorithms out of that
+
+* Mutation in GP
+** Mutation can involve…
+*** Inserting a node or subtree
+*** Deleting a node or subtree
+*** Changing a node
+** When we delete a node or subtree, we can perform a shrink operation to fill up that tree
+** Any change we make locally to a tree, that is called a mutation
+** Example: Symbolic Regression
+*** Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
+*** Primitives include: +, *, -, /
+*** Terminals include integers and X
+** We solve this using a Calc 1 Concept of Taylor Series
+*** Taylor Series for sin(x)
+
+* Evaluating a tree
+** We can feed a number of input points into the function to get outputs 
+*** X = [0..2𝜋]
+** We can measure error between outputs and truth.
+
+
+===Lab 2: Symbolic Regression===
+* Imported the libraries needed for GP.
+* Created the fitness and individual classes
+* Initialized primitive sets and all the primitives that the tree can use. 
+** Best individual is add(add(x, multiply(x, multiply(add(x, multiply(x, x)), x))), multiply(x, x)), (1.1690561362729958e-16,)
+* After adding the two new primitives (Sin and Cos) & new mutation (mutEphemeral): 
+** Best individual is multiply(sin(add(x, x), cos(negative(subtract(cos(x, subtract(negative(x), x)), x)), x)), sin(multiply(subtract(sin(cos(sin(x, x), x), cos(x, x)), x), x), x)), (0.0,)
+* Defined the toolbox, individual, population, and compiler.
+* Registered genetic operators and added a new mutation and expanded it in the evolutionary loop as well. 
+* Programmed the main evolutionary algorithm which prints out the individuals in a tree format being read from left to right.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|-
+|Review Notes
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|-
+|Complete Lab 2: Symbolic Regression
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}
+
+
+
+== Week 3 (9/6 - 9/10) ==
+
+=== Lecture Notes (9/8) ===
+* Genetic Programming Cycle
+** New Gene Pool
+** Evaluation
+** Genes with scores
+** Fitness Computation
+** Genes with fitness
+** Selection
+** Parental Genes
+** Mating
+** Child Genes
+** Mutation
+** New Gene Pool
+* Gene pool is a set of genome to be evaluated during the current generation.
+** Genome
+*** Genotypic description of an individuals
+*** DNA
+*** GA = set of values
+*** GP = tree structure, string
+** Search Space: Set of all possible genome. For AAD, set of all possible algorithms.
+* Evaluation of a Genome assocites a genome/individual (set of parameters for GA or string for GP) with a set of scores.
+* What are these scores
+** True Positive - TP
+*** How often are we identifying the desired object
+** False Positive - FP
+*** How often are we identifying something else as the desired object.
+* Objectives
+** set of measurements each genome is scored against
+** phenotype
+* Objectives Space: set of objectives
+* Evaluation: Maps an genome/individual 
+** From a location in search space
+*** Genotypic description
+** To a location in objective space
+*** phenotype description
+
+* Classification Measures
+** Data Set: Positive Samples (P) and Negative Samples (N)
+** Classifier
+** Confusion Matrix: True Positive, False Negative (Type II Error), False Positive (Type I Error), True Negative
+
+* Maximization Measures
+** Sensitivity or True Positive Rate (TPR)
+*** AKA hit rate or recall
+*** TPR = TP/P = TP/(TP+FN)
+** Specificity (SPC) or True Negative Rate (TNR)
+*** TNR = TN/N = TN/(TN+FP)
+
+* Minimization Measures
+** False Negative Rate (FNR)
+*** FNR = FN/P = FN/(TP+FN)
+*** FNR = 1 - TPR
+** Fallout or False Positive Rate (FPR)
+*** FPR = FP/N = TN/(FP+TN)
+
+* Other Measures
+** Precision or Positive Predictive Value (PPV)
+*** PPV = TP/(TP+FP)
+*** Bigger is better
+** False Discovery Rate
+*** FDR = FP/(TP+FP)
+*** FDR = 1 - PPV
+*** Smaller is better
+** Negative Predictive Value (NPV)
+*** NPV = TN/(TN+FN)
+*** Bigger is better
+** Accuracy (ACC)
+*** ACC = (TP+TN)/(P+N)
+*** ACC = (TP+TN)/(TP+FP+FN+TN)
+*** Bigger is better
+
+* Objective Space
+** Each individual is evaluated using objective functions
+*** Mean Squared Error
+*** Cost
+*** Complexity
+*** True positive rate
+*** False positive rate
+** Objective scores give each individual a point in objective space
+** This may be referred to as the phenotype of the individual
+
+* Pareto Optimality
+** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives.
+** The set of all Pareto individuals is known as the Pareto frontier.
+** These individuals represent unique contributions
+** We want to drive selection by favoring Pareto individuals
+*** But maintain diversity by giving all individuals some probability of mating.
+
+* Nondominated Sorting Genetic Algorithm II (NSGA II) 
+** Population is separated into nondomination ranks
+** Individuals are selected using a binary tournament
+** Lower Pareto ranks beat higher Pareto ranks
+
+* Strength Pareto Evolutionary Algorithm 2
+** Each individual is given a strength S
+*** S is how many others in the population it dominates
+** Each individual receives a rank R
+*** R is the sum of S's of the individuals that dominate it
+*** Pareto individuals are nondominated and receive an R of 0.
+** A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
+
+===Lab 2 (Part II): Multi-Objective Optimization===
+* Created new fitness and individual classes as it is a new problem. 
+* The two objectives that will be minimized: Mean Squared Error & Size of tree.
+* The three new primitives of sin, cos, tan were added and set a seed for randomization. 
+* Reinitialized the rest of the toolbox functions.
+* Defined the pareto dominance function: returns true if the first individual dominates the second individual. 
+* Initialized a random population of 300 individuals and one seperate individual for comparison.
+* The population was sorted by pareto dominance in comparison to the sperate individual defined. 
+* The objective space plotted using the sorter population.
+** Blue = selected individual
+** Red = dominators
+** Black = uncomparable 
+** Green = dominated
+* Defined and ran the main evolutionary algorithm that omitted:
+** negative(cos(multiply(add(cos(sin(cos(multiply(add(cos(cos(x)), cos(add(multiply(x, x), sin(x)))), tan(x))))), cos(x)), tan(x)))) with fitness: (0.27530582924947056, 25.0)
+* Visualized the objective space and pareto front which omitted:
+** Area Under Curve: 2.463792426733847
+* Implemented a version that produces a 25% or more decrease in the AUC using changes in the following factors:
+** NGEN
+*** Decrease --> Decrease and Increase --> Increase
+** MU
+*** Decrease --> Increase and Increase --> Increase
+** LAMBDA
+*** Decrease --> Decrease and Increase --> Increase
+** CXPB
+*** Decrease --> Increase and Increase --> Increase
+** MUTPB 
+*** Increase --> Increase
+** Removing one of operator functions: add, subtract, multiply, sin, cos, tan
+
+===Self-Grading===
+https://drive.google.com/file/d/1O1iChfPIhI4IgQ1qM6bHCb4pRmuOaBxQ/view?usp=sharing
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Review Notes
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Self-Grading
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Lab 2: Part 2
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
+== Week 4 (9/13 - 9/17) ==
+
+=== Lecture Notes (9/15) ===
+* Assigned into Bootcamp groups for the rest of the 10 weeks.
+** Jordan Stampfli
+** Austin Peng
+** David Zhang
+* Introduced to new resources:
+** scikit
+** pandas
+** numpy
+* Introduced and explained the kaggle titanic data set and provided instructions for the upcoming assignment.
+
+=== Sub-team Meeting (9/18) ===
+* Began by sharing code via Google Colab
+* Used same split as Jupyter Notebook example: 33% in testing
+* 4 codominant models: 
+**perceptron
+** random forest
+** logistic regression
+** gaussian naive bayes
+* I ended up choosing the MLP and found the pareto-optimal fronts. 
+* Predictions were found using all of the 4 models and saved as 4 seperate csv files
+
+{| class="wikitable"
+!Model
+!False Negative
+!False Positive
+|-
+|Perceptron
+|30
+|27
+|-
+|Random Forest
+|30
+|30
+|-
+|Logistic Regression
+|31
+|25
+|-
+|Gaussian
+|40
+|21
+|}
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 15, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Review Notes
+|Completed
+|September 15, 2021
+|September 23, 2021
+|September 22, 2021
+|-
+|Meet with group
+|Completed
+|September 15, 2021
+|September 23, 2021
+|September 18, 2021
+|-
+|Submit CSV file of titanic test predictions to canvas
+|Completed
+|September 15, 2021
+|September 23, 2021
+|September 22, 2021
+|}
+
+== Week 5 (9/20 - 9/24) ==
+
+=== Lecture Notes (9/22) ===
+* Continue using the titanic dataset, however, use GP this week.
+* Either strongly or loosely typed GP are both allowed.
+* Do not use the default algorithms that are provided in deap.
+* Can use mutation selection.
+* Generate a pareto front using the ML co-dominant set and the one generated with GP.
+* Hyperparameter tuning can be added as a bonus.
+
+=== Sub-team meeting Notes (9/25) ===
+* Focused on the GP impementation for the titanic dataset. 
+* There was not much progress made in terms of the overall project as there were multiple eval functions were at our disposal and were not sure about which to use. 
+* Worked with David on narrowing down the eval function. chose which primitives and terminals to be used. 
+
+Eval Func:
+    def evaluation_func_multi(individual, x_train, y_train, pset):
+        func = gp.compile(expr=individual, pset=pset)
+        args = [x_train[cols[i]] for i in range(9)]
+        predictions = func(*args) 
+        confusion = confusion_matrix(y_train, predictions)
+        FN = confusion[1,0]
+        FP = confusion[0,1]
+        positives = np.sum(confusion, axis=1)[0]
+        negatives = np.sum(confusion, axis=1)[1]
+        #prevent very unequal FN, FP results
+        if FN >= positives or FP > negatives:
+            return (1000000, 1000000)
+        e1 = FN**2 + len(individual) * 20   
+        e2 = FP**2 + len(individual) * 20
+        return (e1, e2)
+
+* Problems Encountered:
+*** Bloat Control Tree Size
+*** Selection and Mutation contains a max tree size. 
+*** Eval function contains a penalizing factor. 
+*** When the tree size was reduced, the speed got faster.
+** Boolean Output
+*** Strongly typed was used for GP, but loosely typed could have been used as well. 
+** Terminals
+*** Were not able to be added, attempted to as it would improve the GP results and would allow for comparison to a constant. 
+*** As a result, only floats between columns could be compared.
+** FP/FN
+*** Had to make sure that not a specific results was not completely FN or FP and that there was a variation. 
+*** Square the FN and FP values --> Increases distribution 
+
+* After comparing the results from ML and GP, we came to a conclusion that the GP results were more diverse. On the other hand, the ML results kept altering through each iteration.
+* Worked on the presentation and created slides 4-7.
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Review Notes
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Meet with group
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Complete and Practice Presentation
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Submit CSV with GP
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+== Week 5 (9/27 - 10/1) ==
+
+=== Lecture Notes (9/29) ===
+* All of the groups presented their work.
+
+* Link to Group's Presentation: https://docs.google.com/presentation/d/1Y9sf7qndm_UrH_mqs4xi4icQ8vgb7XDbQAEICgRYTFI/edit?usp=sharing
+
+* My Presentation: 
+** We started with a variety of machine learning models popular for classification problems including SVM, Random Forests, KNN, Logistic Regression, MLP.
+** After testing general performance of each algorithm, we decided that SVM, Random Forests, Logistic Regression, and MLP were the most effective models
+** From the pair of models we each tried to optimize the model and tweak hyperparameters offered within sklearn but were unable to create a non-dominated pareto front
+** We removed SVM and used the Gaussian Naive Bayes classifier since it was able to produce a model with a higher discrepancy between false negatives and false positives (which made it easier to create the non-dominated pareto front).
+** Discussed the 4 models in depth and the FN/FP values of each. 
+
+* Comments/Questions from presentations: 
+** MOGP showcased a variety of solutions than ML solutions. In addition, in all of the presentations the MOGP's AUC was loser than that of the ML. 
+** Hall of Fame and One Hot Encode need to be explored.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|-
+|Review Notes on GP 
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|}
+
+== Week 6 (10/4 - 10/8) ==
+
+=== Lecture Notes (10/6) ===
+* Introduction to EMADE
+** EMADE: Evolutionary Multi-objective Algorithm Design Engine
+** It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms. 
+
+* Assignments for this week:
+** Follow the install instructions
+** Configure a mysql 5.x server on your machine
+** Downloaded and install git-ifs
+** Cloned the EMADE repository
+** Run the setup to install the package. 
+
+* Running EMADE
+* What is in the Input File?
+** The input file is an xml document that configures all the moving parts in EMADE, we will step through it now.
+
+*Group Assignment:
+** Run EMADE
+** 1 person sets up the sql server and acts as the master process, while the others should connect their works.
+** Run for substantial number of generations.
+** Make a plot of non-dominated frontier.
+** Compare with ML and MOGP assignments.
+** Successful Trees, Plots of AUC, Evacuation Time. 
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 8, 2021
+|-
+|Review Notes
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 12, 2021
+|-
+|Meet with group
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 12, 2021
+|-
+|Install EMADE and SQL 
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 12, 2021
+|-
+|MOGP Code
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 12, 2021
+|}
+
+== Week 7 (10/11 - 10/15) ==
+
+=== Lecture Notes (10/13) ===
+* Work day with the group.
+* Tried to setup the master program and connect the others via nodes to the MySQL program.
+* "mysql -h hostname -u username -d database_name -p"
+
+=== Individual/Group Progress ===
+* Ran into numerous problems due to me using a windows OS.
+* Needed to create a virtual EMADE environment using python 3.6-3.7 as mine was running on 3.8.
+* Still need to resolve the preceding issues.
+* However, group member was able to run and find a couple of FN/FP rates. 
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Review Notes
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Run EMADE
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|}
+
+== Week 8 (10/18 - 10/22) ==
+
+=== Lecture Notes (10/20) ===
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notebook
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Review Notes
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Run EMADE
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|}

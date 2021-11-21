@@ -1,0 +1,790 @@
+== Team Member ==
+
+* Team Member: James Wang
+* Email: jwang864@gatech.edu
+* Cell Phone: (678) 736-1954
+* Interests: Genetic Programming, Data Analysis, Web Development, Product Management, Photography, Tennis
+
+== April 22, 2019 LAST DAY ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* Sub teams present their findings from the entire semester
+* Stock, Caching, Data Visualization, and Deep Learning
+* Notes - collaborative for team
+** First group, Stocks
+*** Use EMADE to predict stock prices based on historical data
+*** Regression problem instead of classification (?)
+*** Implemented technical indicators as feature construction
+*** Since it's regression instead of classification, implemented completely different primitives (ex: MDP)
+*** Data used: Text file of GE stock data with some preprocessing
+*** Time series decomposed into multiple features (trend, seasonality, residuals)
+*** These preprocessing methods have been Implemented into primitives for emade to work with
+*** Statistical Models used: SARIMA (Seasonal AutoRegressive Integrated Moving Average), VARMA (Vector AutoRegressive Moving Average), HWES (Holt-Winters Exponential Soothing)
+*** Deep Learning Models used: MLP, RNN, LSTM
+*** Accuracy metrics used to evaluate models: sMAPE (symmetric Mean Absolute Percent Error), MASE (Mean Absolute Scaled Error)
+*** Results: Statistical models have lower error than DL models, likely due to Statistical models fitting directly on testing data
+*** DL methods also require much tuning
+*** Results don't produce accurate enough results to use in real life
+*** Problems
+**** Emade timeout errors, workflow of Emade, unfamiliarity with implementation
+*** Future work: run EMADE, more DL models, Sector market indicators
+** Second group, Caching
+*** Divided into multiple sub-teams
+**** support all data types that EMADE supports
+**** Create APIs that give users options to use their own cache invalidation method for their own problem space
+*** Cache Maintenance - add documentation
+**** Dockerizing Cache - simplify, standardize process of running on all OS's - makes updates easier, less work for GCP setup
+**** Future updates: standardize outputs, build faster, fix conda version problems, test on other OS's
+*** Cache Validation
+**** Want more optimal system to maximize benefit of subtrees stored
+**** Solution: use the Dynamic Programming solution to the Knapsack Problem
+**** Problems with solution: time ineffective, time cost is large even when the number of subtrees in cache is very small
+**** Potential solutions to those problems: Scale weights, benchmarking, using buckets, etc
+*** Potential optimization of Knapsack
+**** Performance vs precision tradeoff
+***** Sacrifice precision with approximation algorithm, greedy, scaling & rounding
+**** Parallelism
+***** Hypercubes vs irregular mesh
+*** Scripts/ work done
+**** Wrote a script to run EMADE automatically
+** Third group - EEG(us)
+*** https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?ts=5cbe4470
+** Fourth group, Data Visualization
+*** Motivations
+**** Provide a visual interface to be able to interact with EMADE
+*** Recap Fall 2018
+*** Goals for 2019
+**** More visualizations
+***** Visualizations of pareto front over time
+**** Improve usability
+**** Refactor Code
+**** Make app generalize
+**** Visualization of parents: concept
+***** Want to have a visualization for where the parent of a dominated from comes from in a front.
+*** User Study Feedback
+**** documentation
+***** Clearly state he separation between EMADE and EMADE-visualization
+***** more detail on creating an environment
+**** UI Feedback
+**** Visualization
+**** XML Importing
+***** Goal:
+****** Generalize visualizations for any type of problem and any kind of objective functions
+*** Pickling First Years
+**** Goal Reduce the number of times we make a call to the database in order to increase efficiency
+***** Pickling
+*** Future
+**** Make EMADE log meta data in mysql table
+**** finish hierarchy visualizations
+**** add seed creation GUI
+**** GUI for executing sql queries
+** Fifth group, DEEP
+*** Subteam B:
+**** Regression Problem Housing Prices
+**** Progress since Midterm
+***** identified Kaggle Housing Price dataset
+***** incorporated changes into ezCGP to support regression problems
+***** Added Average Percent Change (APC) and Mean Absolute Error (MAE) as fitness functions for regression problem
+***** used StandardScaler to split and normalize training/testing data and preprocessed the housing dataset
+**** Housing Price Dateset:
+**** Parameter Choices
+***** restricted primitives to only dense layers, finding optimal number of dense layers
+**** Individual with Best APC:
+***** uses about 7 dense layers, 6 hidden
+***** predicted price is just 1 value, housing price
+***** trained best individual for 35 epochs
+**** Results on Housing Dataset
+***** compared to other kaggle results
+***** regularized NN performed slightly better
+*** Subteam A:
+**** Improving structure of ezCGP
+**** Progress since Midterm
+***** implemented argument/parameter mutation
+***** changed the framework to deal with large datasets
+**** Dataset 1: MNIST
+***** used because it is easy to evaluate and accessible, population size was 12, epoch set at 1, ran 35 generations
+***** Results on MNIST
+****** best individual is 95.85% and 98.84%
+****** took the individual and trained on full training set
+****** got 99.85%
+***** Compare to Midterm Results
+****** trained model further, about 42 epochs. best accuracy 99.43%
+****** assume since its continuously increasing, will keep going up
+**** Dataset 2- CIFAR-10
+***** Parameters:
+****** pop size 9, epochs to 3, 25 generations
+***** Results on CIFAR-10:
+****** best accuracy of 79.7%, ran for 100 epochs, increased in accuracy by 1.32%
+**** Dataset 3- CIFAR -100
+***** Parameters:
+****** pop size 9, 5 epochs, 50 generations
+***** Results:
+****** low accuracy but still improved
+****** best individual was bad - just a conv block->max pooling->average pooling
+****** trained over 200 epochs because accuracy plateaued
+****** cifar-100 model under performed when trained on whole dataset. why?
+******* lack of genetic diversity
+******* smaller models learn faster
+******* larger models learn more defining features and therefore generalize better
+****** how to fix?
+******* increase number of epochs
+******* utilize first and second order gradient information to make better judgement whether its done learning
+******* kill smaller individuals
+== April 15-21, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* Updated the rest of the teams on our progress of the primitives 
+* Finished final validations with Dr. Zutty 
+* Preprocessed EEG emotion dataset to run through using same seeds as Stroke patients
+* Biggest goal is finishing our run of EEGMADE on the PACE Cluster before the next meeting 
+
+==== Team Meeting ====
+* Need to have discussion for last day presentation
+** Old presentation: https://docs.google.com/presentation/d/1yDHWSvDf0kRlQ7cLoyXPybHN4q1isgIz9R3qetNYOck/edit?usp=sharing
+** New presentation: https://docs.google.com/presentation/d/1UBfFPGBJ5NM3D_9h8j1SWma7n7bXaxWzh4zxxjiS9z8/edit?usp=sharing
+** Potential create slides on the Neuroscience of the project
+* Met Sruti and Kang to progress our presentation
+* Merged pull request into EEGMADE of our primitives, worked with Jas to fix his changes
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|New Primitive Discovery for last PACE Run
+|Complete
+|April 11, 2019
+|April 19, 2019
+|-
+|Presentation for final day
+|In progress 
+|April 19, 2019
+|
+|}
+
+== April 8-14, 2019 ==
+
+=== Team Notes ===
+Austin and I finished Validation, adding more commits to our pull. Started figuring out new primitives with Shlok
+
+https://docs.google.com/document/d/1NcnwpCTE_8e3hpkSbOJXrZjXs0Gd68j1x--PI32e774/edit?usp=sharing
+
+==== Scrum Meeting ====
+* Four new primitives written, in testing and editing stage: Power Band Decomposition, Morelet Wavelet transforms, State Variance, and Mean State Shift
+* Recorded new base line data with Scott at Emory to prove that there is a significant power difference between eyes open vs closed condition
+* Goals
+** Fix and validate primitives using Scott's local testing script
+** Re-try the things we tried in the beginning with new data
+** Implement more signal processing primitives into EMADE
+** New members: doing research to find ideas for more primitives
+
+==== Team Meeting ====
+* Scott was 5 minutes late
+* Paper to look into 
+** https://www.eecs.qmul.ac.uk/mmv/datasets/deap/readme.html#prep
+** https://aaai.org/ocs/index.php/IAAI/IAAI17/paper/view/15007
+* Jason will be reviewing our seeds the following monday
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Primitive Validation
+|Complete
+|April 5, 2019
+|April 11, 2019
+|-
+|New Primitive discovery
+|Complete
+|April 11, 2019
+|April 19, 2019
+|}
+
+== April 1-7, 2019 ==
+
+=== Team Notes ===
+Austin and I finished creating our first to primitives and committed our changes 
+
+https://github.gatech.edu/sheston3/eegmade/pull/10
+
+We still lack in validation from Scott, but he's creating a file that will help us in that process.
+
+==== Scrum Meeting ====
+* Talked to First Semesters and assigned them focus groups
+* Made a plan for the rest of the semester
+* Considering new algorithm
+* Goals
+** Finish Inputting primitives from different teams in EEG
+
+==== Team Meeting ====
+* Missed the meeting due to sickness
+* Given the assignment for validation of primitives created
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Validate new Primitives
+|Complete
+|April 5, 2019
+|April 11, 2019
+|}
+
+== March 25-31, 2019 ==
+
+=== Team Notes ===
+March 30, found 2 new primitives to implement from paper
+* https://www.nature.com/articles/s41551-017-0169-7
+* Mean State Shift 
+* State Variance
+* Worked well with Shlok and Austin to find Scipy's signal methods flitflit and cwt to input filters and wavelets for future primitives
+
+==== Scrum Meeting ====
+* Still no General Scrum meeting 
+* Decided the new members on who would go to which subteam
+** 3 new members. Kang, Sruti, Michael, and Shlok. 
+** Discussed introductions and interests  
+
+==== Team Meeting ====
+* Interest Decisions for new members
+** Shlok Natarajan - 1st year CS Premed. Interest: Medical side + reading articles for getting new methods --> James/Austin
+** Michael Lee - 2nd year CompE. Interest: DSP --> Scott/Nick
+** Kang Shin - 1st year MS CS (Biology Undergrad @ Emory). Interest: ML + Research --> Either with me+Ali or James/Austin
+** Shruthi Sudhakar - 1st year CS. Interest: Need to figure out next meeting
+* Created new Groups for work. Austin, Kang, Shlok, and I will continue on primitives
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Primitives
+|Complete
+|March 11, 2019
+|March 30,2019
+|}
+
+== March 18 -24, 2019 (Spring Break) ==
+
+=== Team Notes ===
+Papers Reviewed
+* https://journals.lww.com/neuroreport/Abstract/2011/08240/Transcranial_magnetic_stimulation_evoked.6.aspx
+** Transcranical Magnetic Stimulation-evoked EEG/cortical potentials in physiological and pathological aging 
+*** In relation to Alzheimer's Disease, the paper uses simultaneous EEG rather than our single pulse EEG
+*** Could look into different methods of our TMS and EEG methods to affect our data collection
+* https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1528-1157.2000.tb00230.x
+** Cortical Excitability in Cryptogenic Localization-Related Epilepsy: Interictal Transcranial Magnetic Stimulation Studies
+*** A related study that focuses on epileptic patients, definitely need to look into stimulation studies in related to our overall goal of affecting different patients
+* http://www.jneurosci.org/content/jneuro/32/1/243.full.pdf
+** EEG-Guided TMS reveals Rapid Shifts in Motor Cortical Excitability during Human Sleep.
+*** 23 volunteers in experiments with data representing 12 subjects.
+*** primitives that are possible
+**** Bandpass filter from .16 - 100 HZ
+*** Checking each channel individually on the differences could be useful.
+
+==== Scrum Meeting ====
+* NONE SPRING BREAK!
+
+==== Team Meeting ====
+* None
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Primitives and Papers
+|Complete
+|March 11, 2019
+|March 30, 2019
+|}
+
+== March 11-17, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* New member presentation! No Scrum! 
+* https://docs.google.com/presentation/d/1WkPyZUnuwT27jbyhFYHfgA4SGDeA0hTQOxyryDVIkuc/edit?usp=sharing 
+* Presentation content Collaboration notes with team members
+** Viz
+*** Goal: visual interface to make training easier - View how individuals are performing during training
+*** Visualize: pareto front, evaluation times, tree structure, AUC graph, number of Pareto Individuals over time, evaluation times
+*** Current goals: add more visualizations (hereditary), improve usability (UI/UX), refactor code to be efficient
+*** User Study feedback: document progress, UI needs to handle failure better
+**** Segregate generational visualizations from aggregate visualizations
+** Group Four (1st Semester)
+*** ML
+**** Dropped Name, Ticket and Cabin
+**** Replaced NaN with averages
+**** Logistic regression + DT ==> highest Kaggle score (.784)
+*** GP
+**** results : .79
+**** Better than ML
+*** EMADE
+**** 39 generations over two weeks
+**** seeded with random forest individual
+**** maybe better if ran for longer but no time
+**** AUC: .9138
+*** Learned:
+**** EMADE makes building models so much easier
+**** ML - user needs to make many choices (data prep, future extraction)
+**** GP - requires more work
+*** Troubles:
+**** Installing Emade
+**** SQL Issues with EMADE
+** Group 2
+*** ML
+**** Dropped non-numeric/ non-categorical cols
+**** Used GridSearch to find the best parameters
+**** Classifiers: DT, Random Forest, AdaBoost, C-SVM
+**** Best: Random Forest - 83.7%, Decision Tree - 84%
+*** GP
+**** Attempt 1: Best Individual fitness: (0, .983)
+*** EMADE
+**** Three objectives --> False positives, False negatives, Number of elements
+**** 4 runs, 48 generations
+**** AUC: 1882.32 -- hypervolume
+** Group 5
+*** Preprocessing
+**** Title Based NaN replacement
+**** Separate age groups for Mr. and Mrs.
+**** Banded age groups into 5 generations
+**** Embarked was one hotted, cabin was converted to # based on depth, fares was banded into groups
+*** ML
+**** Age: averaged based on subgroups split on other values
+**** DT, Gradient Boosting, KNN
+**** Hyperparameter selection using using trial and error
+**** Accuracy: 76%
+*** GP
+**** Mean square error for fitness
+**** Squash output between 0 and 1 with sigmoid
+**** Accuracy: 79%
+*** EMADE
+**** ASK AUSTIN
+**** Notes from Dr. Rohling: use proper graphs with units/ axis; otherwise hard to visually communicate what's going on
+** Caching
+*** Shit ton of speed efficiency Instead of train subtrees over and over, cache previous generation instead of re-evaluating
+**** Just store result of previous Trees
+*** Built in parameter for EMADE
+**** Use_Cache a boolean variable now that can be flagged to make use of this
+*** Progress since last Semester
+**** Documentation web app for caching improvements/ API calls
+**** Updated all XML templates within caching to be compatible with branches
+**** Working on getting it to work with image data
+***** Currently works with stream/ strings
+****** Can make running EMADE 500% faster
+*** Next Steps
+**** Get it to work on image data, currently there are errors
+
+** Bootcamp Group 3
+*** Lab 1
+**** N Queens problem
+*** ML
+**** Best score: .78
+**** Score after parameter tuning: .77
+**** Three models had the same exact score (?)
+*** GP
+**** Added primitives, add subtract power max 2
+**** Used mutUniform for mutation
+**** AUC: .2310
+*** EMADE
+**** Ran for 30 generations
+**** AUC: .199
+*** Learned
+**** ML - least accurate, tended to overfit
+**** GP - more accurate because mutations
+**** EMADE - Best
+
+** Stock Team
+*** Goal: use EMADE to predict stock price on next day based on previous few days
+*** Previously: simple binary classification problem: buy or sell
+*** Based on technical indicators
+*** Current focus: time series data
+*** Predict actual price value as regression problem
+*** Use signal processing on time series data for forecasting
+**** Auto regression
+**** Moving averages
+**** ARMA/ARIMA
+**** SARIMA
+**** VAR/VARMA
+**** SES
+**** HWES
+*** Future
+*** EMADE on Google Cloud
+*** Implement non-classical time series forecasting methods
+** Group One
+*** Data Pre-processing
+*** ML
+**** MLP Classifier - Kaggle Highest Score .775
+**** Random Forest Classifier
+**** Gradient Booster Classifier
+**** Decision Tree Classifier
+*** GP
+**** Strongly typed operators
+**** Tournament selection did not work well
+**** ^Used NGASII selection instead
+**** AUC = 30700
+*** EMADE
+**** Started with sql connection errors
+**** Ran for 14 generations
+**** Had 2 optimal individuals
+**** AUC: 647
+**** Used VIZ team data to produce EMADE Pareto front
+*** Conclusion
+**** AUC for EMADE far better than AUC for GP
+**** EMADE has best individual that is not overfitted with 4.6 fp and 35 fn
+
+** Group Six
+*** Feature Engineering
+*** EMADE
+**** Best run - 21 generations
+**** EMADE > GP/Ml
+*** Used EMADE VIZ to generate visualizations
+*** Hypervolume calculation errors caused random jumps in graphs
+*** ML
+*** GP
+**** used selSPEA2 selection method
+
+** EEG
+*** Our Presentation
+*** Feedback:
+**** Run EMADE
+**** Put things into EMADE
+**** Use EMADE
+**** Stop not using EMADE
+
+** Deep Learning
+*** GP vs. CGP
+*** CGPs are represented by DAGs
+*** Not exactly a tree, its a directed acyclic graph
+*** Blocked primitives?
+*** Dataset: MNIST
+*** 99+% accuracy
+*** Looking for:
+**** GCP experience
+**** ML + DL experience
+**** People with GPUs
+
+==== Team Meeting ====
+* Jas/Ali--frequency band calculation for most common bands (he already made this in a Jupyter notebook, but he needs to put it into EMADE). 
+* Joel/Rahul--refactor any organizational things you want (because I actually think you, Rahul, would also enjoy more software-engineering type tasks?). 
+* James/Austin need to implement something from a paper that correlates with motor activity--James knows lots about neurosci to find something (or collaborate with me/Dr. Borich) and Austin is plenty good at Python and has been on this project for a long time/should know emade)
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Papers and Primitives
+|Complete
+|March 11, 2019
+|March 31st
+|}
+
+== March 4-10, 2019 ==
+
+=== Team Notes ===
+Notes from paper
+* TMS Evoked changes in brain-state dynamics quantified by using EEG Data
+** TMS-EEG has been possible to show how activation induced on one hemisphere advances to the contralateral side 
+** ''J''(''r'', ''t'') = ''J''p(''r'', ''t'') + ''J''v(''r'', ''t''), shows the current distribution in the brain is often expressed in two parts
+*** Jp is the primary current desnity from bioelectric activation of neurons
+*** Jv is the volume of the current density, passive ohmic current density driven by Jp 
+** Data used
+*** 16 TMS-EEG Datasets from their database (6 males and 4 females)
+** Primitive potential
+*** Mean State Shift
+*** State Variance
+* Follow up papers to look into
+** https://www.ncbi.nlm.nih.gov/pubmed/1711458
+** https://www.ncbi.nlm.nih.gov/pubmed/6153960
+
+==== Scrum Meeting ====
+* Current Goals
+** Review new data set from the brain-computer interface dataset 
+** Analyze EEG band data, using that to create new features
+** Run Emade on flattened data (both on samples and channel)
+* Need to begin presentation for new members to join our EEG sub team 
+* Found that no data was able to be collected from the data collection attempt Sunday. 
+** Applying the EEG cap was very difficult even after configuration
+** Hair is a potential issue 
+
+==== Team Meeting ====
+* Found a decent paper with a potential Dataset
+** https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3635036/ 
+** The paper was a good observation of using TMS and EEG together to gain features
+*** potential primitives
+* Recruiting Slides https://docs.google.com/presentation/d/1WkPyZUnuwT27jbyhFYHfgA4SGDeA0hTQOxyryDVIkuc/edit?usp=sharing
+* Tutorial on treating TMS and EEG data http://www.fieldtriptoolbox.org/tutorial/tms-eeg/#background
+* Great discussion with Scott Neuroscience friend on methods for data collection
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Papers and Primitives 
+|Complete
+|February 22, 2019
+|March 8, 2019
+|}
+
+== February 25-March 3, 2019 ==
+
+=== Team Notes ===
+* March 1, 2019 - Visited Emory University. Worked with Scott
+** Configured the 32 input EEG cap for use March 2nd. 
+** Discussed affect of EMG data collection 
+
+==== Scrum Meeting ====
+* Finding papers that demonstrate the correlation between EEG features and excitability as measured by TMS 
+* Discussion on data collection that needed to be done over the weekend at Emory.
+* Rahul PACE cluster needs to be started  
+* Due to illness, primitives set by everyone will be delayed
+** We need to stop circumventing Emade and using regular ML Algos. Need to run Emade to make accurate analyses.  
+* Very deep discussion between Joel and Ali about data collection, processing, and moving forward with different approaches 
+
+==== Team Meeting ====
+* Neuroscience Grad student entered the discussion in the meeting 
+* Reviewed paper https://www.nature.com/articles/s41551-017-0169-7
+** Follow up code from the same lab http://kordinglab.com/DAD/
+* Gathering new data March 2nd, will be going to lab to the day before for set up.
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Continuing EEG TMS paper research 
+|Complete
+|February 22, 2019
+|March 8, 2019
+|}
+
+== February 18-24, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* Consolidated work finished on Sunday meeting regarding Morlet Wavelets and FORCE Cluster 
+* Worked with Dr. Rohling regarding different wavelets in the SciPy documentation. 
+** Need to figure out more regarding the implementation of these wavelets 
+** Need to talk to Scott with adding more wavelets as primitives 
+
+* Had a great discussion regarding primitives and avoiding adding a FFT requirement for the Morlet
+** Because of the limitations, science research has towards trying everything, EMADE creates a perfect opportunity to explore different possbilities and combinations of algorithms. 
+** Creating a primitive that is independent was decided to be the best approach
+
+==== Team Meeting ====
+* Was forced out the room because I was sick :(
+* Joel and Ali spoke regarding the data preprocessing. It was an interesting discussion of the logical implementation of the 3d sample structure
+* Scott pivoted the implementation of what I'd be working on from primitives
+** I'll  be looking up Neuroscience research "papers that demonstrate a correlation between EEG features and excitability as measured by TMS"
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+|-
+|Paper Research 
+|In Progress
+|February 22, 2019
+|March 8, 2019
+|}
+
+== February 11-17, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* Discussed with Ali and Jas the state of our data.
+* Currently suspended regarding new data, and we are hoping to get more data from Dr. Borich's Lab in March
+
+==== Team Meeting ====
+* Decided a Sunday 5 hour hackathon to work on FORCE Cluster Implementation 
+* Recieved access to FORCE Cluster attached to my account
+** Found no reason to access it. 
+
+==== Hackathon ====
+* Worked with Austin and Jas with reading about Morlet Wavelets 
+** Found a separate package to do Morlet Wavelets, WaiPy for waves, but decided not to pursue to due having to download another package
+** Analyzing Neural Time Series Data by Mike X Cohen
+*** Really good data regarding how to create a Morlet Wavelet, bascially a Sine/Cosine Wave * Gaussian Distribution wave
+*** Our implementation would first require a FFT then multiplying our data with the Morlet Wavelet
+* Discussed different approaches to create a Seed for the FORCE Cluster
+** First discussions were created about more research about the neuroscience with our approach
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Evolution Run on the FORCE Cluster
+|Moved Priorities
+|February 13, 2019
+|February 14, 2019
+|February 19th
+|-
+|Primitive Implementation 
+|In Progress
+|February 17, 2019
+|February 17, 2019
+|
+|}
+
+== February 4-February 10, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* Discussed with the team towards putting the new Cropped Frequency Domain into a NN 
+* Discussions towards the health of our data, and Ali + Scott will be looking into options 
+* Learned more about Ali's data processing method
+
+==== Team Meeting ====
+* Started talks on different analysis methods that'll be implemented on EEG Data 
+* Joel, Rahul, and I should be working on working on a learner and using different techniques to be implemented
+
+=== Action items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Discuss about Emory involvement
+|Finished
+|February 4, 2019
+|
+|February 10, 2019
+|-
+|Work with Rahul on Learners 
+|Finished
+|February 2, 2019
+|
+|February 4, 2019
+|}
+
+== January 28-February 3, 2019 ==
+
+=== Team Notes ===
+
+==== Scrum Meeting ====
+* New Friday meeting at 3:00PM for EEG team for class conflicts 
+* Implement Zrenner's Forecasting as a primitive (Joel, James + Rahul)
+* Crop Frequency Domain and Put it into A Neural Net (Joel, James + Rahul)
+* See Emory Lab (James + Joel)
+* Cool updates towards using the PACE Cluster
+** Should read up more on the logistics and purpose of the PACE Cluster/ What is it?
+
+==== Team Meeting ====
+* Decided Subteams a little more with Rahul, Joel, and me on a subteam. 
+* Discussed Emory results creating videos from the diagnose finger movement based with the electrode 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Reading Anaylzing Neural Time Series Data 
+|In Progress 
+|January 28, 2019
+|February 5, 2019
+|
+|}
+
+== January 20-27, 2019 ==
+
+=== Team Notes ===
+* Sunday: Lab day at Emory
+** Worked with Shlock, Scott, and Joel to use sensors to diagnose finger movement based on electrodes attatcehd tothee left hand.  
+** Created videos for showing finger movement based on the electrode signals  
+** Big success in the lab!   
+* Monday: MLK Day no meeting
+* Wednesday:
+** Met Dr. Borich, meeting pertained regarding the project  
+** Set up a good timeline while also discussing involvement in the lab   
+*Friday: Quiz, could not make scrum meeting 
+
+== January 17, 2019 ==
+
+=== Team Notes ===
+* First Return to campus January 16, 2019
+Meeting January 17th, 2019 Notes:
+* Splitting tasks are required. I'll be working with Joel towards Zrenner's Forecasting and Crop Frequency
+* Meeting with PI of Emory lab Wednesday to learn more about the project
+* Go on Sunday, the 20th, for an introduction to the lab
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review task given by Scott w/ Joel
+|Finished
+|January 17, 2019
+|January 19, 2019
+|January 18, 2019
+|}
+
+== January 7, 2019 ==
+
+=== Team Notes ===
+'''Meeting Notes'''
+* Currently not in the state, could not make the meeting.  
+* Working with Scott on separate meeting times for the entire team. 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read/Critique the shared article provided by Scott
+|In progress
+|January 7, 2019
+|January 14, 2019
+|Janruary 23, 2019
+|-
+|Read other linked papers provided by Scott
+|In progress
+|January 7, 2019
+|January 21, 2019
+|Janruary 23, 2019
+|}

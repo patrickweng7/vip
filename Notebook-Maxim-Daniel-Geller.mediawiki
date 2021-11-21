@@ -1,0 +1,1686 @@
+'''Name:''' Maxim Geller
+
+'''Email:''' [mailto:maximgeller@gatech.edu maximgeller@gatech.edu]
+
+'''Cell Phone:''' 201-422-0170
+
+'''Interests:''' [http://gtswimclub.com Swimming], [https://datasciencegt.org Data Science], [https://enlight.nyc EdTech]
+
+'''Fun Fact:''' I visited 9 different countries last summer when I studied abroad in France at GT's Lorraine campus!
+
+= Fall 2021 =
+
+== Week 13: November 15th - November 22nd ==
+
+This week I hope to accomplish setting up a new environment and launching a new baseline run using our newly-processed data on new accuracy metrics to receive a new baseline for our comparisons which we are currently working on.
+
+=== Setup EMADE with TF 2.6 on PACE-ICE ===
+
+0. load the tensorflow-gpu/2.6.0, cuda/11.2, and anaconda3/2021.05 modules on PACE
+
+1. create new conda env running python 3.8.5
+
+2. add conda-forge as a package channel: conda config --add channels conda-forge
+
+3. install the cudatoolkit (not actually sure if necessary because of the PACE module) and cuDNN (I am pretty sure this one is still necessary) [https://anaconda.org/conda-forge/cudatoolkit/11.2.2/download/linux-64/cudatoolkit-11.2.2-he111cf0_8.tar.bz2] [https://anaconda.org/Esri/cudnn/8.1.0.77/download/linux-64/cudnn-8.1.0.77-h90431f1_0.tar.bz2]
+
+4. conda install numpy pandas keras==2.6.0 scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn nltk
+
+5. pip install xgboost lmfit multiprocess hmmlearn deap opencv-contrib-python opencv-python keras-pickle-wrapper
+
+6. bash reinstall.sh
+
+I ran into tons of package and dependency issues before getting down to this configuration which I hope works. I am also using the conda installed opencv but I am not sure it is necessary. Awaiting for Aryaan and Heidi to finish processing the data so I can test it. I was able to get EMADE running on the new NAS branch locally on windows by installing a GPU compiled version of TF 2.5, but my flimsy graphics card does not have enough memory for the kinds of neural networks that come through. 
+
+== Week 12: November 8th - November 14th ==
+
+This week was extremely busy for me outside of classes, so I did not get as much done as I hoped to.
+
+* Moved onto trying to get the conda env on PACE set up at least to use the new NN branch but was still running into issues with versions of tensorflow, setuptools, and maybe pip? I tried to troubleshoot a bit with Jason and Cameron B. but no real progress. This is a pretty high priority task though, so I hope to finish it next week. 
+* During our subteam work session, I helped everyone who was not setup on PACE yet through my document that detailed the process of setting up MySQL and EMADE. I think we should make a new branch of EMADE without the massive debt of datasets like NAS has done; this would allow us to git pull instead of having to SCP every time.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Setup new working environment for tensorflow on PACE-ICE 
+|Behind schedule; high priority
+|November 1st, 2021
+|November 7th, 2021
+|
+|-
+|Onboard and assist new members with setting up on our fork and on PACE
+|Ongoing
+|November 1st, 2021
+|
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked; new data needed & env needed
+|October 25th, 2021
+|November 19th, 2021
+|
+|-
+|}
+
+== Week 11: November 1st - November 7th ==
+
+* Began onboarding our new members by introducing them to the group, our broad and specific area of interest within image processing, and assigned work to familiarize with domain (reading CheXNet, VIP paper, cloning our EMADE fork, begin PACE setup)
+** Also broke new members into specific tasks joining the older members.
+* Received many package conflicts trying to install a new conda env with TF 2.6 and Python 3.8 on my Windows machine since that is what NAS says the NN branch needs now. Need to try on PACE-ICE as well.
+* Monil requested help figuring out how to register the hyperfeature primitive into EMADE and produce a working tree that evaluates through the tree evaluator script. I spent some time troubleshooting the error messages he was getting. The errors pointed to how the primitive itself was registered and how it was formatted in the tree itself e.g. unnecessary hyper-parameters on the feature itself.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Setup new working environment for tensorflow on PACE-ICE 
+|In Progress
+|November 1st, 2021
+|November 7th, 2021
+|
+|-
+|Onboard and assist new members with setting up on our fork and on PACE
+|Ongoing
+|November 1st, 2021
+|
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked; new data needed
+|October 25th, 2021
+|November 19th, 2021
+|
+|-
+|}
+
+== Week 10: October 25th - October 31st ==
+
+'''Subteam Meeting'''
+
+We discussed what had to be finished before we could proceed to the next phase of the semester and onboard new students to the team. We decided that based on the weirdness of the evaluation functions on multilabel data, we want to focus on a binary classification task instead: whether a disease is present or not. We set some tasking, mainly to make sure we get our initial modifications all merged in by Monday's scrum. I will be reviewing pull requests and also working on some of the bugs I found in NN primitives and others through doing the baseline run.
+
+Presentation Week!
+
+NLP Team
+
+* Building question and answering systems with EMADE
+* Their base model is called BiDAF: Bidirectional Attention Flow
+* Goal: distill the state of the art model with EMADE
+* Literature Review team looked to find ways to reduce the complexity since all the top performing models were really complex
+* No results yet because the primitives are not complete
+* Creating seed primitives from literature review
+
+Bootcamp 1
+
+* dropped name, ticket, and cabin columns
+* one hot encoding for sex and embarked columns
+* what kind of NN did they use for ML run?
+* how did they decide on their crossover (one point leaf biased) and mutation (node replacement) methods?
+* GP: best individual? Notice there are only embarked and sex used, would including more features result in better performance?
+
+NAS
+
+* Initial infrastructure needs improvements: nested NN learners, EMADE does not explore search space
+* Allow EMADE to create more complex architectures
+* Objectives: accuracy and number of parameters
+* Created a timed stopping callback — lots of variation!
+* Created a new table in MySQL database to track individual statistics of NNLearners
+
+Bootcamp 2
+
+* Challenges and lessons learned from EMADE installation
+* Saw more individuals with fitness over every generation as well as number of individuals on the pareto front
+* Found that EMADE trees had more complex primitives but shorter tree depth compared to GP trees.
+
+Bootcamp 3
+
+* Used strongly typed genetic programming!
+* Also dropped name, ticket, and cabin columns
+* They ran into the individuals not divisible by 4 error but they solved it which is good
+
+Stocks
+
+* Objective: how can we use EMADE for time series analysis to predict stock prices?
+* They evaluate the profit percentage, profit per transaction, and variance of profit per transaction
+* Configuring EMADE for 96 compute hours per run. 
+* Training a pool of several F500 company stocks from 2008 and testing on half of 2009’s data. 
+* They plan on testing different combinations in 2,3, and 4 objective pools to find an optimal combination.
+
+Bootcamp 4
+* Dropped name and cabin columns, one hot encoding for the sex and embarkation. 
+* Made really nice comparisons between ML, MOGP, and EMADE. Best AUC with MOGP.
+* Identified “best” individual with 0 FPR and 0.91 FNR — just a Pareto optimal solution, not the best
+
+Modularity
+* ARL: Adaptive representation through learning
+* re-use building blocks of trees that work well across EMADE
+* Implemented through genetic programming operators
+* Ran into a lot of bugs from previous semester work
+* Looking to apply ARLs to technical indicators for stock price prediction, building off stock team’s work
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and test comparison changes
+|In Progress
+|October 25th, 2021
+|October 31st, 2021
+|
+|-
+|Bug squash related to neural network methods 
+|Not started
+|October 25th, 2021
+|October 31st, 2021
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked
+|October 25th, 2021
+|November 3rd, 2021
+|
+|-
+|}
+
+== Week 9: October 18th - October 24th ==
+
+This week we as a team are wrapping up any code that needs to be done and doing code review so that nothing that breaks EMADE gets merged into our main working branch. I did a lot of code review by testing the changes Dhruv and Harris made with selection as well as both Aryaan’s and Temi’s work with mating and mutation functions. Unfortunately, none of the three PR’s are ready yet because they are either not properly registered in EMADE. I spent a lot of time debugging and troubleshooting why they weren’t running locally nor on PACE. The only lead I have is with Aryaan’s mating functions: it tries to multiply a float with a primitive which is not a valid operation.
+
+Otherwise, I am getting ready for the presentation by mining some individuals to bring up for discussion from the baseline as well as synthesizing everyone’s work. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and merge pace-updates branch
+|Completed
+|October 13th, 2021
+|October 15th, 2021
+|October 18th, 2021
+|-
+|Prepare presentation slides 
+|Completed
+|October 17th, 2021
+|October 24th, 2021
+|October 24th, 2021
+|-
+|Begin a comparison run using new IP techniques
+|Completed
+|October 13th, 2021
+|October 18th, 2021
+|October 23rd, 2021
+|-
+|}
+
+== Week 8: October 11th - October 17th ==
+
+I've decided to try running EMADE locally to avoid the 8 hour walltime on PACE, and also just to confirm the changes I made that will help it run on PACE work as intended. My team now has the ability to run on PACE using a single shared environment and can pull down the latest changes to use NN methods. 
+
+One concern/issue I have right now is with how the AUC evaluation function is working. As evidenced further down in the error code, a given model fits with about 0.18 AUC, but the evaluation function puts it at ~0.0938 for all of the seeded individuals, which I am very skeptical of. I am worried it could be labeling them all the same (with a 0) and for some reason this is being counted as correct. Not sure how I would investigate this further though.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and merge pace-updates branch
+|In Progress
+|October 13th, 2021
+|October 15th, 2021
+|October 14th, 2021
+|-
+|Commit changes to EMADE functionality to team branch 
+|Completed
+|October 7th, 2021
+|October 11th, 2021
+|October 13th, 2021
+|-
+|Continue evolving baseline individuals 
+|In Progress
+|October 4th, 2021
+|October 17th, 2021
+|
+|-
+|Begin a comparison run using new IP techniques
+|Awaiting branch merges
+|October 13th, 2021
+|October 18th, 2021
+|
+|-
+|}
+
+Some bugs I found in evolution. Most have to do with the data types, so it should not be a terrribly difficult fix.
+```
+Received: NNLearner(GradientWeighted(Cv2Transpose(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_1), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.AXIS_1), lessThan(1.0, 3.2975888724293227), myIntToFloat(128), myFloatIntAdd(3.0083306759663166, 0)), OutputLayer(InputLayer()), 9, AdamOptimizer)
+	With Hash 52e1d26f5ab451ef001d73945a80b573d7d353753d105317dfc8514b342041f8
+	Computed in: 30.905400037765503 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 2544, in cv2_transpose_helper
+    return cv2.transpose(data)
+TypeError: Expected Ptr<cv::UMat> for argument 'src'
+ Stack Trace: Cv2Transpose 
+---
+Received: NNLearner(RMS2D(EmadeDataMultiplyFloat(ThresholdToZeroFloat(Fraction(Log(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL), TriState.FEATURES_TO_FEATURES, passAxis(Axis.FULL), greaterThan(1.0, 1.0)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(Axis.AXIS_0)), myFloatMult(myFloatAdd(-1.290955640033229, 10.0), 0.1)), passTriState(passTriState(TriState.STREAM_TO_STREAM)), passAxis(passAxis(passAxis(Axis.AXIS_0))), myFloatDiv(10.0, myFloatSub(myFloatDiv(0.01, 0.01), passFloat(1.0)))), TriState.STREAM_TO_FEATURES, Axis.AXIS_0, 3), OutputLayer(InputLayer()), 32, AdamOptimizer)
+	With Hash f19c6dd228c0e7a73a6ff8d899734eb2dd47e1331b63c2fe7ec5bc491da473ef
+	Computed in: 31.2136070728302 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Unsupported TriState TriState.STREAM_TO_FEATURES provided to LogTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 540, in primitive_wrapper
+    raise ValueError('Unsupported TriState {} provided to {}'.format(mode, p_name))
+ValueError: Unsupported TriState TriState.STREAM_TO_FEATURES provided to Log
+ Stack Trace: Log 
+---
+Received: NNLearner(ARG0, InputLayer(), 91, AdamOptimizer)
+	With Hash c8171196f8e8fea2f3f9154ad2e7e0e410778453892953e6c8a4c1b39b1dc7e3
+	Computed in: 32.464717626571655 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********local variable 'curr_layer' referenced before assignmentTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 944, in NNLearner
+    curr_layer, input_layers = add_layerlist(layerlist.mylist, input_layers)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 942, in add_layerlist
+    return curr_layer, input_layers
+UnboundLocalError: local variable 'curr_layer' referenced before assignment
+ Stack Trace: layerlist before pop   ['input'] 
+---
+Received: NNLearner(MorphOpenCross(ECDF(mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), passInt(3)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), equal(ifThenElseFloat(falseBool, 10.0, 10.0), myFloatMult(4.367807167497753, 100.0)), greaterThanEqual(myFloatIntSub(0.1, -4), myIntToFloat(50))), InputLayer(), 83, AdamOptimizer)
+	With Hash 3616875e8b8637f3866689ac17bedd5d62883832eefa649a7888be1d13920bd5
+	Computed in: 40.843586444854736 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********y should be a 1d array, got an array of shape (2500, 15) instead.Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 828, in fit_transform_wrapper
+    method)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\feature_selection_methods.py", line 23, in feature_selection_helper
+    new_train_data = function.fit_transform(train_data, target)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\base.py", line 693, in fit_transform
+    return self.fit(X, y, **fit_params).transform(X)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\feature_selection\_univariate_selection.py", line 353, in fit
+    score_func_ret = self.score_func(X, y)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\feature_selection\_univariate_selection.py", line 282, in f_regression
+    dtype=np.float64)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 807, in check_X_y
+    y = column_or_1d(y, warn=True)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 847, in column_or_1d
+    "got an array of shape {} instead.".format(shape))
+ValueError: y should be a 1d array, got an array of shape (2500, 15) instead.
+ Stack Trace: mySelPercentile 
+Received: NNLearner(RMS2D(ARG0, TriState.STREAM_TO_FEATURES, Axis.AXIS_0, 9), PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer()), 32, AdamOptimizer)
+	With Hash 6008169707b1ce20a7cbd3e7b4566c945d25395c1db21178e13eb10f5f55f7b6
+	Computed in: 56.24171185493469 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********__call__() takes from 2 to 3 positional arguments but 4 were givenTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+TypeError: __call__() takes from 2 to 3 positional arguments but 4 were given
+ Stack Trace: RMS2D 
+---
+Received: NNLearner(ARG0, OutputLayer(LSTMLayer(7, tanhActivation, 50, falseBool, falseBool, InputLayer())), myIntDiv(myOr(passBool(trueBool), notEqual(100.0, 100.0)), 55), AdamOptimizer)
+	With Hash e6dcaa08a54097bb1c655caa840161c4df74517a0c8a54e412ceaeb1ed3bbe61
+	Computed in: 38.218483448028564 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Input 0 of layer lstm is incompatible with the layer: expected ndim=3, found ndim=4. Full shape received: [None, 224, 224, 1]Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 944, in NNLearner
+    curr_layer, input_layers = add_layerlist(layerlist.mylist, input_layers)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 941, in add_layerlist
+    curr_layer = layer(curr_layer)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\layers\recurrent.py", line 644, in __call__
+    return super(RNN, self).__call__(inputs, **kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\engine\base_layer.py", line 737, in __call__
+    self.name)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\tensorflow_core\python\keras\engine\input_spec.py", line 177, in assert_input_compatibility
+    str(x.shape.as_list()))
+ValueError: Input 0 of layer lstm is incompatible with the layer: expected ndim=3, found ndim=4. Full shape received: [None, 224, 224, 1]
+ Stack Trace: layerlist before pop   ['input', <tensorflow.python.keras.layers.recurrent_v2.LSTM object at 0x0000026DB946B438>, 'output'] 
+---
+Received: NNLearner(HighpassSobelDerivative(MorphDilateCross(StdDeviation(BitwiseNOT(ARG0, TriState.FEATURES_TO_FEATURES, Axis.FULL), passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.AXIS_0), myIntAdd(4, 150)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.FULL)), passBool(myNot(trueBool)), ifThenElseBool(myAnd(falseBool, falseBool), greaterThan(0.01, 100.0), ifThenElseBool(myOr(trueBool, falseBool), equal(1.0, 10.0), trueBool)), greaterThan(myFloatMult(10.0, 0.1), passFloat(-0.0665111375350147))), passTriState(passTriState(passTriState(TriState.STREAM_TO_STREAM))), passAxis(passAxis(passAxis(Axis.AXIS_0))), ifThenElseBool(notEqual(myFloatIntAdd(0.01, 8), myFloatIntDiv(0.01, 9432)), lessThan(myFloatAdd(10.0, 0.01), passFloat(0.1)), myNot(passBool(falseBool))), myNot(passBool(greaterThan(-4.879138550789609, 10.0))), myIntSub(-8, trueBool), myFloatToInt(myFloatMult(myFloatMult(10.0, 1.0), myIntToFloat(0))), equal(myFloatIntSub(myFloatIntAdd(100.0, 255), myOr(trueBool, falseBool)), myFloatIntDiv(myFloatIntMult(0.01, 150), myIntDiv(80, 32)))), OutputLayer(InputLayer()), 98, AdamOptimizer)
+	With Hash 5a7c6d951959e0cda7edc31a3d1efed027c8f824917725cf94c8327fff44bea2
+	Computed in: 42.30118727684021 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********iteration over a 0-d arrayTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 683, in primitive_wrapper
+    instance.get_features().set_data(data)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\data.py", line 1268, in set_data
+    for i in data:
+TypeError: iteration over a 0-d array
+ Stack Trace: BitwiseNOT 
+---
+Received: NNLearner(ARG0, OutputLayer(PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer())), 75, AdamOptimizer)
+	With Hash 8843709f482d97c52f48e6a53d42c43818e6350f22d535442bb35df92c9e8132
+	Computed in: 48.821751832962036 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********__call__() takes from 2 to 3 positional arguments but 4 were givenTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 425, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+TypeError: __call__() takes from 2 to 3 positional arguments but 4 were given
+ Stack Trace:
+---
+Received: NNLearner(GaussianPeakEM(MeanWithHole(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 128, 150), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL)), OutputLayer(InputLayer()), 90, AdamaxOptimizer)
+	With Hash 09903053ada955696ea343cf01d9604b294870d3a50bf4920aa1c66d7f535807
+	Computed in: 39.77496528625488 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********could not broadcast input array from shape (151,151) into shape (11,11)Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 4122, in mean_with_hole_helper
+    kernel[x-h : x+h+1, x-h : x+h+1 ] = zeros[0:hole_size, 0:hole_size]
+ValueError: could not broadcast input array from shape (151,151) into shape (11,11)
+ Stack Trace: MeanWithHole 
+---
+Received: NNLearner(Cv2NotEqual(ARG0, ARG0, TriState.STREAM_TO_FEATURES, TriState.FEATURES_TO_FEATURES, Axis.AXIS_0, Axis.FULL), OutputLayer(InputLayer()), 98, FtrlOptimizer)
+	With Hash 868f27e4c185945270584593eb3d0b7d3b9daa2caa8df1a86877e0332d9995a4
+	Computed in: 44.10815119743347 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********'list' object has no attribute 'dtype'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 687, in primitive_wrapper
+    if data.dtype == object:
+AttributeError: 'list' object has no attribute 'dtype'
+ Stack Trace: Cv2NotEqual 
+---
+Received: DBSCANClustering(NNLearner(ARG0, OutputLayer(InputLayer()), 97, FtrlOptimizer), 10.0, 100.0)
+	With Hash 0b37e4746327c2b9311ad36036cec688ef3e85c5bbd646d1a2fe16a8493cd6c5
+	Computed in: 49.18932580947876 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Found array with dim 3. Estimator expected <= 2.Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 960, in clustering_wrapper
+    resultVector = clusterer.fit_predict(clusterMatrix)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\cluster\_dbscan.py", line 391, in fit_predict
+    self.fit(X, sample_weight=sample_weight)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\cluster\_dbscan.py", line 312, in fit
+    X = self._validate_data(X, accept_sparse='csr')
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\base.py", line 420, in _validate_data
+    X = check_array(X, **check_params)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 72, in inner_f
+    return f(**kwargs)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\sklearn\utils\validation.py", line 641, in check_array
+    % (array.ndim, estimator_name))
+ValueError: Found array with dim 3. Estimator expected <= 2.
+ Stack Trace: layerlist before pop   ['input', 'output'] 
+ 
+ 
+ Model: "model" 
+ _________________________________________________________________ 
+ Layer (type)                 Output Shape              Param #    
+ ================================================================= 
+ input_1 (InputLayer)         [(None, 224, 224, 1)]     0          
+ _________________________________________________________________ 
+ flatten (Flatten)            (None, 50176)             0          
+ _________________________________________________________________ 
+ dense (Dense)                (None, 15)                752655     
+ ================================================================= 
+ Total params: 752,655 
+ Trainable params: 752,655 
+ Non-trainable params: 0 
+ _________________________________________________________________ 
+ None 
+ Train on 2500 samples, validate on 500 samples 
+ Epoch 1/25 
+ 
+   97/2500 [>.............................]  - ETA: 44s - loss: 2.2263 - auc: 0.0911 
+  194/2500 [=>............................]  - ETA: 22s - loss: 1.2673 - auc: 0.0910 
+  291/2500 [==>...........................]  - ETA: 14s - loss: 1.3410 - auc: 0.1347 
+  388/2500 [===>..........................]  - ETA: 11s - loss: 1.5125 - auc: 0.1383 
+  485/2500 [====>.........................]  - ETA: 8s - loss: 1.5372 - auc: 0.1543  
+  582/2500 [=====>........................]  - ETA: 7s - loss: 1.5695 - auc: 0.1607 
+  679/2500 [=======>......................]  - ETA: 6s - loss: 1.5957 - auc: 0.1652 
+  776/2500 [========>.....................]  - ETA: 5s - loss: 1.5902 - auc: 0.1733 
+  873/2500 [=========>....................]  - ETA: 4s - loss: 1.6270 - auc: 0.1717 
+  970/2500 [==========>...................]  - ETA: 3s - loss: 1.6406 - auc: 0.1741 
+ 1067/2500 [===========>..................]  - ETA: 3s - loss: 1.6622 - auc: 0.1732 
+ 1164/2500 [============>.................]  - ETA: 3s - loss: 1.6618 - auc: 0.1738 
+ 1261/2500 [==============>...............]  - ETA: 2s - loss: 1.6842 - auc: 0.1734 
+ 1358/2500 [===============>..............]  - ETA: 2s - loss: 1.6740 - auc: 0.1762 
+ 1455/2500 [================>.............]  - ETA: 2s - loss: 1.6771 - auc: 0.1778 
+ 1552/2500 [=================>............]  - ETA: 1s - loss: 1.6824 - auc: 0.1783 
+ 1649/2500 [==================>...........]  - ETA: 1s - loss: 1.6810 - auc: 0.1802 
+ 1746/2500 [===================>..........]  - ETA: 1s - loss: 1.6908 - auc: 0.1793 
+ 1843/2500 [=====================>........]  - ETA: 1s - loss: 1.6918 - auc: 0.1799 
+ 1940/2500 [======================>.......]  - ETA: 0s - loss: 1.6858 - auc: 0.1817 
+ 2037/2500 [=======================>......]  - ETA: 0s - loss: 1.6860 - auc: 0.1819 
+ 2134/2500 [========================>.....]  - ETA: 0s - loss: 1.6875 - auc: 0.1822 
+ 2231/2500 [=========================>....]  - ETA: 0s - loss: 1.6894 - auc: 0.1821 
+ 2328/2500 [==========================>...]  - ETA: 0s - loss: 1.6951 - auc: 0.1822 
+ 2425/2500 [============================>.]  - ETA: 0s - loss: 1.6864 - auc: 0.1840 
+ 2500/2500 [==============================]  - 5s 2ms/sample - loss: 1.6923 - auc: 0.1829 - val_loss: 1.7488 - val_auc: 0.1837
+ Epoch 2/25 
+ 
+   97/2500 [>.............................]  - ETA: 2s - loss: 1.5301 - auc: 0.2080 
+  194/2500 [=>............................]  - ETA: 1s - loss: 1.6729 - auc: 0.1948 
+  291/2500 [==>...........................]  - ETA: 1s - loss: 1.6043 - auc: 0.2085 
+  388/2500 [===>..........................]  - ETA: 1s - loss: 1.6994 - auc: 0.1933 
+  485/2500 [====>.........................]  - ETA: 1s - loss: 1.7058 - auc: 0.1958 
+  582/2500 [=====>........................]  - ETA: 1s - loss: 1.6906 - auc: 0.1929 
+  679/2500 [=======>......................]  - ETA: 1s - loss: 1.7191 - auc: 0.1916 
+  776/2500 [========>.....................]  - ETA: 1s - loss: 1.7272 - auc: 0.1906 
+  873/2500 [=========>....................]  - ETA: 1s - loss: 1.7124 - auc: 0.1959 
+  970/2500 [==========>...................]  - ETA: 1s - loss: 1.6869 - auc: 0.2013 
+ 1067/2500 [===========>..................]  - ETA: 1s - loss: 1.7101 - auc: 0.1972 
+ 1164/2500 [============>.................]  - ETA: 1s - loss: 1.7039 - auc: 0.1961 
+ 1261/2500 [==============>...............]  - ETA: 0s - loss: 1.7263 - auc: 0.1922 
+ 1358/2500 [===============>..............]  - ETA: 0s - loss: 1.7183 - auc: 0.1927 
+ 1455/2500 [================>.............]  - ETA: 0s - loss: 1.7129 - auc: 0.1939 
+ 1552/2500 [=================>............]  - ETA: 0s - loss: 1.7272 - auc: 0.1923 
+ 1649/2500 [==================>...........]  - ETA: 0s - loss: 1.7312 - auc: 0.1908 
+ 1746/2500 [===================>..........]  - ETA: 0s - loss: 1.7458 - auc: 0.1890 
+ 1843/2500 [=====================>........]  - ETA: 0s - loss: 1.7501 - auc: 0.1879 
+ 1940/2500 [======================>.......]  - ETA: 0s - loss: 1.7539 - auc: 0.1866 
+ 2037/2500 [=======================>......]  - ETA: 0s - loss: 1.7487 - auc: 0.1862 
+ 2134/2500 [========================>.....]  - ETA: 0s - loss: 1.7542 - auc: 0.1849 
+ 2231/2500 [=========================>....]  - ETA: 0s - loss: 1.7458 - auc: 0.1860 
+ 2328/2500 [==========================>...]  - ETA: 0s - loss: 1.7452 - auc: 0.1859 
+ 2425/2500 [============================>.]  - ETA: 0s - loss: 1.7332 - auc: 0.1875 Restoring model weights from the end of the best epoch. 
+ 
+ 2500/2500 [==============================]  - 2s 901us/sample - loss: 1.7283 - auc: 0.1884 - val_loss: 1.7488 - val_auc: 0.1837
+ Epoch 00002: early stopping 
+ NN: testing   (500, 224, 224, 1) 
+ DBSCANClustering 
+---
+Received: NNLearner(LowpassFilterEllipsoid(MySum(ARG0, TriState.FEATURES_TO_FEATURES, Axis.AXIS_2), passTriState(TriState.FEATURES_TO_FEATURES), passAxis(Axis.AXIS_2), myNot(falseBool)), OutputLayer(InputLayer()), 83, AdamOptimizer)
+	With Hash df36aa71df8b89005a2e1bdab0c9951f8d505596daa7fdeeb3c3206515590c37
+	Computed in: 39.93278384208679 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********tuple index out of rangeTraceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 658, in primitive_wrapper
+    for i in range(data_given.shape[axis.value]):
+IndexError: tuple index out of range
+ Stack Trace: MySum 
+---
+Received: NNLearner(ARG0, EmbeddingLayer(100, ARG0, heWeights, OutputLayer(InputLayer())), 7, AdamOptimizer)
+	With Hash b57438ae15a99fccc72921332fecd7ab977b5a9a31e86738503b2e23c1ecd9f6
+	Computed in: 36.05369758605957 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********'function' object has no attribute 'value'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\neural_network_methods.py", line 489, in EmbeddingLayer
+    initializer = initializer.value()
+AttributeError: 'function' object has no attribute 'value'
+ Stack Trace:
+---
+Received: NNLearner(MorphTophatRect(ARG0, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 128, 50), InputLayer(), 22, AdamOptimizer)
+	With Hash 087cac95073272cbadde193e9a95a959de19025b7a863c3a19eb6012cfc550ac
+	Computed in: 37.111648082733154 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 1911, in morph_tophat_rect_helper
+    data = cv2.morphologyEx(data, cv2.MORPH_TOPHAT, kernel)
+TypeError: Expected Ptr<cv::UMat> for argument 'src'
+ Stack Trace: MorphTophatRect 
+---
+Received: NNLearner(Cv2NotEqual(ARG0, ARG0, TriState.STREAM_TO_FEATURES, TriState.FEATURES_TO_FEATURES, Axis.AXIS_0, Axis.AXIS_0), OutputLayer(PretrainedEmbeddingLayer(ARG0, gloveTwitterWeights, InputLayer())), 98, AdamOptimizer)
+	With Hash 49ccf37d4c19be89e43aff1c3a82b3caa054b12bb12b61db06eb8e83cd266462
+	Computed in: 34.48358416557312 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********Expected Ptr<cv::UMat> for argument 'src1'Traceback (most recent call last):
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\EMADE.py", line 1577, in handleWorker
+    result = future.result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 432, in result
+    return self.__get_result()
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\_base.py", line 384, in __get_result
+    raise self._exception
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\concurrent\futures\thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "<string>", line 1, in <lambda>
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in primitive_wrapper
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\wrapper_methods.py", line 663, in <listcomp>
+    output = [primitive_f(*i, *args, **helper_kwargs) for i in zip(*output_args)]
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\spatial_methods.py", line 2660, in cv2_compare_helper
+    result = cv2.compare(data, second_data, compare_mode)
+TypeError: Expected Ptr<cv::UMat> for argument 'src1'
+ Stack Trace: Cv2NotEqual 
+---
+
+```
+
+== Week 7: October 4th - October 10th ==
+
+* EMADE updates
+
+I discovered the issue with the seed files was the use of an extra input ARG0 in the InputLayer() that did not belong in there. The neural_network_methods.py file also did not have code for compiling NNLearners when the multi label flag was on, so I added a couple of lines to compile models with the AUC for the PR curve as the metric since binary cross entropy does not work as expected for a multi label problem. As a result, I decided that EMADE should optimize for this objective as well rather than accuracy; luckily, the code for this method already existed.
+
+Now that the code has been properly configured for a baseline run, we can test comparing to our modifications involving selection methods, hyper features, and crossover methods to see if we can find a significant difference in the metrics. 
+
+The NNLearner that has performed the best so far is: NNLearner(ARG0, OutputLayer(GlobalAveragePoolingLayer2D(InputLayer())), passInt(255), FtrlOptimizer)
+
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Run EMADE on new chest x-ray dataset 
+|Completed
+|September 20th, 2021
+|October 4th, 2021
+|October 4th, 2021
+|-
+|Commit changes to EMADE functionality to team branch 
+|Not started
+|October 7th, 2021
+|October 11th, 2021
+|
+|-
+|Continue evolving baseline individuals 
+|In Progress
+|October 4th, 2021
+|October 12th, 2021
+|
+|-
+|}
+
+== Week 6: September 27th - October 3rd ==
+I was able to reinstall EMADE on my personal directory on PACE-ICE after resolving my storage issues. I also created an anaconda environment everyone in my team can share in our class folder which should be helpful. My only major blocker at the moment is being unable to generate a baseline run because I get hash collisions (telling me NNLearners are already there) when I try to seed a fresh database which makes no sense at all. I reached out to Cameron and Anish for help as well. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Run EMADE on new chest x-ray dataset 
+|In Progress (no valid results)
+|September 20th, 2021
+|October 4th, 2021
+|
+|-
+|}
+
+== Week 5: September 20th - September 26th ==
+Aryaan and I brainstormed some strategies to augment and manipulate the training data. However, even with the baseline data from Anish, I'm unable to create valid individuals after 60+ generations (unseeded). Prior to launching the run, I updated the XML to include the multilabel flag though that doesn't seem to have helped anything. It's weird that EMADE isn't even trying the regular instance learners on the preprocessed data. I reached out to Anish and he provided us a seed file which should hopefully help.
+
+I also worked on setting up a team workspace on the PACE-ICE shared class folder. My current blocker is the storage quota, which is mostly taken up by my installation of EMADE and MariaDB in my personal directory. After speaking with Jason, we found out that storage in the shared class directories still counts against a personal storage quota until the directories created inside the shared one are disowned (which also means losing edit access). Since this is the case, it doesn't make a lot of sense to have a shared EMADE installation, but we can have a shared anaconda environment at the very least and then personal EMADE's inside our own directories. As long as the filepath to the environment folder is included correctly in the XML, this should not be an issue. 
+
+I've had a lot of questions from my team about how to navigate and use EMADE, and think I've been pretty helpful answering them so far. Dhruv had an issue with making commits to the EMADE repo since he was trying to commit to it directly rather than from a fork. Monil had a lot of questions for me about his task of finding combinations of image processing primitives to combine in EMADE. I think this "hyper feature" buzzword is quite confusing because it's not commonly used in literature except for the vein of papers we are looking at. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Set up IP Group directory on PACE-ICE
+|Conda env set up
+|September 20th, 2021
+|September 27th, 2021
+|September 27th, 2021
+|-
+|Run EMADE on new chest x-ray dataset 
+|In Progress (no valid results)
+|September 20th, 2021
+|September 27th, 2021
+|
+|-
+|}
+
+== Week 4: September 13th - September 19th ==
+[https://docs.google.com/document/d/10DLoh-uqNWj2_TGbCp4KaANMptQ3tO8x/edit?usp=sharing&ouid=106747617579881256625&rtpof=true&sd=true Self-Eval Rubric]
+
+This week I did a literature review and carefully read and annotated the most recently published paper on EMADE, identified potential papers with techniques we could incorporate into EMADE, and helped the team get up and running on EMADE.
+
+I noticed how the EMADE paper focused a lot on the NAS/hyperparameter part and less on the task itself. Since we plan to leverage the work of the NAS team anyway, it makes sense to me to focus on how we can improve the more canonical GP side of things like selection methods, and mating/mutation. An auxiliary goal for me would be to create a simple infrastructure for utilizing the compute resources on PACE-ICE in a manner that is easily accessible to everyone without having to do individual setups.
+
+At our subteam meeting, we decided to pursue the CheXNet paper using the x-ray dataset that was used in EMADE in the past. Jason had some really valuable thoughts about how we can approach this multi-label classification problem which informed how we should start our initial group's tasking. Aryaan and I are working on preparing the training and validation data to work with EMADE. We also met with Anish to discuss his experiences using the dataset since he actually pivoted off of it to CIFAR-10. I like the challenge our data presents and look forward to developing some cool algorithms using it!
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Meet with Anish
+|Completed
+|September 15th, 2021
+|September 19th, 2021
+|September 17th, 2021
+|-
+|Do a baseline run of EMADE on old x-ray dataset
+|Completed
+|September 15th, 2021
+|September 19th, 2021
+|September 18th, 2021
+|-
+|}
+
+== Week 3: September 6th - September 12th ==
+Our Image Processing (or Computer Vision, final name TBD) has been formed with 7 members! We set our meeting time to be 5:45p on Wednesdays. Only one member is not based in Atlanta so we plan to dial them in to meetings while the rest of us meet in person. At our first meeting, we laid out our objectives for the semester and whiteboarded some ideas and initial action items for everyone. Since everyone was a second semester student, we decided that it made sense to first do some familiarization with how EMADE works and also read up on papers that we could potentially try and model with a GA approach. We agreed it would be more interesting to pick a specific domain rather than do something broad with a dataset like CIFAR-10. It was also acknowledged that any papers we brought need to have an explainable technique so that we can actually see how their approach actually compares to ours.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Create summary of how EMADE codebase works
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 13th, 2021
+|-
+|Read past published EMADE paper
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 10th, 2021
+|-
+|Find and read at least 1 paper we could potentially model
+|Completed
+|September 8th, 2021
+|September 13th, 2021
+|September 12th, 2021
+|-
+|}
+
+== Week 2: August 30th - September 5th ==
+I decided I was most interested in exploring the application side of EMADE and wanted to create or join a subteam that focused on applying genetic algorithms and autoML to challenges in some domain. I ended up researching a lot about image processing problems and thought that image registration and classification looked the most interesting and also had a significant amount of potential to be used in a novel way with EMADE. I met with Harris and Aryaan to discuss this in greater detail to explore how we might approach going about this as a potential team. When we presented our discussion in class, Jason suggested to look at image classification and object detection problems more closely since there's more data associated with this kind of task.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Join a team and set a meeting time
+|Completed
+|August 23th, 2021
+|August 30th, 2021
+|September 3rd, 2021
+|-
+|}
+
+== Week 1: August 23rd - August 29th ==
+Returned to VIP! We had a brainstorming session of potential topics to pursue as subteams this semester. I think looking more on the application side of EMADE would be really cool, so I'm leaning towards trying to work on image processing and neural architecture search. I did some research about image processing applications and general and learned about image registration and its uses in the biomedical field. I summarized some readings and put some resources in the image processing brainstorming slack channel.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Brainstorm for subteams
+|Completed
+|August 23th, 2021
+|August 30th, 2021
+|August 29th, 2021
+|-
+|Join a team and set a meeting time
+|Not started
+|August 23th, 2021
+|August 30th, 2021
+|
+|-
+|}
+
+= Fall 2020 =
+== Week 16: November 30th - December 2nd, 2020 ==
+My objective for this week was to get an installation of EMADE with tensorflow 2.2.0 running ideally on the shared classroom workspace on PACE; however, creation of files in the workspace still counted against my quota instead of the classroom's like it should have. I plan to look closer into setting up a proper environment with nested activation in conda next semester.
+
+It also appears that the <code>tmp</code> folder for PACE-ICE is a little overfilled right now, so I had to [https://stackoverflow.com/questions/55103162/could-not-install-packages-due-to-an-environmenterror-errno-28-no-space-left redirect it] in order to install tensorflow on my own conda environment. 
+
+Next, I wanted to resolve the broken pipe error that was caused by PyMySQL. I eventually discovered that the reason the incredibly long string of binary was failing to be added to the database was because of a 1 MB packet limit on the server. While I still don't know why the binary does not properly get parsed as a string from <code>fasttextWeights</code> primitives, I was able to [https://ma.ttias.be/mysql-error-1153-08s01-got-a-packet-bigger-than-max-allowed-packet-bytes/#:~:text=To%20do%20so%2C%20log%20into,packet%20to%201000000000%2C%20or%20100MB. increase my maximum allowable packet] in the meantime.
+
+=== PACE Engine Runs ===
+Dr. Zutty shared the latest PR from the EMADE repository, <code>EMADE-219</code> so that I could take advantage of the full computing power PACE offers by using multiple workers. The configuration he provided in <code>launchEMADE.py</code> was not enough to run EMADE on its own; I had to add lines to the generated script to make sure the right modules and environments were loaded in. In addition, I had to include a line to seed runs with <code>NNLearners</code> (this is specific to my sub-team). After that, I was able to run EMADE using the CPUs available on PACE.
+
+I then decided to continue working on the script in order to add GPU support. This is when things got a little trickier. I requested 1 GPU per worker (none for the master), and received the following errors when doing runs this way in the worker's error file.
+
+<pre>2020-12-02 16:04:44.396142: W tensorflow/compiler/xla/service/platform_util.cc:210] unable to create StreamExecutor for CUDA:0: failed initializing StreamExecutor for CUDA device ordinal 0: Internal: failed call to cuDevicePrimaryCtxRetain: CUDA_ERROR_INVALID_DEVICE: invalid device ordinal
+2020-12-02 16:04:44.396203: I tensorflow/compiler/jit/xla_gpu_device.cc:161] Ignoring visible XLA_GPU_JIT device. Device number is 0, reason: Internal: no supported devices found for platform CUDA</pre>
+
+In my worker out file, I got errors stating that CUDA enabled devices were busy or unavailable corresponding to when I received the above error from the error file. This was strange since I specified that the GPUs were to be used exclusively by each respective worker. Still, I decided to request two GPUs (technically per worker, but one per worker wasn't working clearly) to force the workers to run on separate nodes. After a short while, I ran out of memory on the run.
+
+I would like to finish writing the script Dr. Zutty started to add support for GPUs using Tensorflow and write a guide similar to the one I created for setting up MySQL on PACE and doing local runs so that the team and VIP as a whole can have a clear recipe to producing high quality runs.
+
+=== Final Presentations ===
+'''Stocks'''
+* They identified inconsistencies with the research paper they took cues from. The researchers did not match their findings with the rules they set for themselves.
+* Used technical market indicators to determine market movements to feed into EMADE
+
+'''NN'''
+* Automating neural network architecture search using EMADE
+* Testing on two datasets (text-based and image-based) to compare to competing frameworks
+* Troubles running with GPUs on PACE-ICE and also running into disk quotas (when we shouldn't be)
+
+'''ezCGP'''
+* Also working on neural architecture search, but using a cartesian programming based framework
+* Using PACE-ICE GPUs to run framework with similar troubles to NN team
+* Top individuals had similarities in NN layers used
+* In the future: replace DEAP with ezCGP in EMADE
+
+'''Modularity'''
+* Currently conducting 4 experiments to investigate impact of ARLs on primitives
+* ARLs tend to lose significance in later generations
+* Next: experiments on MNIST since Titanic is limiting?
+
+== Week 15: November 23rd - 29th, 2020 ==
+I am experiencing trouble doing my EMADE run because of the problem related to vectors in the pretrained directory of the <code>nn</code> branch. In particular, primitives with <code>gloveFasttextWeights</code> and <code>fasttextWeights</code> are returned as a binary string well over 1 million characters long and the error given by MySQL is <pre>Got error (pymysql.err.OperationalError) (2006, "MySQL server has gone away (BrokenPipeError(32, 'Broken pipe'))")</pre> However, I am still able to login and use the server as I normally would no matter how many times this error pops up during the run, so I suspect this message is inaccurate and it is due to the unexpected input from the word vector. 
+
+As a result, I want to try a fresh EMADE install running tensorflow 2.2.0 on the shared classroom on PACE so that we can (a) figure out if there is a difference and (b) so I can easily pass it off to Anish who has been helping me with the troubleshooting. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Set up conda and EMADE on VIP shared workspace on PACE
+|On hold
+|November 23rd, 2020
+|December 2nd, 2020
+|December 2nd, 2020
+|-
+|Resolve error with fasttest primitives
+|Patch fix
+|November 23rd, 2020
+|December 2nd, 2020
+|December 2nd, 2020
+|-
+|}
+
+== Week 14: November 16th - 22nd, 2020 ==
+I was tasked this week on completed a run on PACE-ICE with the toxicity dataset. Because we're still having issue accessing GPUs on PACE, that issue needs to be resolved first. 
+I commented out the line <code>ping_GPU()</code> in <code>EMADE.py</code> per Anish's suggestion, and also tried enabling the CUDA 10.1 module and downloading cuDNN 7.6.5 and Tensorrt. EMADE was able to open some but not all dynamic libraries necessary for GPU usage. I spent a lot of time digging through Stack Overflow and Github reports on Tensorflow and found people with similar issues. The leading suggested fix involved using CUDA 10.2 and changing some of the library paths. However, the directory paths are different from mine because I am accessing CUDA through the PACE batch software module.
+I am also still running into the problem with the NLP pretrained library vectors that give me a result in binary when used to evaluate NNLearners.
+
+=== Utilizing Tensorflow on PACE ===
+'''Update 11/19/20'''
+
+After much experimenting with the available tensorflow versions, I have found that tensorflow 2.0.0 is successfully able to detect the GPU in the <code>pace-ice-gpu</code> queue. To properly configure:
+# In your job .pbs script, include the CUDA 10.0 module by including <code>module load cuda/10.0</code>
+# In your conda environment, install tensorflow-gpu and cuDNN in order to be able to access the appropriate code. For cuDNN especially, it's important that you get the one that is designed for CUDA 10.0 else you will not be able to open the dynamic library when the GPU needs to get used. The lines to run are
+## <code>pip install tensorflow-gpu==2.0.0</code> 
+## <code>conda install https://anaconda.org/anaconda/cudnn/7.6.5/download/linux-64/cudnn-7.6.5-cuda10.0_0.tar.bz2</code>
+# Launch EMADE and after a little while, your worker's error log should have something like this: 
+<div class='mw-collapsible mw-collapsed'>
+'''Worker Error Log'''
+<div class='toccolours mw-collapsible-content'>
+<pre>
+2020-11-19 19:02:06.197550: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-11-19 19:02:06.226365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1618] Found device 0 with properties: 
+name: Tesla V100-PCIE-16GB major: 7 minor: 0 memoryClockRate(GHz): 1.38
+pciBusID: 0000:3b:00.0
+2020-11-19 19:02:06.228223: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.0
+2020-11-19 19:02:06.231334: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10.0
+2020-11-19 19:02:06.234315: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10.0
+2020-11-19 19:02:06.236560: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10.0
+2020-11-19 19:02:06.239736: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10.0
+2020-11-19 19:02:06.242631: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10.0
+2020-11-19 19:02:07.449388: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-11-19 19:02:07.451587: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1746] Adding visible gpu devices: 0
+2020-11-19 19:02:07.451960: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 AVX512F FMA
+2020-11-19 19:02:07.476652: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2700000000 Hz
+2020-11-19 19:02:07.476955: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x2aab5cd5ad10 executing computations on platform Host. Devices:
+2020-11-19 19:02:07.476974: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+2020-11-19 19:02:07.576824: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x2aab5cd5d810 executing computations on platform CUDA. Devices:
+2020-11-19 19:02:07.576861: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Tesla V100-PCIE-16GB, Compute Capability 7.0
+</pre>
+</div>
+</div>
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Complete run on EMADE using GPUs with toxicity dataset 
+|Blocker
+|November 16th, 2020
+|November 20th, 2020
+|November 20th, 2020
+|-
+|}
+
+== Week 13: November 9th - 15th, 2020 ==
+I completed the document for setting up MySQL and EMADE on PACE, found [https://www.notion.so/maximgeller/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11 here].
+Anish asked me to use the <code>nn</code> branch because he fixed the errors with DEAP on that branch. I will configure EMADE on PACE again with this latest version and do another experiment. Unfortunately due to the 10 GB limit on PACE-ICE, I can't use GitHub to clone the EMADE repo since it is too large.
+As a result, I ended up basically reinstalling the conda environment as well as EMADE on my PACE-ICE account.
+'''The solution to last week's error was adding the Optimizer to the <code>gp_framework_helper.py</code> script after line 210: <code>pset.addPrimitive(my_pass_through, [nnm.Optimizer], nnm.Optimizer, name="passOptimizer")</code>'''
+After doing that and rebuilding the files, EMADE was able to run with a larger launch and pool size of 512 on PACE-ICE.
+By modifying the launch script, I was also able to launch EMADE on the GPU queue which contains CPUs with larger memory so I can compute NNLearners quicker. However, after downloading the vectors in the pretrained directory in the <code>nn</code> branch, I hit some errors when they were used that resulted in walls of binary. Reached out to the team regarding next steps, but I will likely move to working with the chest x-rays dataset since there's no NLP vectors involved there.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Do another EMADE run on PACE with corrected scripts
+|Completed
+|November 9th, 2020
+|November 13th, 2020
+|November 13th, 2020
+|-
+|}
+
+== Week 12: November 2nd - 8th, 2020 ==
+Found [https://docs.google.com/document/d/1VIv4EM1KhaUToZpEhKNx3lQs-Hu7QSOk4VEqZcx2tIs/edit?usp=sharing past documentation] from setting up with PACE from Pulak.
+* Need to ssh into PACE via GT VPN and transfer EMADE files onto my account there. I used WinSCP to do this. 
+* Then, I had to create a MySQL instance (ended up being MariaDB since that is what they have loaded in at PACE)
+** I created a local instance first to make sure it worked before using a <code>.pbs</code> script to queue a job in PACE.
+** Had a '''lot''' of trouble setting up and configuring the DB instance to be able to be logged in. The problem running the install command that would set up the data directory properly, ensuring the socket route was correct, and removing anonymous user accounts because they messed with user account logins.
+* Once an instance of MySQL was running on PACE, I had to do the same with EMADE. I had to make sure the code compiled correctly and fix some missing dependencies that might have gotten lost in the mix as this was a Linux installation.
+** Creating a better [https://www.notion.so/maximgeller/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11 reference guide] in order for people to have fewer issues in the future.
+* Once it was finally configured, I did a test run with the toxicity dataset present on the <code>nn-vip</code> branch. The individuals on the paretofront were all exactly the same, so I will bring this up at the sub-team meeting. I suspect it has to do with the small batch size, but I got the following error when I tried increasing the evolution parameters.
+
+<div class='mw-collapsible mw-collapsed'>
+'''Master error log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 616, in generate
+    prim = random.choice(pset.primitives[type_])
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/random.py", line 260, in choice
+    raise IndexError('Cannot choose from an empty sequence') from None
+IndexError: Cannot choose from an empty sequence
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 119, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 109, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 686, in master_algorithm
+    first_gen = _inst.toolbox.population(NPOP)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 23, in initRepeat
+    return container(func() for _ in range(n))
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 23, in <genexpr>
+    return container(func() for _ in range(n))
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 72, in initCycle
+    return container(func() for _ in range(n) for func in seq_func)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/creator.py", line 167, in initType
+    base.__init__(self, *args, **kargs)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 72, in <genexpr>
+    return container(func() for _ in range(n) for func in seq_func)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/tools/init.py", line 49, in initIterate
+    return container(generator())
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 528, in genFull
+    return generate(pset, min_, max_, condition, type_)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 621, in generate
+    "none available." % (type_,)).with_traceback(traceback)
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/site-packages/deap/gp.py", line 616, in generate
+    prim = random.choice(pset.primitives[type_])
+  File "/storage/home/hpaceice1/mgeller6/.conda/envs/emade-pace/lib/python3.6/random.py", line 260, in choice
+    raise IndexError('Cannot choose from an empty sequence') from None
+IndexError: The gp.generate function tried to add a primitive of type '<enum 'Optimizer'>', but there is none available.
+</code>
+</div>
+</div>
+
+=== NN Sub-Team Meeting, November 6th, 2020 ===
+I brought up my errors at the meeting but there was no guidance on what to try.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Launch EMADE on PACE
+|Completed
+|October 30th, 2020
+|November 6th, 2020
+|November 5th, 2020
+|-
+|Create better documentation for using PACE for sub-team
+|Completed
+|November 5th, 2020
+|November 13th, 2020
+|November 9th, 2020
+|-
+|}
+
+== Week 11: October 26th, 2020 ==
+I was assigned to the NLP/NN sub-team! In our meeting, Pulak and Anish caught us up on what the team is working on:
+* They are exploring how EMADE can be use to automate the creation of neural network architecture.
+* Using evolution is a novel approach, and the team is hoping to write and submit a paper that performs better than a baseline paper the team is comparing to.
+* Capability to go beyond neural net architecture to combine with EMADE primitives to process data.
+* Stacking: Creating synthetic features to input into next ML model.
+I will be helping the team by configuring experiments to run on PACE, the HPC cluster.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Choose sub-team task
+|Completed
+|October 26th, 2020
+|October 30th, 2020
+|October 30th, 2020
+|-
+|Reach out to Pulak to acquire material for using PACE
+|Completed
+|October 30th, 2020
+|November 2nd, 2020
+|November 2nd, 2020
+|-
+|}
+
+== Week 10: October 19th, 2020 ==
+'''Presentation week!'''
+* I presented our implementation of EMADE and elapsed time analysis for my sub-team
+** Was raised a question about how to better cut off invalid individuals so that they don't waste so much time. I said that we could look at what kinds of individuals tend to not have fitness and cut off other individuals that look similar in order to not waste time.
+* Heard from Stocks, Modularity, NN, and ezCGP as well as the other sub-teams.
+** The idea behind ezCGP seems super interesting and the presentation was well put together, plus it sounds like I would get experience with ETL and creating new primitives if I joined their team, but I also really liked the problem space that the NN team is tackling and since they are using EMADE rather than developing their own framework. I think my first preference would be to join the NN sub-team, followed by ezCGP.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Research sub-team options and send preferences.
+|Completed
+|October 19th, 2020
+|October 26th, 2020
+|October 25th, 2020
+|-
+|}
+
+== Week 9: October 14th, 2020 ==
+* Our subteam was able to complete our EMADE run with enough pareto optimal indiviudals, so we used our class time to ask Dr. Zutty some questions about how to transform our raw data into the pareto front graph as well as some other interesting ideas for information we could mine. He mentioned to compare the evaluation time for individuals that did not have null values for false positive and false negatives against ones that did.
+* I spent some time setting up pymysql with our database so that we could fetch data into a ipynb notebook to manipulate. At first, I used the cursor object provided by the module, but ultimately decided to use the <code>read_sql</code> function in pandas to read queries directly into a dataframe for easy manipulation. I extracted the false positive and negative columns and converted them into an array to create a pareto front with.
+* I wasn't sure how to normalize the data because I didn't know what the sample size was and the values didn't seem to be percentages since I had several false positive values greater than 100 despite that many of the values were decimals. I ended up normalizing the data by dividing all of the numbers by the largest value in the column; for false positives, this was 109.2 and 68.4 for the false negatives.
+* Regarding the output <code>.txt</code> files, Dr. Zutty said they're deprecated files of data we can mine from the database. We will ignore them going forward.
+=== Subteam #3 Meeting: October 18th, 2020 ===
+I shared what I did to set up our data with the subteam and we delegated work to prepare for our presentation comparing all three of our experiments.
+* Vincent and Angela worked on preparing the slide presentation
+* Krithik created a graph outlining the difference in evaluation time among different individuals
+* I wrote SQL queries to mine the necessary data and helped create plots
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|October 14th, 2020
+|October 19th, 2020
+|October 19th, 2020
+|-
+|Connect database to notebook via pymysql
+|Completed
+|October 14th, 2020
+|October 19th, 2020
+|October 17th, 2020
+|-
+|Mine data to be presented
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 18th, 2020
+|-
+|Create pareto front graph
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 18th, 2020
+|-
+|Finalize presentation
+|Complete
+|October 14th, 2020
+|October 19th, 2020
+|October 19th, 2020
+|-
+|}
+
+== Week 8: October 7th, 2020 ==
+I used our meeting timeslot to ask Dr. Zutty some questions to help troubleshoot why my MySQL server was refusing connections. I made sure sure the file configuration had no bind address or option to skip networking, and that the correct port was open on my firewall. Nonetheless, I was still having issues with allowing remote connections after Wednesday.
+=== Subteam #3 Meeting: October 11th, 2020 ===
+We met to try and help each other connect to one person's MySQL instance now that everyone has successfully installed EMADE. This was wholly unproductive, so I started researching alternative solutions. What resulted was creating a MySQL instance on the Google Cloud Platform and using that to house our data. We were all able to connect to the GCP instance without issue and could run EMADE with master and worker processes! 
+However, after 16 generations and about 280 individuals in the pareto front database, EMADE seems to stall out on trying to evaluate a particular individual early on the evolution process. We decided to schedule another meeting to figure out what's going on.
+=== Subteam #3 Meeting: October 13th, 2020 ===
+I explained how to use the GCP project to my subteam and showed how you can connect to the SQL database using either command line or the cloud shell to run queries. We were all also able to connect to the same server in order to pool our data there. We don't know what some of the outputted <code>.txt</code> files, like <code>hypervolume###.txt</code>, <code>parentsTitanic###.txt</code>, <code>paretoFitnessTitanic###.txt</code>, and <code>paretoFrontTitanic###.txt</code> do, so we're planning so ask Dr. Zutty how to interpret these files as well as useful SQL queries to run at the next meeting.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|October 7th, 2020
+|October 13th, 2020
+|October 12th, 2020
+|-
+|Get MySQL instance working among team
+|Completed
+|October 7th, 2020
+|October 13th, 2020
+|October 12th, 2020
+|-
+|Configure Google Cloud SQL
+|Complete
+|October 7th, 2020
+|October 12th, 2020
+|October 11th, 2020
+|-
+|Run 30+ generations of EMADE
+|Complete
+|October 7th, 2020
+|October 13th, 2020
+|October 13th, 2020
+|-
+|}
+
+== Week 7: September 30th, 2020 ==
+=== Bootcamp: Intro to EMADE ===
+* We will now use EMADE to create an algorithm that generalizes Titanic survivorship.
+* Learned how to clone the repository and start a run of EMADE locally
+** Configure MySQL by creating a database and entering details into the XML file for the titanic data
+** Our subteam will configure EMADE this weekend and try to run it together this week
+=== Personal Notes ===
+* The <code>.yml</code> Dr. Zutty pushed to the reference repo did not work when I tried to configure a separate conda environment -- I suspect it's an OS issue with Windows based on how the version #'s for the files were written in the file. Since I already installed all of the dependencies on my disk, I decided I would use EMADE without a conda environment for now.
+* MySQL 8 was already configured on my computer so I just had to retrieve my login info and create a database to configure the xml file for titanic.
+* When I tried to do my local run of EMADE, my master got caught in a loop of being stuck at Year One with 508 elements to process and my worker file log had an error referencing threading. I looked at some Stack Overflow posts to try to get a feel for how threading works and poked around <code>didLaunch.py</code> and <code>gtMOEP.py</code> but I could not find anything to try and do other than modify the number of workers which did not change the errors as shown.
+<div class='mw-collapsible mw-collapsed'>
+'''Worker error log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 117, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 111, in main
+    pool = gtMOEP.MyPool(processes=num_workers)
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 212, in __init__
+    self._repopulate_pool()
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 303, in _repopulate_pool
+    return self._repopulate_pool_static(self._ctx, self.Process,
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\pool.py", line 319, in _repopulate_pool_static
+    w = Process(ctx, target=worker,
+  File "C:\Python38\lib\site-packages\multiprocess-0.70.10-py3.8.egg\multiprocess\process.py", line 82, in __init__
+    assert group is None, 'group argument must be None for now'
+AssertionError: group argument must be None for now
+</code>
+</div>
+</div>
+<div class='mw-collapsible mw-collapsed'>
+'''Master out log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Begin GP!
+
+512 0.5 0.5 0.05 0.25 0.05 0.05 0.05 200 300 512
+
+No pareto front to seed
+
+Got first generation
+
+512 to evaluate
+
+Starting Year 0
+
+Querying database for elements remaining in queue
+
+508 elements remaining in queue, query complete in 0.02 seconds
+
+Good night
+
+Good morning
+
+Starting Year 0
+
+Querying database for elements remaining in queue
+
+508 elements remaining in queue, query complete in 0.00 seconds
+
+Good night
+
+...
+</code>
+</div>
+</div>
+* I eventually resolved this by creating a new conda environment running python 3.6, but received this new error after the first generation was done being evaluated before selection
+<div class='mw-collapsible mw-collapsed'>
+'''Master out log'''
+<div class='toccolours mw-collapsible-content'>
+<code>
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 117, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 107, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\gpframework-1.0-py3.6.egg\GPFramework\gtMOEP.py", line 1085, in master_algorithm
+    parents = fun(individuals=gene_pool, k=launchSize, **all_selection_args)
+  File "C:\Users\Maxim\aad-vip\emade\src\GPFramework\selection_methods.py", line 104, in sel_nsga2
+    selected_pop = tools.selTournamentDCD(individuals, k)
+  File "C:\Users\Maxim\Anaconda3\envs\emade\lib\site-packages\deap\tools\emo.py", line 163, in selTournamentDCD
+    raise ValueError("selTournamentDCD: individuals length must be a multiple of 4")
+ValueError: selTournamentDCD: individuals length must be a multiple of 4
+</code>
+</div>
+</div>
+I eventually fixed this by reinstalling an older version of DEAP; Dr. Zutty shared that the latest version of it was causing this bug. I rolled DEAP back to <code>1.2.2</code>
+
+=== Subteam 3 Meeting: October 6th, 2020 ===
+* Vincent and I tried to ssh into each other's SQL servers, but we couldn't establish a connection
+* Helped Krithik and Angela get started with installing EMADE.
+* Agreed to get office hours help to get EMADE bugs resolved.
+
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|Get EMADE working locally
+|Completed
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|Configure EMADE as a subteam and connect to eachother's databases
+|Postponed (issue)
+|September 30th, 2020
+|October 7th, 2020
+|October 6th, 2020
+|-
+|}
+
+== Week 6: September 23rd, 2020 ==
+=== Bootcamp: Titanic Presentations ===
+Subteam 3's [https://github.com/maximgeller/Titanic-Multiple-Objectives GitHub] and [https://docs.google.com/presentation/d/1597u_k5FujjsxW72xXI3dQB0GkeUyko_JRNvBnZZu_U/edit?usp=sharing Presentation]
+* Groups used NSGA-II & tournament for selection
+** Discussed that tournament does not work for a multiple objective problem because it only optimizes for the first objective.
+** Also highlighted that the best individual wasn't actually the best -- just the first one on the Pareto front.
+* My subteam presented our findings.
+** The ML implementation was consistently biased with little variance among dominant solutions
+** Using DEAP, we were able to generate a Pareto front with a smaller area under curve.
+** We used strongly typed GP, a large mix of boolean and floating point operators, and NSGA-II for selection.
+[[files/Pareto-titanic-ml.png|frameless|Pareto Front with ML]]
+[[files/Pareto-titanic-deap.png|frameless|Pareto Front with DEAP]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Complete
+|September 23rd, 2020
+|September 30th, 2020
+|September 25th, 2020
+|-
+|Install EMADE
+|Complete
+|September 23rd, 2020
+|September 30th, 2020
+|September 25th, 2020
+|}
+
+== Week 5: September 16th, 2020 ==
+=== Bootcamp: Using DEAP ===
+=== Subteam #3 Meeting: September 18th, 2020 ===
+* Initialized a shared Github repository for collaborating on the code
+* Reviewed how we implemented GP for multiple objectives in Lab 2
+* We wanted to control the output value from the node tree to be a boolean value so decided to use strongly typed GP<sup>1</sup>.
+* Researched several approaches taken by past teams<sup>2</sup> to create primitives and understand how to write the evaluation function. 
+* Because we split the cleaning and modeling into separate notebooks, we weren't sure if we correctly implemented the evaluation function. Our idea was to compare the output booleans with the true survival column in the data and to see how the individuals evolve.
+* We broke off the meeting to allow me to format the data and for Vincent to create more helper functions for creating unique primitives for creating booleans from a float and division. 
+=== Subteam #3 Meeting #2: September 20th, 2020 ===
+* Figured out how to write the evaluation function and do evolution, but the strongest individual outputted always seemed optimized for only one of the objectives and not the other. 
+* We decided to use NSGA-II for selection because we wanted to have a diverse range of solutions and NSGA-II's approach to crowd distancing<sup>3</sup> helps with that.
+* The Pareto front had an AUC of ~0.2 thanks to a mix of boolean and float operators. We evolved over 80 generations.
+
+==== References ====
+[https://deap.readthedocs.io/en/master/tutorials/advanced/gp.html 1 - Strongly Typed GP]
+
+[https://github.gatech.edu/schoudhury40/TitanicProjectGroup1/blob/master/deaptitanic.py 2 - S19 Team 1]
+[https://github.com/xenoframium/VIP-Titanic/blob/master/titanic_GP.py S19 Team 5]
+
+[https://www.ias.ac.in/article/fulltext/sadh/037/06/0675-0694#:~:text=The%20advantages%20of%20NSGA%2DII,pareto%2Doptimal%20solution%20as%20possible. 3 - NSGA-II (p. 680)]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Complete
+|September 16th, 2020
+|September 23rd, 2020
+|September 23rd, 2020
+|-
+|Create predictions CSV for MOGP
+|Completed
+|September 22nd, 2020
+|September 23rd, 2020
+|September 23rd, 2020
+|-
+|Reconcile Evaluation Function
+|Completed
+|September 18th, 2020
+|September 20th, 2020
+|September 20th, 2020
+|-
+|Implement DEAP on Titanic data
+|Completed
+|September 16th, 2020
+|September 23rd, 2020
+|September 21st, 2020
+|-
+|Create Github repo and push clean data and ML models
+|Completed
+|September 16th, 2020
+|September 18th, 2020
+|September 17th, 2020
+|-
+|Format data to be properly used for DEAP
+|Completed
+|September 18th, 2020
+|September 18th, 2020
+|September 18th, 2020
+|}
+
+== Week 4: September 9th, 2020 ==
+=== Bootcamp: Introducing Titanic & Machine Learning ===
+* Split into subteams using our pareto optimality
+* Discussed the titanic dataset Kaggle competition
+* Went through a notebook showing example feature engineering and modeling with scikit-learn
+* Broke out into subteam meeting immediate after to make introductions and plan time to preprocess data together
+
+=== Subteam #3 Meeting: September 10th, 2020 ===
+* Created GroupMe to stay in close contact
+* Discussed methods for preprocessing data
+** Created a feature that encoded the deck a passenger was on, since each deck had a different proximity to the ship's escape routes. Inspired by a [https://www.kaggle.com/gunesevitan/titanic-advanced-feature-engineering-tutorial/data#1.-Exploratory-Data-Analysis Kaggle notebook].
+** Filled NaNs on Deck with a placeholder "missing" value. All values were encoded to numbers.
+** After encoding a feature for Deck, we dropped the Name, Ticket, and Cabin features since they didn't seem like likely predictors
+** We filled the missing values in Age with the median age, the missing values in Fare with the mean fare, and the missing values in embarkation with the mode embark point and encoded them all to numbers.
+* Explored the possibility of using KFold for cross validation, but ultimately decided not to and to stick with the objective of creating 4 co-dominant models.
+* Assigned each team member a few different models to try, agreed to be in touch to assess multiple objectives of FP and FN.
+
+=== Independent Work: September 13th, 2020 ===
+* Decided to use the Support Vector Machine classifier from scikit-learn to model the prepared data
+* After a simple train test split, I fitted the model with just a linear kernel at first. This got me good accuracy and was a good general model for predicting the outcomes.
+* Learned about the [https://www.youtube.com/watch?v=Z2_yh2sice8 radial basis function kernel] and decided to start experimenting with it instead.
+* Also researched trade-offs of cost parameter C and the Gamma parameter using [https://scikit-learn.org/stable/auto_examples/svm/plot_rbf_parameters.html scikit-learn docs]
+* I first tried GridSearchCV to pick hyper-parameters, but it led to over-fitting. The accuracy on my local model was high, but very poor on Kaggle. I decided to pick and choose the C and gamma to give me a model that best generalized the data so that I would get a relatively equal number of false positives and false negatives
+* My final model had an accuracy of 0.81, with 24 false positives and 32 false negatives. My hyper-parameters were <code>kernel='rbf', C=1000, gamma=0.00001</code>
+* After updating my notebook, I completed my notebook self evaluation found [https://vip.gatech.edu/wiki/images/7/71/GellerMaximAADNotebookRubric.pdf here].
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Complete Notebook Self Eval Rubric
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Subteam meeting to preprocess Titanic data
+|Completed
+|September 9th, 2020
+|September 10th, 2020
+|September 10th, 2020
+|-
+|Create a SVM model for predicting survivors of the Titanic
+|Completed
+|September 9th, 2020
+|September 16th, 2020
+|September 13th, 2020
+|-
+|Compare results with team to ensure co-dominance
+|Completed
+|September 10th, 2020
+|September 16th, 2020
+|September 15th, 2020
+|}
+
+== Week 3: September 2nd, 2020 ==
+=== Bootcamp: Multiple Objectives & Pareto Optimality ===
+* We often have a variety of objectives we want to solve to get the best solution for
+* Accuracy, specificity, sensitivity, precision, and more
+** Confusion matrices help us visualize this
+* These vectors can be fed into ML models (typically classifiers)
+* Pareto optimization refer to solutions that don’t have a better one — idea of trade offs between objectives
+* There are 2 algorithms used to divide up a solution set of data points: NSGA-II & SPEA-2
+* Rank 0 solutions are the Pareto frontier: nothing better than them.
+** The strength S of a solution can tell us how many other solutions it dominates
+** A solution that dominates is one that beats out another in all objectives
+* We don’t discount the other solutions though because the results could have been confounded by the sample set
+=== Lab 2 Part 2 Notes ===
+* Followed the lab to solve the multiple objective problem with symbolic regression
+* Plotted Pareto Frontier to visualize how individual solutions can dominate each other
+* <code>Area Under Curve: 2.338791327080944</code>
+* Strongest individual: <code>subtract(multiply(x, x), cos(x))</code>
+[[files/Pareto-front.png|frameless|Pareto Frontier]]
+[[files/Lab-2-pt2.png|frameless|Evaluating fitness using SR]]
+* I decided to try removing the trig function primitives when tasked with lowering the AUC by 25%. This worked rather well as I got the area to be just <code>0.6912744703006891</code> but there weren't too many combinations on my Pareto frontier.
+* The strongest individual was <code>subtract(x, x)</code>
+[[files/my-pareto-front.png|frameless|Pareto Frontier]]
+[[files/evolution-graph-lab2-2.png|frameless|Evaluating fitness using SR]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 2nd, 2020
+|September 9th, 2020
+|September 9th, 2020
+|-
+|Lab 2 Part 2
+|Completed
+|September 2nd, 2020
+|September 9th, 2020
+|September 9th, 2020
+|}
+
+== Week 2: August 26th, 2020 ==
+=== Bootcamp: Genetic Algorithms ===
+* In genetic programming, the most common program structure is the tree representation. 
+* The '''primitives''' interact with the inputs in order to produce an output from the entire function. 
+* The functions with the best output mate and produce the next generation.
+* We use the mean squared error to evaluate the output with the true value to figure out the strongest algorithms.
+* Mutation happens by inserting or deleting a node or subtree, or changing a node
+=== Lab 2 Part 1 Notes ===
+* Initially, I added primitives to square and divide the terminals, but I was getting some extremely large results, so I eventually went with just multiplication and addition.
+* The mutation I chose was [https://deap.readthedocs.io/en/master/api/tools.html#deap.gp.mutInsert mutInsert]. As shown in the graph, this was able to slightly reduce the error but not fully to 0.
+[[files/Lab-2-chart.png|frameless|Results of GP]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|August 26th, 2020
+|September 2nd, 2020
+|September 1st, 2020
+|-
+|Lab 2 Part 1
+|Completed
+|August 26th, 2020
+|September 2nd, 2020
+|September 1st, 2020
+|}
+
+== Week 1: August 19th, 2020 ==
+=== Introductory Notes ===
+* Overview of AAD wiki
+** Syllabus
+** Notebooks
+** EMADE repository
+=== Bootcamp: Genetic Programming ===
+* Genetic programming is a paradigm where algorithms are created from the fittest individuals of the population through mating and mutation.
+* Selection is done using either a fitness proportionate method or a tournament
+* Mating is the creation of a new algorithm, the crossover can have one or two split points
+* Mutations are random modifications that help maintain diversity
+* The One Max problem has a goal of producing a vector where the sum of the vector is equal to its length i.e. converting a vector with some 0's and 1's into a vector with all 1's.
+* We'll be using the DEAP library
+
+=== Lab 1 Notes ===
+* Studied the application of DEAP's toolbox to the one max problem by using a double split mating and tournament selection.
+* Viewed the N Queens problem with the key difference to minimize rather than maximize as we did with one max. 
+* I found that using the [https://deap.readthedocs.io/en/master/api/tools.html#deap.tools.mutUniformInt uniformInt] mutation more consistently minimized the number of generations necessary than the shuffleIndexes mutation
+[[files/N-queens-shuffleindices.png|frameless|N Queens with shuffleIndexes]]
+[[files/N-queens-uniformint.png|frameless|N Queens with uniformInt]]
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Begin notebook
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|-
+|Lab 1
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|-
+|Install DEAP
+|Completed
+|August 19th, 2020
+|August 26th, 2020
+|August 25th, 2020
+|}

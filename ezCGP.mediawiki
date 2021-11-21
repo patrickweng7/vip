@@ -1,0 +1,289 @@
+== August 26, 2019 ==
+
+=== Deep Learning Notes ===
+https://docs.google.com/presentation/d/1CUDOAWzBPTPcjmkoCfKI4vsWj9RRN_GYMSOhbgiDjBo/edit?usp=sharing
+
+==== Action Items are the long term plan in document ====
+
+== Sept 9, 2019 ==
+
+'''Deep Learning Notes'''
+* Multiple block structure now works: preprocess blocks can feed into tensorflow blocks
+* Added a class to import Datasets like cifar-10 into ezcgp. Improves readability of problem.py
+'''Action Items'''
+* Mai and Trai are going to branch off into parallization subteam. They need to present the team with a detailed parallization architecture plan which will probably take a week
+* Sam, Jingua, and Michael are going to branch off into feature augmentation. Start with adding non tensorflow operators for preprocessing blocks.
+* Rodd possible tasks:
+** '''Refactor in tf 2.0'''
+** mate_methods, mutate_methods, genome inheritance
+** Early stopping to prevent training on useless individuals -> not well defined
+{| class="wikitable"
+!Action Items
+!Start Date
+!Suspense Date
+!Completion Date
+|-
+|Mai and Trai come up with parallization architecture plan
+|9/9/2019
+|9/23/2019
+|9/23/2019
+|-
+|Come up with mating stragey between preprocessing blocks
+|9/9/2019
+|
+|
+|-
+|Add non tensorflow preprocessing block support
+|9/9/2019
+|9/13/2019
+|9/13/2019
+|-
+|Assign Rodd a Task
+|9/9/2019
+|9/16/2019
+|9/16/2019
+|}
+
+== Sept 16, 2019 ==
+
+==== Deep Learning Notes ====
+* Non tensorflow preprocessing blocks now can be added. (We managed to add a preprocessing block with an OpenCv Gaussian Blur primitive)
+
+==== Action Items ====
+* Mai and Trai need to update the team on their progress with parallization.
+* We still need to assign Rodd a task (He is in China right?)
+* We need to add a way to differentiate between preprocessing steps that operate on just the training data and which ones operate on the training and testing data.We plan on differentiating preprocessing blocks to see which blocks run on training and which ones run on training and testing
+* Rough plan seems to be: Finish adding functionality to block structure -> create some interesting machine learning examples from individuals -> start working on mating strategies between these different individuals.
+{| class="wikitable"
+!Action Items
+!Progress
+!Start Date
+!Suspense Date
+!Completion Date
+|-
+|Add extra data augmentation support for preprocessing primitives
+|We have discussed how we would do it
+|9/13/2019
+|9/22/2019
+|9/22/2019
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== Sept 23, 2019 ==
+
+==== Deep Learning Notes ====
+* We have now added the ability for blocks to optionally operate on training data ''as well as'' validation data
+* The code base is starting to get out of hand though. Blocks.py is really ugly. We need to organize the code better and add some informative comments
+* Trai and Mai are both still working on parallel processing. They are having trouble with several pickling errors as well as errors having to do with passing large amounts of data to different processes. (Read only share memory?)
+* Rodd is currently working on "re-organizing the files and cleaning up repos" also giving problem.py a facelift
+
+==== Action Items ====
+* We need to work on refactoring the code. Jinghua will primarily work on this.
+* Sam and Michael need to figure out a mating strategy between preprocessing blocks
+*asking: Need to We need to make sure that we start putting in maintenance commits more often outside of meeting hours. We need to make sure that we start putting in maintenance commits more often outside of meeting hours.
+*Tasks needed: refactor, add logger print statements, remove memory bloat 
+<nowiki>{| class="wikitable" !Action Items !Progress !Start Date !Suspense Date !Completion Date |- |Assign Tasks to Group Members |Talked about it  |9/23/2019 | | |- | | | | | |}</nowiki>
+
+== Sept 30, 2019 ==
+
+=== Deep Learning Notes ===
+* Added Logging to ezCGP to help clean up print statements.
+* Still in the process of cleaning up code mainly with blocks.py and incorrect logging calls
+* With the addition of more data augmentation primitives, a few big architecture changes are needed. There needs to be a way of also augmenting labels when we add samples through data augmentation primitives. 
+* Parallization subteam's code is breaking due to unknown errors 
+<nowiki>{| class="wikitable" !Items !Current Status !Start Date !Suspense Date !Completion Date |- |Fix parallization subteam errors |Team knows of error |9/30/2019 | | |- |Fix operators.py error | |9/30/2019 | | |- | | | | | |}</nowiki>
+
+== October 7, 2019 ==
+
+==== Deep Learning Notes ====
+* Code is much cleaner than it was before and data augmentation is now fully incorporated. There are flags for each operator that allow you to specify which primitives must include the labels as an argument.
+
+* Rodd is working on a system for seeding individuals. He pushed up a mockup of how to initialize a genome with a string. Will allow us to continue runs with a population initialization.
+* Parallization subteam finished mpi, but it is highly unoptimized. For example, too much time spent in the overhead. Today Mai and Trai will update the group and suggest changes to make mpi work better.
+* Added several data augmentation primitives which can allow for more useful individuals. Michael tried running an evolution with the multiple block structure and the new primitives, but the evolution halted during mutation.
+
+==== Action Items ====
+
+== October 21, 2019 ==
+
+==== Deep Learning Notes ====
+Link to our presentation:
+
+https://docs.google.com/presentation/d/1N7GMRFuyraEj19g2omaQebRJHewAQ5qppXPgKaIcW7Y/edit?usp=sharing
+
+== October 28, 2019 ==
+
+==== Deep Learning Notes ====
+Discussed how there is a “find_active” (or similar) method that gets the list of active genes (aka layers + metadata). Majority of the mating should occur with these. However, '''a small percentage (e.g. 10%) should be with the inactive nodes just to have genetic diversity''' with mating.Possible mating methods:1) Whole block swapping by type (e.g. training with training), and solve any block output to input shape compatibility issues. This is what we will start off with for this semester, since it is easier. To keep diversity with inactive nodes, we might also spontaneously turn on some inactive nodes (maybe mutate into them?)2) Partial block swapping, by swapping only parts of a block, most notably layers:
+
+- Introduces a host of primitive shape compatibility issues similar to number 1's block to block (e.g. dense -> conv doesn’t work), which can be solved a number of ways:
+
+2a) Assigning primitives to groups by output shape (e.g. max pooling w/ fractional pooling). Then, in those groups, assign a hierarchical layout of which groups can output to which other groups and simply pick layers in that group or child groups to substitute or add in between incompatible layers
+
+2b) Doing an exhaustive search of preemptive compatibility searching (see the mating.py code Rodd wrote, I don’t fully understand it yet, but the comments are good)
+
+2c) Killing the individual and essentially relying on random chance to return to that individual if it is good (probably not preferred, but it is what we use in mutation (e.g. try catch self.dead), so we could just be consistent for mating).'''Selection'''Ultimately, we should keep a baseline number of best individuals for next generation before mating. Therefore, for each generation, a certain percentage would be allocated from each process:       Just for example, say 33% of previous pareto optimal individuals, 33% of mutated, 33% of mated childrenThere are other ways to do selection after mutation/mating, but '''we should talk about that after mating'''. Trai and Mai have their own k-select method for post-mutating right now, I believe.'''Parallelization'''Michael, Sam, Trai, and Mai are to discuss what to do with large_dataset and if that can be properly deleted to remove I/O bottleneck.Trai is debugging that today to see if large_dataset is actually holding a lot of memory, or if something else is and can be deleted. Right now, '''each CPU core already has access to the dataset, so we just need to remove that from the individual skeleton structure and I/O bottleneck should be solved'''.'''Design Doc'''We should make a '''design document of the high-level and key workflows of the ezCGP process'''. This could be something '''Rodd and Sam can work with the new students''' in creating as a softer onboarding, so they understand ezCGP before diving too deep in the code. This can include extra ideas (like number 2 of mating earlier) that we need to work on next semester.'''Topics to avoid''': detailed primitive information, complex evaluation and TensorFlow graph structures, etc. Anything that will move the focus away from architecture of ezCGP.'''Topic to include''': high-level ideas, certain details that aid in explaining certain key decisions (killing broken individuals
+
+== Nov 4, 2019 ==
+
+==== Deep Learning Notes ====
+* Vastly increased scatter time of individuals by extracting genome_lists of individuals before scattering. (Scatter time went from 30 minutes to scatter a populuation of individuals to less than a minute)
+* Jinghua and Sam added mating class for whole block swapping.
+* New Hires in Deep Learning Team Still working through design doc
+* Rodd has found a way to seperate different kinds of operators in different files. For example, we can have an operators file just for tensorflow primitives and an operators file for data augmentation with keras and so on.
+
+=== Action Items ===
+* Need to limit ram usage for each process in mpi. During the run each process takes 7 gb of ram. People in our group have various ideas about how to reduce this memory usage.
+
+== Nov 11, 2019 ==
+
+==== Deep Learning Notes ====
+* Put Mating into universe
+* We merged mpi_fix into multiple_blocks and prepared for an hpc run.
+
+* Trying to get ice-hammer to run mpi_universe.py. We are currently working with the ice-hammer support admin to get this working
+* We gave new semester students tasks related to visualizing best individuals and the evolutionary process and saving indivivudals for seeding
+
+==== Action Items ====
+* Need to fix icehammer issues. Trai says that mpich and openmpi cannot be loaded onto the same system.
+* Need to test genetic algorithm approach. Benchmark emade approach vs rodd's approach. Can plot auc vs # evaluations to see which one converges faste
+
+== Nov 18, 2019 ==
+
+=== Deep Learning Notes ===
+* Team was unable to meet this weekend due to scheduling conflicts so we will be having a coding session/meeting after class.
+
+* Team was able to run mpi_universe.py on icehammer. However, it does not seem to parallize correctly. (Only 2 generations were completed over 2 days which is very slow).
+* Other subteam team is currently working on an ezCGP visualization markup. In other words, what kind of statistics and graphs will we visualize at the end of an evolutionary run
+* Need to fix position of mating in mpi_universe.py (Does not need to be in run_universe.py)
+
+=== Action Items ===
+* Trai will help michael jurado figure out why cpus are not being utilized efficiently.
+* Visualization subteam needs to create a preferably visual mockup of what they will deliver to present to the rest of ezCGP.
+
+== Nov 25, 2019 ==
+
+=== Deep Learning Notes ===
+* Visualization Subteam successfully created visualizations for individuals created by ezCGP
+* Rodd and Michael added a large number of print statements to ezCGP to verify how long evaluation process takes. Still debugging why ezCGP does not scale well with adding cpus on ice-hammer. 
+
+=== Action Items ===
+* Incorporate individuals erroring fix that Jinghua and Sam added to next EZCGP run.
+* Add more visualizations for ezCGP team (I.E. visualize non trivial individuals and show visualize evolutionary performance through time)
+
+== Dec 2, 2019 ==
+
+=== Final Presentation ===
+https://docs.google.com/presentation/d/1jAWlWmQj94DfXsNsuke80kzpa3EUEJJKMgvQ2TTC_zg/edit?usp=sharing
+
+== Jan 27, 2020 ==
+
+=== Deep Learning Notes ===
+* Rodd came up with a strategy to wrap data-augmentation around a library in keras
+* I found several other data augmentation libraries we could: torchvision and augmenter
+* GPU-subteam was able to install horovod on GCP
+* Rodd working on refactoring block class to reduce clutter and make incorporating new kinds of blocks easier.
+
+=== Goals ===
+* We need a code demo of wrapping data-augmentation around a library completed. 
+* We also need some of Rodd's architecture changes completed and incorporated into the master
+* We need to see if 2 GPUs can be activated with 2 CPUs using Horovod + mpi4py. Main issue is seeing where to put the Horovod distributed optimizer function
+* We also need to see how instance networking can be achieved on GCP using MPI for CPU communication, where GPU per instance is handled by Horovod
+
+== Feb 3, 2020 ==
+
+=== Deep Learning Notes ===
+* New team-members tasked to create a single tensor-flow primitive, test it in an evolution, and document it
+* William joined effort to incorporate Augmenter python library into blocks class.
+* Operators for new Data Augmentation mock-up completed
+* GPU team starting to test on GCP, but running into a few issues with dependencies and hardware versions
+* Horovod is implemented, but not fully tested
+
+== Feb 10, 2020 ==
+
+=== Deep Learning Notes ===
+* Discussed with Rodd on how to refactor code such that we can upgrade to TF 2.0 with interface design instead of inheritance[[files/Ezcgp refactor.jpg|thumb]]
+* 
+* Tan and Ford added primitives 
+* Created preprocessing augmentator prototype
+
+== Feb 24, 2020 ==
+
+=== Deep Learning Notes ===
+* Michael Jurado made a new dataset class. Could be the object that is passed to individuals (sort of like a gtmoepdatapair). However, we need to discuss it and or change it before incorporating it into the framewor: https://github.com/ezCGP/ezCGP/issues/52
+* Trai, Mai, Rodd, Bojun, and Sam still working on refactoring. 
+* Need to analyze  students evolutionary run results and benchmarks.
+
+== Mar 9, 2020 ==
+
+=== Deep Learning Notes ===
+* Presentation: https://docs.google.com/presentation/d/1DaGSf2-x87oNFT5oukKR1jfI0m2wtXs--56K3mf7q38/edit?usp=sharing
+
+== March 23, 2020 ==
+
+=== Deep Learning Notes ===
+* We came up with a rough plan for the semester:
+*# Push new primitives into master (Ford, Henry, TAN) on old repo
+*# Visualization scripts in new framework (Ford) 
+*# Merging tensorflow into new framework. (Michael will do pull request. Rodd also) 
+*# . Henry + TAN work on migrating tf primtives to new framework
+*# William work on data augmentation and preprocessing in new framework
+*# Documenting the code - Rodd Talebi
+
+== March 30, 2020 ==
+
+=== Deep Learning Notes ===
+* Came up with tentative design for dealing with different kinds of data in ezCGP. Michael Jurado made a pull request. 
+* New students are working on deep learning tutorials after Deep Learning Intorductory lesson on Wednesday.
+
+== April 6, 2020 ==
+
+=== Deep Learning Notes ===
+* Mai and Trai have a gpu multiprocessing prototype which has significant memory bloat when too many individuals are initialized. 
+* New students have listened to a lecture on ezCGP. They are currently reading a paper about cartesian genetic programming and going through neural network tutorials.
+* Fixed Errors in the evolution relating to incorporation to Tensorflow
+* Found a way to systematically load different types of data into ezCGP
+
+=== Action Items ===
+* New students will meet on Wednesday with Samual Zhang and Michael Jurado. (Tasking is to find architectures, train on them, run ezcgp, and see if we can outperform those archtectures on the held out testing set)
+* Mai and Trai will try to finish the GPU parallization working and obtain benchmarks.
+* William and Henry will be working on filling out the new framework with the old frameworks functionality
+* Michael Jurado will consolidate the changes of the gpu team and merge it into the graph branch.
+
+== April 13, 2020 ==
+
+=== Deep Learning Notes ===
+* Henry and Tan have made progress porting new primtives into ezCGP and writing unit tests for those primitives: https://github.com/ezCGP/ezExperimental/commit/bfe9a38292e6596a9c8e56ac1cd52b42ff60f654
+* There is now a systematic way of loading new kind of datatypes into ezCGP and a single data_loader class which processes databases and outputs the correct type of data.
+* Michael Jurado created a transfer learning ezCGP prototype.
+* New students are currently making progress on benchmarking state-of-the-art networks against ezCGP
+
+=== Action Items ===
+* Final Semester goals include: Run a fully functional data augmentation example, have mpi with gpu supported in ezCGP, and to have visualization tools incorporated into the new network.
+* Other goals include running an evolution with transfer learning
+
+== August 24, 2020 ==
+
+=== Action Items ===
+* Had first meeting of the semester, group now down to 4 people.
+* Decided to have weekly meeting Thursdays at 5 PM.
+* Splitting into 2 subgroups, 2 people per group, one focuses on researching ideas to implement into ezCGP and the other works to maintain the current code base.
+
+== August 27, 2020 ==
+
+=== Action Items ===
+* Had second meeting of the semester.
+* Split into sub meetings
+* Research sub-team finding 15-20 papers each by next meeting that will then be cut down to around 3-5 to work on actual implementation.
+* The second group will work on getting the current code base evolving consistently and well to establish a benchmark for how the current framework runs. their timeline will likely be: make sure all the primitives from last semester are translated over and are working cleanly. get it evolving on one gpu. get it evolving on multiple gpus.

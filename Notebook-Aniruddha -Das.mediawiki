@@ -1,0 +1,979 @@
+== General Information ==
+Team Member: Aniruddha Das. 3rd year Computer Science major pursuing the Intelligence and the Info-Internetworks threads.
+
+Email: adas83@gatech.edu
+Cell Phone; 470-237-6170
+
+Academic Interests: Machine Learning, Deep learning, Meta-learning, Reinforcement Learning.
+
+About me: I'm a Machine Learning TA and love helping people! Feel free to reach out to me anytime if you have any questions and I will do my best to help!
+
+== Monday, January 7, 2019, Team Meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Rodd will be leading development on the ezCGP framework.
+* Rodd reintroduced and explained the concept of CGP to newer members and those unfamiliar with it. 
+* He provided a brief outline on the OOP nature of the framework and the current state that it is in. 
+* Outlined the goals for the semester and detailed the task that we would work to accomplish.
+
+==== '''Discussed Goal''' ====
+* Work to develop and expand a CGP framework called ezCGP
+* Get it working with emade (using the data pair object and emade primitives) then run on Titanic dataset.
+* Repeat the process for a very basic neural networks with mnist.
+* Finally, split into subgroups for specific development and and datasets to try it on.
+* Overarching goal is to develop a robust framework, measure performances on benchmark problems and obtain a publication. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get added to ezCGP repo (https://github.com/ezCGP/ezCGP) and go through the code.
+|Completed
+|January 7, 2019
+|January 14, 2019
+|January 13, 2019
+|-
+|}
+
+== Monday, January 14, 2019, Team Meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Thoroughly read paper "Analysis of Cartesian Genetic Programming’s Evolutionary Mechanisms" at https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6815728&tag=1
+* Paper contains material that inspired a lot of work in ezCGP
+* Gained further insight into the present workings of ezCGP
+
+==== '''Present working and structure of ezCGP''' ====
+* Fixed size genome -> list with main nodes, input node and output nodes where nodes are the different primitives that the data will flow through
+* Nodes are represented as dictionaries with keys: “ftn”, “inputs” (is the index in the list of node output that is fed into it NOT the data type or shape), “output”
+* The nodes in the genome can either be active or inactive i.e. latent or non-latent DNA
+* This concept of active/inactive nodes ensures that we don't do costly evaluations for nodes that aren't used (i.e. inactive nodes). 
+* As inputs to nodes are from nodes earlier in the list, the possibility of weighting mutating nodes to be those earlier in the list to avoid massive changes to individual structure was brought up. 
+* The Genome class in ezCGP is the skeleton class that executes all of the above. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read through next batch of code that will be uploaded/changed
+|Completed
+|January 14, 2019
+|January 28, 2019
+|January 22, 2019
+|-
+|Have ezCGP runnable for 'symbolic regression' and then try out our own symbolic regression
+|Completed
+|January 14, 2019
+|January 28, 2019
+|January 20, 2019
+|-
+|Read aforementioned paper.
+|Completed
+|January 14, 2019
+|January 28, 2019
+|January 22, 2019
+|-
+|}
+
+== Sunday, January 27, 2019, Individual Work ==
+
+==== '''Team Meeting Notes:''' ====
+* On being added to the repo as a contributor, run ezCGP by changing a few parameters around and obtain results. 
+* Used 20 randomly generated seeds and ran ezCGP until convergence for symbolic regression. 
+* In addition to the base comparative function plots on the test data, I added plots on the RMSError, MaxError, Time taken in seconds and Number of generations across the different universe runs and uploaded these results to the git repo. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run symbolic regression using ezCGP till completion
+|Completed
+|January 24, 2019
+|January 28, 2019
+|January 27, 2019
+|-
+|Complete 20 seeded runs of ezCGP until convergence, collect data for each run and upload results
+|Completed 
+|January 24, 2019
+|January 28, 2019
+|January 27, 2019
+|-
+|}
+
+== Monday, January 28, 2019, Team Meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Planning on splitting into two sub-teams namely, the tensorflow and EMADE integration team. 
+* EMADE group aims to add support for using the data pair object. Try symbolic regression on TItanic dataset.
+* Tensorflow group aims to add neural network functionality to ezCGP. Try symbolic regression on something simple like the mnist dataset
+* Team read and understood the aforementioned paper and spoke about the different mating and mutation methods. 
+* Additional code was added to the ezCGP repo to make it fully functional.
+* Issues regarding execution of the code were opened and resolved so that the team can now run the code by simply cloning the repo and running "python main.py"
+* I was ''<u>'''assigned to the tensorflow integration team.'''</u>''
+* '''Established sub-team meeting time to be 4:30-6pm Thursdays during helpdesk hours''' and on ''<u>weekends if necessary.</u>'' 
+
+==== '''Issues raised regarding ezCGP''' ====
+* Add more comments to certain portions of the code to make it more easy to understand and work with.
+* Very slow run time. Tried to add multiprocessing using python's pool and star-map functions in the multiprocessing library. Changes actually slowed it down. (https://docs.python.org/3.4/library/multiprocessing.html?highlight=process).
+** Did not personally face such issues. Convergence is highly dependant on the initial seed and the random seeds chosen appeared to give fast convergence most of the time. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide who get split between the tensorflow and EMADE teams
+|Completed
+|January 28, 2019
+|January 31, 2019
+|January 28, 2019
+|-
+|Create a new branch for the tensorflow team to work on
+|Completed 
+|January 28, 2019
+|February 4, 2019
+|January 30, 2019
+|-
+|}
+
+== Wednesday, January 30, 2019, Outside Class Meeting ==
+
+Met with Rodd in the evening to fix an error that was being caused which resulted in the output of the genome being a single float instead of an ndarray
+
+==== '''Team Meeting Notes:''' ====
+* The error was caused due to the mutation method that mutates the function. The datatype of the output node was not being taken into consideration when mutating the function in the node.  
+* Raised this issue on github and commented out the faulting method until it is fixed.  
+* Learnt to use PDB to debug python code. Will be useful to debug the data structure later to find bugs.  
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add code to read and preprocess MNIST dataset
+|Completed
+|January 30, 2019
+|February 4, 2019
+|January 30, 2019
+|-
+|Ported some primitives from CGP-CNN
+|Completed
+|January 30, 2019
+|February 4, 2019
+|January 30, 2019
+|-
+|Set according flags and values to the genome and block skeletons to make them compatible with tensorflow methods.
+|Completed
+|January 30, 2019
+|February 4, 2019
+|January 30, 2019
+|}
+== Thursday, January 31, 2019, Sub-team Meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Gave Rodd and the rest of the team an update on what I've done.
+* Plan to integrate additional basic tensorflow primitives (such as add, subtract etc) to build tensorflow graphs instead of starting with Deep Neural Network (DNN) specific functions
+* Will meet on Sunday to achieve the above. 
+
+==== '''Action Items''': ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet on Sunday with team to try and integrate basic Tensorflow primitives
+|Completed
+|January 31, 2019
+|February 3, 2019
+|February 3, 2019
+|-
+|}
+
+== Sunday, February 3, 2019, Sub-team Meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Met with the rest of the team and worked to instantiate and evaluate an individual.
+* Faced a few bugs and worked with the team to resolve them.
+* Had to alter block input datatypes and the genome input datatypes to get the initialisation to work. (the genome is comprised of different blocks which results in different datatypes)
+* Updated git repo with tester.py that checks individual instantiation and evaluation.
+* Had to pass an additional parameter (ground truth labels) into evaluate and altered the loss function so that predictions and ground truth labels are of the same shape. 
+* Evaluate now works, however, the genome_outputs parameter is an empty list which may be a result of the individual being "dead". 
+* Unsure about whether the tensorflow graph is being constructed at all.  
+
+==== '''Action Items''': ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look into why the genome_outputs parameter is coming out as an empty list
+|Completed
+|February 3, 2019
+|February 4, 2019
+|February 4, 2019
+|-
+|Look into whether the tensorflow graph is being constructed at all. 
+|Completed
+|February 3, 2019
+|February 11, 2019
+|February 7, 2019
+|-
+|}
+
+== Monday, February 4, 2019, Team Meeting  ==
+
+==== '''Team Meeting Notes:''' ====
+* Presented weekly update and outlined possible causes for the genome_outputs coming out as an empty list. 
+* After the meeting Jason mentioned a good way to debug the cause of the issue is by seeding. 
+** To achieve this, we can tailor the instantiated individual to have '''''active nodes''''' that we know will work and see if the tensorflow graph is being constructed. 
+* Worked with Michael to catch thrown exception and print if individual is dead along with the cause for its death. 
+** Found out individuals were dying due to a tensorflow error stating feed_dict key is None. Will debug later.
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find and fix cause of None key in feed_dict
+|Completed
+|February 4, 2019
+|February 7, 2019
+|February 7, 2019
+|-
+|}
+
+== Thursday, February 7, 2019, Sub-team Meeting  ==
+
+==== '''Team Meeting Notes:''' ====
+* Met with the team and debugged source of None key in feed_dict. 
+* Began receiving another error due to difference in matrix ranks. Fixed it by flattening matrix at the final preprocessing step before adding the final dense layer for the output predictions.
+* The initialisation and evaluation of the individual now completes all the steps (calls to session.run()) without erroring. 
+* As there is no output, we have no way of ensuring that there is any learning taking place. The team aims to output the loss/accuracy across the runs to show that learning is happening. 
+* Will have a meeting on Sunday if team does not achieve the above result by then. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Output loss/accuracy to determine if training is taking place
+|Completed
+|February 7, 2019
+|February 10, 2019
+|February 7, 2019
+|-
+|}
+
+== Thursday, February 7, 2019, Individual Work  ==
+
+==== '''Individual Contributions:''' ====
+* Found that tf_outputs contains some information about the outputs from running session.run(). Simply added the loss metric as something to be returned, printed the found loss and found that the network was learning as exhibited by the decreasing losses across the successive calls. 
+* Printed the predictions of the classifiers at each run and assigned them to self.genome_outputs so that it is no longer an empty list. tester.py now runs until completion and prints final outputs of the network on the training set.
+* Passed these predictions into evaluate and now individuals can be assigned fitness scores. Due to the minimisation nature of the problem, the fitness metrics were changed from accuracy and f1_score to error and (1-f1_score).
+
+==== '''DNN Specific Primitive Integration''' ====
+* Changed the way that the datadimension of the input is set and added an additional dimension for the images to make them more compatible with convolution operations (conv2d). 
+* Most of the primitives are now compatible with the individuals and ezCGP however, dense layer still does not work. 
+* Fixed dense by using the tf.Flatten() method before the call to tf.layers.dense() instead of reshaping data which seems to throw errors. 
+* Have experimented with dense and max_pooling. Left it to the team to experiment with other primitives. 
+* Due to the large number of examples, and the current state of ezCGP sending all the data at once, convergence takes very long and also, needs to go through all the data before making a weight update and improving performance. Moreover, applying conv2d primitives causes excessively long run-times on the entire training data and upon flattening, results in an error caused due an excessively large tensor. 
+** '''<u>Potential fix 1</u>:''' Feeding data in batches might speed up convergence, and could potentially fix the excessively large tensor problem. 
+** '''<u>Potential fix 2</u>:''' Add a new primitive that combines conv_layer and max_pooling so that the size of the input is scaled down and can therefore be flattened. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add functionality to ezCGP to feed data in batches to speed convergence.
+|Completed
+|February 7, 2019
+|February 18, 2019
+|February 14, 2019
+|-
+|Test all primitives and see if they're functional. 
+|Completed
+|February 7, 2019
+|February 28, 2019
+|February 25, 2019
+|-
+|Get python main.py running so we can run the full evolutionary process. 
+|Completed
+|February 7, 2019
+|February 28, 2019
+|February 22, 2019
+|-
+|}  
+
+== Monday, February 11, 2019, Team meeting  ==
+
+==== '''Team Meeting notes:''' ====
+* Gave an update on the teams position and where we hope to be at the end of the week. 
+* Spoke about the reason and potential method to integrate batch feeding of data into the constructed tensorflow computational graph of the individual. 
+* Team has not yet experimented on the other primitives mainly because conv2d primitives take too long to run and will likely error without batch feeding. 
+
+== Thursday, February 14, 2019, Sub-team meeting  ==
+
+==== '''Batch Integration:''' ====
+* Updated the way labels were sent in by replacing it with a placeholder instead of static labels. 
+* Worked to gain access to the placeholder nodes in the graph so that they could be mapped to the batches 
+** Achieved by naming the different nodes in the computational graph and accessing them using tf.get_default_graph().get_operation_by_name(<name>).outputs[0] 
+* Added a new set of methods to returns batches of data given the batch_size is passed in. Successfully integrated this to feed the data in batches.   
+* The individual now successfully overfits to the data and achieves ~99% training accuracy after 5 epochs as compared to ~25% at the end of 20 epochs without batch feeding
+** '''Reason:''' The individual has more frequent weight updates which results in more steps taken to minimize the loss finally resulting in the faster convergence.  
+
+== Thursday, February 14, 2019, Individual Work ==
+
+==== '''Cleanup and error checking:''' ====
+* Removed some extra print statements that were initially used for debugging. Running tester.py now gives only essential information regarding the training of the individual
+** Specifically, the epoch, the batch number and the number of datapoints fed to the computational graph within the current epoch.  
+* '''Potential bug:''' the batch_size must be direct divisor of the number of samples. Not doing this results in incomplete feeding of training examples which results in the evaluation erroring due to mismatched shapes of the predicted labels and the ground truth labels. Brought this up on the slack channel.  
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the non-divisor batch size bug
+|Completed
+|February 14, 2019
+|February 21, 2019
+|February 20, 2019
+|}
+
+== Monday, February 18, 2019, Team meeting ==
+
+==== '''Team Meeting notes:''' ====
+* Gave an update on the teams position and where we hope to be at the end of the week. 
+* Our aim is to successfully run python main.py to start the end-to-end evolutionary process by the end of the week.  
+* Decided to update fitness of the function to be it's validation error/f1-score instead of its training statistics to better show individuals ability to generalise.  
+* Also consider making batch_size an input to the tensorblock instead of going into blocks.py to manually change it every time.  
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make batch_size a parameter passed to the tensorblock.
+|Completed
+|February 18, 2019
+|February 25, 2019
+|February 20, 2019
+|-
+|Use validation set to determine fitness of the individual
+|Completed
+|February 18, 2019
+|February 25, 2019
+|February 21, 2019
+|-
+|}
+
+== Wednesday, February 20, 2019, Individual Work ==
+
+==== '''Validation set creation, batch_size parameterization and other:''' ====
+* Randomly set aside a fixed number or proportion of the training data as the validation set. Is not used anywhere but just set aside.  
+* Outputted loss statistics on every step as well. Might be useful for final graph generation.  
+* Set batch_size to be an input to the block class by setting it in the block's skeleton. 
+** Batch_size is now an instance variable with a None default value 
+* Also fixed the error where portions of the data were not fed in when batch_size was not a divisor of the number of examples.
+** This was done by taking the ceil of (num_examples/batch_size) and converting it into an integer.  
+** The next_batch method is then queried with the minimum value between batch_size and the remaining number of examples 
+== Thursday, February 21, 2019, Sub-team meeting ==
+
+==== '''Validation set integration''' ====
+* Passed validation_pair which is a tuple with the validation set and its labels into the evaluate function. 
+* Removed the optimizer and summarizer from the fetch_nodes by ommitting last few elements in the list then made call to run() so as to not train on validation set
+** As we remove the last 2 elements from the list directly, this could be a potential cause of errors in the future.
+* Successfully integrated the validation_pair into the evaluation of the individual. Fitness scores are now a function of performance on the validation set. 
+
+==== '''Running entire evolutionary process''' ====
+* Attempted to run python main.py however, getting errors related to manner of calling the evaluate() method which makes sense due to the changes made.
+** Updated manner of evaluating individuals within universe.py
+* However, now getting an error while calling deepcopy before mutation. 
+* This is likely due to the presence of Tensorflow variables such as graph nodes and optimizers which cannot be pickled. Work to clear these before exiting evaluate()
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clear Tensorflow variables to facilitate deepcopying the individual
+|Completed
+|February 21, 2019
+|February 25, 2019
+|February 21, 2019
+|}
+
+== Thursday, February 21, 2019, Individual Work ==
+
+==== '''Clearing tensorflow variables and continuing''' ====
+* Cleared the different tensorflow variables within the tensorblock namely: graph, feed_dict, fetch_nodes and evaluated. 
+* The model can now be saved/deepcopied but now getting an empty list error within randomInput mutate method. 
+* Asked Rodd to look into the error as he would understand the working of the mutation error better. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix mutation method error and run entire evolutionary process
+|Completed
+|February 21, 2019
+|February 25, 2019
+|February 22, 2019
+|}
+
+== Friday, February 22, 2019, Individual Work ==
+
+==== '''Fixed mutation randomInput error and can now run entire evolutionary process''' ====
+* Jinghua fixed the erroring out of python main.py by returning when the list is empty. 
+* While python main.py runs without erroring for multiple generation, we no longer know whether mutation is truly taking place.
+** This can be checked by trying it in tester.py and seeing if the individual genome varies after mutation is called. 
+* Told everyone to do multiple runs of main.py and ensure that it is working. Reminded them to tweak the population size and number of mutants
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ensure that the individual is actually being mutated
+|Completed
+|February 22, 2019
+|March 4, 2019
+|February 25, 2019
+|}
+
+== Monday, February 25, 2019, Team meeting ==
+
+==== '''Team Meeting notes:''' ====
+* Had to leave early. Presented weekly scrum and told teammates to check with Rodd or play with tester.py and see if mutation was working. 
+* Jason mentioned that it might be a good idea to see how ezCGP performs on less trivial datasets like CIFAR-10. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look into obtaining results on CIFAR-10
+|Completed
+|February 25, 2019
+|March 4, 2019
+|February 28, 2019
+|}
+
+== Thursday, February 28, 2019, Sub-team meeting ==
+
+==== '''Team Meeting notes:''' ====
+* Ensured that mutation is working as expected by inspecting the individual before and after mutation. 
+* Downloaded CIFAR-10 dataset and wrote the code to preprocess it thereby laying the foundation to run the evolutionary process on it. 
+* The code was then better documented and fixed errors that arose due to invalid sequence of tensorflow operators. (eg. dense layer followed by max pooling layer)
+
+==== '''Issues regarding working with a new non-tensorflow available dataset together with potential solutions''' ====
+* Due to the larger size of the CIFAR-10 dataset and the manner in which it is distributed (multiple pickle files containing the different batches), we will potentially have to make large changes to the code in order to make it generic to all datasets
+* Alternatively, we can tailor it to CIFAR-10 which will result in general fragility and require us to make potential changes for every new dataset. (or not as MNIST might be the exception due to being read in directly from tensorflow)
+* Potentially create a new branch to counter this problem.
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Each team member can look through some papers and brainstorm 
+additional features/primitives that can be added to ezCGP
+|In progress 
+|February 28, 2019
+|None
+|N/A
+|-
+|Look into running ezCGP on GCP with both CIFAR and MNIST so that we can
+run the entire evolutionary process at the desired/required scale.
+|In progress
+|February 28, 2019
+|None
+|N/A
+|-
+|Collect and report results on both MNIST and CIFAR
+|Completed
+|February 28, 2019
+|March 11, 2019
+|March 11, 2019
+|}
+
+== Monday, March 4, 2019, Team meeting ==
+
+==== '''Teem Meeting notes:''' ====
+* Updated the code so that we can hold the entire CIFAR-10 dataset in memory and can feed it in the same way MNIST was fed into ezCGP
+* Created a separate tf-cifar10 branch so that we can tailor the code specifically for CIFAR-10. However, this will likely be unused as it is no longer a requirement due to the presence of enough memory in the GPU. 
+* Also began working on the mid-semester presentations.
+** Laid down skeleton for the presentation and mentioned what we should try and put in there for the final presentation.  
+** Took a few slides from last semesters Deep and Conflict team due to the similarity in goals and approaches.  
+* Laid down deadlines to obtain results. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Obtain results on MNIST
+|Completed
+|March 4, 2019
+|March 9, 2019
+|March 8, 2019
+|-
+|Obtain results on CIFAR-10
+|Completed
+|March 4, 2019
+|March 11, 2019
+|March 10, 2019
+|-
+|Complete mid-semester presentation and populate it with results and explanations
+|Completed
+|March 4, 2019
+|March 11, 2019
+|March 11, 2019
+|}
+
+== Thursday, March 7, 2019, Sub-team meeting ==
+
+==== '''GPU memory bloat issue and fix:''' ====
+* Running ezCGP for multiple generations gave rise to errors due to excessive GPU memory usage.
+* On monitoring memory usage, it was found that deepcopying individuals before mutation resulted in a large usage of memory that didn't decrease much over time.
+* It was found that each individual appeared to have a copy of the data that kept getting deepcopied along with the rest of the variables. 
+** This memory bloat was mitigated by clearing the individuals copy of the data before exiting the evaluation method. 
+* The whole evolutionary process can now be run for multiple generations without excessive memory usage. 
+
+==== '''Generation wide storage of individuals and visualisations of statistics''' ====
+* Jinghua updated the code so that individuals are saved across the multiple generations. 
+* Furthermore, she added a file result_analysis.py which reads these stored individuals, and visualizes certain statistics (accuracy and number of active nodes) related to them.
+* This will prove useful when it comes to visualising statistics across the generations  for presentation and debugging purposes. 
+
+== Sunday,  March 10, 2019, Individual Work ==
+
+==== '''Results for CIFAR-10 and MNIST came in''' ====
+* At this point, Gibran and Michael J. had run ezCGP for as many generations as they could and had uploaded their obtained results i.e. saved individuals across generations.
+
+==== '''Visualising Script Update''' ====
+* I updated the visualising script by adding another method to it (draw_analysis2())
+* This method builds on the original draw_analysis method and outputs the progression of additional statistics across generations such as the F1-score and HyperVolume across generations. 
+<nowiki>-------------------------------------</nowiki>'''<u>MNIST Results</u>'''-----------------------------------------------------------------------'''<u>CIFAR Results</u>'''-------------------------------------------
+
+[[files/Outputs gibran saved.png|427x427px]] [[files/Outputs cifar normed2 saved.png|428x428px]]
+
+==== '''Setup Google Colab notebook to fully evaluate "best" model''' ====
+* The "best" model was defined as the one that had the best validation accuracy across the generations. 
+* I set up a '''<u>''Google Colab''</u>''' notebook to fully evaluate the performance of the model on the full training data. 
+* Google colab allows you to use a GPU for up to 12 uninterrupted hours which was useful to fully train some of the larger constructed models for multiple epochs.
+** As my own laptop took >= 15 minutes per epoch, it would be difficult to fully train the model for 50-100 epochs and report its performance which is why I used Google Colab
+** I rebuilt the model using barebones tensorflow instead of Keras to exactly replicate performance.
+** On training the model for the set number of epochs, I plotted the learning curve and reported the highest testing accuracy.  
+<nowiki>-------------------------------------</nowiki>'''<u>MNIST Learning Curve</u>'''----------------------------------------------------------'''<u>CIFAR Learning Curve</u>'''---------------------------------
+[[files/MNIST 50epochs.png|442x442px]][[files/CIFAR 100epochs.png|426x426px]]
+==== '''Updated presentation with results''' ====
+* The above results were pasted into the Google Slides presentation. 
+* I provided explanations for why the results were as obtained. 
+* Namely the exhibited results were primarily due to the lack of regularization employed in the network which likely resulted in lower generalisation. 
+* Additionally, while results on MNIST were good and came close to the state-of-the-art, the results on CIFAR-10 were less impressive. 
+** While lack of generalisation could definitely explain this, another reason for this lack of performance would be the lack of complex primitives.
+
+== Monday, March 11, 2019, Team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Mid-semester presentation day
+* The presentation went on till 7:30 and we were the last team to present. 
+* The presentation can be found at: [https://docs.google.com/presentation/d/1UmH5CSSlO2NPVMmBe_Kqo3sie2gQs4Sm2fldg9JC6lE/edit?usp=sharing Deep Learning Team Midterm Presentation]
+
+== Thursday, March 14, 2019, Sub-team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Decided to have a meeting to discuss way forward for the team. Michael P. mentioned an interesting way we could divide work. 
+** We could have a part of the team working to develop and make ezCGP a more user friendly framework
+** Another section could work on performing experiments and add Deep Learning specific functionality and primitives
+* I think Michael's idea is a good one as I feel this change could help us cover more ground and hit more of the goals we set out to do in a more efficient manner.
+* As it's the week before Spring Break, not all members could make it.
+* Brought up the idea of splitting into 2 parts with the team and everyone seemed to agree. 
+* Will bring this up on the Slack and think about how to better delineate responsibilities between the 2 sub-teams. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Delineate responsibilities of both sub-sub teams 
+|Completed
+|March 14, 2019
+|April 1, 2019
+|March 28, 2019
+|-
+|Decide how to split the team into the 2 parts
+|Completed
+|March 14, 2019
+|April 1, 2019
+|March 25, 2019
+|}
+
+== Monday, March 25, 2019, Team meeting ==
+
+==== '''Teem Meeting Notes:''' ====
+* Had new first semester students join
+* The team, Rodd and I gave them a quick run-down on what we do. 
+* Rodd decided to give the first semester students the same tasks that we got initially to get them up to speed. 
+* During the Spring break, I sent out a message on Slack explaining how and why we planned to split into 2 parts. 
+** Talking this through with the team (first semesters included) further, we decided to have a '''''poll on Slack''''' where everyone picks which team they want to be a part of.
+** This deciding of sub-sub-teams is to be finalised by the Thursday meeting. (except for the 1st semester students who will decide when they complete the ezCGP crash course)
+
+==== '''Potential Goals:''' ====
+* Allowing ezCGP to handle regression problems in addition to classification problems.
+* Integrating usage of ephemeral constants for tensorflow primitive hyperparameters (i.e. variable number of filters, hidden units, etc. )
+* Allowing number of epochs to be inputted externally i.e. within problem.py instead of by going into blocks.py and manually changing it.
+
+== Thursday, March 28, 2019, Sub-team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* The team met and discussed the division of work between the 2 teams and the specific tasks that we should hope to accomplish while also prioritising the most important ones. 
+* Also decided on unofficial team names (Other than Team A and Team B) and the final team members.
+
+==== '''Raw Image of my whiteboard scribbles about what was decided upon'''  ====
+[[files/VIP_Unofficial_Team_Plan.jpg|894x894px]]
+
+==== '''Team Plan but in a more organised format''' ====
+* '''Team A:''' 
+** Will work on all round development of ezCGP to make it a more user friendly framework. 
+** '''<u>Members</u>''': Me, Gibran, Jinghua and Michael P.
+
+* '''Team B:''' 
+** Will perform experiments and collects results using ezCGP while also adding more deep-learning specific primitives and functionality.
+** '''<u>Members</u>''': Johnny, Sam and Michael J. 
+{| class="wikitable"
+!S. No.
+!Team A (Rodd Squad)
+!Priority
+!Team B (Talebi Tubbies)
+!Priority
+|-
+|1
+|Feed datasets in a more organised and scalable way
+|Medium/High
+|Extend ezCGP functionality to work with regression problems
+|High
+|-
+|2
+|Add more mutation methods 
+|Low
+|Add additional primitives (Eg. LSTM, Inception module)
+|Low
+|-
+|3
+|Add functionality for usage of ephemeral 
+constants for tensorflow primitives
+|High
+|Obtain results on any benchmark regression problem and/or
+stock data that the stock team might be using. 
+|High
+|-
+|4
+|Explore seeding of individuals
+|Medium
+|Obtain results on CIFAR-100
+|High
+|-
+|5
+|Other extensions (eg. make number of epochs 
+tweak-able from problem.py)
+|Low
+|Rerun CIFAR-10 for the full 20+ generations and compare 
+results to mid-semester results.
+|High
+|}
+
+===== Priority Key: =====
+* The Priorities were based on how important the corresponding tasks are to have complete by final presentation time.
+** High -> Should definitely have by final presentation time
+** Medium -> Less required to have by final presentation but would be nice
+** Low -> Not required at all right now, but should do if possible
+
+== Monday, April 1, 2019, Team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Updated the first semester students on what has been decided. 
+* Spoke to Rodd about adding and using ephemeral constants for the tensorflow primitives and decided to meet on Thursday to begin and complete the integration. 
+* Spoke to team about identifying a potential regression problem to obtain results on. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add functionality for ephemeral constants and usage
+|Completed
+|April 1, 2019
+|April 8, 2019
+|April 4, 2019
+|-
+|Integrate regression capabilities into ezCGP
+|Completed
+|April 1, 2019
+|April 8, 2019
+|April 7, 2019
+|}
+
+== Wednesday, April 3, 2019, Individual work ==
+
+==== '''CIFAR-10 complete evolutionary run results''' ====
+* Michael Jurado ran CIFAR-10 for more generations (25 compared to <15) on GTRI clusters and the obtained results are displayed as below.  
+
+==== '''Generation Wide results on CIFAR-10 with more generations''' ====
+[[files/Outputs normed cifar more generations saved.png]]
+
+==== '''Evaluating best model with and without dataset augmentation''' ====
+* As earlier, the obtained learning when training the model on the full training set for 100 epochs, showed signs of overfitting in that the training and testing accuracy cap off very quickly
+* Additionally, the difference between training and testing accuracy was very high ~20%. 
+* Therefore, to improve performance, the model must be made to generalise better. 
+** To achieve this, the dataset is "'''''augmented'''''" by making alterations to the training data
+** This augmentation is achieve using random rotations, flips, blurring and histogram normalization. 
+** As deep learning excels when more training data is present, this increasing of existing training data helps the model learn more robust, generalised features which allows the model to generalise better. 
+** Seeing the below results, we see that the model trained using dataset augmentation significantly outperforms the other one by over 7% to give a final testing accuracy of 88.65%. 
+---'''<u>CIFAR-10 Learning Curve</u> (without dataset augmentation)'''---------'''<u>CIFAR-10 Learning Curve</u> (with dataset augmentation)'''----------------
+[[files/25 Generations CIFAR-10 without dataset augmentation.png|388x388px]]                [[files/25 Generations CIFAR-10.png|340x340px]]
+
+== Thursday, April 4, 2019, Sub-team meeting ==
+
+==== '''Team Meeting with Rodd and sub-sub team A to integrate ephemeral constants:''' ====
+* Added additional argument classes to work with. Namely, argPow2 and argFilterSize which return values that are in powers of 2 ([1, 1024]) and values from [1, 3, 5, 7] respectively.
+* argPow2 was used primarily for number of hidden units and filters while argFilterSize was generally used for the SIZE of the convolutional kernels in convolutional primitives
+* Updated the primitives in operators.py so that they indicate what argument class must be used for each primitive. 
+* Also updated present version of the code to integrate Rodd's updated '''''mutate_methods.py''''', '''''genome.py''''' and '''''blocks.py''''' 
+* Running tester.py appears to work but doesn't seem to evaluate the individual. (Probably due to the individual being set to dead?)
+* Checked to make sure that arguments are working in that they are mutated as expected. They are being mutated. 
+** For the sake of replicability of results, looking for a way to display the values of the arguments for the individual. 
+
+==== '''Regression Functionality (Team B):''' ====
+* Identified a regression dataset (Housing Price dataset: https://www.kaggle.com/gabriellima/house-sales-in-king-county-usa) and preprocessed it.
+* Worked to identify portions that need to be changed to support regression capabilities.
+* Cleaned up some of the folder that were present, and added in code to load the preprocessed housing dataset.
+* Also, added a new scoring function that uses mean squared error and mean absolute error as the fitness metrics to minimize.
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Output the values of the arguments being passed into each primitive of the individual
+|Completed
+|April 4, 2019
+|April 8, 2019
+|April 4, 2019
+|-
+|See if and why individual is being set to dead
+|Completed
+|April 4, 2019
+|April 8, 2019
+|April 4, 2019
+|}
+
+== Thursday, April 4, 2019, Individual work ==
+
+==== '''Fixed issue where the individuals were being set to dead:''' ====
+* This issue was being caused because the argument classes of the values themselves were being passed into the primitives. 
+* This was resolved by converting the list of arguments to be passed in, into the list of their corresponding values. 
+
+==== '''Displayed the output of the argument values:''' ====
+* The argument's passed in were displayed with edge cases for each active node/primitive. 
+* The tester.py file and evaluate function was updated to display the structure of the genome. 
+
+==== '''Additional notes:''' ====
+* Added a TRAIN_SIZE parameter so that we can feed subsets of the data into the model. 
+
+== Monday, April 8, 2019, Team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Updated the team on how we have progressed since the last meeting at the weekly sub team reports. 
+* Tasked the first semesters with updating the code to allow setting the number of epochs within problem.py so that they can get some insight into how the framework works. 
+** This was completed. 
+** Told them that their sub-sub-teams would be finalised by Thursday so to decide by then. 
+
+==== '''Action Items:''' ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update the code so that we can feed datasets in a more organised and scalable manner.
+|Completed
+|April 8, 2019
+|April 15, 2019
+|April 11, 2019
+|}
+
+== Thursday, April 11, 2019, Sub-team meeting ==
+
+==== '''Large Dataset Problem explained''' ====
+* The way data is currently being fed into the framework, all the data is held in memory and is then trained and evaluated on. 
+* While this works for smaller datasets like MNIST and CIFAR-10. 
+* Larger datasets like ImageNet which would be impractical to hold entirely in memory (if not in CPU, definitely in GPU memory). 
+* Therefore, we need a simple way to only hold subsets of the data in memory so that we can train on evaluate on this subset without suffering any memory overflow errors. 
+
+==== '''Updated Code so that we can feed larger datasets to the framework''' ====
+* Decided to update code so that the user can optionally pass in filenames with subsets of the data. 
+* Additionally, the user must also define a function that takes in one of the stated filenames and reads the data to return a tuple of (training data, training labels)
+* Added an additional parameter to the block skeleton - "large_dataset" which takes in a tuple of (list of filenames, function pointer to user defined function)
+** This large_dataset parameter has a default value of '''''None''''' which indicates that the dataset is small enough to fit into memory and is therefore treated differently. 
+** This also keeps the code backwards compatible. 
+* When this large_dataset parameter is not None, for each epoch, we iterate through the different files in the list of filenames, load the data within these files, and then train on them. 
+
+==== '''Additional UX fixes''' ====
+* Intuitively speaking, if the user provides the list of filenames and the function pointer to load the files, they should not have to worry about creating an xtrain and ytrain variable. 
+* However, the way the framework works, an xtrain and ytrain variable is required to build the original model i.e. set the tensorflow placeholders up for correct evaluation of the tensorblock. 
+** So, the user needs to pass in a something that is the same shape of the data that should be fed to the tensorflow model so that the graph can be correctly built.
+* Therefore, a method to create dummy data was created which basically returns a numpy array of 0s with an additional dimension because evaluate iterates through block inputs as well. 
+* These additional changes were then documented because of the additional complexity they added to the code.
+
+== Monday, April 15, 2019, Team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Decided that this week would have no development of functionality and would only include obtaining of results.
+* Decided to make 3 zip files that would run the experiments on all 3 datasets in a simple plug and play format.
+** The zip files can be unzipped and run by entering python main.py
+* Made the required changes so that the code can run the experiment as expected. 
+* Distribute these zip files to the group so that they can run the experiments on ICEHAMMER or PCs and push the obtained results to the repo. 
+* Started working on the final presentation: https://docs.google.com/presentation/d/10t_-9TvkV_GwWpHTPa6wG7tWbhio_NAjP8u-f-bfWqE/edit#slide=id.p
+* Told the first semester students that they can use Google Colab to rebuild the model, train on the full dataset and obtain learning curves to put on the final presentation.
+** I gave them my Google Colab notebook as a template as it has the basics and also has code for dataset augmentation.  
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create the zip files and distribute them so that we can obtain results ASAP
+|Completed
+|April 15, 2019
+|April 18, 2019
+|April 15, 2019
+|-
+|Obtain results on MNIST, CIFAR-10 and CIFAR-100
+|Completed
+|April 15, 2019
+|April 22, 2019
+|April 22, 2019
+|-
+|Finish working on the final presentation
+|Completed
+|April 15, 2019
+|April 22, 2019
+|April 22, 2019
+|}
+
+== Thursday, April 18, 2019, Sub-team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Showed the first semesters how to rebuild models and obtain full results on dataset using Google Colab
+* We generated graphs for Michael Jurado's obtained MNIST results. 
+* Added more material to the slides, laid a better template for discussion and results.
+
+== Sunday, April 21, 2019, Individual work ==
+
+==== '''Looked into CIFAR-100 results:''' ====
+* The individuals produced performed very poorly when trained on the full dataset.
+* They were also poorly formed. The "best" model was convBlock -> max pooling -> average pooling
+** Having 2 pooling layers after the convolutional block does nothing and in fact, may hamper the performance of the model as it reduces information extracted. 
+** On training on the full dataset, the model gave us a testing accuracy of 41.01% which is nowhere near state of the art
+* Training the best CIFAR-10 individual on the entire CIFAR-100 dataset results is a testing accuracy of 59.13% 
+
+==== '''Reasoning for the obtained results:''' ====
+* Difficult dataset? Yes.
+* Lacking state-of-the-art primitives? Yes.
+* However, the main reason for the failure was a lack of '''''genetic diversity'''''
+** Towards the end, all individuals were variants of a single individual
+* This saturation was largely a result of smaller models dominating the population
+** This is because smaller models tend to learn faster as there are less parameters to learn.
+** The larger models will learn slowly but are more likely to learn more defining features and therefore be able to generalise better.
+** However, these larger models were not picked for further generations as they failed to show enough “promise” to be carried onto the later generations which resulted in the prevalence of smaller models and therefore, the poor exhibited results.
+
+==== '''Fix?''' ====
+* This premature elimination of the better individuals can be handled by:
+** Increasing the number of epochs we train the individuals for
+*** This allows us to get a more accurate understanding of well the individual will perform with more epochs.
+*** Additionally, it gives the larger models more time to learn and increases the likelihood that these models have crossed the saturation point (i.e. best performance) of the smaller models.
+*** For the above reasons, we can identify the truly better individuals and carry these on to further generations.
+** Utilizing first and second order gradient information to make better judgements about whether the individual can continue to learn and whether it has already reached the point beyond which it can’t do much better.
+** Killing smaller individuals. (i.e. using a min active node count)
+
+== Monday, April 22, 2019, Sub-team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Assigned slides to different teammates. 
+* Discussed results and form of presentation. 
+* Added a few additional graphs and slides containing analysis supporting the results. 
+
+== Monday, April 22, 2019, Team meeting ==
+
+==== '''Team Meeting Notes:''' ====
+* Completed notebooks.
+* Problem getting results due to difficulty getting code to run on ICEHAMMER and PCs with GPUs.  
+* Final presentation: https://docs.google.com/presentation/d/10t_-9TvkV_GwWpHTPa6wG7tWbhio_NAjP8u-f-bfWqE/edit#slide=id.p

@@ -1,0 +1,366 @@
+0.[[files/20190204 174924.jpg|1000px]]
+
+== Group 1  ==
+Anish Thite, Mohan Dodda, Anika Islam, Shelby Robinson
+* We decided to first drop some of the non-numerical data, such as the ticket, cabin, and name
+** All of these metrics show features that can be represented by other columns. Ticket and Cabin show the class and the name shows the sex
+* We decided to use sex because it was known that more females survived compared to males (females and children first).
+* We decided to use pclass because those from a higher class tended to survive because the those from the higher class were higher up on the titanic
+* We decided to use siblings and part because those with more siblings and parents because family size also affected survival rate
+* We also inititially included age and fare because people of lower age survived more (children and females first). 
+** Fare indicates importance and where one was on the boat. We got rid of fare as it's higher variance of numbers messed with the MLP Classifier
+* We also decided to fill in the Nan values for age with the mean age.
+* Sex was mapped so that male corresponds to 1 and female corresponds to 0
+* 4 different models were trained:
+** In the beginning, we decided to split the data, and train it on part of the data set and test it on the other part of it to determine its score.
+** However, we decided to train the data on whole data set while still testing it on part of it. This increased our scores, and Kaggle scores
+
+* MLP Classifier
+** The MLP Classifier was initialized at first with 50 hidden layers and used the lbfgs optimizer
+** For some reason, the classifier only outputted zeros when Age and Fare were used.
+***When these two columns were removed, the classifier achieved a score of 83 on our split dataset  
+**For the rest, we included the age attribute as it did not mess up the data and improved our score.  
+**Changing the optimizer to a stochastic gradiant descent (sgd) optimizer increased the score (0.823728813559322).  
+**The Kaggle score for this model is 0.77511  
+**Confusion matrix: 
+***[[168  23]  
+***[ 27  77]]  
+* Decision Tree Classifier
+** At a depth of 8, the DTC achieved a score of 0.864406779661017
+** The depth was increased to 14, and the score increased to 0.9152542372881356
+** The depth was increased to 60, and the score increased to 0.9254237288135593. Any further increases did not change the score. 
+** The kaggle score for this was 0.73205. This means that the DTC was overfitting 
+** Confusion matrix:  
+** [[183   8]  
+** [ 17  87]] 
+* Gradient Booster Classifier
+** Our split data set had a score of 0.79322033
+** The kaggle score is 0.73205.
+** Confusion matrix:
+** [[154  37]
+** [ 24  80]]
+* Random Forest Classifier
+** The classifier was trained with n_estimators equal to 150, and min_samples = 8
+** The score on the split dataset was 0.8745762711864407
+** The kaggle score was 0.76555
+** Confusion matrix:
+** [[175  16] 
+** [ 21  83]]
+
+* Pareto Optimization:
+* [[files/Group 1.png|none|thumb]]
+
+* The Pareto Front shows that there is a clear dominant individual. In this case, it is the Decision Tree Classifier. However, the classifier achieves a lower score than some of the other models on the kaggle test dataset, meaning that the data has been overfitted. The one which gave the highest kaggle score is the mlp classifier, even though it had the third best score using the testing dataset. 
+
+== Group 2  ==
+Oscar Aguilar, Zack Butler, Eric Frankel, [[Notebook Yuhang Li | '''Yuhang (William) Li''']]
+* Random Forest Classifier
+** Dropped the non-numeric, non-categorical columns (Name, Ticket, Cabin)
+** Used a Grid Search (sklearn.model_selection.GridSearchCV) to determine n_estimators, max_depth, and min_samples_leaf
+** Ultimately got accuracy of around 83.7% on the validation set, Kaggle score of .77990
+** Confusion Matrix : 
+*** [[168  23] 
+*** [ 25  79]]
+* AdaBoost Classifier
+** Attempted using different types of base_estimators to improve accuracy, didn't have much result so stuck with the default decision stump
+** Use of real SAMME.R boosting algorithm had better accuracy than discrete SAMME algo. (by about 1%)
+** Ended with an accuracy of about 79.6%, kaggle score of .727, and confusion matrix:
+** Confusion Matrix : 
+*** [[156  35] 
+*** [ 25  79]]
+* Decision Tree Classifier
+** Dropped the non-numeric, non-categorical columns (Name, Ticket Cabin)
+** Observed that at a max_depth of 4 and a min_samples_leaf of 10, the accuracy was at a local maximum of around .834
+** Kaggle score of .76076 and confusion matrix:
+*** [[175  16]
+*** [ 33  71]]
+* C-Support Vector Classification (see python scripts [https://github.gatech.edu/yli3048/AAD/tree/master/Bootcamp/Titanic '''here'''])
+** Detected and dropped outliers that have more than 2 abnormal values using Tukey method (mostly from "Age", "SibSp", "Parch")
+** Filled missing data with average value of the category
+** Used GridSearch to select the best parameters (kernel, C, gamma)
+** Best parameters selected: kernel: "linear", C: 0.01
+** Result accuracy: 81.7% (Kaggle score: 75.1%), FPR: 4.2%, FNR: 44.2%
+** Confusion Matrix:
+{|class=wikitable
+|
+! Predicted Positve
+! Predicted Negative
+|- 
+! Actual Positive (P)
+| TP = 58
+| FN = 46
+|-
+! Actual Negative (N)
+| FP = 8
+| TN = 183
+|}
+* Pareto Front
+** [[files/Group 2 Pareto Front Bootcamp Spring 19.png|thumb|Our Pareto Front (shoutout to the other groups)|none]]
+
+== Group 3  ==
+* Shlok, Sarthak, Nicole, and Somil. 
+* Based on the dataset, we clearly have some factors that matter more than others[[files/Titanicplots.png|none|thumb|Different data types correlated with survival rates]]
+* Looking at each one:
+** Embarked: Weak linear relationship between points and survival rate, but those in S and Q had a lower chance of surviving. (included in models)
+** Gender: Very strong relationship (included in models)
+** Age: Reasonably strong relationship (included in models)
+** SibSp: Unclear (excluded in models)
+** Parch: Some relationship, not strong (excluded in models)
+** Fare: Positive correlation between fare and survival rate (included in models)
+** Cabin: Only 91 members had marked cabins. Those that had a marked cabin had a 2/3 survival rate in comparison with those that didn't have (included in models)
+*** Within cabins, the letter of the cabin (indicating a general area within the ship I assume), seemed to have some meaning but we did not explore this path. 
+** Name: Things like length of name didn't matter, but the title associated with the name did, which makes sense considering females had a much higher chance of survival. For example, if Ms, Mrs, or Miss was in the name there was a high chance of survival. Mr., on the other hand, had a low chance. We didn't include this as it would probably be redundant data given that we already have the gender. 
+*** In hindsight, I think exploring this would have been a good idea as certain names could have honorific titles like Captain or Major vs just Mr. and Mrs which would have given us some sort of 'importance on ship' data. Additionally, it would have allowed us to distinguish between married and unmarried specifically, which would have probably held some meaning. 
+* For our different submissions, we tried running 4 different models on the dataset and comparing the results. We used previous kaggle projects and online tutorials as guides
+** 1. ExtraTrees: 0.78468
+** 2. RandomForest: 0.77511
+** 3. GradientBoost: 0.78468
+** 4. SVC: 0.78468
+*** Looks like the different models all had similar scores, with only one being different from the 0.78468 number. 
+*** Going to redo this with different parameters/models as all had pretty mediocre scores 
+*Took a different approach, used the Titanic example from class as a template and each team member added or removed features of their own for different results
+**Submission 1: Added a "has_cabin" feature which indicated whether or not the data had a designated cabin or not. Shown to be significant in modeling of data 
+***Got 0.7932203389830509 accuracy rate with svm.SVC(kernel='linear')
+***Kaggle Score: 0.77033
+**Submission 2: Added has_cabin as well, added a name_length feature, and removed embarked
+***0.8101694915254237 with neural_network.MLPClassifier()
+***Kaggle Score: 0.74162
+**Submission 3: has_cabin, removed name_length, brought back embark, added a family size value (SibSp+Parch)
+***0.823728813559322 with neural_network.MLPClassifier().
+***Kaggle Score: 0.76076 
+**Submission 4: same as 3 except split Fare into two buckets, to indicate kind low or high fare prices. The idea is that people in the higher end of fare prices (richer) would have been prioritized in lifeboats but not so much so that even a little higher fare price would matter.
+***0.8372881355932204 with neighbors.KNeighborsClassifier() 
+***Kaggle Score: 0.68421[[files/Sometestdata.png|alt=training_data.head()|none|thumb|Some of the training data categories after processing]]
+**For some reason, as we got better results within the test data, we got poorer results on kaggle. This may be an indicator that the training dataset we have is too small for convergence to be incredibly helpful as converging on the given dataset might be resulting in overfitting, making results poorer on the hidden dataset. While we redid the process to achieve better scores, our results were actually worse the next time around. Since we didn't do a crazy amount of different preprocessing on the next round (just more varied steps between the different submissions), I think the models used during the first round were better at finding that line between accuracy and overfitting. If we were to repeat this process, I think taking the original models used is a better approach and maybe ensembling the results of multiple different models. This would add another layer of complexity, essentially requiring the testing of different combinations of models as well as features, but testing different models as done in the first approach seemed to be getting us closer to 100% accuracy than tweaking the features.
+*[[files/ParetoFront.png|300x300px]]
+
+== Group 4  ==
+Kang Shin, Gabriel Wang, Cedric Chen, Bek Hovakimian
+* '''Kang'''
+** Searched for NaN values and instead of deleting the entire line, took the average of the column and replaced NaN with average
+** Did random forest for the predictions
+** Kaggle score: 0.77
+** Confusion matrix:
+{| class="wikitable"
+|-
+| True Positive (TP): 488 
+| False Negative (FN): 98
+|-
+| False Positive (FP): 61
+| True Negative (TN): 244 
+|}
+
+* '''Gabriel'''
+** Based off provided example, Name, Ticket, and Cabin columns were dropped
+** Used the entire set of training data instead of just a third
+** NaN values were replaced with averages/most common values for the columns, adjustments made to specific categories
+*** Age: Replaced with NaN with mean, and made age brackets
+*** Fare: Replaced with NaN mean
+*** Embarked: Replaced with NaN with mode, and replaced with numeric values for location
+*** Sex: Replaced with 0 for male, 1 for female
+*** Pclass: Replaced with exponential values in magnitudes of 10
+** Created new features
+*** Family: Based off SibSp and Parch added together and squared
+*** Wealth-Age-Fare "Ratio" : Values produced by multiplying Pclass and fare dividing to age, then new values assigned exponentially
+** Used sklearn decision tree classifier for the predictions
+** Decision Tree Classifier testing score: 0.7904869762174406
+** Kaggle score: 0.76555
+** Confusion matrix:  
+{| class="wikitable"
+|-
+| True Positive (TP): 250 
+| False Negative (FN): 88
+|-
+| False Positive (FP): 97
+| True Negative (TN): 488 
+|}
+* '''Cedric'''
+** Kaggle score: 0.784
+** Confusion matrix:   
+{| class="wikitable"
+|-
+| True Positive (TP): 523 
+| False Negative (FN): 64
+|-
+| False Positive (FP): 26
+| True Negative (TN): 278
+|}
+*'''Process for ML(Titanic)'''
+*<code>import re import numpy as np import pandas as pd import matplotlib.pyplot as plt import seaborn as sns  import warnings warnings.filterwarnings('ignore')  %matplotlib inline</code>[[files/ML1.jpg|center|frame|link=https://vip.gatech.edu/wiki/index.php/files/ML1.jpg]]
+*Draw the proportion of survival[[files/ML2.jpg|center|thumb|link=https://vip.gatech.edu/wiki/index.php/files/ML2.jpg]]
+*The relationship between gender and survival
+*<code>train_data.groupby(['Sex','Survived'])['Survived'].count()</code>[[files/ML3.jpg|center|thumb|link=https://vip.gatech.edu/wiki/index.php/files/ML3.jpg]]
+*Distribution of survival and non-survival at different ages
+*[[files/ML6.jpg|center|thumb|link=https://vip.gatech.edu/wiki/index.php/files/ML6.jpg]]
+
+* '''Bek'''
+** Took off columns: Name, Ticket, and Cabin
+** Switched NaN values with the mean for Age and Fare
+** Switched NaN values with a mode for Embarked
+** Switched 0 for male and 1 for female
+** Made predictions using sklearn decision tree classifier
+** Kaggle score: 0.77033
+** Confusion matrix:  
+{| class="wikitable"
+|-
+| True Positive (TP): 210 
+| False Negative (FN): 102
+|-
+| False Positive (FP): 81
+| True Negative (TN): 492 
+|}
+* '''Pareto Front'''
+** Pareto Front shows that there are two dominant individuals that are codominant to each other.
+* [[files/ParetoFrontGroupResult.png]]
+
+== Group 5  ==
+Alex Gurung, Kris Satya, Reagan Kan, Michael Lee
+* '''Alex Gurung'''
+** Primary changes made to example notebook:
+*** Data Processing:
+**** Instead of replacing Age nan values with total data mean, replaced with married or unmarried mean based on name ("Mr." and "Mrs." implying married)
+**** Didn't drop Cabin, instead made a map converting cabin to a number based on depth in Ship
+**** One-hotted Embarked instead of denoting the three classes 0, 1 or 2
+*** Modeling:
+**** Went further on modifying hyper-parameters, especially on DecisionTreeClassifier
+**** Added random_seed to make sure results were replicable
+** Final Results
+*** Best model was DecisionTreeClassifier with:
+**** max_depth=7
+**** max_features=7
+**** max_leaf_nodes=24
+**** min_samples_split=9
+*** 86.1% accuracy on test split of training data
+**** Confusion Matrix
+**** [[177  14]  [ 27  77]]
+****   True Negatives 177 False Positives 14 False Negatives 27 True Positives 77
+*** 76.6% accuracy on kaggle submission
+*** 
+* '''Kris Satya'''
+** Kaggle score: 0.8468
+** Changes to Example Notebook
+*** Created a new family feature based on the parch and sibsp features
+*** Get rid of passenger id because it was random and not necessarily linked to survival.
+*** Found high correlation between sex and survival rate (74% of females survival)
+** Most Accurate Mode: SVM
+*** 83.84% accuracy on entire training data set 
+*** [[430 64] [100 208]]
+* '''Sachin Konan'''
+** Kaggle score: 0.72354
+** Changes to Example Notebook:
+*** Changes the Age Column to Scale between 0 and 10
+*** Removed the ID column and removed all rows with NaN values
+*** Visualized age vs survival rate
+** Tested a Random Forest Classifier with 200 components, rather than 100 components and got a slightly larger accuracy:
+*** 74.326%
+*** [[162, 37],
+*** [ 29, 76]]
+* '''Reagan Kan'''
+** Kaggle score: 0.75119
+***Tested two sklearn methods.
+***Logistic Regression
+****Best version:
+****default params.
+****Confusion Matrix: [[165  26] [ 33  71]]
+****CV Accuracy: 0.8
+***GradientBoosting
+****Best version:
+****n_estimators=10
+****learning_rate=1.0
+****max_depth=1
+****random_state=0
+**** Confusion matrix: [[163  28] [ 23  81]]
+****CV Accuracy: 0.827
+
+
+* '''Michael Lee'''
+** Changes made to example notebook:
+*** Data Processing
+**** Used the median value for nan Fare values
+**** Ages were put into 5 different age groups, and the nan Age values were replaced with the median group value
+**** New group ('FamilySize') was created, which was the sum of 'SibSp' and 'Parch'
+**** Fares were grouped into groups of 4
+*** Final Results
+**** DecisionTreeClassifier: 0.81355
+**** KNeighborsClassifier: 0.84067
+**** MLPClassifier: 0.78644
+**** SVC: 0.79322
+** Kaggle score: 0.76555
+** Confusion matrix
+*** [[163  28]
+*** [  33  71]]
+[[files/Pareto front.png|center|frameless|488x488px|Pareto front (False Negatives vs False Positives) for group 5]]
+
+== Group 6  ==
+Animesh Agarwal, Sruthi Sudhakar, Sean Kim and Yash Shah.
+
+=== Animesh Agrawal: ===
+Machine Learning Model: Support Vector Classifier (SVC)
+
+Kaggle Score: 0.78947
+
+Confusion Matrix:
+{| class="wikitable"
+|-
+| True Positive (TP): 80 
+| False Negative (FN): 24
+|-
+| False Positive (FP): 22
+| True Negative (TN): 169 
+|}
+
+=== Sruthi Sudhakar: ===
+Machine Learning Model: Decision Tree Clasifier
+
+Kaggle Score: 0.77990
+
+Confusion Matrix: 
+{| class="wikitable"
+|-
+| True Positive (TP): 171 
+| False Negative (FN): 35
+|-
+| False Positive (FP): 35
+| True Negative (TN): 69 
+|}
+
+=== Sean Kim: ===
+Machine Learning Model: Random Forest Classifier
+
+Kaggle Score: 0.74641
+
+To achieve the codominance (clarified with James later) I had to alter my Random Forest parameter.
+
+The codominance confusion matrix : 
+{| class="wikitable"
+|-
+| False Positive (FP): 12
+| False Negative(FN):51 
+|}
+
+Best Confusion Matirx:
+{| class="wikitable"
+|-
+| True Positive (TP): 191 
+| False Negative (FN): 1
+|-
+| False Positive (FP): 3
+| True Negative (TN): 101 
+|}
+
+=== Yash Shah: ===
+Machine Learning Model: Random Forest Classifier
+
+Kaggle Score: 0.77033
+
+Confusion Matrix:
+{| class="wikitable"
+|-
+| True Positive (TP): 172 
+| False Negative (FN): 35
+|-
+| False Positive (FP): 15
+| True Negative (TN): 73 
+|}
+
+  [[files/Group 6 Pareto Front Graph.png|center|thumb|400x400px]]

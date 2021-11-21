@@ -1,0 +1,168 @@
+== Non-Dominated Front ==
+
+----
+
+[[files/Normalized Non-Dominated Front.png|frameless|800px]]
+
+
+== Individual 1 ==
+
+----
+
+[[files/Individual 1.png|frameless|800px]]
+
+====myAccelerationBand====
+
+Acceleration bands are used to plot upper and lower enveloping bands around a simple moving average. 
+
+The widths of the bands are calculated around the moving average as:
+
+Upper Band = Simple Moving Average (High * ( 1 + 4 * (High - Low) / (High + Low)))
+
+Lower Band = Simple Moving Average (Low * (1 - 4 * (High - Low)/ (High + Low)))
+
+Overall, they are used to measure volatility over a defined time and an indication to buy would stem from the price breaking the top band while an indication to sell would arise from the price dipping back in between the bands.
+
+====LpfGausFourier====
+
+This is a blurring algorithm that combines the values in the stream data based off of the Gaussian kernel surrounding it and brings the high values above a maximum threshold down.
+
+====ModifyLearnerInt====
+
+Used to change the parameters of the [https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.GradientBoostingClassifier.html gradient boosting classifier] including the number of trees and the maximum depth of each tree.
+
+====Comparison Based on primitive removal====
+* Original: 
+** SingleLearner(myAccelerationBand(lpfGausFourier(ARG0, 10.0), 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 50, 150))
+** Fitness: (941.4, 415.6)
+*Removal of ModifyLearnerInt:
+** New Individual: SingleLearner(myAccelerationBand(lpfGausFourier(ARG0, 10.0), 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (941.4, 415.6, 28.0)   
+** The parameter modification function had little effect on the fitness, probably due to the simplicity of the learner
+* Modification of the max tree depth param:
+** New Individual: SingleLearner(myAccelerationBand(lpfGausFourier(ARG0, 10.0), 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 50, 15))
+** New Fitness: (941.4, 415.6, 40.0)  
+** The tree depth modification parameter had little effect on the fitness, probably due to the simplicity of the learner
+* Modification of the boosting stages param:
+** New Individual: SingleLearner(myAccelerationBand(lpfGausFourier(ARG0, 10.0), 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 5, 150))
+** New Fitness: (941.4, 415.6, 40.0)  
+** The boosting stages modification parameter had little effect on the fitness, probably due to the simplicity of the learner
+* Removal of lpfGausFourier:
+** New Individual: SingleLearner(myAccelerationBand(ARG0, 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 50, 150))
+** New Fitness: (897.6, 474.8, 32.0)  
+** More bias towards predicting a buy
+* Removal of lpfGausFourier & Modification of max tree depth:
+** New Individual: SingleLearner(myAccelerationBand(ARG0, 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 50, 15))
+** New Fitness: (898.0, 474.8, 32.0)   
+** Again, more bias towards predicting a buy
+* Removal of lpfGausFourier & Modification of boosting stages:
+** New Individual: SingleLearner(myAccelerationBand(ARG0, 2), ModifyLearnerInt(learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}), 5, 150))
+** New Fitness: (897.2, 472.4, 32.0)  
+** Likely identical to just removing Gaussian Fourier
+* Removal of lpfGausFourier & ModifyLearnerInt:
+** New Individual: SingleLearner(myAccelerationBand(ARG0, 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness:  
+** Likely identical to just removing Gaussian Fourier
+
+== Individual 2 ==
+
+----
+
+[[files/Individual 2.png|frameless|800px]]
+
+====myROC====
+
+The Rate of Change indicator, also known as the momentum indicator, compares the current price to the previous price using this formula: ROC = (Current Price / Price of n bars ago)-1.0) * 100 which basically divides current price by the price from a certain number of periods ago (n) and expresses this as a percentage.
+
+====myWilliamsRange====
+
+Williams %R or Williams Range is a technical analysis oscillator. It is defined as: %R = (highest high - closing price) / (highest high - lowest low) * -100. The %R represents whether or not a stock is overbought or oversold, with a typical 14-day look-back period -80 or less is considered oversold and -20 or more is considered overbought. This indicator is useful for finding market reversals.
+
+====myAccelerationBand====
+
+Acceleration bands are used to plot upper and lower enveloping bands around a simple moving average. 
+
+The widths of the bands are calculated around the moving average as:
+
+Upper Band = Simple Moving Average (High * ( 1 + 4 * (High - Low) / (High + Low)))
+
+Lower Band = Simple Moving Average (Low * (1 - 4 * (High - Low)/ (High + Low)))
+
+Overall, they are used to measure volatility over a defined time and an indication to buy would stem from the price breaking the top band while an indication to sell would arise from the price dipping back in between the bands.
+
+====Comparison Based on Primitive Removal====
+
+* Original:
+** SingleLearner(myRoc(myWilliamsRange(myAccelerationBand(ARG0, passTriState(2)), 2), 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** Fitness: (840, 516.6)
+* Removal of myAccelerationBand:
+** New Individual: SingleLearner(myRoc(myWilliamsRange(ARG0, passTriState(2)), 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (867.8, 499.8, 32.0) 
+* Removal of myWilliamsRange:
+** New Individual: SingleLearner(myRoc(myAccelerationBand(ARG0, passTriState(2)), 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (883.2, 473.8, 32.0)
+
+* Removal of myROC:
+** New Individual: SingleLearner(myWilliamsRange(myAccelerationBand(ARG0, passTriState(2)), 2), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (864.4, 474.6, 32.0)
+* Removal of myWilliamsRange and myAccelerationBand:
+** New Individual: SingleLearner(myRoc(ARG0, passTriState(2)), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (955.4, 422.4, 24.0)
+* Removal of myROC and myWilliamsRange:
+** New Individual: SingleLearner(myAccelerationBand(ARG0, passTriState(2)), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (897.6, 474.8, 24.0) 
+* Removal of myROC and myAccelerationBand:
+** New Individual: SingleLearner(myWilliamsRange(ARG0, passTriState(2)), learnerType('Boosting', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}))
+** New Fitness: (853.4, 533.6, 24.0) 
+== Individual 3 ==
+
+----
+
+[[files/Individual 3.png|frameless|800px]]
+
+====myDCT====
+Perform a Discrete Cosine Transform on the stream data, Since the transform parameter 50 % 3 + 1 = 3, then we are using type 3 of the transform as defined by [https://docs.scipy.org/doc/scipy-0.13.0/reference/generated/scipy.fftpack.dct.html scipy dct method]
+
+====myWilliamsRange====
+Williams %R or Williams Range is a technical analysis oscillator. It is defined as: %R = (highest high - closing price) / (highest high - lowest low) * -100. The %R represents whether or not a stock is overbought or oversold, with a typical 14-day look-back period -80 or less is considered oversold and -20 or more is considered overbought. This indicator is useful for finding market reversals.
+
+====OMP (Orthogonal Matching Pursuit)====
+A Sparse approximation algorithm which finds the "best matching" projections of multidemsional data. More information [https://korediantousman.staff.telkomuniversity.ac.id/files/2017/08/main-1.pdf OMP Information]
+
+====Decision Tree====
+A Decision Tree from scikit-learn [https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html#sklearn.tree.DecisionTreeClassifier DecisionTreeClassifier]
+
+====Comparison Based on Primitive Removal====
+* Original: 
+** SingleLearner(SingleLearner(myWilliamsRange(myDCT(ARG0, 50, 48, passTriState(passTriState(passTriState(passTriState(passTriState(2)))))), passTriState(2)), learnerType('OMP', None)), ModifyLearnerInt(ModifyLearnerList(ModifyLearnerFloat(learnerType('Trees', {'criterion': 0, 'splitter': 0}), myFloatSub(1.0, myFloatMult(myFloatSub(100.0, 0.01), myFloatSub(10.0, 100.0)))), [4, -6]), lessThanOrEqual(myFloatMult(myFloatMult(0.01, 10.0), ifThenElseFloat(trueBool, 0.01, 10.0)), myFloatAdd(myFloatDiv(myFloatSub(1.0824559256343598, 100.0), 10.0), myIntToFloat(64))), 150))
+** Fitness: (678, 698.2)
+
+* Removal of Decision Tree Classifier:
+** New Individual: SingleLearner(myWilliamsRange(myDCT(ARG0, 50, 48, 2), 2), learnerType('OMP', None))
+** New Fitness: (1378.6, 1427.0, 36.0) 
+** Very bad because OMP is predicting float values, so many instances will be misclassified.
+
+* Removal of Decision Tree Classifier and myDCT:
+** New Individual: SingleLearner(myDCT(ARG0, 50, 48, 2), learnerType('OMP', None))
+** New Fitness: (1378.6, 1427.0, 20.0)
+** Very bad because OMP is predicting float values, so many instances will be misclassified.
+
+* Removal of Decision Tree Classifier and myWilliamsRange:
+** New Individual: SingleLearner(myWilliamsRange(ARG0, 2), learnerType('OMP', None))
+** New Fitness: (1378.6, 1427.0, 28.0)
+** Very bad because OMP is predicting float values, so many instances will be misclassified.
+
+* Removal of OMP Algorithm:
+** New Individual: SingleLearner(myWilliamsRange(myDCT(ARG0, 50, 48, 2), 2), learnerType('Trees', {'criterion': 0, 'splitter': 0}))
+** New Fitness: (701.8, 678.6, 36.0)
+** OMP seems to have provided some information improving False Negatives but caused some noise as well and increased False Positives.
+
+* Removal of OMP Algorithm and myDCT:
+** New Individual: SingleLearner(myWilliamsRange(ARG0, 2), learnerType('Trees', {'criterion': 0, 'splitter': 0}))
+** New Fitness: (656.6, 726.0, 20.0)
+** Removing both OMP and myDCT seems to have biased the individual towards predicting sell.
+
+* Removal of OMP Algorithm and myWilliamsRange:
+** New Individual: SingleLearner(myDCT(ARG0, 50, 48, 2), learnerType('Trees', {'criterion': 0, 'splitter': 0}))
+** New Fitness: (684.8, 687.8, 28.0)
+** Removal of the OMP and myWilliamsRange seems to have evened out the original bias towards selling, but the overall accuracy appears to be reduced slightly.

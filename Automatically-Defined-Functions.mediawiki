@@ -1,0 +1,519 @@
+==== Current Members ====
+[[Notebook Gabriel Qi Wang|Gabriel Wang]]
+
+[[Notebook Ruarai Eoin O'tighearnaigh|Ruarai O'Tighearnaigh]]
+
+[[Notebook Aryender Singh|Aryender Singh]]
+
+Kevin Lu
+
+Regina Gomez
+
+Jacob Wang
+
+=== Past Members ===
+[[Notebook Benson Chau|Benson Chau]]
+
+[[Notebook Joel Ye|Joel Ye]]
+
+[[Notebook Aaron McDaniel|Aaron McDaniel]]
+
+[[Notebook Reagan Jui-Keng Kan|Reagan Kan]]
+
+[[Notebook Avni Tripathi|Avni Tripathi]]
+
+Min Htat Kyaw
+
+[[Notebook Abhiram Venkata Tirumala|Abhiram Tirumala]]
+
+[[Notebook Chidozie Alexander Onyeze|Chido O]]
+
+Katie Jooyoung Kim
+
+=== Schedule ===
+* '''[[Automated Algorithm Design|Team Meetings]]''' Mondays at 4:30PM ([https://bluejeans.com/848934492?src=htmlEmail BlueJeans])
+* '''[[Automatically Defined Functions|ADF Subteam]]''' Mondays at 4:30PM ([https://bluejeans.com/531727623?src=htmlEmail Bluejeans])
+* '''[[ADF-Differential-Fitness|Differential Fitness]]''' Thursdays at 6:00PM ([https://bluejeans.com/967080761/4421?src=htmlEmail BlueJeans])
+* '''[[ADF-Primitive-Analysis|Primitive Analysis]]''' Friday at 3:30 PM ([https://gatech.bluejeans.com/2821727431 BlueJeans])
+* '''[[ADF-Selection-Methods|Selection Methods]]''' Fridays at 3:30PM (BlueJeans)
+
+== Presentations ==
+* [https://drive.google.com/open?id=10ishn-Xf3zzC8OvoaFCjf6K-Q2PPc5Uc Spring 2020]
+* [https://drive.google.com/open?id=1KYg8yE7XwSo3Jofx2GdsVt3U4l8Da4sJ Fall 2019]
+
+== ADF Frequently Asked Questions ==
+* What is an ADF?
+** An ADF is an automatically defined function. To put it simply, they are primitives that we create during the evolutionary process that consist solely of other primitives. Specifically, they are height 1 subtrees of primitives from individuals already in the population. They are used to add modularity and reusability to genetic algorithms. While we technically use ARLs (Rosca), the idea remains the same except our functions are accessible throughout the entire population.
+* Where are the changes?
+** Our changes currently reside on this fork of EMADE, https://github.gatech.edu/gwang340/emade. Most of the edits we have made are contained within the adfs.py within the src, though there are a few other places we have made changes to in order to tie everything together.
+* What part of the evolutionary process do ADFs impact?
+** We find ADFs from the population after the genetic operation take place however their impact is felt across all of the stages. During evaluation, adfs are evaluated like any other primitive node which is done by evaluation their constituents. During selection, we have created a method that selects in favor of adfs. During genetic operations, in the future we might have mutations that either specifically add or remove adfs. 
+* Where can I read more about this?
+** We're glad you asked. Some papers that helped us start were https://drive.google.com/file/d/1A7cUhIqIxnX7LBfEtSIY-ZAO7Lrb6gXs/view?usp=sharing and https://pdfs.semanticscholar.org/8c61/89cdc60b705ab7d61b4f10ff9d85dba83956.pdf. 
+
+== GCP quick guide: ==
+* '''Database info'''
+** internal IP: 10.38.224.10
+** external IP: 35.190.153.9
+** username:  root
+** password: tHJ0iqEmsmpLxKpl
+
+* '''Slurm'''
+** Kill jobs submitted by specific user:  <code>scancel -u WHATEVERYOURUSERNAMEISHERE</code>
+** manually submitting jobs to slurm node: <code>sbatch /path/slurmngineJobSubmit_********.sh</code>
+*** scripts for master and worker are generated when emade is launched using slurm
+
+* '''Exporting database'''
+** Recommend exporting through mySQL Workbench, including the create schema command
+** Can use the command: <code>mysqldump -u username -p database_name > data-dump.sql</code>
+* '''Importing Database'''
+** Recommend importing data through mySQL Workbench
+** Can also:
+*** login to mysql server: <code>mysql -u root -p</code>
+*** create new database to load the data to: <code>CREATE DATABASE new_database;</code>
+*** exit mysql 
+*** use the following command to import data into the databse: <code>mysql -u username -p new_database < data-dump.sql</code>
+
+== Entry Template ==
+
+=== Update ===
+The update should describe briefly what major update was accomplished. This would include a new feature being implemented or a test being finished with results.
+
+Features should include a PR link.
+
+Results should be given their own page and linked here. It will make linking in our individual notebooks easier.
+
+As a rule of thumb we should only post when we can link to something showing our progress. This will keep our entries useful and reduce the excess entries on the page.
+
+=== Next Steps ===
+This section should outline what we plan on doing next, and how we plan to do it. 
+
+== Thursday, April 16th, 2020 ==
+
+=== Update ===
+The [[ADF-Selection-Methods|ADF Selection team]] has submitted [https://github.gatech.edu/gwang340/emade/commit/2ead8ceb895427f2bc37c361d74cc82fff4b9a03 working code] to the [https://console.cloud.google.com/storage/browser/emade-vip-aaron-mcdaniel google bucket], for GCP trials. One local run of 50 generations has already been finished, posted on the bucket, and added to the SQL server.
+
+=== Next Steps ===
+* Analyze results of first trial. This will be easily reproducible on multiple trials in the future.
+* Continue running local and GCP trials to have a total of 10.
+
+== Thursday, January 30th, 2020 ==
+
+=== Updates ===
+Aaron: Fixed issues with previous run and added Jason's recommended fix for the memory issue with longer runs since we plan on doing 50 Gen runs.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+=== Goals ===
+
+=== TODOs ===
+Aaron: Get a 50 gen run completed so we can use VIZ to analyze the run and ADFs.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+== Monday, January 27th, 2020 ==
+
+=== Updates ===
+Aaron: Gabe oversaw runs for me.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+=== Goals ===
+Get Published
+
+=== TODOs ===
+Aaron: Review Gabe's fixes to start full runs. 50 gens, 96 individuals per generation.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+== Thursday, January 23rd, 2020 ==
+
+=== Updates ===
+Aaron: Believe the run was user error based
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+=== Goals ===
+Get Published
+
+=== TODOs ===
+Aaron: Oversee another run
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+== Thursday, January 16th, 2020 ==
+
+=== Updates ===
+Aaron: Ran EMADE on GCP, but had unusable results. Working on finding the cause.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+=== Goals ===
+Use Viz's code to get the following metrics from our schemas
+
+Metrics:
+* Compute time (Caching)
+* Average AUC
+* AUC Slope (regression with single variable)
+* Generations to critical value
+Be able to calculate the P value of an experiment, and the critical value for our Alpha value in a script.
+
+=== TODOs ===
+Aaron: Find out what problem caused the bad EMADE results on GCP.
+
+Gabe:
+
+Ruarai:
+
+Aryender:
+
+== Saturday, November 23th, 2019 ==
+Final EMADE Hackathon Agenda
+
+Goals:
+* Implement more polish features for robust runs (issues 27, 29, 30) https://github.gatech.edu/jye72/emade/issues
+* Establish a running ADF run
+** Run with Titanic (binary classification) and adult
+* Get visualization and presentation prepped
+Individual Goals:
+
+- Benson preparing DB merging code so we can run viz on one computer
+
+- Gabe adding viz code for ADFs
+
+- Aaron/Joel on general debugging
+
+- Ruarai on ADF height checks
+
+- Aryender on fitness heuristic
+
+== Thursday, November 21th, 2019 ==
+A work session where we merged in a variety of pull requests:
+* https://github.gatech.edu/jye72/emade/pull/28 - Refactor (ADF to separate module)
+* https://github.gatech.edu/jye72/emade/pull/31 - Overlap and Index fix (algorithm fixes)
+* [https://github.gatech.edu/jye72/emade/pull/31 https://github.gatech.edu/jye72/emade/pull/32] - ADF Identity/duplicate checks
+* https://github.gatech.edu/jye72/emade/pull/33 - Fixed ADF Seeding
+
+== Sunday, November 18th, 2019 ==
+
+=== Agenda: ===
+* working meeting (work tracked on github, as per usual)
+* map out a plan based on the next couple weeks we have left and what we have gotten done thus far
+
+==== The plan up to presentations on Dec 2nd: ====
+* Code freeze by Nov. 23rd 4:00 PM, by which we will attempt to run the code on GCP.
+* Run a baseline and gather data prior to that time on GCP w/ the detection processing fork.
+* Attempt to fix as many issues as possible up to that point.
+* Start working on presentations post Nov. 23rd.
+
+==== Debugging work: ====
+* Discovered some glaring bugs that have to do with how evaluating ADFs with individuals in them are handled.
+* Overlapping ADFs, index mismatches when removing ADFs from individuals, need to select only ADFs from valid individuals.
+* Test fixes for overlapping ADFs and index mismatches when removing ADFs from individuals (see Ben's _contract_adfs hotfix PR).
+
+== Thursday, November 7th, 2019 ==
+
+=== Agenda: ===
+- work meeting (work tracked on github)
+
+Meeting Notes:
+
+- Aryender is up to speed
+
+- Made progress on debugging initial seeding work
+
+- Clarified what we wanted to visualize (add more information to visualize an ADF like an individual)
+
+'''What did we do?'''
+
+- Continued debugging. Brunt of work should happen over the weekend (i.e. https://github.gatech.edu/jye72/emade/issues #18-22)
+
+'''What will we do?'''
+
+- This next week, we will launch a GCP run of Titanic, using ADFs and not using ADFs.
+
+- We'll analyze data and begin implementation of partial adfs and rejection of bad adfs.
+
+No blockers right now.
+
+== Thursday, Oct 31st, 2019 ==
+
+=== Agenda: ===
+* Start Benchmark Runs:
+- convergence speeds
+- final individual fitness
+- time between generations
+- final individual size/complexity
+
+=== Meeting: ===
+* Joel Tasks: do research on partial adfs
+* Gabe Tasks: look into old emade-viz code for some useful tools
+* Benson Tasks: push code up to GCP cluster
+* Aaron Tasks: Fix seeding and start runs
+* Ruarai Tasks: Start ADF naming changes
+* Aryender Tasks: Get more familiar with codebase
+
+== Thursday, Oct 24th, 2019 ==
+
+=== Agenda: ===
+* Run more experiments with ADFs
+* Fix seeding issue
+
+=== Meeting: ===
+* Gabe updates: working on documentation for first semesters
+* Aaron update: Trying to fix seeding issues
+
+
+== Thursday, Oct 17th, 2019 ==
+
+=== Agenda: ===
+* What EXACTLY is the population and what EXACTLY are its individuals
+
+=== Meeting: ===
+* Individuals are gp.PrimitiveTrees on some level
+* Joel Updates: Work on presentation slides
+* Gabe updates: working on presentation slides
+* Benson update: working on contract ADFs. Much progress has been made since we know the types
+* Aaron update: working on adf usage in the population and general debugging.
+
+== Thursday, Oct 3rd, 2019 ==
+
+=== '''Agenda''': ===
+* Get running code
+
+=== Meeting: ===
+- Joel and Gabe discussed what the transmission format should be
+
+- We're going to want to store the indices of the children nodes, as it will be useful for later replacement when expanding and contracting adfs
+
+- The stack algorithm discussed at a previous meeting should help traverse the tree for all subtrees, needs to be implemented over the weekend
+
+- Overall, not too different from what we currently have
+
+- When testing the code though, we ran into an issue with storing duplicate adfs and individuals
+
+- Also wondering what the mutable object wrapper around the population is
+* Joel and Aaron discussed using string representations of lambda function ("Lambda strings") to generate functions usable to make Primitives for ADFs. They also talked about the specifics of making these strings from the ADF's primitive node
+** The approach will use the population information that is described above to generate a tree of nodes that will be formatted into a primitive and inserted into the primitive set. The root node for each ADF will be chosen proportional to the number of child sets that are associated with that node. From there, the corresponding children for that parent node are picked proportional to the number of times that child set has been observed for that parent node. With the ADF tree generated the nodes must now be put into a format that can be inserted into the primitive set. This is what Aaron is currently working on, but he will use the names of the nodes to get their inputs and the return type of the root node. This will be concatenated into a list on inputs and outputs for the ADF. Next the ADF function will be generated by creating a string representation of a lambda function that can be passed to gp.PrimitiveSetTyped.AddADF.
+
+- Ben worked with Jason on figuring GCP cluster status
+* as of 10/04/2019, we can now SSH into the GCP cluster.
+* No EMADE or dependencies of of yet.
+* But, it is ssh'able! Just through specific user accounts, as you need specific privileges.
+{| class="wikitable"
+!Person
+!Task
+!Assigned Date
+!Due Date
+|-
+|Joel
+|figure out contraction alg.
+
+This doesn't necessarily mean writing code for it.
+|10/3/2019
+|10/7/2019
+|-
+|Aaron
+|Make working code for ADF generation and compilation.
+|10/3/2019
+|10/7/2019
+|-
+|Gabe
+|Working Stack Algorithm for finding 
+ADFs with more general format
+|10/3/2019
+|10/7/2019
+|-
+|Ben
+|Work on the logistics of Google Cloud usage in the new system 
+with Jason
+|10/3/2019
+|10/7/2019
+|}
+
+== Thursday, Sept 25th, 2019 ==
+[[files/ADF Work Outline.jpg|thumb|280x280px|4 Major tasks are needed for our ADF implementation. They are outlined above with initials for who is working on what problem. Benson is working on logistics, because we are helpless with SQL]]
+
+=== '''Agenda''': ===
+* Update each other on current progress and blockers
+
+=== Meeting: ===
+* Clarified framework for ADFs and tried some debugging. The Framework description is summarized in the image on the right, where the UpdateRepresentation method is the entry point to our ADF code, and components of the framework are labeled with the intial of the person assigned to the task.
+
+* Looked into general ways of describing collections of children with a common parent.
+
+=== Action Items ===
+{| class="wikitable"
+!Person
+!Task
+!Date Assigned
+!Due Date
+|-
+|Small meeting was held when many members couldn't show up. Only discussed current statuses.
+Benson
+|Set up AWS credits
+|10/3/2019
+|10/10/2019
+|-
+|Gabe
+|Finish gathering data for making ADFs
+|10/3/2019
+|10/10/2019
+|-
+|Aaron
+|Create ADFs from Gabe's date
+|10/3/2019
+|10/10/2019
+|-
+|Joel
+|Finish ADF compilation
+|10/3/2019
+|10/10/2019
+|}
+
+== Thursday, Sept 19th, 2019 ==
+== Thursday, Sept 12th, 2019 ==
+
+=== '''Agenda''': ===
+* How are we tracking? (Work) - Github workflow?
+** titanic runs, neat
+** ben will setup gcp when we get it :fingers-crossed:
+* A Priori Algo discussion - nail down the details + debug?
+** Aaron came up with an alternative to complicated paper that seems fine for our use case and has immediate implementation path
+* Stretch: Initial experiment design
+** punted
+
+=== In-class meeting: ===
+* We still don't have google cloud credit, but we will be ready to run on data sets when we do.
+* We discussed how to apply A-Priori to tree generation. We came up with the [[T-Priori]] algorithm.
+** There was lots of skepticism, but it seemed a lot more doable than many A-Priori modifications which would require a custom implementation of A-Priori. 
+
+=== '''Weekly Todos''': ===
+* Aaron: Pseudocode and diagrams for getting from tree population -> per primitive transaction db (algo reference)
+** please compare other ways of tree -> transactions
+*** https://www.csc2.ncsu.edu/faculty/nfsamato/practical-graph-mining-with-R/slides/pdf/Frequent_Subgraph_Mining.pdf
+* Ben: MLxtend experiments -> from per primitive transaction db to outputted 2-high trees (a priori reference)
+* Gabe: Understand tree parsing -> finish dummy implementation, get from population list (in EMADE) -> tree population with clear parsing API (parsing reference)
+* Joel: More stubbing -> convert primitives so they're persisted on the individual, but not in individual representation (emade reference)
+
+== Monday, Sept 9th, 2019 ==
+
+=== In-class meeting: ===
+* Deap has a tournament selection issue. You can comment out the error and it works
+* Deap is using some library that isn't in python3
+
+* We need to get a running version of EMADe on: https://github.gatech.edu/jye72/emade
+
+* Runnning Apriori on population: We will discuss this next thursday
+
+=== '''Weekly Todos''': ===
+* Gabe: still dummy algo, acquaint with emade
+* Joel: How do adfs attach to individuals, how does apriori work (mlxtend + sklearn)
+* Aaron: Run EMADE locally, to test and submit issue #5
+* Ben: pending gcloud
+
+== Thursday, Sept 5th 2019 ==
+
+=== '''Current Goals:''' ===
+* Ben - go through and remove the current traces of ADF use in the EMADE source.
+* Gabe - research subtree counting, compile papers and notes on the subject.
+* Joel - look into how ADFs will be represented, how they might persist as either an attribute on an individual or some global tree, etc.
+* Aaron - Flatten ADFs and store them in an ADF pool instead of the main pset for now 
+
+=== '''Overall:''' ===
+* Implement a dummy algorithm that returns a random subtree of depth=some fixed n as a sample ADF candidate.
+* Find an algorithm we can implement for the subtree frequency counting & benchmarking runtimes
+* Find a way to run a minimal benchmark to test theoretic work
+* Add ADF pool to configuration that allows you to set the pool size (currently fixed at 3).
+* Find a way to evaluate ADF fitness (and whether/how the system as a whole benefits EMADE).
+* Come up with a demo: most likely a first graph to show how ADFs are changing overtime.
+** Have a running EMADE system with better ADF capabilities.
+
+=== '''Joel's Pitch:''' ===
+* Want to implement ADFs not the way DEAP does it, but by extracting subtrees that might be useful as actually automatically defined functions.
+* The plan is instead to have ADFs as separate tree stubs that also evolve over time, we would keep an ADF population.
+** Monitor them as the evolution proceeds, use as necessary. 
+** On every generation, take out a certain subset of trees as ADFs, insert them into newer children to pass around ADFs.
+** Not evolving ADFs for the first phase; more of a stretch goal.
+* How to identify these subtrees; look at subtree recurrence counting algorithms.
+* Every generation, we're adding good candidates to the pool, but it could get very big.
+** Need to do the Thanos snap to get rid of ADFs, thin out the population. Balanced, like all things should be.
+** Sync primitive set to ADF pool (so they don't linger in the primitive set).
+* Mostly would be helpful for convergence speed; probably will look at benchmark datasets to check this.
+
+* The way it is currently done; each ADF registers the other ADFs.
+** Just use a flat heirarchy (can't call each other or make recursive calls) instead.
+** Probably able to rely on the database as is currently.
+** Having a principled approach to find ADFs is very nice; could be helpful, but gotta test the hunch.
+* Coevolution; once you have ADFs being pulled from the population, you still want the ability to tweak & change the ADF itself.
+** Otherwise, you lose the ability to tune the algorithms in general.
+** We can restrict the size of the ADF to prevent more complex functions, but EMADE in ML problems doesn't really make many complex functions regardless.
+** Think of ADFs as sets of things that have been successful, and you're just using things that were successful before to be successful in the current generation.
+== Thursday, Aug 29th 2019 ==
+Gabriel linked a paper that is very useful: https://www.researchgate.net/publication/229046942_Co-evolutionary_automatically_defined_functions_in_genetic_programming
+* Answers the question of evaluating Individuals through swapping candidate ADFs.
+* Answers the question of selecting evaluated individuals through elitism approach. 
+** We could possibly swap the ADFs into a paerto-front of individuals and average the performance change as a performance metric. We will refer to this as pareto-elitism.
+* Does not answer how we should evolve ADFs, how to get a candidate list of ADFs, or when we would update the ADF populations.
+
+=== Problems with current EMADE ADF schema ===
+* ADFs would probably be better flat, because it will be simpler. EMADE is complicated enough. ADFs should NOT be composed of ADFs.
+* EMADE has no special logic for good initialization of ADFs. We should have some logic for IDENTIFYING good initial ADFs after Generation 1.
+* EMADE uses DEAP to associate ADFs with individuals. We should do this outside of DEAP because we DO NOT want to be constrained to DEAP's ADF schema.
+
+=== Future Questions ===
+* How do we identify a good ADF?
+* When do we update ADFs?
+
+=== '''Current Plan''' ===
+[[files/Currentplandiagram.jpg|thumb]]
+* Create an adf "pool"  with a constrained size of potential good adf candidates
+* On evolution start, the individuals will not use adfs until a certain threshold has been reached (possibly a certain depth size)
+* While evaluating individuals, look for frequent subtrees on high fitness individuals
+* Upon finding a subtree's root node, add the adf candidate to the pool (update pset and replace?)
+* Complete mutation and crossover of individuals, should be no issues since adfs are not being evolved currently
+* End the generation evaluation
+* Cull the adf pool of non chosen candidates 
+* Sync the primitive set with the adf pool
+* Update individuals with adfs for more visual clarity
+* Uses a data mining/pattern recognition approach to adfs based on frequency instead of the traditional definition of adfs
+
+==Thursday, Aug. 22 2019 ==
+
+=== '''Motivation:''' ===
+* We expect better adf mechanisms to improve convergence speeds, and explainability. ADFs are a population level concept We want to remove current implementation of adfs
+* We want to have a method of identifying good adfs in an individual or population (for adding new adfs to our pool) Our basic heuristic is frequency
+* We want to have a method for trimming adfs from the pool so we don't add too many (to cull useless adfs)
+* We want a mechanism for babysitting growth of adf complexity - perhaps config limits, or something that grows over time Include other config, ie if we should evolve adfs themselves
+
+=== '''Stretch:''' ===
+* Easier visualization, explainability, determining semantic purpose of adfs
+* We want to evolve the adfs (mutation and crossover), eventually

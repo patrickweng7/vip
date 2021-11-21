@@ -1,0 +1,2026 @@
+== Team Member ==
+[[files/Bio-picture.jpg|left|197x197px]]
+'''Team Member:''' Bernadette Bal, 3rd Year CS Major
+
+'''Email:''' bgsanbal@gatech.edu
+
+'''Cell Phone:''' 732-908-9665
+
+'''Interests:''' ML, Algorithms, Web Dev, Music
+
+--
+
+'''Subteam:''' Modularity
+
+'''Bootcamp Subteam Fall '20:''' Group #2
+
+= '''Fall 2021''' =
+'''In the time conflict section. Fridays 3-4PM'''
+
+'''''Modularity Sub-Team:'''''
+* [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
+* [[Notebook Xufei Liu|Xufei Lu]] (xufeiliu2000@gatech)
+* [[Notebook Angela Young|Angela Young]] (ayoung97@gatech.edu)
+* [[Notebook Tian Sun|Tian Sun]] (tsun90@gatech.edu)
+'''''Graduated Sub-Team:'''''
+* [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
+* [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
+* [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
+
+=='''Week 7:''' Oct. 3 - Oct. 9 ==
+'''Self Work'''
+* WAS ABLE TO DEBUG ISSUE WITH PACE-ICE (not being able to get into <code>mysql</code>)
+** Small modification of Gabe's instructions from last week: 
+** I got PACE-ICE working--and instead of ssh’ing back into <code>ssh atl1-1-02-012-5-l # whatever name</code> I exited back into the login node (ran <code>exit</code> after running <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code>) and was able to run <code>mysql -u root</code> from there and follow the rest of the EMADE instructions 
+=== Subteam Meeting: Oct. 7 ===
+* Met new member, Diptendu! Part of disbanded Stocks team
+* Goal to get runs over fall break
+* Tried to debug PACE-ICE issues with team. 
+
+=== AAD Time Conflict Meeting: Oct. 8 ===
+'''Missed Class Updates''': 
+* Hackathon Oct. 16
+* Youssef and Diptendu to join our team
+'''Modularity Updates''':
+* Debugged issues with setting up conda environment and setting up packages with EMADE
+** My Fix: <code>activate conda env_name</code> ... easy fix 
+* dataset of stocks is your target, so the paper is going to cover:
+** general background on what arls are, emade, automated ml
+** methodology - how did you implement the arl process, pseudocode, block diagrams, actual code, how you make arls in the evolutionary process, what is the pool you're selecting from
+*** 3.1 - how are they constructed and how are they used
+* analysis auc over time with different objectives, what types of individuals are being found, general conclusions at end with how arls are working with emade
+* selections are being biased towards arls with them - rory
+** baseline framework, experimentation, hypothesis, what could show promise
+** are there targeted mutations that might help, are there selection methods that help, what could we do to tweak
+* really need a strong positive result, hard to prove otherwise
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|PACE-ICE runs 
+|Pending
+|10/08/2021
+|10/15/2021
+|10/??/2021
+|-
+|Help other teammates debug PACE-ICE
+|Pending
+|10/08/2021
+|10/14/2021
+|10/??/2021
+|-
+|}  
+
+=='''Week 6:''' Sept. 30 - Oct. 2 ==
+=== AAD Time Conflict Meeting: Oct. 1 ===
+'''Missed Class Updates''': 
+* 
+'''Self Work''':
+* Paper: https://www.overleaf.com/1338174365qrqxskrvkfyj
+* Debugging with PACE-ICE using Gabe's method in chat:
+After the db is started, request a new job using <code>qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00</code> (doesn't matter if the node is the same)
+Type <code>exit</code> to get back to the login node, then <code>ssh atl1-1-02-012-5-l # whatever name</code>
+Once you're in the node, type <code>mysql -u root</code>
+Then run the following sql queries:
+<code>DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;</code>
+Check this works, by exit then <code>mysql -u USERNAME</code> to make sure you can login as your new user
+Then follow the rest of the steps in the guide and it will hopefully work
+** Still not working, having authentication issue when running <code>ssh</code>
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Debugging... Again
+|Complete!!!!
+|09/23/2021
+|10/05/2021
+|10/05/2021
+|-
+|Add to Paper 
+|Complete
+|10/01/2021
+|10/08/2021
+|10/08/2021
+|-
+|}  
+
+=='''Week 5:''' Sept 19-25 ==
+=== Subteam Meeting: Sept 23 ===
+'''Debugging session for PACE-ICE'''
+* Gabe was here, let us know the time for a run is 8 hours, this might be too short 
+* Was able to run <code> mysql -h root </code> for a short period of time but for some reason after 5 minutes it was not working anymore? 
+* Possibly look into using another node, <code>.my.cnf</code> file
+* Did not get far :(
+
+=== AAD Time Conflict Meeting: Sept 24 ===
+* None, Dr. Zutty absent 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Issues with PACE-ICE
+|Incomplete
+|09/23/2021
+|09/30/2021
+|Ongoing
+|-
+|Look into making/start paper outline
+|Complete
+|09/23/2021
+|10/01/2021
+|09/30/2021
+|-
+|}  
+
+=='''Week 4:''' Sept 12-18 ==
+=== Subteam Meeting: Sept 16 ===
+* Helped team get setup with database 
+* Team will get setup on Colab again to do MNIST runs 
+* Look into superindividual issue with MNIST run last time 
+* Issue with getting setup on MNIST, Gabe mentioned it could be an issue with how files are being packed/unpacked on Mac
+* Spent rest of meeting trying to debug MNIST issues and colab with team
+* Transition to runs with stocks dataset instead? Will have to merge specifiic files with ours. 
+
+=== AAD Time Conflict Meeting: Sept 17 ===
+'''Missed Class Updates''': 
+* Adding images to notebook again (see last meeeting's notes) 
+* PACE-ICE Notes
+** Shared Directory: /storage/home/hpaceice1/shared-classes/materials/vip/AAD
+* Modularity Updates
+** Make subfolder for your name in files
+** Git add/commit/push file changes. Now you can add them in your notebook
+'''Modularity Updates''':
+* Potentially changed resources after old team left
+** EMADE: Just fork off Gabe's code base 
+** DATABASE: Make a new AWS server (my task) 
+** COLAB: Accounts are still usable 
+* MNIST Data
+** Dr. Zutty has made changes over summer
+*** '''gen_mnist data set''' - /datasets/....../mnist - loads data in pickle format
+*** '''input_mnist template flie''' - uses precision and recall as two objectives
+* Potentially look into how ARLs are constructed
+** Currently set to 5 ARLs per generation 
+** Try to change hyperparameters? amount used, how they're built, ranking criteria
+* Could also write a paper like the stocks team 
+** ACM SIGCONF template on Overleaf could be useful 
+** Potentially submit to GECCO? Submission due date is January 20th
+'''Self Work''':
+* Tried [https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE Setting Up PACE-ICE]
+* Issues with .my.cnf file 
+* <code>mysql -h atl1-1-02-012-5-l</code> command not working, trying to debug by changing socket path and port number. Maybe <code>.my.cnf</code> file
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Look into Installing PACE-ICE
+|Complete
+|09/17/2021
+|09/23/2021
+|09/23/2021
+|-
+|Merge Stocks data into our branch
+|Complete
+|09/16/2021
+|09/23/2021
+|09/23/2021
+|-
+|}  
+
+== Week 3: Sept 5-11 ==
+=== Subteam Meeting: Sept 3 ===
+* First meeting with subteam for the semester 
+* Hashed out group roles/tasks
+* We need to try and contact previous semester for lost resources (google colab, AWS server)
+* [https://docs.google.com/document/d/1nrIWrMjVsJGYhjUZHZEiTStSvHmNjziNbVNA94ekhBM/edit?usp=sharing
+Semester goals are to cover left off tasks from previous semesters]
+** Continue MNIST runs -- potentially merge this with stock team data? 
+
+=== AAD Time Conflict Meeting: Sept 10 ===
+'''Missed Class Updates''': 
+* How to Add images to Notebook:
+** Clone Wiki locally to add images
+** Make subfolder for your name in files
+** Git add/commit/push file changes. Now you can add them in your notebook
+'''Modularity Updates''':
+* Potentially changed resources after old team left
+** EMADE: Just fork off Gabe's code base 
+** DATABASE: Make a new AWS server (my task) 
+** COLAB: Accounts are still usable 
+* MNIST Data
+** Dr. Zutty has made changes over summer
+*** '''gen_mnist data set''' - /datasets/....../mnist - loads data in pickle format
+*** '''input_mnist template flie''' - uses precision and recall as two objectives
+* Potentially look into how ARLs are constructed
+** Currently set to 5 ARLs per generation 
+** Try to change hyperparameters? amount used, how they're built, ranking criteria
+* Could also write a paper like the stocks team 
+** ACM SIGCONF template on Overleaf could be useful 
+** Potentially submit to GECCO? Submission due date is January 20th
+'''Self Work''':
+* Asked Gabe for help, made a new database on [https://aws.amazon.com/rds/ AWS RDS]
+* Changed the following settings:
+** Engine Options: MySQL v5.7.33
+** Settings: Kept username, made password mypassword (classic) 
+** Connectivity: Made a new security group rule that allows all inbound/outbound traffic. Check this exists after the database is created 
+** Checked with MySQL, works 
+* Google Colab 
+** Ran into seeding error. Messaged chat and the fix was to manually remove duplicate individuals
+=== Notebook Rubric ===
+Notebook Maintenance
+* Name and Contact Info: 5
+* Teammate Names and Contact Info: 5
+* Organization: 4
+* Updated Weekly: 6
+Meeting Notes:
+* Main meeting notes: 5
+* Subteam efforts: 4
+Personal Work & Accomplishments:
+* To-do items: 3
+* To-do consistency: 2
+* To-dos & cancellations checked & dated: 8
+* Level of Detail: 11
+Useful Resource:
+* References: 7
+* Resource for Team: 11
+Total: 71/100
+Comments: Haven't updated To-Do's, Need to add more detail for other members to reference
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Self-Graded Notebook Rubric
+|Complete
+|09/10/2021
+|09/17/2021
+|09/17/2021
+|-
+|Try running MNIST
+|Complete
+|09/10/2021
+|09/14/2021
+|09/14/2021
+|-
+|Make new database on AWS for data
+|Complete
+|09/10/2021
+|09/15/2021
+|09/16/2021
+|-
+|}  
+
+
+== Week 2: Aug 29-Sept 4 ==  
+=== AAD Time Conflict Meeting: Aug 27 ===
+* Was in Seattle - Missed
+* New team: Me, Xufei, Tian, Vincent, Angela 
+* Possible area of interest: working with stocks data and primitives 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Ask Xufei for work updates 
+|Complete
+|08/29/2021
+|09/03/2021
+|09/03/2021
+|-
+|}  
+
+== Week 1: Aug 23-28 ==  
+'''Currently in the time conflict section. Fridays 3-4PM'''
+=== AAD Time Conflict Meeting: Aug 27 ===
+* We're possibly considering merging with the stocks subteam who is also in the time conflict section. 
+* Possible Research Ideas:
+** Stocks team has found that some trees are being reused. Could be interesting to test their dataset with our code.
+** Adding complexity (implementing new primitives, evaluation functions)
+** Changing how to store primitives in the database (downside of how arls are created is that some of the data can no longer be accessed as it's condensed) 
+** Baseline runs
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Look into potential avenues of work for semester 
+|Complete
+|08/27/2021
+|09/03/2021
+|09/03/2021
+|-
+|Send subteam preferences
+|Complete
+|08/29/2021
+|08/31/2021
+|08/31/2021
+|-
+|}  
+
+= '''Spring 2021''' =
+'''''Modularity Sub-Team:'''''
+* [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
+* [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
+* [[Notebook Xufei Liu|Xufei Lu]] (xufeiliu2000@gatech)
+* [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
+* [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
+* [[Notebook Angela Young|Angela Young]] (ayoung97@gatech.edu)
+'''First Semesters'''
+* [[Notebook Krithik Thiyagarajan Acharya|Krithik T Acharya]] (krithikacharya@gatech.edu)
+* [[Notebook Rishit Mohan Ahuja|Rishit Mohan Ahuja]] (rishitmahuja@gatech.edu)
+* [[Notebook Aazia Azmi|Aazia Azmi]] (aaziaazmi@gatech.edu@gatech.edu)
+* [[Notebook Devan Moses|Devan Moses]] (dmoses@gatech.edu)
+* [[Notebook Tian Sun|Tian Sun]] (tsun90@gatech.edu)
+* [[Notebook Shiyi Wang|Shiyi Wang]] (swang793@gatech.edu)
+* [[Notebook Andrew Tyler Weatherly|Andrew Weatherly]] (andrew.weatherly@gatech.edu)
+* [[Notebook George Ye|George Ye]] (george.ye45@gatech.edu)
+
+== '''Week 14:''' Apr. 25, 2021 - May 1, 2021 ==
+=== <u>Apr. 25, 2021: '''Subteam Meeting Notes'''</u> ===
+*Everyone's busy with semester wrap up so work was slow. 
+<u>'''Final  Week Tasking from Gabe:'''</u>
+<ol><li>Everyone's tasking</li>
+*Work on the final presentation
+**This includes creating slides, graphics, and think about what you will be presenting during our presentation on Friday. I expect everyone to talk a bit about their work, or thoughts on future work and research. If you have questions on what you can add, please reach out to me on slack. https://docs.google.com/presentation/d/1SLLHwjsy-ZHV4OqAXDBclBeTzqrSbyCNCJNRZs0a8Kc/edit?usp=sharing
+**Please fill out this availability survey for our practice presentation on Thursday. No worries if you can't make it, but please let me know in advance so at the very least you can coordinate with me. https://lettucemeet.com/l/0LZNK
+**Pull changes from the MNIST branch so that we can do our proper runs this week
+**Coordinate with your group to determine who will be running the master process. Note that the master process should ideally be run continously, so the person in charge of the process will likely need to run EMADE continuosuly in the background. If you are running the master process I'm recommend changing the following parameter to 1 or 0.
+```
+<localRunParameters>
+	<workersPerHost>1</workersPerHost>
+</localRunParameters>
+```
+The person running the master process will also be in charge of stopping and starting new runs, and creating the new schemas on the AWS instance that come with them. Ideally they should also be run on a UNIX system and produce hypervolume.txt files. DO NOT DELETE OLD SCHEMAS. Continue running for a full day, then stop the run if reaching generation 49 or the day ends. Then start a new run. Ideally, we should reach ~3+ runs for each experiment.
+<li>First-semester student tasking</li>
+You will be running more MNIST benchmark runs without ARLs. This time, these will be more formalized in nature than your previous exploratory runs. We have updated the seeding file and the input template file with better seeds and better objectives. Coordinate with the other members to finish these runs with the instructions above.
+The naming scheme for the benchmark runs should be `mnist_benchmark_#` where # is the number of run you are on.
+<li>Returning student runs</li>
+You will be running more MNIST benchmark runs, but with our old ARL implementation enabled. Set the following parameters in the input template file.
+```
+<maxAdfSize>3</maxAdfSize>
+<shouldUseADFs>true</shouldUseADFs>
+```
+We have updated the seeding file and the input template file with better seeds and better objectives. Coordinate with the other members to finish these runs with the instructions above. If you run into any issues please let us know as soon as possible.
+The naming scheme for the benchmark runs should be `mnist_arl_#` where # is the number of run you are on.
+<li>Kevin and Gabe runs</li>
+FIX LAST ISSUES BY TUESDAY NIGHT
+The naming scheme for the benchmark runs should be `mnist_new_arl_#` where # is the number of run you are on.
+</ol>
+=== <u>Apr. 26, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Missed this meeting because of recovery. Got up to date from Ivanna
+* Notebooks due this Saturday.
+* Final presentations this Friday 6:00 PM - 8:50 PM!
+=== <u>Apr. 29, 2021: '''Pre-Final Presentation Meeting'''</u> ===
+* Personal Work:
+** Added to presentation during week
+** Contributed as worker to runs from Vincent/Xufei
+* Work Session. 
+=== <u>Apr. 30, 2021: '''Final Presentations!'''</u> ===
+== '''Week 13:''' Apr. 18, 2021 - Apr. 24, 2021 ==
+=== <u>Apr. 18, 2021: '''Subteam Meeting Notes'''</u> ===
+*Architecture Fixes: Almost done with update_rep() method 
+*Not much talked about other than continuing tasks
+=== <u>Apr. 19, 2021: '''AAD Main Meeting Notes'''</u> ===
+*Third time meeting in a row...lol. 
+*Not much talked about other than architecture issues and continuing tasks
+*Note that presentations are coming up. Tasks need to be finished/results pulled from runs.
+=== <u>Apr. 21, 2021: Update</u> ===
+*Fell off skateboard and got concussed. :( Talked to Gabe and Architecture Task group members. This means slower work/taking it easy for rest of semester. 
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Architecture Work
+|In Progress
+|Apr. 17, 2021
+|Apr. 25, 2021
+|In Progress
+|-
+|'''Assigned:''' Work on final presentation
+|In Progress
+|Apr. 18, 2021
+|Apr. 29, 2021
+|In Progress
+|}
+== '''Week 12:''' Apr. 11, 2021 - Apr. 17, 2021 ==
+=== <u>Apr. 11, 2021: '''Subteam Meeting Notes'''</u> ===
+* First sem./Xufei & Angela don't really have valid individuals in their runs 
+** Personal Note: Need to analyze individuals to note this
+* Send message to Gabe about interest with architecture tasking. 
+* Xufei remade the CloudCopy.sh script so that the missing files would upload. This works better for Macs now.
+* Further discussion about Architecture Issues
+=== <u>Apr. 12, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Runs don't really have valid individuals 
+=== <u>Subteam Breakout Meeting</u> ===
+* Talked about in more detail why individuals were not valid.
+** Need to look more into data to understand why. Architecture possibly or poor runs?
+* '''Gabe's Explanation:'''
+** MNIST
+*** Look into: '''f1score, f1accuracy score'''
+*** find individuals in the database that have valid fitness scores
+**** if no individuals in the database are valid, (fitnesses are null or have an error string that is not null)
+**** individuals have erred out and have not been evaluated for some reason
+*****quick sql query to check that, do count to see how much you have
+** seed to have which are valid 
+*** if seeded individuals are not returning valid fitness then something is broken
+** are they individuals we did not see to begin with
+* '''Other Notes:'''  
+** Jupiter notebooks exist that implement stats from Jason’s last lecture
+*'''Last Note:''' after getting valid individuals analyze what makes them good 
+*'''Architecture Tasking''': contracting things into lambdas mean things get lost and then untouchable, this has affected us in a bad way -> move away from lambda’s into node representation
+=== <u>Apr. 17, 2021: '''Architecture Tasking'''</u> ===
+* Ivanna, Krithik, Me, Angela, Rishit, Xufei, Gabe
+<u>'''Gabe's Overview'''</u>
+*Problem with that is there are certain primitives in made that have special properties
+**so when things are converted to lambdas into a single node there are 3 specific edge cases that get lost
+***can be more problematic with more complex primitives we might make in the  future
+*ex. Learner(Data, learnerType)
+**Learner(ARL)  learnerType has learnerType.name that gets lost with this condensing and Learner(ARL) breaks 
+* adfs table stores
+**id, input, output, arl expression 
+*'''to add:''' pickle 
+*<u>'''Solution'''</u>
+**found combination of nodes, store  into database as a pickled form and then when we see an arl in an individual we read from d database and substitute back into where node used to be and then evaluation happens 
+**'''pickled data''' - easy way to store information pickle -> unpicking turns into original object. can also retrieve data from pickled data
+'''Steps:'''
+<ol>
+<li>After finding ARLs, store in database - pickle it in some way then store it in database as a pickle</li>
+<li>While evaluating individuals, unpack ARLs from the pickle
+* Get 10 finished eval, selects individuals, we created ARLs, Gen 11 starts, new  individuals with arls in them that we need to eval
+* emade.py evalutate() function
+** learner(arg, arl(2))
+***if arl in individual, read from db and substitute nodes</li>
+<li>While evaluating individuals, unpack ARLs from the pickle</li>
+</ol>
+<u>'''Methods to Look Into..'''</u>
+* Basically where this architecture stuff could be used/implemented
+* Also good reference for writing code to understand how this new arch. implementation will be used
+*ADF implementation
+**Learner(ADF.args) 
+***when adf is referenced it gets unpacked
+***when it’s evaluated, it unpacks it, evaluates tree, and moves on 
+**population is a list of individuals
+***individuals (for our architecture) is a list of nodes/primitives
+***individuals (emade) list of lists where the first index/0 is the individual in the form similar to adfs, any index after that is an adf unpacked
+***[0] learner(ADF.args) [1] WindowFilter (add) [2] …
+**diff betwteeen arls and adfs
+***adfs are directly tied to individual, no way to access them on a global scale, more individualistic
+**that’s why we have our altruistic approach and moved away from list of lists structure, however some of the implementation will be useful for condensing arls
+*rewrite evaluate
+**if adf/arl n individual:
+***extract and substitute
+**post evaluation function re compress stuff
+*OR wrapper_methods.py
+**how we create primitives
+<u>'''TASKING'''</u>
+TASKS:
+*Work off tree_database branch, old architecture
+<ol><li>ARL storage/contracting in the database</li>
+<ol><li>me, krithik, ivanna, gabe</li>
+    <li>Contraction - adfs.py (contract_adfs()l should call some methods involving database</li>
+    <li>SQL_orm_Connection (master.py and base.py)</li>
+    <li>good to understand deap’s online api</li>
+    <li>gp.primitivetrees - list of primitives/nodes</li>
+</ol>
+<li>ARL evaluation/expansion reading from the db</li>
+<ol>
+    <li>angela, xufei, rishit, gabe</li>
+    <li>evaluate() evaluate_individual() wrapper_methods.py</li>
+    <li>master EMADE (not our fork)</li>
+    <li>communicating w first team how to read/write from the db</li>
+    <li>sql_connection.py</li>
+</ol></ol>
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Look into evaluating individuals 
+|Completed
+|Apr. 12, 2021
+|Apr. 18, 2021
+|Apr. 17, 2021
+|-
+|'''Assigned:''' Architecture Work
+|Completed
+|Apr. 17, 2021
+|Apr. 25, 2021
+|In Progress
+|}
+== '''Week 11:''' Apr. 4, 2021 - Apr. 10, 2021 ==
+=== <u>Apr. 4, 2021: '''Subteam Meeting Notes'''</u> ===
+* '''Personal Work'''Decided not to do a diversity measure project after looking at papers. Would rather work on MNIST runs to better understand how to do analysis. 
+* Ivanna working on database architecture tasking
+* Kevin continuing work on ARL lambda issue
+* Vincent working on documentation for add_all_subtrees. Gabe and Kevin talked about architecture changes. 
+** Need to get this done to do experiments on changes that were planned before midterm.
+=== <u>Apr. 5, 2021: '''AAD Main Meeting Notes'''</u> ===
+<u>'''Statistics Lecture'''</u>
+* AUC gives: Mean & Variance
+** Correct bias with: s^2 = n*sigma&2/(n-1)
+* Hypothesis Testing
+** lower alpha level = higher confidence interval = less likely for type 1 error 
+* Welch's t-test (unequal variance t-test)
+** use to see if you can reject the null hypothesis from t-stat
+** use to find how many trials you need to get to rejection of null hypothesis once experiments quantified! 
+=== <u>Subteam Breakout Meeting</u> ===
+* Not much since we all went to stats lecture and met yesterday 
+* Architecture issues. Mainly with '''contract_adfs()''' method. Gabe Kevin and Vincent talked about this.
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Continue analysis on MNIST runs to discuss during next Sunday meeting
+|Completed
+|Apr. 4, 2021
+|Apr. 11, 2021
+|Apr. 10, 2021
+|}
+== '''Week 10:''' Mar. 28, 2021 - Apr. 3, 2021 ==
+=== <u>Mar. 28, 2021: '''Subteam Meeting Notes'''</u> ===
+* Mostly a work session.
+* We need to figure out what projects we'll be doing doing for the rest of the semester
+** We'll need to continue fixing the ARL architecture updates
+** '''Possible Experiments/Projects:'''
+*** Look back into diversity measures and see if we can find a way to do this.
+*** Could be used across other teams!
+=== <u>Mar. 29, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Missed this meeting. Flied back to Georgia Tech but caught up with Gabe/other members later on 
+* <u>'''New Members!!!'''</u>
+** [[Notebook Krithik Thiyagarajan Acharya|Krithik T Acharya]] (krithikacharya@gatech.edu) (Returned from last year)
+** [[Notebook Rishit Mohan Ahuja|Rishit Mohan Ahuja]] (rishitmahuja@gatech.edu)
+** [[Notebook Aazia Azmi|Aazia Azmi]] (aaziaazmi@gatech.edu@gatech.edu)
+** [[Notebook Devan Moses|Devan Moses]] (dmoses@gatech.edu)
+** [[Notebook Tian Sun|Tian Sun]] (tsun90@gatech.edu)
+** [[Notebook Shiyi Wang|Shiyi Wang]] (swang793@gatech.edu)
+** [[Notebook Andrew Tyler Weatherly|Andrew Weatherly]] (andrew.weatherly@gatech.edu)
+** [[Notebook George Ye|George Ye]] (george.ye45@gatech.edu)
+=== <u>Subteam Breakout Meeting</u> ===
+* Google form for new and returning subteam members about how they feel with tasking and work.
+=== <u>Apr. 1, 2021: '''Update: How to do MNIST Baseline Runs'''</u> ===
+<u>'''Instructions for MNIST Baseline Runs (Thanks Gabe)'''</u>
+* Find partner, one person is master on locla machine and the other is a worker on colab
+* '''NOTE:''' MNIST is more complex than Titanic so unsure how long runs will take
+** Usually we try to reach 50 generations, but might not be that long. No worries if we can't make it.
+* [https://colab.research.google.com/drive/1i_niAH2dxqdsdA-SMU3tYXCOW0DMRUXK?usp=sharing Colab Notebook (includes more detailed instructions)]
+=== <u>'''Errors!'''</u> ===
+<u>'''CloudCopy.sh Error with copying over files:'''</u>
+*'''Solution:''' Just manually upload files that are missing. 
+<u>'''Rishit's Error:'''</u>
+* After trying to <code>bash reinstall.sh</code> This error appears...
+**<code>WARNING: Skipping GPFramework as it is not installed.</code>
+*'''Solution:''' Run these commands after <code>%ls</code>
+**<code>!sudo apt install dos2unix</code>
+**<code>!find . -type f -print0 | xargs -0 dos2unix</code>
+<u>'''Xufei's Error:'''</u>
+* After trying to seed and run files can't be located.
+**<code>WARNING: Skipping GPFramework as it is not installed.</code>
+*'''Solution:''' Put full gdrive path instead of partial path
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Look into the feasibility of doing diversity measures for project for the rest of the semester 
+|Completed
+|Mar. 28, 2021
+|Apr. 3, 2021
+|Apr. 4, 2021
+|-
+|'''Assigned:''' Baseline runs
+|Completed
+|Mar. 28, 2021
+|Apr. 3, 2021
+|Apr. 4, 2021
+|-
+|'''Assigned:''' Do review form 
+|Completed
+|Mar. 29, 2021
+|Apr. 3, 2021
+|Apr. 4, 2021
+|}
+== '''Week 9:''' Mar. 21, 2021 - Mar. 27, 2021 ==
+=== <u>Mar 21, 2021: '''Subteam Meeting Notes'''</u> ===
+<u>'''Presentation Critiques'''</u> (This could be generalizable to presentations in future!)
+* Try to make slides less wordy, replace with pictures 
+* Really conceptual, it will be hard for people outside the team to understand
+** visuals for concrete understanding of the code 
+* Background - Give summary of previous results to give sense of maturity of team. (We are one of the longer running teams!)
+* My Slides:
+** Slide 4 - Potential Advantages
+*** Change listing of advantages to have a better flow of argument.
+*** Note how this helps EMADE overall, aka, improving its search and optimization capabilities! 
+** Slide 18
+*** Talked about how CDF and evaluate function were used for generate_adfs (now generate_arls) but there's...
+**** too much text, needs more concreteness, formula, maybe a few lines of code, make sure slides support what is actually being said 
+*** Kevin gave me a description of what the Evalute Function does to convert to formula:
+**** For each individual, temporarily add size of subtree divided by the fitness per occurrence
+
+=== <u>Mar. 22, 2021: '''AAD Midterm Presentations'''</u> ===
+
+== '''Week 8:''' Mar. 14, 2021 - Mar. 20, 2021 ==
+=== <u>Mar 14, 2021: '''Subteam Meeting Notes'''</u> ===
+* Finished code and testing for '''generate_adfs()''' method!
+* Everyone is finished with their snippets of code except Vincent, who ran into a more complex issue with his code
+* Make sure to add to slides/talk about work for the semester.
+* Gabe reminded others  to push code changes to corresponding branches before Monday's meeting.
+<u>'''After Meeting'''</u>
+* Vincent found the bug for his code:
+[[files/VincentIssue.png]]
+=== <u>Mar 15, 2021: ''AAD Main Meeting Notes''</u> ===
+* Potentially try to get an experiment run with our architecture changes before midterm presentation
+=== <u>Subteam Breakout Meeting</u> ===
+* Vincent needs to test his changes before we do experiment runs. 
+* Gabe mentioned having to fill out lettucemeet to get a practice time with Dr. Rohling & Dr. Zutty before midterm presentations
+=== <u>Mar 18, 2021: ''Update''</u> ===
+* Kevin noted that there are issues with ARLs being added to the primitive test which had to do with lambda function
+** Turning ARLs into lambda function is not generalizable (across more than one depth) so this needs to get fixed. 
+=== <u>''Personal Updates''</u> ===
+* [https://docs.google.com/presentation/d/1iaC5dHYX7G-NWuCAFjjVVzKHMm7NUCk_kHP72tQmZc4/edit?usp=sharing|Presentation Slides] 
+* Added contributions to slides/moved slides around so that the flow of the presentation made more sense.  
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Work on presentation before practice session 
+|Completed
+|Mar. 14, 2021
+|Mar. 21, 2021
+|Mar. 20/21, 2021
+|-
+|'''Assigned:''' Practice session w/ Dr. Zutty/Dr. Rohling before midterms
+|Completed
+|Mar. 14, 2021
+|Mar. 21, 2021
+|Mar. 21, 2021
+|}
+
+== '''Week 7:''' Mar. 7, 2021 - Mar. 13, 2021 ==
+=== <u>Mar 7, 2021: '''Subteam Meeting Notes'''</u> ===
+* Unfortunately did not yet get to finish my task due to reading through and trying to understand the code. 
+'''Subteam Notes'''
+* '''Advice from Kevin''' 
+** '''generate_adf''' currently uses a Cumulative Distribution Function currently to create an ARL.
+** Now, it will do the same thing except it should choose an ARL randomly based on the value from an evaluate() function Kevin wrote
+* Kevin wrote evaluate() function that gives value to an ARL 
+* Gabe/Ivanna/Angela are continuing work on database changes.  
+
+=== <u>Mar 7, 2021: '''Personal Work'''</u> ===
+* '''Understanding of Code:'''
+**'''Current search_individuals() Implementation:'''
+*** '''INPUT:''' individual, dictionary, length
+*** traverses single individual
+*** each node it gets to, add_all_subtrees() is called. 
+**'''Current add_all_subtrees() Implementation:'''
+*** '''INPUT:''' individual, node, dictionary, length
+*** add subtrees as possible ARLS if depth <= length & depth > 1
+*** Dictionary: 
+**** K: (subtree, childnode index)
+**** V: if no key: [evaluate(subtree, individual), where the subtree exists]
+**'''Current generate_adf() Implementation:'''
+*** pick ARLs at random weighted by values given by dictionary for ARL_candidates
+*** Looked back at [https://github.gatech.edu/gwang340/emade/tree/sphinx|Sphinx documentation] to understand code better 
+
+=== <u>Mar. 8, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Note much to update, still continuing work for tasks
+=== <u>Subteam Breakout Meeting</u> ===
+* Ivanna created the slides for the Midterm presentation. We can start working on this any time
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|More thoroughly read through and understand generate_adfs code
+|Completed
+|Mar. 1, 2021
+|Mar. 10, 2021
+|Mar. 7, 2021
+|-
+|'''Assigned:''' Finish coding/testing generate_adfs method
+|Completed
+|Mar. 7, 2021
+|Mar. 14, 2021
+|Mar. 13, 2021
+|}
+== '''Week 6:''' Feb. 28, 2021 - Mar. 6, 2021 ==
+
+=== <u>Feb 28, 2021: '''Subteam Meeting Notes'''</u> ===
+* '''Personal Progress:'''
+** started writing generate_adf method, still need to work on random selection 
+* '''Goals:''' work on assigned method and change code. 
+* '''Discussion Notes:'''
+** '''Advice from Kevin''' - tasks are pretty easy, just test through print statements  
+
+=== <u>Mar 1, 2021: '''AAD Main Meeting Notes/Breakout Session'''</u> ===
+* Nothing notable, same as Sunday's meeting. 
+* '''Goal:''' Finish code by Sunday so we can do collective testing, make sure all our code works with each other's
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make notebook cleaner for evaluation  
+|Completed
+|Mar. 1, 2021
+|Mar. 1, 2021
+|Mar. 1, 2021
+|-
+|'''Assigned:''' Work on generate_adfs method accordingly
+|In Progress
+|Feb. 23, 2021
+|Mar. 6, 2021
+|Mar. 6, 2021
+|}
+
+== '''Week 5:''' Feb. 21, 2021 - Feb. 27, 2021 ==
+
+=== <u>Feb 20, 2021: '''Subteam Meeting Notes'''</u> ===
+* Decided to split up modifying codebase into:
+** '''Adding ARL Complexity:''' Kevin, Me, Vincent, Xufei
+*** Goals: adding greater depth to tree and "partial" subtrees rather than complete subtrees as ARL
+** '''Database Changes:''' Gabe, Ivanna, Angela
+*** Goals: store ARL expressions as tree object rather than lambda function
+**** See [[Notebook Gabriel Qi Wang|Gabe's Notebook]] Feb. 21, 2021 for further detail
+* Wait for tasking from Kevin to adjust method
+'''<u>Discussion Notes:</u>'''
+* Kevin: selection method: how often does an arl appear in a population, can weight arls by how big they are  
+* Vincent: brought up point of frequency again Kevin: what we're searching for incudes unbalanced trees - selection and depth are in the same method, if we want to change depth have to look into 
+
+* Keep in mind efficiency to avoid exponential time   
+* Kevin is working on figuring out how to manually change the depth   
+
+=== <u>Feb 21, 2021: '''AAD Main Meeting Notes'''</u> ===
+* '''Modularity'''
+** Mentioned documentation through Sphinx 
+
+=== <u>Breakout Meeting</u> ===
+'''<u>Discussion Notes w/ Dr. Zutty:</u>''' 
+
+Main Points 
+* trying to minimize fitness values, the lower fitness value the better it is every individual has an index, try to keep an index of where we found it and what individuals 
+* play with different rates of how many ARLs should be let back into the population, seeded vs nonseeded, to see if there is convergence 
+** Gabe: possibly use genetic duplicates for this issue? 
+* Another idea from Dr. Zutty is to do genetic operators on the ARLs themselves  
+
+=== Tasking From Kevin: ===
+"So here are the tasks that I've created, they've mostly remained the same since I think we will push off a lot of what we talked about today until after we get depth two trees working:
+# Write method search_individual(individual, dictionary, length): This method is just traversing through a single individual in the population. As we mentioned, the list is a depth first search and nodes have the arity attribute which tells you how many children it has, so write this method with that in mind. When you get to each node, call method add_all_subtrees(individual, node, dictionary, length).
+# Write method add_all_subtrees(individual, node, dictionary, length): This method is for when you get to a node, add all subtrees of depth between 1 and length, inclusive to the dictionary as possible ARLs. Note that for this method, you can tell when a node is a leaf by its arity being 0. Now when adding to the dictionary, the key is just the subtree, so something like [(node1.name, 1, 2), (node2.name, 3), node3.name, node4.name], where the numbers in each tuple is the index of the child for that node. Now if the key doesn't exist, we can initialize the value to be equal to [evaluate(subtree, individual), place where the subtree exists] and if it does, just add evaluate(subtree, individual) to value[0] and append the location of the subtree to the end of the value
+# Now, the generate_adf method will need to be changed, because we now want to use the value we calculated with add_all_subtrees to be how we select ARLs. Here, just make a new generate_adf that just uses the probability given to you in the dictionary, so also change the parameters to be something like (self, ARL_candidates), and then pick the ARLs at random weighted by their values given by the dictionary for ARL_candidates. Assume that the structure of the dictionary is like how it is described in 2."
+'''Goal:''' Will work on generate_adf method
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+!'''Notes'''
+|-
+|'''Assigned:''' Ask Gabe question about generate_adfs input and adjust documentation accordingly  
+|Completed
+|Feb. 13, 2021
+|Mar. 1, 2021
+|Mar. 1, 2021
+|Final pushes were done on the resolve date.
+|-
+|'''Assigned:''' Wait for find_adfs tasking from Kevin and start working on codebase
+|Completed
+|Feb. 23, 2021
+|Feb. 28, 2021
+|Feb. 28, 2021
+|
+|}
+
+== '''Week 4:''' Feb. 14, 2021 - Feb. 20, 2021 ==
+
+=== <u>Feb 13, 2021: '''Subteam Work Meeting'''</u> ===
+* Meeting to do documentation through Sphinx 
+* Vincent and I self-assigned which method we should look into, then ask Gabe questions while he works on other documentation 
+* Kevin discussed some of the changes he made to the code in find_adfs 
+
+=== <u>Feb 14, 2021: '''Subteam Meeting'''</u> ===
+'''[https://github.gatech.edu/gwang340/emade/ Gabe's EMADE] Overview'''
+
+'''Summary:''' Gabe ran through the codebase with the team and him and Kevin discussed potential areas to fix in the architecture for the semester.
+* '''adfs.py''' - most of our subteam's code is in this file 
+* '''Primitives'''
+** Python functions, grouped together in their own type of file e.g. signal_methods.py, spatial_methods.py (image processing)
+** [something]_methods.py = primitives grouped together
+*'''emade.py''' - main file for gp functions
+**mating, mutation, main function, multi-processing
+*'''Goal:''' go through adfs.py with phoenix 
+**no set definition on what makes an arl good - how can we pick more useful arl's
+**arls are chosen from pool through probability
+**last semester: lambda's weren't being saved 
+**randomly choosing how many arls are being made in each generation - could fix 
+**adf_[root_node]_[id]
+***nested arls can exist where previous arls are being called on and being added onto to make a new arl 
+****change comes from this where changes are being made
+*'''data.py''' 
+**for emade as a whole
+**describes all types of how we store/load data in emade 
+**'''emadedatapair''' - contains training data and test data
+***in order for emade to work, you want to use ml models and optimize them in some way 
+***every type of primitive from learner_methods.py one of the inputs is going to be an emade data pair
+***last semester our arls looked kind of weird, added restriction of having to input a data pair and outputting data pair
+* '''Shortcomings & Discussion:''' 
+**Want to add complexity to arls, currently depth one tree
+**find_adfs function - only searching with dfs and grabbing parent and children
+***maybe want to rewrite a lot of that function
+***emade works off of deap from python package to handle a lot of its gp functionality
+****has some built in functions that might be useful 
+****the way deap handles individuals, everything it's kind of a python list so hard to think of as a tree 
+****each node  in the tree has a certain amt of info (e.g. # of children)
+*****so deap has functions like search subtree, can use instead of dfs 
+***what kind of arl structure do we want to accept
+**don't have evidence to show whether or not arls should be nested around other arls - not really adding anything of value
+***don't store the actual lambda 
+***going forward we might not want to store lambda, just put in pickle - hope is that we do something w arls rather than using actual lambda 
+
+**note: arg0 is the datapair, what emade inputs into the individual
+**for arls, we have adfs arg0 adfs arg1, what we put into arl 
+**datapair is something always input so it should always be a leaf node 
+
+**Kevin's Idea: change how we look for individuals or how we store individual
+
+=== <u>Feb 15, 2021: '''Main AAD Meeting'''</u> ===
+* Kevin still working on find_adfs, Gabe is also looking into potential areas to fix architecture
+* Goal for everyone else is to familiarize ourselves with codebase, and for me & Vincent to finish documentation
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+!'''Notes'''
+|-
+|'''Assigned:''' Documentation for adf_info_to_lambda  
+|Completed
+|Feb. 13, 2021
+|Feb. 21, 2021
+|Mar. 1, 2021
+|Final pushes were done on the resolve date.
+|-
+|'''Self-Assigned:''' Documentation for generate_adfs
+|Completed
+|Feb. 13, 2021
+|Feb. 21, 2021
+|Mar. 1, 2021
+|Final pushes were done on the resolve date.
+|}
+
+== '''Week 3:''' Feb. 7, 2021 - Feb. 13, 2021 ==
+
+=== <u>Feb 8, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Everyone discussed their goals for this past week 
+* Modularity
+** Our only goal was literature review 
+** Paper from NLP Team discussed some modularity that might be interesting:
+*** [https://arxiv.org/abs/1703.00548 CoDeepNEAT] - coevolving different populations to serve as modules and pairing them together
+**Suggestion from Dr. Zutty to document through Sphinx/look at certain parts of code in pairs (see breakout meeting below) 
+
+=== <u>'''Breakout Meeting'''</u> ===
+* Look into adfs.py
+* '''Goals:'''
+** peer programming sessions to go through code and document parts of it 
+** after understanding, make different improvements based on literature
+** In the future, aggregate papers into one area 
+*** [[Modularity|Modularity Resource Wiki]]
+[https://www.sphinx-doc.org/en/master/usage/quickstart.html Sphinx] Explanation from Dr. Zutty
+* auto doc tool which allows you easily set up documentation from your project
+* automatically pull from your codebase and aggregate into nice format
+* Format:
+** '''for reference:''' branch of emade called ATR record types, but in it is a docx folder 
+** use Google style docstrings 
+
+*
+
+=== [https://drive.google.com/file/d/1dqdYssWEONtbMSxDoH37Zjh4Sjjdy63Y/view?usp=sharing Self-Evaluation Rubric] 87/100 ===
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Self-Evaluation  
+|Completed
+|Feb. 8, 2021
+|Feb. 12, 2021
+|Feb. 12, 2021
+|-
+|'''Assigned:''' Read other group members papers to build conceptual understanding
+|Completed
+|Feb. 8, 2021
+|Feb. 12, 2021
+|Feb. 12, 2021
+|-
+|'''Assigned:''' Look into EMADE/codebase
+|Completed
+|Feb. 7, 2021
+|Feb. 8, 2021
+|Feb. 7, 2021
+|}
+
+== '''Week 2 (First Subteam Meeting):''' Jan. 31, 2021 - Feb. 8, 2021 ==
+
+=== <u>Jan 31, 2021: '''Subteam Notes'''</u> ===
+* Talk about different tasks people want to take on and goals for the semester
+* Gabe will make video covering codebase and ARLs/ADFs / talking about topics of  
+* GECCO -  Genetic and Evolutionary Computation Conference - use to look into evolutionary work, optimization
+
+=== <u>Feb 1, 2021: '''AAD Main Meeting Notes'''</u> ===
+* Every team discussed their goals for the semester
+'''Modularity Goals:'''
+* Explore subtrees of depth > 1
+* Literature Review to have everyone catch up
+'''Review Subteam Questions from Last Semester'''
+* Fix ARL construction by looking into selection method (?)
+* Originally, ADF team and did not conceptually make sense with team so switched over to ARLs
+** Construction is similar to one of the papers 
+** Ask Gabe about the papers used for this: Construction of Subroutines from presentation
+* Note that MNIST data set has been used at the end of the semester, but Jacob Wang is no longer on the subteam 
+* Look into what Neural Network/NLP team is doing in exploring different data sets 
+'''Subteam Breakout Notes:'''
+* Kevin will continue with selection method, but current issue is ARLs are kind of limited so no experiments can be run 
+* Gabe will make recording of lecture for first semesters to the subteam
+
+=== <u>Feb 4, 2021: Review/Modularity Team Summary</u> ===
+'''Review Notes for Team:'''
+
+'''Sources: Gabe's ''[https://bluejeans.com/s/GaOjlZ5qu3P/ Modularity Intro]'', [https://docs.google.com/presentation/d/1yrkD411TYEVQ8OMiqODLsoXdDiVo43PZBZpW9-1TNlo/edit?usp=sharing Slides]'''
+* '''Goals for Modularity Team:'''
+** Find ways to abstract individuals to encourage code reuse/explainability and improve EMADE's search & optimization capabilities
+** Modify evolutionary process to modularize the portions of individuals -> If good help optimization process of EMADE 
+** Building blocks we find can help with genetic process -> possibly lead novel solutions not found by traditional GP 
+* '''ARL Pipeline'''
+** Modified GP Process: selection -> ''update_representation(ARL Block)'' -> mating -> mutation
+*** '''Code for ''update_representation'':'''
+**** '''''_find_adfs:''''' organizes all parent-child primitive sets in valid individuals so we can see all instances of a potential ARL in each individual it appears in
+**** '''''_generate_adf:''''' uses output from ''_find_adfs'' to create a probability distribution for selecting a parent node and selecting a child set based on our heuristic
+**** '''''_get_best_adfs:''''' selects ARLS based on heuristic informed probability distribution and returns the lambda string for the ARL
+**** '''''update_representation_with_adf_pset''''': constructs primitives for ARLs, adds them to the local pset and adds them to the database for pset synchronization (what is this?) 
+**** '''''_contract_adfs''''': adds the new ARLs to any individuals they were originally observed to be in 
+* '''Potential Ideas'''
+** '''Diversity'''
+*** Modularity encourages code reuse but are we limiting the search space w/ abstraction? Does this prevent EMADE from optimizing
+*** Want a quantifiable way to measure diversity, generalizable for EMADE overall 
+** '''Selection Method (previous work)'''
+*** Modifying evolutionary selection method to help encourage the spread of ARLs throughout the population
+*** The idea that if ARLs are "useful" having more of them would be useful
+** '''Mutation Method'''
+*** Help spread ARLs for more potential changes with the population we could try making a mutation function that replaces certain nodes with ARLs
+** '''ADF Integration'''
+** '''Changing how we search and select ARLs'''
+*** currently only size/depth 1
+*** add new heuristics or allow greater growth/mutation with ARLs
+*** potential new heuristic, comparing individual's fitness in context with its population
+*** allow for larger ARLs to be selected 
+** '''Creating new individuals with ARLs every generation'''
+*** Currently the only way for ARLs to spread is from parents to their children 
+
+=== <u>Feb 6, 2021: Literature Review</u> ===
+'''Goal:''' Find papers that attempt to measure/analyze diversity of evolutionary algorithms, discuss potential ideas for next semester 
+
+'''Conclusion:''' Everyone decided that it would be best to go into modularity architecture rather than do diversity measures. 
+
+[https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.152.9427&rep=rep1&type=pdf '''<u>A Brief Overview of Population Diversity Measures in Genetic Programming</u>''']
+* Found paper discussing measuring diversity in genetic programming only to realize it was covered by Vincent Huang last semester during the end of the presentation, haha
+[https://dl.acm.org/doi/pdf/10.1145/3376916 '''<u>Indicator-based Multi-objective Evolutionary Algorithms: A Comprehensive Survey</u>''']
+
+Summary:
+* '''Paper tries to resolve issue of Multi-Objective Evolutionary Algorithms (MOEAs) underperforming with >2/3 objectives by using IB-MOEAs'''
+** '''Indicator-Based MOEAs (IB-MOEAs) -''' use '''quality indicators''' that are used to assess different '''approximation sets''' (paper defines this as an approximate Pareto front) 
+** '''Quality Indicators (QIs)''' - measure performance based on capacity, convergence, and '''diversity''' 
+*** diversity was measured from distribution and spread of solutions, which can use some of the distance metric concepts discussed in the Diversity Measure paper from Vincent
+[https://dl.acm.org/doi/pdf/10.1145/3321707.3321718 '''<u>Convergence and Diversity Analysis of Indicator-based Multi-Objective Evolutionary Algorithms</u>''']
+* Authors from previous paper also made another analyzing the diversity and convergence of approximation sets/results from these IB-MOEAs
+Key Notes:
+* '''Quality Indicators (QIs)''' are further clarified as ''functions that assign a real value to one or more approximated Pareto fronts, depending on their specific preferences''
+* '''3.3 Diversity Analysis'''
+** Used Solow-Polasky Diversity Indicator and the Riesz s-energy indicator 
+'''<u>[https://www.researchgate.net/profile/Michael_Emmerich/publication/235412985_On_Quality_Indicators_for_Black-Box_Level_Set_Approximation/links/0c960514cad7fc4ead000000.pdf On Quality Indicators for Black-Box Level Set Approximation]</u>'''
+* Goes into the math behind Solow-Polasky Diversity Indicator and how to calculate diversity.
+* Also other potential indicators that could be useful 
+* This makes it interesting for measuring bio-diversity, as its value can be interpreted as the number of species
+* Realized this is used for diversity oriented search
+
+Could potentially try to use this as an indicator for how our evolutionary progress is doing? But not sure how accurate this is. 
+
+At the end of this analysis I realized although I skimmed a lot of different papers, I need read up more on evolutionary algorithms/machine learning and also delve more into the codebase to fully understand the concepts discussed and understand how to implement it into our subteam's work. Think I spent more time this week looking up some of the concepts related to but not covered in the fundamental concepts from bootcamp.  
+
+'''<u>Discussion: Potential Semester Work</u>'''
+
+Gabe: 
+* find a way to measure how modular a subgraph is 
+** can modularize based on data 
+Kevin Lu: 
+* look into current mutation from flat probability  
+Important Notes 
+* '''Want to Mutate:''' low fitness individuals 
+* '''Want to Keep:''' best fitness individuals  
+* Remember from last semester's discoveries that all ARLs must take in a data pair and output a data pair 
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Assigned:''' Read up on literature to brainstorm possible tasks for the semester 
+|Completed
+|Jan. 31, 2021
+|Feb. 7, 2021
+|Feb. 6, 2021
+|-
+|Review last semester's projects/tasks
+|Completed
+|Jan. 31, 2021
+|Feb. 7, 2021
+|Feb. 6, 2021
+|-
+|Tidy up notes from this week/include literature findings
+|Completed
+|Feb. 2, 2021
+|Feb. 7, 2021
+|Feb. 7, 2021
+|-
+|'''Assigned:''' Add notes/papers to subteam wiki
+|Completed
+|Feb. 7, 2021
+|Feb. 8, 2021
+|Feb. 8, 2021
+|}
+
+== '''Week 1 (First Meeting):''' Jan. 25, 2021 ==
+'''AAD Main Meeting Notes:'''
+* Finalized subteams. Each subteam discussed their goals for the semester. 
+** Modularity, Stock / Time Series Classification, Tree-based NN optimization for NLP and CV, EZCGP
+* Choice: Modularity
+** New subteam members: Xufei Liu & Angela Young
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Meet with chosen subteam during the week
+|Completed
+|Jan 25, 2021
+|Feb 1, 2021
+|Jan 31, 2021
+|}
+
+= '''Fall 2020''' =
+'''''Modularity Sub-Team:'''''
+* [[Notebook Krithik Thiyagarajan Acharya|Krithik Acharya]] (krithikacharya@gatech.edu)
+* [[Notebook Vincent H Huang|Vincent H Huang]] (vhuang31@gatech)
+* [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
+* [[Notebook Ruarai Eoin O'tighearnaigh|Ruarai O'tighearnaigh]] (reo3@gatech.edu)
+* [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
+* [[Notebook Aryender Singh|Aryender Singh]] (aryendersingh@gatech)
+* [[Notebook Weiyao Tang|Weiyao Tang]] (wtang87@gatech.edu)
+
+* [[Notebook Gabriel Qi Wang|Gabriel Wang]] (gwang340@gatech.edu)
+* [[Notebook Jacob Yahia Wang|Jacob Wang]] (jywang@gatech.edu)
+
+== Week 15: Nov. 30, 2020 -  Dec. 2, 2020 ==
+Practiced slides for final presentation.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Dry Run w/ Jason & Dr. Rohling
+|Completed
+|Nov 30, 2020
+|Nov 30, 2020
+|Nov 30, 2020
+|-
+|'''Final Task:''' Final Presentation
+| --
+|Dec 2, 2020
+|Dec 2, 2020
+|Dec 2, 2020
+|}
+
+== Week 14: Nov. 23, 2020 - Nov. 30, 2020 ==
+- Thanksgiving Break/Travelling Home -
+
+=== Weekly Meeting: Nov 27, 2020 ===
+* Discuss plans for presentation
+* First Semesters: Talk about future tasks
+Had a presentation Work Session Nov 28, 2020
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help runs with Kevin Lu
+|Completed
+|Nov 26, 2020
+|Nov 26, 2020
+|Nov 26, 2020
+|-
+|Message Gabe for background on presentation topic.
+|Completed
+|Nov 26, 2020
+|Nov 29, 2020
+|Nov 28, 2020
+|-
+|'''Task:''' Research topic for presentation and complete corresponding slides
+|Completed
+|Nov 27, 2020
+|Nov 29, 2020
+|Nov 29, 2020
+|}
+
+== Week 13: Nov. 16, 2020 - Nov. 23, 2020 ==
+'''Notes on Data Analysis:'''
+* want to show that our changes aren’t because of randomness/noise
+* use with p value
+* set column statistics to 0
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Continue runs as worker through for DataPair
+|Completed
+|Nov 16, 2020
+|Nov 23, 2020
+|Nov 16, 2020
+|}
+
+== Week 12: Nov. 9, 2020 - Nov. 15, 2020 ==
+
+=== Nov. 5, 2020 ===
+'''Issue (Fixed):''' Forgot to make a copy of google colab into my own drive. FInished 
+
+=== '''Team Meeting: Nov. 6, 2020''' ===
+* Note that only the master seeds
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Continue runs as worker through for DataPair
+|Completed
+|Nov 2, 2020
+|Nov 9, 2020
+|Nov 3, 2020
+|}
+
+== Week 11: Nov. 2, 2020 - Nov. 8, 2020 ==
+'''Issue (Fixed):''' Forgot to make a copy of google colab into my own drive. Fixed. 
+
+=== '''Weekly Meeting: Nov. 6, 2020''' ===
+* Note that only the master seeds
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Join a run as a worker through Google Colab for DataPair
+|Completed
+|Nov 2, 2020
+|Nov 9, 2020
+|Nov 3, 2020
+|}
+
+== Week 10: Oct. 26, 2020 - Nov. 1, 2020 ==
+
+=== Oct 26 - Lecture for First Semesters: ===
+Listened in on returning member meetings 
+
+'''<u>EMADE/GP Conceptual Review:</u>'''
+* EMADE is an automated machine learning framework
+* When you have a dataset you have primitives in ML models
+
+* AAD Modularity
+** They have their own fork, so delete cloned EMADE and download theirs  for space concerns
+** Google CoLab is also another option
+** Main Differences:
+*** launchGTMOEP.py with launchEMADE.py
+*** changes in src/GPFramework 
+** Terminals are constants
+** Primitives are nodes in tree with function
+** '''Important to seed your database!''' Puts together random combinations of nodes until it finds valid individuals 
+*** Start with valid individuals to speed up process
+
+=== '''Oct 30 - Lecture for First Semesters (cont.):''' ===
+* Probably helping to run and design experiments 
+* Selection method: datapair limitation
+* '''Seeding:'''
+** Speeds up process by reducing randomness with finding individual
+** Make individual yourself by hypothesizing that it is a good model
+** Set <code><reuse>1</reuse></code> flag to 1
+** Example Seeding file: <code>python src/GPFramework/seeding_from_file.py templates/input_titanicADF1.xml</code>
+* '''Important Tables from Database:'''
+** adf
+** individuals
+** age is a way to keep individuals that are good and that you like
+* <code>SELECT * FROM Differential_Fitness_1.individuals WHERE tree LIKE “%adf%”;</code>
+'''Resources:''' 
+
+Introduction to ADF: [https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit?usp=sharing Lecture Slides]
+
+Gabe's Fork: [https://github.gatech.edu/gwang340/emade Github Link]
+
+Useful Paper: [https://drive.google.com/file/d/1A7cUhIqIxnX7LBfEtSIY-ZAO7Lrb6gXs/view Subroutines in Genetic Programming]
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review slides
+|Completed
+|Oct 26, 2020
+|Nov 2, 2020
+|Oct 28, 2020
+|-
+|'''Task:''' Delete old EMADE, then Clone and Run new EMADE
+|Completed
+|Oct 24, 2020
+|Nov 2, 2020
+|Oct 28, 2020
+|-
+|'''Task:''' Join a run as a worker through Google Colab
+|Completed
+|Oct 26, 2020
+|Nov 2, 2020
+|Oct 28, 2020
+|}
+
+== '''Midterm Presentation''' Oct. 19, 2020 ==
+
+=== Subteams ===
+* Stocks
+** Market Analysis and Portfolio Optimization
+** Overview: 
+*** Objectives: 
+**** How can we use EMADE for regression on time series data?
+**** How can we use EMADE to optimize market trading algorithms?
+**** Methods:
+***** Find existing research on how GP is used in market analysis
+* '''Modularity'''
+** Goal: abstract parts of individuals - create building blocks that can help with genetic process
+*** reuse blocks of code
+** Focus on ARL’s - introduce modularity and reusability in EMADE
+** Dynamically evolved and can be called by other functions
+** Testing Infrastucture is set, see changes/impact
+* NLP/NN
+** Uses neuroevolution for EMADEand abstracts towards automation
+** Tree-based representation to search neural architecture (NEAT uses graph)
+* ezCGP
+** Uses cartesian space to represent GP
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Message Subteam Preferences to Jason
+|Completed
+|Oct 19, 2020
+|Oct 24, 2020
+|Oct 23, 2020
+|}
+
+== Week 8: Oct. 14 2020 - Oct. 18 2020 ==
+
+=== Lecture: EMADE Working Session #2 ===
+* '''<u>Useful Queries</u>''' 
+** <code>GRANT ALL PRIVILEGES ON database_name.* TO ‘username’@‘localhost’;</code>
+*** ex. <code>GRANT ALL PRIVILEGES ON titanic.* TO ‘bbal3’@‘%’;</code>
+** select * from titanic.individuals;
+** '''TO FILTER OUT NULL FP/FN:''' <code>select * from titanic.individuals where ‘FullDataSet False Positives’ is not NULL;</code>
+* '''Issue:''' Version error with DEAP - use 1.2.2
+* You can either make sql queries from python to collect data or dump into csv file  
+** '''Note:''' Our group decided to do the latter and to upload results to our [https://github.gatech.edu/amehra37/Titanic_ML_Group2 github]
+* Note that the optimization number is a ticker that tracks how many times you’ve restarted
+** When stopping and running reuse the ticker goes up one. Make sure this works correctly
+* '''<u>Notes for Creating Presentation</u>'''
+** Try to get all pareto fronts on one axis if possible
+** Document any issues during set up
+*** Useful tips/problems 
+** Findings
+*** list any interesting/notable individuals
+
+=== '''10/16/2020: Subteam Meeting #1''' ===
+'''<u>Goal:</u>''' Discuss Data Analyzation / Finalization Steps of Project
+* Analyze results from run on GitHub
+* Adjust previous models to make results comparable
+* Adjust our presentation (Look at previous presentations for guidelines)
+* Need to make our own Pareto front
+* Look into optimal trees
+** Maybe use a tool to draw out the diagram of the tree 
+'''<u>Files to Look at on Github:</u>'''
+* Individuals File (individuals.csv)
+* Pareto Front (paretofront.csv)
+
+=== '''10/18/2020: Subteam Meeting #2''' ===
+'''<u>Goal:</u>''' Finalizing Project
+* Finish Slides
+* Add updated GP Model adjusted to Dr. Zutty's comments from the first presentation
+* Create pareto trees for examples 
+* Adjusted following parameters in <code>input.xml</code> file: 
+** <code>crossoverProbability: 0.60</code>
+** <code>crossoverEphemeral: 0.50</code>
+** <code>headlessChicken: 0.15</code>
+** <code>headlessChickenEphemeral: 0.15</code>
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|'''Task:''' Titanic Dataset with EMADE
+|Completed
+|Sept 30, 2020
+|Oct 19, 2020
+|Oct 19, 2020
+|-
+|'''Task:''' Presentation
+|Completed
+|Sept 30, 2020
+|Oct 19, 2020
+|Oct 19, 2020
+|}
+
+== Week 7: Oct. 7 2020 - Oct. 13 2020 ==
+
+=== Lecture: EMADE Working Session #1 ===
+* Troubleshooting of EMADE installation
+
+=== 10/12/2020: Subteam Meeting #1 ===
+'''<u>Goal:</u>''' Setup/Understanding EMADE & SQL with Group /  Plan for Future Group Tasks
+
+Designated Host: Aryaan's Server
+* Accomplished setting up EMADE with mySQL Workbench and running it on the server
+* Difficulty connecting workers to the host
+** Resource: [https://dev.mysql.com/doc/workbench/en/wb-migration-wizard-connection.html dev.mysql.com/doc/workbench/en/wb-migration-wizard-connection.html]
+* Also discussed future presentation plans. Slides were set up for next week.
+
+=== 10/13/2020: Subteam Meeting #2 ===
+'''<u>Goal:</u>''' Connect to Host / Plan for Future Group Tasks
+* '''Issue (Fixed):''' connecting to host
+** Aryaan's IP Address had issues due to his location in India, so we connected to campus VPN first before connecting to the server.
+* '''Issue (Fixed):''' need to reinstall mysql to 5.7 instead of 8.0
+'''<u>Connecting to Server:</u>'''
+* <code>python command: mysql -h 172.16.76.35 -u EMADE_v1 -p</code>
+* '''Aryaan's Information:'''
+** '''Host:''' 172.16.76.35
+*** NEW: 172.16.79.77
+** '''Username:''' EMADE_v1 
+** '''PW:''' 12345
+** '''Database:''' EMADE
+Overall, we were able to connect to Aryaan's server by resolving the above issues and connecting to the server.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Connect to Aryaan's Server
+|Completed
+|Oct 12, 2020
+|Oct 13, 2020
+|Oct 13, 2020
+|-
+|Review EMADE slides:
+- Understand different adjustable parameters 
+|Completed
+|Oct 12, 2020
+|Oct 14, 2020
+|Oct 12, 2020
+|-
+|For Overall Project:
+- Fix GP code to get better/comparable results to ML/EMADE
+|In Progress
+|Oct 12, 2020
+|Oct 18, 2020
+|In Progress
+|-
+|'''Task:''' Titanic Dataset with EMADE
+|In Progress
+|Sept 30, 2020
+|Oct 19, 2020
+|In Progress
+|}
+
+== Week 6: Sept. 30 2020 - Oct. 6 2020 ==
+
+=== Lecture 6: Introduction to EMADE ===
+* What is EMADE?
+** Evolutionary Multi-objective Algorithm Design Engine
+** combines a multi-objective evolutionary search w/ high-level primitives to automate the process of designing ml algorithms
+* To Install EMADE:
+** mysql server - mysql 5,6,7, not 8/
+** downloaded and installed git-lfs
+** clone the emade repository
+** run the setup module to install the package
+* What is Required to Run EMADE:
+** start a run of EMADE - navigate to the top level directory and run: 
+<code>python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml</code>
+** templates/input_titanic.xml - input file describing to EMADe how to run the titanic problem you investigated in the last two assignments
+** Input files/ configures all moving parts in EMADE
+*** first block: configuring python
+*** second block: configuring mysql connection:if you are running locally, server can be localhost/127.0.0.1
+**** username and password are for mysql, user should have full permissions on the database specified
+*** third block: datasets
+**** emade can be run across multiple datasets, the titanic example uses only one
+**** data is preprocessed into gzipped csv files
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Peer Evaluation
+|Completed
+|Sept 30, 2020
+|Oct 2, 2020
+|Oct 2, 2020
+|-
+|Clean Notebook
+|Completed
+|Sept 30, 2020
+|Oct 6, 2020
+|Oct 6, 2020
+|-
+|Install git-lfs
+|Completed
+|Sept 30, 2020
+|Oct 6, 2020
+|Oct 6, 2020
+|-
+|Ensure Correct Set-Up of EMADE
+|Completed
+|Sept 30, 2020
+|Oct 6, 2020
+|Oct 6, 2020
+|-
+|'''Task:''' Titanic Dataset with EMADE
+|In Progress
+|Sept 30, 2020
+|Oct 13, 2020
+|In Progress
+|}
+
+== Week 6: Sept. 23 2020 - Sept. 30 2020 ==
+
+=== Presentations: ===
+* '''Group 2'''
+** Clusters of results because of training for one objective. Adjust selection tool
+* '''Group 1'''
+** genHalfAndHalf and mutUniform used
+** One point crossover
+* '''Group 3'''
+** Selection: NSGAIi
+** Single Point Crossover also used
+** AUC was more varied. Had good results 
+* '''Group 4''' 
+** Selection: NSGAII
+** Single Point Crossover also used
+** 200 generations
+** Also displayed good results
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone & Set Up E-Made 
+|Completed
+|Sept 23, 2020
+|Sept 30, 2020
+|Sept 23, 2020
+|}
+
+== Week 5: Sept. 16 2020 - Sept. 23 2020 ==
+
+=== Lecture 5: Titanic Dataset Using GP —Task Overview ===
+* Look at Bootcamp page to reference past work
+* Task:
+** Use preprocessed features
+** Each row becomes a set of inputs to a genetic program
+** Feed into p-set and evaluate the particular program by running it on the two inputs for each set of inputs in the training data set 
+** Score it against the predicted values
+* Presentation:
+** Title Slide
+*** Clear, list of everyone involved and date
+** Graphs
+*** PARETO with AUC, measure false neg vs false pos
+
+=== Team Meeting Notes & Personal Work: ===
+[https://github.gatech.edu/amehra37/Titanic_ML_Group2/blob/master/Titanic_GP.ipynb Github of Work/Progress]
+* '''First Subteam Meeting 9/16/2020:'''
+** Outline of presentation before next meeting
+** Meet by this upcoming Sunday to talk about progress 
+** Explore primitives for different Results
+* '''Second Subteam Meeting 9/20/2020:'''
+** Personal Task: Do slides for second part of feature engineering and comparison of ML and GP 
+** After discussing each of our results, we decided to use Aryaan's code to explore getting better results
+** Discovered that adding more primitives leads to worse AUC
+* '''Third Subteam Meeting 9/23/2020:'''
+** [https://docs.google.com/presentation/d/1PjjLMWpuzzlQbO89IK7YysEGPhbUQ1qgWy0L_YwcQcU/edit?usp=sharing Presentation] Review
+** CSV for submission needs to be created and submitted for group
+
+* Looked at team notebooks to understand different approaches.
+** NSGAII used for multiobjective
+** Looked at different evaluation functions to understand different results
+Results:
+
+[[files/Bernadette Titanic GP Pareto Front.png|frameless]]
+
+Selection: NSGAII 
+
+Primitives: add, subtract, multiply, negative, sin, cos, tanh
+
+Area Under Curve: 0.24838035772968403
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|First Team Meeting to Plan Out Work
+|Completed
+|Sept 16, 2020
+|Sept 23, 2020
+|Sept 16, 2020
+|-
+|Research Past Work
+|Completed
+|Sept 16, 2020
+|Sept 18, 2020
+|Sept 18, 2020
+|-
+|Second Team Meeting to Talk About Results
+|Completed
+|Sept 16, 2020
+|Sept 19, 2020
+|Sept 20, 2020
+|-
+|Adjust Findings to Get Better Results
+|Completed
+|Sept 19, 2020
+|Sept 21, 2020
+|Sept 21, 2020
+|-
+|'''Assignment:''' Presentation
+|Completed
+|Sept 16, 2020
+|Sept 23, 2020
+|Sept 22, 2020
+|-
+|'''Assignment:''' Titanic GP Submission
+|Completed
+|Sept 16, 2020
+|Sept 23, 2020
+|Sept 23, 2020
+|}
+
+== Week 4: Sept. 9 2020 - Sept. 16 2020 ==
+
+=== '''[https://drive.google.com/file/d/1-jZuSXPTAnKkaen0N5AAkhNYJsLCfJZs/view?usp=sharing Self-Evaluation Rubric]''' ===
+
+=== Lecture 4: Exploring Survival on the Titanic Using ML—Task Overview ===
+* '''Sub-Team:''' Aryaan Mehra, Xufei Liu, Jon Greene, Hannah Nguyen
+* [http://kaggle.com/c/titanic/rules Kaggle Challenge]
+* '''Notes:'''
+** Training CSV - model will use features (columns) and make an algorithm that takes data and predicts whether or not passenger survived or not
+** Testing CSV - used to score models on kaggle 
+** Requirement: model doesn't matter, but everyone has to use the same processed feature data 
+** Results of model have to be codominant
+** Submission: Predictions file for survived/not for each row
+*** Format: Gender 
+** Look into crossfolding
+** Look into balance : not equal probable; survival was already 3/4 ; happens for naive classifiers
+** Plot: False Positives/False Negatives
+* Resources
+** Titanic Example from “Reference Materials" repo 
+
+=== Task Notes ===
+Steps & What to Watch Out For
+* Clean Data
+** change values to integers
+* Pre Process Data
+* Use models to train/test data
+* Avoid overfitting
+* Don’t want to use naive models - minimal manipulation of data to forecast
+* Scale data to prevent skew
+* Note imbalance 
+
+=== Team Meeting Notes & Personal Work ===
+* First Meeting: 
+** Aryaan already did some feature engineering on the data before the Saturday meeting.
+** Used several models on Aryaan's Data: Random Foresting (Classifier), Random Foresting (Regression), Gradient Boost, K Nearest Neighbors, AdaBoost, Support Vector Machines, GuassianNB, SGD Regression 
+* Second Meeting:
+** Xufei cleaned data by dropping unnecessary columns
+** Run models again for codominant results:
+* {| class="wikitable" ! !Model !Score |- !1 |Random Foresting (Classifier) |0.987627 |- !4 |Gradient Boost |0.904387 |- !0 |Random Foresting (Regression) |0.898408 |- !7 |K Nearest Neighbors |0.878515 |- !3 |AdaBoost |0.843645 |- !6 |Support Vector Machines |0.840270 |- !5 |GuassianNB |0.737908 |- !2 |SGD Regression |0.433835 |} [[files/Titanic confusion matrix.png|frameless]]
+* Submitting CSV to Kaggle resulted in 0.72966 score. 
+* Future Team Meeting to further talk about feature engineering possibilities for better score.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting to Plan Out Sub-Team Plan
+|Completed
+|Sept 9, 2020
+|Sept 16, 2020
+|Sept 12, 2020
+|-
+|Self-Evaluation Rubric
+|Completed
+|Sept 9, 2020
+|Sept 16, 2020
+|Sept 15, 2020
+|-
+|'''Assignment:''' Titanic Submission
+|Completed
+|Sept 9, 2020
+|Sept 16, 2020
+|Sept 15, 2020
+|}    
+
+== Week 3: Sept. 2, 2020 - Sept. 9 2020 ==
+
+=== '''Lecture 3: Multiple Objectives''' ===
+'''Focus:''' Translating a vector of scores from evaluation into a fitness value using different evaluation techniques
+
+'''Resources: [[wikipedia:Confusion_matrix|Confusion Matrix]], [https://github.com/lmarti/evolutionary-computation-course/blob/master/AEC.06%20-%20Evolutionary%20Multi-Objective%20Optimization.ipynb In-Depth Look at DEAP/Pareto Fronts/Pareto Dominance]'''
+
+'''<u>Gene Pool:</u>''' Set of genomes to be evaluated during the current generation
+* '''Genome''': Description of an individual - DNA
+** '''for GA:''' Set of values ; '''for GP:''' Tree structure/string
+* '''Search Space:''' Set of all possible algorithms/genomes
+<u>'''Evaluation of a Genome:'''</u>  associating genome/individual with a set of "scores"
+* '''"Scores" for GP:'''  in the form of a string ; '''for GA:''' a set of parameters
+* '''Objectives:''' Set of measurements each genome/individual is scored against; the phenotype
+** '''Objective Space:''' Set of objectives
+* '''Evaluation''': Maps a genome/individual from location in search space (genotypic description) -> location in objective space (phenotypic description) 
+'''<u>Classification Measures</u>'''
+# Consider data set with positive samples (condition you're looking for) & negative samples (does not have sought out condition)
+# Goes into algorithm ('''classifier''') that classifies data
+# Gives prediction and outputs [[wikipedia:Confusion_matrix|confusion matrix]]  [[files/Classification Measures-Steps.png|frameless|421x421px]]
+'''<u>Maximization Measures</u>'''
+* When plotting the following on the graph, you want both to aim towards value 1/the top right.
+'''True Positive Rate (TPR) / Sensitivity'''
+* TPR = TP/P = TP/(TP+FN)
+'''True Negative Rate (TNR) / Specificity (SPC)'''
+* TNR = TN/N = TN/(TN+FP)
+
+'''<u>Minimization Measures</u>'''
+* When plotting the following on the graph, you want both to aim towards value 0/the bottom left.
+'''False Negative Rate (FNR)'''
+* FNR = FN/P = FN/(TP+FN)
+* FNR = 1- TPR
+'''False Positive Rate (TNR) / Fallout'''
+* FPR = FP/N = FP/(TN+FP)
+* FPR = 1 - TNR = 1 - SPC
+
+'''<u>Other Useful Measures</u>'''
+
+'''Positive Predictive Value (PPV) / Precision:''' if algorithm predicts positive, probability it is true
+* PPV = TP/(TP+FP)
+* Bigger is Better
+'''False Discovery Rate (FDR)'''
+* FDR = FP/(TP+FP) = 1 - PPV
+* Smaller is Better
+'''Negative Predictive Value (NPV):''' if algorithm predicts negative, probability it is actually negative
+* NPV = TN/(TN+FN)
+* Bigger is Better
+'''Accuracy (ACC)'''
+* ACC = (TP + TN) / (P + N) = (TP + TN)/(TP+FP + FN+TN)
+* Bigger is Better
+'''Error''' = 1 - ACC
+
+'''<u>Pareto Optimality</u>'''
+* '''Pareto:''' Individual where there is no other individual in the population that outperforms it on all objectives
+** Draw horizontal/vertical line on a point in the objective space to see if other points outperform it on graph
+* '''Pareto Frontier:''' Set of all Pareto individuals at the current time
+* Want to:
+** Reward those who have optimal conditions since these individuals represent unique contributions
+** Drive selection by favoring pareto individuals but maintain diversity by giving individuals some probability of mating (why you do tournaments with higher ranks)
+<u>'''Nondominated Sorted Genetic Algorithm II (NGSA II)'''</u>
+# Population is separated into nondomination ranks (starting at 0)
+# Individuals selected with binary tournament
+## Lower pareto ranks beat higher ranks
+## Ties broken by individual with highest '''crowding distance'''
+
+<u>'''Strength Pareto Evolutionary Algorithm 2 (SPEA 2)'''</u>
+# Give each individual a strength ''S'' (how many others in the population it dominates) 
+# Give each individual rank ''R'' (sum of the ''S''<nowiki/>'s of the individuals that dominate it)
+## Pareto individuals are nondominated -> R=0
+# Distance to the kth nearest neighbor is calculated and a fitness is obtained.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Slides
+|Completed
+|Sept 2, 2020
+|Sept 9, 2020
+|Sept 8, 2020
+|-
+|'''Assignment:''' Lab 2 Pt. 2 - Multi-Objective Optimization
+|Completed
+|Sept 2, 2020
+|Sept 9, 2020
+|Sept 8, 2020
+|}  
+
+== Week 2: Aug. 26, 2020 - Sept. 2, 2020 ==
+
+=== Lecture 2: '''Genetic Programming''' ===
+Last Week: Genetic Algorithms Review
+* Population-based solution
+* Natural Selection used to evolve individuals
+* "DNA" properties were used to exchange/change info between individuals
+* "Genome" represented by lists
+
+=== '''Genetic Programming''' ===
+* '''Individual is the function:''' Individuals take input data and produce an output, which is then evaluated 
+** ''Genetic Algorithms:'' individuals are mutated, then evaluated by inputting it into a function 
+
+* '''Structure:''' Tree Representation
+** Read: DFS / Up -> Down, L-> R
+** '''Parse Trees''' represent program as a tree structure with:
+*** '''Nodes:''' Primitives & Functions
+*** '''Leaves:''' Terminals & Parameters
+** '''Input:''' A type of terminal
+** '''Output:''' Produced at root
+** '''Stored:''' lisp preordered parse tree
+*** List where operator is followed by inputs to nextthe  operator
+* '''Crossover in GP'''
+** Exchange subtrees: pick node in tree, take its children (if any) and exchange with another
+
+* '''Mutation in GP'''
+** Insert/Delete/Change node or subtree
+** Less destructive than crossover!
+
+* '''Evaluating a Tree'''
+** Feed a number of input points in a  function to get outputs
+** Run f(x)
+** Measure error between outputs and truth 
+
+* evolution could be made easier through having functions that will make lving phe oprblem at hand easier 
+
+=== Lab 2 Pt. 1: Symbolic Regression. 1 ===
+'''''Process/Notes'''''
+* Ran into some errors with undefined input when adding my own primitives other than add, subtract, multiply, negative
+** Note: Be wary with what operations you use/how you go about using them? 
+* Manipulated Code:
+** Added Primitives: Maximum (choosing maximum between two elements), Remainder (return remainder between two elements)
+** Registered More Toolbox Mutations: mutShrink(individual) 
+*** From GP DEAP Mutation Source Code: "Operator shrinks the individual by randomly choosing a branch and replacing it with one of the branch's arguments (also randomly chosen)
+'''''Code'''''
+
+[[files/Lab 2 Added Primitives.png|frameless]][[files/Lab 2 Code Manipulation.png|frameless]]
+
+'''''Resulting Graphs'''''
+[[files/Lab2 Without Added Primitives.png|none|thumb|Plotted graphs '''without added primitives''']]
+[[files/Lab 2 with primitives.png|none|thumb|303x303px|Same run of kernel '''with primitives reciprocal and remainder'''. Gaps in data might be the result of undefined results from operations of using the primitives.]]
+[[files/Lab 2 With Primitives + Max Depth 5.png|none|thumb|Results of added primitives and '''changing the max depth of trees to 5'''. More gaps in data, took longer for average to stabilize]]
+
+'''''Future Tasks'''''
+* Before going into next part of this lab, research more into how code manipulation optimized results.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Slides/Read DEAP Documentation for GP
+|Completed
+|Aug 26, 2020
+|Sept 2, 2020
+|Sept 1, 2020
+|-
+|'''Assignment:''' Lab 2 Pt. 1 - GP
+|Completed
+|Aug 26, 2020
+|Sept 2, 2020
+|Sept 1, 2020
+|}
+
+== Week 1: Aug. 19, 2020 - Aug. 26, 2020 ==
+
+=== Lecture 1: '''Evolutionary Algorithms''' ===
+
+'''''Genetic Algorithm''''' 
+* The simplest form of an evolutionary algorithm
+* Best Individual: Created by the evolution of generations: multiple mutations of individuals in a population
+
+'''''Terms'''''
+* '''Individual''' - specific candidate in population with properties, one solution to problem
+* '''Population''' - set of individuals; varies with hyperparameters of genetic algorithm
+* '''Objective''' - quantitative value you are trying to optimize through algorn aithm
+* '''Fitness''' - can directly be an objective (eg test score) but it is a relative comparison to the rest of the population
+* '''Evaluation''' - a function used to compute the score of individual
+* '''Selection''' - selecting parents to produce a new population using the concept of survival of the fittest
+** '''Fitness Proportionate''' - the greater the fitness higher prob. ofabilitynof g selected
+** '''Tournament Selection''' - randomly choose individuals of population  (# dependent on pop. size)
+*** repeat as many times as needed to fill in the next generation of population 
+
+'''''Creating Offspring'''''
+* Parents Established -> Combine to get offspring
+** '''mate/crossover''' - mating b/w individuals, how you exchange info b/w individuals
+*** single point (one crossover point dividing both vectors)
+*** double point (two crossover points dividing vectors and combining them accordingly)
+*** can go to n-point
+** '''mutation''' - random modifications to increase diversity of a population
+*** eg. changing one bit 
+
+'''''Process of Evolutionary Algorithms'''''
+# Initialize population randomly
+# Determine fitness of poputhe lation
+# Repeat until finding best individual:
+## Select parents from population
+## Crossover/mating of parents to create offspring/populaiotn
+## Mutation of offspring
+## Determine fitness of poputhe lation 
+
+=== Lab 1 ===
+'''''One Max Problem'''''
+
+<u>Objective</u>: Find a bit string containing all 1's with a set length of 100. 
+
+<u>Process Note</u>s:
+* There are two types of fitness objectives we looked at in this lab, minimizing and maximizing. For this problem, a maximizing fitness objectisve was necessary. This is because individuals are represented as a bit string and the maximum length is 100.
+* Evaluation by finding individuals with higher sums (more 1s, higher fitness score)
+<u>Results:</u>
+
+Trial 1: Successful Evolution by Generation 37
+
+Trial 2: Successful Evolution by Generation 39 (Fitness 99.0)
+
+Trial 3: Successful Evolution by Generation 35
+
+<u>Conclusions</u>
+* Understood basic process of using DEAP:
+** Defining a fitness objective & individual classes with DEAP's Creator
+** Defining specific functions for genetic algorithm with DEAP's Toolbox
+** Defining operators by registering Evaluate, Mate, Mutate, Select into the toolbox
+** Defining main function for genetic algorithm
+** Visualizing Results
+'''''N Queens Problem'''''
+
+<u>Objective:</u> Find a configuration of queens on an nxn chessboard such that no queen can take another. Restraints are that there is one queen per column and only one queen can be on each line.
+
+<u>Process/Notes:</u> 
+* Used permutation for individuals, each queen placement is distinct
+* For this problem, a minimizing fitness objective was used. This accounts for finding the least amount of conflicts between two queens on a chessboard.
+<u>Results:</u>  
+* Default Problem Size:
+[[files/N Queens Problem Visualization.png|left|thumb|231x231px|Default (N=20)]]
+
+<u>Conclusions:</u>  
+* After running on the default problem size, I also ran on different problem sizes (10, 40, 100) (n/2, n*2, n*5). For n=10, by around generation 7 the minimizing objective was reached. For n=40, it took until generation 70 for the minimum value to stabilize, but for n=100, this stabilized just before generation 60. Running both of these values again, the generations it took to stabilize were still around the same value. 
+* Not sure how much problem size is impactful in getting better results quicker. 
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Slack
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 19, 2020
+|-
+|Install Anaconda
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 22, 2020
+|-
+|Set Up VIP Notebook
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 22, 2020
+|-
+|'''Assignment:''' Lab 1 - DEAP
+|Completed
+|August 19, 2020
+|August 26, 2020
+|August 25, 2020
+|}

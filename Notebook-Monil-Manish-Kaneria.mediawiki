@@ -1,0 +1,1593 @@
+== Monil Kaneria ==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+
+Name: Monil M. Kaneria
+
+Email: mkaneria3@gatech.edu
+Cell Phone: 256-631-7491
+
+Interests: Machine Learning, Python, Soccer, Chess 
+
+== Fall 2021 ==
+
+* Image Processing subteam
+** Teammates: Harris Barton, Maxim Geller, Aryaan Mehra, Temi O, Heidi Yap, Dhruv Patel, Austin Peng, Eashan Sinha, Elan Grossman, Rohan Batra 
+** Subteam meetings 5:45-6:45pm on Wednesdays
+** Main meetings 5-5:50pm on Mondays
+
+
+== October 27, 2021 ==
+
+'''Sub Team Notes:'''
+* We decided to pursue binary classification for disease detection
+* Tasks for the week:
+** Fix modifications & merge
+** Onboard new members
+** Reprocess data (disease or no disease)
+** Change objectives (ROC-AUC, # parameters)
+** Create new tasks
+
+* I will be working on producing a Standalone tree for the Hyperfeatures primitive to get test results 
+* Then I will open up a pull request to merge my Hyperfeatures-Image-Proc branch in to our affective master, Image-Processing(nn-vip).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|}
+
+
+
+== October 25, 2021 ==
+
+'''Team Meeting Notes:'''
+* MidTerm Presentations
+
+* NLP
+** Simulating the Bi-DAF model by first creating a word embedding and obtaining an output based on the context of the word
+** Using the SQUAD dataset from Stanford with 100,000 answered and 50,000 unanswered questions.
+** Trying to get close to the SOTA which is an F1 of 93.214
+** Haven’t completed all the primitives yet such as the output layer which is why they do not have any results yet.
+** Planning on using Facebook’s dataset. Dynamic/Episodic memory is the best as of now.
+
+* NAS
+** Overall goal is to make EMADE competitive with VGG16 and other large structure architectures
+** Objectives: minimize accuracy errors and number of parameters
+** Used time stopping of 600 vs 2500 seconds, latter ended in 1500 but generated less valid individuals and slightly better accuracy error (-0.05)
+** Higher number of layers → higher num of error individuals (though 2-5 was less than baseline)
+** Used only dense layers and convoluted layers
+** Tracking layer frequencies across generations
+** Created NNLearner table to track NNLearner individuals’ statistics
+
+* Stocks
+** Objectives: use EMADE for regression on time series data and optimize market trading algorithm ; beat SOTA using EMADE
+**They are trying to model papers and use technical indicators to predict price change points
+** Best primitives to use: modelled TI’s versus the different regression techniques that are implemented
+**Maximize profit percentage and average profit per transaction, minimize CDF of profit and variance of profit per transaction (four obj functions total)
+** Best performance was with the least complex tree (only one TI)
+**They are using minimization rather than maximization functions since they work better on EMADE.
+
+* Modularity
+** Goal: allow search function to consider larger subtrees depth. Improve ARL candidate selection through a new weighting function (occurrences * ARL size / fitness of individual)
+** Runs with both the old ARL’s and newer ARL’S are worse than with no ARL’s
+** More data is needed to see effects of ARL complexity on performance
+** Using ARLs with Stocks
+*** Used various technical indicators
+*** Problems with Google Colab’s limited computing power and merging stocks’ codebase into the ARL codebase
+*** Individuals not evaluating because of cachev2 updates
+** ARL: adaptive representation through learning
+*** ARL’s are implemented between the genetic operations and the evaluation phase
+*** Must be a complete tree
+*** It basically abstracts away complexity
+
+* Here are our Midterm Presentation slides: [https://github.gatech.edu/mkaneria3/VIP-FALL2021-ImageProcessing/blob/master/Image%20Processing%20Midterm%20Presentation.pdf]
+** I worked on the Hyperfeature slides.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare my slides for the mid-term presentation
+|Completed
+|October 20, 2021
+|October 24, 2021
+|October 24, 2021
+|}
+
+
+== October 20, 2021 ==
+
+'''Sub Team Notes:'''
+* Max tested PACE and it works, though primitives are erroring out for the nn tree
+* Code not using nsga3, nsga2 is hard-coded
+** Need to register nsga3 into toolbox
+** Call it in the code
+
+* We have four changes from the baseline, test all of them SEPARATELY
+** Geo. Crossover
+** Semantic Crossover
+** Hyper Features
+** NSGA-3 selection
+** Compare which of these four had the best changes
+
+* I worked on getting the hyper-feature code on emade as a primitive and Heidi decided to set up pace, fix any issues and get it ready for a run of emade for hyper-features.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 23, 2021
+|-
+|Prepare my slides for the mid-term presentation
+|In-Progress
+|October 20, 2021
+|October 24, 2021
+|}
+
+
+== October 18, 2021 ==
+
+'''Team Meeting Notes:'''
+* Presentation is NEXT WEEK!
+* When doing runs:
+** CPU hours should add up to how much time is left in the class
+** 1 master - 1 core is constant
+** Number of hosts means how many worker jobs
+** Number of CPU per worker is core count per worker
+* With all these different parameter tweaks, give thought to how will we show that we made improvement.
+
+* I combined my code(contrast enhancement) with Heidi's code(edge detection filter).
+* I also tested the code locally. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Combine my code with Heidi's code to complete the hyper-feature
+|Completed
+|October 13, 2021
+|October 18, 2021
+|October 18, 2021
+|-
+|Test the completed hyper-feature locally
+|Completed
+|October 13, 2021
+|October 18, 2021
+|October 12, 2021
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|In-Progress
+|October 13, 2021
+|October 20, 2021
+|
+|}
+
+
+== October 13, 2021 ==
+
+'''Sub Team Notes:'''
+* Reminder: mid-term presentation is on 10/25
+* Start preparing presentation slides from 10/19
+* Be prepared to talk about what we worked on individually/in your pairings (will need to put it on the slides)
+* verify changes, commit changes, create pull requests, review others' PR, merge changes
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test the grey level transform primitive in emade
+|In-Progress
+|September 6, 2021
+|October 13, 2021
+|October 13, 2021
+|-
+|Combine my code with Heidi's code to complete the hyper-feature
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|-
+|Test the completed hyper-feature locally
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|-
+|Convert and add the hyper-feature as a primitive to emade
+|In-Progress
+|October 13, 2021
+|October 18, 2021
+|
+|}
+
+
+== October 11, 2021 ==
+
+'''Team Meeting Notes:'''
+* No Meeting - Fall Break
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test the grey level transform primitive in emade
+|In-Progress
+|September 6, 2021
+|October 13, 2021
+|
+|}
+
+== October 6, 2021 ==
+
+'''Sub Team Notes:'''
+* I finished coding the grey level transform script.
+** I tested it locally with the image data set available on emade.
+* I have to meet with Heidi to combine our scripts and make a hyper feature primitive so that it can be tested on emade.
+* I will also test the primitive using the stand-alone tree evaluator in emade.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test the grey level transform primitive in emade
+|In-Progress
+|September 6, 2021
+|October 13, 2021
+|
+|-
+|Code the grey level transform primitive
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 6, 2021
+|-
+|Do peer evaluation
+|Complete
+|October 4, 2021
+|October 8, 2021
+|October 6, 2021
+|}
+
+
+== October 4, 2021 ==
+
+'''Team Meeting Notes:'''
+* Peer evals are open! Due this Friday 10/8
+* We are trying to minimize area under curve for precision recall
+** Reason: we have multi-label data, traditional accuracy metrics do not work.
+* Focus now: what we added is working correctly and generate comparison data (baseline data almost done)
+* Anything put in the shared folder counts against personal quota (based on file ownership), Zutty can change it to his account and make it read-only
+** We will test if we can do this with a conda environment
+** Possibly database as well!
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Code the grey level transform primitive
+|In-Progress
+|September 29, 2021
+|October 6, 2021
+|
+|-
+|Do peer evaluation
+|In-Progress
+|October 4, 2021
+|October 8, 2021
+|
+|}
+
+
+== September 29, 2021 ==
+
+'''Sub Team Notes:'''
+* I found a paper that I shared with Heidi and we came up with the idea of our hyper-feature.
+* We decided to make a grey level transformation primitive to increase the contrast of each of the images. 
+* Then make a primitive for edge detector filter and combine them. 
+* This will make a good primitive combination because the increased contrast will help in improving the edge detection.
+
+* We split up the work. 
+** I decided to code the grey level transform – contrast enhancement primitive.
+
+* Here is the link to the paper that we got the idea from : [https://www.researchgate.net/publication/236125496_Image_processing_and_recognition_for_biological_images]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Heidi to finalize what primitives we want to combine 
+|Completed
+|September 22, 2021
+|October 4, 2021
+|September 29, 2021
+|-
+|Code the grey level transform primitive
+|In-Progress
+|September 29, 2021
+|October 6, 2021
+|
+|}
+
+
+== September 22, 2021 ==
+
+'''Sub Team Notes:'''
+* We all gave our updates from the week.
+* I worked on reading papers related to hyper-features and finding ideas on primitives that would work great in combinations for our image processing tasks.
+* We found a few papers:
+** [http://vis-www.cs.umass.edu/hyperfeatures.html]
+** [http://vis-www.cs.umass.edu/papers/andras_NIPS.pdf]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research for Hyper-feature packaging and come up with good literature.
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|-
+|Meet with Heidi to finalize what primitives we want to combine and start coding
+|In-Progress
+|September 22, 2021
+|October 4, 2021
+|
+|}
+
+
+== September 20, 2021 ==
+
+'''Team Meeting Notes:'''
+* Discussed the goals for the semester.
+* Heidi and I had difficulties finding good literature for hyper features. 
+** Jason suggested we look more into the sited papers from the 1 reference paper that we already have. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research for Hyper-feature packaging and come up with good literature.
+|In-Progress
+|September 15, 2021
+|September 22, 2021
+|-
+|Talk with Heidi and exchange the information we found about hyper features.
+|Complete
+|September 20, 2021
+|September 22, 2021
+|September 20, 2021
+|
+|}
+
+
+== September 15, 2021 ==
+
+'''Sub Team Notes:'''
+* Jason joined the sub team meeting.
+* Discussed next steps of the teams.
+* Each member found a paper to discuss and use.
+** Here is my paper: [https://ieeexplore.ieee.org/document/8790151]
+
+* tasks for next week:
+** Data preparation
+*** Downsample (greyscale, lower resolution, balancing)
+*** Talk to Anish
+*** Try it out with EMADE as is
+** Selection methods
+*** NSGA3, Lexicase, etc.
+*** Hypervolume indicator
+*** Hyper-feature packaging
+** Clever mating and mutation
+*** Improve existing primitives
+*** Semantic crossover
+
+* I volunteered to research for Hyper-feature packaging.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research for Hyper-feature packaging and come up with good literature.
+|In-Progress
+|September 15, 2021
+|September 22, 2021
+|
+|}
+
+
+== September 13, 2021 ==
+
+'''Team Meeting Notes:'''
+* Self Evaluation: [https://github.gatech.edu/mkaneria3/VIP-FALL2021-ImageProcessing/blob/master/VIP_AAD_notebook_rubric-2.pdf]
+
+* Gave an update on the last weeks progress and what we had decided to do in the coming week.
+* Decided to get emade running by net subteam meeting and find a good paper with datasets to use related to image classification.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Emade
+|Completed
+|September 6, 2021
+|September 15, 2021
+|
+|}
+
+== September 9, 2021 ==
+
+'''Sub team Notes:'''
+* Meeting Time decided to be 5:45pm on Wednesdays every week.
+* Discussed different approaches that we can take for image processing. 
+* Decided to come up with 1-3 papers each by next wednesday that have a good data set that we could use.
+* Tentative goal for the semester is to add new primitives to emade that can help replicate traditional ML methods for doing image processing.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meeting with sub team
+|Completed
+|September 6, 2021
+|September 13, 2021
+|September 9, 2021
+|-
+|Review Emade
+|Completed
+|September 6, 2021
+|September 15, 2021
+|
+|}
+
+
+== September 6, 2021 ==
+
+'''Team Meeting Notes:'''
+* No Meeting - Labor Day  
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meeting with sub team
+|Completed
+|September 6, 2021
+|September 13, 2021
+|September 9, 2021
+|-
+|Review Emade
+|Completed
+|September 6, 2021
+|September 13, 2021
+|September 13, 2021
+|}
+
+== August 30, 2021 ==
+
+'''Team Meeting Notes:'''
+* Discussed all the research ideas for newly listed sub team.
+* Cropped down the sub team list by eliminating the ones that had least interest from the class.
+* I joined the Image processing slack channel and we did a lettuce meet to decide a time for our sub team meeting. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide the time for sub team meeting
+|Completed
+|August 30, 2021
+|September 6, 2021
+|September 1, 2021
+|}
+
+== August 23, 2021 ==
+
+'''Team Meeting Notes:'''
+* Brain stormed idean for the new subteams for the semester.
+* I Researched the new team proposals and did some digging into what can be done in the Image processing teams.
+* I also looked up some of the work of ezCGP last semester to get a refresher and think of what new can be done.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fill out the sub team ranking.
+|Completed
+|August 23, 2021
+|August 29, 2021
+|August 29, 2021
+|}
+
+
+== Spring 2021 ==
+
+== April 30, 2021 ==
+
+'''Final Presentations''' 
+*Stocks Team:
+** Paper: Piecewise Linear Representation, a graph of prices segmented in piecewise segments.
+** Technical indicators: VWAP, VWMA, FIBRET
+** Did 2 EMADE runs, with 328 generation 
+** Used a new metric called buy/sell lag: difference between the local extrema and buy/sell point.
+
+*NLP:
+** Issue of getting trivial solutions in the neural nets.
+** Solved it by the use of simpler datasets that can give a seeded network which can then be improved by EMADE.
+** They solved many MySQL problems.
+** They used the Amazon product review dataset with 22 generations and seeded individuals. They had good results with it, with the accuracy of the best individual being 93%.
+** Next semester: get EMADE to run with unseeded runs.
+
+*Modularity:
+** Uses Adaptive representation through learning.
+** They are dynamically evolved functions that can be used by other functions.
+** Found super individuals that outperformed all other models.
+** They would like to create new models like CNN architecture with decreasing learning rate in future.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish the notebook for final submission
+|Completed
+|April 29, 2021
+|May 1, 2021
+|May, 1, 2021
+|}
+
+== April 29, 2021 ==
+
+'''Sub-Team Notes:'''
+* Final review of the presentation slides to make sure everything is covered and is accurate.
+* made a rough estimate of timings on each slide to make sure that we are within the time range of 20 -30 mins.
+
+'''Personal Notes:'''
+* I implemented the code to find the best combination of parameters in the in the parameter search problem.
+** The best combination and the corresponding fitness value for it is outputted in a text file in the output directory of that universe.
+** Here is the final code for the parameter search problem - [https://github.com/ezCGP/ezCGP/blob/feature/Issue168-ParameterSearch-MONIL/parameter_search.py ParameterSearch]
+* I cleaned up the code and pushed the final version on GitHub.
+** Here is the link to the final branch for parameter_search problem.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on the parameter search problem
+|In-Progress
+|April 19, 2021
+|April 26, 2021
+|April 29, 2021
+|-
+|Finish the notebook for final submission
+|In-Progress
+|April 29, 2021
+|May 1, 2021
+|
+|}
+
+== April 26, 2021 ==
+
+'''Team-Meeting Notes:'''
+* Updates on the work done by each sub-team.
+* Final Presentation on April 30th at 6pm
+
+'''Sub-Team Notes:'''
+* Went over the completed slides for the final presentation and made edits where necessary. 
+*Decided to make final changed that were discussed by Thursday, which would be the final sub-team meeting before the presentation.
+
+'''Personal Notes:'''
+* I finished my slides on the paper overview.
+** Here is the [https://docs.google.com/presentation/d/1mtGCykBN52kmu4_1CEU6biCzT6vh4JXiurjlzDSZJrI/edit?usp=sharing link] to the slides I made. ( Note: This is not the full presentation, only the slides I made.)
+* Other than the slides I also worked on the parameter search problem.
+** I changed the organization of the code by shifting the functionality of the main() method in main.py to the parameter_search.py file. 
+*** I did this to make the code more readable as there was no need to call the main() from main.py and the same functionality could be achieved by doin it within the parameter_search.py file.
+** I implemented the code that would organize the file system in the outputs directory of ezCGP to accommodate for storing different parameter combination outputs in separate directories.
+*** Below is a screenshot showing an example output directory file organization.
+[[files/file_system.png]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on the parameter search problem
+|In-Progress
+|April 19, 2021
+|April 26, 2021
+|
+|-
+|Make the assigned slides for the final presentation
+|Completed
+|April 22, 2021
+|April 26, 2021
+|April 26, 2021
+|}
+
+== April 25, 2021 ==
+
+'''Personal Notes:'''
+* I worked on the parameter search problem.
+* I met with Lucas Zhang on a bluejeans call to discuss the work. 
+** we also had Rodd join us for some time so that he could give us a quick walk through of the skeleton file and how it was connected with the problem file.
+* I came up with 2 main tasks to do related to the problem. 
+** 1) Creating a new output file structure that would save the generations in an organized way, so that each different combination of population size and genome size are saved in a separate directory.
+** 2) implementing a way to get the best fitness values of each combination and outputting the best parameter combination according to the fitness values.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on the parameter search problem
+|In-Progress
+|April 19, 2021
+|April 26, 2021
+|
+|-
+|Make the assigned slides for the final presentation
+|In-Progress
+|April 22, 2021
+|April 26, 2021
+|
+|}
+
+
+== April 22, 2021 ==
+
+'''Sub-Team Notes:'''
+* We started to work on the final presentation slides.
+* Made a quick outline of the topics we wanted to cover and assigned each person with the slides they would present.
+
+'''Personal Notes:'''
+* I was assigned to the slides on the overview and description of the Crossover research paper that we read last week.
+* Other than the slide, I made some progress in the parameter search problem.
+** I talked with Lucas Zhang, who was assigned similar problem to mine to understand the problem better and we also talked about potential implementations that we could make.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on the parameter search problem
+|In-Progress
+|April 19, 2021
+|April 26, 2021
+|
+|-
+|Make the assigned slides for the final presentation
+|In-Progress
+|April 22, 2021
+|April 26, 2021
+|-
+|Complete the final peer evaluation
+|Completed
+|April 19, 2021
+|April 22, 2021
+|April 21, 2021
+|}
+
+
+
+== April 19, 2021 ==
+
+'''Team-Meeting Notes:'''
+* Updates on the work done by each sub-team.
+* Peer evaluations are out.
+
+'''Sub-Team Notes:'''
+* Assigned the mating team members with new tasks.
+* I was assigned with the parameter_search problem.
+** feature/Issue168-ParameterSearch-Base on ezCGP repo.
+
+'''Personal Notes:'''
+*I finished doing the code implementation for the NGUYEN7 symbolic regression problem that I was. assigned last week.
+* I also pushed the code for the the NGUYEN7 problem on branch "[https://github.com/ezCGP/ezCGP/tree/feature/SymbolicRegression-MONIL feature/SymbolicRegression-MONIL]" on the ezCGP repo.
+* I made a new brach for the parameter search problem named "feature/Issue168-ParameterSearch-MONIL"
+** I went over the code skeleton provided by Rodd for the parameter search problem to better understand what it was doing.
+*** parameter_search.py is cousin script to main.py which can run the symbolic regression problem files with different combinations of parameters that we can specify.
+*** The goal is to search for the combination of parameters that produces the best fitness.
+**** In this file I focused on the combinations of 4 different population sizes and 3 different genome sizes.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Created new branch in EZCGP repo called feature/Issue168-ParameterSearch-MONIL
+|Completed
+|April 19, 2021
+|April 19, 2021
+|April 19, 2021
+|-
+|Work on the parameter search problem
+|In-Progress
+|April 19, 2021
+|April 26, 2021
+|-
+|Finish NGUYEN7 problem
+|Completed
+|April 15, 2021
+|April 19, 2021
+|April 19, 2021
+|-
+|Complete the final peer evaluation
+|In-Progress
+|April 19, 2021
+|April 22, 2021
+|
+|}
+
+== April 15, 2021 ==
+
+'''Sub-Team Notes:'''
+* Finished the Crossover research paper reading during the sub-team breakout session during main Monday meeting.
+* Everyone was assigned a specific problem to work on.
+* In the Thursday sub-team meeting we discussed how to checkout into our own branches in the EZCGP code base and work on our assigned problems.
+* We also went over the code template that we would be using to implement our problems.
+
+'''Personal Notes:'''
+* I was assigned the Nguyen-7 problem.
+* Nguyen-7 
+** Objective function - ln(x + 1) + ln(x^2 + 1)
+** Training set - U[0, 2, 20]
+* Read the paper again to better understand Nguyen-7
+* I created my new branch in the EZCGP repo.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the Crossover research paper again to better understand Nguyen-7
+|Completed
+|April 12, 2021
+|April 15, 2021
+|April 15, 2021
+|-
+|Created new branch in EZCGP repo called feature/SymbolicRegression-MONIL
+|Completed
+|April 15, 2021
+|April 19, 2021
+|April 15, 2021
+|}
+
+== April 8, 2021 ==
+
+'''Sub-Team Notes:'''
+* Went over the statistics presentation in the Monday meeting. 
+* Met in breakout session within the sub-team Thursday meeting with the mating group.
+* Went over a research paper on crossover/mating to take inspiration for our research.
+** This paper presented a comparative study of crossover in CGP.
+** In the experiment, parent genomes for the next generation are picked using two separate tournaments, which allow for the same individual to be picked multiple times.
+
+'''Personal Notes:'''
+* [https://link.springer.com/content/pdf/10.1007%2F978-3-319-77553-1_13.pdf Here] is the link to the paper called A Comparative Study on Crossover in Cartesian Genetic Programming.
+* I went over it by myself before the meeting.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the research paper on Crossover Techniques 
+|Completed
+|April 5, 2021
+|April 8, 2021
+|April 8, 2021
+|}
+
+
+== April 1, 2021 ==
+'''Sub-Team Notes:'''
+* Learned more about the genetic tree.
+* Reviewed EZCGP code base.
+
+'''Personal Notes:'''
+* All team members were assigned specific tasks.
+* I chose to focus on Mating algorithms.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reviewing the EZCGP code repo and making sure everything is set up to start working.
+|Completed
+|April 1, 2021
+|April 5, 2021
+|April 5, 2021
+|}
+
+
+== March 29, 2021 ==
+'''Team Meeting Notes:'''
+* Sub-teams assigned to all first semester students.
+* I was assigned in the EZCGP sub-team.
+
+'''Sub-Team Notes:'''
+* Introductions of all the members in the team.
+*Introduction to the work that is done in the EZCGP team.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish steps onboarding wiki.(including git setup and cloning the repos)
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 1, 2021
+|-
+|Set up PACE ICE
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 1, 2021
+|}
+
+
+== March 22, 2021 ==
+'''Team Meeting Notes:'''
+* Midterm Presentation day for an extended 3 hour session.
+* Presented the results we got through out the bootcamp with the sub-team.
+
+'''Personal Notes:'''
+* I was responsible to present the slide related to the Titanic ML assignment.
+* Did the sub-team ranking survey.
+
+'''Final Bootcamp Presentation Slides:'''
+* Click [https://github.gatech.edu/mkaneria3/VIP_sp21_SubTeam3/blob/master/EMADE%20Presentation.pdf here]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make final presentation slides
+|Completed
+|March 3, 2021
+|March 21, 2021
+|March 21, 2021
+|-
+|Did sub-team ranking survey
+|Completed
+|March 22, 2021
+|March 28, 2021
+|March 27, 2021
+|}
+
+== March 19, 2021 ==
+'''Sub-Team Notes:'''
+* Ran EMADE during the sub team meeting to create the final pareto front before presentation on Monday.
+*Plotted our pareto front.
+*Got area under the curve of 0.00387.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meeting with subteam on March 19 to finalize presentation.
+|Completed
+|March 17, 2021
+|March 19, 2021
+|March 19, 2021
+|-
+|Visualize the EMADE results
+|Completed
+|March 17, 2021
+|March 19, 2021
+|March 19, 2021
+|-
+|Make final presentation slides
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|}
+
+
+
+== March 17, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed our mid term presentation coming up on Monday and the next steps after the end of boot camp.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meeting with subteam on March 19 to finalize presentation.
+|In-Progress
+|March 17, 2021
+|March 19, 2021
+|
+|-
+|Visualize the EMADE results
+|In-Progress
+|March 17, 2021
+|March 19, 2021
+|
+|-
+|Make final presentation slides
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|}
+
+
+
+== March 12, 2021 ==
+'''Sub-Team Notes:'''
+* Met to discuss how we will go about with the presentation and other logistical things.
+* Revisited our results in the MySQL server.
+
+''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE
+|Completed
+|March 3, 2021
+|March 21, 2021
+|March 12, 2021
+|-
+|Make final presentation slides
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|}
+
+
+== March 10, 2021 ==
+'''Team Meeting Notes:'''
+* Debugged issue relating to downgrading the version of deap to 1.2.2.
+* Ran EMADE in sub-team and successfully produced pareto optimal individuals.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|Make final presentation slides
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|}
+
+== March 5, 2021 ==
+'''Sub-Team Notes:'''
+* Met with the sub team to set up MySQL on everyone's computers.
+* Ran EMADE a few times and did some bug fixing.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|Make final presentation slides
+|In-Progress
+|March 3, 2021
+|March 21, 2021
+|
+|-
+|}
+
+
+== March 3, 2021 ==
+'''Team Meeting Notes:'''
+* Presentation Day for the work done in Titanic ML and Titanic MOGP assignments for Teams 4 and 5.
+* Brief introduction to EMADE
+'''Sub-Team Notes:'''
+* Decided to have a team meeting on March 5, 2021 to complete EMADE setup for everyone.
+'''Personal notes:'''
+* Finished Peer Evaluation.
+* Working on installing EMADE. I had some complications with my PC so it got a little delayed.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE
+|In-Progress
+|February 24, 2021
+|March 5, 2021
+|
+|-
+|Peer evaluation
+|Completed
+|February 24, 2021
+|March 3, 2021
+|March 4, 2021
+|-
+|Team meeting to complete EMADE setup
+|In-Progress
+|March 3, 2021
+|March 5, 2021
+|
+|}
+
+
+== February 24, 2021 ==
+'''Team Meeting Notes:'''
+* Presentation Day for the work done in Titanic ML and Titanic MOGP assignments.
+* Presented our works in the sub-team 3
+** I presented the results and the pareto optimality curve from the Titanic ML assignment.
+'''Sub-Team Notes:'''
+* Met on February 19th to complete most of the work in Titanic MOGP,
+** Designed the algorithm.
+** Tuned the parameters.
+** Tested approaches like selNSGA2() and selSPEA2()
+* Met again on February 21st to finish the Titanic MOGP and finalize the results.
+** The results we got are in [https://github.gatech.edu/mkaneria3/VIP_sp21_SubTeam3/blob/master/Titanic%20MOGP/MOGP_SubTeam3.ipynb this notebook].
+** Results:
+*** Accuracy = 83.05%
+*** Area under the curve = 10665.0
+** Created the slides for the presentation on February 24th.
+*** I made the slides for the Titanic ML results and the Pareto Optimality Graph for the same.
+*** Here are [https://github.gatech.edu/mkaneria3/VIP_sp21_SubTeam3/blob/master/Titanic%20MOGP/MOGPG3.pdf the slides].
+'''Personal notes:'''
+* Most of the code that we developed was during the sub-team meeting and I contributed in the development of the code during the meeting.
+* I made the slides for the Titanic ML results and the Pareto Optimality Graph for the same.
+* I presented the results and the pareto optimality curve from the Titanic ML assignment.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|meeting with sub team to work on Titanic MOGP assignment
+|Completed
+|February 17, 2021
+|February 19, 2021
+|February 19, 2021
+|-
+|meeting with sub team to finalize the Titanic MOGP results
+|Completed
+|February 19, 2021
+|February 21, 2021
+|February 21, 2021
+|-
+|Finish making the presentation slides that I was assigned
+|Completed
+|February 21, 2021
+|February 24, 2021
+|February 23, 2021
+|-
+|Install EMADE
+|In-Progress
+|February 24, 2021
+|March 3, 2021
+|
+|-
+|Do Peer evaluation
+|In-Progress
+|February 24, 2021
+|March 3, 2021
+|
+|}
+
+== February 17, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed the Titanic ML assignment progress.
+* Discussed the Titanic MOGP assignment for the next week.
+'''Sub-Team Notes:'''
+* Met with the sub team on Feb 12th. To discuss the Titanic ML assignment.
+* We used one hot encoding for 'Sex' and 'Embarked' columns.
+* Divided to team into 2 halves, one focusing on minimizing FNs and one focusing on minimizing FPs.
+** I joined the group  that focused on FPs.
+* Met again on Feb 17th to make sure that our results were Pareto Optimal.
+* Below is the Pareto optimality Graph.
+
+[[files/Sub-Team 3 Pareto Optimality.png|left|thumb]]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''Personal notes:'''
+* Titanic ML assignment:
+** I was focusing on  minimizing the false positives in the titanic dataset.
+** I explored several models to achieve the best results.
+** Some of the models tried to use were,
+*** Gradient Boosting Classifier
+*** Decision Tree Classifier
+*** K Nearest Neighbors
+*** Random Forest Classifier
+*** Gaussian NB
+*** MLPC Classifier
+** I created plots for several parameters in the range of some values to see where I got the best accuracy.
+** Finally, I achieved the best result with the Decision Tree Classifier by setting the max_depth parameter to 4.
+*** Accuracy = 82.37%
+*** FP = 20, FN = 33
+** Here is a link to [https://github.gatech.edu/mkaneria3/VIP_sp21_SubTeam3/blob/master/Titanic%20ML/example.ipynb my notebook].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|meeting with sub team to discuss results of the Titanic ML assignment
+|Completed
+|February 12, 2021
+|February 17, 2021
+|February 17, 2021
+|-
+|Work on minimizing the false positives in the Titanic data set
+|Completed
+|February 12, 2021
+|February 17, 2021
+|February 17, 2021
+|-
+|meeting with sub-team
+|Completed
+|February 10, 2021
+|February 12, 2021
+|February 12, 2021
+|}
+
+== February 10, 2021 ==
+'''Team Meeting Notes:'''
+* Sub-team formation
+** assigned to sub team 3
+* Learnt about Kaggle
+* introduced to the Titanic problem which will be the first grout assignment.
+* Joined the slack channel for team 3.
+'''Lab 2:'''
+* Genetic Programing lab
+** Genetic programming is an evolutionary approach to generating computer programs. 
+** individual class inherits from DEAP's PrimitiveTree class instead of a list.
+* Initialization of tree stucture
+** I added mod and abs value as 2 extra primitive methods
+*** pset.addPrimitive(np.mod, arity=2)
+*** pset.addPrimitive(np.absolute, arity=1)
+* An evolution function is defined.
+* for the mutation function, I chose gp.mutNodeReplacement.
+** with this the algorithm reached the min faster.
+* The evaluation function is run and the graph of the results is plotted.
+* 
+* Multi-Objective Genetic Programming
+** New fitness and individual classes for a multi objective problem are created.
+** Three new primitives are added to the primitive set
+*** sine, cosine, and tangent.
+** This problem will not be solved within 100 iterations.
+** The  pareto dominance function is defined.
+** Pareto dominance function returns true if the first individual dominates the second individual.
+** 300 random individuals and 1 separate individual for comparison are initialized.
+** The population is sorted by pareto dominance in comparison to the separate individual previously defined.
+** The main evolutionary function is run.
+** The graph to visualize the objective space and pareto front is plotted.[[files/Pareto front lab2.png|thumb|331x331px]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Joined Slack channel for team 3
+|Completed
+|February 10, 2021
+|February 10, 2021
+|February 10, 2021
+|-
+|meeting with sub-team
+|In-progress
+|February 10, 2021
+|February 12, 2021
+|
+|-
+|Finish Lab 2
+|Completed
+|January 27, 2021
+|February 10, 2021
+|February 10, 2021
+|}
+
+== February 3, 2021 ==
+'''Team Meeting Notes:'''
+** Gene Pool - a set of genome to be evaluated during the current generation.
+** Genome
+*** Genotypic description of an individual
+*** DNA
+*** GA - set of values
+*** PF - tree structure
+** Search space
+*** Set of all possible genome
+** Objective Space
+*** The Evaluation of a Genome associates a genome/individual with a set of scores.
+*** True Positive -TP
+**** How often are we identifying the desired object?
+*** False Positive - FP
+**** How often are we identifying something else as the desired object
+*** Objectives
+**** Set of measurements each genome (or individual) is scored against
+**** Phenotype
+*** Objective space - Set of objectives.
+** Classification Measures
+*** Dataset -> Classifier -> Confusion Matrix
+** Maximization Measures
+*** Sensitivity or True Positive Rate (TRP)
+**** TRP = TP/P = TP/(TP+FN)
+*** Specificity (SPC) or True Negative Rate (TNR)
+**** TNR = TN/N = TN/(TN+FP)
+** Minimization Measures
+*** False Negative Rate (FNR)
+**** FNR = FN/P = FN/(TP+FN)
+*** Fallout or False Positive Rate (FPR)
+**** FPR = FP/N = TN/(FP+TN)
+**** FPR = 1- TNR = 1 - SPC
+** Other Measures
+*** Precision or Positive Predictive Value (PPV)
+**** PPV = TP / (TP + FP)
+*** False Discovery Rate
+**** FDR = FP/(TP + FP)
+**** FDR = 1 - PPV
+*** Negative Predictive Value (NPV)
+**** NPV = TN / (TN + FN)
+*** Accuracy (ACC)
+**** ACC = (TP+TN) / (P+N)
+**** ACC = (TP+TN) / ( TP + FP + FN + TN)
+** Objective Space
+*** Each individual is evaluated using objective functions
+*** Objective scores give each individual a point in objective space
+*** This may be referred to as the phenotype of the individual
+** Pareto Optimality
+*** An individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives
+*** Pareto frontier
+**** The set of all Pareto individuals
+'''Individual Task:'''
+
+Self Assessment Report:  [[files/VIP AAD notebook Self Assessment.pdf|left|thumb|Monil Kaneria Self Assessment PDF]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Lab 2
+|In-progress
+|January 27, 2021
+|February 10, 2021
+|
+|-
+|Finish Self Assessment
+|In-progress
+|February 3, 2021
+|
+|February 8, 2021
+|}
+
+
+== January 27, 2021 ==
+'''Team Meeting Notes:'''
+* Genetic Programming
+** The individual is a function itself.
+** Individual is fed data and it outputs the output data.
+** Tree Representation
+*** Nodes are called primitives
+*** Leaves are called terminals
+*** Input passes through the leaves
+*** Output comes out through the root
+*** How is the tree stored?
+**** Three is converted to lisp preordered parse tree.
+**** Example:
+***** F(x) = 3*4+1 is stored as [+, *, 3, 4, 1]
+***** F(x) = 2-(0+1) is stored as [-, 2, +, 0, 1]
+***** F(x) = [2- [(3*4)+1] is stored as [-, 2, +, *, 3, 4, 1]
+***** This comes from the root and expands
+** Crossover/mating in GP
+*** Crossover in tree-based GP is done by exchanging subtrees
+** Mutation in GP
+*** Insert a node or a subtree
+*** Delete a node or a subtree
+*** Change a node
+** Example - Symbolic Regression
+*** Evolve a solution to y = sin(x)
+*** Primitives include:
+**** +, *, -, /
+*** Terminals include
+**** x
+*** Taylor series for sin(x)
+**** For 3rd order:
+***** X = x - x^3/3!
+**** [-, input1, input2]
+**** [-, x, / input3, input4]
+**** [-, x, /, *, input5, input6, *, input7, input8]
+**** …
+*** Evaluating the tree
+**** Feed inputs
+**** Run F(x)
+**** Measure error between outputs and truth
+'''Lab 1 Notes:'''
+* One Max Problem
+** Goal - get a list that contains all 1s
+** Individual - a list randomly containing 0s and 1s  of a fixed size (here 100)
+** Evaluation - the total number of 1s in an individual
+*** Calculated by checking if sum(list) == size(list)
+** Mating - used two point cross over
+** Mutation - flipped random bits
+** Selection - used tournaments
+** Achievement - optimal solution is mostly achieved within the first 40 generations, but the algorithm fails some times.
+* N-queens Problem
+** Goal - get a configuration of N queens in a NxN chess board such that no queen is capturing any other queen.
+** Individual - configuration of a NxN chess board containing N queens.
+** Evaluation - checking if any queen is capturing any other queen.
+** Mating - used partially matched crossovers
+** Mutation - used shuffling of indices.
+*** Replacements of indices is not used in this problem because we don’t want the new indices to go out of range from the NxN dimensions of the chess board.
+** Selection - used tournaments
+** Achievement - optimal solution is mostly reached 100 generations, but occasionally it fails.
+** My edits - I tired to tweak the mutation parameters.
+*** I changed the range of the mutation loop from size to size/2 to mutated only half of the individual.
+**** This did not improve the result.
+**** The max value started to converge more towards zero, but the min value was still randomly reaching zero sometimes and not reaching the other times.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Lab 1
+|Completed
+|January 20, 2021
+|
+|January 27, 2021
+|-
+|Start Lab 2
+|In-progress
+|January 27, 2021
+|February 3, 2021 
+|
+|}
+
+== January 22, 2021 ==
+'''Team Meeting Notes:'''
+* Genetic Algorithms:
+** Each new generation is created through mating/mutation of individuals in the previous population. 
+** Their fitness is evaluated. 
+** Through numerous operations of this process, it will eventually produce the best individual.
+* Important Definitions:
+** Individual: one specific candidate in the population.
+** Population: group of individuals whose properties will be altered. 
+** Objective: a value used to characterize individuals that you are trying to maximize or minimize.
+** Fitness: relative comparison to other individuals; how well does the individual accomplish a task relative to the rest of the population? 
+** Evaluation: a function that computes the objective of an individual.
+** Selection: selecting the best individual.
+*** Fitness Proportionate: Individual with the best fitness is selected.
+*** Tournament: several tournaments among individuals are held and the winner is selected.
+** Mate/Crossover: represents mating between individuals
+** Mutate: introduces random modifications; purpose is to maintain diversity
+* General Flow of this Algorithm:
+*# Randomly initialize population
+*# Determine fitness of population
+*# Repeat…
+*## select parents from population
+*## perform crossover on parents creating population
+*## perform mutation of population
+*## determine fitness of population
+*# … until best individual is good enough.
+* One Max Problem:
+** This problem begins with individuals that each has a list of one hundred values that are either 0 or 1.
+** The goal is to eventually produce an individual whose list contains ALL one’s.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup Notebook
+|Completed
+|January 20, 2021
+|January 22, 2021
+|January 22, 2021
+|-
+|Install Jupyter Notebook
+|Completed 
+|January 20, 2021
+|January 22, 2021
+|January 22, 2021
+|-
+|publish lecture 1 notes in notebook
+|Completed
+|January 20, 2021
+|January 22, 2021
+|January 22, 2021
+|-
+|Finish Lab 1
+|In Progress
+|January 20, 2021
+|January 24, 2021
+|
+|-
+|
+|
+|
+|
+|}

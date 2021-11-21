@@ -1,0 +1,1003 @@
+== Team Member ==
+[[files/Profile-Pic-Crop.png|alt=Profile Pic|left|frameless]]
+
+Team Member: Krithik Acharya 
+
+Email: krithikacharya@gatech.edu, Cell Phone: +14704355134
+
+Year: 2nd - Sophomore
+
+Interests: ML, Soccer, Music, Traveling
+
+Team: Modularity
+
+Team Members: Gabriel Wang, Kevin Lu, Bernadette Bal, Xufei Liu, Angela Young, Vincent Huang, Regina Ivanna Gomez, Aazia Azmi, Andrew Weatherly, Devan Moses, George Ye, Rishit Mohan Ahuja, Shiyi Wang, Tian Sun 
+
+==April 30th, 2021==
+'''Final Presentation Notes'''
+* [https://docs.google.com/presentation/d/1SLLHwjsy-ZHV4OqAXDBclBeTzqrSbyCNCJNRZs0a8Kc/edit#slide=id.gc9bc63836f_1_46 Final Presentation Slides]
+* Stocks:
+** Midterm objectives included implementing TA-Lib indicators that they talked about during the midterm presentation, testing on different datasets/stocks, conducting statistical analysis of individuals, and finding objective functions and evolutionary parameters.
+** Discussed the paper in some detail: talked about Piecewise Linear Representation, which is where a price graph is segmented into linear piecewise segments
+** Exponential smoothing is where bounds are produced and they decide whether to buy or sell when the price crosses the bounds.
+** Ran 2 long runs on EMADE with 328 generations and 3 objectives: average profit per transaction, variance profit per transaction, normal CDF on distribution.
+** Using a new improved metric called buy/sell lag which is the difference between local extrema and the buy/sell point
+** Future work: Compare levels of generalization of optimal models, statistical analysis of seeding on AUC, creating bounded objective functions, applying fundamental analysis in addition to Technical Analysis, Look at the effectiveness of emade on different intervals of trading, and maybe look at another paper to base more research off of.
+** Personal thoughts:
+*** Do all technical indicators help with the buy/sell decisions? Do some of them lead to consistent bad results?
+* EzCGP:
+** The teams use a Cartesian block structure that is specific to ezCGP
+*** Certain nodes are active while others are inactive to see which ones work the best
+** They have removed augmentation and preprocessing as blocks since the midterm which results in a higher training accuracy and lower validation accuracy. Runs are much faster as a result though. Also resulted in overfitting issues and a lack of connected layers
+** The population lacked some diversity and individuals had few layers so the team decided to manually analyze individuals
+** Some ndividuals in the initial population matched the targeted population
+** Larger individuals tended to do worse - this is because there is potentiality more room for mistakes compared to smaller individuals
+** Completed testing of pooling and drop out to compare experiments to midterm benchmarks
+** Using the new improvements, they had a 68.5% accuracy which is much more than 56.3% and pooling could improve the evolving architecture
+** Multiple individuals can be visualized as needed
+** Uses command-line interface to easily visualize individuals
+** They also had a look at symbolic regression problems
+** Each generation has the best individuals from the previous generation and offspring
+** Meta parameter search can get expensive for computational efforts but the mean result is defined by the fitness
+** New mating method used through using one-point crossover
+** Runs with mating converge faster than runs without mating
+** For next semester - find new mating methods, and research more on existing CNN architectures
+** Peronal thoughts: 
+*** How are nodes determined to be active/inactive? Is the process random or is there some methodology behind this assignment?
+* NLP:
+** Uses NNLearners which take in a list of layers and fits a model to it, creating a tree-based neural net architecture.
+** Last semester had problems with using unbalanced datasets
+** Last semester involved the problem of trivial solutions which are simple neural networks, which almost just guessed a label.
+** They solved this by using simpler datasets and trying to determine if they can give a seeded network and have EMADE improve it.
+** Started using PACE to do runs of EMADE since it's more reliable even if it's hard to get a spot in the queue.
+** Had lost of MySQL issues that were later resolved
+** Used the Amazon Product Reviews dataset, which is classified as positive or negative sentiment
+** Had good results on the Amazon dataset, with 22 generations and seeded individuals, the best individual had an accuracy of 93% which is better than the benchmark/seeded model.
+** Personal thoughts: 
+*** How does the work done by the NLP team compare to sentence embedding techniques such as [https://www.sbert.net/ Sentence-BERT], which uses a Siamese network like architecture to provide 2 sentences as an input. The sentences are then vectorized and passed to BERT models and a pooling layer to generate their embedding.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|April 26, 2021
+|May 1, 2021
+|May 1, 2021
+|-
+|}
+
+==April 29th, 2021==
+** Held practice presentation before final presentation on April 30th
+** Assigned new task of explaining differences between Old ARL implementation and New ARL Implementation
+** Created slides 5, 6, & 8
+** This meant I had to analyze previous runs, in particular, the mnist_old_4 and mnist_new_4 schemas
+** After analyzing individuals I was able to query 3 ARL types of each implementation
+** Used Cameron's Tree Vis Tool to create visualizations - [https://github.com/cwhaley112/TreeVis VisTool]
+** '''Old Implementation ARL Visualizations'''
+*** [https://drive.google.com/file/d/1xwZYMWdPf79YRNdWslEs7vYzbZPPr0Ul/view?usp=sharing mySum]
+*** [https://drive.google.com/file/d/1cuxS8AAV2LS11tyEVX7ZDAUFM0uGHM1T/view?usp=sharing learner]
+*** [https://drive.google.com/file/d/1uEksuPRa0DKUQVscxkFFmO0kzLTcH2va/view?usp=sharing toUint8]
+** '''New Implementation ARL Visualizations'''
+*** [https://drive.google.com/file/d/1SYR4pOyn0oYPQo8dwFH29Vq0Oxoc0Pg0/view?usp=sharing mySum]
+*** [https://drive.google.com/file/d/1ip5iUrt4jYqisIs6hADMDtUG8GZU6WZJ/view?usp=sharing learner]
+*** [https://drive.google.com/file/d/1eQ4f4F33iDH3B1B9Ki6zfr04K-9wh60R/view?usp=sharing toUint8]
+** Notable differences between the two include:
+*** In old Implementation, we had a max ARL tree depth of one
+*** In old implementation, we had only complete trees
+** Concerns with previous implementation:
+*** Old ARLs were always complete, which meant that there was less room for modification of the tree itself
+*** Old ARLs were always depth one trees, which meant that complexity was very limited. Typically in EMADE, a higher complexity, with potentially more primitives in an ARL, is likely cause many more changed to the database which should produce better results.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add new slides to the presentation and create ARL visualizations
+|Completed
+|Apr. 29, 2021
+|Apr. 30, 2021
+|Apr. 30, 2021
+|-
+|}
+
+==April 18 - April 26, 2021==
+'''Subteam Meeting:'''
+* Finish working on tasks assigned from the previous week 
+** Depth problem
+*** Kevin is tasked with finding ARL candidates in the population
+*** We need to generate ARLs into the lambda function
+*** Selecting ARLs based on our weighting formula based on frequency, fitness, size, and potentially others
+** Genetic duplicates - branch and TODOs created for Angela
+** Database storage - branch and TODOs created for Ivanna
+** Finish documentation and get feedback
+* Old ARLs team has been completing runs however, there's been a few issues
+** Vincent connected to the VPN while run was ongoing which killed the run
+** Second issue was with deap, got an index out of range error
+*** Errors: 
+Using TensorFlow backend.
+/home/vincent/anaconda3/lib/python3.6/site-packages/deap/tools/emo.py:482: RuntimeWarning: invalid value encountered in double_scalars
+  individuals[j].fitness.values[l]
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 126, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 116, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 796, in master_algorithm
+    count = mutate(offspring, _inst.toolbox.mutate, MUTPB, needs_pset=True)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 600, in mutate
+    mutate_function(mutant, _inst.pset)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 814, in mutInsert
+    slice_ = individual.searchSubtree(index)
+  File "/home/vincent/anaconda3/lib/python3.6/site-packages/deap/gp.py", line 179, in searchSubtree
+    total += self[end].arity - 1
+IndexError: list index out of range
+* Not sure if this is specific to one person or not, so will test with someone else as master
+* First semester students have been working together to complete some runs, but have been having issues with colab
+* Gabriel will be working with them to run a master process
+
+'''Main Meeting'''
+* Around 30 minutes per group for presentations
+* [https://docs.google.com/presentation/d/1SLLHwjsy-ZHV4OqAXDBclBeTzqrSbyCNCJNRZs0a8Kc/edit#slide=id.g812dce5abf_2_2 Final Modularity Presentation]
+* Notebooks are due on the last day of class, however, to allow for focus on the presentation, they will be graded after 11:59 pm on Saturday
+* Double check midterm feedback in order to improve grade
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Conduct mnist runs with old ARL implementation
+|Completed
+|Apr. 20, 2021
+|Apr. 27, 2021
+|Apr. 27, 2021
+|-
+|Work on final presentation slides
+|Completed
+|Apr. 20, 2021
+|Apr. 29, 2021
+|Apr. 30, 2021
+|-
+|}
+
+=== Apr 12 - Apr 17, 2021===
+
+Main Team Meeting
+* Dr. Zutty acknowledged the wiki is down
+* Majority of us were running and analyzing MNIST
+* I missed this meeting, however, Gabriel was able to discuss my results - 15/910 of the evaluated individuals were valid individuals. Dr Zutty had several follow up questions, however, I was not present to answer the specific details. In particular, he was wondering how many generations were reached by my run.
+* Also wondering what data structure learnerType is, use ephemeral 
+
+Personal Notes:
+* Analysed results from my mnist run. Ran for about 6 hours and 20 minutes. 
+* 15/910 of the evaluated individuals were valid individuals (I just looked for individuals with a non-null F1 score).
+* The max evaluation_gen reached was 49
+* Dr Zutty was unsure how I was able to evaluate 49 generations with just 910 individuals, so we examined the input XML file.
+* Dr Zutty noticed I was using a very different base configuration than, say, the titanic dataset
+**namely:
+<initialPopulationSize>96</initialPopulationSize>
+        <elitePoolSize>96</elitePoolSize>
+        <launchSize>24</launchSize>
+        <minQueueSize>60</minQueueSize>
+* With each generation, my run comprises only ~24 individuals, however, titanic's input file has ~300 there
+* We then examined the seeding aspect of my run, to check if all seeds had evaluated properly.
+* seeds used:
+Learner(MySum(ARG0, 2, 0), learnerType('KNN', {'K': 3, 'weights':0}, 'BAGGED', None))
+Learner(MyProd(ARG0, 2, 0), learnerType('SVM', {'C':1.0, 'kernel':0}, 'SINGLE', None))
+Learner(MyCumProd(ARG0, 2, 0), learnerType('DECISION_TREE', {'criterion':0, 'splitter':0}, 'SINGLE', None))
+Learner(FFT(ARG0, 2, 0), learnerType('BOOSTING', {'learning_rate': 0.1, 'n_estimators': 100, 'max_depth': 3}, 'SINGLE', None))
+* one of the seeds had a bug: "**********name 'tmy_process' is not defined
+----------Traceback (most recent call last):
+ File "/usr/local/lib/python3.7/site-packages/GPFramework-1.0-py3.7.egg/GPFramework/EMADE.py", line 1635, in evaluate_individual
+   tmy_process.terminate()
+NameError: name 'tmy_process' is not defined
+At least one objective returned inf."
+* Part of the problem was that my objectives were the same, and my elite pool was probably just one element, so each generation it was just selecting from the elite pool + latest evaluated offspring (most of which were no good)
+* I informed Gabriel about the idea of creating new objectives. 
+* Gabriel already assigned Devon and Aazia to the task of creating new objectives. Basically what this means is that we change what we're measuring. In the XML file, you'll notice an objective section. We figured out that it's probably better to write new objectives that better handle multiclass non-encoded classification problems, like mnist. sklearn likely has a bunch of methods that can help with this
+
+[https://drive.google.com/file/d/1Cdrq1BqwOwpjL_sIAmlbqA2Laygxwm0M/view?usp=sharing valid individuals MySQL Workbench]
+
+=== Meeting on April 17th ===
+* Discussed the database project, split into 2 teams
+** 1) ARL storage/contracting in the database
+*** Me, Gabrielle, Ivanna, Gabe
+** 2) ARL evaluation/expansion reading from the database
+*** Angela, Xufei, Rishit, Gabe
+* ARL/contract, storage in db: Bernadette, Krithik, Ivanna, Gabriel
+* ARL evaluation/expansion, reading from the database: Angela, Xufei, Rishit, Gabriel
+* We will be working on the tree_database branch.
+* ARL STORAGE IN DATABASE
+** contractions_adfs.py
+*** contract_adfs() should call some methods involving a database
+*** sql_orm_connection used to make new columns and adding new individuals to the database
+*** Investigate DEAP's code in particular gp.PrimitiveTrees, which has the lists of primitives/nodes
+** Will be working on the tree_database branch. There are some todos in EMADE.py and adfs.py that we have to figure out, there's a bunch of todos but we are only working in the ones surrounded by the '#####' 
+** We will be using this [https://github.gatech.edu/gwang340/emade/tree/tree_database repo]
+
+=== '''Action Items:''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Look into evaluating individuals 
+|Completed
+|Apr. 12, 2021
+|Apr. 18, 2021
+|Apr. 17, 2021
+|-
+|Architecture Work
+|Completed
+|Apr. 17, 2021
+|Apr. 25, 2021
+|In Progress
+|}
+
+== April 07, 2021 ==
+
+Officially switched teams to the modularity team. Gabriel set up the collab notebook for the MNIST runs. He recommended starting runs on either Colab or on my personal machine. Colab notebook: [https://colab.research.google.com/drive/1i_niAH2dxqdsdA-SMU3tYXCOW0DMRUXK?usp=sharing notebook]. He also recommended reaching at least 50 generations.
+
+Other tasks included forking the GitHub [https://github.gatech.edu/gwang340/emade.git repo] and cloning the MNIST branch.
+
+Had an error when trying to run emade-cloud script which makes a copy of emade called emade-cloud but with unnecessary files removed. Solved this issue by manually making a copy of emade, and removing the files listed in the CloudCopy script
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|April 7, 2021
+|April 14, 2021
+|April 14, 2021
+|-
+|Conduct mnist runs
+|Completed
+|April 7 2021
+|April 11, 2021
+|April 11, 2021
+|}
+
+== April 01, 2021 ==
+
+I informed Dr Zutty that I would like to switch teams to the stock team. I was in the Modularity team last year (now in the stocks team) and I found the work done in the Modularity team to be more interesting to me. I also found out that I am not much of a stocks/finance person myself. Dr Zutty said he would be fine with the switch if both teams agreed on the switch of teams.
+
+== March 29, 2021 ==
+
+=== Lecture Notes ===
+* Dr Zutty explained during the main meeting that the Monte-Carlo method would not have to be recomputed every time an individual is evaluated
+* Abhiram and Max completed the implementation of TA-Lib
+* The next task is to have another run of EMADE while using the implemented TI's and TA-Lib
+* We created some queries of the database to analyze individuals
+* Abhiram shared a [https://docs.google.com/presentation/d/1KIkFOwujn40HQH9y-SRVjWdLt03mrTGsESFNrLIzvFQ/edit?usp=sharing presentation] that helped us have a better understanding of the Stocks team's EMADE implementation. This was very helpful in understanding how EMADE works in helping us reach our goals.
+* Task assigned for the week: Continue thinking of fitness functions, and research more volume-based TI's
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 5, 2021
+|-
+|Think of Fitness Functions to Optimize
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 5, 2021
+|-
+|Research More Volume-Based TI's
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 5, 2021
+|}
+
+== March 22, 2021 ==
+'''Bootcamp Lecture Notes:'''
+
+Notes on Subteams:
+* '''ezCPG''':
+** Future Plans:
+*** Improve the ability to visualize genomes
+*** Research, develop, and test new mating methods for Cartesian GP
+*** Reference existing CNN architectures to develop new primitives and genome seeds
+* '''Modularity:'''
+** Explore ways to abstract good parts of individuals into primitives themselves.
+** Based on Adaptive Representation through Learning.
+*'''NLP''':
+*** Fixed environment errors.
+*** Fixed differences between branches.
+** Used Amazon product review dataset to analyze whether a review is positive or negative based on the wording.
+** Had a recent non-seeded run which went badly, they think they need to seed NNLearners to fix results.
+
+'''Stocks Team Presentation''': [https://docs.google.com/presentation/d/1xvS6nfHNZ9N56m4cDXoD4KzHeRoKkhfhsfIDHpysOUE/edit?usp=sharing presentation]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|March 22, 2021
+|March 29, 2021
+|March 29, 2021
+|-
+|Think of Fitness Functions to Optimize
+|In progress
+|March 22, 2021
+|March 29, 2021
+|
+|-
+|Think of other metrics to calculate fitness
+|In progress
+|March 22, 2021
+|March 29, 2021
+|
+|-
+|Research More TI's
+|In Progress
+|March 22, 2021
+|March 29, 2021
+|
+|}
+
+== Mar 11 & 15, 2021 ==
+'''Sub-Team Notes:'''
+* Database for Emade run had been established and configuration added to the template file.
+* EMADE run will start tomorrow morning
+* Dr. Zutty made a few suggestions during the main meeting:
+** A certain datatype affected how data is evaluated - we needed to first confirm that there is a STREAM-TO_FEATURE primitive in the tree for it to be valid. It was fixed with the following commit: [https://github.gatech.edu/rbhatnager3/emade/commit/f93eb5178430d6ddef41609d2aeb63e3b4d14f12 commit to fix]
+** Use more objectives to solve the problem
+** Decreasing the population size
+** Conduct runs over a longer duration
+** Seed more individuals
+'''Action Items: '''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|Mar 15, 2021
+|
+|Mar 22, 2021
+|-
+|Look into TA-lib
+|In progress
+|Mar 1, 2021
+|
+|
+|-
+|Complete Midterm Presentation slides and Practice Timing
+|In progress
+|Mar 15, 2021
+|Mar 20, 2021
+|
+|}
+
+== March 8th, 2021 ==
+'''Main Meeting Notes:'''
+* Making preparations for an EMADE run later this week
+* Discussed the model that is used in the paper, and tried to replicate it in EMADE using our primitives
+** Found that the profit calculation was different from what we had been using. We predicted that this was due to the model accounting for transaction fees and taxes.
+** Decided not to include tax in the calculation because usually tax is calculated at end of fiscal year
+* TA-Lib primitives are being developed to replace the ones that we already have - Will still have to make more volume-based and complex primitives as they are not in TA-Lib
+The subteam had a lot of discussion about the profit calculations as the paper included tax and transaction cost
+* We decided not to include tax or transaction cost to keep it a simple profit calculation
+'''Individual Notes:'''
+* Finished implementing the VPT indicator. 
+* Here's my code:
+** We would need to include high and low price data in our dataset for this indicator
+[[files/Screen Shot 2021-03-22 at 3.17.28 PM.png|none|thumb|786x786px]]
+* In short, if the price of the stock declines, the value of the indicator falls. If the price increases, the value rises.
+* I will need to create a unit test, to test my Technical Indicator.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|Mar 8, 2021
+|
+|Mar 22, 2021
+|-
+|Look into TA-lib with Joseph
+|Completed
+|Mar 1, 2021
+|
+|Mar 8, 2011
+|-
+|Add unit test for VPT TI
+|Completed
+|Mar 1, 2021
+|
+|
+|}
+
+== Mar 4th, 2021 ==
+* I hopped on a call with Rishi to help me out with the implementation of the technical indicators
+** We discovered that we would need to include high and low price data in our dataset for one of his indicators
+
+* We talked about the idea of adding statistical values, like average volume to our dataset. 
+* Need to complete adding TI primitives by the following week.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|
+|
+|
+|-
+|Look into TA-lib with Joseph
+|Completed
+|Mar 1, 2021
+|
+|
+|-
+|Finish Implementing the VPT indicator
+|Completed
+|Mar 1, 2021
+|
+|
+|-
+|Add unit test for VPT TI
+|Completed
+|Mar 1, 2021
+|
+|
+|}
+
+== March 1st, 2021 ==
+'''Main Meeting Notes:'''
+* VIP Notebook due on March 1st 11:59 PM
+'''Sub-Team Meeting Notes:'''
+* Abhiram implemented trading signal from a new paper:Â https://www.sciencedirect.com/science/article/pii/S1568494615006705?via%3Dihub#sec0045
+** Still some edge cases in generating trading signal, don't even hit 1 or 0
+** Better than previous trading signal calculations
+* Abhiram implemented a genetic algorithm from the original paper
+** Still some confusion on how the paper is finding the optimal threshold using its GA. Our plan is to just figure out the optimal threshold ourselves and use that so we can move on.
+
+* Focussing on new EMADE run within the next week
+* I will also be looking into TA-lib with Joseph
+'''Personal Notes:'''
+* Found useful pseudo-code related to Volume Price Trend Indicator:
+[[files/Screen Shot 2021-03-08 at 9.04.41 AM.png|none|thumb|591x591px]]
+* Working on translating pseudocode to actual Python code and writing corresponding unit tests.
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|Mar 1, 2021
+|
+|Mar 22, 2021
+|-
+|Look into TA-lib with Joseph
+|In Progress
+|Mar 1, 2021
+|
+|Mar 8, 2021
+|-
+|Finish Implementing the VPT indicator
+|In Progress
+|Mar 1, 2021
+|
+|Mar 8, 2021
+|}
+
+== February 25, 2021 ==
+'''Team Meeting Notes:'''
+* I expressed some concern about my lack of concrete knowledge on the EMADE process and the stocks VIP team in general to Abhiram. Abhiram and Rishi stayed back after the meeting and gave me a walkthrough throughout the Stock team's EMADE database and how the overall process works. This was essential as I am currently assigned with the task of implementing some TI's in EMADE, hence understanding some of the source code further will definitely help in me making progress with my tasks.
+* Useful links:
+** [https://www.investopedia.com/articles/technical/02/010702.asp How to Use Volume to Improve Your Trading]
+** [https://www.investopedia.com/terms/v/vptindicator.asp Volume Price Indicator Analysis]
+** [https://www.fidelity.com/learning-center/trading-investing/technical-analysis/technical-indicator-guide/cmf CMF Indicator Analysis]
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|February 25, 2021
+|
+|March 1st, 2021
+|-
+|Research KVO and KVO TI's
+|Completed
+|February 25, 2021
+|
+|in progress
+|-
+|Implement Volume Data TI's
+|In progress
+|February 25, 2021
+|
+|in progress
+|}
+
+== February 22, 2021 ==
+'''Team Meeting Notes:'''
+* Decided on using Euclidean distance to find the largest distance between a PLR segment and the point
+* Exponential smoothing will be used as an eval function in EMADE
+* Task of implementing the volume data TI's researched last week: OBV, CMF, KVO, VPT to be continued 
+** I am working with Kinnera, Youssef, and Joseph on this task
+
+* David is investigating the exponential smoothing further
+* Kartik and Abhiram are working on the PLR function
+* Rishi is investigating the Stock data further
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|February 22, 2021
+|
+|March 1st, 2021
+|-
+|Research KVO and KVO TI's
+|Completed
+|February 22, 2021
+|
+|in progress
+|-
+|Implement Volume Data TI's
+|In progress
+|February 22, 2021
+|
+|in progress
+|}
+
+== February 15, 2021 ==
+
+=== Team Meeting Notes: ===
+* The Piecewise Linear Regression function was implemented by Abhiram, and the results looked similar to the paper's actual results 
+* Youssef researched volume data based technical indicators that could be implemented in EMADE
+** Youssef and Abhiram agreed on implementing the following volume TIs:
+*** On Balance Volume (OBV)
+*** Chaikin Money Flow (CMF)
+*** Klinger Volume Oscillator (KVO)
+*** Volume Price Trend (VPT)
+* Youssef wrote documentation for all new TIâ€™s and any TIâ€™s that donâ€™t have a description and implemented the EMA BIAS and DeltaEMA TIâ€™s. Kinnera will be working on implementing the On Balance Volume (OBV) and the Chaikin Money Flow (CMF). I was assigned the task of implementing the Klinger Volume Oscillator (KVO) and Volume Price Trend (VPT) indicators.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|February 15, 2021
+|
+|February 21, 2021
+|-
+|Research KVO and KVO TI's
+|Completed
+|February 15, 2021
+|
+|February 20, 2021
+|-
+|Implement Volume Data TI's
+|In progress
+|February 15, 2021
+|
+|
+|}
+
+
+== February 11, 2021  ==
+
+=== Sub-team Notes: ===
+* Discussed the following paper in a bit of detail (https://www.sciencedirect.com/science/article/pii/S1568494611000937)
+* Tasks were assigned to various small groups
+* I was assigned the task of implementing the Technical Indicators in EMADE
+
+* Self-graded rubric: https://docs.google.com/document/d/1jWo6LykJPaMoKdK4P2MhkLVhann8kunzziWCk4hnL3U/edit?usp=sharing
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Update Notebook 
+|Complete
+|02/08/2021
+|
+|02/11/2021
+|-
+|Read Abhiram's Research Paper
+|Complete
+|02/08/2021
+|
+|02/11/2021
+|-
+|Complete self-graded rubric
+|Complete
+|02/08/2021
+|
+|02/14/2021
+|}
+
+== February 08, 2021 ==
+
+=== Sub-team Notes: ===
+* Focussing on aligning for the semester with a research paper
+* Discussed ideas for new primitives
+* Discussed what types of stocks we should be targetting
+* During the meeting, we focussed on a paper (https://www.sciencedirect.com/science/article/pii/S0957417410002149) that uses technical analysis of stock data. We plan on trying to not use papers that use neural networks, such as ANNs and CNNs.
+* Assigned the task of reading a paper that Abhiram shared with the team, which would be discussed in the following meeting. Paper: https://www.sciencedirect.com/science/article/pii/S1568494611000937. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Update Notebook 
+|Complete
+|02/08/2021
+|
+|02/11/2021
+|-
+|Read Abhiram's research Paper
+|Complete
+|02/08/2021
+|
+|02/11/2021
+|-
+|Look for new research paper
+|Complete
+|02/08/2021
+|
+|02/14/2021
+|-
+|Complete self-graded rubric
+|Complete
+|02/08/2021
+|
+|02/14/2021
+|}
+
+== February 04, 2021 ==
+
+=== Sub-team Notes: ===
+* Install Stock Team's version of EMADE
+* Learn about Technical Indicators, Stock trading etc. Useful resource: https://www.businessinsider.com/stock-traders-swear-by-these-12-technical-indicators-2017-5
+* Look for research papers
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Update Notebook 
+|Complete
+|02/04/2021
+|
+|02/07/2021
+|-
+|Read and look for research papers
+|Complete
+|02/04/2021
+|
+|02/07/2021
+|}
+
+== February 01, 2021 ==
+
+=== Sub-team Notes: ===
+* Goals for the semester:
+** Focus on writing more primitives in EMADE
+** Adding more fundamental data to the data-set
+** Possibly try new labelling methods
+** Continue looking for more research papers that could be implemented/replicated during the semester
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Update Notebook 
+|Complete
+|02/01/2021
+|
+|02/01/2021
+|-
+|Read and look for research papers
+|Complete
+|02/01/2021
+|
+|02/01/2021
+|}
+
+== January 25, 2021 ==
+
+=== Lecture Notes: ===
+* Each subteam presented their goals for the semester
+* Abhiram and Rishi will continue co-leading the sub-team
+* Scheduled a meeting for Thursday to discuss further logistics and goals for the semester
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Update Notebook 
+|Complete
+|01/25/2021
+|02/01/2021
+|02/01/2021
+|}
+
+== December 2nd, 2020 ==
+
+=== '''FINAL PRESENTATIONS:''' ===
+* Missed Stock Meeting due to technical difficulties (will update this section after rewatching Stock team's presentation on the recording)
+* Link: https://docs.google.com/presentation/d/1KU-tlra_DXV93JOS6NjQ5RB24Urj0-M8F99U3YsQQ70/edit?usp=sharing
+* Worked on slide 34
+* Presentation Notes:
+** '''NN subteam'''
+*** Worked on neural architecture search using EMADE
+*** Tested on 2 main data sets - text-based (Wikidetox) and image-based (Chest X Ray)
+*** Utilized PACE Cluster -> ran into issues
+*** Added new CV primitives
+*** Future Work includes implementing more complex adaptive mutation schemes, trying out coevolution
+** '''EzCGP subteam'''
+*** Working on neural architecture search with a cartesian programming based framework
+*** Used OpenCV primitives for preprocessing data
+*** EMADE runs used PACE-ICE GPUs
+**** Took too long so seeded newer individuals
+*** Future work includes replacing DEAP with ezCGP in EMADE, continuing neural architecture search experiment
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete and update notebook before collection 
+|Complete
+|12/2/2020
+|12/3/2020
+|12/3/2020
+|}
+
+== November 30, 2020 ==
+
+=== Meeting Notes: ===
+* Gave a practice presentation to Dr. Zutty and Dr. Rohling
+* Dr. Zutty and Dr. Rohling gave us good feedback which we looked back on as team to improve our presentation.
+
+* Update my slides to reflect feedback from practice presentation before the final presentation
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Add final touches to slides
+|Complete
+|11/30/2020
+|12/2/2020
+|12/1/2020
+|-
+|Complete Peer Eval
+|Complete
+|11/23/2020
+|12/2/2020
+|11/30/2020
+|}
+
+== November 27, 2020 ==
+
+=== Meeting Notes: ===
+* Gabriel assigned tasks to all the members in order to help with creating the final presentation.
+* I was assigned the task of brainstorming and research potential topics for next semester
+** I first thought of an experiment to compare the elapsed times of individuals of a particular fitness with ARLs compared to those ARLs, however, after discussing with Gabriel it wasn't an idea worth moving forward.
+** The idea of investigating different heuristics used to finding ARLs in individuals stood out. Before, we only looked at the most frequent combinations of primitives in individuals to make ARLs, and when we found that the results werenâ€™t great, we used fitness as another heuristic. Through experimentation, the team currently uses differential fitness and the data pair limitation as newer heuristics to help make more useful ARLs. A potential new heuristic could be something the NN team thought up, where if an individual performs better than the average fitness of a generation it may have some useful components that could be made into ARLs. Another direction that could be addressed was the very simplistic way in which we currently make ARLs. We simply grab a parent node and its children and create an ARL from that. However, sometimes the children or the parent arenâ€™t particularly useful, but rather one specific node/primitive. Understanding why and what ARL will be useful, and targeting that specific component when we are creating them could be another interesting direction.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Finish working on slides
+|Complete
+|11/27/2020
+|12/2/2020
+|11/30/2020
+|-
+|Ask Gabriel to review slides
+|Complete
+|11/27/2020
+|12/2/2020
+|11/30/2020
+|}
+
+== November 23, 2020 ==
+
+=== Meeting Notes: ===
+* Peer evals are open
+* Ensure notebooks are good quality to achieve a good grade
+* Term presentations on the 2nd
+PERSONAL NOTES:
+* Joined as a worker process for the new_selection run
+** To run on Google colab: !python src/GPFramework/launchEMADE.py -w templates/input_titanic_ADF_Selection.xml
+** To run locally: python src/GPFramework/launchEMADE.py -w templates/input_titanic_ADF_Selection.xml
+** Encountered a lot of errors when trying to run locally on EMADE; in particular: ModuleNotFoundError: No module named 'registry_helper'
+** Decided to run on Colab. I cloned the new_section branch and transferred the file onto the drive. Cloning took a decent amount of time, so I decided to try to fix it locally while the new branch was cloning.
+** I then decided to reinstall EMADE locally and made sure I followed all procedures properly this time. I finally tried conducting a run and somehow there were no errors allowing me to join successfully. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete Peer Eval
+|Complete
+|11/23/2020
+|12/02/2020
+|
+|-
+|Join new_section run as a worker process
+|Complete
+|11/22/2020
+| -
+|11/26/2020
+|}
+
+== November 18, 2020 ==
+
+=== Meeting Notes: ===
+* Gabriel provided a lecture on Visualization and Analysis
+** The P value over time graph describes the statistical significance threshold
+** This threshold is normally set to 5% or 1%
+** The P value represents the percentage chance that a result is due to random chance; the lower the P value, the lower the probability the effect of randomness on an event
+** We want a low value in order to achieve statistical significance
+
+* Gabriel asked for some feedback for improvements to be made in the following semester.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Provide Garbriel with feedback
+|Complete
+|11/18/2020
+|11/25/2020
+|11/22/2020
+|-
+|Continue with DiffFitness runs
+|Complete
+|11/18/2020
+|11/25/2020
+|11/24/2020
+|}
+
+== November 10th, 2020 ==
+Personal Notes:
+* Successfully joined the DiffFitness run as a worker process
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Join DiffFitness run as a Worker Process
+|Complete
+|11/10/2020
+|11/17/2020
+|11/13/2020
+|}
+
+== November 4th, 2020 ==
+
+=== Meeting Notes: ===
+* Received a demonstration on running Google Colab
+* Understood how to run Colab and connect to the server
+* Understood the worker and master processes
+* Important to note that only the Master seeds runs
+Personal Notes:
+* I cloned the repo and tried to make a seeded run, however, I am getting the following error - "No module named registry_helper"- error. I tried the bash reinstall, however, the problem still persisted so I planned to ask Gabriel for help with this issue.
+
+* The team planned to use google collab for the remaining of the semester.
+** Manually copy EMADE into a google drive and run most code on the collab file. We needed to change the XML file in order to connect to the Master.
+** Seeding wasn't necessary as I was connecting as a worker process. Also made sure to add -w flag for the Worker process.
+** Had to implement the automatic clicker script to prevent Google Collab from timing out.
+
+=== Action Items: ===
+{| class="wikitable"

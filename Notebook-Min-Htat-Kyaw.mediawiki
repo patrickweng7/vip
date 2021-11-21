@@ -1,0 +1,622 @@
+== Week 15: April 2oth, 2020 ==
+'''Team Meeting Notes'''
+* Final Presentations
+
+* '''Research Fundamentals'''
+** Bloat metric: quantify how much mean program six changes with respect to fitness
+** Neat GP: bloat control technique that aims to control bloat naturally, ie. a set of heuristics that aim to produce less bloated individuals
+** Speciation is based on topological similarity and assigned greedily
+** Crossover- nodes with equal parity and sub-trees rooted at leaf nodes of common region are taken at random from either parent
+
+* '''NLP'''
+** Classify text and create new primitives
+** Dropout: selects nodes to be removed with some probability
+** Ran text classification on IMDB reviews
+** Produced some baseline runs as well as runs with new primitives added
+** Managed to generate good results with relatively low AUCs.
+* '''NLP Time Conflict'''
+** Attempted to move to PACE
+** Added documentation to PACE on how to run EMADE
+** Create the primitive called num named entities, where named entities are important text
+* '''EZCGP'''
+** Used CIFAR-10 dataset
+** 41 hours with 39 generations ran
+** Expand functionality of ezCGP by fixing data augmentation - generate new samples from existing small dataset
+** Try to implement transfer learning: adapt pre-trained and validated neural networks built on a dataset (new, similar dataset by retraining the previous layer)
+** New framework increased allows adding and controlling the number of argument
+
+== Week 14: April 17th, 2020 ==
+
+==== Sub-team Meeting Notes - Primitive Analysis team ====
+[[files/Screen Shot 2020-04-23 at 11.01.18 AM.png|thumb|Script for analyzing root node and making visualizations]]
+* Began working on presentation slides for final presentation
+
+* Updated team members on findings and progress
+
+==== Individual Meeting Notes ====
+* Completed visualization and root node analysis
+* Link to final presentation: https://docs.google.com/presentation/d/1pM_VSVOVw0l5aHGx5YjvkpRcBvNPixVkjcpAnIzLzPk/edit?usp=sharing
+
+* Results:
+** passTriState is the most frequent root node for ADFs in Pareto
+** Population ADFs with another ADF as root node: 132
+** Pareto ADFs with another ADF as root node: 1
+** ADFs as root nodes generally do not perform well
+
+* Conclusions:[[files/Screen Shot 2020-04-20 at 12.47.38 AM.png|thumb|Root Node analysis result]]
+** Many ADFs do contribute to the Pareto Front relative to the number of individuals.  
+** passTriState occurs frequently in individuals but does not add much complexity; Selecting ADFs based off of frequency is not the way to go
+** Scaffolding ADFs increases the size of the individual and this could lead to poorer results
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete PowerPoint slides 
+|Completed
+|April 17th, 2020
+|April 20th, 2020
+|April 17th, 2020
+|-
+|Prepare for final presentation
+|Completed
+|April 17th, 2020
+|April 20th, 2020
+|April 20th, 2020
+|}
+
+== Week 14: April 13th, 2020 ==
+'''Team Meeting Notes'''
+* Scrums updates from subteams
+
+==== Sub-team Meeting Notes ====
+* Updates from other sub-subteams
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue Working on root node analysis and visualization 
+|Completed
+|April 10th, 2020
+|April 17th, 2020
+|April 16th, 2020
+|}
+
+== Week 13: April 10th, 2020 ==
+==== Sub-team Meeting Notes - Primitive Analysis team ====
+[[files/Screen Shot 2020-04-23 at 10.42.01 AM.png|thumb|Script I wrote to parse csv and count the number of Distinct ADFs]]
+* Discussed progress on analyzing the primitive count and any conclusions we could draw from primitive usage
+
+==== Individual Meeting Notes ====
+* Decided to pursue comparing the number of distinct adfs that appear in population vs pareto
+* Wrote script to parse the csv and count distinct adfs
+* Results:
+** Number of Distinct ADFs in population: 830
+** Number of Distinct ADFs in pareto: 116
+** Percent of distinct ADFs in Pareto = 13.98%
+* Next step is to analyze root nodes and create visualizations 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Visualizations of the results 
+|Completed
+|April 10th, 2020
+|April 17th, 2020
+|April 16th, 2020
+|-
+|Work on investigating the root nodes
+|Completed
+|April 10th, 2020
+|April 17th, 2020
+|April 16th, 2020
+|}
+  
+== Week 13: April 6th, 2020 ==
+'''Team Meeting Notes'''
+* Scrums updates from subteams[[files/Screen Shot 2020-04-23 at 10.21.39 AM.png|thumb|383x383px|CSV of Primitive counts in experimental runs]]
+
+==== Sub-team Meeting Notes ====
+* Placed into Primitive Analysis team
+* Onboarding/ introduction on what the team is trying to achieve
+* ADFs are selected in two ways:
+** "ADF" runs are runs where ADFs are picked based on frequency
+** "Intel_ADF" runs take into account individual fitness
+* Introduced to script that is ran to count the number of primitives found in individuals
+* Brainstorm ideas to work on/ Areas to investigate
+* Scheduled a meeting time for Primitive Analysis team
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Explore Primitive Count Data 
+|Completed
+|April 6th, 2020
+|April 13th, 2020
+|April 8th, 2020
+|-
+|Brainstorm idea to work on
+|Completed
+|April 6th, 2020
+|April 13th, 2020
+|April 8th, 2020
+|}
+
+== Week 12: March 3oth, 2020 ==
+'''Team Meeting Notes'''
+* Scrums updates from subteams
+
+==== Sub-team Meeting Notes ====
+* Continued with new member presentation
+* Learned about future project ideas:
+** Differential Fitness: Difference between child and parent’s fitness values. Track parents, calculate diff fitness, implement this into our adf generation.
+** Selection method: New selection methods for individuals with ADFs
+** Evolving ADFs: takes a lot of technical knowledge.
+** Entropy Informed ADF Generation: Get a diversity metrics nd see how adfs affect it
+** Primitive Analysis
+** Visualizing ADFs through EMADE
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rank which idea to work on 
+|Completed
+|March 30th, 2020
+|Apirl 6th, 2020
+|March 30th, 2020
+|}
+
+== Week 11: March 23rd, 2020 ==
+'''Team Meeting Notes'''
+* Joined ADF Team
+* Received updates on structure of remainder of the semesters
+* BlueJeans format
+
+==== Sub-team Meeting Notes ====
+* Introduction to the ADF team and deeper dive into EMADE
+* Scheduled a training/presentation time for getting new members up to speed on March 25th
+
+* Seeding:
+* Inserts individuals from a text file from a database
+* If you seed something, use reuse:1
+* To seed, run a python command listed in the pdf seeding_titanic_benchmark file.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone ADF fork and get seeded run running 
+|Completed
+|March 25th, 2020
+|March 30th, 2020
+|March 28th, 2020
+|-
+|Fill out WhenIsGood meeting time
+|Completed
+|March 25th, 2020
+|March 30th, 2020
+|March 28th, 2020
+|}
+
+== Week 10: March 9th, 2020 ==
+'''Team Meeting Notes'''
+* Sub-team midterm presentations
+* Second Year Teams:
+** ADF team
+*** Reuse nodes/functions in the tree that contributes to a higher fitness
+** NLP team:
+*** IMDB movie reviews
+*** Using nltk, spacy, textblob
+** Research Fundamentals team:
+*** Bloat is when change in program size doesn’t contribute to the fitness
+*** Aim is to remove bloat
+*** Fitness sharing: Punish individuals from highly-populated species
+** ezCGP:
+*** Data augmentation, pre-processing, training
+*** Automated data augmentation: create new data by changing existing ones
+
+==== Sub-team Meeting Notes ====
+* N/A
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Think about which team to join 
+|Completed
+|March 11th, 2020
+|March 18th, 2020
+|March 17th, 2020
+|}
+
+== Week 9: March 4th, 2020 ==
+'''Team Meeting Notes'''
+* Decided on sub-team meeting time for presentation
+* Managed to successfully run made individually
+
+==== Sub-team Meeting Notes ====
+* Failed to connect to team members' SQL due to firewall issues.
+* Decided to run generations separately and create a combined Pareto Front
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sub-Team Meeting 
+|Completed
+|March 4th, 2020
+|March 11th, 2020
+|March 5th, 2020
+|-
+|Run titanic.xml individually
+|Completed
+|March 4th, 2020
+|March 11th, 2020
+|March 8th, 2020
+|}
+
+== Week 8: February 26th, 2020 ==
+* Working Session to get EMADE Running
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debug EMADE 
+|Completed
+|Feb 26, 2020
+|March 4th, 2020
+|March 2nd, 2020
+|-
+|Get titanic.xml running in emade
+|Completed
+|Feb 26, 2020
+|March 4th, 2020
+|March 2nd, 2020
+|}
+
+== Week 7: February 19th, 2020 ==
+'''Team Meeting Notes:'''
+* EMADE(Evolutionary Multi Objective Algorithm Design Engine)  combines ML and dynamic programming to develop hybrid algorithms
+* High level primitives (automate process of designing ML algorithms)
+
+* XML template files are instructions for emade to run.
+
+* Vectorize data --> Take something that has multiple options and create separate columns for each one.
+* Csv files are in datasets/titanic/
+* .gz compresses data
+* Need mysql server (use HomeBrew) , download and install git-lfs (large file storage, store in a separate location), clone EMADE repo, run setup module
+* Checkout Help Desk tomorrow and Friday
+* Python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+* Master manages the population (creates the new generation)
+* Worker is for the parallel evaluation (assign the objective scores)
+'''Steps to Run EMADE:'''
+* Detailed instructions in powerpoint slide and github readme file.
+* Install git-lfs and checkout EMADE repo
+* Download dependecy packages(using anaconda and pip) and mySQL server (use HomeBrew)
+* mySQL version 5 is recommended
+* Edit Input XML file (pythonConfig tag, database credentials)
+* Reuse 0 gives you a fresh start, pick up where you left off use 1
+'''Sub-team Notes:'''
+* No notes
+'''Sub-team Action Items:'''
+* No action items assigned
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Download git lfs and Clone Emade repo 
+|Completed
+|Feb 19, 2020
+|Feb 26, 2020
+|Feb 25, 2020
+|-
+|Download and configure MySQL server
+|Completed
+|Feb 19, 2020
+|Feb 26, 2020
+|Feb 25, 2020
+|-
+|Run EMADE
+|Completed
+|Feb 19,2020
+|Feb 26, 2020
+|Feb 26, 2020
+|}
+
+== Week 6: February 12th, 2020 ==
+'''Team Meeting Notes:'''
+* Sub-team presentations were given today
+* Link to our presentation: [https://docs.google.com/presentation/d/1ICXOqBV7iUe1lpmjNrr2cEbk_yJKmNF5KFg9bf7ZDrE/edit?usp=sharing <nowiki>[1]</nowiki>][https://docs.google.com/presentation/d/1ICXOqBV7iUe1lpmjNrr2cEbk_yJKmNF5KFg9bf7ZDrE/edit https://docs.google.com/presentation/d/1ICXOqBV7iUe1lpmjNrr2cEbk_yJKmNF5KFg9bf7ZDrE/edit?usp=sharing]
+* Link to our github: https://github.gatech.edu/schoudhury40/TitanicProjectGroup1
+'''Sub-team Notes:'''
+* As a team, we presented our work
+'''Sub-team Action Items:'''
+* No action items assigned
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Download Emade
+|Completed
+|Feb 12, 2020
+|Feb 19, 2020
+|Feb 15, 2020
+|}
+
+== Week 5: February 5th, 2020 ==
+'''Team Meeting Notes:'''
+* Use multiple objective genetic programming to solve the same problem.
+* Evolve a program that takes input from the data to classify false positive and false negatives.
+* Evolve a classifier. Without using built-in deap functions, come up with your own algorithm.
+'''Sub-team Notes:'''
+* <nowiki>As a team, we decided on the following primitives : [add, subtract, negative, greater than, less than]</nowiki>
+* Nee to upload Csv file with multiple rows.
+* Make an evaluation function for false negatives and false positives.
+'''Sub-team Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Decide on primitive set
+|Completed
+|Feb 5, 2020
+|Feb 12, 2020
+|Feb 10, 2020
+|-
+|Evolve an evolutionary algorithm to predict survival
+|Completed
+|Feb 5, 2020
+|Feb 12, 2020
+|Feb 10, 2020
+|}
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Upload code for GNB Model to team github
+|Completed
+|Feb 5, 2020
+|Feb 12, 2020
+|Feb 10, 2020
+|-
+|Create a pareto diagram
+|Completed
+|Feb 5, 2020
+|Feb 12, 2020
+|Feb 10, 2020
+|}
+
+== Week 4: January 29th, 2020 ==
+
+==== Team Meeting Notes: ====
+* Titatic Machine Learning from Disaster
+* False Negative: They survived but you said they didn’t
+* False Positive: They did not survive but you said they did
+* Libraries used: Scikit, pandas, numpy, sklearn
+* Training data is used to develop the model
+* Testing data is used to evaluate the model
+* In datascience, you need to represent all data as numbers.
+* We split the training data to do training and evaluating using train_test_split
+* To develop a model from Scikit:
+* We need to instantiate a model object.
+* Train model object using train data
+* Goal is to create a model and a Pareto Frontier to minimize the false negative and false positive.
+As a group: 
+* Clean
+* Engineer features
+* Split Data into folds
+Individually:
+* Train set/test set
+* Develop and fit a model,
+* Score a model
+* Iterate until we have a pareto-optimal Set
+
+'''Sub-team Notes:'''
+
+As a team, we decided to select the following classifiers to train our models:
+* Age
+* Fare
+* Sex
+* Child/Parent
+* Sibling/Spouse
+* Class
+
+==== Sub-team Action Items: ====
+Sub-team: Team 1
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet as a team to clean data, decide on classifiers and folds
+|Completed
+|Jan 29, 2020
+|Feb 5, 2020
+|Feb 1, 2020
+|}
+
+==== Action Items: ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Train a ML model for Titanic ML for Disaster
+|Completed
+|Jan 29, 2020
+|Feb 5, 2020
+|Feb 4, 2020
+|}
+
+== Week 3: January 22nd, 2020 ==
+
+==== Team Meeting Notes ====
+* '''Multi-objective genetic algorithms.'''
+** How do I drive selection process when faced with multiple objectives?
+
+* Search space is the set of all possible genomes
+
+* Important question: How big is the search space?
+
+* Choosing the height of a tree is arbitrary. Depends from problem to problem.
+
+* '''Binary Evaluation:'''
+** Maximization Measures:
+*** Sensitivity or True Positive Rate(TPR), Specificity (SPC) or True Negative Rate (TNR)
+** Minimization Measures:
+*** False Negative Rate(FNR), Fallout or False Positive Rate (FPR)
+** Other Measures:
+*** Precision or Positive Predictive Value, Negative Predictive Value, False Discovery Rate, Accuracy
+
+* '''Objective Space:'''
+** Objective space is the set of all objective functions that are used to evaluate an individual. It is also called the phenotype of the individual (expression of the genotype)
+** Eg. Distance of a datapoint from 0 in minimization measures is equal to (1-Accuracy).
+* '''Pareto optimality:'''
+** An individual is Pareto if there is no other individual in the population that out performs the individual on all objectives. 
+** The set of all Pareto individuals is known as the Pareto frontier.
+
+* '''Nondominated Sorting Genetic Algorithm II:'''
+** Population is separated into nondomination ranks.
+** During selection, lower rank beats higher rank.
+** During selection, when two individuals from the same rank is selected, the one with more crowding distance wins.
+** We want to still consider higher rank individuals to preserve randomness.
+* '''Strength Pareto Evolutionary Algorithm II:'''
+** Each individual is given a strength based on number of individuals it dominates
+** Use the Strength to create a rank. Rank is the sum of all the strengths of the individuals that dominate an individual
+** Fitness is calculated using rank and also considers crowding distance
+
+===== Sub-team Action Items: =====
+No sub-team assigned
+
+===== Action Items: =====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2 Part 2
+|Completed
+|Jan 22, 2020
+|Jan 29, 2020
+|Jan 28, 2020
+|}
+== Week 2: January 15th, 2020 ==
+'''Team Meeting Notes'''
+* Introduction to Genetic programming
+** Individuals are functions/trees  
+** Trees consist of primitives and terminals
+** Primitives are mathematical operators or other functions
+** Terminals are parameters to the primitives
+
+* Symbolic Regression
+'''Sub-team Action Items:'''
+
+No sub-team assigned
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Lab 2 Part 1
+|Completed
+|Jan 15, 2020
+|Jan 22, 2020
+|Jan 22, 2020
+|}
+== Week 1: January 8th, 2020 ==
+'''Team Meeting Notes'''
+* Introduction to program structure, VIP Notebook and deliverable/presentation dates
+* Introduction to DEAP python library, Jupyter, Genetic Algorithms and keywords.  
+* Genetic algorithms are based on evolution. It begins with a random population followed by the steps:
+
+*# Evaluation
+*# Selection
+*# Mating
+*# Mutation
+
+...and repeat
+
+'''Sub-team Action Items:'''
+
+No sub-team assigned
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup Jupyter notebook
+|Completed
+|Jan 8, 2020
+|Jan 15, 2020
+|Jan 13, 2020
+|-
+|Download DEAP and setup environment
+|Completed
+|Jan 8, 2020
+|Jan 15, 2020
+|Jan 13, 2020
+|-
+|Complete Lab 1
+|Completed
+|Jan 8, 2020
+|Jan 15, 2020
+|Jan 13, 2020
+|-
+|Setup Team Wiki Notebook
+|Completed
+|Jan 8, 2020
+|Jan 15, 2020
+|Jan 13, 2020
+|}

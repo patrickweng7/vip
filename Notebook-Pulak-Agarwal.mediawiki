@@ -1,0 +1,2348 @@
+== Team Member ==
+<b>Team Member:</b> Pulak Agarwal <br>
+<b> Major: </b> Computer Science <br>
+<b>Email:  </b>pulak.agarwal@gatech.edu <br>
+<b>Cell Phone:</b> (470)-424-3351 <br>
+<b>Interests:</b> Machine Learning, Data Science, Tennis 
+
+'''Subteam: NLP'''
+
+Team Weekly Reports: [[Notebooks Fall 2020|https://vip.gatech.edu/wiki/index.php/Fall_2020_Sub-team_Weekly_Reports]]
+
+Notebooks: [[Notebooks Fall 2020|https://vip.gatech.edu/wiki/index.php/Notebooks_Fall_2020]]
+
+= Fall 2020 =
+
+== Week 16: 30th November, 2020 + Final Presentations ==
+'''Final Presentations:'''
+* Modularity:
+** I really liked the structure of their presentation: hypothesis, research and lots of experiments and results.
+** I did not fully understand some of the statistics in their charts, but something I can definitely read about. But I liked that they highlighted reproducibility of results rather than simply showing best results.
+** I found their experiments with datapair restriction very interesting, as well as differential fitness. I'm curious to see other heuristics that could help boost performance
+** Looking forward to seeing how ARLs do on a completely different task (MNIST) and if they have the same spike in generations 10-20 as they did for titanic.
+* EzCGP:
+** Their work space is common to ours in the sense that they are also working on NAS. However their approach is significantly different.
+** Some of their work is very interesting and could potentially be helpful to our team too. I am very interested in cyclical learning rates and if that can somehow be incorporated in our work too.
+** I do not completely understand how pruning individuals that have been doing well for a long time helps. Removing a model that got "lucky" makes sense, but how does one know if the model got lucky in the first place, unless it has been trained multiple times. And if that's the case, would it not "die" out naturally anyways in future generations?
+** They also had issues with PACE-ICE :(
+** It'll be interesting to see how they try to replace DEAP with EzCGP in EMADE in the future, that seems like a very big task.
+* Stocks:
+** They seemed to prove some inconsistencies in the paper they were using as a baseline. I did not completely understand what they were though.
+** I liked that they implemented particular primitives for technical indicators within EMADE and defined a fitness function. 
+** They couldn't get a very long run on EMADE but their results seem promising at least.
+** Would like to know a little bit more about how their techinical indicators work since their results on EMADE had multiple technical indicator primitives following one another in an individual. How does that work?
+* NN:
+** We had an overall good presentation
+** Dr. Rohling brought up a good point of using FP and FN as objectives; we wanted to make runs comparing to the paper but for optimization it could help if we used FP and FN for a classification task like this
+'''General Meeting Notes:'''
+* Most time was spent on making sure we had everything we needed for the presentation.
+* Slides were split up and discussions on what results were.
+* Amazon product review and novelty change runs may be on hold till break.
+* Presentation Link: https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit#slide=id.gade55d12ba_0_17
+* Alex had some issues getting a run in with the adaptive mutation so I helped find what the problem was. Tiny issue with seeding.
+* After some reading, I found out why our NNLearners were not doing well on the chest xray dataset. LEAF paper mentions multi task learning approach for the 15 prediction classes. I need to still fully understand this but the idea is that they treat it as 15 different binary classification problems and effectively works as if there are 15 different networks with shared params. Good Blog for intro: https://ruder.io/multi-task/
+* Helpful paper: https://arxiv.org/pdf/1803.03745.pdf
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|30th November
+|3rd December
+|3rd December
+|-
+|Final Presentation
+|Completed
+|23rd November
+|2nd December
+|2nd December
+|-
+|Novelty Change runs
+|On hold
+|16th November
+|
+|
+|-
+|Read about MTL
+|Begins after final
+|2nd December
+|
+|
+|-
+|Peer Evals
+|Completed
+|23rd November
+|2nd December
+|30th november
+|}
+
+== Week 15: 23rd November, 2020 ==
+'''General Meeting Notes:'''
+* More or less focusing on the final presentation and getting results
+* Some struggles with PACE still in place - > conda env issues and out of memory issues.
+* We may push novelty change results and amazon dataset runs for future work but will touch upon them in final presentation.
+'''Subteam Meeting Notes:'''
+* Novelty Change is now working with NNLearner's, but still need to test it out. We may need to hold running with it till break.
+* Issues with PACE persist for some of the team :(. I could not reproduce the problems on my end and attempts to debug were not very helpful. 
+** People had issues installing packages with conda beacause of user permission issues. Could not recreate this, asked them to try unloading and loading anaconda again, as well completely deleting theuir environment.
+** Other issues are running out of disk space. Conda envs take up some space but it also becomes kinda impossible to run things on EMADE for long because after a point you run out of space. Dr. Zutty recommended  the shared space for some parts. Will need to work with Maxim and the others working on it to see how we can set that up.
+* Some new results are uploaded to the github. Sumit has a script ready to parse through the outputs and graph results.
+* Issues with the chest x-ray dataset on EMADE - our accuracy is terrible. It seems that only one class is being predicted always (the training dataset is heavily skewed). Tried a more complex model to se if that helps (Inception v3 and MobileNet). Not sure why this is happening
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|23rd November
+|3rd December
+|3rd December
+|-
+|Update team wiki
+|Completed
+|23rd November
+|30th November
+|30th November
+|-
+|Novelty Change integration into our branch
+|On Hold
+|16th November
+|
+|
+|-
+|Make sure runs can begin on PACE-ICE
+|Completed
+|16th November
+|23rd November
+|23rd November
+|-
+|Explore output from Chest Xray runs
+|Completed
+|23rd November
+|30th November
+|1st December
+|}
+
+== Week 14: 16th November, 2020 ==
+'''General Meeting Notes:'''
+* Going to analyze the outcome of the chest xray runs, calculate the AUROC, and compare it with that of the LEAF paper.
+* Discussed a feature freeze for now; features being worked on are all close to being complete
+* We ideally want to complete trial runs with Novelty Change enabled as well as on the Amazon product review dataset.
+* Jon wrote great documentation on some of the CV Primitives in EMADE while looking at further features to add in. Link: https://www.notion.so/Computer-Vision-Primitives-6f160347b15c4f3e8c0ccac10b9bc749
+* Repo for organizing results: https://github.gatech.edu/pagarwal80/EMADEResults
+'''Subteam Meeting Notes:'''
+* Tried to help Cameron fix issues with the input layer on BERT layer. Seems to be some problems about the computation graph in the keras sequence being disconnected.
+* I went over the Novelty function in EMADE to try and understand what it does exactly. Link to codebase: https://github.gatech.edu/emade/emade/blob/CacheV2/src/GPFramework/selection_methods.py
+** Helpful introduction: https://hal.archives-ouvertes.fr/hal-01300711/document This paper basically highlights how the novelty functions as a separate objective in a sense, in addition to the defined objectives. What this means is that it calculates a "distance" between individuals based on behavior. So newer individuals would be rewarded too as opposed to sticking to the known individuals that have a good fitness.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|16th November
+|3rd December
+|3rd December
+|-
+|Update team wiki
+|Completed
+|16th November
+|23rd November
+|23rd November
+|-
+|Novelty Change integration into our branch
+|In Progress
+|9th November
+|
+|
+|-
+|Make sure runs can begin on PACE-ICE
+|Completed
+|16th November
+|23rd November
+|23rd November
+|}
+
+== Week 13: 9th November, 2020 ==
+'''General Meeting Notes:'''
+* We're still working on some of the coding portions to get in the features that we have been talking about. No major blockers so far.
+* Rest of the team is now going to be putting in efforts to get in runs via ICEHAMMER, PACE, Colab to get a good number of runs for results. 
+** Dr. Zutty mentioned making a plan of the runs we want to be making.
+* GPU issue was fixed
+* We're going to try out runs on the Amazon product review dataset as well
+* Dr. Zutty mentioned trying to use novelty search from the CacheV2 branch. I will look into this.
+'''Subteam Meeting Notes:'''
+* Maxim wrote great documentation on PACE: https://www.notion.so/Configuring-EMADE-on-PACE-60aedf065abc445096617c3cec875a11
+* We talked about how we want to get results in the final presentation and making sure we have enough trial runs:
+* Ideal progress noted at the meeting:
+** Toxicity - 2 big runs, 2 baseline runs, 2 runs with other mating and mutation functions on
+** Chest Xray - 2 big runs, 2 baseline runs, 2 runs with other mating and mutation functions on, 2 with all primitives
+** 2 runs with the novelty functions on
+** Amazon dataset (2)
+* We split runs up for everybody to be able to generate resutls on PACE-ICE
+* We thought about looking at implementations of NAS and comparing our results to theirs so we can have more than one benchmark. 
+** Note: https://www.automl.org/automl/literature-on-neural-architecture-search/
+** https://github.com/D-X-Y/Awesome-AutoDL 
+** Both of these are good starting points for reading and research
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|9th November
+|3rd December
+|3rd December
+|-
+|Update team wiki
+|Completed
+|9th November
+|16th November
+|16th November
+|-
+|Understand Novelty Change
+|Completed
+|9th November
+|16th November
+|16th November
+|-
+|Make sure runs can begin on PACE-ICE
+|Completed
+|9th November
+|16th November
+|23rd November
+|-
+|Look up NAS framworks and implementations
+|Completed 
+|9th November
+|16th November
+|16th November
+|}
+
+== Week 12: 2nd November, 2020 ==
+'''General Meeting Notes:'''
+* In terms of items in progress, most are still in progress as last week. Major updates:
+** Bounding boxes doesn't seem like it will work for the chest x-rays dataset, mostly because there are only 8 classes that have been defined in the training set with bounding boxes, but there are 15 classes to predict. Trying with only those 8 classes also didn't give good results. Next steps are to just simply try VGGNet as a pretrained model.
+* Seems like we are not utilizing the GPU with each process during a run. The GPU is being used when trying the standalone tree evaluator or when attempted on a local machine, but not with Icehammer's GPUs
+* We are going to be using the Amazon product review for sentiment analysis dataset on Kaggle (https://www.kaggle.com/bittlingmayer/amazonreviews) to explore a novel problem, with Steven and Christopher experimenting with the dataset and seeing what we can do with it.
+* Max was interested in getting experiments set up on PACE-ICE and was able to run EMADE there. He ran into the problem of getting only individuals with no fitness, which we are looking into.
+
+'''Subteam Meeting Notes:'''
+* Anshul and Alex seemed to have gotten the hang of what they need to do for adaptive mutation, though they will be working with a simple threshold based model.
+* I got a chance to birriefly read the papers mentioned by Cameron earlier:
+** [https://arxiv.org/abs/2010.10499 Optimal Subarchitecture Extraction For BERT]: What this means is that they extract a small subset (eg: 5.5% in size)of a large architecture like BERT to be able to pretrain in significantly less time, as well as maintaining or even bettering the results of BERT. This is interesting because they use novel algorithms for neural architecture search(?) to extract this subarchitecture. They do pretty well and much faster computations, but do not outperform SOTA on the GLUE and RACE datasets.They do highlight an issue of poor performance with unbalanced and non-representative datasets.
+** [https://arxiv.org/abs/2010.08512 An Approximation Algorithm for Optimal Subarchitecture Extraction] :  This is a theoretical paper describing the development of an algorithm to solve the problem of Obtimal Subarchitecture Extraction (OSE).  They demonstrate that OSE is an NP-hard problem by reducing an instance of it to a single source shortest path problem (this is a very brief tl;dr, I did not understand the entirety of the math). They then showed an approximation algorithm to extract this optimal subarchitecture which has a much better time complexity. I do not see how we could use this in terms of our work yet but perhaps in the future something like this could be added to prune parameters from good architectures made by EMADE?
+* May be a good idea to start getting runs?? Biggest question is where do we reliably get runs in apart from ICEHAMMER, especially if Maxim has trouble with PACE too?
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|2nd November
+|3rd December
+|3rd December
+|-
+|Update team wiki
+|Completed
+|2nd November
+|9th November
+|9th November
+|-
+|Read BERT papers
+|Completed
+|26th October
+|2nd November
+|2nd November
+|-
+|EMADE runs for results?
+|TBD
+|2nd November
+|
+|
+|}
+
+== Week 11: 26th October, 2020 ==
+'''General Meeting Notes:'''
+* Monday meeting was more or less acquainting the first semesters with our goals and tasks.
+* We have 4 new teammates: Max, Christopher, Steven, and Jon. Should be fun working with them!
+
+'''Subteam Meeting Notes:'''
+* Getting BERT in is still a work in progress. Cameron found some interesting papers about optimal subarchitecture extraction from BERT that we will look at as well. Links to papers:
+** [https://arxiv.org/abs/2010.08512 An Approximation Algorithm for Optimal Subarchitecture Extraction]
+** [https://arxiv.org/abs/2010.10499 Optimal Subarchitecture Extraction For BERT]
+* Friday meeting was a continuation of the introduction- first semesters were given tasking:
+** Max is interested in working on the HPC side of things and is going to try and make sure we can get experiments reliably running on PACE-ICE
+** Steven and Christopher are going to be working on exploring a new dataset/novel problem to run EMADE on and see how the nn's do in comparison to a good handtrained baseline model.
+** Jon is going to work with the CV subteam and help out with their experiments
+* We're still working on the same areas in terms of coding out the features, and have a soft deadline of two weeks from now to be able to run experiments and get results.
+** CV team focusing on using YOLO architecture with bounding boxes on the chest xray dataset, and additionally adding primitives for edge detection, etc.
+** Adaptive mutation is targeting to be done by next week.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|26th October
+|3rd December
+|3rd December
+|-
+|Update team wiki
+|Completed
+|26th October
+|2nd November
+|2nd November
+|-
+|Orient the first semesters and assign tasking
+|Completed
+|26th October
+|2nd November
+|2nd November
+|-
+|Help Maxim out with PACE-ICE 
+|Completed
+|26th October
+|2nd November
+|2nd November
+|-
+|Read BERT papers
+|Compelted
+|26th October
+|2nd November
+|2nd November
+|}
+
+== Week 10: 19th October, 2020 ==
+'''General Meeting Notes:'''
+* Monday was presentation - We missed some questions on account of overrunning the presentation. We can discuss them during the general meeting.
+* Notes on presentations:
+** Stocks:
+*** A lot of their work is focusing on using regression in EMADE
+*** Their progress so far has been good, they've built a good knowledge base
+*** Interesting to see their discussion on FLANN and their reference paper
+*** Making primitives for technical indicators
+** Modularity
+*** Mainly focussing on ARLs (Adaptive representative learning)
+*** Data Pair limitation sounds interesting
+*** Lots of experiments in the works
+** EzCZP
+*** They are making good progress, maybe there is fututre scope for our paths to collaborate?
+*** Though it seems like they have a lot of ideas and not enough manpower, opposite of us lol
+** First Semester Bootcamp Teams: They had a lot of good content and seemed to understand a lot of details. They are way better prepared than when I was a first semester student.
+*** A couple of the teams did have some trouble with plotting 3 objectives and that messsed up the visualization of their pareto front plots.
+*** Some teams referenced past first semester presentations and I thought that was very cool
+'''Subteam Meeting Notes:'''
+* : Mostly focussed on defining plans for first semesters once they are allocated teams : more or less wanted people to run experiments and try things out on different datasets.
+* We should have a run on the chest-xray dataset using YOLO this week.
+* For novelty, we have two main options:
+** getting better results than the CoDEEPNEAT paper does on the same datasets. For this, each member is exploring different avenues as brought up before. We don't have the attention layers, adaptive mutation, word embeddings working yet, but we are working on them.
+** exploring a new problem that hasn't been focussed on before and showing how EMADE gets great results on it. We spent some time brainstorming a significant problem to this effect.
+* Would like some guidance or assistance in figuring out how to implement coevolution (may need some help from the modularity team for this)
+* As mentioned in the presentation, there may be value of adding edge detection primitives and thresholding primitives for CV based tasks. Are there any other avenues we should explore in that area? Tushna and Tusheet decided to look into this.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|19th October
+|26th October
+|26th October
+|-
+|Update team wiki
+|Completed
+|19th October
+|26th October
+|26th October
+|-
+|Figure out what to have first semesters work on
+|Completed
+|19th October
+|26th October
+|26th October
+|-
+|Think about novelty
+|Completed
+|19th October
+|26th October
+|26th October
+|}
+
+== Week 9: 12th October, 2020 ==
+'''General Meeting Notes:'''
+* Mostly focused on the presentation as well as figuring out what we need to prioritize based on the paper deadline.
+* Presentation Link: https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit?usp=sharing
+'''Subteam Meeting Notes:'''
+
+same as above - mostly focused on presentation
+* Discussion on prioritizing BERT layer, adaptive mutation over some of the other things planned. Wanted results on some of the pretrained models to study impact.
+* We had a follow up discussion on how to demonstrate novelty in the paper.
+* Shufflelayers function should work now.
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|12th October
+|19th October
+|19th October
+|-
+|Update team wiki
+|Completed
+|12th October
+|19th October
+|19th October
+|-
+|Finish Presentation
+|Completed
+|12th October
+|17th October
+|15th October
+|}
+
+== Week 8: 5th October, 2020 ==
+'''General Meeting Notes:'''
+* Stats notebook (inserting images is annoying in wiki)
+** https://colab.research.google.com/drive/17vC-WvvFMBhG3y8yROE8qSIwhjMEWrdM?usp=sharing
+* Discussion on what is "novel": should we expand and try to show that we consistently get comparable to SOTA results on different problems or focus on beating current SOTA for the problems in the reference paper?
+** May want to try news classification, CIFAR-10 among others
+* Script for parsing out files and analyzing whether certain layer types are present or not
+* Adaptive mutation, Attention, shufflelayers are works in progress.
+* Question: should we consider looking at defining training time as an objective to minimize?
+* Dr Zutty suggested having a check to ensure that models "fail" faster espeically when they're evaluating to infinity so that time loss is minimized. It would help with the optimizers and the crossover function evaluation time.
+'''Subteam Meeting Notes:'''
+* bit of a slow week for me due to other classes. Pretty much the same action items would carry forward. 
+* We talked about how the transformers architecture would be very important for us, along with adaptive mutation. 
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|October 5th, 2020
+|October 12th, 2020
+|October 12th, 2020
+|-
+|Update team wiki
+|Completed
+|October 5th, 2020
+|October 12th, 2020
+|October 12th, 2020
+|-
+|Look into potential use of word embeddings (BERT)
+|Completed
+|September 18th, 2020
+|September 25th, 2020
+|October 1st, 2020
+|-
+|R&R of Papers
+|Completed
+|September 18th, 2020
+|September 25th, 2020
+|October 11th, 2020
+|-
+|Fix ShuffleLayers issue
+|Completed
+|September 28th, 2020 
+|October 5th, 2020
+|October 11th, 2020
+|}
+
+== Week 7: September 28th, 2020 ==
+'''General Meeting Notes:'''
+* EMADE results with just the mating function added (one point crossover). Removed different optimizers and used only Adam:
+** 1st run - Best individual score 0.035619017731052915 after 182 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, GRULayer(64, defaultActivation, 10, falseBool, falseBool, EmbeddingLayer(trueBool, ARG0, fasttextWeights, InputLayer(ARG0)))), 100, AdamOptimizer)
+** 2nd run - Best individual score 0.03649772477640045 after 332 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, LSTMLayer(100, tanhActivation, 9, trueBool, falseBool, EmbeddingLayer(1, ARG0, gloveWeights, InputLayer(ARG0)))), 0, AdamOptimizer)
+* This is about the same, so not very conclusive. However an issue that we noticed was that there were too many inf individuals in later generations. Can't tell why that is.
+* Dr. Rohling suggested two different approaches once we get to know what the problematic individuals tend to be
+** This entails finding the problematic individuals.
+** First approach - abort those individuals so that they're not evaluated in the first place
+** Second approach - Genomic healing - develop a set if rules according to which we can change the representation of the fatal instances.
+'''Subteam Meeting Notes:'''
+* Way too many issues with PACE and we don't want a repeat of last semester. We decided to stop with PACE for the time being and focus on development using Colab.
+* Adverserial regularization may not be the best way forward since it seems a little too specific to the problem, we may want to put that on the backburner.
+* We still need to figure out the best way to make use of the whole EMADE suite with the layerlists.
+* Next step would be looking into Attention layers and seeing if we can get that to work since Mohan ran into issues over summer. Need to talk to him to get a better understanding.
+
+'''Personal Notes:'''
+* If the individuals that are erroring out are due to size mismatches, can we write a function that checks the validity of the size of each layer before evaluation begins as a sanity check?
+* Is there a better way to get each individuals data and fitness in a generation other than directly querying from the db at the conclusion of a gen?
+* I looked into the feasibility of BERT, want to try BERT trained only once and saving the instance, that might help with the OOM issues, backup plan is to start with ELMo.
+* I looked into the shuffle layers mutation to check and see if I could fix the arity issues, trying to test it.
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|Septmeber 28th, 2020
+|October 5th, 2020
+|October 2nd, 2020
+|-
+|Update team wiki
+|Completed
+|Septmeber 28th, 2020
+|October 5th, 2020
+|
+|-
+|Look into potential use of word embeddings (BERT)
+|Completed
+|September 18th, 2020
+|September 25th, 2020
+|October 1st, 2020
+|-
+|R&R of Papers
+|In Progress
+|September 18th, 2020
+|September 25th, 2020
+|
+|-
+|Fix ShuffleLayers issue
+|In Progress
+|September 28th, 2020 
+|October 5th, 2020
+|
+|-
+|Peer Evals
+|Completed
+|September 28th, 2020
+|October 2nd, 2020
+|October 2nd, 2020
+|}
+
+== Week 6: September 21st, 2020 ==
+'''General Meeting Notes:'''
+* Dr. Zutty mentioned that we could look at using the primitives we developed previously as well as using the full power of EMADE would be a novelty we could talk about in our paper. 
+* Another avenue is looking at the codominance of individuals. 
+'''Subteam Meeting Notes:'''
+* Ran EMADE with the new mating function added for layers. Results from two separate runs:
+** 1st run - Best individual had score 0.0358 after 94 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, GlobalMaxPoolingLayer1D(GRULayer(50, tanhActivation, 32, trueBool, trueBool, EmbeddingLayer(98, ARG0, fasttextWeights, InputLayer(ARG0))))), 0, NadamOptimizer)(0.03565040012552956, 2205701.0)
+** 2nd run - Best individual had score 0.03759 after 65 generations. Individual: NNLearner(ARG0, OutputLayer(ARG0, OutputLayer(ARG0, GRULayer(8, softmaxActivation, 5, trueBool, trueBool, EmbeddingLayer(50, ARG0, fasttextWeights, InputLayer(ARG0))))), 100, NadamOptimizer)
+* Observations: Mating function did not push the score further, remained about the same.
+* Further steps discussed:
+** Try a run with the mating function and exclude the optimizers added, and then vice versa to isolate and see if there is one feature that doesn't improve our performance.
+** Adaptive mutation is something we can try to incorporate but we need to figure out a good way to implement it
+** Using pretrained word embeddings like BERT, ELMo
+** The idea of adverserial regularization was brought up, is this something we can possibly try?
+** Is there scope of adding a batch normalization layer and will that help?
+** Using the primitives developed by the team in previous semesters
+'''Personal Notes:'''
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 21st, 2020
+|September 28th, 2020
+|September 28th, 2020
+|-
+|Update team wiki
+|Completed
+|September 21st, 2020
+|September 28th, 2020
+|September 28th, 2020
+|-
+|Look into potential use of word embeddings (BERT)
+|In Progress
+|September 18th, 2020
+|September 25th, 2020
+|
+|-
+|R&R of Papers
+|Not Started
+|September 18th, 2020
+|September 25th, 2020
+|
+|}
+
+== Week 5: September 14th, 2020 ==
+'''General Meeting Notes:'''
+* Results with activation functions and pretrained embeddings mutation functions:
+** Best individual after 100 generations: 0.03555 score, individual: NNLearner(ARG0, OutputLayer(ARG0, GRULayer(55, sigmoidActivation, 10, falseBool, trueBool, EmbeddingLayer(94, ARG0, gloveTwitterWeights, InputLayer(ARG0)))), 100)
+** Best individual after 70 generations: 0.03558 score, individual:NNLearner(ARG0, OutputLayer(ARG0, GRULayer(93, defaultActivation, 150, falseBool, falseBool, EmbeddingLayer(1, ARG0, gloveTwitterWeights, InputLayer(ARG0)))), 95)
+** The validation accuracy remained the same: 0.04027.
+* Next step is to run again with optimizers included to see if that makes a difference.
+* PACE is working for CV Subteam
+
+'''Subteam Meeting Notes:'''
+* Most tasks are in progress, everybody had a pretty bad week. Kept meeting little shorter than normal.
+* Implementation of mating functions is first priority and is a WIP
+* CV subteam is working on running preliminary tests
+* Adaptive mutation and Word Embeddings are being researched to look at feasibility, next step is implementation.
+
+'''Personal Notes:'''
+
+Read paper on Adaptive Mutation in Genetic Algorithms by Libelli and Alba (Link:):  https://link.springer.com/article/10.1007/s005000000042
+* Summary: Not exactly usable in the same format since they are simply using a threshold (average fitness score for individuals) that is compared to an individuals fitness. This is used to modify the MSB/LSB of the "chromosome". Could be a primitive version of what we use, but not a final version.
+* Need further reading on Adaptive Mutation
+* I need to finish looking into BERT implementation for EMADE as well as look at alternatives and variations if possible
+* Finished self eval - link can be found here: https://drive.google.com/file/d/1ItMja2PFcqMb1s2dIJNkRV_gp2evGW7W/view?usp=sharing
+* Screenshot of self eval:
+* [[files/PulakAgarwalFall20Eval.png|frameless|1100x1100px]]
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|September 14th, 2020
+|September 21st, 2020
+|September 21st, 2020
+|-
+|Upload self-eval
+|Completed
+|September 14th, 2020
+|September 21st, 2020
+|September 21st, 2020
+|-
+|Review papers on Adaptive mutation
+|In progress
+|September 18th, 2020
+|September 25th, 2020
+|
+|-
+|Update team wiki
+|Completed
+|September 14th, 2020
+|September 21st, 2020
+|September 21st, 2020
+|-
+|Look into potential use of word embeddings (BERT)
+|In Progress
+|September 18th, 2020
+|September 25th, 2020
+|
+|-
+|R&R of Papers
+|Not Started
+|September 18th, 2020
+|September 25th, 2020
+|
+|}
+
+== Week 4: September 7th, 2020 ==
+'''General Meeting Notes:'''
+
+No meeting - Labor day
+
+'''Subteam Meeting Notes:'''
+* Optimizers have been added to neural_networks.py as params. This allows optimizers to be selected without needing to specify.
+** Need push access to branch
+* PACE should be set up for CV team and able to run experiments. Updated documentation to set up EMADE on PACE will be here soon. Current documentation: https://docs.google.com/document/d/1VIv4EM1KhaUToZpEhKNx3lQs-Hu7QSOk4VEqZcx2tIs/edit
+* Decided to do weekly paper R&R as an auxiliary task to augment knowledge and serve as concepts for further goals.
+* Paper for the week:  https://link.springer.com/article/10.1007/s005000000042
+'''Personal Notes:'''
+* Read paper on Weight Agnostic Neural Networks by Gaier, Ha (Link: https://arxiv.org/pdf/1906.04358.pdf)
+** Core Summary: They used evolutionary learning to pertform neural architecture search to perform complicated tasks without training weights. 
+** They used MOGP on performance and the complexity of the model, similar to what we are doing
+** However, they do not actually compare their results to something like NEAT, rather compare with hand-trained nn's.
+** Performed over 1000+ generations with <100 individuals per generation.
+** They perform mutations by adding nodes and activations, but no mating functions
+* I think their results can be made better by EMADE, however, Co-DeepNEAT would be a more challenging task to compete with.
+* I tried to understand why trying to incorporate BERT into EMADE was causing us out of memory issues. A single instance of BERT was making the GPU run out of memory. A potential solution is to clear the cache periodically and essentially perform garbage collection with CUDA.
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update Notebook
+|Completed
+|September 7th, 2020
+|September 14th, 2020
+|September 14th, 2020
+|-
+|Review PACE on EMADE
+|Completed
+|September 11th, 2020
+|September 21st, 2020
+|September 20th, 2020
+|-
+|Update team wiki
+|Completed
+|September 7th, 2020
+|September 14th, 2020
+|September 14th, 2020
+|-
+|Look into BERT ooM issues
+|Completed
+|September 7th, 2020
+|September 14th, 2020
+|September 14th, 2020
+|-
+|
+|
+|
+|
+|
+|}
+
+== Week 3: August 31st, 2020 ==
+'''General Meeting Notes:'''
+* We have new Github branch: https://github.gatech.edu/emade/emade/tree/nn-vip
+* Conceptually looking at adaptive mutation for changing mutation probability across generations.
+* Use linked document for other references: https://docs.google.com/document/d/1jrezh0mv2DKAzgtlhbHza7O9h7FKutCCPlP5enfTmP4/edit
+'''Subteam Meeting Notes:'''
+* Multiple different activation functions have been added to the neural_networks.py file as params. This allows layers to run with different activation functions rather than a specified default.
+* CV subteam is setting up PACE-ICE and trying to run experiments for preliminary tests
+'''Personal Notes:'''
+* Looking at output file from a run on toxicity data, ConcatenateLayers was not getting good results when added to the Layer List for an individual, ran experiments to see if this was a bug or just that it was not good for the dataset. Seems to be the latter for now.
+* Trying to make sure I can run short runs of EMADE locally that can utilize a GPU. Google Colab is good but we need alternatives to remoteMySQL.
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|August 31st, 2020
+|September 7th, 2020
+|September 7th, 2020
+|-
+|Update team wiki
+|Completed
+|August 31st, 2020
+|September 7th, 2020
+|September 7th, 2020
+|-
+|Exploring out files from previous EMADE runs
+|Completed
+|August 31st, 2020
+|September 7th, 2020
+|September 7th, 2020
+|-
+|
+|
+|
+|
+|
+|-
+|
+|
+|
+|
+|
+|}
+
+== Week 2: August 24th, 2020 ==
+'''General Meeting Notes:'''
+* We talked about updates on the new VIP subteams and discussed goals for the semester. 
+
+'''Subteam Meeting Notes:'''
+* Discussed the split of teams
+* Talked about the tasks and what needs to be set up
+* '''Short Term Goals:'''
+** Set up Google Colab for short EMADE runs to experiment and test
+** Explore out files from recent EMADE runs on toxicity dataset to see what model structures are on pareto front and are there any types that don't feature and why
+** Adding hyperparameters and optimizers to be evolved
+** Explore new mutation functions that can be added
+** Explore crossing over of layer lists as a mating function
+** Explore the chest x-ray dataset and create potential models as a baseline reference for beginning of semester.
+** Define requirement for functions that need to be added to EMADE to facilitate CV tasks
+** Explore adding new word embedding system like ELMO or BERT
+* Potential Issues:
+** Running experiments - PACE causing TF2.0 issues - need to look into
+** Git commits to nn branch without corresponding Jira number.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|August 24th, 2020
+|August 31st, 2020
+|September 14th, 2020
+|-
+|Exploring out files from previous EMADE runs
+|Completed
+|August 24th, 2020
+|August 31st, 2020
+|August 31st, 2020
+|-
+|Checking out good way for EMADE runs for indivdiuals
+|Completed
+|August 24th, 2020
+|August 31st, 2020
+|August 31st, 2020
+|-
+|Look into any issues with setting EMADE on PACE
+|Completed
+|August 24th, 2020
+|September 7th, 2020
+|September 7th, 2020
+|}
+
+== Week 1: August 17th, 2020 ==
+'''General Meeting Notes:''' 
+* New semester
+* New teams and redefining goals for the semester. 
+* I am continuing the NLP subteam, we will be targetting getting results and submitting a paper to GECCO 21.
+
+'''Subteam Meeting Notes:'''
+* Met with team to go over team goals for the semester, as well as responsibilities
+* Went over developments on the nn branch made by students working at GTRI over summer
+* '''Semester Goals (Long Term):'''
+** Continue working on expanding the Neural Network integration into EMADE
+** Run experiments on datasets to obtain results and submit paper to GECCO
+* '''Week Goals:'''
+** Split into 2 subteams - one to work on CV based tasks and working with chest x-rays dataset and the other to work on the implementation of functions in EMADE
+** Splitting of people and discussion of tasks
+** Exploring out files from recent runs of EMADE on toxicity dataset
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|August 17th, 2020
+|August 24th, 2020
+|August 31st, 2020
+|-
+|Form team
+|Completed
+|August 17th, 2020
+|August 24th, 2020
+|August 21st, 2020
+|-
+|Set up team meeting time
+|Completed
+|August 17th, 2020
+|August 24th, 2020
+|August 21st, 2020
+|-
+|Get caught up on summer developments
+|Completed
+|August 17th, 2020
+|August 24th, 2020
+|August 20th, 2020
+|-
+|Discuss goals for the semester
+|Completed
+|August17th, 2020
+|August 24th, 2020
+|August 24th, 2020
+|}
+
+= Spring 2020 =
+
+== Week 16: April 20th, 2020 ==
+'''General Meeting Notes:'''
+* Final Presentation Day!
+* Presentations:
+** ADFs - ADF root nodes may not be as effective as when they're in the middle. 
+** Bloat Control - There is a significant difference in hypervolume and bloat with higher speciation thresholds 
+** Our presentation - We talked about our primitives and results. We realized that we actually were not utilizing the GPUs on PACE and ICEHAMMER.
+** NLP time conflict team -
+*** They had interesting primitives and seems like they had a lot of issues with PACE. Alex did manage to figure something out so I will be contacting him
+*** They had two main primitives they talked about: tf-isf which seems to be more specific than tf-idf but it'll be interesting to see how well it goes with our other primitives, and num of names entities that seems to talk about what is a named object and what is not.
+** EzCGP - We should ask them about their models work in greater depth, could be helpful to know how they work with the hyperparameters. 
+* Good end to a very interesting semester, I am looking forward to continue after being back on campus.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|April 20th, 2020
+|April 27th, 2020
+|April 27th, 2020
+|-
+|Discuss PACE updates with Alex and Chris
+|To Start
+|April 20th, 2020
+|
+|
+|-
+|Get push access to main EMADE
+|To start
+|April 20th, 2020
+|
+|
+|-
+|Peer Evals
+|Completed
+|April 20th, 2020
+|April 22nd, 2020
+|April 22nd, 2020
+|}
+
+== Week 15: April 13th, 2020 ==
+'''General Meeting Notes:'''
+* Decided to use just Toxicity dataset for our runs
+
+'''Subteam Meeting Notes:'''
+* First semesters submitted their notebooks and primitives, Anish incorporated them into EMADE
+* We ran a test run on PACE to see 
+* Dry run of presentation - everything seems to be going well
+* Presentation Link: https://docs.google.com/presentation/d/1sfyO-eB262HKiVnPvO8vDu_6n4wR-Q1RJrIfldWo810/edit#slide=id.p
+'''Personal Notes:'''
+* Google Collab crashed when I tried to run EMADE on it, possibly due to exhausting resources. RemoteMySQL seems to be working fine now though.
+* I got PACE automation to work (finally) link to github: https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet/tree/master/src/GPFramework. Edited launchEMADE.py 
+* Changed the inputSchema.xsd : https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet/tree/master/templates
+* I still need to make a pull request 
+* I ran the toxicity dataset on ICEHAMMER, and used our results
+* I ran the nlp dataset on ICEHAMMER and got results for our statistics testing: https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|March 30th, 2020
+|April 20th, 2020
+|April 6th, 2020
+|-
+|More runs on ICEHAMMER
+|Ongoing
+|March 30th, 2020
+|April 20th, 2020
+|April 19th, 2020
+|-
+|Explore toxicity and chest x ray datasets
+|Ongoing
+|March 30th, 2020
+|April 20th, 2020
+|April 19th, 2020
+|-
+|Fix problems with launchEMADE for PACE
+|Ongoing
+|March 30th, 2020
+|April 20th, 2020
+|April 19th, 2020
+|-
+|Run EMADE on Google Collab
+|Ongoing
+|March 30th, 2020
+|April 20th, 2020
+|April 19th, 2020
+|}
+
+== Week 14: April 6th, 2020 ==
+'''General Meeting Notes:'''
+* I was unfortunately unable to attend the meeting due to a power outage in my neighborhood for a few hours. 
+* Got updates from the Slack and  the rest of the team.
+* First semester students decided what primitives they wanted to work on.
+* Anish wrote documentation on setting up Collab
+* Anish found a website, remotemysql.com that provides a remote mysql server accessible for upto 12 hours and upto 100MB. This seems like a great solution for our db issues and could also help me with the Mysql issues I was facing on PACE.
+'''Subteam Meeting Notes:'''
+* We talk about different issues everybody has with their notebooks and try to debug them.
+* Issue with DEAP tournament selection method - it was fixed by reinstalling DEAP from Github
+* Evaluations stop after one generation.
+'''Personal Notes:'''
+* I was restricted for a large chunk of the week but hopefully my connection to the Internet remains more consistent now.
+* I started the next set of runs on ICEHAMMER for our statistics testing.
+* We still don't know why the neural network problem is occurring on ICEHAMMER - > it is still not evaluating the neural network learners before timing out.
+* Testing phase for PACE has begun. I am trying to run EMADE without seeding on the titanic dataset, and seed an NLP run as well.
+* I need to look into connecting PACE to a remote MySQL server not on PACE itself, right now there may be an issue regarding wall time on PACE.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|March 30th, 2020
+|April 6th, 2020
+|April 6th, 2020
+|-
+|More runs on ICEHAMMER
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|April 6th, 2020
+|-
+|Explore toxicity and chest x ray datasets
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|April 6th, 2020
+|-
+|Fix problems with launchEMADE for PACE
+|Ongoing
+|March 30th, 2020
+|March 30, 2020
+|April 6th, 2020
+|-
+|Run EMADE on Google Collab
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|April 5th, 2020
+|}
+
+== Week 13: March 30th, 2020 ==
+'''General Meeting Notes:'''
+* Mohan gave quick run down of EMADE to first semesters, and explained briefly what the toxicity and chest x-ray datasets were.
+* Tasking was created for first semesters who would work on either the toxicity or chest x-ray datasets
+* Introductory notebooks for both datasets were handed out to first semester students.
+'''Subteam Meeting Notes:'''
+* Anish got Collab support for EMADE running. 
+* First semesters are going to use this for their models.
+'''Personal Notes:'''
+* a.) The MySQL path error that I was facing earlier is now fixed  b.) When I try to run seeding_from_file.py, I hit a SQLAlchemy error that says that innodb_lock_wait_time is a read only variable. I tried temporarily commenting out any code in that file and other files that are used that attempt to set this but I still have the same errors.  c.) When I run launchEMADE, scripts for PACE are generated. However when those files are submitted it errors out due to PACE requiring me to use the absolute path for all file specifications instead of the relative path from within the EMADE directory. I thought about using os.getcwd() and parsing through that but using that function somehow interfered with os.getpid() which I am unsure of how the two correlate.
+* Results are being pullled from ICEHAMMER for nlp-app and nlp-nn. 
+* I will set up EMADE on Collab as well and attempt to make runs for statistics there as well.
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|March 30th, 2020
+|April 6th, 2020
+|April 6th, 2020
+|-
+|More runs on ICEHAMMER
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|
+|-
+|Explore toxicity and chest x ray datasets
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|
+|-
+|Fix problems with launchEMADE for PACE
+|Ongoing
+|March 30th, 2020
+|March 30, 2020
+|
+|-
+|Run EMADE on Google Collab
+|Ongoing
+|March 30th, 2020
+|April 6th, 2020
+|
+|}
+
+== Week 12: March 23rd, 2020 ==
+'''General Meeting Notes:'''
+* First virtual meeting of the semester @ 2 am :-)
+* We discussed how we would progress
+* Possibility of running EMADE on Google Collab to make paired programming easier
+* First semesters joined us - introductions and tasking
+
+'''Subteam Meeting Notes:'''
+* We talked about the first semester students' work in the semester so far and decided we would do a quick recap on EMADE next meeting.
+* We briefed them about what we are working on, specifically our goal to run comparisons between EMADE and the AutoML paper on the toxicity and chest x-ray datasets.
+* Mohan mentioned adding multilabel support to EMADE.
+
+'''Personal Notes:'''
+* I will be continuing my work on PACE and ICEHAMMER till we can have consistent runs.
+* I also plan on helping out with the Chest X-Ray dataset.
+* Updates on PACE  - the code modification is complete -> I need to extensively test it inside and outside PACE
+
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|March 23rd, 2020
+|March 30th, 2020
+|March 30th, 2020
+|-
+|More runs on ICEHAMMER
+|Ongoing
+|March 9th, 2020
+|March 30th, 2020
+|
+|-
+|Explore toxicity and chest x ray datasets
+|Ongoing
+|March 9th , 2020
+|April 6th, 2020
+|
+|-
+|Running tests on launchEMADE for PACE
+|Ongoing
+|March 9th, 2020
+|March 30, 2020
+|
+|}
+== Week 11: March 16th, 2020 ==
+Spring Break - No meeting
+
+== Week 10: March 9th, 2020 ==
+'''General Meeting Notes:''' 
+
+Presentations!!
+* First semesters presented as well as us
+* We are hoping to get people to work on running these new datasets into EMADE and add primitives that would be helpful.
+'''Subteam Meeting Notes:''' 
+
+No subteam meeting - COVID-19
+
+'''Personal Notes:'''
+* I ran the Neural Network branch on Icehammer again after Anish pushed some changes. This seems to have made it worse since NNLearner individuals now take more than 16 hours to evaluate. These individuals timed out in some time, leaving us with no results for this run.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|March 9th, 2020
+|March 23rd, 2020
+|March 30th, 2020
+|-
+|More runs on ICEHAMMER
+|Ongoing
+|March 9th, 2020
+|March 23rd, 2020
+|
+|-
+|Explore toxicity and chest x ray datasets
+|Ongoing
+|March 9th , 2020
+|April 6th, 2020
+|
+|-
+|Running tests on launchEMADE for PACE
+|Ongoing
+|March 9th, 2020
+|March 30, 2020
+|
+|}
+
+== Week 9: March 2nd, 2020 ==
+'''General Meeting Notes:''' 
+* We are going to use the Toxicity dataset and the Chest X-ray dataset to compare the performance of EMADE with CoDeepNEAT. These are the datasets they used.
+
+'''Subteam Meeting Notes:'''
+* Next meeting is our presentation with the first semesters
+* Creating tasking for first semester students
+* Working on presentation: https://docs.google.com/presentation/d/1cmuV6Awxr-s7rA8fMaNm9yOOKJuXTESOuNley5uLd_g/edit
+* PACE is back up - however the settings for MySQL disappeared. Not sure if this is because of the maintenance or something that was wrong on our end.
+'''Personal Notes:'''
+* PACE is down for maintenance, I will resume work once it is back online
+* I tried running the Neural Network branch on ICEHAMMER -> Issues with Tensorflow and CUDA
+
+* I tried my next run for the Neural Network branch on ICEHAMMER, this ran but had terrible results. Link to CSV : https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet/blob/master/movie_reviews_nn_individuals.csv
+* I tried a few preliminary runs for nlp-app branch as well after seeding it on ICEHAMMER - we have better results but its very slow. Link to CSVs: https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet
+'''Action Items:'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Update notebook
+|Completed
+|March 2nd, 2020
+|March 9nd, 2020
+|March 30th, 2020
+|-
+|Edit EMADE launch file
+|Ongoing
+|February 10th, 2020
+|March 9th, 2020
+|March 9th, 2020
+|-
+|Try running Neural Network file on ICEHAMMER
+|Ongoing
+|February 10th, 2020
+|February 24th , 2020
+|February 28th, 2020
+|-
+|Read CoDeepNEAT Paper thoroughly
+|Completed
+|February 27th, 2020
+|March 6th, 2020
+|March 2nd, 2020
+|}
+
+== Week 8: February 24th, 2020 ==
+'''General Meeting Notes:''' 
+* We still have problems with PACE.
+* We began to conduct a preliminary literature review for evolutionary neural networks.
+* We heard the time conflict team had a little progress on PACE. Decided to talk to them.
+'''Subteam Meeting Notes:'''
+* We found a paper that was doing Evolutionary Neural AutoML, something similar to what we wanted to do. Link to paper: Evolutionary Neural AutoML for Deep Learning: https://arxiv.org/pdf/1902.06827.pdf
+** Called CoDeepNEAT and is also multiobjective
+** They're using Microsoft Azure for their parallel computing
+** Evolution is based on a layer by layer basis, similar to what we are doing
+** They have achieved state of the art performance on 2 datasets - one language based and one for images.
+* Our goal is to achieve similar results with EMADE.
+'''Personal Notes:'''
+* I spoke to the time conflict team and learned to how sync with MySQL, however they were not using PACE's multiprocessing capacity. It was simply a local run on the head node. I still need to figure out how to implement this. 
+* Syncing PACE with an external MySQL db gives a lot of issues so I am going to try using the MySQL installed on PACE.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|February 24th, 2020
+|March 2nd, 2020
+|March 30th, 2020
+|-
+|Edit EMADE launch file
+|Ongoing
+|February 10th, 2020
+|February 24th, 2020
+|
+|-
+|Edit XML schema and input_movie_review.xml
+|Completed
+|February 10th, 2020
+|February 24th, 2020
+|February 24th, 2020
+|-
+|Try running Neural Network file on ICEHAMMER
+|Ongoing
+|February 10th, 2020
+|February 24th , 2020
+|
+|}
+
+== Week 7: February 17th, 2020 ==
+'''General Meeting Notes:'''
+* Peer Evals are due
+* We are going to try to apply to the conference Dr. Zutty mentioned.
+'''Subteam Meeting Notes:'''
+* We discussed how we would move forward with our runs to test results on ICEHAMMER
+'''Personal Notes:'''
+* I worked on modifying the XML schema and  input_movie_reviews.xml to work with PACE.
+* I am still working on getting EMADE to run on PACE.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|February 10th, 2020
+|February 24th, 2020
+|February 12th, 2020
+|-
+|Edit EMADE launch file
+|Ongoing
+|February 10th, 2020
+|February 24th, 2020
+|
+|-
+|Edit XML schema and input_movie_review.xml
+|Completed
+|February 10th, 2020
+|February 24th, 2020
+|February 24th, 2020
+|-
+|Try running Neural Network file on ICEHAMMER
+|Not Started
+|February 10th, 2020
+|February 24th , 2020
+|
+|-
+|Peer Evaluations
+|Not Started 
+|February 17th, 2020
+|February 24th, 2020
+|February 21st, 2020
+|}
+
+== Week 6: February 10th, 2020 ==
+'''General Meeting Notes:'''
+* I met with James again and we discussed ways to better handle the different clusters EMADE can be run on.
+* A possibility is to add a GridType element to the xml schema that can be used to specify whether EMADE is running locally or on PACE or ICEHAMMER.
+* launchEMADE.py will have to be edited accordingly and all XML files will need to be modified.
+* I helped some teammates with SQL issues on their local system
+* Decided to look into trying to run our subteam code on ICEHAMMER.
+
+'''Subteam Meeting Notes:'''
+* I spent most of the meeting experimenting with my modified code on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|February 10th, 2020
+|February 17th, 2020
+|February 12th, 2020
+|-
+|Edit EMADE launch file
+|Ongoing
+|February 10th, 2020
+|February 24th, 2020
+|
+|-
+|Edit XML schema and input_movie_review.xml
+|Completed
+|February 10th, 2020
+|February 24th, 2020
+|February 12th, 2020
+|-
+|Try running Neural Network file on ICEHAMMER
+|Not Started
+|February 10th, 2020
+|February 24th , 2020
+|
+|}
+
+== Week 5: February 3rd, 2020 ==
+'''General Meeting Notes:'''
+* I worked with James on trying to understand what the issues in setting up EMADE on PACE were:
+** We got past the squeue and sbatch error, but more errors due to the difference in commands in the SLURM used at GTRI and on PACE.
+** The flags and commands used in the job files are different which made PACE not recognize the configuration flags in launchEMADE.py
+** I will work on reading up on PACE configurations and editing the main file to allow EMADE to be run on PACE.
+'''Subteam Meeting Notes:'''
+
+I was unwell and could not come to the meeting, however, I was making progress with modifying launchEMADE.py.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|February 3rd, 2020
+|February 10th, 2020
+|February 12th, 2020
+|-
+|Edit EMADE launch file
+|Ongoing
+|February 3rd, 2020
+|February 17th, 2020
+|
+|}
+
+== Week 4: January 27th, 2020 ==
+'''General Meeting Notes:'''
+* Fixed the issues from previous meeting, it was an issue with the environment setup.
+* I tried running the following submission:
+* <code>#PBS -N emadetest     # job name</code>  <code>#PBS -l nodes=2:ppn=4    # number of nodes and cores per node required</code>  <code>#PBS -l pmem=2gb      # memory per core</code>  <code>#PBS -l walltime=15:00   # duration of the job (ex: 15 min)</code>  <code>#PBS -q pace-ice       # queue name (where job is submitted)</code>  <code>#PBS -j oe         # combine output and error messages into 1 file</code>  <code>#PBS -o emadeTest.out   # output file name</code>  <code>#PBS -m abe         # event notification, set to email on start, end, or fail</code>  <code>#PBS -M [mailto:pagarwal80@gatech.edu pagarwal80@gatech.edu]   # email to send notifications to computations start here</code>  <code>cd ~/emade</code>  <code>echo “Started on `/bin/hostname`”  # prints name of node job is started on</code>  <code>module load gcc anaconda3/2019.10    # loads python environment (anaconda)</code>  <code>conda activate emade</code>  <code>python ~/emade/src/GPFramework/launchEMADE.py ~/emade/templates/input_movie_reviews.xml      # runs parallel python script</code>
+*This gave me a Permission Denied error. Further discussion with Dr Zutty and James helped me understand that this was an issue with EMADE since we did not have permission to run squeue on PACE.ting ou
+'''Subteam Meeting Notes:'''
+* I tried handling the exceptions thrown with the squeue and commenting out the portions that weren't needed in the launchEMADE.py file.
+* There were more Permission Denied errors with sbatch 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|January 27th, 2020
+|February 3rd, 2020
+|February 3rd, 2020
+|-
+|Continue working on PACE
+|Completed
+|January 14th, 2020
+|February 3rd, 2020
+|February 3rd, 2020
+|}
+
+== Week 3: January 20th, 2020 ==
+'''General Meeting Notes:''' 
+* No meeting on Monday - MLK Day
+'''Subteam Meeting Notes:'''
+
+PACE Submission Docs: https://pace.gatech.edu/job-submission-0
+* Worked on PACE - encountered following errors:
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|January 24th, 2020
+|January 27th, 2020
+|January 27th, 2020
+|-
+|Continue working on PACE
+|Completed
+|January 14th, 2020
+|January 27th, 2020
+|January 27th, 2020
+|}
+
+== Week 2: January 13th, 2020 ==
+'''General Meeting Notes:'''
+* We talked about running on PACE and how to get set up
+* Cloned EMADE on PACE and started setting up the environment.
+* I tried to understand how a cluster works and how to access different nodes on it: https://pace.gatech.edu/sites/default/files/pace-ice_orientation_2.pdf
+* Helped Sanket get caught up with our goals for the semester.
+'''Subteam Meeting Notes:'''
+
+No meeting due to career fair.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|January 13th, 2020
+|January 27th, 2020
+|January 27th, 2020
+|-
+|Start working on PACE
+|Completed
+|January 13th, 2020
+|January 27th, 2020
+|January 14th, 2020
+|}
+
+== Week 1: January 6th, 2020 ==
+'''General Meeting Notes:''' 
+* First meeting of semester
+* Dr. Zutty gave lecture on hypothesis testing.
+* Focus this semester should be on getting testable smaller results that show a noticable improvement
+* Perform t-tests
+* Decide on what to do for this semester
+'''Subteam Meeting Notes:'''
+* Anish, Mohan and I decided to continue work on the Neural Networks subteam, and work on implementing Neural Network support in EMADE.
+* We decided to setup and run EMADE on PACE, a Gatech supercluster.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|January 6th, 2020
+|January 13th, 2020
+|January 13th, 2020
+|-
+|Figure out our agenda for the semester
+|Completed
+|January 6th, 2020
+|January 13th, 2020
+|January 6th, 2020
+|}
+
+= Fall 2019 =
+
+== Week 16: December 2nd, 2019 ==
+'''General Meeting Notes:'''
+* Presentations today!
+* Presentation link: https://docs.google.com/presentation/d/1GSIrOEssa06AZDewUNgxEtssS3OQrKnxbpkuIrEwlXY/edit#slide=id.p
+* My News Dataset work: https://github.gatech.edu/pagarwal80/VIP_AAD_NeuralNet/blob/master/Pulak-NewsDataset.ipynb
+[[files/NN NewsDataset Model.png|center|thumb|500x500px|News Dataset Neural Net Architecture]]
+to be continued in January 2020
+
+== Week 15: November 25th, 2019 ==
+'''General Meeting Notes:'''
+* Final Presentation next week - prepare
+* Try bag of words on news dataset and see if the accuracy increases
+* Attempt PCA if that doesn't work
+'''Other Notes:'''
+* I have already tried cleaning the dataset and modifying the tokenizer - maybe the problem is in the architecture being used
+* Currently using embedding layer, followed by LSTM layer followed by dense layer, the loss function is categorical_crossentropy with sigmoid activation function
+* I tried changing the loss function to binary_crossentropy after reading about multi-class classification and multi-label classification and how the loss function used for each would differ
+** Multi-class classification one hot encodes the labels and only one label or output vector can be active at a time. We would use categorical_crossentropy for this classification technique with sigmoid or softmax activation.
+** Multi-label classification involves more than one output vector being able to activate at the same time. An example for an output vector could be [1,0,0,1] which shows that the output vector is not one-hot encoded. We would use binary_crossentropy for this. 
+** I need to look into which is better suited for the news dataset, since categories of news articles do not need to be exclusive to one category.
+* Both approaches gave me 25% accuracy with the current architecture I was using, except for one case where Keras was evaluating accuracy using the wrong metrics.
+* I tried new architectures, including:
+** Embedding layer, followed by LSTM layer, followed by 3 dense layers with more perceptrons (random accuracy)
+** Embedding layer, CuDNNLSTM, dense layer (random)
+** Embedding layer, Conv1D Layer, LSTM, Dense Layer (random)
+* Embedding layer is used for learning the word embedding in the model
+* New architecture I tried was to add a GlobalMaxPooling1D layer, which downsamples the features in the feature set, it acts like a flattening layer, which not only decreased runtime significantly but also improved accuracy upto 84%.
+* Current architecture being used: Embedding Layer -> GlobalMaxPooling1D -> Dense Layer. This after 20 epochs gives an accuracy of 97% on training data and 84.6% on validation data.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|November 11th, 2019
+|November 18th, 2019
+|November 18th,2019
+|-
+|Create architectures on news/images dataset
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|December 1st, 2019
+|-
+|Read about neural networks and keras library
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|November 22nd, 2019
+|-
+|Work on final presentation
+|Completed
+|November 25th, 2019
+|December 2nd, 2019
+|December 2nd, 2019
+|-
+|Get 85% accuracy on news dataset
+|Completed
+|November 25th, 2019
+|December 2nd, 2019
+|December 1st, 2019
+|-
+|Try bag of words on news dataset
+|Completed
+|November 25th, 2019
+|December 2nd, 2019
+|November 24th, 2019
+|}
+
+== Week 14: November 18th, 2019 ==
+'''General Meeting Notes:'''
+* Was able to run different models on the news dataset - classifying news headline and subtitle into a category
+* Initial accuracy was 24% - need to bring up to 85% at least.
+* Tried different supervised learning models - varying accuracy, 24% for Logistic Regression, 35% for Random Forest Classifier
+* Need to change the architecture for the neural network - I can try reading up on convolutional neural networks and how they work.
+
+'''Subteam Meeting Notes - 22nd November:'''
+* Still trying to figure out how to increase the accuracy of the Neural Network Classifier. Currently guessing at random even after a significant amount of generations
+* Different theories as to why the network is not training:
+** Too many proper nouns in the dataset, that don't get added to the tokenizer -> can try increasing dictionary size
+** I tried modifying the tokenizer to see if that changed - Didn't work
+** Too many ambiguous data /noise ("/quot", "&gt", etc) that need to be removed.
+** I tried basic cleaning procedure and modifying the filters but that did not work either.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|November 11th, 2019
+|November 18th, 2019
+|November 18th,2019
+|-
+|Create architectures on news/images dataset
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|December 1st, 2019
+|-
+|Read about neural networks and keras library
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|November 22nd, 2019
+|}
+
+== Week 13: November 11th, 2019 ==
+'''General Meeting Notes:'''
+* Need to try and make benchmark architectures on news and image datasets in order to use them as seeds. Target: >85% accuracy
+* Read articles and papers: 
+** Evolutionary Algorithms for Extractive Automatic Text Summarization: https://www.sciencedirect.com/science/article/pii/S1877050915006869
+** Recent Trends in Deep Learning Based Natural Language Processing: https://arxiv.org/pdf/1708.02709.pdf
+'''Subteam Meeting Notes - 15th November:'''
+* Attempted running on news dataset.
+*Issues with a keras function attempting to cast text to a float, attempting to troubleshoot
+*Cannot pickle at the beginning of keras modelling
+*Try downgrading to Tensorflow 1.14
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|November 11th, 2019
+|November 18th, 2019
+|November 18th,2019
+|-
+|Create architectures on news/images dataset
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|December 1st, 2019
+|-
+|Read about neural networks and keras library
+|Completed
+|November 11th, 2019
+|November 22nd, 2019
+|November 22nd, 2019
+|}
+[[files/News Dataset NLPNN.png|center|thumb|800x800px|Working on news dataset]]
+
+== Week 12: November 4th, 2019 ==
+'''General Meeting Notes:''' 
+* Issues running EMADE and viewing individuals in the db
+* Understood how we want to integrate neural networks in EMADE
+* Running seeding: <code>python src/GPFramework/seeding_from_file.py templates/input_movie_reviews.xml seeding_test_nn</code>
+* Running EMADE: <code>python src/GPFramework/launchEMADE.py templates/input_movie_reviews.xml</code>
+'''Subteam Meeting Notes - 8th November:'''
+* EMADE broke when attempted to run on cloned repository. Tried diagnosing the fix, presumably because a neural network function conflicted with a pickling function.
+* New assignment - read about neural networks and applications in NLP
+* Understanding basics of Neural Networks: https://towardsdatascience.com/a-gentle-introduction-to-neural-networks-series-part-1-2b90b87795bc[[files/Neural Network EMADE.png|alt=Understanding how we will be using Neural Networks in EMADE|center|thumb|500x500px|Chart to help understand how we will be using Neural Networks in EMADE]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|November 4th, 2019
+|November 11th, 2019
+|November 11th,2019
+|-
+|Update local EMADE clone with neural networks
+|Completed
+|November 4th, 2019
+|November 11th, 2019
+|November 11th, 2019
+|-
+|Read about neural networks and keras library
+|In progress
+|November 4th, 2019
+|November 11th, 2019
+|November 11th, 2019
+|}
+
+== Week 11: October 28th, 2019 ==
+'''General Meeting Notes:'''
+* I decided to join the neural networks sub-sub team of the natural language processing subteam.
+* We are working on integrating neural network support into EMADE, particularly for NLP
+'''Subteam Meeting Notes - 1st November:'''
+* I spoke to both sub-sub teams in the NLP subteam and decided to join neural networks
+* Must clone Anish's fork of the EMADE repo to work on neural networks
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 28th, 2019
+|November 4th, 2019
+|November 4th,2019
+|-
+|Get EMADE running with the additional features that exist
+|In progress
+|October 28th, 2019
+|November 4th, 2019
+|November 11th, 2019
+|-
+|Read about neural networks and keras library
+|In progress
+|October 2nd, 2019
+|November 11th, 2019
+|November 11th, 2019
+|}
+
+== Week 10: October 21st, 2019 ==
+'''General Meeting Notes:'''
+* Final Presentations for bootcamp, and meeting all AAD subteams. Our presentation: https://docs.google.com/presentation/d/1nDlbacJ5zTDk5g6c5B92MEgx5rw3qAewIVchtNYQnzk/edit#slide=id.p
+* Summed up all previous assignments and conclusions
+* Challenges using EMADE:
+** Installing EMADE and the libraries on every system
+** Get a MySQL server running remotely
+** Obtaining the right version of each library so that EMADE was compatible
+* We used the same feature set as our old iterations of the Titanic dataset
+* We modified the probability of each mutation and crossover method.
+* First proper run (locally on machine):
+** Trained for 15 generations over 2800 individuals being evaluated
+** I looked at how EMADE was processing the results simultaneously rather than waiting for each individual to finish, making it easier to process more individuals faster.
+** Pareto front plot did not make any sense. This was because we were using 3 objectives: False Negatives, False Positives, and NumElements and attempting to plot in 2 dimensions
+**[[files/Pareto Front EMADE titanic (bad).png|center|thumb|500x500px|Pareto Front for 3 objective functions plotted in 2 dimensions]]
+** I tried different approaches to fix this :
+*** Approach 1: Plotting in 3 dimensions
+**** Since 3 objectives were being used, could we make a 3 dimensional pareto front visualization? Over a 100 individuals are in the pareto front and plotted.
+***[[files/3d pareto Front titanic emade.png|center|thumb|800x800px|3D Visualization Code and Plot for 3 objective function pareto front run of EMADE on Titanic dataset.]]
+**** This showed a plot but it did not make sense to me so I tried a different approach.
+*** Approach  2: Dropping the third objective and flattening results into 2 dimensions:
+**** AUC was 0.2002 at 15th generation
+**** There are fewer individuals in the plot since dropping the third objective impacted codominance scores.
+***[[files/Pareto Front EMADE Titanic (flattened).png|center|thumb|500x500px|Flattened 3 objective Pareto Front for Titanic dataset using EMADE]]
+*** Approach 3: Rerunning EMADE after modifying the xml file and removing the third objective. This came at the cost of tree depth and time to run.
+**** Ran for 15 generations again but this time AUC was 0.2366
+**** There are 100 individuals in the hall of fame but they superimpose over each other, thus making the plot look like it has fewer individuals [[files/Titanic EMADE Pareto Front(P).png|center|thumb|500x500px|Pareto front visualization for Titanic EMADE run with 2 objectives]]
+* Example of an individual from the Hall of Fame: <code>myPlanckTaper(AdaBoostLearner(myGaussian(ARG0, 100.0, 1), ModifyLearnerInt(learnerType('Bayes', None), equal(0.1, -0.9180893168660775), 5), passTriState(1), myIntToFloat(9)), passFloat(myFloatAdd(100.0, 0.1)), passTriState(passTriState(0)))</code>
+* Comparing MOGP and EMADE:
+** We found MOGP to decrease AUC more given more generations as running over 40 generations brought AUC down to 0.12
+** EMADE run over 15 generations brought AUC down to 0.2366 after evaluating 2800 individuals
+** Contrastingly, after 15 generations, MOGP evaluated 1500 individuals and had an AUC of 0.27, meaning given enough time and computational resources, EMADE proves to be more effective than conventional MOGP.
+* Conclusions: 
+** EMADE takes a lot longer to create multiple generations that lower the AUC over time, however can be more effective at optimization.
+** Different approaches give different results based on the level of processing.
+'''Personal Notes:'''
+* Started to read Dr. Zutty's dissertation to understand how EMADE works.
+* Try experimenting with the different kinds of primitives and objectives in the xml description for EMADE datasets. Removing numElements reduced accuracy but brought the objectives down to 2, making it possible to make a 2 dimension pareto front without reshaping.
+* Played with the SQL database to see what kind of individuals are being generated. There are a lot of ensemble machine learning models being used as primitives in the trees.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 9th, 2019
+|October 16th, 2019
+|October 16th, 2019
+|-
+|Run EMADE on Titanic dataset
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Obtain non-dominated frontier after large number of generations
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Plot non-dominated frontier and compare with other assignments
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 20th, 2019
+|-
+|Make Presentation
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 20th, 2019
+|}
+
+== Week 9: October 16th, 2019 ==
+'''General Meeting Notes:'''
+* Time to work on EMADE and installing and debugging errors
+* I was running into errors with installing MySQL, wasn't sure how to get it set up.
+* Spoke to Dr. Zutty and James to try and figure out what the error was, seemed to be an issue with different versions of SQL that didn't get completely removed.
+'''Subteam Meeting Notes:'''
+* Got EMADE working
+* Tried understanding how exactly EMADE would work
+* Decided against using cloud hosting for the SQL server.
+* We were unsure as to how to progress on building the non-dominated frontier
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 9th, 2019
+|October 16th, 2019
+|October 16th, 2019
+|-
+|Set up MySQL
+|Completed
+|October 9th, 2019
+|October 16th, 2019
+|October 16th, 2019
+|-
+|Set up SQL server
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 16th, 2019
+|-
+|Run EMADE on Titanic dataset
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Obtain non-dominated frontier after large number of generations
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Plot non-dominated frontier and compare with other assignments
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 20th, 2019
+|}
+
+== Week 8: October 9th, 2019 ==
+'''General Meeting Notes:''' 
+* Introduction to EMADE - Evolutionary Multi Objective Algorithm Design Engine
+** Combines multi objective search with high level process to automate the process
+* What is required to run EMADE, what are the pieces of EMADE and how can you monitor what you're running?
+<code>python3 src/GPFramework/launchGTMOEP.py templates/input_titanic.xml to run a EMADE file</code>
+* The input file is an xml doc that configures all moving parts in EMADE. You connect to a MySQL database to see results
+* Server can be localhost(127.0.0.1) for local runs but should host remotely to allow workers to connect
+* Username and password for mySQlL and the user should have full permissions on the spec db - this db needs to be made independent of emade on MySQL
+* Dataset blocks, EMADE can be run across multiple datasets. Titanic is one example. Data preprocessed into gzipped csv files.
+* How we run: cross fold into 5 Monte Carlo trials to score algorithms with.
+* Each train and test file create a DataPair object in EMADE.
+* Always remember EMADE uses the last column for scoring purposes.
+* Objectives: Names will be used as columns in the database.
+* Weight specifies whether should be maximized or minimized.  Generally prefer minimized because helps with making non dominated frontier.
+* <Evaluation Function> specified the name of a method in src/GPFramework/evalFunctions.py
+* Acheivable and goal are used for steering the optimization, lower and upper are used for bounding.
+* Objectives generally used are false positives, false negatives, and num of elements.
+* More parameters in the input file :evaluation specifics are where the evaluation functions specified in the objectives live and hoe much memory each worker is allowed to use before marking an individual as Fatal
+* <memoryLimit> shouldn’t be too high.
+* <workersPerHost> specifies hoe name evaluations to run in parallel - EMADE is intensive and keep the number low on a laptop.
+* Evolution parameters in the input file : control the hyperparameters that affect the evolutionary process. Don’t necessarily change these values from the default values.
+* Dbconfig in the input file specifies their IP address and not the localhost.
+* Use -w flag to run it as a worker
+* Best place to see output of EMADE are MySQL dbs
+* Can connect to MySQL server from cmd: <code>mysql -h hostname -u username -p</code>
+* Give EMADE some time will allow you to see individuals complete
+<code>Select * from individuals where ‘FullDataSet False Negatives’ is not null;</code>
+* Src/GPFramework is main body of the code. gtMOEP.py is the main EMADE engine, compiles all the individual methods here. Evaluation method is here. Primitives are added here
+* gp_framework_helper.py is where primitive set is built for EMADE, it points to where the primitives are: methods.py, signal_methods.py, spatial_methods.py
+* Data.py provisions the DataPair object passed from primitive to primitive
+* Datasets/ is where we have datasets
+* Templates are where the inputs are
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 9th, 2019
+|October 16th, 2019
+|October 16th, 2019
+|-
+|Set up MySQL
+|Completed
+|October 9th, 2019
+|October 16th, 2019
+|October 16th, 2019
+|-
+|Set up SQL server
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 16th, 2019
+|-
+|Run EMADE on Titanic dataset
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Obtain non-dominated frontier after large number of generations
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 19th, 2019
+|-
+|Plot non-dominated frontier and compare with other assignments
+|Completed
+|October 9th, 2019
+|October 21st, 2019
+|October 20th, 2019
+|}
+
+== Week 7: October 2nd, 2019 ==
+'''General Meeting Notes:'''
+* Presented our pareto front in class: https://docs.google.com/presentation/d/1nOBkBBZlXKNpkpiklO-IvuAoEmPrEtOjIKG4s5BieRw/edit?ts=5d939888#slide=id.p
+* Notes from lecture and other presentations:
+** Try writing own evolutionary loop to get the feel for it. Go through different kinds of mutation, selection and evaluation techniques.
+** Make the pareto front bounded in order to get accurate area under the curve, it is possible that some of our errors, though later corrected, could be due to that.
+** Use different kinds of primitives
+* Something to think about and try: using machine learning models as primitives, as well as try plugging in the results as an evaluation function. - The latter would technically not be using an evolutionary loop though.
+'''Action Items:''' 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|October 2nd, 2019
+|October 9th, 2019
+|October 4th,2019
+|-
+|Install EMADE
+|In progress
+|October 2nd, 2019
+|October 9th, 2019
+|October 9th, 2019
+|}
+
+== Week 6: September 25th, 2019 ==
+'''General Meeting Notes:'''
+* New Assignment:
+** Continue working on the Titanic ML Problem
+** Use multi objective genetic programming to create 100 codominant individuals to minimize false positive and false negative rates on training data
+** Visualize the Pareto Front and calculate the area under the curve
+** Run each individual on the test data and submit the results in one csv
+'''Subteam Meeting Notes:'''
+
+Code can be found at: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1/blob/master/Titanic_GP.ipynb
+* Chose the same feature set as previous assignment
+* Chose a basic list of primitives: addition, subtraction, multiplication, sin, cos, arcsin, arccos, negative
+* Understood difference between strongly typed and weakly typed GP
+* Chose SelNSGA2 for our selection algorithm because it is one of the algorithms used for multi-objective GP
+* Used MuPlusLambda algorithm for evolutionary loop, this is in order to choose best individuals for minimization from the child generation as well as the parent generation in the Hall of fame
+* Ran loop for 150 generations, getting to an Area Under the Curve of 0.11
+* Crossover rate was 0.8 and mutation rate was 0.2
+[[files/Screen Shot 2019-10-02 at 11.36.35 PM.png|alt=Visualization of the Area Under the Curve over generations. Changes from 0.37 to 0.1183 in 150 generations|center|thumb|800x800px|Visualization of the Area Under the Curve over generations. Changes from 0.37 to 0.1183 in 150 generations]]
+
+Personal Tasks/Contributions:
+* Worked with team to understand/explain what was required
+*[[files/AUC Function.png|alt=The function for finding AUC in a given generation|thumb|500x500px|The function for finding AUC in a given generation]]Understood basics of the different kinds of functions in the DEAP library
+* Wrote evaluation function for evolutionary algorithm
+* Worked on choosing the algorithms for selection, mutation and crossover
+* Ran evolutionary loop on various instances and choosing the one with the best results and reproduced them
+* Added Visualization for Pareto Front - False Negative Rate vs False Positive Rate[[files/GPParetoFront.png|alt=Pareto Front for 157 individuals in the Hall of Fame, blue dots indicate dominated individuals and red dots are the codominant individuals.|center|thumb|800x800px|Pareto Front for 157 individuals in the Hall of Fame, blue dots indicate dominated individuals and red dots are the codominant individuals.]][[files/Example Individual.png|alt=Example Individual from Hall of Fame|center|thumb|800x800px|Example Individual from Hall of Fame]]
+* Added statistic for area under the curve evaluation using Riemann Sums.[[files/AUC at different generations.png|alt=Area under the curve varying at each generation in the evolutionary loop|center|thumb|1000x1000px|Area under the curve varying at each generation in the evolutionary loop]]
+* Ran hall of fame individuals on the test data set.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|September 25th, 2019
+|October 2nd, 2019
+|October 2nd, 2019
+|-
+|Choose Feature Set
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 1st, 2019
+|-
+|Understand conceptually the requirements
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 1st, 2019
+|-
+|Work on coding the loop and obtaining codominant individuals
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 1st, 2019
+|-
+|Visualizing Pareto Front
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 1st, 2019
+|-
+|Evaluating Area under the Curve
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 1st, 2019
+|-
+|Running hall of fame on test data and submitting results
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 2nd, 2019
+|-
+|Make presentation
+|Completed
+|September 18th, 2019
+|October 2nd, 2019
+|October 2nd, 2019
+|}
+
+== Week 5: September 18th, 2019 ==
+'''General Meeting Notes:'''
+* Presented findings on Titanic Dataset : https://docs.google.com/presentation/d/1x_8xfFspcMqOYNSju7Hl3QtAJquGAbR2QhAp6xskn5w/edit?usp=sharing
+* Saw other teams present findings and assignments.
+** Notes:
+** Our own features can be created by modifying the existing features.
+** We can add weights to each value in a feature based on the likelihood of survival
+** Label Encoding
+** Different algorithms gave different results and some had to be dropped to get codominant models
+** Very important to look at different features and understand the significance of codominance.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|September 18th, 2019
+|September 25th, 2019
+|September 22nd,2019
+|-
+|Read and understand the working of various algorithms and how we can use DEAP with them
+|Completed
+|September 18th, 2019
+|September 25th, 2019
+|September 22nd, 2019
+|}
+
+== Week 4: September 11th, 2019 ==
+'''Weekly Meeting Notes:'''
+* Divided into Subteams to do Titanic ML assignment - Subteam 1: Aryender, Pulak, Anshul, Joseph, Peiqi, Ford
+* Cleaning data is the first step to creating a machine learning algorithm
+** Tools:
+*** Pandas takes in CSVs and data files and represents them as tabular frames in python
+**** Pandas functions allow you to replace rows and manipulate the data tables.
+*** Numpy
+**** Allows for mathematical operations to be done on row/column data in the table
+*** Scikit-learn
+**** Enables the data training, testing and splitting process
+**** Splits the data randomly between test and training data
+**** Model architectures
+***** Random forest
+***** Decision trees
+* What is codominance?
+** Algorithms, that are not dominated by another. That means one solution is not objectively better than the other. When doing multi-objective GP, a codominant set will be one with a tradeoff between the two objectives, eg: false positive rate and false negative rate.
+** A pareto front is a codominant set of non dominated solutions.
+* Different ways to optimize an algorithm:
+** Modifying mutation, crossover algorithms
+** Adjusting the hyperparameters
+** Modifying the primitives
+** Choosing the right selection model and evaluation function
+'''Subteam Meeting Notes:'''
+
+Goals/Notes:
+* Understand the Titanic dataset by exploring it and considering different evaluation and preprocessing techniques
+* Extracting feature set after preprocessing[[files/Preprocessed Description Titanic Train.png|alt=A description of statistics of the Titanic dataset after preprocessing.|center|thumb|600x600px|A description of statistics of the Titanic dataset after preprocessing.]]Discussed different models conceptually and decided which ones each member would use: Personally decided to choose RandomForest
+* Discussed problems with each model and explained conceptually what each model was doing
+* Worked on presentation
+* Understood the concept of codominance.
+[[files/Feature Set .png|alt=Feature Importance for RandomForestClassifier for Titanic dataset. Order of importance: PClass, Sex, Age, SibSp, Parch, Fare|thumb|Feature Importance for RandomForestClassifier for Titanic dataset.]]
+Personal Tasks/Contribution:
+* Created Github Repo for Subteam: https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1
+* Read up on Pandas and Numpy and using them to preprocess data
+* Logically analyzed which features are going to make impact before preprocessing
+* Trained using RandomForestClassifier model and extracted feature set : https://github.gatech.edu/pagarwal80/VIP_AAD_subteam1/blob/master/TitanicMLv1.ipynb
+** Notes and Conclusions based on RandomForestClassifier:
+*** Reached accuracy of 0.843 with 200 estimators
+*** Confusion Matrix: {| class="wikitable" ! !Actual:True !Actual: False |- |Predicted: True |57 |17 |- |Predicted:False |19 |130 |}
+*** False Positive Rate: 17/147 = 0.108
+*** False Negative Rate: 19/76 = 0.25
+*** Feature Set importance showed PClass was most important, followed by Sex, Age, SIbSp, Parch, Fare in that order.[[files/Feature Set Code.png|alt=Code and output for feature importance of RandomForestClassifier.|center|thumb|600x600px|Code and output for feature importance of RandomForestClassifier]]This model dominated some of our other models and thus needed to be tweaked later on.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|September 11th, 2019
+|September 18th, 2019
+|September 18th,2019
+|-
+|Create Github Repo
+|Completed
+|September 11th, 2019
+|September 18th , 2019
+|September 11th, 2019
+|-
+|Create feature set
+|Completed
+|September 11th, 2019
+|September 18th, 2019
+|September 17th, 2019
+|-
+|Run ML models on training data and make pareto front
+|Completed
+|September 11th, 2019
+|September 18th, 2019
+|September 18th, 2019
+|-
+|Create Presentation to deliver in lecture
+|Completed
+|September 11th, 2019
+|September 18th, 2019
+|September 18th, 2019
+|-
+|Predict values on test data
+|Completed
+|September 11th, 2019
+|September 18th, 2019
+|September 18th, 2019
+|}
+
+== Week 3: September 4th, 2019 ==
+'''Team Meeting Notes:'''
+
+'''Multi-Objective Optimization'''
+* What are the things an algorithm would look for
+** Minimize errors like misclassification
+** Memory usage and space complexity
+** Give good true positive and minimize false positive
+** Time efficient
+** Security
+** Precision
+** Usability
+** Cost effectiveness
+* We pay attention to the performance based criteria for now.
+* Pay attention to the confusion matrix based on the factors or genes.
+* Sensitivity  - # of true positives/# of true positives + false negative
+* Specificity - # of true negative/# of true negative + false positive. We ideally want to get as close to 1 as possible
+* Every algorithm we will work with will have a score - what is a good algorithm? One that is dominant in terms of the classification
+* We mate the best algorithms - out of multiple generated - phenotypic diversity
+* False Negative Rate - FN/TP+FN
+* Fallout or False Positive Rate - FP/FP+TN
+** Thats when it becomes a minimization problem
+* Precision or Positive predictive value -> TP/TP+FP higher is better
+* False Discovery Rate -> FP/TP+FP - smaller is better
+* Negative Predictive Value -> TN/TN+FN
+* Accuracy  -> (TP+TN)/(P+N)
+* Accuracy -> TP + TN / (TP + FP+FN+TN)  Higher is better
+* '''Genotype - DNA'''  '''Phenotype - how it manifested all of the criteria in the multiple dimensions'''
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|September 4th, 2019
+|September 11th, 2019
+|September 10th,2019
+|-
+|Complete Lab02 on multiobjective optimization
+|Completed 
+|September 4th, 2019
+|September 11th, 2019
+|September 9th, 2019
+|}
+
+== Week 2: August 28th, 2019 ==
+'''Team Meeting Notes:'''
+
+'''Genetic Programming:'''
+*Instead of taking an individual score and having a function evaluator to obtain objective scores, the individual is the function itself.
+*We use trees to represent programs in genetic programming
+*Terminals are the leaf nodes and other nodes are the primitives or the operations 
+*We use lisp preordered parse tree to store the data for the program
+*Operators are followed  by the inputs and in the list in preordered form
+*Representation is the big change from genetic algorithms to genetic programming
+*Genetic programming has single point crossovers - performed by simply swapping subtrees. 
+*Mutations in GP - change a node or subtree and removing and adding and modifying
+*Difference between weakly typed and strongly typed GP - weakly type can have broader class of primitives and strongly typed GP is a restriction for a type to allow data to flow.
+'''Symbolic regression:'''
+*Evaluating a tree - can feed a number of input points into the function to get output = [0..2pi], then you run F(x) and can measure the error between outputs and truth, for example sum square error could be computed as error = sigma(f(xi) - sin(xi)^2)
+*Using powers and factorial and trig functions as primitive make this evolution much easier. We want the primitives to be complicated so that we can easily understand them.
+*Evolution of the primitives are the idea behind EMADE.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook
+|Completed
+|August 28th, 2019
+|September 4th, 2019
+|September 4th,2019
+|-
+|Complete Lab02 on genetic programming
+|Completed 
+|August 28th, 2019
+|September 4th, 2019
+|September 1st, 2019
+|}
+
+
+== Week 1: August 21st, 2019 ==
+'''Team Meeting Notes:'''
+<ul>
+<li> Introduction to the Team
+<li> Introduction to Genetic Algorithms
+<li> Introduction to DEAP
+<li> Began the setup
+</ul>
+<br>
+<b>Sub-team Action Items: </b> 
+<br>
+No sub team assigned.
+<br>
+<br>
+<b>Action Items:</b>
+<table class = "wikitable">
+<tr>
+<th>Task </th>
+<th> Current Status </th>
+<th> Date Assigned </th>
+<th> Suspense Date </th>
+<th> Date Resolved </th>
+</tr>
+<tr>
+<td>Setup environment and install required libraries</td>
+<td> Completed</td>
+<td> Aug 21, 2019</td>
+<td> Aug 28, 2019</td>
+<td> Aug 22, 2019</td>
+</tr>
+<tr>
+<td>Complete Lab 1 </td>
+<td> Completed</td>
+<td> Aug 21, 2019</td>
+<td> Aug 28, 2019</td>
+<td> Aug 25, 2019</td>
+</tr>
+</table>
+<ul>
+<li> Code ran without errors.
+<li> Learned the flow of coding using DEAP
+</ul>

@@ -1,0 +1,447 @@
+== FALL 2019 ==
+{| class="wikitable"
+!Week
+!Task
+!Status
+!Assigned Date
+!Completed Date
+|-
+|1
+|ezCGP onboarding: Understanding concepts
+|Done
+|08/24/2019
+|08/26/2019
+|-
+|2
+|ezCGP onboarding 2: Understanding codebase
+|Done
+|08/26/2019
+|08/26/2019
+|-
+|3
+|Refactored skeleton block out to support multiple blocks
+|Done
+|09/07/2019
+|09/07/2019
+|-
+|4
+|Extracted out universe.py into mpi_universe.py to implement parallel computing
+|Done
+|09/13/2019
+|09/16/2019
+|-
+|5
+|Rearrange the code to parallelize create_universe(), parallelize the evaluate portion of create_universe()
+|Done
+|09/22/2019
+|09/22/2019
+|-
+|6
+|Fix memory leak issue and pickling errors, clean up universe.py
+|Done
+|09/26/2019
+|09/28/2019
+|-
+|7
+|Debugging MPI
+|
+|
+|
+|-
+|8
+|Debugging MPI
+|
+|
+|
+|-
+|9
+|Slides for demo
+|
+|
+|
+|-
+|10
+|Debugging MPI to find out how long the CPUs spend in I/O for scatter() and gather()
+|
+|
+|
+|}
+
+=== Week 1 ===
+
+==== Onboarding 1 - Explore ezCGP: ====
+'''What is CGP?'''
+
+CGP represents DAGs (directed acyclic graph) implemented by a linear genome of functions represented by integers, that operate on inputs to that gene. Inputs can be from a problem input or any previous node. This removes the need for traditional tree-based GP, which needs to recompute an entire subtree to reuse a function.
+
+'''What is ezCGP?'''
+
+CGP framework we developed to evolve various network architectures
+
+Automates the process of designing ML architectures
+
+Efficiently chooses pareto optimal individuals while properly maintaining latent DNA
+
+'''First team meeting (08/24/2019):'''
+
+Discussed what's the game plan for this semester:
+* 1st/3 of the semester:
+** De-structure the one giant block we currently have into multiple blocks of layers for image classification
+** Enable mating between blocks
+
+==== Proof of concept ====
+* 2nd/3 of the semester:
+** Split into 2 subteams
+** Team 1 - Parallel computing
+**# Design the structure of possible parallel computing (google cloud, multithread, etc.)
+**# Goal is to make training process much faster
+** Team 2 - Expand functionality
+**# Add preprocessing block
+**# Add more primitives
+**# Goal is to achieve a more state of the art on dataset CIFAR-100 or other benchmark problems
+
+=== Week 2 ===
+===== Weekly meeting (08/30/2019): =====
+* Progress checkup
+* Walk through of the codebase by one of team members
+* Run ezCGP and identify where is a good place to start breaking down the block
+
+=== Week 3 ===
+'''Weekly meeting (09/07/2019):'''
+* Team discussion and assign tasks
+
+* Took part in designing and implementing with Sam and Jinghua. I implemented the '''skeleton_block.py''', and training_block and preprocessing_block was built upon '''skeleton_block'''.
+https://github.com/ezCGP/ezCGP/commit/ac354089bb34ddc4cbb240a42df2778d9febc91c
+
+https://github.com/ezCGP/ezCGP/commit/a3f1cee8369521612bec64ff0e4d5e0059ba2a7f
+
+https://github.com/ezCGP/ezCGP/commit/0d46c4ee8fb23cac7f56327f3528d3e474a08b12
+
+https://github.com/ezCGP/ezCGP/commit/485fbdbc87bd10747a56f04d67b2ba804f43e168
+* Check progress and stay on track with semester plan
+* Week 3 to-do discussion, will discuss more in class
+* Make sure the new multiple-block structure works, and test thoroughly
+* Planning to add more primitives to preprocessing block, current have training block and preprocessing. Training block seems to work fine, will put more focus on preprocessing the upcoming week.
+* Once done testing with multiple-block structure, will look into designing parallel computing. Pinpoint all bottlenecks,the knowns and unknowns.
+
+=== '''Week 4''' ===
+'''Weekly meeting (09/13/2019):'''
+* Report to team about the result of searching for a framework for parallelizing ezCGP
+* We opted for MPI
+
+==== Plan for parallelizing ezCGP: ====
+* Initialize the population parallely
+* Divide population into subpopulation (number of subpop depends on number of cpus)
+* Scatter subpops to worker cpu
+* Once all workers are done, gather result to master cpu
+* After master select the best individuals, scatter new population to worker cpus
+* Repeat
+'''Parallelization (update):''' There were 2 initial branches that were created when we started building, but they were deleted because new branches were made after each improvements. The reason behind this is because, every time we had a working version, and when we wanted to improve it, we would create a new branch so that we wouldn't break what we had working. I know we could have just used git revert and all, but ... we didnt think about it soon enough.
+
+=== Week 5 ===
+'''Weekly meeting (09/ 22/2019):'''
+* We broke down universe.py to a file called mpi_universe.py, this file will act as both universe.py and main.py, meaning we can just run this file.
+* We had some issue pickling errors because the individuals we passed to the worker CPUs shared the same region of memory that contains the dataset, and when we tried deepcopy, each individual for each generation had their own copy of the dataset, and those copied dataset never got to deleted before the next generation, so it took up a lot of memory which caused the program to crash.
+* We found a solution for this issue during the class meet on Monday (09/23), where we would clear up the memory used in the previous generation when we're in the next generation.
+
+=== Week 6 ===
+'''Weekly meeting (09/28/2019):'''
+* Continue fixing memory leak issue, and pickling errors
+* Since the code base is pretty messy with comments and print statements everywhere, we decided to take a break from on more code to just cleaning up the code base. 
+* Michael assigned each of us a file to clean up
+* https://github.com/ezCGP/ezCGP/pull/16
+
+=== Week 7 ===
+
+==== Weekly meeting (10/05/2019): ====
+Debugging and optimizing MPI implementation
+
+=== Week 8 (No meeting) ===
+
+=== Week 9 ===
+
+==== Hackathon (10/19/2019) ====
+- We ran mpi_universe to get the benchmark of how our parallelization perform.
+
+- Currently, our parallelization is not performing well. The main reason of this is because there's memory leak some where in our code. So when the worker CPUs send the result of each generation back to the master CPU, they're not only sending the individuals, but also sending the data back as well, this means a lot of time is spent in the I/O. 
+
+- We ran our sequential version to get the benchmark for multiple blocks.
+
+- Because we just got multiple blocks to work, there's still some part that is not optimized, and so the results we got were not good compared to what we got last semester.
+
+=== Week 10 ===
+
+==== Weekly meeting (10/26/2019) ====
+'''Mating'''
+
+Discussed how there is a “find_active” (or similar) method that gets the list of active genes (aka layers + metadata). Majority of the mating should occur with these. However, '''a small percentage (e.g. 10%) should be with the inactive nodes just to have genetic diversity''' with mating.
+
+Possible mating methods:
+
+1) Whole block swapping by type (e.g. training with training), and solve any block output to input shape compatibility issues. This is what we will start off with for this semester, since it is easier. To keep diversity with inactive nodes, we might also spontaneously turn on some inactive nodes (maybe mutate into them?)
+
+2) Partial block swapping, by swapping only parts of a block, most notably layers:
+
+- Introduces a host of primitive shape compatibility issues similar to number 1's block to block (e.g. dense -> conv doesn’t work), which can be solved a number of ways:
+
+2a) Assigning primitives to groups by output shape (e.g. max pooling w/ fractional pooling). Then, in those groups, assign a hierarchical layout of which groups can output to which other groups and simply pick layers in that group or child groups to substitute or add in between incompatible layers
+
+2b) Doing an exhaustive search of preemptive compatibility searching (see the mating.py code Rodd wrote, I don’t fully understand it yet, but the comments are good)
+
+2c) Killing the individual and essentially relying on random chance to return to that individual if it is good (probably not preferred, but it is what we use in mutation (e.g. try catch self.dead), so we could just be consistent for mating).
+
+'''Selection'''
+
+Ultimately, we should keep a baseline number of best individuals for next generation before mating. Therefore, for each generation, a certain percentage would be allocated from each process:
+
+Just for example, say 33% of previous pareto optimal individuals, 33% of mutated, 33% of mated childrenThere are other ways to do selection after mutation/mating, but '''we should talk about that after mating'''. Trai and Mai have their own k-select method for post-mutating right now, I believe.
+
+'''Parallelization'''
+
+Michael, Sam, Trai, and I discussed what to do with large_dataset and if that can be properly deleted to remove I/O bottleneck.
+
+Trai is debugging that today to see if large_dataset is actually holding a lot of memory, or if something else is and can be deleted. Right now, '''each CPU core already has access to the dataset, so we just need to remove that from the individual skeleton structure and I/O bottleneck should be solved'''.
+
+'''Design Doc'''
+
+We should make a '''design document of the high-level and key workflows of the ezCGP process'''. This could be something '''Rodd and Sam can work with the new students''' in creating as a softer onboarding, so they understand ezCGP before diving too deep in the code. This can include extra ideas (like number 2 of mating earlier) that we need to work on next semester.
+
+'''Topics to avoid''': detailed primitive information, complex evaluation and TensorFlow graph structures, etc. Anything that will move the focus away from architecture of ezCGP.
+
+'''Topic to include''': high-level ideas, certain details that aid in explaining certain key decisions (killing broken individuals)
+
+=== Week 11 & 12 ===
+As mentioned in Week 10, each CPU core imports their own dataset.
+
+Trai and I had to do multiple benchmarks and traced through the code to see which other par of the codet was taking up so much memory and time. We also notice deepcopy was being used in a lot of places of the code base, and that probably used up some memory when it was unnecessary. 
+
+We used tracemalloc to trace how much memory were being allocated for each function call. After finding out what was causing a lot of memory allocation, Michael had a great fix for it. 
+
+The original mpi_universe was took a very long time and a lot of memory because we were passing the individuals and the dataset over the network. 
+
+Michael's idea was to strip the individual of all the unnecessary attributes and only pass the genome outputs over the network. 
+
+https://github.com/ezCGP/ezCGP/commit/dca716e91d001f67f5a836276727023fe4615503
+
+https://github.com/ezCGP/ezCGP/commit/0df49472e3a4575f33e6fc7b007cf24a76878ab7
+
+=== Week 13, 14, & 15 ===
+Worked with Sam integrating mating into mpi_universe.
+
+After integrating, my task was to ensure the integration runs well and see if it increased any memory usage. This took quite some time because it was an environment issue that I didn't think of.
+
+Mating worked fine with mpi_universe, next task is to run benchmark.
+
+Over Thanksgiving I ran multiple runs to get the benchmark for the presentation, but when we met up the day before the presentation, we realized that every run_universe (which includes mutate and evaluate), each individual could be evaluating twice, this is because when we strip the individual of unnecessary attributes, the need_evaluate attribute were gone too, and so every time we build an individual from the genome outputs, need evaluate will always be true, hence redundant evaluations and caused run_universe to take longer than it should, and so the benchmarks I ran were invalid.
+
+'''PACE''': 
+
+We started running on PACE on the day before the presentation, and that did not give us a lot of time to run. The issues I had with running on PACE were that, my jobs kept getting cancelled, some jobs took too long and didnt output anything, even when an error occurred, pace did not cancelled the job, and so we were waiting and waiting for jobs that were not meant to finish. How did we find out that there were errors? 
+
+The jobs took too long so we cancelled the jobs and then that was when we could see the output. Some error messages were straightforward, some didnt even get printed out, so there were a few mysteries we couldnt understand. Because my main goal was to run benchmarks, and I thought my result should align with the parameters that they were using, so I used the same parameters, but with multiple runs and different cpus each run. The most frustrating part when running on pace was that, everytime I submitted a job, Michael and Sam found more bugs, and I had to rerun a lot of times (rerunning multiple jobs), and (in my theory) that's probably why after a certain number of job submissions, PACE decided to stop running my jobs, my jobs would be in the queue, but nothing would get to running. After a sleepless night of trying to get mpi to run on pace, I had no result for the benchmarks, even with the same exact code as other team members that were also running on pace. The final solution was to run on Trai's monster workstation, and it was a breeze. 
+
+Benchmark code that I injected into mpi_universe: https://github.com/ezCGP/ezCGP/commit/1703720baffd5aad028eaeb5aaa2c3c3ec5c7ddc
+
+Final benchmarks ran on Trai's workstation: https://github.com/ezCGP/ezCGP/commit/4f6e4de3943c1a2ae0bbca79e8598e2aa056d070
+
+After running multiple runs, with different parameters, it seems that complex primitives use a lot of memory. In term of run time, I think the reason why it was taking so long when we were running on PACE is because even though we specify that we want the code to run on a specific number of cpus, the program still use up more cpus than we expected. When I was monitoring the system during the run with no other application running, it seemed other cpus were running as well. I mentioned that to Sam, and he tried to allocate more CPUs then we need before the run, and as expected, it ran much faster.
+
+'''Final thoughts:'''
+
+Michael, Sam, and Trai mentioned during the presentation that if we want to run ezCGP well and make it scalable, we need to utilize the GPU. I look forward to implementing that with the team next semester.
+
+Overall, I really enjoyed working with this team, we worked together really well. I hope we will accomplish more next semester after integrating GPU with MPI.
+
+== SPRING 2020 ==
+
+=== WEEK 1 (01/11): ===
+Team meeting (01/11/2020):
+* Takeaways from last semester:
+* Parallelization slow
+* Fix GPU
+* A ton of errors:
+** accuracy was low last semester
+** Deepcopying error
+** Argument errors
+* This semester plan:
+** Test other functionalities that haven't been tested
+** Split into 3 teams, GPU, Primitive research, and (maybe) classical teams
+** Unit test
+* Semester Goals:
+** Show statistically significant result
+=== WEEK 2 (01/18): ===
+Team meeting (01/18/2020):
+* Look into Horovod and integrate it with ezCGP
+* Come up with different architectures when integrating GPUs
+* Come up with plans to benchmark different architectures on Google Cloud
+{| class="wikitable"
+!Task
+!status
+!Assigned date
+!Completed Date
+|-
+!'''Research Horovod'''
+!Done
+!01/18
+!01/25
+|-
+!Plan how to benchmark on GCloud (work with Trai)
+!Done
+!01/18
+!01/18
+|}
+Horovod: (https://horovod.readthedocs.io/en/latest/)
+* Based on MPI principles, uses NCCL (https://horovod.readthedocs.io/en/latest/concepts.html)
+* Enable training across multiple servers with GPUs
+3 designs to benchmark on GCloud:
+* 1 GPU : 1 CPU
+* Multi GPU : 1 CPU
+* 1 GPU : multi CPU 
+=== Week 3 (01/25): ===
+Team meeting (01/25/2020):
+* Discussed findings about Horovod
+* Discussed integrating Horovod 
+{| class="wikitable"
+!Task
+!status
+!Assigned date
+!Completed Date
+|-
+!Integrate Horovod into ezCGP
+!Done
+!01/25
+!01/31
+|-
+!'''Run ezCGP with Horovod on GCloud'''
+!Done
+!01/25
+!01/31
+|}
+There was an error with the google cloud instance that Trai and I couldn't access the instance
+
+Couldn't access GCloud instance because of ssh error (Couldn't connect to VM on port 22)
+
+=== Week 4 (02/02): ===
+Team meeting (02/02/2020):
+* Couldn't make it to team meeting but updated team about the GCloud issue on slack.
+No new task as Trai and I were trying to get Horovod, CUDAToolkit installed on GCloud instance.
+
+There were a lot of issues when we tried to run ezCGP with Horovod on GCloud
+* On Trai's work station, he was able to run ezCGP with Horovod, but there was an error occurred, (Tensor dimension conflict between processes)
+* When we migrate to GCloud, we had many issues with the environment, which includes:
+** We couldn't install CUDAToolkit on GCloud, so I had to manually install the NVIDIA driver
+** We needed NCCL to run, but the glibc library was outdated which didn't support NCCL, NCCL required glibc2.7, but on gcloud it was 2.4
+** When we tried to upgrade glibc to 2.7, that took us on another journey which required us to install a few other dependencies, but because of incompatibility and too much of a hassle, we decided to halt and see if the team would be okay with upgrading TF to 2.0
+
+=== Week 5 (02/08): ===
+Team meeting (02/08/2020):
+* Reported to team about the issues encountered when trying to run ezCGP with Horovod on GCloud
+
+* Team decided to upgrade Tensorflow on 2.0
+* Discussed about redesigning the structure of ezCGP
+** currently, ezCGP is coupled with inheritance
+** current framework is not scalable, code base is a bit messy
+** figure out pros and cons of converting inheritance to interfaces
+[[files/Redesign.jpg|thumb|New Design]]
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Completed Date
+|-
+|Set up skeleton code for the new design
+|Done (https://github.com/ezCGP/ezCGP/commit/be9aced5c38ea8ef31ba9510a4b703343c7d6a7f)
+|02/08
+|02/14
+|}
+Turned out, Rodd was redesign ezCGP in another repo that we weren't aware of. 
+
+=== Week 6(02/15): ===
+Team meeting (02/15/2020):
+* Discussed further more about the redesigning
+** Talked about applying Factory design pattern
+** Factory design pattern would help make the framework easier to use and scalable
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Complete Date
+|-
+|Visualize the new design
+|Done
+|02/15
+|02/20
+|}
+Example of how the new design would work:
+
+main.py
+* create a universe (either universe for sequential run or mpi_universe for parallel run)
+* give universe a population by calling build population, to achieve this, call Build_Population or Build_MPI_Population
+** Population builder takes care of building individuals and all the functionalities we need
+* create a problem
+** We have a problem interface, every time we want to create a new problem, we would have a new problem file, (i.e. MNIST_problem.py)
+* universe(problem).run
+By doing this, all the detailed implementations are hidden away, the framework would be clean and easy to use.[[files/Diagrama.png|thumb|New Design Diagram]]
+
+=== WEEK 7 (2/22): ===
+Team meeting:
+* Discussed on details for code redesign architecture, specifically on how universe vs. mpi_universe would be implemented
+
+=== WEEK 9 (3/7): ===
+{| class="wikitable"
+!Task
+!status
+!assigned date
+!complete date
+|-
+|[https://github.com/ezCGP/ezExperimental/commit/2e0d9f2bd09a1cb461c678097962c85728b9e3b7#diff-d2d0af05373e4bccdd66d45a97667ee8 Add in database objects to new framework]
+|Done
+|3/7
+|3/7
+|}
+
+=== Week 10 (3/14): ===
+Had a meeting with Michael, Trai, and Sam. We found out a lot of code were confusing in the new framework. The code didn't seem to be implemented based on what we discussed before. We decided to consult Jason on what the performance team should focus on for the remainder of the semester.
+
+=== Week 11 (3/21): ===
+No new updates yet.
+
+=== Week 12 (3/28): ===
+Had a team meeting Michael, Sam and Trai. The team decided that the performance team will focus on getting ezCGP to run on GCloud with GPUs.
+
+=== WEEK 13 (4/4): ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned date
+!Complete date
+|-
+|[https://github.com/ezCGP/ezExperimental/commit/7408dc890cfc36809516084ae3a05df8a5d1260f Finish the remainder of MPI in the new framework]
+|Done
+|4/3
+|4/4
+|}
+The run function of MPI Universe was not completed, so Trai and I worked on that.
+
+=== WEEK 14 (4/11): ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned date
+!Complete Date
+|-
+|[https://github.com/ezCGP/ezExperimental/commit/feed5c3d07634409fbf4018216c69ca4b1f29103 Set up config for Trai and I to run tensorflow on PACE] 
+|Done
+|4/10
+|4/11
+|}
+We were able to run ezCGP parallelly on Trai's workstation, so we tried to run it on PACE. But because PACE didn't have the latest version of CUDA, Tensorflow2.0 couldn't detect the GPUs.
+
+=== WEEK 15 (4/18): ===
+So we had to ask Jason to spin up 3 VM instances on GCloud. Since GCloud was pretty barebones, we spent quite some time on installing all the dependencies.
+
+We had the benchmarks from running 1 GPU locally. We now needed to get the benchmarks for distributed GPUs. We then had to configure SSH on GCloud because MPI uses SSH to communicate over the network. We ran into a few issues with authentication where every time we tried to ssh from one instance as a regular user instead of root into another instance, it kept asking for the password instead of connecting immediately. This is a problem because when we run mpi, it would try to ssh in without entering a password. We then switched to root user and config SSH so that after the first ssh, it would not ask for the password anymore.
+
+=== WEEK 16 (4/26): ===
+* I had a meeting with Trai, Sam, Bo, and Luke to show Sam, Bo, and Luke how to run ezCGP on GCloud.
+* Created a [https://docs.google.com/document/d/1c2TTQIHnweXQOHmWqAKQxC2FXWIC61qyN15tgiT8Fck/edit?usp=sharing guide] with all the steps for next semester's students.

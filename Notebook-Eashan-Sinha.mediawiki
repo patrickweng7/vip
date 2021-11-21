@@ -1,0 +1,645 @@
+= General Information =
+
+'''Team Member''': Eashan Sinha
+
+'''Email''': esinha6@gatech.edu
+
+'''Cell Phone''': (404) 637-7910
+
+'''Interests''': Artificial Intelligence/Machine Learning, Data Science, Basketball, Trying new Foods, Percussion
+
+= Fall 2021 (Bootcamp) =
+
+== Week 1 (8/25 - 8/31) ==
+
+=== Lecture Notes (8/25) ===
+'''Genetic Algorithm'''
+
+At any given time, there are multiple solutions to a problem
+* '''Individual''' is a specific candidate in the population
+* '''Population''' is a group of individuals
+* '''Objective''' is a way to characterize individuals I'm trying to maximize or minimize
+* '''Fitness''' is relative comparison to other individuals
+* '''Evaluation''' spits out the DNA (computes the objective of the individual)
+* '''Selection''' = 'survival of the fittest'
+** fitness proportionate = greater fitness = greater probability of being selected for mating
+** tournament = I can pick any number of individuals and whoever has the higher fitness moves to the next round and winners are selected for mating
+** You're not directly tied to your fitness but your fitness will still affect the probability of you being selected
+** But you can combine the two above (which is how it's set up in emade)
+* '''Mate/Crossover''' is when we take two individuals (or more) and exchange DNA between them (mating)
+* '''Mutation''' is when we make a small change to an individual -- purpose is to maintain diversity
+** We make small changes to a child (after mating)
+
+'''Algorithm'''
+
+# Randomly initialize a population
+# Evaluate the population to get the objective (determine fitness)
+# Repeat…
+#* Select parents
+#* Crossover on parents creating population
+#* Mutation of population
+#* Determine fitness of population
+:: ... until best individual is good enough
+
+=== Lab 1 - Genetic Algorithms with DEAP ===
+
+==== ''Lab Setup'' ====
+* Saved 'Lab 1 - Genetic Algorithms with DEAP' as .ipynb file (''Lab 1 - Genetic Algorithms with DEAP.ipynb'')
+* Downloaded and installed Anaconda for MacOS
+* Launched '''JupyterLab''' using Anaconda Navigator
+* Imported Lab .ipynb file into JupyterLab
+* Opened a new Terminal window and installed '''deap''' using <code>$ pip install deap</code>
+
+==== ''Lab Notes'' ====
+'''OneMax Problem'''
+* Simple genetic algorithm problem-- '''Objective''': find a bit string containing all 1s with a set length
+* Using DEAP Python Library to solve
+* '''Deap Overview''': https://deap.readthedocs.io/en/master/overview.html
+* we use DEAP's Toolbox to define functions available to our GA
+** Attribute Generator: "attr_bool"
+*** Randomly generates a boolean represented by either 0 or 1
+** Structure Initializer: "individual"
+*** Generates an individual and initializes each with a list of 100 booleans --> bit string length of 100
+** Structure Initializer: "population"
+*** Defines population-- list of individuals
+* Defined evaluation function for fitness objective
+** Returns sum of Boolean integers of an individual; more 1s = higher fitness score (max score = 100)
+** Sum is returned as a tuple to match previously defined fitness objective
+* Defined algorithm's genetic operators
+** '''Four Functions''':
+*** "evaluate": evaluation function previously defined
+*** "mate": two-point crossover function
+*** "mutate": flipping a bit w/ independent probability of flipping each bit = 0.05
+*** "select": tournament selection of 3 individuals
+* Defined <code>main</code> '''genetic algorithm'''
+** Started off by initializing population (n) to 300
+** Evaluated population by mapping evaluation function to population. Then we assigned each individual their respective fitness value.
+* '''Evolution'''
+** Began Evolutionary Process
+*** Created evolutionary loop to set algorithm to run for 40 generations
+** Added '''selection''': used tournament selection on population and made a list of an exact copy of the selected individuals --> ensures offspring are a separate instance
+** Performed '''crossover''' and '''mutation''' in the offspring
+*** Mate two individuals w/ 50% probability and mutate an individual with 20% probability. <code>delete</code> statements invalidate the fitness of mated/mutated offspring
+** Re-evaluate modified offspring & Replace old pop. with offspring
+** Define and print stats for population
+*** Gathered all fitnesses in one list and print stats
+
+'''N Queens'''
+* Started by importing necessary modules
+* Then we defined the individual classes, the fitness objective, and functions using DEAP's toolbox
+* Ran our evolutionary loop for 100 generations
+* After 100 generations, our global minimum of 0 was still not reached
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 30, 2019
+|-
+|Join Team Slack
+|Completed
+|August 25, 2021
+|September 1, 2021
+|August 25, 2021
+|-
+|Complete "Lab 1 - Genetic Algorithms with DEAP" in JupyterLab
+|Complete
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|}
+
+== Week 2 (9/1 - 9/7) ==
+
+=== Lecture Notes (9/1) ===
+'''Genetic Programming'''
+
+* Last week, we focused on Genetic Algorithms and how we want to arrive at a evolved population-based solution
+* Instead of utilizing a function '''evaluator''' on an individual to obtain objective scores, we want to run the [input] data through the individual and use the individual as the function itself
+** Then we want the evaluator to be run on the Output Data
+* We represent Genetic Programming as a '''Tree Structure'''
+** The '''Nodes''' of the tree are called ''primitives'' and represent functions
+** The '''Leaves''' are called ''terminals'' and represent parameters
+*** The input can be thought of as a terminal
+*** The output is produced at the root of the tree
+** If our input was '''x''', then our output would be '''f(x)'''
+
+'''How is the Tree Stored?'''
+
+* The tree is converted  into a '''lisp preordered parse tree'''
+** The operator would be followed by inputs
+* The tree for f(X) = 3 * 4 + 1 can be written as: [+,*,3,4,1]
+* We do a depth-first traversal in this pre-ordered parse tree
+
+'''Crossover in GP'''
+* Basically exchanging subtrees
+* Start by randomly picking a point in each tree
+* These points and everything below create subtrees
+* The subtrees are exchanged to produce children
+* We take what's left of parent 1 and what's left of parent 2 and swap and create 2 child algorithms out of that
+
+'''Mutation in GP'''
+* Mutation can involve…
+** Inserting a node or subtree
+** Deleting a node or subtree
+** Changing a node
+* When we delete a node or subtree, we can perform a shrink operation to fill up that tree
+* Any change we make locally to a tree, that is called a '''mutation'''
+* Example: Symbolic Regression
+** Using simple primitives, use genetic programming to evolve a solution to y = sin(x)
+** Primitives include: +, *, -, /
+** Terminals include ''integers'' and X
+* We solve this using a Calc 1 Concept of '''Taylor Series'''
+** Taylor Series for sin(x)
+
+'''Evaluating a Tree'''
+* We can feed a number of input points into the function to get outputs
+** 𝑋=[0..2𝜋]
+* We can measure error between outputs and truth
+* Other Primitives could make this a lot easier
+** Power()
+** Factorial()
+** Sin()
+** Cos()
+** Tan()
+** Summation()
+** Pi
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+==== ''Lab Setup'' ====
+* Saved 'Lab 2 - Genetic Programming and Multi-Objective Optimization' as .ipynb file (''Lab 2 - Genetic Programming and Multi-Objective Optimization.ipynb'')
+* Downloaded and installed Anaconda for MacOS
+* Launched '''JupyterLab''' using Anaconda Navigator
+* Imported Lab .ipynb file into JupyterLab
+
+==== ''Lab Notes'' ====
+'''Symbolic Regression'''
+
+* Lab focuses on '''genetic programming'''
+* Imported necessary libraries for GP
+* Created fitness and individual classes
+* We'll be representing our individuals in a tree structure
+* Initialized a primitive set and added all the primitives our trees can use
+* Added two primitives:
+<pre>pset.addPrimitive(np.divide, arity=2)
+pset.addPrimitive(np.mod, arity=2)</pre>
+* Defined evaluation function <code>evalSymbReg</code>
+* Registered our genetic operators using <code>toolbox.register()</code>
+* Notes for '''Lab 2''': https://drive.google.com/file/d/1lHZMtajC7a2EHqinNs6WXW1Khj-_/view?usp=sharing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 5, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 5, 2021
+|-
+|Complete '''Part 1''' of "Lab 2 - Genetic Programming and Multi-Objective Optimization" in JupyterLab
+|In Progress
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}
+
+== Week 3 (9/8 - 9/14) ==
+
+=== Lecture Notes (9/1) ===
+* We first rated ourselves out of five on our '''Python''' and our '''Machine Learning''' knowledge and familiarity.
+* I gave myself a 4 for Python and a 2 for Machine Learning
+
+'''Multiple Objectives -- The MO in MOGA and MOGP'''
+
+* Conducted class survey of what we look for in a mate:
+** Personality
+** Intelligence
+** Humility
+* Everyone has different objectives and preferences for what objectives they would want their partners to have
+* However, an algorithm particularly looks for '''fitness''' in its mates
+* We will focus on the translation of the vector of scores from evaluation into a fitness value
+* Gene pool is the set of genome to be evaluated during the current generation
+** Genome
+*** Genotypic description of an individuals
+*** DNA
+*** GA = set of values
+*** GP = tree structure, string
+** Search Space
+*** Set of all possible genome
+*** For Automated Algorithm Design
+*** Set of all possible algorithms
+*** How big is the search space?
+*** Why is this important for algorithm design?
+* The Evaluation of a Genome associates a genome/individual (set of parameters for GA or string for GP) with a set of scores
+** TP = True Positive
+** FP = False Positive
+* '''Objectives''' = Set of measurements each genome (or individual)  is scored against
+* Objective Space – Set of objectives 
+* Evaluation – Maps an genome/individual
+** From a location in search space to a location in objective space
+
+'''Classification Measures'''
+
+* '''Confusion Matrix'''
+** 2 x 2 table --> predicted positives & predicted negatives x actual positives & actual negatives
+* We’re going to stay in a '''binary world''' in this lecture
+* '''Binary Classification''': It can only be 1 or 0, one thing or the other, positive or negative, as shown above
+* '''Multi Classification''': It can be in a set of things (the desired object can be one of many things)
+* Apple example = The goal is to retrieve all apples but the algorithm looks at only red objects so we get the above confusion matrix
+'''True Positive Rate (Sensitivity / Recall)''': The number of true positives / number of positives = '''Hit Rate'''
+'''True Negative Rate (Specificity)''': True negatives/actual negatives
+* The stepped line is called the '''Pareto Frontier'''
+* '''Minimization Measures'''
+** We want to push that '''Pareto Frontier''' down to the origin as much as possible
+** Apple Example: We can check to see if our rows are correct by summing TP + FN = AP and FP + TN = AN
+* '''Other Measures''':
+** Precision or Positive Predictive Value
+** False Discovery Rate
+** Negative Predictive Value
+** Accuracy
+
+'''Objective Space'''
+
+* We don’t have to be limited to accuracy based on algorithm purposes
+* There are a lot of other things that can tell us the quality of our algorithm
+* Each individual is evaluated using objective functions
+** MSE
+** Cost
+** Complexity
+** TPR
+** FPR
+
+'''Pareto Optimality'''
+
+* An individual is '''Pareto optimal''' if there is no other individual in the population that outperforms the individual on '''ALL''' objectives
+* The set of all Pareto individuals is known as the Pareto frontier
+* These individuals represent unique contributions
+* We want to drive selection by favoring Pareto individuals
+** But maintain diversity by giving all individuals some probability of mating
+* '''Pareto Optimal''' solutions are usually ones that we’re trying to reach but nondominating points are those that we have already reached
+
+'''Nondominated Sorting Genetic Algorithm II (NSGA II)'''
+
+* Population is separated into nondomination ranks
+* Individuals are selected using a binary tournament
+* Lower Pareto ranks beat higher Pareto ranks
+* Ties on the same front are broken by crowding distance 
+** We have four total ranks here
+** The best rank is 0
+* Now we want to randomly select individuals based on a binary tournament in which two points are compared to each other.
+* Tiebreakers are through '''crowding distance'''.
+* A more normalized distribution with each point being relatively equally distanced from each other is more desirable than a front with points that are more distanced from each other
+* A measure of how ‘alone’ a point is in a distribution shows whether it has a high crowding distance– if it is more alone, and far away from other points on its front, then it has a higher crowding distance and we choose that point as the winner of the tiebreaker because we want to explore the areas near it and see if we can achieve a better point from there
+
+'''Strength Pareto Evolutionary Algorithm 2 (SPEA2)'''
+* Each individual is given a strength S
+** S is how many others in the population it dominates
+* Each individual receives a rank R
+** R is the sum of S’s of the individuals that dominate it
+** Pareto individuals are nondominated and receive an R of 0
+* A distance to the kth nearest neighbor (𝛔k) is calculated and a fitness of R + 1/(𝛔k + 2) is obtained
+* We want to favor things that have a further distance. We want them to have a lesser fitness
+
+=== Lab 2 - Genetic Programming and Multi-Objective Optimization ===
+
+==== ''Lab Setup'' ====
+* Lab already set up from previous part of lab
+
+==== ''Lab Notes'' ====
+'''Multi Objective Genetic Programming'''
+
+* Lab focuses on '''Multi Objective Genetic Programming'''
+* Imported necessary libraries for GP
+* Notes for Part 2: https://drive.google.com/file/d/1UKU52KrPMSAjsz1OMSHfHXQ82QfSiR7s/view?usp=sharing
+
+==== Self Grading ====
+https://drive.google.com/file/d/1eqabI0rtKpuu59RfS-RfCVAUg5WPc67E/view?usp=sharing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 14, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Complete '''Self Grading Rubric'''
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Complete '''Part 2''' of "Lab 2 - Genetic Programming and Multi-Objective Optimization" in JupyterLab
+|In Progress
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
+== Week 4 (9/15 - 9/21) ==
+
+=== Lecture Notes (9/15) ===
+
+==== Intro to Machine Learning ====
+* Went over '''SciKit-Learn''' and its documentation
+* Looked at Kaggle for examples of ML done on Titanic Dataset to predict survivors
+* Assigned to subteams:
+* My teammates:
+** Pranav Pusarla
+** Jessi Chen
+** Leul Wubete
+** Elan Grossman
+* Introduced to '''scikit-learn''': https://scikit-learn.org/stable/index.html
+* We will be using skcikit-learn to import many Machine Learning algorithms/models that we can use to analyze our Titanic Disaster and more accurately predict survival.
+* We went through some of the source code in the Jupyter Notebook for the Titanic Project
+* We were tasked with doing the preprocessing of the data 
+
+=== Group Project -- Titanic- Machine Learning from Disaster ===
+
+==== ''Project Setup'' ====
+* Project setup same way as previous labs
+
+==== ''Sub Team Notes (9/19)'' ====
+* Met with all team members at the '''Inspire Atlanta''' Apartments lobby
+* We all first started going through the provided python notebook
+* Then we started going over the current preprocessing methods that existed in the notebook
+* We then decided to one-hot encode the 'Embarked' and 'Sex' columns in order to represent each category by 1s and 0s
+** Using <code>pd.get_dummies(...)</code>
+* Furthermore, we removed the 'Name', 'Ticket', and 'Cabin' columns using <code>test_data.drop(...)</code>
+* After preprocessing our data, we each chose an algorithm (ML) to get a Pareto Optimal Front in which each of our algorithms were codominant
+* '''My Contribution'''
+** Utilized the '''MLPClassifier''', which uses an Multi-Layer Perceptron Algorithm that trains using Backpropogation
+** Tweaked the classifier to obtain optimal results
+** Obtained results that outperformed some of the other algorithms by team members
+** Worked to improve other algorithms to continue to obtain a pareto optimal front with all algorithms being utilized
+
+==== Algorithm Results ====
+{| class="wikitable"
+!Name
+!Algorithm
+!False Positives
+!False Negatives
+|-
+|Elan
+|Random Forest Classifier
+|25
+|29
+|-
+|Eashan
+|Neural Network
+|21
+|31
+|-
+|Pranav
+|Gaussian Process Classifier
+|19
+|35
+|-
+|Jessi
+|Gradient Descent
+|7
+|79
+|-
+|Leul
+|Support Vector Classifier
+|5
+|93
+|}
+
+==== Our Pareto Front ====
+https://drive.google.com/file/d/1lLVaUdBj782mNr_BzCkZT0j36cDt1RX6/view?usp=sharing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 20, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|-
+|Complete Data Processing and Pareto Front using Titanic Dataset
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 19, 2021
+|}
+
+== Week 5 (9/22 - 9/28) ==
+
+=== Lecture Notes (9/22) ===
+
+* Went over action items for Presentation next week (9/29)
+
+'''Presentation Guidelines'''
+
+* Make sure '''title slide''' has clear title, contributors, and date of presentation
+* Make sure '''Graphs''' have:
+** Clear title
+** Axis labels
+** Readable Font size
+** Pareto Front lines go in the right direction for min v. max problems
+* We were shown an example of a pareto-optimal calculation
+* Shown example of AUC Calculation
+* Shown example of graphing
+* Must use Page Numbers
+* Technical presentation must be stand-alone and include text
+** Having image-based presentation isn't really necessary
+* Text is important
+* '''Include a Take-Away point to summarize what we want our audience to take away from the slides'''
+
+=== Group Project -- Titanic- Machine Learning from Disaster ===
+
+==== ''Project Setup'' ====
+* Project setup same way as previous labs
+
+==== ''Sub Team Notes (9/24)'' ====
+
+* We met multiple times to complete the '''Titanic: Machine Learning from Disaster''' project
+* We were tasked with developing the genetic algorithm using DEAP
+* We reused much of the code from the prior week, especially in preprocessing the data
+* We then decided to one-hot encode the 'Embarked' and 'Sex' columns in order to represent each category by 1s and 0s
+** Using <code>pd.get_dummies(...)</code>
+* Furthermore, we removed the 'Name', 'Ticket', and 'Cabin' columns using <code>test_data.drop(...)</code>
+* We also replaced the missing 'Age' and 'Fare' values, which were null, with their mean.
+* We then replaced the missing 'Embarked' values with the mode of 'Embarked'.
+* We were then eventually able to successfully construct an evolutionary algorithm using our custom selection tournament method (in which we selected the dominant individual as the survivor), node replacement mutation method, and 1-point cross-over mating function
+* We were able to use hyperparameter optimization, which helped lower our algorithm's AUC compared to the ML algorithm's AUC
+* '''My Contribution'''
+* My main contribution was to help optimize our data preparation.
+** We ended up further replacing null values in 'Age' and 'Fare' with their respective means
+** We also replaced the null 'Embarked' with its mode
+* I also presented the slide on data preprocessing during our presentation
+* Here's a link to our sub-team project page: 
+** https://github.gatech.edu/emade/emade/wiki/Bootcamp-Subteam-1
+* Here is our Genetic Algorithm Pareto Optimal Front with the respective AUC in comparison to the ML front:
+https://drive.google.com/file/d/1lHZMtajC7a2EHqiAshQnNs6WXW1Khj-_/view?usp=sharing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 26, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|-
+|Team Meeting 1
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 24, 2021
+|-
+|Team Meeting 2
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 25, 2021
+|-
+|Team Meeting 3
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 27, 2021
+|-
+|Complete '''Predicting Titanic Survivors''' Assignment and Presentation
+|In Progress
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+== Week 6 (9/29 - 10/05) ==
+
+=== Lecture Notes (9/29) ===
+
+* Viewed Titanic Machine Learning from Disaster presentations from all groups
+* Make sure to submit peer evals by the end of next week.
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|-
+|Review Lecture Notes
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|-
+|Finish up Lab Notebook
+|In Progress
+|September 29, 2021
+|October 6, 2021
+|October 5, 2021
+|}
+
+== Week 7 (10/06 - 10/12) ==
+
+=== Lecture Notes (10/06) ===
+
+* Discussed Emade and action items for the main project due in three weeks
+* Learned about Emade and how it relates to what we've been doing thus far.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}

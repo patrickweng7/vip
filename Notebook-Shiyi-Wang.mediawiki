@@ -1,0 +1,828 @@
+= Team Member =
+Team Member: Shiyi Wang
+
+Email: swang793@gatech.edu
+
+Cell Phone: 470-334-5880
+
+Classes Taking: Machine Learning, Design & Analysis Algorithms, Intro to Cognitive Science, Math Statistics I
+
+Interests: Cooking, Ultimate Frisbee, Phone Photography, Cats 🐈
+
+Subteam: [[Natural Language Processing]] (Current) [[Modularity]] (Past)
+
+Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]], [[Notebook George Ye | George Ye]]
+
+= Fall 2021 =
+== Week 11 ==
+=== Nov 3, 2021 ===
+'''Subteam Meeting Notes:'''
+* Every returning and new member introduced him/herself in the meeting.
+* Debugged BIDAF.py
+=== Nov 1, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Decided to focus on binary classification task.
+** Research workaround geometric and semantic mating and mutation.
+** Research new hyperfeature combinations.
+* Modularity
+** Migrating modularity into Cache V2.
+** Extended ARL group continue doing runs and running experiments.
+* NLP
+** Implemented Modeling layer and output layer.
+** Halfway through Bi-directional attention layer.
+* NAS
+** Ideas we plan to work on in order to improve neural architecture search in EMADE: Triviality Detection, Novelty Detection, Bug fix for swap_layer method, Speeding up EMADE processes, Adding unit tests, Introducing some pause functionality.
+** Updating to Tensorflow 2.6 on PACE.
+
+'''Subteam Meeting Notes'''
+* Presented NLP and Q&A Systems to bootcamp students.
+
+== Week 10 ==
+=== October 27, 2021 ===
+'''Subteam Meeting Notes:'''
+* Discussed the dimensionality issue between different layers.
+* Decided to focus on implementing BiDAF and set aside the Literature Review Primitives.
+* Steven shared his homework code for BiDAF layers (with comments for dimensionality for different layers).
+* Steven, Rishit, Karthik, Devan working on Attention layer, George on Modeling, me and Kevin on output layer.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|-
+|Implement Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|}
+
+=== October 25, 2021 ===
+'''Team Meeting Notes:'''
+* NLP
+** Presented the work so far in Literature Review
+** Answered the question about non-tree structures in Literatures.
+* Bootcamp Team #1
+** Data Preprocessing
+*** Drop Columns, replace null columns, one hot encoding.
+** Machine Learning
+*** SVM Classifier, Gradient Descent, Neural Network, Random Forest Classifier, Gaussian Process Classifier.
+** Genetic Programming
+*** Individual (Primitive Tree), Evaluation (FPR, FNR), Crossover (cxOnePointLeafBiased), Mutate (muNodeReplacement), Selection (Selection Tournament).
+** EMADE
+*** Double Headless Chicken rate and reduce most of the mutations.
+* Neural Architecture Search
+** Initial Infrastructure
+*** Hard to outperform seeds
+*** Most individuals are not neural networks.
+*** No rules being enforced when connecting layers (dimensionality errors)
+** Time Stopping
+*** Expectation: Lower training time same as minimizing number of parameters.
+*** Implementation: Check train time at the end of each epoch.
+** Preprocessing
+*** Text Tokenization, One Hot Encoding for multi-class Target Data.
+*** Hard to compare for valid individuals.
+** Growing Complex Individuals - CoDEEPNeat
+*** Separated primitive sets and terminals between ADFs and MAIN primitive.
+** Results
+*** Decrease in the Average Accuracy Error.
+*** Increase in Average elapsed time.
+** Testing & Analysis
+*** NNLearner SQL Table.
+*** Analysis Methods - nn_ind_from_hash, view_nn_statistics, simplify_parents.
+*** Tracking layer frequencies across generations.
+* Bootcamp Team #2
+** Data Preprocessing
+*** Drop column, fill Null will statistical values
+** Machine Learning
+*** Decision Tree, Random Forest, ADA Boost, MLP, SVM
+** MOGP
+*** SPEA2 for select function.
+** EMADE
+*** Conda + Python 3.7 was the only working combination (Python 3.8/3.9 does not support multiprocess).
+* Image Processing
+** Objectives
+*** Improve EMADE on image processing tasks
+*** Future work: Object detection, image segmentation, image registration
+** Literature Review
+*** Arrived at CheXnet Paper - Pneumonia Detection on Chest X-Rays.
+** Dataset Preparation
+*** Used the Tensorflow API (ImageDataGenerator) to conduct the image resizing, normalization, horizontal flipping.
+*** Newer augmentations: rotation, shearing, etc.
+** Baseline Results on 30 Generations
+*** Evaluation Objectives: Precision-Recall AUC, Number parameters.
+*** Suspicious AUC: due to objective functions, or dataset issues.
+** Selection Methods
+*** NSGA III vs. NSGA II: Pre-defines set of reference points to maintain diversity among its solutions.
+** Mating & Mutation Methods
+*** Added two mating and mutation methods based around semantic: Geometric Semantic Crossover & mutation.
+*** Trimming primitive set and simpler seed individuals could yield better results.
+*** Added two Geometric Crossover Operators: Simulated Binary & Blended Crossover.
+** Hyper-features for Image Processing & GP
+*** Grey level transformation
+* Bootcamp Team #3
+** Data Preprocessing
+*** Drop columns, one hot encoding for genders and name titles, add columns for relatives, gender_embarked, replace values with mean.
+** Machine Learning
+*** SVM, Random Forests, KNN, Logistic Regression, MLP, Gaussion Naive Bayes.
+** MOGP
+*** Strongly typed primitives to enforce boolean outcome.
+*** Selection (tools.selLexicase), Mate (One Point Crossover), Mutate (mutUniform).
+** Machine Learning vs. MOGP
+*** ML more consistent vetween runs.
+** EMADE
+*** Modified sel_nsga2 to achieve selTournamentDCD()'s requirement of having an "individual" array divisible by 4.
+*** Allow port forwarding on the master'ss home router if the workers will be joining remotely. No VPN was needed to connect.
+** Pareto Front Comparison
+*** Why ML is better than MOGP? May be not enough generations.
+* Stocks
+** Primitive Analysis
+*** The ML algorithm in the individual uses historical data and technical indicators to predict future trigger points for the stocks.
+*** This study is to determine which technical indicators and which ML learners have the best performance.
+** Objective functions
+*** Profit Percentage, Average Profit Per Transaction, CDF of Profit, Variance of Profit per Transaction.
+** Experiment Design
+*** Create a pool of objectives and pick out stocks to conduct EMADE runs on.
+*** Run EMADE using all possible combination of objectives.
+** Comparison to Paper Results
+*** Takagi-Sugeno Fuzzy Model with an SVR model to forecast stock prices.
+* Bootcamp Team #4
+** Data Preprocessing
+*** Drop columns, one hot encoding, replace null with median.
+** Machine Learning
+*** MLP, Decision Tree, SVM, XGBoost
+** Primitives for MOGP
+*** Strongly typed, logical terminals enable to pass tree inputs to logical operators directly.
+** MOGP
+*** Mate (cxOnePoint), Mutate (mutUniform), Selection (selTournamentDCD).
+** EMADE - 20 Generations
+*** AdaBoostLearner (9) > baggedLearner (2) = randShuffle (2) handle data directly.
+*** Time expensive and more gradual evolution.
+*** Optimal when cost of tuning individuals manually is higher than cost of automating evolution.
+* Modularity
+** Intro
+*** Modularity: Explore ways to abstract parts of individuals.
+*** ARL Implementation: Search the population for combinations of parent and children nodes.
+*** ARL Complexity: Increase complexity of ARLs via increasing tree depth.
+** Goal
+*** Allow the search function to consider larger subtrees depth to increase the potency of ARLs.
+*** Improve ARL candidate via a new selection functions.
+** Bug fixed
+*** Contracting overlapping ARLs would either cause multiple deletions.
+** Titanic Experimental Setup
+*** Default Evolutionary Parameters
+** Stock Runs with ARLs
+*** Merging stocks code with ARL codebase, different individuals, evaluation methods, etc.
+** Results
+*** Higher AUC with new ARLs
+*** More data is needed to gain insight into effects of ARL Complexity on performance.
+*** From preliminary data, size may not inherently imply usefulness.
+
+'''Individual Progress'''
+* Completed one more dry run before the midterm presentation.
+* Built the tree for Machine Comprehension Using Match-LSTM and Answer Pointer using [https://github.com/cwhaley112/TreeVis TreeVis].
+ NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete one more dry run before the [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_3_9 midterm presentation]
+|Completed
+|October 25, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Visualize the trees for paper
+|Completed
+|October 25, 2021
+|October 25, 2021
+|October 25, 2021
+|}
+
+== Week 09 ==
+=== October 20, 2021 ===
+'''Subteam Meeting Notes'''
+* Discussed slides preparations
+** Literature review slides (3 papers + visualizations)
+** Dataset prep
+** Current EMADE status runs on QA
+** New eval methods
+** Future plans
+* Scheduled the dry run on Sunday for the midterm presentation on Monday.
+
+'''Individual Progress'''
+* Summarized BIDAF in plain context
+** BiDAF is a one of the state-of-art QA systems that aims to pinpoint the location of the Answer within a Context stems from its layered design.
+** Each of these layers is like a transformation engine that transforms the vector representation of words.
+* Literature Reviewed [https://arxiv.org/pdf/1608.07905.pdf Machine Comprehension Using Match-LSTM and Answer Pointer]
+** Investigated on Match-LSTM
+*** In textual entailment, two sentences are given where one is a premise and the other is a hypothesis. 
+*** To predict whether the premise entails the hypothesis, the match-LSTM model goes through the tokens of the hypothesis sequentially. 
+*** At each position of the hypothesis, attention mechanism is used to obtain a weighted vector representation of the premise. 
+*** This weighted premise is then to be combined with a vector representation of the current token of the hypothesis and fed into an LSTM, which we call the match-LSTM. 
+*** The match-LSTM essentially sequentially aggregates the matching of the attention-weighted premise to each token of the hypothesis and uses the aggregated matching result to make a final prediction.
+** Investigated on Answer Pointer Layer
+*** Improvement on Pointer Net, a sequence-to-sequence model proposed to constrain the output tokens to be from the input sequences.
+* Completed the slides design for [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_5_16 paper 3], [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_5_26 vis3], and [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit#slide=id.gf9ca2fa1ca_3_9 Literature Review Team Goal].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete the slides assigned
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Investigate on Match-LSTM
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Investigate on Answer Pointer Layer
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Summarize BIDAF in plain context
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+=== October 18, 2021 ===
+'''Team Meeting Notes:'''
+* Plan on using CPU Hours
+** Example: Master requires 1 core. Number coworker = 4. Runtime = 8:00 (constant)
+* Image Processing
+** Baseline runs showing a limited set of primitives that do not cause trees to error out.
+** Implemented most of the hyper features, selection methods and crossover methods.
+* Modularity
+** Fixed implementation detail regarding ARLs were being created with only a single non-arg node.
+** Fixed bug regarding each individual being restricted to a single ARL in order to prevent conflicts.
+** Updating arity of ARL upon contracting, with special edge case for treating ARG0 as an arl_arg since
+* Natural Language Processing
+** Resolved 5,000 + merge conflicts at Hackathon.
+** Running into errors with the input - Key error for number of input.
+** Literature review team has read several papers and made trees for 6 seeding individuals.
+* Neural Architectural Search
+** Nested NNLearners
+*** Solution: A second data pair was created and the 'MAIN' PrimitiveTypedSet had its output changed to this second datapair to prevent it from being a nestable primitive to itself.
+** ADFs mostly aren't valid
+*** Solution: ADFs are now structured to only take in a layerlist input and output a layerlist input.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try implement primitives in Literature
+|Completed
+|October 18, 2021
+|October 25, 2021
+|October 18, 2021
+|}
+
+== Week 08 ==
+=== October 16, 2021 ===
+'''Hackathon Meeting Notes:'''
+* Resolved 5,000 + merge conflicts at Hackathon.
+* Running into errors with the input - Key error for number of input.
+* Literature review team has read several papers and made trees for 6 seeding individuals.
+
+'''Individual Progress:'''
+* Discovered 3 more papers (now 6 papers in total) with tree-structure infrastructure.
+** [https://arxiv.org/pdf/1608.07905.pdf Machine Comprehension Using Match-LSTM and Answer Pointer]
+*** This paper proposes an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model to constrain the output tokens to be from the input sequences. 
+*** This paper proposes two ways of using Pointer Net for the task. Experiments show that both of the models substantially outperform the best results using logistic regression and manually crafted features.
+** [https://arxiv.org/pdf/1610.09996.pdf End-to-End Answer Chunk Extraction and Ranking for Reading Comprehension]
+*** This paper proposes dynamic chunk reader (DCR), an end-to-end neural reading comprehension (RC) model that is able to extract and rank a set of answer candidates from a given document to answer questions. 
+*** DCR is able to predict answers of variable lengths, whereas previous neural RC models primarily focused on predicting single tokens or entities. 
+*** DCR encodes a document and an input question with recurrent neural networks, and then applies a word-by-word attention mechanism to acquire question-aware representations for the document, followed by the generation of chunk representations and a ranking module to propose the top-ranked chunk as the answer.
+*** Experimental results show that DCR achieves state-of-the-art exact match and F1 scores on the SQuAD dataset.
+** [https://arxiv.org/pdf/1908.05147.pdf SG-Net: Syntax-Guided Machine Reading Comprehension]
+*** This paper proposes using syntax to guide the text modeling by incorporating explicit syntactic constraints into attention mechanism for better linguistically motivated word representations. 
+*** In detail, for self-attention network (SAN) sponsored Transformer-based encoder, this paper introduces syntactic dependency of interest (SDOI) design into the SAN to form an SDOI-SAN with syntax-guided self attention.
+*** Syntax-guided network (SG-Net) is then composed of this extra SDOI-SAN and the SAN from the original Transformer encoder through a dual contextual architecture for better linguistics inspired representation. 
+*** To verify its effectiveness, the proposed SG-Net is applied to typical pre-trained language model BERT which is right based on a Transformer encoder. 
+*** Extensive experiments on popular benchmarks including SQuAD 2.0 and RACE show that the proposed SG-Net design helps achieve substantial performance improvement over strong baselines.
+* Tree Generated based on my understanding of the models in the literatures.
+ Paper #1: MATCH-LSTM & Answer Pointer
+ NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
+
+ Paper #2: Dynamic chunk reader
+ NNLearner(ARG0, ARG1, rankerLayer(chunkRepLayer(attentionLayer(encoderLayer(ARG0, ARG1)))))
+
+ Paper #3: SG-Net
+ NNLearner(ARG0, ARG1, taskLayer(dualContextAggregation(SGSelfAttentionLayer(transformerEncoder(ARG1))), AG0))
+
+=== October 13, 2021 === 
+'''Sub Team Meeting Notes:'''
+=== October 11, 2021 ===
+'''Team Meeting Notes:'''
+* Fall Break. No Class on Monday.
+
+== Week 07 ==
+=== October 06, 2021 ===
+'''Sub Team Meeting Notes:'''
+* While waiting for Dr. Zutty to get the code supporting the functionality of loading in multiple EMADE Data Pairs, we assigned subtasks to team members
+** Read up on NNLearner, get familiar with what's changed
+** When Dr. Zutty uploads the new code, merge it with NN-VIP
+** Read up on State of the Art QA models (SQUAD leaderboard, BiDAF, papers, Transformer Models)
+** Make Trees w/ Primitives to be Seeded Individuals
+
+'''Individual Progress'''
+* I was specifically assigned to come up with some seeded individuals in a tree structure that we could test in standalone_tree_evaluator.py, looking at BiDAF and the SQUAD leaderboard as examples. This would also help us figure out what primitives to write to make QA work.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Further readings on QA models
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 11, 2021
+|-
+|Work on seeding individuals
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 11, 2021
+|-
+|Complete Peer Evaluation
+|Completed
+|October 4, 2021
+|October 8, 2021
+|October 4, 2021
+|}
+
+=== October 04, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** NSGA-III Implementation - Tweak p parameter, test against working datasets
+** Mating/Mutation - New method
+** Trouble with seeds
+** Hyper feature ideas
+* Modularity
+** Implemented workaround for add_all_subtrees large individuals bug.
+** Fixed bug regarding incorrect arities in contract_arls.
+** Switch back to Google Colab as PACE-ICE still causing issues.
+* Neural Architectural Search
+** Went through the entirety of the main master algorithm loop within EMADE.py. 
+** Included a discussion of the different arguments within the master algorithm such as MUTPB, CXPB and reuse. 
+** Different chunks of the main loop were explained such as the one which handles creation of new individuals.
+
+== Week 06 ==
+=== September 29, 2021 ===
+'''Sub Team Meeting Notes:'''
+* Went over through some QA Systems basics for the new onboarding members and discussed new sub tasks.
+* Steven will make a new fork for us.
+* Assigned everyone to start trying to get the SQUAD dataset loaded in.
+* Try implement load_textdata_for_QA to handle context/query split
+* Try create the XML for SQUAD dataset
+=== September 27, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Selection Methods using NSGA-III Implementation.
+** Search for combinations of Hyper-feature & Primitive Packaging.
+** Baseline run unsuccessful, retrying with seed file.
+** Update on geometric semantic genetic programming methods.
+* Modularity
+** Contract ARLs method wasn't properly updating arities of the node(s) surrounding the contracted ARL.
+** Problem with add_all_subtrees method: causes problems with decently sized individuals.
+** MNIST team working through getting everyone on PACE-ICE to do runs.
+* Neural Architectural Search
+** A global "supernet" which would operate like a dynamic acyclic graph which stores information about submodel accuracy and weights of most optimal subnet based on a prior generation run (Do not proceed with this idea).
+** Weight Sharing to the existing NNLearner evolution process in EMADE.
+** Writes to disk which would improve memory usage within EMADE.
+
+'''Individual Progress'''
+* Discovered the dictionary type structure in GPFramework that maps data types to functions.
+* Because Dr. Zutty was unable to attend, the team met with Anish to explore a method to use the EMADE architecture to produce datapairs organized as "((Context, Query), Answer/Label)".
+** We considered developing our own datatype, but that would need us to alter each later in the "neural networks methods.py" script.
+** Anish recommended that instead of introducing that risk, we create an overloaded "nn learner" function that takes in "two inputs" and does embedding independently before using BiDaf on the context and query [https://drive.google.com/file/d/16sbKZ2JRheoqeHsNChpx3daltsVClF0K/view?usp=sharing Here] is how the idea is visualized.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Overload NNLearner to pass in query and context separately
+|Completed
+|September 27, 2021
+|October 04, 2021
+|September 29, 2021
+|-
+|Research NNLearners and how to implement QA
+|Completed
+|October 27, 2021
+|October 04, 2021
+|September 29, 2021
+|}
+
+== Week 05 ==
+=== September 22, 2021 ===
+'''Sub Team Meeting Notes:'''
+* Designed primitives/infrastructure needed to tackle the QA problem with EMADE.
+* Encountered a few problem that existing EMADE framework cannot resolve.
+** Problem 1: Unlike other datasets, we have two inputs that the model needs to handle separately: the context and the query.
+** Solution 1: We create 2 new primitives, the ContextEmbeddingLayer and the QueryEmbeddingLayer. We also create a new type of data pair that we can fetch both the context and query separately in. Therefore, if the passed in data pair is of this new type, we can return the context and query in the ContextEmbeddingLayer and the QueryEmbeddingLayer, respectively.
+** Problem 2: The output is determined by calculating the max probabilities of start and end words of the answer (detailed more in Steven's notebook and below). We cannot solely determine the output by calling model.predict(), as the final output should be a list of size 2N with a softmax applied, where N is the number of words in the context.
+** Solution 2: With the different type of data pair, we can check in the NNLearner's code for the type via an "if" statement, and determine the output in this way.
+
+'''Individual Progress'''
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)]
+** 1. Embedding Layers
+*** BiDAF has 3 embedding layers whose function is to change the representation of words in the Query and the Context from strings into vectors of numbers.
+** 2. Attention and Modeling Layers
+*** These Query and Context representations then enter the attention and modeling layers. These layers use several matrix operations to fuse the information contained in the Query and the Context. The output of these steps is another representation of the Context that contains information from the Query. This output is referred to in the paper as the “Query-aware Context representation.”
+** 3. Output Layer
+*** The Query-aware Context representation is then passed into the output layer, which will transform it to a bunch of probability values. These probability values will be used to determine where the Answer starts and ends.
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb Word Embedding, Character Embedding and Contextual Embedding in BiDAF — an Illustrated Guide]
+** Step 1. Tokenization
+*** In BiDAF, the incoming Query and its Context are first tokenized, i.e. these two long strings are broken down into their constituent words.
+** Step 2. Word Level Embedding
+*** The resulting words are then subjected to the embedding process, where they are converted into vectors of numbers.
+** Step 3. Character Level Embedding
+*** Character level embedding uses one-dimensional convolutional neural network (1D-CNN) to find numeric representation of words by looking at their character-level compositions.
+** Step 4. Highway Network
+*** At this point, we have obtained two sets of vector representations for our words — one from the GloVe (word) embedding and the other from 1D-CNN (character) embedding. The next step is to vertically concatenate these representations.
+** Step 5. Contextual Embedding
+*** The contextual embedding layer consists of Long-Short-Term-Memory (LSTM) sequences. An LSTM is a neural network architecture that can memorize long-term dependencies. When we enter an input sequence (such as a string of text) into a normal forward LSTM layer, the output sequence for each timestep will encode information from that timestep as well as past timesteps. In other words, the output embedding for each word will contain contextual information from words that came before it.
+* Reflection on [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07 Attention Mechanism in Seq2Seq and BiDAF — an Illustrated Guide]
+** 1. Comparison of Sequences and Calculation of Attention Scores
+** 2. Conversion of Attention Scores to Attention Distribution
+** 3. Multiplying Attention Distribution with Encoder Hidden States to Get Attention Output
+* Reflection on [https://arxiv.org/pdf/1611.01603.pdf Bidirectional Attention Flow For Machine Comparison]
+** 1. Character Embedding Layer maps each word to a vector space using character-level CNNs.
+** 2. Word Embedding Layer maps each word to a vector space using a pre-trained word embedding model.
+** 3. Contextual Embedding Layer utilizes contextual cues from surrounding words to refine the embedding of the words. These first three layers are applied to both the query and context.
+** 4. Attention Flow Layer couples the query and context vectors and produces a set of query aware feature vectors for each word in the context.
+** 5. Modeling Layer employs a Recurrent Neural Network to scan the context.
+** 6. Output Layer provides an answer to the query.
+=== September 20, 2021 ===
+'''Team Meeting Notes:'''
+* Market Analysis and Portfolio Optimization
+** Prediction-based portfolio optimization model using neural networks
+** Support vector machine with adaptive parameters in financial time series forecasting
+** Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach
+* Image Processing
+** Focus on a multi-label image classification problem using the chest x-ray dataset.
+** Improve EMADE’s selection methods and mating/mutation process to better handle images with multiple labels.
+** NSGA-III and Lexicase as selection methods
+** Improve existing features by looking for synergies and packaging them together.
+* Modularity
+** Extended ARL runs starting off with max depth 10 trees, Everything seems to be working, there exist ARLs with depth > 2.
+** Test the significance of the depth of ARLs on the performance of individuals with problems.
+* Neural Architecture Search
+** Debugging/Reproducing issue with test_swap line 300 EMADE.py
+** Modifying the reuse parameter within EMADE.py to allow reuse of all individuals after starting a previously stopped EMADE run
+** Adding CIFAR-10 Input Template to EMADE
+** Modifying eval_methods.py to check if test_data being input has 90% same classification
+** Adding a method for keeping track of NNLearner layer frequency
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize with the relevant code 
+|Completed
+|September 20, 2021
+|September 27, 2021
+|September 22, 2021
+|-
+|Brainstorm how to effectively implement the query/context data split
+|Completed
+|September 20, 2021
+|September 27, 2021
+|September 22, 2021
+|}
+
+== Week 04 ==
+=== September 15, 2021 ===
+'''Sub Team Meeting Notes:'''
+* Everyone has been able to get EMADE to run the Amazon dataset on PACE.
+* Went over the objectives we needed to figure out to get EMADE to work.
+* Decided our objectives would be F1 and number of parameters, to strike a balance between a match/accuracy and complexity. 
+** Steven is looking into F1 for QA systems and find out how they worked.
+** Karthik created a Google Collab notebook to begin looking at the dataset.
+* We would familiarize ourselves with the different layers of a QA system before planning what primitives to make.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Literature review on QA systems
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 15, 2021
+|-
+|Understand different layers in QA Systems
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 15, 2021
+|-
+|Complete the [https://drive.google.com/file/d/13bnkVUBPj4NqeRjyic1YlTf10oYrC027/view?usp=sharing Fall 2021 Self Evaluation]
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 13, 2021
+|}
+
+=== September 13, 2021 ===
+'''Team Meeting Notes:'''
+* Market Analysis and Portfolio Optimization
+** Stock generalization: Finding models/individuals that perform well on multiple stocks.
+** Fundamental Analysis: Using company quarterly balance sheets along with technical analysis to predict stock buy/sells.
+** Found empirical study of Genetic Programming generated trading rules in computerized stock trading service system.
+* Image Processing
+** Add new primitives to EMADE that can help with image processing tasks.
+** Explore how can use autoML for either image classification or object detection problems.
+** Further paper research in fundamental analysis.
+* Modularity
+** Explore runs using stock data
+** Explore left off work from last semester including New Models, Selection Method, Diversity Measures, etc.
+* Neural Architecture Search
+** Presented background information about the subteam and topics of neuroevolution.
+** Reviewed the top 6 ideas plan to work on in order to improve neural architecture search in EMADE.
+
+'''Individual Progress'''
+* Attempted to solve MySQL connection issue on Campus.
+** Attempted to reconfigure Port number.
+** Attempted to solve through commnon error codes (table credits to Steven Leone).
+* Resolved the connection issue after reconnect to Campus VPN.
+{| class="wikitable"
+!Index
+!Error Title
+!Cause of Error
+!How to Resolve
+|-
+|1
+|Server won't start
+|Port is likely in use via submitted job or terminal
+|qstat or lsof -i:Port# , then “qdel ID” or “kill Port#” (respectively)
+|-
+|2
+|Access Denied
+|It's likely that this is a new database created, or permissions weren't granted correctly.
+|Re-grant privileges, specify user address
+|-
+|3
+|Can't Connect to MySQL
+|MySQL may be running in the wrong manner (not a terminal, not a submitted job)
+|Ensure proper server address (job or from terminal)
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue to configure EMADE on PACE ICE
+|Completed
+|September 8, 2021
+|September 13, 2021
+|September 13, 2021
+|-
+|Literature review on QA systems
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 15, 2021
+|-
+|Understand different layers in QA Systems
+|Completed
+|September 13, 2021
+|September 20, 2021
+|September 15, 2021
+|}
+
+== Week 03 ==
+=== September 8, 2021 ===
+''' Sub Team Meeting Notes:'''
+* Steven gave a presentation on how QA systems work, producing probabilities for where the answer in a given paragraph starts and stops
+* Outlined steps for our problem with Question Answering Systems
+** Setup everyone on EMADE/PACE
+** Work with dataset, make it work on EMADE
+** Implement primitives and infrastructure to make Question Answering problems work with EMADE
+** Collect and analyze run results
+* Decided on our goal as using EMADE to look for less complex, yet as accurate Neural Architecture for state of the art Question Answering Systems, similar to how BORT was made as a less complex BERT: https://arxiv.org/abs/2010.10499
+
+'''Individual Progress'''
+* Familiarized with Natural Language Processing and Question and Answering (QA) Systems.
+* Attempt to Setup EMADE on PACE ICE based on [https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE Guide to Using PACE ICE] and Cameron Whaley's [https://www.youtube.com/watch?v=LashYCCJF3E PACE ICE Setup] video.
+** Getting On PACE - Complete
+** Transferring EMADE with SCP - Complete
+** Setting Up MySQL - Complete
+** Setting Up EMADE & Configuring the XML file - Complete
+** Launch MySQL - Error
+*** Experience mysql working only under campus “VPN” instead of physically being on campus (resolved through campus VPN)
+** Launch EMADE on PACE - Error
+*** Experience Import error: keras.backend.tensorflow_backend (resolved through re-setup)
+*** Experience Disk Space Full issue: 15GB/15GB (resolved by delete all library and re-setup)
+* Reflection on [https://arxiv.org/abs/2010.10499 Optimal Subarchitecture Extraction For BERT]
+** By applying state-of-the-art algorithmic techniques, they extract the optimal subarchitecture set for the family of BERT-like architectures, as parametrized by their depth, number of attention heads, and sizes of the hidden and intermediate layer.
+** They showed that this model is smaller, faster and more efficient to pre-train, and able to outperform nearly every other member of the family across a wide variety of NLU tasks.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Setup EMADE on PACE ICE
+|Completed
+|September 8, 2021
+|September 13, 2021
+|September 13, 2021
+|-
+|Run the Amazon Dataset on EMADE in PACE ICE
+|Completed
+|September 8, 2021
+|September 13, 2021
+|September 13, 2021
+|-
+|Read related literatures on QA Systems
+|Completed
+|September 8, 2021
+|September 13, 2021
+|September 10, 2021
+|}
+
+=== September 6, 2021 ===
+'''Team Meeting Notes:'''
+* Labor Day. No meetings.
+
+== Week 02 ==
+=== August 30, 2021 ===
+'''Team Meeting Notes:'''
+* Assigned to the Natural Language Processing Sub Team
+* Steven reiterate the brainstorming ideas. Devan suggested adding more primitives for more than embeddings.
+* Decided on Wednesday at 2:00 pm EST on Bluejeans for Weekly Sub Team Meetings
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join the NLP Fall 2021 Slack Channel
+|Completed
+|August 30, 2021
+|August 30, 2021
+|August 30, 2021
+|-
+|Complete Sub Team Rankings on Canvas
+|Completed
+|August 29, 2021
+|August 30, 2021
+|August 29, 2021
+|}
+
+
+== Week 01 ==
+=== August 26, 2021 ===
+''' Sub Team Meeting Notes'''
+* Portfolio Optimization and Stocks Team Brainstorming Session
+** Research methods of visualizing technical indicators in neural net/CNN
+** Extend on last semester’s work and focus on determining most useful technical indicators and EMADE configuration
+** Add fundamental analysis methods to EMADE implementation
+** Switch gears to Portfolio Optimization
+* Natural Language Processing Brainstorming Session
+** NLP team worked on researching why individuals produced by EMADE weren’t very complex.
+** Add infrastructure to solve more complicated NLP or CV problems (potentially question answering or machine translation) by taking advantage of the NAS team's progress in the same branch.
+* Infrastructure Brainstorming Session
+** Containerization
+** Container Orchestration
+** Caching
+** Database Improvements
+** Message/Work Queues
+** AI Optimization
+
+'''Individual Progress'''
+* [https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach Algorithmic Financial Trading with Deep Convolutional Neural Networks: Time Series to Image Conversion Approach]
+** They propose an algorithmic trading model CNN-TA using a 2-D Convolutional Neural Network based on image processing properties. 
+** In order to convert ﬁnancial time series into 2-D images, 15 different technical indicators with different parameter selections are utilized. 
+** Each indicator instance gen-erates data for a 15 day period.
+** The results indicate that when compared with the Buy & Hold Strategy andother common trading systems over a long out-of-sample period, the trained model providesbetter results for stocks and ETFs.
+* [https://ieeexplore.ieee.org/abstract/document/9095246 Searching Better Architectures for Neural Machine Translation]
+** Neural architecture search (NAS) has played important roles in the evolution of neural architectures.
+** They propose a gradient-based NAS algorithm for NMT, which automatically discovers architectures with better performances. They search the network operations (e.g., LSTM, CNN, self-attention etc) as well as dropout rates to ensure better results.
+** They show that with reasonable resources it is possible to discover novel neural network architectures for NMT, which achieve consistently better performances than Transformer, the state-of-the-art NMT model, across different tasks. 
+** They discovered architectures could obtain  great improvement over Transformer baselines. 
+** They empirically verify that the discovered model on one task can be transferred to other tasks.
+* [http://proceedings.mlr.press/v97/so19a.html The Evolved Transformer]
+** Apply NAS to search for a better alternative to the Transformer.
+** They construct a large search space inspired by the recent advances in feed-forward sequence models and then run evolutionary architecture search with warm starting by seeding initial population with the Transformer
+** They develop the Progressive Dynamic Hurdles method, which allows to dynamically allocate more resources to more promising candidate models.
+** The Evolved Transformer found in experiments demonstrates consistent improvement over the Transformer on WMT 2014 English-German, WMT 2014 English-French, WMT 2014 English-Czech and LM1B.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Brainstorming meetings
+|Completed
+|August 26, 2021
+|August 26, 2021
+|August 26, 2021
+|-
+|Read literatures in brainstorming sessions
+|Completed
+|August 26, 2021
+|August 30, 2021
+|August 26, 2021
+|}
+
+=== August 23, 2021 ===
+'''Team Meeting Notes:'''
+* Discussed potential ideas and directions for the new subteams.
+** Stock Portfolio Optimization
+** Natural Language Processing(NLP)
+** Neural Architecture Search(NAS)
+** Modularity
+** EZCGP
+** Interpretability
+** Image Processing
+** Genetic Fundamentals
+** COVID
+** Infrastructure
+* Voted on the interest of different subteams.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Access VIP Notebook on GitHub Wiki
+|Completed
+|August 23, 2021
+|August 30, 2021
+|August 23, 2021
+|-
+|Join Brainstorming Channels on Slack
+|Completed
+|August 23, 2021
+|August 30, 2021
+|August 24, 2021
+|}
+
+

@@ -1,0 +1,1471 @@
+== Team Member ==
+Team Member: Conner Yurkon
+
+Email: cyurkon3@gatech.edu
+
+Cell Phone: 305-915-9950
+
+Interests: Machine Learning, Computational Neuroscience
+
+Sub-team: Neural Architecture Search
+
+Teammates:
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Cameron-D-Bennett Cameron Bennett]
+* Cameron Whaley
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
+
+== November 8, 2021 ==
+'''Team Meeting Notes:'''
+* General scrum updates from each sub-team.
+* I finished consolidating the documentation for running EMADE on PACE. I also wrote three bash scripts to automate the setup process, cutting the the required time investment from 2 - 3 hours down to just 6 minutes. 13% of the time (48 s) is spent cloning the repository & 62% (3:42 s) downloading CIFAR-10, leaving just 25% (1:30 s) for general setup. Space usage is also just 5.3 GB / 15 GB max. I think that further improvements can be made by focusing on the time spent downloading CIFAR-10. The download script seems to hang for the majority of the time before beginning the download, and so I believe there is an issue here.
+* You can find this documentation [https://github.gatech.edu/cwhaley9/emade/wiki/Running-EMADE-on-PACE-using-CIFAR-10 here]. It guides users through the setup from start to finish, with helpful guides linked along the way.
+* The three bash scripts were added in [https://github.gatech.edu/cwhaley9/emade/commit/f333b2e7f3bc99de044f522545a9c3534a2d8d14 this commit]. They will create the MySQL infrastructure needed by EMADE, personalize the PBS files, and provide convenient utilities to start an EMADE run using the CIFAR-10 dataset.
+* With this completed, I can refocus on the novelty detection task. I spent a lot of time previously debugging setup issues, and even getting a single run was difficult (especially before we could clone EMADE onto PACE using git). In our 15 minutes sub-team meeting today, I worked with Devesh to determine an appropriate method of tracking generation-wide layer frequencies, and ironed out a general plan to tackle this. We identified certain areas of the code that might be modified to achieve this.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|11/15/21
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon). Begin to investigate writing bash scripts to automate this task.
+|Completed
+|10/4/21
+|10/8/21
+|10/10/21
+|-
+| Investigate hanging time in the gen_cifar10.py script, and merge nn-vip-env into nn-vip.
+|In Progress
+|11/10/21
+|11/15/21
+|
+|-
+|}
+
+== November 6, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for 30 minutes to provide updates on our tasks. PACE was undergoing maintenance during our normal meeting time so we had to move it to today.
+* We each gave quick updates on our tasks and ensured that there were no blockers.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon). Begin to investigate writing bash scripts to automate this task.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== November 1, 2021 ==
+'''Team Meeting Notes:'''
+* Weekly scrum meeting. Presented updates on our direction for the rest of the semester and received new members.
+* Introduced new members to the team and determined tasks appropriate for each individual. Pointed these new members to existing documentation to get started on PACE.
+* I am personally continuing to work on general documentation improvements. I had an idea to write some scripts to automate the PACE onboarding process, as there are many steps and they are easy to forget. This would save members a lot of time debugging and ensures that we all have a consistent developer experience on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon). Begin to investigate writing bash scripts to automate this task.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 29, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Regrouping after midterm presentation to discuss future plans and specific action items to complete before the final presentation.
+* In the latter half of the semester, we will put special focus on the novelty detection task and attempt to reward novelty in individuals. Now that we have a strong baseline to compare against, this will be more straightforward.
+* As presented, I developed a simple method to count layer frequencies within an individual which will be collated into a master count for every generation. This master count will be used to derive a novelty metric. This method can be viewed [https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit#slide=id.gfb025140e1_1_0 here].
+* I am also continuing to work to consolidate documentation for running EMADE on PACE using the CIFAR-10 dataset. This will be important going forward as we have new members onboard.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon).
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 25, 2021 ==
+'''Midterm Presentation Notes:'''
+* We gave our presentation on our NAS subteam progress. We discussed improvements such as time stopping, new analysis tools, tokenization changes, and minor novelty detection changes. This presentation also presented several strong baselines for our future work to compare against. We had several experimental runs.
+* Important points:
+    1. NLP subteam shared that the EMADE branch `EMADE-304-allow-cachev2-to-consume-aligned-datapairs` is useful for their Q&A tasks. They merged this with nn-vip and so we might need to do the same in the future.
+    2. Image processing team reminded us to consider the selection algorithm -- oftentimes our focus is downstream of the master algorithm but this is still important to vary when evaluating EMADE's performance on our tasks.
+    3. Stocks subteam is trying to recreate a paper and compare use it as a baseline for their semester's work. I think this is a great idea because it offers a measurable goal (rather than comparing performance internally).
+    4. Modularity team is working with ARLs and we might consider using their work to improve the performance of our own branch.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon).
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 16, 2021 ==
+'''Team Meeting Notes:'''
+* Met from 1 - 5 PM as part of a team-wide hackathon.
+* I spent the time attempting to clone my personal EMADE fork onto PACE and was successfully able to do so.
+* Shared this with the rest of the sub-team and created these steps:
+    1. Fork https://github.gatech.edu/cwhaley9/emade.
+    2. Create an SSH key on PACE & on your GaTech GitHub account (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh).
+    3. Clone the `nn-vip` branch of your personal fork onto PACE using SSH: `git clone -b nn-vip <remote_repo>`. The repository takes ~5 GB, so make sure that you have enough storage on PACE. You can check this using pace-quota.
+    4. Add Cameron’s fork as a remote: `git remote add upstream git@github.gatech.edu:cwhaley9/emade.git`.
+    5. To avoid duplicate merge commits, read this post for best practices: https://stackoverflow.com/questions/38641546/github-clean-up-fork-after-pull-request. If something goes wrong after creating a PR to Cameron’s fork, see this post: https://stackoverflow.com/questions/9646167/clean-up-a-fork-and-restart-it-from-the-upstream/9646323#9646323.
+    6. `cd emade` and run `cp -R pace my_pace`. Do NOT add your personal credentials to any of the files in `pace/`. These will be erroneously tracked by git. Instead, make the required changes to the files in `my_pace/` because these are ignored by git.
+* Reduced size of repository to just 4 GB after deleting unused and unnecessary files.
+* This should greatly speed development work on PACE because we no longer have to SCP files between PACE and our local computers.
+* The next step is to better document the developer setup process on PACE so that all of this documentation is contained in one location.
+* Once this is done, I can work to implement the layer frequencies method again.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE. Specifically, create cohesive documentation that walks you through the entire PACE setup from scratch and getting a successful run going using one of our datasets (such as CIFAR-10 or Amazon).
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 15, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for an hour to discuss our tasks and work together for some time.
+* We mainly used the time as a work session to share ideas and ask questions.
+* I started to prune the repository to prepare it for cloning onto PACE.
+* I did some research into directories taking up large amounts of space in PACE (the quota is only 15 GB).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 11, 2021 ==
+'''Team Meeting Notes:'''
+* Gave scrum updates for each team.
+* Discussed our work to enable reuse on the nn-vip branch as well as our progress on novelty detection.
+* Mentioned some bugs that had been fixed since last meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 8, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for an hour with sub-team to give updates on our weekly tasks.
+* Discussed issues with the latest merge onto the nn-vip branch, and initially decided to work off of Cameron Whaley's fork while the issue on that branch was sorted out. I fixed this issue by reverted the previous three commits and merging [https://github.gatech.edu/emade/emade/pull/200 a PR] onto this branch.
+* Setup a potential work meeting on Monday to work on some of our tasks together.
+* Mentioned possibility of pruning Whaley's EMADE fork to the bare minimum necessary for our team's development on PACE. This would greatly simplify the developer experience on our team.
+* Will implement my task this weekend now that the branch issue is sorted out.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 4, 2021 ==
+'''Team Meeting Notes:'''
+* Scrum update included our addition of the CIFAR-10 dataset and then also some points on our novelty detection work. We currently have implemented a baseline for detecting all-1 or all-0 predictions.
+* Met with sub-team afterwards for 20 minutes to discuss tasks. I brought up my issue with point #3 below, and it was suggested to loop through each evaluated individual in the main evolutionary loop, convert that individual into its string representation, and then parse this string to count layer frequencies. Cameron Whaley sent me code to do the parsing that I can work from, but it does require slight modification to work for our neural network primitives.
+* Taking a step back, I'd like to improve the developer workflow within EMADE. There are a couple of pressing issues. 
+
+    1. First and foremost, the EMADE repository is extremely large (because it includes raw datasets), and this pushes it over the 15 GB PACE storage limit. Therefore, we are unable to directly push/pull from PACE, and instead must SCP the necessary files between our personal computer and PACE. This is not particularly efficient and makes development troublesome. For that reason, I am looking into creating our own fork of EMADE, and deleting datasets that we don't use and cleaning up the repository. 
+    2. I want to develop a better unit testing process so that we don't have to verify changes by submitting jobs to PACE alone. 
+    3. I want to clean up the codebase in some areas. Some simple ideas include replacing the print(), flush() paradigm with logging, and breaking up monolithic functions into smaller pieces.  
+    4. Finally, consider paring down EMADE just for running on PACE. Currently, the codebase includes a lot of complexity to handle running on Windows, which can be removed to decrease the size of the repository.  
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Improve developer workflow for EMADE on PACE.
+|In Progress
+|10/4/21
+|
+|
+|}
+
+== October 1, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Cameron Bennett was missing from this meeting, so it was shorter and was used as a work-session (with everyone on the call).
+* I gave a quick update on my task but had to leave early.
+* For the task, my current idea is as follows:
+    1. Add a pickled column called layerFrequencies to the History table in sql_connection_orm_base.py. This will be used to store our generation-specific layer dictionary.
+    2. In EMADE.py, this is table is updated once per generation at line 1076. Update this method (add_history() in sql_connection_orm_master.py) to include the generation-specific layer dictionary.
+    3. Look at each evaluated individual in a generation and add add its layer counts to this dictionary dictionary.
+
+Currently having trouble with the third point, because I still do not have a good mental image for what an individual looks like and what attributes it has. Will ask further on Slack and during our meeting Monday.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations. Create a bulleted list of action items for this ticket.
+|In Progress
+|9/17/21
+|
+|
+|}
+
+== September 28, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Attended hour long presentation given by both Camerons on EMADE.py and its main evolutionary algorithm. Learned a lot about the overall architecture and flow of execution. Asked several questions related to my task and developed a better idea of how I might count layer frequencies per generation. My initial idea was to track this in the worker algorithm by passing a dictionary as a parameter, but I realized after this discussion that this would not be feasible (partly due to the multiprocessing setup).
+* The recording of this presentation is available in the #neural-architecture-search channel.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations. Create a bulleted list of action items for this ticket.
+|In Progress
+|9/17/21
+|
+|
+|}
+
+== September 27, 2021 ==
+'''Team Meeting Notes:'''
+* Our scrum update was focused on our discussion of Supernet and possible methods for implementation. We focused on the idea of weight sharing as a crucial piece to this work.
+* Met after our scrum meeting to discuss any weekend updates.
+* Confirmed that the CIFAR-10 dataset was integrated into our branch.
+* Discussed with both Camerons about how the layer list is stored for an individual.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations. I realized that this task would be difficult without a better understanding of the database construction and main evolutionary algorithm. I requested to review this in another meeting but will continue to learn how EMADE works.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Learn more about PACE (e.g. scheduling, terminology) using their [https://docs.pace.gatech.edu/firebird_cluster/firebird/ official documentation]. There are PACE orientations, where they introduce these concepts to you in a classroom-like setting, but the times conflict with my class schedule. I emailed them to see if recordings were available. I found out that meetings were not recorded.
+|In Progress
+|9/17/21
+|9/27/21
+|}
+
+== September 24, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with sub-team for an hour to review weekly progress and discuss future directions for the team.
+* I requested that we setup a meeting to review the EMADE architecture overall, with special focus on the main evolutionary algorithm in EMADE.py. This is relevant to our tasks and I thought it would be helpful to have a knowledge transfer from the more experienced team members.
+* We looked at [https://paperswithcode.com/paper/how-does-supernet-help-in-neural-architecture/review/ Supernet] as a potential future project for the team. Specifically, we considered the idea of weight sharing between different sub-networks in order to improve efficiency of training and improve the evolved individuals. 
+* Agreed that this would be a major undertaking, and decided to sit on it a while longer to think about implementation details.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations. I realized that this task would be difficult without a better understanding of the database construction and main evolutionary algorithm. I requested to review this in another meeting but will continue to learn how EMADE works.
+|In Progress
+|9/17/21
+|9/24/21
+|
+|-
+| Learn more about PACE (e.g. scheduling, terminology) using their [https://docs.pace.gatech.edu/firebird_cluster/firebird/ official documentation]. There are PACE orientations, where they introduce these concepts to you in a classroom-like setting, but the times conflict with my class schedule. I emailed them to see if recordings were available.
+|In Progress
+|9/17/21
+|9/27/21
+|}
+
+== September 20, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed progress of all sub-teams in a scrum setting. 
+* Our team presented some of the tasks we have created for the upcoming week, including novelty detection, CIFAR-10 templating, and reuse adjustments.
+* Met with sub-team after meeting, where I discussed my ticket in greater detail. We walked through the main evolutionary loop, and I gained a better understanding of which methods I would have to modify.
+* Learned a bit more about EMADE in general, including how to analyze results (using Cameron's analysis library) along with how to speed up training (by adjusting num_instances in the dataset input .xml files).
+* Followed [https://docs.pace.gatech.edu/interactiveJobs/jupyterInt/ this] tutorial to run Jupyter notebooks on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|9/24/21
+|
+|-
+| Learn more about PACE (e.g. scheduling, terminology) using their [https://docs.pace.gatech.edu/firebird_cluster/firebird/ official documentation].
+|In Progress
+|9/17/21
+|9/27/21
+|
+|-
+| Test using a Jupyter notebook on PACE for faster iterations on work.
+|Completed
+|9/17/21
+|9/24/21
+|9/17/21
+|}
+
+== September 17, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with sub-team for an hour to ensure that we all had EMADE setup and had specific tasks to work on for the next meeting.
+* I had some issues connecting to the MySQL instance running on PACE, but realized that I specified the wrong port number. Once I made this adjustment, I was able to run EMADE using the instructions provided on the Wiki (along with Cameron's YouTube video).
+* I next setup a connection between this MySQL instance and my computer using MySQL workbench. This allowed me to view the results of the EMADE run, including the pareto front and various individuals.
+* My task for this week is to construct a dictionary of layer frequencies across all individuals in a given generation. This information will be used to reward novel architectures, which might encourage EMADE to produce more novel individuals. To do this, I will have to modify either the main evolutionary loop or the evaluation method. Moreover, I need to make this dictionary available between generations.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|9/24/21
+|
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|Completed
+|9/7/21
+|9/17/21
+|9/17/21
+|}
+
+== Self-Evaluation Form Fall 2021 ==
+* Notebook Maintenance  
+** Name & contact info. '''5/5'''
+** Teammate names and contact info easy to find. '''5/5'''
+** Organization. '''5/5'''
+** Updated at least weekly. '''10/10'''
+* Meeting Notes
+** Main meeting notes. '''5/5'''
+** Sub-teams’ efforts. '''10/10'''
+* Personal work & accomplishments
+** To-do items: clarity, easy to find. '''5/5'''
+** To-do list consistency (weekly or more). '''10/10'''
+** To-dos & cancellations checked & dated. '''5/5'''
+** Level of detail: personal work & accomplishments. '''10/15'''
+* Useful resource
+** References (internal, external). '''8/10'''
+** Useful resource for the team. '''12/15'''
+
+Total Out of 100: '''90/100'''
+
+
+== September 13, 2021 ==
+'''Team Meeting Notes:'''
+* Went over some general announcements.
+* Use directory `/storage.home/hpaceice1/shared-classes/materials/vip/AAD` for shared repositories.
+* Listened to all teams in a scrum meeting talk about what they are working on and what they are stuck.
+* Met with sub-team for 10 minutes after the scrum meeting and discussed our action points. We modified some of our objectives (such as modifying EMADE's DataPair) based on feedback from Dr. Zutty, knowing that this would be a big task.
+* From my "review" action item, I read both papers and started to learn about the nn-vip branch structure. By next sub-team meeting I will have run EMADE and can start looking at some of our to-do items (specifically, fixing the bug in the swap_layers() method).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|-
+|Fill out self-evaluation form.
+|Completed
+|9/13/21
+|9/13/21
+|9/13/21
+|}
+
+== September 10, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with others on the sub-team for just over an hour.
+* Reviewed some of the ideas documented on [https://trello.com/b/RbwUW89F/nas-brainstorm this Trello board]. You may or may not have access to this, but some of the items include: triviality and novelty detection, speeding up EMADE (a critical issue because EMADE runs tend to go over the PACE limit of 8 hours; some problem areas include tokenization and some EMADE data structures), adding some test scripts, and debugging the layer swap functionality.
+* Discussed the papers mentioned below and considered how to adapt/implement some of their ideas in our branch.
+* Set a weekly meeting time for Fridays from 2 - 3 PM. 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|In preparation for the next sub-team meeting, continue to review resources sent by Cameron Whaley: read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch. Especially focus on running EMADE both locally and in PACE.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|}
+
+== August 30, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed our brainstorming results from the past week.
+* Hashed out all of the sub-teams and heard feedback on each one.
+* Voted on sub-teams and picked out the top ones.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rank personal top 4 sub-teams by end of meeting. My choices were EZCGP: 1, Neural Architecture Search: 2, Natural Language Processing: 3, and Modularity: 4. 
+|Completed
+|8/30/21
+|8/30/21
+|8/30/21
+|-
+|After sub-teams assignments are released by Dr. Zutty, meet with sub-team and hash out several tasks for the start of the semester. Also, make some progress on these tasks for the next meeting because there is no meeting on Labor Day.
+|Completed
+|8/31/21
+|8/31/21
+|8/31/21
+|-
+|Prepare for first sub-team meeting on Friday September 10 by reviewing resources sent by Cameron Whaley: bookmark [https://github.gatech.edu/emade/emade/tree/nn-vip nn-vip branch] of EMADE, read [https://arxiv.org/pdf/1703.00548.pdf Evolving Deep Neural Networks] and [https://arxiv.org/pdf/2002.04634.pdf Neuroevolution of Neural Network Architectures Using CoDeepNEAT and Keras], setup EMADE & run on PACE (guides provided), and review [https://docs.google.com/presentation/d/1v33k5I9b-_MIR9f3QhO4U81HJaBRwWqt6xzoSecDsoA/edit#slide=id.p crash course guide] for branch.
+|In Progress
+|9/7/21
+|9/17/21
+|
+|}
+
+== August 27, 2021 ==
+'''NLP Brainstorm Meeting Notes:'''
+* Met for 30-45 minutes to discuss a possible NLP research direction for this semester.
+* Talked with some students from last semester to get a better idea of what has already been done and what is left to do (if any work was unfinished from last semester). For example, last semester the NLP/NAS team were researching why their individuals produced by EMADE lacked complexity. This problem was not entirely solved.
+* Agreed NAS should split from the NLP sub-team and considered some state of the art architectures that might be relevant (such as BERT).
+* Settled on a problem related to question answering or machine translation, and decided to do more research outside of the meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Investigate neural architecture search (read papers, etc.) for common NLP problems using EMADE.
+|Completed
+|8/27/21
+|8/29/21
+|8/30/21
+|}
+
+== August 23, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed potential sub-teams for this semester.
+* Reviewed the work of last semesters' sub-teams and evaluated how we might continue their work.
+* Voted on sub-teams (ex. EZCGP, NLP, NAS) and decided to open Slack channels for each one and work out their details before the next meeting.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ensure access to VIP notebook on GitHub.
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|-
+|Join sub-team brainstorm sessions (NLP & EZCGP) on Slack and setup discussion meetings before next meeting.
+|Completed
+|8/23/21
+|8/23/21
+|8/23/21
+|}
+
+== April 30, 2021 ==
+'''Team Meeting Notes:'''
+* Attended final presentations for VIP from 6 - 9 PM.
+* Listened to all teams share their progress over the semester.
+* Of particular interest to me was hearing some of my own team's progress. As we often work in sub-teams within our sub-team, it was exciting to learn more about the work others were doing at a detailed level.
+* I gave the part of our presentation on visualization. I also noticed that some members of the team were already using the new iteration of the visualization script.
+* Received general feedback, some of which was shared with other teams across the VIP. We should look to be more "scientific" in our findings, using statistical tests to show improved performance rather than hand-waving results.
+* I enjoyed other groups' use of GIFs to animate their pareto fronts, which our team could also look at when considering the evolutionary process of an individual in ezCGP.
+* I hope to merge a pull request into the master branch of ezCGP by the end of term. I also look forward to continue working on ezCGP this fall now that I am familiarized with the workflow.
+* Reflecting on my work in ezCGP, I felt that most of my time was spent learning the codebase. The visualization code touched a lot of its parts and I found this work super helpful to me personally. Moreover, my work was immediately used by other members of the team; I'm glad that my first-semester project was used in practice.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize VIP notebook
+|Completed
+|4/29/21
+|4/30/21
+|4/30/21
+|}
+
+== April 29, 2021 ==
+'''Sub-Team Notes:'''
+* Reviewed our final presentation slide-by-slide to ensure that we covered everything that we did over the semester.
+* Looked at timing of each slide to make sure we meet the required length.
+* I personally added presenter notes to my slides and edited some bullet points. I expect to speak for 2 minutes. You can find my slides below.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add presenter notes to slides and prepare for final presentation.
+|Completed
+|4/29/21
+|4/30/21
+|4/29/21
+|-
+|Finalize VIP notebook
+|In Progress
+|4/29/21
+|4/30/21
+|
+|}
+
+== April 26, 2021 ==
+'''Personal Notes:'''
+* I had to miss this meeting due to another one-time commitment, but I emailed Jason Zutty ahead of time and I caught up on what I missed afterwards.
+
+== April 22, 2021 ==
+'''Sub-Team Notes:'''
+* Started work on our final presentation. This included writing an outline of topics to speak about as well as designating roles.
+* Created a skeleton presentation.
+* I am working on the portion focused on visualization.
+* I added two slides on this topic (found [https://docs.google.com/presentation/d/1eMU46VktpHKwrQK5wQQ_oSM8ZK6Zzxky1rn5YFm27iw/edit?usp=sharing here]), under the title "Visualization."
+* These two slides talk about our work and shows what the previous and current visualizations look like.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slides on visualization work
+|Completed
+|4/22/21
+|4/26/21
+|4/22/21
+|-
+|Merge branch to master.
+|In Progress
+|4/15/21
+|4/26/21
+|
+|}
+
+== April 19, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed progress of sub-teams in the past week.
+* Our group discussed our visualization results as well as the individual work of members in the mating team. We also talked about ways to improve our classification performance on CIFAR-10.
+* Ideas: modify objective functions, seed new layer types
+
+'''Sub-Team Notes:'''
+* Assigned individuals on mating team separate tasks to complete by Monday.
+* Discussed PR to master branch for this semester for the visualization changes.
+* Looked at possible new work to do before final presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Merge PR into master
+|In progress
+|4/15/21
+|4/26/21
+|
+|-
+|Do VIP peer evaluations
+|Completed
+|4/19/21
+|4/27/21
+|4/19/21
+|}
+
+== April 15, 2021 ==
+'''Sub-Team Notes:'''
+* After a short discussion of our meeting Monday we broke into the sub-teams working on visualization and mating.
+* Visualization team talked about possible improvements to the visualization program.
+* Previous iteration is close to finished, but we decided to change some formatting (such as putting node number and arguments on separate lines) and adding argument names.
+* Agreed to merge the visualization branch (mentioned below) to master once these changes were made.
+* Visualized some individuals and discussed why shorter networks seem to be preferred (when deeper networks typically perform better on CIFAR-10).
+
+'''Personal Notes:'''
+* Completed formatting and added named arguments on 4/18.
+* Talked with Rodd Talebi and became more familiarized with the ezCGP codebase.
+* Code can be found [https://github.com/ezCGP/ezCGP/blob/feature/163-visualization/codes/utilities/visualize.py here].
+* Pull request (#167) found [https://github.com/ezCGP/ezCGP/pull/167 here].
+* Example visualization shown below (sorry, but I had trouble resizing this).[[files/exampleviz2.png]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Separate node number and arguments
+|Completed
+|4/15/21
+|4/19/21
+|4/18/21
+|-
+|Add argument names to each node.
+|Completed
+|4/15/21
+|4/19/21
+|4/18/21
+|-
+|Merge branch to master.
+|In Progress
+|4/15/21
+|4/19/21
+|
+|}
+
+== April 12, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed progress of sub-teams in the past week.
+* Our group discussed paper read by mating team and results from visualization team.
+
+'''Sub-Team Notes:'''
+* Met quickly to discuss progress on visualization tasks.
+* Worked with teammate to clean code in file and complete some of the other tasks listed below.
+* Example visualization shown below (sorry, but I had trouble resizing this).[[files/exampleviz.png]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete visualization tasks listed below
+|Completed
+|4/8/21
+|4/15/21
+|4/13/21
+|}
+
+== April 8, 2021 ==
+'''Sub-Team Notes:'''
+* Reviewed meeting Monday and current status.
+* Discussed visualization goals: showing node numbers, arguments, and inactive nodes.
+* All visualization code can be found [https://github.com/ezCGP/ezCGP/tree/feature/163-visualization here].
+* Current iteration of the visualization is given below for an example individual.[[files/Exampleviz3.png]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete visualization tasks listed above
+|In Progress
+|4/8/21
+|4/15/21
+|
+|-
+|Get familiarized with EZCGP codebase
+|Completed
+|4/1/21
+|4/8/21
+|4/8/21
+|}
+
+== April 5, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed progress of sub-teams in the past week.
+* Our group discussed our results using new primitives such as Max Pooling which increased our accuracy.
+* Discussed statistical significance of EMADE results. Reviewed hypothesis testing, t-test, and Welch's t-test. Useful for comparing results between runs of a given algorithm.
+
+'''Sub-Team Notes:'''
+* Discussed methods to improve genetic variability, length, and accuracy of individuals.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get familiarized with EZCGP codebase (same as below)
+|Completed
+|4/1/21
+|4/8/21
+|4/7/21
+|}
+
+== April 1, 2021 ==
+'''Sub-Team Notes:'''
+* Reviewed presentation on Cartesian Genetic Programming, which introduced the subteam's work.
+* Learned about relevant terminology and the structure of the genetic tree.
+* Looked at EZCGP codebase and walked through some common use cases.
+* Assigned new members to work on more specific goals (I was assigned to work on visualization and the seeding of new primitives).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get familiarized with EZCGP codebase (review some Wiki documentation and go through source code)
+|Completed
+|4/1/21
+|4/8/21
+|4/7/21
+|}
+
+== March 29, 2021 ==
+'''Team Meeting Notes:'''
+* Met to review progress of sub-teams since last meeting and to learn about new member sub-team assignments.
+* I was assigned to the EZCGP sub-team.
+
+'''Sub-Team Notes:'''
+* Introductions of all team members, new and returning.
+* Learned more about what EZCGP does and its expectations and time commitments (meetings Thursdays from 5-6 PM).
+* Began onboarding process (joined Slack channel, added to GitHub pages, and began working through setup page on team wiki).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Onboard (by going through steps in the [https://github.com/ezCGP/ezCGP/wiki/New-VIP-Student-ToDo's new student wiki page].
+|Completed
+|3/29/21
+|4/5/21
+|3/30/21
+|-
+|Get setup with PACE (see [https://github.com/ezCGP/ezCGP/wiki/PACE-ICE this page].
+|Completed
+|3/29/21
+|4/5/21
+|3/30/21
+|}
+
+== March 22, 2021 ==
+'''Team Meeting Notes:'''
+* Met with entire VIP team for 3 hours to give presentations on results from each sub-team (including bootcamp teams).
+* Presented [https://docs.google.com/presentation/d/19QUX9vIrU05EoxIxQWgtGbbqUxWiWol98MyDH_-ldfQ/edit#slide=id.p our results] for 15 minutes. Personally responsible for data preprocessing slide.
+* Ranked sub-teams I am interested in joining full time.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create presentation with results
+|Completed
+|3/3/21
+|3/21/21
+|3/21/21
+|-
+|Rank sub-teams to join
+|Completed
+|3/22/21
+|3/28/21
+|3/24/21
+|}
+
+== March 19, 2021 ==
+'''Sub-Team Notes:'''
+* Met with sub-team for an hour and a half.
+* Removed the "Num Elements" objective from our input_titanic.xml file.
+* Re-ran EMADE within team to create new pareto individuals.
+* Created interface with DB using SQLAlchemy to export our results into a pandas dataframe.
+* Plotted our pareto front (see below) and achieved an AUC of 0.00387, which is a large improvement over our previous results.
+[[files/Paretofrontnew.png|none|frame]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with sub-team on 3/19/21
+|Completed
+|3/17/21
+|3/19/21
+|3/19/21
+|-
+|Visualize our EMADE results
+|Completed
+|3/17/21
+|3/19/21
+|3/19/21
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== March 17, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed our EMADE runs from the previous week. Ironed out some common bugs faced by several teams and looked at methods to visualize the results.
+* Discussed our presentation due on Monday and the rest of the semester (post-bootcamp).
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with sub-team on 3/19/21
+|In Progress
+|3/17/21
+|3/19/21
+|
+|-
+|Visualize our EMADE results
+|In Progress
+|3/17/21
+|3/19/21
+|
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== March 12, 2021 ==
+'''Sub-Team Notes:'''
+* Met for 15 minutes to discuss upcoming assignments (such as the presentation) and to ensure we could all connect to the SQL server and master emade process.
+* Reviewed some of our pareto individuals in the database.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE within sub-team
+|Complete
+|3/3/21
+|3/21/21
+|3/12/21
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== March 10, 2021 ==
+'''Team Meeting Notes:'''
+* Discussed our EMADE runs over the weekend.
+* Debugged some issues our sub-team was having specifically (entailed downgrading our version of deap to 1.2.2).
+* Successfully ran EMADE within our sub-team and produced pareto-optimal individuals visible within our shared MySQL server.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Schedule sub-team meeting for Friday
+|Completed
+|3/10/21
+|3/12/21
+|3/10/21
+|-
+|Run EMADE within sub-team
+|In Progress
+|3/3/21
+|3/21/21
+|
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== March 5, 2021 ==
+'''Sub-Team Notes:'''
+* Met with sub-team for an hour and a half to setup MySQL server and our shared emade process.
+* Spent time debugging various setup issues and ensured that all team members had the necessary components involved.
+* Ran EMADE several times trying to fix bugs.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE within sub-team
+|In Progress
+|3/3/21
+|3/21/21
+|
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== March 3, 2021 ==
+'''Team Meeting Notes:'''
+* Finished sub-team presentations.
+* Reviewed different components of EMADE: input file (python version, database configuration, datasets, objectives, & some other parameters).
+* Discussed master/worker paradigm for database setup.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE within sub-team
+|In Progress
+|3/3/21
+|3/21/21
+|
+|-
+|Create presentation with results
+|In Progress
+|3/3/21
+|3/21/21
+|
+|}
+
+== February 24, 2021 ==
+'''Team Meeting Notes:'''
+* Presentations on sub-team results from the past two weeks. Discussion of our preprocessing steps, various ML models, and evolutionary algorithms.
+* Gave our sub-team presentation (I personally discussed our preprocessing steps).
+* Talked about upcoming assignments: peer evaluations, installing EMADE, and finalizing notebook before next Wednesday.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evals
+|In Progress
+|3/1/21
+|3/5/21
+|
+|-
+|Install EMADE
+|Completed
+|2/24/21
+|3/3/21
+|2/24/21
+|-
+|Finalize notebook for midterm grading
+|In Progress
+|2/24/21
+|3/3/21
+|
+|}
+
+== February 21, 2021 ==
+'''Sub-Team Notes:'''
+* Met for an hour and thirty minutes to coordinate before the presentations on Wednesday.
+* Combined our individual results into [https://github.gatech.edu/cyurkon3/sp21_group3/blob/master/MOGP_Final.ipynb one notebook].
+* Achieved an AUC of 10655.0 and an overall accuracy on the validation set of 83.1%. This is a slight improvement from our results using various ML models.
+* Created [https://docs.google.com/presentation/d/12ilB-DrMhybc_PkDkcw4kFwxNHvV6VWTLaEThos2wPQ/edit?usp=sharing presentation slide deck] and delegated responsibilities for each part of the presentation.
+* Personally responsible for slide on data preprocessing.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete next sub-team assignment (plus presentation)
+|In Progress
+|2/12/21
+|2/24/21
+|
+|-
+|Complete personal portion of slide deck
+|Completed
+|2/14/21
+|2/24/21
+|2/15/21
+|}
+
+== February 19, 2021 ==
+'''Sub-Team Notes:'''
+* Met with team for 3 hours to design our multi-objective evolutionary algorithm and run it on our dataset.
+* Discussed and tested various approaches to our selection algorithm (using selTournamentDCD() and tried selNSGA2() and selSPEA2()).
+* Tuned hyperparameters and decided on appropriate primitive set.
+* Decided to meet again on Sunday 2/21 in order to tune our notebooks individually and then collect our results.
+'''Personal Notes:'''
+* All code contributions for our group are documented in our team channel (#group3_sp21) and our [https://github.gatech.edu/cyurkon3/sp21_group3 team GitHub]. Although the commits are in my name the code was written by our team collectively.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete next sub-team assignment (plus presentation)
+|In Progress
+|2/12/21
+|2/24/21
+|
+|}
+
+== February 17, 2021 ==
+'''Team Meeting Notes:'''
+* Reviewed last week's progress on the Titanic dataset.
+* Discussed next week's assignment (including the presentation and several motivating ideas).
+'''Sub-Team Notes:'''
+* Met with team for 30 minutes after class to discuss our submission for this week's assignments.
+* Ensured Pareto optimality of our results. You can see our Pareto front in the graphic below.
+* Organized another meeting for this Friday to complete the next assignment.
+[[files/Spr21group3pareto.png|none|thumb]]
+'''Personal Notes:'''
+* For this week's assignment, I applied several models to our team's preprocessed Titanic dataset. Namely, decision trees, random forest, xgboost, SVM, and MLP. I figured that tree-based models would be the most fruitful (because of their simplicity) and I was largely correct.
+* My random forest implementation achieved the greatest accuracy of all methods (82% accuracy, with average results for FPR and FNR as shown above). My other methods performed fairly well and some even approached random forest in accuracy.
+* I used sklearn's GridSearchCV to tune the hyperparameters for all models. Moreover, I considered class imbalances when fitting random forest.
+* Looking back, I would have spent more time doing feature engineering in order to improve the accuracy of my models. From a review of some public Kaggle notebooks, there were some interesting approaches to this that I did not consider when I first starting working on this dataset.
+* In the future, I will also try to take greater account of class imbalances in the dataset. Moreover, I will try to use GridSearchCV's scoring parameter in order to optimize for metrics besides accuracy.
+* [https://github.gatech.edu/cyurkon3/sp21_group3/blob/master/personal/Conner/conner.ipynb Click me] for the link to my code.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Develop ML algorithms to minimize false negatives
+|Complete
+|2/12/21
+|2/15/21
+|2/14/21
+|-
+|Hold second team meeting
+|Complete
+|2/12/21
+|2/17/21
+|2/17/21
+|-
+|Schedule third team meeting
+|Complete
+|2/17/21
+|2/24/21
+|2/17/21
+|-
+|Complete next sub-team assignment (plus presentation)
+|In Progress
+|2/17/21
+|2/24/21
+|
+|}
+
+== February 12, 2021 ==
+'''Sub-Team Notes:'''
+* Met with team for 30 minutes in order to discuss our preprocessing choices as well as the Pareto optimality of our team approach.
+* Decided to reuse most of the choices made in the [https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_4_ML/Titanic%20Example.ipynb reference notebook] shown in class.
+* We decided to one-hot encode "Sex" and "Embarkment" in order to improve performance of our chosen ML methods.
+* Created a [https://github.gatech.edu/cyurkon3/sp21_group3 team GitHub page] in order to share our starting point and future progress.
+* Divided group into two teams focused on minimizing false negatives and false positives, respectively.
+** I was assigned to the team minimizing false negatives.
+* Agreed to meet again before the next bootcamp meeting to review our progress.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Perform preprocessing on team dataset
+|Completed
+|2/12/21
+|2/12/21
+|2/13/21
+|-
+|Create team GitHub page
+|Completed
+|2/12/21
+|2/13/21
+|2/13/21
+|-
+|Develop ML algorithms to minimize false negatives
+|In Progress
+|2/12/21
+|2/15/21
+|
+|-
+|Schedule second team meeting
+|In Progress
+|2/12/21
+|2/17/21
+|
+|}
+
+== February 10, 2021 ==
+'''Team Meeting Notes:'''
+* Assigned to bootcamp subteam 3 as a team lead.
+* Introduction to Kaggle and the "Titanic - Machine Learning from Disaster" dataset.
+* Necessary to design co-dominant (optimizing for sensitivity and specificity, or FNR and FPR) algorithms as a team, as well as choose a common fold and complete data preprocessing.
+* Review of sample Jupyter notebook.
+* Created Slack channel for group 3 (#group3_sp21 in emade-vip) and invited team members.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create Slack channel for subteam 3 and invite team members
+|Completed
+|2/10/21
+|2/10/21
+|2/10/21
+|-
+|Schedule first team meeting
+|Completed
+|2/10/21
+|2/17/21
+|2/11/21
+|-
+|Download and review Kaggle dataset
+|Completed
+|2/10/21
+|2/17/21
+|2/11/21
+|}
+
+== Self-Evaluation Form ==
+My self-evaluation form is attached to this page as a PDF.
+[[files/SelfEval.pdf|none|frame]]
+
+== February 3, 2021 ==
+'''Team Meeting Notes:'''
+* Lecture focused on multiple objectives.
+* Gene pool is the set of genome to be evaluated during the current generation. GA = set of value and GP = tree structure.
+* Search space is over all possible genomes (which are scored).
+* Classification measures -> confusion matrix consisting of true positive, false negative, false positive, true negative.
+* Maximization Measures:
+    * Sensitivity or True Positive Rate (TPR; hit rate or recall) = TP/P = TP(TP+FN)
+    * Specificity (SPC)/True Negative Rate (TNR) = TN/N = TN/(TN + FP)
+* Minimization Measures:
+    * False Negative Rate (FNR) = FN/P = FN/(TP+FN)
+    * Fallout or False Positive Rate (FPR) = FP/(FP + TN)
+* Other measures exist.
+* Pareto Optimality -- an individual is Pareto optimal if there is no other individual in the population that outperforms the individiual on all objectives. Set of all Pareto individuals = Pareto frontier, and they represent unique contributions. Therefore, we drive selection by favoring these individuals.
+* Nondominated Sorting Genetic Algorithm II (NSGA II) & Strength Pareto Evolutionary Algorithm 2 (SPEA 2)
+
+'''Lab #2 Notes:'''
+*I fixed the issue I ran into last week by changing the arity of the two primitives that I added. After running the evolutionary loop, I produced an individual using symbol regression that fit the provided data.
+*You can find my notebook (and visualizations) [https://colab.research.google.com/drive/1oON4K222hF-DSf3iVSxXYf9-S9UQMaTK?usp=sharing here].
+*We continued from last week's notebook in order to look at multi-objective genetic programming. We modified the code to minimize two objectives: mean squared error and the size of the tree.
+*Rather than using a quartic polynomial, we use a harder equation made of powers of sin, cos, and tan.
+*We define a function to compute pareto dominance and use this to visualize the objective space. We use different color dots to indicate which individuals dominate or are dominated.
+*Using DEAP's implementation of the Mu plus Lambda evolutionary algorithm, we run an evolutionary loop that finds the best individual in our objective space.
+*We see that in the first chart, the MSE drops quickly while the tree size grows over time. However, this chart does not show how well our population is doing on both objectives (which requires a pareto front).
+*[[files/AUCsp21.png|thumb]]The strength of the pareto front is measured by the area under the curve. We implemented our own version of this GP problem in order to decrease the AUC by 25%. To do this, I tuned the hyper parameters of the given algorithm, and found that by decreasing the mutation probability (to a low value such as 0.01), the AUC would drop significantly. In my case, the AUC almost halved, producing the final chart shown on the right. The AUC value was 1.12 (compared to an initial value between 2 and 3).
+*Finally, we take a look at strongly typed genetic programming, which involves programming types. This requires care that we use primitives and terminals that our trees can produce.
+*Ephemeral constants are terminals generated by a function instead of a pre-defined value.
+*We can control bloat (to limit tree size) by adding static limits to our code, setting objectives to minimize tree size, and modifying the evaluation function to give bloated trees worse fitness values.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab assignment #2
+|Completed
+|February 3, 2021
+|February 10, 2021
+|February 4, 2021
+|-
+|Complete self-evaluation form
+|Completed
+|February 3, 2021
+|February 10, 2021
+|February 4, 2021
+|}
+
+
+== January 27, 2021 ==
+'''Team Meeting Notes:'''
+* Focus on genetic programming.
+* Here, we represent a program as a tree structure. Nodes are called primitives and represent functions. Leaves are terminals and represent parameters. Output is produced at root of tree.
+* Tree is stored as lisp preordered parse tree.
+* Crossover accomplished by swapping subtrees.
+* Mutations change structure of the tree (for example, inserting or removing a node).
+* Can be used to approximate arbitrary functions (such as sin).
+
+'''Lab #2 Notes:'''
+* Focused on genetic programming.
+* This paradigm uses tree structures to represent class members.
+* We initialized a tree structure, and I added add and subtract as my two new primitives.
+* Next, we defined an evaluation function which we can use on the function version of our tree.
+* Genetic programming can be thought of as finding the best combination of primitives given objectives to minimize or maximize.
+* I added the GP node replacement mutation to the code. This caused my graph to reach a minimum faster but it also resulted in higher variability of the max.
+* Finally, we coded the main evolutionary algorithm and added some graphing.
+* I ran into a ValueError in the evolutionary loop that I was unable to solve. When I added some error handling however, I was able to produce some function that had a very low fitness. Currently working on fixing this.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab assignment #2
+|In Progress
+|January 27, 2021
+|February 10, 2021
+|February 4, 2021
+|}
+
+== January 20, 2021 ==
+'''Team Meeting Notes:'''
+* Introduction to the basics of genetic algorithms and relevant vocabulary.
+* Keywords: selection (roulette, tournament), mate/crossover, mutate
+
+'''Lab #1 Notes:'''
+* DEAP is an evolutionary computation framework.
+* Start the lab by defining types such as fitness, individual, and populations. Use of toolbox functions.
+* Continue by initializing the population and assigning fitness values to each individual.
+* Then, we begin the evolutionary process, using 40 generations.
+* Selection is incorporated as part of the evolutionary process (producing offspring).
+* The offspring are then manipulated using crossover and mutation.
+* Next, we evaluate the offspring and replace the old population with the offspring.
+* Finally, we add statistics and run this process.
+* We find that the algorithm often achieves the global maximum fitness in 40 generations.
+* I also reviewed some the DEAP documentation.
+* We next focus on the N Queens problem.
+* We start by assigning one queen to each row and column. Then, we count conflicts along the diagonals to measure fitness.
+* Our algorithm utilizes partially matched crossover for mating. This allows us to preserve information from parents when forming offspring.
+* Then, we took a look at different mutation functions and attempted to implement our own.
+* When adjusting parameters, we found that increasing the population size increased the probability of finding the global minimum (0) in 100 generations.
+* Finally, using data visualizations we find that the average and minimum fitness of our populations stabilize around 20-30 generations.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Lab assignment #1
+|Completed
+|January 20, 2021
+|January 27, 2021
+|January 21, 2021
+|-
+|Create notebook
+|Completed
+|January 20, 2021
+|January 27, 2021
+|January 21, 2021
+|-
+|Join emade-vip Slack
+|Completed
+|January 20, 2021
+|January 27, 2021
+|January 21, 2021
+|}

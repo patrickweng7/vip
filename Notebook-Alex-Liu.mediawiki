@@ -1,0 +1,1798 @@
+== Team Member ==
+[[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
+Team Member: Alex Liu
+
+Email: aliu327@gatech.edu
+Cell Phone; 516-244-4515
+
+Interests: Machine Learning, ECE, Basketball
+
+Current Sub-Team: NLP-NN
+
+[[Fall 2020 Sub-team Weekly Reports#NLP]]
+
+== Week of November 30, 2020 (End Fall 2020) ==
+Plan to continue working with VIP group over winter break to push for the GECCO publication in January.
+
+'''Main Meeting Notes:'''
+* Final Presentations (in order)
+* Stocks: 
+** Developed a bunch of new technical indicator primitives that are relevant to stock trading.
+** Some work with genetic labeling
+** Unable to replicate some of the computation methods from other papers they referenced, so they used their own conventional wisdom
+* NLP: https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit?usp=sharing
+* EzCGP:
+** Not really CGP anymore.
+** Did not use transfer learning but more focused on genome seeding now
+** Used the mnist dataset and CIFAR10 for their runs
+** Have some plans for a big project to replace DEAP with EzCGP in emade
+* Modularity
+** Work with ARLs- Adaptive Representation through Learning
+** Experiments:  differential fitness, alternate selection method, data pair restriction, updated selection 
+** Ran on titanic dataset and mnist dataset
+** Future work on more intelligent ARLs and diversity over time.
+
+'''Sub-team Meeting Notes:'''
+* Anish and Anuraag did a few runs for toxicity and chest x-ray on icehammer
+* Cameron wrapped up work on Bert layer
+* Everyone else still setting up on PACE and getting last minute runs in
+* Maxim wrote up some documentation on how to set up on PACE and run.
+* Tushna and Tusheet finished their new primitives
+* Some people still experiencing issues with PACE which we will try to resolve over the break so that we are ready to go- push task deadline back to January
+
+'''Individual Notes:'''
+* Did a run on icehammer for our new adaptive mutation function:
+** Ran for 24 generations (ran 10 gens, stopped, then ran 14 gens)
+** Hypervolume:  38287692.41437316
+** Best individual - error 0.0383
+** NNLearner(ARG0, OutputLayer(ARG0, GRULayer(33, seluActivation, 32, falseBool, falseBool, EmbeddingLayer(32, ARG0, randomUniformWeights, InputLayer(ARG0)))), 89, AdamOptimizer)(0.03828652126157228, 230667.0)
+** Full run results: https://github.gatech.edu/aliu327/adaptive-run-results/tree/master
+** [[files/Imageadadada.png|frameless|422x422px]]
+* Hope to get bigger runs in the future to compare to baseline runs
+* Future work - use logistic regression scheme rather than the simple good/bad probability model
+* Create my slides for final presentation- worked with Anshul to create the slides:
+* [[files/Imagergdgd.png|frameless]]
+* [[files/Imageahhdh.png|frameless]]
+* [[files/Imagehdh.png|frameless]]
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do one large run and one adaptive run on Icehammer
+|Completed
+|November 23, 2020
+|November 30, 2020
+|November 30, 2020
+|-
+|Create final presentation slides
+|Completed
+|November 23, 2020
+|November 30, 2020
+|November 30, 2020
+|-
+|Help get all the teammates set up on PACE
+|In progress
+|December 2, 2020
+|January 14, 2020
+|
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|January 14, 2020
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|January 14, 2020
+|
+|}
+
+== Week of November 23, 2020 ==
+'''Main Meeting Notes:'''
+* NLP talked about how we are doing the experimentation process and wrapping up the features
+* Other teams also beginning experimentation
+
+'''Sub-team Meeting Notes:'''
+* Most people have PACE set up and running
+* Shreyas and Tejas seem to be having a lot of issues regarding disc space?
+* This weekend get a few runs on icehammer in and push results to github
+* Not much update from chest xray
+
+'''Individual Notes:'''
+* Need to create presentation slides for final presentation next week
+* Finalizing the adaptive mutation function
+** Figured out the fitness bug-- currently the master.err file is empty during the entire run
+** For some reason, the seems to be unable to get through the first generation- must consider running with my additions commented out and see if it works then
+** Anshul and I discussed the possibility of doing the linear regression for generating the actual mutation probability. It seems to be complicated for now.
+** Instead, we are just going to hardcode the good and bad probabilities which should still benefit our mutation process to some degree
+* After finalizing changes to adaptive mutation function, start doing large icehammer runs
+** Large run without adaptive -might need seed
+** Large run with adaptive and see if 
+** Might need to do multiple runs
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do one large run and one adaptive run on Icehammer
+|In progress
+|November 23, 2020
+|November 30, 2020
+|
+|-
+|Create final presentation slides
+|In progress
+|November 23, 2020
+|November 30, 2020
+|
+|-
+|Set up Icehammer again for large runs
+|Completed
+|November 16, 2020
+|November 23, 2020
+|November 22, 2020
+|-
+|Go through Deap documentation and follow up with Anish to figure out fitness bug
+|Completed
+|November 16, 2020
+|November 23, 2020
+|November 22, 2020
+|-
+|Test and debug adaptive mutation function
+|Completed
+|November 9, 2020
+|November 27, 2020
+|November 25, 2020
+|-
+|Come up with a better way of generating mutation probability (linear regression?)
+|Completed
+|November 9, 2020
+|November 23, 2020
+|November 22, 2020
+|-
+|Help get all the teammates set up on PACE
+|In progress
+|November 9, 2020
+|November 30, 2020
+|
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+== Week of November 16, 2020 ==
+'''Main Meeting Notes:'''
+* NLP finalizing different features we implemented- now moving onto the experimentation portion (basically doing runs)
+* Other teams working on setting up PACE and Collab for final presentation- we should begin doing the same
+
+'''Sub-team Meeting Notes:'''
+* New idea: novelty detection (kinda similar to what we are doing for adaptive mutation)
+* Everyone still working on setting up PACE
+* Final presentation data collection:
+** People with icehammer do large runs (>500 generations)
+** People on Pace do smaller runs (~70-100 generations)
+* Work still being done on BERT and chest- xray
+'''Individual Notes:'''
+* In EMADE.py created a new method that can be called to evaluate mutation probability
+* The idea is that if an individual is good, we want it to mutate less  to preserve its characteristics and if it is bad, we want to mutate it more
+
+* Still debugging the new function we wrote based off the pseudocode discussed last week.
+* [[files/Imageqee21.png|frameless|507x507px]]
+* Blockers:
+** Running into issues of type conflicts and using individual.fitness
+** Individual.fitness seems to be returning a tuple of values- accuracy and FP, FN- need to follow up with Anish about which ones we actually care about
+** Need to go through documentation and resolve
+* Also need to begin resetting up Icehammer for the large runs
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up Icehammer again for large runs
+|In progress
+|November 16, 2020
+|November 23, 2020
+|
+|-
+|Go through Deap documentation and follow up with Anish to figure out fitness bug
+|In progress
+|November 16, 2020
+|November 23, 2020
+|
+|-
+|Implement psuedo code we made
+|Completed
+|November 9, 2020
+|November 16, 2020
+|November 15, 2020
+|-
+|Test and debug adaptive mutation function
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Come up with a better way of generating mutation probability (linear regression?)
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Help get all the teammates set up on PACE
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+== Week of November 9, 2020 ==
+'''Main Meeting Notes:'''
+* NLP continuing work with chest ray, BERT, and the adaptive mutation
+* Other teams also reported issues with setting up PACE and getting it to work 
+
+'''Sub-team Meeting Notes:'''
+* Maxim has a guide for setting up on Pace- useful for later on when we do runs for the final presentation
+
+* Cameron still working on Bert Layer.
+'''Individual Notes:'''
+* Finished the worked with the mating functnon
+* Meet with Anshul this week to try and come up with a preliminary adaptive mutation function
+** Created a working version as a proof of concept
+** In EMADE.py created a new method that can be called to evaluate mutation probability
+*** Currently, the MUPB, MUTNRPB, MUTNPB are all hardcoded to around 0.01
+*** Can call the mut_prob function to change those values (adaptive mutation)
+*** Function takes in the pareto front, individual, and a good/bad probability rate
+*** Then builds a list of individuals using pareto front
+*** Computes average fitness of pareto individuals
+*** If average fitness is better than individual fitness, returns good mutation prob (lower)
+*** If average fitness is worse than individual fitness, returns bad mutation prob (higher)
+*** The idea is that if an individual is good, we want it to mutate less  to preserve its characteristics and if it is bad, we want to mutate it more
+*** Current pseudocode function:                 
+*** [[files/Imageadad.png|frameless|396x396px]]
+* Idea for future implementation: if certain mutations show up in the better individuals, use those mutations more (need to consider math behind this with Anshul)
+* Also need to come up with better way of generating 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Implement psuedo code we made 
+|In progress
+|November 9, 2020
+|November 16, 2020
+|
+|-
+|Test and debug adaptive mutation function
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Come up with a better way of generating mutation probability (linear regression?)
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Help get all the teammates set up on PACE 
+|In progress
+|November 9, 2020
+|November 23, 2020
+|
+|-
+|Outline a preliminary adaptive mutation function
+|Complete
+|October 19, 2020
+|November 2, 2020
+|November 7, 2020
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+
+== Week of November 2, 2020 ==
+'''Main Meeting Notes:'''
+* Talk about what assignments we gave the first years
+
+'''Sub-team Meeting Notes:'''
+* Discussed sub-architecture extraction and a new dataset that we might explore
+* Chest x-ray subteam starting to get results and working with some yolo architecture for image classification
+* Really need to start prioritizing this adaptive mutation function as it takes a long time to implement and maybe a larger project than expected
+* Soft deadline in a week to get some results from the adaptive mating function
+'''Individual Notes:'''
+* Still working on fixing the arity issue with some of the mutation functions
+* Meeting with Anshul this week to try and come up with a preliminary adaptive mutation function
+** Basically, this function controls the mutation rate of all the other mating functions
+** Utilize the randomization techniques from the paper to generate the mutation frequencies
+*https://www.researchgate.net/publication/224619893_Using_genetic_algorithm_with_adaptive_mutation_mechanism_for_neural_networks_design_and_training
+*Find other ways to increase complexity:
+**State-of-the-art solutions currently are much more complex
+**Look at those individuals and see what kind of mutations/primitives they implement.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline a preliminary adaptive mutation function
+|In progress
+|October 19, 2020
+|November 2, 2020
+|
+|-
+|Revisit shuffle layers and complete
+|Complete
+|October 26, 2020
+|October 26, 2020
+|October 26, 2020
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+== Week of October 26, 2020 ==
+'''Main Meeting Notes:'''
+* New students have been assigned to their chosen subteams
+* Current subteams need to come up with a way to incorporate the new members
+'''Sub-team Meeting Notes:'''
+*Bit of a hell week for everyone. Not much progress
+*Talk about how we will incorporate the first-semester students
+**Have them get nn-vip branch running with some results on their local machines
+**Get them to look through the list of topics to work on in our google doc
+**Have them join a certain subgroup to work on an area of tasks
+**Assign them to work with a "mentor" and have someone to show them the ropes
+'''Individual Notes:'''
+* Decided to revisit the shuffle layers mutation function
+** Was previously having arity issues
+** Going to try appending slices of the individual instead of just the layer
+** [[files/Shuffle.png|link=https://vip.gatech.edu/wiki/index.php/files/Shuffle.png|frameless|358x358px]]
+
+*Discussed with Anshul about using the per neuron mutation scheme
+**Develop a new mating operator that calculates frequency of mutations
+**Find a way to determine which mutations result in better individuals
+***Look at pareto individuals
+***See what kind of mutations and determine best mutation frequency using equation in paper
+***https://www.researchgate.net/publication/224619893_Using_genetic_algorithm_with_adaptive_mutation_mechanism_for_neural_networks_design_and_training
+*Find other ways to increase complexity:
+**State-of-the-art solutions currently are much more complex
+**Look at those individuals and see what kind of mutations/primitives they implement.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline a preliminary adaptive mutation function
+|In progress
+|October 19, 2020
+|November 2, 2020
+|
+|-
+|Revisit shuffle layers and complete
+|In progress
+|October 26, 2020
+|October 26, 2020
+|
+|-
+|Keep looking for more ways to increase complexity
+|In progress
+|October 26, 2020
+|
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+
+== Week of October 19, 2020 ==
+'''Main Meeting Notes:'''
+* Midterm presentations.
+* Stonks- worked a lot on developing regression techniques to be applied to stock predictions
+* Modularity- developed new ARLs to improve population fitness
+** worked on alternative selection
+** EMADE datapair limitations
+* EzCGP- ???
+* First Years- basic analysis and demonstration of genetic programming techniques.
+
+'''Sub-team Meeting Notes:'''
+* Google slides presentation: https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit?usp=sharing
+*Split up slides between subteam:
+** I am doing concatenate layers and Crossovers
+** Help with introduction, comparison to paper, and adaptive mutation function
+'''Individual Notes:'''
+* Discussed with Anshul about using the per neuron mutation scheme
+** Develop a new mating operator that calculates frequency of mutations
+** Find a way to determine which mutations result in better individuals
+*** Look at pareto individuals
+*** See what kind of mutations and determine best mutation frequency using equation in paper 
+*** https://www.researchgate.net/publication/224619893_Using_genetic_algorithm_with_adaptive_mutation_mechanism_for_neural_networks_design_and_training
+* Find other ways to increase complexity:
+** State-of-the-art solutions currently are much more complex
+** Look at those individuals and see what kind of mutations/primitives they implement.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create outline of how we will implement adaptive mutation
+|Completed
+|September 28, 2020
+|October 19, 2020
+|October 19, 2020
+|-
+|Build a preliminary working adaptive mutation function
+|In progress
+|October 19, 2020
+|October 26, 2020
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|} 
+
+== Week of October 12, 2020 ==
+'''Main Meeting Notes:'''
+* Went over logistics of the midterm presentation
+*Pay attention to graphs
+** Scaling and labels
+** Figure labels
+* Do dry run before next Monday
+
+'''Sub-team Meeting Notes:'''
+* Google slides presentation: https://docs.google.com/presentation/d/1Z8PjzaP_LjhyycpGSeXX7rIHdVYkxHzqg8vaKVEYhdU/edit?usp=sharing
+*Split up slides between subteam:
+** I am doing concatenate layers and Crossovers
+** Help with introduction, comparison to paper, and adaptive mutation function
+'''Individual Notes:'''
+* Created slides
+* Discussed with Anshul about using the per neuron mutation scheme
+* Find other ways to increase complexity:
+** State-of-the-art solutions currently are much more complex
+** Look at those individuals and see what kind of mutations/primitives they implement.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create outline of how we will implement adaptive mutation
+|In progress
+|September 28, 2020
+|October 19, 2020
+|
+|-
+|Build a preliminary working adaptive mutation function
+|In progress
+|September 28, 2020
+|October 19, 2020
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+
+== Week of October 5, 2020 ==
+'''Main Meeting Notes:'''
+* Trying to figure out more ways to optimize network
+* We seem to be getting really simple individuals for our pareto front
+** Consider exploring new ways to increase complexity
+** Look at some of the state-of-art models and see what sort of mutations/layers they employ
+
+'''Sub-team Meeting Notes:'''
+* We got a run with an individual with 0.0358 accuracy (seeded). We are aiming for <0.034 to beat CoDeapNEAT
+* Currently CV and Collab team are working on finalizing Pace and Collab setups 
+** Conda issues being resolved
+* Trying to get an adaptive mutation function outline completed for Fridays meeting
+* Attempting architecture search. eed to reference papers:
+** One involving something called Lamarckian evolution that minimizes resource consumption by bad individuals: https://arxiv.org/pdf/1804.09081.pdf
+** Anish found a good one on neural network search: https://lilianweng.github.io/lil-log/2020/08/06/neural-architecture-search.html
+'''Individual Notes:'''
+* Finished the two point crossover function. It will take in two individuals and swap their branches at two random points.
+*[[files/Image12345.png|none|thumb|545x545px]]https://github.gatech.edu/emade/emade/commit/7c090f95e5aa4dc7b061ca53c8e56628fdd74dc1
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish reading paper and discuss with Anshul
+|Complete
+|September 11, 2020
+|October 2, 2020
+|October 2, 2020
+|-
+|Create outline of how we will implement adaptive mutation
+|In progress
+|September 28, 2020
+|October 9, 2020
+|
+|-
+|Build a preliminary working adaptive mutation function
+|In progress
+|September 28, 2020
+|October 9, 2020
+|
+|-
+|Implement the two point crossover function
+|Complete
+|September 28, 2020
+|October 5, 2020
+|October 5, 2020
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+== VIP Notebook Grading Rubric, 2020 ==
+[[files/Selfgrade notebook.png|none|thumb|636x636px]]
+
+== Week of September 28, 2020 ==
+'''Main Meeting Notes:'''
+* Running into a blocker with how to optimize the network more.
+* The addition of the crossover mutation functions did not seem to help that much
+* Running into an issue where we are doing certain layers when unneeded such as pooling
+** Might help when implementing adaptive mutations
+** Find a way to define elitism in the pareto front
+
+'''Sub-team Meeting Notes:'''
+* We got a run with an individual with 0.0358 accuracy (seeded). We are aiming for <0.034 to beat CoDeapNEAT
+* Mating only run also yielded around the same accuracy at 0.0356.
+* We are now looking for more ways to optimize the neural net
+** Adaptive mutation functions-
+*** Currently looking at this paper with Anshul: https://www.researchgate.net/publication/220117106_A_Genetic_Algorithm_with_Adaptive_Mutations_and_Family_Competition_for_Training_Neural_Networks
+*** Hopefully, finish a preliminary outline by Friday
+*** Try to build a preliminary working adaptive mutation function 
+** Implement two point crossover - may help a little
+*** Use deap repository for reference.
+'''Individual Notes:'''
+* Start to implement a two point crossover branch mutation. It will take in two individuals and swap their branches at two random points.
+
+* Created a preliminary code for the crossover branch mutation. It is similar to a two point crossover except it is used for only primitive layers rather than any node
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Figure out more ways to optimize nlp
+|Complete
+|September 7, 2020
+|September 28, 2020
+|September 28, 2020
+|-
+|Finish reading paper and discuss with Anshul
+|In progress
+|September 11, 2020
+|October 2, 2020
+|
+|-
+|Create outline of how we will implement adaptive mutation
+|In progress
+|September 28, 2020
+|October 9, 2020
+|
+|-
+|Build a preliminary working adaptive mutation function
+|In progress
+|September 28, 2020
+|October 9, 2020
+|
+|-
+|Implement the two point crossover function
+|In progress
+|September 28, 2020
+|October 5, 2020
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+
+== Week of September 14, 2020 ==
+'''Main Meeting Notes:'''
+* Fixed made pushing issue
+* Created pace-support channel
+
+'''Sub-team Meeting Notes:'''
+* Anish got a run with an individual with 0.0374 accuracy. We are aiming for <0.034 to beat CoDeapNEAT
+* [[files/Image23.png|none|thumb]]
+* Cameron pushed the optimizers so now we have activations, optimizers, and weight initializers ready to go
+* Reviewed adaptive mutation notes, and decided we should pursue it despite it taking some randomness out of mutation functions
+* Currently looking at this paper with Anshul: https://www.researchgate.net/publication/220117106_A_Genetic_Algorithm_with_Adaptive_Mutations_and_Family_Competition_for_Training_Neural_Networks
+* After finishing crossover branch, will focus entirely on adaptive mutation functions
+'''Individual Notes:'''
+* Created a preliminary code for the crossover branch mutation. It is similar to a one point crossover except it is used for only primitive layers rather than any node
+* [[files/Codee.png|frameless|685x685px]]
+* The code first checks that the individual trees inputted are greater than one node in size
+* Then it goes through the trees and look for Primitive layers defined in neural network methods and randomly chooses one to set as the crossover point
+* Then it slices the trees and swaps the branches at the crossover primitive
+* Currently outputting an error:
+** IndexError: Invalid slice object (try to assign a slice(14, 19, None) in a tree of size 9). Even if this is allowed by the list object slice setter, this should not be done in the PrimitiveTree context, as this may lead to an unpredictable behavior for searchSubtree or evaluate.
+** I suspect this is an rarity issue. Will follow up with Anish on it
+* Update: It is an arity issue due to one tree being much larger than the other during crossover. Anish suggested to make a copy of the individual and to slicing another way. Look at modify and add layer for reference.
+* https://github.gatech.edu/emade/emade/commit/d698ad5d0b58fa09dfcbee32bad2c8a68d4ed11f
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete crossover branch mutation
+|Complete
+|September 7, 2020
+|September 18, 2020
+|September 17, 2020
+|-
+|Figure out more ways to optimize nlp
+|In progress
+|September 7, 2020
+|September 28, 2020
+|
+|-
+|Create outline of how we will implement adaptive mutatiion
+|In progress
+|September 11, 2020
+|September 28, 2020
+|
+|-
+|Start drafting copy of paper using Latex
+|In progress
+|September 11, 2020
+|
+|
+|}
+
+== Week of September 7, 2020 ==
+'''Main Meeting Notes:'''
+* Labor day- no main meeting
+
+'''Sub-team Meeting Notes:'''
+* Found a paper that discusses the effectiveness of adaptive mutation functions
+** https://web.itu.edu.tr/gulsenc/papers/APIS_Adaptive_Mutation_Scheme_in_GAs_Fastening_Convergence_to_Optimum.pdf
+** Good for determining whether we should implement adaptive mutation rates
+** This paper explained how researchers took the success and failure rates of the individuals in the current population and used them to modify the mutation rates for different genes in the chromosome
+** "It has been shown that through using a mutation rate variation scheme that adapts the mutation rate parameter during the run of the algorithm, the time to find the optimum is decreased"
+* Compared notes with Anshul's paper: https://www.researchgate.net/publication/224619893_Using_genetic_algorithm_with_adaptive_mutation_mechanism_for_neural_networks_design_and_training
+** Using genetic algorithm with adaptive mutation mechanism for neural networks design and training
+** Good for seeing how adaptive mutations are implemented for neural networks
+** Mutation mechanism allows to add and to delete neurons and connections and also to change connection weight for the random value.[[files/Choosing mutation proccess.png|thumb|none]]  Figure 3 in paper- mutation selection scheme Variables and formulas to obtain variables are defined in ''Adaptive Mutation Operator'' section
+**Might be tricky because nlp uses a tree structure for the neural network
+** Novelty- never used adaptive mutations on a tree structure network before
+
+'''Individual Notes:'''
+* Have a preliminary structure of crossover branches of NNLearners 
+* Used the swap layer mutation method as a baseline for the function. Instead of taking in one tree and Pset, take in two trees and randomly swap two branches
+* Currently swap layer just takes a random point on the tree and swaps the layer with a random one from Pset
+[[files/Image123r.png|none|thumb|698x698px]]
+* Need to figure out a way to just swap an entire branch at random point
+* Used Deap crossover mating functions for reference
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find paper that uses adaptive mutation functions
+|Completed
+|August 24, 2020
+|September 7, 2020
+|September 7, 2020
+|-
+|Start working on creating crossover branch
+|Completed
+|August 24, 2020
+|September 7, 2020
+|September 5, 2020
+|-
+|Complete crossover branch mutation
+|In progress
+|September 7, 2020
+|September 18, 2020
+|
+|-
+|Figure out more ways to optimize nlp
+|In progress
+|September 7, 2020
+|September 21, 2020
+|
+|}
+
+== August 31, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Meeting with Anshul- has the same tasks as me
+** Went over layerlist structure: how made organizes individuals and how individuals are constructed
+** Went through how we create mutation functions and register them
+** Explained how we test them- standalone_tree_evaluator.py and neural_network_mutations_test.py
+* Meeting with Anish
+** Discussed best way to approach creating an adaptive mutation function
+** Discussed the validity of having them at all
+*** Improves performance of mutation functions to create better individuals
+*** Loses the randomness that genetic programming should have
+** Need to find an example of an existing one. May be difficult to build ourselves
+** Adaptive mutation function: find out which mutations are working better than others and use those more
+*** Try to find a paper that already implements adaptive mutation layers
+*** Performance measurement:Rank mutation functions according to how well individuals are doing (frequency?)
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find paper that uses adaptive mutation functions
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|-
+|Finalize task assignments with team
+|Completed
+|August 17, 2020
+|August 24, 2020
+|August 24, 2020
+|-
+|Start working on creating crossover branch
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|-
+|Work on setting up EMADE on Google collab
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|}
+
+== August 24, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Finalized group and task assignments
+* Set up EMADE with new nn-vip branch and did a test run
+* Chose to design adaptive mutation layers and cross over branches of layerlists
+** Idea for crossover: Use the swap layer mutation method as a baseline for the function. Instead of taking in one tree and Pset, take in two trees and randomly swap two branches
+*** Advantage of trees
+*** Look at DEAP mating functions
+** Adaptive mutation function: find out which mutations are working better than others and use those more
+*** Try to find a paper that already implements adaptive mutation layers
+*** Performance measurement:Rank mutation functions according to how well individuals are doing (frequency?)
+** Team plans on migrating to Google collab for computation
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find paper that uses adaptive mutation functions
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|-
+|Finalize task assignments with team
+|Completed
+|August 17, 2020
+|August 24, 2020
+|August 24, 2020
+|-
+|Start working on creating crossover branch
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|-
+|Work on setting up EMADE on Google collab
+|In progress
+|August 24, 2020
+|September 7, 2020
+|
+|}
+
+== August 17, 2020 ==
+'''Main Meeting Notes:'''
+* Group formation
+
+* Syllabus review
+'''Sub-Team Meeting Notes:'''
+* Created google doc with a detailed list of tasks to complete because we can start writing the paper
+* Distributed tasks to team members based on interest
+* Discussed how to interpret results from an EMADE run
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize task assignments with team
+|In progress
+|August 17, 2020
+|August 24, 2020
+|
+|}
+
+== April 20, 2020 (End Spring 2020) ==
+'''Main Meeting Notes: Final Presentations'''
+* ADFs- reusing nodes in the tree
+** Primitive Analysis- which primitives are useful?
+*** Best: adf_passfloat_62
+** Differential Fitness- intelligence adf vs. differential fitness
+** Selection Method
+* Research Methods
+** Neat-GP- controls bloat naturally
+** Fitness Sharing- protect more unique individuals
+** Speciation Threshold- no effect
+** Mysterious drop in number of new individuals per generation
+** Fitness Sharing
+* NLP
+** Adding Keras API to EMADE
+** New primitives- ReLU, ELU, Attention Layer, Dropout
+** Used the toxicity dataset
+** Pace- higher accuracy with fewer generations
+* NLP Time-conflict
+** Summarize and test the performance of primitives
+** SQL on unique ports
+** Pace documentation and fixed objectives
+** Term Frequency Inverse Sequence Frequency (TFISF)
+*** Give rarity number to text for significance
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Design slides on presentation and prepare to speak on them
+|Completed
+|April 15, 2020
+|April 20, 2020
+|April 20, 2020
+|}
+
+== April 18, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Worked on the changes to the code given by Sam:
+** Should have uploaded the gist as a .py file instead of a .ipynb file
+** Add a plotting function that saves the graph as a .png file within the same directory
+* I changed the file to a .py file by copy pasting each cell in Jupiter notebook to sublime.
+* Then I added the plotting function to the code:
+** For the model.fit function, I assigned that to a variable called hist:
+*** hist = model.fit(x_train,  y_train,  batch_size=64,  epochs=10,  validation_data=(x_valid, y_valid))
+** Then I imported the necessary libraries to plot the graph: import matplotlib.pyplot as plt
+*** plt.plot(hist.history["acc"])  plt.plot(hist.history['val_acc'])  plt.plot(hist.history['loss'])  plt.plot(hist.history['val_loss'])  plt.title("model accuracy")  plt.ylabel("Accuracy")  plt.xlabel("Epoch")  plt.legend(["Accuracy","Validation Accuracy","loss","Validation Loss"])  plt.show()  plt.savefig('foo.png')
+***This code plots the graph and saves it as a .png file called foo.png
+* Reran the code for ten epochs to generate a graph:
+*[[files/Imagedwa.png|none|thumb|548x548px]]
+* I reuploaded the new code as a .py file and cloned it to my ezCGP environment on PACE
+* PACE went down on Saturday, so I was unable to collect adequate results for running the model on ezCGP the model (usually requires 48 hours)
+* Might have to consider just using CIFAR-10 as Kinnera was the only one who got it to run on ezCGP
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Change gist to .py file
+|Completed
+|April 15, 2020
+|April 18, 2020
+|April 18, 2020
+|-
+|Add a plotting function that saves graph to .png file
+|Completed
+|April 15, 2020
+|April 18, 2020
+|April 18, 2020
+|-
+|Run the same model on ezCGP
+|Completed
+|April 15, 2020
+|April 18, 2020
+|April 18, 2020
+|-
+|Design slides on presentation and prepare to speak on them
+|In Progress
+|April 15, 2020
+|April 20, 2020
+|
+|}
+
+== April 15, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Learned how to use PACE:
+** Set up ezCGP environments and conda commands
+** ssh- 
+*** SSH keys from github
+*** clone the ezCGP git
+*** install anaconda and create environments
+** Submit requests and run: qsub run_gpu_<name>.pbs
+
+* I decided to find a dataset called Fashion-Mnist to test ezCGP on
+** I used the model from: http://www.ijsrr.co.in/images/full_pdf/1553607966_R1093.pdf
+** Here is the code I wrote myself:[[files/Imagecs.png|none|thumb|682x682px]]
+** All I copied was the model architecture that will be used
+** Uploaded gist to github to clone and run on PACE: https://gist.github.com/ayxliu19/0d861774d2c2fa26739d5d786a9ca1f9
+** Sam informed me that I should have uploaded the gist as a .py file instead of a .ipynb file. I will need to modify that
+** Sam also assigned me to add a plotting function that saves the graph as a .png file within the same directory 
+* Created model flowchart using draw.io
+* [[files/Imagedf.png|frameless|682x682px]]
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn git commands for Linux operators
+|Completed
+|April 6, 2020
+|April 15, 2020
+|April 15, 2020
+|-
+|Set up PACE and learn how to use
+|Completed
+|April 8, 2020
+|April 15, 2020
+|April 15, 2020
+|-
+|Find a paper that has a model used to evaluate CIFAR-10
+|Completed
+|April 8, 2020
+|April 15, 2020
+|April 15, 2020
+|-
+|Change gist to .py file
+|In Progress
+|April 15, 2020
+|April 18, 2020
+|
+|-
+|Add a plotting function that saves graph to .png file
+|In Progress
+|April 15, 2020
+|April 18, 2020
+|
+|-
+|Run the same model on ezCGP
+|In Progress
+|April 15, 2020
+|April 18, 2020
+|
+|-
+|Design slides on presentation and prepare to speak on them
+|In Progress
+|April 15, 2020
+|April 20, 2020
+|
+|}
+== April 8, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Bootcamp to set up ezCGP on our local machines
+** Most in the subteam had Windows computers.
+*** Need to test code sometimes without submitting a qsub request on PACE
+*** Therefore need first test the code locally.
+** Downloaded virtual box to create a Linux operating system
+*** Sam helped configure system settings- gpus, display settings, etc
+** Downloaded ubuntu 
+* Review Dr. Zutty's assignment for new semester students:
+** Find an image classification dataset (CIFAR-10 is okay too) and implement an existing architecture for it based on a paper
+** If you do use CIFAR-10, then one of you can use the CGP-CNN paper and copy one of their architectures in Keras.
+** Run ezCGP with CIFAR-10 and compare the results (probably after like 48 hours for ezCGP)
+* Next step is to find a model for CIFAR-10 in a published paper (to ensure credibility) 
+* Create a github gist and evaluate the model on PACE.
+* Compare the results (accuracy and loss)
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up virtual machine to run ezCGP on local
+|Completed
+|April 6, 2020
+|April 8, 2020
+|April 8, 2020
+|-
+|Learn git commands for Linux operators
+|In Progress
+|April 6, 2020
+|April 15, 2020
+|
+|-
+|Set up PACE and learn how to use
+|In Progress
+|April 8, 2020
+|April 15, 2020
+|
+|-
+|Find a paper that has a model used to evaluate CIFAR-10
+|In Progress
+|April 8, 2020
+|April 15, 2020
+|
+|}
+== April 6, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today I ran a convolution neural network on keras for practice
+** Used a tutorial: https://elitedatascience.com/keras-tutorial-deep-learning-in-python
+** Used the mnist dataset
+** Learned:
+*** How to set up environments
+*** Load datasets
+*** preprocess data
+*** Define model architecture
+*** Fit model on training data
+*** Evaluate model for test data
+** [[files/Imagec.png|none|thumb]]
+* I also read the ezCGP 2019 paper to learn about the code design and usage 
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn the basics of deep learning (neural networks, perceptrons, etc.)
+|Completed
+|March 23, 2020
+|April 8, 2020
+|April 6, 2020
+|-
+|Read written papers of the group to understand research goals (2019 paper)
+|Completed
+|April 1, 2020
+|April 8, 2020
+|April 6, 2020
+|-
+|Run a neural network using keras for practice
+|Completed
+|April 1, 2020
+|April 8, 2020
+|April 6, 2020
+|-
+|Set up virtual machine to run ezCGP on local
+|In Progress
+|April 6, 2020
+|April 8, 2020
+|
+|-
+|Learn git commands for Linux system
+|In Progress
+|April 6, 2020
+|April 15, 2020
+|
+|}
+
+== April 1, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Why is random sometimes better than touranment
+** Individuals sometimes have latent information
+** When population is small, individuals are too different to be evaluated against each other?
+* Genetic algorithm
+* GP vs CGP (Cartesian Genetic Programming)
+** GP Primitives- add, subtract, sin, cos, etc.
+** CGP Primitives- trees that show parents and direct children
+** Advantages- 
+*** Different combinations of functions
+*** Can take any parent and mate with child at any point (reuse connections)
+*** Save depth in trees
+* What exactly is mating?
+** Switching layers of neural networks
+** EZCGP- 
+*** Mutation for layers, changing parameters
+*** Partial block mating 
+* Notation
+** just refer to presentation slide as reference
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn the basics of deep learning (neural networks, perceptrons, etc.)
+|In Progress
+|March 23, 2020
+|April 8, 2020
+|
+|-
+|Read written papers of the group to understand research goals (2019 paper)
+|In Progress
+|April 1, 2020
+|April 8, 2020
+|
+|-
+|Run a neural network using keras for practice
+|In Progress
+|April 1, 2020
+|April 8, 2020
+|
+|-
+|Figure out what back propagation is
+|Completed
+|March 25, 2020
+|April 8, 2020
+|April 1, 2020
+|}
+
+== March 30, 2020 ==
+'''Main-Team Meeting Notes:'''
+* Ran scrums then went to subteams
+'''Sub-Team Meeting Notes:'''
+* Rather confusing subteam meeting
+* There is some drama going on in the group
+* Will just ignore and continue learning neural networks
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn the basics of deep learning (neural networks, perceptrons, etc.)
+|In Progress
+|March 23, 2020
+|April 8, 2020
+|
+|-
+|Watch assigned youtube videos on neural networks
+|Completed
+|March 25, 2020
+|April 1, 2020
+|March 30, 2020
+|-
+|Figure out what back propagation is
+|In Progress
+|March 25, 2020
+|April 8, 2020
+|
+|}
+
+== March 25, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Machine Learning steps
+** What do you want to predict?
+** Dataset
+** Split data into train, test, and validation sets
+** Train model
+** Test performance
+* Deep Neural Networks
+** Multiple layers- input layer, hidden layers, and output layers
+** Perceptron (neuron)- change weights
+** Activation Function- sigmoid, tanh
+*** ReLU=max(0,x)
+*** Softmax
+** Optimizers
+*** The algorithm that the network uses to figure out how large or small of a step to take on the loss curve (aka how much to decrease the loss by). This is often in conjunction with the gradient of that loss function
+*** Gradient- rivative of computational graph
+* Training
+** Loss function- overall accuracy= corrected prediction/total prediction*100
+** For i in range(t): # repeat this process as many times as you like
+** Updating weights- for each weight, compute the partial derivative of L/partial derivative w (known as back propagation)
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn the basics of deep learning (neural networks, perceptrons, etc.)
+|In Progress
+|March 23, 2020
+|April 8, 2020
+|
+|-
+|Watch assigned youtube videos on neural networks
+|In Progress
+|March 25, 2020
+|April 1, 2020
+|
+|-
+|Figure out what back propagation is
+|In Progress
+|March 25, 2020
+|April 8, 2020
+|
+|}
+
+== March 23, 2020 ==
+'''General Team Meeting Notes:'''
+* I was assigned to the EZCGP team.
+* For online meetings, we first run through scrums in the main meeting and then split into subteams.
+'''Sub-Team Meeting Notes:'''
+* Before I can make a significant contribution to the team, I have to learn the basics of deep learning.
+* Samuel set up a workshop that runs on Wednesdays for the new students where we get a crash course on deep learning and take a look at the code base EZCGP is currently working on.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn the basics of deep learning (neural networks, perceptrons, etc.)
+|In Progress
+|March 23, 2020
+|April 8, 2020
+|
+|}
+
+
+== March 9, 2020 ==
+'''General Team Meeting Notes:'''
+
+ADF- automatically defined functions
+* Reusing nodes in the trees and decrease complexity/bloat
+* Useful for frequency and fitness
+* Cloud computing and machine learning
+NLP- natural language processing
+* Understanding human language
+EzCGP- utilize deap learning into emade
+
+Research Methods
+* Control bloating- # of individuals increasing while fitness is not
+Considering joining EzCGP
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create final presentation
+|Complete
+|February 29, 2020
+|March 9, 2020
+|March 9, 2020
+|}
+
+== March 7, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Last night, I ran emade for 12 hours and got 22 generations for the titanic dataset
+* Today, we are working together to find the pareto frontier
+** We utilized the visualization.py file to create the pareto frontier
+** One problem we had was that our query for pareto individuals was returning individuals who were codominated
+** we ran:
+*** select individuals.tree, individuals.`FullDataSet False Positives`,  individuals.`FullDataSet False Negatives` from paretofront inner join  individuals on individuals.hash=paretofront.hash  where paretofront.generation=(select max(paretofront.generation)) order by  `FullDataSet False Positives`;
+**[[files/Current Emade pareto fronte.png|none|thumb]]Our pareto frontier looks fine because the code draws the frontier with only the pareto individuals. It is just weird why codominated individuals were still showing up when we ran the query.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run emade for titanic dataset <20 generations
+|Complete
+|February 29, 2020
+|March 9, 2020
+|March 7, 2020
+|-
+|Create final presentation
+|In Progress
+|February 29, 2020
+|March 9, 2020
+|
+|}
+
+== February 29, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today is the VIP Hackathon- only Cameron and I showed up
+* [[files/Dconfig.png|right]]We successfully managed to connect our SQL servers
+** Because of a firewall issue, I had to create a new user in the titanic schema with the % limits to host matching. This granted full permissions to the emade_user.
+** I created a titanic schema that was linked to the titanic input xml file. I changed the values under dbConfig to access the SQL database
+** Cameron was able to connect to my database using Anaconda prompt and when he ran the python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml    he added a -w to indicate that he was a worker.
+* Our next steps will be manipulating the train files so that it will match the features we chose when performing the MOGP.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Connect workers to master database
+|Complete
+|February 26, 2020
+|March 4, 2020
+|February 29, 2020
+|-
+|Run emade for titanic dataset <20 generations
+|In Progress
+|February 29, 2020
+|March 9, 2020
+|
+|-
+|Create final presentation
+|In Progress
+|February 29, 2020
+|March 9, 2020
+|
+|}
+== February 26, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today we tried to set up the database and connect the workers to the master
+* Unfortunately, some of the team including myself have been having trouble setting up emade and downloading the right packages
+* I decided to do a git reinstall that reinstalled some of the packages and dependencies that I accidentally deleted.
+* Eventually, I became the master because Cameron had a different version of SQL that he needed for another class and the rest of the team was unable to correctly install SQL.
+* Progress has been slow and our group will need to meet outside of class to finish this project.
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learn how to use SQL 
+|Completed
+|February 19, 2020
+|February 26, 2020
+|February 26, 2020
+|-
+|Connect workers to master database
+|In Progress
+|February 26, 2020
+|March 4, 2020
+|
+|}
+
+== February 19, 2020 ==
+'''Team Meeting Notes:'''
+* EMADE- Evolutionary Multi-objective Algorithm Design Engine
+** src/GPFramework is the main body
+** gtMOEP.py is the main EMADE engine- evolutionary loop + evaluation method
+** gp_framework_helper.py- primitive set
+** Templates- input files
+** Datasets- test dataset
+
+* Need mysql server
+** Use dbconfig to link worker process to team members
+* Input file- xml file
+** Database configuration- chido master, everyone else is worker
+** Datasets- gzipped csv files (decompress using gvim editor)
+** 2-3 evaluations at once (workersPerHost)
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Group Presentation
+|Complete
+|January 29, 2020
+|February 12, 2020
+|February 12, 2020
+|-
+|Set up EMADE, Git, Anaconda, etc.
+|Complete
+|February 19, 2020
+|February 26, 2020
+|February 20, 2020
+|-
+|Set up SQL Server and Workbench
+|Complete
+|February 19, 2020
+|February 26, 2020
+|February 20, 2020
+|-
+|Learn how to use SQL 
+|In Progress
+|February 19, 2020
+|February 26, 2020
+|
+|}
+
+== February 11, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today we finished the evolutionary algorithm for our project
+** Link to code: https://github.gatech.edu/aliu327/Titanic-Project-Group-4
+** We generated 418 individuals:
+** [[files/Ind.png|frameless|403x403px]]
+** Next we created a "hall of fame" by removing the individuals who were codominated from the list
+**[[files/Hall of fame 1.png|none|thumb|276x276px]]
+
+** Then we ran 40 generations of our MOGP code and chose a winner at the end:
+**[[files/MOGP.png|none|thumb]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Design Evolutionary Algorithm
+|Completed
+|January 29, 2020
+|February 12, 2020
+|February 11, 2020
+|-
+|Titanic Group Presentation
+|In Progress
+|January 29, 2020
+|February 12, 2020
+|
+|}
+
+
+== February 9, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today we created the evolutionary algorithm for our project
+** Overall of our MOGP algorithm was to minimize the number of false positives and false negatives
+** Using lab 2â€™s multi-objective section as a template, we modified the genetic algorithm while using the eaMuPlusLambda evolutionary algorithm as a placeholder for debugging
+** Primitives used were: add, subtract, multiply, negative, sin, and cos[[files/Primitivess.png|none|thumb]]
+** We created an evaluation method evalSymbReg(individual, points, result, pset) that returned fp/(tn + fp), fn/(tp + fn)
+**[[files/Eval.png|none|thumb]]
+* We also created the google slides presentation:
+** Explain why we chose certain features
+** Discuss the different machine learning algorithms we used and the resulting confusion matricies
+** Show the Pareto Frontier that was made using the algorithm with the best fitness from each group member
+** Explain what our MOGP algorithm did and how it different from the standard ML
+** Compare results of MOGP and standard ML
+** Talk about some challenged we faced doing this project and some takeaways
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Design Evolutionary Algorithm
+|In Progress
+|January 29, 2020
+|February 12, 2020
+|
+|-
+|Titanic Group Presentation
+|In Progress
+|January 29, 2020
+|February 12, 2020
+|
+|}
+
+== February 5, 2020 ==
+'''Team Meeting Notes:'''
+* Construct tree to generate second Pareto Frontier
+* Group Spreadsheet: 
+** Test.csv- passenger id, age, cabin, embarked
+** Prediction.csv- passenger id, survived, individual 1 (svm), individual 2(decision tree), ...
+* Code your own evolutionary loop
+* Presentation Guidelines
+** Title
+** Graphs- clear and readable
+*** Pareto Optimal- minimization
+*** Area under curve- Rieman Sum
+** Page numbers
+** Take-away - one sentence summary of slide
+'''Sub-Team Meeting Notes:'''
+
+I fixed my Pareto Frontier and as a team, we generated a final optimal Pareto Frontier using the best outcome of each member:
+[[files/Group Pareto Frontier.png|none|thumb|595x595px]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the Pareto Frontier
+|Completed
+|February 4, 2020
+|Februrary 12, 2020
+|February 5, 2020
+|-
+|Titanic Design Evolutionary Algorithm
+|In Progress
+|January 29, 2020
+|February 12, 2020
+|
+|-
+|Titanic Group Presentation
+|In Progress
+|January 29, 2020
+|February 12, 2020
+|
+|}
+== February 4, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Today I finalized the code for the titanic challenge.
+** Algorithms I used:
+*** tree.DecisionTreeClassifier()
+*** neighbors.KNeighborsClassifier()
+*** neural_network.MLPClassifier()
+*** svm.SVC(kernel='linear')
+*** RandomForestClassifier(n_estimators=100, max_depth=2, random_state=0)
+** My confusion matrix:
+** [[files/Confusion_matrix.png|frameless|205x205px]]
+
+** Pareto Frontier:
+*** To construct the Pareto frontier, I initialized two python lists called x_list and y_list
+*** After running each algorithm, I would append 
+**** x_list.append(fp/(fp + tp)) --- Positive Predictive Value
+**** y_list.append(fn/(fn + tn)) --- Negative Predictive Value
+*** At the end of my code, I constructed a scatterplot: 
+**** plt.scatter(y_list, x_list) --- generate the Pareto Frontier
+*** However, there seems to be some error that is making my Pareto Frontier look off. I will need to consult someone to help me figure out the issue. [[files/Pareto f.png|none|thumb|435x435px]]
+**Highest survival rate: 0.8203389830508474
+***[[files/Neural network.png|none|thumb|452x452px]]
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the Pareto Frontier
+|In Progress
+|February 4, 2020
+|Februrary 12, 2020
+|
+|-
+|Titanic Preprocess Data
+|Completed
+|January 29, 2020
+|February 5, 2020
+|February 4, 2020
+|-
+|Titanic Choose Features
+|Completed
+|January 29, 2020
+|February 5, 2020
+|February 4, 2020
+|}
+
+== February 2, 2020 ==
+'''Sub-Team Meeting Notes:'''
+* Met with subteam to work on Titanic Challenge (Group 4)
+** Explored the schikit-learn API to find methods that can be used for optimization.
+** We decided to use two folds for our code.
+** Determined which features we would evaluate when optimizing survival rate.[[files/Variables.png|thumb|988x988px]]
+*** Example template had Name, Ticket, Cabin
+*** We incorporated Name, Parch, Ticket, Fare, Cabin, and Embarked
+** Determined how we would measure and map each variable
+**[[files/Measure.png|thumb|992x992px]][[files/Measures.png|thumb|901x901px|none]]
+
+* We took the mean of the # of siblings, the mean of the ages, mode of the genders (binary), and mode of the passenger class.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Preprocess data
+|In progress
+|January 29, 2020
+|February 5, 2020
+|
+|-
+|Titanic Choose Features
+|In progress
+|January 29, 2020
+|February 5, 2020
+|
+|}
+
+== January 29, 2020 ==
+'''Team Meeting Notes:'''
+* Today we worked in groups on the Titanic challenge. Downloaded scikit-learn API and used its machine learning tools.
+* FP= They did not survive and I thought they did
+* FN= They survived and I thought they did not
+* Goal: Create a common feature set between the group and create your own model that cleans the data where all the individuals fall outside the Pareto Frontier
+** Clean engineer features and split data into folds
+** Should have same data training and testing set (same rows and training sets).
+** Develop and fit a model. Iterate until we get a Pareto Optimal set.
+*** x train- people who survived
+*** y train- people who died
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic
+|In progress
+|January 29, 2020
+|February 5, 2020
+|
+|}
+
+== January 22, 2020 ==
+'''Team Meeting Notes:'''
+*Multiple Objectives- translation of the vector of scores from evaluation into a fitness value
+**Gene pool is the set of the genome to be evaluated during the current generation
+***Genome- Genotypic description of an individuals
+***Search Space- Set of all possible genomes
+**Confusion matrix {| class="wikitable" | |Predicted:  Positive |Predicted:  Negative |- |Actual Positive (P) |True Positive (TP) |False Negative  (FN)  Type II Error |- |Actual Negative (N) |False Positive (FP)  Type I Error |True Negative  (TN) |}
+** Minimization
+*** Smaller is better
+*** False Negative Rate=FN/P
+*** False Positive Rate=FP/N
+** Maximization
+*** Bigger is better
+*** True Positive Rate=TP/P
+*** True Negative Rate=TN/N
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Python
+|Completed
+|January 8, 2020
+|January 29, 2020
+|January 28, 2020
+|-
+|Lab 2
+|Completed
+|January 15, 2020
+|January 29, 2020
+|January 24, 2020
+|}
+
+== January 15, 2020 ==
+'''Team Meeting Notes:'''
+* Genetic Programming
+** Tree Representation
+*** Primitives- nodes
+*** Terminals- leaves
+*** Terminals are inputs to primitives/functions that create outputs
+*** Lisp preordered parse tree- operator followed by inputs
+**** Ex: f(x) = 3*4+1 = [+,*, 3, 4, 1]
+**** Go from top to bottom left to right, use parenthesis when applicable
+** Crossover- exchange subtrees
+** Mutation- insert/delete a node/subtree, change a node
+** Evaluate Tree by measuring error
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Python
+|In Progress
+|January 8, 2020
+|January 29, 2020
+|
+|-
+|Lab 2
+|In Progress
+|January 15, 2020
+|January 29, 2020
+|
+|-
+|Lab 1
+|Completed
+|January 8, 2020
+|January 15, 2020
+|January 18, 2020
+|}
+
+== January 8, 2020 ==
+'''Team Meeting Notes:'''
+* Genetic Algorithms- evolves the previous population by evaluating fitness and picking the strongest. Continuous repetition
+** Individual- specific candidate
+** Population- group of individuals
+** Objective- value to characterize indiciduals
+** Fitness- comparison to other individuals
+** Evaluation
+** Selection- survival of fittest
+*** Fitness Proportionate- higher the better
+*** Tournament- winners selected for mating
+** Mate/Crossover
+*** Single Point
+*** Double Point
+** Mutation
+*** Small changes to children after mating has occurred
+* Algorithms
+** Random initialize
+** Determine fitness
+** Repeat
+*** Select parents- randomly
+*** Perform crossover
+*** Perform mutation
+*** Determine fitness
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Review Python
+|In Progress
+|January 8, 2020
+|January 29, 2020
+|
+|-
+|Lab 1- DEAP
+|In Progress
+|January 8, 2020
+|January 15, 2020
+|January 14, 2020
+|}

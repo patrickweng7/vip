@@ -1,0 +1,679 @@
+'''Name:''' Pranav Pusarla
+
+'''Email:''' [mailto:ppusarla3@gatech.edu]
+
+'''Cell Phone:''' 408-728-3993
+
+'''VIP:''' Automated Algorithm Design
+
+'''Interests:''' Artificial Intelligence, Quantitative Finance, Volleyball, Soccer, Guitar
+
+== August 25, 2021 ==
+=== Class Notes: ===
+
+'''<u>Concept of Genetic Algorithms</u>'''
+*new generation created through mating/mutation of individuals
+*fitness is evaluated then used again for new generation
+**relative comparison to other individuals (Ex. how well does individual accomplish task relative to population?)
+
+'''<u>Keywords</u>'''
+*Objective: value used to characterize individuals (usually maximize objective)
+*Selection: gives preference to better individuals therefore allowing them to pass on their genes
+*Fitness Proportionate: greater the fitness value, the higher the probability of being selected for mating
+*Tournament: several tournaments among individuals; winners selected for mating
+*Mate/Crossover: represents mating between individuals
+*Mutate: introduces random modifications; purpose to maintain diversity
+
+'''<u>Algorithm</u>'''
+#Randomly initialize population
+#Determine fitness of population
+#Repeat
+##Select parents
+##Perform crossover on parents
+##Perform mutation
+##Determine fitness of individuals
+
+=== Lab 1 Notes: ===
+'''One Max Problem'''
+*Defined a fitness objective and individual classes with DEAP creator
+*Defined individual as 100 boolean values and population as a list of individuals
+**Evaluation function is just the sum of the ones
+*Defined genetic operators such as mutate, mate, and tournament
+*Start the main algorithm
+**Evaluate each individual in population and map fitness with individual
+**Select individuals for tournament
+**Mate and mutate individuals with 50% and 20% chance respectively
+**Re-evaluate fitness of new individuals and assign fitness to individuals
+*Main algorithm was run 40 times to achieve best result
+
+'''N Queens Problem'''
+*Problem: Placing n queens on a nxn board so that none of the queens hit each other
+*This time the weight of our fitness objective is negative since we want to minimize the number of conflicts between queens on the chessboard
+*Defined a permutation function in the toolbox to represent locations of queens on the chessboard
+*Defined evaluation function to count conflicts between other queens
+**Since queens are placed on different rows and columns because of permutation, only need to check diagonals
+**There are 2*n - 1 diagonals left and 2*n - 1 right
+*Tested out two-point crossover function would two randomized permutations of 1-8
+*Defined our mutation function as a shuffle function since we cannot change any of the numbers since they represent column values on board
+**Made my own mutation function switching first and last if probability lower than indpb
+
+[[files/ppusarla3/NQueens_graph.png|height=300px]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create VIP Notebook and add lecture notes
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|-
+|Finish Lab 1
+|Completed
+|August 25, 2021
+|September 1, 2021
+|September 1, 2021
+|}
+
+== September 1, 2021 ==
+=== Class Notes: ===
+
+'''<u>Genetic Programming</u>'''
+*Instead of taking an individual and having a function evaluator to obtain objective scores, the individual is the function itself
+
+'''<u>Tree Representation</u>'''
+*We can represent a program as a tree structure
+**Nodes are called primitives and represent functions
+**Leaves are called terminals and represent parameters
+*Tree can be converted to a lisp preordered parse tree
+**Operator followed by inputs
+
+'''<u>Crossover in GP</u>'''
+*Crossover in tree-based GP is simply exchanging subtrees
+*Start by randomly picking a point in each tree and switch subtrees of picked parents
+
+'''<u>Mutation in GP</u>'''
+*Can involve...
+**Inserting a node or subtree
+**Deleting a node or subtree
+**Changing a node
+
+'''<u>Evaluating a tree</u>'''
+*We can feed a number of input points into the function to get outputs
+*Run f(X)
+*We can measure error between outputs and truth
+
+=== Lab 2 Notes: ===
+'''Symbolic Regression'''
+*Creating fitness function with weight -1 so trying to find min
+*Each individual represented by a tree by inheriting from Deap's PrimitiveTree class
+*Created a primitive set that holds all mathematical functions and arguments
+**Added two primitives (power and log)
+*Defined toolbox with individual, population, and compile
+**Also defined a function expr that creates a primitive tree between min and max depth
+*Defined evaluation function that basically takes the mean squared error between the tree function and actual function based on inputted points
+*Registered toolbox with genetic functions
+**Added a mutation function - node replacement
+*Ran 40 generations and got minimum of 8.77e-17 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Lab 2 Part 1
+|Completed
+|September 1, 2021
+|September 8, 2021
+|September 8, 2021
+|}
+
+== September 8, 2021 ==
+=== Class Notes: ===
+
+'''<u>Genome</u>'''
+*Gene pool is the set of genome to be evaluated
+**Genome
+***DNA
+***GA: set of values
+***GP: tree, string
+**Search Space
+***Set of all possible genome (algorithms)
+*Evaluation of a genome -> genome with a score
+
+'''<u>Maximization Measures</u>'''
+*Sensitivity or True Positive Rate (TPR) 
+**aka hit rate or recall
+**TPR = TP / P = TP / (TP+FN)
+*Specificity or True Negative Rate (TNR)
+**TNR = TN / N = TN / (TN+FP)
+
+'''<u>Minimization Measures</u>'''
+*False Negative Rate (FNR)
+**FNR = FN / P = FN / (TP+FN)
+**FNR = 1 - TPR
+*Fallout or False Positive Rate (FPR)
+**FPR = FP / N = FP / (FP + TN)
+**FPR = 1 - TNR
+
+'''<u>Other Measures</u>'''
+*Precision or Positive Predicted Value (PPV)
+**PPV = TP / (TP+FP)
+*False Discovery Rate
+**FDR = FP / (TP+FP)
+*Negative Predictive Value
+**NPV = TN / (TN+FN)
+*Accuracy
+**(TP + TN) / (P+N)
+
+'''<u>Objective Space</u>'''
+*Each individual is evaluated using objective functions
+**MSE
+**Cost
+**Complexity
+**TPR, FPR
+*Objective scores give each individual a point in objective space
+*referred to as the phenotype of the individual
+
+'''<u>Pareto Optimality</u>'''
+*individual is Pareto optimal if there is no other individual in the population that outperforms the individual on all objectives
+*the set of all Pareto individuals is known as the Pareto frontier
+*we want to drive selection by favoring Pareto individuals
+**but maintain diversity by giving all individuals some probability of mating
+
+'''<u>Nondominated Sorting Genetic Algorithm II (NSGA II)</u>'''
+*Population is separated into nondomination ranks
+*Individuals are selected using binary tournament
+*Lower Pareto rank beats higher Pareto rank
+*Ties on the same front are broken by crowding distance
+**Summation of normalized Euclidean distances to all points within the front
+**Higher crowding distance wins
+
+'''<u>Strength Pareto Evolutionary Algorithm 2 (SPEA 2)</u>'''
+*Each individual is given a strength S
+**S is how many others in the population it dominates
+*Each individual receives a rank R
+**R is the sum of S of the individuals that dominate it
+**Pareto individuals are nondominated and receive an R of 0
+*For ties, a distance to the Kth nearest neighbor is calculated and a fitness of R + 1/ (muk + 2)
+
+=== Lab 2 Part 2 Notes: ===
+*Working with two different objectives: minimizing two different mses
+*Added sin, cos, tan as primitives to be used, reinitialized toolbox with seed to produce same results
+*Defined new evaluation function 
+*Created pareto dominance function that returns true if every value in individual 1 is less than individual 2
+*Intialized population of 300 and selected one individual
+**Separated population into dominated vs dominator with comparison of that one individual
+*Blue point is the selected individual, red dots are the dominators, black is uncomparable, and green is dominated
+*After running the main algorithm, we get AUC of 2.46
+*To reduce the AUC by 25%, we have to understand what parameters to optimize
+**For the eaMuPlusLambda function, we have mu, lambda, cxpb, mutpb, and ngen
+***Mu - number of individuals selected for next generation
+***Lambda - number of children to produce at each generation
+***Cxpb - probability that an offspring is produced by a crossover
+***Mutpb - probability that an offspring is produced by mutation
+***Ngen - number of generation
+**Changing lambda from 100->50 gives us an AUC of 2.46->2.39
+**Changing lambda from 100->150 gives us an AUC of 2.46->6.08
+**Increasing ngen from 50->100 gives us an AUC of 2.46->5.12
+**Reducing ngen from 50->25 gives us an AUC of 2.46->2.35
+**Increasing mu from 50->100 gives us an AUC of 2.46->6.94
+**Decreasing mu from 50->25 gives us an AUC of 2.46->5.75
+**Increasing cxpb from 0.5->0.8 gives us an AUC of 2.46->5.25
+**Decreasing cxpb from 0.5->0.2 gives us an AUC of 2.46->6.05
+**Increasing mutpb from 0.2->0.5 gives us an AUC of 2.46->6.40
+*I do realize that the combination of different parameter changes does affect the performance
+*For now, I'll stick with reducing ngen and lambda and see what happens
+*Reducing ngen from 50->25 and lambda from 100->50 gives us an AUC of 2.39
+
+[[files/ppusarla3/GP_bestTree.png|height=300px]]
+[[files/ppusarla3/GP_auc.png|height=300px]]
+
+'''<u>Self-Evaluation Rubric</u>'''
+Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp=sharing
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete self-evaluation rubric
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|-
+|Finish Lab 2 Part 2
+|Completed
+|September 8, 2021
+|September 15, 2021
+|September 15, 2021
+|}
+
+== September 15, 2021 ==
+=== Class Notes: ===
+*Went over example titanic data processing notebook
+*Started by reading in the training and testing data sets from Kaggle
+**Split the training data set into X_train, X_test, y_train, y_test
+**X_test and y_test are part of the training data set but will be used for validation
+*Preprocessed data to remove irrelevant columns and replace any N/As
+**Foreshadowing one hot encoding the columns for Gender, Embarked
+*Imported and used classifiers from sklearn to run on the data set and get results
+*Plotted the confusion matrix to get the false positives and false negatives
+
+=== Group Project Notes: ===
+*We started by going over the current pre-processing that was used in the example notebook
+*We changed the encoding of the Embarked and Sex column to one-hot encoding so each category had its own column of 0s and 1s
+*We also changed the random state to one that our whole group uses so we could get aligned results
+*Once we finished the preprocessing, we each picked an algorithm and ran the model to get the designated results
+**I picked gaussian process classifier and was able to tune the parameters (changing kernel) to get better results
+
+'''Results:'''
+{| class="wikitable"
+!Name
+!False Positives
+!False Negatives
+|-
+|Eashan
+|21
+|31
+|-
+|Pranav
+|19
+|35
+|-
+|Elan
+|25
+|29
+|-
+|Jessi
+|7
+|79
+|-
+|Leul
+|5
+|93
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Completed data processing and pareto optimal results with group
+|Completed
+|September 15, 2021
+|September 22, 2021
+|September 22, 2021
+|}
+
+== September 22, 2021 ==
+=== Class Notes: ===
+*Out sick!
+
+=== Group Project Notes: ===
+*Over the past week, our team met a number of times to complete work synchronously and asynchronously
+*To write the basic algorithm, we started by going over the example code from Lab 2
+*Slowly we pieced together what we had to do and were able to create an evolutionary algorithm that ran successfully with the titanic data
+*One problem we ran into was if the select tournament function was able to compare both fitness values
+**To solve this, we just created our own select tournament function that compares both values when choosing a winner
+*We also used hyperparameter optimization to try and find parameters that lowered the AUC and out-pareto the ML models
+*Our finished project: [https://github.gatech.edu/emade/emade/wiki/Bootcamp-Subteam-1 Project Page]
+
+=== Personal Contributions: ===
+*Worked on helping preprocess the training data to fit to our models
+*Helping others in my team get their models to fit onto the training data and get their pareto optimal results
+*Walking through the evolutionary algorithm code and helping write it 
+*Ran hyperparameter optimization with the primitive set and mutate/mate functions to get the AUC lower to 0.205
+*Worked on and presented slide 4: [https://docs.google.com/presentation/d/1wyaq1Y04CNTXB_JWdlfzPPz3gGLgqZepK5NC_Olhn2U/edit?usp=sharing Group 1 Slides]
+**Learned about each machine learning algorithm more in depth and talked about it during presentation
+
+[[files/ppusarla3/MLvsGPparetoFront.png|height=300px]]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Build evolutionary algorithm with group
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 24, 2021
+|-
+|Work on presentation with group
+|Completed
+|September 22, 2021
+|September 29, 2021
+|September 28, 2021
+|}
+
+== September 29, 2021 ==
+=== Class Notes: ===
+*We did group presentations based on our multi-objective evolutionary algorithm
+*I think one thing I observed is that many teams used boolean terminals
+**We did something different where we just created a boundary so anything over 0 was a 1 and under 0 was a 0
+*One thing that we missed in our algorithm that I saw in a few teams was adding constants so that our tree was not just the different operations on the inputs 
+*Some of the teams evaluation functions were very interesting
+**One team used the length of the tree * 20 + the squares of the false positives and false negatives
+**Our evaluation function was just the false positives and false negatives, looks like squares penalizes more
+*It looks like NSGA-II didn't work as well but could work better if combined with a custom selection algorithm
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update VIP Notebook
+|Completed
+|September 29, 2021
+|October 6, 2021
+|October 6, 2021
+|}
+
+== October 6, 2021 ==
+=== Class Notes: ===
+*We got first introducted to EMADE!!! Woooo!
+*EMADE -> Evolutionary Multi-Objective Algorithm Design Engine
+**Combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+*Input file is xml document that configures moving parts of EMADE
+**first block is for configuring python
+**next block configured MySQL connection
+**objectives (Ex. False Positives, False Negatives)
+**evolutionary parameters (mate, mutate)
+*One person runs as master and the other group members can run as workers
+**To run worker process, add -w flag 
+*Goal: Be able to run EMADE and get good results on Titanic dataset and compare with ML and MOGP
+**Put all plots of AUC curves on same graph to compare/contrast
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Installing EMADE
+|Completed
+|October 6, 2021
+|October 13, 2021
+|October 13, 2021
+|}
+
+== October 13, 2021 ==
+=== Class Notes: ===
+*This was a work session for EMADE
+*In this session, I worked on installing EMADE by following the directions on the Github page
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Be able to connect to SQL server using (mysql -h hostname -u username -D database name -p)
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 19, 2021
+|-
+|Be able to run EMADE worker process
+|Completed
+|October 13, 2021
+|October 20, 2021
+|October 20, 2021
+|}
+
+== October 20, 2021 ==
+=== Class Notes: ===
+*This was a work session to make sure that we had EMADE working 
+*In this session, we worked with each group member in our group to make sure we could all connect to the SQL server and run the worker/master process ourselves
+
+=== Group Meeting Notes: ===
+*We met on October 24th to start working on the presentation and run EMADE with the new changes that we discuss
+*We discussed that we wanted to change the mutation and mating functions and their probabilities since that was the main things we could change
+*We also re created the training data with our special preprocessing and moved the survived column to the end and gzipped the file, putting the path to it in our input.xml
+*We met on October 25th to practice the presentation within the group and time ourselves
+*One thing that we realized on October 25th was that the testing data was using test.csv instead of a subset of train.csv so it didn't have a survive column
+**We had to fix that by changing the code so that we had a 66/33 split in train.csv so that we had the survived column in the testing set
+*Our final presentation: https://docs.google.com/presentation/d/1YIiVWW3tQe2RZSRNIsomlLb2mUbaaj1bZN-rHt9KRb0/edit?usp=sharing
+
+=== Personal Contributions: ===
+*Overall in this project, I at first struggled to get my computer to work with EMADE
+*I sat with Elan for many hours to fix all the bugs I ran into 
+*At the end, I was able to get my computer working with the SQL server that Elan had running so I was able to successfully run EMADE iterations
+*I also preprocessed the training dataset and gzipped it so that we could all use it in our iterations
+*Provided my input for how we can change the mutation and mating functions to get good results
+*Worked on slides 6-9, 13, 15, 17
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update VIP Notebook
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 25, 2021
+|}
+
+== October 25, 2021 ==
+=== Class Notes: ===
+*We did group presentations based on our EMADE results and listened to the existing group presentations as well
+
+=== EMADE Group Presentation Notes: ===
+*For some groups, it looked like SPEA-2 worked better than NSGA-II so that's something we should probably look into in the future
+*
+
+=== Group Presentation Notes: ===
+*Had to leave early for exam so was only able to listen to 2 groups present
+*NLP (Natural Language Processing)
+**Goal: Using natural language processing to answer question
+**Approach: distill state of the art models
+**Multiple input problem
+***QA model requires two inputs: query and context
+***Implemented new type of F1 score 
+**Literature Review Team
+***Goal: QA systems are extremely complex
+**Next steps
+***Implement output layer from BiDaf
+***Implement primitives found by literature review team
+**Meet Wednesday 2:00pm
+**Learn about question answering, solving problems with Neural Architecture Search
+**NAS (Neural Architecture Search)
+**Creates neural networks automatically using EMADE
+**Initial Point
+***Hard for EMADE to outperform seeds
+***Most individuals are not neural networks
+***No rules being enforced when connecting layers - > dimensionality errors
+**Hypothesis: Lowering training time same as minimizing number of parameters
+***Check train time at the end of each epoch
+***Metrics to look at: Evaluation time, accuracy error
+***Check after each batch
+***Experiment: timed stop at 600 seconds vs 2500 seconds
+****600 second stop performed better - bigger accuracy error and # of valid individuals
+**Preprocessing
+***Text tokenization
+***One hot encoding for multiclass target data
+**Growing deeper complex individuals
+***Utilizes layer level chromosomes to construct smaller networks that can be constructed to create larger networks
+**New Testing/Analysis Tools
+***Created table NN Learner statistics
+***Age, tree structure, error strings, 
+***Find places for improvements
+***New methods to visualize statistics and individuals
+***Reward individuals for new architectural elements
+**Meeting Time: Friday 2-3
+***Automating optimization of neural architecture 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update VIP Notebook
+|Completed
+|October 25, 2021
+|November 1, 2021
+|November 1, 2021
+|}
+
+== November 1st, 2021 ==
+=== Class Notes: ===
+* I joined NAS (Neural Architecture Search) group
+* We went through group scrum where each group presented about their weekly updates
+* I joined the Trello board and got an overview of what the group does
+
+=== Group Notes: ===
+* Wasn't able to come to the meeting because of sickness
+* However, worked on installing NAS branch of EMADE locally and getting it to work
+** Got errors with opencv not being compatible with python==3.8.5 even in new virtual env
+** To fix this, used the yaml file provided which uses python 3.7.10
+** Got errors with missing libraries but was able to fix them using pip or conda install
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE working locally 
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|
+|-
+|Update VIP Notebook
+|Completed
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|}
+
+== November 8th, 2021 ==
+=== Class Notes: ===
+* Was sick so unable to attend class :(
+
+=== Mini-Meeting Notes: ===
+* Met with both Camerons on Wednesday November 10th to learn more about neural networks and EMADE concepts
+* Basic EMADE Concepts
+** EMADE object contains method to fit information into xml files
+** two primitive set types: 'MAIN' and adf
+** Helper functions used in EMADE
+*** handleWorker - evaluate individual in separate process and report results
+*** setObjectives - setting objectives to minimize/maximize
+*** myStr - returns string of individual
+** Mating/Mutation functions
+*** swap_layer
+*** cx_ephemerals
+*** concat_healer
+** master algorithm does everything except for compiling/evaluating individuls which worker algorithm does
+* Neural Net Concepts
+** learn model that maps inputs to outputs well
+** uses a set of layers where each layer has a set of nodes
+** each layer consists of operation and activation segment
+** Activation Functions: sigmoid, tanh, ReLU, Leaky ReLU, Maxout, ELU
+** Steps to train neural network
+*** Feedforward to get result from evaluating the model
+*** Difference in loss function used to backpropagate to change layer values
+** Overfitting: model conforms too closely to training data
+** Underfitting: model is too generalized
+** Types of Layers: Dense, Convolutional, Recurrent, LSTM
+** NLP (Natural Language Processing)
+*** working on classifying reviews as positive/negative (sentiment analysis problem)
+* EMADE in nn-vip
+** Abstract Data Types (ADTs)
+*** EmadeDataPair
+**** contains train/test data
+**** contains important information about data
+** Running EMADE
+*** starting command - python launchEMADE.py input.xml - parses xml file, checks computing env, then moves to didLaunch.py
+*** master algorithm - initiates database, tracks population status, handles mutating/mating, handles queue of individuals to be evaluated
+*** worker algorithm - connects to database and retrieves individuals for evaluation
+** NNLearner
+*** neural_network_methods.py - stores functions for layer primitives, loss functions, optimization...
+*** NNLearner - able to store different neural network layers on top of each other - nnmLayerList 
+
+=== NAS Meeting Notes: ===
+* Finished setting up EMADE locally on computer
+* Started to work on configuring EMADE on PACE
+* New articles with literature review to read about neural networks and EMADE
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE working locally 
+|Completed
+|November 1, 2021
+|November 8, 2021
+|November 9, 2021
+|-
+|Get EMADE working on PACE
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|
+|-
+|Literature Review
+|In Progress
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Update final presentation slides
+|In Progress
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Update VIP Notebook
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+
+== November 15th, 2021 ==
+
+== NAS Tasks ==
+* learn about each layer used in EMADE in gp_framework_helper.py
+* figure out best activations needed for each layer
+* figure out best out dimensions for each layer

@@ -1,0 +1,893 @@
+== Team Member ==
+[[files/Rishit image.png|thumb|123x123px]]
+
+
+Name: Rishit Mohan Ahuja
+
+Team Members: Steven Leone, Devan Moses, Kevin Zheng, Karthik Subramanian, Shiyi Wang, George Ye
+
+Email: rishitmahuja@gatech.edu
+
+Cell Phone: +1 470-491-3478
+
+Interests: Statistics, Theoretical ML and data science, Bayesian deep learning, Game-Theoretic Puzzles
+
+Hobbies: Meditation and cooking
+
+
+== November 17, 2021 ==
+=== Meeting meeting notes ===
+* Steven reassigned tasks to all of us and we are more focused to get results before the final presentation even if those results are not the best.
+* I will be working in the Statistics sub-sub-team along with Shiyi. Our main task is to design an experiment that can prove/disprove our hypothesis of the efficacy of EMADE for the question-answering. We have not yet decided our null hypothesis but it will be something like "EMADE does not perform better than the existing NLP SOTA models for the SQuAD dataset." From there on we are thinking of proceeding the following manner:
+
+** We will consider the statistical assumptions about the sample we are testing.
+** Decide the t-statistics and here is where will have to do more research. For the midterm presentation, we were thinking of using the F-1 score that Steven wrote and the EM but I think the F-1 score that other models on the SQuAD website are using is different.
+** Find the distribution of assuming the null to be true and select significance level alpha to reject or not reject our null. 
+
+== November 13, 2021 ==
+=== Meeting with Steven ===
+* Steven told Karthik and me to find a way we can get a tuple (having the start index and end index of the answer in the context).
+* We were initially planning of updating the evaluation functions and encode the labels but we can work on it later.
+
+=== My Work ===
+* One of the ways I am trying to modify the code to get both the start and end indices is by fitting the model twice.
+** First, the model will predict the start index.
+** Second the model will use regression to predict the length of the answer and add that length to the start index. This is a  very naive method as the model is only considering the number of words in the answer and not at all capturing the context.
+
+== November 8, 2021 ==
+=== Lecture Notes ===
+* We were divided into sub-sub-teams. I will be working with Karthik, Aditi and Jessi.
+* I am a little unsure about the objective of our team. According to Karthik, we will be working on converting the labels of the final output to numerical vectors but we are not sure about it yet.
+
+=== Team meeting ===
+* We met in person today at CULC. Steven clarified the main objective of our team and it is basically to output the start and end indices of the answer.
+* Karthik and I discussed about the preprocessing of the data. There are some null values in some of the rows in the dataset and we have decided to straightaway remove those rows mainly because (a) We will still be able to retain two-thirds of the data (b) Steven suggested that SqUAD is a standard dataset and is used commonly to make comparisons. If we do a lot of data preprocessing and get a good result, it will not be able to fair competitions with other models.
+
+== November 1, 2021 ==
+=== Team meeting ===
+=== My work ===
+
+== October 23, 2021 ==
+=== Team meeting ===
+* We had two team meetings where we did two dry runs of the presentation.
+=== My work === 
+* Made visualizations for all the tree/individuals that we plan to use as seeded individuals using Cameron's script.
+* Added my page in the slides describing the utility of the memory networks.
+** Here is a detailed description the paper:
+
+
+== October 16, 2021 ==
+=== Hackathon meeting ===
+* Shiyi, George and I are working to find the papers that have models that we can use as seeded individuals. Here is our shared doc: https://docs.google.com/document/d/1id8NqEuLTB7ds_75bMjUKTYzc1aBUD6-0TaOfPCsW5c/edit?usp=sharing 
+* Some of the individuals that I made:
+** NNLearner(ARG0, ARG1, OutputLayer(Softmax(LSTM(sum(BidirectionalAttentionFlow((RNNEncoder(InputEmbeddings(ARG 0)), RNNEncoder(InputEmbeddings(ARG1)))), Gate/Linear(BidirectionalAttentionFlow(RNNEncoder(BidirectionalAttentionFlow((RNNEncoder(InputEmbeddings(ARG 0)), RNNEncoder(InputEmbeddings(ARG1)))))))))))),98,3)
+
+** NNLearner(ARG0, ARG1, Linear&Softmax(Add&Normalize(FeedForward(Add&Normalize(SelfAttention(WordEmbeddingLayer(ARG0),WordEmbeddingLayer(ARG1)))), FeedForward(Add&Normalize(SelfAttention(WordEmbeddingLayer(ARG0),WordEmbeddingLayer(ARG1)))))), 98, 3)
+
+
+
+== October 4, 2021 == 
+=== Lecture Notes ===
+* Steven Leone told that Dr Zutty will give us the code to use multiple data pairs. We require this because we not only give the query as a parameter but also the context. I am not sure about the details of the code structure in EMADE but senior members of the team told me that if we write our own code then it can create problems while interacting with other elements of EMADE.
+
+* Steven has written a new function load_qa_textdata_from_file() in the data.py file for getting the question and context columns. However, if we use this function then we will have to make several changes to the existing code in the EMADE because EMADE stores only one list of data pairs in each fold.
+
+=== My Work ===
+* I could learn a great deal about the idea from the research paper (https://arxiv.org/pdf/1611.01603.pdf) we are implementing after talking with Devan Moses and studying his slides (https://docs.google.com/presentation/d/1E1DZyeGYXwsT8WTRPRaiwko9gRsr3q1u/edit?rtpof=true&sd=true).
+* From what I have understood, 
+** We will be passing in both the context and the query as parameters and then there will be several layers passing through which we will get the output: Character embedding layer, Word embedding layer and Contextual Embedding layer, and Attention Flow, Modeling and Output layers. 
+** Word embedding and character embeddings are there to convert words to numeric vectors/features so that it is interpretable by the computer. These vectors then, instead of the words and characters, represent the syntax and semantics of the words.
+** Contextual Embeddings take into account the context behind the words from their surrounding words. This is the layer that helps to differentiate between the different meanings of a word (bark can be dog bark and tree bark depending on where it is placed in the sentence) and from the words' different usages.
+** Attention layer works similar to the contextual layer but the difference is that contextual layer considers the context locally, meaning for a particular sentence or a few neighbouring words whereas the attention layer considers the context from the overall paragraph/essay. This is the layer that is responsible for stitching together the information from the query and from the context, which is essential.
+** Modelling layer takes in the vectors whose elements have information from both the context and the query. 
+** Output layer gives the indices of the start and end words in the context, which is considered as the final answer.
+
+I have given a very high-level overview of the layers that we are planning to use as I am not sure about the mathematical details. I am working on reading more about it from a mathematical perspective as well so that we can know more about what is going on under the hood and make changes to it if required.
+
+
+* Joined Trello and NLP_fall_2021 Slack channel.
+
+* Followed through Cameron's PACE-ICE video.
+
+=== Team Meeting Notes ===
+* We are waiting to hear back from Dr Zutty for the code for the data pairs.
+* Steven Leone divided the team into two halves:
+** Finding seeded individuals to test from the SqUad dataset. We need to find the individuals that are placed high on the leaderboard.
+** Find the differences between the cache v2 branch and nn-vip branch.
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Learned about the paper we are following and the way we will implement it
+|Completed
+|October 4, 2021
+|October 11, 2021
+|October 6, 2021
+|-
+|Finding individuals to seed
+|In progress
+|October 4, 2021
+|October 11, 2021
+|
+
+|}
+
+
+== September 28, 2021 == 
+=== Lecture Notes ===
+* I could not attend the meeting as I had an interview with Jane Street at 5 PM and Dr Zutty could also not attend the meeting as he was travelling.
+* However, George, Justin and I asked Dr Zutty to change our team and I was finally assigned NLP.
+* NLP team meets at 2 PM every Wednesday.
+
+=== My Work ===
+
+* I tried doing some more literature review but I am not sure how we would implement those methods using EMADE as I am not so familiar with the internal working of EMADE.
+* I tried to reach out to the senior members of the Stocks research team for guidance but Rishi could not meet us that week and Abhiram also could not meet until the last day.
+
+=== Team Meeting Notes ===
+* George, Justin and I showed up for the meeting but we could not really discuss much other than switching our team because none of us was in the  Stocks team previously and did not know how to proceed.
+
+== Sepectember 21, 2021 == 
+=== Lecture Notes ===
+
+
+* We tried reaching out to senior group members who are currently working in the stocks research team but could not get a lot of guidance.  Moreover, some members of our team are joining the research team. We plan to discuss the matter with Dr.Zutty and ask if we can change our team.
+
+=== My Work ===
+I provided my summary for the three research papers that I suggested last week:
+
+* An empirical study of Genetic Programming generated trading rules in computerized stock trading service system: https://ieeexplore.ieee.org/abstract/document/4598507 
+** Genetic programming approach to automatically generate trading signals.
+** Moving Average Convergence Divergence (MACD) is the technical indicator used in the paper.
+** Author suggests that Potvin et al (2004) [9] research compared that GP based trading rules against the buy and hold strategy for the 14 Canadian companies listed on the Toronto Stock Exchange. The comparison showed that GP performed better when the market fell or remained stable, however, did not perform well as well when the market was rising.
+**In this paper, they have compared 
+*** The trading returns of GP based trading rules with a simple buy and hold strategy that was analyzed on the thirty component stocks of the DJIA index. 
+*** The returns generated by GP based trading rules against the returns generated by using the Moving Average Convergence Divergence (MACD) technical indicator over the same time series.
+** Final conclusion for the paper:
+*** GP based trading rules performed better than the buy and hold approach in case of falling markets. For rising markets, the performance of the GP based trading rules as compared to buy and hold showed a high variance.
+*** Statistical evidence shows that in general, GP based trading rules offer greater returns over the simple buy and hold approach than the MACD trading signal.
+
+
+* Prediction-based portfolio optimization model using neural networks: https://www.sciencedirect.com/science/article/pii/S092523120900040X
+
+** Used Brazilian stock market data for prediction-based portfolio optimization model that can capture short-term investment opportunities.
+** Used neural nets. to predict stock returns and derived a risk measure.
+** USed a novel method called autoregressive moving reference nearal network (AR-MRNN) in the implementation of a new portfolio optimization model.
+
+** Conclusions from the paper:
+*** Simulations with the model achieved 292% expected value and similar variance compared to the mean-variance model.
+*** Better market index tracking capability, achieving return 78% above IBOVESPA (Brazilian market) market index.
+*** Showed that it is possible to have Normal prediction errors with the non-Normal series of returns.
+
+* Support vector machine with adaptive parameters in financial time series forecasting https://ieeexplore.ieee.org/abstract/document/1257413/references#references
+** SVM in financial time series forecasting
+** Based on the structural risk minimization (SRM) principle which seeks to minimize an upper bound of the generalization error consisting of the sum of the training error and a confidence interval.
+** Five real futures contracts collated from the Chicago Mercantile Market are examined in the experiment. They are the Standard & Poor 500 stock index futures (CME-SP), United Sates 30-year government bond (CBOT-US), Unite States 10-year government bond (CBOT-BO), German 10-year government bond (EUREX-BUND), and French government stock index futures (MATIF-CAC40).
+
+=== Team Meeting Notes ===
+* After careful review, we will not move forward with the research paper 'An empirical study of Genetic Programming generated trading rules in computerized stock trading service system' that we had earlier finalized because using their approach we cannot add rules as an additional parameter, which was earlier suggested by a group member.
+
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Careful review of the 'An empirical study of Genetic Programming generated trading rules in computerized stock trading service system' paper
+|Completed
+|September 21, 2021
+|September 28, 2021
+|September 27, 2021
+|-
+|Reviewed 'Prediction-based portfolio optimization model using neural networks' and 'Support vector machine with adaptive parameters in financial time series forecasting'
+|Completed
+|September 21, 2021
+|September 28, 2021
+|September 27, 2021
+
+|}
+
+== Sepectember 14, 2021 == 
+=== Lecture Notes ===
+* Link to my self-evaluation rubric (due today): https://docs.google.com/document/d/1NAuKAHqvB8cs8qPZ3WAyO1c7rvBrlvOC/edit?usp=sharing&ouid=114117477377734685675&rtpof=true&sd=true 
+* Professor Zutty said that it will be a better idea if our team first does a thorough literature review as last semester students were trying to implement a paper but later they found several inconsistencies in the paper. He suggested that we should probably look for papers that have code with them so that we can be sure that it is authentic work.
+
+=== Team Meeting Notes ===
+* Students in our team which were previously on the team told more about the indicators that they found to be the most useful.
+* We discussed whether we should do only technical analysis of the stocks or also add the fundamental analysis. It seems like Fundamental analysis was an interesting approach that will yield better results than just the technical analysis but it might be difficult to manipulate data and also we might not have a lot of data as companies release their filings quarter-yearly. We will ask the professor which approach we should move forward with.
+
+=== My Work ===
+* I suggested three papers and we found one of them especially useful:
+** An empirical study of Genetic Programming generated trading rules in computerized stock trading service system: https://ieeexplore.ieee.org/abstract/document/4598507
+
+We plan to move forward with the approach discussed in this paper but will first discuss it with the professor.
+
+** Prediction-based portfolio optimization model using neural networks: https://www.sciencedirect.com/science/article/pii/S092523120900040X
+** Support vector machine with adaptive parameters in financial time series forecasting: https://ieeexplore.ieee.org/abstract/document/1257413/references#references
+
+** There is also a book and a github (for all the codes given in the book) which I found helpful to start learning more about the technical indicators and algorithmic trading:
+
+ML for trading: https://github.com/stefan-jansen/machine-learning-for-trading
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Suggested research papers
+|Completed
+|September 14, 2021
+|September 21, 2021
+|September 17, 2021
+|-
+|Set up PACE
+|Completed
+|September 14, 2021
+|September 21, 2021
+|September 18, 2021
+
+|}
+
+== Sepetember 6, 2021 ==
+=== Lecture Notes ===
+Labor day holiday.
+
+=== Team Meeting Notes ===
+* Discussed the approach suggested in the research paper.
+* I learned more about the work the Stocks team did in the previous semesters.
+* Suggested a research paper: https://www.sciencedirect.com/science/article/pii/S092523120900040X
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team meeting and suggested a research paper.
+|Completed
+|September 6, 2021
+|September 14, 2021
+|September 14, 2021
+|}
+
+== August 30, 2021 ==
+=== Lecture Notes ===
+Submitted the Canvas assignment to indicate my team choices: 
+Stock Portfolio Optimization: 1
+Natural Language Processing: 2
+Covid Data: 3
+Data Science Pipelines: 4
+
+I got into the Stocks team.
+
+=== Team Notes ===
+* We brainstormed ideas on how to proceed and how we can make use of the existing work. Here is a Google doc where we will post all our progress: https://docs.google.com/document/d/1QUhsR4KMv2y8PF5D4O3i9qqwCKDYRBNLA5JrVKLk32M/ other than the slack channel.
+* Sriram suggested this paper: https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach
+
+=== My Work ===
+* I read the paper linked above.
+* Presently, I do not have a lot of experience in finance so I am trying some basics, including technical indicators.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the research paper suggested
+|Completed
+|August 30, 2021
+|September 6, 2021
+|September 4, 2021
+|}
+
+
+== August 23, 2021 ==
+=== Lecture Notes ===
+* We discussed possible new teams and the goals of the existing teams. Some of the new teams that were suggested were:
+** Data Science Pipeline automation: I suggested this team. The main aim of this team was supposed to be automating the major steps involved the data science pipeline which includes data cleaning, exploratory data analysis and feature selection and engineering.
+** Interpretability: Make deep learning algorithms more interpretable so that we are able to rely on them.
+** COVID: exploring the statistical details relating to the spread of COVID.
+** Image Processing: Not entirely sure but it is just computer vision using EMADE.
+** Neural Infrastructure
+
+All the existing teams will continue this semester as well.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Submit Team choices (I chose Stocks as my first preference)
+|Completed
+|August 23, 2021
+|August 30, 2021
+|August 29, 2021
+|}
+
+
+== April 30, 2021 ==
+=== Final Presentation Day ===
+The teams are list in the order they presentation on April 30.
+
+Stocks team
+* Testing on Larger data
+* Implementing TA-lib indicators in EMADE
+* Indicators: VWMA, VWAP, FIBRET
+* Got new objective functions.
+* Gave ratings to the primitives they used.
+
+
+EzCGP
+* Uses DAGs in place of EMADE tree structure
+* Used one-point crossover mating
+* Used evolving dense layers and which led to improvements in their results due to lesser overfitting.
+* Worked on improving seeding.
+
+NLP
+* Used PACE-ICE as it has CPUs and GPUs. Although it also have a 8 hour 
+* Tried to use Amazon's product data but finally used only a part of it due to its large size. 
+* Got individuals with a low False Positive Rate and False Negative rate, which is desirable.
+* Scope of improvement: Further analysis on individuals.
+* Cameron Whaley made a tree visualization tool that other teams including ours used.
+
+I am not writing about Modularity because I worked in that team.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete the notebook for final submission
+|Completed
+|April 30, 2021
+|May 1, 2021
+|May 1, 2021
+|}
+
+== April 26, 2021 ==
+=== Lecture Notes ===
+* Weekly meeting scrum.
+* We will compare the results from the Titanic and MNIST datasets.
+
+=== Team Meeting Notes ===
+* First semester students also need to present their findings which mainly included changes in the eval functions and analysis of the individuals.
+* We were supposed to use the new seeding file while running EMADE as we added 30 individuals to the seeding file.
+
+=== My Work ===
+
+* I classified MNIST using SVM and got an accuracy of 94.28%. The link to the notebook is here.
+
+* I made the tree [https://drive.google.com/drive/folders/1Q6k9hAin-HCnNkaowZSxcr8CA0CkzcfI?usp=sharing visualizations] of all the algorithms (individuals) on our seeding file using script that Cameron shared on Slack. We used those individuals' images in our presentation.
+
+* Ran EMADE with team and we were able to get 316 individuals with our final seeding file compared to only 10 individuals earlier.
+
+* Added the content related to the seeding file, classification using SVM and Deep Ensembles with Diversity term on our [https://docs.google.com/presentation/d/1SLLHwjsy-ZHV4OqAXDBclBeTzqrSbyCNCJNRZs0a8Kc/edit?usp=sharing final presentation] on slides 10, 14 and 28.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Drew final conclusions about the research paper on Diversity Regularization in Deep Ensembles
+|Completed
+|April 26, 2021
+|April 30, 2021
+|April 28, 2021
+|-
+|Updated the final presentation
+|Completed
+|April 26, 2021
+|April 30, 2021
+|April 28, 2021
+|-
+|Ran EMADE with team as a worker
+|Completed
+|April 26, 2021
+|April 30, 2021
+|April 30, 2021
+|-
+|Made visualizations of all the trees/individuals used in the seeding file
+|Completed
+|April 26, 2021
+|April 30, 2021
+|April 28, 2021
+|}
+
+== April 19, 2021 ==
+=== Lecture Notes ===
+* Meeting Scrum
+* Important announcements related to the logistics:
+** Final presentation due on April 30
+** Peer evaluations due on April 27
+
+=== Team Meeting Notes ===
+* All the members were asked to run EMADE as many times as possible because we still needed more individuals.
+* Shiyi, George and I was assigned to to create and submit a seeding file next week.
+
+=== My Work ===
+* I worked on creating new individuals and ran EMADE remotely with Shiyi and George. Initially, I ran as the master but then my laptop crashed and then George ran as a master and I intermittently joined as a worker.
+
+* Queried the valid individuals from all our previous runs and from other the relevant schemas on our database. Then I put them all together to make a [https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit#slide=id.g720ad7ae25_2_82 seeding] file that I submitted to Gabe. We finally used that file while running EMADE and making a pareto front.
+
+* We only kept the valid individuals that had an f1 score of less than 0.1 as suggested by Gabe. f1 score < 0.1 ensures lower fitness. MySQL query for getting the required individuals.
+
+  use group_run5;
+
+  select count(tree) from individuals
+  where evaluation_status = 'EVALUATED'
+  and error_string is null
+  and `FullDataSet F1 Score` < 0.1;
+
+* I almost finished reading the research paper on Diversity Regularization in Deep Ensembles. 
+
+* I learned from the paper that if we add a diversity term to the negative log likelihood loss function of the deep ensembles, then we can make sure that the models we have trained are making incorrect predictions (if they are making any incorrect predictions at all) on different classes rather than the same class. 
+*This results in overall correct prediction because in deep ensembles we take an average of the predictions from different algorithms. This obviously improves the performance of our deep ensemble.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Studied the research paper on Diversity Regularization in Deep Ensembles
+|Completed
+|April 19, 2021
+|April 26, 2021
+|April 26, 2021
+|-
+|Ran EMADE in a group of three and created a final seeding file
+|Completed
+|April 19, 2021
+|April 26, 2021
+|April 26, 2021
+|}
+
+
+== April 12, 2021 ==
+=== Lecture Notes ===
+* Meeting scrum
+* We need to create more individuals with the best runs.
+* We need to create new objectives.
+
+=== Team Meeting Notes ===
+* First semester's students main task was to create new objectives and find individuals for our seeding file.
+* Later generations usually take longer due to more number of individuals.
+* I was assigned to work on making the seeding file and analyzing the individuals along with George and Shiyi.
+
+=== My Work ===
+* Ran EMADE two time that week for about 6 hours each and was able to reach 39th generation.
+
+* Ran the following MySQL queries:
+select * from individuals;
+
+select distinct max(evaluation_gen) from individuals;
+
+select distinct `FullDataSet Accuracy Score`,`FullDataSet F1 Score`,evaluation_gen from individuals where `FullDataSet Accuracy Score` is not null and `FullDataSet F1 Score` is not null;
+
+* Started reading the [https://openreview.net/pdf?id=Hy1QdPyvz paper] on Diversity Regularization in Deep Ensembles which I plan to suggest as one of the future works we can do to improve EMADE.
+
+* Discussed with Gabe about the some of the future work we can do and as per his suggestion started looking for some models that can be added to EMADE.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyzed the individuals after running EMADE for 39 generations and submitted to report to Gabe
+|Completed
+|April 12, 2021
+|April 19, 2021
+|April 19, 2021
+|-
+|Started reading Regularization in Deep Ensembles
+|Completed
+|April 12, 2021
+|April 19, 2021
+|April 19, 2021
+|}
+
+
+
+== April 5, 2021 ==
+=== Lecture Notes ===
+* Introduction to statistics
+
+* Professor briefly explained hypothesis testing: a statistics that is used to determine if the results that we got are significant or not.
+
+* Brief intro to Student's t-test and Welch's t-test: In free time, I studied a little bit about it and found that Student t-test is used to find confidence intervals when the number of sample data is small (n is small). Welch test is used to test if the hypothesis that the mean of two populations is equal or not.
+
+=== Team Meeting Notes ===
+For the first semester students, this week's task was the similar to the previous week's: run EMADE and find more individuals that can be seeded. 
+
+=== My Work ===
+* I ran EMADE for about 25 generations and then again with Aazia Azmi. By the end, I was able to get about 10 new individuals that could be seeded although not all were used.
+
+* I also read one article named 'Discovery of Subroutines in Genetic Programming' from the [https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit#slide=id.g720ad7ae25_2_82] the introductory slides for Modularity. The paper was very easy to follow even for the beginners and they included explained ARLs using pac-man.
+
+* 
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ran EMADE on MNIST locally and remotely
+|Completed
+|April 5, 2021
+|April 10, 2021
+|April 10, 2021
+|-
+|Read one paper from the intro
+|Completed
+|April 5, 2021
+|April 10, 2021
+|April 8, 2021
+|}
+
+== March 29, 2021 ==
+=== Lecture Notes ===
+* I was placed in Modularity subteam.
+
+=== Team Meeting Notes ===
+* We were introduced to the work in the modularity team and important [https://docs.google.com/presentation/d/1nivJn2MfO-Amf-yvODm7LTLPNlpyeGXjzLXxgbbqvD4/edit#slide=id.g720ad7ae25_2_82 links] that we will be using.
+
+=== My Work ===
+* Since I am using Windows and the instructions were for Linux, I ran into some issues initially. However, Gabriel figured out that issue was due to line endings of the files were not in the Unix format. He changed the instructions and added these lines which fixed the problem:
+
+   !sudo apt install dos2unix
+
+   !find . -type f -print0 | xargs -0 dos2unix
+
+* Later many first-semester students benefitted from these changes.
+* After fixing the issue, I was able to run EMADE for 37 generations and query important information like the FalseDatasetFalseNegatives and FalseDatasetFalsePositives. However, I am still figuring out why no master or worker files were made.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ran EMADE on MNIST locally and resolve issues while setting up
+|Completed
+|March 29, 2021
+|April 5, 2021
+|April 3, 2021
+|}
+
+== March 22, 2021 ==
+=== Lecture Notes ===
+* Presented comparison among ML, MOGP and EMADE on the Titanic dataset.
+* We were awarded bonus points by Dr. Zutty for making changes to the evalFunctions.py file.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Submit preferences for subteam
+|Completed
+|March 22, 2021
+|March 29, 2021
+|March 27, 2021
+|}
+
+== March 17, 2021 ==
+=== Lecture Notes ===
+* Professor Zutty pointed out that I was using the wrong IP address and should use the GT VPN's IP address. This finally resolved the the issue with the remote connections. 
+* However, one of my teammates was still not able to connect to the remote server so he ran EMADE locally.
+
+=== My Work ===
+* I worked on making the presentation slides and contributed significantly to slides 24 through 30.
+Below are some of the observations I made:
+* A few points about the FullDataSet False Positives and FullDataSet False Negatives:
+** While making queries to the titanic's individual table, I noticed that FullDataSet False Positives and FullDataSet False Negatives are decimal numbers greater than 1. 
+** This really confused me as this implied that these are neither the number of false positives and false negatives, not the FPR and FRN. However, we needed FPR and FNR for the generation of the Pareto front which was the main part of the assignment.
+** I asked the query on Slack and a senior replied that FullDataSet False Positives and FullDataSet False Negatives are the total false positives and negatives averaged over K-folds.
+** To resolve the issue, I reran the EMADE after making the following [https://colab.research.google.com/drive/1s2Przbcsv0JQ98kvsVHeP_0Iro7EPIEn?usp=sharing changes] to the false_positive and false_negative functions in the evalFunctions.py file under src/GPFramework. This finally generated the FPR and FNR.
+
+=== Team Meeting Notes ===
+* Everyone was assigned their part in the presentation.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Resolved the issues with remote connection
+|Completed
+|March 17, 2021
+|March 22, 2021
+|March 17, 2021
+|-
+|I made the slides for the presentation
+|Completed
+|March 17, 2021
+|March 22, 2021
+|March 21, 2021
+|-
+|I worked on figuring out what really FullDataSet False Positves and Negatives represent
+|Completed
+|March 17, 2021
+|March 22, 2021
+|March 21, 2021
+|-
+|Changed the evalFunctions.py file to generate FPR and FNR
+|Completed
+|March 17, 2021
+|March 22, 2021
+|March 21, 2021
+|-
+|Run EMADE all over again with modified evalFunction.py file, made queries to generate a Pareto front
+|Completed
+|March 17, 2021
+|March 22, 2021
+|March 22, 2021
+
+|}
+
+== March 10, 2021 ==
+=== Lecture Notes ===
+* We were given time to discuss the next steps that we need to take for the completion of the EMADE assignment. 
+=== Team Meeting Notes ===
+* We were able to run EMADE remotely. I was running as the master. Only one of my teammates was not able to connect to my server.
+
+=== My Work===
+Cameron Bennet and I worked to resolve the issues with the remote connection:
+*I found this [https://www.youtube.com/watch?v=K_UkiAMyPpk&t=247s video] helped me a lot to setup a remote connection.
+* For setting up the connection, Cameron and I found the following commands to run:  
+
+CREATE USER 'your_username'@'%' IDENTIFIED BY 'your_password'; 
+
+GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%' WITH GRANT OPTION; 
+
+FLUSH privileges;
+
+*Also, we need to allow access to port 3306. For doing that, we need to create an outbound rule under the Windows Defender Firewall to allow access to port 3306.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Tried to resolve the issues with remote connection
+|Completed
+|March 10, 2021
+|March 17, 2021
+|March 12, 2021
+|-
+|General discussion about the columns in the titanic tables and how to proceed
+|Completed
+|March 10, 2021
+|March 17, 2021
+|March 12, 2021
+|}
+
+== March 3, 2021 ==
+=== Lecture Notes ===
+* Since we could not present last time, we presented during this meeting.
+* Introduction to EMADE.
+* The main work we had to do was to run locally and setup the remote connection.
+=== Team Meeting ===
+* Everyone in our team was able to run locally but we could not setup the remote connection.
+=== My Work ===
+* I made the following changes to the input_titanic file for running locally:
+** Set the IP address to be 127.0.0.1
+** Change the username and password similar to your database connection.
+* Created a new schema and changed <database><database> to <database>schema_name<database>
+* Schema can be created using "create schema schema_name" command on MySQL.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Subteam meeting to run EMADE locally, creating a schema and change the xml file
+|Completed
+|March 3, 2021
+|March 10, 2021
+|March 8, 2021
+|-
+|Tried to setup remote connection to the SQL database
+|Completed
+|March 3, 2021
+|March 10, 2021
+|March 10, 2021
+|}
+
+== February 24, 2021 ==
+
+=== Team Meeting/Lecture Notes ===
+* The first three teams presented.
+* Only task assigned was to install EMADE.
+=== Subteam Meeting Notes ===
+We did not meet this week.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE
+|completed
+|Febuary 24, 2021
+|March 3, 2021
+|March 2, 2021
+
+|}
+
+== February 17, 2021 ==
+
+=== Team Meeting/Lecture Notes ===
+* Discussed how we need to solve the Titanic problem using genetic programming.
+* Dr Zutty told us that we can use the deap library but not algorithms in the algorithms module in deap.
+* In this assignment, we need not worry about manually selecting models that give us Pareto optimal individuals because multi-objective genetic programming does it for us.
+
+=== Subteam Meeting Notes/ My Work ===
+* I along with Cameron Bennet developed the basic working pipeline of Multi-Objective genetic programming for the Titanic dataset which we later modified slightly. Thereafter, we aimed at reducing the AUC and increasing the accuracy.
+* I observed that we were using only the standard seven features in the Titanic dataset and tried to add all the new features that were present in our preprocessed file (not the default file). 
+* However, I was getting a bug while changing those features and later Cameron helped in debugging it. This reduced the AUC and increased accuracy significantly.
+* Professor told us that tournament selection does not give good results so we did not use it.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Subteam meetings
+|completed
+|Febuary 17, 2021
+|February 24, 2021
+|February 20, 2021
+|-
+|Complete Slides
+|completed
+|Febraury 17, 2021
+|February 21, 2021
+|February 16, 2021
+|-
+|Team Page
+|completed
+|Febraury 17, 2021
+|February 21, 2021
+|February 16, 2021
+
+|}
+
+== February 10, 2021 ==
+Here is the [https://github.gatech.edu/aazmi6/VIP-emade-Bootcamp-Subteam-4-TitanicML/blob/master/TitanicML.ipynb link] to our ML notebook and [https://drive.google.com/file/d/1TInQLnc6D9TLwIEirbqHqANQ-KJiIkjC/view?usp=sharing link] to our GP notebook.
+
+==='''Team meeting/Lecture notes:'''===
+* Assigned to [https://vip.gatech.edu/wiki/index.php/Group_4 Group 4].
+* Set up a Slack channel and GroupMe for discussions.
+* Assignment: Titanic Challenge using ML. Each team member was supposed to come up with one ML model that is co-dominant to other members' models. Since we had 6 members in our team, it was a difficult task to come up with 6 co-dominant algorithms.
+* The pre-processed data should be the same for the entire team.
+* Discussed multiple objectives.
+* Teams decided: based on Pareto ranks assigned to students based on their self-evaluation of their ML and Python skills.
+* In teams of 4-6 people, we were to work on the famous Titanic dataset. The difficult part of this assignment was that all our team members' models had to be co-dominant or lie on the Pareto frontier of the graph with False Positives and False Negatives as its axes.
+==='''Subteam 4 Notes/My Work'''===
+* We used a heatmap to get an overview of the columns where there are null values.  Analyzed the following columns and made the following deductions and modifications:
+* PClass:
+** Survival rates were lower with lower classes.
+** The feature had a -33% correlation with the survival rate.
+** Label Encoded this feature.
+*Cabin:
+**Has several null values.
+**Generate a feature for each cabin letter and cabin number
+*Other Features:
+**Null values found in age were replaced with mean.
+**Embarked was first OneHotEncoded but later dropped.
+**Gender was label encoded.
+**Made Family size out of Parch and SibSp.
+*Ticket Identifier:
+**Used to generate features for ticket length similar to the name category.
+**Used to generate feature which contains first ticket letter.
+*The algorithm I chose: RandomForest. I was getting better results with XGBoost but I used RandomForest as it was fitting our pareto front.
+*I suggested all the algorithms that our team used: Random Forest, AdaBoost, CatBoost, GradientBoost, XGBoost, LightGBM. I shared some kaggle notebooks that are using these algorithms and wrote a brief description of what these algorithms do. For writing the description, I had to study LightGBM and CatBoost as I was not familiar with them.
+*In the introductory meeting, I explained some of the major steps involved in the data science pipeline (EDA, feature selection, encoding, model selection and evaluation) and walked through my notebook (that was later edited) to make sure that everyone is on the same page.
+
+=== '''Action Items''' ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Subteam meetings
+|completed
+|Febuary 10, 2021
+|February 17, 2021
+|February 15, 2021
+|-
+|Co-dominant ML algorithm
+|completed
+|Febraury 10, 2021
+|February 17, 2021
+|February 16, 2021
+|}
+
+== February 3, 2021 ==
+[https://drive.google.com/file/d/1NAuKAHqvB8cs8qPZ3WAyO1c7rvBrlvOC/view?usp=sharing Link] to my self-evaluation rubric.
+
+==='''Lecture Notes:'''===
+
+The lecture focused on translating the vector of scores from evaluation to a fitness value.
+
+* Terminology
+# Gene Pool: the set of the genome to be evaluated during the current generatio1. n.
+# Genome: Genotypic description of an individuals
+# Search Space: Set of all possible genome; for Automated Algorithm Design, it is the set of all possible algorithms.
+# Phenotype: the set of measurements each genome (or individual)Â is scored against.
+# Objective space: the set of objectives.  When we classify data, we often classify some of the data points incorrectly; for example, a positive COVID-19 test can be classified as negative and so on. Thus, we define the below terms.   Each individual is evaluated using objective functions such as Mean Squared error, Cost, Complexity, etc. Objective scores give each individual a point in objective space.  
+# True Positive (TP): predicted positive and actually positive
+# True Negative (TN): predicted negative and actually negative
+# False Positive (FP): predicted positive and actually negative
+# False Negative (FN): predicted negative and actually positive    
+# Pareto: An individual is Pareto if there is no other individual in the population that outperforms the individual on all objectives. We want to derive selection by favouring Pareto individuals without decreasing diversity, however.    
+# Pareto Frontier: The set of all Pareto individuals is known as the Pareto frontier.    
+# Rank: the sum of Sâ€™s of the individuals that dominate it    
+# Crowding distance: Summation of normalized Euclidean distances to all points within the front    
+* A confusion matrix shows TP, TN, FN, FP in a tabular form.  For the below points, P = TP + FN and N = TN + FP
+# Sensitivity or True Positive rate (TPR): TP/P
+# Specificity or True Negative rate (TNR): TN/N
+# False Negative Rate (FNR): 1- TPR
+# Fallout or False Positive Rate (FPR): 1 - TNR    
+* Other methods used for evaluating how good the classification results are:
+# Precision or Positive Predictive Value (PPV) = TP/(TP+FP) --> Bigger is better.
+# Negative Predictive Value (NPV) = TN/(TN+FN) --> Bigger is better
+# Negative Predictive Value (NPV) = FDR = FP/(TP + FP) = 1 - PPV --> Smaller the better.
+# Accuracy (ACC) =  (TP+TN) / (P+N) = (TP+TN) / ( TP + FP + FN + TN) --> Bigger is better.
+
+* Important ideas
+# Evaluation: in this case, mas a genome (or individual) from a location in search space (genotypic description) to objective space (phenotype description).
+# Maximization Measures:  For a classification problem, our objective is to maximize the area under the Specificity vs Sensitivity graph.   Minimization Measures:  For a classification problem, our objective is to minimize the area under the False Positive Rate vs False Negative Rate graph.   It makes intuitive sense that if maximizing the area under the  Specificity vs Sensitivity graph is equivalent to minimizing the area under the False Positive Rate vs False Negative Rate graph. Although to prove it mathematically, there might be some details involved.
+#An individual is Pareto if there is no other individual in the population that outperforms the individual on all objectives. We want to derive selection by favouring Pareto individuals without decreasing diversity, however. Pareto Frontier is the set of all Pareto individuals.
+#Nondominated Sorting Genetic Algorithm II (NSGA II):  - Population is separated into non-dominated ranks (defined above point 12)  - Selection is done using binary Tournament.  - Lower rank beats higher Pareto rank   - Ties on the same front resolved using crowding distance (defined above, point 13). Higher crowding distance wins.
+#Strength Pareto Evolutionary Algorithm 2 (SPEA2):  - Each individual is given a strength (S): number of individuals it dominates  - Each individual receives a rank (defined above, point 12). Pareto individual -->

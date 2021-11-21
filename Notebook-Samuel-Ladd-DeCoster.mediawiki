@@ -1,0 +1,834 @@
+== Team Member ==
+Team Member: Samuel Ladd DeCoster
+
+Email: sdecoster3@gatech.edu
+Cell Phone; 615-946-8778
+
+Interests: Math, Machine Learning, Science Fiction, Pokemon, Magic the Gathering
+
+== April 20, 2020 ==
+
+=== Team Meeting Notes: ===
+Today was the final presentation day. You can find the Research Fundamentals presentation [https://docs.google.com/presentation/d/1mmyBsT76iPt4N7pM0oUf7c2qlhh34gBle978DpOBPrE/edit here]. I presented slide 2 on our motivation for reducing bloat.
+# ADFs – Automatically Defined Functions, Modularity in EMADE
+## Motivation
+### reuse useful subtrees
+### makes it easier to understand
+### hopefully improves results
+## Definitions and Acronyms
+### Intelligent ADF – selected based off of fitness instead of frequency
+### Differential Fitness – measures fitness for ADFs based on improvement from parents
+## Projects
+### Primitive Analysis
+### ADF selection
+### Differential Fitness
+## Experiment Setup
+### titanic dataset, 40 generations, 10 trials, compared to baseline no ADF run
+## Previous Data
+### Evens out by the end of the run, but ADFs perform slightly better in the middle
+### Wanted to figure out why, improve results
+## Primitive Analysis
+### Expectations
+#### should be finding ‘useful’ components – filters, etc., but wasn’t
+#### Need to figure out how to make sure ADFs useful without explicitly telling program
+### Primitive Distribution: Old Heuristics
+#### Want a lower number of ADFs that are more useful
+### Significant percentage of ADFs were made of other ADFs – not good, overselection
+### 14% of ADFs appear in pareto front, are contributing
+### passTriState most frequent root primitive for ADFs, not good because doesn’t do much
+#### because ADFs selected for frequency
+### ADFs with other ADFs as root nodes don’t perform well
+### Calculated avg fitness of pareto individuals w/ a certain ADF vs. without
+#### Most ADFs generally increased accuracy
+#### More analysis in future
+## Differential Fitness
+### Expectations
+#### fewer, higher quality ADFs, because only pulled from individuals with positive differential fitness
+#### ADFs less common in population
+#### More ADFs on pareto front
+### Results
+#### converged faster in middle than intelligent ADFs, no ADFs, but same final results basically
+#### Differential fitness avoided nested ADFs
+#### Differences between intelligent ADFs, Differential fitness not statistically significant
+## Selection Methods
+### Motivation
+#### assuming adfs are useful, should prefer individuals with ADFs
+### Expectation
+#### small increase in the number of ADFs
+#### Not very visible in beginning, more pronounced later on
+### Results
+#### very little effect on number of ADFs, likely because crowding distance interfered
+#### same for AUC
+#### Very weak correlation between ADF frequency, AUC – probably shouldn’t have assumed that all ADFs were ‘good’
+# NLP
+## Background
+### NNLearner
+#### Implements Keras API
+#### LayerLists fed into NNLearner, which compiles Keras model
+### Comparison to “Evolutionary Neural AutoML for Deep Learning” paper
+### wanted to improve with EMADE, added primitives that matched paper
+## Added primitives
+### ReLU, ELU, SeLU, linear activation, Dropout
+### GloVe Embeddings – encode words as vectors with Euclidean distance being difference
+### Attention – takes all previous states into context, tought to implement in EMADE, in progress
+### Conv2D, image warping – for images
+## Chest X-ray
+### 40+ GB, couldn’t fit into EMADE, still work in progress
+## Toxicity Dataset
+### initially got 99% accuracy, but shouldn’t have because it was a multilabel problem, should be 0 if any of labels were wrong
+### Data was sparse – fixed by adding weighted_cross_entropy loss functions
+### Runs with new primitives had lower AUC than without new primitives
+### Both beat baseline hand-tuned network – 91% with new primitives, 90% without
+## Text Classification
+### IMDB review dataset
+### Implemented new primitives, did hypothesis testing
+### 8 successful runs, 3 baseline
+## Infrastructure
+### Google Colab: allows short tests of GPUs, but need MySQL database accessible from external network
+### PACE: got it working, needs to be pushed to original EMADE
+# NLP Time Conflict
+## Semester goals
+### test summarization primitives – unit tests, statistical analysis
+### Automate running tests on PACE
+### Create documentation for future semesters
+## Issues
+### Multiple PACE issues from SQL stuff
+### Once it was set up, couldn’t have multiple people on the same port
+### Some issues with permissions
+### Primitives weren’t efficient to evaluate
+## Results
+### added documentation for PACE
+### Multi-dimensional data
+#### fixed objective functions
+#### Added classification function
+### Defined how summarydata should look and seeded examples
+### Analyzed summary primitives
+# EZCGP – CIFAR 10 dataset
+## New semester students
+### find contemporary CNN architectures on similar problems, implement them for seeding
+### VGG-16, VGG w/ dropout, LeNet-5, etc.
+### used similar primitives to compared models
+### ran compared models until it plateaued, just ran ezcgp as long as possible
+#### 39 generations, achieved better accuracies than similar models
+## New Experiments with ExCGP
+### Data augmentation
+#### generate new samples from small dataset – eg. mirroring, zooming, etc.
+#### gets more datapoints, makes network more robust
+#### Set up pipeline in EMADE for augmentation
+### Transfer learning
+#### get pre-trained nn, retrain last layer
+## Tensorflow primitives
+### new semesters implemented primitives from tensorflow into EMADE
+### Migrated argmuents and tested new primitives – template so it works in the future
+## Experiment Results
+### Architecture ran, evaluated individuals, but large slowdowns for unknown reasons, so no full evolution
+### GPU-multiprocessing – allows faster testing
+#### Benchmarked on google cloud – GPU better than CPU
+#### Lots of performance analysis
+#### Distributed CPU/GPU best, but costs money
+## Future works
+### Drivers, automation, preprocessing, postprocessing
+
+== April 13, 2020 ==
+
+=== Team Meeting Notes: ===
+# Chris, who had been working on PACE for a while, caught me up to speed on his work so far
+# I needed to use the campus VPN to log into PACE.
+# I then used the following guide from the ezCGP team to configure PACE, modifying it for my subteam's branch:
+## [[files/PACE instructions 1.png|435x435px]]
+## [[files/PACE Instructions 2.png|434x434px]]
+# While I was in the process of doing this, Chris was dealing with further errors, but by the time I got that far he had made an installation script that dealt with them, which can be found in the installation instructions [https://github.gatech.edu/sjung323/emade/tree/fitness_sharing here].
+# All I had to do was run ''rm -rf*''  in my PACE home directory to remove everything I had done before, then run Chris' script, and PACE worked perfectly.
+# After that the only thing left to do was prepare for my slide of the presentation next week, but since it is my first semester I was given an easy slide in the introduction.
+
+=== Action Items: ===
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare assigned part of presentation
+|Completed
+|April 13, 2020
+|April 19, 2020
+|April 19, 2020
+|-
+|Figure out EMADE problems
+|In Progress
+|April 6, 2020
+|N/A
+|N/A
+|}
+
+== April 6, 2020 ==
+
+=== Team Meeting Notes: ===
+# The team meeting consisted mostly of just a progress update on all of the experiments everyone was doing.
+# Since I was still unable to run EMADE, afterwards Eric gave me some more suggestions for troubleshooting, but since my error didn't occur until the end of the first generation, we didn't have time to see the results together.
+# Since we were running out of time for me to complete my runs before the presentation, we decided that if I couldn't get EMADE working soon, then I should help set up PACE instead.
+# After the meeting I tried all of Eric's suggestions, including running reinstall.sh in administrator mode, using the anaconda prompt, and creating a new conda environment, none of which changed anything.
+# As a way to speed up troubleshooting, I added print statements to the launchEMADE file that printed at the very beginning of the run, figuring that this would allow me to know much sooner whether my changes went through or not.
+# Interestingly, changes I made to launchEMADE did go through, but ones I made to sql_connection_orm_master did not.
+# Since no one knew why this was or how to fix it, I was moved to the PACE team and Max took over my assigned runs.
+
+=== Action Items: ===
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Familiarize myself with PACE
+|Completed
+|April 6, 2020
+|April 13, 2020
+|April 13, 2020
+|-
+|Figure out EMADE problems
+|In Progress
+|April 6, 2020
+|N/A
+|N/A
+|}
+
+== March 30, 2020 ==
+
+=== Team Meeting Notes: ===
+# By this meeting I had fully read the NeatGP paper, but I still had an [https://emade-vip.slack.com/files/USNUSLKPF/F0113SSPQH1/master8214.err error] that I was unable to fix.
+# Another member of the subteam, Varun Valada, had the same error, and it was determined that the problem was that mySQL couldn't interpret float64 values from numpy, but our bloat function was passing one to the database.
+# To fix this, we casted the variables in the add_bloat function of src\GPFramework\sql_connection_orm_master to floats, changing one line as shown below:
+ self.session.add(self.Bloat(generation=gens_elapsed, bloat=bloat, hypervolume=hypervolume, tree_size=tree_size))
+
+ self.session.add(self.Bloat(generation=gens_elapsed, bloat=float(bloat), hypervolume=float(hypervolume), tree_size=float(tree_size)))
+# This worked for Varun, but when I tried to run reinstall.sh to make the change, I got the following permissions error:[[files/Reinstall.sh error.png|none|thumb|502x502px]]
+# By this time the meeting was pretty much over, so I continued trying to fix the error on my own.
+# I got the error to stop appearing by going to "manage app execution aliases" in windows settings and turning off App installer for python.exe and python3.exe, but when I tried to run EMADE I still got the same error.
+# Since the error didn't change despite the same exact edit fixing the same error for Varun, it seemed like my edit just wasn't going through, meaning that something was still wrong with how I was running reinstall.sh
+# By this point it was already Monday, so I figured I would see whether anyone could help me during the next meeting.
+
+=== Action Items: ===
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get subteam branch running
+|Abandoned
+|March 30, 2020
+|April 6, 2020
+|N/A
+|-
+|Run tests on titanic
+|Abandoned
+|March 30, 2020
+|April 13, 2020
+|N/A
+|}
+
+== March 23, 2020 ==
+
+=== Team Meeting Notes ===
+# Since this was my first week on the Research Fundamentals team, I was told to familiarize myself with the [https://slack-files.com/T8AQ8LX5G-FMCAEFWGK-8a0f04b215 NeatGP paper]and get the [https://github.gatech.edu/efrankel6/emade subteam's branch] of EMADE running.
+# Once I had the branch running, I was supposed to refer to a [https://docs.google.com/spreadsheets/d/17bvkqgS1p1UJue-IjUJ1VqMUxsaLc3pteFfW1V6kCuE/edit#gid=0 spreadsheet] for the parameters of the tests to run.
+# The importance of making a new database for every run and not getting rid of any data was emphasized
+
+=== Action Items ===
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read NeatGP paper
+|Completed
+|March 23, 2020
+|March 30, 2020
+|March 28, 2020
+|-
+|Get subteam branch running
+|Abandoned
+|March 23, 2020
+|March 30, 2020
+|N/A
+|}
+
+== March 4, 2020 ==
+
+=== Team Meeting Notes: EMADE contd. ===
+# This week we started running EMADE as a group and began dividing up work for our presentation
+# We decided that we would only run EMADE on one computer overnight, since it was hard to coordinate sufficient time for everyone to run it together, and we didn't have a computer that could act as a dedicated server host.
+# I was assigned tree analysis, so I just helped other people troubleshoot problems while I waited for the data to be done.
+# Once training was done, I visualized a few of the most successful trees. They were hard to analyze since they involved so many ML functions, but interestingly there were some nodes that could be easily reduced and just involved constants.[[files/EMADE Titanic Tree.png|none|thumb|621x621px]]
+# We met as a group and rehearsed our [https://docs.google.com/presentation/d/1xxKiZzX36Yif961Z4hA-ndRgQhPTju4leeK6-36Mh6Y/edit?usp=sharing presentation] an hour before our meeting on Monday.
+
+==== Action Items ====
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze EMADE trees
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Write project presentation
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 9, 2020
+|}
+
+== February 26, 2020 ==
+
+=== Team Meeting Notes: Running EMADE ===
+# Class this week was spent troubleshooting EMADE and running it with my subteam.
+# I needed to move Anaconda to my PATH and download mySQL 5 instead of 8, but after that I was able to connect to the group server and run EMADE as a worker.
+# Since troubleshooting took awhile we weren't able to make much progress in actually running EMADE, so we decided to work through it on our own and reconvene next week.
+
+=== Action Item ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE for a substantial number of generations
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Plot non-dominated frontier and compare with ML and GP
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Present project
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 9, 2020
+|}
+
+== February 19, 2020 ==
+
+=== Team Meeting Notes: EMADE ===
+# What is EMADE?
+## Evolutionary multi-objective design engine
+## Combines multi object evolutionary search with high level (machine learning) primitives
+## Goal is to automate the process of designing machine learning algorithms
+# Installation
+## Configure a mysql server - use windows download
+### Check by having someone else connect to your machine
+## Download and install git-lfs
+### Large file storage for git
+## Clone emade repository
+## Run setup module to install package
+## Come to helpdesk
+# Running EMADE
+## Navigate to top level directory and run
+### python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml
+## Input file
+### xml doc that configures emade
+### 1st block is for configuring python
+### 2nd block configures mysql connection
+#### Server
+#### username
+##### user needs full access
+#### password
+##### stored in plaintext
+#### database
+#### reuse
+##### Should be set to 1
+### Datasets description
+#### only need one for titanic
+#### multiple folds of same dataset though
+#### name
+#### type of data (feature data for titanic)
+#### data preprocessed into gzipped csv files
+#### 5 training folds
+### What does a file look like?
+#### prepared with titanic_data_splitter.py
+#### Each row is a person, each column is a feature, final column is truth
+### Objectives
+#### 3 objectives with weights (all minimized)
+##### False positives
+##### False negatives
+##### Tree size
+#### <evaluation function> refers to a method in src/GPFramework/evalFunctions.py
+#### Achievable and goal steer optimization, lower and upper are used for bounding
+#### Evaluation - specifies how much memory each worker can use before marking an individual as fatal
+#### workersPerHost - set to 2-3 on laptop
+### Evolution parameters
+#### Control 'magic constants' / hyperparameters of evolution
+#### mating, mutation, pop size, etc.
+### Connecting a worker process to a peer
+#### python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+#### -w signifies worker
+### Understanding EMADE output
+#### Look in MySQL databases
+#### Use MySQL workbench
+#### Helpful queries
+##### Select * from individuals;
+###### all individuals run
+##### Select * from individuals where 'FullDataSet False Negatives' is not null
+###### all individuals with valid fitness
+### EMADE Structure
+#### src/GPFramework is the main body of code
+##### gtMOEP.py is the main EMADE engine, most of the evolutionary loop is in here, including the evaluation method
+##### gp_framework_helper.py is where the primitive set is built for EMADE, this function points to where the primitives live, such as:
+###### methods.py
+###### signal_methods.py
+###### spatial_methods.py
+##### data.py provisions the DataPair object that is passed from primitive to primitive.
+#### datasets/ is where some test datasets live.
+#### templates/ is where the input files live
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE as a group
+|Completed
+|February 19, 2020
+|February 26, 2020
+|February 26, 2020
+|-
+|Run for a substantial number of generations
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Teach myself SQL
+|Completed
+|February 19, 2020
+|March 4, 2020
+|February 29, 2020
+|-
+|Plot non-dominated frontier and compare with ML and GP
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 8, 2020
+|-
+|Present project
+|Completed
+|February 19, 2020
+|March 9, 2020
+|March 9, 2020
+|}
+
+== February 12, 2020 ==
+
+=== Team Meeting Notes: Titanic Presentations ===
+Today we presented our Titanic project and listened to the other teams present theirs. Since a lot of the methodology was the same between groups, I only took notes on things that were different.
+#Team 4
+##Data
+###only age, class, gender, SibSp
+###normalized data
+##Genetic algorithm
+###primitives: math functions, trig, inverse trig, sigmoid
+###4 arguments (same as in Data section)
+###normalized data
+###genGrow(1,10) instead of genHalfAndHalf
+###varying tree length, wanted more variance
+###NSGAII for selection – points with higher crowding distance
+###Lower AUC, but individual points all worse (high number of data points)
+#Team 2
+##Data
+###got rid of name, ticket, cabinet, embarked, combined sibsp, parch into famSize
+###normalized data
+##Genetic algorithm
+###math primitives all sigmoided, also added some boolean operators
+###genUniform mutation, leaf-biased mating
+###AUC of .03 – much lower than ML
+#Team 3
+##Data
+###Normalized, boxed several features
+###Combined sibsp and parch to famsize
+###Selected features with correlation heatmap
+###Sex had highest correlation
+###Histograms to find bins
+###Used sex, age, famsize
+##Genetic algorithm
+###same data
+###strongly typed, boolean and float operators
+###cxOnePoint, mutUniform, selTournament
+###higher AUC than ML – all ML models strictly better
+#Team 1
+##Data
+###Dropped name, ticket, cabin, and embarked
+###missing values replaced with average
+###Split data into 3 folds, trained on 2 and tested on 1 for all possible combinations, then averaged
+##Evolutionary Algorithm
+###primitives were normal math functions, square, and less than
+###cxOnePoint, with higher probability to mate if one pareto front
+###Lower AUC for GP because it generates individuals that almost always return the same thing
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Install EMADE
+|In Progress
+|February 12, 2020
+|February 19, 2020
+|February 18, 2020
+|}
+
+== February 7, 2020 ==
+
+=== Sub-team notes: Titanic GP ===
+# We decided to use the same features as last week because they worked well and it kept things simple
+# I started writing the boilerplate code for the algorithm, while everyone else researched specific methods and worked on the presentation
+## My code was just meant to make sure that the algorithm could work, with specific details and methods to be optimized by others later.
+# Since we had floating point inputs, but wanted a boolean output, I used strongly typed GP.
+## I added boolean operators, floating point operators, and logic operators that I thought would cover most of the algorithm's needs, with the expectation that some might be removed/added later
+## I also added terminals for true and false, along with some ephemeral constants.
+## [[files/Titanic GP primitive set.png|frameless|482x482px]]
+# For the toolbox functions, I used the same methods as in [https://github.gatech.edu/emade/emade/blob/master/notebooks/Lab%202%20-%20Genetic%20Programming%20and%20Multi-Objective%20Optimization.ipynb Lab 2], with the exception of evaluate, which had to be rewritten to return the false positive and false negative rates of the individual when run over the training data.
+## [[files/Titanic GP toolbox.png|frameless|604x604px]]
+# The actual evolution function was almost exactly the same as in lab 2, since all of the differences were in already defined methods.
+## [[files/Titanic GP evolution.png|frameless|585x585px]]
+# I then wrote a function to graph the algorithm's pareto front, and tested the algorithm with the following results
+## [[files/Pareto front titanic gp.png|frameless]]
+## [[files/Titanic gp pareto front code.png|frameless|511x511px]]
+# I then worked on my presentation slides detailing the above information, while other members of the team optimized the algorithm and analyzed the resulting trees.
+## [https://docs.google.com/presentation/d/1eHWZrjgGKlgkJAH_H7_bsjp4yMas8yqv7lbrE9mzDyg/edit#slide=id.g6ec8aba951_0_26 Here is a link to our final presentation.]
+
+== February 5, 2020 ==
+
+=== Team Meeting Notes: Titanic Project ===
+# Last week
+## Feature engineering, Pareto front of algorithms for Titanic data set
+# This week:  Titanic data set with genetic programming
+## Work together to come up with an evolutionary loop using multiple objective genetic programming to solve problem
+## Can't use any built-in DEAP algorithms
+### Can still use deap methods, just not overarching algorithms
+## Should get another Pareto front
+## Run all Pareto individuals on Test.csv, make into a giant spreadsheet
+### passengerID, pareto1Survived, pareto2Survived, ..., paretoNSurvived
+### Submit as a group
+# Presentation
+## Topics
+### Talk about feature creation process
+### Evolutionary loop
+### Performance of algorithms and overview of how they work
+### Analyze trees
+### Compare and contrast traditional ML, evolved algorithms
+## Presentation pointers
+### Title Slide
+#### Clear title
+#### List of contributors
+#### Date of presentation
+### Graphs
+#### Expected that there are some
+#### Clear and appropriate title
+#### Labeled x,y axis
+#### Legible fonts
+#### Make sure Pareto lines go in correct direction
+### Page numbers
+#### Important so people can ask you to go back to specific slide at end
+### Technical Presentations
+#### Need to stand alone - all info needs to be on the slide
+#### Text is acceptable
+### Take-away
+#### One sentence summary of main point of a slide
+#### Conspicuously, consistently placed
+#### Helps author make sure slide is clear
+# Notebook
+## Look at Alex Liu's, need code chunks, graphs, etc.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with project team to assign tasks
+|Completed
+|February 5, 2020
+|February 7, 2020
+|February 7, 2020
+|-
+|Code the basic GP function to be optimized by team members
+|Completed
+|February 7, 2020
+|February 9, 2020
+|February 9, 2020
+|-
+|Write presentation slides on Random Forest, GP
+|Completed
+|February 7, 2020
+|February 12, 2020
+|February 12, 2020
+|}
+
+== January 31, 2020 ==
+
+=== Sub-team notes: Titanic Project ===
+# Set up github main branch with data processing code, which everyone clones and adds their own algorithm onto
+##[https://github.com/xenoframium/VIP-Titanic Link to github repo]
+# Data processing ([https://github.com/xenoframium/VIP-Titanic/blob/master/titanic_processing.py Link to code])
+##Removed cabin and ticket columns
+##Extracted title (Mr., Mrs., Dr., etc.) from name, then removed name
+##One-hot encoded title and embarked
+##Missing ages replaced with average by title, missing fare replaced with average, missing embarked replaced with mode
+##All data normalized
+##Data split into training and testing sets
+# Each person chose a type of algorithm to work with on their own
+## I chose Random Forests
+
+=== Individual Work: Random Forest ===
+# I used the RandomForestClassifier from sklearn.ensemble
+# Results with default parameters (Accuracy of 79.66%)
+
+## [[files/RF Confusion Matrix default params.png|frameless]]
+# I performed a random search on n_estimators, max_depth, min_samples_split, and min_samples_leaf to find the parameters with the best results, shown below
+## [[files/Titanic RF code final.png|frameless]]
+## The final accuracy was improved up to 83.39%.
+## [[files/Titanic RF Confusion matrix final.png|frameless]]
+# Once my algorithm was Pareto optimal with the other members of the group who had already finished, I saved it to github, and Avni added it to the Pareto front.
+## [[files/Titanic ML Pareto Front.png|frameless]]
+
+== January 29, 2020 ==
+
+=== Team Meeting Notes: Machine Learning and Titanic Lab ===
+# Basic Machine Learning Concept
+## Plot data with the features of the data as the axes
+## Algorithm essentially draws separation between positives, negatives
+## Lots of different ways to find that separation - Neural Network, k-nearest neighbor, etc.
+# [https://github.gatech.edu/emade/reference_material/blob/master/Lectures/Lecture_4_ML/Titanic%20Example.ipynb Titanic Example]
+## Data processing
+### Import pandas for data analysis, numpy for arrays, and sklearn for machine learning modules
+### Get rid of all features that don't give useful info
+### Clean data by removing all NaNs, replacing with mean / mode of other data points as makes sense
+### Map all non-numeric data to numbers so the ML algorithms can work with it
+#### Apparently the way you do this is important if there are more than 2 options for a feature
+### Must do all of the same things to testing data that you do to training data
+### Split testing data into testing, training segments - we never touch the actual test data until it is time to evaluate the algorithm
+## Training
+### Initialize a default sklearn ML structure, and fit data to it
+#### More info on algorithms, customization possible in sklearn API
+### Calculate score (% accuracy) of model over testing data
+#### Can plot as confusion matrix with matplotlib.pyplot
+### Convert test data predictions to a csv with pandas - what gets turned in
+# Team Project
+## Everyone on team works on Titanic problem, develops own algorithms
+## Turn in a Pareto front of algorithms
+## Should schedule a meeting outside of class'
+
+=== Action Items: ===
+{|
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research different algorithms
+|Completed
+|January 29, 2020
+|January 31, 2020
+|January 31, 2020
+|-
+|Meet with project team
+|Completed
+|January 29, 2020
+|January 31, 2020
+|January 31, 2020
+|-
+|Turn in project
+|Completed
+|January 29, 2020
+|February 5, 2020
+|February 5, 2020
+|}
+
+== January 22, 2020 ==
+
+=== Team Meeting Notes: Genetic Programming ===
+How to score fitness when optimizing multiple values?
+# Genome Evaluation
+## False v. True positive
+### True: actually identifying the desired object
+### False: identifying something as desired object that really isn’t
+### Maximize true positives, minimize false positives
+## Confusion Matrix
+### Sensitivity – TP/P, number of true positives divided by number of actual positives
+### Specificity – TN/N, “ negatives “ negatives
+## Minimization measures
+### False negative rate, false positive rate
+## Other measures
+### Positive predictive value (PPV) – TP/(TP+FP)
+### Negative predictive value (NPV) – TN/(TN+FN)
+### False discovery rate – FP/(TP+FP)
+### Accuracy – (TP+TN)/(P+N)
+# Objective space
+## Map each objective on an axis
+## Best possible solution is origin (for minimization)
+## Each genome can be mapped to a point in the objective space based on its scores in each objective (phenotype)
+# Pareto Optimality
+## An individual is Pareto if no individual outperforms it on all objectives
+### If not Pareto, an individual is called Dominated
+## All Pareto individuals form a Pareto Frontier
+### Stairstep connecting all Pareto individuals in graph of objective space
+## AUC
+### Reimann sum of Pareto Frontier gives AUC – Area under the curve
+### Want to minimize AUC
+### Do this by favoring Pareto individuals
+# Nondominated Sorting Genetic Algorithm II (NSGA II)
+## Separate population into nondomination ranks
+### Pareto front is rank 0
+### ignoring Pareto front, new Pareto front is rank 1, repeat until done
+## Binary Tournament selection
+### Lower rank wins
+### When rank is tied, higher crowding distance wins
+#### Summation of normalized Euclidean distances to all points in the front
+#### Encourages exploration of less crowded areas of the front
+# Strength Pareto Evolutionary Algorithm 2 (SPEA2)
+## Each individual given a strength
+### How many others in the population it dominates
+## Each individual given a rank
+### Sum of strengths of all individuals that dominate an individual
+### Pareto individuals have rank 0
+## Binary tournament
+### Lower rank wins
+### Distance to kth nearest neighbor breaks tie
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do lab 2 (multiple objectives part)
+|Completed
+|January 22, 2020
+|January 29, 2020
+|January 29, 2020
+|}
+
+== January 15, 2020 ==
+
+=== Team Meeting Notes: Genetic Programming ===
+#Genetic programming vs. genetic algorithm
+##GA: individual is a string of data that is scored
+##GP: Individual is a program that takes in input data, returns output that is scored
+#Tree Representation
+##Nodes = primitives (operations)
+##Leaves = terminals (inputs)
+##Lisp preordered parse tree
+###Operator followed by inputs
+####1+1 = [+,1,1]
+####3*4+1 = [+,3*4 ,1] = [+,*,3,4,1]
+###start from top, go recursively
+####2-(0+1) = [-,2,+,0,1]
+##Crossover
+###Exchange subtrees
+###Select a random point in each tree, everything below is a subtree
+###Swap selected subtrees
+##Mutation
+###Insert node
+###Delete node
+###Change node
+#Example: Symbolic Regression
+##Objective: Find a solution to y = sin(x) using symbolic regression
+###Primitives: +,-,*,/
+###Terminals: integers, x
+###e.g. solution x = 3: x-x^3/3!, [-,x,/,*,x,*,x,x,*,3,2]
+##Evaluating a tree
+###set x = [0,2pi]
+###error = sum(f(x)-sin(x))^2
+##Improvements
+###would be easier with exp, factorial, sin, etc.
+###Finding best functions is one of the things that EMADE does
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do lab 2
+|Completed
+|January 15, 2020
+|January 22, 2020
+|January 21, 2020
+|}
+
+== January 8, 2020 ==
+
+=== Team Meeting Notes: Introduction to Genetic Algorithms ===
+# Definitions
+## Genetic Algorithm: An algorithm which attempts to solve a problem by mimicking the natural process of evolution
+## Population: a set of possible solutions to the problem (individuals)
+## Objective function: score based on how well a given individual meets the algorithm's parameters
+## Fitness: relative score of an individual compared to others in the population
+## Crossover: Random combination / mating of individuals to produce individuals for a new population
+## Mutation: Random changes introduced in crossover to prevent stagnation
+# The Algorithm
+## Initialize a population of randomly generated individuals
+### Individuals are represented by vectors, the meaning of which depend on the problem
+## Evaluate the individuals based on their objective functions
+## Select individuals for crossover
+### Fitness proportionate: random chance of selection weighted based on relative fitness
+### Tournament: randomly pull individuals from the population and directly compare, selecting the winner
+## Crossover
+### Single point: randomly select a point, swapping everything after that point between the two parents to make two offspring
+### Double point: Randomly select two points, swapping everything in between them to create new offspring
+## Mutation
+### Random chance to modify elements of offspring to maintain diversity
+# Example problem: One Max
+## Individuals are a list of 100 entries, each either 0 or 1
+## Goal is to evolve an individual made entirely out of 1s
+## Objective function of an individual is the sum of all of its values
+## Example of implementation in Jupyter Notebook - https://github.gatech.edu/emade/emade/blob/master/notebooks/Lab%201%20-%20Genetic%20Algorithms%20with%20DEAP.ipynb 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Set up notebook
+|Completed
+|January 8, 2020
+|January 15, 2020
+|January 13, 2020
+|-
+|Do lab 1
+|Completed
+|January 8, 2020
+|January 15, 2020
+|January 14, 2020
+|}
