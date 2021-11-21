@@ -7,6 +7,13 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+
+
+for arl in arls:
+            arl_primitives[arl] = self.pset.mapping[new_arl_pool[arl][1]]
+            for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
+                individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
 
 ### Week 10: Oct 25
 - [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)

@@ -13,25 +13,55 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Week 13, Nov 15th
+### General Meeting Notes
+
+
+### Sub Team Meeting Notes
+
+### Action Items
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
+Further Debug Primitives with Standalone Tree Evaluator | In Progress | 11/15/2021 | ... | 11/21/2021 |
+Meet w/ Devan on double NNLearners | In Progress | 11/17/2021 | 11/21/2021| 11/21/2021 |
+Have code ready for Code Freeze | In Progress | 11/15/2021 | ... | 11/21/2021 |
+
 ## Week 12, Nov 8th
 ### General Meeting Notes
-* Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
-* We used the trello board to layout tasks.
-* I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
-* Karthic began leading a team to explore our issue with the output layer
-* Devan began leading a team to debug NNLearner2
+* NLP: 
+* * Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
+* * We used the trello board to layout tasks.
+* * I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
+* * Karthic began leading a team to explore our issue with the output layer
+* * Devan began leading a team to debug NNLearner2
+* * Kevan would look at word embeddings
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
-Debug Persistent issue with Merge | In Progress | 11/08/2021 | ... | 11/16/2021 |
-Debug Primitives | In Progress | 11/08/2021 | ...| 11/16/2021 |
+Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
+Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 
 
 ## Week 11, Nov 1st
 ### General Meeting Notes
-* We received our New Members this week and ...
+* We received our New Members this week and began onboarding them.
+* I gave them a brief intro to our project and gathered information about their background in order to decide what to present on Wednesday.
+* NLP:
+* * I updated the whole team on our progress. We believed our primitives should work at this point, and we listed out the remaining tasks left before we could get results.
+* Modularity: 
+* * They were reassessing and adjusting goals and timelines for the semester
+* * The ARL group is still going to be doing runs and experimenting
+* NAS:
+* * Noticed a bug with their ADF's.
+* * Already working on final presentation material.
+* Image Processing
+* * At this point, they have been divided into teams working on Selection Methods, Mating/Mutations, Hyperfeatures, and some general infrastructure work.
+* * Some of their members were re assigned tasks this week.
+* * Having some errors on PACE.
 
 ### Sub Team Meeting Notes
 * At this sub team meeting, it was the first time we had the whole team with the new members together for a whole hour.
@@ -46,11 +76,11 @@ Complete New Primitive Development | Complete | 11/01/2021 | 10/27/2021 | 11/08/
 Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/03/2021 |
 Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
 
-## Preparing Presentations for New Members
-* I modified last year's PowerPoints to ... (finish)
+### Preparing Presentations for New Members
+* I modified last year's PowerPoints to inform the new members about deep learning and NLP.
 
-## Debugging Primitives with Standalone Tree Evaluator
-* I ...
+### Debugging Primitives with Standalone Tree Evaluator
+* I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
 
 ## Week 10, Oct 25th
 
@@ -167,15 +197,68 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 
 ## Week 9, Oct 18th
 
-Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+### General Meeting Notes:
+* At this week, we had one week until our presentation
+* NLP:
+* * We talked with Dr. Zutty about our issue with standalone tree evaluator. We were able to resolve it. As it turns out, the EMADE-304 branch was only updated for base EMADE, and not standalone tree evaluator. So, we would have to move changes from 1 over to the other in order to use standalone tree evaluator.
+* Modularity:
+* * Finished fixing ARL implementation bugs
+* * Found a logic bug with some ARL primitives that needs fixed, deals with "tuple index out of range"
+* * Have many members from the stocks team now, are trying to move forward with that side of things
+* NAS:
+* * Prepping for midterm presentation and doing runs
+* * Divided up slides
+* * Looking into how to push all of their code changes into a single branch
+* Image Processing: 
+* * Made their input schema compatible with PACE
+* * tested NSGA-III with their new implementation
+* * Made some runs and bug fixes, but won't realistically be able to move them in until after their presentation
+
+### Sub Team Meeting Notes
+* This week was dedicated to debugging merge changes and preparing for our midpoint presentation
+* Most of this meeting was dedicated towards making our midpoint presentation
+* I created a slide deck, and we talked about what we wanted to include in it.
+* The slides can be found here: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* We would rehearse on Sunday.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Finish Eval Method Implementation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Debug Merge Bugs | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Run EMADE on new branch with no errors | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Make presentation slides | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+
+
 
 ## Week 8, Oct 11th
 ### General Meeting:
 * No General Meeting this week
 
-TODO: Fill in Notes
+### Sub Team Meeting
+* At our Sub Team meeting, we began looking at the EMADE-304 branch and deciding how best to merge it over.
+* We planned to use the Hackathon to finish merging EMADE-304 over.
+* We would look over the code over the next 2 days, and then have a meeting on Friday to discuss our thoughts.
 
-Accomplishments of Week: Merging in changes at Hackathon
+### Friday Meeting
+* I put together a list of trivial vs non-trivial merge conflicts: https://docs.google.com/document/d/1B-0uHdawDfCY-5BLZQUiuz-dleC9MDwqVhYU6WmliRc/edit?usp=sharing
+# We discussed it, moved files around, and decided to use it as a basis for which files to look at first on Saturday.
+
+### Hackathon
+* Karthik, Kevin and I met at the Hackathon on Saturday to work on the merges, while our Literature Review Team kept looking at papers for inspiration with different primitives and state of the art models.
+* We used my document to keep track of which files we had to change still, and which we had already worked on.
+* The three of us looked through each file together to determine which ones to edit.
+* Most changes ended up being trivial. GP_framework_helper.py, general_methods.py, and data.py had the most non-trivial methods.
+* Our branch is now up on my fork of EMADE: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+* We merged the nn-vip branch into EMADE-304
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Look over Merge Conflicts | Complete | 10/13/2021 | 10/14/2021 | 10/15/2021 |
+Resolve Merge Conflicts | Complete | 10/13/2021 | 10/16/2021 | 10/16/2021 |
 
 ## Week 7, Oct 4th
 ### General Meeting Notes

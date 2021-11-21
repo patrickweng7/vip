@@ -13,11 +13,80 @@ Interests: Machine Learning, Robotics, Puzzles, AR/VR
 == October 25th, 2021==
 
 '''Lab Notes'''
+Today was a presentation around Emade for sub teams and bootcamepers. Presentation is at [[Bootcamp-Subteam-1]]
 
-Today was presentation day for all of the teams, both bootcamp and sub-teams
+5 Teams other than us presented:
+* NLP
+** Currently trying to get LSTM networks to work
+** Trying to implement solution that is competitive with distilBert
+** Use SQUAD dataset that contains questions and answers
+
+* Neural Architecture Search
+** This team is responisible for making Nueral Networks work with Emade
+** Currently have difficulty outperforming seeds - random solutions don't converge without a bit of help
+** Implemented time stopping to end computations early if they do not have much promise
+** Also working on speeding up preprocessing which is currently very slow for text tokenization
+** Reward novelty by keeping networks that are less frequent
+
+* Image Processing
+** Use image classification for multi-label algorithms to detect 14 deseases from chest x-ray images
+** Because there are 14 objectives, it's difficult to get good results (Always same AUC)
+** Experimenting with adding hyper-features for image processing - combine 2 or more primitives into one
+** Uses the high performance computing cluster for testing
+
+* Market / Time Series Analysis
+** Implementing trading algorithms
+** Use price and volume data to determine when is best to buy and sell
+** Are trying to compare methods with SOTA papers
+
+* Modularity
+** Find ways to keep multiple leaf nodes as a single primitive known as an ARL
+** By keeping ARLs, better solutions can be found because this prevents leaf level mutations. Instead, you introduce sections of the tree that work
+** Currently only looking at tree depths that are 1 but are looking at more
+** Not successful in getting AUC lower with newer ARLs
+** Make sure ARLs get passed on. To next generation without mutation
+** Looking to write a paper
 
 
+'''Personal Notes'''
+This week was spent getting test results from our titanic experiment. We ran two seperate tests in order to make sure we were doing the right thing
+* Using our own preprosessed titanic data files on the default input_titanic.xml
+* Running the same files but with a modified xml
 
+Unfortunately, we found out pretty late that the files we generated were missing the labels and the test set was created from test.csv and not a part of our train.csv file.
+This meant that our algorithm might have been predicting null values. In fact, our pareto set found an AUC of 0 because one of the algorithms computed NULL.
+We reran our dataset and were able to achieve an AUC of 0.134 for the default controls
+
+We made a few modifications to our xml
+* Headless Chicken percent was doubled - this acts similar to a mutation so we also lowered those values
+* Cross over was changed to 0.4 and headless chicken to 0.2
+* Ephemeral was kept the same
+* All other mutation methods were set to 0.025 to account for headless chicken
+
+After 115 generations, our AUC was 0.131, lower than our previous dataset
+[[files/sub-team-one-files/G12021EmadePresentation-20.png|thumb|20x10px]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Use Emade on Titanic
+|Completed
+|October 5th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Choose a team
+|Not Started
+|October 25th, 2021
+|October 29th, 2021
+|-
+|}
 
 == October 20th, 2021==
 
@@ -54,7 +123,11 @@ Work to be done:
 |Completed
 |October 4th, 2021
 |October 8th, 2021
+<<<<<<< HEAD
 |October 6th, 2021
+=======
+|October 8th, 2021
+>>>>>>> 0c21672a57eb9b88f3dd25ea706de6e313f65899
 |-
 |Get Emade set up locally
 |Completed
