@@ -11,7 +11,7 @@ This week I wrote summaries for relevant papers in my notebook.
 !Suspense Date
 !Date Resolved
 |-
-|Research the activation functions and dimensions that are commonly used for each layer.
+|Research hyperparameters that are commonly used for each layer used in nn-emade.
 |In progress
 |11/15/2021
 |12/6/2021
@@ -26,6 +26,8 @@ This week I wrote summaries for relevant papers in my notebook.
 |}
 
 ===Layer Research===
+Cameron W explained the task to me during the main meeting Monday. At the hackathon, I modified a notebook I found online that used scikit-learn.GridSearchCV and KerasClassifier to quickly and manually see what combinations of activations, optimizers, weight initializations, and dimensions had stronger accuracy on CIFAR-10.
+
 Example: LSTM prefers tanh (sigmoid with -1, 1) over ReLU
 
 Neuralnetworkmethods.py -define each nn layer
@@ -63,10 +65,6 @@ LEAF (learning evolutionary AI framework): extends CoDeepNEAT to multi-output op
 
 ===EMADE Setup===
 During the main meeting, I successfully bashed pace_run_cifar10.sh. The error was that I had cloned emade onto my windows computer and then scp transfered to pace. This converted the .sh, .pbs, and others to windows format instead of linux. I could convert each file with sed -i $'s/\r//' FILENAME, but instead I re-cloned emade directly onto pace to make sure I got every file.
-
-After successfully running EMADE on Monday, I received the following error at the hackaton when running ln -s <shared_conda path>
-
-    python: bad interpreter: Permission denied
 
 ==November 8th, 2021==
 After setting up NN EMADE on PACE initially, I explored alternative methods. I also learned about teams' projects from their explanations.
