@@ -17,6 +17,21 @@
 * see Week 12: Setting Up PACE-ICE Notes for updated setup procedures
 * Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload another dataset to test run EMADE.
 
+=== 11/21/2021 Hackathon ===
+* successfully ran EMADE on PACE (however, I ran into some issues, read below)
+
+* common mysql commands
+<pre>
+SHOW databases; # shows all databases
+USE <databaseName>; # selects databaseName for usage
+SHOW tables; # shows all tables in the selected database
+SELECT * FROM <tableName>; # shows all values from tableName
+</pre>
+
+=== Running EMADE On Pace [Error Fix] ===
+* The error message was <code>ImportError: cannot import name 'stop_words' from 'sklearn.feature_extraction'</code> in the file <code>src/GPFramework/text_processing_methods.py</code>
+** My solution was to replace <code>stop_words</code> in the file with <code>_stop_words</code>.
+* link to solution: https://stackoverflow.com/questions/68620436/cannot-import-name-stop-words-from-sklearn-feature-extraction
 
 '''Action Items:'''
 {| class="wikitable"
@@ -27,28 +42,28 @@
 !Date Resolved
 |-
 |Run EMADE On PACE-ICE
-|In Progress
+|Completed
 |November 1, 2021
 |November 22, 2021
-|
+|November 21, 2021
 |-
 |Run the current implementation of lexicase on chest data
-|In Progress
+|Completed
 |November 8, 2021
 |November 22, 2021
-|
+|November 21, 2021
 |-
 |Read literature about new implementations of lexicase
-|
+|NO LONGER NEEDED! (Harris said we won't be implementing those methods)
 |November 8, 2021
 |November 22, 2021
-|
+|November 21, 2021
 |-
 |Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
-|
+|NO LONGER NEEDED! (Maxim making the repo able to be git cloned rather than scp-ed)
 |November 8, 2021
 |November 22, 2021
-|
+|November 21, 2021
 |}
 
 == Week 12: November 8, 2021 ==
@@ -89,6 +104,7 @@ socket=scratch/db/mysqldb.sock
 ** Note: replace USERNAME with your GT username
 * Inside the node I setup, I ran <code>mysql -u root</code>
 ** Within the mysql prompt, run the following code replacing USERNAME and PASSWORD with your desired USERNAME and PASSWORD for your mysql account.
+
 <pre>
 DELETE FROM mysql.user WHERE user='';
 GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
@@ -131,7 +147,8 @@ python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 
 * run <code>qsub launchEMADEchest.pbs</code>
 * Now, you should be ready to run EMADE with <code>python3 src/GPFramework/launchEMADE.py templates/input_chestxray.xml</code>
-** The script should create EMADE_master.eXXXXX files after running for a while and check it for any errors or outputs.
+** The script will create EMADE_master.eXXXXX files after running for a while and check it for any errors.
+** The script will create EMADE_master.oXXXXX files after running for a while and check it for any outputs.
 
 '''Action Items:'''
 {| class="wikitable"
