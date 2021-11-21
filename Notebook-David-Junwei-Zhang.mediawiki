@@ -47,6 +47,154 @@ The next steps I will take will be to figure out how to run EMADE with seeding t
 
 [[files/dzhang351/first_run_no_seeding.png|100px]]
 
+Went to the hackathon on 11/21 and worked on running EMADE runs until completion to fully evaluate NNLearner individuals to make sure there is no error, then edit and test running NNLearner2 individuals (which will most likely fail in the beginning). Then using the error logs, update EMADE.py to handle two data pairs for text input so that NNLearner2 is able to run without error.
+
+I also took notes about NLP to get a better understanding of the reasoning about why certain models perform well and what is the current state of the art. I also learned about text normalization methods and preprocessing. The following are some of my notes that I took down.
+
+### NLP Tasks
+
+* Machine translation
+
+* Grammar and spell checking
+* Text classification
+* Named-entity recognition
+* Summarization/Topic-modeling
+* Text generation
+
+#### Similarity
+
+* edit distance
+* cosine similarty
+
+#### Vectorization (preprocessing)
+
+* Bag of words: dictionary of words with integer indices representing count of the word
+
+* TD-IDF (term frequency and inverse document frequency): estimate relative importance of a term compared to other terms
+
+  * TF: frequency of term in document / total num of terms in document
+
+  * IDF: displays importance of a term $log(n/m)$ where n are the number of documents in a corpus and m are the number of documents containing the term
+
+    * weigh down frequent terms (like I, is, of, that) and scale up rare terms
+
+  * multiply TF and IDF together to get metric
+
+    Purpose: unimportant terms will receive lower significantly lower weight
+
+#### Text Normalization (preprocessing)
+
+* Context-independent normalization: removing non-alphanumeric characters or other symbols
+
+* Canonicalization: convert to "canonical" form
+
+* Stemming: extract word's root
+
+  * reduce words to their root form: often use heuristic that chops off the end of words
+
+* Lemmatization: transform word to its lemma (basic word) using vocabulary, morphological analysis, and parts of speech analysis
+
+#### Naive Bayes
+
+* Use bayes theorem with independence assumption between words
+  * $arg\max\limits_c [P(c)\sum_{i=1}^{n}P(w_i|c)]$ where $w_i$ are the words and c are the classes
+* Algorithm is simple and fast
+* Applications
+  * Text classification
+  * Spam filtering
+  * Text tonality analysis
+
+#### Word Embedding
+
+* Set of various methods that associate words, word forms, or phrases with number vectors
+
+  Words that are similar in meaning/related are closer together
+
+  * Word2Vec: uses neural networks to calculated word embeddings based on context
+    * uses one hot encoding
+  * TF-IDF: weigh down common words and give more importance to words that only appear in a few documents (sparse vectors)
+  * GloVe: uses combination of word vectors that describes probability of co-occurence of words
+    * unsupervised method (dense vectors) utilizing neural embeddings (like word2vec)
+    * puts emphasis on word-word co-occurences (certain words appear next to each other often)
+  * FastText: similar to word2vec but but uses parts and symbols; word becomes context
+
+* Once transformed into embeddings, we can use the vectorized values to measure...
+
+  * similarity (cosine similarity)
+  * compare use of word accross different corpora (ex: comparing "immigration" in Democrat/Republican corpus using cosine similarity)
+  * analyzing relationships (picture below)
+
+#### Long Short Term Memory (LSTM)
+
+* NN architecture capable of training long term dependencies; type of recurrent neural network
+  * uses input, previous output (or n previous states), and state to determine output
+  * addresses short term memory caused by vanishing gradient problem from backprop (weights shared across each time step)
+* LSTM gate layers
+* forget, output, storage gate
+  * cell state
+  * input gate layer
+  * cell status update (forget gate)
+  * output data
+* Filter layer can remove info from cell state
+* Variations
+  * "Peephole" connections: filter layers can additionally control cell state
+  * "Forgotten" and input filters: adds option to ignoreor keep in memory information as joint decision by network cells
+  * Gated recurrent unit (GRU): the forgetting and input filters combine into one "update" filter (update gate) resulting in simpler and faster LSTM model 
+
+<img src="http://colah.github.io/images/post-covers/lstm.png" alt="Understanding LSTM Networks -- colah&#39;s blog" style="zoom:50%;" />
+
+Seq2Seq: encoder, decoder structure using single-layered RNNs
+
+* potential issue with encoder decoder structure is that the neural network needs to compress all the necessary information of a source sentence into a fixed length vector (from encoder) to be passed to decoder
+
+LSTMS: https://www.youtube.com/watch?v=8HyCNIVRbSU
+
+Transformer: https://www.youtube.com/watch?v=TQQlZhbC5ps&t=368s 
+
+RNN, LSTM, Attention: https://medium.com/swlh/a-simple-overview-of-rnn-lstm-and-attention-mechanism-9e844763d07b
+
+https://www.machinelearningplus.com/nlp/natural-language-processing-guide/
+
+https://towardsdatascience.com/a-practitioners-guide-to-natural-language-processing-part-i-processing-understanding-text-9f4abfd13e72
+
+https://www.datasciencecentral.com/profiles/blogs/top-nlp-algorithms-amp-concepts
+
+https://geekyhumans.com/best-nlp-algorithms/
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research NLP basics and get a better understanding of how preprocessing/vectorization works
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Run EMADE locally such that it is able to evaluate NNLearner individuals
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Attend hackathon and discuss action items in terms of experimentation and NNLearner2 (2 data pair action items)
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Update notebook with progress and EMADE run data (errors as well as successes)
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|}
+
 == November 8, 2021 ==
 '''Team Meeting Notes'''
 
@@ -96,7 +244,7 @@ One thing that may be better is if requirements.txt is constantly kept up to dat
 |Get standalone tree evaluator to run on one instance of an individual
 |In progress
 |November 8, 2021
-|
+|November 17, 2021
 |November 15, 2021
 |-
 |}
