@@ -16,6 +16,11 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 '''Subteam Meeting Notes:'''
 * Working on getting my PACE environment to work with a new port number (essentially, my sql job closes in PACE since others are using the same port)
 * Integration Team task: get standalone tree evaluator to work and make sure runs happen with the newly preprocessed data
+'''Individual Notes:'''
+* Batch Size is an important parameter in Keras since this adds flexibility to pass in different size examples into the BiDAF pipeline
+* George and I fixed issue with the Attention Layer dimension. The BiDAF attention now is able to accept different batch sizes. We aimed to have output dimensions in a form like: (None, 8, 800). In this particular example, "None" is the flexible batch size, 8 represents the number of tokens in the context, 800 is 8*(vector embedding size)
+* Error in concatenation in the megamerge step was fixed (fixed the axis), got rid of "convert_to_tensor" function
+* Link to Colab notebook: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=J4GFfh6jcsmI
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -25,11 +30,16 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 !Date Resolved
 |-
 |Go through Cameron's PACE Setup video and have port change
-|In Progress
+|Completed
 |November 17th, 2021
 |November 19th, 2021
-|
+|November 17th, 2021
 |-
+|Fix Bidirectional Attention Layer Dimensions with George in AAD Hack Day
+|Completed
+|November 21st, 2021
+|November 21st, 2021
+|November 21st, 2021
 |}
 == November 8th, 2021==
 '''Main Meeting Notes:'''
