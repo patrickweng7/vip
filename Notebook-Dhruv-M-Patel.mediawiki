@@ -59,20 +59,20 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 ''' Work Notes '''
 * Still troubleshooting the 3D array problem
 * Invalid value encountered in subtract
-** ft = fitness - best_point  # line 571 in emo.py
-** A = extreme_points - best_point  # line 588
-** fn = (fitnesses - best_point) / (intercepts - best_point)  # line 608
+** <code> ft = fitness - best_point  # line 571 in emo.py </code>
+** <code> A = extreme_points - best_point  # line 588 </code>
+** <code> fn = (fitnesses - best_point) / (intercepts - best_point)  # line 608 </code>
 * Problematic line is 614
-** distances = numpy.sum(fn * reference_points, axis=2) / norm.reshape(1, -1)
+** <code> distances = numpy.sum(fn * reference_points, axis=2) / norm.reshape(1, -1) </code>
 * Titanic dataset, ran NSGA3 with Titanic to make sure it’s not a problem with the CheXnet image dataset
 ** Titanic XML file needed some tweaking to accommodate PACE
-** Encountered the same error! The same line caused “ValueError: operands could not be broadcast together with shapes (315,560,3) (560,14)”
+** Encountered the same error! The same line caused <code> ValueError: operands could not be broadcast together with shapes (315,560,3) (560,14) </code>
 ** Maybe NSGA3 doesn’t play well with EMADE
 * Mismatch between selection function’s reference points, expecting 14-long tuple for individual’s fitness values but individuals only tracking 2-long tuples. Objectives problem
 * Now going to try changing objective count and raise p to accommodate an adequate number of individuals
 * Tried changing objective count to 2 and p to 8 in my sel_nsga3 method
-** File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1240, in <listcomp> print([ind.fitness.crowding_dist for ind in elitePool])
-** AttributeError: 'FitnessMin' object has no attribute 'crowding_dist'
+** <code> File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1240, in <listcomp> print([ind.fitness.crowding_dist for ind in elitePool]) </code>
+** <code> AttributeError: 'FitnessMin' object has no attribute 'crowding_dist' </code>
 ** Now I’m getting this error, for some reason crowding_dist variable not being read
 
 * Got a run to finally work! Although, some individuals are not evaluating AUCs correctly (see below)
