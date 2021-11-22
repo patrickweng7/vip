@@ -24,16 +24,6 @@
 |}
 
 == Week 13: November 15, 2021 ==
-=== 11/15/2021 In-Class Subteam Meeting ===
-* I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
-* I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
-* I am currently asking Maxim about the error message and will include the solution I find [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here]
-
-=== 11/17/2021 Subteam Meeting ===
-* I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
-* see [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here] for updated setup procedures
-* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
-
 === 11/21/2021 Hackathon ===
 * I successfully ran EMADE on PACE, but with some issues [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Running_EMADE_On_Pace_Error_Fix documented here]
 * I implemented <code>sel_epsilon_lexicase</code> in the selection_methods.py file in EMADE.
@@ -43,7 +33,6 @@ def sel_epsilon_lexicase(individuals, k, epsilon=0.01):
 </pre>
 * Harris and I are currently working on running <code>sel_epsilon_lexicase</code> with epsilon values of 0.01, 0.05, 0.1, 0.5, 1, 5, 10.
 ** These epsilon values were chosen after reading this paper written about [https://dl.acm.org/doi/pdf/10.1145/2908812.2908898 Epsilon-Lexicase Selection for Regression]
-
 * I had some difficulty navigating mysql so I am providing some common mysql commands (specifically to access a table in a database).
 <pre>
 SHOW databases; # shows all databases
@@ -51,6 +40,16 @@ USE <databaseName>; # selects databaseName for usage
 SHOW tables; # shows all tables in the selected database
 SELECT * FROM <tableName>; # shows all values from tableName
 </pre>
+
+=== 11/17/2021 Subteam Meeting ===
+* I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
+* see [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here] for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
+
+=== 11/15/2021 In-Class Subteam Meeting ===
+* I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
+* I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
+* I am currently asking Maxim about the error message and will include the solution I find [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here]
 
 === Running EMADE On Pace [Error Fix] ===
 * The error message was <code>ImportError: cannot import name 'stop_words' from 'sklearn.feature_extraction'</code> in the file <code>src/GPFramework/text_processing_methods.py</code>
@@ -91,13 +90,13 @@ SELECT * FROM <tableName>; # shows all values from tableName
 |}
 
 == Week 12: November 8, 2021 ==
-=== 11/8/2021 In-Class Subteam Meeting ===
-* reviewed assigned tasks (I was assigned the task of implementing and running lexicase)
-* continued to setup PACE-ICE on my laptop
-
-
 === 11/10/2021 Subteam Meeting ===
-* set up mysql on PACE-ICE
+* I set up mysql on PACE-ICE (EDIT: I actually did not set it up correctly as later weeks I will have issues accessing mysql).
+
+=== 11/8/2021 In-Class Subteam Meeting ===
+* The team reviewed the tasks assigned to each new member.
+** I was assigned the task of implementing and running another implementation of lexicase.
+* I continued to setup PACE-ICE on my laptop.
 
 === Setting Up PACE Notes And Running EMADE on PACE ===
 * I transferred my local EMADE fork onto the remote server using the following command
@@ -207,6 +206,17 @@ python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 |}
 
 == Week 11: November 1, 2021 ==
+=== 11/3/2021 Subteam Meeting ===
+* EMADE branches overview
+
+master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
+
+* *_methods.py (files contain primitives)
+* launchEMADE.py (launches EMADE.py)
+* PACE-ICE is currently under maintenance until Friday, November 1
+** try to login and complete PACE-ICE setup then
+* assigned to selection methods tasks team
+
 === 11/1/2021 In-Class Subteam Meeting ===
 * assigned to Image Processing subteam
 * the goal of this subteam is to help improve EMADE's image processing algorithms
@@ -226,17 +236,6 @@ python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 ** selection methods
 ** mating/mutation methods
 ** data preprocessing
-
-=== 11/3/2021 Subteam Meeting ===
-* EMADE branches overview
-
-master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
-
-* *_methods.py (files contain primitives)
-* launchEMADE.py (launches EMADE.py)
-* PACE-ICE is currently under maintenance until Friday, November 1
-** try to login and complete PACE-ICE setup then
-* assigned to selection methods tasks team
 
 '''Action Items:'''
 {| class="wikitable"
