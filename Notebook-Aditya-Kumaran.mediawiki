@@ -13,19 +13,32 @@ Interests: Writing fiction, Music, Reading, Sports
 === Lecture Notes: ===
 *  Subteams updated everyone on their progress.
 *  Image Processing:
-    *  
+    *  New branch to run new experiments. Low ROC-AUC for baseline run (0.48), trying to troubleshoot.
+    *  Runs with Lexicase, epsilon lexicase, NSGA III, and tried with new mutation methods. Fixed some bugs with contrast enhancement - .npz formatting was troublesome, as opposed to .png or .jpeg. (Maybe input files are wrong? Primitives shouldn't be reading in these files? Primmitives should be taking in a numpy array.)
+    *  Worked on a sharpening filter
 *  NLP:
-    *  
+    *  Have all primitives required for results for standalone tree evaluator. NNLearner2 works on classification, some results don't make sense.
+    *  Integrated some primitives into Keras. Want to maybe use AutoML for solving QA problems - still designing experiment.
+    *  New members getting setup on PACE
+    *  Everyone will run emade for different train and test data - hopefully gives everyone different accuracies/F1 scores. Naive model gives score - finds start index of answer that matches question. Uses Emade seeded individuals to evolve solutions to compare to the found answer. Will use objectives to draw distribution for accuracy of all individuals on the pareto front (multiple objectives). If naive model lies in the critical region, they will reject their hypothesis.
 *  Neural Architecture Search:
-    *  
+    *  New members adding slides to final presentation
+    *  Improving emade runs - have only been using training dataset, so will use test set soon (might cause overfitting - test set is meant to make sure that you don't overtrain). Dr. Zutty advises just to use the train set, and then test progress at the end by recomputing based on models trained on test data.
+    *  If: training data is used to fit an individual model, testing data is used to score the model (compute objectives in emade; final dataset in outside ML world), and validation (final dataset in emade). Pareto front is computed on test data - drives search, probably even more than train data via metalearning. Models are learning the relationship between train and test data. "Validation" is meant to be data that the model has never seen before, used to see how well the model actually runs - can be used to check overtraining of Emade by measuring how much the pareto front would move for new data vs your evaluation data.
+    *  ADFs/Modules assemble pooling layers to downsize images, etc.
+    *  Might use weightsharing (in Keras) to improve new NNLearners learning time.
 *  Modularity:
-    *  
+    *  Documentation and refactoring is done - added new classes. No longer store too much information in tuples, now in classes to help debugging.
+    *  Could create a representation function for objects. Added method I/O parameter types and return types.
+    *  Bad variable names have been eliminated, refactored old methods with unused/inefficient code.
+    *  First-semesters looked into CloudCopy.sh and visualization (this was me). Will probably remove 'individual size' as an objective.
+    *  CacheV2 is almost done, testing remains. Stocks runs hopefully starting soon.
 
 === Subteam Meeting Notes: ===
-*  
+*  Thanksgiving Break Week
 
 === Individual Notes: ===
-*  
+*  Thanksgiving Break Week
 
 === Action Items: ===
 {| class="wikitable"
