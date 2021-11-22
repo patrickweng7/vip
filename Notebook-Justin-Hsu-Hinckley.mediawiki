@@ -76,6 +76,46 @@ Individual Work:
                     mutant.parents.append(mutant_hash)
                 mutant.parents = list(set(mutant.parents))
                 mutant.intermediate_parent = True  # this mutant is now an intermediate parent, will be set to False when added to NNStatistics table
+** Changes to mate() function:
+            if not hasattr(child1, 'parents'):
+                child1.parents = []
+            if not hasattr(child2, 'parents'):
+                child2.parents = []
+
+            child1.parents, child2.parents = child1.parents + child2.parents, child2.parents + child1.parents
+
+            if not hasattr(child1, 'intermediate_parent') or not child1.intermediate_parent:
+                child1.parents.append(child1_hash)
+                child2.parents.append(child1_hash)
+            if not hasattr(child2, 'intermediate_parent') or not child2.intermediate_parent:
+                child1.parents.append(child2_hash)
+                child2.parents.append(child2_hash)
+            child1.parents = list(set(child1.parents))
+            child2.parents = list(set(child2.parents))
+            
+            child1.intermediate_parent = True
+            child2.intermediate_parent = True
+** Changes to code where we insert into Statistics table:
+                if (my_str(evaluatedIndividual).__contains__("NNLearner")):
+                    cur_nnstatistics = database.selectNN(my_hash_id, evaluatedIndividual.age)
+                    if cur_nnstatistics is None:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string # TODO: insert error message
+                        )
+                    else:
+                        database.updateNN(
+                            row=data,
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            error_string=data.error_string
+                        )
+                # evaluatedIndividual.intermediate_parent = False  # this individual is now in the NNStatistics table so it isn't an intermediate
+                evaluatedIndividual.parents = []  # clear .parents of individual so it's reset for next generation
 
 === Action Items ===
 {| class="wikitable"
