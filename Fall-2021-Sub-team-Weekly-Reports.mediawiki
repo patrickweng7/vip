@@ -384,6 +384,46 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Nov 15 - Nov 22 ===
+* Refactored and documented new implementation of code
+** Added typing and classes to implementation
+*** Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
+*** Example
+Before:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+```
+After:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl].population_info.occurrences:
+
+class ARLPopulationInfo:
+    def __init__(self, arl_fitness: int, occurrences: Set[Tuple[int, int]]):
+        # An ARL's "fitness". See ADFController._evaluate_ARL
+        self.arl_fitness = arl_fitness
+
+        # Set of Tuples (ARL_idx, indv_idx)
+        # ARL_idx: the index of the root node of the arl occurrence within the individual
+        # indv_idx: the index of the individual within the population
+        self.occurrences = occurrences
+```
+*** Creating classes also allowed for making a __repr__ function, which helped with printing information for debugging
+*** Also added method input parameter types and return types where possible
+** Standardized variable names
+*** Example:
+*** The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+** Added documentation for all methods
+** Refactored outdated methods and code which were inefficient and/or unused
+* Google Cloud smoothness
+** Working on changes to our script which uploads allows the team to upload EMADE instances to Google Collab
+** Faster and more intuitive to use
+* Data visualizations
+** Working on generating visualizations for the extended ARL runs we currently have data for
+** Investigating issue from midterm presentation where AUC over time graph increased
+* CacheV2 Integration
+** Work is progressing smoothly, code updates are complete but still need to be tested
+** Begin runs on stocks data soon
+
 === Week of Nov 2 - Nov 8 ===
 * Introduced first semester students to the team and our work
 ** Onboarding session regarding what our team does and the tools we use (eg, google collab)
