@@ -64,7 +64,18 @@ Modularity:
 * Completed fixed extended arl run of EMADE
 
 === Sub-team Notes ===
-
+Individual Work:
+* I talked with Cameron Bennett and decided that to solve our problem of intermediate parents that don't exist in the Statistics table, we can have each child track all of its parents that are already in the Statistic table.
+* This means that an individual can have more than 2 parents who it draws genes from.
+* We will worry about how we can draw meaningful results from this after we make our runs.
+* Changes made:
+** Changes to mutate() function:
+                if not hasattr(mutant, 'parents'):
+                    mutant.parents = []
+                if not hasattr(mutant, 'intermediate_parent') or not mutant.intermediate_parent:
+                    mutant.parents.append(mutant_hash)
+                mutant.parents = list(set(mutant.parents))
+                mutant.intermediate_parent = True  # this mutant is now an intermediate parent, will be set to False when added to NNStatistics table
 
 === Action Items ===
 {| class="wikitable"
