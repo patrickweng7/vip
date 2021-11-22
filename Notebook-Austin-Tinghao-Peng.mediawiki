@@ -7,18 +7,36 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 14: November 22, 2021 ==
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP)
+|
+|November 22, 2021
+|November 29, 2021
+|
+|}
+
 == Week 13: November 15, 2021 ==
 === 11/15/2021 In-Class Subteam Meeting ===
-* I realized I did not setup mysql correctly on PACE.
-* Currently working on a fix and will add any solutions I find.
+* I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
+* I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
+* I am currently asking Maxim about the error message and will include the solution I find here [[#Setting Up PACE-ICE Notes And Running EMADE on PACE]].
 
 === 11/17/2021 Subteam Meeting ===
-* mysql is still a problem so I am deleting my scratch/ folder and redoing the setup
-* see Week 12: Setting Up PACE-ICE Notes for updated setup procedures
-* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload another dataset to test run EMADE.
+* I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
+* see [[#Setting Up PACE-ICE Notes And Running EMADE on PACE]] for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
 
 === 11/21/2021 Hackathon ===
-* successfully ran EMADE on PACE (however, I ran into some issues, read below)
+* I successfully ran EMADE on PACE, but with some issues [[# Running EMADE On Pace [Error Fix] ]].
+
 
 * common mysql commands
 <pre>
@@ -60,7 +78,7 @@ SELECT * FROM <tableName>; # shows all values from tableName
 |November 21, 2021
 |-
 |Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
-|NO LONGER NEEDED! (Maxim making the repo able to be git cloned rather than scp-ed)
+|NO LONGER NEEDED! (Maxim is making the repo able to be git cloned rather than scp-ed)
 |November 8, 2021
 |November 22, 2021
 |November 21, 2021
@@ -75,7 +93,7 @@ SELECT * FROM <tableName>; # shows all values from tableName
 === 11/10/2021 Subteam Meeting ===
 * set up mysql on PACE-ICE
 
-=== Setting Up PACE-ICE Notes ===
+=== Setting Up PACE-ICE Notes And Running EMADE on PACE ===
 * I transferred my local EMADE fork onto the remote server using the following command
 ** <code>scp -r <relative-path-to-local-EMADE-folder> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
 * When creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account (use vim to open file) and add the following contents to the file.
