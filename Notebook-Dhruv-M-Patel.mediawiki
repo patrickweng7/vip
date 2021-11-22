@@ -19,7 +19,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
-==Nov 15th, 2021==
+==Nov 22nd, 2021==
 ===Meeting Notes===
 
 ===Subteam Notes===
@@ -34,15 +34,81 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |-
 |
 |In Progress
-|Nov 15, 2021
 |Nov 22, 2021
+|Nov 29, 2021
 |
 |-
 |Update Wiki Notebook
 |In Progress
+|Nov 22, 2021
+|Nov 29, 2021
+|
+|-
+|}
+
+==Nov 15th, 2021==
+===Meeting Notes===
+* Reminder from Jason to document your personal contributions in your individual notebook
+* Hackathon Details: Sunday 11/21, 1-5pm
+* Our elevator pitch: We are researching how we can improve EMADE’s performance on image processing tasks; this semester in particular we are looking at multi-class image classification. Using a baseline run of EMADE on the dataset we processed, success for us looks like seeing improvements in ROC and (second metric? Lol i don’t remember unless we are keeping # params) compared to the baseline run when evaluated independently and in combinations.
+
+===Subteam Notes===
+* Keep working on task, hackathon on Sunday
+* Max is working on getting a new environment ready for TF 2.6. Will also create new documentation for it when finished
+
+''' Work Notes '''
+* Still troubleshooting the 3D array problem
+* Invalid value encountered in subtract
+** ft = fitness - best_point  # line 571 in emo.py
+** A = extreme_points - best_point  # line 588
+** fn = (fitnesses - best_point) / (intercepts - best_point)  # line 608
+* Problematic line is 614
+** distances = numpy.sum(fn * reference_points, axis=2) / norm.reshape(1, -1)
+* Titanic dataset, ran NSGA3 with Titanic to make sure it’s not a problem with the CheXnet image dataset
+** Titanic XML file needed some tweaking to accommodate PACE
+** Encountered the same error! The same line caused “ValueError: operands could not be broadcast together with shapes (315,560,3) (560,14)”
+** Maybe NSGA3 doesn’t play well with EMADE
+* Mismatch between selection function’s reference points, expecting 14-long tuple for individual’s fitness values but individuals only tracking 2-long tuples. Objectives problem
+* Now going to try changing objective count and raise p to accommodate an adequate number of individuals
+* Tried changing objective count to 2 and p to 8 in my sel_nsga3 method
+** File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1240, in <listcomp> print([ind.fitness.crowding_dist for ind in elitePool])
+** AttributeError: 'FitnessMin' object has no attribute 'crowding_dist'
+** Now I’m getting this error, for some reason crowding_dist variable not being read
+
+* Got a run to finally work! Although, some individuals are not evaluating AUCs correctly (see below)
+** [https://pastebin.com/rWfDDhmZ Individual Errors]
+* Best individual that evaluated
+** Precision AUC = 0.0938091 (improve from 0.0938667)
+** NNLearner(ARG0, Conv1DLayer(0, tanhActivation, 7, 2499, trueBool, 150, GlobalAveragePoolingLayer2D(InputLayer())), 45, AdagradOptimizer)
+* “Worst” of individual that evaluated
+** Precision AUC = 0.0981862
+** NNLearner(ARG0, OutputLayer(BatchNormalizationLayer(InputLayer())), 70, AdamOptimizer)
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Fix NSGA3 errors
+|Complete
 |Nov 15, 2021
 |Nov 22, 2021
-|
+|Nov 21, 2021
+|-
+|Run NSGA3
+|Complete
+|Nov 15, 2021
+|Nov 22, 2021
+|Nov 21, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 15, 2021
+|Nov 22, 2021
+|Nov 22, 2021
 |-
 |}
 
