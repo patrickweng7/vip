@@ -16,7 +16,7 @@
 !Suspense Date
 !Date Resolved
 |-
-|Run EMADE with new selection method (selEpsilonLexicase from DEAP)
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
 |
 |November 22, 2021
 |November 29, 2021
@@ -36,8 +36,15 @@
 
 === 11/21/2021 Hackathon ===
 * I successfully ran EMADE on PACE, but with some issues [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Running_EMADE_On_Pace_Error_Fix documented here]
+* I implemented <code>sel_epsilon_lexicase</code> in the selection_methods.py file in EMADE.
+<pre>
+def sel_epsilon_lexicase(individuals, k, epsilon=0.01):
+    return tools.selEpsilonLexicase(individuals, k, epsilon)
+</pre>
+* Harris and I are currently working on running <code>sel_epsilon_lexicase</code> with epsilon values of 0.01, 0.05, 0.1, 0.5, 1, 5, 10.
+** These epsilon values were chosen after reading this paper written about [https://dl.acm.org/doi/pdf/10.1145/2908812.2908898 Epsilon-Lexicase Selection for Regression]
 
-* common mysql commands
+* I had some difficulty navigating mysql so I am providing some common mysql commands (specifically to access a table in a database).
 <pre>
 SHOW databases; # shows all databases
 USE <databaseName>; # selects databaseName for usage
