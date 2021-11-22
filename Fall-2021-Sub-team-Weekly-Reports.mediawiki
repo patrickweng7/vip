@@ -1171,4 +1171,28 @@ Meetings: 2:00 pm on Fridays, Virtual
 * Cameron B has started on some changes to integrate mating and mutation within ADFs of EMADE. These changes will likely result in some necessary changes to both the master algorithm and SQL connection files.
 * Justin H ran into a blocker while creating some testing/analytics logic in EMADE whose intent is to track nnlearner individuals over multiple generations. This task is meant to give us more visuals and metrics for analyzing growth of NNLearner's over time. Unfortunately, new hashes are generated for individuals every generation which prevents us from properly keeping track of a single hash. A possible solution to this would be to attach some additional variable(lineage name!) to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
 * We are also looking to give new name for ADFs we are commonly using in NNLearners.
+
+
+=== Week of November 15th - November 21st ===
+* This week's meeting consisted of updates and some internal updates amongst members.
+* New members have planned out a meeting amongst themselves which is meant to coordinate slides to be completed and discussed during the final presentation. Pranav has made their group chat and Charlie has started adding some slides to our template powerpoint.
+* Cameron W presented the following points as small modifications that could be made to our currently functioning EMADE in order improve nnlearner performance easily: 
+** Use both train and test sets provided
+** stop deleting color channels
+model improvements:
+** get rid of pooling layers which leads to like 10x more parameters
+** after removing, model could overfit on train set (98% train accuracy, 62% test)
+
+preprocessing improvements: (uses baseline from getting rid of pooling layers -- 62% test acc)
+** rescaling gives ~5% test accuracy boost (kept)
+** using color channels gives ~3% test accuracy boost (kept)
+** random rotation (60 degree range): worse than baseline (no overfitting)
+** brightness (20-100%): worse than baseline (overfits)
+** random zoom (50-100%): same as above
+** subtracting per-pixel mean: same as above
+* Cameron B has completed his changes for mating and mutation methods which now allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals. I will likely start working on weight sharing in parallel.
+* Cameron W is currently working to integrate weight sharing to our existing modules in EMADE.
+* Conner Y and Devesh K are still working to integrate novelty detection changes hopefully some progress will be made at the hackathon which allows us to undergo experiments before final presentations.
+* Justin H is now unblocked on his task to add a parent column which tracks hash values for nnlearners. After he has completed this, he will work to create some extraction logic which we will utilize after completing some EMADE runs.
+* Lucaz Z is doing literature review which will contribute to the final presentation slides.
 [[Category-AAD]]
