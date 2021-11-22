@@ -6,9 +6,57 @@ Email: wubete3@gatech.edu
 Cell Phone: +1 4047897798
 
 Interests: Soccer, Walking, Eating, Breathing
+== Nov. 22, 2021 (Week 14) ==
+=== Weekly Scrum ===
+* Image processing: 
+ - All of the group members have migrated to PACE ice.
+ - Working on using a literal NumPy array, not a file.
+ - Baseline ROC AUC? .48 corresponds to the firewall analyzer.
+
+* Modularity:
+ - New Pool ARL, type ARL population info is updated. Much more readable ARLs have been implemented.
+ - Code has been written much clearly for future students to be able to read.
+ - Standardized variable names have been updated. So variable names have been made consistent throughout our files. Example: My_dict and dict
+ - We are improving our sh files so that they will not crash. Cache_v2 integration is also working.
+ - Looking at the AUC increasing over time bug.
+ - Previously optimizing 3 objectives at once, we will now use it with correct data, code, data objectives to make a correct analysis.
+ - ARLs only get built once, so if something has ARL 0 in it, everytime it;s seen it's ARL 0,but on next generation, it will make an index for the long list of ARLs.
+
+* NLP:
+ - Gathered all primitives for standalone tree evaluation.
+ - George worked on fixing some bugs in the bidirectional layer.
+ - Final presentation: Can we use Auto ML?
+ - Setting up new members on BASE.
+ - Drawing a distribution from the accuracies we get from our individuals on EMADE pareto fro.
+ - They will give them different accuracies, and with that distribution, we will recheck.
+ - Seeded vs. Unseeded: Emade is given a head start, you have to do better than it, unseeded means emade will start from nothing.
+ - Organizing trails and data have to answer specific questions you want. Auto Ml is going to find this part of the region that has a better
+ - ctnd: pareto front than the ML
+ - For AUC you're only winning if you're decreasing a subset of. the space of the AUC.
+ - Measuring how much percent of this data that emade is pushing forward. We try to decrease the AUC from a defined point.
+ - When multiobjective, we will be minimizing the AUC when we are looking at the old paretofront subset and minimizing that specific subset 
+   under the old, seeded AUC.
+
+* NAS:
+ - Figured out they were only the training dataset on Kaggle and TensorFlow.
+ - Test set at the end is making sure you're not over-training it. The data set is meant to equalize at the end.
+ - You have to give up some kind of data to the Auto ML. Trains essentially fit the model, something to score and assess how those bits are 
+   transferrable to the real world.
+ - Use the test set at the end.
+ - So you can change the training data in the XML file.
+ - Why do we need to give up data when running autoML? There is train, test, validation
+ - training: used to fit an individual model, pattern recognition, or whatever
+ - test: What you use to score your model, in emade world, what we use to compute our objectives on, score your model, search is performed here, when plotting Pareto front, all the scores are done in the test (score model)
+ - validation: reserved data that I care about, the "test set", unseen data by any optimization, the models have not seen this, what you would expect from the real-world performance.
+ - So you need that third set to see how much would my AUC move if I were to give it data it hasn't seen before, so the real world.
+ - building layers not being added with any intent, using building layers to downsize images. Find a different way to connect.
+ - Mate and mutation methods. The module is a class, we get weight for that module when we do training.
+ - Weight sharing: convolution, and Neural Network weight sharing
+ - Multiple individuals are benefitting from the training of the same modules, but will it work across different computers?
 
 
 == Nov. 15, 2021 (Week 13) ==
+
 * Make sure to include your contributions to notebooks, especially for Bootcamp students.
 * Even if you read a paper, specify which paper. If you run programs or change code, specify what you ran, the results, as well as your repository link for the code change and summary for the code change.
 === Weekly Scrum ===
@@ -22,6 +70,9 @@ Interests: Soccer, Walking, Eating, Breathing
     result in another hash.
 * Image processing:
 
+=== Personal Notes ===
+* working on CludCopy.sh error, recursively taking up space and making infinite copies of our datasets. I am currently testing the .sh file on an Ubuntu VM with limited partitioned space so that the bug will only take up limited space.
+* Using new shell commands to show the progress of the CloudCopy.sh progress, allowing the user to see a timeline for when it will finish.
 == Nov. 8, 2021 (Week 12) ==
 
 === Personal Notes: ===
