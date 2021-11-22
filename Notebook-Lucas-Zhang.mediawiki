@@ -5,7 +5,7 @@ Team Member: Lucas Zhang
 
 Email: lzhag462@gatech.edu 
 
-Cell Phone; 912-257-6740
+Cell Phone: 912-257-6740
 
 Classes Taking: Deeping Learning, Digital Design Lab, Computer Networking I, Robotics and Perception, Ethics
 
@@ -581,6 +581,22 @@ NAS:
 **stop deleting color channels
 
 model improvements
+* get rid of pooling layers which leads to like 10x more parameters
+* after removing, models could overfit on train set (98% train accuracy, 62% test)
+
+Preprocessing improvements: (uses baseline from getting rid of pooling layers -- 62% test ACC)
+** rescaling gives ~5% test accuracy boost (kept)
+** using color channels gives ~3% test accuracy boost (kept)
+** random rotation (60 degree range): worse than baseline (no overfitting)
+** brightness (20-100%): worse than baseline (overfits)
+** random zoom (50-100%): same as above
+** subtracting per-pixel mean: same as above
+
+* Cameron B has completed his changes for mating and mutation methods which now allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals. I will likely start working on weight sharing in parallel.
+* Cameron W is currently working to integrating weight sharing to our existing modules in EMADE
+* Conner Y and Devesh K are still working to integrate novelty detection changes hopefully some progress will be made at the hackathon which allows us to undergo experiments before final presentations.
+* Justin H is now unblocked on his task to add a parent column which tracks hash values for nnlearners. After he has completed this, he will work to create some extraction logic which we will utilize after completing some WMADE runs.
+* Lucas Z is doing literature review which will contribute to the final presentation slides.
 
 
 == Spring 2021 Semester ==
