@@ -8,6 +8,36 @@
 
 = Fall 2021 =
 
+== Week 14: November 22nd - November 28th ==
+
+===November 22nd, 2021 Team Meeting Notes===
+*scrums:
+** modularity
+*** documentation and refactoring has been done
+*** all bad variable names have been changed
+*** First year members have been improving google cloud scripts
+*** First year members have also been working on data visualization
+*** Cache V2 integration is mostly done
+** NLP
+*** We have all the primitives that we need to get results
+*** NNLearner2 works on classification
+*** New members are almost set up with PACE, once set up, everyone can help run the experiment
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Resolve errors from running EMADE on PACE
+|In progress
+|November 15th, 2021
+|November 29th, 2021
+|
+|}
+
 == Week 13: November 15th - November 21th ==
 
 ===November 15th, 2021 Team Meeting Notes===
@@ -43,6 +73,19 @@ Scrums:
 ** My notes and questions:
 *** I'm a bit confused, so all we are doing is looking at only the changes that were made in EMADE.py according to the github link that was sent (so like the one line of code were NNLearner2 was added?)  and based on that change, we need to see what else needs to be changed in the load_environment method in general_methods.py?
 *** If my assumption was correct, I think we need to first understand what each of the code file is doing so that we can then determine what needs to be integrated, however right now I'm having trouble understanding the code, does anyone have any tips on that?
+
+===November 21st, 2021 Hackathon Notes===
+*Resolved some issues from running EMADE on PACE
+*Found that I was missing this line from the pbsmysql.pbs file
+<blockquote> 
+mysqld_safe --datadir='/storage/home/hpaceice1/mgeller6/scratch/db'
+</blockquote> 
+*To run standalone tree evaluator, I must clone the updated branch using:
+<blockquote> 
+git clone --depth 1 https://github.gatech.edu/sleone6/emade.git --branch feature/nnlearner2 --single-branch 
+</blockquote> 
+* I tried running that, however, it isn't merging with the old branch correctly, therefore I decided to delete the old branch on PACE and clone the updated branch locally and scp over the updated branch. That failed miserably because of disk quota exceeded error, need to figure out what went wrong.
+
 
 ===Action Items===
 {| class="wikitable"
