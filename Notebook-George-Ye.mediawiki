@@ -9,6 +9,55 @@ Cell Phone: 678-365-1412
 
 Interests: Machine Learning, Basketball, Video Games
 
+== November 15, 2021 ==
+
+'''Team Meeting Notes:'''
+* Prep work for hackathon. Main focus will be on getting NNLearner2 to work
+
+'''Subteam Meeting Notes:'''
+* One team focused on getting NNLearner to work
+* Another team focused on getting bidirectional attention layer to work
+
+'''Personal Work:'''
+* Karthik and I worked on getting the attention flow layer to work. There were two main issues:
+** In the megamerge step, their was a function to convert a list of 1d tensors into a 2d tensor using tf.convert_to_tensor. Function was not working correctly. Instead, we converted each 1d tensor into a 2d tensor and then concatenated all together.
+```
+# T*2d megamerged matrix G
+megamerged_matrix = [[0]*8*self.d]*self.t
+
+# merge columns of embedded_context, c2q, and q2c
+for i in range(self.t):
+    megamerged_matrix[i] = tf.concat([embedded_context[i], c2q[i], c2q[i]*embedded_context[i], q2c[i]*embedded_context[i]], 0)
+        
+for i in range(len(megamerged_matrix)):
+    megamerged_matrix[i] = tf.expand_dims(megamerged_matrix[i], 0)
+    
+# convert into (T,8d) tensor
+return tf.concat(megamerged_matrix, axis = 0)
+``` 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Getting successful pace stand alone tree evaluator on Amazon Dataset
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Fixing modeling, attention, and output layers
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|}
+
 == November 8, 2021 ==
 
 '''Team Meeting Notes:'''
