@@ -16,7 +16,7 @@ This week I hope to accomplish setting up a new environment and launching a new 
 
 I completed a couple of baseline runs, but I noticed that many times the tensors that would be loaded onto the GPU for evaluation was very large and caused out of memory errors. This definitely limited my search space and affected the Pareto front. I wrote the following query to extract the front: 
 
-```select tree, evaluation_start_time, evaluation_gen, FullDataSet ROC AUC, FullDataSet Num Parameters from paretofront join individuals on paretofront.hash=individuals.hash where generation = (select max(generation) from paretofront) order by FullDataSet ROC AUC;```
+`select tree, evaluation_start_time, evaluation_gen, FullDataSet ROC AUC, FullDataSet Num Parameters from paretofront join individuals on paretofront.hash=individuals.hash where generation = (select max(generation) from paretofront) order by FullDataSet ROC AUC;`
 
 This baseline run (no image processing team improvements) comprised of the following 4 individuals on the Pareto front:
 
