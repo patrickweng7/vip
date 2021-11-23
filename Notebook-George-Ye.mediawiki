@@ -34,7 +34,40 @@ for i in range(len(megamerged_matrix)):
     
 # convert into (T,8d) tensor
 return tf.concat(megamerged_matrix, axis = 0)
-``` 
+```
+** Second issue was that the layer could not take varying batch sizes (only worked for batch size of 1). To fix this, we can return a None batch size, which represents a varying batch size. Or return the match size based on the input. We also did some better code design by abstracting the call method with a helper that does the work of getting the similarity matrix, calculating c2q and q2c, and doing the merge.
+```
+def call_helper(self, embedded_context, embedded_query):
+    # similarity_matrix: (T, J)
+    similarity_matrix = self.make_similarity_matrix(embedded_context, embedded_query)
+            
+    # Context --> Query Attention. U_hat = Attended query matrix for all context words, size (T,2d)
+    c2q = self.contextToQueryAttention(embedded_query, similarity_matrix)
+
+    # Query --> Context Attention, size (T,2d)
+    q2c = self.queryToContextAttention(embedded_context, similarity_matrix)
+
+    megamerged = self.megamergeStep(embedded_context, c2q, q2c)
+    return megamerged
+
+if input[0].shape[0] is None:
+    megamerged = self.call_helper(embedded_context, embedded_query)
+    megamerged = tf.expand_dims(megamerged, 0)
+    final_result_matrix = tf.compat.v1.placeholder_with_default(megamerged, [None, self.t, self.d * 8])
+    return final_result_matrix
+else:
+    batch_size = input[0].shape[0]
+    batches = []
+    for i in range(batch_size):
+        megamerged = self.call_helper(embedded_context, embedded_query)
+        batches.append(megamerged)
+    for i in range(len(batches)):
+        batches[i] = tf.expand_dims(batches[i], 0)
+                
+
+    return tf.concat(batches, axis = 0)
+
+```
 
 '''Action Items:'''
 {| class="wikitable"
@@ -44,17 +77,11 @@ return tf.concat(megamerged_matrix, axis = 0)
 !Suspense Date
 !Date Resolved
 |-
-|Getting successful pace stand alone tree evaluator on Amazon Dataset
-|In Progress
-|November 8, 2021
-|November 15, 2021
-|November 15, 2021
-|-
-|Fixing modeling, attention, and output layers
+|Hackathon project of getting Bidirectional attention flow to work
 |Complete
-|November 8, 2021
 |November 15, 2021
-|November 15, 2021
+|November 22, 2021
+|November 22, 2021
 |-
 |}
 
