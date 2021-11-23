@@ -12,7 +12,43 @@
 
 == Week 13: November 15th - November 22nd ==
 
-This week I hope to accomplish setting up a new environment and launching a new baseline run using our newly-processed data on new accuracy metrics to receive a new baseline for our comparisons which we are currently working on. At the VIP hackathon, I asked Jason to set up a shared environment using the new  
+This week I hope to accomplish setting up a new environment and launching a new baseline run using our newly-processed data on new accuracy metrics to receive a new baseline for our comparisons which we are currently working on. At the VIP hackathon, I asked Jason to set up a shared environment using the new configuration with Python 3.8 and the new Tensorflow 2.6 module added during the PACE-ICE maintenance. 
+
+I completed a couple of baseline runs, but I noticed that many times the tensors that would be loaded onto the GPU for evaluation was very large and caused out of memory errors. This definitely limited my search space and affected the Pareto front. I wrote the following query to extract the front: 
+
+```select tree, evaluation_start_time, evaluation_gen, FullDataSet ROC AUC, FullDataSet Num Parameters from paretofront join individuals on paretofront.hash=individuals.hash where generation = (select max(generation) from paretofront) order by FullDataSet ROC AUC;```
+
+This baseline run (no image processing team improvements) comprised of the following 4 individuals on the Pareto front:
+
+ROC: 0.486, # Params: 831
+
+Tree: NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_9(adf_12(adf_19(InputLayer)))), (((((((((DenseLayerUnit32))))))))), ((((AdadeltaOptimizer)))))
+ adf_9: Conv2DLayer((Conv2DFilterUnit48), (sigmoidActivation), (Conv2DKernelSize1), MaxPoolingLayer2D((Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)))
+ adf_12: Conv2DLayer((((Conv2DFilterUnit16))), (((defaultActivation))), Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, (defaultActivation), MaxPoolingLayer2D(Conv2DKernelSize1, ARG0)))
+ adf_19: Conv2DLayer((Conv2DFilterUnit16), defaultActivation, (Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit32, tanhActivation, ARG0))
+
+ROC: 0.496, # Params: 559
+
+Tree: NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_8(adf_13(adf_0(InputLayer)))), (((((DenseLayerUnit256))))), (((((AdadeltaOptimizer))))))
+ adf_0: Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize3, ARG0)
+ adf_8: DenseLayer4dim(((DenseLayerUnit32)), ((eluActivation)), MaxPoolingLayer2D(Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)))
+ adf_13: MaxPoolingLayer2D(Conv2DKernelSize1, ARG0)
+
+ROC: 0.498, # Params: 287
+
+Tree: NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_9(adf_12(adf_12(adf_13(adf_8(adf_17(InputLayer))))))), ((((Conv2DFilterUnit16)))), (((NadamOptimizer))))
+ adf_8: Conv2DLayer(((Conv2DFilterUnit16)), ((((seluActivation)))), ((Conv2DKernelSize1)), DenseLayer4dim(DenseLayerUnit32, (seluActivation), MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)))
+ adf_9: Conv2DLayer((Conv2DFilterUnit16), (sigmoidActivation), (Conv2DKernelSize1), InputLayer)
+ adf_12: Conv2DLayer(((Conv2DFilterUnit16)), (tanhActivation), (Conv2DKernelSize1), DenseLayer4dim((DenseLayerUnit32), (defaultActivation), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))
+ adf_13: MaxPoolingLayer2D(((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize3), InputLayer))
+ adf_17: DenseLayer4dim((((DenseLayerUnit32))), eluActivation, DenseLayer4dim((DenseLayerUnit32), eluActivation, ARG0))
+
+ROC: 0.5, # Params: 30
+
+Tree: NNLearner((((((((((ARG0))))))))), GlobalMaxPoolingLayer2D(adf_13(adf_11(adf_0(MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer))))), (((((((((DenseLayerUnit32))))))))), ((((((((((SGDOptimizer)))))))))))
+ adf_0: Conv2DLayer(((Conv2DFilterUnit16)), ((eluActivation)), ((Conv2DKernelSize1)), DenseLayer4dim((DenseLayerUnit256), (reluActivation), MaxPoolingLayer2D(Conv2DKernelSize3, ARG0)))
+ adf_11: DenseLayer4dim(DenseLayerUnit256, reluActivation, ARG0)
+ adf_13: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)
 
 === Setup EMADE with TF 2.6 on PACE-ICE ===
 
