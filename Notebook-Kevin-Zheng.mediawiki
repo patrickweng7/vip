@@ -16,6 +16,22 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
+== November 21, 2021 ==
+* Efficiency Improvements
+** used the individual NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)
+** Embedding Layer
+*** get embedding to run on GPU:
+*** https://stackoverflow.com/questions/63044490/tf-keras-how-to-improve-performance-with-large-ish-embedding-layer
+*** changed the source code of tensorflow itself (tensorflow/python/keras/layers/embeddings.py)dfeff
+*** saved only a few minutes of training time, from 4255 seconds to 3824 seconds
+** LSTM Layer
+*** force CuDNNLSTM implementation:
+*** https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM
+*** no difference, perhaps this has already been done
+** Reduced Precision
+*** set tensorflow datatype policy to mixed_float16, from the default of float32
+*** tbd
+
 == November 15, 2021 ==
 * I commented dimensions onto every variable on every layer for better code maintainability
 * I either directly wrote or fixed every function and every layer in our BiDaf model (embedding, attention, modeling, and output)

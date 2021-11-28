@@ -4,6 +4,56 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
+== November 22, 2021 ==
+'''Team Meeting Notes'''
+
+* Image Processing
+** Able to get runs with lexicase
+** baseline ROC not performing too well, may be as a result of some underestimation
+** Fixed bug with contrast enhancement code
+* Modularity
+** Refactored + documented new code implementation
+** Standardized variable names
+** Added data visualizations for extended ARL runs
+* NLP
+** NNlearner2 fixed syntax errors, but having issues switching to regression problem
+** All primitives currently worked on are working within EMADE and keras model able to build layers and feed into LSTM
+** Goal: get regression working on NNLearner2 as soon as possible and get everyone on team setup to run experiments
+* NAS
+** model improvements: get rid of pooling layers which leads to 10x more parameters
+** made quite a few preprocessing improvements including rescaling, color channels, random rotation, and brightness
+
+'''Subteam Notes'''
+
+Worked individually on runs but didn't meet up as a group because of Thanksgiving break
+
+Individual progress and contributions
+
+* Since I was working remotely from home from the first time, I had some trouble at first connecting to pace
+* I used the following guide to connect to PACE remotely via vpn.gatech.edu https://gatech.service-now.com/home?id=kb_article_view&sysparm_article=KB0026837
+* Found it much easier to ssh and scp large files using the VSCode extension: Remote - SSH: Editing Configuration Files v0.66.1 (Very useful!)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Be able to run squad dataset within pace with output
+|In Progress
+|November 22, 2021
+|
+|November 29, 2021
+|-
+|Get 2 data pair to run locally without error using standalone tree evaluator
+|In Progress
+|November 22, 2021
+|
+|November 29, 2021
+|-
+|}
 
 == November 15, 2021 ==
 '''Team Meeting Notes'''
@@ -29,11 +79,178 @@ Another notes
 * hash based on string representation of individual (and should generally not change)
 * ADF1, ADF2, ADF3 exist for each master process tree 
 
+'''Subteam Notes'''
+
+Met with subteam on 11/17 to redistribute tasks
+* created new statistics team to work on experiments
+* added more members to the NNlearner 2 data pair team and integration team
+
+This week, I worked on comparing the differences in general_methods.py with create_representation in EMADE.py
+* 2 data pair logic not implemented in general_methods.py which is used in standalone tree evaluator
+* EMADE.py is updated though
+* During subteam meeting, we discussed whether it was easier to edit general_methods.py with the differences to handle 2 data pairs so that standalone tree evaluator would work; however, after checking the code base, we decided that it would be easier to simply go ahead and run GP runs with seeded NNlearner and NNlearner2 individuals.
+
+* Ran runs with EMADE without seeding, but only a few rows had NNlearner
+for example: running <code>select * from individuals where tree like "%NNLearner%";</code> only returns 5 rows
+
+The next steps I will take will be to figure out how to run EMADE with seeding to enforce NNLearner to begin with. Then once NNLearner is working without err, I will try to run NNLearner2 and debug any issues that may occur.
+
+[[files/dzhang351/first_run_no_seeding.png|100px]]
+
+Went to the hackathon on 11/21 and worked on running EMADE runs until completion to fully evaluate NNLearner individuals to make sure there is no error, then edit and test running NNLearner2 individuals (which will most likely fail in the beginning). Then using the error logs, update EMADE.py to handle two data pairs for text input so that NNLearner2 is able to run without error.
+
+I also took notes about NLP to get a better understanding of the reasoning about why certain models perform well and what is the current state of the art. I also learned about text normalization methods and preprocessing. The following are some of my notes that I took down.
+
+### NLP Tasks
+
+* Machine translation
+
+* Grammar and spell checking
+* Text classification
+* Named-entity recognition
+* Summarization/Topic-modeling
+* Text generation
+
+#### Similarity
+
+* edit distance
+* cosine similarty
+
+#### Vectorization (preprocessing)
+
+* Bag of words: dictionary of words with integer indices representing count of the word
+
+* TD-IDF (term frequency and inverse document frequency): estimate relative importance of a term compared to other terms
+
+  * TF: frequency of term in document / total num of terms in document
+
+  * IDF: displays importance of a term $log(n/m)$ where n are the number of documents in a corpus and m are the number of documents containing the term
+
+    * weigh down frequent terms (like I, is, of, that) and scale up rare terms
+
+  * multiply TF and IDF together to get metric
+
+    Purpose: unimportant terms will receive lower significantly lower weight
+
+#### Text Normalization (preprocessing)
+
+* Context-independent normalization: removing non-alphanumeric characters or other symbols
+
+* Canonicalization: convert to "canonical" form
+
+* Stemming: extract word's root
+
+  * reduce words to their root form: often use heuristic that chops off the end of words
+
+* Lemmatization: transform word to its lemma (basic word) using vocabulary, morphological analysis, and parts of speech analysis
+
+#### Naive Bayes
+
+* Use bayes theorem with independence assumption between words
+  * $arg\max\limits_c [P(c)\sum_{i=1}^{n}P(w_i|c)]$ where $w_i$ are the words and c are the classes
+* Algorithm is simple and fast
+* Applications
+  * Text classification
+  * Spam filtering
+  * Text tonality analysis
+
+#### Word Embedding
+
+* Set of various methods that associate words, word forms, or phrases with number vectors
+
+  Words that are similar in meaning/related are closer together
+
+  * Word2Vec: uses neural networks to calculated word embeddings based on context
+    * uses one hot encoding
+  * TF-IDF: weigh down common words and give more importance to words that only appear in a few documents (sparse vectors)
+  * GloVe: uses combination of word vectors that describes probability of co-occurence of words
+    * unsupervised method (dense vectors) utilizing neural embeddings (like word2vec)
+    * puts emphasis on word-word co-occurences (certain words appear next to each other often)
+  * FastText: similar to word2vec but but uses parts and symbols; word becomes context
+
+* Once transformed into embeddings, we can use the vectorized values to measure...
+
+  * similarity (cosine similarity)
+  * compare use of word accross different corpora (ex: comparing "immigration" in Democrat/Republican corpus using cosine similarity)
+  * analyzing relationships (picture below)
+
+#### Long Short Term Memory (LSTM)
+
+* NN architecture capable of training long term dependencies; type of recurrent neural network
+  * uses input, previous output (or n previous states), and state to determine output
+  * addresses short term memory caused by vanishing gradient problem from backprop (weights shared across each time step)
+* LSTM gate layers
+* forget, output, storage gate
+  * cell state
+  * input gate layer
+  * cell status update (forget gate)
+  * output data
+* Filter layer can remove info from cell state
+* Variations
+  * "Peephole" connections: filter layers can additionally control cell state
+  * "Forgotten" and input filters: adds option to ignoreor keep in memory information as joint decision by network cells
+  * Gated recurrent unit (GRU): the forgetting and input filters combine into one "update" filter (update gate) resulting in simpler and faster LSTM model 
+
+<img src="http://colah.github.io/images/post-covers/lstm.png" alt="Understanding LSTM Networks -- colah&#39;s blog" style="zoom:50%;" />
+
+Seq2Seq: encoder, decoder structure using single-layered RNNs
+
+* potential issue with encoder decoder structure is that the neural network needs to compress all the necessary information of a source sentence into a fixed length vector (from encoder) to be passed to decoder
+
+LSTMS: https://www.youtube.com/watch?v=8HyCNIVRbSU
+
+Transformer: https://www.youtube.com/watch?v=TQQlZhbC5ps&t=368s 
+
+RNN, LSTM, Attention: https://medium.com/swlh/a-simple-overview-of-rnn-lstm-and-attention-mechanism-9e844763d07b
+
+https://www.machinelearningplus.com/nlp/natural-language-processing-guide/
+
+https://towardsdatascience.com/a-practitioners-guide-to-natural-language-processing-part-i-processing-understanding-text-9f4abfd13e72
+
+https://www.datasciencecentral.com/profiles/blogs/top-nlp-algorithms-amp-concepts
+
+https://geekyhumans.com/best-nlp-algorithms/
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research NLP basics and get a better understanding of how preprocessing/vectorization works
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Run EMADE locally such that it is able to evaluate NNLearner individuals
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Attend hackathon and discuss action items in terms of experimentation and NNLearner2 (2 data pair action items)
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Update notebook with progress and EMADE run data (errors as well as successes)
+|Complete
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|}
+
 == November 8, 2021 ==
 '''Team Meeting Notes'''
 
 * Met with subteam and formed more specific groups within trello
 * Placed on the NNlearner with 2 data pairs team focusing on adding the nnlearner2 method that works with 2 data pairs for text type data
+* Decreased the scope of this semester's project by only focusing on returning the start index of the answer
 
 '''Subteam Notes'''
 
@@ -77,7 +294,7 @@ One thing that may be better is if requirements.txt is constantly kept up to dat
 |Get standalone tree evaluator to run on one instance of an individual
 |In progress
 |November 8, 2021
-|
+|November 17, 2021
 |November 15, 2021
 |-
 |}

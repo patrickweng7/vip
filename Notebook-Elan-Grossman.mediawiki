@@ -10,6 +10,181 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+== November 3rd, 2021 ==
+
+'''Lab Notes'''
+
+* We want comparison to be closer to chest-x-ray paper by modifying dataset. The paper individuals compares the presence of one disease with every other image and trains the same classifier on the 14 different diseases. We will do something similar, but with less data.
+* Switching to a multi-class instead of multi-label algorithm. This means we will only evaluate cases where one disease exists
+
+TASKS:
+* Get set up on PACE-ICE
+* Clone fork ‘Image Processing(nn-vip)
+* Read ChexNet
+* Review VIP paper
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|In Progress
+|November 3rd, 2021
+|Novembver 8th, 2021
+|-
+|-
+|Read ChexNet
+|In Progress
+|November 3rd, 2021
+|Novembver 8th, 2021
+|-
+|-
+|}
+
+
+
+== November 1st, 2021 ==
+'''Lab Notes'''
+Today we choose teams. I got put on the Image Processing Team!
+
+Everyone did standup and discussed what changes they made in the previous week and what work they were going to work on this week.
+
+== October 25th, 2021 ==
+
+'''Lab Notes'''
+Today was a presentation around Emade for sub teams and bootcamepers. Presentation is at [[Bootcamp-Subteam-1]]
+
+5 Teams other than us presented:
+* NLP
+** Currently trying to get LSTM networks to work
+** Trying to implement solution that is competitive with distilBert
+** Use SQUAD dataset that contains questions and answers
+
+* Neural Architecture Search
+** This team is responisible for making Nueral Networks work with Emade
+** Currently have difficulty outperforming seeds - random solutions don't converge without a bit of help
+** Implemented time stopping to end computations early if they do not have much promise
+** Also working on speeding up preprocessing which is currently very slow for text tokenization
+** Reward novelty by keeping networks that are less frequent
+
+* Image Processing
+** Use image classification for multi-label algorithms to detect 14 deseases from chest x-ray images
+** Because there are 14 objectives, it's difficult to get good results (Always same AUC)
+** Experimenting with adding hyper-features for image processing - combine 2 or more primitives into one
+** Uses the high performance computing cluster for testing
+
+* Market / Time Series Analysis
+** Implementing trading algorithms
+** Use price and volume data to determine when is best to buy and sell
+** Are trying to compare methods with SOTA papers
+
+* Modularity
+** Find ways to keep multiple leaf nodes as a single primitive known as an ARL
+** By keeping ARLs, better solutions can be found because this prevents leaf level mutations. Instead, you introduce sections of the tree that work
+** Currently only looking at tree depths that are 1 but are looking at more
+** Not successful in getting AUC lower with newer ARLs
+** Make sure ARLs get passed on. To next generation without mutation
+** Looking to write a paper
+
+
+'''Personal Notes'''
+This week was spent getting test results from our titanic experiment. We ran two seperate tests in order to make sure we were doing the right thing
+* Using our own preprosessed titanic data files on the default input_titanic.xml
+* Running the same files but with a modified xml
+
+Unfortunately, we found out pretty late that the files we generated were missing the labels and the test set was created from test.csv and not a part of our train.csv file.
+This meant that our algorithm might have been predicting null values. In fact, our pareto set found an AUC of 0 because one of the algorithms computed NULL.
+We reran our dataset and were able to achieve an AUC of 0.134 for the default controls
+
+We made a few modifications to our xml
+* Headless Chicken percent was doubled - this acts similar to a mutation so we also lowered those values
+* Cross over was changed to 0.4 and headless chicken to 0.2
+* Ephemeral was kept the same
+* All other mutation methods were set to 0.025 to account for headless chicken
+
+After 115 generations, our AUC was 0.131, lower than our previous dataset
+[[files/sub-team-one-files/G12021EmadePresentation-20.png|thumb|20x10px]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Use Emade on Titanic
+|Completed
+|October 5th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Choose a team
+|Not Started
+|October 25th, 2021
+|October 29th, 2021
+|-
+|}
+
+== October 20th, 2021 ==
+
+'''Lab Notes'''
+This week was a working session to get emade set up and working. We also had a weekend event.
+
+
+'''Personal Notes'''
+
+* I had gotten Emade to begin processing titanic dataset using the default data. The AUC was calculated to be around 0.14 after 70 generations
+* This is without changing any of the default parameters
+* I spent a good deal of time helping the other members set up their environments. The goal was to get them to connect to my master job on my remote server and provide thier own evaluations from their local machines
+* After both working sessions, all of my team-mates were able to connect to my database.
+* There are issues with the evaluation finding a lot of inf values, which are inadequate
+
+Next steps were to modify the algorithm and have it run on our own datasets
+
+Work to be done:
+* Generate new csv.gz files for processing by emade using our previous preprocessing script
+* Examine the default xml file and determine what parameters we wish to change
+* Generate new pareto front for project
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Peer Evaluations
+|Completed
+|October 4th, 2021
+|October 8th, 2021
+<<<<<<< HEAD
+|October 6th, 2021
+=======
+|October 8th, 2021
+>>>>>>> 0c21672a57eb9b88f3dd25ea706de6e313f65899
+|-
+|Get Emade set up locally
+|Completed
+|October 5th, 2021
+|October 13th, 2021
+|October 15th, 2021
+|-
+|Use Emade on Titanic
+|In Progress
+|October 5th, 2021
+|October 25th, 2021
+|
+|}
+
 == October 13th, 2021 ==
 
 '''Lab Notes'''

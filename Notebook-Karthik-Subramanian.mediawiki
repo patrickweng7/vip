@@ -8,6 +8,66 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== November 22nd, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty discussed possible statistical test (take the area between naive Pareto Front and EMADE pareto front. Want that area to be bigger in order to show that EMADE is performing better
+* NNLearner2 bug fixes (tune for regression problems, curretnly works on classification)
+* Possibility of changing scope of subteam project (to a classification problem instead of a regression problem)
+
+'''Individual Notes:'''
+* In the case where NLP subteam is pivoting to a classification problem, I have repurposed the squad dataset to now have 1s for answerable
+questions and 0s for unanswerable questions. Those backup files have been uploaded to EMADE-304
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Generate Answerable/Unanswerable repurposed SqUad data
+|Completed
+|November 22nd, 2021
+|November 22nd, 2021
+|November 22nd, 2021
+|-
+|}
+== November 15th, 2021==
+'''Main Meeting Notes:'''
+* Found out that getting two data pairs into "nn_learner" is a hard problem and Devan is working on trying to debug that. Manipulating the output layer to work only with the current nn_learner would cause me to have to go in and modify other files in the codebase and that's intractable given the limited time.
+
+* Scope has been reduced to predicting start index of the answer (so a one-variable regression problem)
+'''Subteam Meeting Notes:'''
+* Working on getting my PACE environment to work with a new port number (essentially, my sql job closes in PACE since others are using the same port)
+* Integration Team task: get standalone tree evaluator to work and make sure runs happen with the newly preprocessed data
+'''Individual Notes:'''
+* Batch Size is an important parameter in Keras since this adds flexibility to pass in different size examples into the BiDAF pipeline
+* George and I fixed issue with the Attention Layer dimension. The BiDAF attention now is able to accept different batch sizes. We aimed to have output dimensions in a form like: (None, 8, 800). In this particular example, "None" is the flexible batch size, 8 represents the number of tokens in the context, 800 is 8*(vector embedding size)
+* Error in concatenation in the megamerge step was fixed (fixed the axis), got rid of "convert_to_tensor" function
+* Link to Colab notebook: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=J4GFfh6jcsmI
+* Below is a screenshot with the changes (made in the call() function for BiDAF Attention Layer)
+<img width="628" alt="call_func" src="https://github.gatech.edu/storage/user/35351/files/f81afc2f-03a6-4763-adbb-2921799ecfff">
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go through Cameron's PACE Setup video and have port change
+|Completed
+|November 17th, 2021
+|November 19th, 2021
+|November 17th, 2021
+|-
+|Fix Bidirectional Attention Layer Dimensions with George in AAD Hack Day
+|Completed
+|November 21st, 2021
+|November 21st, 2021
+|November 21st, 2021
+|}
 == November 8th, 2021==
 '''Main Meeting Notes:'''
 * Steven assigning responsibilities for subteams within NLP subteam

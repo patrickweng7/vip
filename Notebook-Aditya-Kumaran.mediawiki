@@ -8,12 +8,61 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== November 22, 2021 (Week 14) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  New branch to run new experiments. Low ROC-AUC for baseline run (0.48), trying to troubleshoot.
+    *  Runs with Lexicase, epsilon lexicase, NSGA III, and tried with new mutation methods. Fixed some bugs with contrast enhancement - .npz formatting was troublesome, as opposed to .png or .jpeg. (Maybe input files are wrong? Primitives shouldn't be reading in these files? Primmitives should be taking in a numpy array.)
+    *  Worked on a sharpening filter
+*  NLP:
+    *  Have all primitives required for results for standalone tree evaluator. NNLearner2 works on classification, some results don't make sense.
+    *  Integrated some primitives into Keras. Want to maybe use AutoML for solving QA problems - still designing experiment.
+    *  New members getting setup on PACE
+    *  Everyone will run emade for different train and test data - hopefully gives everyone different accuracies/F1 scores. Naive model gives score - finds start index of answer that matches question. Uses Emade seeded individuals to evolve solutions to compare to the found answer. Will use objectives to draw distribution for accuracy of all individuals on the pareto front (multiple objectives). If naive model lies in the critical region, they will reject their hypothesis.
+*  Neural Architecture Search:
+    *  New members adding slides to final presentation
+    *  Improving emade runs - have only been using training dataset, so will use test set soon (might cause overfitting - test set is meant to make sure that you don't overtrain). Dr. Zutty advises just to use the train set, and then test progress at the end by recomputing based on models trained on test data.
+    *  If: training data is used to fit an individual model, testing data is used to score the model (compute objectives in emade; final dataset in outside ML world), and validation (final dataset in emade). Pareto front is computed on test data - drives search, probably even more than train data via metalearning. Models are learning the relationship between train and test data. "Validation" is meant to be data that the model has never seen before, used to see how well the model actually runs - can be used to check overtraining of Emade by measuring how much the pareto front would move for new data vs your evaluation data.
+    *  ADFs/Modules assemble pooling layers to downsize images, etc.
+    *  Might use weightsharing (in Keras) to improve new NNLearners learning time.
+*  Modularity:
+    *  Documentation and refactoring is done - added new classes. No longer store too much information in tuples, now in classes to help debugging.
+    *  Could create a representation function for objects. Added method I/O parameter types and return types.
+    *  Bad variable names have been eliminated, refactored old methods with unused/inefficient code.
+    *  First-semesters looked into CloudCopy.sh and visualization (this was me). Will probably remove 'individual size' as an objective.
+    *  CacheV2 is almost done, testing remains. Stocks runs hopefully starting soon.
+
+=== Subteam Meeting Notes: ===
+*  Thanksgiving Break Week
+
+=== Individual Notes: ===
+*  Thanksgiving Break Week
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 22, 2021
+|November 29, 2021
+|November 22, 2021
+|}
+
+
+
 == November 15, 2021 (Week 13) == 
 
 === Lecture Notes: ===
 *  Subteams updated everyone on their progress.
 *  Image Processing:
-    *  
+    *  Testing chest x-ray dataset. Will try to incrementally improve performance by including combinations of changes, testing ROC and F1-score.
 *  NLP:
     *  Can run regular data sets. Identified output layer problem - need to predict both start and end index; decided just to predict start index. Returns two tensors - probability of word being start index and then probability of word being end index.
     *  Reducing scope to just regression for this semester.
@@ -22,8 +71,25 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Modularity:
     *  Doing runs, debugging ARL selection methods and Cloudcopy.sh script for Google Collab runs.
 
+=== Subteam Meeting Notes: ===
+*  Talked with Gabe about visualization problems, AUC increasing. Learned that it was a run issue, possibly with workers not completing their evaluations. Could just be a run-specific minor issue.
+*  Going to run visualization tool on the new runs. Might add HoF (according to Dr. Roehling's recommendation). Vincent will rerun graphs for AUC size effect on individuals.
+*  Recursive copying bug in CloudCopy.sh - on Macs specifically. Will fix that, make the copying better.
+*  I'll be working on the visualization task with Angela and Adithya. We might coordinate some time during the hackathon to meet.
+
 === Individual Notes: ===
-*  
+*  Cloned the emade-viz repo at "https://github.gatech.edu/vhuang31/emade-viz/tree/ADFonlyAUC". Not a large repository, so it didn't take much time or memory.
+*  Followed the instructions to get set up:
+    *  Installed Anaconda and created a virtual environment for EMADE-Viz by running "conda env create -f environment.yml" from the home directory of the repo. Environment was called emade-viz, was activated with "conda activate emade-viz".
+    *  Download the packages specified in the requirements.txt file using "pip install". Many were repeats from the environment.yml file, so this didn't take long.
+    *  Ran "flask run" from the primary directory of the repo, was given the following IP address for the visualization server: "http://127.0.0.1:5000/".
+*  Uploading the relevant .xml file from each run should give us access to the visualization tools.
+*  Ran visualization tool on extendedarl5 database:
+{"auc":[0.3789502004358471,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.35615701256423365,0.3454168796577794,0.3454168796577794,0.33193790524361705,0.3245984557023326,0.3245984557023326,0.26877236406682986,0.26868627081707874,0.26868627081707874,0.26775538755414463,0.2457854663832764,0.23251096343727304,0.22880357286986472,0.22829777502757678,0.2193763620221152,0.2193763620221152,0.2081089079609352,0.2081089079609352,0.20596733837337566,0.19975786273507493,0.19412413570448492],"x":[11.6,19.6],"y":[20.8,20.2]}
+*  Ran visualization tool on extendedarl4 database:
+{"auc":[0.3789502004358471,0.36310904248163794,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.34825257607145743,0.34825257607145743,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34397481772444777,0.34397481772444777,0.33519330624983185,0.3260136134951169,0.321816567569749,0.3218058059135301,0.3218058059135301,0.3148752993085636,0.3014232290349485,0.3014232290349485,0.3003416825849498,0.299825123086443,0.29520837256853827,0.2945088649143103,0.2909575183620759,0.2699615270790175,0.2696171540800129,0.2696171540800129,0.2585649331432108,0.25834970001883295,0.2534961930641126,0.2525975947698351,0.2524415507546612,0.24974575587182865,0.2496112351690925,0.23251634426538245,0.23248405929672578,0.23235491942209907,0.2316338884554333,0.2313433237375232,0.22987435766364445,0.22785654712260214],"x":[0.0,1.8,1.8,2.0,3.4,5.2,5.2,7.8,8.6,8.6,8.8,8.8,9.4,9.6,9.6,10.0,10.8,11.0,12.2,12.4,12.6,13.6,14.0,22.4,23.0,84.6,100.6,101.8,106.6,107.6,109.0],"y":[68.2,68.2,64.2,36.2,32.8,27.0,26.8,24.0,23.4,22.8,22.8,21.8,21.0,21.0,19.8,19.6,19.6,19.0,18.8,18.6,18.6,18.0,17.0,16.0,15.8,7.8,7.6,4.2,2.6,0.0,0.0]}
+*  The visualization tool didn't accept the .xml input when database was set to extendedarl3 - my impression is that the schema name might be wrong (maybe there's a dash somewhere?). Plan to crosscheck with Vincent, who ran the master processes and created the databases.
+*  Had to "npm install -g phantomjs-prebuilt" since phantomjs is deprecated now. Worked to download the graphs into 'visualizations' folder.
 
 === Action Items: ===
 {| class="wikitable"

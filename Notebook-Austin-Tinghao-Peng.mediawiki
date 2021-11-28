@@ -7,29 +7,109 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 14: November 22, 2021 ==
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|
+|November 22, 2021
+|November 29, 2021
+|
+|}
+
+== Week 13: November 15, 2021 ==
+=== 11/21/2021 Hackathon ===
+* I successfully ran EMADE on PACE, but with some issues [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Running_EMADE_On_Pace_Error_Fix documented here]
+* I implemented <code>sel_epsilon_lexicase</code> in the selection_methods.py file in EMADE.
+<pre>
+def sel_epsilon_lexicase(individuals, k, epsilon=0.01):
+    return tools.selEpsilonLexicase(individuals, k, epsilon)
+</pre>
+* Harris and I are currently working on running <code>sel_epsilon_lexicase</code> with epsilon values of 0.01, 0.05, 0.1, 0.5, 1, 5, 10.
+** These epsilon values were chosen after reading this paper written about [https://dl.acm.org/doi/pdf/10.1145/2908812.2908898 Epsilon-Lexicase Selection for Regression]
+* I had some difficulty navigating mysql so I am providing some common mysql commands (specifically to access a table in a database).
+<pre>
+SHOW databases; # shows all databases
+USE <databaseName>; # selects databaseName for usage
+SHOW tables; # shows all tables in the selected database
+SELECT * FROM <tableName>; # shows all values from tableName
+</pre>
+
+=== 11/17/2021 Subteam Meeting ===
+* I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
+* see [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here] for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
+
+=== 11/15/2021 In-Class Subteam Meeting ===
+* I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
+* I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
+* I am currently asking Maxim about the error message and will include the solution I find [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here]
+
+=== Running EMADE On Pace [Error Fix] ===
+* The error message was <code>ImportError: cannot import name 'stop_words' from 'sklearn.feature_extraction'</code> in the file <code>src/GPFramework/text_processing_methods.py</code>
+** My solution was to replace <code>stop_words</code> in the file with <code>_stop_words</code>.
+* link to solution: https://stackoverflow.com/questions/68620436/cannot-import-name-stop-words-from-sklearn-feature-extraction
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|Completed
+|November 1, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Run the current implementation of lexicase on chest data
+|Completed
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Read literature about new implementations of lexicase
+|NO LONGER NEEDED! (Harris said we won't be implementing those methods)
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|NO LONGER NEEDED! (Maxim is making the repo able to be git cloned rather than scp-ed)
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|}
+
 == Week 12: November 8, 2021 ==
-=== 11/8/2021 In-Class Subteam Meeting ===
-* reviewed assigned tasks (I was assigned the task of implementing and running lexicase)
-* continued to setup PACE-ICE on my laptop
-
-
 === 11/10/2021 Subteam Meeting ===
-* set up mysql on PACE-ICE
+* I set up mysql on PACE-ICE (EDIT: I actually did not set it up correctly as later weeks I will have issues accessing mysql).
 
-=== Setting Up PACE-ICE Notes ===
-* when transferring EMADE onto the remote server use scp run the following command on your LOCAL terminal
-** <code>scp -r <relative-path-to-EMADE> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
-* when creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account(use vim to open file)
-** use vim to open the file and add the following contents into the <code>.my.cnf</code> file
-** make sure to replace USERNAME with your username (ex. apeng39)
-** make sure to replace port=33XX with any two numbers other than 07 (ex. port=3399)
+=== 11/8/2021 In-Class Subteam Meeting ===
+* The team reviewed the tasks assigned to each new member.
+** I was assigned the task of implementing and running another implementation of lexicase.
+* I continued to setup PACE-ICE on my laptop.
+
+=== Setting Up PACE Notes And Running EMADE on PACE ===
+* I transferred my local EMADE fork onto the remote server using the following command
+** <code>scp -r <relative-path-to-local-EMADE-folder> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
+* When creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account (use vim to open file) and add the following contents to the file.
 <pre>
 [mysqld]
 datadir=scratch/db
 socket=mysqldb.sock
-user=USERNAME
+user=USERNAME # replace USERNAME with your GT username (ex. apeng39)
 symbolic-links=0
-port=33XX
+# uncomment the following line if you use a port and change the port number to the one you use
+# port=3304 
 
 [mysqld_safe]
 log-error=mysqldb.log
@@ -39,40 +119,35 @@ pid-file=mysqldb.pid
 socket=scratch/db/mysqldb.sock
 </pre>
 
-* run <code>mysql_install_db --datadir=$HOME/scratch/db</code>
-* run <code>/usr/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
-** make sure to replace USERNAME with your username
-* when logging into mysql and setting up a password run <code>mysql -h atl1-1-02-012-5-l:<PORT></code>, specifying the port number you added in the <code>.my.cnf</code> file
-** then run the following code in the mysql shell making sure to replace USERNAME with your username, and PASSWORD with your password
+* I then ran the following lines in the command prompt (making sure to replace USERNAME with your GT username)
+** <code>mysql_install_db --datadir=$HOME/scratch/db</code>
+** <code>/usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
+
+* ssh into the node with `ssh USERNAME@atl1-1-02-012-5-l` and login
+** Note: replace USERNAME with your GT username
+* Inside the node I setup, I ran <code>mysql -u root</code>
+** Within the mysql prompt, run the following code replacing USERNAME and PASSWORD with your desired USERNAME and PASSWORD for your mysql account.
+
 <pre>
 DELETE FROM mysql.user WHERE user='';
 GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 </pre>
 
-** now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted
+* Double check that now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted.
+* Within the mysql shell run the following lines to setup a database.
+<pre>
+CREATE DATABASE chestxray;
+</pre>
 
-* setting up PACE-ICE Anaconda (first, navigate to your emade folder)
+* setting up PACE Anaconda (navigate to my EMADE folder)
 ** run <code>module load anaconda3/2020.02</code>
 ** run <code>conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
 ** run <code>./reinstall.sh</code>
 ** run <code>python setup.py install</code>
+** run <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database.
 
-* running MYSQL and EMADE ON PACE-ICE
-** on your remote account's home directory create <code>pbsmysql.pbs</code> with the following content (make sure to replace USERNAME!)
-<pre>
-#!/bin/bash
-#PBS -N mysqldb
-#PBS -q pace-ice
-#PBS -l nodes=1:ppn=1
-#PBS -l walltime=08:00:00
-#PBS -M USERNAME@gatech.edu
-
-mysqld_safe --innodb_lock_wait_timeout=1000
-/usr/local/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
-</pre>
-
-** also create <code>launchEMADE.pbs</code> (making sure to replace USERNAME!)
+* Finally, create a file called <code>launchEMADEchest.pbs</code> with the contents below.
 <pre>
 #PBS -N emade-chest
 #PBS -l nodes=1:ppn=4
@@ -80,18 +155,22 @@ mysqld_safe --innodb_lock_wait_timeout=1000
 #PBS -l walltime=8:00:00
 #PBS -q pace-ice-gpu
 #PBS -o emade-chest.out
-cd ~/emade
-echo "Started on `/bin/hostname`" # prints the name of the node job started on
-module load jdk/1.8.0_202
-module load openmpi/3.1.6
-module load gcc
-module load anaconda3/2020.02
-export CC=gcc
-conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/ # this is my conda environment name, yours could be different
 
+cd ~/emade
+echo "Started on `/bin/hostname`"  # prints the name of the node job started on
+export CC=gcc
+module load anaconda3/2020.02
+conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
 echo "STARTING EMADE"
-python src/GPFramework/launchEMADE.py templates/INPUT_FILE.xml # use your XML file
+# The next line seeds the run if you're starting from scratch. if you're resuming a run then comment it out.
+# python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+# This line launches EMADE
+python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 </pre>
+
+* run <code>qsub launchEMADEchest.pbs</code>
+** The script will create EMADE_master.eXXXXX files after running for a while and check it for any errors.
+** The script will create EMADE_master.oXXXXX files after running for a while and check it for any outputs.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -104,29 +183,40 @@ python src/GPFramework/launchEMADE.py templates/INPUT_FILE.xml # use your XML fi
 |Run EMADE On PACE-ICE
 |In Progress
 |November 1, 2021
-|November 15, 2021
+|November 22, 2021
 |
 |-
 |Run the current implementation of lexicase on chest data
 |
 |November 8, 2021
-|November 15, 2021
+|November 22, 2021
 |
 |-
 |Read literature about new implementations of lexicase
 |
 |November 8, 2021
-|November 15, 2021
+|November 22, 2021
 |
 |-
 |Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
 |
 |November 8, 2021
-|November 15, 2021
+|November 22, 2021
 |
 |}
 
 == Week 11: November 1, 2021 ==
+=== 11/3/2021 Subteam Meeting ===
+* EMADE branches overview
+
+master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
+
+* *_methods.py (files contain primitives)
+* launchEMADE.py (launches EMADE.py)
+* PACE-ICE is currently under maintenance until Friday, November 1
+** try to login and complete PACE-ICE setup then
+* assigned to selection methods tasks team
+
 === 11/1/2021 In-Class Subteam Meeting ===
 * assigned to Image Processing subteam
 * the goal of this subteam is to help improve EMADE's image processing algorithms
@@ -146,17 +236,6 @@ python src/GPFramework/launchEMADE.py templates/INPUT_FILE.xml # use your XML fi
 ** selection methods
 ** mating/mutation methods
 ** data preprocessing
-
-=== 11/3/2021 Subteam Meeting ===
-* EMADE branches overview
-
-master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
-
-* *_methods.py (files contain primitives)
-* launchEMADE.py (launches EMADE.py)
-* PACE-ICE is currently under maintenance until Friday, November 1
-** try to login and complete PACE-ICE setup then
-* assigned to selection methods tasks team
 
 '''Action Items:'''
 {| class="wikitable"

@@ -10,8 +10,16 @@ Wednesdays at 5:45p (hybrid style, in VIP room)
 
 [https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
 
-=== Week of November 8th - November 14th ===
+=== Week of November 15th - November 21st ===
+This week the subteam meeting was used as a work session in order to work on our respective tasks.
+* Most of the team has installed EMADE and MariaDB on pace, we have a shared environment that we can run our experiments on after code freeze.
+* We are going to be running our final experiments on a new branch with Python3.8 code which uses the new TF module (thanks NAS for updating the code).
+* For our baseline run, ROC-AUC is pretty bad, about 0.48. We are not exactly sure as to why this might be. #params may not be getting calculated correctly, may be some underestimation.
+* We were able to get a runs in  with lexicase, epsilon lexicase, and NSGA-III. We are working on interpreting the results now.
+* Fixed a bug in the contrast enhancement code that causes issues with .npz formatting of data, and still working on a sharpening filter.
+* Did another run with a new mutation method, working on interpreting the results of those as well.
 
+=== Week of November 8th - November 14th ===
 This week we used our meeting as a work session in order to work on our respective tasks.
 * Bug with hyperfeature implementation in EMADE hopefully solved, PR will be opened this week, focus turns to new sharpening hyperfeature.
 * New EMADE environment still in progress, all the recent changes to GPFramework code caused us to find out we cannot use a shared conda environment the way we hoped because of the constant reinstallations necessary. It will only work if when we all our code changes are in and we run experiments separately.
@@ -113,6 +121,14 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 * [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-base EMADE fork]
 * [https://www.sciencedirect.com/science/article/pii/S1568494611000937 Basis paper]
 
+=== Week of November 15 ===
+* Last week we discussed constraining one of the objectives for the purposes of comparison between runs
+** We chose this objective to be the Loss Percentage objective since it will both provide a basis for comparison between the runs and with the paper
+* Best performing individual from the Lastest EMADE run (Loss, Avg Loss, Var Profit, and CDF as objectives): https://drive.google.com/file/d/13cH3K8wtKv-6ce0cwOn3MK-ogmOV8HM6/view?usp=sharing
+* Primitive Analysis of the latest run (Pivot table where the values represent average Loss): https://drive.google.com/file/d/1-mkrx2bLEzR_NbkwhIfUasryAxRfUcMm/view?usp=sharing
+* Next Steps:
+** Look into methods of comparison between runs using AUC and objectives
+** Complete the rest of the runs in our tracker: https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing
 
 === Week of November 8 ===
 * We haven't been able to fully replicate the paper, so we will move forward with conducting our own runs and then comparing results to the paper 
@@ -376,6 +392,46 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Nov 15 - Nov 22 ===
+* Refactored and documented new implementation of code
+** Added typing and classes to implementation
+*** Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
+*** Example
+Before:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+```
+After:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl].population_info.occurrences:
+
+class ARLPopulationInfo:
+    def __init__(self, arl_fitness: int, occurrences: Set[Tuple[int, int]]):
+        # An ARL's "fitness". See ADFController._evaluate_ARL
+        self.arl_fitness = arl_fitness
+
+        # Set of Tuples (ARL_idx, indv_idx)
+        # ARL_idx: the index of the root node of the arl occurrence within the individual
+        # indv_idx: the index of the individual within the population
+        self.occurrences = occurrences
+```
+*** Creating classes also allowed for making a repr function, which helped with printing information for debugging
+*** Also added method input parameter types and return types where possible
+** Standardized variable names
+*** Example:
+*** The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+** Added documentation for all methods
+** Refactored outdated methods and code which were inefficient and/or unused
+* Google Cloud smoothness
+** Working on changes to our script which uploads allows the team to upload EMADE instances to Google Collab
+** Faster and more intuitive to use
+* Data visualizations
+** Working on generating visualizations for the extended ARL runs we currently have data for
+** Investigating issue from midterm presentation where AUC over time graph increased
+* CacheV2 Integration
+** Work is progressing smoothly, code updates are complete but still need to be tested
+** Begin runs on stocks data soon
+
 === Week of Nov 2 - Nov 8 ===
 * Introduced first semester students to the team and our work
 ** Onboarding session regarding what our team does and the tools we use (eg, google collab)
@@ -617,6 +673,14 @@ New Seeds (Used in addition to Old Seeds)
 Midterm Presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
 
 Meetings: 2:00 pm on Wednesdays, Virtual
+
+=== Week of November 15 - 19 ===
+* Overall Status: NNLearner2 works on classification, having issues switching to regression.
+* Steven has been testing integration of primitives into EMADE, and building Keras Models in Google Collab to ensure integration works. All primitives we need to get now work. We have a Keras Model that builds, and our layers are able to feed into Keras's LSTM layer.
+* Devan and team has worked on NNLearner2.
+* Karthik and George fixed batch size issues with Bidirectional Attention.
+* Rishit and Shiyi are still designing our experiment.
+* Goal for this week: Get Regression working on NNLearner2 ASAP, and get everyone setup. 
 
 === Week of November 8th - November 12th ===
 * Resolved issues of Big Merge
@@ -1116,4 +1180,28 @@ Meetings: 2:00 pm on Fridays, Virtual
 * Cameron B has started on some changes to integrate mating and mutation within ADFs of EMADE. These changes will likely result in some necessary changes to both the master algorithm and SQL connection files.
 * Justin H ran into a blocker while creating some testing/analytics logic in EMADE whose intent is to track nnlearner individuals over multiple generations. This task is meant to give us more visuals and metrics for analyzing growth of NNLearner's over time. Unfortunately, new hashes are generated for individuals every generation which prevents us from properly keeping track of a single hash. A possible solution to this would be to attach some additional variable(lineage name!) to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
 * We are also looking to give new name for ADFs we are commonly using in NNLearners.
+
+
+=== Week of November 15th - November 21st ===
+* This week's meeting consisted of updates and some internal updates amongst members.
+* New members have planned out a meeting amongst themselves which is meant to coordinate slides to be completed and discussed during the final presentation. Pranav has made their group chat and Charlie has started adding some slides to our template powerpoint.
+* Cameron W presented the following points as small modifications that could be made to our currently functioning EMADE in order improve nnlearner performance easily: 
+** Use both train and test sets provided
+** stop deleting color channels
+model improvements:
+** get rid of pooling layers which leads to like 10x more parameters
+** after removing, model could overfit on train set (98% train accuracy, 62% test)
+
+preprocessing improvements: (uses baseline from getting rid of pooling layers -- 62% test acc)
+** rescaling gives ~5% test accuracy boost (kept)
+** using color channels gives ~3% test accuracy boost (kept)
+** random rotation (60 degree range): worse than baseline (no overfitting)
+** brightness (20-100%): worse than baseline (overfits)
+** random zoom (50-100%): same as above
+** subtracting per-pixel mean: same as above
+* Cameron B has completed his changes for mating and mutation methods which now allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals. I will likely start working on weight sharing in parallel.
+* Cameron W is currently working to integrate weight sharing to our existing modules in EMADE.
+* Conner Y and Devesh K are still working to integrate novelty detection changes hopefully some progress will be made at the hackathon which allows us to undergo experiments before final presentations.
+* Justin H is now unblocked on his task to add a parent column which tracks hash values for nnlearners. After he has completed this, he will work to create some extraction logic which we will utilize after completing some EMADE runs.
+* Lucaz Z is doing literature review which will contribute to the final presentation slides.
 [[Category-AAD]]
