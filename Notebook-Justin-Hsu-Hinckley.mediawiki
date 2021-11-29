@@ -63,7 +63,35 @@ Modularity:
 * CacheV2 integration is almost done, just testing left to do.
 
 === Sub-team Notes ===
+* Didn't meet due to Thanksgiving break, Cameron Bennett asked everyone to have their code finished and PR's done by as early as possible so he can merge by the end of this week.
+My progress:
+* Finalized all my code changes from last week implementing NNStatistics table tracking parents.
+* Since the previous week, I fixed a small issue where error_string's were not being updated for all parents:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string  # <======= Added to fix error_strings defaulting to None
+                        )
+* Main change was to clear all parent tracking metadata at the start of a mating/mutation section:
+            if len(parents) > 0:
+                print('Producing offspring')
+                sys.stdout.flush()
 
+                # Clone so as not to alter original
+                offspring = list(map(_inst.toolbox.clone, parents))
+
+            # clear offspring NNStatistics table tracking
+            for child in offspring:
+                child.parents = []
+                child.intermediate_parent = False
+
+            # ============= Code below here is for mating/mutation ========
+* Removed the code that clears .parents and .intermediate_parent data when it is added to NNStatistics table and moved to start of mating/mutation as shown above.
+* I made a new branch for nnstatistics tracking.
+* I made Pull Request to Cameron Whaley's fork: https://github.gatech.edu/cwhaley9/emade/pull/17
+* My next goal is to add methods to analyze.py to query parent information after runs are finished.
 
 === Action Items ===
 {| class="wikitable"
