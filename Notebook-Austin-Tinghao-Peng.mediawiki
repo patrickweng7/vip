@@ -8,6 +8,44 @@
 
 = Fall 2021 =
 == Week 14: November 22, 2021 ==
+=== 11/22/2021 In-Class Subteam Meeting ===
+* I attempted to seed my database using the summary_seed file.
+** I first ran <code>qsub pbsmysql.pbs</code>
+** Then ssh-ed into the node and ran <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed</code> which produced the following error message.
+
+<pre>
+(/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs) -bash-4.2$ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed
+Using TensorFlow backend.
+[nltk_data] Downloading package punkt to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+(224, 224, 1)
+(224, 224, 1)
+Performing connection setup for PID: 397839
+Open Database Connection UUID: 88574626-dcaa-4f0a-8c86-24e404dc1261 PID: 397839 Ind Hash: None TimeStamp: 2021-11-29 15:59:45.433183
+connected to database
+Traceback (most recent call last):
+  File "src/GPFramework/seeding_from_file.py", line 311, in <module>
+    my_func, i = parse_tree(line, pset_info)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py", line 109, in parse_tree
+    node = ast.literal_eval(node)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 85, in literal_eval
+    return _convert(node_or_string)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 84, in _convert
+    raise ValueError('malformed node or string: ' + repr(node))
+</pre>
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
