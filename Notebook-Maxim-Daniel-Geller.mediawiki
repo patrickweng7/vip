@@ -13,7 +13,11 @@
 == Week 14: November 22nd - November 28th ==
 
 Do another baseline run with beefed up settings. Talk about running without GPUs. Hopefully merge in changes
-With
+With the shortened week and holiday break I did not accomplish much other than checking in with the team and beginning to coordinate the beginnings of our final presentation. I asked in Slack about the out of memory error I was getting in my original baseline runs and the conclusion was that these tensors are really large even for 16GB GPUs. One solution is to reduce the batch size (looks to be 100 right now, not sure if this was set automatically based on # of training examples or a default in the code) because it may have something to do with how the individuals and data are stored in memory. Bumping up the evaluation method and memory per CPU did not seem to have much of an effect in terms of expanding the search space. The resulting individuals looked quite similar to the ones from last week with similar primitives.
+
+I did do a run without using GPUs just out of curiosity and with the 3 workers it did not complete a single generation in the 7 hours it ran for. The GPU runs tend to complete about 30 generations by comparison. 
+
+I also finished the new img-proc branch which has the updated NAS code and works with the Python 3.8 environment. It has all the changes we made for the midterm, so I imagine next week I will do another merge before a code freeze. 
 
 '''Action Items'''
 {| class="wikitable"
@@ -23,17 +27,23 @@ With
 !'''Suspense Date'''
 !'''Date Resolved'''
 |-
-|Setup new working environment for tensorflow on PACE-ICE 
-|Complete
-|November 1st, 2021
-|November 7th, 2021
-|November 21st, 2021
-|-
-|Onboard and assist new members with setting up on our fork and on PACE
-|Complete
-|November 1st, 2021
-|
+|Try a run without GPU 
+|Not started
 |November 22nd, 2021
+|
+|November 23rd, 2021
+|-
+|Do a beefed up baseline run
+|Complete
+|November 22nd, 2021
+|
+|November 24th, 2021
+|-
+|Troubleshoot OOM issue
+|Complete; batch size
+|November 23rd, 2021
+|
+|November 24th, 2021
 |-
 |} 
 
