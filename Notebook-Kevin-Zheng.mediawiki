@@ -17,20 +17,33 @@ Team members:
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
 == November 21, 2021 ==
+* Accuracy Improvements
+** Query vs. Context
+*** Keras's Attention layer takes query first, then context, so the csv's had to be switched around in the xml
+** Word Indexing
+*** our dataset originally was trying to predict the correct character index, rather than the correct word index
+*** this is an issue because while the max number of words is around 400 for 99.9% of the data, the max number of characters is between 4000-5000 for 99.9% of the data
+*** our model was effectively trying to guess a larger range than 
+*** Karthik reprocessed the data input files to use word indexing instead
 * Efficiency Improvements
-** used the individual NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)
+** used the individual NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer) training on half the SQUAD dataset and epoch=25
+** Initial Time: 986 seconds
 ** Embedding Layer
 *** get embedding to run on GPU:
 *** https://stackoverflow.com/questions/63044490/tf-keras-how-to-improve-performance-with-large-ish-embedding-layer
 *** changed the source code of tensorflow itself (tensorflow/python/keras/layers/embeddings.py)dfeff
-*** saved only a few minutes of training time, from 4255 seconds to 3824 seconds
+*** note: setting embedding layer weights to non-trainable does slightly increase time efficiency, but seems to result in the same number being outputted at all times, for some reason
+*** reduced training time from 986 seconds to 929 seconds
+*** reduce MAXLEN (max length of context) from 500 to 400 as per the SQUAD paper: https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1174/reports/2762006.pdf
+*** reduced training time from 929 to 803 seconds
+*** in the future, we'd want to decrease max length of query to 40 for increased efficiency, but it would require identifying if the data pair is context or query and changing the size of the InputLayer which is a lot more than we want to get into right now
 ** LSTM Layer
 *** force CuDNNLSTM implementation:
 *** https://www.tensorflow.org/api_docs/python/tf/keras/layers/LSTM
 *** no difference, perhaps this has already been done
 ** Reduced Precision
 *** set tensorflow datatype policy to mixed_float16, from the default of float32
-*** tbd
+*** actually hurt the runtime significantly; possible casting/numerical stability issues
 
 == November 15, 2021 ==
 * I commented dimensions onto every variable on every layer for better code maintainability
