@@ -79,17 +79,13 @@ NEAT (Neuroevolution of augmenting topologies): evolution on neurons in NN, low 
 
 HyperNEAT: abstract map of small NN into connectivity patterns to generate larger NN
 
-DeepNEAT: each individual represents NN layer and contains table of real and binary valued hyperparameters that are mutated through uniform Gaussian and random bit-flipping; evaluation converts individuals to layers
+DeepNEAT: primitives/nodes are layers with a table of real and binary valued hyperparameters that are mutated through uniform Gaussian and random bit-flipping; individuals are neural networks (directed acyclic graphs mapping input to output) with another set of hyperparameters
 
-CoDeepNEAT: evolves blueprint individuals and modules
+CoDeepNEAT: blueprint individuals are neural networks built as graphs of modules, modules are collections of layers, both blueprints and modules are evolved by changing primitives and by mutating hyperparameters 
 
-Initial population rules: directed acyclic graphs mapping input to output, uses parameters
-
-Blueprint hyperparameters: module, blueprint size, convolutional vs dense, loss function, optimizer, evaluation function
+Blueprint hyperparameters: component modules, blueprint size, convolutional vs dense, loss function, optimizer, evaluation function
 
 Convolutional layer hyperparameters: filters, kernel size, stride, activation function
-
-Global hyperparameters: learning rate, momentum, shared embedding size, embedding dropout, LSTM recurrent dropout, nesterov momentum, weight initialization
 
 Long short term memory (lstm) layer- modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; addresses vanishing gradient problem - if one output is 0 then the next ones are also 0; longer time scales handled
 
@@ -101,7 +97,7 @@ Traditional Bayesian optimization: computationally expensive, performs poorly wi
 
 CMA-ES: Gaussian for best individuals is estimated and used to generate next generation, controls step size and direction of population movement
 
-LEAF (learning evolutionary AI framework): extends CoDeepNEAT to multi-output optimization; AutoML system of algorithm, system, and problem-domain layers; algorithm layer sends Keras JSON to system layer and receives fitnesses; problem-domain layer makes changes for hyperparameter tuning, NAS, and complexity minimization
+LEAF (learning evolutionary AI framework): extends CoDeepNEAT to multi-output optimization; divided into algorithm, system, and problem-domain components; algorithm sends Keras JSON to system layer and receives fitnesses; problem-domain makes changes for hyperparameter tuning, NAS, and complexity minimization
 
 ===EMADE Setup===
 During the main meeting, I successfully bashed pace_run_cifar10.sh. The error was that I had cloned emade onto my windows computer and then scp transfered to pace. This converted the .sh, .pbs, and others to windows format instead of linux. I could convert each file with sed -i $'s/\r//' FILENAME, but instead I re-cloned emade directly onto pace to make sure I got every file.
