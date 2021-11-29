@@ -15,6 +15,19 @@ for arl in arls:
             for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
                 individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
 
+### Week 15: Nov 29
+
+### Week 14: Nov 22
+thanksgiving break
+
+### Week 13: Nov 15
+refactored 
+### Week 12: Nov 8
+refactored
+
+### Week 11: Nov 1
+
+
 ### Week 10: Oct 25
 - [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)
 - Visualization tools
