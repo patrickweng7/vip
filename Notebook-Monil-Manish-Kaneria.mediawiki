@@ -16,6 +16,114 @@ Interests: Machine Learning, Python, Soccer, Chess
 ** Main meetings 5-5:50pm on Mondays
 
 
+== November 8, 2021 ==
+
+'''Team Meeting Notes:'''
+
+* I met with Max a 30 minutes before the meeting to fix an issue i was getting in running the standalone script.
+* We figured that the error was because of unnecessary hyper parameters in the tree which looked like this with highlighted hyper-parameters, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL), ''' 6, 7, 0.1 '''), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+* I changed it to this, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+
+* This seem to resolve the issue with the tree but it revealed a weird thing. 
+* The standalone tree script threw an error with 'TriState.STREAM_TO_FEATURES' in the tree, but it ran fine if I changed it to 'TriState.STREAM_TO_STREAM'.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|Completed
+|October 27, 2021
+|November 8, 2021
+| November 8, 2021
+|-
+|Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
+|In-Progress
+|Movember 8, 2021
+|November 15, 2021
+|
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|Completed
+|November 3, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
+
+== November 3, 2021 ==
+
+'''Sub Team Notes:'''
+
+* The p-value was very high which was causing the selection methods to fail. 
+* Next steps:
+** Fix environment errors
+** Testing the new changes for nsga 3.
+** New member and Harris will try out Lexicase.
+** Test the current version and talk to Jason more about exactly what are the difficulties.
+* Need to create new dataset.
+* New team assignments:
+** Rohan - hyper features
+** Elan - infrastructure, doing runs on pace
+** Austin - selection methods
+** Eashan - mating, mutations
+
+* I was getting the error,
+** `Traceback (most recent call last):
+  File “standalone_tree_evaluator.py”, line 139, in <module>
+    database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py”, line 585, in load_environment
+    dataset_names=dataset_names, statistics_dict={}, cache_dict=cacheDict, is_worker=True)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py”, line 56, in _init_
+    super()._init_(connection_str, reuse, fitness_names, dataset_names, statistics_dict, cache_dict, is_worker=is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 293, in _init_
+    cache_dict, is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 89, in get_session
+    engine.execute(text(‘SET innodb_lock_wait_timeout = ’ + cache_dict[‘timeout’]))
+TypeError: must be str, not NoneType `
+* I talked with Jason and figured that I needed to add the <cache timeout> value which i was missing in my xml file.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|In-Progress
+|November 3, 2021
+|November 8, 2021
+|
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
 == November 1, 2021 ==
 
 '''Team Meeting Notes:'''
@@ -24,7 +132,7 @@ Interests: Machine Learning, Python, Soccer, Chess
 
 * I made progress with working on the standalone tree to test the hyper-feature.
 * This is the tree I used which is took from one of Max's trees that he had evaluated and replace the primitive with mine.
-** --- ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) ---
+** --- NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)) ---
 * I initially got some mysql errors and figured it was because i was not running the pbsmysql.pbs script correctly and so my node was not running. So I moved the pbsmysql.pbs script in my ~ directory on pace and it worked fine.
 
 
