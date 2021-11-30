@@ -7,7 +7,135 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 15: November 29, 2021 ==
+=== 11/29/2021 In-Class Subteam Meeting ===
+* I discovered that my error from last week was due to seeding with the incorrect seed file.
+** Last week, I used <code>summary_seed</code> but my subteam uses <code>seeding_test_cv_all_empty</code>.
+** Today, I ran the command <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database but received the following error.
+
+<pre>
+"src/GPFramework/seeding_from_file.py" 334L, 15018C
+    '''
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3216, in _wrap_pool_connect
+    e, dialect, self
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2070, in _handle_dbapi_exception_noconnection
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 146, in _do_get
+    self._dec_overflow()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 72, in __exit__
+    with_traceback=exc_tb,
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 143, in _do_get
+    return self._create_connection()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 253, in _create_connection
+    return _ConnectionRecord(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 368, in __init__
+    self.__connect()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 611, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 72, in __exit__
+    with_traceback=exc_tb,
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 605, in __connect
+    connection = pool._invoke_creator(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 584, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/MySQLdb/__init__.py", line 130, in Connect
+    return Connection(*args, **kwargs)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/MySQLdb/connections.py", line 185, in __init__
+    super().__init__(*args, **kwargs2)
+sqlalchemy.exc.OperationalError: (MySQLdb._exceptions.OperationalError) (2003, "Can't connect to MySQL server on 'atl1-1-02-012-7-l' (111)")
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+</pre>
+
+* I fixed the following error by directly editing the server_ip (which was originally <code>atl1-1-02-012-5-l:3304</code>) in the <code>src/GPFramework/seeding_from_file.py</code> to be <code>atl1-1-02-012-7-l:3304</code>
+** This change I made allowed me to seed my <code>chestxray</code> database correctly and provided the following completion message.
+
+<pre>
+Using TensorFlow backend.
+[nltk_data] Downloading package punkt to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+%s %s %s %s apeng39 apeng39 atl1-1-02-012-5-l:3304 chestxray
+mysql://apeng39:apeng39@atl1-1-02-012-7-l:3304/chestxray
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+(224, 224, 1)
+(224, 224, 1)
+Performing connection setup for PID: 64813
+Open Database Connection UUID: 93103eca-9e9d-4d4e-8ddd-184c0d4e94b9 PID: 64813 Ind Hash: None TimeStamp: 2021-11-29 20:14:02.910904
+connected to database
+NNLearner(ARG0, OutputLayer(InputLayer()), 100, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 99, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 98, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 97, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 96, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 95, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 94, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 93, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 92, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 91, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 90, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 89, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 88, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 87, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 86, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 85, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 84, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 83, AdamOptimizer)
+</pre>
+
+* With setting up PACE, MYSQL, running EMADE on PACE, and seeding all completed, I am now able to help the image processing subteam with their runs (specifically testing of lexicase selection methods with Harris).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed EMADE runs with seeding_test_cv_all_empty file from /SeedingFiles
+|Resolved
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|In Progress
+|November 22, 2021
+|December 6, 2021
+|
+|}
+
 == Week 14: November 22, 2021 ==
+=== 11/24/2021 Subteam Meeting ===
+* THANKSGIVING BREAK! NO MEETING!
+
 === 11/22/2021 In-Class Subteam Meeting ===
 * I attempted to seed my database using the summary_seed file.
 ** I first ran <code>qsub pbsmysql.pbs</code>
@@ -54,10 +182,16 @@ Traceback (most recent call last):
 !Suspense Date
 !Date Resolved
 |-
+|Seed EMADE runs with summary_seed file from /SeedingFiles
+|Task Reassigned
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
 |Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
 |
 |November 22, 2021
-|November 29, 2021
+|December 6, 2021
 |
 |}
 
