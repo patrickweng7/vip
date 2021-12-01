@@ -20,6 +20,8 @@ In my psychology class, we talked about the formation of synapses during cogniti
 
 [https://www.cs.princeton.edu/sites/default/files/uploads/deborah_sandoval.pdf Paper 3]
 
+I found where batch size and epoch limit is controlled in neural_network_methods.py. There is a point in the code it loads the nn stuff from some sort of cache(?) and the parameters are set there. I think some of the errors I have seen pop up around here as well. [https://github.gatech.edu/amehra37/emade/blob/img-proc/src/GPFramework/neural_network_methods.py line 935]
+
 == Week 14: November 22nd - November 28th ==
  
 With the shortened week and holiday break I did not accomplish much other than checking in with the team and beginning to coordinate the beginnings of our final presentation. I asked in Slack about the out of memory error I was getting in my original baseline runs and the conclusion was that these tensors are really large even for 16GB GPUs. One solution is to reduce the batch size (looks to be 100 right now, not sure if this was set automatically based on # of training examples or a default in the code) because it may have something to do with how the individuals and data are stored in memory. Bumping up the evaluation method and memory per CPU did not seem to have much of an effect in terms of expanding the search space. The resulting individuals looked quite similar to the ones from last week with similar primitives.
