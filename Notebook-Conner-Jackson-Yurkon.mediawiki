@@ -15,6 +15,70 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
+== November 19, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for one hour.
+* We discussed some of the issues I mentioned below and I was able to use the hour as a work session. Using a debugger, I determined that this code was faulting on nested ADFs and was not appropriately tracking layer frequencies. I worked on modifying this.
+* As I started adding in more hooks to the master / worker algorithms in EMADE.py, I also started to clean up some of the codebase and intend to merge some of these changes in the future. For example, I replaced the print -> flush paradigm with print alone (because Python appends \n when printing, and so flushing is done automatically). I also noticed some unnecessary complexity within the worker algorithm and will work to reduce this.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+| Do some basic code cleanup within EMADE.py (specifically within the master and worker algorithms).
+|In Progress
+|11/19/21
+|11/22/21
+|
+|-
+|}
+
+== November 15, 2021 ==
+'''Team Meeting Notes:'''
+* Met for one hour and provided scrum updates.
+* Over the weekend, I implemented basic logic to track layer frequencies. You can find these changes here: https://github.gatech.edu/cwhaley9/emade/commit/ea2c3780a78a39006f993de4e9ac9d488c50dc83.
+* These changes required interacting with the database and so I had to familiarize myself with some of EMADE's underlying SQL infrastructure (e.g. the code in the sql_connection_orm_*.py file).
+* Currently, whenever individuals are added to the database these method will be called so that their layer frequencies are also collated into a generation-wide Counter.
+* Unfortunately, I encountered some bugs when running this code on PACE, and this was a motivating factor to switch to local development. I will be focusing on these issues in the near future. For example, this method is not called appropriately on the first generation and so I will have to handle the first generation separately.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|
+|
+|-
+|}
+
 == November 12, 2021 ==
 '''Sub-Team Meeting Notes:'''
 * Met for one hour.
