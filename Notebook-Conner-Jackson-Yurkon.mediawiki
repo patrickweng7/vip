@@ -15,6 +15,44 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
+== November 12, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for one hour.
+* After finishing the configuration scripts for EMADE on PACE, I realized that development was still tricky because I did not have access to a debugger on PACE. Therefore, I setup EMADE on my local machine (macOS) and consolidated the documentation for this process here:
+    conda create -n pace-env python=3.8
+    conda install --channel "conda-forge" numpy pandas tensorflow==2.6.0 keras==2.6.0 scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn tensorflow-datasets==4.3 sep nltk textblob spectral "setuptools>=57,<58" && pip install xgboost lmfit multiprocess hmmlearn deap==1.2.2 opencv-python keras-pickle-wrapper
+    bash reinstall.sh
+* I spent some time familiarizing myself with parts of the codebase that I would be interacting with to develop novelty detection. I also stepped through a run of EMADE using a debugger to get a better understanding of the flow of execution.
+* I also noted that the hanging time in the CIFAR-10 generation script was out of our control.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|
+|
+|-
+| Investigate hanging time in the gen_cifar10.py script, and merge nn-vip-env into nn-vip.
+|Completed
+|11/10/21
+|11/15/21
+|11/12/21
+|-
+|}
+
 == November 8, 2021 ==
 '''Team Meeting Notes:'''
 * General scrum updates from each sub-team.
