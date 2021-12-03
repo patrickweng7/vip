@@ -10,6 +10,75 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+== November 10th ==
+
+''' Lab Notes '''
+This was the first weeks where we were assigned tasks to work on. I was assigned to help out with general bug fixing and explanation of failed trees.
+
+The general breakdown of branches are:
+Master -> CacheV2 -> sub teams -> nn-vip -> Image-Processing(nn-vip)
+This means that we want to merge with nn-vip most of the time keep up with changes to NNLearners
+
+Laundry list of problems
+- CV2Transposed takes in particular data type
+- Tristate - how to treat stream data - > feature data -> other features
+- Local variablele current layer referenced before assignment
+
+Script in Emade  to debug -> standalone tree evaluator
+- Stringstoeval (paste in string), xml file
+- databasetree_evaluator -> puts in hash and looks up in database
+
+
+
+''' My Work '''
+
+* Got Emade running on PACE-ICE
+** I used SVN commands to copy over specific files from the branch since my local computer was OOM
+** These commands allowed me to download files and uplaod them to emade
+1) svn checkout https://github.gatech.edu/amehra37/emade/branches/Image-Processing\(nn-vip\)/src .
+2) scp -r  GPFramework egrossman3@pace-ice.pace.gatech.edu:/storage/home/hpaceice1/egrossman3/projects/emade/
+** We do not need download the necessary files and can instead reference dir:/storage/home/hpaceice/shared-classes/materials/vip/AAD/id_group
+
+* Set up mysql server to run asynchronously
+** The Pace set up guide [[Guide to Using PACE ICE]] has an old guide and new guide. However, the new guide does not have the #PBS lines required to run PACE jobs.
+** Combining the #PBS lines from the old guide to the scripts in the new guide solved my problem
+* Had some trouble connecting to database
+** Took a few tries to make sure the socket was in the right place and permissions were granted accordingly
+** Other interns had this problem too. Triple checking all of the paths in the files I ran was key. Recreating the database with the correct myconf file was also helpful
+* Also had issues with conda environment due to not installing everything needed
+** There exists a shared env out there somewhere. This will make it easier to get everything working
+** One thing that is frustrating is that as new modules are added to the codebase, the requirements file is not updated. This means I have to keep running the code to find out what was not installed.
+* One issues is that I was running mysql with 1 hour, but Emade for 8 hours
+** In the future, I can set the mysql server to run for longer to prevent having to reset the database and find out that all my jobs fail instantly
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|In Progress
+|November 3rd, 2021
+|Novembver 8th, 2021
+|-
+|-
+|Investigate Errors in NNLearner
+|Not Started
+|November 8th, 2021
+|Novembver 15th, 2021
+|-
+|-
+|Read ChexNet
+|Complete
+|November 3rd, 2021
+|Novembver 8th, 2021
+|November 4th
+|-
+|}
+
 == November 3rd, 2021 ==
 
 '''Lab Notes'''
