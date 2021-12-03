@@ -10,6 +10,138 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+== December 1st ==
+
+''' Lab Notes '''
+
+I was sick this day. Please refer to the team notes
+
+''' My Work '''
+
+Do to the holidays, I didn't get much done. However I did reset my environment.
+My new goal is to help out with presentations and anything else worth investigating.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Prepare Presentation
+|In Progress
+|December 1st, 2021
+|December 10th, 2021
+|-
+|}
+
+== November 24th ==
+
+''' Lab Notes '''
+
+We had our hackathon on Sunday. During this time I was was able to make progress on getting Emade to work, but there were many more packages I needed to have installed. I found out at the end that Max had built a new shared environment.
+These were the steps I coppied form Max to set up the environment:
+
+module load tensorflow-gpu/2.6.0
+module load cuda/11.2
+module load anaconda3/2021.05
+conda create -n tf2.6 python=3.8.5
+
+conda config --add channels conda-forge
+conda install -c conda-forge cudnn=8.1.0.77
+
+
+''' My Work '''
+
+When Running Emade:
+After running the default chest X-ray input xml, all files ended up with “Tree missing valid primitive for data type At least one objective returned inf” even after 200 or so generations.
+It turns out that there were issues in my environment. I was able to find out why later, but essentially, I was using the shared environment that was installed with a different version of GPFramework than the one I had uplaoded.
+To correct this, I uploaded the merged in files from our branch. However, someone had installed a version of GPframework that was experimental, so I could not get it to work even then. I settled with creating my own environment all over again.
+Ultimately, my lesson was to get everything working on my workstation at home first and then use PACE.
+
+I also helped the other new members with their code and getting setup in emade. There seems to be issues with getting the socket to work correctly for mysql.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Run simulations for Emade
+|In Progress
+|November 8th, 2021
+|November 22nd, 2021
+|-
+|}
+
+== November 17th ==
+
+
+''' My Work '''
+
+
+
+My job is to use the single tree evaluator to investigate files
+TO do this, I had to modify src/GPFramework/standalone_tree_evaluator.py so that the NNLearner in question could be evaluated.
+
+I investigated this error:
+
+Received: NNLearner(MorphOpenCross(ECDF(mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), passInt(3)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), equal(ifThenElseFloat(falseBool, 10.0, 10.0), myFloatMult(4.367807167497753, 100.0)), greaterThanEqual(myFloatIntSub(0.1, -4), myIntToFloat(50))), InputLayer(), 83, AdamOptimizer)
+	With Hash 3616875e8b8637f3866689ac17bedd5d62883832eefa649a7888be1d13920bd5
+	Computed in: 40.843586444854736 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********y should be a 1d array, got an array of shape (2500, 15) instead.Traceback (most recent call last):
+
+Error is with mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool)
+According to https://github.gatech.edu/emade/emade/blob/4fd66103f8713517765c534956f42ab714d5e59e/src/GPFramework/feature_selection_methods.py, this implements the selectPercentile method in tensor flow: https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectPercentile.html
+
+It takes in a scorefunc and a percentile:
+SelectPercentile(chi2, percentile=10)
+Score_Func: “Function taking two arrays X and y, and returning a pair of arrays (scores, pvalues) or a single array with scores. “
+
+In this case, the method is taking in a 2d array when it should be processing a 1d array. It's unclear why it's doing that but it is probably related to the TriState
+
+
+FSW wrapper - allows all different primitives to work with ARG0 and TRISTATE
+TRISTATE- how to treat the data
+STREAM2STREAM - keeps it raw
+STREAM2FEATURES - cannot go back to stream
+
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|Complete
+|November 3rd, 2021
+|November 8th, 2021
+|November 9th, 2021
+|-
+|Investigate Errors in NNLearner
+|Complete
+|November 8th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Run simulations for Emade
+|Not started
+|November 8th, 2021
+|November 22nd, 2021
+|-
+|}
+
 == November 10th ==
 
 ''' Lab Notes '''
@@ -62,19 +194,19 @@ Script in Emade  to debug -> standalone tree evaluator
 |Get set up on PACE-ICE
 |In Progress
 |November 3rd, 2021
-|Novembver 8th, 2021
+|November 8th, 2021
 |-
 |-
 |Investigate Errors in NNLearner
 |Not Started
 |November 8th, 2021
-|Novembver 15th, 2021
+|November 15th, 2021
 |-
 |-
 |Read ChexNet
 |Complete
 |November 3rd, 2021
-|Novembver 8th, 2021
+|November 8th, 2021
 |November 4th
 |-
 |}
@@ -103,13 +235,13 @@ TASKS:
 |Get set up on PACE-ICE
 |In Progress
 |November 3rd, 2021
-|Novembver 8th, 2021
+|November 8th, 2021
 |-
 |-
 |Read ChexNet
 |In Progress
 |November 3rd, 2021
-|Novembver 8th, 2021
+|November 8th, 2021
 |-
 |-
 |}
