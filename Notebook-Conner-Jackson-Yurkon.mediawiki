@@ -15,9 +15,12 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
-== December 2, 2021 ==
-'''Team Meeting Notes:'''
+== December 3, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for 30 minutes to review the final presentation and assign slides. This weekend we will run some experiments to evaluate our changes over the semester. We are also looking to merge all of our work into one branch for these runs. However, some of our work is still experimental and so we might save it for a future semester.
 * I amended the layer frequency tracking code to account for ADFs here: https://github.gatech.edu/cwhaley9/emade/commit/12ef8e31a892118ddc2882ac8aa233ae1c82f5b3. The principal change was to replace all instances of ADFs with their associated layer frequencies. Note that ADFs cannot be nested.
+* I implemented a basic evaluation method for novelty detection here: https://github.gatech.edu/cwhaley9/emade/commit/bc8637505302f0b1f363235f7452e8465fee9d2b. To do this, I had to modify some of the evaluate methods in EMADE.py and pass an additional kwargs. I will also think of more complex evaluation methods. Currently, I give a reward if an individual contains a layer type not included within the previous generation. However, we do not use many layers and so this might saturate quickly (AKA give a value of 0 to most individuals). Therefore, I want to incorporate frequency rather than a binary includes / doesn't include.
+* Our slides for the final presentation can be found here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing. I am responsible for slides 12 - 15 (layer novelty detection results) as well as parts of slide 26 (additional documentation) where I can present improvements to running EMADE on PACE.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -27,16 +30,22 @@ Teammates:
 !Suspense Date
 !Date Resolved
 |-
-| Add method to keep track of NNlayer counts between generations.
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
 |Completed
-|9/17/21
+|11/12/21
 |12/3/21
 |12/2/21
 |-
-| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+| Add additional novelty detection evaluation methods that take frequency into account.
 |In Progress
-|11/12/21
 |12/3/21
+|12/6/21
+|
+|-
+| Complete experimental runs and slides for final presentation.
+|In Progress
+|12/3/21
+|12/10/21
 |
 |-
 |}
