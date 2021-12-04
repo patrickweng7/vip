@@ -10,16 +10,64 @@
 
 Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/Notebook-Steven-Anthony-Leone
 
+## Week 16, Dec 6th
+
+### General Meeting Notes
+
+
+
+### Sub Team Meeting Notes
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+,,,| Complete | 11/15/2021 | //2021 | //2021 |
+
+This week: Runs, Final Presentation
+
+## Week 15, Nov 29th
+
+### General Meeting Notes
+
+
+
+### Sub Team Meeting Notes
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+,,,| Complete | 11/15/2021 | //2021 | //2021 |
+
+This week: codefreezed version, getting in runs, fixing NNLearner2 use of Keras.
+
+## Week 14, Nov 22nd
+
+### General Meeting Notes
+
+
+
+### Sub Team Meeting Notes
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+,,,| Complete | 11/15/2021 | //2021 | //2021 |
+
+
 
 # Fall 2021
 
 ## Week 13, Nov 15th
 ### General Meeting Notes
+* Output layer problem this week
 
 
 ### Sub Team Meeting Notes
 
-### Action Items
+
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
@@ -27,6 +75,10 @@ Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/
 Further Debug Primitives with Standalone Tree Evaluator | In Progress | 11/15/2021 | ... | 11/21/2021 |
 Meet w/ Devan on double NNLearners | In Progress | 11/17/2021 | 11/21/2021| 11/21/2021 |
 Have code ready for Code Freeze | In Progress | 11/15/2021 | ... | 11/21/2021 |
+
+
+### Hackathon
+
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
