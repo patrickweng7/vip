@@ -127,6 +127,13 @@ Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 1
 
 
 ### Sub Team Meeting Notes
+* At this week's sub team meeting, we did a bit of a sync up first, getting everyone on the same page.
+* As the output layer team was dissolved for now, and we were minimizing the task for the time being, we split up the members amongst the remaining teams.
+* Now, we just had the NNLearner2 team and the Integration Team.
+* Devan had looked at NNLearner2 and the differences between standalone tree evaluator and launchEMADE's load environment methods. We decided it would be best to ignore standalone tree evaluator's for now.
+* We split up, and worked on our separate tasks.
+* At the end of the meeting, we decided our best bet for completing NNLearner2 would be the Hackathon. I would work on it with Devan there.
+* For the Integration Team, we still worked on testing different models with the BidirectionalAttention and BidirectionalModeling layers. 
 
 
 ### Action Items
@@ -139,7 +146,8 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 
 
 ### Hackathon
-* At the Hackathon, I worked with Devan to debug NNLearner2 and get it working
+* At the Hackathon, I worked with Devan to debug NNLearner2 and get it working.
+
 
 
 ## Week 12, Nov 8th
