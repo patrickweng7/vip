@@ -32,8 +32,6 @@ This week: Runs, Final Presentation
 
 ## Week 15, Nov 29th
 
-This week: codefreezed version, getting in runs in
-
 ### General Meeting Notes
 * NLP: 
 * * We had an error in NNLearner2 with the test and train data being sent in wrong. It is fixed now.
@@ -82,12 +80,23 @@ Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 
 * * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
 * * New Hypothesis: We can use Auto Machine Learning to improve QA models.
 * NAS:
+* * This week they focused on model and preprocessing improvements, and internal updates among members.
+* * The final presentation is currently being created.
+* * Improved the model by getting rid of pooling layers.
+* * Lots of preprocessing improvements, including subtracting by the pre pixel mean.
 * Modularity:
+* * Documenting more of their code better.
+* * Preparing to start runs 
+* * Working on data visualizations, 
 * Image Processing:
+* * Have been working on their assigned teams still.
+* * Most of the team, even new members, have EMADE set up and their database running.
+* * Currently getting runs in, but results are bad (AUC is pretty high).
 
 
 
 ### Sub Team Meeting Notes
+* Thanksgiving break was this week, so we had no sub team meeting. We would only continue to work on items over the break.
 
 
 ### Action Items
@@ -104,8 +113,17 @@ Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 1
 * NLP:
 * * Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
 * NAS:
+* * Had a meeting with updates, and then a 30 minute work session.
+* * New members are all on PACE and ready to work.
+* * Working on ADF's.
 * Modularity:
+* * Introduced new members to the team and what work they do.
+* * Discovered another new bug, this time in the match_arl algorithm.
+* * Still working on integrating Cache V2 features.
 * Image Processing:
+* * Having some team re assignments, especially with new members
+* * Mating/Mutations sub team is trying to adapt some functionality for strongly typed genetic programming.
+* * Working on some general bug fixes.
 
 
 ### Sub Team Meeting Notes
