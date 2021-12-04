@@ -35,6 +35,18 @@ This week: Runs, Final Presentation
 This week: codefreezed version, getting in runs in
 
 ### General Meeting Notes
+* NLP: 
+* NAS:
+* * Not a very heavy week
+* * Have been working on the final presentation, will rehearse it soon
+* * Making a few pull requests
+* Modularity:
+* * Continuing their runs
+* * Hoping to start their stock runs soon
+* Image Processing:
+* * Not a very heavy week for this team
+* * Not quite at a code freeze, but will start runs this week.
+* * NAS has pushed some updates they may want to add in before they officially code freeze.
 
 
 
@@ -60,6 +72,9 @@ Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 
 * * This week, we focused a lot in our meeting about general procedures for our experiments
 * * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
 * * New Hypothesis: We can use Auto Machine Learning to improve QA models.
+* NAS:
+* Modularity:
+* Image Processing:
 
 
 
@@ -77,7 +92,11 @@ Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 1
 
 ## Week 13, Nov 15th
 ### General Meeting Notes
-* Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
+* NLP:
+* * Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
+* NAS:
+* Modularity:
+* Image Processing:
 
 
 ### Sub Team Meeting Notes
