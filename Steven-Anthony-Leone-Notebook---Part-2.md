@@ -36,6 +36,9 @@ This week: codefreezed version, getting in runs in
 
 ### General Meeting Notes
 * NLP: 
+* * We had an error in NNLearner2 with the test and train data being sent in wrong. It is fixed now.
+* * Accuracy still rather weird, one half of what the values should be. Working on fixing this.
+* * The above described error turned out to be because the length of the test data was not being divided by num_inputs in EMADE.py.
 * NAS:
 * * Not a very heavy week
 * * Have been working on the final presentation, will rehearse it soon
