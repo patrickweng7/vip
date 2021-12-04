@@ -54,6 +54,12 @@ This week: codefreezed version, getting in runs in
 
 
 ### Sub Team Meeting Notes
+* At this week's sub team meeting, we worked on getting our code freezed codebase onto everyone's computer to start getting runs in. 
+* I had already pushed my updates to our fork:
+* However, the seeding wasn't working for others. Devan ran an 8 hour run and had no NNLearner2 individuals on the Pareto Front throughout the entire run.
+* I ran again to ensure seeding still worked for me, and I was able to get NNLearner2's that I seeded immediately. Thus, we determined there was probably a file that I hadn't updated on our branch. 
+* To resolve this, we used a temporary workaround. I uploaded my entire codebase as is to a new repo:
+* For the rest of the meeting, I helped others move files over to PACE and start getting runs in.
 
 
 ### Action Items
