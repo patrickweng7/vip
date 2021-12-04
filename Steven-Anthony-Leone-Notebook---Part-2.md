@@ -28,6 +28,8 @@ This week: Runs, Final Presentation
 
 ## Week 15, Nov 29th
 
+This week: codefreezed version, getting in runs in
+
 ### General Meeting Notes
 
 
@@ -40,10 +42,12 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 ,,,| Complete | 11/15/2021 | //2021 | //2021 |
 
-This week: codefreezed version, getting in runs, fixing NNLearner2 use of Keras.
+
 
 ## Week 14, Nov 22nd
 
+This week: fixing NNLearner2 use of Keras.
+
 ### General Meeting Notes
 
 
@@ -54,7 +58,8 @@ This week: codefreezed version, getting in runs, fixing NNLearner2 use of Keras.
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-,,,| Complete | 11/15/2021 | //2021 | //2021 |
+Add Regression to NNLearner2 | Complete | 11/15/2021 | //2021 | //2021 |
+Fix weird incorrect accuracy issue in eval_methods | Complete | 11/15/2021 | //2021 | //2021 |
 
 
 
@@ -62,7 +67,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 
 ## Week 13, Nov 15th
 ### General Meeting Notes
-* Output layer problem this week
+* Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
 
 
 ### Sub Team Meeting Notes
@@ -72,12 +77,13 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
-Further Debug Primitives with Standalone Tree Evaluator | In Progress | 11/15/2021 | ... | 11/21/2021 |
-Meet w/ Devan on double NNLearners | In Progress | 11/17/2021 | 11/21/2021| 11/21/2021 |
-Have code ready for Code Freeze | In Progress | 11/15/2021 | ... | 11/21/2021 |
+Further Debug Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
+Meet w/ Devan on double NNLearners | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
+Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
 
 
 ### Hackathon
+* At the Hackathon, I worked with Devan to debug NNLearner2 and get it working
 
 
 ## Week 12, Nov 8th
