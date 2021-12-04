@@ -46,7 +46,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Complete EMADE Runs on Squad| Complete | 11/29/2021 | 12/04/2021 | 12/06/2021 |
 Create a branch for code freezed EMADE | Complete | 12/01/2021 | 12/01/2021 | 12/06/2021
-Help other Team Members get set up on PACE | In Progress | 11/29/2021 | ... | 12/06/2021
+Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 | 12/06/2021
 
 
 
@@ -55,6 +55,11 @@ Help other Team Members get set up on PACE | In Progress | 11/29/2021 | ... | 12
 
 
 ### General Meeting Notes
+* NLP:
+* * We updated the team on what we accomplished leading up to and after the Hackathon
+* * This week, we focused a lot in our meeting about general procedures for our experiments
+* * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
+* * New Hypothesis: We can use Auto Machine Learning to improve QA models.
 
 
 
@@ -100,6 +105,9 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 * * Karthic began leading a team to explore our issue with the output layer
 * * Devan began leading a team to debug NNLearner2
 * * Kevan would look at word embeddings
+* NAS:
+* Modularity:
+* Image Processing:
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
