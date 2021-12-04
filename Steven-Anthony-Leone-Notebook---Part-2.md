@@ -10,6 +10,10 @@
 
 Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/Notebook-Steven-Anthony-Leone
 
+
+
+# Fall 2021
+
 ## Week 16, Dec 6th
 
 ### General Meeting Notes
@@ -65,8 +69,6 @@ Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/
 Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
 
 
-
-# Fall 2021
 
 ## Week 13, Nov 15th
 ### General Meeting Notes
