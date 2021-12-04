@@ -40,13 +40,15 @@ This week: codefreezed version, getting in runs in
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-,,,| Complete | 11/15/2021 | //2021 | //2021 |
+Complete EMADE Runs on Squad| Complete | 11/29/2021 | 12/04/2021 | 12/06/2021 |
+Create a branch for code freezed EMADE | Complete | 12/01/2021 | 12/01/2021 | 12/06/2021
+Help other Team Members get set up on PACE | In Progress | 11/29/2021 | ... | 12/06/2021
 
 
 
 ## Week 14, Nov 22nd
 
-This week: fixing NNLearner2 use of Keras.
+
 
 ### General Meeting Notes
 
@@ -58,8 +60,9 @@ This week: fixing NNLearner2 use of Keras.
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Add Regression to NNLearner2 | Complete | 11/15/2021 | //2021 | //2021 |
-Fix weird incorrect accuracy issue in eval_methods | Complete | 11/15/2021 | //2021 | //2021 |
+Add Regression to NNLearner2 | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
+Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
+Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
 
 
 
