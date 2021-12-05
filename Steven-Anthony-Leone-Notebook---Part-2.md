@@ -386,7 +386,7 @@ Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
 
 ### Friday Meeting
 * I put together a list of trivial vs non-trivial merge conflicts: https://docs.google.com/document/d/1B-0uHdawDfCY-5BLZQUiuz-dleC9MDwqVhYU6WmliRc/edit?usp=sharing
-# We discussed it, moved files around, and decided to use it as a basis for which files to look at first on Saturday.
+* We discussed it, moved files around, and decided to use it as a basis for which files to look at first on Saturday.
 
 ### Hackathon
 * Karthik, Kevin and I met at the Hackathon on Saturday to work on the merges, while our Literature Review Team kept looking at papers for inspiration with different primitives and state of the art models.
