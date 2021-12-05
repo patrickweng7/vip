@@ -160,8 +160,26 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 * * Devan began leading a team to debug NNLearner2
 * * Kevan would look at word embeddings
 * NAS:
+* * Came up with some new tasks, such as automating time stopping and now working on novelty detection
+* * Setup a new video for setting up EMADE locally
+* * Making SQL visualization improvements
 * Modularity:
+* * Changing some of their overall semester goals
+* * Part of the old stocks team will work on adding modularity code to the CacheV2 branch
+* * Still doing experiments with ARL's.
 * Image Processing:
+* * Having some PACE Errors
+* * PACE was offline this week
+* * Fixing environment errors 
+
+### Sub Team Meeting
+* We held this week's sub team meeting in person
+* With our teams fully setup, we held a work session.
+* I broke off with the integration team, trying to get what we've built to actually work in EMADE.
+* George was having disk memory quota issues that I helped him resolve by resetting his conda environment.
+* I helped Manas get setup on PACE.
+* I ran into disk memory quota issues myself, and had to delete some datasets I wasn't using anymore to resolve them.
+* I ended the session with a memory issue in standalone tree evaluator. Anish later told me about setting reduceInstances to solve this, and Dr. Zutty later informed me that we actually set this memory limit in the XML file. Increasing the memory limit there solved the issue.
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
