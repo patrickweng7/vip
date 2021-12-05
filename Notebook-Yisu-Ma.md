@@ -10,6 +10,62 @@
 
 # **Fall 2021**
 
+## Week 14: November 22nd -  November 28th(2021)
+### Lecture overview:
+
+## Week 13: November 15th -  November 21st(2021)
+### Lecture overview:
+
+## Week 12: November 8th -  November 14th (2021)
+### Lecture overview:
+
+
+## Week 11: November 1st -  November 7th (2021)
+### Lecture overview:
+
+
+## Week 10: October 27th - November 31st (2021)
+### Lecture overview:
+
+## Week 9: October 20th - October 26th (2021)
+### Lecture overview:
+
+## Week 8: October 13th - October 19th (2021)
+### Lecture overview:
+
+## Week 7: October 6th - October 12th (2021)
+### Lecture overview:
+* Notebook completion for mid term grading.
+* projects introduction
+* midterm Presentation date on 10.25
+* Introduction to EMADE and MySQL.
+* no bootcamp session on Wednesday
+* Hackathon 10.16 or 10.17
+
+### Lecture Notes:
+* Introduced EMADE
+* The basic concept for EMADE combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+* Need to follow the install instructions and configure MySql server
+* Input .xml file is required for fulfilling configurations in EMADE.
+* Make sure the MySQL command works before troubleshooting EMADE
+* Understand the EMADE structure and see the sample output.
+evalFunctions.py is our evaluation function file
+### team note:
+* Everyone need to have EMADE downloaded and run it properly
+* Set up MySql
+* One person need to have Master process and other teammates need to join the work process
+* Configure XML file to run Titanic Dataset
+* Trying to resolve the problems during sql work process set up
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 6th, 2021|October 13st, 2021|October 12st, 2021|
+|Installed EMADE|complete|October 6th, 2021|October 13st, 2021|October 12st, 2021|
+|Make Mysql work process working|in process|October 6th, 2021|October 13st, 2021|October 13st, 2021|
+|Record Notebook|complete|October 6th, 2021|October 13st, 2021|October 13st, 2021|
+
+
+
 ## Week 6: September 29th - October 5th (2021)
 ### Lecture overview:
 * Finish peer evaluation next week.
