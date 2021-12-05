@@ -169,8 +169,16 @@ Interests:
 '''Individual notes:'''
 * I tasked my team with initially just getting familiar with emade.py, nnlearner, and using standalone tree evaluator as this would be the first time either of them would be working directly on emade's code base.
 * I helped Steven and co. troubleshoot the memory issue as I ran into the same thing testing NNLearner.
-[[https://github.gatech.edu/storage/user/46196/files/0ed0038e-7280-4476-9ac1-6c206953af15|alt=octocat]]
-
+* After some initial changes to add NNLearner2 I ran into the following issue testing "NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)" with standalone tree evaluator:
+* <img src="https://github.gatech.edu/storage/user/46196/files/0ed0038e-7280-4476-9ac1-6c206953af15" width="30%">
+* <img src="https://github.gatech.edu/storage/user/46196/files/345450ac-0006-4f35-a076-9607921701b8" width="30%">
+* <img src="https://github.gatech.edu/storage/user/46196/files/2f9a54b4-3d88-42df-94f8-3319632d22e7" width="30%">
+** This individual is just a test individual to troubleshoot
+** At this point I wasn't sure if it was something with standalone tree evaluator or the primitive because I was expecting an error from the code rather than the individual itself.
+* After finding the issue (it was a typo...) I got a separate error
+** <img src="https://github.gatech.edu/storage/user/46196/files/a0774af2-b5be-44bf-892b-d62ff88628d1" width="30%">
+** This turned out to be because the datapair was being treated as a list in our new setup but some of the code didn't reflect that.
+*
 '''Action Items:'''
 {| class="wikitable"
 !Task
