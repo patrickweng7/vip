@@ -16,8 +16,10 @@ In class, I ran <code>python3 src/GPFramework/standalone_tree_evaluator.py templ
        <reduceInstances>0.005</reduceInstances>
        <regression>true</regression>
 The reduce instance xml tag to 0.005 runs standalone on less of the db which greatly increases the speed of the run, and regression is needed to achieve the proper output values.
-[[files/dzhang351/standalone_individuals.png|100px]]
+[[files/dzhang351/standalone_individuals.png|50px]]
 
+```Subteam Notes
+The NNlearner2 subgroup mainly focused on getting runs in using standalone and seeding to test output results during the meeting.
 I worked on trying to run emade with seeding values using in order to speed up the evolutionary process.
 
 The following is the seeding file I used: "seeding_qa"
@@ -33,13 +35,14 @@ Result of Run 1 (approx 2 days locally -> 11 total run hours)
 [[files/dzhang351/sql_insert_error.png|50px]]
 ** To resolve the error, I removed the duplicate individual and continued the run afterr
 * I found out there was a discrepancy in the input_squad.xml file based on the new dataset structure and changed the following code snippet
-[[files/dzhang351/changed_xml.png|50px]]
+[[files/dzhang351/changed_xml.png|30px]]
 * Out of the EMADE run, filtering for NNLearner2 individuals, there were 5 total, and 12 NNLeaner individuals; however, all of them had error strings beside the initial seeded NNLearner2
 * I had a total of 512 individuals, most of which where not NN related - the following shows some examples of NNLearner2 and other individuals
-[[files/dzhang351/NNlearner2_ind.png|50px]]
-[[files/dzhang351/other_individuals.png|50px]]
+[[files/dzhang351/NNLearner2_ind.png|40px]]
 
-The following is the sql statements that I used to query and analyze the error strings and NNLearner individuals
+[[files/dzhang351/other_individuals.png|40px]]
+
+The following arer the sql statements that I used to query and analyze the error strings and NNLearner individuals
     use squad;
     show tables;
     select count(*) from individuals;
@@ -78,6 +81,7 @@ The following table is a summary of run 1 results
 |Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required
 |-
 |}
+
 
 '''Action Items:'''
 {| class="wikitable"
