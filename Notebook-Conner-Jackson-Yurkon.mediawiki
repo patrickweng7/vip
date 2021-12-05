@@ -15,6 +15,263 @@ Teammates:
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
 
+== December 3, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for 30 minutes to review the final presentation and assign slides. This weekend we will run some experiments to evaluate our changes over the semester. We are also looking to merge all of our work into one branch for these runs. However, some of our work is still experimental and so we might save it for a future semester.
+* I amended the layer frequency tracking code to account for ADFs here: https://github.gatech.edu/cwhaley9/emade/commit/12ef8e31a892118ddc2882ac8aa233ae1c82f5b3. The principal change was to replace all instances of ADFs with their associated layer frequencies. Note that ADFs cannot be nested.
+* I implemented a basic evaluation method for novelty detection here: https://github.gatech.edu/cwhaley9/emade/commit/bc8637505302f0b1f363235f7452e8465fee9d2b. To do this, I had to modify some of the evaluate methods in EMADE.py and pass an additional kwargs. I will also think of more complex evaluation methods. Currently, I give a reward if an individual contains a layer type not included within the previous generation. However, we do not use many layers and so this might saturate quickly (AKA give a value of 0 to most individuals). Therefore, I want to incorporate frequency rather than a binary includes / doesn't include.
+* Our slides for the final presentation can be found here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing. I am responsible for slides 12 - 15 (layer novelty detection results) as well as parts of slide 26 (additional documentation) where I can present improvements to running EMADE on PACE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|Completed
+|11/12/21
+|12/3/21
+|12/2/21
+|-
+| Add additional novelty detection evaluation methods that take frequency into account.
+|In Progress
+|12/3/21
+|12/6/21
+|
+|-
+| Complete experimental runs and slides for final presentation.
+|In Progress
+|12/3/21
+|12/10/21
+|
+|-
+|}
+
+== November 29, 2021 ==
+'''Team Meeting Notes:'''
+* Met with team for one hour.
+* As a sub-team, we discussed possible evaluation methods for novelty detection and came up with several ideas. For example, we might consider an analog of the Lp norm, and reward individuals based on their novelty in different magnitudes.
+* I will implement these for our next meeting so that we can begin running experiments.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+|}
+
+== November 26, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met with team for approximately 30 minutes to give updates.
+* I completed the layer frequency tracking and fixed the bugs introduced last time. These changes can be found here: https://github.gatech.edu/cwhaley9/emade/commit/42564288177835656786c1a3b76836ed6522c11b. In the future, I will work to better integrate this with the existing Statistics table generation (notice the commented code in this code). In any case, the Statistics table is being properly populated with this new column.
+* I still need to incorporate ADFs into this tracking, and will work on this over the weekend.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+|}
+
+== November 22, 2021 ==
+'''Team Meeting Notes:'''
+* Gave scrum updates and met with team for one hour.
+* I talked with Devesh about some issues in the layer frequency code. 
+* As a sub-team, we discussed upcoming deadlines and fixed a date to begin running experiments. Once I ensure that the layer frequency tracking is correct, I will focus on implementing some basic evaluation methods to support these experiments.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+|}
+
+== November 21, 2021 ==
+'''Hackathon Notes:'''
+* Attended hackathon for approximately 3-4 hours.
+* I realized that the shared conda environment I was using on PACE was not stable (Cameron Whaley was making some changes). Therefore, I had to spend some time installing the dependencies in my own environment. This took about 10 GB of space, placing me just underneath the PACE limit (~14.8 / 15 GB). This is problematic because future work might place me over. Therefore, we discussed the possibility of a stable, shared environment that would not contribute to our individual quotas.
+* While my environment was installing, I continued working to cleanup the EMADE codebase. These changes can be found here: https://github.gatech.edu/cwhaley9/emade/tree/nn-vip-refactor. For example, I reduced the complexity of the worker algorithm here: https://github.gatech.edu/cwhaley9/emade/commit/9cb966e3ab4333e466138249db4669cb61c8ac00. However, we do not intend to introduce these changes this semester. We want to rule out the possibility of introducing new bugs when we should be freezing the codebase for our final experiments. Nevertheless, this is an important initiative because it will allow us to better tailor EMADE to our own needs (evolving neural networks).
+* During this cleaning process, I became more familiar with the master / worker algorithms and got a better sense where I might introduce new code.
+* Finally, I started fixing the bugs introduced in the layer frequency code I committed last week.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+| Do some basic code cleanup within EMADE.py (specifically within the master and worker algorithms).
+|Completed
+|11/19/21
+|11/22/21
+|11/21/21
+|-
+|}
+
+== November 19, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for one hour.
+* We discussed some of the issues I mentioned below and I was able to use the hour as a work session. Using a debugger, I determined that this code was faulting on nested ADFs and was not appropriately tracking layer frequencies. I worked on modifying this.
+* As I started adding in more hooks to the master / worker algorithms in EMADE.py, I also started to clean up some of the codebase and intend to merge some of these changes in the future. For example, I replaced the print -> flush paradigm with print alone (because Python appends \n when printing, and so flushing is done automatically). I also noticed some unnecessary complexity within the worker algorithm and will work to reduce this.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|12/3/21
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|12/3/21
+|
+|-
+| Do some basic code cleanup within EMADE.py (specifically within the master and worker algorithms).
+|In Progress
+|11/19/21
+|11/22/21
+|
+|-
+|}
+
+== November 15, 2021 ==
+'''Team Meeting Notes:'''
+* Met for one hour and provided scrum updates.
+* Over the weekend, I implemented basic logic to track layer frequencies. You can find these changes here: https://github.gatech.edu/cwhaley9/emade/commit/ea2c3780a78a39006f993de4e9ac9d488c50dc83.
+* These changes required interacting with the database and so I had to familiarize myself with some of EMADE's underlying SQL infrastructure (e.g. the code in the sql_connection_orm_*.py file).
+* Currently, whenever individuals are added to the database these method will be called so that their layer frequencies are also collated into a generation-wide Counter.
+* Unfortunately, I encountered some bugs when running this code on PACE, and this was a motivating factor to switch to local development. I will be focusing on these issues in the near future. For example, this method is not called appropriately on the first generation and so I will have to handle the first generation separately.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|
+|
+|-
+|}
+
+== November 12, 2021 ==
+'''Sub-Team Meeting Notes:'''
+* Met for one hour.
+* After finishing the configuration scripts for EMADE on PACE, I realized that development was still tricky because I did not have access to a debugger on PACE. Therefore, I setup EMADE on my local machine (macOS) and consolidated the documentation for this process here:
+    conda create -n pace-env python=3.8
+    conda install --channel "conda-forge" numpy pandas tensorflow==2.6.0 keras==2.6.0 scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn tensorflow-datasets==4.3 sep nltk textblob spectral "setuptools>=57,<58" && pip install xgboost lmfit multiprocess hmmlearn deap==1.2.2 opencv-python keras-pickle-wrapper
+    bash reinstall.sh
+* I spent some time familiarizing myself with parts of the codebase that I would be interacting with to develop novelty detection. I also stepped through a run of EMADE using a debugger to get a better understanding of the flow of execution.
+* I also noted that the hanging time in the CIFAR-10 generation script was out of our control.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add method to keep track of NNlayer counts between generations.
+|In Progress
+|9/17/21
+|
+|
+|-
+| Create evaluation methods that use the tracked layer frequencies to reward novelty.
+|In Progress
+|11/12/21
+|
+|
+|-
+| Investigate hanging time in the gen_cifar10.py script, and merge nn-vip-env into nn-vip.
+|Completed
+|11/10/21
+|11/15/21
+|11/12/21
+|-
+|}
+
 == November 8, 2021 ==
 '''Team Meeting Notes:'''
 * General scrum updates from each sub-team.

@@ -35,6 +35,75 @@ Teammates:
 
 Total Out of 100: '''91/100'''
 
+== November 22nd, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting was a regular update of team status.
+* I have yet to receive updates from team members about completed tasks. I've checked in with some new members and noticed that they are working hard to complete the new slides for our final presentation.
+* I am currently blocked for the week until I get the completed tasks of my teammates. Cameron W and I exchanged some ideas about implementing weight sharing and have both provided our own implementations on seperate branches. Mine can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/neural_network_methods.py#L678-L700 here] In this commit, I've essentially taken the new Module primitive and modified it to take in a layerlist which it will use to compile it's own part of a given individual. I've done some light testing but have not been able to fully verify it's functional.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add verification check to mutation/mating methods
+|Completed
+|11/16/21
+|11/21/21
+|11/19/21
+|-
+|Test WeightSharing Implementation
+|Incomplete
+|11/20/21
+|11/26/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I made some updates to my previous commit from last week and modified the genNNLearner method which contained some flawed logic for preventative protection against bad nnlearners. A flaw with the previous logic I was using came up while I was debugging some individuals in an EMADE run. The existing code I provided was essentially accumulating reshape sizes of Modules while assembling NNLearner Layerlists. However, because these models are constructed in a backward way in order to be compatible with our compile functionality, I noticed that it was possible for flawed individuals to appear by simply building up a buffer of positive reshape module values which come after modules that are invalidly placed near the bottom(beginning) of NNLearner Layerlists.
+* In order to fix this flaw in logic, I made a method called forward prune which essentially takes a generated layerlist and manually adds each module one at a time while compiling them in order to verify that the layerlist is being given to the NNLearner is actually compilable. This logic removes any given modules which cause an error in compilation for a given layerlist.
+* Additionally, I added some verification checks within each of the manually written NNLearner mating and mutation methods which ensures modified individuals are able to compile after being transformed. A link to this commit can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/emade_operators.py#L17-L922 here]
+
+== November 15th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting was a regular update of team status.
+* Our team was unable to get desired completion of tasks on time during the provided time at our VIP hackathon. Unfortunately this will push back the amount of time available to do EMADE runs but hopefully we will still have sufficient access to pace-ice resources.
+* Dr. Zutty provided some insights about how we could utilize a parent column in our existing EMADE individuals table in order to produce complex graph structures which will provide fruitful trends over multiple generations. We haven't fully fleshed out some applications but we plan to explore elapsed time over time and possibly improved accuracy.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete addition of mutation-mating ADF methods 
+|Complete
+|11/5/21
+|11/18/21
+|11/14/21
+|-
+|Add verification check to mutation/mating methods
+|Incomplete
+|11/16/21
+|11/21/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I worked on completing Mutation/Mating methods as well as assist Cameron W in completion of weight sharing between modules in EMADE. 
+* While working through some of the mating and mutation methods, I noticed that there seemed to be some methods which cannot be applied to certain types of individuals. For instance, the gp.mutInsert method would not be applied to any NNLearner individual in a meaningful way because there is not built in way to verify that a mutated insertion would be valid for a given pair of NNLearners. I ended up seperating the existing mating and mutation logic into two seperate methods which can be executed by NNLearners/Modules or regular Emade individuals(in the far future event where this fork gets merged with EMADE).
+* Additionally, I setup scoring for modules which now allows modules to recieve an average objective score based on the scores of the individuals using them. This scoring is used to incur a selection(which defaults to selNSGA2) which I use during every launch to get rid of the worst-performing modules and replace them with new Modules. A link to the commit can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/EMADE.py#L786-L866 here]
+* Next week, I will add some helpful checks to the existing methods for mating and mutation which ensure any applied transformation on an NNLearner is valid and doesn't break existing individuals.
+* I feel that a lot of the preventative logic we'll be implementing will further help EMADE optimize it's usage of training time. Hopefully, we will have some time later to incorporate more of the latest research structures such as the SuperNet which was proposed earlier in the year.
+
+
 == November 8th, 2021 ==
 '''Team Meeting Notes:'''
 * This week, our SCRUM meeting was a regular update of team status.

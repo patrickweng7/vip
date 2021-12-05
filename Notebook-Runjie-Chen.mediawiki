@@ -8,6 +8,72 @@
 
 = Fall 2021 =
 
+== Week 15: November 29th - December 5th ==
+
+===November 29th, 2021 Team Meeting Notes===
+*Peer Evals are due next Wednesday
+*scrums:
+** Image processing
+*** Not much going on this week because didn't meet due to Thanksgiving break
+*** Preparing for final presentation
+*** Need to get to code freeze point to start running 
+** NLP
+*** have NNlearner working on regression, we are getting results but they don't look quite right
+**NAS
+*** Not much progress since last week due to Thanksgiving break
+*** Not at a formal code freeze yet, but are at an informal code freeze
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish peer evaluations
+|In progress
+|November 29th, 2021
+|December 8th, 2021
+|
+|}
+
+== Week 14: November 22nd - November 28th ==
+
+===November 22nd, 2021 Team Meeting Notes===
+*scrums:
+** modularity
+*** documentation and refactoring has been done
+*** all bad variable names have been changed
+*** First year members have been improving google cloud scripts
+*** First year members have also been working on data visualization
+*** Cache V2 integration is mostly done
+** NLP
+*** We have all the primitives that we need to get results
+*** NNLearner2 works on classification
+*** New members are almost set up with PACE, once set up, everyone can help run the experiment
+** NAS
+*** have only been using the training data set, using the actual test data set might be more accurate
+*** Dr.Zutty disagrees, the test set is an equalizer at the end. Which data set is better depends. Keep the training data set because that's what they have been using, but it is a good idea to use the test set at the end
+**** Training data set is what we use to fit individual model
+**** Test data set is used to score the model (this is the final dataset that we want)
+**** The model is learning the relationship between training and test
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Resolve errors from running EMADE on PACE
+|In progress
+|November 15th, 2021
+|November 29th, 2021
+|
+|}
+
 == Week 13: November 15th - November 21th ==
 
 ===November 15th, 2021 Team Meeting Notes===
@@ -26,6 +92,63 @@ Scrums:
 ** Input: context & query, Output: start and end index of the context (extract the answer from the context as a substring)
 ** Need Dr.Zutty's advice on a weird issue that we are encountering
 *** memory issues
+
+===November 17th, 2021 sub-team Meeting Notes===
+* Our team has determined that the output layer problem that I got assigned to work on was too hard to solve for this semester, so my task team was dissolved and I got reassigned to a different task: NNLearner for 2 Data Pairs
+* Task description:
+** Dr. Zutty previously mentioned there should be NNLearner code for two data pairs (for example, NNLearner(ARG0, ARG1, layer list, optimizer, X). Look into this, and debug with a dataset with at least two textual inputs (one for each data pair) and a number for classification. Here's one on Twitter Sentiment analysis that could work: http://help.sentiment140.com/for-students/
+** NNLearner 2 task notes
+*** In neural_network_methods.py, we only care about code related to textdata (for example we can ignore code related to imagedata because that doesn't apply to NLP)
+*** For everything that we did with textdata, we are repeating the same process twice with NNlearner 2
+*** The code might look long and intimidating, but most of the stuff we can ignore and we can just focus on textdata related things
+*** we need to run EMADE regularly with seeded individuals, we start out with NNLearner, and once that works properly, we run NNLearner 2, which should error out, and then we can start debugging
+*** Unsure of what kind of output we'd expect from NNLearner 2 yet
+* My Progress:
+** I reviewed code in EMADE.py and general_methods.py and tried to understand our codebase
+** I reviewed changes in EMADE.py: https://github.gatech.edu/sleone6/emade/commit/77992e059d9d10b5174632a859c514b626d31d92
+** My notes and questions:
+*** I'm a bit confused, so all we are doing is looking at only the changes that were made in EMADE.py according to the github link that was sent (so like the one line of code were NNLearner2 was added?)  and based on that change, we need to see what else needs to be changed in the load_environment method in general_methods.py?
+*** If my assumption was correct, I think we need to first understand what each of the code file is doing so that we can then determine what needs to be integrated, however right now I'm having trouble understanding the code, does anyone have any tips on that?
+
+===November 21st, 2021 Hackathon Notes===
+*Resolved some issues from running EMADE on PACE
+*Found that I was missing this line from the pbsmysql.pbs file
+<blockquote> 
+mysqld_safe --datadir='/storage/home/hpaceice1/rchen417/scratch/db'
+</blockquote> 
+*To run standalone tree evaluator, I must clone the updated branch using:
+<blockquote> 
+git clone --depth 1 https://github.gatech.edu/sleone6/emade.git --branch feature/nnlearner2 --single-branch 
+</blockquote> 
+* I tried running that, however, it isn't merging with the old branch correctly, therefore I decided to delete the old branch on PACE and clone the updated branch locally and scp over the updated branch. That failed miserably because of disk quota exceeded error, need to figure out what went wrong.
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|compare changes that were made in EMADE.py with the load_environment method in general_methods.py, and determine which changes we need to integrate
+|Completed
+|November 15th, 2021
+|November 17th, 2021
+|November 17th, 2021
+|-
+|Run EMADE successfully with NNLearner
+|
+|November 17th, 2021
+|November 21th, 2021
+|
+|-
+|Attempt to run EMADE with NNLearner2 and identify steps that need to be done based on errors
+|
+|November 17th, 2021
+|November 21th, 2021
+|
+|}
 
 == Week 12: November 8th - November 14th ==
 

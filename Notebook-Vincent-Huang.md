@@ -7,6 +7,61 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+
+
+for arl in arls:
+            arl_primitives[arl] = self.pset.mapping[new_arl_pool[arl][1]]
+            for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
+                individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
+
+### Week 15: Nov 29
+
+### Week 14: Nov 22
+thanksgiving break
+
+### Week 13: Nov 15
+refactored 
+https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc
+https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1
+https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70
+### Week 12: Nov 8
+refactored
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
+    - Removed ARL arg index dictionary from population info
+
+* Refactored and documented new implementation of code
+** Added typing and classes to implementation
+*** Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
+*** Example
+Before:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+```
+After:
+```
+for arl_instance_root_idx, individual_idx in new_arl_pool[arl].population_info.occurrences:
+
+class ARLPopulationInfo:
+    def __init__(self, arl_fitness: int, occurrences: Set[Tuple[int, int]]):
+        # An ARL's "fitness". See ADFController._evaluate_ARL
+        self.arl_fitness = arl_fitness
+
+        # Set of Tuples (ARL_idx, indv_idx)
+        # ARL_idx: the index of the root node of the arl occurrence within the individual
+        # indv_idx: the index of the individual within the population
+        self.occurrences = occurrences
+```
+*** Creating classes also allowed for making a repr function, which helped with printing information for debugging
+*** Also added method input parameter types and return types where possible
+** Standardized variable names
+*** Example:
+*** The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+** Added documentation for all methods
+** Refactored outdated methods and code which were inefficient and/or unused
+### Week 11: Nov 1
+
 
 ### Week 10: Oct 25
 - [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)

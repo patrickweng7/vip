@@ -9,7 +9,114 @@
 '''Interests:''' Artificial Intelligence, Machine Learning, Soccer, Guitar
 
 = Fall 2021 =
-== Week 12: November 8th - November 15th(2021) == 
+== Week 15: November 29th - December 6th(2021) == 
+===Outline of class notes===
+'''In-class Notes:'''
+* Went through the SCRUM for each group
+
+'''Lecture Notes:'''
+* We discussed the objectives for our sub-team for the rest of the semester.
+* Not too much progress was made in the previous week as it was Thanksgiving break.
+* We aim to start more experiments to be run on EMADE.
+* Finally, our aim is to prepare the final presentation soon.
+
+'''Sub-team Meeting:'''
+* Assigned tasks for the following week.
+* We have to start getting our presentation ready.
+* I will be working with Monil and Heidi to prepare the hyperfeatures slides.
+* Rest of the meeting was for working and coding. I attempted to get EMADE running on PACE.
+
+'''Individual Notes:'''
+* Finally was able to solve the MySQL server connection issues on PACE.
+* I was working in the right direction by using lsof -i:portnumber to delete any preexisting instances of MySQL but turns out I only deleted the instance of my current port. I had used another port (3302) earlier and with Max's advice I was able to figure out that this was the issue and hence, solved the MySQL server issues.
+* After MySQL started running, my objective was to get EMADE running.
+* I faced various issues while running the launchEMADE.pbs script.
+** Hanging tag in the xml file.
+*** Fixed this by going over the xml file to find the incorrect syntax.
+** Outdated inputSchema file.
+*** To fix this I updated this file by switching over to the latest Image-Processing(nn-vip) branch of the forked emade repository.
+** Incorrect location of the chestxray datasets.
+*** Corrected this by altering the path location using /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group.
+** Incorrect mysql server node address in xml file.
+*** Fixed this by updating the node I was ssh-ed into.
+* All of these changes finally got EMADE to run on PACE successfully without any errors.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|November 29th, 2021
+|December 6th, 2021
+|December 1st, 2021
+|-
+|Review lecture notes
+|Completed
+|November 29th, 2021
+|December 6th, 2021
+|November 30th, 2021
+|-
+|Get EMADE to successfully run on PACE
+|Completed
+|November 29th, 2021
+|December 6th, 2021
+|December 5th, 2021
+|}
+
+
+== Week 14: November 22nd - November 29th(2021) == 
+===Outline of class notes===
+'''In-class Notes:'''
+* Went through the SCRUM for each group
+
+'''Lecture Notes:'''
+* We discussed how our data is almost ready and everyone from the bootcamp is almost setup with PACE now. We also talked about what we did over the week, such as running new mutation methods and finalising hyperfeatures.
+* We then went over the work of every other group, discussed multiple bugs that everyone is facing, and brainstormed on finding the apt solutions to debug any problem.
+* We worked on fixing multiple PACE issues (mainly with MySQL).
+
+'''Individual Notes:'''
+* Fixed the issue of 'Device or resource is busy' by using the command 'lsof +D' and the kill() command to stop all open mysql files from running. This allowed me to reinstall mysql that I needed to do to setup PACE.
+* Currently, I am facing "Can't connect to server" issues.
+* Working on adding the pbs scripts and fixing the MySQL problems.
+* I am mentioning all the errors and issues I am facing in getting PACE setup to ensure I do not repeat them in the future and can work through them successfully.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|November 22nd, 2021
+|November 29th, 2021
+|November 22nd, 2021
+|-
+|Review lecture notes
+|Completed
+|November 22nd, 2021
+|November 29th, 2021
+|November 22nd, 2021
+|-
+|Set up PACE
+|In progress
+|November 22nd, 2021
+|November 29th, 2021
+|November 29th, 2021
+|-
+|Individual Research 
+|Completed 
+|November 22nd, 2021
+|November 29th, 2021
+|November 25th, 2021
+|}
+
+== Week 13: November 15th - November 22nd(2021) == 
 ===Outline of class notes===
 '''In-class Notes:'''
 * Went through the SCRUM for each group
@@ -19,12 +126,60 @@
 * Worked on multiple objectives such as data pre-processing and sharpening features for the hyperfeatures team.
 * Bootcamp students worked on setting up PACE. It is almost done but many issues are being encountered, which are being solved as we move forward.
 
+'''Sub-team meeting Notes:'''
+* Workday
+* Helped each other with multiple processes like processing data, look for the apt research papers for selection methods, mating and mutation methods etc.
+* We also tried resolving other PACE issues. 
+
 '''Individual Notes:'''
 * Tried fixing the disk storage issue by removing all previous conda environments. It didn't fix the issue entirely.
 * I asked Professor Zutty why I am facing 'Disk Quota Exceeded' issues. With his help and after using scripts like, "du -h ../" and "ls -larth" to find which dataset is taking uo most of the memory space. 
 * Turns out there was one extremely large dataset that hadn't been removed because of which I was facing conda environment issues as PACE only offers a certain fixed amount of memory to each individual.
+* Currently facing some issues while installing tensorflow in the conda environment.
+* All other packages have been installed.
+* I read few papers and did research on how sharpening hyperfeature can be improved.
+* I worked on setting up PACE. 
+* Faced multiple issues towards the end and now I am deciding to reinstall my MySQL and then run the steps again.
+* The current error that I am getting is, "rm: cannot remove ‘db/.nfs000000007ed4a9f2000006d5’: Device or resource busy", when I try and remove all MySQL files.
+* I am trying to fix this error by using the internet and taking help from sub-team members on Slack. 
 
-
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|November 15th, 2021
+|November 22nd, 2021
+|November 16th, 2021
+|-
+|Review lecture notes
+|Completed
+|November 15th, 2021
+|November 22nd, 2021
+|November 15th, 2021
+|-
+|Sub-team meeting
+|Completed
+|November 15th, 2021
+|November 22nd, 2021
+|November 17th, 2021
+|-
+|Set up PACE
+|In progress
+|November 15th, 2021
+|November 22nd, 2021
+|November 22nd, 2021
+|-
+|Individual Research 
+|In progress
+|November 15th, 2021
+|November 22nd, 2021
+|November 22nd, 2021
+|}
 
 == Week 12: November 8th - November 15th(2021) == 
 ===Outline of class notes===
@@ -105,6 +260,7 @@
 * Cloned the forked EMADE repository.
 * Read a part of the "CheXNet: Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning" (https://arxiv.org/pdf/1711.05225v3.pdf) and the "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification" papers.
 * I read through how each of small features in multiple images makes a major difference in classification later on and did my own research to understand the difference between multi-class and multi-label.
+[[files/ChexnetImage2.png|height= 500px]] [[files/ChexnetPaperImage1.png|height=500px]]
 * Did some research about PACE. Couldn't work too much with PACE as it was under maintenance. 
 * Tried to configure PACE. Faced some issues with SCP transferring
 * I fixed the SCP transferring issue by changing the default port number to my own custom port number in the cnf file. 

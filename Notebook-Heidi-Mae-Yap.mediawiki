@@ -14,21 +14,92 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
+==Week 15: November 29th - December 5th==
+===Main Meeting Notes===
+* We think there is an issue with the memory of the GPU not allowing enough primitives to be used, so we will try experimenting with a smaller batch size to see if that helps
+* Monil figured out that there is something wrong with his helper method causing errors for the hyper-feature primitive so he will work on that
+* Goal to have code freeze by end of this week
+* changing objective to ROC AUC instead of precision AUC for testing NSGA III
+* using precision AUC, the results shows actually a slightly better AUC for NSGA II than NSGA III
+
+==Week 14: November 22nd - November 28th==
+===Main Meeting Notes===
+* The baseline run has a very low ROC AUC of 0.48
+** possibly due to using NSGAII instead of NSGAIII
+* Monil had to deal with an error involving the contrast method, Jason thinks there is something weird about this bug and is going to look into it.
+
+===Subteam Meeting Notes===
+* No subteam meeting this week due to Thanksgiving
+* No tasks for anyone
+
+
 ==Week 13: November 15th - November 21st==
 ===Main Meeting Notes===
 * ask Zutty for help with lexicase
 * continue debugging pace errors for new members
 * assign new tasks
+* reminder from Jason to add individual contributions to notebook
+* Hackathon details: Nov 21, 1-5pm
+* Our elevator pitch: We are researching how we can improve EMADE’s performance on image processing tasks; this semester in particular we are looking at multi-class image classification. Using a baseline run of EMADE on the dataset we processed, success for us looks like seeing improvements in ROC and (second metric? Lol i don’t remember unless we are keeping # params) compared to the baseline run when evaluated independently and in combinations.
+* Upload the new data to pace
+
+
+===Subteam Meeting Notes===
+* Work session mostly
+* NZP files were actually empty
+* must debug what is going on with that
+* Found errors in the labels.csv file causing a very small amount of data
+* fixed errors with the file, but now I must fix other errors with the mapping because the mapping currently is meant for multi-label
+* Monil finished stand alone tree but not enough data for results yet
+* Fixed all the errors by changing the "get_data" method and changing the test_list.txt file and uploaded new data to pace
+* The problem with "test_list.txt" was that it still included the paths to images that were classified as multi-label, and we removed those images from the data frame. 
+* now going to work on sharpening filter
+* The pull request for new data pre-processing files that I edited:
+** [https://github.gatech.edu/amehra37/emade/pull/8/files]
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Finish Data pre-processing
+|Complete
+|Nov 15, 2021
+|Nov 22, 2021
+|Nov 17, 2021
+|-
+|Work on sharpening filter
+|Complete
+|Nov 15, 2021
+|Nov 22, 2021
+|Nov 21, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 15, 2021
+|Nov 22, 2021
+|Nov 21, 2021
+|-
+|}
 
 ==Week 12: November 8th - November 14th==
 ===Main Meeting Notes===
 * lots of pace errors for new members
 * help them debug everything
 * errors with stand alone tree still 
+* We will likely have a finals Hackathon the weekend of 11/20-21
+* Another word for semantic : behavioral performance
+* Use new install script for env
+* pace-check-queue pace-ice-gpu to check GPU queues
 
 ===Subteam Meeting Notes===
 * work session
 * clean up data pre-processing to push into repository and get data set
+* created data frame that removed images classified as multi-label with "|"
+* also deleted these images from the image folders and mapped the names to match up correctly
 * help new members
 * start working on sharpening filter
 
@@ -60,11 +131,36 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * New team members: Elan, Eashan, Rohan, and Austin!
 * Zutty asks What if we just remove instances that are multilabel?
 * Binary class will make it difficult to test Lexicase and NSGA III, will also make those changes less effective
+* Consideration: reprocess data to just have single label for train/test (if there are not too too many multi-label cases), look at distribution of labels to ensure this will produce enough data
+* To get vector out: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
+* Lexicase on test cases
+* Food for thought: what about where in the image a disease is present, not just whether it exists or not (room for future work here! A bounding box for object detection!)
+* For Wednesday: EMADE crash course for new membs, then nn-vip crash course, then finally introduce new ideas we’ve been working on
 
 ===Subteam Meeting Notes===
 * New members tasked to set up pace
 * I will help new members and explain hyper-feature specifics for those who are interested
+* The p-value was very high which was causing the selection methods to fail. 
+* Next steps:
+** Fix environment errors
+** Testing the new changes for nsga 3
+** New member and Harris will try out Lexicase
+** Test the current version and talk to Jason more about exactly what the difficulties are
+** Errors with the load environment problems on the standalone tree evaluator and trying to debug the new problem once PACE is back online
+** Trying out implementing a new hyper feature:
+** Sharpening features in addition to the edge detectors
+** Need to create new dataset 
+** Max has been working on fixing bugs for the baseline run that we worked on
+** Someone new can definitely work on squashing bugs for the emade runs (since the data types don’t match)
+
+* New team assignments:
+** Rohan - hyper features
+** Elan - infrastructure, doing runs on pace
+** Austin - selection methods
+** Eashan - mating, mutations
+
 * I will change the preprocessing to remove instances that are multilabel and keep it as a multiclass
+* Ended up being very sick this week so extended task to the next week
 
 === Action Items: ===
 {| class="wikitable"
@@ -78,7 +174,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 |Complete
 |Nov 1, 2021
 |Nov 8, 2021
-|Nov 8, 2021
+|Nov 12, 2021
 |-
 |Update Wiki Notebook
 |Complete
@@ -93,12 +189,38 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 ===Main Meeting Notes===
 * Bootcamp and subteam presentations
 * Convince new members to join our team!
+* our presentation: 
+** [https://docs.google.com/presentation/d/100keUAjam-8e1-SMLtejP9ZQN38nmCJ_yA1t2HW-JPs/edit?usp=sharing]
 
 ===Subteam Meeting Notes===
 * Thinking about changing to binary class
-* 0 if no disease, 1 if disease
-* Was going to check just for Pneumonia, but decided there weren't enough cases of Pneumonia
 * Working on changing the data pre-processing from multi-class to binary class
+* CheXNet data was looking for just pneumonia (1 for pneumonia, 0 for everything else)
+* Binary → {1, 0}
+* We can continue pursuing this, or change our dataset labels (to do multilabel classification)
+* Multilabel → { [1, 2,...], [3, 6, …] … }
+* Challenge in how EMADE looks at labels for each images
+* Decided to pursue binary classification for disease detection
+
+* Tasks :
+** Fix modifications & merge
+** Decide on task (binary or multilabel) 
+** Onboard new members
+** Reprocess data (disease or no disease)
+** Change objectives (ROC-AUC, # parameters)
+** Create new tasks
+** Temi: refactor semantic crossover and mutation to receive expected data type
+** Monil: Build a tree, open a pull request 
+** Heidi (me) : reprocess data
+** Aryaan: literature search geometric crossover and mutation
+** Dhruv: test NSGA3 locally and see if you can find errors. Otherwise, revert changes (aside from toolbox register), test to make sure it works with reverted changes, and push changes + create pull request.
+** Harris: PACE-ICE run, lexicase
+** Max: bug squashing tree errors
+
+* I changed the Preprocessing_Consolidated.py file to preprocess data to be binary 
+* link to my new code:
+** [https://github.gatech.edu/hyap7/VIP-related-files/blob/main/Preprocessing_Consolidated.py]
+
 
 === Action Items: ===
 {| class="wikitable"
@@ -133,12 +255,64 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 ===Main Meeting Notes===
 * Dr. Zutty said to think about how we are going to compare our baseline run to the new additions
 * We need to help Max with the bugs for getting the first baseline run. 
+* Presentation is NEXT WEEK!
+* When doing your runs:
+** 1 master - 1 core is constant
+** CPU hours should add up to how much time is left in the class
+** Number of hosts means how many worker jobs
+** Number of CPU per worker is core count per worker
+* Design an experiment to test your changes/parameters
+* With all these different parameter tweaks, give thought to how will we show that we made improvement
+** Pair things together?
+** Do one parameter change at a time?
+
 ===Subteam Meeting Notes===
+* We should each run EMADE in our pairs, individual changes
+* Use those to compare against the baseline
+* Max tested PACE and it works, though primitives are erroring out for the nn tree
+* Code not using nsga3, nsga2 is hard-coded
+** Need to register nsga3 into toolbox
+** Call it in the code
+** Why’s it not pulling from the XML?
+* We have four changes from the baseline, test all of them SEPARATELY
+** Geo. Crossover
+** Semantic Crossover
+** Hyper Features
+** NSGA-3 selection
+* Compare which of these four had the best changes
+* Objectives are: area under PR curve, and number of parameters
+* Checking status
+** Qstat command
+** -n lists node the job is on
+** -u <user> specifies the user’s jobs
+** qstat -q pace-ice-gpu to check GPU usage
+** qsub pbsmysql.pbs
+* PACE-ICE Config: (put in XML)
+** MySQL has 8hr walltime
+** EMADE has 7:40hr walltime
+** # hosts is 1, # workers per host is 1
+** RAM per host/master is 8GB
+** Anaconda Environment /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
+* PACE-ICE Anaconda
+** First log in
+** Module load anaconda3 /2020.02
+** Loads anaconda environment in your pace
+** conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/
+** Once you’re in the environment, you can run reinstall script
+* Launch scripts (for ease)
+** MySQL launch script: Pace files/pbsmysql.pbs
+** To start mySQL, cd into /usr/ and then mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db’
+** EMADE one is Pace files/launchEMADEchest.pbs
+** First time you run, you need to seed the run (see the launchEMADEchest script)
+
 * Monil will work on making our hyper-feature into a primitive.
 * I am working on getting in a run
 * There were many server issues so this took a very long time. 
 * Dhruv and Aryaan could not get their run to work because the run kept killing itself without outputing any errors. 
-* I got my pace-ice run to work, but by the time monil finished getting the hyper-feature into a primitive, my pace-ice wasn't working and it was too late to get a full run in, so I will do this next week. 
+* I got my pace-ice run to work, but by the time Monil finished getting the hyper-feature into a primitive, my pace-ice wasn't working and it was too late to get a full run in, so I will do this next week. 
+* Finish presentation 
+* pull request for our combined features into a primitive: 
+**[https://github.gatech.edu/amehra37/emade/pull/6/files]
 
 === Action Items: ===
 {| class="wikitable"
@@ -149,6 +323,12 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Date Completed
 |-
 |Make sure I can do an emade run on pace-ice
+|Complete
+|Oct 18, 2021
+|Oct 25, 2021
+|Oct 23, 2021
+|-
+|Finish presentation
 |Complete
 |Oct 18, 2021
 |Oct 25, 2021
@@ -170,7 +350,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 
 ==Week 8: October 11th - October 17th==
 ===Main Meeting Notes===
-* no class 
+* no class (Fall break)
 
 ===Subteam Meeting Notes===
 * combine edge detector with contrast method
@@ -178,6 +358,14 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * Max is having problems with getting the first baseline run done due to mismatched data types and other bugs
 * NSGA III has been implemented and just needs to be tested
 * Implementing new geometric (simulated binary and blended) and semantic crossover methods to test whether we can improve diversity during the evolutionary process
+* Start making presentation early next week
+* Reminder: mid-sem presentation is on 10/25
+* Do comparison run after merging our changes in
+* Be prepared to talk about what we worked on individually/in your pairings (will need to put it on the slides)
+* Before Monday:
+** Verify changes don’t screw up EMADE
+* our code for combined methods:
+** [https://github.gatech.edu/hyap7/VIP-related-files/blob/main/hyperfeatures.py]
 
 === Action Items: ===
 {| class="wikitable"
@@ -216,12 +404,51 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 ** common cause of parsing problems
 * Dr. Zutty said to check the code for existing use of Sobel filter and gray level transform
 * Test our hyper-features with image data and EMADE rate
+* We are trying to minimize area under curve for precision recall
+* Reason: we have multi-label data, traditional accuracy metrics do not work.
+* Focus now: what we added is working correctly and generate comparison data (baseline data almost done)
+* Anything put in the shared folder counts against personal quota (based on file ownership), Zutty can change it to his account and make it read-only
+* We will test if we can do this with a conda environment
+* Our datasets in PACE are stored in:
+** /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/datasets/chest_xrays/
 
 ===Subteam Notes===
 * Test edge detector with image data
 * NSGA III testing with working data sets
 * Finding new methods for mating and mutations
 * some troubles with seeding. 
+* 224x224 size images
+* Maxim gonna send his PACE setup so we can run EMADE on our pace-ice
+* Aiming for end of fall break, getting runs working
+* Monil working on testing some hyper features in EMADE, works locally
+** Working with Heidi (me)
+* Don’t need to launch emade run to test it, can use stand-alone tree evaluator
+* There are template trees to help you
+* Can use directly with your primitive, assigns fitness scores to your tree
+* Dhruv/Harris are going to test NSGA3 (don’t need EMADE to make sure it works)
+* Can try to make PACE-ICE work
+* Will need actual EMADE run before mid-sem presentation to check improvement from baseline or not
+* Aryaan/Temi looking at mating and crossover methods
+
+* Goals before mid-sem presentation: Need baseline run and comparison runs
+** Can show improvement OR deterioration
+** What works, what doesn’t. What to try next.
+** Most of us can make comparison runs
+** Max gets EMADE files for PACE up and running (commit and merge pace functionality PR)
+** Monil/Me test hyperparameters
+** Harris/Dhruv test selection methods
+** Aryaan/Temi test crossovers and mating
+
+* Work Notes
+** Inside the template file, we use <selection> to specify the selection method, nested inside <selections> (list of <selection>), nested in <evolutionParameters> (where we also specify <mutations>, <matings>, etc.)
+
+* The image before hyperfeatures:
+[[files/beforehyperfeature.png|none|thumb|200x200px|The image before hyperfeatures.]]
+*The image with increased contrast:
+[[files/contrast.png|none|thumb|200x200px|The image with increased contrast.]]
+* The image with increased contrast and edge detector:
+[[files/edge_detector.png|none|thumb|200x200px|The image with increased contrast and edge detector.]]
+
 
 === Action Items: ===
 {| class="wikitable"
@@ -257,10 +484,18 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * assign new tasks for the week and give updates on progress
 
 ===Subteam Notes===
+* Everyone make sure they are collaborator on Aryaan’s fork of emade and can push up changes
+* Need to clone it down from his git repo, different than the main emade
+* Branch off of the Image-Processing(nn-vip) branch of Aryaan’s emade fork when doing work
+* Check if PACE ICE is working for y’all
+* Dhruv and Harris work on testing NSGA3
+
 * Monil and I are implementing a grey level transform that increases contrast and an edge detector filter for our images
 * I am coding the edge detector filter using a sobel filter. 
 * specifically, I have coded a method that takes an image and a filter and applies the filter
 * then I coded a sobel filter np array to put into the method with the images.
+* my code:
+** [https://github.gatech.edu/hyap7/VIP-related-files/blob/main/sobel_filter.py]
 
 === Action Items: ===
 {| class="wikitable"
@@ -286,16 +521,22 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 
 ==Week 5: September 20th - September 26th==
 ===Main Meeting Notes===
-* test data cannot be changed, only training data for direct comparisons 
+* This week we want to start coding. Build NSGA-III, look more into “hyper-features”, and prepare some more versions of the dataset to work on.
+** In order to be comparable to the paper, we can freely modify the training data, but the validation and test data should be in the same format as the paper we want to compare to. Since our test data is 224x224, we can either set the training data to that resolution or once we get an algorithm from the smaller scale data and rescale it to the desired resolution.
+**Zutty says (if we want a direct comparison to another study) you cannot change the test data, however you can change training data however you want
+**Essentially want to say one can outperform another algorithm on the same test
 
 ===Subteam Notes===
 * We create our own branch off Image-Processing(nn-vip) to start doing our own work.
-* Dhruv and Harris are working on implementing NSGA3
-* Maxim and Aryaan and doing data prep and PACE-ICE setup
-* Temi is looking at mating and mutation genetic programming methods
+* Aryaan and Max should work on creating new versions of the dataset. Longer term, we’ll likely want to move the datasets to PACE-ICE as well as run EMADE off the shared class folder on it.
+* For Max, figure out getting data on pace-ice and within the shared class folder on the cluster. Do a screen recording to share with everyone.
+* Harris and Dhruv can begin implementing a selection method. We (should) have a baseline now thanks to Aryaan
+* Temi continues research/work on mating/mutation methods. Incorporate geometric semantic crossover as a possible crossover method?
+* Heidi (me) and Monil look at combinations of CV primitives that synergize together.
 * Me and Monil are picking what hyper-feature pair to use. 
-* Found this paper: [https://www.researchgate.net/publication/236125496_Image_processing_and_recognition_for_biological_images]
-* Thinking of using a grey level transform along with an image filter to improve visibility
+** Found this paper: [https://www.researchgate.net/publication/236125496_Image_processing_and_recognition_for_biological_images]
+** Thinking of using a grey level transform along with an image filter to improve visibility
+
 
 === Action Items: ===
 {| class="wikitable"
@@ -326,6 +567,14 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * Be careful with primitives and casting to correct form
 * Decide classification vs detection (Dr.Zutty suggests EMADE works better with classification)
 * Find paper to replicate with EMADE
+* Image processing uses a lot of OpenCV and needs a lot of data coercion to get into the right format 
+* Being careful with primitives and casting to correct form
+* So many IP primitives, how do we help search do the right thing?
+* E.g. a lot of primitives serve similar purposes like window functions, how do we tell it it’s the “same flavor”
+* Need to decide to do classification or detection (zutty says EMADE would work better with classification)
+* Using classification, how do we go about usage of neural networks? Do preprocessing then NN or use NNLearners
+* Ask Jason to join at 6:00
+
 
 ===Sub-team Meeting Notes===
 * We looked at several different papers:
@@ -351,6 +600,8 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 ** NSGA II : [https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=996017]
 ** Lexicase : [ https://arxiv.org/pdf/1907.04736.pdf]
 ** Hypervolume Indicator : [https://arxiv.org/pdf/2005.00515.pdf]
+*Xray examples:
+[[files/XrayExamples1.jpg|none|thumb|480x480px|Xray examples.]]
 
 '''Action Items'''
 {| class="wikitable"

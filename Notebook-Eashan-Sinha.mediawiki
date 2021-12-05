@@ -575,7 +575,8 @@ https://drive.google.com/file/d/1lHZMtajC7a2EHqiAshQnNs6WXW1Khj-_/view?usp=shari
 
 * Viewed Titanic Machine Learning from Disaster presentations from all groups
 * Make sure to submit peer evals by the end of next week.
-
+* Some teams used NSGA-II as their classification algorithm, but it doesn't work out of the box
+* There were some very interesting presentations and 
 
 === Action Items ===
 {| class="wikitable"
@@ -608,8 +609,488 @@ https://drive.google.com/file/d/1lHZMtajC7a2EHqiAshQnNs6WXW1Khj-_/view?usp=shari
 
 === Lecture Notes (10/06) ===
 
+* Discussed Emade and action items for the main project due in three weeks.
+* Learned about Emade and how it relates to what we've been doing thus far.
+
+'''Introduction to Emade'''
+
+We’ll have a multi-week project regarding EMADE
+* Monday, 10/25 will be presentations for the full titanic dataset project comparing ML to MOGP to EMADE
+
+Things we should include in our notebook due next week:
+* evidence of personal contributions
+* lecture/meeting notes
+* team contributions
+* individual contributions
+** the data prepossessing slides
+
+'''What is EMADE?'''
+
+Now we’re moving into automated machine learning, not just ML
+* primitives are now gonna be the ML functions and hyperparameters that will go with that
+* Our inputs are no longer the datasets
+* The nodes are going to be the ML algorithms
+* Evaluations are very expensive w mL algorithms
+
+EMADE is the Evolutionary Multi-objective Algorithm Design Engine.
+* It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms.
+
+What we have to do/have done:
+
+* Configure a mysql server on your machine.
+* Download and install git-lfs.
+* Cloned the emade repository.
+* Run the setup module to install the package.
+** Jason copied a conda environment file into this reference repo if we want to try that: 
+<pre>$ conda env create –f emade.yml</pre>
+
+Running EMADE
+
+* To start a run of EMADE we will navigate to the top level directory and run
+<code>python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml</code>
+* '''input_titanic.xml''' is our input file
+* What is it though?
+** The input file is an xml document that configures all the moving parts in EMADE, we will step through it now.
+*** XML is just HTML but tags can basically be anything.
+** The first block is for configuring Python.
+** EMADE automatically detects cluster management software for gridengine and SLURM. For our purposes, you only need to worry about the local python command. This should be the command to run python where all of EMADE python dependencies are installed. 
+*** If we have our virtual environment activated, or if they are installed at the base installation, this can just be python.
+
+Input File: Database Configuration
+* The next block is for configuring a MySQL connection.
+* Username and password are for MySQL, the user should have full permissions on the database specified.
+** We will have to make the server, user, and database outside of EMADE, through MySQL.
+
+Input File: Datasets
+* EMADE can run across multiple datasets, the titanic example uses only one.
+* The data is preprocessed into gzipped csv files. (Example on next slide).
+* It is cross folded 5 times.
+** This will create 5 Monte Carlo trials that algorithms can be scored with.
+* Each train and test file create a DataPair object in EMADE.
+* These files are prepared with the titanic_data_splitter.py in datasets/titanic/
+* Each row corresponds to an instance (person), each column is a feature, the final column is the truth data.
+** EMADE reserves the last column for fitting models (train data) and scoring (test data).
+* This uses a vectorizer and splits the training dataset
+* nump.loadtext can load in the gvim file
+* In EMADE, the truth data is the final column of the dataset
+
+Input File: Objectives
+* Next block is for objectives
+* Columns of database are going to be the names
+* Weight specifies if it should be minimized (-1.0) or maximized (1.0)
+* The <evaluationFunction> specifies the name of a method in src/GPFramework/evalFunctions.py
+* Achievable and goal are used for steering the optimization, lower and upper are used for bounding.
+
+Input File: Some More Parameters
+* Next block is for parameters
+* Evaluation specifies where evaluation functions specified in the objectives section live, and how much memory each worker is allowed to use before marking an individual as “fatal”
+* If any worker holds more than 30% memory, then it kills that worker to prevent the computer from crashing.
+* Default workers is 5, but we should drop that down to 2 to see what our computer can handle
+* <workersPerHost> specifies how many evaluations to run in parallel.
+** EMADE is resource intensive, keep this number low on a laptop! (2-3).
+
+Input File: Evolution Parameters
+* Next block is for the evolution parameters
+* Evolution parameters essentially control the various 'magic constants' or hyperparameters that affect the evolutionary process.
+* What is Headless Chicken?
+
+Connecting a Worker Process to a Peer
+* We use the <code>–w</code> flag along with your peer’s server info in the dbconfig in order to allow your computer to act as a worker process for your peer’s master process.
+* the <code>–w</code> says don’t run the master process– only run the evaluations
+** Only runs is MySQL connection works
+<code>$ python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w</code>
+* Make sure that our dbconfig in the input file specifies their IP address and not localhost.
+
+Understanding EMADE output
+* The best place to look at the outputs of EMADE are in the MySQL databases.
+* Connect to a MySQL server from command line:
+<pre>
+$ mysql -h hostname -u username -p
+</pre>
+** We should be prompted with a password
+* We can then select a database using: <code>use database_name;</code> in MySQL
+* Some helpful queries:
+<pre>
+Select * from individuals;
+Select * from individuals where `FullDataSet False Negatives` is not null;
+Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+</pre>
+* Individuals will complete after giving EMADE some time
+* Whoever is running the SQL database
+** the third SQL query (bolded) says every
+
+EMADE Structure
+* We’ll have to make our own database/tables
+* '''src/GPFramework''' is the main body of code
+* '''gtMOEP.py''' is the main EMADE engine, most of the evolutionary loop is in here, including the evaluation method
+* '''gp_framework_helper.py''' is where the primitive set is built for EMADE, this function points to where the primitives live, such as:
+** methods.py
+** signal_methods.py
+** spatial_methods.py
+* '''data.py''' provisions the DataPair object that is passed from primitive to primitive.
+* datasets/ is where some test datasets live.
+* templates/ is where the input files live.
+
+OUR ASSIGNMENT:
+* Run EMADE as a group. '''1 person should have the sql server set up and act as the master process''', the rest should connect their workers.
+** Two or more people can be connecting the workers.
+* Run for a substantial number of generations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 8 (10/13 - 10/19) ==
+
+=== Lecture Notes (10/13) ===
+
 * Discussed Emade and action items for the main project due in three weeks
 * Learned about Emade and how it relates to what we've been doing thus far.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 9 (10/20 - 10/25) ==
+
+=== Lecture Notes (10/20) ===
+
+* Discussed Emade and action items for the main project due in three weeks
+* Learned about Emade and how it relates to what we've been doing thus far.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 10 (10/25 - 10/31) ==
+
+=== Lecture Notes (10/25) ===
+
+* Final Presentation Day
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 11 (11/01 - 11/07) ==
+
+=== Lecture Notes (11/01) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (11/01) ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 12 (11/08 - 11/14) ==
+
+=== Lecture Notes (11/08) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (11/10) ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 13 (11/15 - 11/21) ==
+
+=== Lecture Notes (11/15) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (11/17) ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 13 (11/22 - 11/28) ==
+
+=== Lecture Notes (11/22) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (N/A) ===
+
+* There was no subteam meeting this week due to Thanksgiving Break
+
+=== Individual Notes ===
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 14 (11/29 - 12/05) ==
+
+=== Lecture Notes (11/22) ===
+
+* Weekly scrum meeting
+
+=== Subteam Notes (12/01) ===
+
+* 
+
+=== Individual Notes ===
+
 
 === Action Items ===
 {| class="wikitable"

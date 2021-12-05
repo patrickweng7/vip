@@ -11,27 +11,200 @@
 Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/Notebook-Steven-Anthony-Leone
 
 
+
 # Fall 2021
+
+## Week 16, Dec 6th
+
+### General Meeting Notes
+
+
+
+### Sub Team Meeting Notes
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+,,,| Complete | 11/15/2021 | //2021 | //2021 |
+
+This week: Runs, Final Presentation
+
+## Week 15, Nov 29th
+
+### General Meeting Notes
+* NLP: 
+* * We had an error in NNLearner2 with the test and train data being sent in wrong. It is fixed now.
+* * Accuracy still rather weird, one half of what the values should be. Working on fixing this.
+* * The above described error turned out to be because the length of the test data was not being divided by num_inputs in EMADE.py.
+* NAS:
+* * Not a very heavy week
+* * Have been working on the final presentation, will rehearse it soon
+* * Making a few pull requests
+* Modularity:
+* * Continuing their runs
+* * Hoping to start their stock runs soon
+* Image Processing:
+* * Not a very heavy week for this team
+* * Not quite at a code freeze, but will start runs this week.
+* * NAS has pushed some updates they may want to add in before they officially code freeze.
+
+
+
+### Sub Team Meeting Notes
+* At this week's sub team meeting, we worked on getting our code freezed codebase onto everyone's computer to start getting runs in. 
+* I had already pushed my updates to our fork:
+* However, the seeding wasn't working for others. Devan ran an 8 hour run and had no NNLearner2 individuals on the Pareto Front throughout the entire run.
+* I ran again to ensure seeding still worked for me, and I was able to get NNLearner2's that I seeded immediately. Thus, we determined there was probably a file that I hadn't updated on our branch. 
+* To resolve this, we used a temporary workaround. I uploaded my entire codebase as is to a new repo:
+* For the rest of the meeting, I helped others move files over to PACE and start getting runs in.
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Complete EMADE Runs on Squad| Complete | 11/29/2021 | 12/04/2021 | 12/06/2021 |
+Create a branch for code freezed EMADE | Complete | 12/01/2021 | 12/01/2021 | 12/06/2021
+Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 | 12/06/2021
+
+
+
+## Week 14, Nov 22nd
+
+
+
+### General Meeting Notes
+* NLP:
+* * We updated the team on what we accomplished leading up to and after the Hackathon
+* * This week, we focused a lot in our meeting about general procedures for our experiments
+* * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
+* * New Hypothesis: We can use Auto Machine Learning to improve QA models.
+* NAS:
+* * This week they focused on model and preprocessing improvements, and internal updates among members.
+* * The final presentation is currently being created.
+* * Improved the model by getting rid of pooling layers.
+* * Lots of preprocessing improvements, including subtracting by the pre pixel mean.
+* Modularity:
+* * Documenting more of their code better.
+* * Preparing to start runs 
+* * Working on data visualizations, 
+* Image Processing:
+* * Have been working on their assigned teams still.
+* * Most of the team, even new members, have EMADE set up and their database running.
+* * Currently getting runs in, but results are bad (AUC is pretty high).
+
+
+
+### Sub Team Meeting Notes
+* Thanksgiving break was this week, so we had no sub team meeting. We would only continue to work on items over the break.
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Add Regression to NNLearner2 | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
+Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
+Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
+
+
+
+## Week 13, Nov 15th
+### General Meeting Notes
+* NLP:
+* * Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
+* NAS:
+* * Had a meeting with updates, and then a 30 minute work session.
+* * New members are all on PACE and ready to work.
+* * Working on ADF's.
+* Modularity:
+* * Introduced new members to the team and what work they do.
+* * Discovered another new bug, this time in the match_arl algorithm.
+* * Still working on integrating Cache V2 features.
+* Image Processing:
+* * Having some team re assignments, especially with new members
+* * Mating/Mutations sub team is trying to adapt some functionality for strongly typed genetic programming.
+* * Working on some general bug fixes.
+
+
+### Sub Team Meeting Notes
+* At this week's sub team meeting, we did a bit of a sync up first, getting everyone on the same page.
+* As the output layer team was dissolved for now, and we were minimizing the task for the time being, we split up the members amongst the remaining teams.
+* Now, we just had the NNLearner2 team and the Integration Team.
+* Devan had looked at NNLearner2 and the differences between standalone tree evaluator and launchEMADE's load environment methods. We decided it would be best to ignore standalone tree evaluator's for now.
+* We split up, and worked on our separate tasks.
+* At the end of the meeting, we decided our best bet for completing NNLearner2 would be the Hackathon. I would work on it with Devan there.
+* For the Integration Team, we still worked on testing different models with the BidirectionalAttention and BidirectionalModeling layers. 
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
+Further Debug Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
+Meet w/ Devan on double NNLearners | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
+Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
+
+
+### Hackathon
+* At the Hackathon, I worked with Devan to debug NNLearner2 and get it working.
+
+
 
 ## Week 12, Nov 8th
 ### General Meeting Notes
-* Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
-* We used the trello board to layout tasks.
-* I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
-* Karthic began leading a team to explore our issue with the output layer
-* Devan began leading a team to debug NNLearner2
+* NLP: 
+* * Having onboarded our new members and laid out what we need to accomplish before the end of the semester, we began tasking today.
+* * We used the trello board to layout tasks.
+* * I began leading the integration team to workout the bugs from the big merge that remained, in addition to getting the primitives to work, and debugging them
+* * Karthic began leading a team to explore our issue with the output layer
+* * Devan began leading a team to debug NNLearner2
+* * Kevan would look at word embeddings
+* NAS:
+* * Came up with some new tasks, such as automating time stopping and now working on novelty detection
+* * Setup a new video for setting up EMADE locally
+* * Making SQL visualization improvements
+* Modularity:
+* * Changing some of their overall semester goals
+* * Part of the old stocks team will work on adding modularity code to the CacheV2 branch
+* * Still doing experiments with ARL's.
+* Image Processing:
+* * Having some PACE Errors
+* * PACE was offline this week
+* * Fixing environment errors 
+
+### Sub Team Meeting
+* We held this week's sub team meeting in person
+* With our teams fully setup, we held a work session.
+* I broke off with the integration team, trying to get what we've built to actually work in EMADE.
+* George was having disk memory quota issues that I helped him resolve by resetting his conda environment.
+* I helped Manas get setup on PACE.
+* I ran into disk memory quota issues myself, and had to delete some datasets I wasn't using anymore to resolve them.
+* I ended the session with a memory issue in standalone tree evaluator. Anish later told me about setting reduceInstances to solve this, and Dr. Zutty later informed me that we actually set this memory limit in the XML file. Increasing the memory limit there solved the issue.
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
-Debug Persistent issue with Merge | In Progress | 11/08/2021 | ... | 11/16/2021 |
-Debug Primitives | In Progress | 11/08/2021 | ...| 11/16/2021 |
+Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
+Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 
 
 ## Week 11, Nov 1st
 ### General Meeting Notes
-* We received our New Members this week and ...
+* We received our New Members this week and began onboarding them.
+* I gave them a brief intro to our project and gathered information about their background in order to decide what to present on Wednesday.
+* NLP:
+* * I updated the whole team on our progress. We believed our primitives should work at this point, and we listed out the remaining tasks left before we could get results.
+* Modularity: 
+* * They were reassessing and adjusting goals and timelines for the semester
+* * The ARL group is still going to be doing runs and experimenting
+* NAS:
+* * Noticed a bug with their ADF's.
+* * Already working on final presentation material.
+* Image Processing
+* * At this point, they have been divided into teams working on Selection Methods, Mating/Mutations, Hyperfeatures, and some general infrastructure work.
+* * Some of their members were re assigned tasks this week.
+* * Having some errors on PACE.
 
 ### Sub Team Meeting Notes
 * At this sub team meeting, it was the first time we had the whole team with the new members together for a whole hour.
@@ -46,11 +219,11 @@ Complete New Primitive Development | Complete | 11/01/2021 | 10/27/2021 | 11/08/
 Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/03/2021 |
 Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
 
-## Preparing Presentations for New Members
-* I modified last year's PowerPoints to ... (finish)
+### Preparing Presentations for New Members
+* I modified last year's PowerPoints to inform the new members about deep learning and NLP.
 
-## Debugging Primitives with Standalone Tree Evaluator
-* I ...
+### Debugging Primitives with Standalone Tree Evaluator
+* I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
 
 ## Week 10, Oct 25th
 
@@ -167,15 +340,68 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 
 ## Week 9, Oct 18th
 
-Accomplishments of Week: Debugging Merged changes, fully implementing eval methods, getting it to run w/ failures
+### General Meeting Notes:
+* At this week, we had one week until our presentation
+* NLP:
+* * We talked with Dr. Zutty about our issue with standalone tree evaluator. We were able to resolve it. As it turns out, the EMADE-304 branch was only updated for base EMADE, and not standalone tree evaluator. So, we would have to move changes from 1 over to the other in order to use standalone tree evaluator.
+* Modularity:
+* * Finished fixing ARL implementation bugs
+* * Found a logic bug with some ARL primitives that needs fixed, deals with "tuple index out of range"
+* * Have many members from the stocks team now, are trying to move forward with that side of things
+* NAS:
+* * Prepping for midterm presentation and doing runs
+* * Divided up slides
+* * Looking into how to push all of their code changes into a single branch
+* Image Processing: 
+* * Made their input schema compatible with PACE
+* * tested NSGA-III with their new implementation
+* * Made some runs and bug fixes, but won't realistically be able to move them in until after their presentation
+
+### Sub Team Meeting Notes
+* This week was dedicated to debugging merge changes and preparing for our midpoint presentation
+* Most of this meeting was dedicated towards making our midpoint presentation
+* I created a slide deck, and we talked about what we wanted to include in it.
+* The slides can be found here: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* We would rehearse on Sunday.
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Finish Eval Method Implementation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Debug Merge Bugs | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Run EMADE on new branch with no errors | Complete | 10/18/2021 | 10/21/2021 | 10/25/2021 |
+Make presentation slides | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
+
+
 
 ## Week 8, Oct 11th
 ### General Meeting:
 * No General Meeting this week
 
-TODO: Fill in Notes
+### Sub Team Meeting
+* At our Sub Team meeting, we began looking at the EMADE-304 branch and deciding how best to merge it over.
+* We planned to use the Hackathon to finish merging EMADE-304 over.
+* We would look over the code over the next 2 days, and then have a meeting on Friday to discuss our thoughts.
 
-Accomplishments of Week: Merging in changes at Hackathon
+### Friday Meeting
+* I put together a list of trivial vs non-trivial merge conflicts: https://docs.google.com/document/d/1B-0uHdawDfCY-5BLZQUiuz-dleC9MDwqVhYU6WmliRc/edit?usp=sharing
+* We discussed it, moved files around, and decided to use it as a basis for which files to look at first on Saturday.
+
+### Hackathon
+* Karthik, Kevin and I met at the Hackathon on Saturday to work on the merges, while our Literature Review Team kept looking at papers for inspiration with different primitives and state of the art models.
+* We used my document to keep track of which files we had to change still, and which we had already worked on.
+* The three of us looked through each file together to determine which ones to edit.
+* Most changes ended up being trivial. GP_framework_helper.py, general_methods.py, and data.py had the most non-trivial methods.
+* Our branch is now up on my fork of EMADE: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+* We merged the nn-vip branch into EMADE-304
+
+
+### Action Items
+Task | Current Status | Date Assigned | Date Resolved | Date Due |
+--- | --- | --- | --- |--- |
+Look over Merge Conflicts | Complete | 10/13/2021 | 10/14/2021 | 10/15/2021 |
+Resolve Merge Conflicts | Complete | 10/13/2021 | 10/16/2021 | 10/16/2021 |
 
 ## Week 7, Oct 4th
 ### General Meeting Notes

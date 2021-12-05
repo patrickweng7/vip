@@ -1,6 +1,41 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
+==November 22nd, 2021==
+Thanksgiving week entailed creating a slide.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slides about nn-vip emade setup.
+|In progress
+|11/15/2021
+|12/10/2021
+|
+|-
+|Research hyperparameters that are commonly used for each layer used in nn-emade.
+|In progress
+|11/15/2021
+|12/6/2021
+|
+|-
+|}
+
+===EMADE Setup Slides===
+I made a slide that summarized PACE setup, cloning emade, creating a conda environment via pip, yaml or shared class, and CIFAR-10 setup.
+
+===Main Meeting Notes===
+NAS Ideas
+*New split: Train (fit model), test (score model, search and evaluate), validation (measure performance on unseen data)
+*Replace pooling layers with more directed combination of layers
+*Modules train in multiple individuals (concerned that multiple workers could simultaneously edit same file or database)
+*Weight sharing of layers while backpropagating a NNLearner
+
+
 ==November 15th, 2021==
 This week I wrote summaries for relevant papers in my notebook.
 
@@ -11,29 +46,60 @@ This week I wrote summaries for relevant papers in my notebook.
 !Suspense Date
 !Date Resolved
 |-
-|Research the activation functions and dimensions that are commonly used for each layer
+|Research hyperparameters that are commonly used for each layer used in nn-emade.
 |In progress
 |11/15/2021
 |12/6/2021
 |
 |-
 |Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
-|In progress
+|Complete
 |11/1/2021
 |11/22/2021
-|
+|11/21/2021
 |-
 |}
 
 ===Layer Research===
-Example: LSTM prefers TNH (sigmoid with -1, 1) over ReLU.
+Cameron W explained the task to me during the main meeting Monday. At the hackathon, I modified a notebook I found online that used scikit-learn.GridSearchCV and KerasClassifier to quickly and manually see what combinations of activations, optimizers, weight initializations, and dimensions had stronger accuracy on CIFAR-10. I am looking into whether I can include layers beside Dense in GridSearch before running.
+
+Example: LSTM prefers tanh (sigmoid with -1, 1) over ReLU
+
 Neuralnetworkmethods.py -define each nn layer
+
 Gpframeworkhelper.py -take each nn layer and add to pset
 
-===Neural Network Study===
-NeuroEvolution of Augmenting Topologies
+===NAS Independent Study===
+====Evolving Deep Neural Networks (UT Austin) + CoDeepNEAT and Keras (Bohrer, Grisci, Dorn in Brazil)====
+UT Austin: https://arxiv.org/pdf/1703.00548.pdf
 
-===Main Meeting: EMADE Setup===
+Brazil: https://arxiv.org/pdf/2002.04634.pdf
+
+NEAT (Neuroevolution of augmenting topologies): evolution on neurons in NN, low dimensionality because it only adds neurons that actively impact performance and don’t produce obvious errors, speciation mechanism compares algorithms within their niche
+
+HyperNEAT: abstract map of small NN into connectivity patterns to generate larger NN
+
+DeepNEAT: primitives/nodes are layers with a table of real and binary valued hyperparameters that are mutated through uniform Gaussian and random bit-flipping; individuals are neural networks (directed acyclic graphs mapping input to output) with another set of hyperparameters
+
+CoDeepNEAT: blueprint individuals are neural networks built as graphs of modules, modules are collections of layers, both blueprints and modules are evolved by changing primitives and by mutating hyperparameters 
+
+Blueprint hyperparameters: component modules, blueprint size, convolutional vs dense, loss function, optimizer, evaluation function
+
+Convolutional layer hyperparameters: filters, kernel size, stride, activation function
+
+Long short term memory (lstm) layer- modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; addresses vanishing gradient problem - if one output is 0 then the next ones are also 0; longer time scales handled
+
+CIFAR10: most approaches initialize image embedding through pre-trained ImageNet, GoogLeNet and ResNet are most successful and use modules
+
+====Evolutionary Neural AutoML (UT Austin)====
+https://dl.acm.org/doi/pdf/10.1145/3321707.3321721
+Traditional Bayesian optimization: computationally expensive, performs poorly with 10+ hyperparameters, LSTM gradient-based reinforcement requires linear or tree core structure
+
+CMA-ES: Gaussian for best individuals is estimated and used to generate next generation, controls step size and direction of population movement
+
+LEAF (learning evolutionary AI framework): extends CoDeepNEAT to multi-output optimization; divided into algorithm, system, and problem-domain components; algorithm sends Keras JSON to system layer and receives fitnesses; problem-domain makes changes for hyperparameter tuning, NAS, and complexity minimization
+
+===EMADE Setup===
 During the main meeting, I successfully bashed pace_run_cifar10.sh. The error was that I had cloned emade onto my windows computer and then scp transfered to pace. This converted the .sh, .pbs, and others to windows format instead of linux. I could convert each file with sed -i $'s/\r//' FILENAME, but instead I re-cloned emade directly onto pace to make sure I got every file.
 
 ==November 8th, 2021==
@@ -47,13 +113,13 @@ After setting up NN EMADE on PACE initially, I explored alternative methods. I a
 !Date Resolved
 |-
 |Step up nn-vip EMADE on PACE by sharing the conda environment and cloning the repo into pace with ssh.
-|In progress
+|Complete
 |11/8/2021
 |11/15/2021
 |11/13/2021
 |-
 |Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
-|In progress
+|In Progress
 |11/1/2021
 |11/22/2021
 |
@@ -132,7 +198,7 @@ CLONE SSH
 
 Looking at: https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey
 
-===Neural Network Study===
+===NAS Welcome Presentation===
 Wednesday 11/10 the Camerons presented concepts behind nn-vip to me, Rayan, and Pranav. Cameron B referred us to a list of resources on the Trello page.
 
 EMADE.py - Called by command prompt (command is in README) to run launchEMADE.py which calls didLaunch.py which calls EMADE.py with XML param

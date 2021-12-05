@@ -4,7 +4,106 @@
 * Interests: Machine Learning, finance, swimming
 * Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, Eashan
 = Fall 2021 = 
-== November 3rd - 10th, 2021 == 
+== November 29th - December 4th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* Code freeze 
+* Testing
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make PR Multi-class Dataset 
+|Completed
+|November 1st, 2021
+|November 9th, 2021
+|November 9th, 2021
+|-
+|Add in new mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Test new operators on PACE
+|Completed
+|November 1st, 2021
+|November 17th, 2021
+|November 17th, 2021
+|}
+== November 22nd - 28th, 2021 == 
+'''General Notes (no meetings due to thanksgiving):''' 
+* Due to Thanksgiving break I did not work on too much code related work but the team coordinated on deadlines we needed to accomplish tasks by. We agreed that we needed to code-freeze irrespective of our results by December 3rd and begin to work on the final presentation. I will be handling the slides related to the dataset preparation, building a conda environment, fixing errors and the new mating methods. We knew that the memory errors we were getting leading to the '(inf, inf)' were due to the tensors being too large for 16GB GPU on PACE to handle. We discussed a solution which would be to reduce the batch size since it may have something to do with how the individuals and data are stored in memory.
+* After adjusting the batch sizes the latest run seemed to adjust for these errors and we started obtaining desired results with lower AUC.
+
+== November 15th - 21st, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* I began testing the new mating mutations methods on my local conda environment which I had just made. I saw several errors associated with the runs I was doing. 
+* There were errors with the following:
+** Deap not being able to call the methods I was trying to use. Here the issue was that I was unable to call the methods like cxOnePoint (which we have been using for a while) by simply calling it as gp.cxOnePoint. We need to call it as gp.tools.whicheverMethod(). 
+** I also had an error which stated that the PrimitiveSetType did not have an attribute 'len()' which I knew to be wrong since many of the functions that we use from deap and the custom operators call the 'len()' method on the individuals as they evolve. I surprisingly had to make the methods I was using the first methods to overcome this by hard-coding them.
+** For most of the individuals that I evolved, they returned '(inf, inf)' as the result. This was due to the large batch-size that was hard-coded in the neural_network_methods.py file causing disk memory to exceed the limit. This was a change that we later took a look at to fix. 
+* Finally, I was able to finish the code changes before the code-freeze which we have tentatively set as Friday December 3rd since we would have a week to continuously do runs and get testable results. 
+* Here is the PR with the necessary code changes: (https://github.gatech.edu/amehra37/emade/pull/13)
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a PR for the new mating methods
+|Completed
+|November 1st, 2021
+|December 3rd, 2021
+|December 3rd, 2021
+|-
+|Fix bugs related to the mating methods
+|Completed
+|November 1st, 2021
+|November 29th, 2021
+|November 29th, 2021
+|}
+== November 8th - 14th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered()) and began testing them.
+* I was having errors because of our implementation of NSGA-3 which was implemented in the GPFramework egg file on our team's shared conda environment. After speaking with Max we decided that rather than us all using the same conda environment, we should instead have our own environments on PACE for testing purposes so that we do not limit individual testing.
+* The following were the steps I followed to create a new conda environment myself for testing:
+1. Use the following lines to create a new environment on terminal:
+<pre lang="bash">[amehra37@login-pace-ice-1 ~]$ module load anaconda3/2020.02
+[amehra37@login-pace-ice-1 ~]$ module load gcc
+[amehra37@login-pace-ice-1 ~]$ conda create -n env_name python=3.6</pre>
+2. Before you begin installing packages, run this quick command to make sure they all compile the right way as this is a Linux installation:
+<pre lang="bash">export CC=gcc</pre>
+3. Install all of the necessary packages:
+<pre lang="bash">conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image pymysql scikit-learn </pre> and subsequently <pre lang="bash"> pip install xgboost lmfit multiprocess hmmlearn deap opencv-python</pre>
+4. Install mysqlclient separately using pip install since it does not work well with conda (it was giving me errors)
+* I had several issues while setting up the new conda environment related to version differences between the code and the installed versions for tensorflow and deap. I had to be using deap 1.3.1 and tensorflow 2.2 so that the current build of GPPFramework would work.
+* Heidi and I also finished working on the new dataset and made a pull request for that (https://github.gatech.edu/amehra37/emade/pull/8)
+* We have made it such that all of the code necessary to download the images and format them so that they can be used for this image processing problem can be done by running just one python file enabling ease of use for future semesters.
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add in new mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Fix bugs related to new conda environment
+|Completed
+|November 1st, 2021
+|November 19th, 2021
+|November 19th, 2021
+|}
+
+== November 8th - 14th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
 * This week during the subteam meeting Heidi and I had a work session where we corrected the dataset that we had made the previous week. We had initially spent time making the dataset binary and not multi-class since we thought it would solve the issue we were having with the evaluation function i.e. we believed that the error with the Precision-Recall curve was due to the multi-label nature of the dataset itself and we have worked on making it multi-class rather than binary or multi-label to solve this issue. The code we wrote to solve this issue can be found here: https://github.gatech.edu/athite3/chestxray
 * We have also been working to emulate the Neural Network team for dataset creation so that future teams that work with the Chest X-ray dataset can easily download it. We have compressed all of our work into two python scripts; https://github.gatech.edu/athite3/chestxray/blob/master/Preprocessing_Consolidated.py and https://github.gatech.edu/athite3/chestxray/blob/master/download_dataset.py which we will merge into the dataset folder of our forked repo (Image-Processing (nn-vip)).
@@ -34,13 +133,13 @@
 |November 9th, 2021
 |-
 |Add in new mating/mutation operators
-|In Progress
+|Completed
 |November 1st, 2021
 |November 15th, 2021
 |November 15th, 2021
 |-
 |Test new operators on PACE
-|In Progress
+|Completed
 |November 1st, 2021
 |November 17th, 2021
 |November 17th, 2021
