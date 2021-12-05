@@ -752,10 +752,55 @@ NLP
 NAS
 * Contacted members with incomplete tasks to get updates over break
 
-* I talked to Vincent about the visulization task and what I was confused about
+* I talked to Vincent about the visualization task and what I was confused about
 ** Turns out he had uploaded the wrong link to the commit. We got the right link now [https://github.gatech.edu/gwang340/emade/blob/PrimitiveAnalysis/notebooks/GroupAUCViz.ipynb jupyter notebook]
 * Trying to open the notebook on my own, needed to create a new file since GitHub won't let me directly download the file
-*
+
+=== Sub Team Meeting: December 2 ===
+* Almost done with visualizations, just need to convert AUC lists to CSV files
+* Will work on runs with stocks data next
+
+=== Individual Exploration: December 5 ===
+* Finally worked through the extendedARL run data
+* I decided I would work on runs 6-9 and get the CSV files from there
+* I tried to run the conda environment but got an error. Had to rerun these commands:
+ conda env create -f environment.yml
+ conda activate emade-viz
+ pip install -r requirements.txt
+ flask run
+* Pasted the resulting URL in my browser. I created four copies of the template file, one for each run I wanted to do. Then I copied the resulting dictionaries to a python file. 
+* First I checked the auc lists to make sure they were constantly decreasing
+ # The basic python function I wrote
+ def increasingAUC(aucList):
+    min = aucList[0]
+    for auc in aucList:
+        if auc > min:
+            return False
+        else:
+            min = auc
+    return True
+* Next, I took the dictionaries and created another python function that would create a CSV file for the form:
+ "auc", "x", "y"
+ 0.371734509941, 11.6, 20.8
+ .
+ .
+ .
+* Not sure if there was a more efficient method of doing this. I tried looking up methods to convert a dictionary to a CSV file where each key and value pair was a header and rows in that header column but that didn't seem to exist. 
+* This is a snippet of the basic function I ended up writing
+ for i in range(len(aucList)):
+        auc = aucList[i]
+        try:
+            x = xList[i]
+        except IndexError:
+            x = ""
+        try:
+            y = yList[i]
+        except IndexError:
+            y = ""
+        auc_file.write("{}, {}, {}\n".format(auc, x, y))
+* Shared my CSV files with Vincent, Adithya, and Aditya in Slack
+* Adithya DM'd me to ask how I converted the lists, and I gave him a basic overview. 
+** I also offered to share my code with him.
 
 === Action Items ===
 {| class="wikitable"
@@ -765,13 +810,39 @@ NAS
 !Due Date
 !Date Completed
 |-
-|Work on visualizations
-|incomplete
+|Complete peer evals
+|Incomplete
+|November 22, 2021
+|December 8, 2021
+|Moved to next week
+|-
+|Work on visualizations by converting JSON dictionary to a CSV file
+|Complete
 |November 29, 2021
-|, 2021
-|December 2, 2021
+|December 5, 2021
+|December 6, 2021
 |}
 
+== Week 16: December 6, 2021 ==
+
+=== Main Team Meeting ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Date Completed
+|-
+|Complete peer evals
+|Incomplete
+|November 22, 2021
+|December 8, 2021
+|/
+|}
+
+== Final Presentation: December 10, 2021 ==
 = Spring 2021 =
 [https://bluejeans.com/904633358 Main Team Meeting Link]
 * [[Modularity|Modularity Subteam]]
