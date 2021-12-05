@@ -52,11 +52,12 @@
 evalFunctions.py is our evaluation function file
 ### team note:
 * Everyone need to have EMADE downloaded and run it properly
-*--clone the repository 
-*--set up the package
+* clone the repository 
+* set up the package
 * Set up MySql
 * One person need to have Master process and other teammates need to join the work process
 * Encode "Embarked" feature in dataset 
+* Discussed our MOGP assignments
 * Configure XML file to run Titanic Dataset
 * Trying to resolve the problems during sql work process set up
 
