@@ -26,6 +26,87 @@ The following is the seeding file I used: "seeding_qa"
     randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)
 
 <code>python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa</code>
+
+Result of Run 1 (approx 2 days locally -> 11 total run hours)
+(Ran seeding with NNLearner2 using above command, then ran launchEMADE.py for a normal EMADE run)
+* first struggle was with db insertions (I set reuse to 1 but already had the seed individual so ran into this error below)
+[[files/dzhang351/sql_insert_error.png|50px]]
+** To resolve the error, I removed the duplicate individual and continued the run afterr
+* I found out there was a discrepancy in the input_squad.xml file based on the new dataset structure and changed the following code snippet
+[[files/dzhang351/changed_xml.png|50px]]
+* Out of the EMADE run, filtering for NNLearner2 individuals, there were 5 total, and 12 NNLeaner individuals; however, all of them had error strings beside the initial seeded NNLearner2
+* I had a total of 512 individuals, most of which where not NN related - the following shows some examples of NNLearner2 and other individuals
+[[files/dzhang351/NNlearner2_ind.png|50px]]
+[[files/dzhang351/other_individuals.png|50px]]
+
+The following is the sql statements that I used to query and analyze the error strings and NNLearner individuals
+    use squad;
+    show tables;
+    select count(*) from individuals;
+    select sum(elapsed_time) from individuals;
+    select count(*) from individuals where tree like "%NNLearner%";
+    select * from individuals where tree like "%NNLearner2%";
+    select distinct(error_string) from individuals;
+
+The following table is a summary of run 1 results
+
+{| class="wikitable"
+!Total number of individuals
+!NNLearner2 individuals
+!NNLearner (1+2) individuals
+!Total time ran
+|-
+|513
+|5
+|12
+|40488 sec (11.24 hrs)
+|-
+|}
+
+
+{| class="wikitable"
+!Common Error Strings
+|-
+|'Tree missing valid primitive for data type - At least one objective returned inf. ' (most common)
+|-
+|Process' object has no attribute 'kill (quit program midway?)
+|-
+|Expected cv::UMat for argument 'src'Traceback (most recent call last)
+|-
+|could not convert string to float: 'Where does the name "Carriage Return" come from?'
+|-
+|Found array with 0 sample(s) (shape=(0, 1)) while a minimum of 1 is required
+|-
+|}
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update codefreeze with discrepancies (input.xml)
+|Complete
+|November 29, 2021
+|December 4, 20201
+|December 6, 2021
+|-
+|Get seeded run using NNlearner2 in using EMADE
+|Complete
+|December 6, 2021
+|December 5, 2021
+|November 29, 2021
+|-
+|Document all error strings and individual outputs (why run resulted in no valid individuals beside seeded one)
+|Complete
+|December 6, 2021
+|December 5, 2021
+|November 29, 2021
+|-
+|}
+
 == November 22, 2021 ==
 '''Team Meeting Notes'''
 
@@ -77,15 +158,15 @@ I received the following error. Next steps are to debug the error and go into th
 !Date Resolved
 |-
 |Be able to run squad dataset within pace with output
-|In Progress
+|Moved to next
 |November 22, 2021
-|
+|November 29, 2021
 |November 29, 2021
 |-
 |Get 2 data pair to run locally without error using standalone tree evaluator
-|In Progress
+|Complete
 |November 22, 2021
-|
+|November 28, 2021
 |November 29, 2021
 |-
 |}
