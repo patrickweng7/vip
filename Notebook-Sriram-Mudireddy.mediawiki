@@ -16,30 +16,31 @@ Subteam Teammates:
 * [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_David_Socher_Wolfson David Wolfson]
 
 =Fall 2021=
-
+==Oct 28th, 2021==
 ==Oct 21st, 2021==
 '''Subteam Meeting Notes'''
 * We tested our best results from last semester to see how we compared against the model in the  paper
-** Based on the profit from our best Individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None)) which used only the BollingerBand across a period of 2 days that searched for a change of 61 standard deviations
+** Based on the profit from our best Individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None)) which looked at the BollingerBand and looked for a change of 61 standard deviations across a period of 2 days 
+* While our profit compared decently against the paper, but it didn't produce as much profit on each stock as it did in our first semester nor as much as what was reported in the paper.
 ** Performance using code from last semester's paper: 
 [[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
 ** Performance using code from this semester's paper: 
 [[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
-*** The decreased is be because this individual was optimized for the objectives from last semester, and some of those changed for this semester's paper (so this would be a seed individual rather than necessarily an end product)
+** The discrepancy is because this individual was optimized for the objectives/stocks from last semester some of which were changed for this semester's paper
 ** Performance from TS-Fuzzy model reported by paper: 
 [[files/rbhat3/paper_perf.png|thumb|50x50px]]
-*** Based on last year's performance, we're about better overall
+*** Based on last year's performance, we'd be about better overall
 *** Based on this semester's performance, we're slightly worse overall (but, again, we would still need to run EMADE using this individual as a seed instead of using it as our standard)
 * We finished our experimentation design: 
 ** Objectives: profit, CDF, variance, error
 *** In order to make profit a minimization, we'll test for loss (the negative of profit)
-*** We'll test all possible combinations of two, three, or all of these
-** Compute time: 768 hours (will take 8 hours on PACE)
-*** Should result in about 430 generations
-** Wall time: 8 hours
-** Hosts: 3
-** Workers per host: 4
-** CPUs per host: 8
+*** We'll test all possible combinations of one, two, three, or all of these (
+* Compute time: 768 hours (will take 8 hours on PACE)
+** Should result in about 430 generations
+* Wall time: 8 hours
+* Hosts: 3
+* Workers per host: 4
+* CPUs per host: 8
 * We'll create and rehearse our presentation over the weekend
 
 '''Team Meeting Notes'''
@@ -49,7 +50,7 @@ Subteam Teammates:
 ** Processors per worker and workers per host should be the same
 ** Compute time equals number of jobs times number of cores per worker
 * Objectives: to make profit a minimization we’ll take the negative of profit
-** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound
+** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound. I suggested calculating the lowest profit possible per the period of data.
 
 
 '''Action Items'''
