@@ -8,6 +8,41 @@
 
 = Fall 2021 =
 == Week 15: November 29, 2021 ==
+=== 12/1/2021 Subteam Meeting ===
+* I completed a run with the input_chestxray.xml, however many individuals generated have an error string.
+
+<pre>
+Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supportedTraceback (most recent call last):
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1800, in evaluate_individual     objectives[objective] = _inst.objectivesDict[objective]['evaluationFunction'](*args, **kwargs)   
+
+File "/storage/home/hpaceice1/apeng39/emade/src/GPFramework/eval_methods.py", line 421, in precision_auc     return average_precision_score(truth_data, test_data)   File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f     return f(*args, **kwargs)
+
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/metrics/_ranking.py", line 225, in average_precision_score     average, sample_weight=sample_weight)
+
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/metrics/_base.py", line 74, in _average_binary_score     raise ValueError("{0} format is not supported".format(y_type)) ValueError: multiclass format is not supported  It was detected that the individual performed perfectly. At least one objective returned inf. 
+</pre>
+
+* The error log in EMADE_master.eXXXXX file says
+
+<pre>
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py:293: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(self.Individual.hash.in_(ParetoFrontLatestGen))]
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:571: RuntimeWarning: invalid value encountered in subtract
+  ft = fitnesses - best_point
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:588: RuntimeWarning: invalid value encountered in subtract
+  A = extreme_points - best_point
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:608: RuntimeWarning: invalid value encountered in subtract
+  fn = (fitnesses - best_point) / (intercepts - best_point)
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 119, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 109, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1268, in master_algorithm
+    pickle.dump(pareto_front, f, -1)
+OSError: [Errno 122] Disk quota exceeded
+</pre>
+
 === 11/29/2021 In-Class Subteam Meeting ===
 * I discovered that my error from last week was due to seeding with the incorrect seed file.
 ** Last week, I used <code>summary_seed</code> but my subteam uses <code>seeding_test_cv_all_empty</code>.
