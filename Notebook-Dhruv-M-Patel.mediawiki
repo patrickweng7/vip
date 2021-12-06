@@ -18,8 +18,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 ** New teammates from bootcamp: [[Notebook Rohan Batra|Rohan Batra]], [[Notebook Elan Grossman|Elan Grossman]], [[Notebook Austin Tinghao Peng|Austin Peng]], [[Notebook Eashan Sinha|Eashan Sinha]]
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
-
-==Nov 29th, 2021==
+==Dec 6th, 2021==
 ===Meeting Notes===
 
 ===Subteam Notes===
@@ -34,15 +33,91 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 |-
 |
 |In Progress
-|Nov 29, 2021
 |Dec 6, 2021
+|Dec 10, 2021
 |
 |-
 |Update Wiki Notebook
 |In Progress
+|Dec 6, 2021
+|Dec 10, 2021
+|
+|-
+|}
+
+==Nov 29th, 2021==
+===Meeting Notes===
+* Peer evals open!!
+* Fill out before deadline or you will get a poor final grade
+* Final presentation is 12/10
+
+===Subteam Notes===
+* npz formatting bug
+* Bug is in a helper method
+* Search space is limited (mem size) → bad ROC-AUC baseline of 0.48
+* Create slides next week
+* Code freeze by end of Friday, have pull requests submitted before then
+* Everyone can run experiments over the weekend and early next week (Monday/Tuesday)
+* Presentation is next week Friday so make your slides after running your experiments! Slide deck is in the shared Google folder
+
+''' Work Notes '''
+* Precision AUC -- lower is better
+* AUC ROC -- as far away from 0.5 is better, optimal is 1 or 0
+** -1.0 weight for minimizing, goal is to reach 0, lower is 0 and upper is 1
+** auroc() from eval_methods
+* Need to re-run with AUC ROC as objective
+
+* Code freeze! Finalize the EMADE code for selection methods branch and push changes
+** Using NSGA2 in the emade.py file so teammates are not forced to use NSGA3 in their trials (this would mess up experimental runs)
+** Added comments to sel_nsga3 for usage
+** Leaving NSGA3 registered in emade.py’s toolbox
+** Pushed up, [https://github.gatech.edu/amehra37/emade/commit/4730fe784f97ed1cbbf35ec3799f934bd26099f0 Code Link]
+** PR for Image-Processing(nn-vip) [https://github.gatech.edu/amehra37/emade/pull/11 link]
+** PR for img-proc [https://github.gatech.edu/amehra37/emade/pull/12 link]
+
+* Experimental run errors using AUC ROC (auroc() or roc_auc() func)
+** NSGA3, getting lot of error strings when evaluating individuals
+*** OpenCV bad argument, ROC AUC failed multi_class, NoneType obj no attribute ‘shape’, etc.
+** NSGA2 also ran into errors
+*** NoneType obj no attribute ‘shape’, Tree missing valid primitive for data type
+** Trying to fix these issues
+*** Set multi_label to 0
+*** Still getting lot of different errors
+** Most prominent errors (Monil also encountered):
+*** [https://pastebin.com/FuqhZRbh]
+*** Local variable “curr_layer” referenced before assignment (tried to fix this one by declaring the variable and assigning a default value at top of function but didn’t resolve the error)
+*** You must compile your model before training/testing. Use model.compile(optimizer, loss)
+** _base.py (in Python 3.6 lib) has a submit() function under class Executor
+*** Function is not implemented for some reason (raise NotImplementedError)
+*** EMADE.py’s handleWorker() calls this submit() – line 1577 and 1578 – on a ThreadPoolExecutor object which raises the error
+** This submit() function IS implemented in Python 3.8 though
+***  /lib/python3.8/concurrent/futures/_base.py 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Conduct runs
+|Complete
 |Nov 29, 2021
 |Dec 6, 2021
-|
+|Dec 5, 2021
+|-
+|Merge sel code for freeze
+|Complete
+|Nov 29, 2021
+|Dec 6, 2021
+|Dec 3, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 29, 2021
+|Dec 6, 2021
+|Dec 6, 2021
 |-
 |}
 
