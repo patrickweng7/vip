@@ -16,7 +16,63 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
-== November 21, 2021 ==
+== November 28, 2021 ==
+* Bidirectional Modeling
+** apparently tf.argmax can't be used with gradients:
+** https://stackoverflow.com/questions/50043915/tensorflow-no-gradients-provided-with-mean-squared-error-in-estimator
+** https://stackoverflow.com/questions/46926809/getting-around-tf-argmax-which-is-not-differentiable
+** possible replacement: https://stackoverflow.com/questions/46926809/getting-around-tf-argmax-which-is-not-differentiable
+** decided in the end to just leave it out
+* Help new members get set up on PACE-ICE to get runs in
+* Standalone Tests
+** lstm + attention: 0.98048, 126 seconds
+** lstm + bidaf_attention: 0.9822, 188 seconds
+** bidaf_modeling + attention: 0.97839, 129 seconds
+** bidaf_modeling + bidaf_attention: 0.98244, 187 seconds to train
+** the accuracies are still pretty bad
+* Error with Epochs
+** I discovered that we actually had epochs commented out
+** This was probably for testing reasons -- our initial models were terribly slow and so testing them with 100 or so epochs was not efficient
+** This also probably contributed to the terrible accuracy
+** With more epochs, the model is at least tending towards the right indices, which is good news
+* Word Embedding Questions
+** Perhaps random word embeddings are affecting the accuracy significantly
+** for some reason, our model is guessing negative indices
+* More Lenient Grading Function
+** Our model is guessing among a range of 400 or so words, which might make guessing the exact right word harder
+** another problem is that our model is allowed to guess outside the range of words
+** I'm going to start writing a custom grading function that can take a range of probabilities and choose the index with the highest priority; this gets around the argmax issue while also forcing the output to be within the text
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Replace argmax with an approximation
+|Completed
+|November 29, 2021
+|December 1, 2021
+|December 6, 2021
+|-
+|Research why the accuracy is so low
+|Completed
+|November 29, 2021
+|December 1, 2021
+|December 6, 2021
+|-
+|Write custom grading function
+|In Progress
+|November 29, 2021
+|
+|December 13, 2021
+|-
+|}
+
+== November 22, 2021 ==
+* Errors
+** I discovered an error in neural_network_methods where we weren't processing the train/test data correctly, causing an incorrect train/test split
 * Accuracy Improvements
 ** Query vs. Context
 *** Keras's Attention layer takes query first, then context, so the csv's had to be switched around in the xml
@@ -26,16 +82,12 @@ Team members:
 *** our model was effectively trying to guess a larger range than 
 *** Karthik reprocessed the data input files to use word indexing instead
 * Efficiency Improvements
-** used the individual NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer) training on half the SQUAD dataset and epoch=25
-** Initial Time: 986 seconds
 ** Embedding Layer
 *** get embedding to run on GPU:
 *** https://stackoverflow.com/questions/63044490/tf-keras-how-to-improve-performance-with-large-ish-embedding-layer
 *** changed the source code of tensorflow itself (tensorflow/python/keras/layers/embeddings.py)dfeff
 *** note: setting embedding layer weights to non-trainable does slightly increase time efficiency, but seems to result in the same number being outputted at all times, for some reason
-*** reduced training time from 986 seconds to 929 seconds
 *** reduce MAXLEN (max length of context) from 500 to 400 as per the SQUAD paper: https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1174/reports/2762006.pdf
-*** reduced training time from 929 to 803 seconds
 *** in the future, we'd want to decrease max length of query to 40 for increased efficiency, but it would require identifying if the data pair is context or query and changing the size of the InputLayer which is a lot more than we want to get into right now
 ** LSTM Layer
 *** force CuDNNLSTM implementation:
@@ -44,10 +96,100 @@ Team members:
 ** Reduced Precision
 *** set tensorflow datatype policy to mixed_float16, from the default of float32
 *** actually hurt the runtime significantly; possible casting/numerical stability issues
+** Graph Execution
+*** Tensorflow >2.0 automatically sets eager execution, which can be slower than graph execution on GPU
+*** https://www.tensorflow.org/api_docs/python/tf/function
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Add support for graph execution for attention layer
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 29, 2021
+|-
+|Test setting embedding trainable to false
+|Completed
+|November 22, 2021
+|November 24, 2021
+|November 29, 2021
+|-
+|Work with Karthik to change input csv's to use word start index (not character)
+|Completed
+|November 22, 2021
+|November 27, 2021
+|November 29, 2021
+|-
+|Make sure input is being passed in correctly (query, then context)
+|Completed
+|November 22, 2021
+|November 26, 2021
+|November 29, 2021
+|-
+|Look into how to fix the train and test data split issue
+|Completed
+|November 15, 2021
+|November 21, 2021
+|November 22, 2021
+|-
+|Reduce MAXLEN to improve model training times while not sacrificing much accuracy
+|Completed
+|November 22, 2021
+|November 24, 2021
+|November 29, 2021
+|-
+|Test other efficiency improvements like CuDNNLSTM and reducing precision
+|Completed
+|November 22, 2021
+|November 24, 2021
+|November 29, 2021
+|-
+|}
 
 == November 15, 2021 ==
 * I commented dimensions onto every variable on every layer for better code maintainability
 * I either directly wrote or fixed every function and every layer in our BiDaf model (embedding, attention, modeling, and output)
+* The issue was that with custom layers, tensorflow batch sizes don't work well with native python logic like if statements, for loops, and converting arrays to tensors with convert_to_tensor
+* The solution was to replace every for loop with either tiling (repeating) tensors and element-wise multiplication, or a TimeDistributed layer
+* https://github.gatech.edu/sleone6/emade/commit/75207dc8cf24c2d275e09da54fa364cf48f041b1
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Fix logic in calculating similarity matrix
+|Completed
+|November 15, 2021
+|November 17, 2021
+|November 22, 2021
+|-
+|Fix logic in calculating context to query attention
+|Completed
+|November 15, 2021
+|November 18, 2021
+|November 22, 2021
+|-
+|Fix logic in calculating query to context attention
+|Completed
+|November 15, 2021
+|November 18, 2021
+|November 22, 2021
+|-
+|Fix logic in Modeling Layer
+|Completed
+|November 15, 2021
+|November 20, 2021
+|November 22, 2021
+|-
+|}
 
 == November 8, 2021 ==
 * currently our layers are unable to be compiled into a model
