@@ -724,7 +724,27 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 
 === Literature Review Notes: ===
 * Evolving Deep Neural Networks
-**
+** Automated method CoDeepNEAT for optimizing deep learning architecture through evolution
+** Genetic algorithms smart choice for because crossover is perfect match for neural networks
+*** Combine different existing parts of neural networks to find better ones 
+** DeepNEAT is extension of standard neural network topology evolution method NEAT to DNN
+*** First population of chromosomes (each a graph) is initialized
+*** Nodes and edges added through different generations thru mutation
+*** Population divided into subgroups (species) based on similarity metric and then each species grows separately
+*** Each node in chromosome represents a layer in DNN
+**** Contain parameters and hyperparameters: type of layer, number of neurons, activation function
+*** During fitness evaluation, each chromosome is turned into a DNN and trained for a certain amount of epochs, evaluated, and metric is returned as performance
+** CoDeepNEAT utilizes repetitive behavior to create more diverse, deeper architectures
+*** Two populations of modules and blueprints are evolved separately
+*** Blueprint chromosome is graph where each node points to a module species
+*** Each module chromosome contains a graph (small DNN)
+*** Fitness Evaluation
+**** Each node in blueprint is replaced with randomly chosen module in species
+**** Assembled together to create larger network
+** CoDeepNEAT on the CIFAR-10 dataset
+*** Initialized with 25 blueprints and 45 modules
+*** 100 CNNs assembled for fitness evaluation
+*** Trains very fast: takes only 12 (compared to 30) epochs to hit 20% test error and around 120 (compared to over 200) epochs to converge
 
 '''Action Items:'''
 {| class="wikitable"
@@ -757,4 +777,59 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |November 22, 2021
 |November 29, 2021
 |November 29, 2021
+|}
+
+== November 29th, 2021 ==
+
+=== Class Notes: ===
+* Worked on literature review articles
+* Talked with new team members to organize final presentation slides
+
+=== Literature Review Notes: ===
+* Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification
+** Problem: wide variety of different architectures and hyperparameters and takes lot of time to track and experiment it all for optimal performance
+** Data preprocessing functions lacking in current systems
+** EMADE also includes data preprocessing functions so is able to evolve both at same time
+** Neural Architecture Search composed of 3 methods: search space, search strategy, candidate network performance estimation strategy
+** EMADE is based on DEAP genetic programming framework
+*** In DEAP, algorithms expressed as trees, functions expressed as nodes, parameters expressed as terminals
+*** When evaluating tree, nodes computed in order of decreasing depth
+*** Each generation, n trees selected to create new trees for population with variety of mutating/mating functions
+** Neural network modifications to EMADE
+*** LayerTree: class is pre-ordered list representation of neural network tree
+*** LayerPrimitives: network layer types from Keras API added as EMADE primitives
+*** Pre-Trained Layer Primitives: incorporate pre-trained networks as layers
+*** NNLearner: creates neural network from from LayerTree specifications using Keras API
+** Results on CIFAR-10 dataset
+*** Two different runs with same seeded individuals, same compute hours, but different run sizes
+**** Small run - best individual - 75.59%
+**** Big run - best individual - 73.84%
+** Future Applicability
+*** Combine pre-trained networks with layers and architecture to get better results
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Literature Review
+|In Progress
+|November 8, 2021
+|December 10, 2021
+|December 6, 2021
+|-
+|Update final presentation slides
+|In Progress
+|November 8, 2021
+|December 10, 2021
+|
+|-
+|Update VIP Notebook
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
 |}
