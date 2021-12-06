@@ -16,9 +16,16 @@ for arl in arls:
                 individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
 
 ### Week 15: Nov 29
+worked on visualizations
+took a look at cachev2 intergrations
 
 ### Week 14: Nov 22
-thanksgiving break
+- Thanksgiving break!
+- Continued doing runs and gathering data for extended arl experiments
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Run master process for extended ARL experiements|Complete|Nov 15|Nov 21|Nov 22|
 
 ### Week 13: Nov 15
 refactored 
