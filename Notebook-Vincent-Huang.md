@@ -14,10 +14,16 @@ for arl in arls:
             arl_primitives[arl] = self.pset.mapping[new_arl_pool[arl][1]]
             for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
                 individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
+### Week 16: Dec 6
+final presentation
 
 ### Week 15: Nov 29
 worked on visualizations
 took a look at cachev2 intergrations
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|extended ARL runs|Complete|Nov 15|Nov 21|Nov 22|
 
 ### Week 14: Nov 22
 - Thanksgiving break!
@@ -25,18 +31,31 @@ took a look at cachev2 intergrations
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Run master process for extended ARL experiements|Complete|Nov 15|Nov 21|Nov 22|
+|Run master process for extended ARL experiments|Complete|Nov 15|Nov 21|Nov 22|
 
 ### Week 13: Nov 15
+- wrote documentation for all the methods
+- added mroe 
+### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
+- Added ARLPoolnfo class
+- Added ARLNode class
+- Added typing to methods 
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1)
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70)
 refactored 
-https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc
-https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1
-https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Continue doing runs for extended ARL|Complete||||
+
 ### Week 12: Nov 8
 refactored
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
     - Removed ARL arg index dictionary from population info
+    - Commented out sanity check code for sake of performance
+- Added ARLPopulationInfo class
 
 * Refactored and documented new implementation of code
 ** Added typing and classes to implementation
