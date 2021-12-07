@@ -10,6 +10,31 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+
+== December 6th ==
+
+''' Lab Notes '''
+
+Focus is on getting the environments set up correctly. Everyone has a yml file to install the correct Conda environment.
+My task is to run Second Mate mutations with Rohan. I will download an xml file and run that job on PACE and report back with findings
+
+''' My work '''
+
+ROC vs F1
+
+It was brought into question what space we would be comparing between the two fields. I had this to say:
+
+the F1 score is really just a weighted (harmonic?) mean of two scores, or another way of handling multi-objective functions by condensing them into 1. You’re rewarding the algorithm for performing well in both precision and recall and not one or the other. You lose out on being able to set thresholds for each measure individually such as recall > 0.9, precision > 0.7.
+
+ROC is comparing how much better you TPR is than your FPR at different classification thresholds (default is X > 0.5 = True). Let’s say the threshold is at X > 0.9 = True. If your TPR is greater than your FNR, that means that your predictions are really robust and easily distinguishable. The AUC for the ROC is a single number that reflects its ability to distinguish between the two classes. However, this only works if the labels are weighted equally. If your dataset is always made up of positive individuals, your TPR will always be extremely high because it can always choose to predict the trivial case of X = True for all values.
+
+A large F1 score could somewhat couter-act an unbalanced ROC because the trivial case mentioned above is analogous to having perfect recall, but low precision. However, F1 score is not precision. In this unbalanced example, if recall is 0.95 and precision is 0.3, your F1 score is 0.456. But now you’re just comparing precision and recall. Everything I read says to just use precision-recall curves instead for unbalanced datasets. This is because for unbalanced datasets, the change in FPR and FNR provide little change in ROCAUC. It’s actually extremely difficult to change the ROC for unbalanced data.
+[[https://towardsdatascience.com/demystifying-roc-curves-df809474529a]]
+[[https://www.biostat.wisc.edu/~page/rocpr.pdf]]
+[[https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-imbalanced-classification]]
+
+Dr. Zutty suggested splitting up F1 into Precision and Recall. Since Recall is the TPR, we only need to compare these values with the FPR and NPV which are the same metrics but for the other class. For example, your recall can be calculated for positive and negative examples and their relationship is not necessarily linear, but they do tend to correlate.
+
 == December 1st ==
 
 ''' Lab Notes '''
