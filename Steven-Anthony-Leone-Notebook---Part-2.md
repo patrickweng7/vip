@@ -329,12 +329,15 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 * I discovered that NNLearner uses a new class defined in the file, called a LayerList, to keep track of the layers. Then, the NNLearner function iterates through these layers to build the deep neural network.
 * So, if we wanted to add a layer, we would have to create a subclass of Keras.layers.Layer, and override the build() and call() functions.
 * While I was doing this, Devan found a template from someone else who implemented BiDAF. It wasn't split into layers, but we could use it as a reference for learning keras and TensorFlow.
-* After a little over an hour, and with the skeleton of the Bidirectional Attention Layer done, we finished up work for the time being, until Sunday.
+* After going through Layerlist, I wrote the primitives that would add these subclass lists to the layer list.
+* <img width="713" alt="Screen Shot 2021-12-06 at 10 00 02 PM" src="https://github.gatech.edu/storage/user/27405/files/6959c0f7-94b0-4a32-944d-7a92caf5b297">
+* After a little over an hour, and with the skeleton of the Bidirectional Attention Layer done, we finished up work for the time being, until Sunday. 
+* <img width="481" alt="Screen Shot 2021-12-06 at 10 02 39 PM" src="https://github.gatech.edu/storage/user/27405/files/20a60fe9-ea61-45a9-9a1b-368d13d54a67">
 
 ### Implementing Bidirectional Attention Layer: Part 2
 * I met with Kevin, Rishit, and Karthik on Sunday this week to work on the Bidirectional Attention Layer.
-* (TODO: Finish in details of meeting)
-* (TODO: Link result code as of this meeting)
+* We didn't make much progress due to a slightly different team make up than the Friday meeting, but I filled them in on how adding primitives to NNLearner's worked.
+* I uploaded the most recent code to the slack (screenshot in Part 1 above), and some of them worked on it later this week.
 
 
 
