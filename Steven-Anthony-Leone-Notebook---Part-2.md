@@ -230,8 +230,9 @@ Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11
 * Initially, I was obtaining issues with malformed individual strings. I used the error messages to debug this.
 * Upon digging deeper, I discovered that the error message was a result of trying to turn a layer (BidirectionalAttention) into a literal. I asked in the slack about this, and discovered we had to edit gp_framework_helper.py.
 * IMPORTANT FUTURE NOTE FOR ADDING PRIMITVES: all new primitives added have to be added to the set in gp_framework_helper.py. This is an example, which is the code I wrote to add our primitives, at the end of the addPrimitives() method:
-* * 
+* 
 <img width="971" alt="Screen Shot 2021-12-06 at 10 18 19 PM" src="https://github.gatech.edu/storage/user/27405/files/d38b4082-b592-43a1-af5c-6f88ecd46455">
+* However, even after adding this in, we still couldn't exactly complete runs. There were a couple discrepancies throughout this branch, like data pairs being passed in as a list. These were also fixed, though some of them bled into the next week.
 
 ## Week 10, Oct 25th
 
