@@ -24,8 +24,30 @@
 ### Lecture overview:
 
 
-## Week 10: October 27th - November 31st (2021)
+## Week 10: October 25th - November 31st (2021)
 ### Lecture overview:
+* Presentation on 10/25
+* Slides link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+* Watched presentations by different sub-teams
+
+### Sub-team presentations:
+* NLP:
+1. The goal is to make machines understand natural language
+2. Doing some literature reviews
+3. Using SQUAD dataset
+4. Meeting time: Wednesday 2:00 pm
+* NAS:
+
+1.Preprocessing:
+Text tokenization and one hot encoding for multi-class target data
+2. CoDEEPNeat:
+Separated primitive sets and terminals between ADFs and MAIN primitive
+(didn't really understand this part)
+3. The goal is to improve the productivity of EMADE
+4. Used new analysis methods: nn_ind_from_has(hash) and view_nn_statistics
+5. Meeting time: Friday 2 - 3pm
+
+
 
 ## Week 9: October 20th - October 26th (2021)
 ### Lecture overview:
@@ -33,6 +55,13 @@
 * Solving questions related to MySQL an EMADE installation
 ### Team meeting notes:
 * Figured out how to run master process and work process
+
+`Server host command: mysql -h hostname -u username -d database_name -p`
+
+* Encountered errors;
+
+`Issue where fitness values for individuals were (inf, inf, inf)
+ EMADE error stated that "Tree missing valid primitve for data type"`
 * Connected to Mysql database
 * Met difficulty on getting generations after 11
 * Worked on slides for presentation on 10/25
@@ -43,10 +72,15 @@
 * Modified the code for plotting graphs
 * Finalized our slides
 
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 20th, 2021|October 26th, 2021|October 20th, 2021|
+|Settle environment|pending|October 20th, 2021|October 26th, 2021|October 25th, 2021|
+|Make Mysql work process working|in process|October 20th, 2021|October 26th, 2021|in progress|
+|Record Notebook|complete|October 20th, 2021|October 26th, 2021|October 26th, 2021|
 
 
 
--------------------------
 
 ## Week 8: October 13th - October 19th (2021)
 ### Lecture overview:
