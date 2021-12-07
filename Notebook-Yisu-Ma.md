@@ -41,22 +41,26 @@
 * Dr.Zutty answered questions from students
 ### Team notes:
 * Successfully get EMADE to recognize our Mysql database
-
-
+* Experiencing EMADE error - "Tree missing valid primitive for data type"
+* Try to fix the problems evaluation functions
+* Delete Python 3.9 in my computer and downgrade it to Python 3.7
 
 ### Individual notes:
 * Investigated worker output file
+* Faced some issues in joining worker process, need to access it in school network
 
-*
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 13th, 2021|October 20th, 2021|October 20th, 2021|
+|Settle environment|pending|October 13th, 2021|October 20th, 2021|in progress|
+|Make Mysql work process working|in process|October 6th, 2021|October 20th, 2021|in progress|
+|Record Notebook|complete|October 13th, 2021|October 20, 2021|October 20th, 2021|
 
 
 
 
 
 
-
-
------------------------------------------------
 
 ## Week 7: October 6th - October 12th (2021)
 ### Lecture overview:
@@ -88,10 +92,10 @@ evalFunctions.py is our evaluation function file
 
 | Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
 |------|----------------|---------------|----------------|---------------|
-|Sub-team meeting|complete|October 6th, 2021|October 13st, 2021|October 12st, 2021|
-|Installed EMADE|complete|October 6th, 2021|October 13st, 2021|October 12st, 2021|
-|Make Mysql work process working|in process|October 6th, 2021|October 13st, 2021|October 13st, 2021|
-|Record Notebook|complete|October 6th, 2021|October 13st, 2021|October 13st, 2021|
+|Sub-team meeting|complete|October 6th, 2021|October 13th, 2021|October 12th, 2021|
+|Installed EMADE|complete|October 6th, 2021|October 13th, 2021|October 12st, 2021|
+|Make Mysql work process working|in process|October 6th, 2021|October 13th, 2021|October 13th, 2021|
+|Record Notebook|complete|October 6th, 2021|October 13th, 2021|October 13th, 2021|
 
 
 
