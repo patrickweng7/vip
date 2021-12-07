@@ -12,11 +12,23 @@ final presentation
 
 ### Week 15: Nov 29
 worked on visualizations
-took a look at cachev2 intergrations
+
+- Since the CacheV2 Integrations team seemed to be struggling, I offered to take a look at their code
+    - Very problematic code commits
+    - Primary problem was that in `sql_connection_orm_master.get_seeded_pareto()`, it references `self.optimization`.
+    - In the old ARL_Update branch, this was instantiated in the parent class `sql_connection_orm_base.__init__()`
+    - In the new CacheV2 branch, the optimization attribute is instantiated via `ConnectionSetup()` in `EMADE.py`
+    - ARL_Update makes no changes to `sql_connection_orm_master` and `sql_connection_orm_base`, so simply overriding all changes in those two files with CacheV2's version is perfectly fine
+    - However, both ARL_Update and CacheV2 make changes to `EMADE.py`, so simply choosing one branch's changes and overriding the other's will not work.
+    - The CacheV2 Integrations team simply chose one version of each file from a branch and overrode the other branch.
+    - This is very problematic and not how a merge should work.
+    - Given the time remaining before final presentations, I was not able to fix the problems in time.
+    - Essentially no useful work was done, so the merge would need to be done over again from scratch.
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|extended ARL runs|Complete|Nov 15|Nov 21|Nov 22|
+|extended ARL runs|Complete|Nov 21|Nov 24|Nov 29|
+|Take a look at CacheV2's code|Complete|Nov 21|Nov 28|Nov 29|
 
 ### Week 14: Nov 22
 - Thanksgiving break!
@@ -127,7 +139,7 @@ class ARLPopulationInfo:
 |Write documentation for ARL code|Complete|Nov 1|Nov 8|Nov 8|
 |Write unit tests for new and old methods|Complete|Nov 1|Nov 8|Nov 8|
 |Refactor existing code|Complete|Nov 1|Nov 7|Nov 8|
-|Master process for extended arl runs|Nov 1|Nov 6|Nov 8|
+|Master process for extended arl runs|Complete|Nov 1|Nov 6|Nov 8|
 
 ### Week 11: Nov 1
 - Reassessed and readjusted team's goals for the semester
