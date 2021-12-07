@@ -29,6 +29,24 @@
 
 ## Week 9: October 20th - October 26th (2021)
 ### Lecture overview:
+* EMADE working session
+* Solving questions related to MySQL an EMADE installation
+### Team meeting notes:
+* Figured out how to run master process and work process
+* Connected to Mysql database
+* Met difficulty on getting generations after 11
+* Worked on slides for presentation on 10/25
+
+### Individual notes:
+* Rohan and Manas talked about the idea of using virtual conda environment to fix invalid version issue
+* Trying to join worker process, but need to do it under gatech network
+* Modified the code for plotting graphs
+* Finalized our slides
+
+
+
+
+-------------------------
 
 ## Week 8: October 13th - October 19th (2021)
 ### Lecture overview:
