@@ -32,6 +32,31 @@
 
 ## Week 8: October 13th - October 19th (2021)
 ### Lecture overview:
+* Work with the group
+* Try to run EMADE properly
+* Try to run Titanic dataset on EMADE and join the master process
+* Need to have 1 master program and other worker nodes for MySQL.
+* Meet version problem when setting up environment
+### Lecture notes:
+* Dr.Zutty answered questions from students
+### Team notes:
+* Successfully get EMADE to recognize our Mysql database
+
+
+
+### Individual notes:
+* Investigated worker output file
+
+*
+
+
+
+
+
+
+
+
+-----------------------------------------------
 
 ## Week 7: October 6th - October 12th (2021)
 ### Lecture overview:
