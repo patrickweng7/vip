@@ -188,6 +188,25 @@ Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10
 Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
 Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 
+### Debugging Big Merge and Primitives
+* This week, I finished debugging big bugs left over from the big merge. My commits can be at these links:
+* * https://github.gatech.edu/sleone6/emade/tree/8cae9f7b858b69f7981e51444af932103b0a3f9c
+* * https://github.gatech.edu/sleone6/emade/tree/b4187b52a653597446b880638578c52abc373fe3
+* * https://github.gatech.edu/sleone6/emade/tree/cc9fa59233312a3f5e187c3d4dfc0bb4be8ef1b4
+* At this point, I was able to run an individual with the Amazon dataset with the regular NNLearner, and get accurate results. As a result, all other teams were now unblocked. They pulled the changes, and each of our three teams got to work.
+* With the new primitives now in the pset, I began debugging this individual with standalone tree evaluator: NNLearner(ARG0,OutputLayer(BidirectionalOutput(BidirectionalModelingLayer(BidirectionalAttentionLayer(EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer()))))), 100, AdamOptimizer)
+* It ran for quite a while, eating up about an hours worth of debugging time. At the end, it crashed with a memory error, specifying that it had exceed 24000 MB.
+* I later learned two ways to resolve this from Anish and Dr. Zutty. I could set reduce instances to a value less than 1 to reduce the size of the dataset, or I could increase the number of memory allotted in the XML file. In other words, it, turned out the error was an issue with the memory I was allotting in the XML file.
+
+### Meeting with Karthik and Rishit
+* Karthik, in charge of the multiple outputs team, and I met on Saturday to talk about the output layer problem.
+* In short, the problem was that NNLearner and NNLearner2 both rely on Keras to train and fit the models. However, Keras doesn't support training for two inputs. We would have to not only write our own layers for a double output, but also write customized loss functions that could handle this, for any potential layer used in neural_network_methods.py.
+* This was a pretty massive problem, and not one we could likely solve within a few weeks. We consulted the rest of Karthik's team to double check, and we all agreed it would be best to reduce the scope of the problem for now. We could change it to a pure regression problem, only trying to find the start index of the answer. This is similar to Google Search's answer feature, finding the answer within a document.
+* EXAMPLE:
+* * Question: When did the Titanic Sink?
+* * Context: The titanic was a big ship. It sank in 1912. It hit an iceberg.
+* * Output: 8, the index of "in" as in "in 1912".
+
 
 ## Week 11, Nov 1st
 ### General Meeting Notes
@@ -385,7 +404,9 @@ Run EMADE on new branch with no errors | Complete | 10/18/2021 | 10/21/2021 | 10
 Make presentation slides | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
 Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
 
-
+### General Debugging
+* I made some more commits with general bug fixes:
+<img width="1266" alt="Screen Shot 2021-12-06 at 10 24 29 PM" src="https://github.gatech.edu/storage/user/27405/files/84422596-546c-4cc0-81ec-e6119efc888d">
 
 ## Week 8, Oct 11th
 ### General Meeting:
