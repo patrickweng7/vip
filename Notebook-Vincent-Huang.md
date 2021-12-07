@@ -34,13 +34,17 @@ took a look at cachev2 intergrations
 |Run master process for extended ARL experiments|Complete|Nov 15|Nov 21|Nov 22|
 
 ### Week 13: Nov 15
-- wrote documentation for all the methods
-- added mroe 
+- Refactored and documented new implementation of code
+    - Standardized variable names
+        - Example:
+        - The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+
 ### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
 - Added ARLPoolnfo class
 - Added ARLNode class
 - Added typing to methods 
+- standardized variable names
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1)
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70)
 refactored 
@@ -50,17 +54,10 @@ refactored
 |Continue doing runs for extended ARL|Complete||||
 
 ### Week 12: Nov 8
-refactored
-#### Code Commits
-- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
-    - Removed ARL arg index dictionary from population info
-    - Commented out sanity check code for sake of performance
-- Added ARLPopulationInfo class
-
-* Refactored and documented new implementation of code
-** Added typing and classes to implementation
-*** Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
-*** Example
+- Refactored and documented new implementation of code
+    - Added typing and classes to implementation
+        - Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
+        - Example
 Before:
 ```
 for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
@@ -79,11 +76,17 @@ class ARLPopulationInfo:
         # indv_idx: the index of the individual within the population
         self.occurrences = occurrences
 ```
-*** Creating classes also allowed for making a repr function, which helped with printing information for debugging
-*** Also added method input parameter types and return types where possible
-** Standardized variable names
-*** Example:
-*** The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+        - Creating classes also allowed for making a repr function, which helped with printing information for debugging
+        - Also added method input parameter types and return types where possible\
+
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
+    - Removed ARL arg index dictionary from population info
+    - Commented out sanity check code for sake of performance
+    - Added ARLPopulationInfo class
+
+
+
 ** Added documentation for all methods
 ** Refactored outdated methods and code which were inefficient and/or unused
 ### Week 11: Nov 1
