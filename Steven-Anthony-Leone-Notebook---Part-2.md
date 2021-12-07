@@ -221,9 +221,17 @@ Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11
 
 ### Preparing Presentations for New Members
 * I modified last year's PowerPoints to inform the new members about deep learning and NLP.
+* The presentations I made can be found here: 
+* * Deep Learning and NLP overview: https://docs.google.com/presentation/d/10R9PEClxceFbCFclzHBMbZSowvBlLb1-0zKQ8haParc/edit?usp=sharing
+* * NNLearner overview: https://docs.google.com/presentation/d/17KfH14LP1ToNQA1u4b8WiWEcwr9bDY6KNd0Xws8iOdk/edit?usp=sharing
 
 ### Debugging Primitives with Standalone Tree Evaluator
 * I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
+* Initially, I was obtaining issues with malformed individual strings. I used the error messages to debug this.
+* Upon digging deeper, I discovered that the error message was a result of trying to turn a layer (BidirectionalAttention) into a literal. I asked in the slack about this, and discovered we had to edit gp_framework_helper.py.
+* IMPORTANT FUTURE NOTE FOR ADDING PRIMITVES: all new primitives added have to be added to the set in gp_framework_helper.py. This is an example, which is the code I wrote to add our primitives, at the end of the addPrimitives() method:
+* * 
+<img width="971" alt="Screen Shot 2021-12-06 at 10 18 19 PM" src="https://github.gatech.edu/storage/user/27405/files/d38b4082-b592-43a1-af5c-6f88ecd46455">
 
 ## Week 10, Oct 25th
 
