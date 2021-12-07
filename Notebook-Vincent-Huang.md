@@ -101,6 +101,8 @@ class ARLPopulationInfo:
         # indv_idx: the index of the individual within the population
         self.occurrences = occurrences
 ```
+-
+    -
         - Creating classes also allowed for making a repr function, which helped with printing information for debugging
         - Also added method input parameter types and return types where possible
     - Changed object instantiations to be more precise
@@ -116,6 +118,11 @@ class ARLPopulationInfo:
     - Changed object instantiations to be more precise
     - Added documentation to _get_best_arls,  _pick_arls, _match_arl_in_individual, add_all_subtrees, _evaluate_ARL, search_individual
 
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Write documentation for ARL code|Complete|Nov 1|Nov 8|Nov 8|
+|Write unit tests for new and old methods|Complete|Nov 1|Nov 8|Nov 8|
+|Refactor existing code|Complete|Nov 1|Nov 7|Nov 8|
 
 ### Week 11: Nov 1
 
