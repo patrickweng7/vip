@@ -7,13 +7,6 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
-for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
-
-
-for arl in arls:
-            arl_primitives[arl] = self.pset.mapping[new_arl_pool[arl][1]]
-            for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
-                individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
 ### Week 16: Dec 6
 final presentation
 
@@ -38,13 +31,45 @@ took a look at cachev2 intergrations
     - Standardized variable names
         - Example:
         - The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+        - Same with arl_lambda, lambda, arl_function_string, arl_str
+```
+class ARLPoolInfo:
+    def __init__(self, arl_population_info: ARLPopulationInfo, arl_name: str, arl_lambda: str, arl_function, arl_input_types):
+        self.population_info = arl_population_info
+        self.arl_name = arl_name
+        self.arl_lambda = arl_lambda
+        self.arl_function = arl_function
+        self.arl_input_types = arl_input_types
+```
+```
+class ARLNode:
+    def __init__(self, name, arl_arity, individual_arity, child_idx_in_parent):
+        self.name = name
+        self.arl_arity = arl_arity
+        self.individual_arity = individual_arity
+        self.child_idx_in_parent = child_idx_in_parent
 
+    def __eq__(self, other):
+        return other and self.name == other.name and self.arl_arity == other.arl_arity \
+            and self.individual_arity == other.individual_arity \
+            and self.child_idx_in_parent == other.child_idx_in_parent
+
+    def __neq__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash((self.name, self.arl_arity, self.individual_arity, self.child_idx_in_parent))
+
+    def __repr__(self):
+        return f"{self.name} {{arl_arity: {self.arl_arity}, indv_arity: {self.individual_arity}, idx_in_par: {self.child_idx_in_parent}}}"
+```
 ### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
 - Added ARLPoolnfo class
 - Added ARLNode class
 - Added typing to methods 
 - standardized variable names
+- Added documentation to gen_child_next_dicts, _contract_arls, _contract_arls, _find_arls, arl_info_to_lambda, lambda_helper, update_representation_with_arl_pset, update_representation
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1)
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70)
 refactored 
@@ -77,18 +102,21 @@ class ARLPopulationInfo:
         self.occurrences = occurrences
 ```
         - Creating classes also allowed for making a repr function, which helped with printing information for debugging
-        - Also added method input parameter types and return types where possible\
+        - Also added method input parameter types and return types where possible
+    - Changed object instantiations to be more precise
+        - Eg, x = {} to x = dict() and y = {} to y = set()
+        - Note that the second instantiation is incorrect and is also a bug fix.
 
 #### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
     - Removed ARL arg index dictionary from population info
     - Commented out sanity check code for sake of performance
     - Added ARLPopulationInfo class
+    - Added typing to the init, _get_best_arls, lambda_helper, etc methods
+    - Changed object instantiations to be more precise
+    - Added documentation to _get_best_arls,  _pick_arls, _match_arl_in_individual, add_all_subtrees, _evaluate_ARL, search_individual
 
 
-
-** Added documentation for all methods
-** Refactored outdated methods and code which were inefficient and/or unused
 ### Week 11: Nov 1
 
 
