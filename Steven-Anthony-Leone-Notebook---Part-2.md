@@ -144,9 +144,19 @@ Further Debug Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 
 Meet w/ Devan on double NNLearners | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
 Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
 
+### Further debugging of Primitives with Standalone Tree Evaluator
+* With my memory issues from last week resolved, I continued with debugging the integration of our primitives into neural_network_methods.py.
+* With a better understanding now of NNLearner, I figured that an easier way to debug might be to actually build our seeded model in Keras outside of EMADE.
+* I opened up the Google Collab used by Karthik, Kevin, Rishit, George, and Shiyi for debugging the building of some of the primitives in order to attempt to build the model in Keras: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing#scrollTo=8cVHrbqkZCxd
+* When I built the model, it did go through. However, the code specifically relied on batch size being none. I noted that this wouldn't always be the case when we ran model.fit() in NNLearner and NNLearner2. Consequently, it was causing crashes.
+* Furthermore, the output of bidirectional attention was in the wrong shape. The difference in shapes was (2,0) vs (2,). This was evident from my runs with standalone tree evaluator, where the individuals would be written to failedones2.txt instead of running the evaluation in the method accuracy().
+* This is the code I used for debugging bidirectional attention's integration: 
+* <img width="1296" alt="Screen Shot 2021-12-07 at 12 10 23 AM" src="https://github.gatech.edu/storage/user/27405/files/576a8b23-bd47-4388-adfe-bb41fbbdb7be">
+* Fortunately, while doing this, I did discover that Keras's regular Attention layer could also build a model that could apply the question to the context and context to the question in a meaningful manner. Thus, we could substitute this layer in, adding more potential diversity and allowing our NNLearner2 team to make more progress.
 
 ### Hackathon
 * At the Hackathon, I worked with Devan to debug NNLearner2 and get it working.
+* I also introduced 
 
 
 
