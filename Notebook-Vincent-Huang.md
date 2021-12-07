@@ -32,6 +32,7 @@ took a look at cachev2 intergrations
         - Example:
         - The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
         - Same with arl_lambda, lambda, arl_function_string, arl_str
+    - Added additional classes for information that was previously stored within tuples
 ```
 class ARLPoolInfo:
     def __init__(self, arl_population_info: ARLPopulationInfo, arl_name: str, arl_lambda: str, arl_function, arl_input_types):
@@ -63,20 +64,23 @@ class ARLNode:
     def __repr__(self):
         return f"{self.name} {{arl_arity: {self.arl_arity}, indv_arity: {self.individual_arity}, idx_in_par: {self.child_idx_in_parent}}}"
 ```
+
 ### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
-- Added ARLPoolnfo class
-- Added ARLNode class
-- Added typing to methods 
-- standardized variable names
-- Added documentation to gen_child_next_dicts, _contract_arls, _contract_arls, _find_arls, arl_info_to_lambda, lambda_helper, update_representation_with_arl_pset, update_representation
+    - Added ARLNode class
+    - standardized variable names
+    - Added documentation to gen_child_next_dicts, _contract_arls, _contract_arls, _find_arls, lambda_helper, update_representation_with_arl_pset, 
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1)
+    - Added documentation to arl_info_to_lambda, update_representation, search_individual
+    - Added typing to methods 
 - [Changes](https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70)
-refactored 
+    - Added ARLPoolnfo class
 
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|Continue doing runs for extended ARL|Complete||||
+|Write documentation for ARL code|Complete|Nov 9|Nov 12|Nov 15|
+|Refactor existing code|Complete|Nov 9|Nov 14|Nov 15|
+|Continue doing runs for extended ARL|Complete|Nov 9|Nov 13|Nov 15|
 
 ### Week 12: Nov 8
 - Refactored and documented new implementation of code
@@ -106,7 +110,7 @@ class ARLPopulationInfo:
         - Creating classes also allowed for making a repr function, which helped with printing information for debugging
         - Also added method input parameter types and return types where possible
     - Changed object instantiations to be more precise
-        - Eg, x = {} to x = dict() and y = {} to y = set()
+        - Eg, `x = {}` to `x = dict()` and `y = {}` to `y = set()`
         - Note that the second instantiation is incorrect and is also a bug fix.
 
 #### Code Commits
@@ -123,6 +127,7 @@ class ARLPopulationInfo:
 |Write documentation for ARL code|Complete|Nov 1|Nov 8|Nov 8|
 |Write unit tests for new and old methods|Complete|Nov 1|Nov 8|Nov 8|
 |Refactor existing code|Complete|Nov 1|Nov 7|Nov 8|
+|Master process for extended arl runs|Nov 1|Nov 6|Nov 8|
 
 ### Week 11: Nov 1
 
