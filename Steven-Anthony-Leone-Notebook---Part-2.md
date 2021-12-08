@@ -17,8 +17,15 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ## Week 16, Dec 6th
 
 ### General Meeting Notes
-
-
+* At this week's general meeting, we didn't do the normal structure of a scrum meeting. 
+* Instead, we focused on defining what success would look like for the semester. 
+* Before going into that, I checked in with the team to make sure everyone was good with PACE and on track to get runs in. Everyone was fine, either currently doing runs or in the last stages of debugging making EMADE work on PACE. 
+* We then briefly transitioned to the final presentation. I made a new doc for it and shared it with the team: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing 
+* We divided up who would say what, and would flesh it out on Wednesday. 
+* We then transitioned to our experiment, and I talked to Rishit and Shiyi regarding our statistic.
+* Our objective was to prove that AutoML could be used to improve Question Answering models. We had changed to MSE and num params as our evaluation metrics, and would compare our singular seeded individual to our Pareto Front individuals at the end, using AUC as a metric.
+* We talked further about this with Dr. Zutty and Dr. Rohling. After further discussion, we ended up defined outperforming the seeded individual as having that individual no longer on the Pareto Front. In other words, how many individuals could we get in a region of interest on the Pareto chart that outperformed the seeded individual in both objectives? 
+* We could then treat this as a Binomial problem. Did it succeed or not?
 
 ### Sub Team Meeting Notes
 
@@ -26,7 +33,10 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-,,,| Complete | 11/15/2021 | //2021 | //2021 |
+Get another regular run in| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Create final presentation | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Meet with Rishit and Shiyi to work on Experiment Results and Visualizations | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+
 
 This week: Runs, Final Presentation
 
