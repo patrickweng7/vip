@@ -22,6 +22,23 @@
 
 ## Week 11: November 1st -  November 7th (2021)
 ### Lecture overview:
+* Introducing myself to NLP team
+* Everyone greet with each other
+* Get to know the some basics of NNlearners
+### Team meetings:
+* Joined NLP slack
+* Talking abiut different layers: BIDAF ...
+* Our leader present a Q&A during the first remote meeting
+* Currently implementing  Modeling layer and output layer
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Join team slack|complete|November 1st, 2021|November 3rd, 2021|November 3rd, 2021|
+|Record notebook|complete|November 1st, 2021|November 7th, 2021|November 7th, 2021|
+|set up PACE ICE|in progress|November 1st, 2021|pending, 2021|pending|
+
+
+
 
 
 ## Week 10: October 25th - November 31st (2021)
