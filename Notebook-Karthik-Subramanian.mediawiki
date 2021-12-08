@@ -22,6 +22,13 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 * Doing 24 hr runs PACE (group 8 hr runs together)
 * Developed a shell script to automate the process/commands to run SqUaD in PACE
 * Link to Shell Script: https://github.gatech.edu/gist/ksubramanian40/103c9748f928abf6642eb1ddbc3cfb2b
+* The runs I have done over the past few days were wrong in that I mistakenly assumed that reuse is set from 0 to 1 over the course of the 24 hr runs. This caused my runs to run unseeded, which is not the intent of the experiment
+What actually should happen is this:
+    1st 8 Hrs: clear the database tables and then run qsub pbsmysql.pbs followed by seeding_from_file.py followed by launchEMADESquad.pbs
+    2nd 8 hrs: continue off of the previous run (don't need to reseed) (just do qsub pbsmysql.pbs followed by launchEMADESquad.pbs)
+    3rd 8 hrs: continue off of the previous run. Same procedure as "2nd 8 hrs"
+
+* Fortunately, my shell script that automates the process of running SqUaD in PACE should work (though the user will need to clear the database locally for the 1st 8hr run)
 
 '''Action Items:'''
 {| class="wikitable"
@@ -38,7 +45,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 |
 |-
 |Add information about BiDAF primitives to final presentation
-|Not yet started
+|In Progress
 |December 6th, 2021
 |December 8th, 2021
 |
