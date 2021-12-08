@@ -166,7 +166,14 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 
 ### Hackathon
 * At the Hackathon, I worked with Devan to debug NNLearner2 and get it working.
-* I also introduced 
+* I also introduced Karthik and George to the bugs I discovered in Bidirectional Attention, as I discovered above. I gave them my code above as a way of testing progress: a model should build with bidirectional attention as a layer instead of attention.
+* I sort of swapped between talking with their team and debugging our first semester students who were attempting to Run EMADE on PACE.
+* However, most of my time at the Hackathon was spent on NNLearner2.
+* The first bug we found was that the load_environment method was crashing. We couldn't exactly figure out the error, as it seemed to be an issue with a lambda call, and we weren't getting much info beyond that. We talked to Dr. Zutty to resolve this one.
+* After that, we moved back to working through the flow and resolving errors along the way. 
+* Our next major error was with the splitting of the train and test data. The code we were given for NNLearner2 only worked on image data, and it used a method we didn't have access to to split up train and test data lists. We therefore ended up basing most of our code off of a raw workaround that looked right from the image processing code we had as a reference. NOTE: this later proved to be incorrect, as discovered later on. When calling model().fit(), input should be passed in as a list, where the first element goes into the first InputLayer(), and the second element into the second InputLayer().
+* Our next issue was with the Embeddings. As the two inputs were different sizes, the tokenization of words was slightly off. So, we had to find the max vocabulary between the two inputs and use that. NOTE: Our trivial fix for this proved to be incorrect, and we had to resort to a temporary fix of multiplying the vocabulary size by a constant of ten for the smaller input vocabulary. This workaround still needs fixed.
+* At the end, we pushed our code to the Github, and worked on looking over NNLearner2 until the next day, where we were running into semantic errors. That is, our code seemed built for only solving classification problems, as our output was all 1's and 0's.
 
 
 
