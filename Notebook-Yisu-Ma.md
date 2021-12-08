@@ -37,8 +37,7 @@
 3. Using SQUAD dataset
 4. Meeting time: Wednesday 2:00 pm
 * NAS:
-
-1.Preprocessing:
+1. Preprocessing:
 Text tokenization and one hot encoding for multi-class target data
 2. CoDEEPNeat:
 Separated primitive sets and terminals between ADFs and MAIN primitive
@@ -46,6 +45,34 @@ Separated primitive sets and terminals between ADFs and MAIN primitive
 3. The goal is to improve the productivity of EMADE
 4. Used new analysis methods: nn_ind_from_has(hash) and view_nn_statistics
 5. Meeting time: Friday 2 - 3pm
+* Image processing:
+1. The goal is object detection, image segmentation
+2. Focused on a CheXNet (chest X-rays)
+3. 3 selected methods: NSGA-III, Hypervolume indicators and Lexicase:
+Talked about the difference between NSGA III and NSGA II.
+4. Used Tensorflow to normalize, flip and resize the images
+5. Results are obtained on 30 generations
+6. added new mutation and mating function.
+7. Some generated individuals cannot generate better results
+* Modularity:
+I went to my lab so I missed it.
+### Bootcamps presentation:
+* Team1:
+1. Did similar data preprocessing as us: Drop columns, delete irrelevant variables
+2. used SVM classifier and other bunch of machine learning methods.
+* Team2: (presented my part)
+* Team3:
+1. Did similar data preprocessing methods
+2. Talked about the troubles they met
+3. Compared the Pareto front
+* Team4: Went to my lab session
+### Individual note:
+* Probably I will choose NLP, because the goal and presentation is very sound
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Presentation|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
+|Record notebook|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
 
 
 
