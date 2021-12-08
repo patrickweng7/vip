@@ -85,7 +85,7 @@ Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 
 
 ### General Meeting Notes
 * NLP:
-* * We updated the team on what we accomplished leading up to and after the Hackathon
+* * We updated the team on what we accomplished leading up to and after the Hackathon. We also mentioned our current error, with the results looking like classification.
 * * This week, we focused a lot in our meeting about general procedures for our experiments
 * * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
 * * New Hypothesis: We can use Auto Machine Learning to improve QA models.
@@ -116,6 +116,29 @@ Add Regression to NNLearner2 | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
 Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
 Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
 
+### Debugging NNLearner2 - Classification to Regression
+* I talked with Devan a bit before the General Meeting. NNLearner2's output seemed to be stuck on classification.
+* We both went through EMADE to see if we could find support for regression with NNLearner's. Devan did discover the <regression> and <multilabel> flags in the XML file, but this didn't have an effect.
+* I did see that our output layer added a dense layer, but that should still support regression.
+* I stayed after the meeting and talked with Dr. Zutty. His best suggestion for debugging was to try removing the activation function.
+* This makes sense as an activation function is modeled to squeeze everything to either a 1 or a 0. Either it activates, or it doesn't. This could easily be switching the final output to match a binary classification. 
+* I checked some other Keras documentation, and found out that we shouldn't be using accuracy either to fit our models. I switched it to MSE (mean squared error).
+* With these changes implemented, NNLearner2 started working on Devan's laptop. He pushed to our Fork, and we were now at least getting varying results, and not just 1's and 0's.
+
+### Debugging NNLearner2 - Train/Test not being passed into model().fit() correctly
+* Several things still seemed wrong with NNLearner2 even after fixing the classification/regression issue, primarily regarding the outputs.
+* Most of our final accuracies were around 0.5, even though almost all of theme were wrong, and it should have been 1.0. Devan, Kevin and I discussed this. We assumed early on that this was correlated to the num inputs (1.0 / 2 - 0.5, and our num inputs was 2). 
+* I went through NNLearner2 at an almost line by line level to check and validate what was going on through the flow of our code.
+* That was when I discovered that our code was quite off regarding passing in the train data and test data into our final Keras model.
+* Essentially, it looked like we were only taking a concatenation of the context and question and passing them into our models. This didn't allow our model to take advantage of the multiple input layers or the one to one mapping of contexts and questions. We wanted to allow any of the inputs to have learning done on them completely separate from the others. 
+* I found a resource that guided me on how to pass in and split up the test, train, and validation data correctly in a Keras model with more than one input: https://www.pyimagesearch.com/2019/02/04/keras-multiple-inputs-and-mixed-data/
+* Essentially, when calling model().fit(), input should be passed in as a list, where the first element goes into the first InputLayer(), and the second element into the second InputLayer().
+* Then, the validation data had to be defined as a tuple, with the list of validation x's and then the y.
+* My code for defining these values is shown below: 
+* <img width="685" alt="Screen Shot 2021-12-07 at 11 38 52 PM" src="https://github.gatech.edu/storage/user/27405/files/7efdf845-fd73-4193-a8df-614106399eec">
+* I then updated our line where we called model().fit() to reflect these changes:
+*  <img width="874" alt="Screen Shot 2021-12-07 at 11 41 36 PM" src="https://github.gatech.edu/storage/user/27405/files/03159b5b-fe64-49fe-bc37-84b772c839cc">
+* I tested these changes and noted some improvements. Accuracy looked a little better, but the main confirming factor that our code worked was when I actually got an error for accidentally switching around some values in x and y. The error displayed showed me the exact sizes of my data passed in, and I was able to confirm after switching the values that NNLearner2 was passing in the correct values to train, validate, and test on.
 
 
 ## Week 13, Nov 15th
