@@ -19,7 +19,14 @@ First NLP team meeting, understanding NLP problem, EMADE setup on PACE.
 * After scrums, I joined the NLP team and was introduced to its goals and current tasks. In order to meet and outperforming state-of-the-art QA systems, the team is currently implementing custom primitives based on the BIDAF model for QA systems as outlined in the following paper: https://arxiv.org/pdf/1611.01603.pdf. Returning team members are also working on debugging issues related to merges of these primitives into the existing codebase for NLP that were done earlier in the semester. I asked questions about Scikit primitives vs. Keras primitives and learned that a key distinction between NLP with BIDAF vs. other NLP or NAS systems is the usage of a 2-datapair input of the context and the query to make predictions as opposed to a single EmadeDataPair input (which is what most other teams are working with). 
 * My tasks for this week include getting EMADE set up on PACE (scp-ing our working branch (https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs) over to PACE, setting up a conda environment, ensuring I can login to a MySQL instance and submit jobs to the queue, etc.) using Cameron’s set-up video: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be and this setup guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE. 
 * I will also read the following paper to better understand the purpose of the BIDAF model, the layers it includes, and how our custom-built EMADE primitives each map to one layer in the BIDAF model: https://arxiv.org/pdf/1611.01603.pdf. 
-* **Notes on the Paper**
+
+Notes on BIDAF Paper:
+* Character Embedding Layer uses tokenization techniques to create vector representation of words in context and query using character-level CNNs.
+* Word Embedding Layer similarly embeds the context and query at the word level using a pre-defined corpus and a word embedding model (ie. GloVe).
+* Contextual Embedding Layer is an LSTM that considers the words surrounding each word to improve the accuracy of each word’s vector representation. 
+The attention flow layer (the specialty of the BIDAF model) creates a similarity matrix that represents the similarity between the t-th context word and the j-th query word, where t is the row number and j is the column number. This layer outputs the query-aware vectors for the context words using the context words’ similarity values to the words in the query. 
+* Modeling layer is a bidirectional LSTM which takes in the query-aware context vectors and outputs vectors that represent the word with respect to both the context and the query.
+* Output layer takes in the modeling layer’s output and predicts the probability of each word in the context of being the start and end index of the answer. 
 
 ## Subteam Notes:
 * In today’s meeting, Steven gave a short presentation on NLP and different types of neural networks in order to get new students acclimated with the Keras models that our team uses to build primitives for QA. 
