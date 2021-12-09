@@ -10,7 +10,7 @@ Cell Phone: 704-794-3924
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 [[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
-# Week 11th: November 1st, 2021
+# Week 11: November 1st, 2021
 ## Overview
 First NLP team meeting, understanding NLP problem, EMADE setup on PACE. 
 
