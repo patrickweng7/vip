@@ -31,8 +31,8 @@ Devan also gave an introduction to the BIDAF model, the functionality of each of
 * Dr. Zutty had suggested unit testing for our custom layers in our first subteam meeting. I think writing unit tests would be a great way for myself and other new team members to get familiarized with the functionality of each layer and contribute to the codebase given the relatively short amount of time remaining in the semester. However, based on direction from Steven, we will work on setting up EMADE on PACE first and table unit testing until later if at all, given the amount of debugging currently taking place to integrate existing primitives. 
 
 EMADE PACE Setup Issues
-* I am running into Already Exists error with keras backend, just had to comment that out in neural_network_methods.py and run bash reinstall 
-* Had to ensure correct node name in xml before submitting standalone job
+* I am running into an Already Exists error with Keras backend in gp_framework_helper.py. I believed this was due to the fact that both Tensorflow and Keras install Keras from our conda_env.yaml file, so I manually deleted Keras from my conda bin folder. However, this did not resolve the issue, so I will get further guidance during our Monday meeting from team members who are successfully set up. 
+* Apart from this error, I am fully set up with a conda environment on PACE, have scp-ed our EMADE-304 branch from Steven's fork of the EMADE repository to my PACE account, and am able to login to a MySQL instance via PACE and submit a MySQL job to the PACE queue via "qsub pbsmysql.pbs." My next step will be to attempt to run standalone tree evaluator with NNLearner to ensure that I can submit EMADE jobs to the queue, and then running an EMADE master process on the SQUAD dataset to ensure I can help with runs to test that individuals containing our custom primitives evaluate properly. 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
