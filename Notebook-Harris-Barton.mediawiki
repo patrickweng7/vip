@@ -30,7 +30,36 @@
   OSError: Error reading file 'templates/inputSchema.xsd': failed to load external entity "templates/inputSchema.xsd"
 * '''Fix:'''
  Had to go in and add inputSchema.xsd. I accidentally removed it when I was trying to get below quota.
-* Tried to run PACE-ICE
+* '''Error:'''
+ :44
+ 211208 18:35:36  InnoDB: Unable to open the first data file
+ InnoDB: Error in opening ./ibdata1
+ 211208 18:35:36  InnoDB: Operating system error number 11 in a file operation.
+ InnoDB: Error number 11 means 'Resource temporarily unavailable'.
+ InnoDB: Some operating system error numbers are described at
+ InnoDB: http://dev.mysql.com/doc/refman/5.5/en/operating-system-error-codes.html
+ 211208 18:35:36 InnoDB: Could not open or create data files.
+ 211208 18:35:36 InnoDB: If you tried to add new data files, and it failed here,
+ 211208 18:35:36 InnoDB: you should now edit innodb_data_file_path in my.cnf back
+ 211208 18:35:36 InnoDB: to what it was, and remove the new ibdata files InnoDB created
+ 211208 18:35:36 InnoDB: in this failed attempt. InnoDB only wrote those files full of
+ 211208 18:35:36 InnoDB: zeros, but did not yet use them in any way. But be careful: do not
+ 211208 18:35:36 InnoDB: remove old data files which contain your precious data!
+ 211208 18:35:36 [ERROR] Plugin 'InnoDB' init function returned error.
+ 211208 18:35:36 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+ 211208 18:35:36 [ERROR] mysqld: Can't lock aria control file '/storage/home/hpaceice1/hbarton7/scratch/db/aria_log_control' for exclusive use, error: 
+ 11. Will retry for 30 seconds
+ 211208 18:36:07 [ERROR] mysqld: Got error 'Could not get an exclusive lock; file is probably in use by another process' when trying to use aria control 
+ file '/storage/home/hpaceice1/hbarton7/scratch/db/aria_log_control'
+ 211208 18:36:07 [ERROR] Plugin 'Aria' init function returned error.
+ 211208 18:36:07 [ERROR] Plugin 'Aria' registration as a STORAGE ENGINE failed.
+ 211208 18:36:07 [Note] Plugin 'FEEDBACK' is disabled.
+ 211208 18:36:07 [ERROR] Unknown/unsupported storage engine: InnoDB
+ 211208 18:36:07 [ERROR] Aborting
+ 211208 18:36:07 [Note] /usr/libexec/mysqld: Shutdown complete
+ 211208 18:36:07 mysqld_safe mysqld from pid file /storage/home/hpaceice1/hbarton7/scratch/db/mysqldb.pid ended
+*'''Fix:'''
+ I had a SQL instance running, all I had to do was kill it. 
 '''Action Items:'''
 {|class = "wikitable"
 !Assignment
