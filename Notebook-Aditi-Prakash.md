@@ -25,7 +25,7 @@ Notes on BIDAF Paper:
 * Word Embedding Layer similarly embeds the context and query at the word level using a pre-defined corpus and a word embedding model (ie. GloVe).
 * Contextual Embedding Layer is an LSTM that considers the words surrounding each word to improve the accuracy of each word’s vector representation. 
 The attention flow layer (the specialty of the BIDAF model) creates a similarity matrix that represents the similarity between the t-th context word and the j-th query word, where t is the row number and j is the column number. This layer outputs the query-aware vectors for the context words using the context words’ similarity values to the words in the query. 
-* Modeling layer is a bidirectional LSTM which takes in the query-aware context vectors and outputs vectors that represent the word with respect to both the context and the query.
+* Modeling layer is a bidirectional LSTM which takes in the query-aware context vectors and outputs vectors that represent each word with respect to both the context and the query.
 * Output layer takes in the modeling layer’s output and predicts the probability of each word in the context of being the start and end index of the answer. 
 
 ## Subteam Notes:
