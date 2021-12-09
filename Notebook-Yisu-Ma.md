@@ -18,6 +18,10 @@
 
 ## Week 12: November 8th -  November 14th (2021)
 ### Lecture overview:
+* NLP Scrum:
+1. Onboard new members
+2. The old members tries to help new member build ICE-PACE environment
+
 
 
 ## Week 11: November 1st -  November 7th (2021)
@@ -27,7 +31,7 @@
 * Get to know the some basics of NNlearners
 ### Team meetings:
 * Joined NLP slack
-* Talking abiut different layers: BIDAF ...
+* Talking about different layers: BIDAF ...
 * Our leader present a Q&A during the first remote meeting
 * Currently implementing  Modeling layer and output layer
 
