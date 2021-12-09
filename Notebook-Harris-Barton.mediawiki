@@ -152,16 +152,16 @@
 * We used this session as kind of a work session. Austin is working with me on lexicase implementation and literature search and we used this time attempting to resolve some issues involving him getting on PACE. 
 * I also found 2 more papers which I intend to read before the meeting next week which are implementations of lexicase. One is something called epsilon lexicase, which is implemented in DEAP. Sadly, DEAPS link to the paper they used to implement epsilon lexicase does not work so I am not sure if this is that one or not. 
 '''Paper Notes:'''
- * '''Link to Paper:''' https://dl.acm.org/doi/10.1145/2908812.2908898 
- * '''General Note:''' I am aware that this paper investigates this lexicase selection method in the context of regression, and we are doing classification. However, I figure that I might gain some insight into whether I think that this lexicase version might be able to be implemented in our problem.
- * '''Abstract:''' Recall that lexicase selection is a parent selection method that considers test cases separately, rather than in aggregate when performing parent selection. This paper develops a new form of lexicase selection for symbolic regression, named epsilon-lexicase selection. This redefines the pass condition for individuals one each test case in a more effective way. Epsilon lexicase selection is shown to be effective for regression, producing better fit models compared to other techniques such as tournament selection and age-fitness pareto optimization.  The papers experiments show that epsilon-lexicase selection with automatic epsilon produces the most accurate models across tested problems with negligible computational overhead.
- * '''Algorithm:''' The parent selection event proceeds as follows:
-  1. The entire population is added to the selection pool.
-  2. The fitness cases are shuffled.
-  3. Individuals in the pool with a fitness worse than the best fitness on the case among the pool are removed.
-  4. If more than one individual remains in the pool, the first case is removed and 3 is repeated with the next case. If only one individual remains, it 
+* '''Link to Paper:''' https://dl.acm.org/doi/10.1145/2908812.2908898 
+* '''General Note:''' I am aware that this paper investigates this lexicase selection method in the context of regression, and we are doing classification. However, I figure that I might gain some insight into whether I think that this lexicase version might be able to be implemented in our problem.
+* '''Abstract:''' Recall that lexicase selection is a parent selection method that considers test cases separately, rather than in aggregate when performing parent selection. This paper develops a new form of lexicase selection for symbolic regression, named epsilon-lexicase selection. This redefines the pass condition for individuals one each test case in a more effective way. Epsilon lexicase selection is shown to be effective for regression, producing better fit models compared to other techniques such as tournament selection and age-fitness pareto optimization.  The papers experiments show that epsilon-lexicase selection with automatic epsilon produces the most accurate models across tested problems with negligible computational overhead.
+* '''Algorithm:''' The parent selection event proceeds as follows:
+ 1. The entire population is added to the selection pool.
+ 2. The fitness cases are shuffled.
+ 3. Individuals in the pool with a fitness worse than the best fitness on the case among the pool are removed.
+ 4. If more than one individual remains in the pool, the first case is removed and 3 is repeated with the next case. If only one individual remains, it 
      is the chosen parent. If no more fitness cases are left, a parent is chosen randomly from the remaining individuals.
- * '''Conclusion:''' I realized like midway through this paper that this paper doesn't seem to be very beneficial for our problem and if it is beneficial, I don't quite see it. Additionally, this paper doesnt seem to give me enough info for me to feel comfortable trying to implement it in EMADE. 
+* '''Conclusion:''' I realized like midway through this paper that this paper doesn't seem to be very beneficial for our problem and if it is beneficial, I don't quite see it. Additionally, this paper doesnt seem to give me enough info for me to feel comfortable trying to implement it in EMADE. 
 {|class = "wikitable"
 !Assignment
 !Current Status
