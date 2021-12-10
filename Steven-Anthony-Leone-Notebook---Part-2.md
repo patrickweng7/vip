@@ -14,6 +14,20 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Final Presentations
+* Image Processing
+* * Main Objective: How can we improve EMADE on image processing tasks
+* * Leverage GP, selection methods, mating and mutation, new primitives, and deep learning
+* * Normalized, conducted Horizontal flipping, and newer augmentations
+* * Size of dataset is 4000 images
+* * Changed problem to not be multilevel (still multiclass)
+* * Comparing TPR vs FPR and Num Parameters
+* * Baseline Results: AUC was 0.21895
+* * NSGA II was used by baseline, then used NSGA 3 and Lexicase
+* * In actuality, NSGA II ended up performing significantly better.
+* Modularity
+* Stocks
+
 ## Week 16, Dec 6th
 
 ### General Meeting Notes
