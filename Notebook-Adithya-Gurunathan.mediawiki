@@ -8,6 +8,15 @@
 
 = Fall 2021 =
 
+== Week 16: Dec 5, 2021 ==
+
+===Overview:===
+
+* Subteams updated on their final week's work, preparationg for final week's presentation
+* Peer evals will close on 8th December
+* 
+
+
 == Week 15: Nov 29, 2021 ==
 
 ===Overview:===
@@ -49,6 +58,51 @@
 
 * Continued work on visualization this week, and posted AUC over time arrays to my sub-team
 * Task for the week - Convert AUC over time to .csv files with Aditya and Angela.
+* Collaborated with Vincent to discuss validity of earlier runs - local runs and did not have all the objectives
+* Code for generating .csv files from the AUC time arrays:
+  import json
+  import csv​
+  def increasingAUC(aucList):
+      min = aucList[0]
+      for auc in aucList:
+          if auc > min:
+                return False
+          else:
+              min = auc
+      return True
+​  
+  runsList = (run6, run7, run8, run9)
+  for run in runsList:
+      if not increasingAUC(run["auc"]):
+          print(">:(")
+      else:
+          print(":)")
+​  
+  def convertCSV(AUCdict, fileNum):
+      aucList = AUCdict["auc"]
+      xList = AUCdict["x"]
+      yList = AUCdict["y"]
+      auc_file = open("extendedRun{}.csv".format(fileNum), "w")   
+      header = AUCdict.keys()
+      header.sort()
+      auc_file.write("{}\n".format(str(header)[1:-1]))
+      for i in range(len(aucList)):
+          auc = aucList[i]
+          try:
+              x = xList[i]
+          except IndexError:
+              x = ""
+          try:
+              y = yList[i]
+          except IndexError:
+              y = ""
+          auc_file.write("{}, {}, {}\n".format(auc, x, y))
+      auc_file.close()
+​  
+  count = 6
+  for run in runsList:
+      convertCSV(run, count)
+      count += 1
 
 == Week 14: Nov 22, 2021 ==
 
