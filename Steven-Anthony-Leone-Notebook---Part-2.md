@@ -25,6 +25,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Baseline Results: AUC was 0.21895
 * * NSGA II was used by baseline, then used NSGA 3 and Lexicase
 * * In actuality, NSGA II ended up performing significantly better.
+* * Trees started to become too complex to yield meaningful results come generation 4 and beyond.
 * Modularity
 * Stocks
 
