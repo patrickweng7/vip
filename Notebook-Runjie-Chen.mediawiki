@@ -22,7 +22,10 @@
 *** TPR/FPR over various thresholds
 ** Results: AUC of pareto front:0.219
 ** Geometric Mating & Mutation Methods: 2 new geometric crossover operators (using new operators to work with sequence individuals)
-***  more parameters lowered the AUC
+***  more parameters led to lowered AUC
+* NLP
+** That's us!
+** I presented 2 slides on "Intro to QA"
 
 
 == Week 16: December 6th - December 12th ==
@@ -37,6 +40,16 @@
 * upload our master.out files
 * I will be presenting the intro to QA slide for the final presentation
 
+===December 8th, 2021 Sub Team Meeting Notes===
+* Finalized the presentation slides
+* I added more information to my slides on "Intro to QA"
+
+===December 8th, Meeting with Steven===
+* I reached out to Steven and set up a meeting with him to troubleshoot PACE issues
+* We found that I was using the wrong node for my MySQL job and fixed that in the input_squad.xml file
+* We found that I was using an outdated branch of emade and Steven sent me his file emade branch directory and I SCPed it over on pace so my directory is up to date
+* We found that my virtual environment setup is not correct, I installed the packages and dependencies by following the instructions on the emade github page, however, the package versions required by our branch is different from the ones on the emade github page, and troubleshooting them and get each package to be the correct version will take a lot of time, and by the time we will be done, I won't have time to have a full run anyways. Therefore, Steven excused me from doing a run, and said that if I stay in NLP next semester, he will meet with me again to fix everything.
+
 ===Action Items===
 {| class="wikitable"
 !Task
@@ -46,13 +59,13 @@
 !Date Resolved
 |-
 |Finish the QA slide for the final presentation
-|In progress
+|Completed
 |December 6th, 2021
 |December 8th, 2021
 |
 |-
 |Practice running through the final presentation
-|In progress
+|Completed
 |December 6th, 2021
 |December 8th, 2021
 |
@@ -81,6 +94,11 @@
 **NAS
 *** Not much progress since last week due to Thanksgiving break
 *** Not at a formal code freeze yet, but are at an informal code freeze
+
+===December 1st, 2021 Sub Team Meeting===
+*individual progress:
+** I got a new issue when attempted to run launch_squad.pbs: my sql job runs for a few seconds and then closes on its own. I didn't have this issue when I just followed the PACE video tutorial, but this became an issue after I pulled the updates. When I ran "mysqld_safe --datadir='/storage/home/hpaceice1/rchen417/scratch/db'", it looks like it's running correctly, but when I go over to another terminal and do "root -u root", I get "ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (111)", and then after a few moments the mysqld_safe ended too 
+** I asked in the slack about this issue to see if anyone can help
 
 ===Action Items===
 {| class="wikitable"
@@ -118,6 +136,14 @@
 **** Test data set is used to score the model (this is the final dataset that we want)
 **** The model is learning the relationship between training and test
 
+===Individual Progess===
+*No sub-team meeting this week due to Thanksgiving break
+*I reinstalled EMADE and re-setup everything on PACE from scratch following the provided Youtube setup tutorial to see if errors will get resolved
+*Still getting the same errors, but I resolved most of them
+** Some modules are not found (Transformers, Keras.backend) so I installed them manually
+** Some modules have conflicts and depend on previous versions of other modules, so I updated these manually
+* Pulled most recent branch and SCPed that over so that I can run standalone tree evaluator
+
 ===Action Items===
 {| class="wikitable"
 !Task
@@ -126,11 +152,11 @@
 !Suspense Date
 !Date Resolved
 |-
-|Resolve errors from running EMADE on PACE
-|In progress
+|Reinstall EMADE and re-setup everything on PACE from scratch to see if errors will get resolved
+|Completed
 |November 15th, 2021
 |November 29th, 2021
-|
+|November 29th, 2021
 |}
 
 == Week 13: November 15th - November 21th ==
@@ -197,13 +223,13 @@ git clone --depth 1 https://github.gatech.edu/sleone6/emade.git --branch feature
 |November 17th, 2021
 |-
 |Run EMADE successfully with NNLearner
-|
+|Not Completed (Still having trouble with running Emade on PACE)
 |November 17th, 2021
 |November 21th, 2021
 |
 |-
 |Attempt to run EMADE with NNLearner2 and identify steps that need to be done based on errors
-|
+|Not Completed (Still having trouble with running Emade on PACE)
 |November 17th, 2021
 |November 21th, 2021
 |
@@ -281,11 +307,11 @@ Sub-team notes:
 |November 15th, 2021
 |November 15th, 2021
 |-
-|Resolve errors from running EMADE on PACE
-|In progress
+|Resolve module not found errors from running EMADE on PACE
+|Completed
 |November 15th, 2021
 |November 17th, 2021
-|
+|November 16th, 2021
 |-
 |Read additional papers that explain the BiDAF model in an easier-to-understand way 
 |Completed
