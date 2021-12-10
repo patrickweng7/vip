@@ -46,9 +46,27 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * Something to work on in future semester, change EMADE to pull selection method from the XML file rather than being hard-coded
 
 ''' NSGA3 Trial Results '''
+* Trial 1
+** Lowest ROC AUC: 0.377054, num param 192680000
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(DenseLayer4dim(((((((DenseLayerUnit32)))))), ((((((sigmoidActivation)))))), MaxPoolingLayer2D((((((Conv2DKernelSize3))))), adf_0(adf_12(adf_9(adf_16(adf_3(InputLayer)))))))), ((((((((DenseLayerUnit32)))))))), ((((((((NadamOptimizer))))))))) adf_0: Conv2DLayer(Conv2DFilterUnit48, eluActivation, Conv2DKernelSize3, InputLayer) adf_3: MaxPoolingLayer2D(Conv2DKernelSize5, ARG0) adf_9: Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit256, defaultActivation, InputLayer)) adf_12: MaxPoolingLayer2D((Conv2DKernelSize1), ARG0) adf_16: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)'
+** 2nd lowest ROC AUC: 0.486834, num param 1431040
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_6(adf_6(adf_3(adf_1(adf_14(adf_4(adf_8(InputLayer)))))))), ((((((((DenseLayerUnit256)))))))), ((((((((RMSpropOptimizer))))))))) adf_1: Conv2DLayer(((Conv2DFilterUnit16)), ((seluActivation)), ((Conv2DKernelSize3)), MaxPoolingLayer2D((Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit32, eluActivation, ARG0))) adf_3: DenseLayer4dim((DenseLayerUnit256), (seluActivation), DenseLayer4dim(DenseLayerUnit256, eluActivation, ARG0)) adf_4: Conv2DLayer((Conv2DFilterUnit16), (reluActivation), (Conv2DKernelSize5), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)) adf_6: Conv2DLayer((Conv2DFilterUnit16), seluActivation, Conv2DKernelSize3, ARG0) adf_8: DenseLayer4dim(((DenseLayerUnit32)), ((defaultActivation)), MaxPoolingLayer2D((Conv2DKernelSize3), Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize5, ARG0))) adf_14: Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize5, InputLayer)'
+* Trial 2
+** Lowest (and 2nd lowest) ROC AUC: 0.490912, num param 287
+** NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (sigmoidActivation), (Conv2DKernelSize3), adf_4(InputLayer)))), ((((((((((falseBool)))))))))), ((((AdamaxOptimizer))))) adf_1: Conv2DLayer(((Conv2DFilterUnit16)), (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)) adf_4: Conv2DLayer((Conv2DFilterUnit16), reluActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer))
+* Trial 3
+** Lowest ROC AUC: 0.448625, num param 36128000
+** 'NNLearner(((((((((((((ARG0)))))))))))), FlattenLayer4d(adf_17(InputLayer)), ((((Conv2DKernelSize1)))), ((((RMSpropOptimizer))))) adf_17: Conv2DLayer(Conv2DFilterUnit48, reluActivation, Conv2DKernelSize5, ARG0)'
+** 2nd Lowest ROC AUC: 0.451021, num param 36128000
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_17(InputLayer)), ((((Conv2DKernelSize1)))), ((((NadamOptimizer))))) adf_17: Conv2DLayer(Conv2DFilterUnit48, defaultActivation, Conv2DKernelSize5, ARG0)'
+* Trial 4
+** Lowest ROC AUC: 0.393361, num param 12055100
+** NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_19(adf_10(adf_4(adf_4(Conv2DLayer((Conv2DFilterUnit48), ((reluActivation)), ((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_17(InputLayer)))))))), (((((Conv2DKernelSize3))))), ((((((((RMSpropOptimizer)))))))))  adf_4: MaxPoolingLayer2D(Conv2DKernelSize5, DenseLayer4dim((DenseLayerUnit256), (tanhActivation), Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize3, InputLayer)))  adf_10: Conv2DLayer((Conv2DFilterUnit48), (softmaxActivation), (Conv2DKernelSize1), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer))  adf_17: Conv2DLayer((Conv2DFilterUnit16), tanhActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit16, eluActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize3, InputLayer)))  adf_19: Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize5, MaxPoolingLayer2D((Conv2DKernelSize1), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)))
+** 2nd Lowest ROC AUC: 0.46485, num param 36165200
+** NNLearner((((((((((ARG0))))))))), FlattenLayer4d(adf_19(adf_10(adf_4(adf_4(Conv2DLayer((((Conv2DFil terUnit16))), ((reluActivation)), ((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_17(InputLayer)))))))), (((((Conv2DKernelSize3))))), ((((((((((((FtrlOptimizer))))))))))))) adf_4: MaxPoolingLayer2D(Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize1, InputLayer))) adf_10: Conv2DLayer(Conv2DFilterUnit16, (softmaxActivation), Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)) adf_17: Conv2DLayer(((Conv2DFilterUnit16)), tanhActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit16, eluActivation, Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit256, seluActivation, InputLayer)))) adf_19: Conv2DLayer(Conv2DFilterUnit48, defaultActivation, (Conv2DKernelSize5), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer))
 
 ''' Final Presentation '''
-* [example.com Presentation Link]
+* [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing Presentation Link]
 
 === Action Items: ===
 {| class="wikitable"
@@ -58,23 +76,23 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Run final NSGA3 trials
-|In Progress
+|Run multiple NSGA3 trials (for ROC-AUC)
+|Complete
 |Dec 6, 2021
 |Dec 10, 2021
-|
+|Dec 8, 2021
 |-
-|Finish presentation slides
-|In Progress
+|Finish final presentation slides
+|Complete
 |Dec 6, 2021
 |Dec 10, 2021
-|
+|Dec 9, 2021
 |-
 |Update Wiki Notebook
-|In Progress
+|Complete
 |Dec 6, 2021
 |Dec 10, 2021
-|
+|Dec 9, 2021
 |-
 |}
 
@@ -134,7 +152,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Conduct runs
+|Conduct NSGA3 runs for ROC-AUC
 |Complete
 |Nov 29, 2021
 |Dec 6, 2021
@@ -186,7 +204,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Run NSGA2
+|Run NSGA2 for baseline estimate (prec AUC)
 |Complete
 |Nov 22, 2021
 |Nov 29, 2021
@@ -252,13 +270,13 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Fix NSGA3 errors
+|Fix 3-d instead of 2-d error
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
 |Nov 21, 2021
 |-
-|Run NSGA3
+|Run NSGA3 (for prec AUC)
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
@@ -304,7 +322,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Try to test NSGA3 again
+|Troubleshoot NSGA3 run
 |Complete
 |Nov 8, 2021
 |Nov 15, 2021
@@ -514,7 +532,7 @@ Mid-sem presentations
 !Due Date
 !Date Completed
 |-
-|Troubleshoot EMADE run
+|Troubleshoot EMADE on Pace run
 |Complete
 |Oct 25, 2021
 |Nov 1, 2021
