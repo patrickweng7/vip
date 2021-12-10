@@ -35,6 +35,29 @@ A large F1 score could somewhat couter-act an unbalanced ROC because the trivial
 
 Dr. Zutty suggested splitting up F1 into Precision and Recall. Since Recall is the TPR, we only need to compare these values with the FPR and NPV which are the same metrics but for the other class. For example, your recall can be calculated for positive and negative examples and their relationship is not necessarily linear, but they do tend to correlate.
 
+Tree Vis
+
+By default the tree vis doesn't take into account adfs. Take this tree:
+<code>tree|FullDataSet ROC AUC|FullDataSet Num Parameters
+NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_4(InputLayer)))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))\nadf_1: Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer))\nadf_4: Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))</code>
+
+This is actually made up of a single tree with references to two adfs, adf_1 and adf_4. We can rearrange the graph like so:
+
+<code>NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))</code>
+
+But this produces a weird tree that looks a little busy:
+
+INSERT BAD TREE HERE
+
+We can instead remove unnecessary parentheses to make the tree look slimmer:
+
+<code>NNLearner(ARG0, GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize1, MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), falseBool, AdadeltaOptimizer)</code>
+
+INSERT GOOD TREE here
+
+Maybe we can write code to clean the trees and produce the visuals
+
+
 == December 1st ==
 
 ''' Lab Notes '''
