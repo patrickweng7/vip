@@ -55,6 +55,22 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Forked Gabe's repository and shared my graphs + notebook for the team to access. https://github.gatech.edu/akumaran6/emade/tree/PrimitiveAnalysis/notebooks
 *  .csv files for NoARL, OldARL, NewARL are all in the above directory, notebook used is GroupAUCViz.ipynb
 *  Debugging visualization notebooks to make sure graphs are ready for final presentation. Edited so that they show three-line graphs.
+    *  mean_df_old_adf['group'] = 0
+    *  mean_df_adf['group'] = 0
+    *  mean_df['group'] = 0
+    *  p9.ggplot(data=polygon_df, mapping=p9.aes(x="index", y='upper', group = 'group')) \
+            + p9.geom_polygon(size = 0.1, color='red', fill = 'red', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='green', fill = 'green', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_old_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='blue', fill = 'blue', alpha = 0.001) \
+            + p9.geom_line(data=mean_df_old_adf, mapping=p9.aes(x="index", y='mean'), color='blue') \
+            + p9.geom_line(data=mean_df_adf, mapping=p9.aes(x="index", y='mean'), color='green') \
+            + p9.geom_line(data=mean_df, mapping=p9.aes(x="index", y='mean'), color='red') \
+            + p9.ggtitle("No ADF vs Old ARL AUC vs New ARL AUC") \
+            + p9.xlab("Generation") \
+            + p9.ylab("Area Under Curve") \
+            + p9.scale_x_continuous(expand = (0,0), limits = (0,41),  breaks=(list(np.arange(0, 41, 5))), minor_breaks=(list(np.arange(0, 41, 1)))) \
+            + p9.scale_y_continuous(expand = (0,0), limits = (0.15,0.41), breaks=(list(np.arange(0.15, 0.46, 0.05))), minor_breaks=(list(np.arange(0.15, 0.4, 0.01)))) \
+            + p9.theme(axis_line=p9.element_line(), axis_ticks_minor=p9.element_line())
 *  Fixed standard deviation line bug on the graphs.
 *  Generated graphs with all runs (4-11), including 6 and 10, then decided that since they only lasted 34 and 35 generations each, that they should be omitted to see longer comparison between the three types of runs.
 *  Added finalized graphs (comparing all three runs - NoARL, OldARL, NewARL) to the final presentation.
