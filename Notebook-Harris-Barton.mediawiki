@@ -174,7 +174,6 @@
 * Other than that, Max is working on getting a new conda environment ready for Tensorflow 2.6, which we will create documentation for when it is finished. 
 * This week, the goal is to get DEAPS version of lexicase in EMADE smoothly so that I can do experiments with it in the week of and week after thanksgiving break. If time permits, might as well run tests with their normal lexicase and their epsilon lexicase. 
 * We want to be able to do experiment with various values of epsilon and see if we can tune that parameter so that we can pick the best epsilon value to be able to compare with the rest. 
-
 {|class = "wikitable"
 !Assignment
 !Current Status
@@ -240,7 +239,9 @@
 * This week, I began to read a paper implementing lexicase which DEAP actually used as a framework in their implementation. The paper can be found here
  http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf. 
 '''Paper Notes/Thoughts:'''
-* This paper is apparently what the developers of DEAP used in order to implement lexicase inside of DEAP. At a high level, this paper compares this lexicase selection method with other parent selection methods on a subset of problems which they refer to as "uncompromising problems" which they define as a problem characterized by the requirement that solutions must perform optimally on each of many test cases. 
+* This paper is apparently what the developers of DEAP used in order to implement lexicase inside of DEAP. At a high level, this paper compares this lexicase selection method with other parent selection methods on a subset of problems which they refer to as "uncompromising problems" which they define as a problem characterized by the requirement that solutions must perform optimally on each of many test cases.
+* Lexicase does well in the sense that we are able to see individuals that do good on some subset of training cases, rather than only looking at individuals that do decent on the average. 
+* Since we have 14 classes, we might be able to see some individuals that predict some subset of the diseases really well, and not some of the others. Rather than settling with some individual that does '''okay''' in aggregate on all 14 cases.  
 * The pseudocode for their lexicase goes something like this:
  To select a parent for use in a genetic operation:
  1) Initialize:
