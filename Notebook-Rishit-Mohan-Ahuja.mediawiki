@@ -20,14 +20,15 @@ Hobbies: Meditation and cooking
 ==== Stocks ====
 
 ==== Neural Architechture Search ====
-- Subset of hyperparameter optimization and AutoML
-- Goal: EMADE makes more complex architecture.
-- Added Time Stopping: restricted for how long to train the model.
-- Almost no correlation between the number of time trained and the accuracy error.
-- Added unique generator methods for NNLearners and Modules within EMADE.
-- Added Weight sharing.
-- Added some other thing ... see slides.
-- 
+* Focused on hyperparameter optimization and AutoML to find more complex and productive deep learning models.
+* Goal: EMADE makes more complex architecture.
+* Added Time Stopping: restricted for how long a model has been trained and the accuracy error.
+* Added 
+* Almost no correlation between the time trained and the accuracy error.
+* Added unique generator methods for NNLearners and Modules within EMADE.
+* Added Weight sharing.
+* Added some other thing ... see slides.
+*  
 
 
 
@@ -67,16 +68,79 @@ Hobbies: Meditation and cooking
 === Team meeting ===
 === My work ===
 
-== October 23, 2021 ==
+== October 25, 2021 ==
+=== Midterm Presentations ===
+*Note: for all the BootCamp teams, the dataset is Titanic.
+* NLP (my team): https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* Bootcamp 1:
+** ML Results:
+*** Imputation of NaNs: imputed fare and age with mean.
+*** Feature Engineering: encoded encoded "sex" and "embarked" columns and dropped the irrelevant categorical values.
+*** Model selection: SVM, Neural Network, Random Forest, Gaussian Process Classifier
+** Genetic Programming: tournament selection, node replacement mutation, one-point leaf biased crossover
+** EMADE: doubled headless chicken rate
+** Results: AUC of ~ 0.14
+
+* NAS:
+** Automate the process of creating neural networks with NNLearner.
+** No significant improvement in individuals during the previous semester.
+** Worked on Time Stopping: limit the training time because some individuals were taking too long to train.
+** Will be working on dimensionality issues between layers.
+
+* Boostcamp 2:
+*** Imputation of NaNs: dropped NaN rows.
+*** Feature Engineering: mapped alphabetical values of 'sex' and 'embarked'.
+** Genetic Programming: Used SPEA2, symbolic regression, minimization of FPs and FNs.
+** EMADE: Installation errors
+** Results: Adaboost performed the best
+
+* Image Processing:
+** Data preprocessing: Image Resizing, horizontal flipping, image augmentation (about 20% of the images).
+** Implemented NSGA II, added new mating and mutation functions sing geometric semantic crossover and mutation.
+** Introduced hyper-features.
+
+
+* Bootcamp 3:
+** ML:
+*** Feature engineering: one-hot encoding for the genders, dropped passengerID, cabin and added a new feature to separate the genders (gender_embarked).
+*** MOdel selection: SVM, Random Forest, Logistic Regression, neural networks.
+** GP: used selLexicase, squared false positives and negatives.
+** Results: could not do a lot of runs of EMADE.
+
+* Stocks:
+** Objective was to effectively do time-series analysis.
+** Experiments based on AAPL, etc.
+
+* Modularity:
+** ARLs can improve the fitness of the overall population.
+** Currently working on increasing the complexity of the ARLs by changing the depths of the tree algorithms used.
+** Success with arity of parent nodes.
+
+
+
+== October 18, 2021 ==
+=== Lecture Notes ===
+* Midterm presentation in one week.
+* Steven talked about the issues with the standalone tree evaluator.
+* Dr Zutty warned that runs will take time and also think about what the results indicate statistically.
 === Team meeting ===
-* We had two team meetings where we did two dry runs of the presentation.
+* We had two team meetings where we did two dry runs of the midterm presentation.
+* Link to our presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
 === My work === 
-* Made visualizations for all the tree/individuals that we plan to use as seeded individuals using Cameron's script.
+* Made visualizations (https://drive.google.com/drive/folders/1JpMPY--G4KOEdQbHuDbZ3DrGdhSi4WFA?usp=sharing) for all the tree/individuals that we plan to use as seeded individuals using Cameron's script.
 * Added my page in the slides describing the utility of the memory networks.
-** Here is a detailed description the paper:
+* Here is a high-level description of the paper:
+**Datasets: Facebook dataset known as babl that was synthetically generated. The dataset contains total 20 categories of questions ranging from simpler categories like 'single supporting facts' to complex ones like  'reasoning' and 'path finding'.
+**Previous Models: used LSTMs (≈20% accuracy), word2vec (capture the context of the text very effectively) CBOW and Skip Gram, memory networks (≈49% accuracy) to the NNs
+**Paper's approach: 
+*** Dynamic/Episodic memory networks (91% accuracy)
+*** Implementation: 
+****Used Word embedding, recurrent LSTMs, dense layers, softmax, dropout of 50%. 
+****Final memory outputs have LSTMs instead of a summation relationship before going into the softmax function
+**** Used RMS Prop optimizer and sparse categorical cross-entropy loss.
 
 
-== October 16, 2021 ==
+== October 11, 2021 ==
 === Hackathon meeting ===
 * Shiyi, George and I are working to find the papers that have models that we can use as seeded individuals. Here is our shared doc: https://docs.google.com/document/d/1id8NqEuLTB7ds_75bMjUKTYzc1aBUD6-0TaOfPCsW5c/edit?usp=sharing 
 * Some of the individuals that I made:
