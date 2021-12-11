@@ -26,8 +26,20 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * NSGA II was used by baseline, then used NSGA 3 and Lexicase
 * * In actuality, NSGA II ended up performing significantly better.
 * * Trees started to become too complex to yield meaningful results come generation 4 and beyond.
-* Modularity
+* NLP
+* * We presented our results
 * Stocks
+* * Comparing their results to a paper
+* * Changed objective functions this semester
+* * Experiment status: not all trials were completed due to time constraints, but can do some analysis
+* * Compared their results to a paper
+* * Originally, the plan was to replicate the paper's logic in EMADE.
+* * Ultimately couldn't replicate it fully
+* * Now seeing if they can outperform the paper.
+* * Best Individual is extremely complex.
+* * Managed to beat the paper in every stock, except for Johnson and Johnson
+* Modularity
+* NAS
 
 ## Week 16, Dec 6th
 
