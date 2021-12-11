@@ -39,6 +39,12 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Best Individual is extremely complex.
 * * Managed to beat the paper in every stock, except for Johnson and Johnson
 * Modularity
+* * Focus on ARL's
+* * Created a script called CloudCopy for easier setup
+* * Still using the same titanic dataset
+* * Compared ARL Runs 
+* * Had unreliable data in midterm presentation
+* * Effects of ARL complexity on performance was high 
 * NAS
 * * Started off by defining what a search space was
 * * Had a short term goal of producing complex individuals, and a long term goal of producing individuals
