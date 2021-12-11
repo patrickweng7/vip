@@ -16,6 +16,74 @@ Interests: Machine Learning, Python, Soccer, Chess
 ** Main meetings 5-5:50pm on Mondays
 
 
+== November 22, 2021 ==
+
+ November 22
+
+'''Team Meeting Notes:'''
+
+* I had initial assumed that the issue I was facing with the hyper-feature code not working with chestxray data but working with image data was because image data set had direct jpeg images and chestxray dataset had .npz files.
+* But Jason explained during the meeting that the data that went inside a primitive was already coming in as np arrays preprocessed in other files. So whatever the issue was, it was not in the type of data but within the helper methods of the hyper-feature code.
+
+ November 24
+
+'''Sub Team Notes:'''
+
+* We did not have meeting today as many people were traveling for thanksgiving break.
+* I figured that the issue I was facing was indeed in one of my hyper-features helper methods.
+
+* The helper method for contrast enhancement part of the hyper-feature had the issue.
+
+` def apply_brightness_contrast(input_img, brightness=0, contrast=0):
+    if brightness != 0:
+        if brightness > 0:
+            shadow = brightness
+            highlight = 255
+        else:
+            shadow = 0
+            highlight = 255 + brightness
+        alpha_b = (highlight - shadow) / 255
+        gamma_b = shadow
+
+        buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
+    else:
+        buf = input_img.copy()
+
+    if contrast != 0:
+        f = 131 * (contrast + 127) / (127 * (131 - contrast))
+        alpha_c = f
+        gamma_c = 127 * (1 - f)
+
+        buf = cv2.addWeighted(np.float32(buf), alpha_c, np.float32(buf), 0, gamma_c)
+
+    return buf `
+
+* The line `buf = cv2.addWeighted(np.float32(buf), alpha_c, np.float32(buf), 0, gamma_c)` did not have the np.float32 cast arounf the src1 and src2 values which was causing contradictions with how emade wants the data to be formatted.
+* Casting the src1 and src2 values fixed this issue.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Fixing the Issue with hyper feature not working with chestxray data but works with image dataset.
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Get results from the hyper-feature using standalone tree as the error is now fixed.
+|In-Progress
+|November 22, 2021
+|November 29, 2021
+|
+|}
+
+
 == November 17, 2021 ==
 
  November 15
@@ -46,7 +114,7 @@ I get the error,
 |-
 |Work on Fixing the Issue with hyper feature not working with chestxray data but works with image dataset.
 |In-Progress
-|Movember 15, 2021
+|November 15, 2021
 |November 22, 2021
 |
 |}
@@ -75,7 +143,7 @@ I get the error,
 |-
 |Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
 |Completed
-|Movember 8, 2021
+|November 8, 2021
 |November 15, 2021
 |November 10, 2021
 |-
@@ -113,7 +181,7 @@ I get the error,
 |Completed
 |October 27, 2021
 |November 8, 2021
-| November 8, 2021
+|November 8, 2021
 |-
 |Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
 |In-Progress
