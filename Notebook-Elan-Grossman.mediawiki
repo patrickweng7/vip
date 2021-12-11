@@ -26,6 +26,30 @@ Final Presentations
 
 ''' My Work'''
 
+==== Helping Others with Emade ====
+
+In order to have enough trials to compare with before the final presentation, everyone had to run an experiment or two. I helped two of my teammates with starting PACE-ICE jobs.
+
+To make sure myself and everyone could run the trials in repeatable steps, I followed these guidelines:
+
+* Download correct files
+** Input XML that we will all use
+** launchEmadechest_final.pbs
+** Most recent GPFramework from img-proc branch
+* Make sure mysql.pbs is running for 8 hours
+** ssh into mysql server and confirm you can connect to mysql and that your database exists
+** If not, you need to create a new database and make sure all users can access it.
+* Input mysql server and database info into template file
+* Make sure Launch file is pointing to correct xml
+* Make sure launch file is using correct environment
+* Run the launch file
+** Confirm that worker and master jobs are running in qstat
+* Check logs
+** EMADE_master.oXXXXX will show you the master log
+** EMADE_worker.oXXXXX will show you the worker logs for individual evaluations. This is where you can check for errors
+
+If there are no errors in the worker logs and the master worker doesn't die (it happens!), then it's good to go.
+Lastly, you can check the database to make sure individuals are being created and evaluated as a paretofront.
 
 
 == December 6th ==
