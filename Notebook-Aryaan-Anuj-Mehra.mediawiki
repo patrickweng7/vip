@@ -6,10 +6,51 @@
 = Fall 2021 = 
 == November 5th - December 10th, 2021 == 
 '''Final Presentation + Meeting Notes'''
-* NAS
-* NLP
-* Stocks
-* Modularity
+* Image Processing:
+** Final presentation link:
+** Notes for future work:
+*** We need to further our results by looking into each of the 14 classes and look at individual performace across classes.
+*** Creating a confusion matrix to better analyze the results.
+*** Looking into each and e very instance individual with lexicase to bias better performing individuals
+*** Need to also look into how actual physicians are looking into finding diseases in people to determine how we should generate better hyperfeatures.
+* NAS:
+** Worked on time stopping to improve the productivity of individuals.
+** If enough time has elapsed they will stop functioning.
+** They ran 1 trial with this and as we evaluate individuals for more and more time EMADE more time trying to evaluate individuals which would be fruitless.
+** They also worked on making more deep and complex individuals.
+** They also added weight sharing and modules to make specialized modules and speeds up training time.
+** Early stopping had the largest impact as could be seen on the precision and accuracy graph.
+** They tried out the modular structures with architectures like VGG 16
+** They tested out weight sharing and had a relatively low test accuracy of 64.42% due to the fact that weights were being stored in the database which was why it was taking too much storage.
+** Now they were storing it in a file which allowed for many better individuals due to many generations.
+** They also tried out modules with residual networks.
+* NLP:
+** Used the SQUAD dataset and used a question answering model to obtain results.
+** Created a new NNLearner2 two work with new data pairs.
+** They had to re-process the SQUAD dataset to start with words instead of characters.
+** Used the code used by GTRI for multiple data pair and fixed related bugs related to load_environment and the divide length of the test data.
+** NNLearner2 had both an ARG0 and an ARG1.
+** Issues with the sigmoid activation layer which kept shooting out a 1.
+** Worked on the BiDAF model by creating a similarity matrix, query to context attention.
+** Created to new modeling layer by passing the result through a bi-directional LSTM layer. 
+** Created a graph execution for the for the new matrix operations.
+** Experimental results:
+*** Were able to get multiple individuals which were better than the seeded individuals.
+*** Their accuracy was around 1-2% (but SOTA is around 80%
+** They need many more runs in the future.
+* Stocks:
+** Ran 3 total trials. Used PACE ICE for all of them.
+** Main objective which was analysed was the profit % analysis.
+** Tested across all of the different primitives.
+** ArgMin and ArgMax were the most useful primitives found through analysis.
+** Comparison of results with the fuzzy model paper:
+*** The best performing individual was an ArgMin individual and was able to outperform the paper on almost all the securities.
+* Modularity:
+** They work with searching the search space to find compatible parent and child pairs.
+** They used CloudCopy to set their workspace up.
+** They worked on testing the complexity of ARL's by increasing tree depth.
+** They calculated the false positives and false negatives and compared the new architecture to the older ones.
+** After enough generations and time newer ARL's might perform better than the older ARL's.
 == November 29th - December 4th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
 * This was the last week before the final presentations. I had several things to complete first. 
