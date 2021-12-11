@@ -10,7 +10,216 @@
 
 = Fall 2021 =
 
+== Week 16: December 6th - December 13th ==
+
+* worked on Aryaan's CX bug
+* merged code for team to run experiments with on PACE
+
+== Week 15: November 29th - December 5th ==
+
+In my psychology class, we talked about the formation of synapses during cognitive development and how overtime, our (human) brains prune the synapses that aren’t as useful to us. This made me wonder if any research was being done that applied this idea to neural network architectures. Turns out there has! I looked into it and shared some links and cool future ideas for NAS with Cameron B. 
+
+[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8220807/ Paper 1]
+
+[https://arxiv.org/pdf/2005.06284.pdf Paper 2]
+
+[https://www.cs.princeton.edu/sites/default/files/uploads/deborah_sandoval.pdf Paper 3]
+
+I found where batch size and epoch limit is controlled in neural_network_methods.py. There is a point in the code it loads the nn stuff from some sort of cache(?) and the parameters are set there. I think some of the errors I have seen pop up around here as well. [https://github.gatech.edu/amehra37/emade/blob/img-proc/src/GPFramework/neural_network_methods.py line 935] [https://github.gatech.edu/amehra37/emade/commit/7fac4a99e60005d6ef1bcc0030713d897e6e972b#r4351 commit in question]
+
+updated f1_score_min eval function to handle multiclass labels by adding the average argument [https://scikit-learn.org/stable/modules/model_evaluation.html#multiclass-and-multilabel-classification reference]
+
+== Week 14: November 22nd - November 28th ==
+ 
+With the shortened week and holiday break I did not accomplish much other than checking in with the team and beginning to coordinate the beginnings of our final presentation. I asked in Slack about the out of memory error I was getting in my original baseline runs and the conclusion was that these tensors are really large even for 16GB GPUs. One solution is to reduce the batch size (looks to be 100 right now, not sure if this was set automatically based on # of training examples or a default in the code) because it may have something to do with how the individuals and data are stored in memory. Bumping up the evaluation method and memory per CPU did not seem to have much of an effect in terms of expanding the search space. The resulting individuals looked quite similar to the ones from last week with similar primitives.
+
+I did do a run without using GPUs just out of curiosity and with the 3 workers it did not complete a single generation in the 7 hours it ran for. The GPU runs tend to complete about 30 generations by comparison. 
+
+I also finished the new img-proc branch which has the updated NAS code and works with the Python 3.8 environment. It has all the changes we made for the midterm, so I imagine next week I will do another merge before a code freeze. 
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Try a run without GPU 
+|Not started
+|November 22nd, 2021
+|
+|November 23rd, 2021
+|-
+|Do a beefed up baseline run
+|Complete
+|November 22nd, 2021
+|
+|November 24th, 2021
+|-
+|Troubleshoot OOM issue
+|Complete; batch size
+|November 23rd, 2021
+|
+|November 24th, 2021
+|-
+|} 
+
+== Week 13: November 15th - November 21st ==
+
+This week I hope to accomplish setting up a new environment and launching a new baseline run using our newly-processed data on new accuracy metrics to receive a new baseline for our comparisons which we are currently working on. At the VIP hackathon, I asked Jason to set up a shared environment using the new configuration with Python 3.8 and the new Tensorflow 2.6 module added during the PACE-ICE maintenance. 
+
+I completed a couple of baseline runs, but I noticed that many times the tensors that would be loaded onto the GPU for evaluation was very large and caused out of memory errors. This definitely limited my search space and affected the Pareto front. I wrote the following query to extract the front: 
+
+`select tree, evaluation_start_time, evaluation_gen, FullDataSet ROC AUC, FullDataSet Num Parameters from paretofront join individuals on paretofront.hash=individuals.hash where generation = (select max(generation) from paretofront) order by FullDataSet ROC AUC;`
+
+This baseline run (no image processing team improvements) comprised of the following 4 individuals on the Pareto front:
+
+ROC: 0.486, # Params: 831
+
+Tree: NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_9(adf_12(adf_19(InputLayer)))), (((((((((DenseLayerUnit32))))))))), ((((AdadeltaOptimizer)))))
+ adf_9: Conv2DLayer((Conv2DFilterUnit48), (sigmoidActivation), (Conv2DKernelSize1), MaxPoolingLayer2D((Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)))
+ adf_12: Conv2DLayer((((Conv2DFilterUnit16))), (((defaultActivation))), Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, (defaultActivation), MaxPoolingLayer2D(Conv2DKernelSize1, ARG0)))
+ adf_19: Conv2DLayer((Conv2DFilterUnit16), defaultActivation, (Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit32, tanhActivation, ARG0))
+
+ROC: 0.496, # Params: 559
+
+Tree: NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_8(adf_13(adf_0(InputLayer)))), (((((DenseLayerUnit256))))), (((((AdadeltaOptimizer))))))
+ adf_0: Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize3, ARG0)
+ adf_8: DenseLayer4dim(((DenseLayerUnit32)), ((eluActivation)), MaxPoolingLayer2D(Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)))
+ adf_13: MaxPoolingLayer2D(Conv2DKernelSize1, ARG0)
+
+ROC: 0.498, # Params: 287
+
+Tree: NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_9(adf_12(adf_12(adf_13(adf_8(adf_17(InputLayer))))))), ((((Conv2DFilterUnit16)))), (((NadamOptimizer))))
+ adf_8: Conv2DLayer(((Conv2DFilterUnit16)), ((((seluActivation)))), ((Conv2DKernelSize1)), DenseLayer4dim(DenseLayerUnit32, (seluActivation), MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)))
+ adf_9: Conv2DLayer((Conv2DFilterUnit16), (sigmoidActivation), (Conv2DKernelSize1), InputLayer)
+ adf_12: Conv2DLayer(((Conv2DFilterUnit16)), (tanhActivation), (Conv2DKernelSize1), DenseLayer4dim((DenseLayerUnit32), (defaultActivation), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))
+ adf_13: MaxPoolingLayer2D(((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize3), InputLayer))
+ adf_17: DenseLayer4dim((((DenseLayerUnit32))), eluActivation, DenseLayer4dim((DenseLayerUnit32), eluActivation, ARG0))
+
+ROC: 0.5, # Params: 30
+
+Tree: NNLearner((((((((((ARG0))))))))), GlobalMaxPoolingLayer2D(adf_13(adf_11(adf_0(MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer))))), (((((((((DenseLayerUnit32))))))))), ((((((((((SGDOptimizer)))))))))))
+ adf_0: Conv2DLayer(((Conv2DFilterUnit16)), ((eluActivation)), ((Conv2DKernelSize1)), DenseLayer4dim((DenseLayerUnit256), (reluActivation), MaxPoolingLayer2D(Conv2DKernelSize3, ARG0)))
+ adf_11: DenseLayer4dim(DenseLayerUnit256, reluActivation, ARG0)
+ adf_13: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)
+
+=== Setup EMADE with TF 2.6 on PACE-ICE ===
+
+0. load the tensorflow-gpu/2.6.0, cuda/11.2, and anaconda3/2021.05 modules on PACE
+
+1. create new conda env running python 3.8.5
+
+2. add conda-forge as a package channel: conda config --add channels conda-forge
+
+3. install the cudatoolkit (not actually sure if necessary because of the PACE module) and cuDNN (I am pretty sure this one is still necessary) [https://anaconda.org/conda-forge/cudatoolkit/11.2.2/download/linux-64/cudatoolkit-11.2.2-he111cf0_8.tar.bz2] [https://anaconda.org/Esri/cudnn/8.1.0.77/download/linux-64/cudnn-8.1.0.77-h90431f1_0.tar.bz2]
+
+4. conda install numpy pandas keras==2.6.0 scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn nltk
+
+5. pip install xgboost lmfit multiprocess hmmlearn deap opencv-contrib-python opencv-python keras-pickle-wrapper
+
+6. bash reinstall.sh
+
+I ran into tons of package and dependency issues before getting down to this configuration which I hope works. I am also using the conda installed opencv but I am not sure it is necessary. Awaiting for Aryaan and Heidi to finish processing the data so I can test it. I was able to get EMADE running on the new NAS branch locally on windows by installing a GPU compiled version of TF 2.5, but my flimsy graphics card does not have enough memory for the kinds of neural networks that come through.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Setup new working environment for tensorflow on PACE-ICE 
+|Complete
+|November 1st, 2021
+|November 7th, 2021
+|November 21st, 2021
+|-
+|Onboard and assist new members with setting up on our fork and on PACE
+|Complete
+|November 1st, 2021
+|
+|November 22nd, 2021
+|-
+|} 
+
+== Week 12: November 8th - November 14th ==
+
+This week was extremely busy for me outside of classes, so I did not get as much done as I hoped to.
+
+* Moved onto trying to get the conda env on PACE set up at least to use the new NN branch but was still running into issues with versions of tensorflow, setuptools, and maybe pip? I tried to troubleshoot a bit with Jason and Cameron B. but no real progress. This is a pretty high priority task though, so I hope to finish it next week. 
+* During our subteam work session, I helped everyone who was not setup on PACE yet through my document that detailed the process of setting up MySQL and EMADE. I think we should make a new branch of EMADE without the massive debt of datasets like NAS has done; this would allow us to git pull instead of having to SCP every time.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Setup new working environment for tensorflow on PACE-ICE 
+|Behind schedule; high priority
+|November 1st, 2021
+|November 7th, 2021
+|
+|-
+|Onboard and assist new members with setting up on our fork and on PACE
+|Ongoing
+|November 1st, 2021
+|
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked; new data needed & env needed
+|October 25th, 2021
+|November 19th, 2021
+|
+|-
+|}
+
+== Week 11: November 1st - November 7th ==
+
+* Began onboarding our new members by introducing them to the group, our broad and specific area of interest within image processing, and assigned work to familiarize with domain (reading CheXNet, VIP paper, cloning our EMADE fork, begin PACE setup)
+** Also broke new members into specific tasks joining the older members.
+* Received many package conflicts trying to install a new conda env with TF 2.6 and Python 3.8 on my Windows machine since that is what NAS says the NN branch needs now. Need to try on PACE-ICE as well.
+* Monil requested help figuring out how to register the hyperfeature primitive into EMADE and produce a working tree that evaluates through the tree evaluator script. I spent some time troubleshooting the error messages he was getting. The errors pointed to how the primitive itself was registered and how it was formatted in the tree itself e.g. unnecessary hyper-parameters on the feature itself.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Setup new working environment for tensorflow on PACE-ICE 
+|In Progress
+|November 1st, 2021
+|November 7th, 2021
+|
+|-
+|Onboard and assist new members with setting up on our fork and on PACE
+|Ongoing
+|November 1st, 2021
+|
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked; new data needed
+|October 25th, 2021
+|November 19th, 2021
+|
+|-
+|}
+
 == Week 10: October 25th - October 31st ==
+
+'''Subteam Meeting'''
+
+We discussed what had to be finished before we could proceed to the next phase of the semester and onboard new students to the team. We decided that based on the weirdness of the evaluation functions on multilabel data, we want to focus on a binary classification task instead: whether a disease is present or not. We set some tasking, mainly to make sure we get our initial modifications all merged in by Monday's scrum. I will be reviewing pull requests and also working on some of the bugs I found in NN primitives and others through doing the baseline run.
 
 Presentation Week!
 
@@ -46,11 +255,58 @@ Bootcamp 2
 * Found that EMADE trees had more complex primitives but shorter tree depth compared to GP trees.
 
 Bootcamp 3
+
 * Used strongly typed genetic programming!
 * Also dropped name, ticket, and cabin columns
 * They ran into the individuals not divisible by 4 error but they solved it which is good
 
+Stocks
 
+* Objective: how can we use EMADE for time series analysis to predict stock prices?
+* They evaluate the profit percentage, profit per transaction, and variance of profit per transaction
+* Configuring EMADE for 96 compute hours per run. 
+* Training a pool of several F500 company stocks from 2008 and testing on half of 2009’s data. 
+* They plan on testing different combinations in 2,3, and 4 objective pools to find an optimal combination.
+
+Bootcamp 4
+* Dropped name and cabin columns, one hot encoding for the sex and embarkation. 
+* Made really nice comparisons between ML, MOGP, and EMADE. Best AUC with MOGP.
+* Identified “best” individual with 0 FPR and 0.91 FNR — just a Pareto optimal solution, not the best
+
+Modularity
+* ARL: Adaptive representation through learning
+* re-use building blocks of trees that work well across EMADE
+* Implemented through genetic programming operators
+* Ran into a lot of bugs from previous semester work
+* Looking to apply ARLs to technical indicators for stock price prediction, building off stock team’s work
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Review and test comparison changes
+|In Progress
+|October 25th, 2021
+|October 31st, 2021
+|
+|-
+|Bug squash related to neural network methods 
+|Not started
+|October 25th, 2021
+|October 31st, 2021
+|
+|-
+|Begin a comparison run using merged new IP techniques
+|Blocked
+|October 25th, 2021
+|November 3rd, 2021
+|
+|-
+|}
 
 == Week 9: October 18th - October 24th ==
 

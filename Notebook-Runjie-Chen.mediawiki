@@ -8,6 +8,488 @@
 
 = Fall 2021 =
 
+
+==December 10th, 2021 Final Presentations ==
+*Image Processing
+**objective: how can we improve emade on image processing tasks
+***genetic programming
+***selection, mating, and mutation methods, new primitives
+***Deep learning
+**dataset prep
+***dataset:4000 images
+***decided to move away from multi-label
+** Evaluation Objectives:
+*** TPR/FPR over various thresholds
+** Results: AUC of pareto front:0.219
+** Geometric Mating & Mutation Methods: 2 new geometric crossover operators (using new operators to work with sequence individuals)
+***  more parameters led to lowered AUC
+* NLP
+** That's us!
+** I presented 2 slides on "Intro to QA"
+
+
+== Week 16: December 6th - December 12th ==
+
+===December 6th, 2021 Team Meeting Notes===
+* I joined this meeting remotely using the Bluejeans link: https://gatech.bluejeans.com/2991050463 that Steven provided
+* Notebook deadline 12/13/21 9AM
+* Main focus of this meeting is to get everything ready for the final presentation
+* When we run EMADE, make sure reuse is set to 1
+* We might have to run it multiple times, but the results will saved, we just have to do qsub again when the run terminates
+* We want to do 24 hour runs
+* upload our master.out files
+* I will be presenting the intro to QA slide for the final presentation
+
+===December 8th, 2021 Sub Team Meeting Notes===
+* Finalized the presentation slides
+* I added more information to my slides on "Intro to QA"
+
+===December 8th, Meeting with Steven===
+* I reached out to Steven and set up a meeting with him to troubleshoot PACE issues
+* We found that I was using the wrong node for my MySQL job and fixed that in the input_squad.xml file
+* We found that I was using an outdated branch of emade and Steven sent me his file emade branch directory and I SCPed it over on pace so my directory is up to date
+* We found that my virtual environment setup is not correct, I installed the packages and dependencies by following the instructions on the emade github page, however, the package versions required by our branch is different from the ones on the emade github page, and troubleshooting them and get each package to be the correct version will take a lot of time, and by the time we will be done, I won't have time to have a full run anyways. Therefore, Steven excused me from doing a run, and said that if I stay in NLP next semester, he will meet with me again to fix everything.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish the QA slide for the final presentation
+|Completed
+|December 6th, 2021
+|December 8th, 2021
+|
+|-
+|Practice running through the final presentation
+|Completed
+|December 6th, 2021
+|December 8th, 2021
+|
+|-
+|Finalize notebook
+|In progress
+|December 6th, 2021
+|December 13th, 2021
+|
+|}
+
+
+= Fall 2021 =
+
+== Week 15: November 29th - December 5th ==
+
+===November 29th, 2021 Team Meeting Notes===
+*Peer Evals are due next Wednesday
+*scrums:
+** Image processing
+*** Not much going on this week because didn't meet due to Thanksgiving break
+*** Preparing for final presentation
+*** Need to get to code freeze point to start running 
+** NLP
+*** have NNlearner working on regression, we are getting results but they don't look quite right
+**NAS
+*** Not much progress since last week due to Thanksgiving break
+*** Not at a formal code freeze yet, but are at an informal code freeze
+
+===December 1st, 2021 Sub Team Meeting===
+*individual progress:
+** I got a new issue when attempted to run launch_squad.pbs: my sql job runs for a few seconds and then closes on its own. I didn't have this issue when I just followed the PACE video tutorial, but this became an issue after I pulled the updates. When I ran "mysqld_safe --datadir='/storage/home/hpaceice1/rchen417/scratch/db'", it looks like it's running correctly, but when I go over to another terminal and do "root -u root", I get "ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (111)", and then after a few moments the mysqld_safe ended too 
+** I asked in the slack about this issue to see if anyone can help
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish peer evaluations
+|Completed 
+|November 29th, 2021
+|December 8th, 2021
+|December 6th, 2021
+|}
+
+== Week 14: November 22nd - November 28th ==
+
+===November 22nd, 2021 Team Meeting Notes===
+*scrums:
+** modularity
+*** documentation and refactoring has been done
+*** all bad variable names have been changed
+*** First year members have been improving google cloud scripts
+*** First year members have also been working on data visualization
+*** Cache V2 integration is mostly done
+** NLP
+*** We have all the primitives that we need to get results
+*** NNLearner2 works on classification
+*** New members are almost set up with PACE, once set up, everyone can help run the experiment
+** NAS
+*** have only been using the training data set, using the actual test data set might be more accurate
+*** Dr.Zutty disagrees, the test set is an equalizer at the end. Which data set is better depends. Keep the training data set because that's what they have been using, but it is a good idea to use the test set at the end
+**** Training data set is what we use to fit individual model
+**** Test data set is used to score the model (this is the final dataset that we want)
+**** The model is learning the relationship between training and test
+
+===Individual Progess===
+*No sub-team meeting this week due to Thanksgiving break
+*I reinstalled EMADE and re-setup everything on PACE from scratch following the provided Youtube setup tutorial to see if errors will get resolved
+*Still getting the same errors, but I resolved most of them
+** Some modules are not found (Transformers, Keras.backend) so I installed them manually
+** Some modules have conflicts and depend on previous versions of other modules, so I updated these manually
+* Pulled most recent branch and SCPed that over so that I can run standalone tree evaluator
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reinstall EMADE and re-setup everything on PACE from scratch to see if errors will get resolved
+|Completed
+|November 15th, 2021
+|November 29th, 2021
+|November 29th, 2021
+|}
+
+== Week 13: November 15th - November 21th ==
+
+===November 15th, 2021 Team Meeting Notes===
+* New members should continue to keep notebook updated with detail
+* Clearly identify individual contributions and provide evidence of them
+* If reading papers, include notes for them on our notebooks
+Scrums:
+* Modularity
+** Dividing BootCamp students into different tasks
+*** recursive function
+*** fix: cloudcopy.sh is downloading stuff over and over again
+* NLP (our team)
+** Found that there are still quite a few bugs after the big merge
+** divided the team into subteams to focus on specific tasks
+** Reducing the scope to only regression to for this semester
+** Input: context & query, Output: start and end index of the context (extract the answer from the context as a substring)
+** Need Dr.Zutty's advice on a weird issue that we are encountering
+*** memory issues
+
+===November 17th, 2021 sub-team Meeting Notes===
+* Our team has determined that the output layer problem that I got assigned to work on was too hard to solve for this semester, so my task team was dissolved and I got reassigned to a different task: NNLearner for 2 Data Pairs
+* Task description:
+** Dr. Zutty previously mentioned there should be NNLearner code for two data pairs (for example, NNLearner(ARG0, ARG1, layer list, optimizer, X). Look into this, and debug with a dataset with at least two textual inputs (one for each data pair) and a number for classification. Here's one on Twitter Sentiment analysis that could work: http://help.sentiment140.com/for-students/
+** NNLearner 2 task notes
+*** In neural_network_methods.py, we only care about code related to textdata (for example we can ignore code related to imagedata because that doesn't apply to NLP)
+*** For everything that we did with textdata, we are repeating the same process twice with NNlearner 2
+*** The code might look long and intimidating, but most of the stuff we can ignore and we can just focus on textdata related things
+*** we need to run EMADE regularly with seeded individuals, we start out with NNLearner, and once that works properly, we run NNLearner 2, which should error out, and then we can start debugging
+*** Unsure of what kind of output we'd expect from NNLearner 2 yet
+* My Progress:
+** I reviewed code in EMADE.py and general_methods.py and tried to understand our codebase
+** I reviewed changes in EMADE.py: https://github.gatech.edu/sleone6/emade/commit/77992e059d9d10b5174632a859c514b626d31d92
+** My notes and questions:
+*** I'm a bit confused, so all we are doing is looking at only the changes that were made in EMADE.py according to the github link that was sent (so like the one line of code were NNLearner2 was added?)  and based on that change, we need to see what else needs to be changed in the load_environment method in general_methods.py?
+*** If my assumption was correct, I think we need to first understand what each of the code file is doing so that we can then determine what needs to be integrated, however right now I'm having trouble understanding the code, does anyone have any tips on that?
+
+===November 21st, 2021 Hackathon Notes===
+*Resolved some issues from running EMADE on PACE
+*Found that I was missing this line from the pbsmysql.pbs file
+<blockquote> 
+mysqld_safe --datadir='/storage/home/hpaceice1/rchen417/scratch/db'
+</blockquote> 
+*To run standalone tree evaluator, I must clone the updated branch using:
+<blockquote> 
+git clone --depth 1 https://github.gatech.edu/sleone6/emade.git --branch feature/nnlearner2 --single-branch 
+</blockquote> 
+* I tried running that, however, it isn't merging with the old branch correctly, therefore I decided to delete the old branch on PACE and clone the updated branch locally and scp over the updated branch. That failed miserably because of disk quota exceeded error, need to figure out what went wrong.
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|compare changes that were made in EMADE.py with the load_environment method in general_methods.py, and determine which changes we need to integrate
+|Completed
+|November 15th, 2021
+|November 17th, 2021
+|November 17th, 2021
+|-
+|Run EMADE successfully with NNLearner
+|Not Completed (Still having trouble with running Emade on PACE)
+|November 17th, 2021
+|November 21th, 2021
+|
+|-
+|Attempt to run EMADE with NNLearner2 and identify steps that need to be done based on errors
+|Not Completed (Still having trouble with running Emade on PACE)
+|November 17th, 2021
+|November 21th, 2021
+|
+|}
+
+== Week 12: November 8th - November 14th ==
+
+===November 8th, 2021 Team Meeting Notes===
+Scrums:
+*Image Processing Subteam
+** looking at selection methods
+*** Lexicase
+**hyper features
+*** sharpening feature
+*** strongly-typed GP
+* Modularity
+** introducing first-semester students to the team, the tools they use, etc.
+** work on documentation
+*NLP
+** got new members onboard
+** tried to have new members set up PACE but have to postpone it due to PACE going under maintenance
+** Focus on integrating the primitives that we finished this week
+*NAS
+**Made video on how to setup Emade
+Discussion: Should we include Neuro Network in Bootcamp?
+* I voted agree and that Bootcamp should be extended a week to include the Neuro Network lecture
+* maybe each subteam can make tutorial on it
+* maybe Dr.Zutty can provide some resources on it to new team members
+Sub-team notes:
+*Assigning tasks
+*Assigned 4 task teams:
+**NNLearner for 2 Data Pairs
+**Solve Output Layer Probability Vector to words problem (I got assigned to this task team)
+*** First get PACE working
+*** Make sure to understand the output layer part of the paper provided
+
+===November 12th, 2021 sub-team Meeting Notes===
+*I reached out to some of my NLP teammates and set up a call to clarify some of the concepts and tasks that need to be completed
+*Tasks:
+** Read this paper (An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)): https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b
+** Understand the Colab notebook: https://colab.research.google.com/drive/1dx66YZSFYXimJAcZtU35yTkt_PYpiVL9?usp=sharing
+** After understanding the concepts in the papers, we will be assigned potential tasks such as coming up with a better evaluation function
+*Notes:
+** F1 means weighted average between precision and recall
+** Always do bash reinstall after making local changes
+*My Progress:
+** I'm mostly set up with EMADE on PACE-ICE (there are a few errors present in the master.err file that I need to resolve)
+*** I ran into weird module not found issues after installing everything, need to ask teammates for help during our next meeting
+*** Fix: manually install these modules again
+** Read the paper "An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)", now I have a better grasp of what NLP is doing and understand the concepts of BiDAF much better now, especially the output layer as that's the layer that I got assigned to be focusing on
+*** I would recommend this paper to any new NLP team members as it explains the BiDAF model really well
+**** https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b
+*** My notes of the paper:
+**** Bi-Directional Attention Flow (BiDAF) is an NLP model that is very influential in the Question and Answer domain.
+**** Specifically, BiDAF is a closed-domain, extractive Q&A model that can only answer factoid questions. 
+**** BiDAF has 3 major parts: Embedding layers, Attention and Modeling layers, Output layer
+**** I'm focusing on the Output layer, so I'm abstracting the technical details of the Embedding, Attention, and Modeling layers and just gained an overview of what these layers do. 
+**** Imagine each word in the context as a minion with an empty brain, after going through the Embedding layers, the minions learns about their own and each other's identity.
+**** After going through the attention layer, each minions knows their own importance to the query. 
+**** After going through the attention layer, each minions knows each other's importance to the query. 
+**** Finally, the output layer returns two probability vectors. One vector represent the probability of each word in the context to be the start index of the answer, another vector represent the probability of each word in the context to be the end index of the answer. This is determined based on each word's importance to the query which were the ouputs from the previous layers
+
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make sure to understand the output layer part of the papers provided
+|Completed
+|November 7th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Resolve module not found errors from running EMADE on PACE
+|Completed
+|November 15th, 2021
+|November 17th, 2021
+|November 16th, 2021
+|-
+|Read additional papers that explain the BiDAF model in an easier-to-understand way 
+|Completed
+|November 12th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|}
+
+== Week 11: November 1st - November 7th ==
+
+===November 1st, 2021 Team Meeting Notes===
+*Assigned team: NLP
+*Scrums:
+** Image processing
+*** difference between multi-class and multi-label: multi-label is more tricky
+*** Need to squash bugs
+** Modularity
+*** improving midterm presentation
+*** problems encountered:
+**** Stocks uses Cache V2 but they are not using it, which caused some issues
+*** hopefully to get better data than presented in midterm presentation
+*** Tips from Dr. Zutty:
+**** Do the merge
+**** Make a fresh branch when merging with Cache V2
+** NLP
+*** Figured out required primitives
+*** About halfway done with Bidirectional Attention Layer
+*** Output layer is almost done
+*** Modeling layer is done
+*** Dr. Zutty inputs:
+**** Make sure we are doing Unit tests
+** NAS
+*** goals for next week: look into literatures about predicting performance, also optimize hyperparameters without going through training 
+*** Old version of Tensorflow is deprecating, make changes accordingly
+* Subteam (NLP) Notes:
+** Joined NLP slack
+** NLP is trying to find a way to represent words as numbers and features
+** given a passage and a question, being able to return an answer (the answer will be a word for word excerpt taken from the passage)
+** primitives are layers to the network, output from one layer is input to another layer
+** resources:
+*** BI-DIRECTIONAL ATTENTION FLOW FOR MACHINE COMPREHENSION: https://arxiv.org/pdf/1611.01603.pdf
+*** PACE ICE Setup Video Tutorial: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be
+*** PACE ICE Guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE
+*** There's a MySQL common errors table on emade github
+** Meeting: Wednesdays at 2pm, meeting virtually, Bluejeans link will be sent in slack on the day of
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read reference articles provided by the NLP subteam
+|Completed
+|November 1st, 2021
+|November 7th, 2021
+|November 3rd, 2021
+|-
+|Setup PACE ICE following the video provided by the NLP subteam
+|Completed
+|November 1st, 2021
+|November 15th, 2021
+|November 14th, 2021
+|}
+
+===November 1st, 2021 sub-team Meeting Notes===
+*PACE-ICE is under maintenance from November 3, 6:00 am to November 5, 11:59 pm, therefore new members like myself cannot set it up until PACE's maintenance is done
+*Finding a workaround to debugging as we cannot use PACE to debug
+**set up a local conda environment to run primitive code outside of EMADE
+*NN/NLP Introduction (presented by Steven)
+**Neural Networks
+***only need to understand this at a high level for now
+***ML: we focus more on supervised learning
+***Neural Network: 
+[[files/Jessi/images/nn.png]]
+**After we trained our data, which process we don't need to know for now:
+***be aware of overfitting (high variance) - the data fits the trained data really well but does not necessarily fit other real-world data 
+****To fix this, we use Regularization
+***There could also be underfitting
+**Recurrent Layer (RNN)
+***Used a lot in NLP
+***Focus on input and output layers
+[[files/Jessi/images/rnn.png|thumb|100x70px]]
+***We feed in x, output y, along with another output that feeds into itself that changes its state
+**LSTM (long-short term memory)
+***basically a fancy recurrent layer with multiple activations
+***We use this a lot recently
+**Attention Layer
+***Focus on the keywords in the query, while paying less attention to other words in the passage
+***long story short: attention allows us to pay more attention to some words than others
+**NN learner
+**ARGs
+***ARG0 is question or query
+***ARG1 is the passage
+**primitives are found in neural_network_methods.py, 90% of our work is going to be in that file
+*Intro to QA (presented by Devan)
+**NLP is teaching computers how to understand natural language including the many nuisances associated with it
+**QA is asking questions and get answers based on the context given in the query and the passage from which the answer will be produced
+**BiDAF Model:
+[[files/Jessi/images/bidaf.png]]
+
+
+== Week 10: October 25th - October 31th ==
+
+===October 25th, 2021 Team Meeting Notes===
+* Sub team presentations
+**Natural Language Processing (NLP)
+***Problem: question and answering system 
+***Vision: Make machines understand natural language
+***Method:
+****Use SQUAD dataset
+****BiDAF
+***Literature review
+****Deep Learning Approaches for question answer system by Yashvardhan Sharma and Sahil Gupta
+****Machine Comprehension Using Match-LSTM
+***Next steps
+****Implement output layer form BiDaf
+***New Members
+**** Meeting time: Wednesday 2:00 pm
+**** Learn about question answering
+**** Solve cool problems with Neural Architecture Search
+
+**NAS
+***Goal: Improve productivity of emade
+***Time Stopping: Lower training time is the same as minimizing the number of parameters
+***Preprocessing:
+****Text tokenization
+****One hot encoding for multiclass target data
+****Growing complex individuals
+*** Changes in EMADE: Changed inputs to adfs
+*** NNLearner SQL table
+*** New analysis methods:
+****nn_ind_from_has(hash)
+****Given an individual’s hash, return all generations that individual is a part of
+***Recruiting:
+****Meeting: Friday 2 - 3pm
+****Automate ways to find optimal neuro networks 
+****Creating more tutorials and documentation on Emade
+
+* Bootcamp team presentations
+** Team 1 (my team): we presented first
+** Team 2:
+*** Data preprocessing: Dropped columns that won’t help in predicting if a passenger survived or not such as ‘’name”, “passenger ID”, etc.
+*** MOGP design: Used SPEA2 for select function
+*** MOGP results:
+**** Got 0.12 AUC
+**** one hot encoding might have improved results
+***Emade:
+****Used FP and FN instead of FPR and FNR because slow computer no time to rerun
+****Used one hot encoding this time
+****Only got 10 generations due to slow PC and PC crashes
+****Also found that AdaBoostLeaner being the favored primitive, same as what we found
+
+* I had another class at 6:30 so I was only able to stay and take notes on the presentations above.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update notebook weekly
+|Completed
+|October 25th, 2021
+|November 1st, 2021
+|October 30th, 2021
+|-
+|Read Subteams' presentation slides, rank them based on my preference and submit my rankings to Canvas
+|In progress
+|October 25th, 2021
+|November 1st, 2021
+|
+|}
+
 == Week 9: October 20th - October 26th ==
 
 ===October 20th, 2021 Team Meeting Notes===
@@ -24,22 +506,22 @@
 !Date Resolved
 |-
 |Change Emade input file to achieve better AUC
-|in progress
+|Completed
 |October 20th, 2021
 |October 25th, 2021
-|
+|October 25th, 2021
 |-
 |Make Presentation
-|in progress
+|Completed
 |October 20th, 2021
 |October 25th, 2021
-|
+|October 24th, 2021
 |-
 |Rehearse Presentation
-|in progress
+|Completed
 |October 20th, 2021
 |October 25th, 2021
-|
+|October 25th, 2021
 |}
 
 ===October 22th, 2021 Sub Team Meeting Notes===
@@ -49,6 +531,27 @@
 ** 1. Make sure the default files work with the input_titanic.xml and the titanic database (completed)
 ** 2. Copy the input_titanic file -> emade_titanic with the database changed to emade_titantic and the datasets changed to train and test preprocessed csv.gzs (completed)
 ** 3. Copy the emade_titanic.xml -> super_titanic.xml Database is now super_titanic, change mutation and mating functions (in-progress)
+
+===October 24th, 2021 Sub Team Meeting Notes===
+* Team efforts:
+** Made presentation
+** successfully ran EMADE for 70 generations with working preprocessed data and input file
+** Results:
+<blockquote> 
+Emade Algorithm AUC = 0.1311417 <br>
+ Genetic Algorithm AUC = 0.1798859 <br>
+ ML AUC = 0.3201224
+</blockquote>
+
+[[files/Jessi/images/EMADEvsMLvsGP.png]]
+** Rehearsed presentation
+** Link to our presentation: https://docs.google.com/presentation/d/1YIiVWW3tQe2RZSRNIsomlLb2mUbaaj1bZN-rHt9KRb0/edit?usp=sharing
+* My contributions:
+** My PC has a lot of RAM so I left it on to run EMADE overnight and got to 216 generations, however in the morning we realized that the preprocessed datasets are faulty (The test preprocessed dataset doesn't have a "survived" column, and that's why we kept getting "inf" values) Therefore the data we obtained by running EMADE thus far have been useless
+** After we fixed the preprocessed datasets and input file, I ran EMADE for another 36 generations with working preprocessed data and input file
+** While EMADE is running, I worked on the presentation slides and took charge of presenting the Multi-objective Genetic Programming (MOGP) portion of the presentation. 
+**I wrote the slides for the MOGP part as well as edited some of the slides of my teammates' parts
+**I rehearsed the MOGP part of the presentation by practicing presenting it and timing myself to make sure that I stay within my allotted time (3 minutes)
 
 == Week 8: October 13th - October 19th ==
 

@@ -3,6 +3,38 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **October 25th, 2021**
+## **Meeting 10**
+### Class Notes:
+* Final Presentation
+* Presented our final research work
+* Answered questions regarding our research findings
+* Talked about graphs we used comparing our results
+* Learned about the subteams, such as NAS, NLP, and stocks, among other teams, and their scope of work.
+
+* Presentation: https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit#slide=id.p
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Update Notebook|Complete|11/01/2021|10/25/2021|10/28/2021|
+|Completed the preference assessment on canvas|Complete|11/01/2021|10/25/2021|11/01/2021|
+
+
+# **October 20th, 2021**
+## **Meeting 9**
+### Class Notes:
+
+* Workday with VIP alumni and returning students
+* Worked out the master and worker processes with the team and debug remote connection errors
+* Prepared the midterm presentation
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Work on EMADE Presentation|Complete|10/25/2021|10/20/2021|10/22/2021|
+|Update Notebook|Complete|10/25/2021|10/20/2021|10/21/2021|
+|Completed remote connection|Complete|10/25/2021|10/20/2021|10/20/2021|
+|Completed midterm presentation|Complete|10/25/2021|10/20/2021|10/24/2021|
+
 # **October 13th, 2021**
 ## **Meeting 8**
 ### Class Notes:

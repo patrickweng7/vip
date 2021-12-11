@@ -12,6 +12,258 @@
 
 = Fall 2021 =
 
+== Week 14: November 22th == 
+=== Class Summary ===
+*Dr. Zutty discussed with my NLP subteam about possible statistical tests that could be applied to prove that EMADE is outperforming traditional ML models for QA problems
+*NLP Scrum Notes:
+**All primitives necessary for final presentation results are ready
+**NNLearner2 has had several bug fixes and works on classification
+**Bootcamp members are nearly onboarded and ready to perform runs on data for final presentation
+
+=== Team Meeting Notes ===
+*No team meeting, but NNLearner group was focused on finishing NNLearner2
+
+=== Individual Notes ===
+*Updated local EMADE on PACE to account for changes made to NNLearner2 by NNLearner group
+*Blocked by NNLearner2 development from being able to conduct Amazon dataset runs on PACE
+*Was successfully able to run standalone tree evaluator on Amazon dataset with current EMADE version
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 22nd, 2021
+|November 29th, 2021
+|November 29th, 2021
+|-
+|Update and Reinstall EMADE for branch changes
+|Completed
+|November 22nd, 2021
+|November 29th, 2021
+|November 29th, 2021
+|-
+|Run standalone tree evaluator on Amazon dataset on PACE ICE
+|Completed
+|November 22nd, 2021
+|November 29th, 2021
+|November 29th, 2021
+|-
+|}
+
+== Week 13: November 15th ==
+=== Class Summary ===
+*Dr. Zutty notified new members to keep their notebooks up to date for class
+*Show clear examples of personal contribution and show notes for any papers read
+*NLP Scrum Notes:
+**Discovered several bugs due to branch merges
+**Descoped project for Fall 2021 semester to mainly regression
+***Output to context and query should now just be the start index of where answer can be found
+
+=== Team Meeting Notes ===
+**Output layer is too complex to finish before final presentation for Fall 2021, so team is going to focus on NNLearner with 2 data pairs instead
+**New members should be prepared to execute runs on emade with PACE ICE once NNLearner2 is completed
+
+=== Individual Notes ===
+*Began trying to submit jobs for standalone tree evaluator on the Amazon dataset using PACE ICE
+*Resolved issues that I experienced:
+**"Amazon" database missing in MySQL - simple fix, just create database on db
+**"transformers" module is missing - pip installed missing module
+** *.csv.gz files were unreadable - amazon datasets were not properly downloaded due to git LFS, so I manually downloaded them and scp'd them to emade on PACE
+**Reconfigured port number from 3309 to 4269 because of frequent conflicts with existing PACE ICE emade jobs
+*Current issues that I am working to resolve:
+**Experiencing "IndexError: tuple index out of range" exception from "out_dim = data_pair.get_train_data().get_target().shape[1]" from neural_network_methods.py file when running standalone.pbs
+***Steven advised me to wait for NNLearner2 to be completed by Wednesday so I can update my copy of emade and see if the issue persists. He noted he hasn't seen other members experience this issue yet except for me.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 15th, 2021
+|November 22nd, 2021
+|November 22nd, 2021
+|-
+|Attend VIP Hackathon at Klaus
+|Completed
+|November 15th, 2021
+|November 21th, 2021
+|November 21th, 2021
+|-
+|Run standalone tree evaluator on Amazon dataset on PACE ICE
+|In Progress
+|November 15th, 2021
+|November 24th, 2021
+|n/a
+|-
+|}
+
+== Week 12: November 8th ==
+=== Class Summary ===
+*NLP Scrum Notes:
+**Onboarded new members
+**Working on intergrating new primitives finished this week
+*Had a class discussion on whether neural networks should be covered in Bootcamp
+**Voted in favor of idea because it would make onboarding to subteams easier
+**Tradeoffs are that students would have less time to begin contributing to subteam
+*Subteam Discussion Notes:
+**4 task teams created for the following tasks:
+***NNLearner for 2 Data Pairs
+***Experiment with Word Embeddings, include issue with pretrained embeddings
+***Integrate team - Ensure standalone tree evaluator works for new primitives (my chsoen team)
+***Solve output layer probability vector to words problem 
+*NLP Team meeting notes for 11/10:
+**Successfully was able to run EMADE with the amazon dataset using the input_amazon.xml file
+***Solution involved replacing my XML file with Steven's and reconfiguring for my use
+**Integration team was blocked by an issue that Steven was able to fix on Saturday after the Wednesday meeting - standalone tree evaluator is now able to work on input_amazon_local.xml with 80% accuracy
+=== Individual Notes ===
+*Finished setting up EMADE on PACE-ICE and looking forward to begin developing for the NLP subteam
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 8th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Setup EMADE on PACE ICE
+|Completed
+|November 8th, 2021
+|November 10th, 2021
+|November 10th, 2021
+|-
+|}
+
+== Week 11: November 1st ==
+=== Class Summary ===
+*Was assigned to NLP Subteam
+*NLP Scrum Notes:
+**Determined necessary primitives to develop
+**Completing BiDAF
+**Modeling layer complete, output layer nearly complete
+*NLP Subteam Meeting Notes:
+**Joined NLP Slack and was introduced to the team
+**Given a quick rundown of what is going to be presented on Wednesday's meeting
+**NLP subteam is currently trying to solve QA (Question/Answer) problems with EMADE with the goal of outperforming modern NLP frameworks
+**QA format: Given question and context paragraph where the answer can be found, return the answer from the context
+**The primitives here are the different layers (BiDAF, Modeling, Output, etc.)
+**Layers are connecting sequentially
+**Team meets on Wednesdays @ 2pm
+*NLP Subteam Meeting for 11/3 Notes:
+**Received presentation on intro to QA
+**Current model structure from top to bottom: character embedding layer, word embedding layer, contextual embedding layer, attention flow layer, modeling layer, and output layer
+*Resources:
+**Paper on BiDAF: https://arxiv.org/pdf/1611.01603.pdf
+**Pace Setup Tutorial: https://www.youtube.com/watch?v=LashYCCJF3E
+
+=== Individual Notes ===
+*Currently working on setting up EMADE on PACE ICE with amazon dataset
+*NLP subteam meets on Wednesdays at 2pm
+*PACE ICE setup video was really useful and quite detailed, but I hope it also covered the EMADE installation step on PACE ICE, because I ran into some issues running the "reinstall.sh" script on PACE, so I had to manually run the commands
+*90% completed with PACE ICE setup, but I keep getting error "Element 'slurmPythonPathMaster': This element is not expected., line 7" in my emade-amazon.out file
+*I've been experiencing a lag issue where running "conda install ..." simply hangs and does nothing in PACE. Perhaps it's on purpose and conda works differently on PACE.
+*Planning to discuss issues with team during Monday VIP meeting
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 1st, 2021
+|November 8th, 2021
+|November 8th, 2021
+|-
+|Attend Wednesday Intro Presentation
+|Completed
+|November 1st, 2021
+|November 3rd, 2021
+|November 3rd, 2021
+|-
+|Setup EMADE on PACE ICE
+|In Progress (fixing runtime issue)
+|November 1st, 2021
+|November 8th, 2021
+|
+|-
+|}
+
+== Week 10: October 25th ==
+=== Class Summary ===
+*Final Presentation for Bootcamp
+=== Lecture Notes ===
+*Watched presentations from the different subteams in AAD:
+**NLP
+**NAS
+**Image processing
+**Modularity
+*My team and I presented our work on the applying ML, MOGP, and EMADE on the Titanic dataset to not just our bootcamp, but also the returning VIP members
+**We answered questions the issues we faced, including why we ran only so few generations
+**We also explained how we could have improved our EMADE run by using a normalized fitness objective to better compare the AUC to ML and MOGP results.
+**Discussed issues with our graphs and presentation
+*'''Presentation Link:''' https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+=== Individual Notes ===
+*NLP team:
+**Meets on Wednesdays at 2pm
+**Goal is to make machines interpret and act upon natural langauge
+**Applying BiDAF (bidirectional attention flow) and SQUAD dataset for their work
+**Apply NAS to solve their problems
+*NAS team:
+**Meets Fridays at 2pm
+**Goal is to improve EMADE's overall performance
+**Working on improving training time for neural nets and changing EMADE primitives for valid connections
+**Creating more tutorials/documentation for EMADE setup
+*I had to leave early for a night class, so I wasn't able to watch the other VIP subteams present.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 25th, 2021
+|November 1st, 2021
+|November 1st, 2021
+|-
+|Present EMADE final presentation
+|Completed
+|October 25th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Rank subteam preference
+|Completed
+|October 25th, 2021
+|November 1st, 2021
+|October 31th, 2021
+|-
+|}
+
+
 == Week 9: October 20th ==
 === Class Summary ===
 *Working session with VIP AAD alumni to use EMADE on Titanic dataset

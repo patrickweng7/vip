@@ -10,6 +10,195 @@
 
 # **Fall 2021**
 
+## Week 14: November 22nd -  November 28th(2021)
+### Lecture overview:
+
+## Week 13: November 15th -  November 21st(2021)
+### Lecture overview:
+
+## Week 12: November 8th -  November 14th (2021)
+### Lecture overview:
+* NLP Scrum:
+1. Onboard new members
+2. The old members tries to help new member build ICE-PACE environment
+
+
+
+## Week 11: November 1st -  November 7th (2021)
+### Lecture overview:
+* Introducing myself to NLP team
+* Everyone greet with each other
+* Get to know the some basics of NNlearners
+### Team meetings:
+* Joined NLP slack
+* Talking about different layers: BIDAF ...
+* Our leader present a Q&A during the first remote meeting
+* Currently implementing  Modeling layer and output layer
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Join team slack|complete|November 1st, 2021|November 3rd, 2021|November 3rd, 2021|
+|Record notebook|complete|November 1st, 2021|November 7th, 2021|November 7th, 2021|
+|set up PACE ICE|in progress|November 1st, 2021|pending, 2021|pending|
+
+
+
+
+
+## Week 10: October 25th - November 31st (2021)
+### Lecture overview:
+* Presentation on 10/25
+* Slides link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+* Watched presentations by different sub-teams
+
+### Sub-team presentations:
+* NLP:
+1. The goal is to make machines understand natural language
+2. Doing some literature reviews
+3. Using SQUAD dataset
+4. Meeting time: Wednesday 2:00 pm
+* NAS:
+1. Preprocessing:
+Text tokenization and one hot encoding for multi-class target data
+2. CoDEEPNeat:
+Separated primitive sets and terminals between ADFs and MAIN primitive
+(didn't really understand this part)
+3. The goal is to improve the productivity of EMADE
+4. Used new analysis methods: nn_ind_from_has(hash) and view_nn_statistics
+5. Meeting time: Friday 2 - 3pm
+* Image processing:
+1. The goal is object detection, image segmentation
+2. Focused on a CheXNet (chest X-rays)
+3. 3 selected methods: NSGA-III, Hypervolume indicators and Lexicase:
+Talked about the difference between NSGA III and NSGA II.
+4. Used Tensorflow to normalize, flip and resize the images
+5. Results are obtained on 30 generations
+6. added new mutation and mating function.
+7. Some generated individuals cannot generate better results
+* Modularity:
+I went to my lab so I missed it.
+### Bootcamps presentation:
+* Team1:
+1. Did similar data preprocessing as us: Drop columns, delete irrelevant variables
+2. used SVM classifier and other bunch of machine learning methods.
+* Team2: (presented my part)
+* Team3:
+1. Did similar data preprocessing methods
+2. Talked about the troubles they met
+3. Compared the Pareto front
+* Team4: Went to my lab session
+### Individual note:
+* Probably I will choose NLP, because the goal and presentation is very sound
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Presentation|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
+|Record notebook|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
+
+
+
+## Week 9: October 20th - October 26th (2021)
+### Lecture overview:
+* EMADE working session
+* Solving questions related to MySQL an EMADE installation
+### Team meeting notes:
+* Figured out how to run master process and work process
+
+`Server host command: mysql -h hostname -u username -d database_name -p`
+
+* Encountered errors;
+
+`Issue where fitness values for individuals were (inf, inf, inf)
+ EMADE error stated that "Tree missing valid primitve for data type"`
+* Connected to Mysql database
+* Met difficulty on getting generations after 11
+* Worked on slides for presentation on 10/25
+
+### Individual notes:
+* Rohan and Manas talked about the idea of using virtual conda environment to fix invalid version issue
+* Trying to join worker process, but need to do it under gatech network
+* Modified the code for plotting graphs
+* Finalized our slides
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 20th, 2021|October 26th, 2021|October 20th, 2021|
+|Settle environment|pending|October 20th, 2021|October 26th, 2021|October 25th, 2021|
+|Make Mysql work process working|in process|October 20th, 2021|October 26th, 2021|in progress|
+|Record Notebook|complete|October 20th, 2021|October 26th, 2021|October 26th, 2021|
+
+
+
+
+## Week 8: October 13th - October 19th (2021)
+### Lecture overview:
+* Work with the group
+* Try to run EMADE properly
+* Try to run Titanic dataset on EMADE and join the master process
+* Need to have 1 master program and other worker nodes for MySQL.
+* Meet version problem when setting up environment
+### Lecture notes:
+* Dr.Zutty answered questions from students
+### Team notes:
+* Successfully get EMADE to recognize our Mysql database
+* Experiencing EMADE error - "Tree missing valid primitive for data type"
+* Try to fix the problems evaluation functions
+* Delete Python 3.9 in my computer and downgrade it to Python 3.7
+
+### Individual notes:
+* Investigated worker output file
+* Faced some issues in joining worker process, need to access it in school network
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 13th, 2021|October 20th, 2021|October 20th, 2021|
+|Settle environment|pending|October 13th, 2021|October 20th, 2021|in progress|
+|Make Mysql work process working|in process|October 6th, 2021|October 20th, 2021|in progress|
+|Record Notebook|complete|October 13th, 2021|October 20, 2021|October 20th, 2021|
+
+
+
+
+
+
+
+## Week 7: October 6th - October 12th (2021)
+### Lecture overview:
+* Notebook completion for mid term grading.
+* projects introduction
+* midterm Presentation date on 10.25
+* Introduction to EMADE and MySQL.
+* no bootcamp session on Wednesday
+* Hackathon 10.16 or 10.17
+
+### Lecture Notes:
+* Introduced EMADE
+* The basic concept for EMADE combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+* Need to follow the install instructions and configure MySql server
+* Input .xml file is required for fulfilling configurations in EMADE.
+* Make sure the MySQL command works before troubleshooting EMADE
+* Understand the EMADE structure and see the sample output.
+evalFunctions.py is our evaluation function file
+### team note:
+* Everyone need to have EMADE downloaded and run it properly
+* clone the repository 
+* set up the package
+* Set up MySql
+* One person need to have Master process and other teammates need to join the work process
+* Encode "Embarked" feature in dataset 
+* Discussed our MOGP assignments
+* Configure XML file to run Titanic Dataset
+* Trying to resolve the problems during sql work process set up
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 6th, 2021|October 13th, 2021|October 12th, 2021|
+|Installed EMADE|complete|October 6th, 2021|October 13th, 2021|October 12st, 2021|
+|Make Mysql work process working|in process|October 6th, 2021|October 13th, 2021|October 13th, 2021|
+|Record Notebook|complete|October 6th, 2021|October 13th, 2021|October 13th, 2021|
+
+
+
 ## Week 6: September 29th - October 5th (2021)
 ### Lecture overview:
 * Finish peer evaluation next week.

@@ -9,6 +9,285 @@ Cell Phone: 678-365-1412
 
 Interests: Machine Learning, Basketball, Video Games
 
+== December 6, 2021 ==
+
+'''Team Meeting Notes:'''
+
+
+'''Subteam Meeting Notes:'''
+
+'''Personal Work:'''
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Hackathon project of getting Bidirectional attention flow to work
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|}
+
+== November 29, 2021 ==
+
+'''Team Meeting Notes:'''
+* Image Processing: Primitives should not be writing disk. Not at code freeze yet
+* Modularity: Continue with runs. Upward spike AUC error found
+* NLP: Naive solution seeded compared to EMADE running without seeded
+* NAS: Not at code freeze yet. Working on getting everything merged.
+* Teams need to get to code freeze point to start experiment runs.
+
+
+'''Subteam Meeting Notes:'''
+* Beginning to start experimental runs for final presentation
+* Change dataset to be regression problem for word start index rather than character start index 
+
+'''Personal Work:'''
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Full PACE run on SQUAD dataset
+|Complete
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|Continue previous pace run to up to 24 hours
+|Complete
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|}
+
+== November 22, 2021 ==
+
+'''Team Meeting Notes:'''
+* Output layer is too difficult to implement, so we have changed to a regression problem rather than classification.
+* NNLearner2 to for squad datasets
+
+'''Subteam Meeting Notes:'''
+* Thanksgiving break
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|}
+
+== November 15, 2021 ==
+
+'''Team Meeting Notes:'''
+* Prep work for hackathon. Main focus will be on getting NNLearner2 to work
+
+'''Subteam Meeting Notes:'''
+* One team focused on getting NNLearner to work
+* Another team focused on getting bidirectional attention layer to work
+
+'''Personal Work:'''
+* Karthik and I worked on getting the attention flow layer to work. There were two main issues:
+** In the megamerge step, their was a function to convert a list of 1d tensors into a 2d tensor using tf.convert_to_tensor. Function was not working correctly. Instead, we converted each 1d tensor into a 2d tensor and then concatenated all together.
+```
+# T*2d megamerged matrix G
+megamerged_matrix = [[0]*8*self.d]*self.t
+
+# merge columns of embedded_context, c2q, and q2c
+for i in range(self.t):
+    megamerged_matrix[i] = tf.concat([embedded_context[i], c2q[i], c2q[i]*embedded_context[i], q2c[i]*embedded_context[i]], 0)
+        
+for i in range(len(megamerged_matrix)):
+    megamerged_matrix[i] = tf.expand_dims(megamerged_matrix[i], 0)
+    
+# convert into (T,8d) tensor
+return tf.concat(megamerged_matrix, axis = 0)
+```
+** Second issue was that the layer could not take varying batch sizes (only worked for batch size of 1). To fix this, we can return a None batch size, which represents a varying batch size. Or return the match size based on the input. We also did some better code design by abstracting the call method with a helper that does the work of getting the similarity matrix, calculating c2q and q2c, and doing the merge.
+```
+def call_helper(self, embedded_context, embedded_query):
+    # similarity_matrix: (T, J)
+    similarity_matrix = self.make_similarity_matrix(embedded_context, embedded_query)
+            
+    # Context --> Query Attention. U_hat = Attended query matrix for all context words, size (T,2d)
+    c2q = self.contextToQueryAttention(embedded_query, similarity_matrix)
+
+    # Query --> Context Attention, size (T,2d)
+    q2c = self.queryToContextAttention(embedded_context, similarity_matrix)
+
+    megamerged = self.megamergeStep(embedded_context, c2q, q2c)
+    return megamerged
+
+if input[0].shape[0] is None:
+    megamerged = self.call_helper(embedded_context, embedded_query)
+    megamerged = tf.expand_dims(megamerged, 0)
+    final_result_matrix = tf.compat.v1.placeholder_with_default(megamerged, [None, self.t, self.d * 8])
+    return final_result_matrix
+else:
+    batch_size = input[0].shape[0]
+    batches = []
+    for i in range(batch_size):
+        megamerged = self.call_helper(embedded_context, embedded_query)
+        batches.append(megamerged)
+    for i in range(len(batches)):
+        batches[i] = tf.expand_dims(batches[i], 0)
+                
+
+    return tf.concat(batches, axis = 0)
+
+```
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Hackathon project of getting Bidirectional attention flow to work
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|}
+
+== November 8, 2021 ==
+
+'''Team Meeting Notes:'''
+* Runs works on one data pair
+* Finish resolving issues of big merge
+
+'''Subteam Meeting Notes:'''
+* Splitting up into NNLearner with 2 Data pair team, integration team, and output layer team
+* For the integration team, set up pace to run squad dataset with standalone tree evaluator
+
+'''Personal Work:'''
+* Continued working with Shiyi and Karthik on Attention -> Modeling -> Output testing and making sure the inputs and outputs match.
+* A lot of the code had errors when compiling:
+** LSTM requires a 3D array with the first parameters representing batch size. To accomplish this we needed to expand out 2D dataset
+** When creating the similarity matrix, the context column and query column has mismatch dimensions for the input. Hence, element wise multiplication wasn't working. Here is the fix:
+```
+context_column = tf.expand_dims(context_column, axis = -1)
+query_column = tf.expand_dims(query_column, axis = -1)
+```
+** The output layer required the output from the modeling layer and additional matrix that needed to be computed to calculate both the start and end index in the context. We decided that the additional matrix would be calculated in the modeling layer:
+```
+# Now returns a tuple of matrices M1 and M2 - Why? Check: https://towardsdatascience.com/modeling-and-output-layers-in-bidaf-an-illustrated-guide-with-minions-f2e101a10d83
+return tf.reshape(lstm_1_output, [lstm_1_output.shape[1], lstm_1_output.shape[0]]), tf.reshape(lstm_2_output, [lstm_2_output.shape[1], lstm_2_output.shape[0]])
+```
+* Currently running into errors with the standalone tree evaluator, going to be switching to just running with the Amazon Dataset.
+** Also having errors, going to try to run locally
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Getting successful pace stand alone tree evaluator on Amazon Dataset
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Fixing modeling, attention, and output layers
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|}
+
+== November 1, 2021 ==
+
+'''Team Meeting Notes:'''
+* Introducing new memebers to NLP
+* Exchanging contact info, slack info, and intro presentations
+* Unit tests for new primitives for BiDAF
+
+'''Subteam Meeting Notes:'''
+* Pace setup for new members
+* Split into groups working on output layer, attention layer (hard), and modeling layer
+* NNLearner intro for new members
+
+'''Personal Work:'''
+* Custom modeling layer code for BiDaf:
+
+```
+class BidafModeling(Layer):
+    def __init__(self, out_dim, activation = 'tanh', dropout = 0.2, regularizer = 0, **kwargs):
+        super(BidafModeling, self).__init__(kwargs)
+        if regularizer == 0:
+            regularizer = None
+        else:
+            regularizer = l2(10**(-1*regularizer))
+        self.lstm_1 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer, dropout=dropout))
+        self.lstm_2 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer))
+
+    
+    def call(self, inputs):
+        inputs = tf.reshape(inputs, [inputs.shape[1], inputs.shape[0], 1])
+        lstm_1_output = self.lstm_1(inputs)
+        lstm_1_output = tf.expand_dims(lstm_1_output, -1)
+        lstm_2_output = self.lstm_2(lstm_1_output)
+        return tf.reshape(lstm_2_output, [lstm_2_output.shape[1], lstm_2_output.shape[0]])
+```
+
+
+* Custom EMADE function for layer as primitive:
+
+```
+def BidafModelingFunc(output_dim, layerlist, activation = 'tanh', regularizer = 0, dropout=0.2):
+    """
+    Create Bidaf Modeling layer
+    """
+    layerlist.append(BidafModeling(output_dim, activation=activation, regularizer=regularizer, dropout=dropout))
+    return layerlist
+```
+
+
+* Helped Karthik and Shiyi with debugging and connecting the modeling layer, attention layer, and output layer
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Custom layer for Bidaf Modeling layer
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Emade function for using the custom layer as a primitive
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|}
+
 
 == October 25, 2021 ==
 
@@ -42,8 +321,26 @@ Presentations:
 ** Eval methods were FNR and FPR
 ** ML > MOGP > EMADE
 ** EMADE could not run for many generations
- 
-
+* Stocks
+** ML algorithm in the indivudal uses historical data and technical indicators to predict future trigger gains
+** Primitive analysis with technical indicator vs learner with confusion matrix
+** Profit percentage, average profit per transaction, CDF of profit, variance of profit per transaction
+** Comparing to TS Fuzzy model paper
+** End goal is to get research paper, setting up for controlled experiments
+* Bootcamp 4:
+** MLP, Decision Tree, SVM, XGBoost
+** Strongly typed GP
+** Logical and mathematical operations as primitives
+** CXOnePoint as mate and mutUniform as mutate
+** MOGP > EMADE > ML in terms of AUC with pareto front
+** MOGP has most individuals in pareto front, then EMADE, then ML
+* Modularity:
+** Exploring building blocks that can help with the genetic process
+** ARLs: Adaptive representation through learning
+** Introducing reusability and hopefully dynamically evolve these sections
+** evaluation -> selection -> genetic operations -> arls -> evaluation
+** Increasing complexity of ARLs by increasing the tree depth
+** Stock runs with ARLs
 
 
 '''Action Items:'''
@@ -55,7 +352,7 @@ Presentations:
 !Date Resolved
 |-
 |Finishing up presentation notes
-|In Progress
+|Complete
 |October 25, 2021
 |October 25, 2021
 |November 1, 2021

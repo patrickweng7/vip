@@ -9,6 +9,408 @@ Cell Phone: 208-515-8082
 
 = Fall 2021 =
 
+== December 6, 2021 ==
+
+=== Lecture Notes ===
+* Dr. Zutty went over an overview of the final presentation.
+* Our subteam reviewed each person's responsibility for the final.
+* Dr. Zutty went around to each subteam and asked about the goal for our presentation.
+
+Final Presentation Notes:
+Image Processing:
+* NSGA2 performed better than Lexicase
+* NSGA2 performed better than NSGA3
+* The sobel filter performed at a ROC of 0.5 which was bad
+** They guess it's because the edge detection was removing fine details necessary to analyze chest x-rays
+* The contrast increase had a ROC of 0.4 which was worse than baseline but better than sobel filter.
+
+
+=== Sub-team Notes ===
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|December 6, 2021
+|December 13, 2021
+|In Progress
+|-
+|Add new analysis methods per generation
+|Completed
+|December 6, 2021
+|December 13, 2021
+|In Progress
+|}
+
+== November 29, 2021 ==
+
+=== Lecture Notes ===
+Image Processing:
+* Did not meet last week due to the Thanksgiving holiday.
+* Worked on understanding why their AUC for last run was bad, they believe they know how to fix it.
+* Will have a code freeze by the end of the week so they can start running experiments, Dr. Zutty recommended freezing soon
+NLP:
+* Their NNLearner2's are now working on regression problems, but some results seem incorrect.
+* They believe they split the test/train data wrong, they believe they've found the resolution.
+* Use word start indices instead of character indices.
+Modularity:
+* Cotinued doing runs for experiments on extended ARLs.
+* The spike in AUC graph was likely due to errors with objectives, not with Google Colab.
+* Some of the team is working on generating visualizations for the data.
+* CacheV2 transition team is still finishing up their changes.
+
+=== Sub-team Notes ===
+* I made a short script in analysis.py that generates lists of each level of parent generations so we can perform analysis on each layer
+* I am still working on brainstorming and creating those analysis methods that analyze how our best individuals grew over time.
+* We met on Friday 12/3 to divide up slides for the presentation and talk about doing EMADE runs on PACE.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|Create method in analyze.py to get list of individual's parents
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|}
+
+== November 22, 2021 ==
+
+=== Lecture Notes ===
+Image Processing:
+* Most of their new team members are fully set up on PACE
+* They had a baseline run and their AUC was .48, below their expectations.
+* They ran Lexicase, Epsilon Lexicase, and NSGA3 but haven't interpreted results yet.
+* Also did a run with a new mutation method.
+NLP:
+* Spent time defining what success meant for their team and how they will measure it.
+* Problem Statement: "Can AutoML find the relevant index in a text better than a naive solution"
+* They will test this by seeing what the gain is on the AUC from the naive solution's performance to their AutoML performance
+Modularity:
+* Refactored a lot of code that had tuples and made new classes for the data.
+** Also added repr() functions for these classes to make debugging easier.
+* New members working on Google Cloud scripts.
+* CacheV2 integration is almost done, just testing left to do.
+
+=== Sub-team Notes ===
+* Didn't meet due to Thanksgiving break, Cameron Bennett asked everyone to have their code finished and PR's done by as early as possible so he can merge by the end of this week.
+My progress:
+* Finalized all my code changes from last week implementing NNStatistics table tracking parents.
+* Since the previous week, I fixed a small issue where error_string's were not being updated for all parents:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string  # <======= Added to fix error_strings defaulting to None
+                        )
+* Main change was to clear all parent tracking metadata at the start of a mating/mutation section:
+            if len(parents) > 0:
+                print('Producing offspring')
+                sys.stdout.flush()
+
+                # Clone so as not to alter original
+                offspring = list(map(_inst.toolbox.clone, parents))
+
+            # clear offspring NNStatistics table tracking
+            for child in offspring:
+                child.parents = []
+                child.intermediate_parent = False
+
+            # ============= Code below here is for mating/mutation ========
+* Removed the code that clears .parents and .intermediate_parent data when it is added to NNStatistics table and moved to start of mating/mutation as shown above.
+* I made a new branch on my personal fork of EMADE for nnstatistics tracking: https://github.gatech.edu/jhinckley6/emade/tree/nnstatistics-fix
+* I made Pull Request to Cameron Whaley's fork: https://github.gatech.edu/cwhaley9/emade/pull/17
+* My next goal is to add methods to analyze.py to query parent information after runs are finished.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 29, 2021
+|-
+|Make Pull Request for Statistics Tracking
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 27, 2021
+|-
+|Fix Statistics Problem of Parents not including individuals past first generation
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 26, 2021
+|}
+
+== November 15, 2021 ==
+
+=== Lecture Notes ===
+Image Processing:
+* Fixed bug in EMADE hyperfeature training
+* Going to work on sharpening their hyperfeatures
+* Found a good implementation of Lexicase to move forward with
+NLP:
+* Fixed merge issues
+* Getting memory error that needs to be fixed
+Modularity:
+* Fixing bug inside match_arl algorithm
+* Completed fixed extended arl run of EMADE
+
+=== Sub-team Notes ===
+Individual Work:
+* I talked with Cameron Bennett and decided that to solve our problem of intermediate parents that don't exist in the Statistics table, we can have each child track all of its parents that are already in the Statistic table.
+* This means that an individual can have more than 2 parents who it draws genes from.
+** For example, mate(A, B), mate(B, C), mate(C, D): in this case the parents of D are [A, B, C] since it draws genes from all of these.
+* We will worry about how we can draw meaningful results from this after we make our runs.
+* Changes made:
+** Changes to mutate() function:
+                if not hasattr(mutant, 'parents'):
+                    mutant.parents = []
+                if not hasattr(mutant, 'intermediate_parent') or not mutant.intermediate_parent:
+                    mutant.parents.append(mutant_hash)
+                mutant.parents = list(set(mutant.parents))
+                mutant.intermediate_parent = True  # this mutant is now an intermediate parent, will be set to False when added to NNStatistics table
+** Changes to mate() function:
+            if not hasattr(child1, 'parents'):
+                child1.parents = []
+            if not hasattr(child2, 'parents'):
+                child2.parents = []
+
+            child1.parents, child2.parents = child1.parents + child2.parents, child2.parents + child1.parents
+
+            if not hasattr(child1, 'intermediate_parent') or not child1.intermediate_parent:
+                child1.parents.append(child1_hash)
+                child2.parents.append(child1_hash)
+            if not hasattr(child2, 'intermediate_parent') or not child2.intermediate_parent:
+                child1.parents.append(child2_hash)
+                child2.parents.append(child2_hash)
+            child1.parents = list(set(child1.parents))
+            child2.parents = list(set(child2.parents))
+            
+            child1.intermediate_parent = True
+            child2.intermediate_parent = True
+** Changes to code where we insert into Statistics table:
+                if (my_str(evaluatedIndividual).__contains__("NNLearner")):
+                    cur_nnstatistics = database.selectNN(my_hash_id, evaluatedIndividual.age)
+                    if cur_nnstatistics is None:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string # TODO: insert error message
+                        )
+                    else:
+                        database.updateNN(
+                            row=data,
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            age=evaluatedIndividual.age,
+                            parents=','.join(evaluatedIndividual.parents) if hasattr(evaluatedIndividual, 'parents') else '',
+                            error_string=data.error_string
+                        )
+                # evaluatedIndividual.intermediate_parent = False  # this individual is now in the NNStatistics table so it isn't an intermediate
+                evaluatedIndividual.parents = []  # clear .parents of individual so it's reset for next generation
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Implement solution to NNStatistics tracking
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Verify parents SQL column contains correct individuals
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|}
+
+== November 8, 2021 ==
+
+=== Lecture Notes ===
+Image Processing:
+* Attempted to implement a new hyperfeature
+* Going to try out lexicase
+NLP:
+* Presented EMADE and deep learning to new students.
+* Working on adding new primitive to output layer.
+Modularity:
+* Finished run of EMADE with Extended ARLs
+* fixed bug in match_arl
+* Onboarded new students to google collab
+
+=== Sub-team Notes ===
+I ran into problems creating analysis logic in EMADE to track nnlearners across all of its generations.
+Problem:
+* New hashes are generated for individuals every generation which prevents us from properly keeping track of a single hash.
+* We can't guarantee that one child has exactly 1 of 2 parents, since mating and mutation happens potentially multiple times to the same individuals:
+```
+            print('Mutating offspring (Swap Layer)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateSwapLayer, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
+            print('Mutating offspring (Modify Activations)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateActivationParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
+
+            print('Mutating offspring (Modify Optimizers)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateOptimizerParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+            
+            print('Mutating offspring (Modify Weight Initializers)')
+            sys.stdout.flush()
+            count = mutate(offspring, _inst.toolbox.mutateWeightInitializerParam, MUTPB, needs_pset=True)
+            print('Mutated ' + str(count) + ' individuals')
+            sys.stdout.flush()
+```
+* This means that child X could have been the child of A and B, but B could have been the child of C and D, therefore meaning X's parents are actually all of A, B, C, and D, not just A,B.
+* We need to decide how to track these parents in a way that allows us to gather meaningful metrics on complexity.
+
+Fixing problems with primary key duplicate inserts into NNStatisticsTable:
+* Fixed the problem by checking if the individual is already in the table, if it is, do not insert and instead update the entry
+My Code Changes Below:
+
+                 if (my_str(evaluatedIndividual).__contains__("NNLearner")):
+                    cur_nnstatistics = database.selectNN(my_hash_id)
+                    if cur_nnstatistics is None:
+                        database.insertNN(hash=my_hash_id,
+                            age=evaluatedIndividual.age,
+                            curr_tree=my_str(evaluatedIndividual),
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            error_string=data.error_string # TODO: insert error message
+                        )
+                    else:
+                        database.updateNN(
+                            row=data,
+                            individual=cp.deepcopy(evaluatedIndividual),
+                            age=evaluatedIndividual.age,
+                            error_string=data.error_string
+                        )
+
+Solutions:
+* A possible solution to this would be to attach some additional variable to the primitive tree object or instead add an SQL field for parent/parents hash values which allows us to possibly backtrack an individuals growing family shape.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Finish NNStatistics tracking
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+
+== November 1, 2021 ==
+
+=== Lecture Notes ===
+First meeting for newly-graduated ex-bootcamp students.
+
+Image Processing:
+* Figured out plans for the remainder of the semester
+* Plan to look into Lexicase
+* Look into hyperparameters
+NLP:
+* Created Bidirectional Attention layer, modeling layer, and an output layer
+* Implemented modeling layer primitive
+Modularity:
+* Run experiments on extended ARL
+* Migrate into Cache V2
+
+=== Sub-team Notes ===
+Local runs of EMADE:
+* Cameron Bennett created a video tutorial that I used for running EMADE locally on Linux (and Mac).
+* Set up local MySQL server
+    sudo apt install mysql-server
+    sudo mysql -u root
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
+** Had difficulties setting new password for root but found a command that worked
+* I tested local EMADE debugging using VSCode and did test run connected to mySQL database
+* Viewed run results using MySQL Workbench and set up a profile for local runs.
+
+My Current Task:
+* Fix previous errors with primary keys for NNStatistics SQL table
+* I designed a way to track previous generations of individuals using hashes
+** Each individual will keep track of parent(s) like a linked list in the NNStatistics table.
+* Implement Python function that looks at NNStatistics table and given an individual's hash, returns all previous generations
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Track parents of individuals in EMADE
+|Completed
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|}
+
 == October 25, 2021 ==
 
 === Lecture Notes ===
@@ -36,7 +438,24 @@ Stocks:
 * Demonstrate how EMADE can beat the state of the art using trading algorithms generated.
 * Write a paper and publish on findings.
 * Use technical indicators to determine whether we should buy/sell a stock at a specific time.
-* 
+* Updates:
+** Running EMADE on PACE
+** Constrained compute hours
+* Picked certain stocks and try to beat state of the art over the same time periods.
+* Objectives:
+** Loss percentage objective
+** Average loss per transaction
+Modularity:
+* Uses ARL's to group good primitives together into new primitives
+* Allows faster convergence
+* Can improve overall fitness
+* Data manipulating primitives are the most useful.
+* Insights:
+** Increased size of ARL's may not necessarily be more useful
+** Using the metric as the goal
+* Experiment Setup:
+** 30 generations
+** 5 runs of each comparison
 
 === Sub-team Notes ===
 Presented our midterm presentation (https://docs.google.com/presentation/d/167Jl4jEKVsY1c1Y12fLJIL_RXw7amRiPRUJPDiU1b5c/edit#slide=id.gf74dd2f3e8_0_51) to the other subteams/bootcamp students.
@@ -77,6 +496,8 @@ My work over the weekend:
 * These are generated because we have passthrough layers that do not modify input but created nested parentehses.
 * Allows us to more easily view individuals' structure
 2. Create function that substitutes ADF's with the actual representation of the ADF.
+
+Completed the function over the weekend and gave to Cameron Bennett to use for the individual representations in our midterm presentation.
 
 === Action Items ===
 {| class="wikitable"

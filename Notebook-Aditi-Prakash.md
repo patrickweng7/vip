@@ -8,17 +8,204 @@ Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - r
 Cell Phone: 704-794-3924  
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
+[[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
-# Week 8: October 13th, 2021
+# Week 11: November 1st, 2021
 ## Overview
-Workday for EMADE and MySQL remote connection setup. 
+First NLP team meeting, understanding NLP problem, EMADE setup on PACE. 
+
+## Team Notes:
+* Today, bootcamp students were placed into their subteams, and I was placed on the NLP team. In our weekly scrum, each subteam (NLP, Image Processing, Modularity, NAS) provided updates on their progress. While each team is working on solving different problems, some teams use the same GitHub branches for their work and/or share their commits with other teams in case they prove useful. I find this interesting because it points to EMADE’s ability to be repurposed for a variety of tasks, since it is a generic architecture for genetic programming which presents new capabilities whenever its baseline functionality is expanded or improved. 
+* After scrums, I joined the NLP team and was introduced to its goals and current tasks. In order to meet and outperforming state-of-the-art QA systems, the team is currently implementing custom primitives based on the BIDAF model for QA systems as outlined in the following paper: https://arxiv.org/pdf/1611.01603.pdf. Returning team members are also working on debugging issues related to merges of these primitives into the existing codebase for NLP that were done earlier in the semester. I asked questions about Scikit primitives vs. Keras primitives and learned that a key distinction between NLP with BIDAF vs. other NLP or NAS systems is the usage of a 2-datapair input of the context and the query to make predictions as opposed to a single EmadeDataPair input (which is what most other teams are working with). 
+* My tasks for this week include getting EMADE set up on PACE (scp-ing our working branch (https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs) over to PACE, setting up a conda environment, ensuring I can login to a MySQL instance and submit jobs to the queue, etc.) using Cameron’s set-up video: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be and this setup guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE. 
+* I will also read the following paper to better understand the purpose of the BIDAF model, the layers it includes, and how our custom-built EMADE primitives each map to one layer in the BIDAF model: https://arxiv.org/pdf/1611.01603.pdf. 
+
+Notes on BIDAF Paper:
+* Character Embedding Layer uses tokenization techniques to create vector representation of words in context and query using character-level CNNs.
+* Word Embedding Layer similarly embeds the context and query at the word level using a pre-defined corpus and a word embedding model (ie. GloVe).
+* Contextual Embedding Layer is an LSTM that considers the words surrounding each word to improve the accuracy of each word’s vector representation. 
+The attention flow layer (the specialty of the BIDAF model) creates a similarity matrix that represents the similarity between the t-th context word and the j-th query word, where t is the row number and j is the column number. This layer outputs the query-aware vectors for the context words using the context words’ similarity values to the words in the query. 
+* Modeling layer is a bidirectional LSTM which takes in the query-aware context vectors and outputs vectors that represent each word with respect to both the context and the query.
+* Output layer takes in the modeling layer’s output and predicts the probability of each word in the context of being the start and end index of the answer. 
+
+## Subteam Notes:
+* In today’s meeting, Steven gave a short presentation on NLP and different types of neural networks in order to get new students acclimated with the Keras models that our team uses to build primitives for QA. 
+* Devan also gave an introduction to the BIDAF model, the functionality of each of its layers, and the evaluation metrics currently being considered by the team (precision, recall, Mean Average Precision, Mean Reciprocal Rank, etc.): https://docs.google.com/presentation/d/1E1DZyeGYXwsT8WTRPRaiwko9gRsr3q1u/edit?usp=sharing&ouid=113962999086036620588&rtpof=true&sd=true. 
+
+## Individual Notes:
+* As PACE is down from November 3rd-5th for maintenance, I will continue to read the BIDAF paper and take a look at our team’s codebase for further clarity into how custom primitives are introduced to EMADE, how evolution remains stable with these custom primitives, and what the control flow for individual creation, evolution, and evaluation looks like with our primitives. 
+* Currently, most of the primitives the team has built reside in neural_network_methods.py, with much of the logic for primitive set creation residing in EMADE.py (which passes inputs to individuals as EmadeDataPairs). Also, as is the case for all EMADE runs, we have an input_squad.xml file which contains the evolutionary parameters to be used for our team’s runs (our current evaluation metrics are accuracy and number of parameters, both minimization objectives), and unlike the Titanic problem, we pass in two inputs: the train-test split of the question dataset, and the train-test split of the context dataset. The multi-input and multi-output nature of our problem is leading our team to investigate EMADE’s architecture closely and make changes that meet our requirements, and I am excited for the opportunity to understand EMADE better as a result. 
+* Dr. Zutty had suggested unit testing for our custom layers in our first subteam meeting. I think writing unit tests would be a great way for myself and other new team members to get familiarized with the functionality of each layer and contribute to the codebase given the relatively short amount of time remaining in the semester. However, based on direction from Steven, we will table unit testing until later if at all, given the amount of debugging currently taking place to integrate existing primitives. 
+
+EMADE PACE Setup Issues
+* I am running into an Already Exists error with Keras backend in gp_framework_helper.py. I believed this was due to the fact that both Tensorflow and Keras install Keras from our conda_env.yaml file, so I manually deleted Keras from my conda bin folder. However, this did not resolve the issue, so I will get further guidance during our Monday meeting from team members who are successfully set up. 
+* Apart from this error, I am fully set up with a conda environment on PACE, have scp-ed our EMADE-304 branch from Steven's fork of the EMADE repository to my PACE account, and am able to login to a MySQL instance via PACE and submit a MySQL job to the PACE queue via "qsub pbsmysql.pbs." My next step will be to attempt to run standalone tree evaluator with NNLearner to ensure that I can submit EMADE jobs to the queue, and then run an EMADE master process on the SQUAD dataset to ensure I can help with runs to test that individuals containing our custom primitives evaluate properly. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
+| Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
+| Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
+
+# Week 10: October 25th, 2021
+## Overview
+Final VIP Presentations - Bootcamp Teams and Main Teams. 
 
 ## Team Meeting Notes
-* Worked with Rayan, Rayan, and Charlie to help set up their EMADE engines and install all dependencies. They are working on installing all remaining dependencies, after which we can test MySQL remote connections to the server I have created . 
+* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice to maximize diversity of individuals being selected from during each generation, and thereby maximize diversity of the final pareto front for each generation (spreads individuals across tradeoff space between FNR and FPR). Received feedback from Dr. Zutty to ensure that all of our pareto fronts are placed on the same graph going forward for easy comparison. Heard from following teams on their current areas of focus and considered which teams best align with my research interests:
+
+NLP:
+* Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
+* Uses work of NN team
+
+Bootcamp Subteam 1:
+* Jessi, Pranav, Eashan, Elan
+* SVM, Gradient Decision Boost, NN, Random Forest, Gaussian
+* Pareto optimal results - FPR increasing, FNR decreasing
+* Add, subtract, multiply, cos, gp.mutNodeReplacement (individuals, pset), Evaluation - FNR and FPR, Selection - custom selection tournament
+* Crossover - gp.cxOnePointLeafBased (ind1, ind2, termpb - random) 
+* Custom algorithm - whichever individual has a lower sum of scores is the winner
+* More diversity, lower AUC
+* Headless Chicken rate - crossover with an individual with a randomly generated tree, decreased mutations except for ephemeral with need more randomness, reduced mutations
+* Need to split train into train and test, got one pareto optimla individual because they didn’t do this
+* 0.133 vs. 0.137 - preprocessed vs not preprocessing (42 vs. 115)
+* Adaboost, too many inf, emade kills CPUs, check twice that reuse = 1
+* MOGP was only able to beat ML due to the fact that it fills out the Pareto front 
+* gp.cxOnePointLeadBiased - always random 
+
+Neural Architecture Search:
+* Create Neural Networks automatically using primitives
+* Text processing for sentiment classification
+* EMADE cannot evolve seeds very much 
+* Most individuals are not NN learners in EMADE, have to restrict EMADE to only work with NN learners
+* Want EMADE to move past seeded individuals and explore search space well
+* Minimize accuracy error, minimize number of parameters
+* Lowering training time would have same effect as limiting number of parameters
+* Time stopping of 600
+* Time stopping of 2500
+* 600 time stop generated many more valid individuals, so we can create new individuals with genetic programming even though 2500 had a smaller AUC
+* Modify original DataPair once, feed data into individuals 
+* Preprocessing helped average evaluation time for individuals.
+* CoDEEPNeat - additional class for EMADEDataPairs, limited main primitives set type access to primitives is only ADFS that has access to it, main primitive is blueprint, adfs are modules, represents CoDEEP NEAT structure
+* Limited primitives in modules to just layers 
+* Separate table to track NNLearner individuals over time, where to improve in encouraging more complexity
+* Detect and reward novelty, novelty - dropout, embedding, convolutional layer
+* Might have a highly optimized NN with only dense layers, helps with certain scenarios like images
+* Trello board 
+* Split layer list primitive into different classes based on Tensor dimension they take in 
+* Novelty can make an objective become a subjective 
+* 2500 was more distributed than the 600 one (600 is way too small) 
+
+Bootcamp Subteam 2:
+* Drop Name, PassengerID, TicketNumber, Fare
+* Map Sex and Embarked to numerical
+* Fill nulls with medians, mode
+* AUC of 0.18129 with ML
+* SPEA2 and NSGA tried, SPEA2 worked better
+* Simple primitives 
+* Evaluation - activation function 
+* AUC 0.125
+* Didn’t one hot encode embarked feature, would have improved 
+* Conda + Python 3.7
+* Struggled to get FNR and FPR methods working
+* MySQL very slow - only 10 generations in 3 days, hard to connect 
+* Ended with pareto optimal set of 65
+* Trees grow slower than MOGP
+* EMADE gave better generations even with less generations 
+* Should have checked if certain number of generations takes a certain amount of time 
+
+Image Processing:
+* Multilabel image processing 
+* CheXNet Paper - pneumonia classification on xray scans
+* Image resizing, normalization, horizontal flipping 
+* 30 Generations (Precision-Recall AUC), Number of Parameters
+* NSGA-II, Lexicase, Tournament, Fuzzy 
+* NSGA-III defines reference points to maintain diversity in solutions
+* In theory, should outperform NSGA-II
+* Only ran for one generation before stopping 
+* EMADE master process would kill itself
+* No errors in log
+* Semantic crossover and semantic mutation 
+* Individual * logistic *(random1 - random2)
+* Primitives not set up to handle image data, majority of generated individuals not able to generate a valid fitness score
+* Geometric crossover operators 
+* Simulated Binary
+* Blended Crossover
+* Very little information about mutation and crossover for image processing problems 
+* Gray level transform that increases contrast with image filter
+* Hyperfeatures - two or more features which improve fitness 
+* Enhancing contrasts helps with edge detection 
+* Brainstorming-image-processing channel in Slack
+* Lexicase picks a random objective 
+* Loosely typed GP problem - everything is coming out as a float 
+* Geometric crossover makes sense when you have a numeric genome 
+* Simulated binary and blended crossover work more rigidly than single point crossover 
+* NSGA II - works less well with more than 2 objectives 
+
+Bootcamp Subteam 3:
+* Started with a variety of learners, changed svm to gaussian because they couldn’t create Pareto optimal front 
+* Added logic primitives and some arithmetic primitives 
+* Added 3rd objective of tree size to evaluation function 
+* Added FNR and FPR to input file 
+* Allowed port forwarding on master’s home router if workers will be joining remotely 
+* Weren’t able to run as many generations with EMADE as they would have liked, ML algorithm’s AUC was better 
+* EMADE and MOGP - more diverse Pareto front 
+* Grep -rl error string helped trace root cause of error 
+
+Stocks:
+* Primitives Analysis:
+* Relative performance of primitives based on CDF metric (lower is better)
+* Boosting regression across all technical indicator generally has a good performance 
+* MyDeltaWilliamsR, modify seeded individuals to create better results in EMADE 
+* Profit Percentage, Average Performance Per Transaction, CDF of Profit, Variance of Profit Per Transaction 
+* Want to minimize CDF
+* MyBollingerBand
+* Create pool of objectives and pick out stocks to conduct EMADE runs 
+* Run EMADE using all possible combinations of the objectives and compare the AUC across trials
+* Objectives: Loss Percentage Objective, Average Loss Per Transaction, etc. 
+* Takagi-Sugeno fuzzy, Support Vector Regressio and fuzzy logic 
+* Cannot replicate paper
+* Not able to replicate PLR-SVR 
+* Explore approaches to portfolio optimization, stock price prediction 
+* Improve EMADE’s time-series analysis (weather series, heart rate data)
+
+Modularity:
+* Using arity of primitives to create "super-primitives" with same functionality as individuals created from base primitive set
+* Observing interesting spikes in fitness of pareto optimal individuals during EMADE runs
+* Want to ensure that goal of minimal size does not become a criteria (ie. not evolving only simple modular primitives and foregoing complex modular primitives) 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Submit Subteam Preferences  | Done | 10/30/21 | 11/1/21  | 10/31/21 |
+
+# Week 9: October 20th, 2021
+## Overview
+Workday for EMADE and final presentations.
+
+## Team Meeting Notes
+* Prepared for final VIP Presentation by continuing to run EMADE and obtaining results for MOGP evolution of individuals on Titanic dataset. Received help from VIP Alumni in fixing minor bugs in selection_methods.py file (selDCD() method not being able to take individuals with a length not a multiple of 4, resolved by pulling recent commit from EMADE git repository) and began setting up pymysql to pull in MySQL data as pandas dataframes and conduct analysis on metrics like average analysis time across generations, most frequently occurring primitives in Pareto optimal individuals in each generation, and number of valid individuals over time. 
 
 ## Subteam Notes
-Met with team on Friday to ensure team could run worker processes and connect to the MySQL server I created. Worked with Charlie during Saturday's hackathon to add our group's preprocessing to the titanic_splitter.py file and run EMADE with the updated train-test folds. Noticed Pareto front individuals gradually developing and being stored in titanic schema in my localhost. We are planning to remove the 3rd objective from the evaluation function to ensure a direct comparison to the Titanic ML and MOGP projects. 
+Met with team to run through presentation and ensure we were ready to share our findings of using EMADE for the Titanic problem as well as hear from main VIP teams on their team focus areas and get a sense of which team we would like to join after bootcamp. Had to adjust to Rayan D. withdrawing from the course by reassigning presentation parts close to the presentation date and revising our work for the Titanic ML and MOGP assignments. 
+* As all of us were experiencing the OperationalError("MySQL Connection not available.") when trying to connect to my MySQL host with the pymysql package in a Colab notebook after some time, we decided to conduct our remaining analysis by pulling our EMADE databases as .csv files into our Colab notebook and working with them as Pandas dataframes. 
+* Charlie worked on revising our MOGP results with Dr. Zutty and Dr. Rohling's suggestions from our earlier ML and MOGP presentation, as well as making the graphs for the FPR and FNR predicted by EMADE on the Titanic dataset. Since EMADE gave us the average FP and FN predicted across all 5 folds of our train and test sets, we multiplied this value by 5 to get the total FP and FN prediction count across all folds and divided by the total number of positive and negative values of our target feature to get the FNR and FPR across our entire dataset. Charlie worked on this conversion as well as creating a graph with our final generation's individuals' fitnesses plotted and our final EMADE Pareto front.
+* My team and I met to practice the presentation on Sunday and discussed ways to best showcase our unique approach to the Titanic EMADE problem as compared to other bootcamp groups. We decided to focus most heavily on our analysis of EMADE's capabilities, limitations, and performance, as well as our results: our final Pareto front, average evaluation time for individuals over generations, learners which took in the ARG0 datapair directly, and our discussion of the tradeoffs between the ML, MOGP, and EMADE approaches to problems like Titanic as well as more complex problems with larger datasets.
 
+## Individual Notes:
+* I worked on extracting the primitive which directly took in the EMADE datapair (ARG0) for each individual in our final generation using Python regex expressions and string parsing, which gave us a sense of the primitives that can handle the features in our Titanic dataset directly most optimally. AdaBoostLearner() was the most frequently occurring such primitive. I also pulled the evaluation time data from the individuals table in our MySQL titanic database and plotted the average evaluation time for individuals across each generation of our final run, which showed that individuals on average evaluated more quickly in later generations than earlier ones. 
+* I worked on slides 2-5, 11, 13-15 of our final bootcamp presentation: https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing. 
+
+Observations
+* Our revised MOGP Pareto frontier (using selDCD()) had an AUC of 0.1514, an improvement from our original Pareto frontier AUC of 0.2071 when we used selNSGAII() as our selection method, which failed to select individuals based on crowding distance correctly. A much greater number of individuals existed in the final generation of our MOGP run with selDCD(), indicating that selNSGAII() was weeding out individuals unjustifiably based on its truncation of individuals with similar ranks but different crowding distances. 
+* We had a bug in our MOGP final generation graph with the selDCD() selection method where only the Pareto front was appearing on the graph, but not the rest of the valid individuals for the final generation. We saw that we had accidentally reset the population to the initial offspring list in each iteration of the evolutionary loop instead of setting the population to be the evolved offspring (after mating, mutation, etc.), so every individual was Pareto optimal in each successive generation. We fixed this and saw that all individuals were appearing on the fitness graph as desired. 
+* EMADE's pset contained both simple and complex primitives (ex. logical operators and decision tree classifiers), which allowed for selection of individuals after several generations when many individuals consisted of the same primitives and therefore performed similarly to one another.
+* We ran 20 generations of EMADE with an initialPopulationSize of 200 and a minQueueSize of 50. We initially started out with an initialPopulationSize of 512 and a minQueueSize of 250, but evaluation was taking around 1-2 hours with these changes (especially with inconsistent worker processes running on my master process), so we decreased both of these values such that we could at least get 10-12 generations to complete in a reasonable amount of time. The starting population for each generation grew steadily with time, such that by the 20th generation, evaluation was taking around 2 hours per generation as with the starting generation for EMADE with an initialPopulationSize of 512. 
+* Both the number of Pareto optimal individuals and the number of individuals in total for each successive generation increased steadily, with a final Pareto front size of 23 and 314 valid individuals in this generation. 
+
+* Inside pictures from slides here, explain them, talk about process of obtaining results and different obstacles while generating analysis graphs
+ 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
@@ -27,6 +214,41 @@ Met with team on Friday to ensure team could run worker processes and connect to
 | Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
 | Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
 
+# Week 8: October 13th, 2021
+## Overview
+Workday for EMADE and MySQL remote connection setup. 
+
+## Team Meeting Notes - EMADE Work Session
+* We had a work session today to resolve any EMADE installation issues and ensure MySQL connection was possible for remote clients so that we could run additional master and worker processes in EMADE on our Titanic dataset and increase the size of our output data in preparation for fitness/evaluation time graphs for our final presentation. 
+
+## Subteam Notes:
+* Charlie is set up with a conda environment and the EMADE git repository cloned, but is having some issues with installing packages (ex. opencv-python) in his conda environment. Installation is highly laggy, which may be due to his eduroam connection; he will attempt to install these packages again and set up a MySQL connection to my host server after successfully doing so. 
+* Rayan D. is continuing to experience lag issues with the build wheel while both cloning the EMADE git repository and installing packages in his conda environment; I am planning to set up a meeting with him later this week to help him debug these issues.
+* Rayan K. has successfully created a conda environment with all of the required packages to run EMADE and is currently installing MySQL workbench to attempt remote connection with the changes to my my-cnf file from last week. If this is successful, we will continue to use the MySQL workbench to read and write to our EMADE databases, as the GUI it provides is easy to work with and write SQL queries in to retrieve evaluation data for the individuals in each of our runs.
+
+SQL configuration meeting:
+* Rayan K., Charlie, and I met to ensure that consistent remote connection to my SQL server was possible.
+As Charlie was able to successfully connect to my database, we determined that the IP address returned from different sites for my computer were different from one another; as such, we experimented with each such IP address until we identified that this site returned the address that my team mates were all able to input into their input_titanic.xml files for successful connection: https://whatismyipaddress.com/ip/128.61.41.136. 
+
+## Individual Notes
+* I am fully set up with the EMADE git repository and a conda environment with all packages necessary to run EMADE. I have run master processes successfully 2-3 times, and during each run master.out indicates that the vast majority of our individuals have initial fitness values of (inf, inf). In addition, most of our trees have primitives which take in invalid inputs; we will wait and see if this issue is persisting and if it is after 10 generations, we will modify our primitive set in gp_framework_helper.py and ask Dr. Zutty if this is expected behavior for EMADE on the Titanic dataset in particular. 
+* I started a master process Saturday morning and noticed that the evolution process was extremely slow as compared to the first trial run I did during the hackathon the previous Saturday. During this hackathon, we ran EMADE and obtained around 15 individuals in our Pareto front after about five generations. In this new run, each generation was taking approximately an hour to complete, with the number of individuals left for evaluation in the queue hanging approximately mid-way through each generation. This led my team to believe that their worker processes were not actually running on my master process as we had initially thought, or workers were periodically disconnecting throughout my master process. My team members continued to re-connect to my MySQL host until we were able to run a process which appeared to evolve individuals much more quickly than before.  
+
+Meeting with Rayan
+* I met with Rayan on Friday to help him get past the build wheel issue when installing packages in his conda environment. We initially tried running pip install --upgrade pip setuptools wheel and re-installing based on a suggestion from a Stack Overflow post. As this did not resolve the issue, we tried troubleshooting his system to identify any storage limitations/junk files to delete, and having cleared his Anaconda bin file of all old environments, he was able to install all conda packages and proceed with the rest of EMADE setup successfully. 
+
+We observed that most individuals evolving in the first few generations of our run were either returning with an error or evaluating to (inf, inf). Only around 5-10 individuals were actually evaluating to finite fitness values in the first 10 generations of our run; we expect to see more individuals evaluating successfully in successive generations as individuals that are evaluating properly are rewarded by our selection methods. 
+When we restarted EMADE once with reuse=1, we observed that the number of individuals at the beginning of generation 0 was drastically greater than the starting number of individuals in the initial run (~750 individuals vs. ~200 individuals for an initialPopulationSize of 200). This indicated that seeding increased population size as well as the number of individuals that evaluate successfully at the end of each generation, but this also meant that each generation took much longer to run. As such, we avoided reuse going forward and saw an EMADE run to completion with reuse=0. 
+
+input_titanic.xml, master.out, MySQL databases screenshots here 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Initiate EMADE run with worker processes and databases in MySQL workbench | Done | 10/13/21 | 10/20/21  | 10/15/21 |
+| Assist Rayan D. with conda environment setup | Done | 10/13/21 | 10/20/21  | 10/16/21 |
+| Understand EMADE database outputs, ideate graphs to track EMADE activity over time | Done | 10/13/21 | 10/20/21  | 10/17/21 |
+
 # Week 7: October 6th, 2021
 ## Team Meeting Notes
 ### Lecture on EMADE
@@ -34,15 +256,21 @@ Met with team on Friday to ensure team could run worker processes and connect to
 * Looked at EMADE repository on GitHub and got a view of input file that specifies MySQL database configuration for EMADE output and parameters of evolution, launchGTMOEP.py which initiates the evolutionary process, and the gp_framework_helper.py file that contains references to primitives used to create EMADE individuals).
 * Received information about presentation on Monday, October 25th where bootcamp and returning students will present their EMADE presentations and hackathon on Saturday, October 16th, where new students can receive help from returning students for EMADE setup and analyzing output from running EMADE on Titanic dataset. 
 
+
 ## Subteam Notes
-* Worked with rest of team asynchronously to set up master and worker processes for EMADE. I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections. 
+* Worked with rest of team asynchronously to set up master and worker processes for EMADE.  
+* Rayan D. is having trouble setting up his conda environment and installing all of the required packages, as the build wheel is hanging every time he runs the "conda install" and "pip install" commands for his conda environment with Python 3.6. We believe this may be due to his WiFi/VPN connection and he will try again on eduroam and guest to eliminate any address-pinging issues he is currently having.
+
+## Individual Notes
+* I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections.
+* I used https://whatismyipaddress.com/ip/128.61.41.136 to identify my IP address and share this with my team members so they could replace the host name string in their input_titanic.xml file and connect to the server I had created. I initially modified the value of the "Limit to Hosts Matching" field under the Users and Privileges tab in MySQL workbench to '%' so that any host would be able to connect to the instance of my MySQL server. However, my team members were still unable to connect to my instance with this change. After much research on MySQL's permission configurations, I changed the bind address specified in my.cnf in the MySQL bin folder to 0.0.0.0, so that any IP address would be allowed to connect to my MySQL server. Remote connection was still failing with these changes, at which point I found this article: https://linuxize.com/post/mysql-remote-access/ which indicated that access needed to be granted via the GRANT command to all users with the following command: GRANT ALL ON database_name.* TO user_name@'ip_address' IDENTIFIED BY 'user_password'; and that any firewalls would have to be removed. With these changes, my team workers were able to run EMADE worker processes with our own preprocessed Titanic data from the ML and MOGP assignments and write to and read from my MySQL instance.  
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/14/21  | |
-| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/14/21  | |
-| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/17/21  | 10/16/21 |
+| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/17/21  | - |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | - |
 
 # Week 6: September 29th, 2021
 ## Overview

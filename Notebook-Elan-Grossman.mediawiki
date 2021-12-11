@@ -10,6 +10,431 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+
+== December 6th ==
+
+''' Lab Notes '''
+
+Focus is on getting the environments set up correctly. Everyone has a yml file to install the correct Conda environment.
+My task is to run Second Mate mutations with Rohan. I will download an xml file and run that job on PACE and report back with findings
+
+''' My work '''
+
+ROC vs F1
+
+It was brought into question what space we would be comparing between the two fields. I had this to say:
+
+the F1 score is really just a weighted (harmonic?) mean of two scores, or another way of handling multi-objective functions by condensing them into 1. You’re rewarding the algorithm for performing well in both precision and recall and not one or the other. You lose out on being able to set thresholds for each measure individually such as recall > 0.9, precision > 0.7.
+
+ROC is comparing how much better you TPR is than your FPR at different classification thresholds (default is X > 0.5 = True). Let’s say the threshold is at X > 0.9 = True. If your TPR is greater than your FNR, that means that your predictions are really robust and easily distinguishable. The AUC for the ROC is a single number that reflects its ability to distinguish between the two classes. However, this only works if the labels are weighted equally. If your dataset is always made up of positive individuals, your TPR will always be extremely high because it can always choose to predict the trivial case of X = True for all values.
+
+A large F1 score could somewhat couter-act an unbalanced ROC because the trivial case mentioned above is analogous to having perfect recall, but low precision. However, F1 score is not precision. In this unbalanced example, if recall is 0.95 and precision is 0.3, your F1 score is 0.456. But now you’re just comparing precision and recall. Everything I read says to just use precision-recall curves instead for unbalanced datasets. This is because for unbalanced datasets, the change in FPR and FNR provide little change in ROCAUC. It’s actually extremely difficult to change the ROC for unbalanced data.
+[[https://towardsdatascience.com/demystifying-roc-curves-df809474529a]]
+[[https://www.biostat.wisc.edu/~page/rocpr.pdf]]
+[[https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-imbalanced-classification]]
+
+Dr. Zutty suggested splitting up F1 into Precision and Recall. Since Recall is the TPR, we only need to compare these values with the FPR and NPV which are the same metrics but for the other class. For example, your recall can be calculated for positive and negative examples and their relationship is not necessarily linear, but they do tend to correlate.
+
+Tree Vis
+
+By default the tree vis doesn't take into account adfs. Take this tree:
+<code>tree|FullDataSet ROC AUC|FullDataSet Num Parameters
+NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_4(InputLayer)))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))\nadf_1: Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer))\nadf_4: Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))</code>
+
+This is actually made up of a single tree with references to two adfs, adf_1 and adf_4. We can rearrange the graph like so:
+
+<code>NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))</code>
+
+But this produces a weird tree that looks a little busy:
+
+INSERT BAD TREE HERE
+
+We can instead remove unnecessary parentheses to make the tree look slimmer:
+
+<code>NNLearner(ARG0, GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize1, MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), falseBool, AdadeltaOptimizer)</code>
+
+INSERT GOOD TREE here
+
+Maybe we can write code to clean the trees and produce the visuals
+
+
+== December 1st ==
+
+''' Lab Notes '''
+
+I was sick this day. Please refer to the team notes
+
+''' My Work '''
+
+Do to the holidays, I didn't get much done. However I did reset my environment.
+My new goal is to help out with presentations and anything else worth investigating.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Prepare Presentation
+|In Progress
+|December 1st, 2021
+|December 10th, 2021
+|-
+|}
+
+== November 24th ==
+
+''' Lab Notes '''
+
+We had our hackathon on Sunday. During this time I was was able to make progress on getting Emade to work, but there were many more packages I needed to have installed. I found out at the end that Max had built a new shared environment.
+These were the steps I coppied form Max to set up the environment:
+
+module load tensorflow-gpu/2.6.0
+module load cuda/11.2
+module load anaconda3/2021.05
+conda create -n tf2.6 python=3.8.5
+
+conda config --add channels conda-forge
+conda install -c conda-forge cudnn=8.1.0.77
+
+
+''' My Work '''
+
+When Running Emade:
+After running the default chest X-ray input xml, all files ended up with “Tree missing valid primitive for data type At least one objective returned inf” even after 200 or so generations.
+It turns out that there were issues in my environment. I was able to find out why later, but essentially, I was using the shared environment that was installed with a different version of GPFramework than the one I had uplaoded.
+To correct this, I uploaded the merged in files from our branch. However, someone had installed a version of GPframework that was experimental, so I could not get it to work even then. I settled with creating my own environment all over again.
+Ultimately, my lesson was to get everything working on my workstation at home first and then use PACE.
+
+I also helped the other new members with their code and getting setup in emade. There seems to be issues with getting the socket to work correctly for mysql.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Run simulations for Emade
+|In Progress
+|November 8th, 2021
+|November 22nd, 2021
+|-
+|}
+
+== November 17th ==
+
+
+''' My Work '''
+
+
+
+My job is to use the single tree evaluator to investigate files
+TO do this, I had to modify src/GPFramework/standalone_tree_evaluator.py so that the NNLearner in question could be evaluated.
+
+I investigated this error:
+
+Received: NNLearner(MorphOpenCross(ECDF(mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), passInt(3)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(Axis.FULL), equal(ifThenElseFloat(falseBool, 10.0, 10.0), myFloatMult(4.367807167497753, 100.0)), greaterThanEqual(myFloatIntSub(0.1, -4), myIntToFloat(50))), InputLayer(), 83, AdamOptimizer)
+	With Hash 3616875e8b8637f3866689ac17bedd5d62883832eefa649a7888be1d13920bd5
+	Computed in: 40.843586444854736 seconds
+	With Fitnesses: (inf, inf)
+	With Age: 0
+	With Error:  **********y should be a 1d array, got an array of shape (2500, 15) instead.Traceback (most recent call last):
+
+Error is with mySelPercentile(ARG0, TriState.STREAM_TO_FEATURES, 50, trueBool)
+According to https://github.gatech.edu/emade/emade/blob/4fd66103f8713517765c534956f42ab714d5e59e/src/GPFramework/feature_selection_methods.py, this implements the selectPercentile method in tensor flow: https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectPercentile.html
+
+It takes in a scorefunc and a percentile:
+SelectPercentile(chi2, percentile=10)
+Score_Func: “Function taking two arrays X and y, and returning a pair of arrays (scores, pvalues) or a single array with scores. “
+
+In this case, the method is taking in a 2d array when it should be processing a 1d array. It's unclear why it's doing that but it is probably related to the TriState
+
+
+FSW wrapper - allows all different primitives to work with ARG0 and TRISTATE
+TRISTATE- how to treat the data
+STREAM2STREAM - keeps it raw
+STREAM2FEATURES - cannot go back to stream
+
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|Complete
+|November 3rd, 2021
+|November 8th, 2021
+|November 9th, 2021
+|-
+|Investigate Errors in NNLearner
+|Complete
+|November 8th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Run simulations for Emade
+|Not started
+|November 8th, 2021
+|November 22nd, 2021
+|-
+|}
+
+== November 10th ==
+
+''' Lab Notes '''
+This was the first weeks where we were assigned tasks to work on. I was assigned to help out with general bug fixing and explanation of failed trees.
+
+The general breakdown of branches are:
+Master -> CacheV2 -> sub teams -> nn-vip -> Image-Processing(nn-vip)
+This means that we want to merge with nn-vip most of the time keep up with changes to NNLearners
+
+Laundry list of problems
+- CV2Transposed takes in particular data type
+- Tristate - how to treat stream data - > feature data -> other features
+- Local variablele current layer referenced before assignment
+
+Script in Emade  to debug -> standalone tree evaluator
+- Stringstoeval (paste in string), xml file
+- databasetree_evaluator -> puts in hash and looks up in database
+
+
+
+''' My Work '''
+
+* Got Emade running on PACE-ICE
+** I used SVN commands to copy over specific files from the branch since my local computer was OOM
+** These commands allowed me to download files and uplaod them to emade
+1) svn checkout https://github.gatech.edu/amehra37/emade/branches/Image-Processing\(nn-vip\)/src .
+2) scp -r  GPFramework egrossman3@pace-ice.pace.gatech.edu:/storage/home/hpaceice1/egrossman3/projects/emade/
+** We do not need download the necessary files and can instead reference dir:/storage/home/hpaceice/shared-classes/materials/vip/AAD/id_group
+
+* Set up mysql server to run asynchronously
+** The Pace set up guide [[Guide to Using PACE ICE]] has an old guide and new guide. However, the new guide does not have the #PBS lines required to run PACE jobs.
+** Combining the #PBS lines from the old guide to the scripts in the new guide solved my problem
+* Had some trouble connecting to database
+** Took a few tries to make sure the socket was in the right place and permissions were granted accordingly
+** Other interns had this problem too. Triple checking all of the paths in the files I ran was key. Recreating the database with the correct myconf file was also helpful
+* Also had issues with conda environment due to not installing everything needed
+** There exists a shared env out there somewhere. This will make it easier to get everything working
+** One thing that is frustrating is that as new modules are added to the codebase, the requirements file is not updated. This means I have to keep running the code to find out what was not installed.
+* One issues is that I was running mysql with 1 hour, but Emade for 8 hours
+** In the future, I can set the mysql server to run for longer to prevent having to reset the database and find out that all my jobs fail instantly
+
+ChexNet Paper
+
+[[https://arxiv.org/pdf/1711.05225v3.pdf]]
+This paper covered the research we are trying to compare against. The authors generated a single CNN architecture that could then train individually on 14 different binary classifiers to determine which disease was present in a chest X-ray image. Originally, our team's research was to have each of these 14 diseases as an objective in the dataset, but that created a complex paretofront. The question that I raise is "Is Emade successful if it can generate a single architecture that can perform well on each disease or if it should generate a unique architecture for each disease?"
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|In Progress
+|November 3rd, 2021
+|November 8th, 2021
+|-
+|-
+|Investigate Errors in NNLearner
+|Not Started
+|November 8th, 2021
+|November 15th, 2021
+|-
+|-
+|Read ChexNet
+|Complete
+|November 3rd, 2021
+|November 8th, 2021
+|November 4th
+|-
+|}
+
+== November 3rd, 2021 ==
+
+'''Lab Notes'''
+
+* We want comparison to be closer to chest-x-ray paper by modifying dataset. The paper individuals compares the presence of one disease with every other image and trains the same classifier on the 14 different diseases. We will do something similar, but with less data.
+* Switching to a multi-class instead of multi-label algorithm. This means we will only evaluate cases where one disease exists
+
+TASKS:
+* Get set up on PACE-ICE
+* Clone fork ‘Image Processing(nn-vip)
+* Read ChexNet
+* Review VIP paper
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Get set up on PACE-ICE
+|In Progress
+|November 3rd, 2021
+|November 8th, 2021
+|-
+|-
+|Read ChexNet
+|In Progress
+|November 3rd, 2021
+|November 8th, 2021
+|-
+|-
+|}
+
+
+
+== November 1st, 2021 ==
+'''Lab Notes'''
+Today we choose teams. I got put on the Image Processing Team!
+
+Everyone did standup and discussed what changes they made in the previous week and what work they were going to work on this week.
+
+== October 25th, 2021 ==
+
+'''Lab Notes'''
+Today was a presentation around Emade for sub teams and bootcamepers. Presentation is at [[Bootcamp-Subteam-1]]
+
+5 Teams other than us presented:
+* NLP
+** Currently trying to get LSTM networks to work
+** Trying to implement solution that is competitive with distilBert
+** Use SQUAD dataset that contains questions and answers
+
+* Neural Architecture Search
+** This team is responisible for making Nueral Networks work with Emade
+** Currently have difficulty outperforming seeds - random solutions don't converge without a bit of help
+** Implemented time stopping to end computations early if they do not have much promise
+** Also working on speeding up preprocessing which is currently very slow for text tokenization
+** Reward novelty by keeping networks that are less frequent
+
+* Image Processing
+** Use image classification for multi-label algorithms to detect 14 deseases from chest x-ray images
+** Because there are 14 objectives, it's difficult to get good results (Always same AUC)
+** Experimenting with adding hyper-features for image processing - combine 2 or more primitives into one
+** Uses the high performance computing cluster for testing
+
+* Market / Time Series Analysis
+** Implementing trading algorithms
+** Use price and volume data to determine when is best to buy and sell
+** Are trying to compare methods with SOTA papers
+
+* Modularity
+** Find ways to keep multiple leaf nodes as a single primitive known as an ARL
+** By keeping ARLs, better solutions can be found because this prevents leaf level mutations. Instead, you introduce sections of the tree that work
+** Currently only looking at tree depths that are 1 but are looking at more
+** Not successful in getting AUC lower with newer ARLs
+** Make sure ARLs get passed on. To next generation without mutation
+** Looking to write a paper
+
+
+'''Personal Notes'''
+This week was spent getting test results from our titanic experiment. We ran two seperate tests in order to make sure we were doing the right thing
+* Using our own preprosessed titanic data files on the default input_titanic.xml
+* Running the same files but with a modified xml
+
+Unfortunately, we found out pretty late that the files we generated were missing the labels and the test set was created from test.csv and not a part of our train.csv file.
+This meant that our algorithm might have been predicting null values. In fact, our pareto set found an AUC of 0 because one of the algorithms computed NULL.
+We reran our dataset and were able to achieve an AUC of 0.134 for the default controls
+
+We made a few modifications to our xml
+* Headless Chicken percent was doubled - this acts similar to a mutation so we also lowered those values
+* Cross over was changed to 0.4 and headless chicken to 0.2
+* Ephemeral was kept the same
+* All other mutation methods were set to 0.025 to account for headless chicken
+
+After 115 generations, our AUC was 0.131, lower than our previous dataset
+[[files/sub-team-one-files/G12021EmadePresentation-20.png|thumb|20x10px]]
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Use Emade on Titanic
+|Completed
+|October 5th, 2021
+|October 25th, 2021
+|October 25th, 2021
+|-
+|Choose a team
+|Not Started
+|October 25th, 2021
+|October 29th, 2021
+|-
+|}
+
+== October 20th, 2021 ==
+
+'''Lab Notes'''
+This week was a working session to get emade set up and working. We also had a weekend event.
+
+
+'''Personal Notes'''
+
+* I had gotten Emade to begin processing titanic dataset using the default data. The AUC was calculated to be around 0.14 after 70 generations
+* This is without changing any of the default parameters
+* I spent a good deal of time helping the other members set up their environments. The goal was to get them to connect to my master job on my remote server and provide thier own evaluations from their local machines
+* After both working sessions, all of my team-mates were able to connect to my database.
+* There are issues with the evaluation finding a lot of inf values, which are inadequate
+
+Next steps were to modify the algorithm and have it run on our own datasets
+
+Work to be done:
+* Generate new csv.gz files for processing by emade using our previous preprocessing script
+* Examine the default xml file and determine what parameters we wish to change
+* Generate new pareto front for project
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Peer Evaluations
+|Completed
+|October 4th, 2021
+|October 8th, 2021
+|October 6th, 2021
+|-
+|Get Emade set up locally
+|Completed
+|October 5th, 2021
+|October 13th, 2021
+|October 15th, 2021
+|-
+|Use Emade on Titanic
+|In Progress
+|October 5th, 2021
+|October 25th, 2021
+|
+|}
+
 == October 13th, 2021 ==
 
 '''Lab Notes'''

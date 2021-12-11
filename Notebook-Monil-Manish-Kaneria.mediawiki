@@ -11,9 +11,288 @@ Interests: Machine Learning, Python, Soccer, Chess
 == Fall 2021 ==
 
 * Image Processing subteam
-** Teammates: Harris Barton, Maxim Geller, Aryaan Mehra, Temi O, Heidi Yap, Dhruv Patel
+** Teammates: Harris Barton, Maxim Geller, Aryaan Mehra, Temi O, Heidi Yap, Dhruv Patel, Austin Peng, Eashan Sinha, Elan Grossman, Rohan Batra 
 ** Subteam meetings 5:45-6:45pm on Wednesdays
 ** Main meetings 5-5:50pm on Mondays
+
+
+== November 10, 2021 ==
+
+'''Sub Team Notes:'''
+
+* I talked with Jason to understand why the issue below was happening, 
+** The standalone tree script threw an error with 'TriState.STREAM_TO_FEATURES' in the tree, but it ran fine if I changed it to 'TriState.STREAM_TO_STREAM'.
+* The Reason was because the the line 327 and 329 in GP_frameworks_helper were commented out and so the pset from `TriState.STREAM_TO_FEATURES` was not working. 
+** [https://github.gatech.edu/amehra37/emade/blob/Hyperfeatures_Image_Proc/src/GPFramework/gp_framework_helper.py]
+
+* I now opened the pull request for the Hyper-feature branch which the team will evaluate.
+** [https://github.gatech.edu/amehra37/emade/pull/6] 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
+|Completed
+|Movember 8, 2021
+|November 15, 2021
+|November 10, 2021
+|-
+|Work on Fixing the Issue with hyper feature not working with chestxray data but works with image datase.
+|In-Progress
+|Movember 8, 2021
+|November 17, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|Completed
+|October 27, 2021
+|November 15, 2021
+|November 10, 2021
+|}
+
+
+== November 8, 2021 ==
+
+'''Team Meeting Notes:'''
+
+* I met with Max a 30 minutes before the meeting to fix an issue i was getting in running the standalone script.
+* We figured that the error was because of unnecessary hyper parameters in the tree which looked like this with highlighted hyper-parameters, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL), ''' 6, 7, 0.1 '''), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+* I changed it to this, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+
+* This seem to resolve the issue with the tree but it revealed a weird thing. 
+* The standalone tree script threw an error with 'TriState.STREAM_TO_FEATURES' in the tree, but it ran fine if I changed it to 'TriState.STREAM_TO_STREAM'.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|Completed
+|October 27, 2021
+|November 8, 2021
+| November 8, 2021
+|-
+|Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
+|In-Progress
+|Movember 8, 2021
+|November 15, 2021
+|
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|Completed
+|November 3, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 15, 2021
+|
+|}
+
+
+== November 3, 2021 ==
+
+'''Sub Team Notes:'''
+
+* The p-value was very high which was causing the selection methods to fail. 
+* Next steps:
+** Fix environment errors
+** Testing the new changes for nsga 3.
+** New member and Harris will try out Lexicase.
+** Test the current version and talk to Jason more about exactly what are the difficulties.
+* Need to create new dataset.
+* New team assignments:
+** Rohan - hyper features
+** Elan - infrastructure, doing runs on pace
+** Austin - selection methods
+** Eashan - mating, mutations
+
+* I was getting the error,
+` Traceback (most recent call last):
+  File “standalone_tree_evaluator.py”, line 139, in <module>
+    database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py”, line 585, in load_environment
+    dataset_names=dataset_names, statistics_dict={}, cache_dict=cacheDict, is_worker=True)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py”, line 56, in _init_
+    super()._init_(connection_str, reuse, fitness_names, dataset_names, statistics_dict, cache_dict, is_worker=is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 293, in _init_
+    cache_dict, is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 89, in get_session
+    engine.execute(text(‘SET innodb_lock_wait_timeout = ’ + cache_dict[‘timeout’]))
+TypeError: must be str, not NoneType `
+* I talked with Jason and figured that I needed to add the "cache timeout" value which i was missing in my xml file.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|In-Progress
+|November 3, 2021
+|November 8, 2021
+|
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
+== November 1, 2021 ==
+
+'''Team Meeting Notes:'''
+* Consideration: reprocess data to just have single label for train/test (if there are not too too many multi-label cases), look at distribution of labels to ensure this will produce enough data
+* To get vector out: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
+
+* I made progress with working on the standalone tree to test the hyper-feature.
+* This is the tree I used which is took from one of Max's trees that he had evaluated and replace the primitive with mine.
+** --- NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)) ---
+* I initially got some mysql errors and figured it was because i was not running the pbsmysql.pbs script correctly and so my node was not running. So I moved the pbsmysql.pbs script in my ~ directory on pace and it worked fine.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
+== October 27, 2021 ==
+
+'''Sub Team Notes:'''
+* We decided to pursue binary classification for disease detection
+* Tasks for the week:
+** Fix modifications & merge
+** Onboard new members
+** Reprocess data (disease or no disease)
+** Change objectives (ROC-AUC, # parameters)
+** Create new tasks
+
+* I will be working on producing a Standalone tree for the Hyperfeatures primitive to get test results 
+* Then I will open up a pull request to merge my Hyperfeatures-Image-Proc branch in to our affective master, Image-Processing(nn-vip).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 1, 2021
+|
+|}
+
+
+
+== October 25, 2021 ==
+
+'''Team Meeting Notes:'''
+* MidTerm Presentations
+
+* NLP
+** Simulating the Bi-DAF model by first creating a word embedding and obtaining an output based on the context of the word
+** Using the SQUAD dataset from Stanford with 100,000 answered and 50,000 unanswered questions.
+** Trying to get close to the SOTA which is an F1 of 93.214
+** Haven’t completed all the primitives yet such as the output layer which is why they do not have any results yet.
+** Planning on using Facebook’s dataset. Dynamic/Episodic memory is the best as of now.
+
+* NAS
+** Overall goal is to make EMADE competitive with VGG16 and other large structure architectures
+** Objectives: minimize accuracy errors and number of parameters
+** Used time stopping of 600 vs 2500 seconds, latter ended in 1500 but generated less valid individuals and slightly better accuracy error (-0.05)
+** Higher number of layers → higher num of error individuals (though 2-5 was less than baseline)
+** Used only dense layers and convoluted layers
+** Tracking layer frequencies across generations
+** Created NNLearner table to track NNLearner individuals’ statistics
+
+* Stocks
+** Objectives: use EMADE for regression on time series data and optimize market trading algorithm ; beat SOTA using EMADE
+**They are trying to model papers and use technical indicators to predict price change points
+** Best primitives to use: modelled TI’s versus the different regression techniques that are implemented
+**Maximize profit percentage and average profit per transaction, minimize CDF of profit and variance of profit per transaction (four obj functions total)
+** Best performance was with the least complex tree (only one TI)
+**They are using minimization rather than maximization functions since they work better on EMADE.
+
+* Modularity
+** Goal: allow search function to consider larger subtrees depth. Improve ARL candidate selection through a new weighting function (occurrences * ARL size / fitness of individual)
+** Runs with both the old ARL’s and newer ARL’S are worse than with no ARL’s
+** More data is needed to see effects of ARL complexity on performance
+** Using ARLs with Stocks
+*** Used various technical indicators
+*** Problems with Google Colab’s limited computing power and merging stocks’ codebase into the ARL codebase
+*** Individuals not evaluating because of cachev2 updates
+** ARL: adaptive representation through learning
+*** ARL’s are implemented between the genetic operations and the evaluation phase
+*** Must be a complete tree
+*** It basically abstracts away complexity
+
+* Here are our Midterm Presentation slides: [https://github.gatech.edu/mkaneria3/VIP-FALL2021-ImageProcessing/blob/master/Image%20Processing%20Midterm%20Presentation.pdf]
+** I worked on the Hyperfeature slides.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Prepare my slides for the mid-term presentation
+|Completed
+|October 20, 2021
+|October 24, 2021
+|October 24, 2021
+|}
 
 
 == October 20, 2021 ==

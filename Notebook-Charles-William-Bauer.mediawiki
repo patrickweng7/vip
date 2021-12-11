@@ -1,6 +1,516 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
+==December 6th, 2021==
+During the final week for the semester, I revised, practiced, and presented my slides.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|VIP final presentation slide preparation and practice.
+|Complete
+|11/15/2021
+|12/10/2021
+|12/10/2021
+|-
+
+===VIP Presentation Notes===
+Image processing: Tensorflow.ImageDataGenerator for resizing, normalization, and horizontal reflection; Receiving Operator Characteristic: true positive rate vs. false positive rate for each possible classification; tested NSGA3 and Lexicase selection; semantic crossover attempts to find subchild between two parent trees -> large, unbalanced trees; Sobel filter, sharpening filer, and Grey level transformation were not able to improve performance
+
+NLP: word embeddings include Word2Vec, Glove, and Fasttext; QA split: queries, context, and answers; used multiple data pair inputs at once by changing EMADE.py and load_environment; objectives are number of parameters and mean squared error of F1 score: number of matches between answer and conversion of predicted indices to text; need regression with multiple outputs; SQUAD processed into train/test with q and start index of answer and train/test with context and start index of answer; NNLearner2 has two args
+
+===NAS Presentation===
+I created and presented the slides titled "NN-VIP Setup on PACE" and "NN-VIP vs. other EMADEs" which are described in previous weeks' notes.
+
+The presentation can be accessed here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing
+
+==November 29th, 2021==
+The last full week of classes. I created a slide on nn-vip emade branch generally. I also discussed the literature review with Lucas and Pranav.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slide about nn-vip emade differences from other branches.
+|Complete
+|11/15/2021
+|12/10/2021
+|12/3/2021
+|-
+
+===Main Meeting Notes===
+Evolutionary Neural AutoML (UT Austin) https://dl.acm.org/doi/pdf/10.1145/3321707.3321721 could be a good focus for literature review since it has more advanced implementation than nn-vip and CoDeepNEAT. Lucas and Pranav will handle the literature review during the presentation since I have other slides.
+
+==November 22nd, 2021==
+Thanksgiving week entailed creating a slide on emade setup.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slide about nn-vip emade setup.
+|Complete
+|11/15/2021
+|12/10/2021
+|11/19/2021
+|-
+|Research hyperparameters that are commonly used for each layer used in nn-emade.
+|In progress
+|11/15/2021
+|12/6/2021
+|
+|-
+|}
+
+===Layer Research===
+We decided to focus on other content for the presentation since most sources discussed how to tune hyperparameters and only a few mentioned layers and parameters that consistent work well together. LSTM layers (definitions in previous weeks) should be some of the most common because recurrent neural networks can handle mid-sized image datasets and long evaluation times well. LSTMs prefer tanh activation and implicitly utilize multiple activations and prefer adaptive optimizations. A layer type we could consider is Gated Recurrent Unit (GRU) whose Keras implementation is basically a faster LSTM with fewer hyperparameters. Also BERTInputLayer in nn-vip is implemented as a DistilBERT layer with a pretrained model and a dense layer at the end. The comments explain BERT doesn't recognize hidden layers from previous modules and the input-output format produce errors when used in an NNLearner. I am not sure whether the DistilBERT are actually being selected by EMADE and how they treat parameters differently.
+
+===EMADE Setup Slides===
+I made a slide that summarized PACE setup, cloning emade, creating a conda environment via pip, yaml or shared class, and CIFAR-10 setup. Cameron B quickly looked over the slide before the subteam meeting Friday.
+
+===Main Meeting Notes===
+NAS Ideas
+*New split: Train (fit model), test (score model, search and evaluate), validation (measure performance on unseen data)
+*Replace pooling layers with more directed combination of layers
+*Modules train in multiple individuals (concerned that multiple workers could simultaneously edit same file or database)
+*Weight sharing of layers while backpropagating a NNLearner
+
+
+==November 15th, 2021==
+This week I wrote summaries for relevant papers in my notebook.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research hyperparameters that are commonly used for each layer used in nn-emade.
+|In progress
+|11/15/2021
+|12/6/2021
+|
+|-
+|Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
+|Complete
+|11/1/2021
+|11/22/2021
+|11/21/2021
+|-
+|}
+
+===Layer Research===
+Cameron W explained the task to me during the main meeting Monday. At the hackathon, I modified a notebook I found online that used scikit-learn.GridSearchCV and KerasClassifier to quickly and manually see what combinations of activations, optimizers, weight initializations, and dimensions had stronger accuracy on CIFAR-10. I am looking into whether I can include layers beside Dense in GridSearch before running.
+
+Example: LSTM prefers tanh (sigmoid with -1, 1) over ReLU
+
+Neuralnetworkmethods.py -define each nn layer
+
+Gpframeworkhelper.py -take each nn layer and add to pset
+
+Quick ways to manually tune hyperparameters is kerastuner or bayes_opt.BayesianOptimization with scikit-learn.
+
+===NAS Independent Study===
+====Evolving Deep Neural Networks (UT Austin) + CoDeepNEAT and Keras (Bohrer, Grisci, Dorn in Brazil)====
+UT Austin: https://arxiv.org/pdf/1703.00548.pdf
+
+Brazil: https://arxiv.org/pdf/2002.04634.pdf
+
+NEAT (Neuroevolution of augmenting topologies): evolution on neurons in NN, low dimensionality because it only adds neurons that actively impact performance and don’t produce obvious errors, speciation mechanism compares algorithms within their niche
+
+HyperNEAT: abstract map of small NN into connectivity patterns to generate larger NN
+
+DeepNEAT: primitives/nodes are layers with a table of real and binary valued hyperparameters that are mutated through uniform Gaussian and random bit-flipping; individuals are neural networks (directed acyclic graphs mapping input to output) with another set of hyperparameters
+
+CoDeepNEAT: blueprint individuals are neural networks built as graphs of modules, modules are collections of layers, both blueprints and modules are evolved by changing primitives and by mutating hyperparameters 
+
+Blueprint hyperparameters: component modules, blueprint size, convolutional vs dense, loss function, optimizer, evaluation function
+
+Convolutional layer hyperparameters: filters, kernel size, stride, activation function
+
+Long short term memory (lstm) layer- modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; addresses vanishing gradient problem - if one output is 0 then the next ones are also 0; longer time scales handled
+
+CIFAR10: most approaches initialize image embedding through pre-trained ImageNet, GoogLeNet and ResNet are most successful and use modules
+
+====Evolutionary Neural AutoML (UT Austin)====
+https://dl.acm.org/doi/pdf/10.1145/3321707.3321721
+Traditional Bayesian optimization: computationally expensive, performs poorly with 10+ hyperparameters, LSTM gradient-based reinforcement requires linear or tree core structure
+
+CMA-ES: Gaussian for best individuals is estimated and used to generate next generation, controls step size and direction of population movement
+
+LEAF (learning evolutionary AI framework): extends CoDeepNEAT to multi-output optimization; divided into algorithm, system, and problem-domain components; algorithm sends Keras JSON to system layer and receives fitnesses; problem-domain makes changes for hyperparameter tuning, NAS, and complexity minimization
+
+===EMADE Setup===
+During the main meeting, I successfully bashed pace_run_cifar10.sh. The error was that I had cloned emade onto my windows computer and then scp transfered to pace. This converted the .sh, .pbs, and others to windows format instead of linux. I could convert each file with sed -i $'s/\r//' FILENAME, but instead I re-cloned emade directly onto pace to make sure I got every file.
+
+==November 8th, 2021==
+After setting up NN EMADE on PACE initially, I explored alternative methods. I also learned about teams' projects from their explanations.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Step up nn-vip EMADE on PACE by sharing the conda environment and cloning the repo into pace with ssh.
+|Complete
+|11/8/2021
+|11/15/2021
+|11/13/2021
+|-
+|Learn more about neural networks and NAS subteam projects by reviewing resources given by the Camerons.
+|In Progress
+|11/1/2021
+|11/22/2021
+|
+|-
+|}
+
+===EMADE Setup on PACE Method 2===
+I tried using Connor's video and guide to setup PACE using the shared conda environment and cloning the repo into pace with ssh. I was unable to clone with ssh.
+
+Guide: https://github.gatech.edu/cwhaley9/emade/wiki/Running-EMADE-on-PACE-using-CIFAR-10
+
+Below is a compilation of commands. The last section, CLONE SSH is in progress.
+
+    WinSCP https://winscp.net/eng/download.php
+    MariaDB https://mariadb.org/download/?rel=10.6.4&prod=mariadb&os=windows&cpu=x86_64&pkg=msi&mirror=acorn TCP 3305
+    
+FOLDERS
+
+    ssh cbauer32@pace-ice.pace.gatech.edu
+        WinSCP .my.cnf into pace
+    mkdir scratch
+    cd scratch
+    mkdir db
+    mysql_install_db --datadir=$HOME/scratch/db
+    cd /usr
+    mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'
+
+
+NEW CONDA
+
+    ssh cbauer32@pace-ice.pace.gatech.edu
+    cd scratch
+    export CC=gcc
+    module load anaconda3/2021.05
+    module load gcc
+    conda create -n env_emade python=3.6
+    conda install opencv numpy pandas tensorflow keras scipy=1.4.1 psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn
+    pip install xgboost lmfit multiprocess hmmlearn deap opencv-python keras-pickle-wrapper
+
+
+SHARED CONDA
+
+    ln -s /storage/home/hpaceice1/shared-classes/materials/vip/AAD/nlp_subgroup/shared_conda ~/.conda
+
+
+CLONE URL
+
+    git clone -b nn-vip https://github.gatech.edu/cwhaley9/emade
+    scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+        or use WinSCP to transfer clone to pace
+    sed -i $'s/\r//' FILENAME
+    qsub FILENAME for each .pbs
+    conda activate env_emade
+    cd emade
+    python setup.py install
+
+
+CLONE SSH
+    vim ~/.ssh/config
+    esc :i
+        Host pace-ice
+            HostName pace-ice.pace.gatech.edu
+            User cbauer32
+    esc :wq
+    ssh-keygen
+        enter once, type same pass twice
+    ssh-copy-id cburdell3@pace-ice.pace.gatech.edu
+    generate new ssh key for github.gatech.edu following
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+    https://docs.github.com/en/enterprise-server@3.2/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+    separate git bash window:
+    ssh -T git@github.gatech.edu
+    eval "$(ssh-agent -s)"
+    main window:
+    git clone -b nn-vip git@github.gatech.edu:cwhaley9/emade
+
+Looking at: https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey
+
+===NAS Welcome Presentation===
+Wednesday 11/10 the Camerons presented concepts behind nn-vip to me, Rayan, and Pranav. Cameron B referred us to a list of resources on the Trello page.
+
+EMADE.py - Called by command prompt (command is in README) to run launchEMADE.py which calls didLaunch.py which calls EMADE.py with XML param
+create_representation()
+
+Primitive set: MAIN = overarching nn; others are ADFs (automatically defined functions) = possible layers 
+
+buildClassifier()
+*Takes filepath to datasets from XML
+*Uses args to load data
+*Stores target data and labels
+*Splits train and test
+*datasetDict[datasetName][‘truthDataArray’] + “truth data” datapair
+*Instantiate EmadeDataPairs – truth data is actual and target data is output; allows us to track past evaluations
+
+handleWorker() - called by evaluateIndividual called by evaluate
+
+
+setObjectives() - sets up objectives
+
+setDatasets() - sets up deap.toolbox
+
+my_str() - parses individual to str to access in MySQL
+
+swap_layer() - replaces layer with another (not input or output layers)
+
+healer methods deprecated
+
+mutate() -> clean_individual() – ensures individual isn’t mutated to state that can’t be evaluated
+
+master_algorithm() - reuse=1 -> resume; connects to database; randomly creates initial population; evolutionary loop – mating/mutation, sends offspring to evaluation, periodically checks queue to see if move to next gen
+
+worker_algorithm() - evaluates individuals, gets more if under 25% capacity being evaluated
+
+Supervised learning – map input to output with unknown function approximated by learning a model
+
+Activation – introduces non-linearity; rectified linear unit (ReLU) – if result of transformation < 0 return 0 else return value; sigmoid returns 0 or 1
+
+Dense layer- interprets each input the same way
+
+Convolution layer- like a dense layer but excludes certain weights; not fully connected (using all neurons); helps with spatial relationships in image processing; treats inputs differently based on initial layers; ex. treats center pixels more important for birds and treats upper pixels for sunsets
+
+Recurrent layer- have memory; detects important of ordering of data; ex. does a layer on one word and then does a layer on that output and another word
+
+Long short term memory layer- most complex implementation; modified recurrent layer with multiple activation layers to remember or forget certain pieces of info; vanishing gradient problem - if one output is 0 then the next ones are also 0, why RNNs are not used anymore
+
+Attention is all you need transformer- not a layer but a subarchitecture that focus on self-attention mini-layer, add layer takes output of recent layer and adds to output of far back layer
+
+Loss function – objective/evaluation of nn based on truth data; higher output is worse; ex. binary cross entropy, categorical cross entropy, mean squared error; NN tries to minimize loss by following gradients and back-propagating to change weights accordingly
+
+Reducing overfitting: more data; validation data – sees how model does on withheld data during training; Regularization term penalizes complexity (L1 lasso or L2 ridge); More data; Dropout layers
+
+gp_framework_helper.py – lets you see the individuals, output types, very important for testing
+standalone_tree_evaluator.py – very important for debugging; put in one individual to make sure your desired functionality still works
+
+nnm.py – keras nn background
+
+NNLearner: recursively creates nn in keras then uses strongly type GP creatively; ARG0 (dataset), ouput layer (has subtree layers), 100, optimizer
+
+nnm.LayerList is primitive set type that has dataset, other info to make nn, functionally [input, layer,…, output]
+
+
+==November 1st, 2021==
+I joined the NAS vip subteam! I met with them during Monday's class and during subteam meetings on Friday and Saturday.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Step up nn-vip EMADE on PACE by creating a new conda environment, cloning the repo, and scp-ing the repo into pace.
+|In progress
+|11/1/2021
+|11/15/2021
+|11/8/2021
+|-
+|}
+
+
+===EMADE Setup on PACE===
+I cloned nn-vip branch from cwhaley9's fork. I went through Guide to Using PACE ICE with my command prompt and MariaDB without WinSCP. I created an environment with the package installs needed for EMADE but was stuck on how to copy emade into PACE. I learned this can be done with WinSCP or with:
+
+scp -r emade cbauer32@pace-ice.pace.gatech.edu://storage/home/hpaceice1/cbauer32
+
+Then I watched Cameron's video https://www.youtube.com/watch?v=LashYCCJF3E, but I still received "qsub:  script is written in DOS/Windows text format" error. Justin gave the command: sed -i $'s/\r//' FILENAME. I ran this command for each .pbs before the command: qsub FILENAME.
+
+==October 25th, 2021==
+*Continue to split weeks by meeting date, moving to Monday meetings.
+Week 10 featured the all-VIP presentations.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic Presentation 2
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+Aditi and I added to our slides to include the revised MOGP and EMADE. Then we rehearsed the presentation with Rayan K. I presented the slides on the MOGP results, revisions, and EMADE pareto front. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing
+
+===Presentation Notes===
+Natural Language Processing
+*Reduce complexity of Q&A systems
+*Implement NNLearners as seeds in EMADE using BiDAF primitives that handle text values
+*F1 evaluation based on TP, FP, FN
+
+Bootcamp 1
+*Preprocessing: OneHotEncoded ‘Sex’ and ‘Embarked’
+*ML: SVM, Gradient Descent, NN, Random Forest, Gaussian Process
+*MOGP: cxOnePointLeafBiased, mutNodeReplacement, tournament selection
+*EMADE: preprocessing outperformed untouched split, AdaBoost favored, many “primitive not found” errors, reuse=1
+
+Neural Architecture Search
+*EMADE’s NNLearner creates a NN using TensorFlow
+*Most randomly generated individuals underperformed seeds or were not NN
+*Created TimedStopping Callback class to stop training after time threshold, allowed creation of more individuals that evaluated quicker
+*Tokenization and OneHotEncoding for each individual before evaluation also saved time
+*CoDEEPNeat applied to EMADE
+*NNLearner SQL table for accessing specific NNLearners throughout generations
+*Extracted layer frequencies to reward novel layer types
+
+Bootcamp 2
+*Preprocessing: column mapped ‘Sex’ and ‘Embarked’
+*MOGP: SPEA2, cxOnePoint, mutUniform, evalSymbReg - activation function converted predictions to ints
+*EMADE: evaluated thousands of individuals each generation because their first generation had reuse
+
+Image Processing
+*Multilabel image classification using ImageDataGenerator for image resize, normalization, horizontal flipping
+*Objectives: Precision-Recall Error AUC, number of parameters
+*Implemented NSGA-III selection; Geometric Semantic crossover and mutation - simulated binary: cxprob biased on beta, blended cx: alpha; how can they work on tree structures
+*Hyper-features: grey level transformation - mapping pixels to output
+
+Bootcamp 3
+*Preprocessing: added ‘relatives’ = ‘sibsp’ + ‘parch’, parsed titles from ‘name’ and one-hot encoded, mapped age and fare to int
+*SVM, MLP, Logistic Regression, Gaussian Naïve Bayes
+*MOGP: selLexicase, cxOnePoint, mutUniform, eval (FN^2, FP^2) – doesn’t change results
+*EMADE: change objectives to rates, modified sel_nsga2 to call on individuals divisible by 4
+
+Stocks
+*Compared regression primitives by technical indicator using median CDF performance
+*Objectives: profit percentage, average profit per transaction, variance of profit per transaction, MSE, CDF of profit using Monte Carlo approach
+*Compared to Takagi-Sugeno fuzzy model
+
+Modularity
+*Adaptive Representations through Learning combine primitives
+*Compared by frequency and aggregate fitness
+*Experiment suggested size of ARL not inherently valuable
+
+==October 20th, 2021==
+The final run of EMADE for the titanic project occurred in Week 9.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Titanic EMADE
+|Complete
+|10/6/2021
+|10/25/2021
+|10/25/2021
+|-
+|}
+
+===Titanic Project===
+*Removed size objective from input
+*Ran 20 generations on EMADE with Aditi as master and myself as worker
+*My computer disconnected after a few hours untouched (ex overnight)
+
+Important evolution parameters:
+initialPopulationSize = 200
+launchSize = 200
+minQueueSize = 50
+
+*I created a notebook to plot the pareto front and Aditi added graphs and connected to the database
+*I reviewed the revised MOGP and ran for 15 generations
+
+==October 13th, 2021==
+Week 8 focused on connecting to Aditi's master process as a worker.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Input Modifications
+|Complete
+|10/6/2021
+|10/20/2021
+|10/16/2021
+|-
+|Worker Process
+|Complete
+|10/6/2021
+|10/25/2021
+|10/16/2021
+|-
+|}
+
+===Hackathon: Titanic Input Modifications===
+*Worked with Aditi to change titanic_input.xml and run EMADE
+*Changed database info, set reuse to 1, reduced population size
+*Troubleshooted erroring individuals and traced src code
+
+===Bootcamp: EMADE Worker Process===
+*Worked with Aditi in class to setup the database and allow remote connections
+*Around 10 days later her IP address changed
+*Successfully ran worker process
+
+==October 6th, 2021==
+During Week 7, I set up EMADE during the team meeting and independently using the README.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|EMADE Setup
+|Complete
+|10/6/2021
+|10/25/2021
+|10/13/2021
+|-
+|}
+
+===EMADE Setup & Master Process===
+*Created conda environment separate from default
+*Setup and master process ran smoothly after this change to the instructions
+
+Environment cmd:
+conda activate emade_env
+
+MySQL connection:
+mysql -h hostname -u username -D database name -p
+mysql -h 128.61.41.95 -u root -D titanic2 -p
+	password: -----
+*Allow remote connections
+
+Run worker process:
+python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+*reuse=1 starts with old data
+*EMADE makes launchSize new trees when it has less than minQueueSize to evaluate
+
 ==September 29th, 2021==
 We presented our Titanic project methods and results in Week 6 of bootcamp. We also completed peer evaluations for VIP.
 
@@ -13,11 +523,11 @@ We presented our Titanic project methods and results in Week 6 of bootcamp. We a
 |-
 |Peer Evaluations
 |Complete
+|9/29/2021
 |10/4/2021
 |9/29/2021
-|9/29/2021
 |-
-|Titanic Project Presentation
+|Titanic Presentation 1
 |Complete
 |9/29/2021
 |9/29/2021
@@ -27,6 +537,18 @@ We presented our Titanic project methods and results in Week 6 of bootcamp. We a
 
 ===Titanic Project===
 Individual work: I implemented Dr. Zutty's suggestions of adding constants to pset, combining selNSGA2 and selDCD, and changing ParetoFront calculation. I also researched Statistics and Logbook from deap.tools.
+
+    #selNSGA2 on Generation 0 to define assignCrowdingDist()
+    pop = toolbox.select(pop, len(pop))
+    for g in range(1, 15):
+        offspring = tools.selTournamentDCD(pop, len(pop) - len(pop) % 4)
+        offspring = list(map(toolbox.clone, offspring))
+        #mate and mutate
+        pop = toolbox.select(offspring, len(pop))
+        #update hof and logbook
+
+Presentation: I presented the slides about the MOGP hall of fame, results, and comparison to ML. The presentation can be accessed here:
+https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=sharing
 
 ==September 22nd, 2021==
 In Week 5, our team approached the Titanic dataset with multi-objective genetic programming. 
@@ -38,7 +560,7 @@ In Week 5, our team approached the Titanic dataset with multi-objective genetic 
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Project GP
+|Titanic MOGP
 |Complete
 |9/22/2021
 |9/29/2021
@@ -85,7 +607,7 @@ Week 4 focused on the team project using the Titanic Kaggle dataset, preprocessi
 !Suspense Date
 !Date Resolved
 |-
-|Titanic Project ML
+|Titanic ML
 |Complete
 |9/15/2021
 |9/22/2021

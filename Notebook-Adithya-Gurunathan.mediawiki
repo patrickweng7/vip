@@ -7,6 +7,495 @@
 '''Interests:''' Machine Learning, Soccer, Poker, Coffee, Entrepreneurship
 
 = Fall 2021 =
+
+== Week 16: Dec 5, 2021 ==
+
+===Overview:===
+
+* Subteams updated on their final week's work, preparationg for final week's presentation
+* Peer evals will close on 8th December
+* 
+
+
+== Week 15: Nov 29, 2021 ==
+
+===Overview:===
+
+* Subteams updated on their weekly progress
+* Peer evals opened up today
+* Announcements on code freeze, and final presentation (December 10th, 6:00pm - 9:00pm)
+
+===Lecture Notes:===
+
+* Image Processing:
+  * Discussed about low ROC-AUC of 0.48 - postulated that could be due to limited search space
+  * Bugs with C files that aren't used any longer with new model
+  * Pushing for code freeze soon
+
+* Modularity:
+  * Conducted runs for standard arl experiments over the break
+  * Error in midterm presentation was caused by 3 objectives, not collab
+  * Currently working on visualization for runs
+  * CacheV2 team says stocks run will start soon
+
+* NLP:
+  * NNLearner2 has small optimization benefit, working on regression.
+  * Results indicate error, possibly due to input data formatting
+  * AUC results indicate EMADE performs worse than the naive method - Dr. Zutty recommends to see EMADE with naive method
+
+* Neural Architecture Search:
+  * Working on access to evolved individuals' parents, and pulling the information for analysis
+  * Currently debugging, working on weight sharing and preparing for code freeze
+
+===Sub-team Meeting Notes, December 2: ===
+
+* Visualization tasks almost completed, Angela and I will send over our data to complete the work, and rest will move on to stocks runs
+* Graph visualizations to compare AUC over time arrays are last task
+* ARLUpdate branch of CacheV2 would be most relevant for stocks - will be at code freeze after this branch is functional
+* Stocks teams are working on issues with SQL connection, Vincent will help Bernadette and Tian
+
+=== Individual Notes: ===
+
+* Continued work on visualization this week, and posted AUC over time arrays to my sub-team
+* Task for the week - Convert AUC over time to .csv files with Aditya and Angela.
+* Collaborated with Vincent to discuss validity of earlier runs - local runs and did not have all the objectives
+* Code for generating .csv files from the AUC time arrays:
+  import json
+  import csv​
+  run1 = ....
+  run2 = ....
+  run3 = ...
+  run4 = ...
+  def increasingAUC(aucList):
+      min = aucList[0]
+      for auc in aucList:
+          if auc > min:
+                return False
+          else:
+              min = auc
+      return True
+  runsList = (run1, run2, run3, run4)
+  for run in runsList:
+      if not increasingAUC(run["auc"]):
+          print(">:(")
+      else:
+          print(":)")
+  def convertCSV(AUCdict, fileNum):
+      aucList = AUCdict["auc"]
+      xList = AUCdict["x"]
+      yList = AUCdict["y"]
+      auc_file = open("extendedRun{}.csv".format(fileNum), "w")   
+      header = AUCdict.keys()
+      header.sort()
+      auc_file.write("{}\n".format(str(header)[1:-1]))
+      for i in range(len(aucList)):
+          auc = aucList[i]
+          try:
+              x = xList[i]
+          except IndexError:
+              x = ""
+          try:
+              y = yList[i]
+          except IndexError:
+              y = ""
+          auc_file.write("{}, {}, {}\n".format(auc, x, y))
+      auc_file.close()
+  count = 1
+  for run in runsList:
+      convertCSV(run, count)
+      count += 1
+
+== Week 14: Nov 22, 2021 ==
+
+===Overview:===
+
+* Subteams updated on their weekly progress
+* Peer evals open up on 29th November
+* Dr. Zutty will let us know when the notebooks are due
+
+===Lecture Notes:===
+
+* Image Processing:
+  * Team members running experiment on PACE-ICE now
+  * Running experiments in Python 3.8
+  * Investigating reasons behind low AUC for baseline run
+* Modularity:
+  * Updated documentation, completed refactoring
+  * Fixed CloudCopy.sh bug
+  * Fixed data visualizations, team members are generating visualizations now
+  * Cache V2 integration is almost done
+* NLP:
+  * Have certain primitives that they need to get results working
+  * NNLearner2 works on classification
+  * Discussed improvements to experiment team was planning to run on EMADE
+* NAS:
+  * New members are meeting to add slides to final presentation
+  * Improved preprocessing and model
+
+===Sub-team Meeting Notes, November 25: ===
+
+* No meeting for the week due to Thanksgiving Break
+
+=== Individual Notes: ===
+
+* Working on visualizations on EMADE with Angela & Aditya
+* Ran the visualization tool to generate the AUC over time arrays for runs extendedarl4 & extended arl5
+* AUC over time for extendedarl4
+  * {"auc":[0.3789502004358471,0.36310904248163794,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.34825257607145743,0.34825257607145743,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34397481772444777,0.34397481772444777,0.33519330624983185,0.3260136134951169,0.321816567569749,0.3218058059135301,0.3218058059135301,0.3148752993085636,0.3014232290349485,0.3014232290349485,0.3003416825849498,0.299825123086443,0.29520837256853827,0.2945088649143103,0.2909575183620759,0.2699615270790175,0.2696171540800129,0.2696171540800129,0.2585649331432108,0.25834970001883295,0.2534961930641126,0.2525975947698351,0.2524415507546612,0.24974575587182865,0.2496112351690925,0.23251634426538245,0.23248405929672578,0.23235491942209907,0.2316338884554333,0.2313433237375232,0.22987435766364445,0.22785654712260214],"x":[0.0,1.8,1.8,2.0,3.4,5.2,5.2,7.8,8.6,8.6,8.8,8.8,9.4,9.6,9.6,10.0,10.8,11.0,12.2,12.4,12.6,13.6,14.0,22.4,23.0,84.6,100.6,101.8,106.6,107.6,109.0],"y":[68.2,68.2,64.2,36.2,32.8,27.0,26.8,24.0,23.4,22.8,22.8,21.8,21.0,21.0,19.8,19.6,19.6,19.0,18.8,18.6,18.6,18.0,17.0,16.0,15.8,7.8,7.6,4.2,2.6,0.0,0.0]}
+* AUC over time for extendedarl5
+  * {"auc":[0.3789502004358471,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.35615701256423365,0.3454168796577794,0.3454168796577794,0.33193790524361705,0.3245984557023326,0.3245984557023326,0.26877236406682986,0.26868627081707874,0.26868627081707874,0.26775538755414463,0.2457854663832764,0.23251096343727304,0.22880357286986472,0.22829777502757678,0.2193763620221152,0.2193763620221152,0.2081089079609352,0.2081089079609352,0.20596733837337566,0.19975786273507493,0.19412413570448492],"x":[11.6,19.6],"y":[20.8,20.2]}
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 22, 2021
+|November 29, 2021
+|November 26, 2021
+|}
+
+
+== Week 13: Nov 15, 2021 ==
+
+===Overview:===
+* Subteams updated their progress during weekly meeting
+* Worked on fixing the emade-viz repo along with Aditya Kumaran and Angela Young
+
+===Lecture Notes:===
+
+* Image Processing
+  * Worked on testing X-ray dataset, where they will try to improve performance by implementing multiple changes including testing ROC and F1 score
+* NLP
+  * Identified output layer problem, and need to predict both start and end index. Return probability of word being start or end index.
+  * Decided to reduce scope to regression for this semester
+* Neural Architecture Search
+  * Working on final presentation, discussed the set up of emade and the differences between their version of EMADE and bootcamp EMADE
+* Modularity
+  * Doing runs and debugged ARL selection methods
+  * Fixed Cloudcopy.sh script for Google Collab runs
+  * Established tasks for upcoming week: Working on EMADE-viz repo, fixing ARL selection, Improving Cloudcopy.sh script
+
+===Sub-team Meeting Notes, November 18: ===
+* Vincent will be continuing work on documentation, not sure if he will be able to work on unit tests as well
+* Bernadette, Xufei, Tian, and Diptendu continue work on merging Cache V2 changes on modularity's fork of EMADE
+* I will work with Angela and Aditya to work on graph visualizations
+* Leul is working on the CloudCopy.sh script, might work on unit testing as well
+* Gabe and Vincent discussed bugs on graph visualizations
+
+=== Individual Notes: ===
+* Working on cloning EMADE Viz fork, and the set up
+* Cloned the fork and switched to branch 'ADFonlyAUC' branch
+* Followed the instructions on ReadMe and created the virtual environment as following:
+  * conda env create -f environment.yml
+* Activated the environment:
+  * conda activate emade-viz
+* Installed packages in pip with the command:
+  * pip install -r requirements.txt
+* Ran the flask command:
+  * flask run
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 19, 2021
+|}
+
+
+== Week 12: Nov 8, 2021 ==
+
+===Overview:===
+
+*Subteams shared their weekly progress during class
+* Worked on joining as a worker process for EMADE extended-arl run on Google Colab
+
+===Lecture Notes:===
+
+* Subteam sharing of weekly progress
+* Image Processing
+  * Reprocessing data to work for 14 different classes of data.
+  * Package conflicts with Windows 10 - possibly problem with PACE-ICE
+  * Advised to set up a new environment with Python 3.8
+* Modularity
+  * Discussed bug with ARL algorithm, where when a child ARL was already used, causing matching to fail
+  * Working on unit tests to prevent bugs like this in future
+  * Planning for 2 runs a week for final presentation
+* NLP
+  * Introduced new members to team, had them to start working on PACE
+  * Implementing primitives (first layer, modellling, outputs)
+  * Exploring new ways to run with different word embeddings
+  * Issues with output layer - probability layers output into words
+* NAS
+  * Want to set up an experimental loop to get data for final presentation
+  * Changes to some individuals with ADFs
+  * Might modify different usages with ARLs
+
+===Sub-team Meeting Notes, Novemeber 11: ===
+* Discussed and finalized plans to split up tasks for the rest of semester
+* Task 1: Fixes for graph visualizations
+  * Reoccuring bug where there were spikes in data, and best performing indiv not displayed
+* Task 2: Find new ARL selection process
+* Task 3: Improve CloudCopy.sh script to prevent recursive copying
+* Task 4: Merge in Cache V2
+
+=== Individual Notes: ===
+* Error when trying to run Collab notebook - 'No Module found; GPFramework'
+  * Fix involved getting 'bash reinstall.sh' command run properly
+  * Changed command to: !python3 setup.py sdist; !python3 setup.py install
+* Troubleshooted other errors to join the run as a worker process
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 8, 2021
+|}
+
+== Week 11: Nov 1, 2021 ==
+
+===Overview:===
+* Assigned to Modularity subteam - met with Angela, Vincent, Youssef
+* Other members joining are Aditya, Leul, Nikihl
+* Subteams updated on their progress for the week
+
+===Lecture Notes:===
+
+* Subteams updating on their weekly process:
+* Image Processing:
+  * Switching from detecting pneumonia to any kind of disease
+* NLP:
+  * Main team was split into subteams to test various combinations of their layers
+* Neural Architecture Search:
+  * Fixed time stopping callback glitches
+* Modularity:
+  * Migrating branch to CacheV2 to ensure compatability with Stocks team work
+  * ARL sub-team will continue running emade
+  * New members will assist with help running emade
+
+===Individual Notes:===
+
+* Cloned the Modularity branch of EMADE (https://github.gatech.edu/vhuang31/emade)
+* Meetings will be held virtually on Thursdays, 11am (https://gatech.bluejeans.com/2224273722)
+* Make a copy of Google Collab Notebook in Google Drive (https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing)
+*  Notebook:
+  * Edit the second step to rename personal directory: %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/
+  * Run the commands in the notebook except for !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command (only for master process)
+  * Ensure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag, to join as worker process, not master
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone Modularity Repo, setup other essentials
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|}
+
+== Week 10: Oct 25, 2021 ==
+
+===Overview:===
+* Presentation Day - presented our EMADE findings, and compared with ML/ MOGP findings earlier this semester
+* Presentation Link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+* Watched presentations fron the different subteams in AAD
+
+===Lecture Notes:===
+
+* Team presented our work and findings on ML, MOGP, and EMADE models in the Titanic Dataset
+  * Talked about the Pareto frontiers, AUC, and how we chose certain parameters
+  * Highlighted the difficulties and mistakes we made to improve them in future
+  * Explained the shortcomings of our model for EMADE, and why we were only able to run in for 10 gens
+* Understood the work done in other subteams at AAD, such as NLP, Image Processing, NAS, Stocks, Modularity
+
+===Individual Notes:===
+
+* Presented on ML and MOGP models we used in our semester so far, and why explained why we chose certain parameters and arrived at certain results
+* Took notes on other sub-team presentations to find out which team I would like to work with
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|-
+|Predicting Titanic Survivors with ML, MOGP, and Emade
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|-
+|Choose Subteam
+|Complete
+|October 25, 2021
+|November 1, 2021
+|October 28, 2021
+|}
+
+
+== Week 9: Oct 20, 2021 ==
+
+===Overview:===
+* Working session with VIP AAD alumni to use EMADE on Titanic Dataset
+* Alumni guided us on how to resolve certain issues, and helped with troubleshooting joining as a worker process with my team
+
+===Lecture Notes:===
+
+* Configuration and discussion on how to run all processes to use EMADE
+* Team learnt how to resolve our issues with EMADE running locally, and guided rest of the team in joining the EMADE worker processes
+
+===Sub-team Meeting Notes:===
+
+* Team was able to ensure that host process was working smoothly, and spent the rest of time troubleshooting the other worker processes
+* Encountered difficulty with slow running time for EMADE across master processes and worker processes
+  * Team was barely at 11th generation after over 3 days of runtime on EMADE, much slower than the usual expected speed
+* Worked on the final presentation on 10/25, discussed content and delegated work
+
+===Individual Notes:===
+
+* Worked on setting up worker process and running EMADE
+  * Due to hardware limitations on laptop, setup involved several backtracks and work arounds to ensure MySQL was running correctly
+* Helped with others setting up EMADE and connecting their worker processes
+* Worked on mid-term presentation slides for 10/25
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|October 13th, 2021
+|October 21th, 2021
+|October 21th, 2021
+|-
+|Sub-team Meeting
+|Completed
+|October 13th, 2021
+|October 16th, 2021
+|October 16th, 2021
+|-
+|Running EMADE on Titanic Dataset
+|In Progress
+|October 13th, 2021
+|October 20th, 2021
+|N/A
+|-
+|}
+
+
+== Week 8: Oct 13, 2021 ==
+
+===Overview:===
+* Class was spent working on Emade master process to run & joining worker processes
+* Sub-team meetings were spent troubleshooting, and ensuring MySQL server was running smoothly
+
+===Lecture Notes:===
+
+* Workday: Learn about setting up and troubleshotting a MySQL server.
+  * Server host command: mysql -h hostname -u username -d database_name -p
+* Clarified doubts on process with Dr.Zutty, and resolved difficulties running EMADE
+
+===Sub-team Meeting Notes:===
+
+* Team managed to set up EMADE to recognize & write to our MySQL database
+* Worked on steps to set up the generation process for EMADE
+* Resolved Python version error, where Python 3.8.8 was incompatible with multiprocess package
+* Errors we encountered:
+  * Issue where fitness values for individuals were (inf, inf, inf)
+  * EMADE error stated that "Tree missing valid primitve for data type"
+* Solution:
+  * We investigated and decided problem might have to do with false positive and false negative evaluation functions in evalFunctions.py
+
+===Individual Notes:===
+
+* Did research to investigate why the fitness values for individuals were returning as infinity
+* Helped with creating our custom evaluation functions for FNR and FPR
+* Cross-checked preprocessed data we had, to ensure that the columns were shuffled whilst being converted from pandas data to numpy arrays
+* Worked on the process of joining the MySQL server for worker processes. Troubleshooted multiple issues with setup, such as version conflict and unexpected crashing
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 17th, 2021
+|-
+|Review lecture notes
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 14th, 2021
+|-
+|Worked on multiple issues
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Tried setting up worker process for MySQL
+|In progress
+|October 13th, 2021
+|October 20th, 2021
+|October 20th, 2021
+|-
+|Sub-Team Meetings
+|Completed
+|October 13th, 2021
+|October 20th, 2021
+|October 16th - 19th, 2021
+|}
+
 == Week 7: Oct 6, 2021 ==
 
 ===Overview:===
@@ -75,8 +564,18 @@
 * Make plot of non-dominated frontier, compare with ML & MOGP
 * Presentation of Monday the 25th
 
+===Sub-team Meeting Notes:===
+* Team members successfuly installed EMADE and MySQL on their laptops
+* Configured input XML file to run Titanic Dataset, after meeting with Dr.Zutty
+* Modified data splitter script to one-hot encode "Embarked" feature to improve algorithm. Reflected changes in our MOGP model as well.
+* Debugging error where EMADE is unable to evaluate individuals in queue. Plan to fix the issue in the next sub-team meeting.
+
 ===Individual Notes:===
-* Tried adding images to notebook, still experiencing error when doing so
+* Installed Anaconda and installed necessary dependencies for EMADE
+* Cloned and installed EMADE from GitHub
+* Set up Git and MySQL on computer
+* Researched how MySQL worked, and the specific commands for various functions
+* Resolved issues faced during sub-team meeting, such as debugging the algorithm for Titanic dataset
 
 === Action Items: ===
 {| class="wikitable"
@@ -92,7 +591,7 @@
 |October 13, 2021
 |October 8, 2021
 |-
-|Run EMade
+|Run EMADE
 |
 |October 6, 2021
 |October 13, 2021

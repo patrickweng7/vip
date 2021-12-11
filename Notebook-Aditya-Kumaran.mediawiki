@@ -8,7 +8,408 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
-== October 25, 2021 (Week 10) == 
+== December 10, 2021 (Week 16, Final Presentation) == 
+
+=== Presentation Notes: ===
+*  Image Processing:
+    *  Eval Objectives: AUC-ROC (Receiving Operator Characteristic - calculate 1-ROC to minimize objectives), Number of parameters
+    *  Merged NAS' ADFs. Baseline results use NSGA-II Pareto Front. AUC for pareto front is 0.218. Lowest ROC individual is 0.16969. Lowest number of params was 30.
+    *  Tested NSGA-III and Lexicase selection methods based on research paper recommendation
+    *  NSGA-III had 0.377 AUC-ROC, worse than baseline. Reduced large problem to low diversity problem, low dimensions
+    *  Lexicase had 0.348, worse than baseline. Lexicase likes larger population size. Really small pareto front, might be the problem.
+    *  Also explored different crossover operators. Semantic crossover (finds subchild that's in between parents) vs Semantic mutations (maintains parent's semantic info). Best individual had 0.45 precision AUC, worse than baseline. Basically a seed individual, didn't find much luck.
+    *  Worked on geometric operators for mating and mutation. Created new operators - partially matched, ordered crossover, uniform and multipoint operators.
+    *  Multi points and Uniform had best AUC-ROC of 0.365, average of 0.38.
+    *  Hyper-features: multiple primitives that work well together. Very bad AUC-ROC results, even around 0.5 (worst possible).
+    *  Challenges: switched dataset, compiling models errors.
+*  NLP:
+    *  Tokenization = converting input to smaller words
+    *  Word embeddings = converts text data to numerical vectors (bag of words)
+    *  Factoid = short factual answers
+    *  Extractive = answer can be found verbatim in context
+    *  Keras doesn't support regression with multiple outputs. Requires very specific input format (tuple of input, truth data).
+    *  NNLearner2 predicts indices, while objective functions need answer strings to evaluate
+    *  Merged existing code for multiple data pairs (question+context) with nn-vip branch
+    *  BIDAF-based models - bid-directional attention flow.
+    *  Used Bi-directional LSTM to relate importance
+    *  Had mean-square-error and num_primitives as objectives for experiments
+    *  Compared 4 pareto fronts from successful runs. Maximum reduction in area was 10.96%.
+    *  Will need more runs (only had 4). But think that they can reduce area with current technique. More diverse set of primitives might help.
+*  Neural Architecture Search:
+    *  
+    *  
+*  Modularity:
+    *  We performed our presentation.
+    *  
+*  Stocks:
+    *  
+    *  
+== December 6, 2021 (Week 16) == 
+
+=== Lecture Notes: ===
+*  Final presentation review available on Thursday, December 9 by Dr. Roehling.
+*  Subteams briefly updated everyone on their progress.
+*  Image Processing:
+    *  Everyone is tasked
+*  NLP:
+    *  Final presentation
+*  Neural Architecture Search:
+    *  Mostly done
+*  Modularity:
+    *  Working on final presentation
+*  Discussed types of visualizations would be interesting to see in the final presentations.
+*  Work-time for final presentation 
+
+=== Subteam Meeting Notes: ===
+*  Divided work for subteam presentation, made slides. Created a rough outline for who was going to say what and filled in team members on out parts of the presentation.
+
+=== Individual Notes: ===
+*  Forked Gabe's repository and shared my graphs + notebook for the team to access. https://github.gatech.edu/akumaran6/emade/tree/PrimitiveAnalysis/notebooks
+*  .csv files for NoARL, OldARL, NewARL are all in the above directory, notebook used is GroupAUCViz.ipynb
+*  Debugging visualization notebooks to make sure graphs are ready for final presentation. Edited so that they show three-line graphs.
+    *  mean_df_old_adf['group'] = 0
+    *  mean_df_adf['group'] = 0
+    *  mean_df['group'] = 0
+    *  p9.ggplot(data=polygon_df, mapping=p9.aes(x="index", y='upper', group = 'group')) \
+            + p9.geom_polygon(size = 0.1, color='red', fill = 'red', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='green', fill = 'green', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_old_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='blue', fill = 'blue', alpha = 0.001) \
+            + p9.geom_line(data=mean_df_old_adf, mapping=p9.aes(x="index", y='mean'), color='blue') \
+            + p9.geom_line(data=mean_df_adf, mapping=p9.aes(x="index", y='mean'), color='green') \
+            + p9.geom_line(data=mean_df, mapping=p9.aes(x="index", y='mean'), color='red') \
+            + p9.ggtitle("No ADF vs Old ARL AUC vs New ARL AUC") \
+            + p9.xlab("Generation") \
+            + p9.ylab("Area Under Curve") \
+            + p9.scale_x_continuous(expand = (0,0), limits = (0,41),  breaks=(list(np.arange(0, 41, 5))), minor_breaks=(list(np.arange(0, 41, 1)))) \
+            + p9.scale_y_continuous(expand = (0,0), limits = (0.15,0.41), breaks=(list(np.arange(0.15, 0.46, 0.05))), minor_breaks=(list(np.arange(0.15, 0.4, 0.01)))) \
+            + p9.theme(axis_line=p9.element_line(), axis_ticks_minor=p9.element_line())
+*  Fixed standard deviation line bug on the graphs.
+*  Generated graphs with all runs (4-11), including 6 and 10, then decided that since they only lasted 34 and 35 generations each, that they should be omitted to see longer comparison between the three types of runs.
+*  Added finalized graphs (comparing all three runs - NoARL, OldARL, NewARL) to the final presentation.
+*  Added two-line comparison graphs to the presentation, which will be presented by Angela and Adithya.
+*  Practiced presentation slides before the final presentation. Had a run-through with the team two hours before the final.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Final Presentation Slides, practice presentation
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 6, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 6, 2021
+|}
+
+
+== November 29, 2021 (Week 15) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Didn't meet over break. Limited search space - hypothesis - is causing low ROC-AUC of 0.48.
+    *  Some bugs with C files that aren't used any longer with the new model.
+    *  Will aim for code freeze soon.
+*  NLP:
+    *  NNLearner2 optimized a little, working on regression. Results indicate error, might have been because of input data formatting.
+    *  Emade performs worse than the naive method, according to AUC. Dr. Zutty advised to seed emade with the naive method; might need to add primitives and functions to make emade perform better.
+*  Neural Architecture Search:
+    *  Not code freeze yet, will merge Connor's code (which extracts layer frequencies from individuals within each generation) with branch.
+    *  Will try to get access to evolved individuals' parents, and pull the information for analysis. 
+    *  Debugging, working on weight sharing
+*  Modularity:
+    *  Didn't meet over break. Did runs for standardarl experiments.
+    *  Midterm presentation error caused by 3 objectives, not collab.
+    *  Doing visualization for runs.
+    *  Stocks runs hopefully going to start soon, according to CacheV2 team.
+*  Peer Evaluations are open, I've completed mine.
+*  Final presentation is on December 10th, at 6:00 pm (to around 9:00 pm).
+
+=== Subteam Meeting Notes: ===
+*  Visualization almost done, once Angela and Adithya sends their data we'll complete visualization work and everyone will move over to stocks runs. Graph visualizations to compare AUC over time arrays are the last task.
+*  ARLUpdate branch of CacheV2 branch is the most relevant branch for stocks. We'll be at a code freeze after this branch is functional.
+*  Stocks teams have issues with SQL connection; Bernadette and Tian have been facing some issues, Vincent will try to troubleshoot.
+
+=== Individual Notes: ===
+*  Will continue working on visualization this week.
+*  Posted AUC over time arrays to my sub-subteam. 
+*  Joined extendedarl11 run.
+*  Got extendedarl11 AUC over time array from visualization tool: 
+{"auc":[0.3996287228604482,0.38038688154106914,0.3714977535042643,0.3628722860448223,0.3628722860448223,0.3602302994430843,0.3602302994430843,0.34806962791573626,0.34806962791573626,0.3469288923565337,0.3469288923565337,0.3469288923565337,0.3367429847453523,0.3367429847453523,0.3367429847453523,0.3367429847453523,0.3197933762005973,0.3197933762005973,0.3197933762005973,0.3197933762005973,0.3197072829508461,0.3197072829508461,0.3086012537329495,0.3085851112486212,0.3085851112486212,0.3081654066560844,0.3081654066560844,0.305012241383949,0.2973553229842073,0.29727999139067507,0.2873362210444187,0.28729317441954316,0.2871855578573542,0.287110226263822,0.26606580752777853,0.2563641744464473,0.2213511259382819,0.2194086469907719,0.21629314751540263,0.21604562942236813,0.21576044553256749,0.20995453200247516,0.20719416718232936,0.20689822163630983,0.20680136673033983,0.20679598590223036,0.20255589335198687,0.19481288170249403],"x":[11.6,19.6],"y":[20.8,20.2]}
+
+*  Worked on visualization tasks:
+    *  Converted AUC over time arrays to .csv files (Adithya, Angela will also do this) and placed them in a directory together
+    *  Got zipped data for no_arl and old_arl from the older members. Extracted and reformatted the files to comply with the notebook.
+    *  Modified the visualization notebook found at https://github.gatech.edu/gwang340/emade/blob/PrimitiveAnalysis/notebooks/GroupAUCViz.ipynb to compare no_arl, old_arl, and new_arl AUC over time data respectively, in a graph with three lines.
+    *  Translated my visualization data for the extendedarl5 run to a .csv to test the notebook, debugged functionality. 
+    *  Generated a graph comparing all three types of arl data, which illustrates that as no. of generations increases, AUC is lowest for new_arl, followed by old_arl, and finally no_arl. I believe this satisfies our rationale for running these experiments, and shows valuable progress.
+    *  Once Adithya and Angela send me the other .csv files, I'll add them to the new_arl directory and run the notebook once more, generating the final graph comparing the three types of data. The goal is to accomplish this by Monday.
+    *  I've received them, and have created the final graphs.
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Edit Visualization Notebook and Generate comparison graphs
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 4, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 29, 2021
+|December 6, 2021
+|November 29, 2021
+|}
+
+== November 22, 2021 (Week 14) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  New branch to run new experiments. Low ROC-AUC for baseline run (0.48), trying to troubleshoot.
+    *  Runs with Lexicase, epsilon lexicase, NSGA III, and tried with new mutation methods. Fixed some bugs with contrast enhancement - .npz formatting was troublesome, as opposed to .png or .jpeg. (Maybe input files are wrong? Primitives shouldn't be reading in these files? Primmitives should be taking in a numpy array.)
+    *  Worked on a sharpening filter
+*  NLP:
+    *  Have all primitives required for results for standalone tree evaluator. NNLearner2 works on classification, some results don't make sense.
+    *  Integrated some primitives into Keras. Want to maybe use AutoML for solving QA problems - still designing experiment.
+    *  New members getting setup on PACE
+    *  Everyone will run emade for different train and test data - hopefully gives everyone different accuracies/F1 scores. Naive model gives score - finds start index of answer that matches question. Uses Emade seeded individuals to evolve solutions to compare to the found answer. Will use objectives to draw distribution for accuracy of all individuals on the pareto front (multiple objectives). If naive model lies in the critical region, they will reject their hypothesis.
+*  Neural Architecture Search:
+    *  New members adding slides to final presentation
+    *  Improving emade runs - have only been using training dataset, so will use test set soon (might cause overfitting - test set is meant to make sure that you don't overtrain). Dr. Zutty advises just to use the train set, and then test progress at the end by recomputing based on models trained on test data.
+    *  If: training data is used to fit an individual model, testing data is used to score the model (compute objectives in emade; final dataset in outside ML world), and validation (final dataset in emade). Pareto front is computed on test data - drives search, probably even more than train data via metalearning. Models are learning the relationship between train and test data. "Validation" is meant to be data that the model has never seen before, used to see how well the model actually runs - can be used to check overtraining of Emade by measuring how much the pareto front would move for new data vs your evaluation data.
+    *  ADFs/Modules assemble pooling layers to downsize images, etc.
+    *  Might use weightsharing (in Keras) to improve new NNLearners learning time.
+*  Modularity:
+    *  Documentation and refactoring is done - added new classes. No longer store too much information in tuples, now in classes to help debugging.
+    *  Could create a representation function for objects. Added method I/O parameter types and return types.
+    *  Bad variable names have been eliminated, refactored old methods with unused/inefficient code.
+    *  First-semesters looked into CloudCopy.sh and visualization (this was me). Will probably remove 'individual size' as an objective.
+    *  CacheV2 is almost done, testing remains. Stocks runs hopefully starting soon.
+
+=== Subteam Meeting Notes: ===
+*  Thanksgiving Break Week
+
+=== Individual Notes: ===
+*  Thanksgiving Break Week
+*  Checked with Vincent, apparently extendedarl3 was a local run - he's processing the visualization using the tool.
+*  The AUC over time arrays that I had generated are acceptable; we'll be working on finalizing visualization for the other runs for the final presentation.
+*  Joined extendedarl9 and extendedarl10 runs
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Titanic Runs as worker process
+|Complete
+|November 22, 2021
+|November 29, 2021
+|November 22, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 22, 2021
+|November 29, 2021
+|November 22, 2021
+|}
+
+
+
+== November 15, 2021 (Week 13) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Testing chest x-ray dataset. Will try to incrementally improve performance by including combinations of changes, testing ROC and F1-score.
+*  NLP:
+    *  Can run regular data sets. Identified output layer problem - need to predict both start and end index; decided just to predict start index. Returns two tensors - probability of word being start index and then probability of word being end index.
+    *  Reducing scope to just regression for this semester.
+*  Neural Architecture Search:
+    *  Starting final presentation. New members will be talking about setting up emade, and the differences between bootcamp emade and NAS emade.
+*  Modularity:
+    *  Doing runs, debugging ARL selection methods and Cloudcopy.sh script for Google Collab runs.
+
+=== Subteam Meeting Notes: ===
+*  Talked with Gabe about visualization problems, AUC increasing. Learned that it was a run issue, possibly with workers not completing their evaluations. Could just be a run-specific minor issue.
+*  Going to run visualization tool on the new runs. Might add HoF (according to Dr. Roehling's recommendation). Vincent will rerun graphs for AUC size effect on individuals.
+*  Recursive copying bug in CloudCopy.sh - on Macs specifically. Will fix that, make the copying better.
+*  I'll be working on the visualization task with Angela and Adithya. We might coordinate some time during the hackathon to meet.
+
+=== Individual Notes: ===
+*  Cloned the emade-viz repo at "https://github.gatech.edu/vhuang31/emade-viz/tree/ADFonlyAUC". Not a large repository, so it didn't take much time or memory.
+*  Followed the instructions to get set up:
+    *  Installed Anaconda and created a virtual environment for EMADE-Viz by running "conda env create -f environment.yml" from the home directory of the repo. Environment was called emade-viz, was activated with "conda activate emade-viz".
+    *  Download the packages specified in the requirements.txt file using "pip install". Many were repeats from the environment.yml file, so this didn't take long.
+    *  Ran "flask run" from the primary directory of the repo, was given the following IP address for the visualization server: "http://127.0.0.1:5000/".
+*  Uploading the relevant .xml file from each run should give us access to the visualization tools.
+*  Ran visualization tool on extendedarl5 database:
+{"auc":[0.3789502004358471,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.3602302994430843,0.35615701256423365,0.3454168796577794,0.3454168796577794,0.33193790524361705,0.3245984557023326,0.3245984557023326,0.26877236406682986,0.26868627081707874,0.26868627081707874,0.26775538755414463,0.2457854663832764,0.23251096343727304,0.22880357286986472,0.22829777502757678,0.2193763620221152,0.2193763620221152,0.2081089079609352,0.2081089079609352,0.20596733837337566,0.19975786273507493,0.19412413570448492],"x":[11.6,19.6],"y":[20.8,20.2]}
+*  Ran visualization tool on extendedarl4 database:
+{"auc":[0.3789502004358471,0.36310904248163794,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.3628722860448223,0.34825257607145743,0.34825257607145743,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34804810460329844,0.34397481772444777,0.34397481772444777,0.33519330624983185,0.3260136134951169,0.321816567569749,0.3218058059135301,0.3218058059135301,0.3148752993085636,0.3014232290349485,0.3014232290349485,0.3003416825849498,0.299825123086443,0.29520837256853827,0.2945088649143103,0.2909575183620759,0.2699615270790175,0.2696171540800129,0.2696171540800129,0.2585649331432108,0.25834970001883295,0.2534961930641126,0.2525975947698351,0.2524415507546612,0.24974575587182865,0.2496112351690925,0.23251634426538245,0.23248405929672578,0.23235491942209907,0.2316338884554333,0.2313433237375232,0.22987435766364445,0.22785654712260214],"x":[0.0,1.8,1.8,2.0,3.4,5.2,5.2,7.8,8.6,8.6,8.8,8.8,9.4,9.6,9.6,10.0,10.8,11.0,12.2,12.4,12.6,13.6,14.0,22.4,23.0,84.6,100.6,101.8,106.6,107.6,109.0],"y":[68.2,68.2,64.2,36.2,32.8,27.0,26.8,24.0,23.4,22.8,22.8,21.8,21.0,21.0,19.8,19.6,19.6,19.0,18.8,18.6,18.6,18.0,17.0,16.0,15.8,7.8,7.6,4.2,2.6,0.0,0.0]}
+*  The visualization tool didn't accept the .xml input when database was set to extendedarl3 - my impression is that the schema name might be wrong (maybe there's a dash somewhere?). Plan to crosscheck with Vincent, who ran the master processes and created the databases.
+*  Had to "npm install -g phantomjs-prebuilt" since phantomjs is deprecated now. Worked to download the graphs into 'visualizations' folder.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run visualization tool, create AUC over time arrays
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 17, 2021
+|-
+|Join Titanic Runs as worker process
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 15, 2021
+|}
+
+== November 8, 2021 (Week 12) == 
+
+=== Lecture Notes: ===
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Looking at selection methods. Lexicase.
+    *  Mating, mutations. Reprocessing data to work for 14 different classes of data.
+    *  Branched off of NAS team, now setting up new environment. Windows 10 has package conflicts, so probably PACE-ICE.
+    *  Dr. Zutty advised to set up a new environment with Python 3.8. Might try WSL also.
+*  NLP:
+    *  Presentation on Deep Learning
+    *  Implemented primitives (first layer, modelling, outputs)
+    *  Tested with input/output, giving correct results
+    *  Will focus on integrating new primitives
+    *  Issues with output layer, will have to look at probability vectors.
+*  Neural Architecture Search:
+    *  Want to set up an experimental loop to get data for final presentation.
+    *  ADFs not same across individuals (different ADF1s). Old implementation, outdated.
+    *  Might revive usage to generate consistency, might randomly generate ADFs themselves. Will have to redefine usages of ADFs in emade, might be too much work.
+    *  Individual is made up of 4 trees: Main and 3 ADFs. Mating and mutation is done independently on each tree. Mutation goes tree by tree. Evaluation compiles code and runs. Selection looks at individual object as a whole, and its objective fitness. If you want master list of ADFs, you can override names by changing ADF names before running.
+*  Modularity:
+    *  Extended ARL had a bug - using name, parents' arity didn't check if a child ARL was already used. Caused matching to fail. Any ARL with two children with the same name would fail: potentially bad results.
+    *  CacheV2 branch has a documentation folder in emade/docsrc/source, might be helpful to use.
+
+=== Individual Notes: ===
+*  When trying to run the Collab notebook, we got an error saying 'No module found: GPFramework'. This ended up being because the 'bash reinstall.sh' script wasn't running properly. We decided to change this command with:
+    *  !python3 setup.py sdist
+    *  !python3 setup.py install
+*  Script runs properly now, and I can join the runs as a worker process.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Join Titanic Runs as worker process
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 8, 2021
+|}
+
+== November 1, 2021 (Week 11) == 
+
+=== Lecture Notes: ===
+*  Was assigned to Modularity subteam. Met Vincent, Angela, and Youssef - Leul and Adithya are starting this semester with me.
+*  Subteams updated everyone on their progress.
+*  Image Processing:
+    *  Switching from detecting pneumonia to detecting any disease
+*  NLP:
+    *  Split into teams to test different combinations of their layers.
+*  Neural Architecture Search:
+    *  Upgraded to python 3.8 and tensorflow 2.6
+    *  Time stopping callback was glitchy, is fixed.
+*  Modularity:
+    *  Migrating branch to CacheV2 to be compatible with Stocks
+    *  ARL sub-subteam is going to keep running emade
+    *  I'll mostly be helping with running emade
+
+
+=== Individual Notes: ===
+*  Need to clone modularity branch of Emade. https://github.gatech.edu/vhuang31/emade
+*  Meet Thursday at 11 am, virtual (30 to 60 mins). https://gatech.bluejeans.com/2224273722
+*  Cloned Vincent's Emade repository
+*  Followed the following process to get on-boarded with the team's runs:
+    *  If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file here https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+    *  If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+    *  This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl)
+    *  In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates
+    *  Open input_titanicADFON.xml in a text editor
+    *  Near the top of the file, there should be a dbConfig similar to this one. Edit it to match the following details, with the database renamed to the schema name the run you're trying to join is
+    *  <dbConfig>
+        <server>database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com</server>
+        <username>admin</username>
+        <password>mypassword</password>
+        <database>INSERT_SCHEMA_NAME_HERE</database>
+        <reuse>1</reuse>
+    </dbConfig>
+    *  In google drive, make a copy of this Google Collab Notebook https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing
+    *  In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to
+    *  Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
+    *  Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+    *  Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Clone Modularity Repo, get setup on Google Collab
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|}
+
+
+== October 25, 2021 (Week 10, Midterm Presentation) == 
 
 === Lecture Notes: ===
 *  Presented Emade findings at Monday (main group) session, compared with ML and MOGP.
@@ -16,7 +417,7 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Watched other bootcamp teams as well as senior subteams present their project findings.
 
 === Individual Notes: ===
-
+*  I presented the Emade (and MySQL) portion of our presentation, discussing our struggles and successes with the latter part of analysis of the titanic datasets.
 
 === Action Items: ===
 {| class="wikitable"

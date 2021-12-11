@@ -14,8 +14,201 @@ Subteam: [[Natural Language Processing]] (Current) [[Modularity]] (Past)
 Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]], [[Notebook George Ye | George Ye]]
 
 = Fall 2021 =
+== Week 16 ==
+=== Dec 10, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Objectives
+*** Improve EMADE on image processing tasks
+*** with GP, selection methods, mating, mutation methods, and deep learning.
+*** Focus on Multi-class image Classification 
+** Dataset Preparation
+*** Use the TensorFlow API (ImageDataGenerator) including image resizing, normalization, horizontal flipping
+*** Multi-class but not multi-label
+** Evaluation Objectives
+*** Area Under Curve: Receiving Operator Characteristic (ROC)
+*** Number of Parameters in neural network
+** Baseline Results & Findings
+*** AUC: 0.21895
+*** Lowest ROC: 0.169169 (Multiple Convolution layers)
+*** Lowest Number of parameter: 30
+** Selection Methods
+*** NSGA 3 Good for 4-15 objectives (0.377 & 192680000)
+*** NSGA 2 performs better
+*** Less dimensions -> less axis to provide diversity/spread of reference points.
+*** Lexicase (0.348 & 12055200)
+*** NSGA 2 performs better
+*** Few training cases -> few ways individuals can be selected
+** Semantic Operator Results
+*** Semantic Crossover: 0.45 & 657455
+*** Semantic Mutation
+*** Struggle with generated usable individuals
+** Geometric Mating & Mutation Methods
+*** Partially Matched
+*** Ordered Crossover
+*** Uniform & Multi Point: 0.365 & 36184500
+*** Increase in parameters -> decrease in AUC
+** Results
+*** Lower Diversity of solutions
+*** Worse AUC than Baseline
+** Hyper features
+*** Manipulate pixels for better visibility
+*** Grey level transformation
+*** Sharpening Filter
+** Future Semesters
+*** EMADE.py using the selection method specified in XML instead of hard-coded
+*** Add new NN layers
+
+'''Individual Progress'''
+* I synced with Rishit on the multi Pareto Front optimization I made with George.
+* I reformatted the experiment and result pages based on analysis.
+* I presented the experiment section of the final presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sync with teammates on visualization progress made last night
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Complete the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Review Notebook before Submission
+|Completed
+|December 10, 2021
+|December 10, 2021
+|December 10, 2021
+|}
+
+=== Dec 9, 2021 ===
+'''
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete dry run for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Sort out the valid good runs from all [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing .out files]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Generate the Pareto front for each run along with seed
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Automate the calculation of region of interest and the reduction in area
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Manually color the region of interests from each graph on [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing slide #36]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Write analysis for the results
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Optimize the scaling with the multi Pareto front visualization on [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing slide #35]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
+=== Dec 8, 2021 ===
+
+=== Dec 6, 2021 ===
+
+
+== Week 12 ==
+=== Nov 10, 2021 ===
+=== Nov 8, 2021 === 
+
+== Week 11 ==
+=== Nov 6, 2021 ===
+=== Nov 3, 2021 ===
+'''Subteam Meeting Notes:'''
+* Every returning and new member introduced him/herself in the meeting.
+* Debugged BIDAF.py
+=== Nov 1, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Decided to focus on binary classification task.
+** Research workaround geometric and semantic mating and mutation.
+** Research new hyperfeature combinations.
+* Modularity
+** Migrating modularity into Cache V2.
+** Extended ARL group continue doing runs and running experiments.
+* NLP
+** Implemented Modeling layer and output layer.
+** Halfway through Bi-directional attention layer.
+* NAS
+** Ideas we plan to work on in order to improve neural architecture search in EMADE: Triviality Detection, Novelty Detection, Bug fix for swap_layer method, Speeding up EMADE processes, Adding unit tests, Introducing some pause functionality.
+** Updating to Tensorflow 2.6 on PACE.
+
+'''Subteam Meeting Notes'''
+* Presented NLP and Q&A Systems to bootcamp students.
+
 == Week 10 ==
+=== October 27, 2021 ===
+'''Subteam Meeting Notes:'''
+* Discussed the dimensionality issue between different layers.
+* Decided to focus on implementing BiDAF and set aside the Literature Review Primitives.
+* Steven shared his homework code for BiDAF layers (with comments for dimensionality for different layers).
+* Steven, Rishit, Karthik, Devan working on Attention layer, George on Modeling, me and Kevin on output layer.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Research Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|-
+|Implement Output Layer
+|In Progress
+|October 27, 2021
+|October 31, 2021
+|
+|}
+
 === October 25, 2021 ===
+'''Team Meeting Notes:'''
 * NLP
 ** Presented the work so far in Literature Review
 ** Answered the question about non-tree structures in Literatures.
@@ -77,6 +270,63 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 *** Added two Geometric Crossover Operators: Simulated Binary & Blended Crossover.
 ** Hyper-features for Image Processing & GP
 *** Grey level transformation
+* Bootcamp Team #3
+** Data Preprocessing
+*** Drop columns, one hot encoding for genders and name titles, add columns for relatives, gender_embarked, replace values with mean.
+** Machine Learning
+*** SVM, Random Forests, KNN, Logistic Regression, MLP, Gaussion Naive Bayes.
+** MOGP
+*** Strongly typed primitives to enforce boolean outcome.
+*** Selection (tools.selLexicase), Mate (One Point Crossover), Mutate (mutUniform).
+** Machine Learning vs. MOGP
+*** ML more consistent vetween runs.
+** EMADE
+*** Modified sel_nsga2 to achieve selTournamentDCD()'s requirement of having an "individual" array divisible by 4.
+*** Allow port forwarding on the master'ss home router if the workers will be joining remotely. No VPN was needed to connect.
+** Pareto Front Comparison
+*** Why ML is better than MOGP? May be not enough generations.
+* Stocks
+** Primitive Analysis
+*** The ML algorithm in the individual uses historical data and technical indicators to predict future trigger points for the stocks.
+*** This study is to determine which technical indicators and which ML learners have the best performance.
+** Objective functions
+*** Profit Percentage, Average Profit Per Transaction, CDF of Profit, Variance of Profit per Transaction.
+** Experiment Design
+*** Create a pool of objectives and pick out stocks to conduct EMADE runs on.
+*** Run EMADE using all possible combination of objectives.
+** Comparison to Paper Results
+*** Takagi-Sugeno Fuzzy Model with an SVR model to forecast stock prices.
+* Bootcamp Team #4
+** Data Preprocessing
+*** Drop columns, one hot encoding, replace null with median.
+** Machine Learning
+*** MLP, Decision Tree, SVM, XGBoost
+** Primitives for MOGP
+*** Strongly typed, logical terminals enable to pass tree inputs to logical operators directly.
+** MOGP
+*** Mate (cxOnePoint), Mutate (mutUniform), Selection (selTournamentDCD).
+** EMADE - 20 Generations
+*** AdaBoostLearner (9) > baggedLearner (2) = randShuffle (2) handle data directly.
+*** Time expensive and more gradual evolution.
+*** Optimal when cost of tuning individuals manually is higher than cost of automating evolution.
+* Modularity
+** Intro
+*** Modularity: Explore ways to abstract parts of individuals.
+*** ARL Implementation: Search the population for combinations of parent and children nodes.
+*** ARL Complexity: Increase complexity of ARLs via increasing tree depth.
+** Goal
+*** Allow the search function to consider larger subtrees depth to increase the potency of ARLs.
+*** Improve ARL candidate via a new selection functions.
+** Bug fixed
+*** Contracting overlapping ARLs would either cause multiple deletions.
+** Titanic Experimental Setup
+*** Default Evolutionary Parameters
+** Stock Runs with ARLs
+*** Merging stocks code with ARL codebase, different individuals, evaluation methods, etc.
+** Results
+*** Higher AUC with new ARLs
+*** More data is needed to gain insight into effects of ARL Complexity on performance.
+*** From preliminary data, size may not inherently imply usefulness.
 
 '''Individual Progress'''
 * Completed one more dry run before the midterm presentation.
@@ -202,22 +452,36 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 == Week 08 ==
 === October 16, 2021 ===
 '''Hackathon Meeting Notes:'''
+* Resolved 5,000 + merge conflicts at Hackathon.
+* Running into errors with the input - Key error for number of input.
+* Literature review team has read several papers and made trees for 6 seeding individuals.
 
 '''Individual Progress:'''
-* Discovered 3 more papers with tree-structure infrastructrue.
+* Discovered 3 more papers (now 6 papers in total) with tree-structure infrastructure.
 ** [https://arxiv.org/pdf/1608.07905.pdf Machine Comprehension Using Match-LSTM and Answer Pointer]
-*** Tree Generated: 
- NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
-*** Proposed an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model proposed
-previously for textual entailment, and Pointer Net, a sequence-to-sequence model to constrain the output tokens to be from the
-input sequences. 
-*** Proposed two ways of using Pointer Net for our task. Experiments show that both of our two models substantially outperform the best
-results using logistic regression and manually crafted features.
+*** This paper proposes an end-to-end neural architecture for the task. The architecture is based on match-LSTM, a model proposed previously for textual entailment, and Pointer Net, a sequence-to-sequence model to constrain the output tokens to be from the input sequences. 
+*** This paper proposes two ways of using Pointer Net for the task. Experiments show that both of the models substantially outperform the best results using logistic regression and manually crafted features.
 ** [https://arxiv.org/pdf/1610.09996.pdf End-to-End Answer Chunk Extraction and Ranking for Reading Comprehension]
-*** Tree Generated: 
+*** This paper proposes dynamic chunk reader (DCR), an end-to-end neural reading comprehension (RC) model that is able to extract and rank a set of answer candidates from a given document to answer questions. 
+*** DCR is able to predict answers of variable lengths, whereas previous neural RC models primarily focused on predicting single tokens or entities. 
+*** DCR encodes a document and an input question with recurrent neural networks, and then applies a word-by-word attention mechanism to acquire question-aware representations for the document, followed by the generation of chunk representations and a ranking module to propose the top-ranked chunk as the answer.
+*** Experimental results show that DCR achieves state-of-the-art exact match and F1 scores on the SQuAD dataset.
+** [https://arxiv.org/pdf/1908.05147.pdf SG-Net: Syntax-Guided Machine Reading Comprehension]
+*** This paper proposes using syntax to guide the text modeling by incorporating explicit syntactic constraints into attention mechanism for better linguistically motivated word representations. 
+*** In detail, for self-attention network (SAN) sponsored Transformer-based encoder, this paper introduces syntactic dependency of interest (SDOI) design into the SAN to form an SDOI-SAN with syntax-guided self attention.
+*** Syntax-guided network (SG-Net) is then composed of this extra SDOI-SAN and the SAN from the original Transformer encoder through a dual contextual architecture for better linguistics inspired representation. 
+*** To verify its effectiveness, the proposed SG-Net is applied to typical pre-trained language model BERT which is right based on a Transformer encoder. 
+*** Extensive experiments on popular benchmarks including SQuAD 2.0 and RACE show that the proposed SG-Net design helps achieve substantial performance improvement over strong baselines.
+* Tree Generated based on my understanding of the models in the literatures.
+ Paper #1: MATCH-LSTM & Answer Pointer
+ NNLearner(ARG0, ARG1, answerPointLayer(matchLSTM(LSTM(ARG1, softAttention(LSTM(ARG0))))))
+
+ Paper #2: Dynamic chunk reader
  NNLearner(ARG0, ARG1, rankerLayer(chunkRepLayer(attentionLayer(encoderLayer(ARG0, ARG1)))))
-**
-***
+
+ Paper #3: SG-Net
+ NNLearner(ARG0, ARG1, taskLayer(dualContextAggregation(SGSelfAttentionLayer(transformerEncoder(ARG1))), AG0))
+
 === October 13, 2021 === 
 '''Sub Team Meeting Notes:'''
 === October 11, 2021 ===

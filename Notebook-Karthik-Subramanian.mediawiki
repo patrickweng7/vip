@@ -8,6 +8,243 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== December 10th, 2021==
+'''Final Presentation Notes:'''
+* Image Processing:
+   * Objective: Improve EMADE on image processing tasks using genetic programming (selection methods, mutation, deep learning)
+   * Multi-class Image Classification
+   * Dataset:
+      * Image resizing, normalization, horizontal flipping with Tensorflow (4000 images in dataset)
+   * Objective: ROC + Num Params (evaluate 1 - ROC to turn into minimization problem)
+   * Baseline: CacheV2 EMADE
+   * Selection Methods Used:
+      * NSGA2, NSGA3, Lexicase
+      * More objectives --> More dimensions --> more diversity
+   * Semantic Crossover individual
+   * Geometric Mating and Mutation methods (try to preserve original parents and maintain properties like Conv layers)
+   * Compatibility/conda environment issues with Geometric Crossover
+   * AUC for experiemts worse than baseline (almost like the classifer is randomly guessing)
+   * Challenges involved switching to multi-class, suspicious AUC, mating function implementation
+== December 6th, 2021==
+'''Main Meeting Notes:'''
+* Steven mentioned that runs turned out to be for 24 hrs
+(ie: master1.out is 1st 8hrs, master11.out is 2nd 8hrs, master111.out is 3rd 8 hrs)
+--> For master11.out and master111.out, set reuse to 1 in order to append to existing database.
+
+* Working with Kevin on "Primitive" section in final presentation
+
+'''Subteam Meeting Notes:'''
+* Preparation for final presentation + wrapping up loose ends for the semester
+'''Individual Notes:'''
+* Doing 24 hr runs PACE (group 8 hr runs together)
+* Developed a shell script to automate the process/commands to run SqUaD in PACE
+* Link to Shell Script: https://github.gatech.edu/gist/ksubramanian40/103c9748f928abf6642eb1ddbc3cfb2b
+* The runs I have done over the past few days were wrong in that I mistakenly assumed that reuse is set from 0 to 1 over the course of the 24 hr runs. This caused my runs to run unseeded, which is not the intent of the experiment
+What actually should happen is this:
+    1st 8 Hrs: clear the database tables and then run qsub pbsmysql.pbs followed by seeding_from_file.py followed by launchEMADESquad.pbs
+    2nd 8 hrs: continue off of the previous run (don't need to reseed) (just do qsub pbsmysql.pbs followed by launchEMADESquad.pbs)
+    3rd 8 hrs: continue off of the previous run. Same procedure as "2nd 8 hrs"
+
+* Fortunately, my shell script that automates the process of running SqUaD in PACE should work (though the user will need to clear the database locally for the 1st 8hr run)
+
+* Final Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit#slide=id.p
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Keep doing Runs as per Steven's guidelines
+|Completed
+|December 6th, 2021
+|December 10th, 2021
+|December 10th, 2021
+|-
+|Add information about BiDAF primitives to final presentation
+|Completed
+|December 6th, 2021
+|December 8th, 2021
+|Decebmer 8th, 2021
+|-
+|Update pace-login.sh script for SqUaD Dataset
+|Completed. Should be ready for use
+|December 8th, 2021
+|December 8th, 2021
+|December 8th, 2021
+|}
+== November 29th, 2021==
+'''Main Meeting Notes:'''
+* Code Freeze to get runs in for final presentation
+
+'''Subteam Meeting Notes:'''
+* Steven provided a link to the latest version of our repo (ie: the code freezed version). Link is: https://github.gatech.edu/sleone6/emadebackup
+
+'''Individual Notes:'''
+* Been debugging PACE in order to get a seeded run throguh
+* Objective functions in use are MSE (since we are doing a regresssion problem), and num_params (for evaluating "complexity" of individual)
+* I had issues with my database, so I needed to reinstall it and that fixed the issue of "entries/columns" not recognized in the table
+* Configured MySQL workbench environment to query the pareto front for the latest generation 
+* Over the weekend, I got 2 runs in. Plan on doing more runs for this week to supply more data for the statistics "sub-subteam"
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debugging PACE issues to get 1st seeded run in for QA
+|Completed
+|November 29th, 2021
+|December 6th, 2021
+|December 4th, 2021
+|-
+|}
+== November 22nd, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty discussed possible statistical test (take the area between naive Pareto Front and EMADE pareto front. Want that area to be bigger in order to show that EMADE is performing better
+* NNLearner2 bug fixes (tune for regression problems, curretnly works on classification)
+* Possibility of changing scope of subteam project (to a classification problem instead of a regression problem)
+
+'''Individual Notes:'''
+* In the case where NLP subteam is pivoting to a classification problem, I have repurposed the squad dataset to now have 1s for answerable
+questions and 0s for unanswerable questions. Those backup files have been uploaded to EMADE-304
+* UPDATE 11/29/21: Looks like Steven and Kevin were able to get the BiDAF layers to work in the "features/nn-learner 2". Prelim runs seem to have been done, but the results are not very meaningful. To make analysis easier, I reprocessed the SqUad data such that the target is the start word index of the answer (originally, the indices of the "answer_start" column in SqUad are relative to the character)
+* I'm currently working on trying to get the seeded runs from feature/nnlearner2 branch to work
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Generate Answerable/Unanswerable repurposed SqUad data
+|Completed
+|November 22nd, 2021
+|November 22nd, 2021
+|November 22nd, 2021
+|-
+|Reprocess SqUad data (ensure that word indices are present)
+|November 27th, 2021
+|November 29th, 2021
+|November 28th, 2021
+|-
+|Complete Peer evaluation
+|November 29th, 2021
+|December 8th, 2021
+|December 1st, 2021
+|}
+== November 15th, 2021==
+'''Main Meeting Notes:'''
+* Found out that getting two data pairs into "nn_learner" is a hard problem and Devan is working on trying to debug that. Manipulating the output layer to work only with the current nn_learner would cause me to have to go in and modify other files in the codebase and that's intractable given the limited time.
+
+* Scope has been reduced to predicting start index of the answer (so a one-variable regression problem)
+'''Subteam Meeting Notes:'''
+* Working on getting my PACE environment to work with a new port number (essentially, my sql job closes in PACE since others are using the same port)
+* Integration Team task: get standalone tree evaluator to work and make sure runs happen with the newly preprocessed data
+'''Individual Notes:'''
+* Batch Size is an important parameter in Keras since this adds flexibility to pass in different size examples into the BiDAF pipeline
+* George and I fixed issue with the Attention Layer dimension. The BiDAF attention now is able to accept different batch sizes. We aimed to have output dimensions in a form like: (None, 8, 800). In this particular example, "None" is the flexible batch size, 8 represents the number of tokens in the context, 800 is 8*(vector embedding size)
+* Error in concatenation in the megamerge step was fixed (fixed the axis), got rid of "convert_to_tensor" function
+* Link to Colab notebook: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=J4GFfh6jcsmI
+* Below is a screenshot with the changes (made in the call() function for BiDAF Attention Layer)
+<img width="628" alt="call_func" src="https://github.gatech.edu/storage/user/35351/files/f81afc2f-03a6-4763-adbb-2921799ecfff">
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Go through Cameron's PACE Setup video and have port change
+|Completed
+|November 17th, 2021
+|November 19th, 2021
+|November 17th, 2021
+|-
+|Fix Bidirectional Attention Layer Dimensions with George in AAD Hack Day
+|Completed
+|November 21st, 2021
+|November 21st, 2021
+|November 21st, 2021
+|}
+== November 8th, 2021==
+'''Main Meeting Notes:'''
+* Steven assigning responsibilities for subteams within NLP subteam
+* My subteam is "Output Layer" team. We focus on getting nn_learner to work properly with the output layer in BiDAF
+'''Individual Notes:'''
+* Currently working on trying to do a run of standalone_tree_evaluator with BiDAF architecture
+* Modifications of Modeling Layer with Shiyi in Google Colab Notebook
+* Repreprocessed SqUaD dataset to have (context, answer_start) and (query, answer_start). In other words, the target label is changed to start index of answer instead of the actual answer string (Note: For now, I have dropped rows in the SqUaD dataset where the answer isn't known)
+* Next steps: If standalone_tree_evaluator works, then I plan on working with Rishit to modify nn_learner to do 2 predictions (one for start index and one for end index). Put the predictions together to get answer string from context and then pass into f1_string_match
+* Fixed database connection issue. Had to change the suffix "-l" to "-r" after looking at the host of the sql job in "qstat"
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix Modeling Layer with Shiyi (dimension issue)
+|Completed
+|November 8th, 2021
+|November 10th, 2021
+|November 9th, 2021
+|-
+|Fix SQL Connection Error from standalone_tree_evaluator run on re-processed data
+|Resolved
+|November 12th, 2021
+|November 15th, 2021
+|November 15th, 2021
+|}
+== November 1st, 2021==
+'''Main Meeting Notes:'''
+* Dr. Zutty advised that we write some basic unit tests to ensure that our new QA primitives work properly
+
+'''Subteam Meeting Notes:'''
+* Introduce new members to QA
+* Working on ensuring dimensions work properly for each layer
+
+'''Individual Notes:'''
+* Me, Kevin, Shiyi worked on a first draft of an implementation of the bidirectional attention layer. We found a great article that helped us understand the paper on BiDAF. Link to the article: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07
+
+* Initial Draft of Code can be found at this gist: https://github.gatech.edu/gist/ksubramanian40/35a233744bd46a6c64489e2ddade6873
+* UPDATE 11/7/21: Shiyi, George, Karthik fixed the implementation of Bidirectional Attention, Modeling Layer and Output to ensure that the proper dimensions appear in the output. A small unit test was written to ensure that the intended behavior for various input sizes
+
+* Link to Colab notebook describing updated code: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Rough draft of Bidirectional Attention Layer implementation
+|Completed
+|November 1st, 2021
+|November 2nd, 2021
+|November 1st, 2021
+|-
+|Fix dimension error in Bidirectional Attention with Shiyi, George
+|Completed
+|November 3rd, 2021
+|November 8th, 2021
+|November 7th, 2021
+|-
+|Polish Modeling Layer and Output Layer with Shiyi
+|Completed
+|November 3rd, 2021
+|November 8th, 2021
+|November 7th, 2021
+|}
 == October 25th, 2021==
 '''Main Meeting Notes:'''
 * In regards to our presentation, Dr. Zutty might have an nn_learner that takes in multiple Emade Data Pairs (just email him)
@@ -96,12 +333,82 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
          * selTournamentDCD() error
          * Wished they could run more generations in EMADE to get a hopefully better Pareto front
 * Stocks
-    * 
+    * Objectives
+         * EMADE for regression on time series data? optimize market trading algorithms? EMADE beating SOTA trading algorithms?
+    * Use various Technical Indicators, decide if an individual should buy/sell stock on certain day
+    * Best primitives to use for predicting buy/sell
+    * Median CDF (lesser is better)
+    * Objective Functions
+        1. Profit percentage (max)
+        2. Average Profit per Transaction (Maximization)
+        3. CDF  of Profit (minimization). Show model is better than randomly deciding buy/sell 
+        4. Variance
+    * Pool of objectives to pick out stocks to conduct EMADE runs on. Run EMADE on all possible combos of objectives and compare AUC
+    * Compare Pareto Individuals across trials to that in the existing literature
+    * Future Work
+        * Explore approaches to portfolio optimization outside of stock price prediction
+        * Other applications of autoML to time-series analysis
+        * Improve EMADE's time-series analysis capabilities
+* Bootcamp 4
+    * Preprocessing
+        * Dropped Name, Cabin columns
+        * One-hot encoding for Embarked features
+        * Replaced nulls of Age and Fare with Pclass's median
+    * ML
+        * MLP, Decision Tree, SVM, XGBoost
+        * Handle cases of nonlinear feature relationships 
+    * Primitives
+        * Strongly typed
+        * mathematical, logical operations
+        * Ensure boolean features outputted
+    * MOGP
+        * One point crossover, mutUniform mutation, mutNodeReplacement
+        * FPR and FNR used (best individual had FPR = 0, FNR = 0.91228)
+    * EMADE
+        * 20 generations
+        * 23 pareto optimal individuals
+        * converted FN and FP to rates
+* Modularity
+    * Abstract parts of individuals and create "building blocks" that can help with genetic process
+    * ARLs (Adaptive Representation through Learning)
+         * Introduce modularity and reusability in EMADE (once a "good" section of tree is found, make it a new primitive)
+    * Eval --> Selection --> Genetic Operations --> ARLs --> Evaluation workflow to implement ARLs
+    * Why ARLs?
+         * Global pool of "good" bits could help all individuals
+         * Should speed up convergence of population
+         * frequency, fitness important to identify valuable subtrees
+    * Working on trying to increase complexity of ARLs by increasing tree depth
+    * Experiments using Titanic dataset (False Positives, False Negatives as objectives)
+    * More data needed to gain insight into effects of ARL complexity performance
+         * size may not inherently imply usefulness
+    * Stock runs with ARLs
+         * Reusing technical indicators from Stocks subteam
+         * compare ARLs vs. no ARLs and see significance
+    * Studying explainable blocks
 '''Subteam Meeting Notes:'''
+* Focus shifts to implementing the BiDAF based architecture
+* Each person responsible for implementing one of the layers
+* BiDAF Paper: https://arxiv.org/pdf/1611.01603.pdf
 
-
+'''Individual Notes:'''
+* Me, Steven, Rishit, Devan responsible for building the bidirectional attention layer using Keras
+* A question I have from reading the BiDAF Paper Steven linked regards the Attention Layer. I understand conceptually that Attention in our case
+aims to figure out how the context fits into the query and query fits into the context (hence bidirectional). However, on a small detail, I see that the paper computes a similarity matrix among tokens in context to tokens to the query (given the contextual embeddings). However, does Keras Attention layer already existing give the similarity matrix for us? If so, can we treat it as a black box?
 '''Action Items:'''
-
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the Paper Steven linked on BiDAF. Get a basic understanding on how bidirectional attention works
+|Completed
+|October 27th, 2021
+|October 31st, 2021
+|October 31st, 2021
+|-
+|}
 == October 18th, 2021==
 '''Main Meeting Notes:'''
 * Start thinking about how you can statistically verify that your code is making a significant impact relative to the problem you want to solve and relative to a baseline
