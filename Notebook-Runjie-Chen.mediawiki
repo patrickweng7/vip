@@ -30,6 +30,24 @@
 ** I'm glad that Dr. Zutty also said he really liked how we included high-level conceptual slides that are relevant to what we are doing, such as including the QA extractive vs. abstractive concept slides, which were the slides that I did.
 ** A student from class asked that why we choose to use extractive over abstractive QA model, it's because extractive models are easier to measure the accuracy for, since our answer to the question is represented with the index of it in the context, and it's easy to compare the index number returned by our algorithm with the index number of the actual answer in the context, so we can evaluate our individuals' accuracy easier. Whereas it's more complicated to determine the truth values of our results in abstractive models. We might be able to implement abstractive models in the future, but we want to tackle the easier problem and get it working first before we approach a more complex problem  
 ** Our presentation slides can be found at: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
+*NAS
+** short-term goal: make emade create more complex individuals
+** long-term: make emade competitive
+** Time stopping
+*** improve efficiency by saving the time that is wasted on errored individuals
+** Experiment
+*** 1 trial
+*** As average evaluation time increases, the number of individuals decreases
+*** There is no linear relationship between the training time and minimization of accuracy
+** Growing more complex individuals
+*** added unique generator methods for NNLearner
+** Changes in Emade
+*** added weight sharing
+*** added module as a primitive
+*** speeds up time to optimal performance in training
+** Results
+*** Did not get a great Pareto Front
+*** But at least bad individuals are taking less time to get trained
 
 
 == Week 16: December 6th - December 12th ==
@@ -51,12 +69,13 @@
 *** Open-domain vs. Closed-domain
 *** Extractive vs. Abstractive
 *** Factoid vs. Non-factoid queries
+** Added an example 
 
 ===December 8th, 2021 6PM - 8PM Meeting with Steven===
-* I reached out to Steven and set up a meeting with him to troubleshoot PACE issues
+* I reached out to Steven and set up a meeting with him to troubleshoot PACE issues when running emade
 * We found that I was using the wrong node for my MySQL job and fixed that in the input_squad.xml file
-* We found that I was using an outdated branch of emade and Steven sent me his file emade branch directory and I SCPed it over on pace so my directory is up to date
-* We found that my virtual environment setup is not correct, I installed the packages and dependencies by following the instructions on the emade github page, however, the package versions required by our branch is different from the ones on the emade github page, and troubleshooting them and get each package to be the correct version will take a lot of time, and by the time we will be done, I won't have time to have a full run anyways. Therefore, Steven excused me from doing a run, and said that if I stay in NLP next semester, he will meet with me again to fix everything.
+* We found that I was using an outdated branch of emade and Steven sent me his emade branch directory and I SCPed it over to PACE so my directory is up to date
+* We found that my virtual environment setup is not correct, I installed the packages and dependencies by following the instructions on the emade GitHub page, however, the package versions required by our branch is different from the ones on the emade GitHub page, and troubleshooting them and get each package to be the correct version will take a lot of time, and by the time we finish, I won't have time to have a full run anyways. Therefore, Steven excused me from doing a run, and said that if I stay in NLP next semester, he will meet with me again to fix everything.
 
 ===Action Items===
 {| class="wikitable"
