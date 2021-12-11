@@ -18,7 +18,7 @@
 ** why lexicase over NSGA2 and NSGA3?
 *** lexicase does better when looking into individuals/instances (being classified against the 14 different CheXNet classes)
 
-=== 12/8/2021 Subteam Meeting ===
+=== 12/8/2021 Subteam Meeting Notes ===
 * FOLLOW UP: on why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
 ** The issue was fixed after Max merged NAS changes into our new branch <code>img-proc</code> which changed the evaluation method to use ROC AUC and the multilabel parameter in the XML to be 1.
 ** Max also created new <code>input_chest.xml</code> and <code>launchEMADE.py</code> scripts for our final runs before the final presentation.
@@ -60,7 +60,7 @@ NNLearner(ARG0, GlobalAveragePoolingLayer2D(MaxPoolingLayer2D(Conv2DKernelSize1,
 
 [[files/apeng39/w16-ss2-sel-lexicase-best-ind.png]]
 
-=== 12/6/2021 In-Class Subteam Meeting ===
+=== 12/6/2021 Main Meeting Notes ===
 * I encountered an error with editing and saving changes on <code>templates/input_chestxray.xml</code>. 
 <pre>
 E667: Fsync failed
@@ -97,7 +97,7 @@ E667: Fsync failed
 |}
 
 == Week 15: November 29, 2021 ==
-=== 12/1/2021 Subteam Meeting ===
+=== 12/1/2021 Subteam Meeting Notes ===
 * I completed a run with the input_chestxray.xml, however many individuals generated have an error string.
 
 <pre>
@@ -134,7 +134,7 @@ Traceback (most recent call last):
 OSError: [Errno 122] Disk quota exceeded
 </pre>
 
-=== 11/29/2021 In-Class Subteam Meeting ===
+=== 11/29/2021 Main Meeting Notes ===
 * I discovered that my error from last week was due to seeding with the incorrect seed file.
 ** Last week, I used <code>summary_seed</code> but my subteam uses <code>seeding_test_cv_all_empty</code>.
 ** Today, I ran the command <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database but received the following error.
@@ -271,10 +271,10 @@ NNLearner(ARG0, OutputLayer(InputLayer()), 83, AdamOptimizer)
 |}
 
 == Week 14: November 22, 2021 ==
-=== 11/24/2021 Subteam Meeting ===
+=== 11/24/2021 Subteam Meeting Notes ===
 * THANKSGIVING BREAK! NO MEETING!
 
-=== 11/22/2021 In-Class Subteam Meeting ===
+=== 11/22/2021 Main Meeting Notes ===
 * I attempted to seed my database using the summary_seed file.
 ** I first ran <code>qsub pbsmysql.pbs</code>
 ** Then ssh-ed into the node and ran <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed</code> which produced the following error message.
@@ -351,12 +351,12 @@ SHOW tables; # shows all tables in the selected database
 SELECT * FROM <tableName>; # shows all values from tableName
 </pre>
 
-=== 11/17/2021 Subteam Meeting ===
+=== 11/17/2021 Subteam Meeting Notes===
 * I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
 * see [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here] for updated setup procedures
 * Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
 
-=== 11/15/2021 In-Class Subteam Meeting ===
+=== 11/15/2021 Main Meeting Notes ===
 * I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
 * I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
 * I am currently asking Maxim about the error message and will include the solution I find [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here]
@@ -400,10 +400,10 @@ SELECT * FROM <tableName>; # shows all values from tableName
 |}
 
 == Week 12: November 8, 2021 ==
-=== 11/10/2021 Subteam Meeting ===
+=== 11/10/2021 Subteam Meeting Notes ===
 * I set up mysql on PACE-ICE (EDIT: I actually did not set it up correctly as later weeks I will have issues accessing mysql).
 
-=== 11/8/2021 In-Class Subteam Meeting ===
+=== 11/8/2021 Main Meeting Notes ===
 * The team reviewed the tasks assigned to each new member.
 ** I was assigned the task of implementing and running another implementation of lexicase.
 * I continued to setup PACE-ICE on my laptop.
@@ -516,7 +516,7 @@ python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
 |}
 
 == Week 11: November 1, 2021 ==
-=== 11/3/2021 Subteam Meeting ===
+=== 11/3/2021 Subteam Meeting Notes ===
 * EMADE branches overview
 
 master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
@@ -527,7 +527,7 @@ master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip)
 ** try to login and complete PACE-ICE setup then
 * assigned to selection methods tasks team
 
-=== 11/1/2021 In-Class Subteam Meeting ===
+=== 11/1/2021 Main Meeting Notes ===
 * assigned to Image Processing subteam
 * the goal of this subteam is to help improve EMADE's image processing algorithms
 ** we will use ChexNet dataset to perform multiclass classification
