@@ -40,6 +40,18 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Managed to beat the paper in every stock, except for Johnson and Johnson
 * Modularity
 * NAS
+* * Started off by defining what a search space was
+* * Had a short term goal of producing complex individuals, and a long term goal of producing individuals
+* * Produced extremely complex individuals
+* * Added weight sharing
+* * Added module as a primitive
+* * Introduced Leveraging Modules
+* * Introduced Weight sharing this semester
+* * Weight sharing is: if a module was trained, load old weights.
+* * Reading and writing shared weights to a database was bad (errors, very slow)
+* * Instead, they stored weights in a file, which was much faster. 
+* * Added Max Pooling
+* * I asked about early stopping and current state of weight sharing
 
 ## Week 16, Dec 6th
 
