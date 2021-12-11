@@ -34,6 +34,18 @@ plt.xlim(xmin * scale_factor_x, xmax * scale_factor_x)
 plt.ylim(ymin * scale_factor_y, ymax * scale_factor_y)
 ```
 
+* Pace run running through 190 generations but it was only having the bad individual:
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
+Trying to figure out the reason because the run is seeded with NNLearner2 individual
+* Figured out a potential error for the run while working with Steven:
+```
+        if len(input_layers) == 2 and data_pair.get_datatype()=='textdata':
+            model().fit(x=x, y=y, validation_data=validiation_data_final, batch_size=batch_size, epochs=epochs)
+```
+Initially epochs=epochs was not a parameter. After adding in more epochs, made it so that NNLearner2 would never actually evaluate. I looked in the database and out files and the seeded individual is always in progress. Potential reasoning is because of low disk space when running on pace.
+
 
 
 '''Action Items:'''
