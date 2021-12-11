@@ -79,8 +79,67 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 ** Future Work
 *** Complete Experimental Trials.
 *** Write and Review Paper.
-* Modularity
 * Neural Architectural Search (NAS)
+** Goal
+*** Maximizing EMADE Productivity.
+*** Growing Deep and Complex Individuals.
+** Maximizing EMADE Productivity
+*** Time being wasted on errored individuals.
+*** Need a ways to stop training.
+*** Added a TimedStopping Call back.
+*** Added a new parameter in input schema.
+** Experiment Setup
+*** Average Evaluation Time, Average Accuracy Error, Number of Individuals.
+*** Time training does not decrease accuracy errors.
+*** No linear relationship between time trained and metrics.
+** Growing Deep and Complex Individuals
+*** Added unique generator methods for NNLearners and Modules within EMADE.
+*** Modified NNLearner generator to produce valid nn_learners using a forward.
+*** Added Weight Sharing: increase specialization of modules.
+*** Generated Mate/Mutation methods for NNLearner and Modules.
+** Experiment Setup
+*** Accuracy Bins using Mut/Mat modules, without Mut/Mat, optimal midterm.
+*** Elapse Time vs. Accuracy Error.
+** Leveraging Modules
+*** Motivation: Pooling Layers, weight sharing.
+** Experiment Setup
+*** Accuracy Error, Average Precision Error
+** Weight Sharing
+*** If modules was trained, load old weights.
+*** Implement by storing weights in database.
+*** Best individual good for 1 epoch (64.42% test accuracy) but weights in database is too slow (<= 3 generations).
+** Weight Sharing + Max Pooling
+*** Implement by weights stored in file.
+*** Fewer trivial individuals.
+*** Many more generations.
+*** Less frequent time stopping.
+** Max Pooling after modules
+*** Best individuals perform better.
+** Residual Connections
+*** More consistently better than WS + Max Pooling.
+*** More Left Skewed.
+*** More trivial individuals.
+** Best Individual
+*** Train & Test Accuracy: 98.8% & 74%.
+** Future Works
+*** Remove SGD (or only use Adams).
+*** Experiment with training callbacks.
+* Modularity
+** Background
+*** Explore ways to abstract parts of individuals.
+*** ARL: introduce modularity and reusability in EMADE.
+** Code Changes
+*** Infrastructure Update: Documentation.
+*** Moved information within tuples into classes.
+*** CloudCopy Script Changes: No more infinite execution, progress countdown & progress bar.
+** Experiments
+*** Experiment 1: ARL Complexity Effects on Individuals.
+**** Allow the search function to consider larger subtrees depth to increase the potency of ARLs.
+**** Improve ARL candidates.
+**** No ADF vs. ADF & No ADF vs. New ARL comparisons.
+**** False Negatives & False Positives of Individuals Containing ARLs vs. ARL Size.
+**** ARL Size and Depth vs. Frequency on the Pareto Front.
+**** Takeaways: Size may not inherently imply usefulness.
 
 
 '''Individual Progress'''
@@ -121,9 +180,10 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 '''Individual Progress'''
 * I collaborated with Steven and Rishit to conduct analysis on the overall runs.
-* I collected the valid runs from all .out files given no error & 16 hr running time.
-* I, Rishit and Steven generated the Pareto Front diagrams for all 4 valid runs.
+* I and Steven collected the valid runs from all .out files given no error & 16 hr running time.
+* I generated the Pareto Front diagrams for all 4 valid runs.
 * I manually colored the region of interest on iPad given the Pareto fronts.
+** Coded version was too complex at the moment given time constraints.
 * I and Steven automated the region of interest calculation.
 * I and Steven made the conclusions according to our results.
 ** Overall, we are limited in scope to which we can generalize as we had a limited amount of data (4 16 hour runs)
