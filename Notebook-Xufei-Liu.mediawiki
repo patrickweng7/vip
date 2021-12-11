@@ -30,7 +30,11 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 *** This resulted in timeouts for execution time
 ** Area under curve of ROw saw area decrease with an increase in parameters
 ** Final results: Unfortunately got -.5 for contrast + sobel filter, however, the contrast + sharpening filter did better
-
+* NLP
+** Preprocessing - context-independent normalization, canonicalization, tokenization,word embeddings, and attention
+** For their quantitative analysis, they used closed-domain, extractive, and factoid
+** Used the SQUAD dataset and the BiDAF model structure
+*** Can they use AutoML in the domain ofQ&A to improve an existing model?
 
 ====== Subteam Meeting 12/9/2021 ======
 * Continued working on slides and sent out a new lettucemeet for rehearsal
@@ -53,6 +57,16 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 * Finished modifying slides for final presentation which is linked here: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gc9bc63836f_1_46
 * I wrote/added to the current issues, future work, and also Merging CacheV2 when it came to slide progress
 * Unfortunately, for this semester, we were not able to complete/analyze any CacheV2 runs.
+* Analysis on the data plots present in the slides (I'm not sure how to add pictures so I'll refer to the slide numbers)
+** Slide 12: We see that having ARLs will on average be better than having no ARLs as there will typically be a lower area under the curve under our current process
+*** However, we see that this is less evident for our extended ARLs vs old ARL structure, meaning that increased depth of ARL may not necessarily lead to better performance.
+*** We see that the design using ARLs can inherently capture the good parts of the individuals which might be why there's overall better performance.
+*** As we see with the extended ARLs, there is a slight improvement in performance around the 35th generation after a worse performance in the 15-30th generations. This might mean that longer runs will see significant improvement in longer ARLs.
+** Slide 15: You can see the dataset of the false negatives/positives of individuals with ARLs compared to their ARL size.
+*** Unfortunately, there are no strong correlations
+*** There is an odd concentration of lots of variations of ARL size in particular around false negatives of 20 and 70.
+*** You can also see this for false positives, especially around 10. 
+*** Both seem to have a steep triangle shape and we're not sure why as of right now (what is it about those numbers that has so many varying ARLs of all sizes and complexity?)
 
 
 ====== Action Items ======
