@@ -16,7 +16,83 @@
 
 '''Lecture Notes:'''
 * We assigned tasks to each individual for the final presentation.
-* I will be working on hyper-features and slides for mating and mutation methods.
+* I will be working on learning and understanding more about hyper-features and slides for mating and mutation methods.
+
+
+'''Sub-Team Meetings, Individual Contributions, and Final Presentation preparation notes:'''
+* I worked with Aryaan to get the mating and mutation methods (mainly mating changes) xml file to get configured accordingly. 
+* As we still had to run trials for depicting the results for our final presentation, so till the time mating xml file was ready I started running trials with Maxim for the baseline trial runs.
+* I completed two baseline trial runs (by running EMADE with a specifically configured xml file on PACE) and sent over my dump folder with all information in my mysql database for the results of the final presentation.
+* After the final xml file for mating and mutation runs was ready, I started a trial run for the same.
+* After about an hour or so of starting the run, the EMADE_mastero##### crashed and lost its connection to the mysql server, giving me an error and also giving just an empty set when I tried to find the best individuals (not duplicated) in this run.
+* To fix this and prevent the master from crashing, I changed the reuse value to 0 from 1, killed all my previous mysql jobs and started a new job.
+* After doing this I was able to successfully run a trial for the mating and mutations methods and give out an output that we used in our final presentation.
+* While preparing for the final presentation, I covered how the number of parameters effect the AUC ROC results and that the denser the trees (more parameters) are the better the area under the curve became.
+* I also made two of the slides for the same and depicted the results by using trees and tables.
+* To generate trees, we used help from the following link: https://github.com/cwhaley112/TreeVis
+* I then used the command query, "mysql -u rbatra34 -p -D mating_runs -e "select tree,\`FullDataSet ROC AUC\`, \`FullDataSet Num Parameters\` from individuals ind join paretofront pf on pf.hash=ind.hash where pf.generation = (select max(generation) from paretofront);" | tr '\t' '|' > ./mutations.csv", to generate a csv file that I used for different generations and runs to create a tree representation.
+* This is the link to the csv file that I generated (for mating methods): https://drive.google.com/file/d/1kS-jaAth1kURyc79u7-KXTYea_fmbkJw/view?usp=sharing
+* This is the link to the csv file that I generated (for baselines runs): https://drive.google.com/file/d/1xGdtggXg0K-VdidE1KnaycHKruG2HaU7/view?usp=sharing
+* I used the following command query to generate a table representing the AUC ROC: "select `FullDataSet ROC AUC`, `FullDataSet Num Parameters` from individuals ind join paretofront pf on pf.hash=ind.hash where pf.generation = (select max(generation) from paretofront);"
+* This generated the following table (mating):
++---------------------+----------------------------+
+| FullDataSet ROC AUC | FullDataSet Num Parameters |
++---------------------+----------------------------+
+|            0.495066 |                        287 |
+|            0.499883 |                         30 |
+|             0.49033 |                        831 |
+|            0.494667 |                        415 |
+|            0.460347 |                    1395180 |
++---------------------+----------------------------+
+
+'''Final-Presentation Day:'''
+* All my results and slides had been added onto the slides.
+* I was ready to prepare my thoughts and results in front of the class.
+* During the presentation, I talked about the slides that I wrote (as mentioned above in the preparation notes).
+* Our presentation went well.
+* After getting reviews from the Dr. Zutty and Dr. Rohlinng, we decided that we should now try focusing on specific features to improve our results and algorithms. For example, we can focus on perfecting lexicase selection methods in order to provide a large number of accurate results and trials.
+* We can definitely improve our output over the course of next semester.
+* I then listened to other sub-teams presentations and really enjoyed the work that the Neural Architecture Search team has been doing.
+
+Link to Final Presentation: https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update lecture notes
+|Completed
+|December 6th, 2021
+|December 12th, 2021
+|December 10th, 2021
+|-
+|Review lecture notes
+|Completed
+|December 6th, 2021
+|December 12th, 2021
+|December 10th, 2021
+|-
+|Run trial runs
+|Completed
+|December 6th, 2021
+|December 12th, 2021
+|December 10th, 2021
+|-
+|Prepare Final Presentation
+|Completed
+|December 6th, 2021
+|December 12th, 2021
+|December 10th, 2021
+|-
+|Individual Research on mating xml configurations and tree visualizations
+|Completed 
+|December 6th, 2021
+|December 12th, 2021
+|December 10th, 2021
+|}
 
 = Fall 2021 =
 == Week 15: November 29th - December 6th(2021) == 
