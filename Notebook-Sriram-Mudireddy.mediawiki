@@ -4,20 +4,70 @@ Name: Sriram Mudireddy
 Email: Smudireddy3@gatech.edu
 
 Phone #: 678-656-9709
-
+Interests: Basketball, Video Games, Rap
 VIP: Automated Algorithm Design
 Subteam: Portfolio Optimization Subteam
 Subteam Teammates:
 
 * [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Rishi_Bhatnager Rishi Bhatnager]
 * [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Pranav_Shankar_Manjunath Pranav Manjunath]
-* [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Sriram_Mudireddy Sriram Mudireddy]
 * [https://vip.gatech.edu/wiki/index.php/Notebook_Abhiram_Venkata_Tirumala Abhiram Tirumala]
-* [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_David_Socher_Wolfson David Wolfson]
 
 =Fall 2021=
-==Oct 28th, 2021==
-==Oct 21st, 2021==
+==Week of Nov 4th, 2021==
+'''Subteam Meeting Notes'''
+*In trying to replicate the PLR-SVR model Professor Zutty pointed out 
+==Week of Oct 28th, 2021==
+'''Subteam Meeting Notes'''
+---Presentations---
+Natural Language Processing Team: 
+* Working on developing question and answering systems with EMADE
+* Use a model called BiDAF (Bi-directional attention flow)
+* Have not created individuals yet but their goal is to make simpler state of the art models through EMADE
+* Currently seeding individuals using models found in their Literature review and developing primitives
+
+Neural Architecture Search:
+* Create new infrastructure: Nested Neural Network learners
+** incentivized by trying to force EMADE to better sift through the search space
+* Allow EMADE to efficiently/feasibly create more complex individuals
+
+Image Processing: 
+* Goal is to classify data on Chest x-rays to identify diseases using multi-label classification
+* However, the multi-label classification seems to require a great deal of reimplementation
+** I'm curious as to how they identify each individual disease and how that data is processed in the preprocessing
+
+Modularity:
+* Developing ARLs (Adaptive Representation through learning) 
+** Conceptual goal is to find parts of individuals that work well and then group those subtrees into structures to potentially improve performance
+* Looking to work on stock price prediction building off our work as a testing ground for ARLs
+** ARLs are somewhat similar in function to the technical indicators we implement in the stocks team
+'''Individual Contributions'''
+* Made the initial draft of our presentation and worked with team to edit it
+* Assigned and rehearsed individual slides for the midterm presentation
+* Created the new objective splits taking into account our replacements for profit and profit percentage
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create New Objective Splits
+|Complete 
+|Oct 21, 2021
+|Oct 14, 2021
+|Oct 20, 2021
+|-
+|Rehearse presentation/ Present
+|Complete
+|Oct 21, 2021
+|Oct 28, 2021
+|Oct 28, 2022
+
+|}
+
+==Week of Oct 21st, 2021==
 '''Subteam Meeting Notes'''
 * We tested our best results from last semester to see how we compared against the model in the  paper
 ** Based on the profit from our best Individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None)) which looked at the BollingerBand and looked for a change of 61 standard deviations across a period of 2 days 
@@ -26,7 +76,7 @@ Subteam Teammates:
 [[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
 ** Performance using code from this semester's paper: 
 [[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
-** The discrepancy is because this individual was optimized for the objectives/stocks from last semester some of which were changed for this semester's paper
+** The discrepancy is because this individual was optimized for the objectives & stocks from last semester some of which were changed for this semester's paper
 ** Performance from TS-Fuzzy model reported by paper: 
 [[files/rbhat3/paper_perf.png|thumb|50x50px]]
 *** Based on last year's performance, we'd be about better overall
@@ -48,10 +98,13 @@ Subteam Teammates:
 ** This would be a different type of analysis to using train and test data from this semester’s paper to do our main analysis
 * PACE
 ** Processors per worker and workers per host should be the same
-** Compute time equals number of jobs times number of cores per worker
-* Objectives: to make profit a minimization we’ll take the negative of profit
-** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound. I suggested calculating the lowest profit possible per the period of data.
-
+** Compute time = # of jobs x # of cores per worker
+* Objectives: to make profit a minimization we’ll take the negative of profit (new Loss function)
+** Apply same logic for avg profit function (new avg Loss function)
+** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound.
+'''Individual Contributions'''
+* For the problem of AUC calculation, I suggested finding the minimum possible profit for that stock on that interval and apply it as our lower bound
+* Informed the Modularity team about some of our work on the stock team and how our primitives analysis has worked in previous year
 
 '''Action Items'''
 {| class="wikitable"
@@ -61,12 +114,7 @@ Subteam Teammates:
 !Suspense Date
 !Date Resolved
 |-
-|Read paper and begin replicating it
-|In progress 
-|Sept 17, 2021
-|
-|
-|-
+
 |Finalize experiment design
 |Complete 
 |Oct 15, 2021
@@ -78,18 +126,9 @@ Subteam Teammates:
 |Oct 21, 2021
 |Oct 25, 2021
 |Oct 25, 2022
-===Action Items===
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
-
 |}
-==Oct 14th, 2021==
-===SubTeam Notes===
+==Week of Oct 14th, 2021==
+===Individual Notes===
 * I've begun researching into the Takagi-Sugeno Fuzzy Model that was discussed in the paper
 ** The whole concept of the "Fuzzy" logic rests on the idea of having information that is vague and having your data sort of reflect that vagueness. (instead of probabilities and vagueness in data, it deals with partial truths on the side of the model)
 ** We see this in the paper where there's a fuzzification of the data and a subsequent defuzzification which is then turned back over to the PLR-SVR model with the dynamic threshold detection to create trading signals. 
@@ -128,7 +167,7 @@ Subteam Teammates:
 |October 22, 2021
 |October 21, 2021
 |}
-==Oct 4th, 2021==
+==Week of Oct 4th, 2021==
 ===Team Notes===
 * Designed EMADE trials as a group to figure out the best configuration produce the best results possible.
 ** Eval Functions being used:
@@ -166,7 +205,7 @@ Subteam Teammates:
 |
 |}
 
-==Sep 27th, 2021==
+==Week of Sep 27th, 2021==
 ===Meeting Notes===
 * Wasn't able to attend the meeting as I was sick on this day, but got updates with Diptendu that the rest of the team was planning on splitting apart
 * Advised some of the new stocks team members on what direction they should take after splitting from the stocks team
@@ -241,7 +280,7 @@ Subteam Teammates:
 |Sep 23rd, 2021
 |}
 
-==Sep 13th, 2021==
+==Week of Sep 13th, 2021==
 ===Meeting Notes===
 * Met with Professor Zutty and talked about what the direction of our research looks like (Discussed more in Subteam Notes)
 * Subteam needs an overhaul on what/how we work on the problem/ conduct research on EMADE
@@ -305,7 +344,7 @@ Subteam Teammates:
 |In Progress
 |-
 |}
-==Sep 6th, 2021==
+==Week of Sep 6th, 2021==
 ===Meeting Notes===
 * Met with some people on our team and planned out a literature review for finding a different direction for our project
 * Class was cancelled so we didn't really make headway in terms of actually meeting but subteam made decent progress
@@ -337,7 +376,7 @@ Subteam Teammates:
 |-
 |}
 
-==Aug 30th, 2021==
+==Week of Aug 30th, 2021==
 ===Meeting Notes===
 * Deciding on subteams based on rankings
 * Ranked Stocks subteam first, Natural Language Processing second, etc...
@@ -367,7 +406,7 @@ Subteam Teammates:
 |Sept 13th, 2021
 |-
 |}
-==Aug 23rd, 2021==
+==Week of Aug 23rd, 2021==
 ===Meeting Notes===
 * Brainstormed with the Stocks subteams about the future direction of our project
 
