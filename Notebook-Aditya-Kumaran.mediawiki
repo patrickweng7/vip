@@ -22,6 +22,7 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Multi points and Uniform had best AUC-ROC of 0.365, average of 0.38.
     *  Hyper-features: multiple primitives that work well together. Very bad AUC-ROC results, even around 0.5 (worst possible).
     *  Challenges: switched dataset, compiling models errors.
+    *  Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
 *  NLP:
     *  Tokenization = converting input to smaller words
     *  Word embeddings = converts text data to numerical vectors (bag of words)
@@ -36,14 +37,42 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Compared 4 pareto fronts from successful runs. Maximum reduction in area was 10.96%.
     *  Will need more runs (only had 4). But think that they can reduce area with current technique. More diverse set of primitives might help.
 *  Neural Architecture Search:
-    *  
-    *  
+    *  NAS is a subset of hyperparameter optimization and AutoML.
+    *  Implemented updated timestopping - decreased wasted time on errored individuals. Can now set max_timestop.
+    *  5 variations of Independent Variable in experiment - 600, 800, 1200, 2400, 3000 seconds for Timestop.
+    *  Found that more calculation time just wasted more time, and that faster was just as good. More time didn't decrease accuracy error.
+    *  More complex individuals: Added generator methods for NNLearner and Modules/ARLs.
+    *  Added weightsharing (to encourage specialization of modules), modules as primitives. Added mating/mutation methods, checks for errors.
+    *  Expanded database tables to track parents of pareto optimal individuals.
 *  Modularity:
     *  We performed our presentation.
-    *  
+    *  https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.g10552199870_4_0
+    *  Dr. Zutty liked my graph comparing NoARL, OldARL, NewARL - advised us to do more runs at the start of next year to see if we can find statistical significance for ARLs being better than NoARLs. We'll probably keep this in mind as we start next semester.
 *  Stocks:
     *  Optimizing time-series data
-    *  
+    *  Want to beat the paper's predictions
+    *  In terms of objectives, conserved profit/loss% and varied other objectives
+    *  Primitive Analysis: Objective was (-1 * loss percentage) for all primitives
+    *  Profit Percentage Analysis: Plotted with box plot.
+    *  Best performing combination was VWMA and ArgMinLearner (13.56%). Apparently ArgMin and ArgMax performed really well,, which is funny because they aren't even ML.
+    *  Optimizing over loss_avg and loss_var proved to be the best. They did manage to beat the stocks paper's results in most stocks.
+    *  Plan to publish a paper regarding findings.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize Weekly Notebook for this semester
+|Complete
+|December 10, 2021
+|December 13, 2021
+|December 10, 2021
+|}
+
 == December 6, 2021 (Week 16) == 
 
 === Lecture Notes: ===
