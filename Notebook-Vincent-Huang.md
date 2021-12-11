@@ -13,6 +13,9 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
     - Met with first year students to discuss what to say for slides
 - Implemented visualizations for ARL clustering experiment
 ```
+import matplotlib.pyplot as plt
+import MySQLdb
+
 results_tree_idx = 0
 results_false_positives_idx = 1
 results_false_negatives_idx = 2
@@ -136,14 +139,13 @@ for arl_num, dbnum in to_graph:
 ### Code Commits
 - [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/c25b59577a108e1f1e80b03ea45216cc2632e777)
     - Implemented ARL clustering visualizations
+
 |Task|Status|Assigned Date|Due Date|Date Completed|
 |----|------|-------------|--------|--------------|
-|extended ARL runs|Complete|Nov 21|Nov 24|Nov 29|
-|Take a look at CacheV2's code|Complete|Nov 21|Nov 28|Nov 29|
+|Implement visualizations for ARL clustering experiments|Complete|Nov 29|Dec 7|Dec 9|
+|Meet with first year students separately to discuss their slides|Complete|Nov 21|Dec 9|Dec 9|
 
 ### Week 15: Nov 29
-worked on visualizations
-
 - Since the CacheV2 Integrations team seemed to be struggling, I offered to take a look at their code
     - Very problematic code commits
     - Primary problem was that in `sql_connection_orm_master.get_seeded_pareto()`, it references `self.optimization`.
