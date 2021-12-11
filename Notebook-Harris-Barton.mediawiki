@@ -149,7 +149,7 @@
 |December 6th, 2021
 |December 1st, 2021
 |}
-== November 22nd == 
+== November 22nd, 2021 (Thanksgiving Break) == 
 '''Meeting Notes\Accomplishments:'''
 * Austin and I have implemented lexicase methods from DEAP inside of EMADE and did test runs. So now all we have to do is do some experiments on the two lexicases and NSGA-III.
 * Austin will send me the stats of the runs we did and I will insert them here when I have then. As of now, it seems as if we are getting one individual and not changing in 200 generations so we need to look into that.
@@ -157,7 +157,6 @@
 * On the selection method side, we need to look into that issue with the runs and see if this is some sort of code bug, and that is about it. Once this bug is fixed, all we need to do are experiments.
 * The fixing and looking into this bug will most likely be done next week.
 * I still do not have a great understanding of the sort of lexicase that Dr.Zutty is discussing and how to implement it. We do not have a ton of time, so I think that we will stick to using the current lexicase implemented and EMADE and see if we can also use the epsilon lexicase that DEAP has. 
-
 '''Action Items:'''
 {|class = "wikitable"
 !Assignment
@@ -185,8 +184,12 @@
 * I was not able to make this subteam meeting. 
 * However, due to time constraints, I will move forward with simply implementing DEAPS version of lexicase. Hopefully, we will have this done in the hackathon on Sunday and we can then proceed to do experiments comparing the different lexicases and NSGA-III and their impact on the performance.
 * Other than that, Max is working on getting a new conda environment ready for Tensorflow 2.6, which we will create documentation for when it is finished. 
+* The epsilon lexicase paper did not seem to be very clear on how to implement it to me, but it turns out that DEAP has epsilon lexicase implemented! 
+* So we might as well try and do some runs with epsilon lexicase and just see for ourselves if it might have some decent results hopefully comparable or better than the current EMADE implementation of lexicase. 
 * This week, the goal is to get DEAPS version of lexicase in EMADE smoothly so that I can do experiments with it in the week of and week after thanksgiving break. If time permits, might as well run tests with their normal lexicase and their epsilon lexicase. 
 * We want to be able to do experiment with various values of epsilon and see if we can tune that parameter so that we can pick the best epsilon value to be able to compare with the rest. 
+* I did find another paper on lexicase and epsilon lexicase that seems to have a comprehensive explanation of both, so I read this paper and took some minimal notes. I did not read this paper and take notes at the level of detail which I wanted to, due to the fact that we did have some issues when implementing the DEAP version of epsilon lexicase.
+'''Paper Notes:'''
 {|class = "wikitable"
 !Assignment
 !Current Status
@@ -214,15 +217,16 @@
 * I also found 2 more papers which I intend to read before the meeting next week which are implementations of lexicase. One is something called epsilon lexicase, which is implemented in DEAP. Sadly, DEAPS link to the paper they used to implement epsilon lexicase does not work so I am not sure if this is that one or not. 
 '''Paper Notes:'''
 * '''Link to Paper:''' https://dl.acm.org/doi/10.1145/2908812.2908898 
-* '''General Note:''' I am aware that this paper investigates this lexicase selection method in the context of regression, and we are doing classification. However, I figure that I might gain some insight into whether I think that this lexicase version might be able to be implemented in our problem.
+* '''General Note:''' I am aware that this paper investigates this lexicase selection method in the context of regression, and we are doing classification. However, I figure that I might gain some insight into whether I think that this lexicase version might be able to be show promise in the context of our problem. 
 * '''Abstract:''' Recall that lexicase selection is a parent selection method that considers test cases separately, rather than in aggregate when performing parent selection. This paper develops a new form of lexicase selection for symbolic regression, named epsilon-lexicase selection. This redefines the pass condition for individuals one each test case in a more effective way. Epsilon lexicase selection is shown to be effective for regression, producing better fit models compared to other techniques such as tournament selection and age-fitness pareto optimization.  The papers experiments show that epsilon-lexicase selection with automatic epsilon produces the most accurate models across tested problems with negligible computational overhead.
 * '''Algorithm:''' The parent selection event proceeds as follows:
  1. The entire population is added to the selection pool.
  2. The fitness cases are shuffled.
  3. Individuals in the pool with a fitness worse than the best fitness on the case among the pool are removed.
- 4. If more than one individual remains in the pool, the first case is removed and 3 is repeated with the next case. If only one individual remains, it 
-     is the chosen parent. If no more fitness cases are left, a parent is chosen randomly from the remaining individuals.
-* '''Conclusion:''' I realized like midway through this paper that this paper doesn't seem to be very beneficial for our problem and if it is beneficial, I don't quite see it. Additionally, this paper doesnt seem to give me enough info for me to feel comfortable trying to implement it in EMADE. 
+ 4. If more than one individual remains in the pool, the first case is removed and 3 is repeated with the next case. If only one individual remains, it is the chosen parent. If no more fitness cases are left, a parent is chosen randomly from the remaining individuals.
+* '''Conclusion:''' I realized like midway through this paper that this paper doesn't seem to be very beneficial for our problem and if it is beneficial, I don't quite see it. Additionally, this paper doesn't seem to give me enough info for me to feel comfortable trying to implement it in EMADE. 
+* I did find another paper going over lexicase and epsilon lexicase more in depth. This implementation of epsilon lexicase seems to attempt to address some of the short-comings of the normal lexicase in that the normal lexicase is more sensitive to small sets of training cases and smaller population sizes. 
+* I am going to read this paper next week and hopefully just gain some better insight into how the current EMADE implementation of lexicase is working and how epsilon lexicase addresses the shortcomings of the currently implemented version. 
 {|class = "wikitable"
 !Assignment
 !Current Status
