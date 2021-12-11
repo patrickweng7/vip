@@ -53,17 +53,31 @@ Interests: Machine Learning, Basketball, Video Games
 
 
 '''Subteam Meeting Notes:'''
+
 * Beginning to start experimental runs for final presentation
 * Change dataset to be regression problem for word start index rather than character start index 
 
 '''Personal Work:'''
-Pace EMADE runs were done in 8 hour increments. Evaluation function were num params for complexity and mse for accuacy.
-PACE emade run getting a weird, wrong individual: 
-```WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))```
 
-MSE was the worst possible error and max number of params. But it did compile.
+* Pace EMADE runs were done in 8 hour increments. Evaluation function were num params for complexity and mse for accuacy.
+* PACE emade run getting a weird, wrong individual: 
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
 
-PACE emade run with 6 valid individuals: 
+* MSE was the worst possible error and max number of params. But it did compile.
+
+* PACE emade run with 6 valid individuals: 
+```
+Pareto Individual 0 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), 100, passOptimizer(AdamOptimizer))(241243.0, 2257025.0) Age 1.0
+Pareto Individual 1 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer()))), 100, passOptimizer(passOptimizer(AdamOptimizer)))(242279.0, 2246401.0) Age 1.0
+Pareto Individual 2 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(GRULayer(6, reluActivation, 32, trueBool, falseBool, AttentionLayer(EmbeddingLayer(16, ARG0, passWeightInitializer(randomUniformWeights), InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), myIntSub(10, 1), AdamOptimizer)(251242.0, 2240877.0) Age 1.0
+Pareto Individual 3 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(ConcatenateLayer2(InputLayer(), LSTMLayer(88, softmaxActivation, 7, falseBool, falseBool, EmbeddingLayer(16, ARG0, passWeightInitializer(glorotUniformWeights), InputLayer())))), myIntSub(10, 1), AdamOptimizer)(280517.0, 1157449.0) Age 1.0
+Pareto Individual 4 after gen 49 is NNLearner(ARG0, OutputLayer(InputLayer()), 1, FtrlOptimizer)(384797.0, 401.0) Age 1.0
+Pareto Individual 5 after gen 49 is NNLearner(ARG0, OutputLayer(OutputLayer(DenseLayer(falseBool, sigmoidActivation, 255, InputLayer()))), myIntAdd(6, 55), AdamaxOptimizer)(384798.0, 3.0) Age 1.0
+Pareto Individual 6 after gen 49 is NNLearner(ARG0, OutputLayer(DenseLayer(falseBool, eluActivation, 1, InputLayer())), 1, RMSpropOptimizer)(392514.0, 1.0) Age 1.0
+```
+* eval functions is (mse, num_params)
 
 '''Action Items:'''
 {| class="wikitable"
