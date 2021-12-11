@@ -18,6 +18,30 @@ Presentation Notes
 ** Most individuals that performed well had at least 3.5 million or more parameters
 ** Did experiments with adding different filters like the sobel and sharpening filters
 
+* Stocks team
+** Had experiments for. 2 obj, 3 obj, and 4 objs
+** Primitive analysis: analyze EMADE choice of primitives over the course of all generations
+** Filter individuals based on primitives and average fitness
+** Profit percentage analysis: plotted profit percentage of samples with box plot
+** Best individual had 13.46% mean profit percentage
+** Interestingly, argmin and argmax primitives were very performant
+** Performed significantly better than the paper for all stocks compared except JNJ
+
+* NAS team
+** NAS aims to discover the best architecture for a neural network for a specific need
+** Initial infrastructure relies heavily on Tensorflow and Keras
+** Added time stopping callback
+*** time  being wasted on errored individuals; need way to stop training without erroring out individual
+*** Add maxTimeStop into input_xml
+*** Tested various time stopping (TS: 600, 1200, 1800, 2400, 3000); results show that increasing time stoppage decreases the number of individuals since average evaluation time increases: reducing max stoppage time helpful
+** Added weight sharing code that helps speed up GP process
+*** Pros: best individual good for. 1 epoch
+*** Cons: Weights in db to slow
+*** Diff implementation: WS + Max Pooling resulted in fewer trivial individuals and many more generations due to having less frequent time stopping
+** Obj for experiments: accuracy sharing avg precision error 
+** Key idea: constrain alg such that adding multiple max pooling layers can't happen (this reduces the signal too much in many cases)
+** Attempted to add residual connections, fixing the vanishing gradient problem
+
 Had discussion about what our main goal for NLP is and what to show.
 * improvement statistically by showing how EMADE runs "eats away" at pareto front
 * reduction in AUC as the quantifiable metric 
@@ -27,6 +51,7 @@ Had discussion about what our main goal for NLP is and what to show.
 
 Met up on 12/8 to go over slide distribution and work. I contributed to slides 4-6 of the presentation (Intro to NLP, NLP terminology) and researched important NLP basics most of which I did not include in the slides for the sake of brevity but have included them in a markdown document of notes which I have been taking since the start of being on the NLP subteam for personal understanding of the background that might be helpful.
 
+(not showing here but it's located in "emade.wiki/files/dzhang351/NLP_notes.pdf")
 [[files/dzhang351/NLP_notes.pdf]]
 
 Result of Run 1 (approx 2 days locally -> 17 total run hours)
