@@ -17,6 +17,98 @@ Interests: Machine Learning, Python, Soccer, Chess
 
 
 
+== December 8, 2021 ==
+
+ December 6
+
+'''Team Meeting Notes:'''
+
+* Peer evals close 12/8 Wednesday 4pm
+* Our notebooks are due on Monday 12/13 at 9am
+* Visualizations for prezi: tree structure for algorithms, pareto fronts and AUC, tracking things through time, any mined info from databases
+* 20 min for presentation
+
+
+ December 8
+
+'''Sub Team Notes:'''
+
+* Things to do
+** Finish any merges 
+** Deign and delegate experiments
+** Create visualizations where applicable
+** Finish Presentation Slides
+
+* I will not be merging the hyper-feature code and instead test it separately using standalone tree generator.
+** The reason for this is that it can potentially cause issue as it is not very ell tested.
+
+* I was getting this error when runing the standalone tree with several different trees,
+
+ Traceback (most recent call last):
+  File "standalone_tree_evaluator.py", line 161, in <module>
+    my_func, i = parse_tree(s, pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 64, in parse_tree
+    their_func, x = parse_tree(line[i+1:], pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 64, in parse_tree
+    their_func, x = parse_tree(line[i+1:], pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 113, in parse_tree
+    raise e
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 110, in parse_tree
+    node = ast.literal_eval(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 99, in literal_eval
+    return _convert(node_or_string)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 98, in _convert
+    return _convert_signed_num(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 75, in _convert_signed_num
+    return _convert_num(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 66, in _convert_num
+    _raise_malformed_node(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 63, in _raise_malformed_node
+    raise ValueError(f'malformed node or string: {node!r}')
+ ValueError: malformed node or string: <_ast.Name object at 0x7fff603346d0>
+
+* This error was caused because as I had changed to the emade version of `img-proc`, the NAS team had updated the way trees are structured.
+* I talked with Cameron Whaley from the NAS team to learn the new structure of the trees.
+
+* I changed the trees and it finally started producing fitness values.
+
+* Tree change example:
+
+** Old Tree Structure:
+ NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), DenseLayer4dim(DenseLayerUnit32, defaultActivation, Conv2DLayer(Conv2DFilterUnit16, reluActivation, Conv2DKernelSize1, InputLayer)), 98, AdamOptimizer)
+
+** New Tree Structure:
+
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Peer evaluation
+|In-Progress
+|December 1, 2021
+|December 8, 2021
+|
+|-
+|Get results from the hyper-feature using standalone tree as the error is now fixed.
+|In-Progress
+|November 24, 2021
+|December 8, 2021
+|
+|-
+|Start preparing the slides for the the final presentation
+|In-Progress
+|November 24, 2021
+|December 8, 2021
+|
+|}
+
+
 == December 1, 2021 ==
 
  November 29
@@ -28,7 +120,7 @@ Interests: Machine Learning, Python, Soccer, Chess
 * Final presentation is 12/10
 
 
- December 1, 2021
+ December 1
 
 '''Sub Team Notes:'''
 
@@ -45,7 +137,7 @@ Interests: Machine Learning, Python, Soccer, Chess
  With Age: 0
  With Error:  **********You must compile your model before training/testing. Use `model.compile(optimizer, loss)` 
 
-* Dhruv also got the same error. The issue was that were using outdated version of emade. as new changes were made in the `img-proc` branch. 
+* Dhruv also got the same error. The issue was that were using outdated version of emade. As new changes were made in the `img-proc` branch. Also it was caused by Python 3.8 version of multiprocessing library.
 
 * I was able to fix this issue by scp-ing the latest src directory from the `img-proc` branch 
 
