@@ -6,12 +6,161 @@
 * 3rd year CS Major concentrating in Theory and Intelligence.
 * Interests: Machine Learning, Software Engineering, Digital Signal Processing, BJJ (No-Gi)
 = Fall 2021 =  
-== November 22nd == 
+== December 6th, 2021 (Final Presentation Week) == 
+'''Meeting Notes\Accomplishments:'''
+* Our code is now frozen and we are doing experiments. 
+* Austin and I are using this meeting as a work session to do some experiments.
+* The comparisons that the selection method people will be doing are baseline vs NSGA-III, baseline vs Lexciase, and lexicase vs NSGA-III.
+'''subteam meeting notes:'''
+* Preparing for presentation and doing experiments
+* I am running experiments and am going to document PACE-ICE errors below.
+* Completed a run of NSGA3 as a part of the experiments we were running. Austin, Dhruv, and I all ran NSGA-III to try to at least see if we could get some sort of satistical significance. 
+ Lowest AUC: 0.377054
+ Num Params: 192680000
+* Completed a run of lexicase as apart of the experiments as well. 
+ Lowest AUC: 0.348809
+ Num Params: 12056200
+* Neither of these ROC-AUC values compared nicely with that of NSGA2 run, which had a nice individual of ROC AUC: 0.218952.
+'''Encountered errors and their fixes:'''
+* '''Error:''' 
+  Traceback (most recent call last):
+  File "src/GPFramework/launchEMADE.py", line 273, in <module>
+    schema_doc = etree.parse(os.path.join('templates', 'inputSchema.xsd'))
+  File "src/lxml/etree.pyx", line 3521, in lxml.etree.parse
+  File "src/lxml/parser.pxi", line 1859, in lxml.etree._parseDocument
+  File "src/lxml/parser.pxi", line 1885, in lxml.etree._parseDocumentFromURL
+  File "src/lxml/parser.pxi", line 1789, in lxml.etree._parseDocFromFile
+  File "src/lxml/parser.pxi", line 1177, in lxml.etree._BaseParser._parseDocFromFile
+  File "src/lxml/parser.pxi", line 615, in lxml.etree._ParserContext._handleParseResultDoc
+  File "src/lxml/parser.pxi", line 725, in lxml.etree._handleParseResult
+  File "src/lxml/parser.pxi", line 652, in lxml.etree._raiseParseError
+  OSError: Error reading file 'templates/inputSchema.xsd': failed to load external entity "templates/inputSchema.xsd"
+* '''Fix:'''
+ Had to go in and add inputSchema.xsd. I accidentally removed it when I was trying to get below quota.
+* '''Error:'''
+ :44
+ 211208 18:35:36  InnoDB: Unable to open the first data file
+ InnoDB: Error in opening ./ibdata1
+ 211208 18:35:36  InnoDB: Operating system error number 11 in a file operation.
+ InnoDB: Error number 11 means 'Resource temporarily unavailable'.
+ InnoDB: Some operating system error numbers are described at
+ InnoDB: http://dev.mysql.com/doc/refman/5.5/en/operating-system-error-codes.html
+ 211208 18:35:36 InnoDB: Could not open or create data files.
+ 211208 18:35:36 InnoDB: If you tried to add new data files, and it failed here,
+ 211208 18:35:36 InnoDB: you should now edit innodb_data_file_path in my.cnf back
+ 211208 18:35:36 InnoDB: to what it was, and remove the new ibdata files InnoDB created
+ 211208 18:35:36 InnoDB: in this failed attempt. InnoDB only wrote those files full of
+ 211208 18:35:36 InnoDB: zeros, but did not yet use them in any way. But be careful: do not
+ 211208 18:35:36 InnoDB: remove old data files which contain your precious data!
+ 211208 18:35:36 [ERROR] Plugin 'InnoDB' init function returned error.
+ 211208 18:35:36 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+ 211208 18:35:36 [ERROR] mysqld: Can't lock aria control file '/storage/home/hpaceice1/hbarton7/scratch/db/aria_log_control' for exclusive use, error: 
+ 11. Will retry for 30 seconds
+ 211208 18:36:07 [ERROR] mysqld: Got error 'Could not get an exclusive lock; file is probably in use by another process' when trying to use aria control 
+ file '/storage/home/hpaceice1/hbarton7/scratch/db/aria_log_control'
+ 211208 18:36:07 [ERROR] Plugin 'Aria' init function returned error.
+ 211208 18:36:07 [ERROR] Plugin 'Aria' registration as a STORAGE ENGINE failed.
+ 211208 18:36:07 [Note] Plugin 'FEEDBACK' is disabled.
+ 211208 18:36:07 [ERROR] Unknown/unsupported storage engine: InnoDB
+ 211208 18:36:07 [ERROR] Aborting
+ 211208 18:36:07 [Note] /usr/libexec/mysqld: Shutdown complete
+ 211208 18:36:07 mysqld_safe mysqld from pid file /storage/home/hpaceice1/hbarton7/scratch/db/mysqldb.pid ended
+*'''Fix:'''
+ I had a SQL instance running, all I had to do was kill it. 
+'''Some Presentation Notes:'''
+* We had some interesting questions asked during the presentation, namely that we were not looking deep enough into the performance of our algorithm on specific classes. 
+* The ROC-AUC value in combination with the Num_Params objective doesn't really tell us how our algorithm is doing on classifying specific diseases. Suppose we had an ROC-AUC of 0.5, at surface level, this seems like we are essentially doing a coin flip for each disease in prediction, but this might not be the case in that it might be doing a lot better at classifying certain diseases over some others. 
+* So essentially, we were not really looking deep enough into what is going on behind the hood. Rather, we spent too much of our time trying to get things to work and spit out ROC-AUC values and less time really trying to understand how our algorithm is working. 
+* We strayed away from what research in the sense that we kind of tried to present results positively, rather than specify the dangling threads that we have and be open about what we don't know and what we need to know and do better in future work.
+'''Closing Thoughts on This Semester:'''
+* Overall, this semester I definitely feel like I did not meet my goal of gaining a very deep understanding on what is going on under the hood of EMADE. I spent a lot of time with PACE-ICE issues and just small bugs and personal stuff that discouraged me a little bit.
+* Additionally, between thanksgiving break and the week I was sick, I really only had three weeks to really improve from the midterm presentation and fell into the trap of trying to get results that looked okay rather than trying to investigate deeply what is going on.
+* I hope that next semester I can get back into this goal and attempt to understand what is going on and hopefully become more of a leader and mentor figure since I will have been in this VIP for two semesters at that point. 
+* Specifically, I hope that I can continue with the image processing subteam and look deeper into the inner workings of whats going on and address all of the issues brought to our attention in todays presentation. 
+'''Action Items:'''
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Complete
+|December 6th, 2021
+|December 8th, 2021
+|December 8th and 9th, 2021
+|-
+|Code freeze
+|Complete
+|November 29th, 2021
+|December 6th, 2021
+|December 6th, 2021
+|-
+|Run Experiments lexicase
+|Complete
+|December 6th, 2021
+|December 10th, 2021
+|December 10th, 2021
+|-
+|Work on experiments NSGA3
+|Complete
+|December 6th, 2021
+|December 10th, 2021
+|December 9th, 2021
+|-
+|Do Presentation
+|Complete
+|December 6th, 2021
+|December 10th, 2021
+|December 10th, 2021
+|}
+== November 29th, 2021 == 
+'''Meeting Notes\Accomplishments:'''
+* Austin and I are using this meeting as a work session to try and get the lexicase from EMADE working. Currently we are having individuals not evaluating. 
+* The comparisons that the selection method people will be doing are baseline vs NSGA-III, baseline vs Lexciase, and lexicase vs NSGA-III.
+'''Subteam Meeting Notes:'''
+* I am trying to do some lexicase runs myself, but I am not able to do the reinstall command because I am getting permission denied. 
+* Thus, I am attempting to download the environment that we are using locally so that I can run PACE without having to do ./reinstall inside of the shared environment.
+* We are waiting to be able to leverage the changes of the NAS team and use the new environment with TF2.6
+'''To-DO/Accomplishments:'''
+* Austin and I are trying to look into the statistics of the last couple of runs that he did and try to understand why the individuals are not being fully evaluated. 
+* It doesn't seem to be a lexicase issue, because some other people were getting similar errors. It could be due to the upgrades of tensorflow and the fact we have not prepared the new environment.
+* I was diagnosed with Staph infection on December 1st, and ended up feeling pretty bad starting on Thursday and until Sunday. So I did not do  what I wanted to. For now, we are going to simply do experiments with the current implementation of lexicase in EMADE and see if it shows any improvements over the baseline.
+'''Action Items:'''
+{|class = "wikitable"
+!Assignment
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|- 
+|Meet with Subteam
+|Complete
+|November 29th, 2021
+|December 1st, 2021
+|December 6th, 2021
+|-
+|Download Environment locally with yml file
+|Complete
+|November 29th, 2021
+|December 6th, 2021
+|December 6th, 2021
+|- 
+|Look into the specifics of the run and see why we are getting error string individuals.
+|Complete (kind of)
+|November 29th, 2021
+|December 6th, 2021
+|December 1st, 2021
+|}
+== November 22nd, 2021 (Thanksgiving Break) == 
 '''Meeting Notes\Accomplishments:'''
 * Austin and I have implemented lexicase methods from DEAP inside of EMADE and did test runs. So now all we have to do is do some experiments on the two lexicases and NSGA-III.
 * Austin will send me the stats of the runs we did and I will insert them here when I have then. As of now, it seems as if we are getting one individual and not changing in 200 generations so we need to look into that.
 * This week is thanksgiving break so there is not much in the agenda for the upcoming. We are not meeting this week and we are pretty close to code freeze stage. 
 * On the selection method side, we need to look into that issue with the runs and see if this is some sort of code bug, and that is about it. Once this bug is fixed, all we need to do are experiments.
+* The fixing and looking into this bug will most likely be done next week.
+* I still do not have a great understanding of the sort of lexicase that Dr.Zutty is discussing and how to implement it. We do not have a ton of time, so I think that we will stick to using the current lexicase implemented and EMADE and see if we can also use the epsilon lexicase that DEAP has. 
 '''Action Items:'''
 {|class = "wikitable"
 !Assignment
@@ -26,7 +175,7 @@
 |
 |
 |-
-|Discuss lexicase issue with Dr.Zutty
+|Discuss lexicase with Dr.Zutty
 |Complete
 |November 22nd, 2021
 |November 29th, 2021
@@ -39,7 +188,12 @@
 * I was not able to make this subteam meeting. 
 * However, due to time constraints, I will move forward with simply implementing DEAPS version of lexicase. Hopefully, we will have this done in the hackathon on Sunday and we can then proceed to do experiments comparing the different lexicases and NSGA-III and their impact on the performance.
 * Other than that, Max is working on getting a new conda environment ready for Tensorflow 2.6, which we will create documentation for when it is finished. 
+* The epsilon lexicase paper did not seem to be very clear on how to implement it to me, but it turns out that DEAP has epsilon lexicase implemented! 
+* So we might as well try and do some runs with epsilon lexicase and just see for ourselves if it might have some decent results hopefully comparable or better than the current EMADE implementation of lexicase. 
 * This week, the goal is to get DEAPS version of lexicase in EMADE smoothly so that I can do experiments with it in the week of and week after thanksgiving break. If time permits, might as well run tests with their normal lexicase and their epsilon lexicase. 
+* We want to be able to do experiment with various values of epsilon and see if we can tune that parameter so that we can pick the best epsilon value to be able to compare with the rest. 
+* I did find another paper on lexicase and epsilon lexicase that seems to have a comprehensive explanation of both, so I read this paper and took some minimal notes. I did not read this paper and take notes at the level of detail which I wanted to, due to the fact that we did have some issues when implementing the DEAP version of epsilon lexicase.
+'''Paper Notes:'''
 {|class = "wikitable"
 !Assignment
 !Current Status
@@ -53,7 +207,7 @@
 |November 17th, 2021
 |November 22nd, 2021
 |- 
-|Implement Lexicase from DEAP
+|Implement Lexicase from DEAP --> epsilon lexicase and auto epsilon lexicase possibly?
 |Completed
 |November 15th, 2021
 |November 14th, 2021
@@ -62,9 +216,23 @@
 == November 8th, 2021 ==
 '''Meeting Notes:'''
 * Jason and I discussed the difference between the current EMADE implementation of lexicase and the one that might work better for our task. 
+* To be honest, I don't feel like I quite grasp it in the context of our problem, so I am going to read some more papers on lexicase and hopefully the sort of thing he is discussing will be more clear to me.
+* Specifically, how to get these test cases in the context of our dataset and use lexicase to be able to select individuals that are performing really well on specific cases and not so well on others and not fall into the issue of selecting individuals that do okay in aggregate over some of these special case individuals.
 '''Subteam Meeting Notes''':
 * We used this session as kind of a work session. Austin is working with me on lexicase implementation and literature search and we used this time attempting to resolve some issues involving him getting on PACE. 
 * I also found 2 more papers which I intend to read before the meeting next week which are implementations of lexicase. One is something called epsilon lexicase, which is implemented in DEAP. Sadly, DEAPS link to the paper they used to implement epsilon lexicase does not work so I am not sure if this is that one or not. 
+'''Paper Notes:'''
+* '''Link to Paper:''' https://dl.acm.org/doi/10.1145/2908812.2908898 
+* '''General Note:''' I am aware that this paper investigates this lexicase selection method in the context of regression, and we are doing classification. However, I figure that I might gain some insight into whether I think that this lexicase version might be able to be show promise in the context of our problem. 
+* '''Abstract:''' Recall that lexicase selection is a parent selection method that considers test cases separately, rather than in aggregate when performing parent selection. This paper develops a new form of lexicase selection for symbolic regression, named epsilon-lexicase selection. This redefines the pass condition for individuals one each test case in a more effective way. Epsilon lexicase selection is shown to be effective for regression, producing better fit models compared to other techniques such as tournament selection and age-fitness pareto optimization.  The papers experiments show that epsilon-lexicase selection with automatic epsilon produces the most accurate models across tested problems with negligible computational overhead.
+* '''Algorithm:''' The parent selection event proceeds as follows:
+ 1. The entire population is added to the selection pool.
+ 2. The fitness cases are shuffled.
+ 3. Individuals in the pool with a fitness worse than the best fitness on the case among the pool are removed.
+ 4. If more than one individual remains in the pool, the first case is removed and 3 is repeated with the next case. If only one individual remains, it is the chosen parent. If no more fitness cases are left, a parent is chosen randomly from the remaining individuals.
+* '''Conclusion:''' I realized like midway through this paper that this paper doesn't seem to be very beneficial for our problem and if it is beneficial, I don't quite see it. Additionally, this paper doesn't seem to give me enough info for me to feel comfortable trying to implement it in EMADE. 
+* I did find another paper going over lexicase and epsilon lexicase more in depth. This implementation of epsilon lexicase seems to attempt to address some of the short-comings of the normal lexicase in that the normal lexicase is more sensitive to small sets of training cases and smaller population sizes. 
+* I am going to read this paper next week and hopefully just gain some better insight into how the current EMADE implementation of lexicase is working and how epsilon lexicase addresses the shortcomings of the currently implemented version. 
 {|class = "wikitable"
 !Assignment
 !Current Status
@@ -78,7 +246,13 @@
 |November 10th, 2021
 |November 15th, 2021
 |- 
-|Read Lexicase Papers
+|Read Epsilon lexicase paper and see if it will be worth implementing
+|Completed
+|November 8th, 2021
+|November 10th, 2021
+|November 15th, 2021
+|- 
+|Play around with EMADE implementation and see if I can understand what Dr.Zutty is getting at more clearly
 |Completed
 |November 8th, 2021
 |November 10th, 2021
@@ -94,7 +268,9 @@
 * This week, I began to read a paper implementing lexicase which DEAP actually used as a framework in their implementation. The paper can be found here
  http://faculty.hampshire.edu/lspector/pubs/lexicase-IEEE-TEC.pdf. 
 '''Paper Notes/Thoughts:'''
-* This paper is apparently what the developers of DEAP used in order to implement lexicase inside of DEAP. At a high level, this paper compares this lexicase selection method with other parent selection methods on a subset of problems which they refer to as "uncompromising problems" which they define as a problem characterized by the requirement that solutions must perform optimally on each of many test cases. 
+* This paper is apparently what the developers of DEAP used in order to implement lexicase inside of DEAP. At a high level, this paper compares this lexicase selection method with other parent selection methods on a subset of problems which they refer to as "uncompromising problems" which they define as a problem characterized by the requirement that solutions must perform optimally on each of many test cases.
+* Lexicase does well in the sense that we are able to see individuals that do good on some subset of training cases, rather than only looking at individuals that do decent on the average. 
+* Since we have 14 classes, we might be able to see some individuals that predict some subset of the diseases really well, and not some of the others. Rather than settling with some individual that does '''okay''' in aggregate on all 14 cases.  
 * The pseudocode for their lexicase goes something like this:
  To select a parent for use in a genetic operation:
  1) Initialize:
@@ -131,13 +307,13 @@
 |November 8th, 2021
 |November 3rd, 2021
 |- 
-|Read Lexicase Paper
+|Read Lexicase Paper corresponding to DEAP implementation
 |Completed
 |November 1st, 2021
 |November 8th, 2021
 |November 7th, 2021
 |}
-== October 25th, 2021 == 
+== October 25th, 2021 (Midterm Presentation Week)== 
 '''Meeting Notes/Accomplishments:'''
 * Presentations happening today!
 * Image Processing team is presenting 5th. 

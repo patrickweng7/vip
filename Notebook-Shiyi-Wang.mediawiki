@@ -14,7 +14,186 @@ Subteam: [[Natural Language Processing]] (Current) [[Modularity]] (Past)
 Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]], [[Notebook George Ye | George Ye]]
 
 = Fall 2021 =
+== Week 16 ==
+=== Dec 10, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Objectives
+*** Improve EMADE on image processing tasks
+*** with GP, selection methods, mating, mutation methods, and deep learning.
+*** Focus on Multi-class image Classification 
+** Dataset Preparation
+*** Use the TensorFlow API (ImageDataGenerator) including image resizing, normalization, horizontal flipping
+*** Multi-class but not multi-label
+** Evaluation Objectives
+*** Area Under Curve: Receiving Operator Characteristic (ROC)
+*** Number of Parameters in neural network
+** Baseline Results & Findings
+*** AUC: 0.21895
+*** Lowest ROC: 0.169169 (Multiple Convolution layers)
+*** Lowest Number of parameter: 30
+** Selection Methods
+*** NSGA 3 Good for 4-15 objectives (0.377 & 192680000)
+*** NSGA 2 performs better
+*** Less dimensions -> less axis to provide diversity/spread of reference points.
+*** Lexicase (0.348 & 12055200)
+*** NSGA 2 performs better
+*** Few training cases -> few ways individuals can be selected
+** Semantic Operator Results
+*** Semantic Crossover: 0.45 & 657455
+*** Semantic Mutation
+*** Struggle with generated usable individuals
+** Geometric Mating & Mutation Methods
+*** Partially Matched
+*** Ordered Crossover
+*** Uniform & Multi Point: 0.365 & 36184500
+*** Increase in parameters -> decrease in AUC
+** Results
+*** Lower Diversity of solutions
+*** Worse AUC than Baseline
+** Hyper features
+*** Manipulate pixels for better visibility
+*** Grey level transformation
+*** Sharpening Filter
+** Future Semesters
+*** EMADE.py using the selection method specified in XML instead of hard-coded
+*** Add new NN layers
+* NLP
+** Presented Experiment Methods of runs.
+* Stocks
+** Objectives
+*** Short: Finalize results and conduct analysis with respect to various papers.
+*** Long: EMADE for time-series and stock-specific problems. 
+** Experimental Focus
+*** Beat SOTA and other papers.
+*** Run 3 Trials of Objective Sets in EMADE.
+** Run Comparison
+*** Primitive Analysis: BWMA + ARGMIN: 13.46%.
+*** Profit percentage analysis: Loss & average the highest.
+*** Not enough Pareto individuals to make the graph.
+*** Loss_var is the top profit percentage individual 27.02%.
+** Comparison with Paper
+*** Takagi-Sugeno fuzzy model with SVR (Support Vector Regression).
+*** Best individual use ARGMIN as learner.
+*** Individuals is comparing multiple Technical Indicators together and determining its decisions based on which is least.
+** Future Work
+*** Complete Experimental Trials.
+*** Write and Review Paper.
+* Modularity
+* Neural Architectural Search (NAS)
+
+
+'''Individual Progress'''
+* I synced with Rishit on the multi Pareto Front optimization I made with George.
+* I reformatted the experiment and result pages based on analysis.
+* I presented the experiment section of the final presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sync with teammates on visualization progress made last night
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Complete the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Review Notebook before Final Submission
+|Completed
+|December 10, 2021
+|December 10, 2021
+|December 10, 2021
+|}
+
+=== Dec 9, 2021 ===
+'''Subteam Meeting Notes:'''
+* Went over a dry run for the final presentation.
+
+'''Individual Progress'''
+* I collaborated with Steven and Rishit to conduct analysis on the overall runs.
+* I collected the valid runs from all .out files given no error & 16 hr running time.
+* I, Rishit and Steven generated the Pareto Front diagrams for all 4 valid runs.
+* I manually colored the region of interest on iPad given the Pareto fronts.
+* I and Steven automated the region of interest calculation.
+* I and Steven made the conclusions according to our results.
+** Overall, we are limited in scope to which we can generalize as we had a limited amount of data (4 16 hour runs)
+** However, our results are promising and have an indication that we can increase the area under the region of interest, minimizing the area bounded by a seeded individual. 
+** We need more runs and a more diverse set of primitives
+* I and George optimized the scaling of multi Pareto front graph
+** To include all the outliers, where there are individuals with extremely low MSE or num_params, I fit them in by changing xlim and ylim parameters based on their distributions.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete dry run for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Sort out the valid good runs from all [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing .out files]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Generate the Pareto front for each run along with seed
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Automate the calculation of region of interest and the reduction in area
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Manually color the region of interests from each graph on [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing slide #36]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Write analysis for the results
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Optimize the scaling with the multi Pareto front visualization on [https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing slide #35]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
+=== Dec 8, 2021 ===
+
+=== Dec 6, 2021 ===
+
+
+== Week 12 ==
+=== Nov 10, 2021 ===
+=== Nov 8, 2021 === 
+
 == Week 11 ==
+=== Nov 6, 2021 ===
 === Nov 3, 2021 ===
 '''Subteam Meeting Notes:'''
 * Every returning and new member introduced him/herself in the meeting.

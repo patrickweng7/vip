@@ -4,36 +4,61 @@ Team Member: David Zhang
 Email: dzhang351@gatech.edu
 
 Interests: Machine Learning, Optimization, Tennis
-== November 29, 2021 ==
+== December 6, 2021 ==
 '''Team Meeting Notes'''
-* Image processing team fixed bug with contrast enhancement code and able to get 0.48 ROC for baseline run
-* Modularity working on generating visualizations for run data and verifying runs are smooth without error
-* NLP optimized some NNLearner2 (for speed and complexity reduction during runs)
-* NLP team also working on regression runs
-* NAS team updated weight sharing code
 
-In class, I ran <code>python3 src/GPFramework/standalone_tree_evaluator.py templates/input_amazon_local.xml</code> and was able to get results by making the following changes
-       <reduceInstances>0.005</reduceInstances>
-       <regression>true</regression>
-The reduce instance xml tag to 0.005 runs standalone on less of the db which greatly increases the speed of the run, and regression is needed to achieve the proper output values.
-[[files/dzhang351/standalone_individuals.png|50px]]
+Presentation Notes
+* Img Processing
+** Eval objectives: ROC, number of parameters
+** NSGAIII performed worse than the baseline (NSGAII) 0.377 vs 0.218 AUC respectively
+** Lexicase also performed worse than the baseline 0.348 vs 0.218 AUC respectively
+** Semantic crossover: attempts to find sub-child that is directly in between two parent trees in semantic space
+** Semantic mutation: attempts to generate offspring that maintain the semantic information of the parent
+** Semantic operators produced trees that were extremely complicated! (very deep and wide trees)
+** Most individuals that performed well had at least 3.5 million or more parameters
+** Did experiments with adding different filters like the sobel and sharpening filters
 
-'''Subteam Notes'''
-The NNlearner2 subgroup mainly focused on getting runs in using standalone and seeding to test output results during the meeting.
-I worked on trying to run emade with seeding values using in order to speed up the evolutionary process.
+* Stocks team
+** Had experiments for. 2 obj, 3 obj, and 4 objs
+** Primitive analysis: analyze EMADE choice of primitives over the course of all generations
+** Filter individuals based on primitives and average fitness
+** Profit percentage analysis: plotted profit percentage of samples with box plot
+** Best individual had 13.46% mean profit percentage
+** Interestingly, argmin and argmax primitives were very performant
+** Performed significantly better than the paper for all stocks compared except JNJ
 
-The following is the seeding file I used: "seeding_qa"
+* NAS team
+** NAS aims to discover the best architecture for a neural network for a specific need
+** Initial infrastructure relies heavily on Tensorflow and Keras
+** Added time stopping callback
+*** time  being wasted on errored individuals; need way to stop training without erroring out individual
+*** Add maxTimeStop into input_xml
+*** Tested various time stopping (TS: 600, 1200, 1800, 2400, 3000); results show that increasing time stoppage decreases the number of individuals since average evaluation time increases: reducing max stoppage time helpful
+** Added weight sharing code that helps speed up GP process
+*** Pros: best individual good for. 1 epoch
+*** Cons: Weights in db to slow
+*** Diff implementation: WS + Max Pooling resulted in fewer trivial individuals and many more generations due to having less frequent time stopping
+** Obj for experiments: accuracy sharing avg precision error 
+** Key idea: constrain alg such that adding multiple max pooling layers can't happen (this reduces the signal too much in many cases)
+** Attempted to add residual connections, fixing the vanishing gradient problem
 
-    NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, 
-    randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)
+Had discussion about what our main goal for NLP is and what to show.
+* improvement statistically by showing how EMADE runs "eats away" at pareto front
+* reduction in AUC as the quantifiable metric 
+* continued runs in EMADE for data for the experiments team
 
-<code>python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa</code>
+'''Subteam Meeting Notes'''
 
-Result of Run 1 (approx 2 days locally -> 11 total run hours)
+Met up on 12/8 to go over slide distribution and work. I contributed to slides 4-6 of the presentation (Intro to NLP, NLP terminology) and researched important NLP basics most of which I did not include in the slides for the sake of brevity but have included them in a markdown document of notes which I have been taking since the start of being on the NLP subteam for personal understanding of the background that might be helpful.
+
+(not showing here but it's located in "emade.wiki/files/dzhang351/NLP_notes.pdf")
+[[files/dzhang351/NLP_notes.pdf]]
+
+Result of Run 1 (approx 2 days locally -> 17 total run hours)
 (Ran seeding with NNLearner2 using above command, then ran launchEMADE.py for a normal EMADE run)
 * first struggle was with db insertions (I set reuse to 1 but already had the seed individual so ran into this error below)
 [[files/dzhang351/sql_insert_error.png|50px]]
-** To resolve the error, I removed the duplicate individual and continued the run afterr
+** To resolve the error, I removed the duplicate individual and continued the run after
 * I found out there was a discrepancy in the input_squad.xml file based on the new dataset structure and changed the following code snippet
 [[files/dzhang351/changed_xml.png|30px]]
 * Out of the EMADE run, filtering for NNLearner2 individuals, there were 5 total, and 12 NNLeaner individuals; however, all of them had error strings beside the initial seeded NNLearner2
@@ -55,22 +80,7 @@ The following arer the sql statements that I used to query and analyze the error
     select * from individuals where tree like "%NNLearner2%";
     select distinct(error_string) from individuals;
 
-The following table is a summary of run 1 results
-
-{| class="wikitable"
-!Total number of individuals
-!NNLearner2 individuals
-!NNLearner (1+2) individuals
-!Total time ran
-|-
-|513
-|5
-|12
-|40488 sec (11.24 hrs)
-|-
-|}
-
-
+The following table is a summary of run 1 results in terms of the error strings
 {| class="wikitable"
 !Common Error Strings
 |-
@@ -86,6 +96,80 @@ The following table is a summary of run 1 results
 |-
 |}
 
+Analysis: The expected outcome for this run was that after seeding, NNLearner2 individuals would be prevalent and be evaluated from then on with slight changes in the architecture. The surprising thing was that only a few individuals were actually NNLearner2 although there were many NNLearner individuals. This means that seeding did not work properly in this instance and the error strings made sense (since without using NNLearner, the tree structure is very likely to be invalid (Tree missing valid primitive for data type)). 
+
+One reason for this was that I may have ran the launchEMADE (actual GP run) before the NNLearner2 individual fully finished evaluating so that the second run didn't base individuals based on the seeded results of the first run. After asking Steven, it also appears that since I ran locally, the time it took for the individual to fully evaluate may have caused NNLearner2 to error out, so within EMADE.py, tuning the time out limit would be helpful.
+
+Although the result was not what I had hoped for in terms of getting high accuracy and overall useful results, I learned that seeding has to be done sequentially and that to prevent run time errors locally, the time out time needs to be set to something higher. Also, since my attempted seeding run was basically a non-seeded run because seeding was not done correctly, the results of the non-seeded run show that it is largely unsuccessful to use non NNLearner algorithms as they result in valid architecture and create the correct combination of primitives to produce a successful individual in the short term compared to seeding.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on slides 4-6 for presentation
+|Complete
+|December 6, 2021
+|December 9, 20201
+|December 10, 2021
+|-
+|Get seeded run using NNlearner2 in using EMADE for experimentation
+|Complete
+|December 6, 2021
+|December 9, 2021
+|December 10, 2021
+|-
+|Document all error strings and individual outputs (why run resulted in no valid individuals beside seeded one)
+|Complete
+|December 6, 2021
+|December 5, 2021
+|November 29, 2021
+|-
+|}
+
+
+== November 29, 2021 ==
+'''Team Meeting Notes'''
+* Image processing team fixed bug with contrast enhancement code and able to get 0.48 ROC for baseline run
+* Modularity working on generating visualizations for run data and verifying runs are smooth without error
+* NLP optimized some NNLearner2 (for speed and complexity reduction during runs)
+* NLP team also working on regression runs
+* NAS team updated weight sharing code
+
+In class, I ran <code>python3 src/GPFramework/standalone_tree_evaluator.py templates/input_amazon_local.xml</code> and was able to get results by making the following changes
+       <reduceInstances>0.005</reduceInstances>
+       <regression>true</regression>
+The reduce instance xml tag to 0.005 runs standalone on less of the db which greatly increases the speed of the run, and regression is needed to achieve the proper output values.
+[[files/dzhang351/standalone_individuals.png|50px]]
+
+'''Subteam Notes'''
+
+The NNlearner2 subgroup mainly focused on getting runs in using standalone and seeding to test output results during the meeting.
+I worked on trying to run emade with seeding values using in order to speed up the evolutionary process.
+
+The following is the seeding file I used: "seeding_qa"
+
+    NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, 
+    randomUniformWeights, InputLayer()), EmbeddingLayer(16, ARG1, randomUniformWeights, InputLayer())))), 100, AdamOptimizer)
+
+<code>python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa</code>
+
+The following table is one run that I conducted and the number of NNLearner and NNLearner2 inidividuals that were created
+
+{| class="wikitable"
+!Total number of individuals
+!NNLearner2 individuals
+!NNLearner (1+2) individuals
+!Total time ran
+|-
+|513
+|5
+|12
+|40488 sec (11.24 hrs)
+|-
+|}
 
 '''Action Items:'''
 {| class="wikitable"
@@ -101,13 +185,13 @@ The following table is a summary of run 1 results
 |December 4, 20201
 |December 6, 2021
 |-
-|Get seeded run using NNlearner2 in using EMADE
+|Start NNLearner2 runs using code from new emadebackup-master branch
 |Complete
 |December 6, 2021
 |December 5, 2021
 |November 29, 2021
 |-
-|Document all error strings and individual outputs (why run resulted in no valid individuals beside seeded one)
+|Update datasets to conform to new goal (of just using start words instead of start and end indices)
 |Complete
 |December 6, 2021
 |December 5, 2021

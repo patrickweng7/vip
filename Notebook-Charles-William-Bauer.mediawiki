@@ -1,8 +1,8 @@
 '''Email:''' cbauer32@gatech.edu
 '''Cell:''' 312-898-5398
 
-==November 22nd, 2021==
-Thanksgiving week entailed creating a slide.
+==December 6th, 2021==
+During the final week for the semester, I revised, practiced, and presented my slides.
 
 {| class="wikitable"
 !Task
@@ -11,11 +11,58 @@ Thanksgiving week entailed creating a slide.
 !Suspense Date
 !Date Resolved
 |-
-|Create slides about nn-vip emade setup.
-|In progress
+|VIP final presentation slide preparation and practice.
+|Complete
 |11/15/2021
 |12/10/2021
-|
+|12/10/2021
+|-
+
+===VIP Presentation Notes===
+Image processing: Tensorflow.ImageDataGenerator for resizing, normalization, and horizontal reflection; Receiving Operator Characteristic: true positive rate vs. false positive rate for each possible classification; tested NSGA3 and Lexicase selection; semantic crossover attempts to find subchild between two parent trees -> large, unbalanced trees; Sobel filter, sharpening filer, and Grey level transformation were not able to improve performance
+
+NLP: word embeddings include Word2Vec, Glove, and Fasttext; QA split: queries, context, and answers; used multiple data pair inputs at once by changing EMADE.py and load_environment; objectives are number of parameters and mean squared error of F1 score: number of matches between answer and conversion of predicted indices to text; need regression with multiple outputs; SQUAD processed into train/test with q and start index of answer and train/test with context and start index of answer; NNLearner2 has two args
+
+===NAS Presentation===
+I created and presented the slides titled "NN-VIP Setup on PACE" and "NN-VIP vs. other EMADEs" which are described in previous weeks' notes.
+
+The presentation can be accessed here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing
+
+==November 29th, 2021==
+The last full week of classes. I created a slide on nn-vip emade branch generally. I also discussed the literature review with Lucas and Pranav.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slide about nn-vip emade differences from other branches.
+|Complete
+|11/15/2021
+|12/10/2021
+|12/3/2021
+|-
+
+===Main Meeting Notes===
+Evolutionary Neural AutoML (UT Austin) https://dl.acm.org/doi/pdf/10.1145/3321707.3321721 could be a good focus for literature review since it has more advanced implementation than nn-vip and CoDeepNEAT. Lucas and Pranav will handle the literature review during the presentation since I have other slides.
+
+==November 22nd, 2021==
+Thanksgiving week entailed creating a slide on emade setup.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create slide about nn-vip emade setup.
+|Complete
+|11/15/2021
+|12/10/2021
+|11/19/2021
 |-
 |Research hyperparameters that are commonly used for each layer used in nn-emade.
 |In progress
@@ -25,8 +72,11 @@ Thanksgiving week entailed creating a slide.
 |-
 |}
 
+===Layer Research===
+We decided to focus on other content for the presentation since most sources discussed how to tune hyperparameters and only a few mentioned layers and parameters that consistent work well together. LSTM layers (definitions in previous weeks) should be some of the most common because recurrent neural networks can handle mid-sized image datasets and long evaluation times well. LSTMs prefer tanh activation and implicitly utilize multiple activations and prefer adaptive optimizations. A layer type we could consider is Gated Recurrent Unit (GRU) whose Keras implementation is basically a faster LSTM with fewer hyperparameters. Also BERTInputLayer in nn-vip is implemented as a DistilBERT layer with a pretrained model and a dense layer at the end. The comments explain BERT doesn't recognize hidden layers from previous modules and the input-output format produce errors when used in an NNLearner. I am not sure whether the DistilBERT are actually being selected by EMADE and how they treat parameters differently.
+
 ===EMADE Setup Slides===
-I made a slide that summarized PACE setup, cloning emade, creating a conda environment via pip, yaml or shared class, and CIFAR-10 setup.
+I made a slide that summarized PACE setup, cloning emade, creating a conda environment via pip, yaml or shared class, and CIFAR-10 setup. Cameron B quickly looked over the slide before the subteam meeting Friday.
 
 ===Main Meeting Notes===
 NAS Ideas
@@ -68,6 +118,8 @@ Example: LSTM prefers tanh (sigmoid with -1, 1) over ReLU
 Neuralnetworkmethods.py -define each nn layer
 
 Gpframeworkhelper.py -take each nn layer and add to pset
+
+Quick ways to manually tune hyperparameters is kerastuner or bayes_opt.BayesianOptimization with scikit-learn.
 
 ===NAS Independent Study===
 ====Evolving Deep Neural Networks (UT Austin) + CoDeepNEAT and Keras (Bohrer, Grisci, Dorn in Brazil)====

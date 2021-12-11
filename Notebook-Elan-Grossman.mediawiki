@@ -10,6 +10,121 @@ Sub Team: [[Bootcamp Subteam 1]]
 
 Interests: Machine Learning, Robotics, Puzzles, AR/VR
 
+== December 10th ==
+
+'''Lab Notes'''
+
+Final Presentations
+
+* Image Processing
+** This was our team
+
+* NLP
+
+
+*Time Series Analysis
+
+''' My Work'''
+
+==== Helping Others with Emade ====
+
+In order to have enough trials to compare with before the final presentation, everyone had to run an experiment or two. I helped two of my teammates with starting PACE-ICE jobs.
+
+To make sure myself and everyone could run the trials in repeatable steps, I followed these guidelines:
+
+* Download correct files
+** Input XML that we will all use
+** launchEmadechest_final.pbs
+** Most recent GPFramework from img-proc branch
+* Make sure mysql.pbs is running for 8 hours
+** ssh into mysql server and confirm you can connect to mysql and that your database exists
+** If not, you need to create a new database and make sure all users can access it.
+* Input mysql server and database info into template file
+* Make sure Launch file is pointing to correct xml
+* Make sure launch file is using correct environment
+* Run the launch file
+** Confirm that worker and master jobs are running in qstat
+* Check logs
+** EMADE_master.oXXXXX will show you the master log
+** EMADE_worker.oXXXXX will show you the worker logs for individual evaluations. This is where you can check for errors
+
+If there are no errors in the worker logs and the master worker doesn't die (it happens!), then it's good to go.
+Lastly, you can check the database to make sure individuals are being created and evaluated as a paretofront.
+
+I kept getting this error:
+<code>sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'emade'@'atl1-1-02-012-5-l.pace.gatech.edu' (using password: YES)")
+(Background on this error at: https://sqlalche.me/e/14/e3q8)</code>
+After getting it to work once for 8 hours. I have not been able to run an experiment since. It's unclear why I can no longer connect to the mysql database
+
+
+
+== December 6th ==
+
+''' Lab Notes '''
+
+Focus is on getting the environments set up correctly. Everyone has a yml file to install the correct Conda environment.
+My task is to run Second Mate mutations with Rohan. I will download an xml file and run that job on PACE and report back with findings
+
+''' My work '''
+
+ROC vs F1
+
+It was brought into question what space we would be comparing between the two fields. I had this to say:
+
+the F1 score is really just a weighted (harmonic?) mean of two scores, or another way of handling multi-objective functions by condensing them into 1. You’re rewarding the algorithm for performing well in both precision and recall and not one or the other. You lose out on being able to set thresholds for each measure individually such as recall > 0.9, precision > 0.7.
+
+ROC is comparing how much better you TPR is than your FPR at different classification thresholds (default is X > 0.5 = True). Let’s say the threshold is at X > 0.9 = True. If your TPR is greater than your FNR, that means that your predictions are really robust and easily distinguishable. The AUC for the ROC is a single number that reflects its ability to distinguish between the two classes. However, this only works if the labels are weighted equally. If your dataset is always made up of positive individuals, your TPR will always be extremely high because it can always choose to predict the trivial case of X = True for all values.
+
+A large F1 score could somewhat couter-act an unbalanced ROC because the trivial case mentioned above is analogous to having perfect recall, but low precision. However, F1 score is not precision. In this unbalanced example, if recall is 0.95 and precision is 0.3, your F1 score is 0.456. But now you’re just comparing precision and recall. Everything I read says to just use precision-recall curves instead for unbalanced datasets. This is because for unbalanced datasets, the change in FPR and FNR provide little change in ROCAUC. It’s actually extremely difficult to change the ROC for unbalanced data.
+[[https://towardsdatascience.com/demystifying-roc-curves-df809474529a]]
+[[https://www.biostat.wisc.edu/~page/rocpr.pdf]]
+[[https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-imbalanced-classification]]
+
+Dr. Zutty suggested splitting up F1 into Precision and Recall. Since Recall is the TPR, we only need to compare these values with the FPR and NPV which are the same metrics but for the other class. For example, your recall can be calculated for positive and negative examples and their relationship is not necessarily linear, but they do tend to correlate.
+
+Tree Vis
+
+By default the tree vis doesn't take into account adfs. Take this tree:
+<code>tree|FullDataSet ROC AUC|FullDataSet Num Parameters
+NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_4(InputLayer)))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))\nadf_1: Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer))\nadf_4: Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))</code>
+
+This is actually made up of a single tree with references to two adfs, adf_1 and adf_4. We can rearrange the graph like so:
+
+<code>NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), ((((falseBool)))), ((((((((AdadeltaOptimizer)))))))))</code>
+
+But this produces a weird tree that looks a little busy:
+
+[[files/egrossman3/bad_tree.png|thumb|80x80px]]
+
+We can instead remove unnecessary parentheses to make the tree look slimmer:
+
+<code>NNLearner(ARG0, GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize1, MaxPoolingLayer2D(Conv2DKernelSize5(Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)))), ))), falseBool, AdadeltaOptimizer)</code>
+
+[[files/egrossman3/good_tree.png|thumb|80x80px]]
+
+Maybe we can write code to clean the trees and produce the visuals by replacing the adfs and removing the extra parentheses.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Prepare Presentation
+|In Progress
+|December 1st, 2021
+|December 10th, 2021
+|-
+|-
+|Run more experiments
+|Not Started
+|December 6th, 2021
+|December 10th, 2021
+|-
+|}
+
 == December 1st ==
 
 ''' Lab Notes '''
@@ -182,6 +297,11 @@ Script in Emade  to debug -> standalone tree evaluator
 ** One thing that is frustrating is that as new modules are added to the codebase, the requirements file is not updated. This means I have to keep running the code to find out what was not installed.
 * One issues is that I was running mysql with 1 hour, but Emade for 8 hours
 ** In the future, I can set the mysql server to run for longer to prevent having to reset the database and find out that all my jobs fail instantly
+
+ChexNet Paper
+
+[[https://arxiv.org/pdf/1711.05225v3.pdf]]
+This paper covered the research we are trying to compare against. The authors generated a single CNN architecture that could then train individually on 14 different binary classifiers to determine which disease was present in a chest X-ray image. Originally, our team's research was to have each of these 14 diseases as an objective in the dataset, but that created a complex paretofront. The question that I raise is "Is Emade successful if it can generate a single architecture that can perform well on each disease or if it should generate a unique architecture for each disease?"
 
 '''Action Items:'''
 {| class="wikitable"

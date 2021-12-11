@@ -10,6 +10,13 @@ Wednesdays at 5:45p (hybrid style, in VIP room)
 
 [https://drive.google.com/drive/folders/1IRk4E5YBhr0adXikULUOvEEea6jgxWMw?usp=sharing F21 Meeting Notes & other data]
 
+=== Week of November 29th - December 5th ===
+
+* NSGA-3 and Mating methods changes merged
+** To be manipulated as we finish experiments this week but there are some bugs with neural network compilation that popped up somewhere. Will need to be resolved.
+* Putting together presentation
+* Remaining todo: assign remaining experiments to be done and complete slides
+
 === Week of November 22nd - November 28th ===
 
 We did not meet this week due to the institute holiday. Our hyperfeatures, selection methods, and mating/mutations groups are all continuing to work on their changes and we will likely stop working on code by the end of the week in order to do experiments and prepare our presentation.
@@ -124,7 +131,16 @@ We had our first sub team meeting! With the creation/branching off of a new subt
 '''Important Links:'''
 * [https://github.gatech.edu/rbhatnager3/emade/tree/stocks-base EMADE fork]
 * [https://www.sciencedirect.com/science/article/pii/S1568494611000937 Basis paper]
-
+=== Week of November 22 === 
+* We've finished our Emade trials for the following objective splits {Loss,CDF}, {Loss,Variance}, {Loss, Avg. Loss}, {Loss, CDF, Variance}, & {Loss, CDF, Avg. Loss, Variance}
+** The trials to be done can be found here https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing
+* We've started data analysis of the runs that have completed so far
+** Made visualizations that show the performance of individuals across runs & show correlations between primitives used and various ML Learners
+** Combing through individuals to see if we have an individual that performs better than those in the paper
+* Next Steps:
+** Finish the final set of trials 
+** Look into gathering insights from 
+** Look into more ways of comparing individuals form separate runs with those in the paper
 === Week of November 15 ===
 * Last week we discussed constraining one of the objectives for the purposes of comparison between runs
 ** We chose this objective to be the Loss Percentage objective since it will both provide a basis for comparison between the runs and with the paper
@@ -403,12 +419,26 @@ A good resource to learn more about algorithmic trading: https://github.com/stef
 * [[Notebook Kevin Lin Lu|Kevin Lu]] (klu@gatech.edu)
 * [[Notebook Regina Ivanna Gomez Quiroz|Regina Ivanna Gomez Quiroz]] (rquiroz7@gatech.edu)
 
+=== Week of Nov 29 - Dec 6 ===
+* Finishing up visualizations of the extended arl data
+** Aditya made a very nice comparison between no ARLs, old ARL implementation, and new ARL implementation data
+** Looking a lot more promising than the midterm presentation's data
+** ARL implementations perform better than no ARL data, reinforcing last semester's findings
+** No upwards spikes in the data
+** Also working on generating the ARL size analysis graphics from the midterm presentation on the new data
+* Leul and Sai pushed up their code for the google collab upload scripts
+* One last run of extended arl
+* CacheV2 integration
+** Problems within files which contained changes from both the ARL and CacheV2 branches
+** Code was just copy-pasted from the ARL branch into the CacheV2 branch, overriding any CacheV2 changes and therefore causing problems
+** May not have integration finished by final presentation deadline
+
 === Week of Nov 23 - Nov 29 ===
 * Continued doing runs and gathering data for the extended ARL experiments
 ** Midterm presentation's results with the upwards spike for the AUC over time graph was most likely due to the three objectives, not Google collab
 ** Verified that all runs after the error was spotted don't have any such errors
 ** Working on generating visualizations for said data
-* CacheV2 intergrations subteam hopes to begin stocks runs soon
+* CacheV2 integrations subteam hopes to begin stocks runs soon
 
 === Week of Nov 15 - Nov 22 ===
 * Refactored and documented new implementation of code
@@ -692,6 +722,14 @@ Midterm Presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cM
 
 Meetings: 2:00 pm on Wednesdays, Virtual
 
+=== Week of November 29 - December 6th ===
+* No major updates
+* Have runs ongoing. About 3 are finished so far, analysis remains to be done.
+* Changed metrics to be MSE and Num params, so that a start index off by one isn't punished as much as one off by 200, as would be done with accuracy.
+* Working on final presentation.
+* NNLearner's output primitive's dense layer pushes all values to 199 or 200 when using Bidirectional Modeling and Bidirectional Attention primitives. We weren't able to use these primitives in our experiment runs.
+* Noticed some of our runs aren't using already written embedding layers other than EmbeddingLayer. BERTInputLayer, PretrainedEmbeddingLayer, and others aren't being used despite 24 hour runs. Will have to look into this. Individuals with BERTInputLayer fail altogether in standalone tree evaluator.
+* Perhaps NAS team's work on diverse individuals might help here?
 
 === Week of November 22 - 29 ===
 * Optimized some NNLearner2 areas
@@ -1238,4 +1276,18 @@ preprocessing improvements: (uses baseline from getting rid of pooling layers --
 * Cameron W has completed weight sharing and is looking into some general bugs that have been noticed during the development process.
 * Cameron B will spend some time this week merging changes and putting all of the desired EMADE functionality onto NN-VIP so that we have a functional branch to get some data out of.
 * Lucas Z is providing literature review along with some slides regarding background information for team NAS during our final presentation.
+
+=== Week of November 29th - December 6th ===
+* This week's meeting was kept short for sake of respecting people's study times.
+* Team members changes were integrated to a single branch by the name of [https://github.gatech.edu/cwhaley9/emade/tree/nn-vip-final nn-vip-final]
+* Team members were then provided links to the final presentation slides and given their individual points to present about which are listed below:
+** Devesh K - Will present and discuss implementation and effects of time stopping feature
+** Connor Y - Will present and discuss implementation and effects of 3 different novelty metrics within EMADE
+** Cameron B - Will present and discuss implementation and effects of mutation, selection and mating methods for both Modules and Individuals.
+** Cameron W - Freedom to present on whatever he wants
+** Lucas Z - Discuss some background regarding CoDEEPNEAT
+** Charlie - Will present on differences between NN-VIP and Bootcamp EMADE
+** Pranav - Will present on literature review for coevolution along with future work
+** Rayan - Will present on setup of EMADE branch
+* All members presenting are responsible for obtaining their data in time for the presentation friday.
 [[Category-AAD]]

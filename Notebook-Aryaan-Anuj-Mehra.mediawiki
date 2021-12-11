@@ -4,10 +4,31 @@
 * Interests: Machine Learning, finance, swimming
 * Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, Eashan
 = Fall 2021 = 
+== November 5th - December 10th, 2021 == 
+'''Final Presentation + Meeting Notes'''
+* NAS
+* NLP
+* Stocks
+* Modularity
 == November 29th - December 4th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
-* Code freeze 
-* Testing
+* This was the last week before the final presentations. I had several things to complete first. 
+* I had to work on making sure that all of the new mating methods were compatible with the new conda environment on PACE and begin running experiments. 
+* There were issues with some of the methods while others worked as they were meant to:
+** Initially while running the operators on the old conda environment which didn’t have the new NAS changes and TF2.6, they evaluated all individuals as (inf, inf)
+** On the new environment, there were errors related to the using lists which could not have Primitive type objects
+** On fixing this issue, there was an error related to ‘invalid node replacements’ due to replacement of a node with a different arity
+* cxTwoPoint() and cxUniform() ended up working correctly and the following were the results:
+** We ran a total of 4 experiments with two point and uniform crossover. 
+** Average ROC AUC: 0.380334
+** Best ROC AUC: 0.365493
+** # of Parameters (highest and lowest): 36184500, 36166300
+* To get all the experiments done I worked with Elan, Rohan and Eashan. I did 2 runs on EMADE and they each did one so that we could get the required sample size for the data. 
+* I also worked on getting the slides ready for the geometric mating functions. Wrote their descriptions and results. I also used the Tree Visualization algorithm to display the tree structure for people to better understand the form of the individuals that we were evaluating.
+* Also worked on making the pareto front with all the results from all 5 runs. 
+Here is the result of the tree structure and the pareto front:
+** Tree Example: https://docs.google.com/document/d/1QFCyQaRVncgObmOqL_6TKKGNAO4wNgwESJtMcuaGs48/edit?usp=sharing
+** Pareto Front: https://docs.google.com/document/d/11ZgZT2vQWixQcI5QPyJXtRwP28twcBPer4JYMKwXE9M/edit?usp=sharing
 {| class="wikitable"
 !Assignment 
 !Current Status
@@ -15,23 +36,29 @@
 !Suspense Date
 !Date Resolved
 |-
-|Make PR Multi-class Dataset 
+|Test Mating Operators
 |Completed
-|November 1st, 2021
-|November 9th, 2021
-|November 9th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 4th, 2021
 |-
-|Add in new mating/mutation operators
+|Run multiple experiments for less biased results
 |Completed
-|November 1st, 2021
-|November 15th, 2021
-|November 15th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
 |-
-|Test new operators on PACE
+|Work on getting the Tree Visualizer to work
 |Completed
-|November 1st, 2021
-|November 17th, 2021
-|November 17th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
+|-
+|Make Pareto Fronts of results for the presentation
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
 |}
 == November 22nd - 28th, 2021 == 
 '''General Notes (no meetings due to thanksgiving):''' 
@@ -57,8 +84,8 @@
 |Make a PR for the new mating methods
 |Completed
 |November 1st, 2021
-|December 3rd, 2021
-|December 3rd, 2021
+|November 29th, 2021
+|November 29th, 2021
 |-
 |Fix bugs related to the mating methods
 |Completed
@@ -68,7 +95,7 @@
 |}
 == November 8th - 14th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
-* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered()) and began testing them.
+* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered(), cxTwoPoint(), cxUniform()) and began testing them.
 * I was having errors because of our implementation of NSGA-3 which was implemented in the GPFramework egg file on our team's shared conda environment. After speaking with Max we decided that rather than us all using the same conda environment, we should instead have our own environments on PACE for testing purposes so that we do not limit individual testing.
 * The following were the steps I followed to create a new conda environment myself for testing:
 1. Use the following lines to create a new environment on terminal:
@@ -112,6 +139,8 @@
 ** cxPartialyMatched()
 ** cxUniformPartialyMatched()
 ** cxOrdered()
+** cxTwoPoint()
+** cxUniform()
 * We will be looking at the code-base (https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py) closely to make sure that the changes we are making are in adherence to EMADE and strongly-typed GP to prevent any other type errors similar to the ones we've made before.
 {| class="wikitable"
 !Assignment 

@@ -8,6 +8,98 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== December 10th, 2021==
+'''Final Presentation Notes:'''
+* Image Processing:
+   * Objective: Improve EMADE on image processing tasks using genetic programming (selection methods, mutation, deep learning)
+   * Multi-class Image Classification
+   * Dataset:
+      * Image resizing, normalization, horizontal flipping with Tensorflow (4000 images in dataset)
+   * Objective: ROC + Num Params (evaluate 1 - ROC to turn into minimization problem)
+   * Baseline: CacheV2 EMADE
+   * Selection Methods Used:
+      * NSGA2, NSGA3, Lexicase
+      * More objectives --> More dimensions --> more diversity
+   * Semantic Crossover individual
+   * Geometric Mating and Mutation methods (try to preserve original parents and maintain properties like Conv layers)
+   * Compatibility/conda environment issues with Geometric Crossover
+   * AUC for experiments worse than baseline (almost like the classifier is randomly guessing)
+   * Challenges involved switching to multi-class, suspicious AUC, mating function implementation
+
+* Stocks
+   * Objectives
+      * EMADE for regression on time series data? optimize market trading algorithms
+   * Changed objective functions 
+      * Loss percentage (minimization)
+      * CDF of profit (Monte Carlo)
+   * Find individuals which beat the SOTA paper
+   * Primitive Analysis (analyze EMADE choice of primitives over the course of all generations)
+   * Argmin, Argmax primitives performed very well in terms of mean loss
+   * Future work
+      * Complete experimental trials, comparison of EMADE runs
+
+* Neural Architecture Search
+   * NAS focuses on hyperparameter optimization and ML (find the best architecture of neural network for a specific need)
+   * Goal: make EMADE create more complex architecture
+   * Maximize EMADE productivity
+      * Time stopping (trained model for specific amount of time, check current time at end of epoch, stop training after threshold time)
+      * Training models for more time doesn't necessarily give lower accuracy error
+   * Growing deep complex individuals
+      * Added generator methods for NNLearners and Modules within EMADE
+      * Weight sharing, module as a primitive, Global Mods (specialization of modules within NNLearners)
+   * EMADE producing more accurate individuals with Mut/Mat modules (comparable performance to existing SOTA literature)
+   * Weight sharing + Max Pooling
+      * 5 trials, fewer trivial individuals, more generations, less frequent time stoppings
+   * Analysis/Testing methods 
+== December 6th, 2021==
+'''Main Meeting Notes:'''
+* Steven mentioned that runs turned out to be for 24 hrs
+(ie: master1.out is 1st 8hrs, master11.out is 2nd 8hrs, master111.out is 3rd 8 hrs)
+--> For master11.out and master111.out, set reuse to 1 in order to append to existing database.
+
+* Working with Kevin on "Primitive" section in final presentation
+
+'''Subteam Meeting Notes:'''
+* Preparation for final presentation + wrapping up loose ends for the semester
+'''Individual Notes:'''
+* Doing 24 hr runs PACE (group 8 hr runs together)
+* Developed a shell script to automate the process/commands to run SqUaD in PACE
+* Link to Shell Script: https://github.gatech.edu/gist/ksubramanian40/103c9748f928abf6642eb1ddbc3cfb2b
+* The runs I have done over the past few days were wrong in that I mistakenly assumed that reuse is set from 0 to 1 over the course of the 24 hr runs. This caused my runs to run unseeded, which is not the intent of the experiment
+What actually should happen is this:
+    1st 8 Hrs: clear the database tables and then run qsub pbsmysql.pbs followed by seeding_from_file.py followed by launchEMADESquad.pbs
+    2nd 8 hrs: continue off of the previous run (don't need to reseed) (just do qsub pbsmysql.pbs followed by launchEMADESquad.pbs)
+    3rd 8 hrs: continue off of the previous run. Same procedure as "2nd 8 hrs"
+
+* Fortunately, my shell script that automates the process of running SqUaD in PACE should work (though the user will need to clear the database locally for the 1st 8hr run)
+
+* Final Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit#slide=id.p
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Keep doing Runs as per Steven's guidelines
+|Completed
+|December 6th, 2021
+|December 10th, 2021
+|December 10th, 2021
+|-
+|Add information about BiDAF primitives to final presentation
+|Completed
+|December 6th, 2021
+|December 8th, 2021
+|Decebmer 8th, 2021
+|-
+|Update pace-login.sh script for SqUaD Dataset
+|Completed. Should be ready for use
+|December 8th, 2021
+|December 8th, 2021
+|December 8th, 2021
+|}
 == November 29th, 2021==
 '''Main Meeting Notes:'''
 * Code Freeze to get runs in for final presentation
@@ -20,7 +112,7 @@ Interests: Machine Learning, Python, Puzzles, Reading, Cooking
 * Objective functions in use are MSE (since we are doing a regresssion problem), and num_params (for evaluating "complexity" of individual)
 * I had issues with my database, so I needed to reinstall it and that fixed the issue of "entries/columns" not recognized in the table
 * Configured MySQL workbench environment to query the pareto front for the latest generation 
-
+* Over the weekend, I got 2 runs in. Plan on doing more runs for this week to supply more data for the statistics "sub-subteam"
 '''Action Items:'''
 {| class="wikitable"
 !Task

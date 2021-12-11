@@ -19,10 +19,60 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
-==Nov 29th, 2021==
+==Dec 6th, 2021==
 ===Meeting Notes===
+* Peer evals close 12/8 Wednesday 4pm
+* Our notebooks are due on Monday 12/13 at 9am
+* Visualizations for prezi: tree structure for algorithms, pareto fronts and AUC, tracking things through time, any mined info from databases
+* 20 min for presentation
 
 ===Subteam Notes===
+* Pull the new combined branch, so everyone is using same code post code-freeze
+* Delegate experiments
+** NSGA3 - Dhruv, Lexicase - Harris & Austin, Mate Mutations - Aryaan & Eashan, Second Mate Mutations - Rohan & Elan, Third Mate Mutations - Heidi & Temi
+* Create visualizations where applicable
+* Finish Presentation Slides
+
+''' Work Notes '''
+* Pulled down our new branch with all the changes ([https://github.gatech.edu/amehra37/emade/tree/img-proc img-proc]) and pushed it to EMADE
+* Also changed the scripts to use the new environment
+* Compile model problem
+** Monil and I both encountered the <code>You must compile your model before training/testing. Use model.compile(optimizer, loss)</code> problem from last week
+** My inference from last week seemed correct, submit() function is implemented in Python 3.8 so the new environment with TensorFlow 2.6 (uses Python 3.8) fixed it
+* Running into installation problems
+** Shared environment was made so that we shouldn’t change anything
+** Selection methods are hard-coded in the EMADE.py code despite being specified in the XML file
+** Will need to edit file after getting write permissions from Max
+* Something to work on in future semester, change EMADE to pull selection method from the XML file rather than being hard-coded
+
+''' NSGA3 Trial Results '''
+* Trial 1
+** Lowest ROC AUC: 0.377054, num param 192680000
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(DenseLayer4dim(((((((DenseLayerUnit32)))))), ((((((sigmoidActivation)))))), MaxPoolingLayer2D((((((Conv2DKernelSize3))))), adf_0(adf_12(adf_9(adf_16(adf_3(InputLayer)))))))), ((((((((DenseLayerUnit32)))))))), ((((((((NadamOptimizer))))))))) adf_0: Conv2DLayer(Conv2DFilterUnit48, eluActivation, Conv2DKernelSize3, InputLayer) adf_3: MaxPoolingLayer2D(Conv2DKernelSize5, ARG0) adf_9: Conv2DLayer((Conv2DFilterUnit16), (eluActivation), (Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit256, defaultActivation, InputLayer)) adf_12: MaxPoolingLayer2D((Conv2DKernelSize1), ARG0) adf_16: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)'
+** 2nd lowest ROC AUC: 0.486834, num param 1431040
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_6(adf_6(adf_3(adf_1(adf_14(adf_4(adf_8(InputLayer)))))))), ((((((((DenseLayerUnit256)))))))), ((((((((RMSpropOptimizer))))))))) adf_1: Conv2DLayer(((Conv2DFilterUnit16)), ((seluActivation)), ((Conv2DKernelSize3)), MaxPoolingLayer2D((Conv2DKernelSize3), DenseLayer4dim(DenseLayerUnit32, eluActivation, ARG0))) adf_3: DenseLayer4dim((DenseLayerUnit256), (seluActivation), DenseLayer4dim(DenseLayerUnit256, eluActivation, ARG0)) adf_4: Conv2DLayer((Conv2DFilterUnit16), (reluActivation), (Conv2DKernelSize5), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)) adf_6: Conv2DLayer((Conv2DFilterUnit16), seluActivation, Conv2DKernelSize3, ARG0) adf_8: DenseLayer4dim(((DenseLayerUnit32)), ((defaultActivation)), MaxPoolingLayer2D((Conv2DKernelSize3), Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize5, ARG0))) adf_14: Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize5, InputLayer)'
+* Trial 2
+** Lowest (and 2nd lowest) ROC AUC: 0.490912, num param 287
+** NNLearner((((((ARG0))))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (sigmoidActivation), (Conv2DKernelSize3), adf_4(InputLayer)))), ((((((((((falseBool)))))))))), ((((AdamaxOptimizer))))) adf_1: Conv2DLayer(((Conv2DFilterUnit16)), (tanhActivation), (Conv2DKernelSize1), MaxPoolingLayer2D(Conv2DKernelSize5, InputLayer)) adf_4: Conv2DLayer((Conv2DFilterUnit16), reluActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer))
+* Trial 3
+** Lowest ROC AUC: 0.448625, num param 36128000
+** 'NNLearner(((((((((((((ARG0)))))))))))), FlattenLayer4d(adf_17(InputLayer)), ((((Conv2DKernelSize1)))), ((((RMSpropOptimizer))))) adf_17: Conv2DLayer(Conv2DFilterUnit48, reluActivation, Conv2DKernelSize5, ARG0)'
+** 2nd Lowest ROC AUC: 0.451021, num param 36128000
+** 'NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_17(InputLayer)), ((((Conv2DKernelSize1)))), ((((NadamOptimizer))))) adf_17: Conv2DLayer(Conv2DFilterUnit48, defaultActivation, Conv2DKernelSize5, ARG0)'
+* Trial 4
+** Lowest ROC AUC: 0.393361, num param 12055100
+** NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_19(adf_10(adf_4(adf_4(Conv2DLayer((Conv2DFilterUnit48), ((reluActivation)), ((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_17(InputLayer)))))))), (((((Conv2DKernelSize3))))), ((((((((RMSpropOptimizer)))))))))  adf_4: MaxPoolingLayer2D(Conv2DKernelSize5, DenseLayer4dim((DenseLayerUnit256), (tanhActivation), Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize3, InputLayer)))  adf_10: Conv2DLayer((Conv2DFilterUnit48), (softmaxActivation), (Conv2DKernelSize1), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer))  adf_17: Conv2DLayer((Conv2DFilterUnit16), tanhActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit16, eluActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize3, InputLayer)))  adf_19: Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize5, MaxPoolingLayer2D((Conv2DKernelSize1), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)))
+** 2nd Lowest ROC AUC: 0.46485, num param 36165200
+** NNLearner((((((((((ARG0))))))))), FlattenLayer4d(adf_19(adf_10(adf_4(adf_4(Conv2DLayer((((Conv2DFil terUnit16))), ((reluActivation)), ((Conv2DKernelSize3)), Conv2DLayer((Conv2DFilterUnit16), (seluActivation), (Conv2DKernelSize5), adf_17(InputLayer)))))))), (((((Conv2DKernelSize3))))), ((((((((((((FtrlOptimizer))))))))))))) adf_4: MaxPoolingLayer2D(Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit48, sigmoidActivation, Conv2DKernelSize1, InputLayer))) adf_10: Conv2DLayer(Conv2DFilterUnit16, (softmaxActivation), Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer)) adf_17: Conv2DLayer(((Conv2DFilterUnit16)), tanhActivation, (Conv2DKernelSize1), Conv2DLayer(Conv2DFilterUnit16, eluActivation, Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit256, seluActivation, InputLayer)))) adf_19: Conv2DLayer(Conv2DFilterUnit48, defaultActivation, (Conv2DKernelSize5), DenseLayer4dim(DenseLayerUnit32, seluActivation, InputLayer))
+* Trial 5
+** Lowest ROC AUC: 0.491509, num param 1215
+** NNLearner((ARG0), GlobalMaxPoolingLayer2D(adf_2(adf_12(adf_14(adf_17(adf_15(adf_16(adf_10(adf_3(adf_1(adf_3(adf_12(adf_10( adf_18(InputLayer)))))))))))))), (((((((trueBool))))))), ((((((FtrlOptimizer))))))) adf_1: DenseLayer4dim((DenseLayerUnit256), (tanhActivation), MaxPoolingLayer2D(((Conv2DKernelSize1)), InputLayer)) adf_2: Conv2DLayer(Conv2DFilterUnit48, reluActivation, Conv2DKernelSize3, MaxPoolingLayer2D(((Conv2DKernelSize5)), InputLayer)) adf_3: DenseLayer4dim(DenseLayerUnit256, eluActivation, Conv2DLayer(((Conv2DFilterUnit16)), (seluActivation), Conv2DKernelSize1, ARG0)) adf_10: DenseLayer4dim(DenseLayerUnit256, (sigmoidActivation), InputLayer) adf_12: Conv2DLayer((Conv2DFilterUnit16), (softmaxActivation), Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit256, (tanhActivation), InputLayer)) adf_14: MaxPoolingLayer2D((Conv2DKernelSize3), MaxPoolingLayer2D((Conv2DKernelSize5), Conv2DLayer(((Conv2DFilterUnit48)), softmaxActivation, (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize3, ARG0)))) adf_15: MaxPoolingLayer2D(Conv2DKernelSize3, DenseLayer4dim((DenseLayerUnit32), seluActivation, Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize1, DenseLayer4dim((DenseLayerUnit32), (sigmoidActivation), Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize3, ARG0))))) adf_16: Conv2DLayer(Conv2DFilterUnit16, (defaultActivation), Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, (eluActivation), DenseLayer4dim(DenseLayerUnit32, reluActivation, InputLayer))) adf_17: DenseLayer4dim(DenseLayerUnit32, defaultActivation, DenseLayer4dim(DenseLayerUnit256, seluActivation, InputLayer)) adf_18: MaxPoolingLayer2D(((Conv2DKernelSize3)), ARG0)
+** 2nd Lowest ROC AUC: 0.492103, num param 831
+** NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_1(Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), adf_4(InputLayer)))), ((((falseBool)))), ((((AdamaxOptimizer))))) adf_1: Conv2DLayer((Conv2DFilterUnit48), (tanhActivation), ((Conv2DKernelSize1)), MaxPoolingLayer2D(Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize1, InputLayer))) adf_4: Conv2DLayer((Conv2DFilterUnit16), (defaultActivation), (Conv2DKernelSize5), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))
+
+
+''' Final Presentation '''
+* [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing Presentation Link]
 
 === Action Items: ===
 {| class="wikitable"
@@ -32,17 +82,99 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|
-|In Progress
-|Nov 29, 2021
+|Run multiple NSGA3 trials (for ROC-AUC)
+|Complete
 |Dec 6, 2021
-|
+|Dec 10, 2021
+|Dec 8, 2021
+|-
+|Finish final presentation slides
+|Complete
+|Dec 6, 2021
+|Dec 10, 2021
+|Dec 9, 2021
 |-
 |Update Wiki Notebook
-|In Progress
+|Complete
+|Dec 6, 2021
+|Dec 10, 2021
+|Dec 9, 2021
+|-
+|}
+
+==Nov 29th, 2021==
+===Meeting Notes===
+* Peer evals open!!
+* Fill out before deadline or you will get a poor final grade
+* Final presentation is 12/10
+
+===Subteam Notes===
+* npz formatting bug
+* Bug is in a helper method
+* Search space is limited (mem size) → bad ROC-AUC baseline of 0.48
+* Create slides next week
+* Code freeze by end of Friday, have pull requests submitted before then
+* Everyone can run experiments over the weekend and early next week (Monday/Tuesday)
+* Presentation is next week Friday so make your slides after running your experiments! Slide deck is in the shared Google folder
+
+''' Work Notes '''
+* Precision AUC -- lower is better
+* AUC ROC -- as far away from 0.5 is better, optimal is 1 or 0
+** -1.0 weight for minimizing, goal is to reach 0, lower is 0 and upper is 1
+** auroc() from eval_methods
+* Need to re-run with AUC ROC as objective
+
+* Code freeze! Finalize the EMADE code for selection methods branch and push changes
+** Using NSGA2 in the emade.py file so teammates are not forced to use NSGA3 in their trials (this would mess up experimental runs)
+** Added comments to sel_nsga3 for usage
+** Leaving NSGA3 registered in emade.py’s toolbox
+** Pushed up, [https://github.gatech.edu/amehra37/emade/commit/4730fe784f97ed1cbbf35ec3799f934bd26099f0 Code Link]
+** PR for Image-Processing(nn-vip) [https://github.gatech.edu/amehra37/emade/pull/11 link]
+** PR for img-proc [https://github.gatech.edu/amehra37/emade/pull/12 link]
+
+* Experimental run errors using AUC ROC (auroc() or roc_auc() func)
+** NSGA3, getting lot of error strings when evaluating individuals
+*** OpenCV bad argument, ROC AUC failed multi_class, NoneType obj no attribute ‘shape’, etc.
+** NSGA2 also ran into errors
+*** NoneType obj no attribute ‘shape’, Tree missing valid primitive for data type
+** Trying to fix these issues
+*** Set multi_label to 0
+*** Still getting lot of different errors
+** Most prominent errors (Monil also encountered):
+*** [https://pastebin.com/FuqhZRbh]
+*** Local variable “curr_layer” referenced before assignment (tried to fix this one by declaring the variable and assigning a default value at top of function but didn’t resolve the error)
+*** You must compile your model before training/testing. Use model.compile(optimizer, loss)
+** _base.py (in Python 3.6 lib) has a submit() function under class Executor
+*** Function is not implemented for some reason (raise NotImplementedError)
+*** EMADE.py’s handleWorker() calls this submit() – line 1577 and 1578 – on a ThreadPoolExecutor object which raises the error
+** This submit() function IS implemented in Python 3.8 though
+***  /lib/python3.8/concurrent/futures/_base.py 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Conduct NSGA3 runs for ROC-AUC
+|Complete
 |Nov 29, 2021
 |Dec 6, 2021
-|
+|Dec 5, 2021
+|-
+|Merge sel code for freeze
+|Complete
+|Nov 29, 2021
+|Dec 6, 2021
+|Dec 3, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 29, 2021
+|Dec 6, 2021
+|Dec 6, 2021
 |-
 |}
 
@@ -78,7 +210,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Run NSGA2
+|Run NSGA2 for baseline estimate (prec AUC)
 |Complete
 |Nov 22, 2021
 |Nov 29, 2021
@@ -144,13 +276,13 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Fix NSGA3 errors
+|Fix 3-d instead of 2-d error
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
 |Nov 21, 2021
 |-
-|Run NSGA3
+|Run NSGA3 (for prec AUC)
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
@@ -196,7 +328,7 @@ Interests: Weightlifting, hiking & backpacking, software engineering, cybersecur
 !Due Date
 !Date Completed
 |-
-|Try to test NSGA3 again
+|Troubleshoot NSGA3 run
 |Complete
 |Nov 8, 2021
 |Nov 15, 2021
@@ -406,7 +538,7 @@ Mid-sem presentations
 !Due Date
 !Date Completed
 |-
-|Troubleshoot EMADE run
+|Troubleshoot EMADE on Pace run
 |Complete
 |Oct 25, 2021
 |Nov 1, 2021

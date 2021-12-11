@@ -8,6 +8,109 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== December 10, 2021 (Week 16, Final Presentation) == 
+
+=== Presentation Notes: ===
+*  Image Processing:
+    *  Eval Objectives: AUC-ROC (Receiving Operator Characteristic - calculate 1-ROC to minimize objectives), Number of parameters
+    *  Merged NAS' ADFs. Baseline results use NSGA-II Pareto Front. AUC for pareto front is 0.218. Lowest ROC individual is 0.16969. Lowest number of params was 30.
+    *  Tested NSGA-III and Lexicase selection methods based on research paper recommendation
+    *  NSGA-III had 0.377 AUC-ROC, worse than baseline. Reduced large problem to low diversity problem, low dimensions
+    *  Lexicase had 0.348, worse than baseline. Lexicase likes larger population size. Really small pareto front, might be the problem.
+    *  Also explored different crossover operators. Semantic crossover (finds subchild that's in between parents) vs Semantic mutations (maintains parent's semantic info). Best individual had 0.45 precision AUC, worse than baseline. Basically a seed individual, didn't find much luck.
+    *  Worked on geometric operators for mating and mutation. Created new operators - partially matched, ordered crossover, uniform and multipoint operators.
+    *  Multi points and Uniform had best AUC-ROC of 0.365, average of 0.38.
+    *  Hyper-features: multiple primitives that work well together. Very bad AUC-ROC results, even around 0.5 (worst possible).
+    *  Challenges: switched dataset, compiling models errors.
+*  NLP:
+    *  Tokenization = converting input to smaller words
+    *  Word embeddings = converts text data to numerical vectors (bag of words)
+    *  Factoid = short factual answers
+    *  Extractive = answer can be found verbatim in context
+    *  Keras doesn't support regression with multiple outputs. Requires very specific input format (tuple of input, truth data).
+    *  NNLearner2 predicts indices, while objective functions need answer strings to evaluate
+    *  Merged existing code for multiple data pairs (question+context) with nn-vip branch
+    *  BIDAF-based models - bid-directional attention flow.
+    *  Used Bi-directional LSTM to relate importance
+    *  Had mean-square-error and num_primitives as objectives for experiments
+    *  Compared 4 pareto fronts from successful runs. Maximum reduction in area was 10.96%.
+    *  Will need more runs (only had 4). But think that they can reduce area with current technique. More diverse set of primitives might help.
+*  Neural Architecture Search:
+    *  
+    *  
+*  Modularity:
+    *  We performed our presentation.
+    *  
+*  Stocks:
+    *  Optimizing time-series data
+    *  
+== December 6, 2021 (Week 16) == 
+
+=== Lecture Notes: ===
+*  Final presentation review available on Thursday, December 9 by Dr. Roehling.
+*  Subteams briefly updated everyone on their progress.
+*  Image Processing:
+    *  Everyone is tasked
+*  NLP:
+    *  Final presentation
+*  Neural Architecture Search:
+    *  Mostly done
+*  Modularity:
+    *  Working on final presentation
+*  Discussed types of visualizations would be interesting to see in the final presentations.
+*  Work-time for final presentation 
+
+=== Subteam Meeting Notes: ===
+*  Divided work for subteam presentation, made slides. Created a rough outline for who was going to say what and filled in team members on out parts of the presentation.
+
+=== Individual Notes: ===
+*  Forked Gabe's repository and shared my graphs + notebook for the team to access. https://github.gatech.edu/akumaran6/emade/tree/PrimitiveAnalysis/notebooks
+*  .csv files for NoARL, OldARL, NewARL are all in the above directory, notebook used is GroupAUCViz.ipynb
+*  Debugging visualization notebooks to make sure graphs are ready for final presentation. Edited so that they show three-line graphs.
+    *  mean_df_old_adf['group'] = 0
+    *  mean_df_adf['group'] = 0
+    *  mean_df['group'] = 0
+    *  p9.ggplot(data=polygon_df, mapping=p9.aes(x="index", y='upper', group = 'group')) \
+            + p9.geom_polygon(size = 0.1, color='red', fill = 'red', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='green', fill = 'green', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_old_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='blue', fill = 'blue', alpha = 0.001) \
+            + p9.geom_line(data=mean_df_old_adf, mapping=p9.aes(x="index", y='mean'), color='blue') \
+            + p9.geom_line(data=mean_df_adf, mapping=p9.aes(x="index", y='mean'), color='green') \
+            + p9.geom_line(data=mean_df, mapping=p9.aes(x="index", y='mean'), color='red') \
+            + p9.ggtitle("No ADF vs Old ARL AUC vs New ARL AUC") \
+            + p9.xlab("Generation") \
+            + p9.ylab("Area Under Curve") \
+            + p9.scale_x_continuous(expand = (0,0), limits = (0,41),  breaks=(list(np.arange(0, 41, 5))), minor_breaks=(list(np.arange(0, 41, 1)))) \
+            + p9.scale_y_continuous(expand = (0,0), limits = (0.15,0.41), breaks=(list(np.arange(0.15, 0.46, 0.05))), minor_breaks=(list(np.arange(0.15, 0.4, 0.01)))) \
+            + p9.theme(axis_line=p9.element_line(), axis_ticks_minor=p9.element_line())
+*  Fixed standard deviation line bug on the graphs.
+*  Generated graphs with all runs (4-11), including 6 and 10, then decided that since they only lasted 34 and 35 generations each, that they should be omitted to see longer comparison between the three types of runs.
+*  Added finalized graphs (comparing all three runs - NoARL, OldARL, NewARL) to the final presentation.
+*  Added two-line comparison graphs to the presentation, which will be presented by Angela and Adithya.
+*  Practiced presentation slides before the final presentation. Had a run-through with the team two hours before the final.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Final Presentation Slides, practice presentation
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 6, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 6, 2021
+|}
+
+
 == November 29, 2021 (Week 15) == 
 
 === Lecture Notes: ===
@@ -28,7 +131,7 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Midterm presentation error caused by 3 objectives, not collab.
     *  Doing visualization for runs.
     *  Stocks runs hopefully going to start soon, according to CacheV2 team.
-*  Peer Evaluations are open
+*  Peer Evaluations are open, I've completed mine.
 *  Final presentation is on December 10th, at 6:00 pm (to around 9:00 pm).
 
 === Subteam Meeting Notes: ===
@@ -40,6 +143,9 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Will continue working on visualization this week.
 *  Posted AUC over time arrays to my sub-subteam. 
 *  Joined extendedarl11 run.
+*  Got extendedarl11 AUC over time array from visualization tool: 
+{"auc":[0.3996287228604482,0.38038688154106914,0.3714977535042643,0.3628722860448223,0.3628722860448223,0.3602302994430843,0.3602302994430843,0.34806962791573626,0.34806962791573626,0.3469288923565337,0.3469288923565337,0.3469288923565337,0.3367429847453523,0.3367429847453523,0.3367429847453523,0.3367429847453523,0.3197933762005973,0.3197933762005973,0.3197933762005973,0.3197933762005973,0.3197072829508461,0.3197072829508461,0.3086012537329495,0.3085851112486212,0.3085851112486212,0.3081654066560844,0.3081654066560844,0.305012241383949,0.2973553229842073,0.29727999139067507,0.2873362210444187,0.28729317441954316,0.2871855578573542,0.287110226263822,0.26606580752777853,0.2563641744464473,0.2213511259382819,0.2194086469907719,0.21629314751540263,0.21604562942236813,0.21576044553256749,0.20995453200247516,0.20719416718232936,0.20689822163630983,0.20680136673033983,0.20679598590223036,0.20255589335198687,0.19481288170249403],"x":[11.6,19.6],"y":[20.8,20.2]}
+
 *  Worked on visualization tasks:
     *  Converted AUC over time arrays to .csv files (Adithya, Angela will also do this) and placed them in a directory together
     *  Got zipped data for no_arl and old_arl from the older members. Extracted and reformatted the files to comply with the notebook.
@@ -47,6 +153,7 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Translated my visualization data for the extendedarl5 run to a .csv to test the notebook, debugged functionality. 
     *  Generated a graph comparing all three types of arl data, which illustrates that as no. of generations increases, AUC is lowest for new_arl, followed by old_arl, and finally no_arl. I believe this satisfies our rationale for running these experiments, and shows valuable progress.
     *  Once Adithya and Angela send me the other .csv files, I'll add them to the new_arl directory and run the notebook once more, generating the final graph comparing the three types of data. The goal is to accomplish this by Monday.
+    *  I've received them, and have created the final graphs.
 === Action Items: ===
 {| class="wikitable"
 !Task
@@ -55,7 +162,7 @@ Interests: Writing fiction, Music, Reading, Sports
 !Suspense Date
 !Date Resolved
 |-
-|Edit Visualization Notebook
+|Edit Visualization Notebook and Generate comparison graphs
 |Completed
 |November 29, 2021
 |December 6, 2021
@@ -302,7 +409,7 @@ Interests: Writing fiction, Music, Reading, Sports
 |}
 
 
-== October 25, 2021 (Week 10) == 
+== October 25, 2021 (Week 10, Midterm Presentation) == 
 
 === Lecture Notes: ===
 *  Presented Emade findings at Monday (main group) session, compared with ML and MOGP.

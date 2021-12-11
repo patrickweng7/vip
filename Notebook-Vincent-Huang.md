@@ -7,34 +7,231 @@ Contact: vhuang31@gatech.edu
 https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
-for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
+### Week 16: Dec 6
+- [Final Presentation Slides](https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit?usp=sharing)
+    - Helped Sai implement changes to visualization to aggregate data for ARL size experiment visualizations
+    - Met with first year students to discuss what to say for slides
+- Implemented visualizations for ARL clustering experiment
+```
+import matplotlib.pyplot as plt
+import MySQLdb
 
+results_tree_idx = 0
+results_false_positives_idx = 1
+results_false_negatives_idx = 2
+results_gen_idx = 3
 
-for arl in arls:
-            arl_primitives[arl] = self.pset.mapping[new_arl_pool[arl][1]]
-            for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0].occurrences:
-                individuals_to_replace[individual_idx] += [(arl, arl_instance_root_idx)]
+dbresults = dict()
+arlresults = dict()
+for dbnum in range(4, 12):
+    db = MySQLdb.connect(host='database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com', user='admin', passwd='mypassword', database=f'extendedarl{dbnum}')
+    mycursor = db.cursor()
+    mycursor.execute("SELECT tree, `FullDataSet False Positives`, `FullDataSet False Negatives`, evaluation_gen from individuals where `FullDataSet False Positives` is not null")
+    results = mycursor.fetchall()
+    dbresults[dbnum] = results
+
+    mycursor.execute("SELECT name from adf")
+    results = mycursor.fetchall()
+    arlresults[dbnum] = results
+
+for dbnum in dbresults.keys():
+    result1 = dbresults[dbnum]
+    arl_names = [res[0] for res in arlresults[dbnum]]
+
+    arl_to_pareto_occ_map = dict()
+
+    for arl_name in arl_names:
+        has_indv = False
+        for result in result1:
+            if f"{arl_name}(" in result[results_tree_idx]:
+                if arl_name not in arl_to_pareto_occ_map:
+                    arl_to_pareto_occ_map[arl_name] = set()
+                arl_to_pareto_occ_map[arl_name].add((result[results_false_positives_idx], result[results_false_negatives_idx], result[results_gen_idx]))
+
+    fig, ax = plt.subplots()
+
+    for arl_name, arl_occ_set in arl_to_pareto_occ_map.items():
+        if len(arl_occ_set) > 10:
+            x = []
+            y = []
+            color = []
+
+            gens_to_graph = set([occ[2] for occ in arl_occ_set])
+            reduced_to_gens = set([tuple(occ[1:]) for occ in dbresults[dbnum] if occ[results_gen_idx] in gens_to_graph and tuple(occ[1:]) not in arl_occ_set])
+
+            for occ in reduced_to_gens:
+                x.append(occ[0])
+                y.append(occ[1])
+                color.append([0, 0, 0, .3])
+
+            for occ in arl_occ_set:
+                x.append(occ[0])
+                y.append(occ[1])
+                color.append([1, 0, 0, .5])
+
+            plt.scatter(x, y, c=color)
+            t = plt.title(f'Objective Score of Aggregated Individuals Containing {arl_name}')
+            plt.xlabel('False Positives')
+            plt.ylabel('False Negatives')
+            t.set_color("black")
+            plt.xlim([0, 120])
+            plt.ylim([0, 80])
+            print(dbnum)
+            plt.show()
+            plt.clf()
+
+to_graph = [(23, 4)] # arl,dbnum 
+
+for arl_num, dbnum in to_graph:
+    result1 = dbresults[dbnum]
+    arl_names = [res[0] for res in arlresults[dbnum]]
+
+    arl_name = f"arl{arl_num}"
+
+    arl_to_pareto_occ_map = dict()
+
+    for result in result1:
+        if f"{arl_name}(" in result[results_tree_idx]:
+            if arl_name not in arl_to_pareto_occ_map:
+                arl_to_pareto_occ_map[arl_name] = set()
+            arl_to_pareto_occ_map[arl_name].add((result[results_false_positives_idx], result[results_false_negatives_idx], result[results_gen_idx]))
+
+    fig, ax = plt.subplots()
+
+    for arl_name, arl_occ_set in arl_to_pareto_occ_map.items():
+        if len(arl_occ_set) > 10:
+            gens_to_graph = set([occ[2] for occ in arl_occ_set])
+            reduced_to_gens = set([tuple(occ[1:]) for occ in dbresults[dbnum] if occ[results_gen_idx] in gens_to_graph and tuple(occ[1:]) not in arl_occ_set])
+
+            gens_to_graph_list = sorted(list(gens_to_graph))
+            print(dbnum)
+            for gen in gens_to_graph_list:
+                x = []
+                y = []
+                color = []
+                for occ in reduced_to_gens:
+                    if occ[2] == gen:
+                        x.append(occ[0])
+                        y.append(occ[1])
+                        color.append([0, 0, 0, .3])
+
+                for occ in arl_occ_set:
+                    if occ[2] == gen:
+                        x.append(occ[0])
+                        y.append(occ[1])
+                        color.append([1, 0, 0, .5])
+
+                plt.scatter(x, y, c=color)
+                t = plt.title(f'Objective Score of Aggregated Individuals Containing {arl_name}\nGeneration {gen}')
+                plt.xlabel('False Positives')
+                plt.ylabel('False Negatives')
+                t.set_color("black")
+                plt.xlim([0, 120])
+                plt.ylim([0, 80])
+                plt.savefig(f"{arl_name}_db{dbnum}_gen{gen}")
+                plt.clf()
+```
+![](https://i.imgur.com/BQV8uTA.png)
+![](https://i.imgur.com/cP7rTYY.png)
+![](https://i.imgur.com/gcJXcEs.png)
+![](https://i.imgur.com/S9O2xbk.png)
+
+### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/c25b59577a108e1f1e80b03ea45216cc2632e777)
+    - Implemented ARL clustering visualizations
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Implement visualizations for ARL clustering experiments|Complete|Nov 29|Dec 7|Dec 9|
+|Meet with first year students separately to discuss their slides|Complete|Nov 21|Dec 9|Dec 9|
 
 ### Week 15: Nov 29
+- Since the CacheV2 Integrations team seemed to be struggling, I offered to take a look at their code
+    - Very problematic code commits
+    - Primary problem was that in `sql_connection_orm_master.get_seeded_pareto()`, it references `self.optimization`.
+    - In the old ARL_Update branch, this was instantiated in the parent class `sql_connection_orm_base.__init__()`
+    - In the new CacheV2 branch, the optimization attribute is instantiated via `ConnectionSetup()` in `EMADE.py`
+    - ARL_Update makes no changes to `sql_connection_orm_master` and `sql_connection_orm_base`, so simply overriding all changes in those two files with CacheV2's version is perfectly fine
+    - However, both ARL_Update and CacheV2 make changes to `EMADE.py`, so simply choosing one branch's changes and overriding the other's will not work.
+    - The CacheV2 Integrations team simply chose one version of each file from a branch and overrode the other branch.
+    - This is very problematic and not how a merge should work.
+    - Given the time remaining before final presentations, I was not able to fix the problems in time.
+    - Essentially no useful work was done, so the merge would need to be done over again from scratch.
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|extended ARL runs|Complete|Nov 21|Nov 24|Nov 29|
+|Take a look at CacheV2's code|Complete|Nov 21|Nov 28|Nov 29|
 
 ### Week 14: Nov 22
-thanksgiving break
+- Thanksgiving break!
+- Continued doing runs and gathering data for extended arl experiments
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Run master process for extended ARL experiments|Complete|Nov 15|Nov 21|Nov 22|
 
 ### Week 13: Nov 15
-refactored 
-https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc
-https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1
-https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70
-### Week 12: Nov 8
-refactored
-#### Code Commits
-- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
-    - Removed ARL arg index dictionary from population info
+- Refactored and documented new implementation of code
+    - Standardized variable names
+        - Example:
+        - The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
+        - Same with arl_lambda, lambda, arl_function_string, arl_str
+    - Added additional classes for information that was previously stored within tuples
+```
+class ARLPoolInfo:
+    def __init__(self, arl_population_info: ARLPopulationInfo, arl_name: str, arl_lambda: str, arl_function, arl_input_types):
+        self.population_info = arl_population_info
+        self.arl_name = arl_name
+        self.arl_lambda = arl_lambda
+        self.arl_function = arl_function
+        self.arl_input_types = arl_input_types
+```
+```
+class ARLNode:
+    def __init__(self, name, arl_arity, individual_arity, child_idx_in_parent):
+        self.name = name
+        self.arl_arity = arl_arity
+        self.individual_arity = individual_arity
+        self.child_idx_in_parent = child_idx_in_parent
 
-* Refactored and documented new implementation of code
-** Added typing and classes to implementation
-*** Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
-*** Example
+    def __eq__(self, other):
+        return other and self.name == other.name and self.arl_arity == other.arl_arity \
+            and self.individual_arity == other.individual_arity \
+            and self.child_idx_in_parent == other.child_idx_in_parent
+
+    def __neq__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash((self.name, self.arl_arity, self.individual_arity, self.child_idx_in_parent))
+
+    def __repr__(self):
+        return f"{self.name} {{arl_arity: {self.arl_arity}, indv_arity: {self.individual_arity}, idx_in_par: {self.child_idx_in_parent}}}"
+```
+
+### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
+    - Added ARLNode class
+    - standardized variable names
+    - Added documentation to gen_child_next_dicts, _contract_arls, _contract_arls, _find_arls, lambda_helper, update_representation_with_arl_pset, 
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/7e1f2a539265e22a50c521e580cb37f4f4213aa1)
+    - Added documentation to arl_info_to_lambda, update_representation, search_individual
+    - Added typing to methods 
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/952fc5e85978bf08ed142e4dbdfb9da90cc46e70)
+    - Added ARLPoolnfo class
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Write documentation for ARL code|Complete|Nov 9|Nov 12|Nov 15|
+|Refactor existing code|Complete|Nov 9|Nov 14|Nov 15|
+|Continue doing runs for extended ARL|Complete|Nov 9|Nov 13|Nov 15|
+
+### Week 12: Nov 8
+- Refactored and documented new implementation of code
+    - Added typing and classes to implementation
+        - Lots of information was previously stored in tuples, making it difficult to determine the meaning behind accesses
+        - Example
 Before:
 ```
 for arl_instance_root_idx, individual_idx in new_arl_pool[arl][0][1:]:
@@ -53,15 +250,81 @@ class ARLPopulationInfo:
         # indv_idx: the index of the individual within the population
         self.occurrences = occurrences
 ```
-*** Creating classes also allowed for making a repr function, which helped with printing information for debugging
-*** Also added method input parameter types and return types where possible
-** Standardized variable names
-*** Example:
-*** The same data was called population_info in update_representation, myDict in search_individual, and dictionary in add_all_subtrees
-** Added documentation for all methods
-** Refactored outdated methods and code which were inefficient and/or unused
-### Week 11: Nov 1
+-
+    -
+        - Creating classes also allowed for making a repr function, which helped with printing information for debugging
+        - Also added method input parameter types and return types where possible
+    - Changed object instantiations to be more precise
+        - Eg, `x = {}` to `x = dict()` and `y = {}` to `y = set()`
+        - Note that the second instantiation is incorrect and is also a bug fix.
 
+#### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade/commit/5baa10d1c44a63ec65c893edaeac60e258c78afc)
+    - Removed ARL arg index dictionary from population info
+    - Commented out sanity check code for sake of performance
+    - Added ARLPopulationInfo class
+    - Added typing to the init, _get_best_arls, lambda_helper, etc methods
+    - Changed object instantiations to be more precise
+    - Added documentation to _get_best_arls,  _pick_arls, _match_arl_in_individual, add_all_subtrees, _evaluate_ARL, search_individual
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Write documentation for ARL code|Complete|Nov 1|Nov 8|Nov 8|
+|Write unit tests for new and old methods|Complete|Nov 1|Nov 8|Nov 8|
+|Refactor existing code|Complete|Nov 1|Nov 7|Nov 8|
+|Master process for extended arl runs|Complete|Nov 1|Nov 6|Nov 8|
+
+### Week 11: Nov 1
+- Reassessed and readjusted team's goals for the semester
+    - Part of the Stocks group will focus on migrating modularity into Cache V2, as part of the problems with integrating stocks data with modularity was that stocks used CacheV2 functionality
+    - Extended ARL group will continue doing runs and running experiments
+- I onboarded first semester students regarding our team's tools
+    - Briefly reviewed EMADE again and went over Google Collab
+    - Wrote up the following guide
+
+- How to get on google collab:
+1. Clone the repo https://github.gatech.edu/vhuang31/emade/tree/master
+
+2. If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file here 
+https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+
+3. If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl) Note that you can call it whatever you want, just make sure to call it something so that you can tell which version of EMADE it is.
+In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates
+
+4. Open input_titanicADFON.xml in a text editor
+
+5. Near the top of the file, there should be a dbConfig similar to this one. Edit it to match the following details, with the database renamed to the schema name the run you're trying to join is
+```
+<dbConfig>
+        <server>database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com</server>
+        <username>admin</username>
+        <password>mypassword</password>
+        <database>INSERT_SCHEMA_NAME_HERE</database>
+        <reuse>1</reuse>
+</dbConfig>
+```
+
+You'll also want to change the following line to have a max arl size of 10
+```
+<maxAdfSize>10</maxAdfSize>
+```
+
+8.  In google drive, make a copy of this Google Collab Notebook https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing
+
+9. In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to
+
+10. Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
+
+11. Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+
+12. Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use MySQLWorkbench to check the status of the run. 
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Reassess goals for semester|Complete|Oct 26|Oct 28|Nov 1|
+|Onboard new students|Complete|Oct 26|Oct 29|Nov 1|
+|Continue running experiments|Complete|Oct 26|Oct 30|Nov 1|
 
 ### Week 10: Oct 25
 - [Midterm Presentation Slides Link](https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit?usp=sharing)

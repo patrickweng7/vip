@@ -14,6 +14,95 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * VIP meetings 5-5:50pm on Mondays
 * Subteam meetings 5:45-6:45pm on Wednesdays
 
+==Week 16: December 6th - December 10th==
+===Main Meeting Notes===
+* Peer evals close Wednesday Dec 8th at 4pm
+* Notebooks due Monday Dec 13th at 9am
+* Visualizations for prezi: tree structure for algorithms, pareto fronts and AUC, tracking things through time, any mined info from databases
+* 20 min for presentation
+* everyone is finishing their merges
+* Aryaan, Monil, and Dhruv are fixing bugs
+* we distributed experiments:
+** Baseline runs - Max
+** NSGA3 - Dhruv
+** Lexicase - Harris & Austin
+** Mate Mutations - Eashan & Aryaan
+** Second Mate Mutations - Rohan & Elan
+** Third Mate Mutations -  Heidi & Temi
+** baseline (nsga2) vs nsga3
+** baseline vs lexicase
+** (maybe) nsga3 vs lexicase?
+** baseline(mate mutations) vs some combination of the mating methods?
+** (maybe) baseline vs a new selection method AND new mate mutation methods
+* finish presentation slides
+* New environment for python 3.8: ]
+** /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/img_proc_tf26
+* New PBS Script to launch EMADE:
+** #PBS -N emade-chest
+** #PBS -l nodes=1:ppn=4
+** #PBS -l pmem=4gb
+** #PBS -l walltime=1:00:00
+** #PBS -q pace-ice
+** #PBS -o emade-chest.out
+
+===Subteam Meeting Notes===
+* work session
+* use stand alone tree to get results for both hyperfeatures
+* encountered lots of errors:
+** had to create my own environment
+** had to add new datasets to new datasets folder
+** had to install tensorflow 2.6
+** Errors that said "Could not find GPFramework" - fixed this with reinstall command
+** mysql errors saying can't connect to mysql server at "_____"
+* Results:
+** Contrast + sobel filter:
+*** 1 - ROC AUC = 0.5
+*** This is the worst ROC AUC possible - equivalent to random guessing
+*** I suspect that this is because edge detection takes away too many of the small details in the chest X-ray images, only outlining prominent shapes.
+** Contrast + sharpening filter:
+*** 1 - ROC AUC = 0.4 
+*** This is better than the sobel filter, but it still is lower than the baseline. 
+* Finished results and sharpening filter slides for final presentation
+
+===Final Presentations===
+* Link to Final Presentation : [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing]
+* Suggestions:
+** Use lexicase to get 14x14 confusion matrix 
+** We should have looked into the AUC's for each class because the average value doesn't say much. Some classes might have much higher prediction rates than others
+** We have to say 1 - ROC AUC not just ROC AUC 
+** include more in future work and don't be afraid to talk about what we hope to do in the future, not just what we have done.
+** think about how a human would look at the images to come up with more filters for hyper-features
+** Think about how a human would look at the images to come up with a way to reduce parameters. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Finish experiments to get results
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 9th, 2021
+|-
+|Finish Final Presentation
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 10th, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 10th, 2021
+|-
+|}
+
+
 ==Week 15: November 29th - December 5th==
 ===Main Meeting Notes===
 * We think there is an issue with the memory of the GPU not allowing enough primitives to be used, so we will try experimenting with a smaller batch size to see if that helps
@@ -21,6 +110,46 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * Goal to have code freeze by end of this week
 * changing objective to ROC AUC instead of precision AUC for testing NSGA III
 * using precision AUC, the results shows actually a slightly better AUC for NSGA II than NSGA III
+
+===Subteam Meeting Notes===
+* I am setting up for experiments
+* needed to free up disk space
+* help debug errors with standalone tree for hyper features
+* Error message:
+** Received: NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)
+**With Hash 353955d73f3c86294017108be1d7dd7702e3cd4df2f9455969c611dfd5031439
+**Computed in: 1057.614228963852 seconds
+**With Fitnesses: (inf, inf)
+**With Age: 0
+**With Error:  **********You must compile your model before training/testing. Use `model.compile(optimizer, loss)`
+* Monil and Dhruv running into same bug, which we figured out was due to using an older version of python
+* I finished the data preprocessing slides, changed them from midterm because I changed the code from multilabel to single label.
+** Link to slides : [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing]
+* picked sharpening filter, not sure if this will be added to the code.
+* Updated code with sharpening filter:
+** [https://colab.research.google.com/drive/1RCwdJqF76K7DemVErY5k0GYoj_V3r2As?usp=sharing]
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Prepare for Experiments and add slides for presentation
+|Complete
+|Nov 29th, 2021
+|Dec 5th, 2021
+|Dec 3rd, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 29th, 2021
+|Nov 5th, 2021
+|Nov 5th, 2021
+|-
+|}
 
 ==Week 14: November 22nd - November 28th==
 ===Main Meeting Notes===
@@ -32,6 +161,21 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * No subteam meeting this week due to Thanksgiving
 * No tasks for anyone
 
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Update Wiki Notebook
+|Complete
+|Nov 22nd, 2021
+|Nov 29th, 2021
+|Nov 29th, 2021
+|-
+|}
 
 ==Week 13: November 15th - November 21st==
 ===Main Meeting Notes===
@@ -65,7 +209,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Finish Data pre-processing
+|Fix and push Data pre-processing
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
@@ -100,8 +244,11 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 * clean up data pre-processing to push into repository and get data set
 * created data frame that removed images classified as multi-label with "|"
 * also deleted these images from the image folders and mapped the names to match up correctly
-* help new members
+* put data set in pace for Max to do baseline run
+* help new members set up pace
 * start working on sharpening filter
+* read papers to figure out ideal filters to try for hyper-features:
+** [https://www.semanticscholar.org/paper/Image-Enhancement-using-Sharpen-Filters-Singh/2bc77b60213cb2bbd3cdfeb55665581a7388d839]
 
 === Action Items: ===
 {| class="wikitable"
@@ -170,7 +317,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Change Data pre-processing
+|Change Data pre-processing to still be multiclass
 |Complete
 |Nov 1, 2021
 |Nov 8, 2021
@@ -230,7 +377,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Change Data pre-processing
+|Change Data pre-processing to be binary
 |Complete
 |Oct 25, 2021
 |Nov 1, 2021

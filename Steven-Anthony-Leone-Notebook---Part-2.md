@@ -14,11 +14,57 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Final Presentations
+* Image Processing
+* * Main Objective: How can we improve EMADE on image processing tasks
+* * Leverage GP, selection methods, mating and mutation, new primitives, and deep learning
+* * Normalized, conducted Horizontal flipping, and newer augmentations
+* * Size of dataset is 4000 images
+* * Changed problem to not be multilevel (still multiclass)
+* * Comparing TPR vs FPR and Num Parameters
+* * Baseline Results: AUC was 0.21895
+* * NSGA II was used by baseline, then used NSGA 3 and Lexicase
+* * In actuality, NSGA II ended up performing significantly better.
+* * Trees started to become too complex to yield meaningful results come generation 4 and beyond.
+* NLP
+* * We presented our results
+* Stocks
+* * Comparing their results to a paper
+* * Changed objective functions this semester
+* * Experiment status: not all trials were completed due to time constraints, but can do some analysis
+* * Compared their results to a paper
+* * Originally, the plan was to replicate the paper's logic in EMADE.
+* * Ultimately couldn't replicate it fully
+* * Now seeing if they can outperform the paper.
+* * Best Individual is extremely complex.
+* * Managed to beat the paper in every stock, except for Johnson and Johnson
+* Modularity
+* NAS
+* * Started off by defining what a search space was
+* * Had a short term goal of producing complex individuals, and a long term goal of producing individuals
+* * Produced extremely complex individuals
+* * Added weight sharing
+* * Added module as a primitive
+* * Introduced Leveraging Modules
+* * Introduced Weight sharing this semester
+* * Weight sharing is: if a module was trained, load old weights.
+* * Reading and writing shared weights to a database was bad (errors, very slow)
+* * Instead, they stored weights in a file, which was much faster. 
+* * Added Max Pooling
+* * I asked about early stopping and current state of weight sharing
+
 ## Week 16, Dec 6th
 
 ### General Meeting Notes
-
-
+* At this week's general meeting, we didn't do the normal structure of a scrum meeting. 
+* Instead, we focused on defining what success would look like for the semester. 
+* Before going into that, I checked in with the team to make sure everyone was good with PACE and on track to get runs in. Everyone was fine, either currently doing runs or in the last stages of debugging making EMADE work on PACE. 
+* We then briefly transitioned to the final presentation. I made a new doc for it and shared it with the team: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing 
+* We divided up who would say what, and would flesh it out on Wednesday. 
+* We then transitioned to our experiment, and I talked to Rishit and Shiyi regarding our statistic.
+* Our objective was to prove that AutoML could be used to improve Question Answering models. We had changed to MSE and num params as our evaluation metrics, and would compare our singular seeded individual to our Pareto Front individuals at the end, using AUC as a metric.
+* We talked further about this with Dr. Zutty and Dr. Rohling. After further discussion, we ended up defined outperforming the seeded individual as having that individual no longer on the Pareto Front. In other words, how many individuals could we get in a region of interest on the Pareto chart that outperformed the seeded individual in both objectives? 
+* We could then treat this as a Binomial problem. Did it succeed or not?
 
 ### Sub Team Meeting Notes
 
@@ -26,7 +72,10 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-,,,| Complete | 11/15/2021 | //2021 | //2021 |
+Get another regular run in| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Create final presentation | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Meet with Rishit and Shiyi to work on Experiment Results and Visualizations | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+
 
 This week: Runs, Final Presentation
 
@@ -75,7 +124,7 @@ Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 
 
 ### General Meeting Notes
 * NLP:
-* * We updated the team on what we accomplished leading up to and after the Hackathon
+* * We updated the team on what we accomplished leading up to and after the Hackathon. We also mentioned our current error, with the results looking like classification.
 * * This week, we focused a lot in our meeting about general procedures for our experiments
 * * Dr. Zutty helped us more formalize our Hypothesis and to make clear what our experiment should look like, as we changed from trying to just distill QA models and are trying to see if we can use AutoML just to improve them.
 * * New Hypothesis: We can use Auto Machine Learning to improve QA models.
@@ -106,6 +155,29 @@ Add Regression to NNLearner2 | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
 Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
 Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
 
+### Debugging NNLearner2 - Classification to Regression
+* I talked with Devan a bit before the General Meeting. NNLearner2's output seemed to be stuck on classification.
+* We both went through EMADE to see if we could find support for regression with NNLearner's. Devan did discover the <regression> and <multilabel> flags in the XML file, but this didn't have an effect.
+* I did see that our output layer added a dense layer, but that should still support regression.
+* I stayed after the meeting and talked with Dr. Zutty. His best suggestion for debugging was to try removing the activation function.
+* This makes sense as an activation function is modeled to squeeze everything to either a 1 or a 0. Either it activates, or it doesn't. This could easily be switching the final output to match a binary classification. 
+* I checked some other Keras documentation, and found out that we shouldn't be using accuracy either to fit our models. I switched it to MSE (mean squared error).
+* With these changes implemented, NNLearner2 started working on Devan's laptop. He pushed to our Fork, and we were now at least getting varying results, and not just 1's and 0's.
+
+### Debugging NNLearner2 - Train/Test not being passed into model().fit() correctly
+* Several things still seemed wrong with NNLearner2 even after fixing the classification/regression issue, primarily regarding the outputs.
+* Most of our final accuracies were around 0.5, even though almost all of theme were wrong, and it should have been 1.0. Devan, Kevin and I discussed this. We assumed early on that this was correlated to the num inputs (1.0 / 2 - 0.5, and our num inputs was 2). 
+* I went through NNLearner2 at an almost line by line level to check and validate what was going on through the flow of our code.
+* That was when I discovered that our code was quite off regarding passing in the train data and test data into our final Keras model.
+* Essentially, it looked like we were only taking a concatenation of the context and question and passing them into our models. This didn't allow our model to take advantage of the multiple input layers or the one to one mapping of contexts and questions. We wanted to allow any of the inputs to have learning done on them completely separate from the others. 
+* I found a resource that guided me on how to pass in and split up the test, train, and validation data correctly in a Keras model with more than one input: https://www.pyimagesearch.com/2019/02/04/keras-multiple-inputs-and-mixed-data/
+* Essentially, when calling model().fit(), input should be passed in as a list, where the first element goes into the first InputLayer(), and the second element into the second InputLayer().
+* Then, the validation data had to be defined as a tuple, with the list of validation x's and then the y.
+* My code for defining these values is shown below: 
+* <img width="685" alt="Screen Shot 2021-12-07 at 11 38 52 PM" src="https://github.gatech.edu/storage/user/27405/files/7efdf845-fd73-4193-a8df-614106399eec">
+* I then updated our line where we called model().fit() to reflect these changes:
+*  <img width="874" alt="Screen Shot 2021-12-07 at 11 41 36 PM" src="https://github.gatech.edu/storage/user/27405/files/03159b5b-fe64-49fe-bc37-84b772c839cc">
+* I tested these changes and noted some improvements. Accuracy looked a little better, but the main confirming factor that our code worked was when I actually got an error for accidentally switching around some values in x and y. The error displayed showed me the exact sizes of my data passed in, and I was able to confirm after switching the values that NNLearner2 was passing in the correct values to train, validate, and test on.
 
 
 ## Week 13, Nov 15th
@@ -144,9 +216,26 @@ Further Debug Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 
 Meet w/ Devan on double NNLearners | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
 Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
 
+### Further debugging of Primitives with Standalone Tree Evaluator
+* With my memory issues from last week resolved, I continued with debugging the integration of our primitives into neural_network_methods.py.
+* With a better understanding now of NNLearner, I figured that an easier way to debug might be to actually build our seeded model in Keras outside of EMADE.
+* I opened up the Google Collab used by Karthik, Kevin, Rishit, George, and Shiyi for debugging the building of some of the primitives in order to attempt to build the model in Keras: https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing#scrollTo=8cVHrbqkZCxd
+* When I built the model, it did go through. However, the code specifically relied on batch size being none. I noted that this wouldn't always be the case when we ran model.fit() in NNLearner and NNLearner2. Consequently, it was causing crashes.
+* Furthermore, the output of bidirectional attention was in the wrong shape. The difference in shapes was (2,0) vs (2,). This was evident from my runs with standalone tree evaluator, where the individuals would be written to failedones2.txt instead of running the evaluation in the method accuracy().
+* This is the code I used for debugging bidirectional attention's integration: 
+* <img width="1296" alt="Screen Shot 2021-12-07 at 12 10 23 AM" src="https://github.gatech.edu/storage/user/27405/files/576a8b23-bd47-4388-adfe-bb41fbbdb7be">
+* Fortunately, while doing this, I did discover that Keras's regular Attention layer could also build a model that could apply the question to the context and context to the question in a meaningful manner. Thus, we could substitute this layer in, adding more potential diversity and allowing our NNLearner2 team to make more progress.
 
 ### Hackathon
 * At the Hackathon, I worked with Devan to debug NNLearner2 and get it working.
+* I also introduced Karthik and George to the bugs I discovered in Bidirectional Attention, as I discovered above. I gave them my code above as a way of testing progress: a model should build with bidirectional attention as a layer instead of attention.
+* I sort of swapped between talking with their team and debugging our first semester students who were attempting to Run EMADE on PACE.
+* However, most of my time at the Hackathon was spent on NNLearner2.
+* The first bug we found was that the load_environment method was crashing. We couldn't exactly figure out the error, as it seemed to be an issue with a lambda call, and we weren't getting much info beyond that. We talked to Dr. Zutty to resolve this one.
+* After that, we moved back to working through the flow and resolving errors along the way. 
+* Our next major error was with the splitting of the train and test data. The code we were given for NNLearner2 only worked on image data, and it used a method we didn't have access to to split up train and test data lists. We therefore ended up basing most of our code off of a raw workaround that looked right from the image processing code we had as a reference. NOTE: this later proved to be incorrect, as discovered later on. When calling model().fit(), input should be passed in as a list, where the first element goes into the first InputLayer(), and the second element into the second InputLayer().
+* Our next issue was with the Embeddings. As the two inputs were different sizes, the tokenization of words was slightly off. So, we had to find the max vocabulary between the two inputs and use that. NOTE: Our trivial fix for this proved to be incorrect, and we had to resort to a temporary fix of multiplying the vocabulary size by a constant of ten for the smaller input vocabulary. This workaround still needs fixed.
+* At the end, we pushed our code to the Github, and worked on looking over NNLearner2 until the next day, where we were running into semantic errors. That is, our code seemed built for only solving classification problems, as our output was all 1's and 0's.
 
 
 
@@ -188,6 +277,25 @@ Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10
 Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
 Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
 
+### Debugging Big Merge and Primitives
+* This week, I finished debugging big bugs left over from the big merge. My commits can be at these links:
+* * https://github.gatech.edu/sleone6/emade/tree/8cae9f7b858b69f7981e51444af932103b0a3f9c
+* * https://github.gatech.edu/sleone6/emade/tree/b4187b52a653597446b880638578c52abc373fe3
+* * https://github.gatech.edu/sleone6/emade/tree/cc9fa59233312a3f5e187c3d4dfc0bb4be8ef1b4
+* At this point, I was able to run an individual with the Amazon dataset with the regular NNLearner, and get accurate results. As a result, all other teams were now unblocked. They pulled the changes, and each of our three teams got to work.
+* With the new primitives now in the pset, I began debugging this individual with standalone tree evaluator: NNLearner(ARG0,OutputLayer(BidirectionalOutput(BidirectionalModelingLayer(BidirectionalAttentionLayer(EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer()), EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer()))))), 100, AdamOptimizer)
+* It ran for quite a while, eating up about an hours worth of debugging time. At the end, it crashed with a memory error, specifying that it had exceed 24000 MB.
+* I later learned two ways to resolve this from Anish and Dr. Zutty. I could set reduce instances to a value less than 1 to reduce the size of the dataset, or I could increase the number of memory allotted in the XML file. In other words, it, turned out the error was an issue with the memory I was allotting in the XML file.
+
+### Meeting with Karthik and Rishit
+* Karthik, in charge of the multiple outputs team, and I met on Saturday to talk about the output layer problem.
+* In short, the problem was that NNLearner and NNLearner2 both rely on Keras to train and fit the models. However, Keras doesn't support training for two inputs. We would have to not only write our own layers for a double output, but also write customized loss functions that could handle this, for any potential layer used in neural_network_methods.py.
+* This was a pretty massive problem, and not one we could likely solve within a few weeks. We consulted the rest of Karthik's team to double check, and we all agreed it would be best to reduce the scope of the problem for now. We could change it to a pure regression problem, only trying to find the start index of the answer. This is similar to Google Search's answer feature, finding the answer within a document.
+* EXAMPLE:
+* * Question: When did the Titanic Sink?
+* * Context: The titanic was a big ship. It sank in 1912. It hit an iceberg.
+* * Output: 8, the index of "in" as in "in 1912".
+
 
 ## Week 11, Nov 1st
 ### General Meeting Notes
@@ -221,9 +329,18 @@ Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11
 
 ### Preparing Presentations for New Members
 * I modified last year's PowerPoints to inform the new members about deep learning and NLP.
+* The presentations I made can be found here: 
+* * Deep Learning and NLP overview: https://docs.google.com/presentation/d/10R9PEClxceFbCFclzHBMbZSowvBlLb1-0zKQ8haParc/edit?usp=sharing
+* * NNLearner overview: https://docs.google.com/presentation/d/17KfH14LP1ToNQA1u4b8WiWEcwr9bDY6KNd0Xws8iOdk/edit?usp=sharing
 
 ### Debugging Primitives with Standalone Tree Evaluator
 * I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
+* Initially, I was obtaining issues with malformed individual strings. I used the error messages to debug this.
+* Upon digging deeper, I discovered that the error message was a result of trying to turn a layer (BidirectionalAttention) into a literal. I asked in the slack about this, and discovered we had to edit gp_framework_helper.py.
+* IMPORTANT FUTURE NOTE FOR ADDING PRIMITVES: all new primitives added have to be added to the set in gp_framework_helper.py. This is an example, which is the code I wrote to add our primitives, at the end of the addPrimitives() method:
+* 
+<img width="971" alt="Screen Shot 2021-12-06 at 10 18 19 PM" src="https://github.gatech.edu/storage/user/27405/files/d38b4082-b592-43a1-af5c-6f88ecd46455">
+* However, even after adding this in, we still couldn't exactly complete runs. There were a couple discrepancies throughout this branch, like data pairs being passed in as a list. These were also fixed, though some of them bled into the next week.
 
 ## Week 10, Oct 25th
 
@@ -329,12 +446,15 @@ Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 1
 * I discovered that NNLearner uses a new class defined in the file, called a LayerList, to keep track of the layers. Then, the NNLearner function iterates through these layers to build the deep neural network.
 * So, if we wanted to add a layer, we would have to create a subclass of Keras.layers.Layer, and override the build() and call() functions.
 * While I was doing this, Devan found a template from someone else who implemented BiDAF. It wasn't split into layers, but we could use it as a reference for learning keras and TensorFlow.
-* After a little over an hour, and with the skeleton of the Bidirectional Attention Layer done, we finished up work for the time being, until Sunday.
+* After going through Layerlist, I wrote the primitives that would add these subclass lists to the layer list.
+* <img width="713" alt="Screen Shot 2021-12-06 at 10 00 02 PM" src="https://github.gatech.edu/storage/user/27405/files/6959c0f7-94b0-4a32-944d-7a92caf5b297">
+* After a little over an hour, and with the skeleton of the Bidirectional Attention Layer done, we finished up work for the time being, until Sunday. 
+* <img width="481" alt="Screen Shot 2021-12-06 at 10 02 39 PM" src="https://github.gatech.edu/storage/user/27405/files/20a60fe9-ea61-45a9-9a1b-368d13d54a67">
 
 ### Implementing Bidirectional Attention Layer: Part 2
 * I met with Kevin, Rishit, and Karthik on Sunday this week to work on the Bidirectional Attention Layer.
-* (TODO: Finish in details of meeting)
-* (TODO: Link result code as of this meeting)
+* We didn't make much progress due to a slightly different team make up than the Friday meeting, but I filled them in on how adding primitives to NNLearner's worked.
+* I uploaded the most recent code to the slack (screenshot in Part 1 above), and some of them worked on it later this week.
 
 
 
@@ -373,7 +493,9 @@ Run EMADE on new branch with no errors | Complete | 10/18/2021 | 10/21/2021 | 10
 Make presentation slides | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
 Rehearse Presentation | Complete | 10/18/2021 | 10/20/2021 | 10/25/2021 |
 
-
+### General Debugging
+* I made some more commits with general bug fixes:
+<img width="1266" alt="Screen Shot 2021-12-06 at 10 24 29 PM" src="https://github.gatech.edu/storage/user/27405/files/84422596-546c-4cc0-81ec-e6119efc888d">
 
 ## Week 8, Oct 11th
 ### General Meeting:
