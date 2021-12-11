@@ -14,12 +14,51 @@ Subteam Teammates:
 * [https://vip.gatech.edu/wiki/index.php/Notebook_Abhiram_Venkata_Tirumala Abhiram Tirumala]
 
 =Fall 2021=
+==Week of Nov 11th, 2021== 
+===Subteam Meeting NOtes===
 ==Week of Nov 4th, 2021==
 ===Subteam Meeting Notes===
 *In trying to replicate the PLR-SVR model Professor Zutty pointed out that there was an issue
-** Our recreation of the PLR-SVR model didn't produce the same buy sell signals as the original
+** Our recreation of the PLR-SVR model didn't produce the same buy sell signals as the ones the paper generated
 ** [[files/rbhat3/plr.png|thumb|50x50px]]
-
+*** As you can see here one of the buy peaks wasn't marked as a buy point
+*In fixing these issues we found several small inconsistencies which didn't fix the PLR-SVR discrepancy:
+** For one we were using the close price instead of the adjusted close price that the paper used
+** We also noticed that some of our code was using a fixed threshold of .206 instead of the dynamic threshold that we implemented
+*** The new file can be found in [https://github.gatech.edu/rbhatnager3/emade/blob/stocks-pace/datasets/stocks2/scripts/gen_labels.py this program] with all the new threshold changes, we still couldn't find the reason for the discrepancy between our PLR and that of the paper. 
+===Individual Notes==
+* As we were inquiring into the reason for the inconsistency, I looked into more of the paper's methodology and found and tested other potential reasons why our model was off
+* Some of the potential reasons I found were that:
+** The paper took into account standard fees & taxes for buying/selling while we didn't
+** However, the fees were still too marginal to make that much of a difference between our models' performance
+** The paper used risk free rates to calculate profit, but even in comparison with the normal profit calculation our models still didn't match, so that couldn't have been it
+* Further inquiry needs to be done into why our model doesn't match, and if we can't find the reason, we should pivot to comparing just the overall results yielded.
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ask Professor Zutty about plr issues
+|In Progress 
+|Nov 1, 2021
+|Nov 9, 2021
+|Nov 5, 2021
+|-
+|Prepare to start Emade runs
+|In Progress
+|Oct 28, 2021
+|Nov 12, 2021
+|Nov 11, 2022
+|-
+|Review Paper's Plr Implementation
+|Complete
+|Oct 28, 2021
+|Nov 5, 2021
+|Nov 4, 2022
+|}
 ==Week of Oct 28th, 2021==
 ===Subteam Meeting Notes===
 ---Presentations---
