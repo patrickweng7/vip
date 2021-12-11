@@ -53,6 +53,18 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 *** They want to finish the last 4 experimental trials
 *** To continue their comparison of EMADE runs
 *** Continue writing their paper that they hope to get published.
+* Neural Architecture Search (NAS)
+** Looks at hyperparamter optimization and AutoML to find the best arch. for a neural network for certain needs
+** They added a TimedStopping Callback to check after each batch
+*** New parameter for scooping
+*** The number of individuals that are evaluated and the number created by made get smaller and smaller due to timestops, and with larger time stops, they end up with more useless individuals.
+**** Longer time training doesn't correspond to higher accuracy
+** Modified NNLearner generator to produce better nnlearners using forwardPrune
+** Also modified module generators to produce valid modules from limited primitives
+*** Now, they can add the module as a primitive and also weight sharing
+*** As a result, they can specialize certain modules within NNLearners
+** Weren't able to get a very nice pareto front unfortunately
+*** Sample optimal individuals can reach 69% on evaluation accuracy!
 
 ====== Subteam Meeting 12/9/2021 ======
 * Continued working on slides and sent out a new lettucemeet for rehearsal
