@@ -805,7 +805,20 @@ That is where I left off because Emade took a while to clone
  $ pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
 * Logged in to Elan's server using:
  $ mysql -uguest -pemademade -h71.204.44.212 -P6603
-
+* Elan was the master as the server was hosted on his computer; however, he often experienced crashes due to the size of EMADE
+* Connection was successful although I ran into some issues, which Elan and I will figure out together
+* May eventually need to try connecting using:
+ $ mysql -h hostname -u username -D database -p
+* Configuring <code>input_titanic.xml</code> file:
+ <dbConfig>
+        <server>127.0.0.1:6603</server>
+        <username>guest</username>
+        <password>emademade</password>
+        <database>titanic</database>
+        <reuse>1</reuse>
+ </dbConfig>
+* We also worked on figuring out how to query out '''Pareto Front''':
+ select pf.generation, age, `FullDataSet False Positives`, `FullDataSet False Negatives` from individuals ind join paretofront pf on pf.hash = ind.hash where `FullDataSet False Negatives` is not NULL;
 
 === Action Items ===
 {| class="wikitable"
@@ -815,29 +828,23 @@ That is where I left off because Emade took a while to clone
 !Suspense Date
 !Date Resolved
 |-
-|Add Meeting Lecture Notes into Notebook
-|Completed
-|October 6, 2021
-|October 12, 2021
-|October 8, 2021
+|Add Meeting Notes into Notebook
+|Complete
+|October 13, 2021
+|October 19, 2021
+|October 18, 2021
 |-
-|Review Lecture Notes
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Download/Install Emade
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Finish up Lab Notebook
+|Get Emade running and log into Elan's MySQL server
 |Complete
 |October 6, 2021
-|October 8, 2021
-|October 8, 2021
+|October 21, 2021
+|October 19, 2021
+|-
+|Lay Out Titanic Presentation Slides
+|Complete
+|October 13, 2021
+|October 22, 2021
+|October 19, 2021
 |}
 
 == Week 9 (10/20 - 10/25) ==
