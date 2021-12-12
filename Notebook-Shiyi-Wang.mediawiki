@@ -617,10 +617,83 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 == Week 13 ==
 === Nov 17, 2021 ===
+'''Subteam Meeting Notes:'''
+* We are retasked into new sub-subteams for remaining of the semester.
+** NNLearner2 team
+*** Looking for the differences in standalone tree evaluator and launchEMADE.
+*** Updating for multiple data pairs.
+** Integration team
+*** Debug and investigate on new primitives.
+** Experiment team
+*** Re-designing our experiment with hypothesis testing.
+*** Decrease complexity with a bunch of different SOTA models becomes a long-term task.
+
+'''Individual Progress:'''
+* I volunteered to join Experiment team. I have stats course background and currently minoring in math.
+* I collaborated with Rishit and clarified on specific action items.
+** Two changes in the existing experiment we can make are:
+*** Make changes to the t-statistics for the testing.
+*** Make changes to F1 objectives.
+** I and Rishit noticed that there are a lot of evaluation functions in EMADE already. It's a regression problem, so we will choose evaluation objectives from there now.
+** We will be narrowing the scope of the problem into something like "Can we use AutoML to solve QA".
+* I research more about experimentation for model evaluation over the weekend.
+** [https://towardsdatascience.com/have-you-ever-evaluated-your-model-in-this-way-a6a599a2f89c Evaluation of Classification Model with McNemar Test]
+*** McNemar’s test is applied to 2x2 contingency tables to find whether row and column marginal frequencies are equal for paired samples.
+*** It uses the Chi-Square distribution to determine the probability of difference.
+*** Update: This is not suitable for the current goal because it is about classification. However, when we expand our scope, this test may be a good fit.
+** [https://machinelearningmastery.com/statistics-for-evaluating-machine-learning-models/ Statistics for Evaluating Machine Learning Models]
+*** The article introduces Estimating Hypothesis Accuracy, Basics of Sampling Theory, Deriving Confidence Intervals, Difference in Error of Two Hypotheses, and Comparing Learning Algorithms.
+*** Confidence intervals can be used to quantify the uncertainty in model error.
+*** The calculation of the confidence intervals importantly depends on the distribution of the quantity being estimated.
+*** A cause of errors in the evaluation of model skill is estimation bias, evaluating a model on the training dataset will introduce an optimistic bias.
+*** Another cause of errors in the evaluation of model skill is estimation variance, which can be decreased by increasing the hold out test size.
+*** Resampling with the k-fold cross-validation procedure provides an effective way to compare machine learning algorithms.
+*** When using statistical methods, we must make assumptions, such as assumptions around the distribution of parameters. Even with confidence intervals, we don’t know what is true, just what is likely.
+
 === Nov 15, 2021 === 
+'''Team Meeting Notes:'''
+* Image Processing
+** Implementing new genetic operators such as partially matched and ordered crossover.
+** focusing on new sharpening hyperfeature.
+** Hyperfeature implementation bugs in EMADE are solved.
+* Modularity
+** match_arl bug found.
+*** Solution: use a set of indices to make sure that matched nodes aren't rematched.
+** Completed an Extended ARL run with the fix.
+** Began writing documentations and unit tests.
+** Began writing ARL changes to the Cache V2 branch.
+* Natural Language Processing (NLP)
+** Divided into new sub-subteams to tackle remaining issues.
+** Branch currently runs and works on one data pair.
+** Confirmed keras model works outside of EMADE using our primitives.
+* Neural Architectural Search (NAS)
+** Integrating novelty detection.
+** Started to integrate weight sharing into now consisted ADF modules.
+** started to integrate mating and mutation within ADFs of EMADE.
+
+'''Subteam Meeting Notes:'''
+* With Dr.Zutty's advice, we realized that getting two data pairs into NNLearner is a too hard problem for our team.
+* We had to narrow down our focus into predicting start index of the answer.
+** The problem changes from classification into regression.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Wrap up Embedding Layer implementation with Kevin
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
 
 == Week 12 ==
 === Nov 10, 2021 ===
+* Working on Embedding layer with Kevin
 === Nov 8, 2021 === 
 
 == Week 11 ==
