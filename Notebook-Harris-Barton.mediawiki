@@ -192,8 +192,19 @@
 * So we might as well try and do some runs with epsilon lexicase and just see for ourselves if it might have some decent results hopefully comparable or better than the current EMADE implementation of lexicase. 
 * This week, the goal is to get DEAPS version of lexicase in EMADE smoothly so that I can do experiments with it in the week of and week after thanksgiving break. If time permits, might as well run tests with their normal lexicase and their epsilon lexicase. 
 * We want to be able to do experiment with various values of epsilon and see if we can tune that parameter so that we can pick the best epsilon value to be able to compare with the rest. 
-* I did find another paper on lexicase and epsilon lexicase that seems to have a comprehensive explanation of both, so I read this paper and took some minimal notes. I did not read this paper and take notes at the level of detail which I wanted to, due to the fact that we did have some issues when implementing the DEAP version of epsilon lexicase.
+* I did find another paper on lexicase and epsilon lexicase that seems to have a comprehensive explanation of both, so I read this paper and took some minimal notes. I did not read this paper and take notes at the level of detail which I wanted to, due to the fact that we did have some issues when implementing the DEAP version of epsilon lexicase and we spent some time trying to run PACE-iCE and get that up and going.
 '''Paper Notes:'''
+'''Abstract:''' 
+ The theme of this paper is to develop the theoretical underpinning to explain lexicases performance. It shows why lexicase performs poorly for certain  
+ population sizes and training cases, and why it performs poorly in continuous error spaces. They also try to address the continuous error space problem 
+ by proposing a new variant of epsilon lexicase, which modifies pass condition in lexicase to allow near-elite individuals to pass cases, improving 
+ selection performance with continuous errors. 
+* The paper then goes into an introduction of work that has been done and explains how traditionally GP tries to award individuals that perform well in aggregate, in an average of the test cases, and how this seems to be something of a hole.
+* Then, it does into a preliminary section explaining symbolic regression and MSE. They use MSE to compare their results. I skimmed this section because I did not find it all that relevant.
+'''Lexicase Selection:''' 
+ '''General Algorithm:''' 1) Choose a case, 2) filter selection pool based on that case, and 3) repeating until cases are exhausted or selection pool is 
+ reduced to one individual. If selection pool is not reduced by time each case has been considered, an individual is randomly chosen from the remaining pool, S.
+ Under lexicase, cases in the set of training case, T, can be thought of as filters that reduce the selection pool to individuals that are best on that specific case. 
 {|class = "wikitable"
 !Assignment
 !Current Status
