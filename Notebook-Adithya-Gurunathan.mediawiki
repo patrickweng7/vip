@@ -11,10 +11,11 @@
 == Final Presentation: Dec 10, 2021 ==
 
 ===Overview:===
+
 * All subteams presented their work for the semester
 * Link to Final Presentation: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gfad4fb26ff_0_38
-* Presented on ARL comparisons, and our finding regarding size of ARL and link with performance
-* Received feedback on what work we could proceed with next semester
+* I presented on ARL comparisons, and our finding regarding size of ARL and link with performance
+* Received feedback on what work Modularity subteam could proceed with next semester
 
 * Image Processing
   * Eval objectives: AUC-ROC, number of parameters
@@ -24,13 +25,45 @@
   * Semantic mutation: Attempted to generate offspring that maintained semantic information of parents
   * Semantic operators had produced trees that were very large and complex
   * Most individuals that had good performance had >3.5 million parameters
-  * Did experiments with adding different filters like sobel & sharpening filters 
+  * Did experiments with adding different filters like sobel & sharpening filters
+  * Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
+
 * NLP
-* Modularity
+  * Tokenization: Converting Input to smaller words
+  * Word Embeddings: Converts text data to numerical vectors
+  * Factoid: Short Factual Answers
+  * Extractive: Amswer can be found verbatime in context
+  * NNLearner2 predicts indices, while objective functions need answer strings to eval
+  * Merged existing code for multiple data pairs with nn-vip branch
+  * Used bi-directional LSTM to relate importance
+  * Had mean-square-error and num_primitives as objectives for experiments
+  * Compared 4 Pareto fronts from successful runs
+  * Will need more runs in future - more diverse set of primitves might help
+
+
 * Neural Architecture Search
+  * Implemented updated timestopping, and decreased time wastage on erroneous individuals
+  * Independent Variables: 600, 800, 1200, 2400, 3000 seconds for timestop
+  * Found that more time allocation did not decrease accuracy error
+  * Added generator methods for NNLearner and Modules/ARL
+  * Added weightsharing to encourage specialization of modules as primitives
+  * Expanded database tables to track parents of Pareto Optimal Individuals
 
+* Modularity
+  * Our team presented on work done for the semester
+  * I presented on EMADE visualizations, and our finding regarding size of ARL from experiments
+  * Link to our presentation: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gfad4fb26ff_0_38
 
-== Week 16: Dec 5, 2021 ==
+* Stocks
+  * Goal was to optimize time-series data
+  * Wanted to beat predictions of paper - conserving profit/loss and varying other objectives
+  * Primitive Analysis: (-1*loss percentage) for all primitives
+  * Profit Percentage Analysis: Plotted with box plot
+  * VMA and ArgMinLearner combination was the best (13.56%)
+  * Optimization involving loss_avg and loss_var led to best results - was able to beat the paper in most stocks
+  * Plan to publish a paper with findings
+
+== Week 16: Dec 6, 2021 ==
 
 ===Overview:===
 * Subteams updated on their final week's work, preparationg for final week's presentation
