@@ -212,9 +212,9 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 ** Coded version was too complex at the moment given time constraints.
 * I and Steven implemented and [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing automated the region of interest calculation].
 * I and Steven summarized the conclusions according to our results.
-** Overall, we are limited in scope to which we can generalize as we had a limited amount of data (4 16 hour runs)
+** Overall, we are limited in scope to which we can generalize as we had a limited amount of data (4 16 hour runs).
 ** However, our results are promising and have an indication that we can increase the area under the region of interest, minimizing the area bounded by a seeded individual.
-** We need more runs and a more diverse set of primitives
+** We need more runs and a more diverse set of primitives.
 * I designed the slides for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing experiment section].
 * I and George optimized the scaling of [https://colab.research.google.com/drive/1SwuuPreeXgUUtxsMK3PGkPAftsbPilc0?usp=sharingmulti Pareto front graph]
 ** To include all the outliers, where there are individuals with extremely low MSE or num_params, I fit them in by changing "xlim" parameter to actual values and "ylim" parameter to relative scale based on their distributions.
@@ -271,14 +271,92 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 |}
 
 === Dec 8, 2021 ===
+'''Subteam Meeting Notes:'''
+* Subdivided presentation responsibilities among all members.
+* Decided to finish all EMADE runs by 4 PM EST on Dec 9.
+* Decided to dry run for final presentation at 8 PM EST on Dec 9.
+
+’‘’Individual Progress'''
+* I, Rishit, and Steven are scheduled to meet at 4 PM on Dec 9 for analysis.
+* I explored and solved the following technical issue:
+** What can we get from the .out files?
+*** Pareto front datapoints, hypervolume (AUC), and corresponding individuals.
+*** The values are there, listed as (MSE, num_params).
+** Do we need to convert into .csv files to generate Pareto front?
+*** Not necessarily. The Pareto Front of each generation is in the master.out file.
+*** Update: Implementation can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
+** We need to calculate Region of Interest (ROI). Is there an easy way to do it or do we need to code it out?
+*** We will need to hard code it.
+*** Condition: obj1 < default_obj1 and obj2 < default_obj2.
+*** Update: Implementation can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
+* I researched [https://reference.wolfram.com/language/ref/BernoulliDistribution.html visualization of Bernoulli Distribution] with Mathematica.
+ DiscretePlot[
+ Table[PDF[BernoulliDistribution[p], x], {p, {0.3, 0.5, 0.7, 0.9}}] //
+   Evaluate, {x, 0, 1}, AxesOrigin -> {1/2, 0}, 
+ PlotMarkers -> Automatic]
+ 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sync with teammates on visualization progress made last night
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Complete the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Review Notebook before Final Submission
+|Completed
+|December 10, 2021
+|December 13, 2021
+|December 11, 2021
+|}
 
 === Dec 6, 2021 ===
-
+'''Team Meeting Notes:'''
+’‘’Individual Progress'''
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sync with teammates on visualization progress made last night
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Complete the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Review Notebook before Final Submission
+|Completed
+|December 10, 2021
+|December 13, 2021
+|December 11, 2021
+|}
 
 == Week 12 ==
 === Nov 10, 2021 ===
 === Nov 8, 2021 === 
-
+ 
 == Week 11 ==
 === Nov 6, 2021 ===
 === Nov 3, 2021 ===
