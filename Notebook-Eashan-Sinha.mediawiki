@@ -880,13 +880,20 @@ That is where I left off because Emade took a while to clone
 * We made sure all the default files worked with '''input_titanic.xml''' and with the titanic database
 
 === Subteam Meeting 2 (10/24) ===
-* I
+* We worked on ensuring 
 
-=== Individual Notes ===
+
+* After changing the mate and mutate functions, we achieved an AUC (Area under curve) of 0.131, which was lower than what we were reaching in our previous dataset
+* We achieved this after 115 generations
+* Here is a picture of our Pareto front compared to the default algorithm:
+
+[[files/esinha6/W9_Group1_vs_Default_ParetoFront|height=100px]]
+
+=== Individual Notes and Contributions ===
 * I was having a little bit of trouble getting EMADE running as some packages actually didn't install properly
 * The error was a <code>Module not found</code> error
 
-[INSERT W9_PACKAGE_CONFLICTS IMAGE HERE]
+[[files/esinha6/W9_Package_Conflicts|height=100px]]
 
 * I tried creating a conda environment for Python 3.7 and reinstalled and it worked!
 * I realized that messing with my global environment will often cause many issues
@@ -927,8 +934,10 @@ That is where I left off because Emade took a while to clone
 * I researched some of the crossover methods, especially Headless chicken to see maybe what changing some of the parameters may actually do.
 * I looked at a paper on EMADE written by Dr. Zutty, which gave so much information on crossovers and how they work.
 ** Essentially, "Headless chicken crossover is a single-point crossover with one parent being a randomly generated tree. Headless chicken ephemeral crossover is our ephemeral-only crossover operating with one parent being a randomly generated tree." (Zutty)
-** I also looked into some of the different mutation methods EMADE leverages, including insertion, ephemeral, node replacement,
-uniform, and shrink.
+
+[[files/esinha6/W9_Ephemeral_crossover|height=100px]]
+
+** I also looked into some of the different mutation methods EMADE leverages, including insertion, ephemeral, node replacement, uniform, and shrink.
 ** Some more about the headless chicken experiment: The success of crossover was tested by comparing the traditional crossover with random crossover (crossing the individual over with random string) – There is no crossover without the idea of crossover, do not call headless chicken a chicken, although it has many chicken features.
 * We finally decided on making some changes to some of the mate/mutation functions used in our '''super_titanic.xml''' file:
 ** Doubled Headless Chicken from 0.10 to 0.20
