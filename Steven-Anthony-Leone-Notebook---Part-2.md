@@ -78,12 +78,18 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Get another regular run in| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
-Create final presentation | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
-Meet with Rishit and Shiyi to work on Experiment Results and Visualizations | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Get at least one more EMADE Run with SQUAD| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Create final presentation | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
+Analyze Experiment Results and create Visualizations with Rishit and Shiyi | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
 
 
-This week: Runs, Final Presentation
+### Getting Runs in
+* I continued getting runs in this week. As each one was to be 24 hours long, I figured out that, even with the debugging required by setting up a run, I would have time for 2 more runs.
+* I got one more run in successfully.
+* After that, however, PACE was getting very crowded. By Wednesday most members on our team, myself included, would add jobs to PACE's queue, and they would remain there for several hours.
+* Thus, I was only able to get 1 good run in. 
+* I added it to the folder of runs, which I had given to the team earlier this week: https://drive.google.com/drive/folders/16CnEwE8sH6MpxYL1BXF3heFVYUPTZwxS?usp=sharing
+* This is our record for keeping track of details regarding runs: https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing
 
 ## Week 15, Nov 29th
 
