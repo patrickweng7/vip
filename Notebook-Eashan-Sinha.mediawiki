@@ -920,9 +920,69 @@ That is where I left off because Emade took a while to clone
         </dataset>
  </datasets>
 ```
-* I later then duplicated '''input_titanic.xml''' to '''emade_titanic.xml'''
+* I later then duplicated '''emade_titanic.xml''' to '''super_titanic.xml'''
+** Changed database to super_titanic
+** We worked on changing some of the mating and mutation functions by increasing and decreasing the probabilities of some
+** We wanted to experiment to see whether certain functions' probabilities would yield better results
+* I researched some of the crossover methods, especially Headless chicken to see maybe what changing some of the parameters may actually do.
+* I looked at a paper on EMADE written by Dr. Zutty, which gave so much information on crossovers and how they work.
+** Essentially, "Headless chicken crossover is a single-point crossover with one parent being a randomly generated tree. Headless chicken ephemeral crossover is our ephemeral-only crossover operating with one parent being a randomly generated tree." (Zutty)
+** I also looked into some of the different mutation methods EMADE leverages, including insertion, ephemeral, node replacement,
+uniform, and shrink.
+** Some more about the headless chicken experiment: The success of crossover was tested by comparing the traditional crossover with random crossover (crossing the individual over with random string) – There is no crossover without the idea of crossover, do not call headless chicken a chicken, although it has many chicken features.
+* We finally decided on making some changes to some of the mate/mutation functions used in our '''super_titanic.xml''' file:
+** Doubled Headless Chicken from 0.10 to 0.20
+** Changed crossover to 0.40
+** We set all the other mutation methods to 0.025 after increasing our Headless chicken probability
 
-
+Mate/mutation changes in '''super_titanic.xml''':
+```
+ <matings>
+            <mating>
+                <name>crossover</name>
+                <probability>0.40</probability>
+            </mating>
+            <mating>
+                <name>crossoverEphemeral</name>
+                <probability>0.40</probability>
+            </mating>
+            <mating>
+                <name>headlessChicken</name>
+                <probability>0.20</probability>
+            </mating>
+            <mating>
+                <name>headlessChickenEphemeral</name>
+                <probability>0.20</probability>
+            </mating>
+        </matings>
+​
+        <mutations>
+            <mutation>
+                <name>insert</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>insert modify</name>
+                <probability>0.05</probability>
+            </mutation>
+            <mutation>
+                <name>ephemeral</name>
+                <probability>0.25</probability>
+            </mutation>
+            <mutation>
+                <name>node replace</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>uniform</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>shrink</name>
+                <probability>0.025</probability>
+            </mutation>
+ </mutations>
+```
 
 === Action Items ===
 {| class="wikitable"
