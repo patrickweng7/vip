@@ -73,7 +73,20 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * We could then treat this as a Binomial problem. Did it succeed or not?
 
 ### Sub Team Meeting Notes
+* At this week's sub team meeting, we worked on the final presentation and clarified anything anyone was confused on.
+* A lot of team members had one off, individual issues, so I set up meetings with them to clarify things and attempt to fix their issues.
 
+### Meeting with Devan
+* First, I met with Devan. This meeting was just to finish planning out our discussion of NNLearner2, as we had both debugged parts of it.
+* We also assigned him to talking about multiple data pairs in the presentation.
+
+### Meeting with Jessi
+* Jessi was having issues getting runs in. I met with her and debugged our way through. The core of the issue was that her environment was that needed for the master branch, not the branch we were on.
+
+### Other miscellaneous conversations
+* Most of the rest of these conversations post sub team meeting were on clarifications about their parts in the presentation.
+* George also still had issues with getting the seeds to show up properly. We eventually found that, if you are close to reaching Disk quota on PACE, too many epochs can cause an individual to fail for memory reasons.
+* I clarified our problem with multioutput regression to Aditi.
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
@@ -90,6 +103,17 @@ Analyze Experiment Results and create Visualizations with Rishit and Shiyi | Com
 * Thus, I was only able to get 1 good run in. 
 * I added it to the folder of runs, which I had given to the team earlier this week: https://drive.google.com/drive/folders/16CnEwE8sH6MpxYL1BXF3heFVYUPTZwxS?usp=sharing
 * This is our record for keeping track of details regarding runs: https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing
+
+### Analysis and Visualizations
+* On Thursday, I met with Rishit and Shiyi to analyze the results of our runs, linked in the section
+ above.
+* We sorted through run results, and found that the best we could analyze (without only having one result to look at) would be 4 sets of two continuous 8 hour runs, for a total of four 16 hours runs.
+* We compiled their Pareto fronts and began to analyze them.
+* Our goal was to see if auto machine learning could be used to improve an existing question answering model. To do this, we would look at our runs, which we seeded with an individual, and see if individuals that beat the existing model in all objectives could be produced. 
+* We could measure our success by looking at the area of a region that we dubbed the "region of interest". This would be the total area bounded by our Pareto Front and the rectangle made by the origin and seeded individual as opposite corners.
+* An example (taken directly from our results). Is shown below. The yellow shaded region represents the region of interest. 
+* <img width="361" alt="Screen Shot 2021-12-12 at 4 54 42 PM" src="https://github.gatech.edu/storage/user/27405/files/466630e0-c264-48d5-8366-cd304dc195dc">
+
 
 ## Week 15, Nov 29th
 
