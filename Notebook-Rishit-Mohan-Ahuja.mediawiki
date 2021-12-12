@@ -37,28 +37,64 @@ Hobbies: Meditation and cooking
 
 
 == November 17, 2021 ==
-=== Meeting meeting notes ===
-* Steven reassigned tasks to all of us and we are more focused to get results before the final presentation even if those results are not the best.
-* I will be working in the Statistics sub-sub-team along with Shiyi. Our main task is to design an experiment that can prove/disprove our hypothesis of the efficacy of EMADE for the question-answering. We have not yet decided on our null hypothesis but it will be something like "EMADE does not perform better than the existing NLP SOTA models for the SQuAD dataset." From there on we are thinking of proceeding the following manner:
 
 ** We will consider the statistical assumptions about the sample we are testing.
 ** Decide the t-statistics and here is where will have to do more research. For the midterm presentation, we were thinking of using the F-1 score that Steven wrote and the EM but I think the F-1 score that other models on the SQuAD website are using is different.
 ** Find the distribution of assuming the null to be true and select significance level alpha to reject or not reject our null. 
 
-== November 13, 2021 ==
-=== Meeting with Steven ===
-* Steven told Karthik and me to find a way we can get a tuple (having the start index and end index of the answer in the context).
-* We were initially planning of updating the evaluation functions and encode the labels but we can work on it later.
+
+== November 15, 2021 ==
+=== Lecture Notes ===
+* Steven and Dr Zutty told Karthik and me to drop the idea of outputting both the start and end indices as it will lead to implementations that we will not be able to complete before the end of the semester. Therefore, I will be working with Devan. 
+
+Note: In the team meeting this week, I was be reassigned to work on the statistics sub-sub-team (I have mentioned below in the team meeting notes).
+ 
+* Devan is trying to resolve the problem of using two datapairs for nn_learner. 
+
+=== Team notes ===
+* Steven reassigned tasks to all of us and we are more focused to get results before the final presentation even if those results are not the best.
+* I will be working in the Statistics sub-sub-team along with Shiyi. Our main task is to design an experiment that can prove/disprove our hypothesis of the efficacy of EMADE for the question-answering. We have not yet decided on our null hypothesis but it will be something like "EMADE does not perform better than the existing NLP SOTA models (given on the SQuAD dataset) for the SQuAD dataset." 
+* I met with Shiyi in the breakout room to discuss the plan.
+ 
 
 === My Work ===
+* Studied the procedure behind hypothesis-testing from here:https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
+* It looks like there is a lot of ways we can choose t-statistics given the condition in the problem. A good t-statistics can capture the nature of the given problem better. For example, we should use different t-statistics if the number of datapoints we have to plot the distribution vary. For instance, if we do not have enough samples from our population, then we should use student-t-distribution but normal distribution otherwise.
+
+* I suggested the below method to Steven in the lecture meeting of November 15, but as I mentioned above, we will not be implementing it due to a lack of time.
 * One of the ways I am trying to modify the code to get both the start and end indices is by fitting the model twice.
 ** First, the model will predict the start index.
 ** Second the model will use regression to predict the length of the answer and add that length to the start index. This is a very naive method as the model is only considering the number of words in the answer and not at all capturing the context.
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Study the steps involved in hypothesis testing and try to implement them.
+|Completed
+|November 15, 2021
+|November 21, 2021
+|November 20, 2021
+|-
+|Study how t-statistics can affect the test.
+|Completed
+|November 15, 2021
+|November 21, 2021
+|November 20, 2021
+|}
 
 == November 8, 2021 ==
 === Lecture Notes ===
 * We were divided into sub-sub-teams. I will be working with Karthik, Aditi and Jessi.
 * I am a little unsure about the objective of our team. According to Karthik, we will be working on converting the labels of the final output to numerical vectors but we are not sure about it yet.
+
+=== Meeting with Steven and Karthik ===
+* Steven told Karthik and me to find a way we can get a tuple (having the start index and end index of the answer in the context).
+* We were initially planning of updating the evaluation functions and encode the labels but we can work on it later.
 
 === My Work ===
 * Met in person today at CULC with Steven, Karthik and Aditi and clarified the main objective of our team and it is basically to output the start and end indices of the answer.
