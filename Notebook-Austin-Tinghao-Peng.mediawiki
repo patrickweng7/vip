@@ -9,14 +9,39 @@
 = Fall 2021 =
 == Week 16: December 6, 2021 ==
 === 12/10/2021 Final Presentations ===
-* Image Processing (thoughts for the future)
+* Image Processing (thoughts for next semester)
 ** consider presenting questions you don't know the answer to as well
 ** consider not averaging the ROC AUC (unpack the results for each multiclass classification)
 *** after seeing all the results of selection methods, an averaged ROC AUC for all 14 classes doesn't unpack the results well
 *** for example, 0.5 averaged ROC AUC could mean some classes (of lung diseases) were classified very well while other classes did not work as well
 ** in addition to unpacking results for each class, consider looking into creating confusion matrix (14 by 14) and analyze results
-** why lexicase over NSGA2 and NSGA3?
+** consider why/when lexicase is better than NSGA2 and NSGA3 (try to use the strength of lexicase)?
 *** lexicase does better when looking into individuals/instances (being classified against the 14 different CheXNet classes)
+
+* Natural Language Processing
+** converts text into structures like word frequencies
+** converts words to a vector
+** created another NNLearner that has the ability to make multiple ARGX (unlike the current NNLearner)
+
+* Stocks
+** currently writing their research paper to be published
+** changed objective functions from maximization to minimization
+*** loss percentage (minimization)
+*** CDF of profit (Monte Carlo)
+** changed evaluation metric to mean squared error
+** goal of the semester was to outperform the Takagi-Sugeno Fuzzy model for profits in buying/selling stocks
+** found that ARGMIN and ARGMAX created their best ""learners""
+** the team guesses that ARGMIN and ARGMAX work best because they pick the lowest value from the technical indicators from each individual
+
+* Neural Architecture Search
+** working on automated hyper-parameter optimization in neural networks
+** created a time stop callback to limit how long networks train for (intervals of 600, 1200, 1800, ..., etc.)
+** surprised that they managed to overfit on CIFAR-10 dataset
+
+* Modularity
+** worked on increasing ARL complexity
+** ARLs created extremely complicated individuals
+** would like to move from Google Colab onto PACE-ICE for runs
 
 === 12/8/2021 Subteam Meeting Notes ===
 * FOLLOW UP: on why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
