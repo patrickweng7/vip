@@ -726,7 +726,7 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 '''Individual Progress'''
 * I was working on the Highway Network of the Embedding layer with Kevin.
 
-'''
+```
 def build(self, input_shape):
     # Create a trainable weight variable for this layer.
     dim = input_shape[-1]
@@ -739,18 +739,18 @@ def build(self, input_shape):
         self.trainable_weights = self.dense_1.trainable_weights + self.dense_2.trainable_weights
 
         super(Highway, self).build(input_shape)  # Be sure to call this at the end
-'''
+```
 ** The reference code repository can be found [https://github.com/ParikhKadam/bidaf-keras/blob/master/bidaf/layers/highway_layer.py HERE].
 ** However, the issue was that with custom layers, TensorFlow batch sizes don't work well with native python logic.
 ** Solution: replace every for loop with either repeating tensors and element-wise multiplication, or a [https://keras.io/api/layers/recurrent_layers/time_distributed/ TimeDistributed layer].
 
-'''
+```
 >>> inputs = tf.keras.Input(shape=(10, 128, 128, 3))
 >>> conv_2d_layer = tf.keras.layers.Conv2D(64, (3, 3))
 >>> outputs = tf.keras.layers.TimeDistributed(conv_2d_layer)(inputs)
 >>> outputs.shape
 TensorShape([None, 10, 126, 126, 64])
-'''
+```
 
 === Nov 8, 2021 === 
 
