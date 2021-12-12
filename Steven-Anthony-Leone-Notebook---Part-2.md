@@ -113,6 +113,15 @@ Analyze Experiment Results and create Visualizations with Rishit and Shiyi | Com
 * We could measure our success by looking at the area of a region that we dubbed the "region of interest". This would be the total area bounded by our Pareto Front and the rectangle made by the origin and seeded individual as opposite corners.
 * An example (taken directly from our results). Is shown below. The yellow shaded region represents the region of interest. 
 * <img width="361" alt="Screen Shot 2021-12-12 at 4 54 42 PM" src="https://github.gatech.edu/storage/user/27405/files/466630e0-c264-48d5-8366-cd304dc195dc">
+* We could compare and easier understand our numbers by looking at region of interest's area as a percentage of the area bounded by the seeded individual.
+* I wrote up code in one of our Collab Notebooks to calculate the area of the region of interest. The code is at the bottom of this link:
+https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing
+* You can also find a picture of it here: 
+*  <img width="1040" alt="Screen Shot 2021-12-12 at 5 26 12 PM" src="https://github.gatech.edu/storage/user/27405/files/376ec182-e2f9-4209-a07f-2fe4597d1434">
+* I plugged in numbers from our Pareto fronts of our four different runs to produce visualizations from various code Rishit and Shiyi wrote. These are the results:
+<img width="331" alt="Screen Shot 2021-12-12 at 5 27 53 PM" src="https://github.gatech.edu/storage/user/27405/files/2d838e02-93de-4313-b819-7a97b6a3eaee">
+<img width="289" alt="Screen Shot 2021-12-12 at 5 28 13 PM" src="https://github.gatech.edu/storage/user/27405/files/b9f6e4fc-1efd-4133-a8e5-c6024bafdaff">
+<img width="281" alt="Screen Shot 2021-12-12 at 5 28 35 PM" src="https://github.gatech.edu/storage/user/27405/files/63344db7-a48b-454d-93f4-1ce074bd8930">
 
 
 ## Week 15, Nov 29th
