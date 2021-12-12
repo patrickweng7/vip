@@ -10,6 +10,38 @@ Cell Phone: 704-794-3924
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 [[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
+# Week 14: November 22th, 2021
+## Overview
+Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs). 
+
+## Team Notes:
+* Currently, NNLearner2 predicts 0’s and 1’s for all samples in our training set, which we believe is due to some regression parameters not being set properly in create_representation() and model.fit(). Dr. Zutty suggested that it is a problem with how our output layer is using the sigmoid activation function (ie. squeezing all of its predictions to 0’s or 1’s).  
+* From this documentation, it seems as though passing in None for the activation parameter should remove the sigmoid activation altogether: https://keras.io/api/layers/activations/, giving us the model’s actual predictions instead of a binary classification for answerable/unanswerable questions. 
+* If this change produces our expected results, we will turn our current classification problem into a regression problem with the target being the start index of the word in the answer. Otherwise, we will continue with our classification problem. 
+* We will confirm the nature of our problem by Wednesday, at which point we will start 8-hour trials to test NNLearner2’s performance. 
+
+## Subteam Notes:
+* No Wednesday meeting due to Thanksgiving break. Team members are starting 8-hour runs seeded with NNLearner2 as well as testing standalone_tree_evaluator.py on NNLearner2 with the changes Devan has pushed recently. 
+* We are currently resolving a bug with our evaluation function wherein results are being divided by 2, which is likely due to the size of our DataPair being counted twice (since we are passing in 2 DataPairs to NNLearner2). Steven is working on a fix for this and is close to pushing the correct evaluation function, which we can use for trials going forward. 
+
+## Individual Notes:
+* Devan’s feature/nnlearner2 branch is our up-to-date, nearly codefreezed branch that we will use to run trials with NNLearner2. I am currently getting a MalformedNodeError when running standalone tree evaluator on the following individual: NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer). Adding the following lines to my input_squad.xml file resolved the error (insert numinputs, regression flags pic here: )
+* Running standalone tree evaluator on NNLearner2, I get the following results: 
+(Analyze NNLearner2 results here). Once the statistics team finalizes the hypothesis for our experiments, I will know whether my results indicate that AutoML can improve QA systems or not. 
+* Our goal until final presentations is to get as many runs as possible from each team member and increase the sample size of our trials such that our hypothesis testing can produce statistically significant results. As such, we will be able to evaluate the performance of individuals on our Pareto front as compared to the performance of our seeded NNLearner2 individual (our implementation of the BIDAF model in EMADE). 
+* One goal I have for next semester is to write unit tests for each BIDAF layer we implemented this semester to ensure our seeded individual is scalable and to remove any hacky fixes with parameters we had to make this semester in the interest of time. 
+* Having started an 8-hour run without seeding, I noticed that most individuals are evaluating to (inf, inf) (our current objectives are accuracy and number of parameters). I also notice that my runs are getting stuck on a certain generation (ex. Generation 24), which is an issue I resolved during bootcamp by uninstalling and reinstalling GPFramework. Doing this repeatedly is quite impractical given that we want full 8-hour runs without reuse/reseeding, so I am looking into a permanent fix for this (ex. reducing instances in input_squad.xml, reducing the dataset size, etc.). The individuals that are evaluating are mostly NNLearner2 individuals, which indicates that NNLearner2 outperforms other individuals consistently and is therefore being placed on our Pareto front for comparison with our seeded individual. 
+* A WindowKaiser individual also repeatedly appears in the Pareto front upon starting new runs with reuse: https://www.mathworks.com/help/signal/ug/kaiser-window.html. This individual performs extremely poorly, but since it is the only individual other than NNLearner2 that evaluates, it is pushed to the Pareto front in each subsequent generation. This will likely impact our calculations of the AUC for our Pareto front versus the AUC of our seeded individuals when we analyze our results.
+* I will continue to run standalone tree evaluator on NNLearner2 and start seeded runs with NNLearner2 and accuracy and num_parameters as objectives, but our team might switch to a metric more suited for regression (ex. MSE) during our team meeting on Monday. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
+| Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
+
+
 # Week 13: November 15th, 2021
 ## Overview
 Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs). 
