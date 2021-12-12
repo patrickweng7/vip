@@ -9,9 +9,130 @@ Interests: Operations research, machine learning, combinatorics, stochastic proc
 = Fall 2021 =
 Subteam: Modularity 
 
-Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vincent Huang], [https://github.gatech.edu/emade/emade/wiki/Notebook_Angela_Young Angela Young], [https://github.gatech.edu/emade/emade/wiki/Notebook_Bernadette_Gabrielle_Santiago_Bal Bernadette Bai]
+Members: [https://github.gatech.edu/emade/emade/wiki/Notebook-Vincent-Huang Vincent Huang], [https://github.gatech.edu/emade/emade/wiki/Notebook_Angela_Young Angela Young], [https://github.gatech.edu/emade/emade/wiki/Notebook_Bernadette_Gabrielle_Santiago_Bal Bernadette Bai],
+[https://github.gatech.edu/emade/emade/wiki/Notebook-Tian-Sun Tian Sun]
 
-New notebook found here with past semester work: https://github.gatech.edu/emade/emade/wiki/Notebook-2---Xufei-Liu.
+New notebook found [https://github.gatech.edu/emade/emade/wiki/Notebook-2---Xufei-Liu here] with past semester work.
+
+== December 10, 2021 ==
+
+====== Final Presentations ======
+* Image processing
+** Looking at multi label problems with chest dataset, but now studying multi class image classification
+*** May focus on object detection in the future
+** Evaluation objectives
+*** ROS of receiving operator characteristics, and you have 1-ROC so that you can minimize
+*** Base run is off CacheV2 and NN team
+*** The lowest ROC is 0.169169
+** Modified this to use NSGA 3 instead of NSGA 2 and lexicase (as this is an uncommon training set)
+*** It seems like NSGA 2 is still significantly better
+** Semantic crossover and operator results
+*** By the fourth generation, however, individuals grew very wide and continued to increase exponentially in size
+*** This resulted in timeouts for execution time
+** Area under curve of ROw saw area decrease with an increase in parameters
+** Final results: Unfortunately got -.5 for contrast + sobel filter, however, the contrast + sharpening filter did better
+* NLP
+** Preprocessing - context-independent normalization, canonicalization, tokenization,word embeddings, and attention
+** For their quantitative analysis, they used closed-domain, extractive, and factoid
+** Used the SQUAD dataset and the BiDAF model structure
+*** Can they use AutoML in the domain ofQ&A to improve an existing model?
+** They also added NNLearner2 as a primitive, and matched their data handling to Keras API and multiple inputs
+** In the similarity matrix, they can see the t'th context word and the j'th query word
+** Development optimizations included optimizing matrix operations and graph executions
+*** Also looked at custom layers with internal logic, and changed them to be wrappers around built-in tensorflow functions
+** Overal procedures have 31 runs, but only kept 4 of them
+*** Out of those, only 3 were successes.
+*** Unfortunately, exact match rate was only 1% even on seeded runs.
+** In future semesters, they can improve their lower scoring results and look into ensemble learners, etc.
+* Stocks team
+** Want to beat their paper and SOTA results and see how EMADE objective affects the overall performance of pareto individuals
+** Curious about how pareto individuals generalize to work on any stocks at any time.
+** Noticed that for profit percentage of top individuals, we see the mean profit for top 10 individuals for average los and the loss_cdf_var_avg does very well
+*** Their best individual uses the ARGMIN learner
+** When it comes to individual analysis, they can look for the positive difference between their results and the results in the paper
+** Future work
+*** They want to finish the last 4 experimental trials
+*** To continue their comparison of EMADE runs
+*** Continue writing their paper that they hope to get published.
+* Neural Architecture Search (NAS)
+** Looks at hyperparamter optimization and AutoML to find the best arch. for a neural network for certain needs
+** They added a TimedStopping Callback to check after each batch
+*** New parameter for scooping
+*** The number of individuals that are evaluated and the number created by made get smaller and smaller due to timestops, and with larger time stops, they end up with more useless individuals.
+**** Longer time training doesn't correspond to higher accuracy
+** Modified NNLearner generator to produce better nnlearners using forwardPrune
+** Also modified module generators to produce valid modules from limited primitives
+*** Now, they can add the module as a primitive and also weight sharing
+*** As a result, they can specialize certain modules within NNLearners
+** Weren't able to get a very nice pareto front unfortunately
+*** Sample optimal individuals can reach 69% on evaluation accuracy!
+
+====== Subteam Meeting 12/9/2021 ======
+* Continued working on slides and sent out a new lettucemeet for rehearsal
+** Added to final presentation
+** Figured out who was going to say which part and practiced
+
+== December 3, 2021 ==
+
+====== Lecture Notes ======
+* The meeting for this week (as a time conflict student) was canceled
+
+====== Subteam Meeting 12/2/2021 ======
+* Had a short subteam meeting to discuss work for more of our new members and tie up the semester
+* Vincent had done several runs throughout the week and they now need to be analyzed
+** Work distributed to first semesters for image visualization and analysis
+
+====== Personal Exploration ======
+* Completed the peer review for this semester
+* Sent out a lettucemeet to set up a new meeting next Thursday at 6 pm for final presentation rehearsal
+* Finished modifying slides for final presentation which is linked here: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gc9bc63836f_1_46
+* I wrote/added to the current issues, future work, and also Merging CacheV2 when it came to slide progress
+* Unfortunately, for this semester, we were not able to complete/analyze any CacheV2 runs.
+* Analysis on the data plots present in the slides (I'm not sure how to add pictures so I'll refer to the slide numbers)
+** Slide 12: We see that having ARLs will on average be better than having no ARLs as there will typically be a lower area under the curve under our current process
+*** However, we see that this is less evident for our extended ARLs vs old ARL structure, meaning that increased depth of ARL may not necessarily lead to better performance.
+*** We see that the design using ARLs can inherently capture the good parts of the individuals which might be why there's overall better performance.
+*** As we see with the extended ARLs, there is a slight improvement in performance around the 35th generation after a worse performance in the 15-30th generations. This might mean that longer runs will see significant improvement in longer ARLs.
+** Slide 15: You can see the dataset of the false negatives/positives of individuals with ARLs compared to their ARL size.
+*** Unfortunately, there are no strong correlations
+*** There is an odd concentration of lots of variations of ARL size in particular around false negatives of 20 and 70.
+*** You can also see this for false positives, especially around 10. 
+*** Both seem to have a steep triangle shape and we're not sure why as of right now (what is it about those numbers that has so many varying ARLs of all sizes and complexity?)
+
+
+====== Action Items ======
+{| class="wikitable"
+!Task
+!Status
+!Assigned Date
+!Due Date
+!Completed Date
+|-
+|Send out Lettucemeet for the final presentation work session
+|Complete
+|12/3/2021
+|12/9/2021
+|12/10/2021
+|-
+|Add on our work to CacheV2 to the presentation
+|Complete
+|12/3/2021
+|12/9/2021
+|12/10/2021
+|-
+|Modify the future work section to reflect this semester's work
+|Complete
+|12/3/2021
+|12/9/2021
+|12/10/2021
+|-
+|Complete the Peer Review
+|Complete
+|12/3/2021
+|12/5/2021
+|12/7/2021
+|-
+|}
 
 == November 19, 2021 ==
 
@@ -30,6 +151,13 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 ** Angela and two of the first semesters agreed to work on some of the visualizations for the results
 * Working with Bernadette, Tian, and Diptendu to merge cachev2 changes
 ** Going to try and get a run done to begin debugging the stocks team data
+* Unfortunately, we continuously ran into errors even through we had caught up with CacheV2
+* Link to my emade-cloud-stocks folder in case anyone else wants to download and work: https://drive.google.com/drive/folders/1CyOUr7xOuteQbIGf_eYu-NhfuFHA4S4W?usp=sharing
+** Shared this with the rest of the subteam as well.
+*** Needed to add in the template files for titanic
+** Add in the following lines to input stocks:<maxAdfSize>10</maxAdfSize>, <shouldUseADFs>true</shouldUseADFs>
+** Add in the seeding_xview file from here: https://github.gatech.edu/rbhatnager3/emade/blob/stocks-pr/SeedingFiles/seeding_xview
+* Debugging was not successful
 
 ====== Personal Exploration ======
 * Need to run the new changes
@@ -45,6 +173,9 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 ** Add in the following lines to input stocks:<maxAdfSize>10</maxAdfSize>, <shouldUseADFs>true</shouldUseADFs>
 ** Add in the seeding_xview file from here: https://github.gatech.edu/rbhatnager3/emade/blob/stocks-pr/SeedingFiles/seeding_xview
 ** Needed to reupload GPFramework
+* Copied over our work to emade cloud using the new CloudCopy.sh script
+** Began working down the list of files that need to be debugged as seen in this link: https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2
+* Also joined most of Vincent's baseline runs (he ended up having around 11 total runs)
 
 ====== Action Items ======
 {| class="wikitable"
@@ -55,21 +186,27 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 !Completed Date
 |-
 |Attempt first run of new changes with emade
-|Incomplete
+|Complete
 |11/19/2021
-|
+|12/2/2021
 |12/3/2021
 |-
 |Begin the debugging process
-|Incomplete
+|Complete
 |11/19/2021
-|
+|12/2/2021
 |12/3/2021
 |-
 |Make the last few changes to the merge
-|Incomplete
+|Incomplete for the semester
 |11/19/2021
-|
+| --
+|12/3/2021
+|-
+|Help Vincent with Extended ARL Runs
+|Complete
+|11/19/2021
+|11/20/2021
 |12/3/2021
 |-
 |}
@@ -93,8 +230,13 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 
 ====== Personal Exploration ======
 *Took a look at the cachev2 branch and created a fork off of it to push our changes and merge 
-* The new branch is off of the main emade branch called CacheV2_ARL
-* Cloned it to personal computer with the command git clone https://github.gatech.edu/bbal3/emade
+* The new branch is off of the main emade branch called ARL_Update
+* Cloned it to personal computer with the command git clone https://github.gatech.edu/bbal3/emade as the last clone got messed up :/
+* Updates to the branch have been uploaded onto the wiki as documentation on how multiple people can work on a single branch
+* Also helped Vincent with extended ARL runs beginning this week and throughout the week
+** Downloaded the following cloned repo for runs: https://drive.google.com/drive/folders/1nYwWi3ec3SECBbNE_wyZmMuvHIUzfut1?usp=sharing
+** Next, all we have to do is run our collab code file for joining runs
+* Through this, I helped Vincent with multiple runs for extended ARLs this semester
 
 ====== Action Items ======
 {| class="wikitable"
@@ -116,6 +258,12 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 |11/18/2021
 |11/19/2021
 |-
+|Help Vincent with extended ARL runs
+|Complete
+|11/12/2021
+|11/18/2021
+|11/16/2021
+|-
 |}
 
 
@@ -134,6 +282,13 @@ New notebook found here with past semester work: https://github.gatech.edu/emade
 ====== Subteam Meeting 11/4/2021 ======
 * Got new members on the team
 * Working on getting everyone set up with google collab
+
+====== Personal Exploration ======
+* Attempted to set up more google collab burner accounts with a fake number - did not work :(
+* Bernadette created a branch called ARL_Updated where we've cloned CacheV2
+** Cloned CacheV2/emade onto my own computer once more with git clone [link]
+* Looked at differences between our code and CacheV2
+* You can see the differences at this link which we are still trying to resolve: https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2
 
 ====== Action Items ======
 {| class="wikitable"

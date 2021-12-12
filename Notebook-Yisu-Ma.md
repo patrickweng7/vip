@@ -9,6 +9,12 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 16: December 6th -  November 10th (2021)
+### Lecture overview:
+
+
+## Week 15: November 29th -  December 5th (2021)
+### Lecture overview:
 
 ## Week 14: November 22nd -  November 28th(2021)
 ### Lecture overview:
@@ -21,6 +27,28 @@
 * NLP Scrum:
 1. Onboard new members
 2. The old members tries to help new member build ICE-PACE environment
+3. Integrate new primitives
+4. Discussed if we shpould include Neural Network in Bootcamp
+
+*Subteam Notes:
+1. Placed into NNlearner2 data pairs team
+2. the goal is adding the nnlearner2 method that works with 2 data pairs for text type data
+3. Trying to successfully able to rum EMADE with amazoninput dataset.
+4. Sat up MariaDB
+
+*Individual notes:
+1. NNLearner: type of learner in EMADE
+Layers of neural networks are primitives in EMADE
+2. Need to make sure NNlearner2 does not run into error
+3 I tried to download twitter data set and ran the standalone tree evaluator, but error occurs in our nnlearner2
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Create input.xml with twitter dataset|complete|November 8th, 2021|November 15th, 2021|pending|
+|Record notebook|complete|November 8th, 2021|November 15th, 2021|November 15th, 2021|
+|set up PACE ICE database|complete|November 8th, 2021|November 8th, 2021|November 15th, 2021|
+
+
 
 
 

@@ -9,14 +9,90 @@ Cell Phone: 678-365-1412
 
 Interests: Machine Learning, Basketball, Video Games
 
+== December 10, 2021 ==
+
+Final Presentation Notes:
+
+* Image Processing:
+** Data preprocessing with such as horizontal shifts, sheering, etc.
+** ROCU AUC and num parameters for eval functions
+** NSGA2 still performed better than NSGA3 due to number of objectives
+** NSGA2 still performed better than lexicase due to fewer training cases and or smaller population size
+** Explored semantic operators such as semantic cross and semantic mutation
+** Best semantic crossover individual only performed a little better than seeded individual
+** New geometric cross over operators
+** Hyperfeatures are multiple primitives that work well together and combine them into a single primitive
+
+* Market/Stock Analysis
+** Using primitives like technical indicators
+** Statistical correlation between different indictators and individuals in EMADE
+** Multiple trial runs with different number of objectives
+** argmin and argmax surprisingly performed very well
+** Many individuals used argmax
+** Paper focused on individuals performed best in certain objectives
+** Beating the previous paper from midterm on all stocks besides Johnson and Johnson stock
+** Cumulative distribution based on average of random trading versus best individual average profit versus paper average profit
+
+* Neural Architecture Search
+** Increasing model complexities for neural networks
+** Eventually competitive with SOTA architectures
+** Modifications to mating and mutation without seeded runs
+** Midterm runs were used as benchmarks
+** Introduced modules
+** Easier implementaiton vs resnet/vgg architectures
+** If module has been trained, load old weights
+** Cool tracking in sql database
+** Modules in theory are unbounded
+
+* Modularity
+** Modularity and reusbaility in EMADE
+** Select combinations based on their frequency
+** Infrastructure update from tuples to classes
+** Increasing complexity of ARLs by increasing the tree depths
+** Experimental setup based on titanic dataset
+** Comparing no ARLs, old ARL architecture and new ARL architecture
+** New ARL architecture with a lot more generations could perform better than old arl
+** In general though, lower AUC with some ARL implementation versus no ARLs.
+
 == December 6, 2021 ==
 
 '''Team Meeting Notes:'''
-
+* Getting ready for final presentation
 
 '''Subteam Meeting Notes:'''
 
+* Subdividing work for final presentation
+* Intro to NLP, QA, BiDAF, primitive development, experiment procedure, region of interest, future work
+
 '''Personal Work:'''
+
+* Get scaling with multiple pareto fronts to scale properly with outliers. Some code I used to play around with the scale factor for both the x and y axis:
+
+```
+scale_factor_y = 0.3
+scale_factor_x = 0.18
+
+xmin, xmax = plt.xlim()
+ymin, ymax = plt.ylim()
+
+plt.xlim(xmin * scale_factor_x, xmax * scale_factor_x)
+plt.ylim(ymin * scale_factor_y, ymax * scale_factor_y)
+```
+
+* Pace run running through 190 generations but it was only having the bad individual:
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
+Trying to figure out the reason because the run is seeded with NNLearner2 individual
+* Figured out a potential error for the run while working with Steven:
+```
+        if len(input_layers) == 2 and data_pair.get_datatype()=='textdata':
+            model().fit(x=x, y=y, validation_data=validiation_data_final, batch_size=batch_size, epochs=epochs)
+```
+* Initially epochs=epochs was not a parameter. After adding in more epochs, made it so that NNLearner2 would never actually evaluate. I looked in the database and out files and the seeded individual is always in progress. Potential reasoning is because of low disk space when running on pace.
+
+* Working on presentation slides for primitive BiDaf modeling layer and development challenges with keras
+
 
 '''Action Items:'''
 {| class="wikitable"
@@ -26,17 +102,24 @@ Interests: Machine Learning, Basketball, Video Games
 !Suspense Date
 !Date Resolved
 |-
-|Hackathon project of getting Bidirectional attention flow to work
+|EMADE run for experimental design
 |Complete
-|November 15, 2021
-|November 22, 2021
-|November 22, 2021
+|December 6, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Primitive Modeling layer and development issues
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 10, 2021
 |-
 |}
 
 == November 29, 2021 ==
 
 '''Team Meeting Notes:'''
+
 * Image Processing: Primitives should not be writing disk. Not at code freeze yet
 * Modularity: Continue with runs. Upward spike AUC error found
 * NLP: Naive solution seeded compared to EMADE running without seeded
@@ -45,10 +128,38 @@ Interests: Machine Learning, Basketball, Video Games
 
 
 '''Subteam Meeting Notes:'''
+
 * Beginning to start experimental runs for final presentation
 * Change dataset to be regression problem for word start index rather than character start index 
 
 '''Personal Work:'''
+
+* Pace EMADE runs were done in 8 hour increments. Evaluation function were num params for complexity and mse for accuacy.
+* PACE emade run getting a weird, wrong individual. Potential error is probably because not seeded with NNLearner2 individual: 
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
+
+* MSE was the worst possible error and max number of params. But it did compile.
+* Correct workflow for pace:
+** qsub mysql database. If this is the first run, clear out the database. (Drop and then create database)
+** qsub seeding file with naive solution.
+** qsub emade run
+** Note: making sure node server is correct for emade run and mysql database
+** Note: make sure reuse is set to 1 when in template file. Without this, it will not use the seeded individual or previous individuals from previous runs
+
+* New PACE emade run with 6 valid individuals using seeded individual: 
+```
+Pareto Individual 0 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), 100, passOptimizer(AdamOptimizer))(241243.0, 2257025.0) Age 1.0
+Pareto Individual 1 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer()))), 100, passOptimizer(passOptimizer(AdamOptimizer)))(242279.0, 2246401.0) Age 1.0
+Pareto Individual 2 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(GRULayer(6, reluActivation, 32, trueBool, falseBool, AttentionLayer(EmbeddingLayer(16, ARG0, passWeightInitializer(randomUniformWeights), InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), myIntSub(10, 1), AdamOptimizer)(251242.0, 2240877.0) Age 1.0
+Pareto Individual 3 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(ConcatenateLayer2(InputLayer(), LSTMLayer(88, softmaxActivation, 7, falseBool, falseBool, EmbeddingLayer(16, ARG0, passWeightInitializer(glorotUniformWeights), InputLayer())))), myIntSub(10, 1), AdamOptimizer)(280517.0, 1157449.0) Age 1.0
+Pareto Individual 4 after gen 49 is NNLearner(ARG0, OutputLayer(InputLayer()), 1, FtrlOptimizer)(384797.0, 401.0) Age 1.0
+Pareto Individual 5 after gen 49 is NNLearner(ARG0, OutputLayer(OutputLayer(DenseLayer(falseBool, sigmoidActivation, 255, InputLayer()))), myIntAdd(6, 55), AdamaxOptimizer)(384798.0, 3.0) Age 1.0
+Pareto Individual 6 after gen 49 is NNLearner(ARG0, OutputLayer(DenseLayer(falseBool, eluActivation, 1, InputLayer())), 1, RMSpropOptimizer)(392514.0, 1.0) Age 1.0
+```
+* Finally getting NNLearners
+* eval functions is (mse, num_params)
 
 '''Action Items:'''
 {| class="wikitable"

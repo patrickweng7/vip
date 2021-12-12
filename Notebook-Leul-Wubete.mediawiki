@@ -6,6 +6,76 @@ Email: wubete3@gatech.edu
 Cell Phone: +1 4047897798
 
 Interests: Soccer, Walking, Eating, Breathing
+== Dec. 5- Dec. 10, 2021 (Week 15) ==
+
+=== Presentation notes ===
+==== Image Processing ====
+* Upgraded from NSGA-II to NSGE-III for their 4+ objectives, the difference was about 15%.
+*0.12% improvement for the Lexicase and Baseline.
+* Choosing primitives not in the original, Using uniform and multi-point.
+* Implemented 2 hyper features during the run, Grey level transformation, sharpening filter (enhances edges of object)
+* Results from the standalone tree. Contrast + lowest sharpening filter are best results
+
+==== NLP ====
+* SQUAD dataset used from Stanford from Quantitative analysis
+* Can we use auto-ML to improve Q&A results?
+* Seeded a run to get a less complex version of them, ended up descaling, multiple inputs. Buth context and answer. 
+* In order to use the new F1 score need to change models output from probability vector to answer string.
+* can we use auto-ML in the domain of QA to have better performance
+* Starting word index rather than starting character index. 
+* What is NNLearner? It is our core method for neural networks.
+* what is wrong with NNLearner? didn't support multiple data pairs.
+
+==== Stocks ====
+* Trying to minimize loss, maximize profit. Seems fair.
+* Used primitive objectives
+* Results analysis: Primitive analysis, they stratify all evaluated EMADE individuals based on primitives they use.
+* Profit percentage analysis: since we keep profit % static in all runs, we see how other objectives modify the result.
+* VWNA, arg min learner were the most highly performing functions in NumPy
+* Lot of individuals in argmax category: delta stochastic oscillator, delta Williams R
+* loss_var and loss_avg are the best objective functions for now.
+* argmin and argmax make the best models (using technical indicators only)
+* Currently using automated algorithms, not much ML
+* The Pareto front did not look too good, data was quite skewed
+==== NAS ====
+* Additions: time stops, when trying to evaluate individuals, trained the model for a certain time. It allows them to stop training if enough time has elapsed
+*  Time stopping at 600 * n intervals.
+* Sometimes, individuals that took less time to train have better results. There is no correlation between training time and increased pareto optimal performance.
+* Experimental setup, with mutating and mating v. without? Emade gets more accurate individuals with new changes
+* Pace-runs
+* Seeding with modules will help them find local maximums.
+=== Personal Notes ===
+* CloudCopy.sh file has been PUSHED to GitHub: https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+* Working on adding a progress bar like they show when you do pip install on conda for CloudCopy.sh script
+* It fixes the bug that continually allocates space, on some systems it runs on, effectively taking up all the device's space from recursive
+* Ran around 30 trials, lowest AUC was 0.36 copies.
+* Added progress timer to the shell script; looks much cleaner overall.
+* Went over the presentation slides with my team and added content to the slides. 
+* Received feedback on my pacing during our mock presentation, we are running a bit over time so I will be shortening my slide overview.
+* Reading up on ARL white papers, hopefully, I will find some new insight to help the team improve our ARL classification to determine good ARLs.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|December 13, 2021
+|December 5, 2021
+|December 5, 2021
+|-
+|Finish Peer Eval
+|Done
+|December 13, 2021
+|December 5, 2021
+|December 5, 2021
+|}
+
 == Nov. 29, 2021 (Week 14) ==
 === Scrum: ===
 * Image Processing:
@@ -19,23 +89,6 @@ Interests: Soccer, Walking, Eating, Breathing
  - Best use of those primitives today? Idea is to push that front down below the solutions. Do not be afraid to build algorithms by hand.
 * NAS
  - No code freeze yet, extraction layer frequencies. PRs have been up.
-
-
-=== Personal Notes: ===
-* Forgot to post PR link for CloudCopy.sh file, will be posting the push link later.
-* Had some trouble uploading my changes to the shell script onto our GitHub but finally got it done.
-* Steps I took to upload to Github on a detached branch:
- - cloned the vhuang31's emade GitHub, switched to ARL_Update branch
- - git add CloudCopy.sh
- - git commit with common
- - git push origin HEAD:ARL_Update
-* Link for the push: https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
-== Nov. 22, 2021 (Week 14) ==
-=== Weekly Scrum ===
-* Image processing: 
- - All of the group members have migrated to PACE ice.
- - Working on using a literal NumPy array, not a file.
- - Baseline ROC AUC? .48 corresponds to the firewall analyzer.
 
 * Modularity:
  - New Pool ARL, type ARL population info is updated. Much more readable ARLs have been implemented.
@@ -78,7 +131,38 @@ Interests: Soccer, Walking, Eating, Breathing
  - Weight sharing: convolution, and Neural Network weight sharing
  - Multiple individuals are benefitting from the training of the same modules, but will it work across different computers?
 
+== Personal Notes ==
+* Need to tweak my .xml file to be compatible with new runs, changing ARL size.
+* Reading up on white paper for ARLs. 
+* Forgot to post PR link for CloudCopy.sh file, will be posting the push link later.
+* Had some trouble uploading my changes to the shell script onto our GitHub but finally got it done.
+* Steps I took to upload to Github on a detached branch:
+ - cloned the vhuang31's emade GitHub, switched to ARL_Update branch
+ - git add CloudCopy.sh
+ - git commit with common
+ - git push origin HEAD:ARL_Update
+* Link for the push: https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+== Nov. 22, 2021 (Week 14) ==
+=== Weekly Scrum ===
+* Image processing: 
+ - All of the group members have migrated to PACE ice.
+ - Working on using a literal NumPy array, not a file.
+ - Baseline ROC AUC? .48 corresponds to the firewall analyzer.
 
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|}
 == Nov. 15, 2021 (Week 13) ==
 
 * Make sure to include your contributions to notebooks, especially for Bootcamp students.
@@ -95,14 +179,33 @@ Interests: Soccer, Walking, Eating, Breathing
 * Image processing:
 
 === Personal Notes ===
-* working on CludCopy.sh error, recursively taking up space and making infinite copies of our datasets. I am currently testing the .sh file on an Ubuntu VM with limited partitioned space so that the bug will only take up limited space.
+* working on CloudCopy.sh error, recursively taking up space and making infinite copies of our datasets. I am currently testing the .sh file on an Ubuntu VM with limited partitioned space so that the bug will only take up limited space. This time Ill be running it on windows OS.
 * Using new shell commands to show the progress of the CloudCopy.sh progress, allowing the user to see a timeline for when it will finish.
-== Nov. 8, 2021 (Week 12) ==
-
-=== Personal Notes: ===
 * Helping team run modularity on Google Colab, will be working on our CloudCopy.sh script to stop hazardous, infinitely recursive memory allocation.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Work on CloudCopy, help team with runs
+|Done
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
 === Weekly Scrum ===
 * semantic, behaviors? look at papers. Behavioral GP
+== Nov. 8, 2021 (Week 12) ==
 
 ==== Modularity ====
 * onboarding, extended_arl, to identify an individual, we used a name. Weren't checking if child ARL wasn't being used.
@@ -116,6 +219,9 @@ Interests: Soccer, Walking, Eating, Breathing
 * Novelty experiments.
 * Changes to infrastructure, ADFs were not the same across all indivisuals. Old implementation
 
+==== Personal notes ====
+* Helping my team run our trials on google colab. Set up with my group's main files/directories.
+* Met most of the team members, added to the slack.
 
 
 == Nov. 1, 2021 (Week 11) ==

@@ -8,6 +8,71 @@ Cell Phone: +1 4708380468
 
 Interests: Writing fiction, Music, Reading, Sports
 
+== December 10, 2021 (Week 16, Final Presentation) == 
+
+=== Presentation Notes: ===
+*  Image Processing:
+    *  Eval Objectives: AUC-ROC (Receiving Operator Characteristic - calculate 1-ROC to minimize objectives), Number of parameters
+    *  Merged NAS' ADFs. Baseline results use NSGA-II Pareto Front. AUC for pareto front is 0.218. Lowest ROC individual is 0.16969. Lowest number of params was 30.
+    *  Tested NSGA-III and Lexicase selection methods based on research paper recommendation
+    *  NSGA-III had 0.377 AUC-ROC, worse than baseline. Reduced large problem to low diversity problem, low dimensions
+    *  Lexicase had 0.348, worse than baseline. Lexicase likes larger population size. Really small pareto front, might be the problem.
+    *  Also explored different crossover operators. Semantic crossover (finds subchild that's in between parents) vs Semantic mutations (maintains parent's semantic info). Best individual had 0.45 precision AUC, worse than baseline. Basically a seed individual, didn't find much luck.
+    *  Worked on geometric operators for mating and mutation. Created new operators - partially matched, ordered crossover, uniform and multipoint operators.
+    *  Multi points and Uniform had best AUC-ROC of 0.365, average of 0.38.
+    *  Hyper-features: multiple primitives that work well together. Very bad AUC-ROC results, even around 0.5 (worst possible).
+    *  Challenges: switched dataset, compiling models errors.
+    *  Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
+*  NLP:
+    *  Tokenization = converting input to smaller words
+    *  Word embeddings = converts text data to numerical vectors (bag of words)
+    *  Factoid = short factual answers
+    *  Extractive = answer can be found verbatim in context
+    *  Keras doesn't support regression with multiple outputs. Requires very specific input format (tuple of input, truth data).
+    *  NNLearner2 predicts indices, while objective functions need answer strings to evaluate
+    *  Merged existing code for multiple data pairs (question+context) with nn-vip branch
+    *  BIDAF-based models - bid-directional attention flow.
+    *  Used Bi-directional LSTM to relate importance
+    *  Had mean-square-error and num_primitives as objectives for experiments
+    *  Compared 4 pareto fronts from successful runs. Maximum reduction in area was 10.96%.
+    *  Will need more runs (only had 4). But think that they can reduce area with current technique. More diverse set of primitives might help.
+*  Neural Architecture Search:
+    *  NAS is a subset of hyperparameter optimization and AutoML.
+    *  Implemented updated timestopping - decreased wasted time on errored individuals. Can now set max_timestop.
+    *  5 variations of Independent Variable in experiment - 600, 800, 1200, 2400, 3000 seconds for Timestop.
+    *  Found that more calculation time just wasted more time, and that faster was just as good. More time didn't decrease accuracy error.
+    *  More complex individuals: Added generator methods for NNLearner and Modules/ARLs.
+    *  Added weightsharing (to encourage specialization of modules), modules as primitives. Added mating/mutation methods, checks for errors.
+    *  Expanded database tables to track parents of pareto optimal individuals.
+*  Modularity:
+    *  We performed our presentation.
+    *  https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.g10552199870_4_0
+    *  Dr. Zutty liked my graph comparing NoARL, OldARL, NewARL - advised us to do more runs at the start of next year to see if we can find statistical significance for ARLs being better than NoARLs. We'll probably keep this in mind as we start next semester.
+*  Stocks:
+    *  Optimizing time-series data
+    *  Want to beat the paper's predictions
+    *  In terms of objectives, conserved profit/loss% and varied other objectives
+    *  Primitive Analysis: Objective was (-1 * loss percentage) for all primitives
+    *  Profit Percentage Analysis: Plotted with box plot.
+    *  Best performing combination was VWMA and ArgMinLearner (13.56%). Apparently ArgMin and ArgMax performed really well,, which is funny because they aren't even ML.
+    *  Optimizing over loss_avg and loss_var proved to be the best. They did manage to beat the stocks paper's results in most stocks.
+    *  Plan to publish a paper regarding findings.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize Weekly Notebook for this semester
+|Complete
+|December 10, 2021
+|December 13, 2021
+|December 10, 2021
+|}
+
 == December 6, 2021 (Week 16) == 
 
 === Lecture Notes: ===
@@ -25,12 +90,33 @@ Interests: Writing fiction, Music, Reading, Sports
 *  Work-time for final presentation 
 
 === Subteam Meeting Notes: ===
-*  
+*  Divided work for subteam presentation, made slides. Created a rough outline for who was going to say what and filled in team members on out parts of the presentation.
 
 === Individual Notes: ===
-*  Debugging visualization notebooks to make sure graphs are ready for final presentation
-*  
-*  Added finalized graphs (comparing all three runs - NoARL, OldARL, NewARL) to the final presentation
+*  Forked Gabe's repository and shared my graphs + notebook for the team to access. https://github.gatech.edu/akumaran6/emade/tree/PrimitiveAnalysis/notebooks
+*  .csv files for NoARL, OldARL, NewARL are all in the above directory, notebook used is GroupAUCViz.ipynb
+*  Debugging visualization notebooks to make sure graphs are ready for final presentation. Edited so that they show three-line graphs.
+    *  mean_df_old_adf['group'] = 0
+    *  mean_df_adf['group'] = 0
+    *  mean_df['group'] = 0
+    *  p9.ggplot(data=polygon_df, mapping=p9.aes(x="index", y='upper', group = 'group')) \
+            + p9.geom_polygon(size = 0.1, color='red', fill = 'red', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='green', fill = 'green', alpha = 0.001) \
+            + p9.geom_polygon(data=polygon_df_old_adf, mapping=p9.aes(x="index", y='upper'), size = 0.1, color='blue', fill = 'blue', alpha = 0.001) \
+            + p9.geom_line(data=mean_df_old_adf, mapping=p9.aes(x="index", y='mean'), color='blue') \
+            + p9.geom_line(data=mean_df_adf, mapping=p9.aes(x="index", y='mean'), color='green') \
+            + p9.geom_line(data=mean_df, mapping=p9.aes(x="index", y='mean'), color='red') \
+            + p9.ggtitle("No ADF vs Old ARL AUC vs New ARL AUC") \
+            + p9.xlab("Generation") \
+            + p9.ylab("Area Under Curve") \
+            + p9.scale_x_continuous(expand = (0,0), limits = (0,41),  breaks=(list(np.arange(0, 41, 5))), minor_breaks=(list(np.arange(0, 41, 1)))) \
+            + p9.scale_y_continuous(expand = (0,0), limits = (0.15,0.41), breaks=(list(np.arange(0.15, 0.46, 0.05))), minor_breaks=(list(np.arange(0.15, 0.4, 0.01)))) \
+            + p9.theme(axis_line=p9.element_line(), axis_ticks_minor=p9.element_line())
+*  Fixed standard deviation line bug on the graphs.
+*  Generated graphs with all runs (4-11), including 6 and 10, then decided that since they only lasted 34 and 35 generations each, that they should be omitted to see longer comparison between the three types of runs.
+*  Added finalized graphs (comparing all three runs - NoARL, OldARL, NewARL) to the final presentation.
+*  Added two-line comparison graphs to the presentation, which will be presented by Angela and Adithya.
+*  Practiced presentation slides before the final presentation. Had a run-through with the team two hours before the final.
 
 === Action Items: ===
 {| class="wikitable"
@@ -39,6 +125,12 @@ Interests: Writing fiction, Music, Reading, Sports
 !Date Assigned
 !Suspense Date
 !Date Resolved
+|-
+|Complete Final Presentation Slides, practice presentation
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 6, 2021
 |-
 |Update Weekly Notebook
 |Complete
@@ -90,6 +182,7 @@ Interests: Writing fiction, Music, Reading, Sports
     *  Translated my visualization data for the extendedarl5 run to a .csv to test the notebook, debugged functionality. 
     *  Generated a graph comparing all three types of arl data, which illustrates that as no. of generations increases, AUC is lowest for new_arl, followed by old_arl, and finally no_arl. I believe this satisfies our rationale for running these experiments, and shows valuable progress.
     *  Once Adithya and Angela send me the other .csv files, I'll add them to the new_arl directory and run the notebook once more, generating the final graph comparing the three types of data. The goal is to accomplish this by Monday.
+    *  I've received them, and have created the final graphs.
 === Action Items: ===
 {| class="wikitable"
 !Task
@@ -345,7 +438,7 @@ Interests: Writing fiction, Music, Reading, Sports
 |}
 
 
-== October 25, 2021 (Week 10) == 
+== October 25, 2021 (Week 10, Midterm Presentation) == 
 
 === Lecture Notes: ===
 *  Presented Emade findings at Monday (main group) session, compared with ML and MOGP.

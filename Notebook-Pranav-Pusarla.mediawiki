@@ -489,10 +489,6 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 === Class Notes: ===
 *We did group presentations based on our EMADE results and listened to the existing group presentations as well
 
-=== EMADE Group Presentation Notes: ===
-*For some groups, it looked like SPEA-2 worked better than NSGA-II so that's something we should probably look into in the future
-*
-
 === Group Presentation Notes: ===
 *Had to leave early for exam so was only able to listen to 2 groups present
 *NLP (Natural Language Processing)
@@ -574,7 +570,7 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |In Progress
 |November 1, 2021
 |November 8, 2021
-|
+|November 8, 2021
 |-
 |Update VIP Notebook
 |Completed
@@ -600,7 +596,7 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 *** swap_layer
 *** cx_ephemerals
 *** concat_healer
-** master algorithm does everything except for compiling/evaluating individuls which worker algorithm does
+** master algorithm does everything except for compiling/evaluating individuals which worker algorithm does
 * Neural Net Concepts
 ** learn model that maps inputs to outputs well
 ** uses a set of layers where each layer has a set of nodes
@@ -632,6 +628,16 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 * Started to work on configuring EMADE on PACE
 * New articles with literature review to read about neural networks and EMADE
 
+=== Personal Work ===
+* Read up on neural networks: https://towardsdatascience.com/understanding-neural-networks-19020b758230?gi=1341d1e6f5c3
+* Neural networks use series of layers: input, hidden, output
+* Each layer has "neurons" which have biases and are connected by links that have weights 
+** To calculate at neuron = sum of all neurons linked to that neuron from previous layer for (weight*input) + bias
+* Train network by using cost function and trying to minimize it
+** Cost calculated by forward propagation
+** Minimize cost function through gradient descent optimization
+** Way to do this is through back propagation - finds neurons that sent most signal
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -640,28 +646,16 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 !Suspense Date
 !Date Resolved
 |-
-|Get EMADE working locally 
+|Read up on Neural Networks to get a general understanding
 |Completed
-|November 1, 2021
 |November 8, 2021
-|November 9, 2021
+|November 15, 2021
+|November 13, 2021
 |-
 |Get EMADE working on PACE
 |In Progress
 |November 8, 2021
 |November 15, 2021
-|
-|-
-|Literature Review
-|In Progress
-|November 8, 2021
-|November 22, 2021
-|
-|-
-|Update final presentation slides
-|In Progress
-|November 8, 2021
-|November 22, 2021
 |
 |-
 |Update VIP Notebook
@@ -678,11 +672,23 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 * Worked on setting up EMADE on PACE
 ** Had a few errors with the SQL server
 ** Error: did not have permission writing to SQL server
+** Fixed error when going through PACE setup steps again
 
-== NAS Tasks ==
-* learn about each layer used in EMADE in gp_framework_helper.py
-* figure out best activations needed for each layer
-* figure out best out dimensions for each layer
+=== Personal Work: ===
+*Layers that are used in EMADE in gp_framework_helper.py
+* Information taken from: https://keras.io/api/layers/
+** Text Data
+*** Dense Layer : regular fully connected neural network layer
+*** LSTM Layer : long-short term memory neural network layer (recurrent nn type)
+*** Convolutional 1D layer : creates convolutional kernel convolved with layer input over single spatial dimension
+*** Max Pooling 1D layer : taking maximum value over window of size for 1D data
+*** Global Max Pooling 1D layer : taking maximum value over time dimension
+*** Global Average Pooling 1D layer : taking average value over time dimension
+*** GRU layer : gated recurrent unit (similar to lstm but less gates)
+*** Flatten layer : flattens input to one dimension
+** Image Data
+*** Convolutional 2D layer : convolutional kernel over 2 dimensions
+*** Max Pooling 2D layer : takes maximum value over window of specified size for 2D data
 
 '''Action Items:'''
 {| class="wikitable"
@@ -693,22 +699,22 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 !Date Resolved
 |-
 |Get EMADE working on PACE
-|In Progress
+|Completed
 |November 8, 2021
 |November 15, 2021
-|
-|-
-|Literature Review
-|In Progress
-|November 8, 2021
 |November 22, 2021
-|
 |-
-|Update final presentation slides
+|Learn what layers used in EMADE in gp_framework_helper.py
 |In Progress
-|November 8, 2021
+|November 15, 2021
 |November 22, 2021
-|
+|November 22, 2021
+|-
+|Read ''Neural Networks Explained in Plain English''
+|In Progress
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
 |-
 |Update VIP Notebook
 |Completed
@@ -754,23 +760,11 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 !Suspense Date
 !Date Resolved
 |-
-|Get EMADE working on PACE
+|Read ''Evolving Deep Neural Networks'' for Literature Review
 |In Progress
-|November 8, 2021
 |November 22, 2021
+|November 29, 2021
 |November 28, 2021
-|-
-|Literature Review
-|In Progress
-|November 8, 2021
-|December 10, 2021
-|
-|-
-|Update final presentation slides
-|In Progress
-|November 8, 2021
-|December 10, 2021
-|
 |-
 |Update VIP Notebook
 |Completed
@@ -807,6 +801,11 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 ** Future Applicability
 *** Combine pre-trained networks with layers and architecture to get better results
 
+=== Personal Contributions ===
+* Attended team meeting for dry run and practiced presentation with team
+* Link to final presentation slides: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing
+** Completed and presented slides 47-48
+
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -815,17 +814,17 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 !Suspense Date
 !Date Resolved
 |-
-|Literature Review
+|Read ''Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification'' for Literature Review
 |In Progress
-|November 8, 2021
-|December 10, 2021
+|November 29, 2021
 |December 6, 2021
+|December 4, 2021
 |-
 |Update final presentation slides
 |In Progress
-|November 8, 2021
-|December 10, 2021
-|
+|November 29, 2021
+|December 6, 2021
+|December 5, 2021
 |-
 |Update VIP Notebook
 |Completed

@@ -8,6 +8,58 @@ Email: ksubramanian40@gatech.edu
 Cell Phone: 908-240-0310
 
 Interests: Machine Learning, Python, Puzzles, Reading, Cooking
+== December 10th, 2021==
+'''Final Presentation Notes:'''
+* Image Processing:
+   * Objective: Improve EMADE on image processing tasks using genetic programming (selection methods, mutation, deep learning)
+   * Multi-class Image Classification
+   * Dataset:
+      * Image resizing, normalization, horizontal flipping with Tensorflow (4000 images in dataset)
+   * Objective: ROC + Num Params (evaluate 1 - ROC to turn into minimization problem)
+   * Baseline: CacheV2 EMADE
+   * Selection Methods Used:
+      * NSGA2, NSGA3, Lexicase
+      * More objectives --> More dimensions --> more diversity
+   * Semantic Crossover individual
+   * Geometric Mating and Mutation methods (try to preserve original parents and maintain properties like Conv layers)
+   * Compatibility/conda environment issues with Geometric Crossover
+   * AUC for experiments worse than baseline (almost like the classifier is randomly guessing)
+   * Challenges involved switching to multi-class, suspicious AUC, mating function implementation
+
+* Stocks
+   * Objectives
+      * EMADE for regression on time series data? optimize market trading algorithms
+   * Changed objective functions 
+      * Loss percentage (minimization)
+      * CDF of profit (Monte Carlo)
+   * Find individuals which beat the SOTA paper
+   * Primitive Analysis (analyze EMADE choice of primitives over the course of all generations)
+   * Argmin, Argmax primitives performed very well in terms of mean loss
+   * Future work
+      * Complete experimental trials, comparison of EMADE runs
+
+* Neural Architecture Search
+   * NAS focuses on hyperparameter optimization and ML (find the best architecture of neural network for a specific need)
+   * Goal: make EMADE create more complex architecture
+   * Maximize EMADE productivity
+      * Time stopping (trained model for specific amount of time, check current time at end of epoch, stop training after threshold time)
+      * Training models for more time doesn't necessarily give lower accuracy error
+   * Growing deep complex individuals
+      * Added generator methods for NNLearners and Modules within EMADE
+      * Weight sharing, module as a primitive, Global Mods (specialization of modules within NNLearners)
+   * EMADE producing more accurate individuals with Mut/Mat modules (comparable performance to existing SOTA literature)
+   * Weight sharing + Max Pooling
+      * 5 trials, fewer trivial individuals, more generations, less frequent time stoppings
+   * Analysis/Testing methods developed
+   * Future Work
+      * Novelty Evaluation Methods
+
+* Modularity
+   * Abstract parts of individuals and create building blocks (implemented through ARLs). When good section is found, make it new primitive
+   * Want to increase complexity of ARLs by increasing tree depth (allow search to consider larger subtrees) 
+   * Size may not imply usefulness (lot of individuals ended up performing similarly on the Pareto Front)
+   * Merging CacheV2
+   
 == December 6th, 2021==
 '''Main Meeting Notes:'''
 * Steven mentioned that runs turned out to be for 24 hrs
@@ -30,6 +82,7 @@ What actually should happen is this:
 
 * Fortunately, my shell script that automates the process of running SqUaD in PACE should work (though the user will need to clear the database locally for the 1st 8hr run)
 
+* Final Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit#slide=id.p
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -39,19 +92,19 @@ What actually should happen is this:
 !Date Resolved
 |-
 |Keep doing Runs as per Steven's guidelines
-|In Progress
+|Completed
 |December 6th, 2021
 |December 10th, 2021
-|
+|December 10th, 2021
 |-
 |Add information about BiDAF primitives to final presentation
-|In Progress
+|Completed
 |December 6th, 2021
 |December 8th, 2021
-|
+|Decebmer 8th, 2021
 |-
 |Update pace-login.sh script for SqUaD Dataset
-|Completed
+|Completed. Should be ready for use
 |December 8th, 2021
 |December 8th, 2021
 |December 8th, 2021
@@ -194,7 +247,7 @@ questions and 0s for unanswerable questions. Those backup files have been upload
 * Working on ensuring dimensions work properly for each layer
 
 '''Individual Notes:'''
-* Me, Kevin, Shiyi worked on a first draft of an implementation of the bidirectional attention layer. We found a great article that helped us understand the paper on BiDAF. Link to the article: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07
+* Me, Kevin, Rishit, and Shiyi worked on a first draft of an implementation of the bidirectional attention layer. We found a great article that helped us understand the paper on BiDAF. Link to the article: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07
 
 * Initial Draft of Code can be found at this gist: https://github.gatech.edu/gist/ksubramanian40/35a233744bd46a6c64489e2ddade6873
 * UPDATE 11/7/21: Shiyi, George, Karthik fixed the implementation of Bidirectional Attention, Modeling Layer and Output to ensure that the proper dimensions appear in the output. A small unit test was written to ensure that the intended behavior for various input sizes

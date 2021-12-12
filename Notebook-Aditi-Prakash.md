@@ -10,6 +10,111 @@ Cell Phone: 704-794-3924
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 [[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
+# Week 14: November 22th, 2021
+## Overview
+Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
+
+## Team Notes:
+* Currently, NNLearner2 predicts 0’s and 1’s for all samples in our training set, which we believe is due to some regression parameters not being set properly in create_representation() and model.fit(). Dr. Zutty suggested that it is a problem with how our output layer is using the sigmoid activation function (ie. squeezing all of its predictions to 0’s or 1’s).  
+* From this documentation, it seems as though passing in None for the activation parameter should remove the sigmoid activation altogether: https://keras.io/api/layers/activations/, giving us the model’s actual predictions instead of a binary classification for answerable/unanswerable questions. 
+* If this change produces our expected results, we will turn our current classification problem into a regression problem with the target being the start index of the word in the answer. Otherwise, we will continue with our classification problem. 
+* We will confirm the nature of our problem by Wednesday, at which point we will start 8-hour trials to test NNLearner2’s performance. 
+
+## Subteam Notes:
+* No Wednesday meeting due to Thanksgiving break. Team members are starting 8-hour runs seeded with NNLearner2 as well as testing standalone_tree_evaluator.py on NNLearner2 with the changes Devan has pushed recently. 
+* We are currently resolving a bug with our evaluation function wherein results are being divided by 2, which is likely due to the size of our DataPair being counted twice (since we are passing in 2 DataPairs to NNLearner2). Steven is working on a fix for this and is close to pushing the correct evaluation function, which we can use for trials going forward. 
+
+## Individual Notes:
+* Devan’s feature/nnlearner2 branch is our up-to-date, nearly codefreezed branch that we will use to run trials with NNLearner2. I am currently getting a MalformedNodeError when running standalone tree evaluator on the following individual: NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer). Adding the following lines to my input_squad.xml file resolved the error (insert numinputs, regression flags pic here: )
+* Running standalone tree evaluator on NNLearner2, I get the following results: 
+(Analyze NNLearner2 results here). Once the statistics team finalizes the hypothesis for our experiments, I will know whether my results indicate that AutoML can improve QA systems or not. 
+* Our goal until final presentations is to get as many runs as possible from each team member and increase the sample size of our trials such that our hypothesis testing can produce statistically significant results. As such, we will be able to evaluate the performance of individuals on our Pareto front as compared to the performance of our seeded NNLearner2 individual (our implementation of the BIDAF model in EMADE). 
+* One goal I have for next semester is to write unit tests for each BIDAF layer we implemented this semester to ensure our seeded individual is scalable and to remove any hacky fixes with parameters we had to make this semester in the interest of time. 
+* Having started an 8-hour run without seeding, I noticed that most individuals are evaluating to (inf, inf) (our current objectives are accuracy and number of parameters). I also notice that my runs are getting stuck on a certain generation (ex. Generation 24), which is an issue I resolved during bootcamp by uninstalling and reinstalling GPFramework. Doing this repeatedly is quite impractical given that we want full 8-hour runs without reuse/reseeding, so I am looking into a permanent fix for this (ex. reducing instances in input_squad.xml, reducing the dataset size, etc.). The individuals that are evaluating are mostly NNLearner2 individuals, which indicates that NNLearner2 outperforms other individuals consistently and is therefore being placed on our Pareto front for comparison with our seeded individual. 
+* A WindowKaiser individual also repeatedly appears in the Pareto front upon starting new runs with reuse: https://www.mathworks.com/help/signal/ug/kaiser-window.html. This individual performs extremely poorly, but since it is the only individual other than NNLearner2 that evaluates, it is pushed to the Pareto front in each subsequent generation. This will likely impact our calculations of the AUC for our Pareto front versus the AUC of our seeded individuals when we analyze our results.
+* I will continue to run standalone tree evaluator on NNLearner2 and start seeded runs with NNLearner2 and accuracy and num_parameters as objectives, but our team might switch to a metric more suited for regression (ex. MSE) during our team meeting on Monday. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
+| Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
+
+
+# Week 13: November 15th, 2021
+## Overview
+Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs). 
+
+## Team Notes:
+* After researching Keras’ current capabilities, we realized that it does not currently support multi-output regression, which is a big limitation for us given that the output layer is a Keras library function with some custom logic added to it. Moreover, EMADE’s architecture directly passes individuals’ predictions to its evaluation functions for scoring, which means that we would have to make changes to EMADE’s master process in order for our individuals to predict indices and for our evaluation functions to take in strings. As such, we have modified our problem to be a regression problem, where our target value is just the start index of the answer in the string. Rishit had the idea of training the model twice, once to predict the start index of the answer and once to predict the end, but this would cause a few issues: our models would evolve differently in each evolutionary process, and we would lose information about the start index while predicting the end index. Moreover, our models could simply learn a pattern in the length of the answer strings as opposed to their semantic location in the vector space, which would defeat the purpose of predicting the end index altogether. 
+* The output layer team has now dissolved, and I have been placed on Devan’s NNLearner2 team along with David, Jessi, and Rishit. 
+* Our goal is to debug standalone_tree_evaluator.py to work on our NNLearner2 model (which takes in a context datapair and query datapair). 
+* Currently, running standalone_tree_evaluator.py on NNLearner2 fails because NNLearner2 uses the load_environment() method in EMADE.py to set up a single individual for evaluation (the following line is from standalone_tree_eval.py: database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name). 
+* Our edits to EMADE.py (mainly changing the number of inputs to each individual in this line: self.pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair)) mean that we have to make changes to load_environment() so that EMADE's evaluate_individual() method still has the expected behavior when we call it on standalone tree evaluator with two EMADE datapairs as inputs. We have already ensured that the evaluation function is compatible with the changes to EMADE.py, and our goal is to do the same for load_environment().  
+* We will all look into the codebase to determine if fixing load_environment() will be worthwhile or if we should proceed with full runs instead of standalone_tree_evaluator.py on NNLearner2. 
+
+## Subteam Notes:
+* Our team members were retasked in preparation for the hackathon on Saturday. 
+* Returning members are working on debugging the BidirectionalAttentionLayer, which currently outputs a tensor with dimensions that are mismatched with the input tensor dimensions from other primitive layers. Keras layers taken in 3-dimensional input tensors with (batch_size, timestep, dimensions), but the BidirectionalAttentionLayer does not output a tensor of this size due to its lack of a batch size definition.
+* New team members will continue to get set up on PACE in preparation for 8-hour runs with our seeding NNLearner2 individual. 
+* I presented my analysis of whether it would be feasible to fix standalone_tree_evaluator.py tp work with NNLearner2 before the next full-team meeting. See individual notes below for my analysis. 
+
+## Individual Notes:
+* From what I can make of the current codebase, we define creator.create("Individual", list, fitness=creator.FitnessMin, pset=self.pset, age=0,  elapsed_time=0, retry_time=0,                        novelties = None, hash_val=None, **fitness_attr) in the setDatasets() method. However, we call create_representation() before we call setDatasets(), which means we haven't yet registered an Individual with two EMADE datapairs as arguments when we call create_representation(). 
+* The following is the order of method calls in general_methods.py in load_environment() for standalone_tree_evaluator:
+emade.create_representation(datasetDict, adfs=3, regression=regression)
+emade.setObjectives(objectiveDict)
+emade.setDatasets(datasetDict)
+emade.setMemoryLimit(misc_dict['memoryLimit'])
+emade.setCacheInfo(cache_dict)
+emade.set_statistics(statisticsDict)
+emade.buildClassifier()
+* create_representation() is called on the emade instance prior to setDatasets(), and setDatasets() is where the datasetDict with two input datapairs is defined. This is what I believe to be the main discrepancy between load_environments() datapair ingestion logic and EMADE.py’s logic for normal runs. 
+* I believe the following line should be modified in general_methods.py so that individuals can take in 2 datapairs in standalone_tree_evaluator: pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair), instead of gp.PrimitiveSetTyped('MAIN', [EmadeDataPair] EmadeDataPair), which is what it currently contains. 
+* At the hackathon on Saturday, I continued debugging the Already Exists error I was having with Tensorflow and Keras installation in my PACE conda environment. A quick fix for this was to simply comment out all references to keras.backend (the package whose import command was throwing the error) in neural_network_methods.py and gp_framework_helper.py. After these changes, the same error was being thrown, and I noticed that the error message pointed to code at a line number that no longer existed in neural_network_methods.py. With this, I realized that EMADE was not actually running with my updated code, and I subsequently ran bash reinstall.sh and was able to resolve all errors at that point. I’ve learned from this that a simple bash reinstall.sh can prevent several errors related to package installation, which is something I will definitely keep in mind going forward. 
+* We will start setting up 8-hour runs in Monday’s meeting (and possibly standalone_tree_evaluator.py runs with NNLearner2 if Devan and Steven are able to debug load_environment() by then). 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Determine if Karthik's run produces individuals that can predict start index | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Finish EMADE setup on PACE | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Analyze discrepancies between EMADE.py and load_environment() for standalone_tree_evaluator.py | Done | 11/15/21 | 11/22/21  | 11/20/21 |
+
+# Week 12: November 8th, 2021
+## Overview
+Research output numerization methods and finalize output layer output format. 
+
+## Team Notes:
+* In today’s NLP team meeting, members were assigned to one of our four remaining tasks for the semester: https://trello.com/b/6lcDBEj1/distilling-qa-systems-with-emade. I was placed on the Output Layer task along with Karthik, Rishit, and Jessi.  
+* The current output layer primitive that the team has written for QA outputs probability matrices for each word in the context being the start and end index of the answer string (this is the same behavior as the BIDAF model’s output layer). In order to evaluate individuals’ predictions with our new F1 score evaluation function (which compares the number of words that match in the prediction and target strings), we need to reduce these matrices to single values that the evaluation functions can take in as input. 
+* Ideally, we would like each individual to output a tuple of the form (prediction_start_index, prediction_end_index) that our F1 evaluation function can then take in and compare to the start and end index of the actual answer. 
+* If we determine that a tuple of the form (prediction_start_index, prediction_end_index) does not produce individuals that give good results, we will look into other numerical representations of the string (ex. hashing the string in some way, vectorizing the string, etc.) and determining which representation produces the best-performing individuals. 
+We will meet on Wednesday to determine the exact output format we want our models to predict, and we will proceed with preprocessing our dataset and modifying our output layer accordingly. 
+
+## Subteam Notes:
+* During Wednesday’s meeting, Rishit, Karthik and I talked to Steven about our problem definition a bit further and received clarification about which part of the architecture we should modify to adjust the output layer’s output. 
+* Our neural_network_methods.py file contains a model.fit() call which compiles and trains an individual containing the BIDAF primitives we have implemented. This call generates trained individuals that will then output values of the label type we specify in the context and query DataPairs we pass in. Our goal is to make changes to model.fit() and preprocess our dataset such that we can have individuals predict a numerical representation of the answer string that our evaluation function can then use in evolving individuals.
+* Rishit, Karthik and I discussed different numerical representations of our target strings that we could pass into our models. We are currently considering passing in word/character/contextual embedding vectors to the models, but this could easily devolve into replacing the embedding layer’s responsibility in the model prematurely, which could easily lead to overfitting of our models on our training set.
+* After running a quick Python script to ensure that the start index column in our dataset matched the string labels (insert script here), we decided to proceed with having our models predict the start and end index of the answer as a tuple, as this would be the easiest format for our evaluation functions to use.
+* Karthik is currently testing out an EMADE run on PACE with the start index of the answer as the target variable (as a result of our output layer changes, we have modified our problem from a classification problem to a regression problem). 
+
+
+## Individual Notes:
+* Since Jessi attended Wednesday’s meeting virtually, she asked if I could set up some time with her to help her get caught up with the output layer team’s progress and next steps. We met Friday afternoon at 3:00 PM for the same. I explained our team’s discussion on Friday as well as our new task of determining how Keras models can output tuples. 
+* I found this article to contain the best explanation of multi-output regression implementation in Keras: https://towardsdatascience.com/multi-output-model-with-tensorflow-keras-functional-api-875dd89aa7c6. However, I foresee limitations with EMADE’s handling of our DataPairs that may cause this approach to not work for individuals’ predictions, even if we can implement Keras layers that output tuples of the form (start_index, end_index). I believe EMADE directly passes off individuals’ predictions to the designated evaluation functions in the .xml for a given run, which might cause the start and end indices to get separated from one another when being evaluated, defeating the purpose of a tuple output for our prediction string. I will confirm with Steven on Monday. 
+* When I look at the EmbeddingLayer, it seems like the main thing we're doing there is tokenizing the datapair using texts_to_sequences(). I believe a starting point for us would be to look at other tokenization methods to use in this layer such as Penn TreeBank https://catalog.ldc.upenn.edu/LDC99T42 (which is good at identifying predicate-argument structure, a particularly common structure in answers for QA systems) and Gensim https://radimrehurek.com/gensim/, which already has pretrained embeddings for datasets of a variety of domains, including QA datasets. 
+* With these trained embeddings, we could embed the output once it is predicted and pass that to the evaluation function as a vector to compare to our embedded target vectors, allowing us to capture the entire strings as a numerized vector and allowing single-output regression at the same time. Moreover, if we were to move to a different evaluation metric that is more forgiving of answers that are slightly off in index but answer the question correctly, vectorized outputs would allow us to make this qualitative comparison directly (F1 score, which is what we are using correctly, merely compares the number of words in the prediction and target string that match). 
+* With this research in mind, our output layer team will finalize our output format during Monday’s meeting. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize Output Format from Output Layer After Team Discussion | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Research embedding methods and Keras multi-output regression | Done | 11/8/21 | 11/15/21  | 11/12/21 |
+| Determine if Karthik's run produces individuals that can predict start index | In Progress | 11/8/21 | 11/15/21  | - |
+
 # Week 11: November 1st, 2021
 ## Overview
 First NLP team meeting, understanding NLP problem, EMADE setup on PACE. 
@@ -44,7 +149,7 @@ EMADE PACE Setup Issues
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
+| Finish EMADE setup on PACE | In Progress | 11/1/21 | 11/8/21  | - |
 | Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
 | Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
 

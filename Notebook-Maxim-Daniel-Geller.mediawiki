@@ -12,22 +12,120 @@
 
 == Week 16: December 6th - December 13th ==
 
-* worked on Aryaan's CX bug
-* merged code for team to run experiments with on PACE
+Final Presentation Notes
+
+NLP
+
+* Using AutoML to build and improve question/answering models
+* Improve a retrained model rather than simplifying them
+* Their NNLearner2 has an ARG0 and ARG1 because they have multiple outputs
+* Slide 23: Had to fix the fact that the sigmoid activation function was hard-coded into NNLearner in EMADE.
+* Data prep is important for them with a Q/A task
+* Slide 37: What does accuracy mean to you? Variability in answers (multiple correct a possibility?)
+* Slide 40: Why use ELMO? You already have BERT. A: Turns out BERT crashes EMADE. They should fix it because I think it will perform way better.
+
+Stocks
+
+* Using AutoML to beat stock prediction algorithms with EMADE
+* Refocused to analyzing time series data
+* Analyze primitives used and profit percentage
+* argmax and argmin were very effective “learners”
+
+NAS
+
+* Working on automated hyper-parameter optimization in neural networks
+* Created a time stopping callback to limit how long networks train for
+* Does not seem to be a relationship between error and training times
+* Weight-sharing implemented to specialize modules and decrease training times
+* Added mate/mutate methods that improve accuracies
+* Add capability for residual connections (inspired by ResNet paper)
+* Managed to overfit on CIFAR-10! 
+
+Modularity
+
+* Continued work on increasing ARL complexity via increasing tree depth
+* Nested ARLs can create really complicated individuals
+* Found that ARLs did not significantly affect objectives
+** Implement a novelty reward to help with this 
+
+My Work
+
+* Aryaan was having lots of bugs pop up with his crossover methods that he was trying to implement from DEAP because they expected list of indices of primitives rather than primitives themselves. I helped him identify this issue and suggest some fixes (modifying the data structures)
+* Reviewed and merged PRs into [https://github.gatech.edu/amehra37/emade/tree/img-proc img-proc] for final testing on shared environment on PACE
+* I assigned experiments for everyone to complete for the final presentation
+* I ran 6 trials for our control group (no modifications, NSGA-II selection) and built a pareto front
+* Discussed with Monil how to meaningfully use the hyperfeature he created. Right now it gets applied to the data after it passes through the NN convolutions which makes it redundant since the hyperfeature is meant for preprocessing data. Building this as an NN layer could be good future work.
+
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Locate source of error in partially matched & uniform crossover for Aryaan
+|Completed
+|December 7th, 2021
+|
+|December 7th, 2021
+|-
+|Complete 6 baseline trials of EMADE
+|Completed
+|December 6th, 2021
+|
+|December 8th, 2021
+|-
+|Generate Pareto fronts for different experiments and create slide deck
+|Completed
+|December 8th, 2021
+|
+|December 10th, 2021
+|-
+|} 
+
 
 == Week 15: November 29th - December 5th ==
 
-In my psychology class, we talked about the formation of synapses during cognitive development and how overtime, our (human) brains prune the synapses that aren’t as useful to us. This made me wonder if any research was being done that applied this idea to neural network architectures. Turns out there has! I looked into it and shared some links and cool future ideas for NAS with Cameron B. 
+In my psychology class, we talked about the formation of synapses during cognitive development and how overtime, our (human) brains prune the synapses that aren't as useful to us. This made me wonder if any research was being done that applied this idea to neural network architectures. Turns out there has! I looked into it and shared some links and cool future ideas for NAS with Cameron B. 
 
-[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8220807/ Paper 1]
+[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8220807/ Paper 1], [https://arxiv.org/pdf/2005.06284.pdf Paper 2], [https://www.cs.princeton.edu/sites/default/files/uploads/deborah_sandoval.pdf Paper 3]
 
-[https://arxiv.org/pdf/2005.06284.pdf Paper 2]
+I found where batch size and epoch limit is controlled in neural_network_methods.py. 
+There is a point in the code it loads the nn stuff from some sort of cache(?) and the parameters are set there.
+I think some of the errors I have seen pop up around here as well. [https://github.gatech.edu/amehra37/emade/blob/img-proc/src/GPFramework/neural_network_methods.py line 935] and [https://github.gatech.edu/amehra37/emade/commit/7fac4a99e60005d6ef1bcc0030713d897e6e972b#r4351 commit in question]
 
-[https://www.cs.princeton.edu/sites/default/files/uploads/deborah_sandoval.pdf Paper 3]
+* updated f1_score_min eval function to handle multiclass labels by adding the average argument [https://scikit-learn.org/stable/modules/model_evaluation.html#multiclass-and-multilabel-classification reference]
+* Gave a SQL query for Austin that I wrote a couple of weeks ago to pull pareto individuals: select tree, evaluation_start_time, evaluation_gen, FullDataSet ROC AUC, FullDataSet Num Parameters from paretofront join individuals on paretofront.hash=individuals.hash where generation = (select max(generation) from paretofront) order by FullDataSet ROC AUC;
+* Continued to help team members debug issues related to EMADE and PACE
 
-I found where batch size and epoch limit is controlled in neural_network_methods.py. There is a point in the code it loads the nn stuff from some sort of cache(?) and the parameters are set there. I think some of the errors I have seen pop up around here as well. [https://github.gatech.edu/amehra37/emade/blob/img-proc/src/GPFramework/neural_network_methods.py line 935] [https://github.gatech.edu/amehra37/emade/commit/7fac4a99e60005d6ef1bcc0030713d897e6e972b#r4351 commit in question]
-
-updated f1_score_min eval function to handle multiclass labels by adding the average argument [https://scikit-learn.org/stable/modules/model_evaluation.html#multiclass-and-multilabel-classification reference]
+'''Action Items'''
+{| class="wikitable"
+!'''Task'''
+!'''Current Status'''
+!'''Date Assigned'''
+!'''Suspense Date'''
+!'''Date Resolved'''
+|-
+|Fix hard-coded batch and epoch sizes in neural_network_methods.py.
+|Completed
+|November 29th, 2021
+|
+|November 30th, 2021
+|-
+|Update f1_score_min evaluation function to handle multiclass labels
+|Completed
+|November 29th, 2021
+|
+|December 1st, 2021
+|-
+|Do baseline trial with F1 and ROC as objectives
+|Completed
+|December 1st, 2021
+|
+|December 2nd, 2021
+|-
+|} 
 
 == Week 14: November 22nd - November 28th ==
  
@@ -46,7 +144,7 @@ I also finished the new img-proc branch which has the updated NAS code and works
 !'''Date Resolved'''
 |-
 |Try a run without GPU 
-|Not started
+|Completed
 |November 22nd, 2021
 |
 |November 23rd, 2021

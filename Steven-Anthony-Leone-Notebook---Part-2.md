@@ -14,6 +14,51 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 # Fall 2021
 
+## Final Presentations
+* Image Processing
+* * Main Objective: How can we improve EMADE on image processing tasks
+* * Leverage GP, selection methods, mating and mutation, new primitives, and deep learning
+* * Normalized, conducted Horizontal flipping, and newer augmentations
+* * Size of dataset is 4000 images
+* * Changed problem to not be multilevel (still multiclass)
+* * Comparing TPR vs FPR and Num Parameters
+* * Baseline Results: AUC was 0.21895
+* * NSGA II was used by baseline, then used NSGA 3 and Lexicase
+* * In actuality, NSGA II ended up performing significantly better.
+* * Trees started to become too complex to yield meaningful results come generation 4 and beyond.
+* NLP
+* * We presented our results
+* Stocks
+* * Comparing their results to a paper
+* * Changed objective functions this semester
+* * Experiment status: not all trials were completed due to time constraints, but can do some analysis
+* * Compared their results to a paper
+* * Originally, the plan was to replicate the paper's logic in EMADE.
+* * Ultimately couldn't replicate it fully
+* * Now seeing if they can outperform the paper.
+* * Best Individual is extremely complex.
+* * Managed to beat the paper in every stock, except for Johnson and Johnson
+* Modularity
+* * Focus on ARL's
+* * Created a script called CloudCopy for easier setup
+* * Still using the same titanic dataset
+* * Compared ARL Runs 
+* * Had unreliable data in midterm presentation
+* * Effects of ARL complexity on performance was high 
+* NAS
+* * Started off by defining what a search space was
+* * Had a short term goal of producing complex individuals, and a long term goal of producing individuals
+* * Produced extremely complex individuals
+* * Added weight sharing
+* * Added module as a primitive
+* * Introduced Leveraging Modules
+* * Introduced Weight sharing this semester
+* * Weight sharing is: if a module was trained, load old weights.
+* * Reading and writing shared weights to a database was bad (errors, very slow)
+* * Instead, they stored weights in a file, which was much faster. 
+* * Added Max Pooling
+* * I asked about early stopping and current state of weight sharing
+
 ## Week 16, Dec 6th
 
 ### General Meeting Notes
@@ -28,17 +73,61 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * We could then treat this as a Binomial problem. Did it succeed or not?
 
 ### Sub Team Meeting Notes
+* At this week's sub team meeting, we worked on the final presentation and clarified anything anyone was confused on.
+* A lot of team members had one off, individual issues, so I set up meetings with them to clarify things and attempt to fix their issues.
 
+### Meeting with Devan
+* First, I met with Devan. This meeting was just to finish planning out our discussion of NNLearner2, as we had both debugged parts of it.
+* We also assigned him to talking about multiple data pairs in the presentation.
+
+### Meeting with Jessi
+* Jessi was having issues getting runs in. I met with her and debugged our way through. The core of the issue was that her environment was that needed for the master branch, not the branch we were on.
+
+### Other miscellaneous conversations
+* Most of the rest of these conversations post sub team meeting were on clarifications about their parts in the presentation.
+* George also still had issues with getting the seeds to show up properly. We eventually found that, if you are close to reaching Disk quota on PACE, too many epochs can cause an individual to fail for memory reasons.
+* I clarified our problem with multioutput regression to Aditi.
 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Get another regular run in| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
-Create final presentation | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
-Meet with Rishit and Shiyi to work on Experiment Results and Visualizations | In Progress | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Get at least one more EMADE Run with SQUAD| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
+Create final presentation | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
+Analyze Experiment Results and create Visualizations with Rishit and Shiyi | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
 
 
-This week: Runs, Final Presentation
+### Getting Runs in
+* I continued getting runs in this week. As each one was to be 24 hours long, I figured out that, even with the debugging required by setting up a run, I would have time for 2 more runs.
+* I got one more run in successfully.
+* After that, however, PACE was getting very crowded. By Wednesday most members on our team, myself included, would add jobs to PACE's queue, and they would remain there for several hours.
+* Thus, I was only able to get 1 good run in. 
+* I added it to the folder of runs, which I had given to the team earlier this week: https://drive.google.com/drive/folders/16CnEwE8sH6MpxYL1BXF3heFVYUPTZwxS?usp=sharing
+* This is our record for keeping track of details regarding runs: https://docs.google.com/document/d/1JqUTAvFtVeUjeLXaQQLYsbzi8vrLYKBosCeDAg9nEHM/edit?usp=sharing
+
+### Analysis and Visualizations
+* On Thursday, I met with Rishit and Shiyi to analyze the results of our runs, linked in the section
+ above.
+* We sorted through run results, and found that the best we could analyze (without only having one result to look at) would be 4 sets of two continuous 8 hour runs, for a total of four 16 hours runs.
+* We compiled their Pareto fronts and began to analyze them.
+* Our goal was to see if auto machine learning could be used to improve an existing question answering model. To do this, we would look at our runs, which we seeded with an individual, and see if individuals that beat the existing model in all objectives could be produced. 
+* We could measure our success by looking at the area of a region that we dubbed the "region of interest". This would be the total area bounded by our Pareto Front and the rectangle made by the origin and seeded individual as opposite corners.
+* An example (taken directly from our results). Is shown below. The yellow shaded region represents the region of interest. 
+* <img width="361" alt="Screen Shot 2021-12-12 at 4 54 42 PM" src="https://github.gatech.edu/storage/user/27405/files/466630e0-c264-48d5-8366-cd304dc195dc">
+* We could compare and easier understand our numbers by looking at region of interest's area as a percentage of the area bounded by the seeded individual.
+* I wrote up code in one of our Collab Notebooks to calculate the area of the region of interest. The code is at the bottom of this link:
+https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing
+* You can also find a picture of it here: 
+*  <img width="1040" alt="Screen Shot 2021-12-12 at 5 26 12 PM" src="https://github.gatech.edu/storage/user/27405/files/376ec182-e2f9-4209-a07f-2fe4597d1434">
+* I plugged in numbers from our Pareto fronts of our four different runs to produce visualizations from various code Rishit and Shiyi wrote. These are the results:
+<img width="331" alt="Screen Shot 2021-12-12 at 5 27 53 PM" src="https://github.gatech.edu/storage/user/27405/files/2d838e02-93de-4313-b819-7a97b6a3eaee">
+<img width="289" alt="Screen Shot 2021-12-12 at 5 28 13 PM" src="https://github.gatech.edu/storage/user/27405/files/b9f6e4fc-1efd-4133-a8e5-c6024bafdaff">
+<img width="281" alt="Screen Shot 2021-12-12 at 5 28 35 PM" src="https://github.gatech.edu/storage/user/27405/files/63344db7-a48b-454d-93f4-1ce074bd8930">
+* Our fourth run did not produce a run better individual. The seeded individual remained on the Pareto Front.
+* My overall analysis of the results, which I discussed with Rishit and Shiyi, is as follows. We had four runs, and 3 of them by our definition of success resulted in success. 2 of them reduced area bounded by the seeded individual by 10%, and another one was by only .1%. From one perspective, the run with .1% could realistically be seen as a failure. With four runs, only half of them managed to improve a seeded individual, indicating auto machine learning had trouble improving a seeded individual on this data, with these primitives. From another perspective though, in 75% of our runs, we were able to improve from a seeded individual, 2 of them being rather significant. Overall, I think the second case is stronger, as we definitely can't rule out that auto machine learning can improve seeded individuals- our results mostly showed improvements. Yet, the strongest factor here is definitely our limited amount of data. We only got four runs in. We only had 3 runs that were successful, but we also only had one failure. We would need many more runs before we can get a very strong sense of results here.
+* Thus, overall, we decided that our results indicated that we could use auto machine learning to improve an existing question answering model, but we lacked the data to make any firm conclusions.
+* One of the most significant factors I saw here, as discussed with many of our other members, was that our individuals weren't performing well at all. Accuracy was about 1% and MSE was around 400,000 to 500,000. MSE is less of a visually appealing statistic (we will have to go back and double check that this is a sum of squared errors), but, from our final presentation, it is possible that our models are only off by two every time. As accuracy requires an exact match, this is very well possible. 
+* Next semester, we need to hand train a model for sure, using all primitives in EMADE. This would involve Keras instead of PyTorch, as the model we trained with our Collab notebook couldn't be exactly compared.
+* We also need to fix the BERTInputLayer, which crashes our models. Not much debugging has been done here.
 
 ## Week 15, Nov 29th
 

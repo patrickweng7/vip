@@ -4,10 +4,72 @@
 * Interests: Machine Learning, finance, swimming
 * Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, Eashan
 = Fall 2021 = 
+== November 5th - December 10th, 2021 == 
+'''Final Presentation + Meeting Notes'''
+* Image Processing:
+** Final presentation link:
+** Notes for future work:
+*** We need to further our results by looking into each of the 14 classes and look at individual performace across classes.
+*** Creating a confusion matrix to better analyze the results.
+*** Looking into each and e very instance individual with lexicase to bias better performing individuals
+*** Need to also look into how actual physicians are looking into finding diseases in people to determine how we should generate better hyperfeatures.
+* NAS:
+** Worked on time stopping to improve the productivity of individuals.
+** If enough time has elapsed they will stop functioning.
+** They ran 1 trial with this and as we evaluate individuals for more and more time EMADE more time trying to evaluate individuals which would be fruitless.
+** They also worked on making more deep and complex individuals.
+** They also added weight sharing and modules to make specialized modules and speeds up training time.
+** Early stopping had the largest impact as could be seen on the precision and accuracy graph.
+** They tried out the modular structures with architectures like VGG 16
+** They tested out weight sharing and had a relatively low test accuracy of 64.42% due to the fact that weights were being stored in the database which was why it was taking too much storage.
+** Now they were storing it in a file which allowed for many better individuals due to many generations.
+** They also tried out modules with residual networks.
+* NLP:
+** Used the SQUAD dataset and used a question answering model to obtain results.
+** Created a new NNLearner2 two work with new data pairs.
+** They had to re-process the SQUAD dataset to start with words instead of characters.
+** Used the code used by GTRI for multiple data pair and fixed related bugs related to load_environment and the divide length of the test data.
+** NNLearner2 had both an ARG0 and an ARG1.
+** Issues with the sigmoid activation layer which kept shooting out a 1.
+** Worked on the BiDAF model by creating a similarity matrix, query to context attention.
+** Created to new modeling layer by passing the result through a bi-directional LSTM layer. 
+** Created a graph execution for the for the new matrix operations.
+** Experimental results:
+*** Were able to get multiple individuals which were better than the seeded individuals.
+*** Their accuracy was around 1-2% (but SOTA is around 80%
+** They need many more runs in the future.
+* Stocks:
+** Ran 3 total trials. Used PACE ICE for all of them.
+** Main objective which was analysed was the profit % analysis.
+** Tested across all of the different primitives.
+** ArgMin and ArgMax were the most useful primitives found through analysis.
+** Comparison of results with the fuzzy model paper:
+*** The best performing individual was an ArgMin individual and was able to outperform the paper on almost all the securities.
+* Modularity:
+** They work with searching the search space to find compatible parent and child pairs.
+** They used CloudCopy to set their workspace up.
+** They worked on testing the complexity of ARL's by increasing tree depth.
+** They calculated the false positives and false negatives and compared the new architecture to the older ones.
+** After enough generations and time newer ARL's might perform better than the older ARL's.
 == November 29th - December 4th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
-* Code freeze 
-* Testing
+* This was the last week before the final presentations. I had several things to complete first. 
+* I had to work on making sure that all of the new mating methods were compatible with the new conda environment on PACE and begin running experiments. 
+* There were issues with some of the methods while others worked as they were meant to:
+** Initially while running the operators on the old conda environment which didn’t have the new NAS changes and TF2.6, they evaluated all individuals as (inf, inf)
+** On the new environment, there were errors related to the using lists which could not have Primitive type objects
+** On fixing this issue, there was an error related to ‘invalid node replacements’ due to replacement of a node with a different arity
+* cxTwoPoint() and cxUniform() ended up working correctly and the following were the results:
+** We ran a total of 4 experiments with two point and uniform crossover. 
+** Average ROC AUC: 0.380334
+** Best ROC AUC: 0.365493
+** # of Parameters (highest and lowest): 36184500, 36166300
+* To get all the experiments done I worked with Elan, Rohan and Eashan. I did 2 runs on EMADE and they each did one so that we could get the required sample size for the data. 
+* I also worked on getting the slides ready for the geometric mating functions. Wrote their descriptions and results. I also used the Tree Visualization algorithm to display the tree structure for people to better understand the form of the individuals that we were evaluating.
+* Also worked on making the pareto front with all the results from all 5 runs. 
+Here is the result of the tree structure and the pareto front:
+** Tree Example: https://docs.google.com/document/d/1QFCyQaRVncgObmOqL_6TKKGNAO4wNgwESJtMcuaGs48/edit?usp=sharing
+** Pareto Front: https://docs.google.com/document/d/11ZgZT2vQWixQcI5QPyJXtRwP28twcBPer4JYMKwXE9M/edit?usp=sharing
 {| class="wikitable"
 !Assignment 
 !Current Status
@@ -15,23 +77,29 @@
 !Suspense Date
 !Date Resolved
 |-
-|Make PR Multi-class Dataset 
+|Test Mating Operators
 |Completed
-|November 1st, 2021
-|November 9th, 2021
-|November 9th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 4th, 2021
 |-
-|Add in new mating/mutation operators
+|Run multiple experiments for less biased results
 |Completed
-|November 1st, 2021
-|November 15th, 2021
-|November 15th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
 |-
-|Test new operators on PACE
+|Work on getting the Tree Visualizer to work
 |Completed
-|November 1st, 2021
-|November 17th, 2021
-|November 17th, 2021
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
+|-
+|Make Pareto Fronts of results for the presentation
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
 |}
 == November 22nd - 28th, 2021 == 
 '''General Notes (no meetings due to thanksgiving):''' 
@@ -57,8 +125,8 @@
 |Make a PR for the new mating methods
 |Completed
 |November 1st, 2021
-|December 3rd, 2021
-|December 3rd, 2021
+|November 29th, 2021
+|November 29th, 2021
 |-
 |Fix bugs related to the mating methods
 |Completed
@@ -68,7 +136,7 @@
 |}
 == November 8th - 14th, 2021 == 
 '''Subteam & Team Meeting Notes:''' 
-* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered()) and began testing them.
+* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered(), cxTwoPoint(), cxUniform()) and began testing them.
 * I was having errors because of our implementation of NSGA-3 which was implemented in the GPFramework egg file on our team's shared conda environment. After speaking with Max we decided that rather than us all using the same conda environment, we should instead have our own environments on PACE for testing purposes so that we do not limit individual testing.
 * The following were the steps I followed to create a new conda environment myself for testing:
 1. Use the following lines to create a new environment on terminal:
@@ -112,6 +180,8 @@
 ** cxPartialyMatched()
 ** cxUniformPartialyMatched()
 ** cxOrdered()
+** cxTwoPoint()
+** cxUniform()
 * We will be looking at the code-base (https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py) closely to make sure that the changes we are making are in adherence to EMADE and strongly-typed GP to prevent any other type errors similar to the ones we've made before.
 {| class="wikitable"
 !Assignment 

@@ -45,7 +45,62 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 ** #PBS -q pace-ice
 ** #PBS -o emade-chest.out
 
+===Subteam Meeting Notes===
+* work session
+* use stand alone tree to get results for both hyperfeatures
+* encountered lots of errors:
+** had to create my own environment
+** had to add new datasets to new datasets folder
+** had to install tensorflow 2.6
+** Errors that said "Could not find GPFramework" - fixed this with reinstall command
+** mysql errors saying can't connect to mysql server at "_____"
+* Results:
+** Contrast + sobel filter:
+*** 1 - ROC AUC = 0.5
+*** This is the worst ROC AUC possible - equivalent to random guessing
+*** I suspect that this is because edge detection takes away too many of the small details in the chest X-ray images, only outlining prominent shapes.
+** Contrast + sharpening filter:
+*** 1 - ROC AUC = 0.4 
+*** This is better than the sobel filter, but it still is lower than the baseline. 
+* Finished results and sharpening filter slides for final presentation
 
+===Final Presentations===
+* Link to Final Presentation : [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing]
+* Suggestions:
+** Use lexicase to get 14x14 confusion matrix 
+** We should have looked into the AUC's for each class because the average value doesn't say much. Some classes might have much higher prediction rates than others
+** We have to say 1 - ROC AUC not just ROC AUC 
+** include more in future work and don't be afraid to talk about what we hope to do in the future, not just what we have done.
+** think about how a human would look at the images to come up with more filters for hyper-features
+** Think about how a human would look at the images to come up with a way to reduce parameters. 
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Finish experiments to get results
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 9th, 2021
+|-
+|Finish Final Presentation
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 10th, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Dec 6th, 2021
+|Dec 10th, 2021
+|Dec 10th, 2021
+|-
+|}
 
 
 ==Week 15: November 29th - December 5th==
@@ -154,7 +209,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Finish Data pre-processing
+|Fix and push Data pre-processing
 |Complete
 |Nov 15, 2021
 |Nov 22, 2021
@@ -262,7 +317,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Change Data pre-processing
+|Change Data pre-processing to still be multiclass
 |Complete
 |Nov 1, 2021
 |Nov 8, 2021
@@ -322,7 +377,7 @@ Interests: Machine Learning, Python, Volleyball, Hiking, Traveling, Working Out
 !Due Date
 !Date Completed
 |-
-|Change Data pre-processing
+|Change Data pre-processing to be binary
 |Complete
 |Oct 25, 2021
 |Nov 1, 2021

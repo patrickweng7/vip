@@ -16,6 +16,95 @@ Team members:
 * [[Notebook Shiyi Wang|Shiyi Wang]]
 * [[Notebook Karthik Subramanian|Karthik Subramanian]]
 
+== December 10, 2021 ==
+* Image Processing
+** Preprocessing
+*** image resizing, normalization, rotation, shearing, translations
+*** reduce dataset size significantly
+** Problem
+*** working on multi-class image classification rather than multilabel and multiclass
+** Scores
+*** comparing TPR vs FPR 
+*** also trying to reduce number of parameters
+** Selection Methods
+*** NSGA II
+**** baseline ROC AUC of 0.218952
+*** NSGA III
+**** performed worse than NSGA II, probably because it only works better for > 4 objectives
+*** Lexicase
+**** also performed worse than NSGA II (but better than NSGA III)
+**** probably worse because the dataset was too small
+** Semantic Crossover
+*** attempts to find a subchild that is directly in between two parent trees in semantic space
+*** semantic mutation attemps to generate an offspring that maintains the semantic information of the parent
+** HyperFeatures
+*** grey level transformation, sharpening filter, sobel filter
+* Neural Architecture Search
+** tries to find the best architecture for a neural network for a specific need
+** Generator Method
+*** generates valid nnlearners
+** Pruning
+*** automated pruning to force nnlearner models to be valid
+** Future Goals
+*** effectively use pooling layers
+*** Weight sharing
+**** store weights in cache/file, not writing to database every time
+**** greatly improved efficiency
+*** use resnet/VGG architectures in EMADE
+** Testing/Analysis
+*** children keep track of parents which have given "DNA" to it
+* Modularity
+** Documentation
+*** moved information from tuples into classes
+*** standardized variable names
+*** refactored inefficient methods
+*** added comments
+** Improvements
+*** larger ARL size/depth does not make it more accurate
+*** increased size/complexity possibly increases usefulness in terms of storing good branches
+** ARL Effects
+*** most of the ARLs look like the general distribution
+
+== December 6, 2021 ==
+* Embedding Layer
+** begin working on character and Glove embedding for next semester
+* Presentation
+** fix some technical errors in the presentation regarding our layers and primitives
+** prepare to talk
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Date Resolved
+!Suspense Date
+|-
+|Glove embedding
+|In Progress
+|December 6, 2021
+|
+|
+|-
+|Fix existing BERT embedding
+|In Progress
+|December 6, 2021
+|
+|
+|-
+|Character embedding
+|In Progress
+|December 6, 2021
+|
+|
+|-
+|Finish presentation slides
+|Completed
+|December 6, 2021
+|December 8, 2021
+|December 10, 2021
+|-
+|}
+
 == November 28, 2021 ==
 * Bidirectional Modeling
 ** apparently tf.argmax can't be used with gradients:

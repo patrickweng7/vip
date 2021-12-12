@@ -8,11 +8,144 @@ https://wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Vincent_H_Huang
 
 # Fall 2021
 ### Week 16: Dec 6
-final presentation
+- [Final Presentation Slides](https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit?usp=sharing)
+    - Helped Sai implement changes to visualization to aggregate data for ARL size experiment visualizations
+    - Met with first year students to discuss what to say for slides
+- Implemented visualizations for ARL clustering experiment
+```
+import matplotlib.pyplot as plt
+import MySQLdb
+
+results_tree_idx = 0
+results_false_positives_idx = 1
+results_false_negatives_idx = 2
+results_gen_idx = 3
+
+dbresults = dict()
+arlresults = dict()
+for dbnum in range(4, 12):
+    db = MySQLdb.connect(host='database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com', user='admin', passwd='mypassword', database=f'extendedarl{dbnum}')
+    mycursor = db.cursor()
+    mycursor.execute("SELECT tree, `FullDataSet False Positives`, `FullDataSet False Negatives`, evaluation_gen from individuals where `FullDataSet False Positives` is not null")
+    results = mycursor.fetchall()
+    dbresults[dbnum] = results
+
+    mycursor.execute("SELECT name from adf")
+    results = mycursor.fetchall()
+    arlresults[dbnum] = results
+
+for dbnum in dbresults.keys():
+    result1 = dbresults[dbnum]
+    arl_names = [res[0] for res in arlresults[dbnum]]
+
+    arl_to_pareto_occ_map = dict()
+
+    for arl_name in arl_names:
+        has_indv = False
+        for result in result1:
+            if f"{arl_name}(" in result[results_tree_idx]:
+                if arl_name not in arl_to_pareto_occ_map:
+                    arl_to_pareto_occ_map[arl_name] = set()
+                arl_to_pareto_occ_map[arl_name].add((result[results_false_positives_idx], result[results_false_negatives_idx], result[results_gen_idx]))
+
+    fig, ax = plt.subplots()
+
+    for arl_name, arl_occ_set in arl_to_pareto_occ_map.items():
+        if len(arl_occ_set) > 10:
+            x = []
+            y = []
+            color = []
+
+            gens_to_graph = set([occ[2] for occ in arl_occ_set])
+            reduced_to_gens = set([tuple(occ[1:]) for occ in dbresults[dbnum] if occ[results_gen_idx] in gens_to_graph and tuple(occ[1:]) not in arl_occ_set])
+
+            for occ in reduced_to_gens:
+                x.append(occ[0])
+                y.append(occ[1])
+                color.append([0, 0, 0, .3])
+
+            for occ in arl_occ_set:
+                x.append(occ[0])
+                y.append(occ[1])
+                color.append([1, 0, 0, .5])
+
+            plt.scatter(x, y, c=color)
+            t = plt.title(f'Objective Score of Aggregated Individuals Containing {arl_name}')
+            plt.xlabel('False Positives')
+            plt.ylabel('False Negatives')
+            t.set_color("black")
+            plt.xlim([0, 120])
+            plt.ylim([0, 80])
+            print(dbnum)
+            plt.show()
+            plt.clf()
+
+to_graph = [(23, 4)] # arl,dbnum 
+
+for arl_num, dbnum in to_graph:
+    result1 = dbresults[dbnum]
+    arl_names = [res[0] for res in arlresults[dbnum]]
+
+    arl_name = f"arl{arl_num}"
+
+    arl_to_pareto_occ_map = dict()
+
+    for result in result1:
+        if f"{arl_name}(" in result[results_tree_idx]:
+            if arl_name not in arl_to_pareto_occ_map:
+                arl_to_pareto_occ_map[arl_name] = set()
+            arl_to_pareto_occ_map[arl_name].add((result[results_false_positives_idx], result[results_false_negatives_idx], result[results_gen_idx]))
+
+    fig, ax = plt.subplots()
+
+    for arl_name, arl_occ_set in arl_to_pareto_occ_map.items():
+        if len(arl_occ_set) > 10:
+            gens_to_graph = set([occ[2] for occ in arl_occ_set])
+            reduced_to_gens = set([tuple(occ[1:]) for occ in dbresults[dbnum] if occ[results_gen_idx] in gens_to_graph and tuple(occ[1:]) not in arl_occ_set])
+
+            gens_to_graph_list = sorted(list(gens_to_graph))
+            print(dbnum)
+            for gen in gens_to_graph_list:
+                x = []
+                y = []
+                color = []
+                for occ in reduced_to_gens:
+                    if occ[2] == gen:
+                        x.append(occ[0])
+                        y.append(occ[1])
+                        color.append([0, 0, 0, .3])
+
+                for occ in arl_occ_set:
+                    if occ[2] == gen:
+                        x.append(occ[0])
+                        y.append(occ[1])
+                        color.append([1, 0, 0, .5])
+
+                plt.scatter(x, y, c=color)
+                t = plt.title(f'Objective Score of Aggregated Individuals Containing {arl_name}\nGeneration {gen}')
+                plt.xlabel('False Positives')
+                plt.ylabel('False Negatives')
+                t.set_color("black")
+                plt.xlim([0, 120])
+                plt.ylim([0, 80])
+                plt.savefig(f"{arl_name}_db{dbnum}_gen{gen}")
+                plt.clf()
+```
+![](https://i.imgur.com/BQV8uTA.png)
+![](https://i.imgur.com/cP7rTYY.png)
+![](https://i.imgur.com/gcJXcEs.png)
+![](https://i.imgur.com/S9O2xbk.png)
+
+### Code Commits
+- [Changes](https://github.gatech.edu/vhuang31/emade-viz/commit/c25b59577a108e1f1e80b03ea45216cc2632e777)
+    - Implemented ARL clustering visualizations
+
+|Task|Status|Assigned Date|Due Date|Date Completed|
+|----|------|-------------|--------|--------------|
+|Implement visualizations for ARL clustering experiments|Complete|Nov 29|Dec 7|Dec 9|
+|Meet with first year students separately to discuss their slides|Complete|Nov 21|Dec 9|Dec 9|
 
 ### Week 15: Nov 29
-worked on visualizations
-
 - Since the CacheV2 Integrations team seemed to be struggling, I offered to take a look at their code
     - Very problematic code commits
     - Primary problem was that in `sql_connection_orm_master.get_seeded_pareto()`, it references `self.optimization`.

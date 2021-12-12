@@ -14,13 +14,68 @@ Teammates:
 * Cameron Whaley
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Devesh-Kakkar Devesh Kakkar]
 * [https://github.gatech.edu/emade/emade/wiki/Notebook-Lucas-Zhang Lucas Zhang]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Justin-Hsu-Hinckley Justin Hinckley]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Charles-William-Bauer Charles Bauer]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Rayan-Khoury Rayan Khoury]
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Pranav-Pusarla Pranav Pusarla]
+
+== December 10, 2021 ==
+'''Final Presentation Notes:'''
+* Met for 3 hours to listen to and give sub-teams' final presentations.
+* Our slides for the final presentation can be found here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing.
+* I presented slides 50-52 (changed from last week) on the topic of novelty detection. To reiterate a few of my points, our objective is fairly basic: to introduce new layer types into the population. However, we realized that this is not effective – we already have a diverse population with the expected layer types (see slide 51 for first generation statistics). This is all of the layers currently implemented in EMADE. Therefore, our evaluation method always returns 0 (tested to five generations). Obviously, our current idea of novelty is fairly constrained: a simple binary includes / doesn’t include metric. We can add more layers (like dropout) or utilize a frequency-based comparison, but these will not solve our problem. Instead, we want our novelty functions to reward intelligent architectures. For example, the AlexNet and VGG-16 architectures feature stacks of convolutional layers followed by a pooling layer (i.e. the paradigm is to decrease the spatial resolution of the representation while increasing the number of channels). Therefore, we want to instead track modules (which were introduced by the two Camerons). You might think that this will run into the same issue. However, the number of modules is theoretically unbounded whereas the number of layers is not. A side effect of promoting these submodules: deeper networks!
+* You can find an overview of recent CNN architectures here: https://theaisummer.com/cnn-architectures/. Note their design principles and their modular components -- we are trying to emulate this within the NAS branch.
+* I made a couple of runs of EMADE on PACE up to five generation but found (as noted above) that the form of novelty detection I implemented would not work under the previous iteration of our NAS branch. In the future, I will have to make a slight modification to these methods to account for modules instead of layers. It should be a relatively simple adjustment but we did not introduce modules until the end of this semester and so I did not have time to test them.
+* Notes from other teams' presentations: 
+
+1. Image Processing introduced new geometric crossover methods and used a multi-label dataset. They compared performances using NSGA2 and NSGA3 as well as various filters.
+
+2. NLP focuses on QA using the SQUAD dataset. Their model is based on BiDAF. They ran into several issues over the semester and so re-focused on improving existing model. They introduced NNLearner2 to accept multiple data pairs and created a bidirectional attention layer. Their future work includes implementing multi-output regression individuals. 
+
+3. Stocks created individuals which improve upon all baselines presented in their comparison paper. Notably, their individual of interest utilizes ARGMIN as its learner, and it is not immediately clear why. They will continue to find pareto optimal individuals in preparation for a paper.
+
+4. Modularity compared ARL runs and discussed their Collab infrastructure. Their future work includes incorporating the stock team's work and creating a paper.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+| Add additional novelty detection evaluation methods that take frequency into account. This may not be necessary for this semester's work. I decided this would not be appropriate for this semester's goals.
+|Completed
+|12/3/21
+|12/6/21
+|12/6/21
+|-
+| Complete experimental runs and slides for final presentation.
+|Completed
+|12/3/21
+|12/10/21
+|12/9/21
+|-
+| Port over missing changes from nn-vip-layers to nn-vip-final. You can find this work here: https://github.gatech.edu/cwhaley9/emade/commit/34059dc15c209c0bbdcad93d35fa75fa1944cdf8. I also added another column to the Statistics table to allow easy reading of the layer_frequencies column.
+|Completed
+|12/3/21
+|12/9/21
+|12/10/21
+|-
+| Finish updating VIP notebook.
+|Completed
+|12/10/21
+|12/13/21
+|12/12/21
+|-
+|}
 
 == December 6, 2021 ==
 '''Team Meeting Notes:'''
 * Used this period to review our plans for the final presentation and ensure that all members were capable of completing runs.
 * Our slides for the final presentation can be found here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing.
 * Cameron Bennett merged all of our work onto the nn-vip-final branch: https://github.gatech.edu/cwhaley9/emade/tree/nn-vip-final. He also added some new novelty evaluation methods which I can use.
-* I will be performing runs this week using this branch to test the novelty evaluation functions.
+* I will be performing runs this week using this branch to test the novelty evaluation functions. After the merge, there were some missing changes from my own branch, and so I had to port these over manually. This took some time to debug.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -39,6 +94,12 @@ Teammates:
 | Complete experimental runs and slides for final presentation.
 |In Progress
 |12/3/21
+|12/10/21
+|
+|-
+| Port over missing changes from nn-vip-layers to nn-vip-final.
+|In Progress
+|12/6/21
 |12/10/21
 |
 |-

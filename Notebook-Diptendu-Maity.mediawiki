@@ -1609,7 +1609,7 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |11/08/2021
 |11/05/2021
 |-
-|Fix bugs to merge branch with cachev2
+|Fix the GPF framework files for CacheV2 changes
 |Completed
 |11/01/2021
 |11/22/2021
@@ -1661,7 +1661,7 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |11/22/2021
 |11/19/2021
 |-
-|Fix bugs to merge branch with cachev2
+|Fix templates files for CacheV2 changes
 |Completed
 |11/08/2021
 |11/22/2021
@@ -1677,19 +1677,20 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 * Continue with Titanic ARL runs and collect data.
 
 === CacheV2_ARL Changes ===
-* I made the necessary changes to:
-** SeedingFiles/seeding_test_7
-** src/GPFramework/check_valid_individual.py
-** src/GPFramework/data.py
-** src/GPFramework/didLaunch.py
-** src/GPFramework/emade_operators.py
-** src/GPFramework/eval_methods.py
-** src/GPFramework/pickled_individual_reader.py
-** src/GPFramework/sql_connection_orm_master.py
-** src/GPFramework/standalone_tree_evaluator.py
-** src/GPFramework/statistics.py
-** templates/inputSample.xml
-** templates/inputSample2.xml
+* I made the necessary changes to (includes commit id):
+** SeedingFiles/seeding_test_7: de39c5ffa1f3ea789a3ecbfb3b43f0509c26e97c
+** src/GPFramework/check_valid_individual.py: 760abe2c49f8da32f5187a94af2ba4b4d9991f7c
+** src/GPFramework/data.py: f5824f84d3b8637e4c33d5c4ab91054c42f8a1e9
+** src/GPFramework/didLaunch.py: 698457a4e385629ae6db88d236146a25d961dcc4
+** src/GPFramework/emade_operators.py: 97d072504f6ab38436319fc2d6bdfd5d3f4593ad
+** src/GPFramework/eval_methods.py: 437390b3c1bbfe305677482c67e0dc534e5cbeb5
+** src/GPFramework/pickled_individual_reader.py: db4307ab296a84d92ce6d566cbec676e446497a6
+** src/GPFramework/sql_connection_orm_master.py: 7f9b485052f859e0a74d51791843364568d461c6
+** src/GPFramework/standalone_tree_evaluator.py: 57fc5af1c443de891250bed4547f7e50ddce8a73
+** src/GPFramework/statistics.py: 3f8ca166bd29ca6b2412f31fbc7347f1eb96a093
+** templates/inputSample.xml: 3d48eee20abeedd47813cd29115f7d2dac384f11
+** templates/inputSample2.xml: 84ff75943289748f1dc9367ae6015517a3c2276b
+* [https://github.gatech.edu/bbal3/emade/commits/CacheV2_ARL Commit changes link ]
 * Changes :
 ** Cloned this fork of emade. git clone [https://github.gatech.edu/bbal3/emade https://github.gatech.edu/bbal3/emade] We worked off of the branch CacheV2_ARL
 ** The goal was to move all the changes from adfs into the most recent version of CacheV2, which is copied over into our branch CacheV2_ARL. The file changes that needed to be made [https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2 https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2]
@@ -1714,17 +1715,17 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |11/22/2021
 |11/18/2021
 |-
-|Fix bugs to merge branch with cachev2
+|Debug launchEMADE.py
 |Completed
 |11/15/2021
 |11/22/2021
 |11/21/2021
 |-
-|Make Proper Changes for Stock Runs
-|In Progress
+|Figure out missing file changes for stock runs
+|Completed
 |11/18/2021
-|12/06/2021
-|
+|11/22/2021
+|11/21/2021
 |}
 
 == Week of 11/22/2021 ==
@@ -1744,11 +1745,11 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 !Suspense Date
 !Date Resolved
 |-
-|Make Proper Changes for Stock Runs
-|In Progress
+|Debug EMADE.py file for CacheV2
+|Completed
 |11/22/2021
-|12/06/2021
-|
+|12/29/2021
+|11/27/2021
 |-
 |Titanic Runs: extendedarl10
 |Completed
@@ -1771,6 +1772,33 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 * Fixing cacheV2 errors in order to get stock runs to work.
 * Started on the final presentation and worked on figuring out what we want to include in the presentation.
 
+=== Final Presentation Information === 
+ARL Complexity
+* This semester we continued our work on increasing the complexity of ARLs via increasing tree depth
+* Goals 
+** Allow the search function to consider larger subtrees depth to increase the potency of ARLs
+** Improve ARL candidate selection via a weighting function, given by occurrences * size of ARL / fitness of individual
+* Increasing the tree depth essentially allows for there to be more nodes in the ARL, which means it is essentially doing more.
+* We wanted to see if increasing the complexity helped better the potency of the ARLs.
+* The tree depths used to be about three before. It consisted of the root node, its children nodes, and its respective parameters. 
+* The new selection function priorities weight because it multiplies that value and tries to decrease the number of FP and FN by dividing by the fitness individual.
+* Turns out increasing the complexity of the ARLs does not necessarily mean better results.
+* Thus, we will not be prioritizing complexity anymore moving forward.
+
+Merging CacheV2
+* Our current codebase is not up to date with CacheV2
+** Most teams are up to date with CacheV2, and this is the first step needed in order to do experiments using other teams’ datasets/code.
+** Integrating ARLs into CacheV2 branch
+* Methods: 
+** Looked at diffs between CacheV2 branch and ARL_Update branch to compare files that have been changed.
+* Still missing file changes for stocks.
+* Primary: launchEMADE.py / EMADE.py
+** Need to spend more time debugging changes that happened with merge
+* MySQL Connection Issues
+** MySQL connections are not working with our new, updated branch of code
+* We are able to start runs but results did not output correctly
+
+
 === Action Items ===
 {| class="wikitable"
 !Task
@@ -1779,11 +1807,11 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 !Suspense Date
 !Date Resolved
 |-
-|Make Proper Changes for Stock Runs
-|In Progress
+|Do research on MySQL Connection Issues for CacheV2
+|Completed
 |11/29/2021
 |12/06/2021
-|
+|12/05/2021
 |-
 |Titanic Runs: extendedarl10
 |Completed
@@ -1797,9 +1825,94 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 |12/06/2021
 |12/05/2021
 |-
-|Create Final Presentation
-|In Progress
+|Final Presentation: ARL Complexity Section
+|Completed
 |12/02/2021
+|12/07/2021
+|12/07/2021
+|-
+|Final Presentation: Merging CacheV2 Section
+|Completed
+|12/02/2021
+|12/07/2021
+|12/07/2021
+|}
+
+== Week of 12/06/2021 ==
+
+=== Team Meeting Notes ===
+* Discussed the topics to be covered for the presentation.
+* Figured out what future work we wanted to do in the upcoming semester:
+** Merge stocks changes into our ARL_Update branch
+** Continue adding to the research paper that Gabriel started
+** Moving onto PACE-ICE
+* Determined whose expertise would be utilized to present different parts.
+* Went through a mock presentation to make sure we met the time limit.
+* Discussed the results of our experiments and the progress that we made.
+
+=== Final Presentation Notes ===
+Image Processing
+* Selection Methods - NSGA 2 was baseline, tested against NSGA3 and Lexicase
+* For NSGA3 AUC: 0.377054
+* Fir Lexicase AUS: 0.3488
+* Continued exploration off emantic operators and their application with EMADE.
+* Two new geometric crossover operators: partially matched, ordered crossover, uniform and multi point
+
+NLP
+* Open-domain: has access to a knowledge repository
+* Closes-domain: doesn’t rely on pre-existing knowledge.
+* Can AutoML be used to improve question and answer problems.
+* Output layer problem: needed to change model’s output from probability vectors to answer string.
+* Attention Flow Layer coupes the query and context vectors and produces a set of query aware feature vectors for each word
+* One of the runs produces individuals that beats all of the seeded individuals, three successes one failure.
+
+Stocks Team
+* Uses loss percentage, CDF of Profit
+* Beat Paper and SOTA results
+* Determine how EMADE objective sets affect the overall performance of Pareto Individuals on a constant objective.
+* Use loss percentage objective to evaluate individual within runs
+* Complete Experiment Trials
+* Continue comparison of EMADE Runs
+* Publish  Paper
+
+Neural Architecture Search
+* Make EMADE more complex architectures 
+* Accuracy and frequency is better with changes made.
+* Bad individuals are taking up less time by EMADE
+* Took optimized individuals and verifies the accuracy score is viable.
+* Leveraging Modules: Resnet\VGG Architectures, Easier Implementation,  Pooling\Add Layers, weight sharing.
+* Residual Connections: Vanishing Gradient, “Add” Layer, Shape Correction, 3 trials, Pooling after Mods
+* More consistently better than WS + Max Pooling
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting Notes
+|Completed
+|12/07/2021
+|12/13/2021
+|12/12/2021
+|-
+|Discuss and add future work to Presentation
+|Completed
+|12/07/2021
 |12/09/2021
-|
+|12/07/2021
+|-
+|Final Presentation Notes
+|Completed
+|12/10/2021
+|12/13/2021
+|12/12/2021
+|-
+|Practice Final Presentation
+|Completed
+|12/09/2021
+|12/09/2021
+|12/09/2021
 |}

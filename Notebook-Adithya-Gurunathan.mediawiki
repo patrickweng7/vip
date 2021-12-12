@@ -8,6 +8,139 @@
 
 = Fall 2021 =
 
+== Final Presentation: Dec 10, 2021 ==
+
+===Overview:===
+
+* All subteams presented their work for the semester
+* Link to Final Presentation: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gfad4fb26ff_0_38
+* I presented on ARL comparisons, and our finding regarding size of ARL and link with performance
+* Received feedback on what work Modularity subteam could proceed with next semester
+
+* Image Processing
+  * Eval objectives: AUC-ROC, number of parameters
+  * NSGAIII performed worse than baseline NSGAII, 0.377 VS 0.218 AUC
+  * Lexicase had also lower performance than baseline, 0.348 vs 0.218
+  * Semantic crossover: Attempted to find sub-child in between 2 parents trees in semantic space
+  * Semantic mutation: Attempted to generate offspring that maintained semantic information of parents
+  * Semantic operators had produced trees that were very large and complex
+  * Most individuals that had good performance had >3.5 million parameters
+  * Did experiments with adding different filters like sobel & sharpening filters
+  * Presentation Link: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
+
+* NLP
+  * Tokenization: Converting Input to smaller words
+  * Word Embeddings: Converts text data to numerical vectors
+  * Factoid: Short Factual Answers
+  * Extractive: Amswer can be found verbatime in context
+  * NNLearner2 predicts indices, while objective functions need answer strings to eval
+  * Merged existing code for multiple data pairs with nn-vip branch
+  * Used bi-directional LSTM to relate importance
+  * Had mean-square-error and num_primitives as objectives for experiments
+  * Compared 4 Pareto fronts from successful runs
+  * Will need more runs in future - more diverse set of primitves might help
+
+
+* Neural Architecture Search
+  * Implemented updated timestopping, and decreased time wastage on erroneous individuals
+  * Independent Variables: 600, 800, 1200, 2400, 3000 seconds for timestop
+  * Found that more time allocation did not decrease accuracy error
+  * Added generator methods for NNLearner and Modules/ARL
+  * Added weightsharing to encourage specialization of modules as primitives
+  * Expanded database tables to track parents of Pareto Optimal Individuals
+
+* Modularity
+  * Our team presented on work done for the semester
+  * I presented on EMADE visualizations, and our finding regarding size of ARL from experiments
+  * Link to our presentation: https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gfad4fb26ff_0_38
+
+* Stocks
+  * Goal was to optimize time-series data
+  * Wanted to beat predictions of paper - conserving profit/loss and varying other objectives
+  * Primitive Analysis: (-1*loss percentage) for all primitives
+  * Profit Percentage Analysis: Plotted with box plot
+  * VMA and ArgMinLearner combination was the best (13.56%)
+  * Optimization involving loss_avg and loss_var led to best results - was able to beat the paper in most stocks
+  * Plan to publish a paper with findings
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize Weekly Notebook for this semester
+|Complete
+|December 10, 2021
+|December 13, 2021
+|December 12, 2021
+|}
+
+== Week 16: Dec 6, 2021 ==
+
+===Overview:===
+* Subteams updated on their final week's work, preparationg for final week's presentation
+* Discussed types of visualizations that would be interesting to see in final presentations
+* Work-time for final presentation
+* Final Presentation: Dec 10th, 6pm-9pm
+
+===Lecture Notes:===
+
+* Image Processing
+  * NSGA-3 and mating methods were merged, will be manipulated as they finish experiments for the week
+  * Preparing for final presentation on 10th December
+  * Assigning remaining experiments to be done, completing slides
+* NLP
+  * Conducting onhoing runs, 3 completed, will do analysis
+  * Noticed that some runs were not using written embedding layers, will investigate further
+  * Preparing for final presentation
+* Modularity
+  * Complied visualizations between no ARLs, old ARL implementation and new ARL implementation
+  * Data looks more promising than midterm presentation, some interesting results for final presentation
+  * Running one last run on extendedARL
+  * CacheV2 integration still ongoing, problems contained changes from both ARL & CacheV2 branches
+* Neural Architecture Search
+  * Integrated team work changes into single branch named nn-vip-final
+  * Team members are working on obtaining data, and finshing up slides for presentation
+
+===Sub-team Meeting Notes, December 9: ===
+
+* Divided work for subteam presentation, made slides and discussed content
+* Decided who will present which parts, and ironed out details
+
+=== Individual Notes: ===
+
+* Worked with Aditya's notebook to generate two ARL comparison graphs
+  https://github.gatech.edu/akumaran6/emade/tree/PrimitiveAnalysis/notebooks
+* Collaborated with Angela, Aditya and Vincent to discuss presentation content on EMADE- visualization done this semester
+* Added and discussed two-line comparison graphs with Aditya - we will be presenting on them
+* Worked on slide content for visualizations, and key insights from experiments
+* Practiced slides and delivery with team 2 hours before presentation, everyone was prepared
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Final Presentation Slides, practice presentation
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 9, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
 == Week 15: Nov 29, 2021 ==
 
 ===Overview:===
@@ -49,6 +182,73 @@
 
 * Continued work on visualization this week, and posted AUC over time arrays to my sub-team
 * Task for the week - Convert AUC over time to .csv files with Aditya and Angela.
+* Collaborated with Vincent to discuss validity of earlier runs - local runs and did not have all the objectives
+* Python script for generating .csv files from the AUC time arrays:
+  import json
+  import csv​
+  run1 = ....
+  run2 = ....
+  run3 = ...
+  run4 = ...
+  def increasingAUC(aucList):
+      min = aucList[0]
+      for auc in aucList:
+          if auc > min:
+                return False
+          else:
+              min = auc
+      return True
+  runsList = (run1, run2, run3, run4)
+  for run in runsList:
+      if not increasingAUC(run["auc"]):
+          print(">:(")
+      else:
+          print(":)")
+  def convertCSV(AUCdict, fileNum):
+      aucList = AUCdict["auc"]
+      xList = AUCdict["x"]
+      yList = AUCdict["y"]
+      auc_file = open("extendedRun{}.csv".format(fileNum), "w")   
+      header = AUCdict.keys()
+      header.sort()
+      auc_file.write("{}\n".format(str(header)[1:-1]))
+      for i in range(len(aucList)):
+          auc = aucList[i]
+          try:
+              x = xList[i]
+          except IndexError:
+              x = ""
+          try:
+              y = yList[i]
+          except IndexError:
+              y = ""
+          auc_file.write("{}, {}, {}\n".format(auc, x, y))
+      auc_file.close()
+  count = 1
+  for run in runsList:
+      convertCSV(run, count)
+      count += 1
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on generating AUC time arrays to .csv files
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 4, 2021
+|-
+|Update Weekly Notebook
+|Complete
+|November 29, 2021
+|December 6, 2021
+|December 3, 2021
+|}
 
 == Week 14: Nov 22, 2021 ==
 
@@ -104,7 +304,6 @@
 |November 29, 2021
 |November 26, 2021
 |}
-
 
 == Week 13: Nov 15, 2021 ==
 
