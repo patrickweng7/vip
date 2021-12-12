@@ -66,8 +66,8 @@ NNLearner(ARG0, GlobalAveragePoolingLayer2D(MaxPoolingLayer2D(Conv2DKernelSize1,
 E667: Fsync failed
 </pre>
 
-* I solved the problem with <code>OSError: [Errno 122] Disk quota exceeded</code> by removing the <code>.git</code> folder from my EMADE repository on PACE.
-** This solution also solved the <code>E667: Fsync failed</code> error.
+* EDIT (12/8/2021) FIXED:
+** I removed the extremely large <code>.git</code> folder from my PACE account.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -126,7 +126,6 @@ File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib
 </pre>
 
 * The error log in EMADE_master.eXXXXX file says
-
 <pre>
 /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py:293: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
   .filter(self.Individual.hash.in_(ParetoFrontLatestGen))]
@@ -146,11 +145,13 @@ Traceback (most recent call last):
 OSError: [Errno 122] Disk quota exceeded
 </pre>
 
+* EDIT (12/8/2021) FIXED:
+** I solved the problem with <code>OSError: [Errno 122] Disk quota exceeded</code> by removing the <code>.git</code> folder from my EMADE repository on PACE.
+
 === 11/29/2021 Main Meeting Notes ===
 * I discovered that my error from last week was due to seeding with the incorrect seed file.
 ** Last week, I used <code>summary_seed</code> but my subteam uses <code>seeding_test_cv_all_empty</code>.
 ** Today, I ran the command <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database but received the following error.
-
 <pre>
 "src/GPFramework/seeding_from_file.py" 334L, 15018C
     '''
@@ -201,9 +202,87 @@ sqlalchemy.exc.OperationalError: (MySQLdb._exceptions.OperationalError) (2003, "
 (Background on this error at: https://sqlalche.me/e/14/e3q8)
 </pre>
 
-* I fixed the following error by directly editing the server_ip (which was originally <code>atl1-1-02-012-5-l:3304</code>) in the <code>src/GPFramework/seeding_from_file.py</code> to be <code>atl1-1-02-012-7-l:3304</code>
-** This change I made allowed me to seed my <code>chestxray</code> database correctly and provided the following completion message.
+* EDIT (12/3/2021) FIXED:
+** I fixed the following error by directly editing the server_ip (which was originally <code>atl1-1-02-012-5-l:3304</code>) in the <code>src/GPFramework/seeding_from_file.py</code> to be <code>atl1-1-02-012-7-l:3304</code>
+** With setting up PACE, MYSQL, running EMADE on PACE, and seeding all completed, I am now able to help the image processing subteam with their runs (specifically testing of lexicase selection methods with Harris).
 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed EMADE runs with seeding_test_cv_all_empty file from /SeedingFiles
+|Completed
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Find why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|
+|-
+|Solve error with <code>OSError: [Errno 122] Disk quota exceeded</code>
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|In Progress
+|November 22, 2021
+|December 6, 2021
+|
+|}
+
+== Week 14: November 22, 2021 ==
+=== 11/24/2021 Subteam Meeting Notes ===
+* THANKSGIVING BREAK! NO MEETING!
+
+=== 11/22/2021 Main Meeting Notes ===
+* I attempted to seed my database using the summary_seed file.
+** I first ran <code>qsub pbsmysql.pbs</code>
+** Then ssh-ed into the node and ran <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed</code> which produced the following error message.
+<pre>
+(/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs) -bash-4.2$ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed
+Using TensorFlow backend.
+[nltk_data] Downloading package punkt to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+(224, 224, 1)
+(224, 224, 1)
+Performing connection setup for PID: 397839
+Open Database Connection UUID: 88574626-dcaa-4f0a-8c86-24e404dc1261 PID: 397839 Ind Hash: None TimeStamp: 2021-11-29 15:59:45.433183
+connected to database
+Traceback (most recent call last):
+  File "src/GPFramework/seeding_from_file.py", line 311, in <module>
+    my_func, i = parse_tree(line, pset_info)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py", line 109, in parse_tree
+    node = ast.literal_eval(node)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 85, in literal_eval
+    return _convert(node_or_string)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 84, in _convert
+    raise ValueError('malformed node or string: ' + repr(node))
+</pre>
+
+* EDIT (12/1/2021): FIXED
+** I used <code>summary_seed</code> file but my subteam uses <code>seeding_test_cv_all_empty</code> file for seeding.
+** This change I made allowed me to seed my <code>chestxray</code> database correctly and provided the following completion message.
 <pre>
 Using TensorFlow backend.
 [nltk_data] Downloading package punkt to
@@ -247,82 +326,6 @@ NNLearner(ARG0, OutputLayer(InputLayer()), 84, AdamOptimizer)
 NNLearner(ARG0, OutputLayer(InputLayer()), 83, AdamOptimizer)
 </pre>
 
-* With setting up PACE, MYSQL, running EMADE on PACE, and seeding all completed, I am now able to help the image processing subteam with their runs (specifically testing of lexicase selection methods with Harris).
-
-'''Action Items:'''
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
-|Seed EMADE runs with seeding_test_cv_all_empty file from /SeedingFiles
-|Completed
-|November 22, 2021
-|December 6, 2021
-|November 29, 2021
-|-
-|Find why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
-|In Progress
-|November 29, 2021
-|December 6, 2021
-|
-|-
-|Solve error with <code>OSError: [Errno 122] Disk quota exceeded</code>
-|In Progress
-|November 29, 2021
-|December 6, 2021
-|
-|-
-|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
-|In Progress
-|November 22, 2021
-|December 6, 2021
-|
-|}
-
-== Week 14: November 22, 2021 ==
-=== 11/24/2021 Subteam Meeting Notes ===
-* THANKSGIVING BREAK! NO MEETING!
-
-=== 11/22/2021 Main Meeting Notes ===
-* I attempted to seed my database using the summary_seed file.
-** I first ran <code>qsub pbsmysql.pbs</code>
-** Then ssh-ed into the node and ran <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed</code> which produced the following error message.
-
-<pre>
-(/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs) -bash-4.2$ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed
-Using TensorFlow backend.
-[nltk_data] Downloading package punkt to
-[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
-[nltk_data]   Package punkt is already up-to-date!
-[nltk_data] Downloading package averaged_perceptron_tagger to
-[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
-[nltk_data]   Package averaged_perceptron_tagger is already up-to-
-[nltk_data]       date!
-[nltk_data] Downloading package wordnet to
-[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
-[nltk_data]   Package wordnet is already up-to-date!
-/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
-  RuntimeWarning)
-/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
-  RuntimeWarning)
-(224, 224, 1)
-(224, 224, 1)
-Performing connection setup for PID: 397839
-Open Database Connection UUID: 88574626-dcaa-4f0a-8c86-24e404dc1261 PID: 397839 Ind Hash: None TimeStamp: 2021-11-29 15:59:45.433183
-connected to database
-Traceback (most recent call last):
-  File "src/GPFramework/seeding_from_file.py", line 311, in <module>
-    my_func, i = parse_tree(line, pset_info)
-  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py", line 109, in parse_tree
-    node = ast.literal_eval(node)
-  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 85, in literal_eval
-    return _convert(node_or_string)
-  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 84, in _convert
-    raise ValueError('malformed node or string: ' + repr(node))
-</pre>
 
 '''Action Items:'''
 {| class="wikitable"
