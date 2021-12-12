@@ -195,16 +195,27 @@
 * I did find another paper on lexicase and epsilon lexicase that seems to have a comprehensive explanation of both, so I read this paper and took some minimal notes. I did not read this paper and take notes at the level of detail which I wanted to, due to the fact that we did have some issues when implementing the DEAP version of epsilon lexicase and we spent some time trying to run PACE-iCE and get that up and going.
 '''Paper Notes:'''
 '''Abstract:''' 
- The theme of this paper is to develop the theoretical underpinning to explain lexicases performance. It shows why lexicase performs poorly for certain  
- population sizes and training cases, and why it performs poorly in continuous error spaces. They also try to address the continuous error space problem 
- by proposing a new variant of epsilon lexicase, which modifies pass condition in lexicase to allow near-elite individuals to pass cases, improving 
- selection performance with continuous errors. 
+The theme of this paper is to develop the theoretical underpinning to explain lexicases performance. It shows why lexicase performs poorly for certain  
+population sizes and training cases, and why it performs poorly in continuous error spaces. They also try to address the continuous error space problem 
+by proposing a new variant of epsilon lexicase, which modifies pass condition in lexicase to allow near-elite individuals to pass cases, improving 
+selection performance with continuous errors. 
 * The paper then goes into an introduction of work that has been done and explains how traditionally GP tries to award individuals that perform well in aggregate, in an average of the test cases, and how this seems to be something of a hole.
 * Then, it does into a preliminary section explaining symbolic regression and MSE. They use MSE to compare their results. I skimmed this section because I did not find it all that relevant.
 '''Lexicase Selection:''' 
- '''General Algorithm:''' 1) Choose a case, 2) filter selection pool based on that case, and 3) repeating until cases are exhausted or selection pool is 
- reduced to one individual. If selection pool is not reduced by time each case has been considered, an individual is randomly chosen from the remaining pool, S.
- Under lexicase, cases in the set of training case, T, can be thought of as filters that reduce the selection pool to individuals that are best on that specific case. 
+* The algorithm goes as follows: 1) Choose a case, 2) filter selection pool based on that case, and 3) repeating until cases are exhausted or selection pool is 
+reduced to one individual. If selection pool is not reduced by time each case has been considered, an individual is randomly chosen from the remaining pool, S.
+* Under lexicase, cases in the set of training case, T, can be thought of as filters that reduce the selection pool to individuals that are best on that specific case. Individuals pass a case if they remaining pool after case is considered. The difficulty as defined by the number of individuals that the case filters from the selection pool, and its order in the selection event, which varies from event to event. The ordering of case in the selection event is randomized for each selection, which allows selective pressure to continually shift to individuals that are elite on cases that are rarely solved in the set of individuals. 
+'''Epsilon Selection:'''
+* In this section, they discuss how lexicase is effective in discrete error spaces, but seems to not do great in continuous error spaces, since the requirement for individuals to be exactly equal to the elite error in the selection pool turns out to be overly strict. 
+* It then goes onto discuss the development and the details of the epsilon lexicase algorithm, which I pretty much scanned for now and might want to revisit later. This algorithm doesn't seem to be a huge point of interest this team for now, but might be interesting for future development.
+'''Theoretical analysis:'''
+* In this section , they want to answer the following questions:
+ 1) What is probability of individual being selected by lexicase selection, given its performance in a population on a set of training cases.
+ 2) How is the probability influenced by the population and training set?
+Then, they wish to establish a relationship between lexicase and multi-objective optimization in order to define precisely how parents selected by lexicase variants are positioned in semantic space.
+'''Expected probabilities of selection:'''
+* The probability of $n$ being selected by lexicase selection is the probability that a case $n$ passes is selected and :1) $n$ is only individual that passes the case; or 2) no more cases remain and $n$ is selected among the set of individuals that pass the selected case; or 3) $n$ is selected via selection of another case that $n$ passes.
+* They go on to put this more formally, 
 {|class = "wikitable"
 !Assignment
 !Current Status
