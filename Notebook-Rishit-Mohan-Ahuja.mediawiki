@@ -53,16 +53,41 @@ Hobbies: Meditation and cooking
 === My Work ===
 * One of the ways I am trying to modify the code to get both the start and end indices is by fitting the model twice.
 ** First, the model will predict the start index.
-** Second the model will use regression to predict the length of the answer and add that length to the start index. This is a  very naive method as the model is only considering the number of words in the answer and not at all capturing the context.
+** Second the model will use regression to predict the length of the answer and add that length to the start index. This is a very naive method as the model is only considering the number of words in the answer and not at all capturing the context.
 
 == November 8, 2021 ==
 === Lecture Notes ===
 * We were divided into sub-sub-teams. I will be working with Karthik, Aditi and Jessi.
 * I am a little unsure about the objective of our team. According to Karthik, we will be working on converting the labels of the final output to numerical vectors but we are not sure about it yet.
 
-=== Team meeting ===
-* We met in person today at CULC. Steven clarified the main objective of our team and it is basically to output the start and end indices of the answer.
-* Karthik and I discussed about the preprocessing of the data. There are some null values in some of the rows in the dataset and we have decided to straightaway remove those rows mainly because (a) We will still be able to retain two-thirds of the data (b) Steven suggested that SqUAD is a standard dataset and is used commonly to make comparisons. If we do a lot of data preprocessing and get a good result, it will not be able to fair competition with other models.
+=== My Work ===
+* Met in person today at CULC with Steven, Karthik and Aditi and clarified the main objective of our team and it is basically to output the start and end indices of the answer.
+* Karthik and I discussed the preprocessing of the data. There are some null values in some of the rows in the dataset and we have decided to straightaway remove those rows mainly because 
+** We will still be able to retain two-thirds of the data 
+** Steven suggested that SqUAD is a standard dataset and is used commonly to make comparisons. If we do a lot of data preprocessing and get a good result, it will not be able to fair competition with other models.
+* I am working to run standalone_tree_evaluator for BiDAF. If standalone works successfully then Karthik and I will use nn_learner to predict the start and end indices and evaluate the result using f1_string_match.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix errors while running standalone tree evaluator
+|Completed
+|November 12, 2021
+|November 17, 2021
+|November 16, 2021
+|-
+|Implement/Suggest a method to obtain the start and end indices
+|Completed
+|November 12, 2021
+|November 17, 2021
+|November 16, 2021
+
+|}
+
 
 == November 1, 2021 ==
 
@@ -79,6 +104,27 @@ Hobbies: Meditation and cooking
 * Initial code could be found here: https://gist.github.com/rishitmahuja/4f8596206b3546ef42b60d12dcbd6f43. 
 * Tested the dimensionality of the attention layer and made sure that the input and output matrices would not conflict with other layers.
 * Notes about the attention layer from the BiDAF paper: please refer to this document (https://docs.google.com/document/d/19z6gLynTzOfIndzBDs32KO29U_ZGRLqC6JlML-L15Cg/edit?usp=sharing). This document details how the attention flow layer works. I have given specific focus to the dimensions of each vector/matrix just to make sure that the dimensions do not conflict with the other layers. Also, I have mentioned the decision we took regarding the choice of beta function (the trainable vector function that fuses the three input vectors to give the final output of the attention). 
+* This Medium article came in handy to understand and code the attention layer: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Basic Bidirectional attention layer implementation
+|Completed
+|November 1, 2021
+|November 2, 2021
+|November 2, 2021
+|-
+|Analysis of the Bidirectional attention layer implementation specifically focussing on the dimensions
+|Completed
+|November 1, 2021
+|November 2, 2021
+|November 1, 2021
+|}
 
 
 == October 25, 2021 ==
