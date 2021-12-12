@@ -855,8 +855,39 @@ That is where I left off because Emade took a while to clone
 
 === Lecture Notes (10/20) ===
 
-* Discussed Emade and action items for the main project due in three weeks
-* Learned about Emade and how it relates to what we've been doing thus far.
+* There was no lecture today
+* Today was mainly used as a day to really get EMADE running and some trial runs in for some experiments on the titanic dataset
+* We wanted to make sure everyone was able to run EMADE as a worker (aside from Elan) so that we could get some results to present next Monday
+* Many of the Automated Algorithm Design alumni helped me out with my troubles
+* Randomly, when I tried running <code>$ bash reinstall.sh</code>, I was facing some errors, so the alumni helped me resolve
+* By the end of the working session, our subteam created a task list for the upcoming week before the presentation:
+** Ensure everyone is able to connect to the database
+** Finalize the data preprocessing code
+** Have everyone be able to process some worker (or master) runs on EMADE
+** Modify XML file to achieve varying results
+** Generate new Pareto Front
+** Finish Presentation Slides
+** Rehearse Presentation
+
+=== Subteam Meeting 1 (10/22) ===
+* At this point, most of us are able to connect to the master through SQL
+* We are also able to run EMADE correctly for the most part
+* To process a run:
+ $ python src/GPFramework/launchGTMOEP.py -w templates/input_titanic.xml
+* One problem we faced was that we kept finding 
+
+=== Individual Notes ===
+* I was having a little bit of trouble getting EMADE running as some packages actually didn't install properly
+* The error was a <code>Module not found</code> error
+
+[INSERT W9_PACKAGE_CONFLICTS IMAGE HERE]
+
+* I tried creating a conda environment for Python 3.7 and reinstalled and it worked!
+* I realized that messing with my global environment will often cause many issues
+* Worked on finalizing the '''testPreprocessed.csv.gz''' and '''trainPreprocessed.csv.gz''' files
+* A problem we faced was that we would achieve a <code>ValueError: could not convert string to float: 'Embarked_S'</code>
+* We removed the last column, because we actually wanted the "Survived" column to be the last, and then it ended up working
+
 
 === Action Items ===
 {| class="wikitable"
@@ -866,29 +897,29 @@ That is where I left off because Emade took a while to clone
 !Suspense Date
 !Date Resolved
 |-
-|Add Meeting Lecture Notes into Notebook
+|Add Meeting Notes into Notebook
 |Completed
-|October 6, 2021
-|October 12, 2021
-|October 8, 2021
+|October 20, 2021
+|October 25, 2021
+|October 25, 2021
 |-
-|Review Lecture Notes
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Download/Install Emade
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Finish up Lab Notebook
+|Finalize Data Preprocessing
 |Complete
-|October 6, 2021
-|October 8, 2021
-|October 8, 2021
+|October 20, 2021
+|October 23, 2021
+|October 23, 2021
+|-
+|Generate New Pareto Front
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Finalize Slides
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
 |}
 
 == Week 10 (10/25 - 10/31) ==
