@@ -725,24 +725,24 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 '''Individual Progress'''
 * I was working on the Highway Network of the Embedding layer with Kevin.
-
 ```
 def build(self, input_shape):
     # Create a trainable weight variable for this layer.
     dim = input_shape[-1]
-        transform_gate_bias_initializer = Constant(self.transform_gate_bias)
-        input_shape_dense_1 = input_shape[-1]
-        self.dense_1 = Dense(units=dim, bias_initializer=transform_gate_bias_initializer)
-        self.dense_1.build(input_shape)
-        self.dense_2 = Dense(units=dim)
-        self.dense_2.build(input_shape)
-        self.trainable_weights = self.dense_1.trainable_weights + self.dense_2.trainable_weights
+    transform_gate_bias_initializer = Constant(self.transform_gate_bias)
+    input_shape_dense_1 = input_shape[-1]
+    self.dense_1 = Dense(units=dim, bias_initializer=transform_gate_bias_initializer)
+    self.dense_1.build(input_shape)
+    self.dense_2 = Dense(units=dim)
+    self.dense_2.build(input_shape)
+    self.trainable_weights = self.dense_1.trainable_weights + self.dense_2.trainable_weights
 
-        super(Highway, self).build(input_shape)  # Be sure to call this at the end
+    super(Highway, self).build(input_shape)  # Be sure to call this at the end
 ```
 ** The reference code repository can be found [https://github.com/ParikhKadam/bidaf-keras/blob/master/bidaf/layers/highway_layer.py HERE].
-** However, the issue was that with custom layers, TensorFlow batch sizes don't work well with native python logic.
-** Solution: replace every for loop with either repeating tensors and element-wise multiplication, or a [https://keras.io/api/layers/recurrent_layers/time_distributed/ TimeDistributed layer].
+* However, the issue was that with custom layers, TensorFlow batch sizes don't work well with native python logic.
+* Solution: replace every for loop with either repeating tensors and element-wise multiplication, or a [https://keras.io/api/layers/recurrent_layers/time_distributed/ TimeDistributed layer].
+** Because TimeDistributed applies the same instance of Conv2D to each of the timestamps, the same set of weights are used at each timestamp.
 
 ```
 >>> inputs = tf.keras.Input(shape=(10, 128, 128, 3))
