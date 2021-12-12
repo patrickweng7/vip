@@ -810,13 +810,15 @@ That is where I left off because Emade took a while to clone
 * May eventually need to try connecting using:
  $ mysql -h hostname -u username -D database -p
 * Configuring <code>input_titanic.xml</code> file:
- <dbConfig>
+```
+<dbConfig>
         <server>127.0.0.1:6603</server>
         <username>guest</username>
         <password>emademade</password>
         <database>titanic</database>
         <reuse>1</reuse>
- </dbConfig>
+</dbConfig>
+```
 * We also worked on figuring out how to query out '''Pareto Front''':
  select pf.generation, age, `FullDataSet False Positives`, `FullDataSet False Negatives` from individuals ind join paretofront pf on pf.hash = ind.hash where `FullDataSet False Negatives` is not NULL;
 
