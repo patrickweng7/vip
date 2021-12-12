@@ -348,11 +348,30 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 ** NNLearner2's output primitive's dense layer pushes all values to 199 or 200 when using Bidirectional Modeling and Attention primitives.
 ** Some of our runs aren't using the old embedding layers other than new EmbeddingLayer. 
 ** Individuals with BERTInputLayer fail altogether in standalone tree evaluator.
-* Finalized experiment setup with Dr.Zutty & Dr. Rohling.
 
-
-’‘’Individual Progress'''
+'''Individual Progress'''
+* I and Rishit presented and finalized the experiment setup with Dr. Zutty & Dr. Rohling.
+** Generate Pareto front from each run.
+** Insert the seeded individual objectives on the same graph.
+*** To retrieve the values, we can evaluate the seed by running [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py].
+** Define boundaries by the objectives of the seeded individual.
+** Record the Region of Interest (ROI) by difference between bounded region and Pareto front AUC.
+*** The greater ROI, the greater improvements.
+** For analysis, we can present Bernoulli Distribution and distribution of ROI of different runs.
+*** It would be valuable if we have more runs (greater statistical significance).
 * I was assigned on Experiment section of the final presentation.
+* I fixed my EMADE configuration issues thanks to Manas, Karthik, George, Devan, and Rishit.
+** Configuration issue: when seeding before EMADE runs, I encountered the issue: NameError: _mysql is not defined.
+** Command:
+ python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa
+** How to locate the causes?
+*** I went over the XML file setup with Karthik and made sure that all parameters are ready to go.
+*** Rishit's suggestion: pip install mysql: no such module found. No luck.
+*** Manas's suggestion: check to [https://github.gatech.edu/emade/emade readme file] in repository and manually pip install all the requirements: I did so and all requirements are satisfied already. No luck.
+*** Devan's suggestion: run [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py] see what may cause the issue: I realized it is a configuration issue because I meet the same problem when running standalone.py (basically same issue in two completely different scenarios).
+** How to solve the problem?
+*** Rishit shared his YAML file with me and I was able to create a new conda environment with the correct settings.
+*** Now, EMADE is working and generating output without errors.
 
 '''Action Items:'''
 {| class="wikitable"
