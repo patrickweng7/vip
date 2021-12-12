@@ -10,6 +10,47 @@ Cell Phone: 704-794-3924
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 [[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
+# Week 13: November 15th, 2021
+## Overview
+Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs). 
+
+## Team Notes:
+* After researching Keras’ current capabilities, we realized that it does not currently support multi-output regression, which is a big limitation for us given that the output layer is a Keras library function with some custom logic added to it. Moreover, EMADE’s architecture directly passes individuals’ predictions to its evaluation functions for scoring, which means that we would have to make changes to EMADE’s master process in order for our individuals to predict indices and for our evaluation functions to take in strings. As such, we have modified our problem to be a regression problem, where our target value is just the start index of the answer in the string. Rishit had the idea of training the model twice, once to predict the start index of the answer and once to predict the end, but this would cause a few issues: our models would evolve differently in each evolutionary process, and we would lose information about the start index while predicting the end index. Moreover, our models could simply learn a pattern in the length of the answer strings as opposed to their semantic location in the vector space, which would defeat the purpose of predicting the end index altogether. 
+* The output layer team has now dissolved, and I have been placed on Devan’s NNLearner2 team along with David, Jessi, and Rishit. 
+* Our goal is to debug standalone_tree_evaluator.py to work on our NNLearner2 model (which takes in a context datapair and query datapair). 
+* Currently, running standalone_tree_evaluator.py on NNLearner2 fails because NNLearner2 uses the load_environment() method in EMADE.py to set up a single individual for evaluation (the following line is from standalone_tree_eval.py: database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name). 
+* Our edits to EMADE.py (mainly changing the number of inputs to each individual in this line: self.pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair)) mean that we have to make changes to load_environment() so that EMADE's evaluate_individual() method still has the expected behavior when we call it on standalone tree evaluator with two EMADE datapairs as inputs. We have already ensured that the evaluation function is compatible with the changes to EMADE.py, and our goal is to do the same for load_environment().  
+* We will all look into the codebase to determine if fixing load_environment() will be worthwhile or if we should proceed with full runs instead of standalone_tree_evaluator.py on NNLearner2. 
+
+## Subteam Notes:
+* Our team members were retasked in preparation for the hackathon on Saturday. 
+* Returning members are working on debugging the BidirectionalAttentionLayer, which currently outputs a tensor with dimensions that are mismatched with the input tensor dimensions from other primitive layers. Keras layers taken in 3-dimensional input tensors with (batch_size, timestep, dimensions), but the BidirectionalAttentionLayer does not output a tensor of this size due to its lack of a batch size definition.
+* New team members will continue to get set up on PACE in preparation for 8-hour runs with our seeding NNLearner2 individual. 
+* I presented my analysis of whether it would be feasible to fix standalone_tree_evaluator.py tp work with NNLearner2 before the next full-team meeting. See individual notes below for my analysis. 
+
+## Individual Notes:
+* From what I can make of the current codebase, we define creator.create("Individual", list, fitness=creator.FitnessMin, pset=self.pset, age=0,  elapsed_time=0, retry_time=0,                        novelties = None, hash_val=None, **fitness_attr) in the setDatasets() method. However, we call create_representation() before we call setDatasets(), which means we haven't yet registered an Individual with two EMADE datapairs as arguments when we call create_representation(). 
+* The following is the order of method calls in general_methods.py in load_environment() for standalone_tree_evaluator:
+emade.create_representation(datasetDict, adfs=3, regression=regression)
+emade.setObjectives(objectiveDict)
+emade.setDatasets(datasetDict)
+emade.setMemoryLimit(misc_dict['memoryLimit'])
+emade.setCacheInfo(cache_dict)
+emade.set_statistics(statisticsDict)
+emade.buildClassifier()
+* create_representation() is called on the emade instance prior to setDatasets(), and setDatasets() is where the datasetDict with two input datapairs is defined. This is what I believe to be the main discrepancy between load_environments() datapair ingestion logic and EMADE.py’s logic for normal runs. 
+* I believe the following line should be modified in general_methods.py so that individuals can take in 2 datapairs in standalone_tree_evaluator: pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair), instead of gp.PrimitiveSetTyped('MAIN', [EmadeDataPair] EmadeDataPair), which is what it currently contains. 
+* At the hackathon on Saturday, I continued debugging the Already Exists error I was having with Tensorflow and Keras installation in my PACE conda environment. A quick fix for this was to simply comment out all references to keras.backend (the package whose import command was throwing the error) in neural_network_methods.py and gp_framework_helper.py. After these changes, the same error was being thrown, and I noticed that the error message pointed to code at a line number that no longer existed in neural_network_methods.py. With this, I realized that EMADE was not actually running with my updated code, and I subsequently ran bash reinstall.sh and was able to resolve all errors at that point. I’ve learned from this that a simple bash reinstall.sh can prevent several errors related to package installation, which is something I will definitely keep in mind going forward. 
+* We will start setting up 8-hour runs in Monday’s meeting (and possibly standalone_tree_evaluator.py runs with NNLearner2 if Devan and Steven are able to debug load_environment() by then). 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
+| Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
+| Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
+
+
 # Week 12: November 8th, 2021
 ## Overview
 Research output numerization methods and finalize output layer output format. 
