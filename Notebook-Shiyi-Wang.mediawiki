@@ -464,15 +464,27 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 === Nov 29, 2021 ===
 '''Team Meeting Notes:'''
-
+* Image Processing
+** Hyperfeature, selection method, and mating/mutations subteams continue to work.
+** Code freeze by the end of the week for experiments and presentation.
+* Modularity
+** Continued doing runs and gathering data for the extended ARL experiments.
+** CacheV2 integrations subteam soon begins stocks runs.
+* Natural Language Processing (NLP)
+** In NNLearner2, we send the test and train data pair in wrong order.
+** The length of the test data was not being divided by num_inputs in EMADE.py.
+* Neural Architectural Search (NAS)
+** Updated code that properly extracting layer frequencies from individuals every generation
+** Updated script that is used to generate CIFAR-10 data in proper splits with full color images.
+** Implemented weight sharing.
+** Working on merging changes and putting the desired EMADE functionality on NN-VIP branch.
 
 '''Subteam Meeting Notes:'''
-* 
-*
+* Worked on code-freeze codebase and start getting runs in.
 
 '''Individual Progress'''
-* I, Steven, and Rishit declared Continuous MSE and number of parameters as the final objectives we are pursuing.
-** Continuous MSE: this is a good indicator as F1 score in Q&A systems. It works well with regression questions.
+* I, Steven, and Rishit declared continuous MSE and number of parameters as the [https://github.gatech.edu/sleone6/emadebackup/blob/master/templates/input_squad_noqsub.xml final objectives] we are pursuing.
+** continuous MSE: this is a good indicator as F1 score in Q&A systems. It works well with regression questions.
 ** num_params: this estimates the model complexity. The more parameters, the more complex the model will be.
 * I and Rishit exchanged our ideas on experimental design and statistical testings.
 ** T-test: in statistics, the t-statistic is the ratio of the departure of the estimated value of a parameter from its hypothesized value to its standard error.
@@ -482,6 +494,9 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 *** However, the problem is we essentially cannot get the same EM and F1 score from EMADE as in the “Steven’s Model”.
 *** Rishit suggests we can dive into Steven's code to calculate the objectives manually.
 *** I and Steven recommend using the seed individual instead since it is equivalent.
+* I looked into library the compute_f1 function located and how the library implements it.
+** The goal is to see if we can use exact match and F1 score for EMADE to enable comparisons.
+* I worked on deleting all files on PACE-ICE (disk space issue resolved) and port over the latest changes from the features/nnlearner2 branch.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -491,35 +506,35 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 !Suspense Date
 !Date Resolved
 |-
-|Complete Peer Evaluation
+|Check EMADE running status using Amazon dataset
 |Completed
+|November 29, 2021
 |December 6, 2021
-|December 8, 2021
-|December 6, 2021
+|November 29, 2021
 |-
-|Debug EMADE run issues related to NameError: _mysql not defined
+|Port over the new changes from the features/nnlearner2 branch
 |Completed
+|November 29, 2021
 |December 6, 2021
-|December 9, 2021
-|December 6, 2021
+|November 29, 2021
 |-
-|Update XML file and update line 1864 in neural_network_methods.py
+|Meet with Rishit and Steven on experimental design and objectives
 |Completed
+|November 29, 2021
 |December 6, 2021
-|December 9, 2021
-|December 6, 2021
+|November 30, 2021
 |-
-|Keep EMADE running for >= 16 hours
+|Investigate possible statistical testing strategies such as t-test
 |Completed
+|November 29, 2021
 |December 6, 2021
-|December 9, 2021
-|December 9, 2021
+|November 30, 2021
 |-
-|Design [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation] slides
+|Review every objective in the [https://github.gatech.edu/sleone6/emadebackup/blob/master/templates/input_squad_noqsub.xml objective4EvalFunction] to find best pair of objectives
 |Completed
+|November 29, 2021
 |December 6, 2021
-|December 10, 2021
-|December 9, 2021
+|November 30, 2021
 |}
 
 == Week 14 ==
@@ -529,8 +544,44 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 === Nov 22, 2021 ===
 '''Team Meeting Notes:'''
+* Image Processing
+** Runs in with lexicase, epsilon lexicase, and NSGA-III.
+** Run with a new mutation method.
+** Fixed a bug in the contrast enhancement code causes .npz formatting of data
+* Modularity
+** Refactored and documented new implementation of code.
+** Added typing and classes to implementation.
+** Working on script that allows the team to upload EMADE instances to Google Colab.
+** Working on generating visualizations for the extended ARL runs.
+* Natural Language Processing (NLP)
+** NNLearner2 works on classification but have issues when switching to regression.
+** Tested integration of primitives into EMADE.
+** Built Keras Models in Google Colab to ensure integration works.
+** Fixed batch size issues with Bidirectional Attention.
+** Designing experiment for future runs.
+* Neural Architectural Search (NAS)
+** Completed changes for mating and mutation methods
+*** Allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals.
+** Integrating weight sharing to existing modules in EMADE.
+** Integrating novelty detection changes.
+** Added a parent column which tracks hash values for NNLearners.
+** Model Improvements
+*** Removing pooling layers leads to 10x more parameters.
+*** Model could overfit on train set (98% train accuracy, 62% test).
 
-'''Subteam Meeting Notes:'''
+'''Individual Progress'''
+* I and Rishit presented our tentative experiment plan to Dr. Zutty.
+** Generate Pareto fronts for all runs.
+** Graph the Normal Distribution for all individuals.
+** Insert BiDAF model objectives on the Normal Distribution.
+** Use hypothesis testing to see if the BiDAF data point lies in the critical region to reject hypothesis.
+*** Hypothesis: AutoML cannot solve Question and Answering system problems.
+* Dr. Zutty visualized our experiment plan and pointed out the potential issues.
+** I learned that using AUC could be a better alternative for analysis.
+** I learned about the concept of Region of Interest (ROI) and realized that we need to set the boundaries for BiDAF model to define our "success".
+*** Success: a run produced individuals that beats all of the seeded individual’s objective scores, having a non zero region of interest.
+** I learned that instead of using a normal distribution, a more effective way would be Bernoulli distribution which separates reduce in area (success) and increase in area (failure).
+* I start to pipeline the experiment procedure and the final design I made with Rishit can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
 
 '''Action Items:'''
 {| class="wikitable"
@@ -578,7 +629,7 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 == Week 12 ==
 === Nov 10, 2021 ===
 === Nov 8, 2021 === 
- 
+
 == Week 11 ==
 === Nov 7, 2021 ===
 === Nov 6, 2021 ===
