@@ -704,17 +704,17 @@ Connecting a Worker Process to a Peer
 Understanding EMADE output
 * The best place to look at the outputs of EMADE are in the MySQL databases.
 * Connect to a MySQL server from command line:
-<pre>
+<code>
 $ mysql -h hostname -u username -p
-</pre>
+</code>
 ** We should be prompted with a password
 * We can then select a database using: <code>use database_name;</code> in MySQL
 * Some helpful queries:
-<pre>
+<code>
 Select * from individuals;
 Select * from individuals where `FullDataSet False Negatives` is not null;
 Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
-</pre>
+</code>
 * Individuals will complete after giving EMADE some time
 * Whoever is running the SQL database
 ** the third SQL query (bolded) says every
