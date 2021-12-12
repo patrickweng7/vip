@@ -593,6 +593,102 @@ FitnessMinï¿½ï¿½ï¿½)ï¿½ï¿½}ï¿½ï¿½wvaluesï¿½ï¿½numpy.core.multiarrayï¿½ï¿½scalarï
 |Nov 17, 2021
 |Nov 15, 2021
 |}
+=== November 19, 2021 ===
+==== Main Meeting Note ====
+*Modularity
+**perform test runs as early as better
+*stock
+**68% profit for the stocks
+**KNN and NLP seem to be the best learners
+==== subteam meeting ====
+*Have 8 extended ARL runs done
+**Angla and first semesters will work on Visulization of our results from runs
+*cacheV2 change incorporated and we plan a test&debugg this weekend
+*Using this emade-cloud folder from Xufei created with CloudCopy for testing on google collab
+**https://drive.google.com/drive/folders/1CyOUr7xOuteQbIGf_eYu-NhfuFHA4S4W?usp=sharing
+==== Personal Exploration ====
+*Using the new made cloud folder created using CloudCopy script we uploaded off the new branch with all file merged for testing on google collab
+**running python install.py is not working
+*** Error message: docutils 0.18b0 is installed but docutils<0.18 is required
+***attempt to solve by call conda install docutils=0.17
+***although the installation of package is successful but the problem did not resolve, it appears the made installer will install the new version of docutils package  as a dependency for GPFramework
+**attempt a workaround by ise reinstall.sh instead
+***reinstall.sh is not running, it appears a line break is reader by google colla
+***remove the end of line break in the file resolves this issue
+***New issue here
+<pre>
+WARNING: Skipping GPFramework as it is not installed.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+DEPRECATION: In-tree builds are now the default. pip 22.1 will enforce this behaviour change. A possible replacement is to remove the --use-feature=in-tree-build flag.
+Processing /content/gdrive/My Drive/emade-cloud
+  Preparing metadata (setup.py) ... done
+Collecting deap@ git+https://github.com/DEAP/deap@master
+  Cloning https://github.com/DEAP/deap (to revision master) to /tmp/pip-install-6tj80yzk/deap_e22a9a00d3f44b99b125883eb8536674
+  Running command git clone --filter=blob:none -q https://github.com/DEAP/deap /tmp/pip-install-6tj80yzk/deap_e22a9a00d3f44b99b125883eb8536674
+  Resolved https://github.com/DEAP/deap to commit 2372fd2e4fdc1373a0e087bba030d9256dffbce9
+  Preparing metadata (setup.py) ... error
+WARNING: Discarding git+https://github.com/DEAP/deap@master. Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
+Requirement already satisfied: tensorflow in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (2.4.1)
+Requirement already satisfied: pillow in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (8.4.0)
+Requirement already satisfied: psutil in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (5.8.0)
+Requirement already satisfied: lxml in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (4.6.3)
+Requirement already satisfied: hmmlearn in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (0.2.6)
+Requirement already satisfied: scikit-learn in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (1.0.1)
+ERROR: Could not find a version that satisfies the requirement deap (unavailable) (from gpframework) (from versions: 0.9.1, 0.9.2, 1.0.0rc3, 1.0.0, 1.0.1, 1.0.2.post2, 1.2.0, 1.2.1a0, 1.2.1a1, 1.2.1a2, 1.2.1b0, 1.2.1rc3, 1.2.1, 1.2.2, 1.3.0, 1.3.1)
+ERROR: No matching distribution found for deap (unavailable)
+</pre>
+***attemp to debug this error use this command to generate a full error log inside google drive so I can start
+****!pip install 'deap@git+https://www.github.com/DEAP/deap' --log error.txt
+***it appears the error exists when running the actual installation script for deap package from the Github repository
+***!pip install 'setuptools<58' solved this issue
+**continue debug process
+***we successful have the made installed
+***error while try to seed the file
+***error with SQL connections, error caused from SQL base file where the SQL instance is not started and no library is created
+***the library should be created when the class is initialized in the new cacheV2 version of file
+***we decided to use old fashion way to solve this issue, we call the function that crated the library again to start it
+**we successful seeding the file, but the actual run have error out with this message:
+<pre>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 454, in get_random_uneval_individuals
+    query = self.sessions[os.getpid()].query(self.Individual) \
+KeyError: 15458
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 126, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 122, in main
+    reuse=reuse, num_workers=num_workers, debug=True)
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/EMADE.py", line 1280, in worker_algorithm
+    evaluated_offspring = database.get_random_uneval_individuals(evals_per_worker * num_workers) # * So these are the unevaluated individuals
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 473, in get_random_uneval_individuals
+    self.sessions[os.getpid()].rollback()
+KeyError: 15458
+</pre>
+****this indicated that some error exist inside our file merge
+*Joined more Vincent's runs we now have 12 runs done.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help more runs with new arl with Vincent to acquire enough data so we can draw a meaningful conclusion at end of semester
+|Finished
+|Nov 19, 2021
+|Nov 26, 2021
+|Nov 24, 2021
+|-
+|Conduct file changes, expect to finish before next week for testing
+|Finished
+|Nov 19, 2021
+|Nov 22, 2021
+|Nov 24, 2021
+|}
 == Jan 20, 2021 ==
 === Team meeting notes: ===
 * Course introduction, syllabus, introduction to notebooks.
