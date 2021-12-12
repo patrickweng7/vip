@@ -647,26 +647,7 @@ ERROR: No matching distribution found for deap (unavailable)
 ***error with SQL connections, error caused from SQL base file where the SQL instance is not started and no library is created
 ***the library should be created when the class is initialized in the new cacheV2 version of file
 ***we decided to use old fashion way to solve this issue, we call the function that crated the library again to start it
-**we successful seeding the file, but the actual run have error out with this message:
-<pre>
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 454, in get_random_uneval_individuals
-    query = self.sessions[os.getpid()].query(self.Individual) \
-KeyError: 15458
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "src/GPFramework/didLaunch.py", line 126, in <module>
-    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
-  File "src/GPFramework/didLaunch.py", line 122, in main
-    reuse=reuse, num_workers=num_workers, debug=True)
-  File "/usr/local/lib/python3.7/site-packages/GPFramework/EMADE.py", line 1280, in worker_algorithm
-    evaluated_offspring = database.get_random_uneval_individuals(evals_per_worker * num_workers) # * So these are the unevaluated individuals
-  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 473, in get_random_uneval_individuals
-    self.sessions[os.getpid()].rollback()
-KeyError: 15458
-</pre>
+**we successful seeding the file, but the actual run have error out with similiar error with sql_base file
 ****this indicated that some error exist inside our file merge
 *Joined more Vincent's runs we now have 12 runs done.
 ==== Action Items ====
@@ -689,6 +670,55 @@ KeyError: 15458
 |Nov 22, 2021
 |Nov 24, 2021
 |}
+=== November 26, 2021
+'''No meeting this week, Thanks giving break/'''
+==== Personal Exploration ====
+*Continues my attempt on solving the problem
+**reversed SQL file changed using our old file
+**Not solving the problem, more errors created, reverse this change, it appears cacheV2's change on the SQL file is a piece of a larger change
+**try to incorporate some changes in cacheV2 and generate a library reference while leaving the main logic intact
+***adding adf function in there
+***manually access class Borg and bypass shard state.
+**the issue of the SQL file is solved, another attempt on starting run
+***more error:
+<pre>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 454, in get_random_uneval_individuals
+    query = self.sessions[os.getpid()].query(self.Individual) \
+KeyError: 15458
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 126, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 122, in main
+    reuse=reuse, num_workers=num_workers, debug=True)
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/EMADE.py", line 1280, in worker_algorithm
+    evaluated_offspring = database.get_random_uneval_individuals(evals_per_worker * num_workers) # * So these are the unevaluated individuals
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 473, in get_random_uneval_individuals
+    self.sessions[os.getpid()].rollback()
+KeyError: 15458
+</pre>
+***this indicated that SQL master and didlaunch.py have problem as well
+***comparing different files from cacheV2, our cacheV2_arl, and arl_update files
+***it appears during the merge some of the function are overriten while both are in fact needed.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try to solve the error of sql_base.py file and start a run on the titanic dataset for testing the result before proceeding to stock data.
+|Finished
+|Nov 26, 2021
+|Dec 3, 2021
+|Dec 2, 2021
+|}
+=== Dec 3, 2021 ===
+
 == Jan 20, 2021 ==
 === Team meeting notes: ===
 * Course introduction, syllabus, introduction to notebooks.
