@@ -874,7 +874,13 @@ That is where I left off because Emade took a while to clone
 * We are also able to run EMADE correctly for the most part
 * To process a run:
  $ python src/GPFramework/launchGTMOEP.py -w templates/input_titanic.xml
-* One problem we faced was that we kept finding 
+* One problem we faced was that EMADE kept returning inf values
+** So we edited the data preprocessing files and finalized them
+** '''testPreprocessed.csv.gz''' and '''trainPreprocessed.csv.gz'''
+* We made sure all the default files worked with '''input_titanic.xml''' and with the titanic database
+
+=== Subteam Meeting 2 (10/24) ===
+* I
 
 === Individual Notes ===
 * I was having a little bit of trouble getting EMADE running as some packages actually didn't install properly
@@ -885,8 +891,37 @@ That is where I left off because Emade took a while to clone
 * I tried creating a conda environment for Python 3.7 and reinstalled and it worked!
 * I realized that messing with my global environment will often cause many issues
 * Worked on finalizing the '''testPreprocessed.csv.gz''' and '''trainPreprocessed.csv.gz''' files
-* A problem we faced was that we would achieve a <code>ValueError: could not convert string to float: 'Embarked_S'</code>
+* A problem we faced was that we would achieve a:
+```
+ ValueError: could not convert string to float: 'Embarked_S'
+```
 * We removed the last column, because we actually wanted the "Survived" column to be the last, and then it ended up working
+* During the second subteam meeting, I made a lot of changes to our XML file
+* I duplicated '''input_titanic.xml''' to '''emade_titanic.xml'''
+** I changed the database in emade_titanic.xml to be emade_titanic, because that's the database we are going to use
+```
+ <dbConfig>
+        <server>71.204.44.212:6603</server>
+        <username>guest</username>
+        <password>emademade</password>
+        <database>emade_titanic</database>
+        <reuse>1</reuse>
+ </dbConfig>
+ <datasets>
+        <dataset>
+            <name>FullDataSet</name>
+            <type>featuredata</type>
+            <MonteCarlo>
+                <trial>
+                    <trainFilename>datasets/emade_titanic/trainPreprocessed.csv.gz</trainFilename>
+                    <testFilename>datasets/emade_titanic/testPreprocessed.csv.gz</testFilename>
+                </trial>
+            </MonteCarlo>
+        </dataset>
+ </datasets>
+```
+* I later then duplicated '''input_titanic.xml''' to '''emade_titanic.xml'''
+
 
 
 === Action Items ===
