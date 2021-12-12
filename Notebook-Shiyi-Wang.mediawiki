@@ -414,8 +414,25 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 == Week 15 ==
 === Dec 1, 2021 ===
 '''Subteam Meeting Notes:'''
+* Code freeze fork of subteam codebase before Final Presentation: https://github.gatech.edu/sleone6/emadebackup
+* Everyone reinstalls EMADE with Steven's version and prepare to conduct runs for final presentation.
 
 '''Individual Progress'''
+* I debugged and set up EMADE running environment on PACE-ICE.
+** I was able to run EMADE unseeded but encountered issue when seeding the individual.
+*** Update: I was able to resolve the issue on Dec 6 during the Scrum meeting.
+** My tips for PACE/EMADE setup
+*** ssh <gt-user>@pace-ice.pace.gatech.edu
+*** Make scratch, db, and MySQL database
+*** SCP over EMADE folder 
+**** Alternatively, I recommend using [https://code.visualstudio.com/blogs/2019/07/25/remote-ssh#:~:text=The%20VS%20Code%20Remote%20%2D%20SSH,Ctrl%20%2B%20Shift%20%2B%20X). VSCode SSH Remote Host Connect]
+*** Modify all .cnf, .xml, and .pbs files
+*** Install & Activate conda environment using YAML file [https://github.gatech.edu/cwhaley9/emade/commit/6781e87ba9ffed065a983d12ec38c37191e3082e HERE].
+*** Create "Amazon" database
+*** Start EMADE runs
+** Issue encountered
+*** To properly configure, edit input XML file for username, password, reuse parameter, environment name, and objectives.
+*** To run with SQuAD dataset, drop all tables in amazon database and then rerun EMADE.
 
 '''Action Items:'''
 {| class="wikitable"
@@ -425,35 +442,23 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 !Suspense Date
 !Date Resolved
 |-
-|Complete Peer Evaluation
+|Reinstall EMADE using [https://github.gatech.edu/sleone6/emadebackup emadebackup fork] shared by Steven
 |Completed
+|December 1, 2021
 |December 6, 2021
-|December 8, 2021
+|December 1, 2021
+|-
+|Drop all tables in Amazon database for proper SQuAD runs
+|Completed
+|December 1, 2021
+|December 6, 2021
 |December 6, 2021
 |-
-|Debug EMADE run issues related to NameError: _mysql not defined
+|Run EMADE with the seeded individual
 |Completed
-|December 6, 2021
+|December 1, 2021
 |December 9, 2021
 |December 6, 2021
-|-
-|Update XML file and update line 1864 in neural_network_methods.py
-|Completed
-|December 6, 2021
-|December 9, 2021
-|December 6, 2021
-|-
-|Keep EMADE running for >= 16 hours
-|Completed
-|December 6, 2021
-|December 9, 2021
-|December 9, 2021
-|-
-|Design [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation] slides
-|Completed
-|December 6, 2021
-|December 10, 2021
-|December 9, 2021
 |}
 
 === Nov 29, 2021 ===
