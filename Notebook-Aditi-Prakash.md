@@ -46,10 +46,9 @@ emade.buildClassifier()
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
-| Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
-| Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
-
+| Determine if Karthik's run produces individuals that can predict start index | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Finish EMADE setup on PACE | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Analyze discrepancies between EMADE.py and load_environment() for standalone_tree_evaluator.py | Done | 11/15/21 | 11/22/21  | 11/20/21 |
 
 # Week 12: November 8th, 2021
 ## Overview
@@ -80,9 +79,9 @@ We will meet on Wednesday to determine the exact output format we want our model
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
-| Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
-| Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
+| Finalize Output Format from Output Layer After Team Discussion | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Research embedding methods and Keras multi-output regression | Done | 11/8/21 | 11/15/21  | 11/12/21 |
+| Determine if Karthik's run produces individuals that can predict start index | In Progress | 11/8/21 | 11/15/21  | - |
 
 # Week 11: November 1st, 2021
 ## Overview
@@ -118,7 +117,7 @@ EMADE PACE Setup Issues
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish EMADE setup on PACE | Done | 11/1/21 | 11/8/21  | - |
+| Finish EMADE setup on PACE | In Progress | 11/1/21 | 11/8/21  | - |
 | Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
 | Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
 
