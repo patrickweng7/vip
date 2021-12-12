@@ -310,6 +310,46 @@ Once you're in the node, type mysql -u root
 **no permission for installing conda
 **not allowed to setup conda environment
 **conda must installed inside home 
+==== Personal Exploration ====
+*Here is formal process of establish PACE connection:
+**First use ssh tsun90@pace-ice.pace.gatech.edu establish connection with the PACE server
+**After the server connection is established we now establish a job session on PACE with qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+**move into /usr directory and run mysqldb to establish our database instance
+**Now in a new terminal reconnect to the PACE and ssh into the job node we have established the formal connection with.
+**Now we establish a connection with the database with command mysql
+**Create a new credential with full privilege and generate a schema use CREATE DATABASE
+**exit the mysql query mode and use vim modifier or nano to modify the input template of the dataset we are going to use and change database into our new database address with account name we just generated.
+***NOTE: no password is needed as the account I established is not protected by one.
+**After the database is configured correctly we will now try to start a run.
+***load the anaconda 2020 from PACE server virtual library
+***active the conda environment we have configured with all dependencies we have installed for made
+**go to the directory where our emade file is and run install.py install to ensure the emade is configured in the PACE environment
+**now to launch the emade run launchEMADE.py with template file we want to use.
+**Encountered problem when using stock input template, it says some variable in the input template is not valid
+***Stock team is using cacheV2 updated input schema
+***update the input schema.xsd file resolved this issue
+***another error saying the evolution function NSG2 do not exist
+****There is a NSG2 function exist in our evolution functions, this bug is unclear.
+==== Action Table ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|After the PACE bug that prevented establish of SQL database instance is resolved, continue to try a run on PACE using stock data
+|Finished
+|Oct 8, 2021
+|Oct 15, 2021
+|Oct 12, 2021
+|-
+|Begin midterm presentation preparation with the team, including practice run and presentation PowerPoint.
+|Finished
+|Oct 8, 2021
+|Oct 15, 2021
+|OCt 14, 2021
+|}
 === October 12, 2021 ===
 == Jan 20, 2021 ==
 === Team meeting notes: ===
