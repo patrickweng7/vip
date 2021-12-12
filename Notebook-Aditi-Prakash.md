@@ -12,7 +12,7 @@ Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
 # Week 14: November 22th, 2021
 ## Overview
-Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trails with NNlearner2 as seeded individual. 
+Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
 
 ## Team Notes:
 * Currently, NNLearner2 predicts 0’s and 1’s for all samples in our training set, which we believe is due to some regression parameters not being set properly in create_representation() and model.fit(). Dr. Zutty suggested that it is a problem with how our output layer is using the sigmoid activation function (ie. squeezing all of its predictions to 0’s or 1’s).  
