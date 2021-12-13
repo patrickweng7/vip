@@ -465,7 +465,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
 * Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
 * Primitive Set:
-![Screenshot (450)](https://github.gatech.edu/storage/user/47031/files/36b661df-c47f-4c8f-b004-0f24a0731540)
+![Screenshot (450)](https://github.gatech.edu/storage/user/47031/files/7d8e9d40-2ef0-45e1-b974-f49e2b94d69a)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Change 30 generations to 50 generations for improved evolution
 * Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
