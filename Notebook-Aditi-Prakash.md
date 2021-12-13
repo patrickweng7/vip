@@ -465,7 +465,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
 * Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
 * Primitive Set:
-![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
+![Screenshot (450)](https://github.gatech.edu/storage/user/47031/files/36b661df-c47f-4c8f-b004-0f24a0731540)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Change 30 generations to 50 generations for improved evolution
 * Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
@@ -476,7 +476,7 @@ Best Learner: FPR = 0, FNR =  0.9122807017543859
 
 MOGP Pareto Front:
 
-![Genetic Programming Visualization](https://picc.io/Uot-hXd.png)
+![Screenshot (426)](https://github.gatech.edu/storage/user/47031/files/4366dfb9-079b-4b4f-be5a-8b5d9d5a67e6)
 
 Findings:
 The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. Finding Pareto-optimal solutions was more difficult with ML, and less individuals existed on both extremes of both objectives, but genetic programming created a diverse set of individuals and had a much lower AUC. We also ensured that we took a split of the data that was the same split that we used to train our ML classifiers for the Titanic ML problem. Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
