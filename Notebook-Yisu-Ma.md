@@ -8,6 +8,8 @@
 
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
+
+
 # **Fall 2021**
 ## Week 16: December 6th -  November 10th (2021)
 ### Lecture overview:
