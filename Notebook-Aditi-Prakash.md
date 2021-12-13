@@ -30,7 +30,7 @@ Analyze results of 24-hour runs and present final presentation.
 ## Individual Notes:
 * I worked on the output layer slide for our final presentation, which captured our attempt to research ways in which to have our models output tuples but our eventual decision to do single-output regression (see earlier notebook entries for more info) (slide 12): https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing.
 
-Results captured in our final presentation: 
+## Results captured in our final presentation: 
 ![Screenshot (500)](https://github.gatech.edu/storage/user/47031/files/5df91198-0b2b-4c84-97be-01dea2ea084a)
 ![Screenshot (501)](https://github.gatech.edu/storage/user/47031/files/31af7e5a-cfbf-4f44-acaf-a493af47a1c2)
 ![Screenshot (502)](https://github.gatech.edu/storage/user/47031/files/27004f6c-68d7-4577-9b63-8252042ea93b)
