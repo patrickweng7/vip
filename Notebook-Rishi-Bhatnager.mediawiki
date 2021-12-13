@@ -23,6 +23,69 @@ Subteam Teammates:
 ** -2 Level of Detail
 ** -2 Usefulness to team
 
+==Dec 10, 2021==
+'''Team Meeting Notes'''
+
+''Final Presentation day, notes for each subteam below''
+
+'''Our presentation'''
+* Create trade signal visualization for complex individuals (especially for argmin/max trees where we don’t really know what’s going on)
+
+Image Processing
+* Baseline results:
+** Objectives: ROC AUC, number of parameters
+** Parteo front AUC: .219
+* NSGA II performs better than Lexicase and NSGA III
+* Geometric Mating and Mutation (new operators for sequence individuals): Partially matched, ordered crossover, uniform and multipoint
+** Ran into errors with the former two
+** Uniform and multipoint best ROC AUC: .365
+* Contrast and sharpening filter gets lower ROC AUC than contrast and Sobel filter (but still worse than baseline)
+
+NLP
+* Goal: use autoML to improve Q&A systems
+* Best results: .1% reduction in area of interest
+** Both seeds and individuals performed poorly
+** SOTA also doesn’t perform too well
+* Future work:
+** Improve low scoring results
+** Implement multi output regression individuals
+** Debug problems with already-implemented embeddings
+** Lazy bug fixes
+
+NAS
+* Weight sharing:
+** pros: best individual good for 1 epoch (64% test accuracy)
+** cons: weights in database are too slow
+* Adam optimizer performed well
+* General next steps:
+** Remove SGD or only use Adam
+** Experiment with training callbacks
+
+Modularity
+* Experiment 1 takeaway: Size may not inherently imply usefulness
+* Analysis of ARL effects on individuals’ objectives (experiment 2) takeaways:
+** Most ARLs tended to follow the general distribution
+** ARLs which differ from the general distribution were rare
+* Future work: 
+** ARL construction
+** ARL selection experiments
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze individuals
+|In progress 
+|Nov 11, 2021
+|
+|
+|}
+
+
 ==Nov 19, 2021==
 '''Subteam Notes'''
 * Right now we're just running experiments. We're waiting to get some more done before we dive deep into performing all of the analysis, so we're waiting for that and just churning out runs. A tracker of our runs can be found [https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing here]
