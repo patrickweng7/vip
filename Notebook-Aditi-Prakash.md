@@ -699,13 +699,15 @@ Findings: The global maximum (a best individual with a fitness or MAE of 0) was 
 The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
 
 Visualization:
-![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+![Screenshot (421)](https://github.gatech.edu/storage/user/47031/files/e3de3a9c-1523-40d1-8d58-138294f30d2d)
+![Screenshot (426)](https://github.gatech.edu/storage/user/47031/files/c17c900b-e0ef-4bd6-a16b-e74a29a6ca0a)
 
 * We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
 
 To improve the fitness of the evolved individuals, I added the floor and maximum operations from the numpy library. I also registered the mutInsert function as an additional mutational function to use in the evolutionary loop. This mutation function randomly selected a node in the given individual and creates a new subtree using that node as a child to that subtree. The following graph of fitness over time reflects those changes:
 
-![Genetic Programming Visualization after Floor and Maximum Primitives Added](https://picc.io/Un4_bet.png)
+<!--![Genetic Programming Visualization after Floor and Maximum Primitives Added](https://picc.io/Un4_bet.png)-->
+![Screenshot (424)](https://github.gatech.edu/storage/user/47031/files/04f8edce-2f1d-4f1a-93fc-084b77d2cad7)
 
 We see that modifying the primitive set and the mutation function being used in the evolutionary loop caused the maximum fitness line to decrease much more quickly than it did for the original evolution, indicating that floor, maximum, and mutInsert ensure optimal fitness for all individuals in a population by minimizing the fitnesses of higher-extreme individuals. 
 
