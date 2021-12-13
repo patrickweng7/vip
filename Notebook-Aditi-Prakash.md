@@ -5,156 +5,570 @@ Email: aprakash86@gatech.edu
 
 Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - rdabbagh3@gatech.edu, Rayan Khoury - rkoury7@gatech.edu
 
+NLP Team Members: Rishit, Shiyi, Devan, Jessi, Steven, Karthik, George, David, Manas, Kevin, Yisu
+
 Cell Phone: 704-794-3924  
 
-Interests: Machine Learning, Data Science, Software Development, Dance, Reading
-[[files/aprakash86/'Image 1.png']]
+Interests: Machine Learning, Software Development, Data Science, Dance, Reading
 
-
-# Week 10th: October 25th, 2021
+# Week 16: December 6th, 2021
 ## Overview
-Final VIP Presentations - Bootcamp Teams and Main Teams. 
+Analyze results of 24-hour runs and present final presentation.
 
-## Team Meeting Notes
-* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice. Received feedback from Dr. Zutty to ensure that all of our pareto frontiers are placed on the same graph going forward for easy comparison. Heard from following teams on their current areas of focus:
+## Team Notes:
+* The NLP team finalized our parts for the final presentation on Friday (I will be working on the Output Layer problem slide detailing the issues we had with enforcing multi-output regression earlier in the semester and why we switched to a regression problem). 
+* The stats team is finalizing our experiment design. We will be calculating the region of interest between the Pareto front from our trials and our seeded NNLearner2 individual in our objective space (continuous_mse and number of parameters). The team will also be looking at our trials as Bernoulli trials and determining how many individuals outperformed NNLearner2 as well as by how much.  
+* Our new question is: Can AutoML evolve NNLearner2 and improve its performance on the SQUAD dataset? What are the tradeoffs of this evolution (ex. time, performance improvement, diversity of evolved individuals, etc.)?
+* Team members will continue to add their results to the shared run info document so that we have a significant sample size to base our hypothesis testing on. 
+* We will be doing a dry run of our final presentation during our meeting on Wednesday. 
 
-NLP:
-Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
-Uses work of NN team
+## Subteam Notes:
+* We did a dry run of our final presentation and gave feedback on each other’s slides. Overall, the organization of our presentation is effective, and we still need results from our hypothesis testing to showcase how our individuals actually evolved during our runs to either outperform/not outperform our seeded NNLearner2 individual.
+* The PACE queue was blocked up for a significant part of the day on Tuesday and Wednesday due to all of our VIP teams submitting jobs to it in preparation for the final presentation. However, it cleared up on Wednesday in time for most members 9 (including myself) to submit 24-hour runs to the shared run info doc. 
+* On Thursday, our team met to do a final run through after the stats team (Shiyi, Rishit, and Steven) finished analyzing the results from all of our team’s runs. After the run through, I asked some questions about Steven and Devan’s NNLearner and NNLearner2 tree diagrams and what they were showcasing with those diagrams in the presentation, and they explained that they were showing how NNLearner can only take in one DataPair but NNLearner2 can take in two, which enables our team to do QA bidirectionally as per the BIDAF model.  
 
-Bootcamp Subteam 1:
-Jessi, Pranav, Eashan, Elan
-SVM, Gradient Decision Boost, NN, Random Forest, Gaussian
-Pareto optimal results - FPR increasing, FNR decreasing
-Add, subtract, multiply, cos, gp.mutNodeReplacement (individuals, pset), Evaluation - FNR and FPR, Selection - custom selection tournament
-Crossover - gp.cxOnePointLeafBased (ind1, ind2, termpb - random) 
-Custom algorithm - whichever individual has a lower sum of scores is the winner
-More diversity, lower AUC
-Headless Chicken rate - crossover with an individual with a randomly generated tree, decreased mutations except for ephemeral with need more randomness, reduced mutations
-Need to split train into train and test, got one pareto optimla individual because they didn’t do this
-0.133 vs. 0.137 - preprocessed vs not preprocessing (42 vs. 115)
-Adaboost, too many inf, emade kills CPUs, check twice that reuse = 1
-MOGP was only able to beat ML due to the fact that it fills out the Pareto front 
-gp.cxOnePointLeadBiased - always random 
+![Screenshot (499)](https://github.gatech.edu/storage/user/47031/files/e7e37eb1-e8ad-404e-879f-707fe62c6815)
 
-Neural Architecture Search:
-Create Neural Networks automatically using primitives
-Text processing for sentiment classification
-EMADE cannot evolve seeds very much 
-Most individuals are not NN learners in EMADE, have to restrict EMADE to only work with NN learners
-Want EMADE to move past seeded individuals and explore search space well
-Minimize accuracy error, minimize number of parameters
-Lowering training time would have same effect as limiting number of parameters
-Time stopping of 600
-Time stopping of 2500
-600 time stop generated many more valid individuals, so we can create new individuals with genetic programming even though 2500 had a smaller AUC
-Modify original DataPair once, feed data into individuals 
-Preprocessing helped average evaluation time for individuals.
-CoDEEPNeat - additional class for EMADEDataPairs, limited main primitives set type access to primitives is only ADFS that has access to it, main primitive is blueprint, adfs are modules, represents CoDEEP NEAT structure
-Limited primitives in modules to just layers 
-Separate table to track NNLearner individuals over time, where to improve in encouraging more complexity
-Detect and reward novelty, novelty - dropout, embedding, convolutional layer
-Might have a highly optimized NN with only dense layers, helps with certain scenarios like images
-Trello board 
-Split layer list primitive into different classes based on Tensor dimension they take in 
-Novelty can make an objective become a subjective 
-2500 was more distributed than the 600 one (600 is way too small) 
+## Individual Notes:
+* I worked on the output layer slide for our final presentation, which captured our attempt to research ways in which to have our models output tuples but our eventual decision to do single-output regression (see earlier notebook entries for more info) (slide 12): https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing.
 
-Bootcamp Subteam 2:
-Drop Name, PassengerID, TicketNumber, Fare
-Map Sex and Embarked to numerical
-Fill nulls with medians, mode
+## Results captured in final presentation: 
+![Screenshot (500)](https://github.gatech.edu/storage/user/47031/files/5df91198-0b2b-4c84-97be-01dea2ea084a)
+![Screenshot (501)](https://github.gatech.edu/storage/user/47031/files/31af7e5a-cfbf-4f44-acaf-a493af47a1c2)
+![Screenshot (502)](https://github.gatech.edu/storage/user/47031/files/27004f6c-68d7-4577-9b63-8252042ea93b)
 
-AUC of 0.18129 with ML
+* From these results, it is clear that we need more data to be conclusive about EMADE’s ability to evolve individuals to outperform a baseline model based off of the BIDAF model. 
+* The continuous_mse values for the Pareto optimal individuals also seem quite high, which means their predictions are quite far off from the actual start index of most samples passed to them. This could be due to a poor choice of word/vector/contextual embedding, which is something we plan to look into next semester. 
+* However, these Pareto optimal individuals are promising and are mostly NNLearner2 individuals with our custom primitive layers, indicating the work we have done to replicate the BIDAF model has been effective in pushing out our seeded model and reducing its AUC. 
 
-SPEA2 and NSGA tried, SPEA2 worked better
-Simple primitives 
-Evaluation - activation function 
-
-AUC 0.125
-Didn’t one hot encode embarked feature, would have improved 
-Conda + Python 3.7
-
-EMADE
-Struggled to get FNR and FPR methods working
-MySQL very slow - only 10 generations in 3 days, hard to connect 
-Ended with pareto optimal set of 65
-Trees grow slower than MOGP
-EMADE gave better generations even with less generations 
-Should have checked if certain number of generations takes a certain amount of time 
+Notes on Other Teams' Presentations:
 
 Image Processing:
-Multilabel image processing 
-CheXNet Paper - pneumonia classification on xray scans
-Image resizing, normalization, horizontal flipping 
-30 Generations (Precision-Recall AUC), Number of Parameters
-NSGA-II, Lexicase, Tournament, Fuzzy 
-NSGA-III defines reference points to maintain diversity in solutions
-In theory, should outperform NSGA-II
-Only ran for one generation before stopping 
-EMADE master process would kill itself
-No errors in log
-Semantic crossover and semantic mutation 
-Individual * logistic *(random1 - random2)
-Primitives not set up to handle image data, majority of generated individuals not able to generate a valid fitness score
-Geometric crossover operators 
-Simulated Binary
-Blended Crossover
-Very little information about mutation and crossover for image processing problems 
-Gray level transform that increases contrast with image filter
-Hyperfeatures - two or more features which improve fitness 
-Enhancing contrasts helps with edge detection 
-Brainstorming-image-processing channel in Slack
-Lexicase picks a random objective 
-Loosely typed GP problem - everything is coming out as a float 
-Geometric crossover makes sense when you have a numeric genome 
-Simulated binary and blended crossover work more rigidly than single point crossover 
-NSGA II - works less well with more than 2 objectives 
+* Initially a multilabel problem, every image had multiple labels to represent disease
+* Changed problem to not be multilabel, still multiclass
+* AUC: receiving Operator Characteristic (ROC) - compares TPR vs FPR over various thresholds
+* Higher the AUC ROC, more certain model is at distinguishing between classes
+* AUC for Pareto Front: 0.2189
+* Lowest ROC: 0.169169, NNLearner, adf_3: MaxPoolingLayer2D, adf_8: DenseLayer4dim 
+* NSGA2 was baseline, ROC AUC: 0.218952
+* NSGA3
+* Lexicase (uncommon training sets)
+* NSGA3 works better than NSGA2 on multiple objectives (NSGA2 reduces to a 2-objective problem)
+* Selection methods - lexicase, ton of parameters in individual
+* Too many training cases leads to selection being random 
+* Best valid individual was an NNLearner
+* Semantic operators resulted in unbound growth of individuals
+* Geometric crossover operators: partially matched, ordered crossover, uniformly matched
+* AUC of ROC - with increase in parameters, area started to decrease
+* Individuals with less parameter had greater AUCs
+* Best individual: 0.365493
+* No great solutions with less than 3.5 million parameters
+* Low diversity of solutions, worse AUC than baseline, number of parameters are extremely high for decent results
+* Two hyperfeatures: grey level transformation, sobel filter
+* Contrast + Sobel Filter: Lowest ROC AUC - 0.5
+* Number of paraemters - 929359
+* Contrast + Sharpening Filter - ~0.4
+* Future semesters: EMADE.py using selection method in XML, implement different version of lexicase, NNLearner
+* Lexicase can produce 14x14 confusion matrices to demonstrate performance of individuals for each class, ROC AUC is an average and doesn’t tell us how each individual performs
+* What kind of filters/mutations would accentuate what a human would look for?
 
-Bootcamp Subteam 4:
-Started with a variety of learners, changed svm to gaussian because they couldn’t create Pareto optimal front 
-Added logic primitives and some arithmetic primitives 
-Added 3rd objective of tree size to evaluation function 
-Added FNR and FPR to input file 
-Allowed port forwarding on master’s home router if workers will be joining remotely 
-Weren’t able to run as many generations with EMADE as they would have liked, ML algorithm’s AUC was better 
-EMADE and MOGP - more diverse Pareto front 
-Grep -rl error string helped trace root cause of error 
+Stock Market/Trading Analysis
+* 3 trials of different objective sets in EMADE
+* Train/test data was same as used in paper
+* Primitive Analysis/Profit Percentage Analysis
+* Primitive Analysis - Profit Percentage (objective set: loss + variance) 
+* MyVMA and arg_min are common primitives 
+* Successful runs for 7 stock portfolios, only did not outperform paper’s model for one stock 
 
-Stocks:
-Primitives Analysis:
-Relative performance of primitives based on CDF metric (lower is better)
-Boosting regression across all technical indicator generally has a good performance 
-MyDeltaWilliamsR, modify seeded individuals to create better results in EMADE 
-Profit Percentage, Average Performance Per Transaction, CDF of Profit, Variance of Profit Per Transaction 
-Want to minimize CDF
-MyBollingerBand
-Create pool of objectives and pick out stocks to conduct EMADE runs 
-Run EMADE using all possible combinations of the objectives and compare the AUC across trials
-Objectives: Loss Percentage Objective, Average Loss Per Transaction, etc. 
-Takagi-Sugeno fuzzy, Support Vector Regressio and fuzzy logic 
-Cannot replicate paper
-Not able to replicate PLR-SVR 
-Explore approaches to portfolio optimization, stock price prediction 
-Improve EMADE’s time-series analysis (weather series, heart rate data)
+NAS:
+* Worked on generators for modules in EMADE throughout the semester
+* Set up experiments to determine impact of changes on runs and evolution
+* Added weight sharing and module as a primitive to speed up training of same individuals
+* Frequency of accuracy was greater without mating and mutation for modules than with mating and mutating
+* Residual connections were more effective that pooling and weight sharing overall, but not for the best individuals
+
+Modularity: 
+* Fixed bugs in experiments from midterm 
+* Saw that introduction of ARLs to individuals tended to improve their performance
+* Used novel selection methods to avoid rewarding the desired behavior of individuals prematurely (ie. not using size as a metric)
+* New members fixed issues with cloud copy script performing infinite recursion
+* Attempted to work on Stock team’s codebase but merge conflicts were too great to make progress with Stocks team this semester
+* Continuing to experiment with ARL sizes and running experiments to see impact on results 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Done | 10/6/21 | 10/20/21  | |
-| Run EMADE on preprocessed Titanic Data | In Progress | 10/6/21 | 10/14/21  | |
-| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
-| Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
+| Work on output layer slide for final presentation  | Done | 12/6/21 | 12/8/21  | 12/7/21 |
+| Make sense of final results and implications for next semester | Done | 12/13/21 | 12/6/21  | 12/9/21 |
+| Present final presentation   | Done | 12/6/21 | 12/10/21  | 12/10/21 |
+
+# Week 15: November 29th, 2021
+## Overview
+Continue seeded EMADE runs, begin to compile results for final presentation. 
+
+## Team Notes:
+* Members are continuing to run 8-hour trials in EMADE seeded with NNLearner2, we have decided to use continuous_mse and number of parameters as our evolutionary objectives. 
+* Our continous_mse metric is currently having an error wherein all of the values it returns for individuals’ continuous_mse are about half of what they should be based on their predictions of the start index in the answer. Steven was able to fix this by dividing the Monte Carlo objective values by 2 (the number of input DataPairs NNLearner2 takes in). 
+* Kevin is continuing to fix up our layers by refactoring their logic to be a bit cleaner and more readable as well as adding meaningful comments to each layer to indicate the flow of tensors throughout each individual and their respective sizes. 
+
+## Subteam Notes:
+* We met in person at the CULC to work on seeded runs using our codefreezed feature/nnlearner2 branch. I learned how to seed runs using python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa. My runs as of now are remaining stuck in the queue for a long time, which is likely due to the large number of runs that are simultaneously in the queue. Other errors I am experiencing include MySQL connection timeout issues, which are just a matter of retrying to resolve.  
+
+## Individual Notes:
+* I ran an emade-master job 4 times, seeding with NNLearner2 the first time and setting reuse=1 for all consecutive runs. Below is information about the runs I completed:
+
+master59026.out
+Runner: Aditi Prakash
+Continuation: No
+Runtime: 8 hours
+Total Runtime: 8 hours
+Additional details: Used accuracy as objective instead of continuous_mse, so we should likely just disregard this run.
+
+master23203.out
+Runner: Aditi Prakash
+Continuation: No
+Runtime: 2 hours
+Total Runtime: 2 hours
+Additional Details: 42 generations.
+
+master168669.out
+Runner: Aditi Prakash
+Continuation: Yes, of master148523.out. 
+Runtime: 0.5 hours
+Total Runtime: 4.5 hours
+Additional Details: 14 generations. My emade-master jobs keep closing due to SQL connection/disk quota issues, which is why I have several master.out files. 
+
+master186754.out
+Runner: Aditi Prakash
+Continuation: Yes, of master168669.out. 
+Runtime: 2 hours
+Total Runtime: 6.5 hours
+Additional Details: 43 generations.
+
+* No individuals have evaluated thusfar in my runs with continuous_mse and number of parameters as the objectives. However, I was able to complete nearly 200 generations in 7 hours, which indicates that our models are able to train fast and would produce speedy results when constructed with fully valid primitives. While I waiting for runs to complete, I analyzed the current state of our team's progress and formulated ideas for next semester:
+
+* Since we focused heavily on creating valid primitives this semester, our layers are wrappers around Keras models and are quite limited to the functionality that the Keras API offers. In addition, our custom logic has caused some inefficiencies in the runtime for individuals, which might be avoided with a different approach to implementing our layers (ex. graph execution instead of eager execution). 
+* NNLearner2 is also more or less straight out-of-the-box, so we are not entirely certain that it is best suited for our NLP problem. 
+* One of our biggest action items for next semester is to work making our embedding methods (ex. GloVe and Bert) as optimal as possible. Moreover, since our problem is currently extractive and not abstractive, we heavily punish individuals for not predicting the exact answer string in the context, even though an actual human might be off by a word or two in their answer to a particular question. This model is quite far removed from other state-of-the-art NLP models and implementing this would allow our model to be more scalable and solve a wider range of problems. 
+* We should also focus on our contextual embedding and ensure the output layer does not “undo” the work  done by the embedding and attention flow layers when we distill our probability matrices into a single prediction for the answer string. 
+* Finally, we should have our models predict both the start and the end index of the answer in the context to ensure that they are able to learn the length of the answer string as opposed to just its start. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Continue with runs and compare results with other team members | Done | 11/29/21 | 12/6/21  | 12/6/21 |
+| Update run results document with run results | Done | 11/29/21 | 12/6/21  | 12/6/21 |
+| Pick topics to present during final presentation  | Done | 11/29/21 | 12/6/21  | 12/4/21 |
+
+# Week 14: November 22th, 2021
+## Overview
+Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
+
+## Team Notes:
+* Currently, NNLearner2 predicts 0’s and 1’s for all samples in our training set, which we believe is due to some regression parameters not being set properly in create_representation() and model.fit(). Dr. Zutty suggested that it is a problem with how our output layer is using the sigmoid activation function (ie. squeezing all of its predictions to 0’s or 1’s).  
+* From this documentation, it seems as though passing in None for the activation parameter should remove the sigmoid activation altogether: https://keras.io/api/layers/activations/, giving us the model’s actual predictions instead of a binary classification for answerable/unanswerable questions. 
+* If this change produces our expected results, we will turn our current classification problem into a regression problem with the target being the start index of the word in the answer. Otherwise, we will continue with our classification problem. 
+* We will confirm the nature of our problem by Wednesday, at which point we will start 8-hour trials to test NNLearner2’s performance. 
+
+## Subteam Notes:
+* No Wednesday meeting due to Thanksgiving break. Team members are starting 8-hour runs seeded with NNLearner2 as well as testing standalone_tree_evaluator.py on NNLearner2 with the changes Devan has pushed recently. 
+* We are currently resolving a bug with our evaluation function wherein results are being divided by 2, which is likely due to the size of our DataPair being counted twice (since we are passing in 2 DataPairs to NNLearner2). Steven is working on a fix for this and is close to pushing the correct evaluation function, which we can use for trials going forward. 
+
+## Individual Notes:
+* Devan’s feature/nnlearner2 branch (https://github.gatech.edu/sleone6/emade/tree/feature/nnlearner2) is our up-to-date, nearly codefreezed branch that we will use to run trials with NNLearner2. I am currently getting a MalformedNodeError when running standalone tree evaluator on the following individual: NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer). Adding the following lines to my input_squad.xml file resolved the error:
+```
+        <reduceInstances>1</reduceInstances>
+            <numberinput>2</numberinput>
+          <!--  <regression>true</regression> -->
+          <!--  <multilabel>true</multilabel> -->
+```
+* Running standalone tree evaluator on NNLearner2, most individuals are evaluating to (inf, inf) as follows:
+
+```
+TimeStamp | 2021-12-09 15:21:12.089645
+Received: LocalPoolingMax(MeanWithHole(ARG0, TriState.FEATURES_TO_FEATURES, Axis.AXIS_1, 150, trueBool), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.AXIS_2), myIntSub(50, 7))
+	With Hash 92134d3638eaef612c1c55026caaed6d242bfef96793ec32bf38bc2c6e712e15
+	With Fitnesses: (inf, inf)
+	With Age: 0
+TimeStamp | 2021-12-09 15:21:12.089702
+Received: MySum(Tfisf(ARG1, falseBool, 8, trueBool, 9), TriState.FEATURES_TO_FEATURES, Axis.AXIS_2)
+	With Hash 928dddd34c0eed4934683788030467d15b5e0f4ed5301d90e506384aa048a37f
+	With Fitnesses: (inf, inf)
+	With Age: 0
+TimeStamp | 2021-12-09 15:21:12.089747
+Received: LocalPoolingMax(MorphGradientRect(MorphDilateCross(mySpectralEmbedding(EmadeDataMultiplyFloat(ARG1, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 100.0), passTriState(TriState.STREAM_TO_STREAM), myNot(falseBool)), passTriState(passTriState(TriState.FEATURES_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), lessThanOrEqual(myFloatIntDiv(1.1057487513961668, 50), myFloatMult(0.1, 10.0)), equal(myFloatAdd(0.1, 100.0), myFloatAdd(2.922190844908627, 2.3428452302990967)), greaterThanEqual(myFloatIntAdd(0.1, 128), myFloatMult(0.1, 0.01))), passTriState(passTriState(passTriState(TriState.STREAM_TO_STREAM))), passAxis(passAxis(passAxis(Axis.AXIS_0))), myIntDiv(myOr(lessThanOrEqual(myIntToFloat(8), myFloatIntDiv(1.0, 7)), falseBool), myIntDiv(myOr(falseBool, trueBool), myFloatToInt(100.0))), passInt(lessThanOrEqual(myFloatSub(0.1, 0.1), myFloatIntAdd(1.0, 255)))), passTriState(passTriState(passTriState(passTriState(TriState.FEATURES_TO_FEATURES)))), passAxis(passAxis(passAxis(passAxis(Axis.AXIS_0)))), myFloatToInt(myFloatSub(myFloatIntDiv(myFloatIntAdd(0.1, 4), ifThenElseBool(falseBool, trueBool, trueBool)), myFloatIntMult(myFloatAdd(-4.284066664943587, 1.0), equal(-2.535524017927532, 0.01)))))
+	With Hash 936d57e9932860d3d79f8c7ed5d4de88f5e05b5ca231906146719303caff32ad
+	With Fitnesses: (inf, inf)
+	With Age: 0
+```
+. Once the statistics team finalizes the hypothesis for our experiments, I will know whether my results indicate that AutoML can improve QA systems or not. 
+* Our goal until final presentations is to get as many runs as possible from each team member and increase the sample size of our trials such that our hypothesis testing can produce statistically significant results. As such, we will be able to evaluate the performance of individuals on our Pareto front as compared to the performance of our seeded NNLearner2 individual (our implementation of the BIDAF model in EMADE). 
+* One goal I have for next semester is to write unit tests for each BIDAF layer we implemented this semester to ensure our seeded individual is scalable and to remove any hacky fixes with parameters we had to make this semester in the interest of time. 
+* Having started an 8-hour run without seeding, I noticed that most individuals are evaluating to (inf, inf) (our current objectives are accuracy and number of parameters). I also notice that my runs are getting stuck on a certain generation (ex. Generation 24), which is an issue I resolved during bootcamp by uninstalling and reinstalling GPFramework. Doing this repeatedly is quite impractical given that we want full 8-hour runs without reuse/reseeding, so I am looking into a permanent fix for this (ex. reducing instances in input_squad.xml, reducing the dataset size, etc.). The individuals that are evaluating are mostly NNLearner2 individuals, which indicates that NNLearner2 outperforms other individuals consistently and is therefore being placed on our Pareto front for comparison with our seeded individual. 
+* A WindowKaiser individual also repeatedly appears in the Pareto front upon starting new runs with reuse: https://www.mathworks.com/help/signal/ug/kaiser-window.html. This individual performs extremely poorly, but since it is the only individual other than NNLearner2 that evaluates, it is pushed to the Pareto front in each subsequent generation. This will likely impact our calculations of the AUC for our Pareto front versus the AUC of our seeded individuals when we analyze our results.
+* I will continue to run standalone tree evaluator on NNLearner2 and start seeded runs with NNLearner2 and accuracy and num_parameters as objectives, but our team might switch to a metric more suited for regression (ex. MSE) during our team meeting on Monday. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
+| Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
+
+# Week 13: November 15th, 2021
+## Overview
+Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs). 
+
+## Team Notes:
+* After researching Keras’ current capabilities, we realized that it does not currently support multi-output regression, which is a big limitation for us given that the output layer is a Keras library function with some custom logic added to it. Moreover, EMADE’s architecture directly passes individuals’ predictions to its evaluation functions for scoring, which means that we would have to make changes to EMADE’s master process in order for our individuals to predict indices and for our evaluation functions to take in strings. As such, we have modified our problem to be a regression problem, where our target value is just the start index of the answer in the string. Rishit had the idea of training the model twice, once to predict the start index of the answer and once to predict the end, but this would cause a few issues: our models would evolve differently in each evolutionary process, and we would lose information about the start index while predicting the end index. Moreover, our models could simply learn a pattern in the length of the answer strings as opposed to their semantic location in the vector space, which would defeat the purpose of predicting the end index altogether. 
+* The output layer team has now dissolved, and I have been placed on Devan’s NNLearner2 team along with David, Jessi, and Rishit. 
+* Our goal is to debug standalone_tree_evaluator.py to work on our NNLearner2 model (which takes in a context datapair and query datapair). 
+* Currently, running standalone_tree_evaluator.py on NNLearner2 fails because NNLearner2 uses the load_environment() method in EMADE.py to set up a single individual for evaluation (the following line is from standalone_tree_eval.py: database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name). 
+* Our edits to EMADE.py (mainly changing the number of inputs to each individual in this line: self.pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair)) mean that we have to make changes to load_environment() so that EMADE's evaluate_individual() method still has the expected behavior when we call it on standalone tree evaluator with two EMADE datapairs as inputs. We have already ensured that the evaluation function is compatible with the changes to EMADE.py, and our goal is to do the same for load_environment().  
+* We will all look into the codebase to determine if fixing load_environment() will be worthwhile or if we should proceed with full runs instead of standalone_tree_evaluator.py on NNLearner2. 
+
+## Subteam Notes:
+* Our team members were retasked in preparation for the hackathon on Saturday. 
+* Returning members are working on debugging the BidirectionalAttentionLayer, which currently outputs a tensor with dimensions that are mismatched with the input tensor dimensions from other primitive layers. Keras layers taken in 3-dimensional input tensors with (batch_size, timestep, dimensions), but the BidirectionalAttentionLayer does not output a tensor of this size due to its lack of a batch size definition.
+* New team members will continue to get set up on PACE in preparation for 8-hour runs with our seeding NNLearner2 individual. 
+* I presented my analysis of whether it would be feasible to fix standalone_tree_evaluator.py tp work with NNLearner2 before the next full-team meeting. See individual notes below for my analysis. 
+
+## Individual Notes:
+* From what I can make of the current codebase, we define 
+```
+creator.create("Individual", list, fitness=creator.FitnessMin, pset=self.pset, age=0,  elapsed_time=0, retry_time=0,                        novelties = None, hash_val=None, **fitness_attr)
+```  
+in the setDatasets() method. However, we call create_representation() before we call setDatasets(), which means we haven't yet registered an Individual with two EMADE datapairs as arguments when we call create_representation().
+
+* The following is the order of method calls in general_methods.py in load_environment() for standalone_tree_evaluator:
+``` 
+emade.create_representation(datasetDict, adfs=3, regression=regression)
+emade.setObjectives(objectiveDict)
+emade.setDatasets(datasetDict)
+emade.setMemoryLimit(misc_dict['memoryLimit'])
+emade.setCacheInfo(cache_dict)
+emade.set_statistics(statisticsDict)
+emade.buildClassifier()
+``` 
+* create_representation() is called on the emade instance prior to setDatasets(), and setDatasets() is where the datasetDict with two input datapairs is defined. This is what I believe to be the main discrepancy between load_environments() datapair ingestion logic and EMADE.py’s logic for normal runs. 
+* I believe the following line should be modified in general_methods.py so that individuals can take in 2 datapairs in standalone_tree_evaluator: 
+``` 
+pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair), instead of gp.PrimitiveSetTyped('MAIN', [EmadeDataPair] EmadeDataPair)
+```
+, which is what it currently contains. 
+* At the hackathon on Saturday, I continued debugging the Already Exists error I was having with Tensorflow and Keras installation in my PACE conda environment. A quick fix for this was to simply comment out all references to keras.backend (the package whose import command was throwing the error) in neural_network_methods.py and gp_framework_helper.py. After these changes, the same error was being thrown, and I noticed that the error message pointed to code at a line number that no longer existed in neural_network_methods.py. With this, I realized that EMADE was not actually running with my updated code, and I subsequently ran bash reinstall.sh and was able to resolve all errors at that point. I’ve learned from this that a simple bash reinstall.sh can prevent several errors related to package installation, which is something I will definitely keep in mind going forward. 
+* We will start setting up 8-hour runs in Monday’s meeting (and possibly standalone_tree_evaluator.py runs with NNLearner2 if we are able to debug load_environment() by then). 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Determine if Karthik's run produces individuals that can predict start index | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Finish EMADE setup on PACE | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Analyze discrepancies between EMADE.py and load_environment() for standalone_tree_evaluator.py | Done | 11/15/21 | 11/22/21  | 11/20/21 |
+
+# Week 12: November 8th, 2021
+## Overview
+Research output numerization methods and finalize output layer output format. 
+
+## Team Notes:
+* In today’s NLP team meeting, members were assigned to one of our four remaining tasks for the semester: https://trello.com/b/6lcDBEj1/distilling-qa-systems-with-emade. I was placed on the Output Layer task along with Karthik, Rishit, and Jessi.  
+* The current output layer primitive that the team has written for QA outputs probability matrices for each word in the context being the start and end index of the answer string (this is the same behavior as the BIDAF model’s output layer). In order to evaluate individuals’ predictions with our new F1 score evaluation function (which compares the number of words that match in the prediction and target strings), we need to reduce these matrices to single values that the evaluation functions can take in as input. 
+* Ideally, we would like each individual to output a tuple of the form (prediction_start_index, prediction_end_index) that our F1 evaluation function can then take in and compare to the start and end index of the actual answer. 
+* If we determine that a tuple of the form (prediction_start_index, prediction_end_index) does not produce individuals that give good results, we will look into other numerical representations of the string (ex. hashing the string in some way, vectorizing the string, etc.) and determining which representation produces the best-performing individuals. 
+We will meet on Wednesday to determine the exact output format we want our models to predict, and we will proceed with preprocessing our dataset and modifying our output layer accordingly. 
+
+## Subteam Notes:
+* During Wednesday’s meeting, Rishit, Karthik and I talked to Steven about our problem definition a bit further and received clarification about which part of the architecture we should modify to adjust the output layer’s output. 
+* Our neural_network_methods.py file contains a model.fit() call which compiles and trains an individual containing the BIDAF primitives we have implemented. This call generates trained individuals that will then output values of the label type we specify in the context and query DataPairs we pass in. Our goal is to make changes to model.fit() and preprocess our dataset such that we can have individuals predict a numerical representation of the answer string that our evaluation function can then use in evolving individuals.
+
+Model Fitting:
+```
+history = model().fit(train_data_list, target_values, batch_size=batch_size, epochs = epochs, validation_data=(test_data_list,truth_data), callbacks=[es])
+```
+
+* Rishit, Karthik and I discussed different numerical representations of our target strings that we could pass into our models. We are currently considering passing in word/character/contextual embedding vectors to the models, but this could easily devolve into replacing the embedding layer’s responsibility in the model prematurely, which could easily lead to overfitting of our models on our training set.
+* After running a quick Python script to ensure that the start index column in our dataset matched the string labels (insert script here), we decided to proceed with having our models predict the start and end index of the answer as a tuple, as this would be the easiest format for our evaluation functions to use. Script can be found here: https://colab.research.google.com/drive/1dx66YZSFYXimJAcZtU35yTkt_PYpiVL9.
+* Karthik is currently testing out an EMADE run on PACE with the start index of the answer as the target variable (as a result of our output layer changes, we have modified our problem from a classification problem to a regression problem). 
+* Squad Queries and Answers Sample:
+![Screenshot (493)](https://github.gatech.edu/storage/user/47031/files/6beced0b-6810-493d-ac5a-e34bd27a78cb)
+
+## Individual Notes:
+* Since Jessi attended Wednesday’s meeting virtually, she asked if I could set up some time with her to help her get caught up with the output layer team’s progress and next steps. We met Friday afternoon at 3:00 PM for the same. I explained our team’s discussion on Friday as well as our new task of determining how Keras models can output tuples. 
+* I found this article to contain the best explanation of multi-output regression implementation in Keras: https://towardsdatascience.com/multi-output-model-with-tensorflow-keras-functional-api-875dd89aa7c6. However, I foresee limitations with EMADE’s handling of our DataPairs that may cause this approach to not work for individuals’ predictions, even if we can implement Keras layers that output tuples of the form (start_index, end_index). I believe EMADE directly passes off individuals’ predictions to the designated evaluation functions in the .xml for a given run, which might cause the start and end indices to get separated from one another when being evaluated, defeating the purpose of a tuple output for our prediction string. I will confirm with Steven on Monday. 
+* When I look at the EmbeddingLayer, it seems like the main thing we're doing there is tokenizing the datapair using texts_to_sequences(). I believe a starting point for us would be to look at other tokenization methods to use in this layer such as Penn TreeBank https://catalog.ldc.upenn.edu/LDC99T42 (which is good at identifying predicate-argument structure, a particularly common structure in answers for QA systems) and Gensim https://radimrehurek.com/gensim/, which already has pretrained embeddings for datasets of a variety of domains, including QA datasets. 
+
+Current Embedding Layer taken from feature/nnlearner2:
+```
+    maxlen = MAXLEN 
+    numwords=NUMWORDS   
+    out_dim = abs(out_dim)
+    data_pair = data_pair
+    # data_pair = data_pair[0]
+    if data_pair.get_datatype()=='textdata':
+        data_pair, size, tok  = tokenizer(data_pair, maxlen, numwords)
+    else:
+
+        size = len(data_pair.get_train_data().get_numpy())
+        maxlen = 1
+    initializer = initializer.value()  
+    layerlist.mylist.append(Embedding(size, out_dim, input_length=maxlen, embeddings_initializer=initializer))    
+    return layerlist
+```
+
+* With these trained embeddings, we could embed the output once it is predicted and pass that to the evaluation function as a vector to compare to our embedded target vectors, allowing us to capture the entire strings as a numerized vector and allowing single-output regression at the same time. Moreover, if we were to move to a different evaluation metric that is more forgiving of answers that are slightly off in index but answer the question correctly, vectorized outputs would allow us to make this qualitative comparison directly (F1 score, which is what we are using correctly, merely compares the number of words in the prediction and target string that match). 
+* With this research in mind, our output layer team will finalize our output format during Monday’s meeting. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize Output Format from Output Layer After Team Discussion | Done | 11/8/21 | 11/15/21  | 11/15/21 |
+| Research embedding methods and Keras multi-output regression | Done | 11/8/21 | 11/15/21  | 11/12/21 |
+| Determine if Karthik's run produces individuals that can predict start index | In Progress | 11/8/21 | 11/15/21  | - |
+
+# Week 11: November 1st, 2021
+## Overview
+First NLP team meeting, understanding NLP problem, EMADE setup on PACE. 
+
+## Team Notes:
+* Today, bootcamp students were placed into their subteams, and I was placed on the NLP team. In our weekly scrum, each subteam (NLP, Image Processing, Modularity, NAS) provided updates on their progress. While each team is working on solving different problems, some teams use the same GitHub branches for their work and/or share their commits with other teams in case they prove useful. I find this interesting because it points to EMADE’s ability to be repurposed for a variety of tasks, since it is a generic architecture for genetic programming which presents new capabilities whenever its baseline functionality is expanded or improved. 
+* After scrums, I joined the NLP team and was introduced to its goals and current tasks. In order to meet and outperforming state-of-the-art QA systems, the team is currently implementing custom primitives based on the BIDAF model for QA systems as outlined in the following paper: https://arxiv.org/pdf/1611.01603.pdf. Returning team members are also working on debugging issues related to merges of these primitives into the existing codebase for NLP that were done earlier in the semester. I asked questions about Scikit primitives vs. Keras primitives and learned that a key distinction between NLP with BIDAF vs. other NLP or NAS systems is the usage of a 2-datapair input of the context and the query to make predictions as opposed to a single EmadeDataPair input (which is what most other teams are working with). 
+* My tasks for this week include getting EMADE set up on PACE (scp-ing our working branch (https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs) over to PACE, setting up a conda environment, ensuring I can login to a MySQL instance and submit jobs to the queue, etc.) using Cameron’s set-up video: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be and this setup guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE. 
+* I will also read the following paper to better understand the purpose of the BIDAF model, the layers it includes, and how our custom-built EMADE primitives each map to one layer in the BIDAF model: https://arxiv.org/pdf/1611.01603.pdf. 
+
+BIDAF model overview:
+
+![Screenshot (491)](https://github.gatech.edu/storage/user/47031/files/46ce9df9-21cd-460c-a222-4a9510d54f02)
+
+Notes on BIDAF Paper:
+* Character Embedding Layer uses tokenization techniques to create vector representation of words in context and query using character-level CNNs.
+* Word Embedding Layer similarly embeds the context and query at the word level using a pre-defined corpus and a word embedding model (ie. GloVe).
+* Contextual Embedding Layer is an LSTM that considers the words surrounding each word to improve the accuracy of each word’s vector representation. 
+The attention flow layer (the specialty of the BIDAF model) creates a similarity matrix that represents the similarity between the t-th context word and the j-th query word, where t is the row number and j is the column number. This layer outputs the query-aware vectors for the context words using the context words’ similarity values to the words in the query. 
+* Modeling layer is a bidirectional LSTM which takes in the query-aware context vectors and outputs vectors that represent each word with respect to both the context and the query.
+* Output layer takes in the modeling layer’s output and predicts the probability of each word in the context of being the start and end index of the answer. 
+
+## Subteam Notes:
+* In today’s meeting, Steven gave a short presentation on NLP and different types of neural networks in order to get new students acclimated with the Keras models that our team uses to build primitives for QA. 
+* Devan also gave an introduction to the BIDAF model, the functionality of each of its layers, and the evaluation metrics currently being considered by the team (precision, recall, Mean Average Precision, Mean Reciprocal Rank, etc.): https://docs.google.com/presentation/d/1E1DZyeGYXwsT8WTRPRaiwko9gRsr3q1u/edit?usp=sharing&ouid=113962999086036620588&rtpof=true&sd=true. 
+
+## Individual Notes:
+* As PACE is down from November 3rd-5th for maintenance, I will continue to read the BIDAF paper and take a look at our team’s codebase for further clarity into how custom primitives are introduced to EMADE, how evolution remains stable with these custom primitives, and what the control flow for individual creation, evolution, and evaluation looks like with our primitives. 
+* Currently, most of the primitives the team has built reside in neural_network_methods.py, with much of the logic for primitive set creation residing in EMADE.py (which passes inputs to individuals as EmadeDataPairs). Also, as is the case for all EMADE runs, we have an input_squad.xml file which contains the evolutionary parameters to be used for our team’s runs (our current evaluation metrics are accuracy and number of parameters, both minimization objectives), and unlike the Titanic problem, we pass in two inputs: the train-test split of the question dataset, and the train-test split of the context dataset. The multi-input and multi-output nature of our problem is leading our team to investigate EMADE’s architecture closely and make changes that meet our requirements, and I am excited for the opportunity to understand EMADE better as a result. 
+* Dr. Zutty had suggested unit testing for our custom layers in our first subteam meeting. I think writing unit tests would be a great way for myself and other new team members to get familiarized with the functionality of each layer and contribute to the codebase given the relatively short amount of time remaining in the semester. However, based on direction from Steven, we will table unit testing until later if at all, given the amount of debugging currently taking place to integrate existing primitives. 
+
+EMADE PACE Setup Issues
+* I am running into an Already Exists error with Keras backend in gp_framework_helper.py. I believed this was due to the fact that both Tensorflow and Keras install Keras from our conda_env.yaml file, so I manually deleted Keras from my conda bin folder. However, this did not resolve the issue, so I will get further guidance during our Monday meeting from team members who are successfully set up. 
+* Apart from this error, I am fully set up with a conda environment on PACE, have scp-ed our EMADE-304 branch from Steven's fork of the EMADE repository to my PACE account, and am able to login to a MySQL instance via PACE and submit a MySQL job to the PACE queue via "qsub pbsmysql.pbs." My next step will be to attempt to run standalone tree evaluator with NNLearner to ensure that I can submit EMADE jobs to the queue, and then run an EMADE master process on the SQUAD dataset to ensure I can help with runs to test that individuals containing our custom primitives evaluate properly. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finish EMADE setup on PACE | In Progress | 11/1/21 | 11/8/21  | - |
+| Read BIDAF paper and understand function of each layer (particularly inputs and outputs) | Done | 11/1/21 | 11/8/21  | 11/3/21 |
+| Look through NLP codebase and make sense of control flow with custom primitives | Done | 11/1/21 | 11/8/21  | 11/5/21 |
+
+# Week 10: October 25th, 2021
+## Overview
+Final VIP Presentations - Bootcamp Teams and Main Teams. 
+
+## Team Meeting Notes
+* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice to maximize diversity of individuals being selected from during each generation, and thereby maximize diversity of the final pareto front for each generation (spreads individuals across tradeoff space between FNR and FPR). Received feedback from Dr. Zutty to ensure that all of our pareto fronts are placed on the same graph going forward for easy comparison. 
+
+Important Slides from Final Presentation:
+
+![Screenshot (503)](https://github.gatech.edu/storage/user/47031/files/7e32d132-1a4e-4053-b3de-204108129972)
+
+![Screenshot (505)](https://github.gatech.edu/storage/user/47031/files/fae01126-3739-49f2-a3c5-cb3b5b2405e6)
+
+![Screenshot (506)](https://github.gatech.edu/storage/user/47031/files/22e70a45-34dc-4986-9510-79c53f6af6a8)
+
+![Screenshot (507)](https://github.gatech.edu/storage/user/47031/files/90de7657-c746-4458-95f9-ea144b945684)
+
+![Screenshot (508)](https://github.gatech.edu/storage/user/47031/files/5323a2df-4957-45d5-ad87-06cf9d909cfa)
+
+
+
+
+
+
+
+
+
+Heard from following teams on their current areas of focus and considered which teams best align with my research interests:
+
+NLP:
+* Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
+* Uses work of NN team
+
+Bootcamp Subteam 1:
+* Jessi, Pranav, Eashan, Elan
+* SVM, Gradient Decision Boost, NN, Random Forest, Gaussian
+* Pareto optimal results - FPR increasing, FNR decreasing
+* Add, subtract, multiply, cos, gp.mutNodeReplacement (individuals, pset), Evaluation - FNR and FPR, Selection - custom selection tournament
+* Crossover - gp.cxOnePointLeafBased (ind1, ind2, termpb - random) 
+* Custom algorithm - whichever individual has a lower sum of scores is the winner
+* More diversity, lower AUC
+* Headless Chicken rate - crossover with an individual with a randomly generated tree, decreased mutations except for ephemeral with need more randomness, reduced mutations
+* Need to split train into train and test, got one pareto optimla individual because they didn’t do this
+* 0.133 vs. 0.137 - preprocessed vs not preprocessing (42 vs. 115)
+* Adaboost, too many inf, emade kills CPUs, check twice that reuse = 1
+* MOGP was only able to beat ML due to the fact that it fills out the Pareto front 
+* gp.cxOnePointLeadBiased - always random 
+
+Neural Architecture Search:
+* Create Neural Networks automatically using primitives
+* Text processing for sentiment classification
+* EMADE cannot evolve seeds very much 
+* Most individuals are not NN learners in EMADE, have to restrict EMADE to only work with NN learners
+* Want EMADE to move past seeded individuals and explore search space well
+* Minimize accuracy error, minimize number of parameters
+* Lowering training time would have same effect as limiting number of parameters
+* Time stopping of 600
+* Time stopping of 2500
+* 600 time stop generated many more valid individuals, so we can create new individuals with genetic programming even though 2500 had a smaller AUC
+* Modify original DataPair once, feed data into individuals 
+* Preprocessing helped average evaluation time for individuals.
+* CoDEEPNeat - additional class for EMADEDataPairs, limited main primitives set type access to primitives is only ADFS that has access to it, main primitive is blueprint, adfs are modules, represents CoDEEP NEAT structure
+* Limited primitives in modules to just layers 
+* Separate table to track NNLearner individuals over time, where to improve in encouraging more complexity
+* Detect and reward novelty, novelty - dropout, embedding, convolutional layer
+* Might have a highly optimized NN with only dense layers, helps with certain scenarios like images
+* Trello board 
+* Split layer list primitive into different classes based on Tensor dimension they take in 
+* Novelty can make an objective become a subjective 
+* 2500 was more distributed than the 600 one (600 is way too small) 
+
+Bootcamp Subteam 2:
+* Drop Name, PassengerID, TicketNumber, Fare
+* Map Sex and Embarked to numerical
+* Fill nulls with medians, mode
+* AUC of 0.18129 with ML
+* SPEA2 and NSGA tried, SPEA2 worked better
+* Simple primitives 
+* Evaluation - activation function 
+* AUC 0.125
+* Didn’t one hot encode embarked feature, would have improved 
+* Conda + Python 3.7
+* Struggled to get FNR and FPR methods working
+* MySQL very slow - only 10 generations in 3 days, hard to connect 
+* Ended with pareto optimal set of 65
+* Trees grow slower than MOGP
+* EMADE gave better generations even with less generations 
+* Should have checked if certain number of generations takes a certain amount of time 
+
+Image Processing:
+* Multilabel image processing 
+* CheXNet Paper - pneumonia classification on xray scans
+* Image resizing, normalization, horizontal flipping 
+* 30 Generations (Precision-Recall AUC), Number of Parameters
+* NSGA-II, Lexicase, Tournament, Fuzzy 
+* NSGA-III defines reference points to maintain diversity in solutions
+* In theory, should outperform NSGA-II
+* Only ran for one generation before stopping 
+* EMADE master process would kill itself
+* No errors in log
+* Semantic crossover and semantic mutation 
+* Individual * logistic *(random1 - random2)
+* Primitives not set up to handle image data, majority of generated individuals not able to generate a valid fitness score
+* Geometric crossover operators 
+* Simulated Binary
+* Blended Crossover
+* Very little information about mutation and crossover for image processing problems 
+* Gray level transform that increases contrast with image filter
+* Hyperfeatures - two or more features which improve fitness 
+* Enhancing contrasts helps with edge detection 
+* Brainstorming-image-processing channel in Slack
+* Lexicase picks a random objective 
+* Loosely typed GP problem - everything is coming out as a float 
+* Geometric crossover makes sense when you have a numeric genome 
+* Simulated binary and blended crossover work more rigidly than single point crossover 
+* NSGA II - works less well with more than 2 objectives 
+
+Bootcamp Subteam 3:
+* Started with a variety of learners, changed svm to gaussian because they couldn’t create Pareto optimal front 
+* Added logic primitives and some arithmetic primitives 
+* Added 3rd objective of tree size to evaluation function 
+* Added FNR and FPR to input file 
+* Allowed port forwarding on master’s home router if workers will be joining remotely 
+* Weren’t able to run as many generations with EMADE as they would have liked, ML algorithm’s AUC was better 
+* EMADE and MOGP - more diverse Pareto front 
+* Grep -rl error string helped trace root cause of error 
+
+Stocks:
+* Primitives Analysis:
+* Relative performance of primitives based on CDF metric (lower is better)
+* Boosting regression across all technical indicator generally has a good performance 
+* MyDeltaWilliamsR, modify seeded individuals to create better results in EMADE 
+* Profit Percentage, Average Performance Per Transaction, CDF of Profit, Variance of Profit Per Transaction 
+* Want to minimize CDF
+* MyBollingerBand
+* Create pool of objectives and pick out stocks to conduct EMADE runs 
+* Run EMADE using all possible combinations of the objectives and compare the AUC across trials
+* Objectives: Loss Percentage Objective, Average Loss Per Transaction, etc. 
+* Takagi-Sugeno fuzzy, Support Vector Regressio and fuzzy logic 
+* Cannot replicate paper
+* Not able to replicate PLR-SVR 
+* Explore approaches to portfolio optimization, stock price prediction 
+* Improve EMADE’s time-series analysis (weather series, heart rate data)
+
+Modularity:
+* Using arity of primitives to create "super-primitives" with same functionality as individuals created from base primitive set
+* Observing interesting spikes in fitness of pareto optimal individuals during EMADE runs
+* Want to ensure that goal of minimal size does not become a criteria (ie. not evolving only simple modular primitives and foregoing complex modular primitives) 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Submit Subteam Preferences  | Done | 10/30/21 | 11/1/21  | 10/31/21 |
 
 # Week 9: October 20th, 2021
 ## Overview
 Workday for EMADE and final presentations.
 
 ## Team Meeting Notes
-* Prepared for final VIP Presentation by continuing to run EMADE and obtaining results for MOGP evolution of individuals on Titanic dataset. Received help from VIP Alumni in fixing minor bugs in selection_methods.py file (selDCD() method not being able to take individuals with a length not a multiple of 4) and began setting up pymysql to pull in MySQL data as pandas dataframes and conduct analysis on metrics like average analysis time across generations, most frequently occurring primitives in Pareto optimal individuals in each generation, and number of valid individuals over time. 
+* Prepared for final VIP Presentation by continuing to run EMADE and obtaining results for MOGP evolution of individuals on Titanic dataset. Received help from VIP Alumni in fixing minor bugs in selection_methods.py file (selDCD() method not being able to take individuals with a length not a multiple of 4, resolved by pulling recent commit from EMADE git repository) and began setting up pymysql to pull in MySQL data as pandas dataframes and conduct analysis on metrics like average analysis time across generations, most frequently occurring primitives in Pareto optimal individuals in each generation, and number of valid individuals over time. 
 
 ## Subteam Notes
-Met with team to run through presentation and ensure we were ready to share our findings of using EMADE for the Titanic problem as well as hear from main VIP teams on their team focus areas and get a sense of which team we would like to join after bootcamp. Had to adjust to Rayan D. dropping the VIP by reassigning presentation parts close to the presentation date and revising our work for the Titanic ML and MOGP assignments. 
+Met with team to run through presentation and ensure we were ready to share our findings of using EMADE for the Titanic problem as well as hear from main VIP teams on their team focus areas and get a sense of which team we would like to join after bootcamp. Had to adjust to Rayan D. withdrawing from the course by reassigning presentation parts close to the presentation date and revising our work for the Titanic ML and MOGP assignments. 
+* As all of us were experiencing the OperationalError("MySQL Connection not available.") when trying to connect to my MySQL host with the pymysql package in a Colab notebook after some time, we decided to conduct our remaining analysis by pulling our EMADE databases as .csv files into our Colab notebook and working with them as Pandas dataframes. 
+* Charlie worked on revising our MOGP results with Dr. Zutty and Dr. Rohling's suggestions from our earlier ML and MOGP presentation, as well as making the graphs for the FPR and FNR predicted by EMADE on the Titanic dataset. Since EMADE gave us the average FP and FN predicted across all 5 folds of our train and test sets, we multiplied this value by 5 to get the total FP and FN prediction count across all folds and divided by the total number of positive and negative values of our target feature to get the FNR and FPR across our entire dataset. Charlie worked on this conversion as well as creating a graph with our final generation's individuals' fitnesses plotted and our final EMADE Pareto front.
+* My team and I met to practice the presentation on Sunday and discussed ways to best showcase our unique approach to the Titanic EMADE problem as compared to other bootcamp groups. We decided to focus most heavily on our analysis of EMADE's capabilities, limitations, and performance, as well as our results: our final Pareto front, average evaluation time for individuals over generations, learners which took in the ARG0 datapair directly, and our discussion of the tradeoffs between the ML, MOGP, and EMADE approaches to problems like Titanic as well as more complex problems with larger datasets.
+
+## Individual Notes:
+* I worked on extracting the primitive which directly took in the EMADE datapair (ARG0) for each individual in our final generation using Python regex expressions and string parsing, which gave us a sense of the primitives that can handle the features in our Titanic dataset directly most optimally. AdaBoostLearner() was the most frequently occurring such primitive. I also pulled the evaluation time data from the individuals table in our MySQL titanic database and plotted the average evaluation time for individuals across each generation of our final run, which showed that individuals on average evaluated more quickly in later generations than earlier ones. The script for the datapair string analysis and evaluation time analysis is as follows: https://colab.research.google.com/drive/1dEGTJ-ia7fWnXCvt0tP-CcQYgr1L6xTd.
+* I worked on slides 2-5, 11, 13-15 of our final bootcamp presentation: https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing. 
+* Our Titanic project Colab notebooks can be found here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS. 
+
+Observations
+Our revised MOGP Pareto frontier (using selDCD()) had an AUC of 0.1514, an improvement from our original Pareto frontier AUC of 0.2071 when we used selNSGAII() as our selection method, which failed to select individuals based on crowding distance correctly. A much greater number of individuals existed in the final generation of our MOGP run with selDCD(), indicating that selNSGAII() was weeding out individuals unjustifiably based on its truncation of individuals with similar ranks but different crowding distances. 
+* We had a bug in our MOGP final generation graph with the selDCD() selection method where only the Pareto front was appearing on the graph, but not the rest of the valid individuals for the final generation. We saw that we had accidentally reset the population to the initial offspring list in each iteration of the evolutionary loop instead of setting the population to be the evolved offspring (after mating, mutation, etc.), so every individual was Pareto optimal in each successive generation. We fixed this and saw that all individuals were appearing on the fitness graph as desired. 
+* EMADE's pset contained both simple and complex primitives (ex. logical operators and decision tree classifiers), which allowed for selection of individuals after several generations when many individuals consisted of the same primitives and therefore performed similarly to one another.
+* We ran 20 generations of EMADE with an initialPopulationSize of 200 and a minQueueSize of 50. We initially started out with an initialPopulationSize of 512 and a minQueueSize of 250, but evaluation was taking around 1-2 hours with these changes (especially with inconsistent worker processes running on my master process), so we decreased both of these values such that we could at least get 10-12 generations to complete in a reasonable amount of time. The starting population for each generation grew steadily with time, such that by the 20th generation, evaluation was taking around 2 hours per generation as with the starting generation for EMADE with an initialPopulationSize of 512. 
+* Our master process eventually ended when the following error was thrown in master.err:
+```
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2013, 'Lost connection to MySQL server during query ([WinError 10053] An established connection was aborted by the software in your host machine)')
+```
+* Both the number of Pareto optimal individuals and the number of individuals in total for each successive generation increased steadily, with a final Pareto front size of 23 and 314 valid individuals in this generation. 
+
+```
+Sample Individuals in Generation 13:
+Received: AdaBoostLearner(ARG0, learnerType('LogR', {'penalty': 0, 'C': 1.0}), 2, 0.01)
+	With Hash 076a79ddfb8f0527e074f92c3d3f63aa84ab18cbdb71f9973dd2e8823d333940
+	With Fitnesses: (8.4, 64.0)
+	With Age: 1.0
+Received: AdaBoostLearner(myArcTangentMath(ARG0, 1), ModifyLearnerList(learnerType('Trees', {'criterion': 0, 'splitter': 0}), [15, 5]), passInt(0), myFloatDiv(100.0, 10.0))
+	With Hash 45b1b86644bd9269f11e27b0676d8b0347b50f5675069eed50e34feaf7e2dc09
+	With Fitnesses: (18.2, 20.6)
+	With Age: 1.0
+Received: lpfBlur(sp_div(contMaskRangeAspect(ARG0, -4.617371386969362), my_pow(ARG0)), lessThanOrEqual(myFloatAdd(myFloatAdd(myFloatDiv(myIntToFloat(myIntAdd(32, 5)), 1.0), 0.01), 100.0), myIntToFloat(1)))
+	With Hash 52140884e55c36acfd6970647fe4e62e52dc62481351f9c6271865282020b81f
+	With Fitnesses: (inf, inf)
+	With Age: 0
+Received: AdaBoostLearner(myBartlettHann(ARG0, 0), learnerType('Bayes', None), 6, ifThenElseFloat(notEqual(myFloatAdd(myIntToFloat(50), ifThenFloat(falseBool, passFloat(myIntToFloat(6267)))), ifThenElseFloat(falseBool, myFloatSub(myFloatSub(ifThenElseFloat(trueBool, 0.01, 0.01), myFloatDiv(0.1, 100.0)), ifThenFloat(ifThenBool(falseBool, trueBool), myFloatDiv(10.0, 1.0))), myFloatAdd(myFloatMult(myFloatAdd(myFloatAdd(passFloat(myFloatSub(0.1, 10.0)), ifThenFloat(ifThenBool(falseBool, falseBool), ifThenElseFloat(trueBool, 100.0, -3.448215911748788))), 0.1), ifThenElseFloat(falseBool, 0.01, 10.0)), myFloatAdd(ifThenFloat(trueBool, 3.396996932591346), myFloatSub(0.01, 10.0))))), 0.01, 1.4335719305516967))
+	With Hash 228b12c29f95df6ee0a61ad4306ea8357541bf79518622e918e8c88f230a5307
+	With Fitnesses: (inf, inf)
+	With Age: 0
+```
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -168,19 +582,132 @@ Met with team to run through presentation and ensure we were ready to share our 
 ## Overview
 Workday for EMADE and MySQL remote connection setup. 
 
-## Team Meeting Notes
-* Worked with Rayan, Rayan, and Charlie to help set up their EMADE engines and install all dependencies. They are working on installing all remaining dependencies, after which we can test MySQL remote connections to the server I have created . 
+## Team Meeting Notes - EMADE Work Session
+* We had a work session today to resolve any EMADE installation issues and ensure MySQL connection was possible for remote clients so that we could run additional master and worker processes in EMADE on our Titanic dataset and increase the size of our output data in preparation for fitness/evaluation time graphs for our final presentation. 
 
-## Subteam Notes
-Met with team on Friday to ensure team could run worker processes and connect to the MySQL server I created. Worked with Charlie during Saturday's hackathon to add our group's preprocessing to the titanic_splitter.py file and run EMADE with the updated train-test folds. Noticed Pareto front individuals gradually developing and being stored in titanic schema in my localhost. We are planning to remove the 3rd objective from the evaluation function to ensure a direct comparison to the Titanic ML and MOGP projects. 
+## Subteam Notes:
+* Charlie is set up with a conda environment and the EMADE git repository cloned, but is having some issues with installing packages (ex. opencv-python) in his conda environment. Installation is highly laggy, which may be due to his eduroam connection; he will attempt to install these packages again and set up a MySQL connection to my host server after successfully doing so. 
+* Rayan D. is continuing to experience lag issues with the build wheel while both cloning the EMADE git repository and installing packages in his conda environment; I am planning to set up a meeting with him later this week to help him debug these issues.
+* Rayan K. has successfully created a conda environment with all of the required packages to run EMADE and is currently installing MySQL workbench to attempt remote connection with the changes to my my-cnf file from last week. If this is successful, we will continue to use the MySQL workbench to read and write to our EMADE databases, as the GUI it provides is easy to work with and write SQL queries in to retrieve evaluation data for the individuals in each of our runs.
+
+SQL configuration meeting:
+* Rayan K., Charlie, and I met to ensure that consistent remote connection to my SQL server was possible.
+As Charlie was able to successfully connect to my database, we determined that the IP address returned from different sites for my computer were different from one another; as such, we experimented with each such IP address until we identified that this site returned the address that my team mates were all able to input into their input_titanic.xml files for successful connection: https://whatismyipaddress.com/ip/128.61.41.136. 
+
+## Individual Notes
+* I am fully set up with the EMADE git repository and a conda environment with all packages necessary to run EMADE. I have run master processes successfully 2-3 times, and during each run master.out indicates that the vast majority of our individuals have initial fitness values of (inf, inf). In addition, most of our trees have primitives which take in invalid inputs; we will wait and see if this issue is persisting and if it is after 10 generations, we will modify our primitive set in gp_framework_helper.py and ask Dr. Zutty if this is expected behavior for EMADE on the Titanic dataset in particular. 
+* I started a master process Saturday morning and noticed that the evolution process was extremely slow as compared to the first trial run I did during the hackathon the previous Saturday. During this hackathon, we ran EMADE and obtained around 15 individuals in our Pareto front after about five generations. In this new run, each generation was taking approximately an hour to complete, with the number of individuals left for evaluation in the queue hanging approximately mid-way through each generation. This led my team to believe that their worker processes were not actually running on my master process as we had initially thought, or workers were periodically disconnecting throughout my master process. My team members continued to re-connect to my MySQL host until we were able to run a process which appeared to evolve individuals much more quickly than before.  
+
+Meeting with Rayan
+* I met with Rayan on Friday to help him get past the build wheel issue when installing packages in his conda environment. We initially tried running pip install --upgrade pip setuptools wheel and re-installing based on a suggestion from a Stack Overflow post. As this did not resolve the issue, we tried troubleshooting his system to identify any storage limitations/junk files to delete, and having cleared his Anaconda bin file of all old environments, he was able to install all conda packages and proceed with the rest of EMADE setup successfully. 
+
+My Titanic Dataset Preprocessing:
+
+```
+import sklearn.model_selection
+import sklearn.feature_extraction
+import pandas as pd
+import random
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+import pandas as pd
+import numpy as np
+from numpy import array
+from numpy import argmax
+from sklearn.metrics import confusion_matrix
+
+train_data = pd.read_csv('train.csv')
+
+train_data.drop(columns=['Name', 'Cabin'], inplace=True)
+train_data.set_index(keys=['PassengerId'], drop=True, inplace=True)
+
+train_nan_map = {'Embarked': train_data['Embarked'].mode()[0], 'Ticket': '100'}
+
+train_data.fillna(value=train_nan_map, inplace=True)
+
+values = array(train_data['Embarked'])
+# print(values)
+label_encoder = LabelEncoder()
+integer_encoded = label_encoder.fit_transform(values)
+
+enc = OneHotEncoder(handle_unknown='ignore')
+enc_df = pd.DataFrame(enc.fit_transform(train_data[['Embarked']]).toarray())
+train_data = train_data.join(enc_df)
+del train_data['Embarked']
+
+columns_map = {'Sex': {'male': 0, 'female': 1}}
+train_data.replace(columns_map, inplace=True)
+
+#train_data
+
+import re
+
+train_data['Ticket'] = train_data['Ticket'].apply(lambda x: int(re.findall(r'\d+', x)[len(re.findall(r'\d+', x)) - 1]) if len(re.findall(r'\d+', x)) > 0 else 0)
+train_data.head()
+# test_data.head()
+
+train_map = {}
+for x in train_data['Pclass'].unique():
+  train_map[x] = train_data[train_data['Pclass'] == x]['Age'].median()  
+
+train_data["Modified Age"] = train_data["Pclass"].apply(lambda x: train_map[x])
+
+train_data["Age"] = train_data["Age"].fillna(train_data["Modified Age"])
+
+del[train_data['Modified Age']]
+
+train_map = {}
+for x in train_data['Pclass'].unique():
+  train_map[x] = train_data[train_data['Pclass'] == x]['Fare'].median()  
+
+train_data["Modified Fare"] = train_data["Pclass"].apply(lambda x: train_map[x])
+
+train_data["Fare"] = train_data["Fare"].fillna(train_data["Modified Fare"])
+
+del[train_data['Modified Fare']]
+
+train_nan_map2 = {0: 0.0, 1: 0.0, 2: 0.0}
+
+train_data.fillna(value=train_nan_map2, inplace=True)
+
+train_data.rename(columns={0:'A', 1: 'B', 2:'C'}, inplace=True)
+
+survived = train_data["Survived"]
+train_data = train_data.drop('Survived', axis=1)
+
+print(train_data.isnull().sum().sort_values(ascending=False))
+vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=False)
+train_data =  np.hstack( (vectorizer.fit_transform(train_data.to_dict(orient='records')), survived.values.reshape((-1,1 ) ) ) )
+
+kf = sklearn.model_selection.KFold(n_splits=5)
+
+for i, (train_index, test_index) in enumerate(kf.split(train_data)):
+    np.savetxt('train_' + str(i) + '.csv.gz', train_data[train_index], delimiter=',')
+    np.savetxt('test_' + str(i) + '.csv.gz', train_data[test_index], delimiter=',')
+```
+
+Evolutionary Parameters Specified in input_titanic.xml:
+```
+<initialPopulationSize>200</initialPopulationSize>
+<elitePoolSize>200</elitePoolSize>
+ <launchSize>100</launchSize>
+<minQueueSize>50</minQueueSize>
+<outlierPenalty>0.2</outlierPenalty>
+```
+
+
+We observed that most individuals evolving in the first few generations of our run were either returning with an error or evaluating to (inf, inf). Only around 5-10 individuals were actually evaluating to finite fitness values in the first 10 generations of our run; we expect to see more individuals evaluating successfully in successive generations as individuals that are evaluating properly are rewarded by our selection methods. 
+When we restarted EMADE once with reuse=1, we observed that the number of individuals at the beginning of generation 0 was drastically greater than the starting number of individuals in the initial run (~750 individuals vs. ~200 individuals for an initialPopulationSize of 200). This indicated that seeding increased population size as well as the number of individuals that evaluate successfully at the end of each generation, but this also meant that each generation took much longer to run. As such, we avoided reuse going forward and saw an EMADE run to completion with reuse=0. 
+
+![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Done | 10/6/21 | 10/20/21  | |
-| Run EMADE on preprocessed Titanic Data | In Progress | 10/6/21 | 10/14/21  | |
-| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | In Progress | 10/6/21 | 10/20/21  | |
-| Work on EMADE Presentation | In Progress | 10/6/21 | 10/25/21  | |
+| Initiate EMADE run with worker processes and databases in MySQL workbench | Done | 10/13/21 | 10/20/21  | 10/15/21 |
+| Assist Rayan D. with conda environment setup | Done | 10/13/21 | 10/20/21  | 10/16/21 |
+| Understand EMADE database outputs, ideate graphs to track EMADE activity over time | Done | 10/13/21 | 10/20/21  | 10/17/21 |
 
 # Week 7: October 6th, 2021
 ## Team Meeting Notes
@@ -189,15 +716,27 @@ Met with team on Friday to ensure team could run worker processes and connect to
 * Looked at EMADE repository on GitHub and got a view of input file that specifies MySQL database configuration for EMADE output and parameters of evolution, launchGTMOEP.py which initiates the evolutionary process, and the gp_framework_helper.py file that contains references to primitives used to create EMADE individuals).
 * Received information about presentation on Monday, October 25th where bootcamp and returning students will present their EMADE presentations and hackathon on Saturday, October 16th, where new students can receive help from returning students for EMADE setup and analyzing output from running EMADE on Titanic dataset. 
 
-## Subteam Notes
-* Worked with rest of team asynchronously to set up master and worker processes for EMADE. I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections. 
 
+## Subteam Notes
+* Worked with rest of team asynchronously to set up master and worker processes for EMADE.  
+* Rayan D. is having trouble setting up his conda environment and installing all of the required packages, as the build wheel is hanging every time he runs the "conda install" and "pip install" commands for his conda environment with Python 3.6. We believe this may be due to his WiFi/VPN connection and he will try again on eduroam and guest to eliminate any address-pinging issues he is currently having.
+
+## Individual Notes
+* I am running the master process (main evolutionary loop), while the others are running the worker processes (evaluation function and results). I was able to run a master process successfully after rewriting the selNSGA2 method to only perform selectDCD on lists of individuals whose length is a multiple of 4. 
+
+![Screenshot (485)](https://github.gatech.edu/storage/user/47031/files/9f782859-88eb-4db2-accb-47f3dd3f2b53)
+
+* Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections.
+* I used https://whatismyipaddress.com/ip/128.61.41.136 to identify my IP address and share this with my team members so they could replace the host name string in their input_titanic.xml file and connect to the server I had created. I initially modified the value of the "Limit to Hosts Matching" field under the Users and Privileges tab in MySQL workbench to '%' so that any host would be able to connect to the instance of my MySQL server. However, my team members were still unable to connect to my instance with this change. After much research on MySQL's permission configurations, I changed the bind address specified in my.cnf in the MySQL bin folder to 0.0.0.0, so that any IP address would be allowed to connect to my MySQL server. Remote connection was still failing with these changes, at which point I found this article: https://linuxize.com/post/mysql-remote-access/ which indicated that access needed to be granted via the GRANT command to all users with the following command: GRANT ALL ON database_name.* TO user_name@'ip_address' IDENTIFIED BY 'user_password'; and that any firewalls would have to be removed. With these changes, my team workers were able to run EMADE worker processes with our own preprocessed Titanic data from the ML and MOGP assignments and write to and read from my MySQL instance. 
+
+![Screenshot (487)](https://github.gatech.edu/storage/user/47031/files/a20c73e5-42be-430c-8acc-412a2d287479)
+ 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/14/21  | |
-| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/14/21  | |
-| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | |
+| Finish Worker Process Setup + Adding Preprocessing to titanic_splitter.py | Pending | 10/6/21 | 10/17/21  | 10/16/21 |
+| Run EMADE on preprocessed Titanic Data | Pending | 10/6/21 | 10/17/21  | - |
+| Write Python scripts to capture output in graphs (Pareto frontier, AUC, Individuals Over Time, T-Stats, etc.) | Pending | 10/6/21 | 10/18/21  | - |
 
 # Week 6: September 29th, 2021
 ## Overview
@@ -261,7 +800,7 @@ Discussed Titanic ML assignment and findings related to data preprocessing and h
 * Created outline of implementation - selecting primitive set, defining evaluation function (fp, fn tuple), determining selection, mutation, and mating methods and probabilities, writing evolutionary loop for a given number of generations, comparing Pareto frontiers for ML and MOGP
 * Focused on simple primitives so as to be able to predict on each sample's features at a time, improving granularity (reference: https://numpy.org/doc/stable/reference/routines.math.html)
 * Primitive Set:
-![Genetic Programming Visualization](https://picc.io/_TMo_MD.png)
+![Screenshot (450)](https://github.gatech.edu/storage/user/47031/files/7d8e9d40-2ef0-45e1-b974-f49e2b94d69a)
 * Tried mutUniform and cxOnePoint, AUC improved when using mutNodeReplacement and cxOnePointLeafBiased with termpb = 0.1
 * Change 30 generations to 50 generations for improved evolution
 * Titanic ML and MOGP Presentation: https://docs.google.com/presentation/d/1tK83vBU6uQFYQGAivnSjWEM4Ghw3qJaGR5Py14BocJk/edit?usp=drive_web&ouid=106540897889834720619 (Created slides 1, 2, 4, 5)
@@ -272,7 +811,7 @@ Best Learner: FPR = 0, FNR =  0.9122807017543859
 
 MOGP Pareto Front:
 
-![Genetic Programming Visualization](https://picc.io/Uot-hXd.png)
+![Screenshot (426)](https://github.gatech.edu/storage/user/47031/files/4366dfb9-079b-4b4f-be5a-8b5d9d5a67e6)
 
 Findings:
 The AUC for MOGP was much better than that of ML. Evolution in MOGP favored diversity and individuals tended to cluster near both trivial points. MOGP also saw individuals with high FPR and FNR rates, while the learners we use for our ML Pareto frontier tended to favor higher FNRs and lower FPRs. We were also able to generate the same set of predictions each time we re-trained the classifiers using the random_state parameter, but the random probabilities of mutation and mating in MOGP led to different predictions on test.csv each time we ran the evolutionary loop. Finding Pareto-optimal solutions was more difficult with ML, and less individuals existed on both extremes of both objectives, but genetic programming created a diverse set of individuals and had a much lower AUC. We also ensured that we took a split of the data that was the same split that we used to train our ML classifiers for the Titanic ML problem. Dr. Zutty provided feedback on our presentation and told us that NSGA II truncates any individual past the kth index in the list of selected individuals, and that shuffling the individuals and/or using selTournamentDCD would have enabled new individuals to enter the hall of fame throughout the evolutionary loop. In addition, Dr. Zutty mentioned that adding floats as terminals in our primitive set would have allowed us to perform operations on those constants as well as the inputs from our Titanic feature set, improving the fitness of our individuals. 
@@ -339,7 +878,7 @@ Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly di
 
 Pareto Front for ML Learners:
 
-![Titanic ML Pareto Graph](https://picc.io/qjd1y20.png) 
+![Screenshot (392)](https://github.gatech.edu/storage/user/47031/files/c7badbb1-d7c1-4088-a0d9-6049b9e73379)
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -417,9 +956,20 @@ Original Hyperparameters:
 * MUTPB = 0.2
 
 Visualization:
-[Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
 
+Before Modifications:
 
+<img src="https://github.gatech.edu/storage/user/47031/files/e863eae0-0aaf-4c6f-8793-4dc667a68ea4">
+
+<img src="https://github.gatech.edu/storage/user/47031/files/ae21bdb9-e155-4ee1-83a8-bbe7695dc0d5">
+
+<img src="https://github.gatech.edu/storage/user/47031/files/b3dd72ee-5e49-47ff-b7d2-abd60044662b">
+
+After Modifications:
+
+<img src="https://github.gatech.edu/storage/user/47031/files/90f6f99f-567b-462d-b8c1-b8f22290176a">
+
+<img src="https://github.gatech.edu/storage/user/47031/files/bb1f8b60-37d2-464f-a3d5-d89c7e9e41f2" width="50%">
 
 Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
@@ -484,13 +1034,15 @@ Findings: The global maximum (a best individual with a fitness or MAE of 0) was 
 The best individual was determined to be the following: Best individual is add(add(multiply(x, x), multiply(add(multiply(x, multiply(x, x)), multiply(x, x)), x)), x), (8.620776339403237e-17,). 
 
 Visualization:
-![Genetic Programming Visualization](https://picc.io/x91IjkA.png)
+![Screenshot (421)](https://github.gatech.edu/storage/user/47031/files/e3de3a9c-1523-40d1-8d58-138294f30d2d)
+![Screenshot (426)](https://github.gatech.edu/storage/user/47031/files/c17c900b-e0ef-4bd6-a16b-e74a29a6ca0a)
 
 * We can see here that the maximum fitness value seems to oscillate around a fitness of about 2.0 and does not continue decreasing after about the 10th generation. 
 
 To improve the fitness of the evolved individuals, I added the floor and maximum operations from the numpy library. I also registered the mutInsert function as an additional mutational function to use in the evolutionary loop. This mutation function randomly selected a node in the given individual and creates a new subtree using that node as a child to that subtree. The following graph of fitness over time reflects those changes:
 
-![Genetic Programming Visualization after Floor and Maximum Primitives Added](https://picc.io/Un4_bet.png)
+<!--![Genetic Programming Visualization after Floor and Maximum Primitives Added](https://picc.io/Un4_bet.png)-->
+![Screenshot (424)](https://github.gatech.edu/storage/user/47031/files/04f8edce-2f1d-4f1a-93fc-084b77d2cad7)
 
 We see that modifying the primitive set and the mutation function being used in the evolutionary loop caused the maximum fitness line to decrease much more quickly than it did for the original evolution, indicating that floor, maximum, and mutInsert ensure optimal fitness for all individuals in a population by minimizing the fitnesses of higher-extreme individuals. 
 
@@ -556,39 +1108,36 @@ For this problem, we followed many of the same steps that appeared in the Lectur
 
 Findings:
 
+![Best Ind One Max](https://github.gatech.edu/storage/user/47031/files/aa90dcca-d670-412d-b190-e076e8641170)
+![OneMax Generations](https://github.gatech.edu/storage/user/47031/files/f25111cf-38b3-4533-9d5c-07361438c066)
+
 The best individual was as follows: Best individual is [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], (100.0,). 
 
 The global maximum (a best individual with a fitness equal to n, the number of entries in each individual) was reached within 40 generations about every 19 out of 20 times the algorithm was run; this indicates that our algorithm has an effectiveness of around 95%. Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection, increasing/decreasing the size of the population and the number of generations, as well as trying other crossover and mutation methods. 
-
-![One Max Generations, Part 1](https://picc.io/pok5sgG.png)
-![One Max Generations, Part 2](https://picc.io/ouFv77h.png)
 
 **N Queens Problem:**
 For this problem, we followed many of the same steps that appeared in the One Max Problem (see above). We define a size n = 25 for each individual and define a weight of -1.0 here, since we wish to minimize the number of conflicts between queens in our problem space. We then create a permutation function to populate the entries for each individual with numbers selected without replacement from range(n). For instance, the following individual will have a queen in the 1st row and the 8th, the 2nd row and the 1st column, etc.: [7,0,4,6,5,1,9,2,8,3]. We define our evaluation function as a measure of the number of conflicts along each diagonal of our board; with the creation process we defined for individuals, queens will not appear in the same row or column. [Describe evaluation function modification here w/ screenshots]. We then write the cxPartialyMatched() function for partially matched crossover, cxTwoPoint(), and mutShuffleIndexes() to shuffle values at different indexes within each individual (since we must remain within size n  = 25). We modified the mutation function to be a uniform int mutation, wherein randomly selected entries for each individual are replaced with a randomly selected value between 0 and n. The improvements seen with this new mutation function are described in the Findings section below. Finally, we run a similar evolutionary loop as the one described for the One Max Problem (see above) for 100 generations, return the fitnesses of the individuals (based on the predefined fitness operation - the number of conflicts between queens) and print statistics. We loop for some number of generations (100, in this case) and report the best individual that has resulted from this evolution process. 
 
 Findings:
-![N Queens Generations, Part 1](https://picc.io/UzJTkn-.png)
-![N Queens Generations, Part 2](https://picc.io/BAhG-pn.png)
 
-Visualizations:
+1. With Shuffle Indexes/Uniform Int Mutation:
 
-1. With Shuffle Indexes Mutation:
-![N Queens Visualization](https://picc.io/-qpvzmX.png)
+![Screenshot (296)](https://github.gatech.edu/storage/user/47031/files/d6f6ab76-9aaa-4a4c-87f3-d65612a2fa0c)
 
-2. With Uniform Int Mutation:
-![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
+![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
 
 * We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
 
-3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
-![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)
+2. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
+![Screenshot (413)](https://github.gatech.edu/storage/user/47031/files/718b57d0-f301-41a1-861e-970e07ee8180)
+<!--![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)-->
 
 * We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trends towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
 
 I also modified the evaluation function to return a tuple (sum_left, sum_right), where sum_left is the number of conflicts between queens strictly on left diagonals and sum_right is the number of conflicts between queens strictly on right diagonals. This allowed us to attempt minimization of both objectives in the evolutionary loop such that the evolution did not produce many individuals that had a high number of conflicts on left diagonals or right diagonals but not distribute conflicts on both types of diagonals. 
 
 4. With (left_diagonal_conflicts, right_diagonal_conflicts) as fitness tuple
-![](https://picc.io/7PFcY8A.png)
+![Screenshot (299)](https://github.gatech.edu/storage/user/47031/files/5513ddc1-8c91-4380-b8b9-31bd1fb80ec2)
 
 As we can see in the above graph, the best individual was reached much more quickly using the left and right diagonal fitness tuple than simply the sum of the conflicts in the evaluation function. However, in the evolutionary function, the fitness being considered was only the first index in the fitness tuple (that is, the number of conflicts on left diagonals). As such, this indicates that our algorithm quickly minimizes left diagonal conflicts when our evaluation function contains both left and right diagonal conflicts. Next week, when we learn multi-objective genetic programming and an appropriate evaluation function to handle both left and right diagonals, I will be able to identify how fitness on both objectives improved over time in the fitness graph and obtain a best individual that is based on both objectives, not just the number of conflicts on left diagonals. 
 

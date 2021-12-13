@@ -5,7 +5,7 @@ Team Member: Lucas Zhang
 
 Email: lzhag462@gatech.edu 
 
-Cell Phone; 912-257-6740
+Cell Phone: 912-257-6740
 
 Classes Taking: Deeping Learning, Digital Design Lab, Computer Networking I, Robotics and Perception, Ethics
 
@@ -25,6 +25,10 @@ Interests: Machine Learning, Python, Web Development, Healthcare
 
 [[Notebook Justin Hsu Hinckley|Justin Hsu Hinckley]]
 
+New Members:
+* [[Notebook Rayan Khoury|Rayan Khoury]]
+* [[Notebook Pranav Pusarla|Pranav Pusarla]]
+* [[Notebook Charlie Bauer|Charlie Bauer]]
 
 
 == AAD General Meeting: Monday, August 23, 2021 ==
@@ -406,7 +410,7 @@ Guide to EMADE.py Presentation Notes:
 
 == AAD General Meeting: Monday, October, 11, 2021 ==
 
-c
+SCRUM Meeting 
 
 == AAD Hackathon, October, 16, 2021 ==
 * Recloned made
@@ -513,6 +517,177 @@ The bootcampers joined their subteams. NAS gained three new members.
 |
 |}
 
+
+== Neural Architecture Search Meeting: Friday, November, 5, 2021 ==
+*Pace was undergoing maintenance from Wednesday to Friday so our team decided to hold two meetings, one during our normal time on Friday and an extra one on Saturday.
+
+== AAD General Meeting: Monday, November, 8, 2021 ==
+SCRUM meeting
+NLP:
+*Steven and Devan gave a presentation on EMADE, Deep Learning, NLP, and QA to our New Members on Wednesday.
+*Karthik, Shiyi, and George worked on testing Bidirectional Attention -> Modeling -> Output layer pipeline. Corrections were made to the implementation of some of these layers in Tensorflow/Keras.
+*Output layer currently doesn't return words, just the probability vectors - we may have to add one last primitive to do this.
+* Kevin is working on trying to figure out how to integrate word embedding into the above pipeline
+* New members are onboarding and the team has some tasks planned for them!
+* Steven integrated QA Primitives into neural_network_methods.py and debugged. EMADE now builds, and unit tests pass.
+
+
+* Some new members still need to update PACE
+
+
+
+== Neural Architecture Search Meeting: Friday, November, 12, 2021 ==
+Analytics for NNLearners:
+* Depth, complexity, 
+
+
+== AAD General Meeting: Monday, November, 8, 2021 ==
+
+NLP:
+* Resolved issues of Big Merge
+* Divided into new teams to tackle remaining issues
+* Branch current runs and work on one data pair
+* Confirmed keras model works outside of made using our primitives 
+* Currently getting a memory error
+
+
+
+== Neural Architecture Search Meeting: Friday, November, 15, 2021 ==
+
+== AAD General Meeting: Monday, November, 22, 2021 ==
+SCRUM:
+Image Processing:
+* Newbaseline run on the dataset
+* Was run with NSG 2
+* Got runs with lexicase, epsilon, and NSGA-III.
+* For baseline run, ROC-AUC is pretty bad, about 0.48
+
+
+Modularity:
+*Refactored and documented new implementation of code
+**Added typing and classes to implementation
+***Lots of information was previously stored in tuples
+*Refactored old and inefficient methods
+
+NLP:
+*Overall status: NNLearner2 works on classification, having issues switching to regression.
+* Steven has been testing integration or primitives into EMADE, and building Keras Models in Google Collab to ensure integration works. All primatives we need to get now work. We have a Keras Model that builds, and our layers are able to feed into Keras's LSTM layer.
+* Devan and Team has worked on NNLearner2.
+* Karthik and George fixed batch size issues with Bidirectional Attention.
+* Rishit and Shiyi are still designing their experiment.
+* Goal for this week: Get Regression working on NNLearner2 ASAP, and get everyone setup.
+
+NAS:
+* This week's meeting consisted of updates and some internal updates amongst members.
+* New members have planned out a meeting amongst themselves which is meant to coordinate slides to be completed and discussed during the final presentation. Pranav has made their group chat and Charlie has started adding some slides to our template powerpoints.
+* Cameron W presented the following points as small modifications that could be made to our currently functioning EMADE in order to improve nnlearner performance easily:
+**Use both train and test sets provided
+**stop deleting color channels
+
+model improvements
+* get rid of pooling layers which leads to like 10x more parameters
+* after removing, models could overfit on train set (98% train accuracy, 62% test)
+
+Preprocessing improvements: (uses baseline from getting rid of pooling layers -- 62% test ACC)
+** rescaling gives ~5% test accuracy boost (kept)
+** using color channels gives ~3% test accuracy boost (kept)
+** random rotation (60 degree range): worse than baseline (no overfitting)
+** brightness (20-100%): worse than baseline (overfits)
+** random zoom (50-100%): same as above
+** subtracting per-pixel mean: same as above
+
+* Cameron B has completed his changes for mating and mutation methods which now allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals. I will likely start working on weight sharing in parallel.
+* Cameron W is currently working to integrating weight sharing to our existing modules in EMADE
+* Conner Y and Devesh K are still working to integrate novelty detection changes hopefully some progress will be made at the hackathon which allows us to undergo experiments before final presentations.
+* Justin H is now unblocked on his task to add a parent column which tracks hash values for nnlearners. After he has completed this, he will work to create some extraction logic which we will utilize after completing some WMADE runs.
+* Lucas Z is doing literature review which will contribute to the final presentation slides.
+
+
+== Neural Architecture Search Meeting: Friday, November, 26, 2021 ==
+*Thanksgiving Break, no meeting
+
+== AAD General Meeting: Monday, November, 29, 2021 ==
+SCRUM:
+Image Processing:
+*Image classification team did not meetlast week due to Tahnksgiving break. Their hyperfeatures, selection methods, and mating/mutations groups are all continuing to work on their changes and they said they will likely stop working on code by the end of the week in order to do experiments and prepare their presentation.
+
+Modularity:
+*Modularity team continued doing runs and gathered data for the extended ARL experiments
+**Their midterm presentation's results with the upwards spike for the AUC over the graph was most likely due to the three objectives, not Google collab.
+**They verified all runs 
+
+NLP:
+*Optimized some NNLearner2 areas
+*NNLearners2- working on regression now, but some results indicate a potential error?
+
+NAS:
+* Did not meet this week due to Thanksgiving break
+* Team members with incomplete tasks were messaged and asked to provide updates about completion of their tasks.
+* Conner Y was able to provide a link to some code which should be properly extracting layer frequencies from individuals every generation. With this, he has provided a rough draft of a potential eval_method which we can experiment with while doing our made runs. As a team we will need to contribute some additional eval_methods in order to generate some desirable results for the final presentation.
+Devesh K has provided an updated script which can be used to generate Cifar 10 data in proper splits with full color images. This script will be used in our final EMADE runs. Additionally, he helped COnner do some local debugging of his EMADE code.
+*Justin H has provided a link to a PR which contains code we will need to merge into NN-VIP oiin order to ensure we have access to parent connection in newly generated individuals. he is now working to add some additional methods to analyze.py which will be used to pull this parent information once it has been acquired.
+
+
+
+https://www.youtube.com/watch?v=j8oU0ksQ3Bc
+Visualizing the NEAT Algorithm
+Video gives a visual of the evolving neural network and applies it to the snake game where the snake is the AI agent.
+
+https://www.youtube.com/watch?v=h9JZ0YHtKWQ
+Gives more indepth technical explanation of the video above (The NEAT snake game visualization)
+
+
+https://neat-python.readthedocs.io/en/latest/neat_overview.html
+
+
+https://towardsdatascience.com/neat-an-awesome-approach-to-neuroevolution-3eca5cc7930f
+
+
+https://towardsdatascience.com/neat-an-awesome-approach-to-neuroevolution-3eca5cc7930f
+direct vs indirect encoding
+
+NEAT uses direct encoding
+
+NEAT uses historical markings
+
+
+https://www.youtube.com/watch?v=ZC0gMhYhwW0
+Guy goes over NEAT code implementation in python
+
+
+
+https://towardsdatascience.com/what-is-neural-architecture-search-and-why-should-you-care-1e22393de461
+*The purpose of neural architecture search:
+**Find optimized architectures
+**This article is intended to chow the progress of the neural architecture search, the difficulties if faces and the proposed solutions, as well as the popularity of the NAS toad and future trends.
+** The NAS domain represents a set of tools and methods that will test and evaluate a large number of architectures across a search space using a search strategy and select the one that best meets the objectives of a given problem by maximizing a fitness function.
+**NAS is a sub-field of AutoML
+**Today, many manual architectures have been overtaken by architectures made by NAS such as
+*** Object detection — Image Processing — Zoph and al 2017
+*** Image classification — Image Processing — Real and al, 2019
+*** Hyperparameter optimization — AutoML — Feurer and Hutter, 2019
+*** Meta-learning — AutoML — Vanchoren, 2018
+
+https://machinelearningmastery.com/difference-between-a-parameter-and-a-hyperparameter/
+*Difference between a parameter and hyperparameter
+* A model parameter is a configuration variable that is internal to the model and whose value can be estimated from data
+
+
+
+== Neural Architecture Search Meeting: Friday, Decemember, 3, 2021 ==
+
+* We had a short meeting to discuss our plans for preparing for the final presentation.
+* Cameron B. assigned everyone slides to work on in relation to what everyone has been working on.
+
+== AAD General Meeting: Monday, Decemember, 6, 2021 ==
+
+* SCRUM today
+* Instead Jason Zutty gave some announcements
+** Final presentation is this Friday evening
+** Notebook deadline has been extended to Monday, 12/13/2021 @ 9 am before Jason opens up his laptop.
+* After announcements, each team has the rest of the class period to work on whatever they see fit.
+* Jason Zutty hopped from team to team to check in with each team.
+* Cameron B. announced to the NAS team that we will have a rehearsal for our final presentation this Wednesday.
 
 
 

@@ -310,6 +310,522 @@ Once you're in the node, type mysql -u root
 **no permission for installing conda
 **not allowed to setup conda environment
 **conda must installed inside home 
+==== Personal Exploration ====
+*Here is formal process of establish PACE connection:
+**First use ssh tsun90@pace-ice.pace.gatech.edu establish connection with the PACE server
+**After the server connection is established we now establish a job session on PACE with qsub -I -q pace-ice -l nodes=1:ppn=1,walltime=01:00:00
+**move into /usr directory and run mysqldb to establish our database instance
+**Now in a new terminal reconnect to the PACE and ssh into the job node we have established the formal connection with.
+**Now we establish a connection with the database with command mysql
+**Create a new credential with full privilege and generate a schema use CREATE DATABASE
+**exit the mysql query mode and use vim modifier or nano to modify the input template of the dataset we are going to use and change database into our new database address with account name we just generated.
+***NOTE: no password is needed as the account I established is not protected by one.
+**After the database is configured correctly we will now try to start a run.
+***load the anaconda 2020 from PACE server virtual library
+***active the conda environment we have configured with all dependencies we have installed for made
+**go to the directory where our emade file is and run install.py install to ensure the emade is configured in the PACE environment
+**now to launch the emade run launchEMADE.py with template file we want to use.
+**Encountered problem when using stock input template, it says some variable in the input template is not valid
+***Stock team is using cacheV2 updated input schema
+***update the input schema.xsd file resolved this issue
+***another error saying the evolution function NSG2 do not exist
+****There is a NSG2 function exist in our evolution functions, this bug is unclear.
+==== Action Table ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|After the PACE bug that prevented establish of SQL database instance is resolved, continue to try a run on PACE using stock data
+|Finished
+|Oct 8, 2021
+|Oct 15, 2021
+|Oct 12, 2021
+|-
+|Begin midterm presentation preparation with the team, include the now PPT for the presentation, and help more runs for data presentation.
+|Finished
+|Oct 8, 2021
+|Oct 15, 2021
+|OCt 14, 2021
+|}
+=== October 15, 2021 ===
+==== Main meeting notes: ====
+*hackathon is at this saturaday 1 P.M to 5 P.M
+**All member of our team is anticipated to be presented
+**Need to use new code from CacheV2 branch which will solve issue we have with PACE
+==== Hachathon Secssion ====
+*Continue working on the stock run this week
+**Previous NSG2 error is because our team changed evolution funton name into sel_nsga2
+**solved by change the name of evolution function in the input template
+**successfully initialized the run without seeding at this stage.
+***ERROR: Tree missing valid primitive for data type, At least one objective returned inf.
+***stock team are using technical indicator as the primitive
+***We must use the seeding file from the stock team to seed the database they are using.
+==== Subteam meeting note ====
+*Due to near midterm presentation to acquire data and table all PACE issue some of team member continue to suffer we will Temporarily switching over to google collab
+**Use stock dataset, seeding files, and input templates for our run on google burning account
+**Bernadette have successfully transferred all stock data files
+*Midterm presentation
+**Our PPT: https://docs.google.com/presentation/d/1Lus6qHH9vwdfaLxcBg50PBBOl56qF_A7wFGT4F-1hlI/edit#slide=id.g812dce5abf_2_375
+==== personal exploration ====
+*Working on the stocks dataset
+**Current error:
+	
+<pre>
+MutableObject���)���sql_connection_orm_base��
+                    deap.creator��
+Individual���)��(�deap.gp��     Primitive���)��N}�(�name��
+EmadeDataPair���h�GPFramework.constants�TriState���h�   Cv2NoQuadState���e�ret�h�seq��Cv2NotEqual({0}, {1}, {2}, {3})�u��bh
+Supersampling�hKh]�(hhhbuiltins��float���h"�int���ehhh&Supersampling({0}, {1}, {2}, {3}, {4})�u��bh
+���N}�(h
+ Cv2Subtract�hKh]�(hhhhehhhCv2Subtract({0}, {1}, {2}, {3})�u��bh
+�2�h:hK����hhh;builtins��repr���u��b�b�, {myRandTri���)��}�hhs}�(hminal���)��N}�(h
+�5�h:Khh&h;hIu��bhVhh"�bool���h;h=u��bh6)��N}�(h
+hDh:Khh&h;hIu��bh�bh6)��N}�(h�(hs}�(hhh-MorphDilateRect({0}, {1}, {2}, {3}, {4}, {5})�u��bh7h@)��}�hhs}�(h
+���N}�(h
+�0�h:hK ����hhh;hIu��bhhpassTriState({0})�u��bh@)��}�hhs}�(h
+hDh:hK����hhh;hIu��bh�h�hL)��}�hhs}�(h{0})�u��bhL)��}�hhs}�(h
+���N}�(h
+myFloatDiv�hKh]�(h$h$ehh$hmyFloatDiv({0}, {1})�u��bh
+���N}�(h
+�1.0�h:G?�      hh$h;hIu��bhh6)��N}�(h({0}, {1})�u��bh6)��N}�(h
+���N}�(hpassFloat�hKh]�h$ahh$hpassFloat({0})�u��b�
+�-1.7715005676237028�h:G��X����hh$h;hIu��bh
+�0.1�h:G?�������hh$h;hIu��bhssThan({0}, {1})�u��bh�h6)��N}�(h
+���N}�(h
+�100.0�h:G@Y      hh$h;hIu��bh�hoatAdd({0}, {1})�u��bh6)��N}�(h
+�ContourMaskMinSolidity�hKh]�(hhhh&ehhh*ContourMaskMinSolidity({0}, {1}, {2}, {3})�u��bh
+�CopyStreamToTarget�hKh]�hahhhCopyStreamToTarget({0})�u��bh
+�3�h:hK����hhh;hIu��b���}�hhs}�(hhhh(EmadeDataSubtractInt({0}, {1}, {2}, {3})�u��bh7h@)��}�hhs}�(h
+h�h:hK ����hhh;hIu��bh�h�hL)��}�hhs}�(h�}�hh&s}�(h
+myIntSub�hKh]�(h&h&ehh&hmyIntSub({0}, {1})�u��bh
+hDh:hK����hhh;hIu��be}�(�fitness�h�s}�(hhs}�(h({0}, {1})�u��bh�h�j
+FitnessMin���)��}��wvalues��numpy.core.multiarray��scalar����numpy��dtype����f8�����R�(K�<�NNNJ����J����K t�b      �����R�j,  j2        �����R�j,  j2        �����R���sb�adfs�}��
+                                                                     SmallDataSet�j&  )��}�j)  j>  sb�
+                                                                                                         FullDataSet�j&history_index�MUhash_val��@fa979939682cdedf285a0f01461e13711428ffc1b2be18b7514e5c3e5ea4603f��
+                                                                                              elapsed_time�G?1�     �False Positives�j*  �
+                   _reconstruct���j-  �ndarray���K ��Cb���R�(KK ��j/  �f8�����R�(Kj3  NNNJ����J����K t�b�C �t�b�False Negatives�jM  jO  K ��jQ  ��R�(KK ��jW  �jY  t�b�
+                                                            Num Elements�jM  jO  K ��jQ  ��R�(KK ��jW  �jY  t�b�age�K ubb. |                         NULL |                         NULL |                      NULL |
+     NULL |                        NULL |                     NULL |
+| fafc0bf5e4be362c5f1a3baf518d68d2bf0c9950b8927b786809eb3c6f39b7b2 |  0.000212193 |       NULL |   0 | EVALUATED         |              0 | 2021-10-16 20:05:03   | mySparsePCA(ToUint8Scale(SetToZeroIf<Data&Factor(ARG0, ARG0, 0, 0, -7), passTriState(2), passQuadState(1)), passTriState(passTriState(1)), notEqual(myFloatMult(10.0, 0.01), myFloatAdd(10.0, 100.0)), myFloatAdd(myFloatAdd(0.1, 0.1), passFloat(100.0)))
+                                                                                                             | Tree missing valid primitive for data type
+ At least one objective returned inf.
+	
+</pre>
+*Try use seeding file and see if this improves anything
+**Seeding failed
+**massive differences between the stock input template and our seeding input templates
+**Changed scoop parameter entirely
+**add maxadfsize and shoulduseadfs to evolution parameters for use adf for our adf functions
+**replace the entire  evolution parameters and mutation scope
+***ERROR: datasets are not gzipped files
+***trying solution online with little success, google collab do not allow majority of those fix to be implemented
+==== Action Table ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Merge all the stock file onto the burner account and attempt to seed the stock data set and conduct runs.
+|Finished
+|Oct 15, 2021
+|Oct 22, 2021
+|Oct 22, 2021
+|-
+|Conduct more runs with teammate for more data with both no arl, old arl and newly extended arl for comparison and presentation
+|Finished
+|Oct 15, 2021
+|Oct 22, 2021
+|Oct 22, 2021
+|-
+|Continued preparation for midterm presentation, finished the presentation PPT, prepare the data for preparation.
+|Finished
+|Oct 15, 2021
+|Oct 22, 2021
+|OCt 22, 2021
+|}
+=== Oct 22, 2021 ===
+==== Main meeting note: ====
+*Midterm presentation next Monday Oct 25.
+*Stocks team
+**matching the performance of the stocks paper
+*Modularity team
+**we shall include the design of our experiments in the presentation
+**check objectives, auc, and also individuals of stock data
+**reuse parameter for reuse the dataset
+*Compute time is number of jobs that are running * number of cores per worker
+==== Midterm Presentation Related issue ====
+*I'm responsible in introduce our current errors
+*practice run on Monday Oct 25, before the formal meeting
+*Due to the existing class lecture I will be arriving late until 7. PM
+==== Midterm presentation note ====
+*Bootcamp Subteam 3
+**Data pre-processing
+***change ages and fares to integers
+***create a new feature gender_embarked combine gender and embarked port
+**Machine learning models testing
+***AUC at 0.19
+**Generic Programming
+***Used strongly typed primitives
+*Stocks
+**Goals
+***Use the Emade on data with times series
+***Implemented technical indicator as primitive
+***Comparing with Machine Learning Learners
+**Working on their paper for potential publish
+==== personal exploration ====
+*The error of gzip file is caused by unsuccessfully uploaded of dataset, hence the google collab do not recognize them
+**Re-upload all files resolve this issue immediately
+*It appears that stock uses entirely different from our
+**attempt to modify the seeding from file and incorporate the changes from stock file, current methodology
+***modify the file that identified is different
+***reinstall Emade
+***attempt to perform seeding dataset
+***identify what file causing error and repeat process until the problem are resolved
+**This method proved to be rather inefficient and slow
+==== Action Table ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continued preparation for midterm presentation, get familiar with the slides for presentation and do a practice presentation internally.
+|Finished
+|Oct 22, 2021
+|Oct 25, 2021
+|Oct 25, 2021
+|-
+|The Midterm presentation
+|Finished
+|Oct 25, 2021
+|Oct 25, 2021
+|OCt 25, 2021
+|}
+=== November 5, 2021 ===
+==== Main Meeting note ====
+*modularity
+**Instead of moving each file and checking for bugs we will follow a different path
+***Use compare between fork feature of the github
+***Compare between cacheV2 files and our ARL_Update file
+***Make changed and incorporate the files between two branches as GitHub indicated
+***May want to use sublime merge for efficiency
+*stock
+**Trying to edit their paper
+**standardize their results and compare to the paper better
+==== Subteam Meeting ====
+*Working on getting everyone set up with google collab
+*separate to two task
+**Merge the branch
+**Make runs and prepare for file modifications
+==== Personal Exploration ====
+*Discussed with team, we decided to merge cacheV2 first before continue with stock data
+**Stock codebase is based off new CacheV2 branch
+*Bernadette created a branch called ARL_Updated where we've cloned CacheV2
+*Use this link to check file differences from our arl update to the cacheV2
+**https://github.gatech.edu/emade/emade/compare/CacheV2...vhuang31:ARL_Update
+*Try to make some file changes into the new branch
+**working on cacheV2_arl branch
+**add adf.py
+**modified sql_base file
+**modified cloudcopy into our branch
+**modified checkingVariables.py
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start work on making file changes and merging cacheV2 into our branch, merge files as adf.py, checking variables, seeding from a file, and all files under src folder with no significant differences
+|Finished
+|Nov 5, 2021
+|Nov 12, 2021
+|Nov 11, 2021
+|}
+=== November 12, 2021 ===
+==== Main meeting Note ====
+*Modularity
+**How to test primitatives?
+**Continue working on cacheV2 changes
+*Stock
+**mean square error
+**More individual each generation
+==== subteam meeting Note ====
+*Discussed first-semester situation and plans for rest of semester
+**Vincent will be running master process for more runs for no arl, old and new arl,
+**Joined all the runs as worker process to speed it up
+**We managed to achieve around 40 generations in each run given no accidental termination
+*Potential problem with google collab, we will continue PACE-ICE in future
+==== Individual Exploration ====
+*All the file changes will be pushed into this branch
+**https://github.gatech.edu/bbal3/emade/tree/CacheV2_ARL
+*for more than one people to work on this branch we will remain close contact to eliminate potential conflict
+*In order to join Vincent's run we need use this new emade-cloud folder created from the more updated arl branch
+**https://drive.google.com/drive/folders/1nYwWi3ec3SECBbNE_wyZmMuvHIUzfut1
+*Continue on emerging files
+**confirmed change with data.py
+**confirmed change with didLaunch.py
+*Helped Vincent with 4 runs on new arl
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help more runs with new arl with Vincent to acquire enough data so we can draw a meaningful conclusion at end of semester
+|Finished
+|Nov 12, 2021
+|Nov 19, 2021
+|Nov 19, 2021
+|-
+|Conduct file changes, expect to finish before next week for testing
+|Finished
+|Nov 12, 2021
+|Nov 17, 2021
+|Nov 15, 2021
+|}
+=== November 19, 2021 ===
+==== Main Meeting Note ====
+*Modularity
+**perform test runs as early as better
+*stock
+**68% profit for the stocks
+**KNN and NLP seem to be the best learners
+==== subteam meeting ====
+*Have 8 extended ARL runs done
+**Angla and first semesters will work on Visulization of our results from runs
+*cacheV2 change incorporated and we plan a test&debugg this weekend
+*Using this emade-cloud folder from Xufei created with CloudCopy for testing on google collab
+**https://drive.google.com/drive/folders/1CyOUr7xOuteQbIGf_eYu-NhfuFHA4S4W?usp=sharing
+==== Personal Exploration ====
+*Using the new made cloud folder created using CloudCopy script we uploaded off the new branch with all file merged for testing on google collab
+**running python install.py is not working
+*** Error message: docutils 0.18b0 is installed but docutils<0.18 is required
+***attempt to solve by call conda install docutils=0.17
+***although the installation of package is successful but the problem did not resolve, it appears the made installer will install the new version of docutils package  as a dependency for GPFramework
+**attempt a workaround by ise reinstall.sh instead
+***reinstall.sh is not running, it appears a line break is reader by google colla
+***remove the end of line break in the file resolves this issue
+***New issue here
+<pre>
+WARNING: Skipping GPFramework as it is not installed.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+DEPRECATION: In-tree builds are now the default. pip 22.1 will enforce this behaviour change. A possible replacement is to remove the --use-feature=in-tree-build flag.
+Processing /content/gdrive/My Drive/emade-cloud
+  Preparing metadata (setup.py) ... done
+Collecting deap@ git+https://github.com/DEAP/deap@master
+  Cloning https://github.com/DEAP/deap (to revision master) to /tmp/pip-install-6tj80yzk/deap_e22a9a00d3f44b99b125883eb8536674
+  Running command git clone --filter=blob:none -q https://github.com/DEAP/deap /tmp/pip-install-6tj80yzk/deap_e22a9a00d3f44b99b125883eb8536674
+  Resolved https://github.com/DEAP/deap to commit 2372fd2e4fdc1373a0e087bba030d9256dffbce9
+  Preparing metadata (setup.py) ... error
+WARNING: Discarding git+https://github.com/DEAP/deap@master. Command errored out with exit status 1: python setup.py egg_info Check the logs for full command output.
+Requirement already satisfied: tensorflow in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (2.4.1)
+Requirement already satisfied: pillow in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (8.4.0)
+Requirement already satisfied: psutil in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (5.8.0)
+Requirement already satisfied: lxml in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (4.6.3)
+Requirement already satisfied: hmmlearn in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (0.2.6)
+Requirement already satisfied: scikit-learn in /usr/local/lib/python3.7/site-packages (from GPFramework==1.0) (1.0.1)
+ERROR: Could not find a version that satisfies the requirement deap (unavailable) (from gpframework) (from versions: 0.9.1, 0.9.2, 1.0.0rc3, 1.0.0, 1.0.1, 1.0.2.post2, 1.2.0, 1.2.1a0, 1.2.1a1, 1.2.1a2, 1.2.1b0, 1.2.1rc3, 1.2.1, 1.2.2, 1.3.0, 1.3.1)
+ERROR: No matching distribution found for deap (unavailable)
+</pre>
+***attemp to debug this error use this command to generate a full error log inside google drive so I can start
+****!pip install 'deap@git+https://www.github.com/DEAP/deap' --log error.txt
+***it appears the error exists when running the actual installation script for deap package from the Github repository
+***!pip install 'setuptools<58' solved this issue
+**continue debug process
+***we successful have the made installed
+***error while try to seed the file
+***error with SQL connections, error caused from SQL base file where the SQL instance is not started and no library is created
+***the library should be created when the class is initialized in the new cacheV2 version of file
+***we decided to use old fashion way to solve this issue, we call the function that crated the library again to start it
+**we successful seeding the file, but the actual run have error out with similiar error with sql_base file
+****this indicated that some error exist inside our file merge
+*Joined more Vincent's runs we now have 12 runs done.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Help more runs with new arl with Vincent to acquire enough data so we can draw a meaningful conclusion at end of semester
+|Finished
+|Nov 19, 2021
+|Nov 26, 2021
+|Nov 24, 2021
+|-
+|Conduct file changes, expect to finish before next week for testing
+|Finished
+|Nov 19, 2021
+|Nov 22, 2021
+|Nov 24, 2021
+|}
+=== November 26, 2021 ===
+'''No meeting this week, Thanks giving break'''
+==== Personal Exploration ====
+*Continues my attempt on solving the problem
+**reversed SQL file changed using our old file
+**Not solving the problem, more errors created, reverse this change, it appears cacheV2's change on the SQL file is a piece of a larger change
+**try to incorporate some changes in cacheV2 and generate a library reference while leaving the main logic intact
+***adding adf function in there
+***manually access class Borg and bypass shard state.
+**the issue of the SQL file is solved, another attempt on starting run
+***more error:
+<pre>
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 454, in get_random_uneval_individuals
+    query = self.sessions[os.getpid()].query(self.Individual) \
+KeyError: 15458
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 126, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 122, in main
+    reuse=reuse, num_workers=num_workers, debug=True)
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/EMADE.py", line 1280, in worker_algorithm
+    evaluated_offspring = database.get_random_uneval_individuals(evals_per_worker * num_workers) # * So these are the unevaluated individuals
+  File "/usr/local/lib/python3.7/site-packages/GPFramework/sql_connection_orm_master.py", line 473, in get_random_uneval_individuals
+    self.sessions[os.getpid()].rollback()
+KeyError: 15458
+</pre>
+***this indicated that SQL master and didlaunch.py have problem as well
+***comparing different files from cacheV2, our cacheV2_arl, and arl_update files
+***it appears during the merge some of the function are overriten while both are in fact needed.
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Try to solve the error of sql_base.py file and start a run on the titanic dataset for testing the result before proceeding to stock data.
+|Finished
+|Nov 26, 2021
+|Dec 3, 2021
+|Dec 2, 2021
+|-
+|Help the run as worker process for new arl run num 9 and 10
+|Finished
+|Nov 26, 2021
+|Dec 3, 2021
+|Dec 2, 2021
+|}
+=== December 3, 2021 ===
+'''Main meeting for time conflict people is canceled'''
+==== Subteam meeting ====
+*brief discussed each of our progress so far
+*as the end of the semester is approaching we discussed the matter of the final presentation and our experiment with new arl
+**We have several runs completed and is analyzing the data from there
+**visualization is in progress
+==== Personal Exploration ====
+*peer review finished
+*continue to explore the file differences
+*my teammate agrees that we need to incorporate several files to solve our current issue
+**Potential database error at the current stage
+*current known problems(updating list as we find more)
+**sql orm master's optimization attribute is been removed
+**main GP tree is gone
+**more cacheV2 functions is removed
+*more work is required for this part, but we do not have enough time to fully finish it, therefore we will change our focus onto the final presentation.
+*Here is our slide for the final presentation
+**https://docs.google.com/presentation/d/1crLSG4QjQPni3eeq-UIoN-_2AxYlqRWalCTuuCEUSbA/edit#slide=id.gc9bc63836f_1_46
+**made modifications to current issues
+**made addition to cacheV2 modification slide
+**future works
+***consider stock codebase integrating
+***more change for extended arl vincent was implementing this semester
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Continue on make changes for cacheV2, checking bugs deciding weather we can finish it this semester
+|Finished
+|Dec 3, 2021
+|Dec 10, 2021
+|Dec 8, 2021
+|-
+|Making modifications to final presentation PPT, add information for final presentation
+|Finished
+|Dec 3, 2021
+|Dec 9, 2021
+|Dec 10, 2021
+|-
+|Peer review for people I worked close with
+|Dec 3, 2021
+|Dec 8, 2021
+|Dec 7, 2021
+|-
+|Preperations for final presentation aside from finish our final PPT, prepare my slide for present, do a practice run with my teammates
+|Dec 3, 2021
+|Dec 10, 2021
+|Dec 10, 2021
+|}
+=== December 10, 2021 ===
+'''conducted practice presentation today'''
+==== Final Presentation ====
+*Image processing
+**using chest dataset and studying multi class image classification
+**Evaluation objectives
+***Base run is off CacheV2 codebase
+***lowest ROC = 0.169169
+**Using NSG 3 instead of NSG 2 to improve results
+**AUC decreases as more parameter is added
+**Future direction
+***object detection
+*NLP
+**closed-domain, extractive, and factoid for analyze
+**use SQUAD dataset
+**Use NNLearner2 as primitive
+**They conduct 31 runs for this semester.
+**Future plans
+***improve their lower-scoring results 
+***look into ensemble learners
+*Stock
+**Experiment on how EMADE objective affects the overall performance of Pareto individuals
+**ARGMIN learners produce the best result for them
+**mean profit for top 10 individuals for average loss and the loss_cdf_var_avg does very well
+**They were comparing their results with the result they read from papers for each individual to analyze
+**Future directions
+***finish up all experiments
+***continue EMADE runs and compares results with existing paper
+***continue work on the publication
+*Neural Architecture
+**Checking for hyperparameter optimization
+**modified existing NNLearner using forwardPrune
+**due to limited primitives they have also modified module generators to use module as a primitive
+***this modification allows them for weight sharing
+***They can specialize certain modules
+**they do not have a great resulting Pareto front
+==== Action Items ====
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Final Presentation
+|Dec 10, 2021
+|Dec 10, 2021
+|Dec 10, 2021
+|}
 == Jan 20, 2021 ==
 === Team meeting notes: ===
 * Course introduction, syllabus, introduction to notebooks.

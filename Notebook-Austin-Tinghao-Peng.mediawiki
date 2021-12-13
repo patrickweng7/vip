@@ -7,8 +7,573 @@
 '''Interests:''' Machine Learning, [https://sites.google.com/view/gtclubtennis Tennis], Traveling, Cooking
 
 = Fall 2021 =
+== Week 16: December 6, 2021 ==
+=== 12/10/2021 Final Presentations ===
+* Image Processing (thoughts for next semester)
+** consider presenting questions you don't know the answer to as well
+** consider not averaging the ROC AUC (unpack the results for each multiclass classification)
+*** after seeing all the results of selection methods, an averaged ROC AUC for all 14 classes doesn't unpack the results well
+*** for example, 0.5 averaged ROC AUC could mean some classes (of lung diseases) were classified very well while other classes did not work as well
+** in addition to unpacking results for each class, consider looking into creating a confusion matrix (14 by 14) and analyzing results
+** consider why/when lexicase is better than NSGA2 and NSGA3 (try to use the strength of lexicase)?
+*** lexicase does better when looking into individuals/instances (being classified against the 14 different CheXNet classes)
+
+* Natural Language Processing
+** converts text into structures like word frequencies
+** converts words to a vector
+** created another NNLearner that has the ability to make multiple ARGX (unlike the current NNLearner)
+
+* Stocks
+** currently writing their research paper to be published
+** changed objective functions from maximization to minimization
+*** loss percentage (minimization)
+*** CDF of profit (Monte Carlo)
+** changed evaluation metric to mean squared error
+** goal of the semester was to outperform the Takagi-Sugeno Fuzzy model for profits in buying/selling stocks
+** found that ARGMIN and ARGMAX created their best ""learners""
+** the team guesses that ARGMIN and ARGMAX work best because they pick the lowest value from the technical indicators from each individual
+
+* Neural Architecture Search
+** working on automated hyper-parameter optimization in neural networks
+** created a time stop callback to limit how long networks train for (intervals of 600, 1200, 1800, ..., etc.)
+** surprised that they managed to overfit on CIFAR-10 dataset
+
+* Modularity
+** worked on increasing ARL complexity
+** ARLs created extremely complicated individuals
+** would like to move from Google Colab onto PACE-ICE for runs
+
+=== 12/8/2021 Subteam Meeting Notes ===
+* FOLLOW UP: on why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
+** The issue was fixed after Max merged NAS changes into our new branch <code>img-proc</code> which changed the evaluation method to use ROC AUC and the multilabel parameter in the XML to be 1.
+** Max also created new <code>input_chest.xml</code> and <code>launchEMADE.py</code> scripts for our final runs before the final presentation.
+
+==== Using MySQLWorkbench To Access Databases ====
+* Note: remember to start the mysql service.
+** ssh into PACE-ICE
+** run <code>qsub pbsmysql.pbs</code>
+* To use MySQLWorkbench, first download and install it.
+* Then configure the settings for one MySQL connection with the following:
+** <code>SSH Username</code> should be your GT username that you use to login to PACE
+** <code>SSH Password</code> should be your GT password that you use to login in PACE
+** <code>MySQL Hostname</code> should be the name of your mysqldb job running (use qsub pbsmysql.pbs to start it)
+** <code>MySQL Server Port</code> should be the port number your specified in your <code>.my.cnf</code> file
+** <code>Username</code> should be your mysql username
+** <code>Password</code> should be your mysql password
+
+[[files/apeng39/w16-ss3-mysqlworkbench-setup.png]]
+
+==== Selection Method Results (NSGA3 and Lexicase) ====
+* I helped Dhruv complete a run testing <code>sel_nsga3</code>.
+** The job ran for 7:30 hours and 190 generations.
+** The following is the tree of the best performing individual (based on the ROC AUC metric).
+*** ROC AUC: 0.491509
+*** numParams: 1215
+<pre>
+NNLearner(ARG0, GlobalMaxPoolingLayer2D(Conv2DLayer(Conv2DFilterUnit48, reluActivation, Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit256, tanhActivation, MaxPoolingLayer2D(Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize5, Conv2DLayer(Conv2DFilterUnit48, softmaxActivation, Conv2DKernelSize5, MaxPoolingLayer2D(Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, defaultActivation, DenseLayer4dim(DenseLayerUnit256, seluActivation, MaxPoolingLayer2D(Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, seluActivation, Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, sigmoidActivation, Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize3, Conv2DLayer(Conv2DFilterUnit16, defaultActivation, Conv2DKernelSize3, DenseLayer4dim(DenseLayerUnit32, eluActivation, DenseLayer4dim(DenseLayerUnit32, reluActivation, DenseLayer4dim(DenseLayerUnit256, sigmoidActivation, Conv2DLayer(Conv2DFilterUnit16, eluActivation, Conv2DKernelSize5, DenseLayer4dim(DenseLayerUnit256, tanhActivation, MaxPoolingLayer2D(Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit256, eluActivation, Conv2DLayer(Conv2DFilterUnit16, seluActivation, Conv2DKernelSize1, Conv2DLayer(Conv2DFilterUnit16, softmaxActivation, Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit256, tanhActivation, DenseLayer4dim(DenseLayerUnit256, sigmoidActivation, MaxPoolingLayer2D(Conv2DKernelSize3, ARG0))))))))))))))))))))))))))))), trueBool, FtrlOptimizer)
+</pre>
+
+[[files/apeng39/w16-ss1-sel-nsga3-best-ind.png]]
+
+* For lexicase, Harris and I also completed a few runs using the <code>sel_lexicase</code>.
+** The following is tree of an interesting individual (only 30 parameters).
+*** ROC AUC: 0.5
+*** numParams: 30
+<pre>
+NNLearner(ARG0, GlobalAveragePoolingLayer2D(MaxPoolingLayer2D(Conv2DKernelSize1, MaxPoolingLayer2D(Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, defaultActivation, MaxPoolingLayer2D(Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, defaultActivation, MaxPoolingLayer2D(Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize3, MaxPoolingLayer2D(Conv2DKernelSize1, DenseLayer4dim(DenseLayerUnit32, defaultActivation, MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer))))))))))))), Conv2DFilterUnit48, NadamOptimizer)
+</pre>
+
+[[files/apeng39/w16-ss2-sel-lexicase-best-ind.png]]
+
+=== 12/6/2021 Main Meeting Notes ===
+* I encountered an error with editing and saving changes on <code>templates/input_chestxray.xml</code>. 
+<pre>
+E667: Fsync failed
+</pre>
+
+* '''EDIT (12/8/2021) FIXED''':
+** I removed the extremely large <code>.git</code> folder from my PACE account.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Find why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 8, 2021
+|-
+|Solve error with <code>OSError: [Errno 122] Disk quota exceeded</code>
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 8, 2021
+|-
+|Perform 1 trial of EMADE on <code>sel_nsga3</code>.
+|Completed
+|December 6, 2021
+|December 8, 2021
+|December 7, 2021
+|-
+|Perform 1 trial of EMADE on <code>sel_lexicase</code>.
+|Completed
+|December 6, 2021
+|December 8, 2021
+|December 8, 2021
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|Blocked
+|November 22, 2021
+|December 6, 2021
+|
+|}
+
+== Week 15: November 29, 2021 ==
+=== 12/1/2021 Subteam Meeting Notes ===
+* I completed a run with the input_chestxray.xml, however many individuals generated have an error string.
+
+<pre>
+Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported
+
+Traceback (most recent call last):
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1800, in evaluate_individual     objectives[objective] = _inst.objectivesDict[objective]['evaluationFunction'](*args, **kwargs)   
+
+File "/storage/home/hpaceice1/apeng39/emade/src/GPFramework/eval_methods.py", line 421, in precision_auc     return average_precision_score(truth_data, test_data)   File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/utils/validation.py", line 63, in inner_f     return f(*args, **kwargs)
+
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/metrics/_ranking.py", line 225, in average_precision_score     average, sample_weight=sample_weight)
+
+File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sklearn/metrics/_base.py", line 74, in _average_binary_score     raise ValueError("{0} format is not supported".format(y_type)) ValueError: multiclass format is not supported  It was detected that the individual performed perfectly. At least one objective returned inf. 
+</pre>
+
+* The error log in EMADE_master.eXXXXX file says
+<pre>
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py:293: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  .filter(self.Individual.hash.in_(ParetoFrontLatestGen))]
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:571: RuntimeWarning: invalid value encountered in subtract
+  ft = fitnesses - best_point
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:588: RuntimeWarning: invalid value encountered in subtract
+  A = extreme_points - best_point
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/tools/emo.py:608: RuntimeWarning: invalid value encountered in subtract
+  fn = (fitnesses - best_point) / (intercepts - best_point)
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 119, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 109, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 1268, in master_algorithm
+    pickle.dump(pareto_front, f, -1)
+OSError: [Errno 122] Disk quota exceeded
+</pre>
+
+* '''EDIT (12/8/2021) FIXED''':
+** I solved the problem with <code>OSError: [Errno 122] Disk quota exceeded</code> by removing the <code>.git</code> folder from my EMADE repository on PACE.
+
+=== 11/29/2021 Main Meeting Notes ===
+* I discovered that my error from last week was due to seeding with the incorrect seed file.
+** Last week, I used <code>summary_seed</code> but my subteam uses <code>seeding_test_cv_all_empty</code>.
+** Today, I ran the command <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database but received the following error.
+<pre>
+"src/GPFramework/seeding_from_file.py" 334L, 15018C
+    '''
+    return self._wrap_pool_connect(self.pool.connect, _connection)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3216, in _wrap_pool_connect
+    e, dialect, self
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 2070, in _handle_dbapi_exception_noconnection
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 3212, in _wrap_pool_connect
+    return fn()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 307, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 767, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 425, in checkout
+    rec = pool._do_get()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 146, in _do_get
+    self._dec_overflow()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 72, in __exit__
+    with_traceback=exc_tb,
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/impl.py", line 143, in _do_get
+    return self._create_connection()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 253, in _create_connection
+    return _ConnectionRecord(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 368, in __init__
+    self.__connect()
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 611, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 72, in __exit__
+    with_traceback=exc_tb,
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/pool/base.py", line 605, in __connect
+    connection = pool._invoke_creator(self)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/create.py", line 578, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 584, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/MySQLdb/__init__.py", line 130, in Connect
+    return Connection(*args, **kwargs)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/MySQLdb/connections.py", line 185, in __init__
+    super().__init__(*args, **kwargs2)
+sqlalchemy.exc.OperationalError: (MySQLdb._exceptions.OperationalError) (2003, "Can't connect to MySQL server on 'atl1-1-02-012-7-l' (111)")
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+</pre>
+
+* '''EDIT (12/3/2021) FIXED''':
+** I fixed the following error by directly editing the server_ip (which was originally <code>atl1-1-02-012-5-l:3304</code>) in the <code>src/GPFramework/seeding_from_file.py</code> to be <code>atl1-1-02-012-7-l:3304</code>
+** With setting up PACE, MYSQL, running EMADE on PACE, and seeding all completed, I am now able to help the image processing subteam with their runs (specifically testing of lexicase selection methods with Harris).
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed EMADE runs with seeding_test_cv_all_empty file from /SeedingFiles
+|Completed
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Find why many single individual from my EMADE runs have an error string of <code>Objective Precision AUC failed to be evaluated, returning the exception multiclass format is not supported</code>
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|
+|-
+|Solve error with <code>OSError: [Errno 122] Disk quota exceeded</code>
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|In Progress
+|November 22, 2021
+|December 6, 2021
+|
+|}
+
+== Week 14: November 22, 2021 ==
+=== 11/24/2021 Subteam Meeting Notes ===
+* THANKSGIVING BREAK! NO MEETING!
+
+=== 11/22/2021 Main Meeting Notes ===
+* I attempted to seed my database using the summary_seed file.
+** I first ran <code>qsub pbsmysql.pbs</code>
+** Then ssh-ed into the node and ran <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed</code> which produced the following error message.
+<pre>
+(/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs) -bash-4.2$ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml summary_seed
+Using TensorFlow backend.
+[nltk_data] Downloading package punkt to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+(224, 224, 1)
+(224, 224, 1)
+Performing connection setup for PID: 397839
+Open Database Connection UUID: 88574626-dcaa-4f0a-8c86-24e404dc1261 PID: 397839 Ind Hash: None TimeStamp: 2021-11-29 15:59:45.433183
+connected to database
+Traceback (most recent call last):
+  File "src/GPFramework/seeding_from_file.py", line 311, in <module>
+    my_func, i = parse_tree(line, pset_info)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py", line 109, in parse_tree
+    node = ast.literal_eval(node)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 85, in literal_eval
+    return _convert(node_or_string)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/ast.py", line 84, in _convert
+    raise ValueError('malformed node or string: ' + repr(node))
+</pre>
+
+* '''EDIT (12/1/2021) FIXED:'''
+** I used <code>summary_seed</code> file but my subteam uses <code>seeding_test_cv_all_empty</code> file for seeding.
+** This change I made allowed me to seed my <code>chestxray</code> database correctly and provided the following completion message.
+<pre>
+Using TensorFlow backend.
+[nltk_data] Downloading package punkt to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /storage/home/hpaceice1/apeng39/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+%s %s %s %s apeng39 apeng39 atl1-1-02-012-5-l:3304 chestxray
+mysql://apeng39:apeng39@atl1-1-02-012-7-l:3304/chestxray
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'FitnessMin' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/deap/creator.py:141: RuntimeWarning: A class named 'Individual' has already been created and it will be overwritten. Consider deleting previous creation of that class or rename it.
+  RuntimeWarning)
+(224, 224, 1)
+(224, 224, 1)
+Performing connection setup for PID: 64813
+Open Database Connection UUID: 93103eca-9e9d-4d4e-8ddd-184c0d4e94b9 PID: 64813 Ind Hash: None TimeStamp: 2021-11-29 20:14:02.910904
+connected to database
+NNLearner(ARG0, OutputLayer(InputLayer()), 100, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 99, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 98, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 97, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 96, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 95, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 94, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 93, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 92, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 91, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 90, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 89, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 88, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 87, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 86, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 85, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 84, AdamOptimizer)
+NNLearner(ARG0, OutputLayer(InputLayer()), 83, AdamOptimizer)
+</pre>
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Seed EMADE runs with summary_seed file from /SeedingFiles
+|Task Reassigned
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Implement sel_epsilon_lexicase using DEAP in <code>selection_methods.py</code>
+|Completed
+|November 22, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Run EMADE with new selection method (selEpsilonLexicase from DEAP) on different epsilon values
+|Blocked
+|November 22, 2021
+|December 6, 2021
+|
+|}
+
+== Week 13: November 15, 2021 ==
+=== 11/21/2021 Hackathon ===
+* I successfully ran EMADE on PACE, but with some issues [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Running_EMADE_On_Pace_Error_Fix documented here]
+* I implemented <code>sel_epsilon_lexicase</code> in the selection_methods.py file in EMADE.
+<pre>
+def sel_epsilon_lexicase(individuals, k, epsilon=0.01):
+    return tools.selEpsilonLexicase(individuals, k, epsilon)
+</pre>
+* Harris and I are currently working on running <code>sel_epsilon_lexicase</code> with epsilon values of 0.01, 0.05, 0.1, 0.5, 1, 5, 10.
+** These epsilon values were chosen after reading this paper written about [https://dl.acm.org/doi/pdf/10.1145/2908812.2908898 Epsilon-Lexicase Selection for Regression]
+* I had some difficulty navigating mysql so I am providing some common mysql commands (specifically to access a table in a database).
+<pre>
+SHOW databases; # shows all databases
+USE <databaseName>; # selects databaseName for usage
+SHOW tables; # shows all tables in the selected database
+SELECT * FROM <tableName>; # shows all values from tableName
+</pre>
+
+=== 11/17/2021 Subteam Meeting Notes===
+* I could not find a fix for my issue with mysql so I am deleting my <code>scratch/</code> folder and setting up PACE again.
+* see [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here] for updated setup procedures
+* Because my team members deleted the original multilabel dataset from PACE, I am currently waiting for them to upload the new dataset to test run EMADE.
+
+=== 11/15/2021 Main Meeting Notes ===
+* I am having an issue running <code>mysql -u apeng39 -p</code> and getting the error <code>ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (2)</code>.
+* I checked that I have started the node with <code>pbsmysql.pbs</code> and ssh-ed into the correct node, but the error message was the same as above.
+* I am currently asking Maxim about the error message and will include the solution I find [https://github.gatech.edu/emade/emade/wiki/Notebook-Austin-Tinghao-Peng#Setting_Up_PACE_Notes_And_Running_EMADE_on_PACE here]
+
+=== Running EMADE On Pace [Error Fix] ===
+* The error message was <code>ImportError: cannot import name 'stop_words' from 'sklearn.feature_extraction'</code> in the file <code>src/GPFramework/text_processing_methods.py</code>
+** My solution was to replace <code>stop_words</code> in the file with <code>_stop_words</code>.
+* link to solution: https://stackoverflow.com/questions/68620436/cannot-import-name-stop-words-from-sklearn-feature-extraction
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|Completed
+|November 1, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Run the current implementation of lexicase on chest data
+|Completed
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Read literature about new implementations of lexicase
+|NO LONGER NEEDED! (Harris said we won't be implementing those methods)
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|NO LONGER NEEDED! (Maxim is making the repo able to be git cloned rather than scp-ed)
+|November 8, 2021
+|November 22, 2021
+|November 21, 2021
+|}
+
+== Week 12: November 8, 2021 ==
+=== 11/10/2021 Subteam Meeting Notes ===
+* I set up mysql on PACE-ICE (EDIT: I actually did not set it up correctly as later weeks I will have issues accessing mysql).
+
+=== 11/8/2021 Main Meeting Notes ===
+* The team reviewed the tasks assigned to each new member.
+** I was assigned the task of implementing and running another implementation of lexicase.
+* I continued to setup PACE-ICE on my laptop.
+
+=== Setting Up PACE Notes And Running EMADE on PACE ===
+* I transferred my local EMADE fork onto the remote server using the following command
+** <code>scp -r <relative-path-to-local-EMADE-folder> <USERNAME>@pace-ice.pace.gatech.edu:~/</code>
+* When creating your <code>.my.cnf</code> file, make sure it is in the home directory of your remote account (use vim to open file) and add the following contents to the file.
+<pre>
+[mysqld]
+datadir=scratch/db
+socket=mysqldb.sock
+user=USERNAME # replace USERNAME with your GT username (ex. apeng39)
+symbolic-links=0
+# uncomment the following line if you use a port and change the port number to the one you use
+# port=3304 
+
+[mysqld_safe]
+log-error=mysqldb.log
+pid-file=mysqldb.pid
+
+[mysql]
+socket=scratch/db/mysqldb.sock
+</pre>
+
+* I then ran the following lines in the command prompt (making sure to replace USERNAME with your GT username)
+** <code>mysql_install_db --datadir=$HOME/scratch/db</code>
+** <code>/usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/USERNAME/scratch/db'</code>
+
+* ssh into the node with `ssh USERNAME@atl1-1-02-012-5-l` and login
+** Note: replace USERNAME with your GT username
+* Inside the node I setup, I ran <code>mysql -u root</code>
+** Within the mysql prompt, run the following code replacing USERNAME and PASSWORD with your desired USERNAME and PASSWORD for your mysql account.
+
+<pre>
+DELETE FROM mysql.user WHERE user='';
+GRANT ALL PRIVILEGES ON *.* TO 'USERNAME'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+</pre>
+
+* Double check that now you should be able to log in to mysql shell with <code>mysql -u <USERNAME> -p</code> and typing your password when prompted.
+* Within the mysql shell run the following lines to setup a database.
+<pre>
+CREATE DATABASE chestxray;
+</pre>
+
+* setting up PACE Anaconda (navigate to my EMADE folder)
+** run <code>module load anaconda3/2020.02</code>
+** run <code>conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
+** run <code>./reinstall.sh</code>
+** run <code>python setup.py install</code>
+** run <code>python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty</code> to seed my database.
+
+* Finally, create a file called <code>launchEMADEchest.pbs</code> with the contents below.
+<pre>
+#PBS -N emade-chest
+#PBS -l nodes=1:ppn=4
+#PBS -l pmem=4gb
+#PBS -l walltime=8:00:00
+#PBS -q pace-ice-gpu
+#PBS -o emade-chest.out
+
+cd ~/emade
+echo "Started on `/bin/hostname`"  # prints the name of the node job started on
+export CC=gcc
+module load anaconda3/2020.02
+conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
+echo "STARTING EMADE"
+# The next line seeds the run if you're starting from scratch. if you're resuming a run then comment it out.
+# python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+# This line launches EMADE
+python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
+</pre>
+
+* run <code>qsub launchEMADEchest.pbs</code>
+** The script will create EMADE_master.eXXXXX files after running for a while and check it for any errors.
+** The script will create EMADE_master.oXXXXX files after running for a while and check it for any outputs.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Run EMADE On PACE-ICE
+|In Progress
+|November 1, 2021
+|November 22, 2021
+|
+|-
+|Run the current implementation of lexicase on chest data
+|
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Read literature about new implementations of lexicase
+|
+|November 8, 2021
+|November 22, 2021
+|
+|-
+|Setup rsync on local devices to automatically since new EMADE pushes to PACE-ICE
+|
+|November 8, 2021
+|November 22, 2021
+|
+|}
+
 == Week 11: November 1, 2021 ==
-=== 11/1/2021 In-Class Subteam Meeting ===
+=== 11/3/2021 Subteam Meeting Notes ===
+* EMADE branches overview
+
+master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
+
+* *_methods.py (files contain primitives)
+* launchEMADE.py (launches EMADE.py)
+* PACE-ICE is currently under maintenance until Friday, November 1
+** try to login and complete PACE-ICE setup then
+* assigned to selection methods tasks team
+
+=== 11/1/2021 Main Meeting Notes ===
 * assigned to Image Processing subteam
 * the goal of this subteam is to help improve EMADE's image processing algorithms
 ** we will use ChexNet dataset to perform multiclass classification
@@ -28,17 +593,6 @@
 ** mating/mutation methods
 ** data preprocessing
 
-=== 11/3/2021 Subteam Meeting ===
-* EMADE branches overview
-
-master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip) -> group-member-branches
-
-* *_methods.py (files contain primitives)
-* launchEMADE.py (launches EMADE.py)
-* PACE-ICE is currently under maintenance until Friday, November 1
-** try to login and complete PACE-ICE setup then
-* assigned to selection methods tasks team
-
 '''Action Items:'''
 {| class="wikitable"
 !Task
@@ -51,7 +605,7 @@ master -> cacheV2 -> nn-vip & other-subteam-branches -> Image-Processing(nn-vip)
 |In Progress
 |November 1, 2021
 |November 8, 2021
-|
+|November 8, 2021
 |-
 |Clone Aryaan's EMADE fork (Image-Processing(nn-vip))
 |Complete

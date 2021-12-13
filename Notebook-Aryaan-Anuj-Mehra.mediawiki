@@ -2,13 +2,74 @@
 * Email: aryaan@gatech.edu
 * Phone: 678-979-6968
 * Interests: Machine Learning, finance, swimming
-* Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, 
+* Teammates: Harris, Maxim, Dhruv, Heidi, Temi, Monil, Elan, Rohan, Austin, Eashan
 = Fall 2021 = 
-== November 1st, 2021 == 
-'''Subteam Meeting Notes:''' 
-* Consideration from Jason: reprocess data to just have single label for train/test (if there are not too too many multi-label cases)
-* To get vector out for checking the results of the objective function: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
-* Food for thought for next semester: what about where in the image a disease is present, not just whether it exists or not (room for future work here! A bounding box for object detection!)
+== November 5th - December 10th, 2021 == 
+'''Final Presentation + Meeting Notes'''
+* Image Processing:
+** Final presentation link:
+** Notes for future work:
+*** We need to further our results by looking into each of the 14 classes and look at individual performace across classes.
+*** Creating a confusion matrix to better analyze the results.
+*** Looking into each and e very instance individual with lexicase to bias better performing individuals
+*** Need to also look into how actual physicians are looking into finding diseases in people to determine how we should generate better hyperfeatures.
+* NAS:
+** Worked on time stopping to improve the productivity of individuals.
+** If enough time has elapsed they will stop functioning.
+** They ran 1 trial with this and as we evaluate individuals for more and more time EMADE more time trying to evaluate individuals which would be fruitless.
+** They also worked on making more deep and complex individuals.
+** They also added weight sharing and modules to make specialized modules and speeds up training time.
+** Early stopping had the largest impact as could be seen on the precision and accuracy graph.
+** They tried out the modular structures with architectures like VGG 16
+** They tested out weight sharing and had a relatively low test accuracy of 64.42% due to the fact that weights were being stored in the database which was why it was taking too much storage.
+** Now they were storing it in a file which allowed for many better individuals due to many generations.
+** They also tried out modules with residual networks.
+* NLP:
+** Used the SQUAD dataset and used a question answering model to obtain results.
+** Created a new NNLearner2 two work with new data pairs.
+** They had to re-process the SQUAD dataset to start with words instead of characters.
+** Used the code used by GTRI for multiple data pair and fixed related bugs related to load_environment and the divide length of the test data.
+** NNLearner2 had both an ARG0 and an ARG1.
+** Issues with the sigmoid activation layer which kept shooting out a 1.
+** Worked on the BiDAF model by creating a similarity matrix, query to context attention.
+** Created to new modeling layer by passing the result through a bi-directional LSTM layer. 
+** Created a graph execution for the for the new matrix operations.
+** Experimental results:
+*** Were able to get multiple individuals which were better than the seeded individuals.
+*** Their accuracy was around 1-2% (but SOTA is around 80%
+** They need many more runs in the future.
+* Stocks:
+** Ran 3 total trials. Used PACE ICE for all of them.
+** Main objective which was analysed was the profit % analysis.
+** Tested across all of the different primitives.
+** ArgMin and ArgMax were the most useful primitives found through analysis.
+** Comparison of results with the fuzzy model paper:
+*** The best performing individual was an ArgMin individual and was able to outperform the paper on almost all the securities.
+* Modularity:
+** They work with searching the search space to find compatible parent and child pairs.
+** They used CloudCopy to set their workspace up.
+** They worked on testing the complexity of ARL's by increasing tree depth.
+** They calculated the false positives and false negatives and compared the new architecture to the older ones.
+** After enough generations and time newer ARL's might perform better than the older ARL's.
+== November 29th - December 4th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* This was the last week before the final presentations. I had several things to complete first. 
+* I had to work on making sure that all of the new mating methods were compatible with the new conda environment on PACE and begin running experiments. 
+* There were issues with some of the methods while others worked as they were meant to:
+** Initially while running the operators on the old conda environment which didn’t have the new NAS changes and TF2.6, they evaluated all individuals as (inf, inf)
+** On the new environment, there were errors related to the using lists which could not have Primitive type objects
+** On fixing this issue, there was an error related to ‘invalid node replacements’ due to replacement of a node with a different arity
+* cxTwoPoint() and cxUniform() ended up working correctly and the following were the results:
+** We ran a total of 4 experiments with two point and uniform crossover. 
+** Average ROC AUC: 0.380334
+** Best ROC AUC: 0.365493
+** # of Parameters (highest and lowest): 36184500, 36166300
+* To get all the experiments done I worked with Elan, Rohan and Eashan. I did 2 runs on EMADE and they each did one so that we could get the required sample size for the data. 
+* I also worked on getting the slides ready for the geometric mating functions. Wrote their descriptions and results. I also used the Tree Visualization algorithm to display the tree structure for people to better understand the form of the individuals that we were evaluating.
+* Also worked on making the pareto front with all the results from all 5 runs. 
+Here is the result of the tree structure and the pareto front:
+** Tree Example: https://docs.google.com/document/d/1QFCyQaRVncgObmOqL_6TKKGNAO4wNgwESJtMcuaGs48/edit?usp=sharing
+** Pareto Front: https://docs.google.com/document/d/11ZgZT2vQWixQcI5QPyJXtRwP28twcBPer4JYMKwXE9M/edit?usp=sharing
 {| class="wikitable"
 !Assignment 
 !Current Status
@@ -16,14 +77,166 @@
 !Suspense Date
 !Date Resolved
 |-
-|Make new Dataset
-|In Progress
+|Test Mating Operators
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 4th, 2021
+|-
+|Run multiple experiments for less biased results
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
+|-
+|Work on getting the Tree Visualizer to work
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
+|-
+|Make Pareto Fronts of results for the presentation
+|Completed
+|November 29th, 2021
+|December 10th, 2021
+|December 8th, 2021
+|}
+== November 22nd - 28th, 2021 == 
+'''General Notes (no meetings due to thanksgiving):''' 
+* Due to Thanksgiving break I did not work on too much code related work but the team coordinated on deadlines we needed to accomplish tasks by. We agreed that we needed to code-freeze irrespective of our results by December 3rd and begin to work on the final presentation. I will be handling the slides related to the dataset preparation, building a conda environment, fixing errors and the new mating methods. We knew that the memory errors we were getting leading to the '(inf, inf)' were due to the tensors being too large for 16GB GPU on PACE to handle. We discussed a solution which would be to reduce the batch size since it may have something to do with how the individuals and data are stored in memory.
+* After adjusting the batch sizes the latest run seemed to adjust for these errors and we started obtaining desired results with lower AUC.
+
+== November 15th - 21st, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* I began testing the new mating mutations methods on my local conda environment which I had just made. I saw several errors associated with the runs I was doing. 
+* There were errors with the following:
+** Deap not being able to call the methods I was trying to use. Here the issue was that I was unable to call the methods like cxOnePoint (which we have been using for a while) by simply calling it as gp.cxOnePoint. We need to call it as gp.tools.whicheverMethod(). 
+** I also had an error which stated that the PrimitiveSetType did not have an attribute 'len()' which I knew to be wrong since many of the functions that we use from deap and the custom operators call the 'len()' method on the individuals as they evolve. I surprisingly had to make the methods I was using the first methods to overcome this by hard-coding them.
+** For most of the individuals that I evolved, they returned '(inf, inf)' as the result. This was due to the large batch-size that was hard-coded in the neural_network_methods.py file causing disk memory to exceed the limit. This was a change that we later took a look at to fix. 
+* Finally, I was able to finish the code changes before the code-freeze which we have tentatively set as Friday December 3rd since we would have a week to continuously do runs and get testable results. 
+* Here is the PR with the necessary code changes: (https://github.gatech.edu/amehra37/emade/pull/13)
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a PR for the new mating methods
+|Completed
+|November 1st, 2021
+|November 29th, 2021
+|November 29th, 2021
+|-
+|Fix bugs related to the mating methods
+|Completed
+|November 1st, 2021
+|November 29th, 2021
+|November 29th, 2021
+|}
+== November 8th - 14th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* At the beginning of this week I had implemented the 3 new mating methods (cxPartialyMatched(), cxUniformPartialyMatched(), cxOrdered(), cxTwoPoint(), cxUniform()) and began testing them.
+* I was having errors because of our implementation of NSGA-3 which was implemented in the GPFramework egg file on our team's shared conda environment. After speaking with Max we decided that rather than us all using the same conda environment, we should instead have our own environments on PACE for testing purposes so that we do not limit individual testing.
+* The following were the steps I followed to create a new conda environment myself for testing:
+1. Use the following lines to create a new environment on terminal:
+<pre lang="bash">[amehra37@login-pace-ice-1 ~]$ module load anaconda3/2020.02
+[amehra37@login-pace-ice-1 ~]$ module load gcc
+[amehra37@login-pace-ice-1 ~]$ conda create -n env_name python=3.6</pre>
+2. Before you begin installing packages, run this quick command to make sure they all compile the right way as this is a Linux installation:
+<pre lang="bash">export CC=gcc</pre>
+3. Install all of the necessary packages:
+<pre lang="bash">conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image pymysql scikit-learn </pre> and subsequently <pre lang="bash"> pip install xgboost lmfit multiprocess hmmlearn deap opencv-python</pre>
+4. Install mysqlclient separately using pip install since it does not work well with conda (it was giving me errors)
+* I had several issues while setting up the new conda environment related to version differences between the code and the installed versions for tensorflow and deap. I had to be using deap 1.3.1 and tensorflow 2.2 so that the current build of GPPFramework would work.
+* Heidi and I also finished working on the new dataset and made a pull request for that (https://github.gatech.edu/amehra37/emade/pull/8)
+* We have made it such that all of the code necessary to download the images and format them so that they can be used for this image processing problem can be done by running just one python file enabling ease of use for future semesters.
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add in new mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Fix bugs related to new conda environment
+|Completed
+|November 1st, 2021
+|November 19th, 2021
+|November 19th, 2021
+|}
+
+== November 8th - 14th, 2021 == 
+'''Subteam & Team Meeting Notes:''' 
+* This week during the subteam meeting Heidi and I had a work session where we corrected the dataset that we had made the previous week. We had initially spent time making the dataset binary and not multi-class since we thought it would solve the issue we were having with the evaluation function i.e. we believed that the error with the Precision-Recall curve was due to the multi-label nature of the dataset itself and we have worked on making it multi-class rather than binary or multi-label to solve this issue. The code we wrote to solve this issue can be found here: https://github.gatech.edu/athite3/chestxray
+* We have also been working to emulate the Neural Network team for dataset creation so that future teams that work with the Chest X-ray dataset can easily download it. We have compressed all of our work into two python scripts; https://github.gatech.edu/athite3/chestxray/blob/master/Preprocessing_Consolidated.py and https://github.gatech.edu/athite3/chestxray/blob/master/download_dataset.py which we will merge into the dataset folder of our forked repo (Image-Processing (nn-vip)).
+* I have also begun working on adjusting our pull request for the geometric operators that Eashan and I will be working on. That PR and all the changes we are making can be found here: https://github.gatech.edu/amehra37/emade/pull/4/files
+* We are looking into the different crossover operators in DEAP that could work with a strongly-typed GP which is what EMADE is built on. Some of the mating/mutation operators that we are going to work on implementing are (they can also be found in the DEAP documentation here: https://deap.readthedocs.io/en/master/api/tools.html): 
+** cxPartialyMatched()
+** cxUniformPartialyMatched()
+** cxOrdered()
+** cxTwoPoint()
+** cxUniform()
+* We will be looking at the code-base (https://github.com/DEAP/deap/blob/master/deap/tools/crossover.py) closely to make sure that the changes we are making are in adherence to EMADE and strongly-typed GP to prevent any other type errors similar to the ones we've made before.
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make new Multi-class Dataset 
+|Completed
+|November 1st, 2021
+|November 9th, 2021
+|November 9th, 2021
+|-
+|Compete a literature review of DEAP's existing mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 9th, 2021
+|November 9th, 2021
+|-
+|Add in new mating/mutation operators
+|Completed
+|November 1st, 2021
+|November 15th, 2021
+|November 15th, 2021
+|-
+|Test new operators on PACE
+|Completed
+|November 1st, 2021
+|November 17th, 2021
+|November 17th, 2021
+|}
+
+== November 1st, 2021 == 
+'''Team Meeting Notes:''' 
+* Consideration from Jason: reprocess data to just have single label for train/test (if there are not too too many multi-label cases)
+** This is something that we will be switching since we want to work on a different type of problem. Since we want to not just work on basic image classification and we want to see how EMADE performs on multi-class images we will be editing the dataset to have multiple classes just not multiple labels. I will be working with Heidi on this project to make sure that everyone on the team has this new dataset to test on for future EMADE runs.
+* To get vector out for checking the results of the objective function: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
+* We also determined that Temi and I will be working with Eashan (bootcamp student) for the rest of the work we do on the mating and mutations methods that we decide to implement in the future.
+* Food for thought for next semester: what about where in the image a disease is present, not just whether it exists or not (room for future work here with a bounding box for object detection!)
+{| class="wikitable"
+!Assignment 
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make new Binary Dataset (Disease/No disease)
+|Completed
 |October 29th, 2021
 |October 29th, 2021
 |November 1st, 2021
 |-
-|Figure out the Geometric Primitives
-|In Progress
+|Figure out the Geometric Primitives and/or search for new ones
+|Completed
 |October 29th, 2021
 |October 29th, 2021
 |November 1st, 2021
@@ -34,7 +247,23 @@
 * Met with the team after the midterm presentation and debriefed after the presentation to determine what next steps were.
 * The following is work for the team for next week:
 ** Refactor geometric crossover and mutation to receive expected data type and add in further methods for testing
-** Help Heidi make the new dataset which will only be binary in nature i.e. disease or no disease
+** Help Heidi make the new dataset which will only be binary in nature i.e. disease or no disease (edit here - we later decided to not have a binary problem or a multi-label problem but rather we went with a multi-class problem where every image has only one type of disease but there could be multiple diseases rather than disease/no disease)
+* The following was the issue with the datatype mismatch while testing the geometric crossover methods on PACE:
+'''
+Traceback (most recent call last):
+  File "src/GPFramework/didLaunch.py", line 122, in <module>
+    main(evolutionParametersDict, objectivesDict, datasetDict, stats_dict, misc_dict, reuse, database_str, num_workers, debug=True)
+  File "src/GPFramework/didLaunch.py", line 112, in main
+    database_str=database_str, reuse=reuse, debug=True)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 805, in master_algorithm
+    count = mate(offspring, _inst.toolbox.mateSimBinary, sim_binary_xover, OUTP)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/EMADE.py", line 556, in mate
+    mating_function(tree1, tree2)
+  File "/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/emade_operators.py", line 628, in sim_binary_xover
+    ind1[i] = 0.5 * (((1 + beta) * x1) + ((1 - beta) * x2))
+TypeError: unsupported operand type(s) for *: 'float' and 'Primitive'
+'''
+* Will be working to either find a work-around to this issue or will move on with testing other types of geometric primitives which work with strongly typed GP. Clarification here - strongly typed means that primitive types are enforced i.e it is not loosely typed. We need to find a way to maintain the types of the trees that are being evolved while working on these types of crossover methods.
 * Help all the new bootcamp students set up PACE, get up to speed with where we are with changes to EMADE for image processing.
 {| class="wikitable"
 !Assignment 

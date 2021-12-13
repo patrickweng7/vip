@@ -575,7 +575,8 @@ https://drive.google.com/file/d/1lHZMtajC7a2EHqiAshQnNs6WXW1Khj-_/view?usp=shari
 
 * Viewed Titanic Machine Learning from Disaster presentations from all groups
 * Make sure to submit peer evals by the end of next week.
-
+* Some teams used NSGA-II as their classification algorithm, but it doesn't work out of the box
+* There were some very interesting presentations and 
 
 === Action Items ===
 {| class="wikitable"
@@ -608,8 +609,698 @@ https://drive.google.com/file/d/1lHZMtajC7a2EHqiAshQnNs6WXW1Khj-_/view?usp=shari
 
 === Lecture Notes (10/06) ===
 
-* Discussed Emade and action items for the main project due in three weeks
+* Discussed Emade and action items for the main project due in three weeks.
 * Learned about Emade and how it relates to what we've been doing thus far.
+
+'''Introduction to Emade'''
+
+We’ll have a multi-week project regarding EMADE
+* Monday, 10/25 will be presentations for the full titanic dataset project comparing ML to MOGP to EMADE
+
+Things we should include in our notebook due next week:
+* evidence of personal contributions
+* lecture/meeting notes
+* team contributions
+* individual contributions
+** the data prepossessing slides
+
+'''What is EMADE?'''
+
+Now we’re moving into automated machine learning, not just ML
+* primitives are now gonna be the ML functions and hyperparameters that will go with that
+* Our inputs are no longer the datasets
+* The nodes are going to be the ML algorithms
+* Evaluations are very expensive w mL algorithms
+
+EMADE is the Evolutionary Multi-objective Algorithm Design Engine.
+* It combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms.
+
+What we have to do/have done:
+
+* Configure a mysql server on your machine.
+* Download and install git-lfs.
+* Cloned the emade repository.
+* Run the setup module to install the package.
+** Jason copied a conda environment file into this reference repo if we want to try that: 
+<pre>$ conda env create –f emade.yml</pre>
+
+Running EMADE
+
+* To start a run of EMADE we will navigate to the top level directory and run
+<code>python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml</code>
+* '''input_titanic.xml''' is our input file
+* What is it though?
+** The input file is an xml document that configures all the moving parts in EMADE, we will step through it now.
+*** XML is just HTML but tags can basically be anything.
+** The first block is for configuring Python.
+** EMADE automatically detects cluster management software for gridengine and SLURM. For our purposes, you only need to worry about the local python command. This should be the command to run python where all of EMADE python dependencies are installed. 
+*** If we have our virtual environment activated, or if they are installed at the base installation, this can just be python.
+
+Input File: Database Configuration
+* The next block is for configuring a MySQL connection.
+* Username and password are for MySQL, the user should have full permissions on the database specified.
+** We will have to make the server, user, and database outside of EMADE, through MySQL.
+
+Input File: Datasets
+* EMADE can run across multiple datasets, the titanic example uses only one.
+* The data is preprocessed into gzipped csv files. (Example on next slide).
+* It is cross folded 5 times.
+** This will create 5 Monte Carlo trials that algorithms can be scored with.
+* Each train and test file create a DataPair object in EMADE.
+* These files are prepared with the titanic_data_splitter.py in datasets/titanic/
+* Each row corresponds to an instance (person), each column is a feature, the final column is the truth data.
+** EMADE reserves the last column for fitting models (train data) and scoring (test data).
+* This uses a vectorizer and splits the training dataset
+* nump.loadtext can load in the gvim file
+* In EMADE, the truth data is the final column of the dataset
+
+Input File: Objectives
+* Next block is for objectives
+* Columns of database are going to be the names
+* Weight specifies if it should be minimized (-1.0) or maximized (1.0)
+* The <evaluationFunction> specifies the name of a method in src/GPFramework/evalFunctions.py
+* Achievable and goal are used for steering the optimization, lower and upper are used for bounding.
+
+Input File: Some More Parameters
+* Next block is for parameters
+* Evaluation specifies where evaluation functions specified in the objectives section live, and how much memory each worker is allowed to use before marking an individual as “fatal”
+* If any worker holds more than 30% memory, then it kills that worker to prevent the computer from crashing.
+* Default workers is 5, but we should drop that down to 2 to see what our computer can handle
+* <workersPerHost> specifies how many evaluations to run in parallel.
+** EMADE is resource intensive, keep this number low on a laptop! (2-3).
+
+Input File: Evolution Parameters
+* Next block is for the evolution parameters
+* Evolution parameters essentially control the various 'magic constants' or hyperparameters that affect the evolutionary process.
+* What is Headless Chicken?
+
+Connecting a Worker Process to a Peer
+* We use the <code>–w</code> flag along with your peer’s server info in the dbconfig in order to allow your computer to act as a worker process for your peer’s master process.
+* the <code>–w</code> says don’t run the master process– only run the evaluations
+** Only runs is MySQL connection works
+ $ python src/GPFramework/launchGTMOEP.py templates/input_titanic.xml -w
+* Make sure that our dbconfig in the input file specifies their IP address and not localhost.
+
+Understanding EMADE output
+* The best place to look at the outputs of EMADE are in the MySQL databases.
+* Connect to a MySQL server from command line:
+ $ mysql -h hostname -u username -p
+** We should be prompted with a password
+* We can then select a database using: <code>use database;</code> in MySQL
+* Some helpful queries:
+ Select * from individuals;
+ Select * from individuals where `FullDataSet False Negatives` is not null;
+ Select * from individuals join paretofront on individuals.hash=paretofront.hash where paretofront.generation=(select max(generation) from paretofront);
+* Individuals will complete after giving EMADE some time
+* Whoever is running the SQL database
+** the third SQL query (bolded) says every
+
+EMADE Structure
+* We’ll have to make our own database/tables
+* '''src/GPFramework''' is the main body of code
+* '''gtMOEP.py''' is the main EMADE engine, most of the evolutionary loop is in here, including the evaluation method
+* '''gp_framework_helper.py''' is where the primitive set is built for EMADE, this function points to where the primitives live, such as:
+** methods.py
+** signal_methods.py
+** spatial_methods.py
+* '''data.py''' provisions the DataPair object that is passed from primitive to primitive.
+* datasets/ is where some test datasets live.
+* templates/ is where the input files live.
+
+OUR ASSIGNMENT:
+* Run EMADE as a group. '''1 person should have the sql server set up and act as the master process''', the rest should connect their workers.
+** Two or more people can be connecting the workers.
+* Run for a substantial number of generations
+
+=== Individual Notes ===
+
+* Made sure I had MySQL and Git ready and installed
+* Everything was working with MySQL and Git
+* Refreshed my memory with MySQL by looking over some queries written in my CS4400 (Database Systems) class
+
+Guide to getting set up on Emade:
+https://github.gatech.edu/emade/emade#emade
+
+'''Installing Emade'''
+
+1. Installed Git LFS using <code>$ git lfs install</code>
+
+2. Ran git config 
+ $ --global credential.helper cache
+
+3. Cloned the Emade repository locally using
+ $ git clone https://github.gatech.edu/emade/emade
+
+That is where I left off because Emade took a while to clone
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|October 10, 2021
+|-
+|Download/Install Emade
+|Complete
+|October 6, 2021
+|October 12, 2021
+|October 10, 2021
+|-
+|Get Emade Set Up Locally
+|Complete
+|October 6, 2021
+|October 12, 2021
+|October 12, 2021
+|}
+
+== Week 8 (10/13 - 10/19) ==
+
+=== Lecture Notes (10/13) ===
+
+* There was no lecture today
+* It was just a work session with our subteams
+* We worked on getting Emade installed and running
+* We also worked on getting a host for the MySQL server
+* Elan set up the server and port-forwarded it to us
+
+=== Individual Notes ===
+'''Continued Setup of EMADE'''
+
+* Ran <code>conda install opencv</code> in my local EMADE folder
+* Ran the following to install the necessary packages:
+ $ conda install numpy pandas tensorflow keras scipy psutil lxml matplotlib PyWavelets sqlalchemy networkx cython scikit-image mysqlclient pymysql scikit-learn
+ $ pip install xgboost lmfit multiprocess hmmlearn deap opencv-python
+* Logged in to Elan's server using:
+ $ mysql -uguest -pemademade -h71.204.44.212 -P6603
+* Elan was the master as the server was hosted on his computer; however, he often experienced crashes due to the size of EMADE
+* Connection was successful although I ran into some issues, which Elan and I will figure out together
+* May eventually need to try connecting using:
+ $ mysql -h hostname -u username -D database -p
+* Configuring <code>input_titanic.xml</code> file:
+```
+ <dbConfig>
+        <server>127.0.0.1:6603</server>
+        <username>guest</username>
+        <password>emademade</password>
+        <database>titanic</database>
+        <reuse>1</reuse>
+ </dbConfig>
+```
+* We also worked on figuring out how to query out '''Pareto Front''':
+ select pf.generation, age, `FullDataSet False Positives`, `FullDataSet False Negatives`
+ from individuals ind join paretofront pf on pf.hash = ind.hash
+ where `FullDataSet False Negatives` is not NULL;
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Notes into Notebook
+|Complete
+|October 13, 2021
+|October 19, 2021
+|October 18, 2021
+|-
+|Get Emade running and log into Elan's MySQL server
+|Complete
+|October 6, 2021
+|October 21, 2021
+|October 19, 2021
+|-
+|Lay Out Titanic Presentation Slides
+|Complete
+|October 13, 2021
+|October 22, 2021
+|October 19, 2021
+|}
+
+== Week 9 (10/20 - 10/25) ==
+
+=== Lecture Notes (10/20) ===
+
+* There was no lecture today
+* Today was mainly used as a day to really get EMADE running and some trial runs in for some experiments on the titanic dataset
+* We wanted to make sure everyone was able to run EMADE as a worker (aside from Elan) so that we could get some results to present next Monday
+* Many of the Automated Algorithm Design alumni helped me out with my troubles
+* Randomly, when I tried running <code>$ bash reinstall.sh</code>, I was facing some errors, so the alumni helped me resolve
+* By the end of the working session, our subteam created a task list for the upcoming week before the presentation:
+** Ensure everyone is able to connect to the database
+** Finalize the data preprocessing code
+** Have everyone be able to process some worker (or master) runs on EMADE
+** Modify XML file to achieve varying results
+** Generate new Pareto Front
+** Finish Presentation Slides
+** Rehearse Presentation
+
+=== Subteam Meeting 1 (10/22) ===
+* At this point, most of us are able to connect to the master through SQL
+* We are also able to run EMADE correctly for the most part
+* To process a run:
+ $ python src/GPFramework/launchGTMOEP.py -w templates/input_titanic.xml
+* One problem we faced was that EMADE kept returning inf values
+** So we edited the data preprocessing files and finalized them
+** '''testPreprocessed.csv.gz''' and '''trainPreprocessed.csv.gz'''
+* We made sure all the default files worked with '''input_titanic.xml''' and with the titanic database
+
+=== Subteam Meeting 2 (10/24) ===
+* We worked on ensuring we achieved a low AUC with our updated XML
+* After changing the mate and mutate functions, we achieved an AUC (Area under curve) of 0.131, which was lower than what we were reaching in our previous dataset
+* We achieved this after 115 generations
+* Here is a picture of our Pareto front compared to the default algorithm:
+
+[[files/esinha6/W9_Group1_vs_Default_ParetoFront|height=100px]]
+
+* We achieved the following AUC's for from EMADE, MOGP, and Machine Learning:
+** Machine Learning AUC: 0.3201224
+** MOGP AUC: 0.1798859
+** EMADE AUC: 0.1311417
+* '''Our EMADE algorithm beat MOGP and Machine Learning!!!'''
+* We then spent time finishing the slides and rehearsing our presentation.
+* Here is a link to our presentation: https://docs.google.com/presentation/d/1YIiVWW3tQe2RZSRNIsomlLb2mUbaaj1bZN-rHt9KRb0/edit?usp=sharing
+
+=== Individual Notes and Contributions ===
+* I was having a little bit of trouble getting EMADE running as some packages actually didn't install properly
+* The error was a <code>Module not found</code> error
+
+[[files/esinha6/W9_Package_Conflicts|height=100px]]
+
+* I tried creating a conda environment for Python 3.7 and reinstalled and it worked!
+* I realized that messing with my global environment will often cause many issues
+* Worked on finalizing the '''testPreprocessed.csv.gz''' and '''trainPreprocessed.csv.gz''' files
+* A problem we faced was that we would achieve a:
+```
+ ValueError: could not convert string to float: 'Embarked_S'
+```
+* We removed the last column, because we actually wanted the "Survived" column to be the last, and then it ended up working
+* During the second subteam meeting, I made a lot of changes to our XML file
+* I duplicated '''input_titanic.xml''' to '''emade_titanic.xml'''
+** I changed the database in emade_titanic.xml to be emade_titanic, because that's the database we are going to use
+```
+ <dbConfig>
+        <server>71.204.44.212:6603</server>
+        <username>guest</username>
+        <password>emademade</password>
+        <database>emade_titanic</database>
+        <reuse>1</reuse>
+ </dbConfig>
+ <datasets>
+        <dataset>
+            <name>FullDataSet</name>
+            <type>featuredata</type>
+            <MonteCarlo>
+                <trial>
+                    <trainFilename>datasets/emade_titanic/trainPreprocessed.csv.gz</trainFilename>
+                    <testFilename>datasets/emade_titanic/testPreprocessed.csv.gz</testFilename>
+                </trial>
+            </MonteCarlo>
+        </dataset>
+ </datasets>
+```
+* I later then duplicated '''emade_titanic.xml''' to '''super_titanic.xml'''
+** Changed database to super_titanic
+** We worked on changing some of the mating and mutation functions by increasing and decreasing the probabilities of some
+** We wanted to experiment to see whether certain functions' probabilities would yield better results
+* I researched some of the crossover methods, especially Headless chicken to see maybe what changing some of the parameters may actually do.
+* I looked at a paper on EMADE written by Dr. Zutty, which gave so much information on crossovers and how they work.
+** Essentially, "Headless chicken crossover is a single-point crossover with one parent being a randomly generated tree. Headless chicken ephemeral crossover is our ephemeral-only crossover operating with one parent being a randomly generated tree." (Zutty)
+
+[[files/esinha6/W9_Ephemeral_crossover|height=100px]]
+
+** I also looked into some of the different mutation methods EMADE leverages, including insertion, ephemeral, node replacement, uniform, and shrink.
+** Some more about the headless chicken experiment: The success of crossover was tested by comparing the traditional crossover with random crossover (crossing the individual over with random string) – There is no crossover without the idea of crossover, do not call headless chicken a chicken, although it has many chicken features.
+* We finally decided on making some changes to some of the mate/mutation functions used in our '''super_titanic.xml''' file:
+** Doubled Headless Chicken from 0.10 to 0.20
+** Changed crossover to 0.40
+** We set all the other mutation methods to 0.025 after increasing our Headless chicken probability
+
+Mate/mutation changes in '''super_titanic.xml''':
+```
+ <matings>
+            <mating>
+                <name>crossover</name>
+                <probability>0.40</probability>
+            </mating>
+            <mating>
+                <name>crossoverEphemeral</name>
+                <probability>0.40</probability>
+            </mating>
+            <mating>
+                <name>headlessChicken</name>
+                <probability>0.20</probability>
+            </mating>
+            <mating>
+                <name>headlessChickenEphemeral</name>
+                <probability>0.20</probability>
+            </mating>
+        </matings>
+​
+        <mutations>
+            <mutation>
+                <name>insert</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>insert modify</name>
+                <probability>0.05</probability>
+            </mutation>
+            <mutation>
+                <name>ephemeral</name>
+                <probability>0.25</probability>
+            </mutation>
+            <mutation>
+                <name>node replace</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>uniform</name>
+                <probability>0.025</probability>
+            </mutation>
+            <mutation>
+                <name>shrink</name>
+                <probability>0.025</probability>
+            </mutation>
+ </mutations>
+```
+* Another one of my main contributions was setting up the presentation slide deck
+* I wrote out my slides for the data preprocessing slides and had them be looked over by the members in my group
+* I added some additional reasoning for preprocessing the data the way we did
+** One improvement I can make is simply finding a way to use the names of the passengers as useful data to analyze
+* I rehearsed my part of the presentation multiple times to ensure I didn't exceed my 1.5 - 2 minute time slot.
+** I wanted to ensure the other members of my team had enough time to speak on their topics adequately
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Notes into Notebook
+|Completed
+|October 20, 2021
+|October 25, 2021
+|October 25, 2021
+|-
+|Finalize Data Preprocessing
+|Complete
+|October 20, 2021
+|October 23, 2021
+|October 23, 2021
+|-
+|Generate New Pareto Front
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|-
+|Finalize Slides
+|Complete
+|October 20, 2021
+|October 25, 2021
+|October 24, 2021
+|}
+
+== Week 10 (10/25 - 10/31) ==
+
+=== Lecture Notes (10/25) ===
+
+==== FINAL PRESENTATION DAY ====
+* Link to notes on presentations: https://docs.google.com/presentation/d/1YIiZSRNIsomlLb2mUaj1bZN-rHt9KRb0/edit?usp=sharing
+* I had to leave at 6:30 for my CS2110 Lab Section
+* We were given the task to submit our team preferences prior to the following Monday, November 1, 2021
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Presentation Notes into Notebook
+|Completed
+|October 25, 2021
+|November 1, 2021
+|October 30, 2021
+|-
+|Rank Subteams Based on Preference on Canvas
+|Complete
+|October 25, 2021
+|November 1, 2021
+|November 1, 2021
+|}
+
+== Week 11 (11/01 - 11/07) ==
+
+=== Lecture Notes (11/01) ===
+
+* Introduction to new teams
+* We were assigned to our new subteams.
+** I was assigned to Image Processing
+* Dr. Zutty led the weekly scrum and all subteams gave their weekly updates
+
+=== Subteam Notes (11/01) ===
+
+=== Individual Notes ===
+* I immediately need to get started reading the CheXNet Paper
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 12 (11/08 - 11/14) ==
+
+=== Lecture Notes (11/08) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (11/10) ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 13 (11/15 - 11/21) ==
+
+=== Lecture Notes (11/15) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (11/17) ===
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 13 (11/22 - 11/28) ==
+
+=== Lecture Notes (11/22) ===
+
+* Final Presentation Day
+
+=== Subteam Notes (N/A) ===
+
+* There was no subteam meeting this week due to Thanksgiving Break
+
+=== Individual Notes ===
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 14 (11/29 - 12/05) ==
+
+=== Lecture Notes (11/22) ===
+
+* Weekly scrum meeting
+
+=== Subteam Notes (12/01) ===
+
+* 
+
+=== Individual Notes ===
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 15 (12/06 - 12/10) ==
+
+=== Lecture Notes (12/06) ===
+
+* Weekly scrum meeting
+
+=== Subteam Notes (12/08) ===
+
+* 
+
+=== Individual Notes ===
+
 
 === Action Items ===
 {| class="wikitable"

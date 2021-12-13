@@ -6,8 +6,281 @@ Email: wubete3@gatech.edu
 Cell Phone: +1 4047897798
 
 Interests: Soccer, Walking, Eating, Breathing
+== Dec. 5- Dec. 10, 2021 (Week 15) ==
 
-== October 25, 2021 (Week 10) == 
+=== Presentation notes ===
+==== Image Processing ====
+* Upgraded from NSGA-II to NSGE-III for their 4+ objectives, the difference was about 15%.
+*0.12% improvement for the Lexicase and Baseline.
+* Choosing primitives not in the original, Using uniform and multi-point.
+* Implemented 2 hyper features during the run, Grey level transformation, sharpening filter (enhances edges of object)
+* Results from the standalone tree. Contrast + lowest sharpening filter are best results
+
+==== NLP ====
+* SQUAD dataset used from Stanford from Quantitative analysis
+* Can we use auto-ML to improve Q&A results?
+* Seeded a run to get a less complex version of them, ended up descaling, multiple inputs. Buth context and answer. 
+* In order to use the new F1 score need to change models output from probability vector to answer string.
+* can we use auto-ML in the domain of QA to have better performance
+* Starting word index rather than starting character index. 
+* What is NNLearner? It is our core method for neural networks.
+* what is wrong with NNLearner? didn't support multiple data pairs.
+
+==== Stocks ====
+* Trying to minimize loss, maximize profit. Seems fair.
+* Used primitive objectives
+* Results analysis: Primitive analysis, they stratify all evaluated EMADE individuals based on primitives they use.
+* Profit percentage analysis: since we keep profit % static in all runs, we see how other objectives modify the result.
+* VWNA, arg min learner were the most highly performing functions in NumPy
+* Lot of individuals in argmax category: delta stochastic oscillator, delta Williams R
+* loss_var and loss_avg are the best objective functions for now.
+* argmin and argmax make the best models (using technical indicators only)
+* Currently using automated algorithms, not much ML
+* The Pareto front did not look too good, data was quite skewed
+==== NAS ====
+* Additions: time stops, when trying to evaluate individuals, trained the model for a certain time. It allows them to stop training if enough time has elapsed
+*  Time stopping at 600 * n intervals.
+* Sometimes, individuals that took less time to train have better results. There is no correlation between training time and increased pareto optimal performance.
+* Experimental setup, with mutating and mating v. without? Emade gets more accurate individuals with new changes
+* Pace-runs
+* Seeding with modules will help them find local maximums.
+=== Personal Notes ===
+* CloudCopy.sh file has been PUSHED to GitHub: https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+* Working on adding a progress bar like they show when you do pip install on conda for CloudCopy.sh script
+* It fixes the bug that continually allocates space, on some systems it runs on, effectively taking up all the device's space from recursive
+* Ran around 30 trials, lowest AUC was 0.36 copies.
+* Added progress timer to the shell script; looks much cleaner overall.
+* Went over the presentation slides with my team and added content to the slides. 
+* Received feedback on my pacing during our mock presentation, we are running a bit over time so I will be shortening my slide overview.
+* Reading up on ARL white papers, hopefully, I will find some new insight to help the team improve our ARL classification to determine good ARLs.
+
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|December 13, 2021
+|December 5, 2021
+|December 5, 2021
+|-
+|Finish Peer Eval
+|Done
+|December 13, 2021
+|December 5, 2021
+|December 5, 2021
+|}
+
+== Nov. 29, 2021 (Week 14) ==
+=== Scrum: ===
+* Image Processing:
+ - Working on the debugging
+* Modularity:
+ - The spikes were due to the making of the multiple objectives (3 objectives)
+ - Continued our runs
+* NLP:
+ - Not many updates, looking for issues on splitting up and testing training data
+ - Patterson matrix? Null hypothesis? Seeded start...
+ - Best use of those primitives today? Idea is to push that front down below the solutions. Do not be afraid to build algorithms by hand.
+* NAS
+ - No code freeze yet, extraction layer frequencies. PRs have been up.
+
+* Modularity:
+ - New Pool ARL, type ARL population info is updated. Much more readable ARLs have been implemented.
+ - Code has been written much clearly for future students to be able to read.
+ - Standardized variable names have been updated. So variable names have been made consistent throughout our files. Example: My_dict and dict
+ - We are improving our sh files so that they will not crash. Cache_v2 integration is also working.
+ - Looking at the AUC increasing over time bug.
+ - Previously optimizing 3 objectives at once, we will now use it with correct data, code, data objectives to make a correct analysis.
+ - ARLs only get built once, so if something has ARL 0 in it, everytime it;s seen it's ARL 0,but on next generation, it will make an index for the long list of ARLs.
+
+* NLP:
+ - Gathered all primitives for standalone tree evaluation.
+ - George worked on fixing some bugs in the bidirectional layer.
+ - Final presentation: Can we use Auto ML?
+ - Setting up new members on BASE.
+ - Drawing a distribution from the accuracies we get from our individuals on EMADE pareto fro.
+ - They will give them different accuracies, and with that distribution, we will recheck.
+ - Seeded vs. Unseeded: Emade is given a head start, you have to do better than it, unseeded means emade will start from nothing.
+ - Organizing trails and data have to answer specific questions you want. Auto Ml is going to find this part of the region that has a better
+ - ctnd: pareto front than the ML
+ - For AUC you're only winning if you're decreasing a subset of. the space of the AUC.
+ - Measuring how much percent of this data that emade is pushing forward. We try to decrease the AUC from a defined point.
+ - When multiobjective, we will be minimizing the AUC when we are looking at the old paretofront subset and minimizing that specific subset 
+   under the old, seeded AUC.
+
+* NAS:
+ - Figured out they were only the training dataset on Kaggle and TensorFlow.
+ - Test set at the end is making sure you're not over-training it. The data set is meant to equalize at the end.
+ - You have to give up some kind of data to the Auto ML. Trains essentially fit the model, something to score and assess how those bits are 
+   transferrable to the real world.
+ - Use the test set at the end.
+ - So you can change the training data in the XML file.
+ - Why do we need to give up data when running autoML? There is train, test, validation
+ - training: used to fit an individual model, pattern recognition, or whatever
+ - test: What you use to score your model, in emade world, what we use to compute our objectives on, score your model, search is performed here, when plotting Pareto front, all the scores are done in the test (score model)
+ - validation: reserved data that I care about, the "test set", unseen data by any optimization, the models have not seen this, what you would expect from the real-world performance.
+ - So you need that third set to see how much would my AUC move if I were to give it data it hasn't seen before, so the real world.
+ - building layers not being added with any intent, using building layers to downsize images. Find a different way to connect.
+ - Mate and mutation methods. The module is a class, we get weight for that module when we do training.
+ - Weight sharing: convolution, and Neural Network weight sharing
+ - Multiple individuals are benefitting from the training of the same modules, but will it work across different computers?
+
+== Personal Notes ==
+* Need to tweak my .xml file to be compatible with new runs, changing ARL size.
+* Reading up on white paper for ARLs. 
+* Forgot to post PR link for CloudCopy.sh file, will be posting the push link later.
+* Had some trouble uploading my changes to the shell script onto our GitHub but finally got it done.
+* Steps I took to upload to Github on a detached branch:
+ - cloned the vhuang31's emade GitHub, switched to ARL_Update branch
+ - git add CloudCopy.sh
+ - git commit with common
+ - git push origin HEAD:ARL_Update
+* Link for the push: https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh
+== Nov. 22, 2021 (Week 14) ==
+=== Weekly Scrum ===
+* Image processing: 
+ - All of the group members have migrated to PACE ice.
+ - Working on using a literal NumPy array, not a file.
+ - Baseline ROC AUC? .48 corresponds to the firewall analyzer.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|}
+== Nov. 15, 2021 (Week 13) ==
+
+* Make sure to include your contributions to notebooks, especially for Bootcamp students.
+* Even if you read a paper, specify which paper. If you run programs or change code, specify what you ran, the results, as well as your repository link for the code change and summary for the code change.
+=== Weekly Scrum ===
+* NLP: Predicting start and end index, for remaining semester, predicting index of where the answers start (for a word).
+  - input: titanic, question: when did titanic sink? output: the beginning of the answer. Each word will be an element in this list.
+  - issues: running with 2 valid pairs, integration methods
+* NAS: The group will be working on presentations for the new Bootcamp members. 2 Generation methods for them to generate their own net learners and ADFs.
+  - Justin has been working on testing logic, trying to understand how hashes are generated in EMADE.
+  - want to add lineage names to the individuals.
+  - Hash is based on the string representation of the individual. Any change to the algorithm that would make a change to the string would 
+    result in another hash.
+* Image processing:
+
+=== Personal Notes ===
+* working on CloudCopy.sh error, recursively taking up space and making infinite copies of our datasets. I am currently testing the .sh file on an Ubuntu VM with limited partitioned space so that the bug will only take up limited space. This time Ill be running it on windows OS.
+* Using new shell commands to show the progress of the CloudCopy.sh progress, allowing the user to see a timeline for when it will finish.
+* Helping team run modularity on Google Colab, will be working on our CloudCopy.sh script to stop hazardous, infinitely recursive memory allocation.
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Work on CloudCopy, help team with runs
+|Done
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+=== Weekly Scrum ===
+* semantic, behaviors? look at papers. Behavioral GP
+== Nov. 8, 2021 (Week 12) ==
+
+==== Modularity ====
+* onboarding, extended_arl, to identify an individual, we used a name. Weren't checking if child ARL wasn't being used.
+* unit test
+* Try to do a pull request on mainline cacheV2
+
+==== NLP ====
+* implementing primitivs, small issue on the output layer.
+
+==== NAS ====
+* Novelty experiments.
+* Changes to infrastructure, ADFs were not the same across all indivisuals. Old implementation
+
+==== Personal notes ====
+* Helping my team run our trials on google colab. Set up with my group's main files/directories.
+* Met most of the team members, added to the slack.
+
+
+== Nov. 1, 2021 (Week 11) ==
+=== Lecture Notes: ===
+*  assigned to Modularity. Met Vincent, Angela, and Youssef, also met Aditya and Adithya. Nikhil will be joining us as well.
+*  Subteams updates
+
+* NSGA3 with only binary classifier
+    - looking at selection methods
+* Stocks vs ARL
+    - Stocks is using cacheV2, we are not.
+    - Do the merge with stocks! JUST DO IT
+    - Changes will be in ADS.py
+* NLP: 30 primitives
+    - Output layer, modeling layer, Bidirectional intention layer
+        - Implemented a similarity matrix
+* NAS
+    - Timestop callback, fitting models. Allows timestop functionality to work.
+    - Tasks for the past week has been, going with novelty detection, experiment with integrating. Timestopping and how we can identify it.
+    - Good literature found on Neural Architecture Transfer
+        - Weight freezing and transferring.
+    - Error causing neural network to fail: if data size does not have data batch size, it will crash
+    - Upgraded to python 3.8 and tensorflow 2.6
+    
+* TODO
+    - clone repo, link is in the slack
+    - Extended ARLs  group(only Vincent)
+        - limited to Depth/height 1 plus ARL arguments . We have unlimited width
+        - Depth 10 is really good, we want to now know if larger height is better.
+        - Google COLAB is currently being used.
+        - Running experiments from extended ARL
+        - Second subteam is the stocks team
+            - about stocks
+                - Stock runs with ARLs
+        - Right now working on integrating CacheV2 (newer version fo EMADE)
+        - Stocks used stuff in cacheV2 (update our branch to cacheV2), git cherrypick maybe, look at git tutorial on freecodecamp
+* Once we match a node for an ARL, we shouldn't see it again
+
+=== Individual Notes: ===
+*  Cloned Modularity branch. https://github.gatech.edu/vhuang31/emade
+*  Meet Thursday at 11 am. https://gatech.bluejeans.com/2224273722
+*  Cloned Vincent's Emade
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Weekly Notebook
+|Done
+|November 1, 2021
+|November 8, 2021
+|November 1, 2021
+|}
+
+== Oct. 25, 2021 (Week 10) == 
 === Lecture Notes: ===
 *  Delivered EMADE presentation to show BootCamp and already-formed groups.
 *  Presentation link: https://docs.google.com/presentation/d/1Y9sf7qndm_UrH_mqs4xi4icQ8vgb7XDbQAEICgRYTFI/edit#slide=id.p

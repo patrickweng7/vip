@@ -489,10 +489,6 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 === Class Notes: ===
 *We did group presentations based on our EMADE results and listened to the existing group presentations as well
 
-=== EMADE Group Presentation Notes: ===
-*For some groups, it looked like SPEA-2 worked better than NSGA-II so that's something we should probably look into in the future
-*
-
 === Group Presentation Notes: ===
 *Had to leave early for exam so was only able to listen to 2 groups present
 *NLP (Natural Language Processing)
@@ -547,4 +543,292 @@ Link: https://drive.google.com/file/d/1KZs3w46yBhU16jlSQVET2ogR6zYA_KJ9/view?usp
 |October 25, 2021
 |November 1, 2021
 |November 1, 2021
+|}
+
+== November 1st, 2021 ==
+=== Class Notes: ===
+* I joined NAS (Neural Architecture Search) group
+* We went through group scrum where each group presented about their weekly updates
+* I joined the Trello board and got an overview of what the group does
+
+=== Group Notes: ===
+* Wasn't able to come to the meeting because of sickness
+* However, worked on installing NAS branch of EMADE locally and getting it to work
+** Got errors with opencv not being compatible with python==3.8.5 even in new virtual env
+** To fix this, used the yaml file provided which uses python 3.7.10
+** Got errors with missing libraries but was able to fix them using pip or conda install
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE working locally 
+|In Progress
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Update VIP Notebook
+|Completed
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|}
+
+== November 8th, 2021 ==
+=== Class Notes: ===
+* Was sick so unable to attend class :(
+
+=== Mini-Meeting Notes: ===
+* Met with both Camerons on Wednesday November 10th to learn more about neural networks and EMADE concepts
+* Basic EMADE Concepts
+** EMADE object contains method to fit information into xml files
+** two primitive set types: 'MAIN' and adf
+** Helper functions used in EMADE
+*** handleWorker - evaluate individual in separate process and report results
+*** setObjectives - setting objectives to minimize/maximize
+*** myStr - returns string of individual
+** Mating/Mutation functions
+*** swap_layer
+*** cx_ephemerals
+*** concat_healer
+** master algorithm does everything except for compiling/evaluating individuals which worker algorithm does
+* Neural Net Concepts
+** learn model that maps inputs to outputs well
+** uses a set of layers where each layer has a set of nodes
+** each layer consists of operation and activation segment
+** Activation Functions: sigmoid, tanh, ReLU, Leaky ReLU, Maxout, ELU
+** Steps to train neural network
+*** Feedforward to get result from evaluating the model
+*** Difference in loss function used to backpropagate to change layer values
+** Overfitting: model conforms too closely to training data
+** Underfitting: model is too generalized
+** Types of Layers: Dense, Convolutional, Recurrent, LSTM
+** NLP (Natural Language Processing)
+*** working on classifying reviews as positive/negative (sentiment analysis problem)
+* EMADE in nn-vip
+** Abstract Data Types (ADTs)
+*** EmadeDataPair
+**** contains train/test data
+**** contains important information about data
+** Running EMADE
+*** starting command - python launchEMADE.py input.xml - parses xml file, checks computing env, then moves to didLaunch.py
+*** master algorithm - initiates database, tracks population status, handles mutating/mating, handles queue of individuals to be evaluated
+*** worker algorithm - connects to database and retrieves individuals for evaluation
+** NNLearner
+*** neural_network_methods.py - stores functions for layer primitives, loss functions, optimization...
+*** NNLearner - able to store different neural network layers on top of each other - nnmLayerList 
+
+=== NAS Meeting Notes: ===
+* Finished setting up EMADE locally on computer
+* Started to work on configuring EMADE on PACE
+* New articles with literature review to read about neural networks and EMADE
+
+=== Personal Work ===
+* Read up on neural networks: https://towardsdatascience.com/understanding-neural-networks-19020b758230?gi=1341d1e6f5c3
+* Neural networks use series of layers: input, hidden, output
+* Each layer has "neurons" which have biases and are connected by links that have weights 
+** To calculate at neuron = sum of all neurons linked to that neuron from previous layer for (weight*input) + bias
+* Train network by using cost function and trying to minimize it
+** Cost calculated by forward propagation
+** Minimize cost function through gradient descent optimization
+** Way to do this is through back propagation - finds neurons that sent most signal
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read up on Neural Networks to get a general understanding
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 13, 2021
+|-
+|Get EMADE working on PACE
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|
+|-
+|Update VIP Notebook
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+
+== November 15th, 2021 ==
+
+=== Class Notes: ===
+* Went through each group's updates
+* Worked on setting up EMADE on PACE
+** Had a few errors with the SQL server
+** Error: did not have permission writing to SQL server
+** Fixed error when going through PACE setup steps again
+
+=== Personal Work: ===
+*Layers that are used in EMADE in gp_framework_helper.py
+* Information taken from: https://keras.io/api/layers/
+** Text Data
+*** Dense Layer : regular fully connected neural network layer
+*** LSTM Layer : long-short term memory neural network layer (recurrent nn type)
+*** Convolutional 1D layer : creates convolutional kernel convolved with layer input over single spatial dimension
+*** Max Pooling 1D layer : taking maximum value over window of size for 1D data
+*** Global Max Pooling 1D layer : taking maximum value over time dimension
+*** Global Average Pooling 1D layer : taking average value over time dimension
+*** GRU layer : gated recurrent unit (similar to lstm but less gates)
+*** Flatten layer : flattens input to one dimension
+** Image Data
+*** Convolutional 2D layer : convolutional kernel over 2 dimensions
+*** Max Pooling 2D layer : takes maximum value over window of specified size for 2D data
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Get EMADE working on PACE
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 22, 2021
+|-
+|Learn what layers used in EMADE in gp_framework_helper.py
+|In Progress
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Read ''Neural Networks Explained in Plain English''
+|In Progress
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Update VIP Notebook
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|}
+
+== November 22nd, 2021 ==
+
+=== Class Notes: ===
+* Flew back home for thanksgiving break
+
+=== Literature Review Notes: ===
+* Evolving Deep Neural Networks
+** Automated method CoDeepNEAT for optimizing deep learning architecture through evolution
+** Genetic algorithms smart choice for because crossover is perfect match for neural networks
+*** Combine different existing parts of neural networks to find better ones 
+** DeepNEAT is extension of standard neural network topology evolution method NEAT to DNN
+*** First population of chromosomes (each a graph) is initialized
+*** Nodes and edges added through different generations thru mutation
+*** Population divided into subgroups (species) based on similarity metric and then each species grows separately
+*** Each node in chromosome represents a layer in DNN
+**** Contain parameters and hyperparameters: type of layer, number of neurons, activation function
+*** During fitness evaluation, each chromosome is turned into a DNN and trained for a certain amount of epochs, evaluated, and metric is returned as performance
+** CoDeepNEAT utilizes repetitive behavior to create more diverse, deeper architectures
+*** Two populations of modules and blueprints are evolved separately
+*** Blueprint chromosome is graph where each node points to a module species
+*** Each module chromosome contains a graph (small DNN)
+*** Fitness Evaluation
+**** Each node in blueprint is replaced with randomly chosen module in species
+**** Assembled together to create larger network
+** CoDeepNEAT on the CIFAR-10 dataset
+*** Initialized with 25 blueprints and 45 modules
+*** 100 CNNs assembled for fitness evaluation
+*** Trains very fast: takes only 12 (compared to 30) epochs to hit 20% test error and around 120 (compared to over 200) epochs to converge
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read ''Evolving Deep Neural Networks'' for Literature Review
+|In Progress
+|November 22, 2021
+|November 29, 2021
+|November 28, 2021
+|-
+|Update VIP Notebook
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 29, 2021
+|}
+
+== November 29th, 2021 ==
+
+=== Class Notes: ===
+* Worked on literature review articles
+* Talked with new team members to organize final presentation slides
+
+=== Literature Review Notes: ===
+* Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification
+** Problem: wide variety of different architectures and hyperparameters and takes lot of time to track and experiment it all for optimal performance
+** Data preprocessing functions lacking in current systems
+** EMADE also includes data preprocessing functions so is able to evolve both at same time
+** Neural Architecture Search composed of 3 methods: search space, search strategy, candidate network performance estimation strategy
+** EMADE is based on DEAP genetic programming framework
+*** In DEAP, algorithms expressed as trees, functions expressed as nodes, parameters expressed as terminals
+*** When evaluating tree, nodes computed in order of decreasing depth
+*** Each generation, n trees selected to create new trees for population with variety of mutating/mating functions
+** Neural network modifications to EMADE
+*** LayerTree: class is pre-ordered list representation of neural network tree
+*** LayerPrimitives: network layer types from Keras API added as EMADE primitives
+*** Pre-Trained Layer Primitives: incorporate pre-trained networks as layers
+*** NNLearner: creates neural network from from LayerTree specifications using Keras API
+** Results on CIFAR-10 dataset
+*** Two different runs with same seeded individuals, same compute hours, but different run sizes
+**** Small run - best individual - 75.59%
+**** Big run - best individual - 73.84%
+** Future Applicability
+*** Combine pre-trained networks with layers and architecture to get better results
+
+=== Personal Contributions ===
+* Attended team meeting for dry run and practiced presentation with team
+* Link to final presentation slides: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing
+** Completed and presented slides 47-48
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read ''Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification'' for Literature Review
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|December 4, 2021
+|-
+|Update final presentation slides
+|In Progress
+|November 29, 2021
+|December 6, 2021
+|December 5, 2021
+|-
+|Update VIP Notebook
+|Completed
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
 |}

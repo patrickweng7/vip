@@ -16,6 +16,526 @@ Interests: Machine Learning, Python, Soccer, Chess
 ** Main meetings 5-5:50pm on Mondays
 
 
+
+== December 10, 2021 ==
+
+'''Final Presentations'''
+
+ My Notes
+* I presented the hyper-features slides in the final presentation. 
+* Goals for the next semester for hyper-features would be to integrate the code with our sub team master branch as we decided not to do it this time because bug fixes ended after our code freeze.
+* Work on expanding on the idea of hyper-features and identifying more combinations of primitive that we can convert into hyper-features.
+* Final presentation slides:
+** [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit#slide=id.p] 
+
+ NAS
+* They worked on time stopping to improve the productivity of individuals.
+* They also worked on making more complex individuals.
+* Added weight sharing and modules to make specialized modules and speeds up training time.
+* Tried out the modular structures with architectures like VGG 16
+* Tested out weight sharing and had a relatively low test accuracy of 64.42% due to the fact that weights were being stored in the database which was why it was taking too much storage.
+* Now they were storing it in a file which allowed for many better individuals due to many generations.
+
+ NLP
+* Created a new NNLearner2 two work with new data pairs.
+* NNLearner2 had both an ARG0 and an ARG
+* 1.sigmoid activation layer  had issues and kept shooting out a 1.
+* Had to re-process the SQUAD dataset.
+* Worked on the BiDAF model by creating a similarity matrix, query to context attention.
+* Created to new modeling layer by passing the result through a bi-directional LSTM layer.
+* Their accuracy was around 1-2% (but SOTA is around 80%
+* They got multiple individuals  better than the seeded individuals.
+
+ Stocks
+*  3 Trials. 
+* Analyzed the profit % analysis.
+* Tested across all of the different primitives.
+* ArgMin and ArgMax were the most useful primitives found through analysis.
+* Comparison of results with the fuzzy model paper:
+* The best performing individual was an ArgMin individual
+*  It was able to outperform the fuzzy model paper.
+
+ Modularity
+* CloudCopy was used to set the workspace.
+* After enough generations and time newer ARL's might perform better than the older ARL's.
+* Worked on testing the complexity of ARL's by increasing tree depth.
+* Calculated the FP and FN.
+*  Compared the new architecture versus the old architecture.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start preparing the slides for the the final presentation (I will work on the hyper-features slides.
+|Completed
+|November 24, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
+
+
+== December 6, 2021 ==
+
+ December 6
+
+* Peer evals close 12/8 Wednesday 4pm
+* Notebooks are due on Monday 12/13 at 9am
+* Visualizations for prezi: tree structure for algorithms, pareto fronts and AUC, tracking things through time, any mined info from databases
+* 20 min for presentation
+
+
+ December 8
+
+'''Sub Team Notes:'''
+
+* Things to do
+** Finish any merges 
+** Deign and delegate experiments
+** Create visualizations where applicable
+** Finish Presentation Slides
+
+* I will not be merging the hyper-feature code and instead test it separately using standalone tree generator.
+** The reason for this is that it can potentially cause issue as it is not very ell tested.
+
+* I was getting this error when runing the standalone tree with several different trees,
+
+ Traceback (most recent call last):
+  File "standalone_tree_evaluator.py", line 161, in <module>
+    my_func, i = parse_tree(s, pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 64, in parse_tree
+    their_func, x = parse_tree(line[i+1:], pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 64, in parse_tree
+    their_func, x = parse_tree(line[i+1:], pset_info)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 113, in parse_tree
+    raise e
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/site-packages/GPFramework-1.0-py3.8.egg/GPFramework/general_methods.py", line 110, in parse_tree
+    node = ast.literal_eval(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 99, in literal_eval
+    return _convert(node_or_string)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 98, in _convert
+    return _convert_signed_num(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 75, in _convert_signed_num
+    return _convert_num(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 66, in _convert_num
+    _raise_malformed_node(node)
+  File "/storage/home/hpaceice1/mkaneria3/.conda/envs/emade-local/lib/python3.8/ast.py", line 63, in _raise_malformed_node
+    raise ValueError(f'malformed node or string: {node!r}')
+ ValueError: malformed node or string: <_ast.Name object at 0x7fff603346d0>
+
+* This error was caused because as I had changed to the emade version of `img-proc`, the NAS team had updated the way trees are structured.
+* I talked with Cameron Whaley from the NAS team to learn the new structure of the trees.
+
+* I changed the trees and it finally started producing fitness values.
+
+* Tree change example:
+
+** Old Tree Structure:
+ NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)" to "NNLearner(ContrastSobelHyperfeature(ARG0, TriState.STREAM_TO_STREAM, Axis.FULL), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)
+
+** New Tree Structure:
+ NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), DenseLayer4dim(DenseLayerUnit32, defaultActivation, Conv2DLayer(Conv2DFilterUnit16, reluActivation, Conv2DKernelSize1, InputLayer)), 98, AdamOptimizer)
+
+
+* Added sharpening filter in hyper-feature code.
+* Now the there are essentially 2 different ways to run the hyper-feature,
+** 1) Contrast Enhancement + Sobel Filter
+** 2) Contrast Enhancement + Sharpening Filter
+* Final Updated code for the hyper-feature
+** [https://colab.research.google.com/drive/1RCwdJqF76K7DemVErY5k0GYoj_V3r2As?usp=sharing]
+
+
+* Results for the hyper-features:
+
+** 1) Contrast Enhancement + Sobel Filter
+*** Lowest ROC AUC - 0.5
+*** Number of parameters - 929359
+
+** 2) Contrast Enhancement + Sharpening Filter
+*** Lowest ROC AUC - 0.407795
+*** Number of parameters - 2628560
+
+* The result for Contrast Enhancement + Sobel Filter is not very good as we were getting 0.5 AUC ROC for every tree that we tested. We are not exactly sure why this was happening but potentially it is because the images are transformed at a point where they are no longer recognizable by the time they reach to the hyper-feature in the tree. so the AUC ROC is mostly random guessing.
+* We had an initial assumption that sharpening filter would work better with contrast enhancement than a sobel filter.
+* We did manage to prove that the assumption that we had was correct as we have a lower AUC ROC for sharpening filter above.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Peer evaluation
+|Completed
+|December 1, 2021
+|December 8, 2021
+|December 6, 2021
+|-
+|Get results from the hyper-feature using standalone tree as the error is now fixed.
+|Completed
+|November 24, 2021
+|December 8, 2021
+|December 8, 2021
+|-
+|Start preparing the slides for the the final presentation
+|In-Progress
+|November 24, 2021
+|December 10, 2021
+|
+|}
+
+
+== December 1, 2021 ==
+
+ November 29
+
+'''Team Meeting Notes:'''
+
+* Peer evals open!!
+* Fill out before deadline or you will get a letter grade drop.
+* Final presentation is 12/10
+
+
+ December 1
+
+'''Sub Team Notes:'''
+
+* The hyper-feature code now works and it is producing individuals but it was not producing any fitness values due to a bug in the neural_networks_helper.py.
+** example hash of an individual
+ Hash of the Individual: 353955d73f3c86294017108be1d7dd7702e3cd4df2f9455969c611dfd5031439 
+
+* The error i was getting due to the but was, 
+ Received: NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)),
+ OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer)
+ With Hash 353955d73f3c86294017108be1d7dd7702e3cd4df2f9455969c611dfd5031439
+ Computed in: 1057.614228963852 seconds
+ With Fitnesses: (inf, inf)
+ With Age: 0
+ With Error:  **********You must compile your model before training/testing. Use `model.compile(optimizer, loss)` 
+
+* Dhruv also got the same error. The issue was that were using outdated version of emade. As new changes were made in the `img-proc` branch. Also it was caused by Python 3.8 version of multiprocessing library.
+
+* I was able to fix this issue by scp-ing the latest src directory from the `img-proc` branch 
+
+* And creating a my own local conda environment on pace as the shared environment seemed to have several issues.
+* I use the image_proc_tf26.yml file that Max made to create the environment.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finish Peer evaluation
+|In-Progress
+|December 1, 2021
+|December 8, 2021
+|
+|-
+|Get results from the hyper-feature using standalone tree as the error is now fixed.
+|In-Progress
+|November 24, 2021
+|December 8, 2021
+|
+|-
+|Start preparing the slides for the the final presentation
+|In-Progress
+|November 24, 2021
+|December 10, 2021
+|
+|}
+
+
+== November 22, 2021 ==
+
+ November 22
+
+'''Team Meeting Notes:'''
+
+* I had initial assumed that the issue I was facing with the hyper-feature code not working with chestxray data but working with image data was because image data set had direct jpeg images and chestxray dataset had .npz files.
+* But Jason explained during the meeting that the data that went inside a primitive was already coming in as np arrays preprocessed in other files. So whatever the issue was, it was not in the type of data but within the helper methods of the hyper-feature code.
+
+ November 24
+
+'''Sub Team Notes:'''
+
+* We did not have meeting today as many people were traveling for thanksgiving break.
+* I figured that the issue I was facing was indeed in one of my hyper-features helper methods.
+
+* The helper method for contrast enhancement part of the hyper-feature had the issue.
+
+ def apply_brightness_contrast(input_img, brightness=0, contrast=0):
+    if brightness != 0:
+        if brightness > 0:
+            shadow = brightness
+            highlight = 255
+        else:
+            shadow = 0
+            highlight = 255 + brightness
+        alpha_b = (highlight - shadow) / 255
+        gamma_b = shadow
+
+        buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
+    else:
+        buf = input_img.copy()
+
+    if contrast != 0:
+        f = 131 * (contrast + 127) / (127 * (131 - contrast))
+        alpha_c = f
+        gamma_c = 127 * (1 - f)
+
+        buf = cv2.addWeighted(np.float32(buf), alpha_c, np.float32(buf), 0, gamma_c)
+
+    return buf 
+
+* The line `buf = cv2.addWeighted(np.float32(buf), alpha_c, np.float32(buf), 0, gamma_c)` did not have the np.float32 cast arounf the src1 and src2 values which was causing contradictions with how emade wants the data to be formatted.
+* Casting the src1 and src2 values fixed this issue.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Fixing the Issue with hyper feature not working with chestxray data but works with image dataset.
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|Get results from the hyper-feature using standalone tree as the error is now fixed.
+|In-Progress
+|November 24, 2021
+|November 29, 2021
+|
+|}
+
+
+== November 17, 2021 ==
+
+ November 15
+
+'''Team Meeting Notes:'''
+
+* Our elevator pitch: We are researching how we can improve EMADE’s performance on image processing tasks; this semester in particular we are looking at multi-class image classification. Using a baseline run of EMADE on the dataset we processed, success for us looks like seeing improvements in ROC and compared to the baseline run when evaluated independently and in combinations.
+
+ November 17
+
+'''Sub Team Notes:'''
+
+* Found another issue with the hyper feature code. hyperfeature code is not producing individual with the standalone tree when i use the chestxray data, but it worked when I used the image dataset in emade.
+I get the error, 
+ cv2.error: OpenCV(4.5.3) :-1: error: (-5:Bad argument) in function 'addWeighted'
+ > Overload resolution failed:
+ >  - src1 data type = 23 is not supported
+ >  - Expected Ptr<cv::UMat> for argument 'src1
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Work on Fixing the Issue with hyper feature not working with chestxray data but works with image dataset.
+|In-Progress
+|November 15, 2021
+|November 22, 2021
+|
+|}
+
+
+
+== November 10, 2021 ==
+
+'''Sub Team Notes:'''
+
+* I talked with Jason to understand why the issue below was happening, 
+** The standalone tree script threw an error with 'TriState.STREAM_TO_FEATURES' in the tree, but it ran fine if I changed it to 'TriState.STREAM_TO_STREAM'.
+* The Reason was because the the line 327 and 329 in GP_frameworks_helper were commented out and so the pset from `TriState.STREAM_TO_FEATURES` was not working. 
+** [https://github.gatech.edu/amehra37/emade/blob/Hyperfeatures_Image_Proc/src/GPFramework/gp_framework_helper.py]
+
+* I now opened the pull request for the Hyper-feature branch which the team will evaluate.
+** [https://github.gatech.edu/amehra37/emade/pull/6] 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 10, 2021
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|Completed
+|October 27, 2021
+|November 15, 2021
+|November 10, 2021
+|}
+
+
+== November 8, 2021 ==
+
+'''Team Meeting Notes:'''
+
+* I met with Max a 30 minutes before the meeting to fix an issue i was getting in running the standalone script.
+* We figured that the error was because of unnecessary hyper parameters in the tree which looked like this with highlighted hyper-parameters, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL), ''' 6, 7, 0.1 '''), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+* I changed it to this, 
+** ` NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.FULL)), OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer) `
+
+* This seem to resolve the issue with the tree but it revealed a weird thing. 
+* The standalone tree script threw an error with 'TriState.STREAM_TO_FEATURES' in the tree, but it ran fine if I changed it to 'TriState.STREAM_TO_STREAM'.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|Completed
+|October 27, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Talk with Jason to resolve the issue caused by TriState.STREAM_TO_FEATURES in the tree.
+|In-Progress
+|Movember 8, 2021
+|November 15, 2021
+|
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|Completed
+|November 3, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 15, 2021
+|
+|}
+
+
+== November 3, 2021 ==
+
+'''Sub Team Notes:'''
+
+* The p-value was very high which was causing the selection methods to fail. 
+* Next steps:
+** Fix environment errors
+** Testing the new changes for nsga 3.
+** New member and Harris will try out Lexicase.
+** Test the current version and talk to Jason more about exactly what are the difficulties.
+* Need to create new dataset.
+* New team assignments:
+** Rohan - hyper features
+** Elan - infrastructure, doing runs on pace
+** Austin - selection methods
+** Eashan - mating, mutations
+
+* I was getting the error,
+ Traceback (most recent call last):
+  File “standalone_tree_evaluator.py”, line 139, in <module>
+    database, pset_info = load_environment(xml_file, train_file=train_file_name, test_file=test_file_name)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/general_methods.py”, line 585, in load_environment
+    dataset_names=dataset_names, statistics_dict={}, cache_dict=cacheDict, is_worker=True)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_master.py”, line 56, in _init_
+    super()._init_(connection_str, reuse, fitness_names, dataset_names, statistics_dict, cache_dict, is_worker=is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 293, in _init_
+    cache_dict, is_worker)
+  File “/storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/lib/python3.6/site-packages/GPFramework-1.0-py3.6.egg/GPFramework/sql_connection_orm_base.py”, line 89, in get_session
+    engine.execute(text(‘SET innodb_lock_wait_timeout = ’ + cache_dict[‘timeout’]))
+ TypeError: must be str, not NoneType `
+* I talked with Jason and figured that I needed to add the "cache timeout" value which i was missing in my xml file.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Meet with Max 30 mins before the meeting to work on the hyper-feature tree. 
+|In-Progress
+|November 3, 2021
+|November 8, 2021
+|
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
+== November 1, 2021 ==
+
+'''Team Meeting Notes:'''
+* Consideration: reprocess data to just have single label for train/test (if there are not too too many multi-label cases), look at distribution of labels to ensure this will produce enough data
+* To get vector out: dump out the numpy array inside the evaluation method, reinstall GPFramework, and then run individual with database or standalone tree evaluator script
+
+* I made progress with working on the standalone tree to test the hyper-feature.
+* This is the tree I used which is took from one of Max's trees that he had evaluated and replace the primitive with mine.
+ NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)),
+ OutputLayer(DropoutLayer(0.584087228573285, InputLayer())), 98, AdamOptimizer))
+* I initially got some mysql errors and figured it was because i was not running the pbsmysql.pbs script correctly and so my node was not running. So I moved the pbsmysql.pbs script in my ~ directory on pace and it worked fine.
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Make a standalone tree to test the Hyperfeature primitive
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|-
+|open PR and merge changes to Image-Processing(nn-vip) branch
+|In-Progress
+|October 27, 2021
+|November 8, 2021
+|
+|}
+
 == October 27, 2021 ==
 
 '''Sub Team Notes:'''

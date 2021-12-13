@@ -10,11 +10,350 @@ Email: rishitmahuja@gatech.edu
 
 Cell Phone: +1 470-491-3478
 
-Interests: Statistics, Theoretical ML and data science, Bayesian deep learning, Game-Theoretic Puzzles
+Interests: Statistics, Theoretical ML and data science, Bayesian deep learning, Game Theory
 
 Hobbies: Meditation and cooking
 
-== October 16, 2021 ==
+== December 10, 2021 ==
+=== Final Presentation ===
+==== Image Processing ====
+==== Stocks ====
+
+==== Neural Architechture Search ====
+* Focused on hyperparameter optimization and AutoML to find more complex and productive deep learning models.
+* Goal: EMADE makes more complex architecture.
+* Added Time Stopping: restricted for how long a model has been trained and the accuracy error.
+* Added 
+* Almost no correlation between the time trained and the accuracy error.
+* Added unique generator methods for NNLearners and Modules within EMADE.
+* Added Weight sharing.
+* Added some other thing ... see slides.
+*  
+
+== November 29, 2021 ==
+=== Lecutre Notes ===
+* Finally, we will be freezing our code and doing runs.
+* I talked with Dr Zutty about the experiment. It looks like the new null hypothesis is fine.
+
+=== Team meeting ===
+* Steven made a new repo after fixing some bugs and changing some of the XML files: https://github.gatech.edu/sleone6/emadebackup
+
+=== My Work: Finalized the objectives ===
+We used the following objectives: https://github.gatech.edu/sleone6/emadebackup/blob/master/templates/input_squad_noqsub.xml 
+* Shiyi and I met Steven and we finalized continuous_MSE and num_params (number of parameters) as the two objectives for the runs.
+** continuous MSE: it measures how far we are from the correct index.
+** number parameters: it measures the complexity of the model, the more the number of parameters, the more complex the model becomes.
+
+* Why we chose these two objectives? We want to choose objectives that are relevant and not related to each other (measure different qualities of prediction/model). As far as we could understand, continuous MSE and number of parameters measure two qualities of prediction/model that are not related. Making the model more or less complex does not necessarily dictate whether the predicted index will be closer or farther from the actual one. 
+
+* Are these objectives enough? Maybe not. While we tried to ensure that the two objectives do not measure the same/similar quantities, it could be the case that we missed some objectives that are relevant to our problem. We will work on implementing other objectives (if required) in the coming semesters as do not have a lot of time left now.
+
+
+=== My Work: Found a flaw in the experiment ===
+* For reference, our current hypothesis that I told Dr Zutty in the lecture was: "AUC from pareto optimal individuals = AUC from the seeded individual"
+* I think this is not a valid null hypothesis due to two reasons. If we use the hypothesis test then our null will be rejected in either of the two cases: (1) EMADE performs much worse than the seeded individual (2) EMADE performs much better than the seeded individual.
+
+If EMADE performs much worse than the seeded individual then it is fine if the null is rejected but it is not fine if null is rejected in case 2.
+
+* I think the null hypothesis should be something like "AUC from pareto optimal individuals > AUC from the seeded individual." Now, if I could reject the null hypothesis then it would mean that EMADE could produce individuals that had lesser AUC than the seeded individuals, which is desired. However, I only know how to plot a distribution (normal or student-t) if the null hypothesis has equality (like μ = μ_0) and not if there is an inequality. I will try to discuss this with Dr Zutty in the next meeting.
+
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Determine how to draw a distribution (normal or student-t if there is an inequality like μ < μ_0)
+|Completed
+|November 29, 2021
+|December 06, 2021
+|December 06, 2021
+|Finalized the objectives that we will be using for the runs
+|Completed
+|November 29, 2021
+|December 03, 2021
+|December 03, 2021
+|}
+
+
+
+== November 22, 2021 ==
+=== Lecutre Notes ===
+* Steven told Dr Zutty that currently, we are just getting 0's and 1's as output and therefore we might just have to consider it as a classification problem although earlier we were thinking of it as a regression problem.
+* I told Dr Zutty and Rohling our plan to proceed with hypothesis testing (plan elaborated in the 'My Work at Hackathon' section under November 15).
+* Dr Zutty's suggestions:
+** He explained that it is not a good idea to consider one objective (like F-1 score or EM) each time and instead we should consider the area under the curve (AUC) obtained from our Pareto optimal solutions.
+** He also told that it is not necessary that we compare EMADE's performance with any NLP model, we can just compare how much AUC EMADE could reduce compared to the seeded individual.
+** Dr Zutty also talked about the region of interest. It is basically the region that contains pareto optimal individuals that beat the seeded individuals on both (could be more than two as well) the objectives.
+
+=== Team meeting ===
+No team meeting due to the Thanksgiving break.
+
+=== My Work ===
+Over the break, I tried to improve some of the flaws that Dr Zutty pointed out in the lecture in our experiment:
+* Changed the null hypothesis to be "AUC from pareto optimal individuals = AUC from the seeded individual"
+* Shiyi and I started writing the code for the experiment: https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing.
+* I found the following article helpful in strengthening my understanding of hypothesis testing: 
+** Statistics for evaluating ML models: https://machinelearningmastery.com/statistics-for-evaluating-machine-learning-models/
+* Suggested Shiyi the following links to study from if he is facing any problem: 
+** https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
+** https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the problems with the existing experiment (change null hypothesis, change t-statistics)
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 23, 2021
+|}
+
+
+== November 15, 2021 ==
+=== Lecture Notes ===
+* Steven and Dr Zutty told Karthik and me to drop the idea of outputting both the start and end indices as it will lead to implementations that we will not be able to complete before the end of the semester. Therefore, I will be working with Devan. 
+
+Note: In the team meeting this week, I was be reassigned to work on the statistics sub-sub-team (I have mentioned below in the team meeting notes).
+ 
+* Devan is trying to resolve the problem of using two datapairs for nn_learner. 
+
+=== Team notes ===
+* Steven reassigned tasks to all of us and we are more focused to get results before the final presentation even if those results are not the best.
+* I will be working in the Statistics sub-sub-team along with Shiyi. Our main task is to design an experiment that can prove/disprove our hypothesis of the efficacy of EMADE for the question-answering. We have not yet decided on our null hypothesis but it will be something like "EMADE does not perform better than the existing NLP SOTA models (given on the SQuAD dataset) for the SQuAD dataset." 
+* I met with Shiyi in the breakout room to discuss the plan.
+ 
+=== My Work at Hackathon===
+I discussed with Shiyi in the subteam meeting on Wednesday and suggested the following steps to Steven in the Hackathon meeting:
+* 1.  Each one of us should run EMADE with different train and test splits of the dataset. This should be done to make decorrelate the predictions as during hypothesis testing we make an assumption that our random variables are independent identically distributed (IIDs). 
+* 2. Also, we need to make sure that each one of us run EMADE for the same amount of time to make sure that none of the runs is disadvantaged.
+* 3. From each master.out file, we will get the Pareto-optimal individuals. Therefore, the number of master.out files = number of pareto fronts.
+* 4. Then, we will find the mean of F-1 score for all the pareto optimal individuals in all the master.out files.
+* 5. The null hypothesis should be something like "EMADE performs as well as one of the SOTA NLP models on the SQuAD leaderboard."
+* 6. We will plot a distribution (normal distribution of student t-distribution based on the number of successful runs we could get.)
+* 7. We will set a significance level, alpha, and if the above-calculated value of F-1 score lies in the critical region then we will reject the null hypothesis.
+* 8. We will do the exact same steps (steps 1-7) for EM.
+
+* For the midterm presentation, we were thinking of using the F-1 score that Steven wrote and the EM but I think the F-1 score that other models on the SQuAD website are using is different. Although the F-1score that Steven wrote better captures the success of the model, we will not be using it because then we will not be able to compare our success with the success of SOTA NLP model on the SQuAD leaderboard.
+
+* Steven suggested that we will most likely perform worse compared to all the SOTA NLP models on the SQuAD website therefore it is practical to compare EMADE's performance with a relatively naive NLP model. During the meeting, I ran Steven's NLP model that he wrote for his NLP class and I plan to use it compare with EMADE.
+
+=== My Work before Hackathon===
+* Studied the procedure behind hypothesis-testing from here:https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
+* It looks like there is a lot of ways we can choose t-statistics given the condition in the problem. A good t-statistics can capture the nature of the given problem better. 
+* Also, I realized the based on the number of successful master.out files we could get, we will change our distribution. For instance, if we do not have enough samples from our population (<30), then we should use student-t-distribution but normal distribution otherwise.
+* I also realized that changing the objective functions can also help demonstrate the improvement of the model using EMADE.
+=== My Work before joining the Statistics sub-sub-team ===
+* I suggested the below method to Steven in the lecture meeting of November 15, but as I mentioned above, we will not be implementing it due to a lack of time.
+* One of the ways I am trying to modify the code to get both the start and end indices is by fitting the model twice.
+** First, the model will predict the start index.
+** Second the model will use regression to predict the length of the answer and add that length to the start index. This is a very naive method as the model is only considering the number of words in the answer and not at all capturing the context.
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Study the steps involved in hypothesis testing.
+|Completed
+|November 15, 2021
+|November 18, 2021
+|November 17, 2021
+|-
+|Study how t-statistics and objectives can affect the test.
+|Completed
+|November 15, 2021
+|November 21, 2021
+|November 20, 2021
+|-
+|Layout detailed outline for the hypothesis test for our case before the next lecture
+|Completed
+|November 15, 2021
+|November 22, 2021
+|November 19, 2021
+|}
+
+== November 8, 2021 ==
+=== Lecture Notes ===
+* We were divided into sub-sub-teams. I will be working with Karthik, Aditi and Jessi.
+* I am a little unsure about the objective of our team. According to Karthik, we will be working on converting the labels of the final output to numerical vectors but we are not sure about it yet.
+
+=== Meeting with Steven and Karthik ===
+* Steven told Karthik and me to find a way we can get a tuple (having the start index and end index of the answer in the context).
+* We were initially planning of updating the evaluation functions and encode the labels but we can work on it later.
+
+=== My Work ===
+* Met in person today at CULC with Steven, Karthik and Aditi and clarified the main objective of our team and it is basically to output the start and end indices of the answer.
+* Karthik and I discussed the preprocessing of the data. There are some null values in some of the rows in the dataset and we have decided to straightaway remove those rows mainly because 
+** We will still be able to retain two-thirds of the data 
+** Steven suggested that SqUAD is a standard dataset and is used commonly to make comparisons. If we do a lot of data preprocessing and get a good result, it will not be able to fair competition with other models.
+* I am working to run standalone_tree_evaluator for BiDAF. If standalone works successfully then Karthik and I will use nn_learner to predict the start and end indices and evaluate the result using f1_string_match.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix errors while running standalone tree evaluator
+|Completed
+|November 12, 2021
+|November 17, 2021
+|November 16, 2021
+|-
+|Implement/Suggest a method to obtain the start and end indices
+|Completed
+|November 12, 2021
+|November 17, 2021
+|November 16, 2021
+
+|}
+
+
+== November 1, 2021 ==
+
+=== Lecture meeting ===
+* I attended the meeting on BlueJeans call with Steven as I had a fever that day.
+* New team members joined in.
+* Karthik will be writing some python unit tests to make sure that the dimensions of the layers do not conflict.
+
+=== Team Notes ===
+* PACE-ICE down this week.
+* Steven and Devan gave presentations to the new members on deep learning and NLP.
+
+=== My work ===
+* Initial code could be found here: https://gist.github.com/rishitmahuja/4f8596206b3546ef42b60d12dcbd6f43. 
+* Tested the dimensionality of the attention layer and made sure that the input and output matrices would not conflict with other layers.
+* Notes about the attention layer from the BiDAF paper: please refer to this document (https://docs.google.com/document/d/19z6gLynTzOfIndzBDs32KO29U_ZGRLqC6JlML-L15Cg/edit?usp=sharing). This document details how the attention flow layer works. I have given specific focus to the dimensions of each vector/matrix just to make sure that the dimensions do not conflict with the other layers. Also, I have mentioned the decision we took regarding the choice of beta function (the trainable vector function that fuses the three input vectors to give the final output of the attention). 
+* This Medium article came in handy to understand and code the attention layer: https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Basic Bidirectional attention layer implementation
+|Completed
+|November 1, 2021
+|November 2, 2021
+|November 2, 2021
+|-
+|Analysis of the Bidirectional attention layer implementation specifically focussing on the dimensions
+|Completed
+|November 1, 2021
+|November 2, 2021
+|November 1, 2021
+|}
+
+
+== October 25, 2021 ==
+=== Midterm Presentations ===
+*Note: for all the BootCamp teams, the dataset is Titanic.
+* NLP (my team): https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+* Bootcamp 1:
+** ML Results:
+*** Imputation of NaNs: imputed fare and age with mean.
+*** Feature Engineering: encoded encoded "sex" and "embarked" columns and dropped the irrelevant categorical values.
+*** Model selection: SVM, Neural Network, Random Forest, Gaussian Process Classifier
+** Genetic Programming: tournament selection, node replacement mutation, one-point leaf biased crossover
+** EMADE: doubled headless chicken rate
+** Results: AUC of ~ 0.14
+
+* NAS:
+** Automate the process of creating neural networks with NNLearner.
+** No significant improvement in individuals during the previous semester.
+** Worked on Time Stopping: limit the training time because some individuals were taking too long to train.
+** Will be working on dimensionality issues between layers.
+
+* Boostcamp 2:
+*** Imputation of NaNs: dropped NaN rows.
+*** Feature Engineering: mapped alphabetical values of 'sex' and 'embarked'.
+** Genetic Programming: Used SPEA2, symbolic regression, minimization of FPs and FNs.
+** EMADE: Installation errors
+** Results: Adaboost performed the best
+
+* Image Processing:
+** Data preprocessing: Image Resizing, horizontal flipping, image augmentation (about 20% of the images).
+** Implemented NSGA II, added new mating and mutation functions sing geometric semantic crossover and mutation.
+** Introduced hyper-features.
+
+
+* Bootcamp 3:
+** ML:
+*** Feature engineering: one-hot encoding for the genders, dropped passengerID, cabin and added a new feature to separate the genders (gender_embarked).
+*** MOdel selection: SVM, Random Forest, Logistic Regression, neural networks.
+** GP: used selLexicase, squared false positives and negatives.
+** Results: could not do a lot of runs of EMADE.
+
+* Stocks:
+** Objective was to effectively do time-series analysis.
+** Experiments based on AAPL, etc.
+
+* Modularity:
+** ARLs can improve the fitness of the overall population.
+** Currently working on increasing the complexity of the ARLs by changing the depths of the tree algorithms used.
+** Success with arity of parent nodes.
+
+=== Team meeting ===
+* Gearing towards successfully implementing BiDAF as it is essential for getting runs for the final presentation.
+* Steven assigned a few team members for each layer of BiDAF.
+
+=== My work === 
+* I, along with Steven, Devan and Karthik, will be working on implementing the bidirectional attention layer using Keras. All four of us will be working on this layer because it is the hardest to implement.
+* I will start by re-reading the paper and focusing specifically on the attentional flow layer.
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Study the BiDAF paper and focus specifically on the attentional flow layer.
+|Completed
+|October 27, 2021
+|October 31, 2021
+|October 30, 2021
+|}
+
+
+
+== October 18, 2021 ==
+=== Lecture Notes ===
+* Midterm presentation in one week.
+* Steven talked about the issues with the standalone tree evaluator.
+* Dr Zutty warned that runs will take time and also think about what the results indicate statistically.
+=== Team meeting ===
+* We had two team meetings where we did two dry runs of the midterm presentation.
+* Link to our presentation: https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing
+=== My work === 
+* Made visualizations (https://drive.google.com/drive/folders/1JpMPY--G4KOEdQbHuDbZ3DrGdhSi4WFA?usp=sharing) for all the tree/individuals that we plan to use as seeded individuals using Cameron's script.
+* Added my page in the slides describing the utility of the memory networks.
+* Here is a high-level description of the paper:
+**Datasets: Facebook dataset known as babl that was synthetically generated. The dataset contains total 20 categories of questions ranging from simpler categories like 'single supporting facts' to complex ones like  'reasoning' and 'path finding'.
+**Previous Models: used LSTMs (≈20% accuracy), word2vec (capture the context of the text very effectively) CBOW and Skip Gram, memory networks (≈49% accuracy) to the NNs
+**Paper's approach: 
+*** Dynamic/Episodic memory networks (91% accuracy)
+*** Implementation: 
+****Used Word embedding, recurrent LSTMs, dense layers, softmax, dropout of 50%. 
+****Final memory outputs have LSTMs instead of a summation relationship before going into the softmax function
+**** Used RMS Prop optimizer and sparse categorical cross-entropy loss.
+
+
+== October 11, 2021 ==
 === Hackathon meeting ===
 * Shiyi, George and I are working to find the papers that have models that we can use as seeded individuals. Here is our shared doc: https://docs.google.com/document/d/1id8NqEuLTB7ds_75bMjUKTYzc1aBUD6-0TaOfPCsW5c/edit?usp=sharing 
 * Some of the individuals that I made:

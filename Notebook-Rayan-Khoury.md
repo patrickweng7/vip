@@ -3,6 +3,60 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **November 1st, 2021**
+## **Meeting 11**
+### Class Notes:
+* I was assigned to the Neural Architecture Search (NAS) sub-team.
+* We went through group scrums where each team talked about their weekly updates.
+
+### Group Notes:
+* We were introduced to NAS by Cameron W and Cameron B and got to learn about what the team does.
+* We were informed about the team's division of tasks and our team's preparation for the final presentation.
+
+### Personal Notes:
+* I setup EMADE locally and on PACE following the instructions found on the group's wiki page.
+* Installed numpy, keras, and tensorflow as the standard conda version did not include them
+* Was tasked to read the literature present on the trello board to understand the basics of what was happening in our team. These literatures include "Evolutionary Neural AutoML for Deep Learning", "Evolving Deep Neural Networks", "Concurrent Neural Tree and Data Preprocessing AutoML for
+Image Classification", and "NEUROEVOLUTION OF NEURAL NETWORK ARCHITECTURES USING CODEEPNEAT AND KERAS".
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Update Notebook|Complete|11/08/2021|11/01/2021|11/06/2021|
+|Join the Trello and Slack channel|Complete|11/08/2021|11/01/2021|11/01/2021|
+|Read the assigned literature and prepare notes and questions|Complete|11/08/2021|11/01/2021|11/01/2021|
+
+# **October 25th, 2021**
+## **Meeting 10**
+### Class Notes:
+* Final Presentation
+* Presented our final research work
+* Answered questions regarding our research findings
+* Talked about graphs we used comparing our results
+* Learned about the subteams, such as NAS, NLP, and stocks, among other teams, and their scope of work.
+
+* Presentation: https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit#slide=id.p
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Update Notebook|Complete|11/01/2021|10/25/2021|10/28/2021|
+|Completed the preference assessment on canvas|Complete|11/01/2021|10/25/2021|11/01/2021|
+
+
+# **October 20th, 2021**
+## **Meeting 9**
+### Class Notes:
+
+* Workday with VIP alumni and returning students
+* Worked out the master and worker processes with the team and debug remote connection errors
+* Prepared the midterm presentation
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Work on EMADE Presentation|Complete|10/25/2021|10/20/2021|10/22/2021|
+|Update Notebook|Complete|10/25/2021|10/20/2021|10/21/2021|
+|Completed remote connection|Complete|10/25/2021|10/20/2021|10/20/2021|
+|Completed midterm presentation|Complete|10/25/2021|10/20/2021|10/24/2021|
+
 # **October 13th, 2021**
 ## **Meeting 8**
 ### Class Notes:

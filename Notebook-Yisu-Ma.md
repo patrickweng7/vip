@@ -9,6 +9,289 @@
 **Interests:** Fingerstyle guitar, Soccer, K-pop, Camping
 
 # **Fall 2021**
+## Week 16: December 6th -  November 10th (2021)
+### Lecture overview:
+
+
+## Week 15: November 29th -  December 5th (2021)
+### Lecture overview:
+
+
+## Week 14: November 22nd -  November 28th(2021)
+### Lecture overview:
+* Image processing:
+1. On boarding new members
+2. Had poor results on their baseline runs
+* Modularity:
+1. Bootcamp members working on data visualization
+2. Dealing with Cache V2 integration
+
+* NLP Scrum:
+1. Got all the primitives for final presentations
+2. NNlearner2 bugs on classification are fixed
+3. Regression need to work on NNlearner2.
+4. Bootcamp students can try to run experiment on data we have
+
+### Subteam Notes:
+* No meeting because of thanksgiving 
+
+### Individual Notes:
+1. Tried to run the experiment in PACE, but forgot my password for database.
+2. Followed the instructions on Youtube and fixed the issue
+3. Tried to use standalone and seeding to test our output, but meet some issues with my VPN.
+Will do this again when I come back school.
+4. Continued reading this paper: https://www.researchgate.net/publication/339980709_Sentiment_Analysis_with_NLP_on_Twitter_Data
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|read Sentiment Analysis on Twitter data paper|November 22rd, 2021|November 30th, 2021|pending|
+|run standalone tree evaluator on PACE ICE|in progress|November 22rd, 2021|November 30th, 2021|in progress|
+|database password issue|fixed|November 22rd, 2021|November 30th, 2021|November 25th, 2021|
+|Record notebook|complete|November 22rd, 2021|November 30th, 2021|November 30th, 2021|
+
+
+
+## Week 13: November 15th -  November 21st(2021)
+### Lecture overview:
+* Need to keep notebook updated
+* NLP Scrum:
+1. Specified tasks in different subteams
+2. Had a lot of bug after merge
+3. Encountered memory error from EMADE. The solution is to set the memory limit param in the xml
+
+### sub-Team meeting note:
+1. Our NNlearner2 team has new members 
+2. modified the code base from NNlearner and try to make it accept 2 data pairs
+3. Got NNLearner2 working on classification.
+4. Still working on integrating 2 data pair 
+5. Reduced the scope to only regression to for this semester, because of the complexity
+
+### Individual Note:
+1. Helped he subteam change modified our xml file together
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aadxml.jpeg)
+2. Helping Devan check if our layers are able to fit into Keras model
+3. Looked trough our branch and this is our github link:https://github.gatech.edu/sleone6/emade/commit/77992e059d9d10b5174632a859c514b626d31d92
+4. Read several articles and papers on Sentiment Analysis with NLP on Twitter data
+https://medium.com/analytics-vidhya/introduction-bd62190f6acd
+
+https://ieeexplore.ieee.org/abstract/document/9036670
+
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Look through useful resource for twitter dataset NLP|in progress|November 15th, 2021|November 30th, 2021|pending|
+|run EMADE on PACE ICE environment|complete|November 15th, 2021|November 21st, 2021|November 19th, 2021|
+|check layers for Keras model|complete|November 15th, 2021|November 21st, 2021|November 20th, 2021|
+|Record notebook|complete|November 15th, 2021|November 21st, 2021|November 21st, 2021|
+
+
+
+
+## Week 12: November 8th -  November 14th (2021)
+### Lecture overview:
+* NLP Scrum:
+1. Onboard new members
+2. The old members tries to help new member build ICE-PACE environment
+3. Integrate new primitives
+4. Discussed if we shpould include Neural Network in Bootcamp
+
+###Subteam Notes:
+1. Placed into NNlearner2 data pairs team
+2. the goal is adding the nnlearner2 method that works with 2 data pairs for text type data
+3. Trying to successfully able to rum EMADE with amazoninput dataset.
+4. Sat up MariaDB
+
+###Individual notes:
+1. NNLearner: type of learner in EMADE
+Layers of neural networks are primitives in EMADE
+2. Need to make sure NNlearner2 does not run into error
+3 I tried to download twitter data set and ran the standalone tree evaluator, but error occurs in our nnlearner2.
+Devan and Steven would try to fix the bugs in Hackathon
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Create input.xml with twitter dataset|complete|November 8th, 2021|November 15th, 2021|pending|
+|Record notebook|complete|November 8th, 2021|November 15th, 2021|November 15th, 2021|
+|set up PACE ICE database|complete|November 8th, 2021|November 8th, 2021|November 15th, 2021|
+
+
+
+
+
+## Week 11: November 1st -  November 7th (2021)
+### Lecture overview:
+* Introducing myself to NLP team
+* Everyone greet with each other
+* Get to know the some basics of NNlearners
+### Team meetings:
+* Joined NLP slack
+* Talking about different layers: BIDAF ...
+* Our leader present a Q&A during the first remote meeting
+* Currently implementing  Modeling layer and output layer
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Join team slack|complete|November 1st, 2021|November 3rd, 2021|November 3rd, 2021|
+|Record notebook|complete|November 1st, 2021|November 7th, 2021|November 7th, 2021|
+|set up PACE ICE|in progress|November 1st, 2021|pending, 2021|pending|
+
+
+
+
+
+## Week 10: October 25th - November 31st (2021)
+### Lecture overview:
+* Presentation on 10/25
+* Slides link: https://docs.google.com/presentation/d/1ShDz-7hPoor3ExWA9BKqiSzqn-G4ufgBYWor-mtlzdU/edit?usp=sharing
+* Watched presentations by different sub-teams
+
+### Sub-team presentations:
+* NLP:
+1. The goal is to make machines understand natural language
+2. Doing some literature reviews
+3. Using SQUAD dataset
+4. Meeting time: Wednesday 2:00 pm
+* NAS:
+1. Preprocessing:
+Text tokenization and one hot encoding for multi-class target data
+2. CoDEEPNeat:
+Separated primitive sets and terminals between ADFs and MAIN primitive
+(didn't really understand this part)
+3. The goal is to improve the productivity of EMADE
+4. Used new analysis methods: nn_ind_from_has(hash) and view_nn_statistics
+5. Meeting time: Friday 2 - 3pm
+* Image processing:
+1. The goal is object detection, image segmentation
+2. Focused on a CheXNet (chest X-rays)
+3. 3 selected methods: NSGA-III, Hypervolume indicators and Lexicase:
+Talked about the difference between NSGA III and NSGA II.
+4. Used Tensorflow to normalize, flip and resize the images
+5. Results are obtained on 30 generations
+6. added new mutation and mating function.
+7. Some generated individuals cannot generate better results
+* Modularity:
+I went to my lab so I missed it.
+### Bootcamps presentation:
+* Team1:
+1. Did similar data preprocessing as us: Drop columns, delete irrelevant variables
+2. used SVM classifier and other bunch of machine learning methods.
+* Team2: (presented my part)
+* Team3:
+1. Did similar data preprocessing methods
+2. Talked about the troubles they met
+3. Compared the Pareto front
+* Team4: Went to my lab session
+### Individual note:
+* Probably I will choose NLP, because the goal and presentation is very sound
+
+ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Presentation|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
+|Record notebook|complete|October 25th, 2021|October 25th, 2021|October 25th, 2021|
+
+
+
+## Week 9: October 20th - October 26th (2021)
+### Lecture overview:
+* EMADE working session
+* Solving questions related to MySQL an EMADE installation
+### Team meeting notes:
+* Figured out how to run master process and work process
+
+`Server host command: mysql -h hostname -u username -d database_name -p`
+
+* Encountered errors;
+
+`Issue where fitness values for individuals were (inf, inf, inf)
+ EMADE error stated that "Tree missing valid primitve for data type"`
+* Connected to Mysql database
+* Met difficulty on getting generations after 11
+* Worked on slides for presentation on 10/25
+
+### Individual notes:
+* Rohan and Manas talked about the idea of using virtual conda environment to fix invalid version issue
+* Trying to join worker process, but need to do it under gatech network
+* Modified the code for plotting graphs
+* Finalized our slides
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 20th, 2021|October 26th, 2021|October 20th, 2021|
+|Settle environment|pending|October 20th, 2021|October 26th, 2021|October 25th, 2021|
+|Make Mysql work process working|in process|October 20th, 2021|October 26th, 2021|in progress|
+|Record Notebook|complete|October 20th, 2021|October 26th, 2021|October 26th, 2021|
+
+
+
+
+## Week 8: October 13th - October 19th (2021)
+### Lecture overview:
+* Work with the group
+* Try to run EMADE properly
+* Try to run Titanic dataset on EMADE and join the master process
+* Need to have 1 master program and other worker nodes for MySQL.
+* Meet version problem when setting up environment
+### Lecture notes:
+* Dr.Zutty answered questions from students
+### Team notes:
+* Successfully get EMADE to recognize our Mysql database
+* Experiencing EMADE error - "Tree missing valid primitive for data type"
+* Try to fix the problems evaluation functions
+* Delete Python 3.9 in my computer and downgrade it to Python 3.7
+
+### Individual notes:
+* Investigated worker output file
+* Faced some issues in joining worker process, need to access it in school network
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 13th, 2021|October 20th, 2021|October 20th, 2021|
+|Settle environment|pending|October 13th, 2021|October 20th, 2021|in progress|
+|Make Mysql work process working|in process|October 6th, 2021|October 20th, 2021|in progress|
+|Record Notebook|complete|October 13th, 2021|October 20, 2021|October 20th, 2021|
+
+
+
+
+
+
+
+## Week 7: October 6th - October 12th (2021)
+### Lecture overview:
+* Notebook completion for mid term grading.
+* projects introduction
+* midterm Presentation date on 10.25
+* Introduction to EMADE and MySQL.
+* no bootcamp session on Wednesday
+* Hackathon 10.16 or 10.17
+
+### Lecture Notes:
+* Introduced EMADE
+* The basic concept for EMADE combines a multi-objective evolutionary search with high-level primitives to automate the process of designing machine learning algorithms
+* Need to follow the install instructions and configure MySql server
+* Input .xml file is required for fulfilling configurations in EMADE.
+* Make sure the MySQL command works before troubleshooting EMADE
+* Understand the EMADE structure and see the sample output.
+evalFunctions.py is our evaluation function file
+### team note:
+* Everyone need to have EMADE downloaded and run it properly
+* clone the repository 
+* set up the package
+* Set up MySql
+* One person need to have Master process and other teammates need to join the work process
+* Encode "Embarked" feature in dataset 
+* Discussed our MOGP assignments
+* Configure XML file to run Titanic Dataset
+* Trying to resolve the problems during sql work process set up
+
+| Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Sub-team meeting|complete|October 6th, 2021|October 13th, 2021|October 12th, 2021|
+|Installed EMADE|complete|October 6th, 2021|October 13th, 2021|October 12st, 2021|
+|Make Mysql work process working|in process|October 6th, 2021|October 13th, 2021|October 13th, 2021|
+|Record Notebook|complete|October 6th, 2021|October 13th, 2021|October 13th, 2021|
+
+
 
 ## Week 6: September 29th - October 5th (2021)
 ### Lecture overview:

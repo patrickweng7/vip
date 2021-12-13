@@ -1,52 +1,46 @@
-==  Personal Information ==
+=  Personal Information =
 Name: Sriram Mudireddy
 
 Email: Smudireddy3@gatech.edu
 
 Phone #: 678-656-9709
-
+Interests: Basketball, Video Games, Rap
 VIP: Automated Algorithm Design
 Subteam: Portfolio Optimization Subteam
 Subteam Teammates:
 
 * [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Rishi_Bhatnager Rishi Bhatnager]
 * [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Pranav_Shankar_Manjunath Pranav Manjunath]
-* [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_Sriram_Mudireddy Sriram Mudireddy]
 * [https://vip.gatech.edu/wiki/index.php/Notebook_Abhiram_Venkata_Tirumala Abhiram Tirumala]
-* [https://vpn.gatech.edu/https/wiki.vip.gatech.edu/mediawiki/index.php/Notebook_David_Socher_Wolfson David Wolfson]
-== January 20th, 2021 ==
-'''<big>Lecture Notes:</big>'''
 
-'''Genetic Concept:''' With genetic algorithms, each new generation is created through mating/mutation of individuals... to arrive at best individual
-
-* <u>Genetic Algorithm/Process:</u>
-** Randomly initialize population
-** Determine fitness of the population
-** Select parents from the population (selected randomly)
-** Perform Crossover on parents creating a population
-** Perform mutation of population
-** Determine fitness of the population
-** Repeatedly perform crossovers and mutations to obtain better fit individuals.
-
-* <u>Keywords</u>
-** Individual: One specific candidate in the population - A particular solution to a problem.
-** Population: Group of individuals with alterable properties - Set of possible solutions to a problem.
-** Objective: A value used to characterize individuals that trying to maximize or minimize - "Score".
-** Fitness: Relative comparison to the population.
-** Evaluation: A function that computes the objective.
-** Selection: Give preference to better individuals to pass their genes.
-*** Fitness Proportionate: The greater the fitness value, the higher the probability of being selected for mating.
-*** Tournament: Winner selected for mating.
-** Mate/Crossover: Represents mating between individuals.
-** Mutate: Introduce random modification to maintain diversity.
-* Key Concepts:
-** The Genetic Algorithm is inspired by finding optimal individuals throughout several generations of mutations and mate/crossover'
-** Fitness can be determined through computing the objective score or mapping to the pie graph.
-** Fitness proportionate vs. Tournament
-***Fitness Proportionate represents a random chance to select the parents where the proportion is based on the normalized objective.
-*** The tournament randomly pulls individuals from the population and picks the winner (higher objective score) each time
-
-'''Action Items:'''
+=Fall 2021=
+==Week of Dec 9th== 
+===Team/Individual Notes===
+* Advice from Zutty/ Rohling:
+** Fix/iron out heatmaps to show proper profit percentage values without the double negation
+** Work on new data visualization to show pareto optimal individuals
+*** Box and whisker plot requires too many data points; need to find a better visualization
+===Final Presentations===
+Image Processing: 
+* Interested in using autoML on the Chest x-ray dataset to identify diseases
+* With the research from the NAS team they hope to also improve deep learning on EMADE image processing
+* They are using a Contrast + Sobel & Contrast + Sharpening Filter Hyper-feature to make pictures more clear and possibly identify diseases easier
+* Multi-class image identification seems to be very interesting in terms of how difficult preprocessing and then subsequently processing results seems to be
+** interesting that they use a binary method of detecting a disease rather than trying to find which individual diseases they might be misidentifying
+NLP:
+*Using AutoML to build and improve question/answering models
+*Interesting conceptually is how the exact answer is required to be marked as correct
+** Is it worthwhile to motivate multiple answers being acceptable for NLP? 
+*Plan on hand training a model and improving that model rather than simply seeding a model
+* Inaccuracy of roughly ~99% but if SOTA is only ~88-90% that figure makes more sense
+Modularity: 
+* Worked on motivating increased ARL complexity (Adaptive Response through Learning) by tree depth
+* Having and motivating really complex individuals however doesn't seem to affect the overall performance however which is interesting
+NAS:
+*Working on automated hyper-parameter optimization in neural networks 
+*Added mate/mutate and a time stopping callback to limit training time
+** Mate/mutate seems to help accuracy but the time spent doesn't seem to correlate with error
+===Action Items for Winter Break===
 {| class="wikitable"
 !Task
 !Current Status
@@ -54,25 +48,560 @@ Subteam Teammates:
 !Suspense Date
 !Date Resolved
 |-
-|Set up DEAP library for Python
-|Completed
-|January 20th, 2021
-|January 27th, 2021
-|January 21st, 2021
+|Finish Emade runs
+|In Progress
+|Nov 11, 2021
+|
+|
 |-
-|Review slides and notes from first lecture
-|Completed
-|January 20th, 2021
-|January 27th, 2021
-|January 20th 2021
+|Outline Paper 
+|In Progress
+|Nov 11, 2021
+|
+|
+|}
+==Week of Dec 3rd ==
+===Subteam Meeting Notes===
+*Only have 4 runs left for our emade process to be done 
+** Link to the tracker: https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing
+*Created the new heatmap to measure profit percentage for various combinations of Ml learner types and corresponding primitives
+** Link to the heat map can be found here: https://drive.google.com/file/d/1-mkrx2bLEzR_NbkwhIfUasryAxRfUcMm/view
+=== Individual Notes===
+*Created the core of the stocks presentation and worked on analyzing the new individuals to talk about for our final presentation
+**Best individual was (Profit Percentage: 36.382%; Profit Cdf: 9.486%):
+*** Learner(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyDeltaRSI(MyBollingerBand(MyEVM(MyDeltaMACD(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyEVM(MyDeltaSTOCH(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyBollingerBand(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyBollingerBand(MyAROON(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyBollingerBand(MyEVM(MyDeltaSTOCH(ARG0, 1, 32), 8), 5, falseBool, 10), 0), 128, greaterThan(myFloatIntDiv(myFloatIntSub(myFloatIntAdd(-0.5840088004334074, 10), lessThan(100.0, -4.695623339332281)), lessThanOrEqual(myFloatIntSub(0.1, 8), -4.695623339332281)), myFloatMult(-4.695623339332281, 100.0)), 980), 1, 14), 8), 7, falseBool, 10), 0), 10, greaterThan(myFloatIntDiv(myFloatIntSub(0.1, 50), lessThanOrEqual(myFloatDiv(myIntToFloat(lessThan(0.10145704993941784, 100.0)), myFloatSub(0.1, myFloatIntAdd(0.01, 5))), 10.0)), myFloatMult(3.693800388190727, 100.0)), -3), 1, 14), 6207, lessThanOrEqual(myFloatIntSub(myFloatIntSub(0.1, 8), passInt(0)), 10.0), 32), 1, 8), 1, 10), 8), 1, 32), 12), 0), 14, falseBool, 8), 1, 32), myFloatToInt(2.1890902574242297)), 6207, lessThanOrEqual(myFloatIntSub(0.1, 50), 10.0), 32), 1, 8), 1, 10), 8), 1, 32), 12), 14, falseBool, 10), 8), trueBool, myFloatToInt(-4.901541175503988)), trueBool, myFloatToInt(-4.901541175503988)), 0), LearnerType('ARGMIN', {'sampling_rate': 1}), EnsembleType('BAGGED', None))
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
 |-
-|Complete Lab 1
-|Completed
-|January 20th, 2021
-|January 27th, 2021
-|January 26th 2021
+|Finish Final Presentation
+|Complete
+|Dec 3, 2021
+|Dec 8, 2021
+|Dec 9, 2021
+|-
+|Finish Emade runs
+|In Progress
+|Nov 11, 2021
+|
+|
+|-
+|Outline Paper 
+|In Progress
+|Nov 11, 2021
+|
+|
+|}
+==Week of Nov 22nd== 
+===Subteam Meeting Notes===
+* We're currently making good progress on our runs as can be seen in the tracker:
+** https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing
+* We spoke to Professor Zutty about data visualizations and he suggested we make the heatmaps that map the average performance of given ML learners with individual primitives 
+** https://drive.google.com/file/d/1-mkrx2bLEzR_NbkwhIfUasryAxRfUcMm/view?usp=sharing
+*We also now have some promising data from our runs and an individual that performed decently well when compared with the paper
+** https://drive.google.com/file/d/13cH3K8wtKv-6ce0cwOn3MK-ogmOV8HM6/view
+===Individual Notes===
+*I started looking through individuals and found that individuals are becoming much more complex than they were in our runs from last semester  which we hope to be a good sign
+*I also started working on creating the new heatmaps for the emade runs
+==Week of Nov 11th, 2021== 
+===Subteam Meeting Notes===
+* We have decided to move forward on only using profit percentage as our comparison point with the paper
+** meaning we now have to implement our own logic for creating comparisons between EMADE and the models in the TS-Fuzzy paper
+* Outside of that, we're finally starting our EMADE runs and our experiments are now underway 
+* We also began discussing what sort of graphs we'd use to show insights from our experiments
+* However our compute time with all 5 objectives will mean that the compute time will be incredibly high, so we are thinking of dropping one objective
+** Our compute time will be roughly 8 hours with only 4 objectives
+* We also decided to keep loss percentage constant across all of our runs, so that we have a point of comparison between various trials.
+=== Individual Notes===
+* I proposed removing error from our objectives because it's the only one that doesn't use profit in its calculation 
+* I then worked on coming up with new data visualizations to show insights within the data
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ask Professor Zutty about new data visualizations
+|In Progress 
+|Nov 11, 2021
+|Nov 19, 2021
+|Nov 19, 2021
+|-
+|Finish Emade runs
+|In Progres
+|Nov 11, 2021
+|
+|
+|}
+==Week of Nov 4th, 2021==
+===Subteam Meeting Notes===
+*In trying to replicate the PLR-SVR model Professor Zutty pointed out that there was an issue
+** Our recreation of the PLR-SVR model didn't produce the same buy sell signals as the ones the paper generated
+** [[files/rbhat3/plr.png|thumb|50x50px]]
+*** As you can see here one of the buy peaks wasn't marked as a buy point
+*In fixing these issues we found several small inconsistencies which didn't fix the PLR-SVR discrepancy:
+** For one we were using the close price instead of the adjusted close price that the paper used
+** We also noticed that some of our code was using a fixed threshold of .206 instead of the dynamic threshold that we implemented
+*** The new file can be found in [https://github.gatech.edu/rbhatnager3/emade/blob/stocks-pace/datasets/stocks2/scripts/gen_labels.py this program] with all the new threshold changes, we still couldn't find the reason for the discrepancy between our PLR and that of the paper. 
+===Individual Notes===
+* As we were inquiring into the reason for the inconsistency, I looked into more of the paper's methodology and found and tested other potential reasons why our model was off
+* Some of the potential reasons I found were that:
+** The paper took into account standard fees & taxes for buying/selling while we didn't
+** However, the fees were still too marginal to make that much of a difference between our models' performance
+** The paper used risk free rates to calculate profit, but even in comparison with the normal profit calculation our models still didn't match, so that couldn't have been it
+* Further inquiry needs to be done into why our model doesn't match, and if we can't find the reason, we should pivot to comparing just the overall results yielded.
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Ask Professor Zutty about plr issues
+|In Progress 
+|Nov 1, 2021
+|Nov 9, 2021
+|
+|-
+|Prepare to start Emade runs
+|In Progress
+|Oct 28, 2021
+|Nov 12, 2021
+|
+|-
+|Review Paper's Plr Implementation
+|Complete
+|Oct 28, 2021
+|Nov 5, 2021
+|Nov 4, 2022
+|}
+==Week of Oct 28th, 2021==
+===Subteam Meeting Notes===
+---Presentations---
+Natural Language Processing Team: 
+* Working on developing question and answering systems with EMADE
+* Use a model called BiDAF (Bi-directional attention flow)
+* Have not created individuals yet but their goal is to make simpler state of the art models through EMADE
+* Currently seeding individuals using models found in their Literature review and developing primitives
+
+Neural Architecture Search:
+* Create new infrastructure: Nested Neural Network learners
+** incentivized by trying to force EMADE to better sift through the search space
+* Allow EMADE to efficiently/feasibly create more complex individuals
+
+Image Processing: 
+* Goal is to classify data on Chest x-rays to identify diseases using multi-label classification
+* However, the multi-label classification seems to require a great deal of reimplementation
+** I'm curious as to how they identify each individual disease and how that data is processed in the preprocessing
+
+Modularity:
+* Developing ARLs (Adaptive Representation through learning) 
+** Conceptual goal is to find parts of individuals that work well and then group those subtrees into structures to potentially improve performance
+* Looking to work on stock price prediction building off our work as a testing ground for ARLs
+** ARLs are somewhat similar in function to the technical indicators we implement in the stocks team
+===Individual Notes===
+* I Made the initial draft of our presentation and worked with team to edit it
+* Assigned and rehearsed individual slides for the midterm presentation
+* Created the new objective splits taking into account our replacements for profit and profit percentage
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Create New Objective Splits
+|Complete 
+|Oct 21, 2021
+|Oct 14, 2021
+|Oct 20, 2021
+|-
+|Rehearse presentation/ Present
+|Complete
+|Oct 21, 2021
+|Oct 28, 2021
+|Oct 28, 2022
+
 |}
 
+==Week of Oct 21st, 2021==
+===Subteam Meeting Notes===
+* We tested our best results from last semester to see how we compared against the model in the  paper
+** Based on the profit from our best Individual: Learner(MyBollingerBand(ARG0, 2, 61, falseBool), LearnerType('DECISIONTREE_REGRESSION', None), EnsembleType('SINGLE', None)) which looked at the BollingerBand and looked for a change of 61 standard deviations across a period of 2 days 
+* While our profit compared decently against the paper, but it didn't produce as much profit on each stock as it did in our first semester nor as much as what was reported in the paper.
+** Performance using code from last semester's paper: 
+[[files/rbhat3/last_sem_performance.png|thumb|50x50px]]
+** Performance using code from this semester's paper: 
+[[files/rbhat3/this_sem_performance.png|thumb|50x50px]]
+** The discrepancy is because this individual was optimized for the objectives & stocks from last semester some of which were changed for this semester's paper
+** Performance from TS-Fuzzy model reported by paper: 
+[[files/rbhat3/paper_perf.png|thumb|50x50px]]
+*** Based on last year's performance, we'd be about better overall
+*** Based on this semester's performance, we're slightly worse overall (but, again, we would still need to run EMADE using this individual as a seed instead of using it as our standard)
+* We finished our experimentation design: 
+** Objectives: profit, CDF, variance, error
+*** In order to make profit a minimization, we'll test for loss (the negative of profit)
+*** We'll test all possible combinations of one, two, three, or all of these (
+* Compute time: 768 hours (will take 8 hours on PACE)
+** Should result in about 430 generations
+* Wall time: 8 hours
+* Hosts: 3
+* Workers per host: 4
+* CPUs per host: 8
+* We'll create and rehearse our presentation over the weekend
+
+===Team Meeting Notes===
+* Can train on last semester’s train data and test on this semester’s test data to see how well our algorithms from last semester generalize to new stocks 
+** This would be a different type of analysis to using train and test data from this semester’s paper to do our main analysis
+* PACE
+** Processors per worker and workers per host should be the same
+** Compute time = # of jobs x # of cores per worker
+* Objectives: to make profit a minimization we’ll take the negative of profit (new Loss function)
+** Apply same logic for avg profit function (new avg Loss function)
+** Problem that will arise is in AUC calculation, because we can’t use 0 as our lower bound, so we’ll have to search through all our experiments and find the lowest profit we’ve gotten and use something around that as our low bound.
+===Individual Notes===
+* For the problem of AUC calculation, I suggested finding the minimum possible profit for that stock on that interval and apply it as our lower bound
+* Informed the Modularity team about some of our work on the stock team and how our primitives analysis has worked in previous year
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+
+|Finalize experiment design
+|Complete 
+|Oct 15, 2021
+|Oct 22, 2021
+|Oct 21, 2022
+|-
+|Prepare for presentation
+|In progress 
+|Oct 21, 2021
+|Oct 25, 2021
+|Oct 25, 2022
+|}
+==Week of Oct 14th, 2021==
+===Individual Notes===
+* I've begun researching into the Takagi-Sugeno Fuzzy Model that was discussed in the paper
+** The whole concept of the "Fuzzy" logic rests on the idea of having information that is vague and having your data sort of reflect that vagueness. (instead of probabilities and vagueness in data, it deals with partial truths on the side of the model)
+** We see this in the paper where there's a fuzzification of the data and a subsequent defuzzification which is then turned back over to the PLR-SVR model with the dynamic threshold detection to create trading signals. 
+===Team Notes===
+* Begun trying to replicate the paper's PLR-SVR (Piecewise Linear Regression- Support Vector Regression) model as our basis for state of the art
+* After getting working version of the PLR-SVR model into our codebase we still faced issues:
+** After implementing, I worked on debugging the PLR-SVR, and Rishi noticed that there was in issue with how we were calculating Euclidean Distance, but I found that it was algebraically equivalent and wasn't the cause of the discrepancy.
+** We also noticed that we were using a fixed threshold instead of the dynamic threshold system the paper was using.
+*** Fixed this issue as it was just the issue of using the adjusted threshold in place of the fixed threshold we were using
+** Overall the paper was reporting profit percentages that simply weren't seen in our replication of the results
+* Our Sanity check finished, but we simply can't get the same profit values and there seems to be no general pattern in the discrepancies
+** Discuss with Dr. Zutty what we can do moving forward to make our experimental design more solid
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Finalize Experimental Design
+|In Progress
+|September 17, 2021
+|October 22, 2021
+|October 21, 2021
+|-
+|Sanity Check 1
+|Completed first attempt
+|October 7, 2021
+|October 14, 2021
+|October 11, 2021
+|-
+|Research Paper Replication
+|Completed
+|October 14, 2021
+|October 22, 2021
+|October 21, 2021
+|}
+==Week of Oct 4th, 2021==
+===Team Notes===
+* Designed EMADE trials as a group to figure out the best configuration produce the best results possible.
+** Eval Functions being used:
+*** APPT, VPPT, PP, CDF Profit Dist, Tree Size, MSE, MAE
+* Dr. Zutty suggested creating and implementing the paper outside of EMADE as a sanity check and to continue if our results successfully match could serve as baseline for how well our model is actually doing in relation.
+* Rishi noted that our Profit calculation will be slightly different for us because we don't calculate tax rate or commission.
+** I noted that maybe we could find those values independently (specifically the risk free rate) or use the values found which don't take into account tax rate that are provided on the paper. 
+* Discovered that the TS-Fuzzy paper individually optimized the technical indicators on a stock-by-stock basis, instead of grouping the stocks together and creating a single unified model that optimizes the technical indicators together.
+* Also paper uses TS-Fuzzy model which professor suggested to ignore and instead include the ML programs outlined in the paper
+* Ultimately, more work needs to be done on how we approach finding and comparing against a state-of-the-art model.
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Outline Paper
+|Road Blocked for now
+|September 3, 2021
+|October 27, 2021
+|
+|-
+|Research Fuzzy Models
+|In Progress
+|September 27, 2021
+|
+|
+|-
+|Sanity Check
+|Pending
+|October 7, 2021
+|
+|
+|}
+
+==Week of Sep 27th, 2021==
+===Meeting Notes===
+* Wasn't able to attend the meeting as I was sick on this day, but got updates with Diptendu that the rest of the team was planning on splitting apart
+* Advised some of the new stocks team members on what direction they should take after splitting from the stocks team
+===Subteam Notes===
+* Met with Rishi, Abhiram, and Pranav after joining their team, so I started doing my reading on the TS-Fuzzy paper and the paper outline the stocks team had written
+* Set meeting dates with the rest of the team based on when we'd all be available
+* Need to ask Professor Zutty about what dates I should meet with the team
+ 
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Talk to Professor Zutty about the new team shift
+|Complete
+|Sep 27th, 2021
+|Oct 4th, 2021
+|Oct 4th, 2021
+|-
+|Finish setting up PACE-ICE with emade
+|Complete
+|Sep 13th, 2021
+|Sep 20th, 2021
+|Sep 19th, 2021
+|-
+|Set up meeting dates with Abhiram and the stocks-paper team
+|Complete
+|Sep 27th, 2021
+|Sep 27th, 2021
+|Oct 4th, 2021
+|}
+===Notebook Self Evaluation===
+* [https://docs.google.com/document/d/1ZSfm-LydvS8GnKHv1zRCBJT5T97AegJB/edit?usp=sharing&ouid=116937593762227430783&rtpof=true&sd=true Link to Self Evaluation for Notebook]
+==Sep 20th, 2021==
+===Meeting Notes===
+* Post-literature review we talked to Professor Zutty about new ideas for the direction of the Stock team going forward
+* Set up meetings for every Thursday at 6:30pm
+* Found paper which functioned on the idea of creating stock trading rules instead of just trading signals
+===Subteam Notes===
+* Decided to go with the research on stock generalizability and found some papers which could serve as new inspiration for that line of work
+* Went ahead and read said papers and spread what ideas I think would make good additions to the model with the rest of the group
+* Finished my own PACE-ICE set up
+* Explained to team new ideas I found relevant in the paper
+* However, Members of the group expressed concerns about being able to continue during the project, and Rishi and Abhiram reached out to me about joining the stocks paper team from last semester instead which I accepted after the other members decided to pick up other teams.
+ 
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Start planning project road map
+|Incomplete
+|Sep 13th, 2021
+|Sep 20th, 2021
+|N/A
+|-
+|Finish setting up PACE-ICE with emade
+|Complete
+|Sep 13th, 2021
+|Sep 20th, 2021
+|Sep 19th, 2021
+|-
+|Set up meeting dates with Abhiram and the stocks-paper team
+|Complete
+|Sep 27th, 2021
+|Sep 23rd, 2021
+|}
+
+==Week of Sep 13th, 2021==
+===Meeting Notes===
+* Met with Professor Zutty and talked about what the direction of our research looks like (Discussed more in Subteam Notes)
+* Subteam needs an overhaul on what/how we work on the problem/ conduct research on EMADE
+===Subteam Notes===
+* Formulated several new ideas for what direction our project could go
+** Scrap idea of working solely to replicate papers because as Dr. Zutty said and our own work shows that most papers either have inconsistencies or are just impossible to replicate without any sort of code base given
+** Thus, we should shift our focus to a literature review where we look for papers that have features or methodologies which we can actually reproduce 
+** Ideas with potential (to be expanded upon later)
+*** Find\design models within emade that are more generalizable to different stocks
+*** Move to analyze how time series analysis works within the confines of emade
+*** Focus more on how our monte carlo approaches have worked in the past to analyze/benchmark an individual's performance
+*** Focus on finding well documented/ notably published papers as a basis for finding new ideas for our paper
+*** Maybe try out newer objective functions? Potential with: False buys, False sells where the call made was incorrect 
+* I caught up the newer team members on what the direction of our research has been thus far and organized a meeting for Thursday at 6pm to regularly discuss the direction of our research
+** Discussed how the research will move forward and what will be required of them for the literature review
+** Assigned the task of finding new literature review papers with which we can find new avenues for our research
+** Use Fundamental analysis within Emade instead of just Technical Indicators
+*Finished Notebook Self Eval
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Conduct secondary literature review
+|In Progress
+|Sep 13th, 2021
+|Sep 20th, 2021
+|In Progress
+|-
+|Update Wiki Notebook
+|Complete
+|Aug 30th, 2021
+|Sept 13th, 2021
+|Sept 13th, 2021
+|-
+|Set up second regular meeting date
+|Complete
+|Sep 10th, 2021
+|Sep 16th, 2021
+|Sep 13th, 2021
+|-
+|Finish Notebook Self Eval
+|Complete
+|Aug 30th, 2021
+|Sep 13th, 2021
+|Sep 13th, 2021
+|-
+|Finish setting up PACE-ICE with emade for the rest of the team members
+|In Progress
+|Sep 13th, 2021
+|Sep 20th, 2021
+|In Progress
+|-
+|Finish Notebook Self Eval
+|Completed
+|Sep 13th, 2021
+|Sep 20th, 2021
+|In Progress
+|-
+|}
+==Week of Sep 6th, 2021==
+===Meeting Notes===
+* Met with some people on our team and planned out a literature review for finding a different direction for our project
+* Class was cancelled so we didn't really make headway in terms of actually meeting but subteam made decent progress
+===Subteam Notes===
+* Joined Stocks subteam for this semester and started planning for the work this semester
+* Started implementing PACE-ICE into EMADE and started communicating with other members of my team about how the team will conduct our research moving forward
+* Found a new paper that could maybe act as a backup in case EMADE can't outperform the first paper
+** Paper is on and is linked below/ Research method of visualizing technical indicators but in a neural net/CNN paper: [https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach Algorithmic Financial Trading with Deep Convulational Neural Networks Time Series to Image Conversion Approach]
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Find new paper
+|Complete
+|Aug 30th, 2021
+|Sep 13th, 2021
+|Sept 7st, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Aug 30th, 2021
+|Sept 13th, 2021
+|Sept 13th, 2021
+|-
+|}
+
+==Week of Aug 30th, 2021==
+===Meeting Notes===
+* Deciding on subteams based on rankings
+* Ranked Stocks subteam first, Natural Language Processing second, etc...
+
+===Subteam Notes===
+* Joined Stocks subteam for this semester and started planning for the work this semester
+* Started implementing PACE-ICE into EMADE and started communicating with other members of my team about how the team will conduct our research moving forward
+
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Join Subteam Slack
+|Complete
+|Aug 30th, 2021
+|Aug 30th, 2021
+|Sept 1st, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Aug 30th, 2021
+|Sept 13th, 2021
+|Sept 13th, 2021
+|-
+|}
+==Week of Aug 23rd, 2021==
+===Meeting Notes===
+* Brainstormed with the Stocks subteams about the future direction of our project
+
+===Subteam Notes===
+* Began ideas of using a new paper to model the direction of our research after
+* Hopefully follow similar methodology and outperform with EMADE and write a paper on it
+**However this seems like a bad direction to move our project as there are inconsistencies within the paper, so while we can make an attempt, it might be wiser to move towards a different direction
+* Follow similar approaches with the RandomCDF and Monte Carlo approaches to evaluating individuals
+=== Action Items: ===
+{| class="wikitable"
+!Task
+!Status
+!Date Assigned
+!Due Date
+!Date Completed
+|-
+|Create subteam ranking list
+|Complete
+|Aug 23rd, 2021
+|Aug 30th, 2021
+|Aug 23rd, 2021
+|-
+|Update Wiki Notebook
+|Complete
+|Aug 23rd, 2021
+|September 30th, 2021
+|Aug 30th, 2021
+|-
+|}
+= Spring 2021 =
 == January 27th, 2021 ==
 '''Lab Notes:'''
 * '''One Max Problem'''
@@ -129,7 +658,7 @@ Subteam Teammates:
 |February 1st 2021
 |}  
 
-==  February 3rd, 2021 ==
+== February 3rd, 2021 ==
 
 '''''Multiple Objectives- The MO in MOGA and MOGP'''''
 * '''Genetic Programming Life Cycle''': New Gene Pool → Evaluation → Genes w/ scores → Fitness Computation → Genes w/ fitness → Selection → Parental Genes → Mating → Child Genes → Mutation → New Gene Pool
@@ -178,7 +707,7 @@ Subteam Teammates:
 *** Pareto optimal individuals are nondominated and receive an R of 0
 ** A distance to the Kth nearest neighbor (σ^k) is calculated and a fitness of R + 1/((σ^k)+ 2) is obtained {| class="wikitable" !Task !Current Status !Date Assigned !Suspense Date !Date Resolved |- |Review slides and notes from thirdlecture |Completed |February 3rd, 2021 |February 10th, 2021 |February 10th, 2021 |- |Start on Lab 2 part 1 |Completed |February 17th, 2021 |February 17th, 2021 |incomplete |}
 
-==  February 10th, 2021 ==
+== February 10th, 2021 ==
 '''Start of Titanic Challenge (Team #1)'''
 * Introduced to the Titanic Challenge on Kaggle, and assigned to a sub team
 ** I was assigned to sub team #1 on the basis of pareto optimality amongst groups 
@@ -281,7 +810,7 @@ Subteam Teammates:
 |February 16, 2021
 |}
 
-==  February 17th, 2021 ==
+== February 17th, 2021 ==
 '''MOGP Assignment Assigned'''
 * The goal now is to solve the same problems but this time use genetic algorithms instead of ML models
 * Taking care not to use DEAP's library as we were instructed to create our own strongly typed Primitives
@@ -375,7 +904,7 @@ Subteam Teammates:
 |February 23, 2021
 |}
 
-==  February 24th, 2021 ==
+== February 24th, 2021 ==
 '''Lecture Notes:'''
 * Gave our presentation to Dr.Zutty and the other sub teams and subsequently answered their questions 
 * Presented our project the [https://docs.google.com/presentation/d/1y6xUunAgmt_tRH-qFFz3jScmeawIgGDKbXhcWZBMxC4/edit#slide=id.p Presentation on "Predictions on Titanic Survivors with ML and MOGP"] 
@@ -890,7 +1419,7 @@ Subteam Teammates:
 |4/15/2021
 |}
 
-==  April 19th, 2021 ==
+== April 19th, 2021 ==
 === Team Meeting Notes ===
 *Need a frame of reference for our model to understand how well it does not only on our stock
 *Clarify that our goal is a model that is generalizable for any stock especially those with less volatility
@@ -1020,307 +1549,7 @@ Subteam Teammates:
 *** The weighting function adds to each occurrence of the ARL
 *** Edited multiple other methods to deal with the increased depth of ARLS
 *** These methods contract places where ARL subtrees are found in the population into just the single ARL node, pass data into made.
-==Aug 23rd, 2021==
-===Meeting Notes===
-* Brainstormed with the Stocks subteams about the future direction of our project
 
-===Subteam Notes===
-* Began ideas of using a new paper to model the direction of our research after
-* Hopefully follow similar methodology and outperform with EMADE and write a paper on it
-**However this seems like a bad direction to move our project as there are inconsistencies within the paper, so while we can make an attempt, it might be wiser to move towards a different direction
-* Follow similar approaches with the RandomCDF and Monte Carlo approaches to evaluating individuals
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Create subteam ranking list
-|Complete
-|Aug 23rd, 2021
-|Aug 30th, 2021
-|Aug 23rd, 2021
-|-
-|Update Wiki Notebook
-|Complete
-|Aug 23rd, 2021
-|September 30th, 2021
-|Aug 30th, 2021
-|-
-|}
-==Aug 30th, 2021==
-===Meeting Notes===
-* Deciding on subteams based on rankings
-* Ranked Stocks subteam first, Natural Language Processing second, etc...
-
-===Subteam Notes===
-* Joined Stocks subteam for this semester and started planning for the work this semester
-* Started implementing PACE-ICE into EMADE and started communicating with other members of my team about how the team will conduct our research moving forward
-
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Join Subteam Slack
-|Complete
-|Aug 30th, 2021
-|Aug 30th, 2021
-|Sept 1st, 2021
-|-
-|Update Wiki Notebook
-|Complete
-|Aug 30th, 2021
-|Sept 13th, 2021
-|Sept 13th, 2021
-|-
-|}
-==Sep 6th, 2021==
-===Meeting Notes===
-* Met with some people on our team and planned out a literature review for finding a different direction for our project
-* Class was cancelled so we didn't really make headway in terms of actually meeting but subteam made decent progress
-===Subteam Notes===
-* Joined Stocks subteam for this semester and started planning for the work this semester
-* Started implementing PACE-ICE into EMADE and started communicating with other members of my team about how the team will conduct our research moving forward
-* Found a new paper that could maybe act as a backup in case EMADE can't outperform the first paper
-** Paper is on and is linked below/ Research method of visualizing technical indicators but in a neural net/CNN paper: [https://www.researchgate.net/publication/324802031_Algorithmic_Financial_Trading_with_Deep_Convolutional_Neural_Networks_Time_Series_to_Image_Conversion_Approach Algorithmic Financial Trading with Deep Convulational Neural Networks Time Series to Image Conversion Approach]
-
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Find new paper
-|Complete
-|Aug 30th, 2021
-|Sep 13th, 2021
-|Sept 7st, 2021
-|-
-|Update Wiki Notebook
-|Complete
-|Aug 30th, 2021
-|Sept 13th, 2021
-|Sept 13th, 2021
-|-
-|}
-==Sep 13th, 2021==
-===Meeting Notes===
-* Met with Professor Zutty and talked about what the direction of our research looks like (Discussed more in Subteam Notes)
-* Subteam needs an overhaul on what/how we work on the problem/ conduct research on EMADE
-===Subteam Notes===
-* Formulated several new ideas for what direction our project could go
-** Scrap idea of working solely to replicate papers because as Dr. Zutty said and our own work shows that most papers either have inconsistencies or are just impossible to replicate without any sort of code base given
-** Thus, we should shift our focus to a literature review where we look for papers that have features or methodologies which we can actually reproduce 
-** Ideas with potential (to be expanded upon later)
-*** Find\design models within emade that are more generalizable to different stocks
-*** Move to analyze how time series analysis works within the confines of emade
-*** Focus more on how our monte carlo approaches have worked in the past to analyze/benchmark an individual's performance
-*** Focus on finding well documented/ notably published papers as a basis for finding new ideas for our paper
-*** Maybe try out newer objective functions? Potential with: False buys, False sells where the call made was incorrect 
-* I caught up the newer team members on what the direction of our research has been thus far and organized a meeting for Thursday at 6pm to regularly discuss the direction of our research
-** Discussed how the research will move forward and what will be required of them for the literature review
-** Assigned the task of finding new literature review papers with which we can find new avenues for our research
-** Use Fundamental analysis within Emade instead of just Technical Indicators
-*Finished Notebook Self Eval
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Conduct secondary literature review
-|In Progress
-|Sep 13th, 2021
-|Sep 20th, 2021
-|In Progress
-|-
-|Update Wiki Notebook
-|Complete
-|Aug 30th, 2021
-|Sept 13th, 2021
-|Sept 13th, 2021
-|-
-|Set up second regular meeting date
-|Complete
-|Sep 10th, 2021
-|Sep 16th, 2021
-|Sep 13th, 2021
-|-
-|Finish Notebook Self Eval
-|Complete
-|Aug 30th, 2021
-|Sep 13th, 2021
-|Sep 13th, 2021
-|-
-|Finish setting up PACE-ICE with emade for the rest of the team members
-|In Progress
-|Sep 13th, 2021
-|Sep 20th, 2021
-|In Progress
-|-
-|Finish Notebook Self Eval
-|Completed
-|Sep 13th, 2021
-|Sep 20th, 2021
-|In Progress
-|-
-|}
-===Notebook Self Evaluation===
-* [https://docs.google.com/document/d/1ZSfm-LydvS8GnKHv1zRCBJT5T97AegJB/edit?usp=sharing&ouid=116937593762227430783&rtpof=true&sd=true Link to Self Evaluation for Notebook]
-==Sep 20th, 2021==
-===Meeting Notes===
-* Post-literature review we talked to Professor Zutty about new ideas for the direction of the Stock team going forward
-* Set up meetings for every Thursday at 6:30pm
-* Found paper which functioned on the idea of creating stock trading rules instead of just trading signals
-===Subteam Notes===
-* Decided to go with the research on stock generalizability and found some papers which could serve as new inspiration for that line of work
-* Went ahead and read said papers and spread what ideas I think would make good additions to the model with the rest of the group
-* Finished my own PACE-ICE set up
-* Explained to team new ideas I found relevant in the paper
-* However, Members of the group expressed concerns about being able to continue during the project, and Rishi and Abhiram reached out to me about joining the stocks paper team from last semester instead which I accepted after the other members decided to pick up other teams.
- 
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Start planning project road map
-|Incomplete
-|Sep 13th, 2021
-|Sep 20th, 2021
-|N/A
-|-
-|Finish setting up PACE-ICE with emade
-|Complete
-|Sep 13th, 2021
-|Sep 20th, 2021
-|Sep 19th, 2021
-|-
-|Set up meeting dates with Abhiram and the stocks-paper team
-|Complete
-|Sep 27th, 2021
-|Sep 23rd, 2021
-|}
-==Sep 27th, 2021==
-===Meeting Notes===
-* Wasn't able to attend the meeting as I was sick on this day, but got updates with Diptendu that the rest of the team was planning on splitting apart
-* Advised some of the new stocks team members on what direction they should take after splitting from the stocks team
-===Subteam Notes===
-* Met with Rishi, Abhiram, and Pranav after joining their team, so I started doing my reading on the TS-Fuzzy paper and the paper outline the stocks team had written
-* Set meeting dates with the rest of the team based on when we'd all be available
-* Need to ask Professor Zutty about what dates I should meet with the team
- 
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Talk to Professor Zutty about the new team shift
-|Complete
-|Sep 27th, 2021
-|Oct 4th, 2021
-|Oct 4th, 2021
-|-
-|Finish setting up PACE-ICE with emade
-|Complete
-|Sep 13th, 2021
-|Sep 20th, 2021
-|Sep 19th, 2021
-|-
-|Set up meeting dates with Abhiram and the stocks-paper team
-|Complete
-|Sep 27th, 2021
-|Sep 27th, 2021
-|Oct 4th, 2021
-|}
-==Sep 27th, 2021==
-===Meeting Notes===
-* Wasn't able to attend the meeting as I was sick on this day, but got updates with Diptendu that the rest of the team was planning on splitting apart
-* Advised some of the new stocks team members on what direction they should take after splitting from the stocks team
-===Subteam Notes===
-* Met with Rishi, Abhiram, and Pranav after joining their team, so I started doing my reading on the TS-Fuzzy paper and the paper outline the stocks team had written
-* Set meeting dates with the rest of the team based on when we'd all be available
-* Need to ask Professor Zutty about what dates I should meet with the team
- 
-=== Action Items: ===
-{| class="wikitable"
-!Task
-!Status
-!Date Assigned
-!Due Date
-!Date Completed
-|-
-|Talk to Professor Zutty about the new team shift
-|Complete
-|Sep 27th, 2021
-|Oct 4th, 2021
-|Oct 4th, 2021
-|-
-|Finish setting up PACE-ICE with emade
-|Complete
-|Sep 13th, 2021
-|Sep 20th, 2021
-|Sep 19th, 2021
-|-
-|Set up meeting dates with Abhiram and the stocks-paper team
-|Complete
-|Sep 27th, 2021
-|Sep 27th, 2021
-|Oct 4th, 2021
-|}
-==Oct 4th, 2021==
-===Team Notes===
-* Designed EMADE trials as a group to figure out the best configuration produce the best results possible.
-** Eval Functions being used:
-*** APPT, VPPT, PP, CDF Profit Dist, Tree Size, MSE, MAE
-* Dr. Zutty suggested creating and implementing the paper outside of EMADE as a sanity check and to continue if our results successfully match could serve as baseline for how well our model is actually doing in relation.
-* Rishi noted that our Profit calculation will be slightly different for us because we don't calculate tax rate or commission.
-** I noted that maybe we could find those values independently (specifically the risk free rate) or use the values found which don't take into account tax rate that are provided on the paper. 
-* Discovered that the TS-Fuzzy paper individually optimized the technical indicators on a stock-by-stock basis, instead of grouping the stocks together and creating a single unified model that optimizes the technical indicators together.
-* Also paper uses TS-Fuzzy model which professor suggested to ignore and instead include the ML programs outlined in the paper
-* Ultimately, more work needs to be done on how we approach finding and comparing against a state-of-the-art model.
-===Action Items===
-{| class="wikitable"
-!Task
-!Current Status
-!Date Assigned
-!Suspense Date
-!Date Resolved
-|-
-|Outline Paper
-|Road Blocked for now
-|September 3, 2021
-|September 27, 2021
-|
-|-
-|Research Fuzzy Models
-|In Progress
-|September 27, 2021
-|
-|
-|-
-|Sanity Check
-|Pending
-|October 7, 2021
-|
-|
-|}
 
 
 

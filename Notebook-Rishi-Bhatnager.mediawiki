@@ -23,8 +23,206 @@ Subteam Teammates:
 ** -2 Level of Detail
 ** -2 Usefulness to team
 
+==Dec 10, 2021==
+'''Team Meeting Notes'''
 
-==Oct 25, 2022==
+''Final Presentation day, notes for each subteam below''
+
+'''Our presentation'''
+* Create trade signal visualization for complex individuals (especially for argmin/max trees where we don’t really know what’s going on)
+
+Image Processing
+* Baseline results:
+** Objectives: ROC AUC, number of parameters
+** Parteo front AUC: .219
+* NSGA II performs better than Lexicase and NSGA III
+* Geometric Mating and Mutation (new operators for sequence individuals): Partially matched, ordered crossover, uniform and multipoint
+** Ran into errors with the former two
+** Uniform and multipoint best ROC AUC: .365
+* Contrast and sharpening filter gets lower ROC AUC than contrast and Sobel filter (but still worse than baseline)
+
+NLP
+* Goal: use autoML to improve Q&A systems
+* Best results: .1% reduction in area of interest
+** Both seeds and individuals performed poorly
+** SOTA also doesn’t perform too well
+* Future work:
+** Improve low scoring results
+** Implement multi output regression individuals
+** Debug problems with already-implemented embeddings
+** Lazy bug fixes
+
+NAS
+* Weight sharing:
+** pros: best individual good for 1 epoch (64% test accuracy)
+** cons: weights in database are too slow
+* Adam optimizer performed well
+* General next steps:
+** Remove SGD or only use Adam
+** Experiment with training callbacks
+
+Modularity
+* Experiment 1 takeaway: Size may not inherently imply usefulness
+* Analysis of ARL effects on individuals’ objectives (experiment 2) takeaways:
+** Most ARLs tended to follow the general distribution
+** ARLs which differ from the general distribution were rare
+* Future work: 
+** ARL construction
+** ARL selection experiments
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze individuals
+|In progress 
+|Nov 11, 2021
+|
+|
+|}
+
+
+==Nov 19, 2021==
+'''Subteam Notes'''
+* Right now we're just running experiments. We're waiting to get some more done before we dive deep into performing all of the analysis, so we're waiting for that and just churning out runs. A tracker of our runs can be found [https://docs.google.com/spreadsheets/d/1PPvUCCXGK2Ni6-W26sQ39TONQPYYaP9ZAUq6xL0OGeY/edit?usp=sharing here]
+* A good example of a relatively strong individual can be found [https://drive.google.com/file/d/13cH3K8wtKv-6ce0cwOn3MK-ogmOV8HM6/view here]. Here is how it compares to the paper:
+{| class="wikitable"
+!Stock
+!Individual's Profit
+!TS-Fuzzy Profit
+!EMADE is better?
+|-
+|AAPL
+|68.86% 
+|45.16%
+|Yes
+|-
+|BA
+|8.11% 
+|32.66%
+|No
+|-
+|VZ
+|15.14% 
+| -1.24%
+|Yes
+|-
+|XOM
+|7.98% 
+|14.78%
+|No
+|-
+|JNJ
+|.65% 
+|6.31%
+|No
+|-
+|CAT
+|35.33% 
+|17.01%
+|Yes
+|-
+|S&P 500
+|32.16% 
+|11.9%
+|Yes
+|}
+** So EMADE beats out the paper with 4/7 stocks, which is good, but there is obviously still room for improvement. But this is also just one individual and there is more analysis to be done. Also, it is definitely a plus that EMADE never produces a loss.
+* Another analysis we have done is producing [https://drive.google.com/file/d/1-mkrx2bLEzR_NbkwhIfUasryAxRfUcMm/view this heatmap] summarizing the performance of individuals by the learners and primitives used.
+** The numbers here are loss percentage, so darker blue is better. For example, -1.03% means 3% profit, -.97% means 3% loss, and -1 means no profit/loss.
+** A blank box means there were no individuals with both that learner and primitive.
+* Once we get a couple more runs done (most likely during or after Thanksgiving break) we will start conducting the bulk of our analysis.
+
+'''Team Meeting Notes'''
+* Dr. Zutty said:
+** We're on a good pace, and our plan sounds good
+** We should make it clear on the individuals' cdf charts that a profit of 1.68 signifies 68% profit not 168%
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze individuals
+|In progress 
+|Nov 11, 2021
+|
+|
+|}
+
+==Nov 11-12, 2021==
+'''Subteam Meeting Notes'''
+* We had a quick meeting to catch everyone up with what's going on with the team
+* Basically, we're running all of our experiments, and that is what we'll primarily be doing for some time
+* We can start analyzing individuals as runs finish up
+** Specifically, we plan on using a graph similar to the one Dr. Zutty said was good from our Spring final presentation (heat map showing frequency of learner-primitive pairs in individuals)
+
+
+'''Team Meeting Notes'''
+* I was not able to go to the meeting (out sick), but Abhiram relayed to us that Dr. Zutty suggested we keep one objective throughout all of the runs so we can have some way to compare them. We decided to keep profit percentage (loss for the minimization) as this will also give all runs a comparison to the paper.
+
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Analyze individuals
+|In progress 
+|Nov 11, 2021
+|
+|
+|}
+
+
+==Nov 3-5, 2021==
+'''Individual Notes'''
+* I tried debugging the PLR code. I was able to get our code closer to the paper's results but was unable to fully replicate these results
+** I noticed that we were using close prices instead of adjusted closes, and making the change to use the latter got our PLR results to get closer to the paper's. Below is a side-by-side comparison, where my results are on the left and the paper's results. My results are missing one peak that appears in the paper, and that peak is circle in red on the right.
+*** [[files/rbhat3/plr.png|thumb|50x50px]]
+** It also looked like we were calculating trade signals using different formulas than in the paper (these might be from the old paper), but fixing this didn't change the PLR results. Specifically, I tried changing the method for how we generate signals to the following (this is the gen_labels method in [https://github.gatech.edu/rbhatnager3/emade/blob/stocks-pace/datasets/stocks2/scripts/gen_labels.py this file], my code isn't pushed so that link is for the existing code):
+*** [[files/rbhat3/gen_signals.png|thumb|50x50px]]
+* We are going to ask Dr. Zutty about this at our meeting tomorrow, and after that we should be able to start running our experiments 
+
+'''Team Meeting Notes'''
+* Since we can’t properly match the paper’s PLR results, we’re fitting to the a different function than the paper, which could be a problem
+** Though it would be ideal to solve this before running our experiments, we can start the experiments since it is getting late and we aren’t too far off
+* Abhiram got a weird error when turning our objectives to minimizations
+** It turned out that this was just a bug in EMADE.py where a zero was hardcoded and it should be equivalent to the lower bound of the corresponding objective (as it is specified in the XML template)
+* Parameters for objectives in template file:
+** Lower and upper are lower and upper bounds on possible values
+** Achievable and goal: lower bounds on values for the objective that should be immediately achievable and the ideal value we’re shooting for (individuals with values in this range we’ll be weighted higher)
+*** Check the math on how these affect evolution for our objectives (since they’re pretty unique and haven’t been as robustly tested as the problems other subteams are exploring). Make sure this part of the code makes sense for our objectives.
+* Next steps: do test runs of PACE-ICE and then begin running experiments
+
+
+'''Action Items'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read paper and begin replicating it
+|Complete  
+|Sept 17, 2021
+|
+|Nov 4, 2021
+|}
+
+
+==Oct 25, 2021==
 '''Individual Notes'''
 * I helped make and revise [https://docs.google.com/presentation/d/1lQG83vSyWI1dqOSJg99hHIOyeu1lj4umVpzzBjLG_cA/edit?usp=sharing our presentation]
 * I also rehearsed my slides (1, 2, 16-19)

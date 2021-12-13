@@ -35,6 +35,213 @@ Teammates:
 
 Total Out of 100: '''91/100'''
 
+== December 6th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our final team meeting was a check-in to ensure everyone was on track with their slides. At this time a lot of members had a couple of vacancies within the slides but I tried my best to outline the necessary steps they should take to ensure they have their sections done in time for the presentation. I also made sure to offer my time to whoever has low bandwidth this week due to finals.
+* The biggest point made was that all team members should ensure they've got some results which can be turned into visuals for them to discuss during the presentation. I was very adamant about having as much to show for all of our great work as possible. 
+* Fortunately most team members delivered excellently, I especially enjoyed the visualization that Justin H put together for his slides.
+* Pranav and Rayan showed me their slides and I gave some feedback to Pranav about some good future applicability that he could discuss with the literature review he's completed. He seemed to really grasp the reading well! 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|2 trials of EMADE on pace containing Mate/Mutate methods in EMADE and without
+|Complete
+|11/29/21
+|12/10/21
+|12/09/21
+|-
+|Add slides about changes made within EMADE regarding weight sharing and mating/mutation methods in EMADE
+|Complete
+|11/29/21
+|12/10/21
+|12/09/21
+|-
+|}
+
+'''Individual Notes:'''
+* This week, during my pace runs I noticed a couple of different things that I think will be important for future exploration of NAS. The first thing is that EarlyStopping callbacks are extremely useful in maximizing the productivity of EMADE. Finding a way to get under the hood of this callback could prove useful in the future. For the sake of my runs, I simply utilized the parameters set in this commit and encouraged others to as well. [https://github.gatech.edu/cwhaley9/emade/commit/c66274c411536f0c7d5e1982d4f06a2cb07f6d78 commit]
+* Another thing I noticed was that when I ran EMADE locally with GPU support, I consistently saw higher-performing individuals as opposed to my pace runs which generated a lot of trivial(though functional) individuals. I wonder how significant GPU support will be in the evolution of EMADE and would like to explore some lower-level optimizations that are probably already available within Tensorflow and Keras to optimize matrix multiplication operations.
+* Novelty detection will certainly prove useful as I've run into an issue in one of my local runs which generates a very high-performing individual but causes the future populations to continue leveraging the same modules that succeeded earlier. Preventing this is a must for the future however, something that was especially wierd (not necessarily good or bad) was that when future individuals utilized the same combinations of modules they got nearly the exact same performance out of those modules even though those modules had usually mutated or been mated to produce a completely different module than what was used before. I'm not sure how this is possible and will make it a point to inspect in the future. 
+* Cameron W has made it a point throughout the semester to mention that we need to remove max-pooling layers from the primitive set provided to modules. I agree with this and just want to make that note here as well. The reason is that individuals which currently utilize max-pooling layers do so very inefficiently and at undesirable points within the network(according to the research we've seen). We'll want to constrain usage of max-pooling layers in a smarter way within the future. 
+* All of the changes I played a part in are discussed within our powerpoing [https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing here] I'm responsible for slides 14-26.
+
+== November 29th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting consisted of the final distribution of slides amongst team members followed by necessary debugging of any final issues had by team members. Novelty detection seems to be at a functional stat however we are lacking in methods to run trials with for the final presentation. Devesh pitched a decent idea which was to simply add 1 to the 'novelty score metric' for any individual containing a layer that makes up less than 50% of the population. I recommended conner implement at least 3 random eval methods which utilize layer frequencies in order to have enough information to discuss during the presentation.
+* I've verified that at least one new team member is complete with their slides but am unsure of the other 2.
+* Lucas is currently doing some literature review to familiarize himself more with the work we are engaged in which he will discuss during the introductory slides of our final presentation.
+* Justin has completed most of his additions and is finishing off his work by constructing a visualization that exemplifies the new capabilities associated with 'family trees' within EMADE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Test WeightSharing Implementation with 1 local run of EMADE
+|Completed
+|11/20/21
+|11/26/21
+|12/03/21
+|-
+|2 trials of EMADE on pace containing Mate/Mutate methods in EMADE and without
+|Incomplete
+|11/29/21
+|12/10/21
+|
+|-
+|Add slides about changes made within EMADE regarding weight sharing and mating/mutation methods in EMADE
+|Incomplete
+|11/29/21
+|12/10/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I took time to merge the changes to EMADE that were provided to me including Justin H's parent columns in the SQL table and Devesh's new CIFAR-10 gen script. The commit is linked [https://github.gatech.edu/cwhaley9/emade/commit/02e2b400b8f2ee79aaeee65744ca1479f235a0a7 here]
+* I also took some time to reconfigure my EMADE version on pace which was out of date. After making the necessary changes I started 1 of my runs.
+* Finally, I began making changes to the final presentation slides we will be presenting. Outside of the slides that I'll be presenting, I've made a template of expected slides for team members who have data and results to show for the semester along with new members who have an expected set of points they will make.  
+
+
+== November 22nd, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting was a regular update of team status.
+* I have yet to receive updates from team members about completed tasks. I've checked in with some new members and noticed that they are working hard to complete the new slides for our final presentation.
+* I am currently blocked for the week until I get the completed tasks of my teammates. Cameron W and I exchanged some ideas about implementing weight sharing and have both provided our own implementations on seperate branches. Mine can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/neural_network_methods.py#L678-L700 here]. In this commit, I've essentially taken the new Module primitive and modified it to take in a layerlist which it will use to compile it's own part of a given individual. I've done some light testing but have not been able to fully verify it's functional.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add verification check to mutation/mating methods
+|Completed
+|11/16/21
+|11/21/21
+|11/19/21
+|-
+|Test WeightSharing Implementation
+|Incomplete
+|11/20/21
+|11/26/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I made some updates to my previous commit from last week and modified the genNNLearner method which contained some flawed logic for preventative protection against bad nnlearners. A flaw with the previous logic I was using came up while I was debugging some individuals in an EMADE run. The existing code I provided was essentially accumulating reshape sizes of Modules while assembling NNLearner Layerlists. However, because these models are constructed in a backward way in order to be compatible with our compile functionality, I noticed that it was possible for flawed individuals to appear by simply building up a buffer of positive reshape module values which come after modules that are invalidly placed near the bottom(beginning) of NNLearner Layerlists.
+* In order to fix this flaw in logic, I made a method called forward prune which essentially takes a generated layerlist and manually adds each module one at a time while compiling them in order to verify that the layerlist is being given to the NNLearner is actually compilable. This logic removes any given modules which cause an error in compilation for a given layerlist.
+* Additionally, I added some verification checks within each of the manually written NNLearner mating and mutation methods which ensures modified individuals are able to compile after being transformed. A link to this commit can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/emade_operators.py#L17-L922 here]
+
+== November 15th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting was a regular update of team status.
+* Our team was unable to get desired completion of tasks on time during the provided time at our VIP hackathon. Unfortunately this will push back the amount of time available to do EMADE runs but hopefully we will still have sufficient access to pace-ice resources.
+* Dr. Zutty provided some insights about how we could utilize a parent column in our existing EMADE individuals table in order to produce complex graph structures which will provide fruitful trends over multiple generations. We haven't fully fleshed out some applications but we plan to explore elapsed time over time and possibly improved accuracy.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete addition of mutation-mating ADF methods 
+|Complete
+|11/5/21
+|11/18/21
+|11/14/21
+|-
+|Add verification check to mutation/mating methods
+|Incomplete
+|11/16/21
+|11/21/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I worked on completing Mutation/Mating methods as well as assist Cameron W in completion of weight sharing between modules in EMADE. 
+* While working through some of the mating and mutation methods, I noticed that there seemed to be some methods which cannot be applied to certain types of individuals. For instance, the gp.mutInsert method would not be applied to any NNLearner individual in a meaningful way because there is not built in way to verify that a mutated insertion would be valid for a given pair of NNLearners. I ended up seperating the existing mating and mutation logic into two seperate methods which can be executed by NNLearners/Modules or regular Emade individuals(in the far future event where this fork gets merged with EMADE).
+* Additionally, I setup scoring for modules which now allows modules to recieve an average objective score based on the scores of the individuals using them. This scoring is used to incur a selection(which defaults to selNSGA2) which I use during every launch to get rid of the worst-performing modules and replace them with new Modules. A link to the commit can be seen [https://github.gatech.edu/cwhaley9/emade/blob/c48430969d280b4fcecc2a16df91c302c29f3362/src/GPFramework/EMADE.py#L786-L866 here]
+* Next week, I will add some helpful checks to the existing methods for mating and mutation which ensure any applied transformation on an NNLearner is valid and doesn't break existing individuals.
+* I feel that a lot of the preventative logic we'll be implementing will further help EMADE optimize it's usage of training time. Hopefully, we will have some time later to incorporate more of the latest research structures such as the SuperNet which was proposed earlier in the year.
+
+
+== November 8th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meeting was a regular update of team status.
+* NLP team seems to be in the middle of testing their new primitives within their NLP branch.
+* Image Processing Team is currently looking to do increased amounts of literature review with their new members and get some people setup locally to get early on runs going.
+* Our team is working to get some infrastructure in place that allows us to do effective runs of EMADE for our final presentation.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete addition of mutation-mating ADF methods 
+|Incomplete
+|11/5/21
+|11/18/21
+|
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I worked to assist Cameron W in modifying EMADE.py to ensure it generates globally accessible ADF's for the purpose of more accurately representing CoDEEPNEAT within EMADE. After getting this change made, I worked on a change for emade which now forces deap to use a generate method which only generates valid adfs and NNLearners rather than allowing dimensionality errors to occur due to pooling layers or other similar issues. If anyone is interested, I've linked the commit [https://github.gatech.edu/cwhaley9/emade/blob/c4fc8ede2b4c6d3cb8916516114c93e78647fc49/src/GPFramework/neural_network_methods.py#L1259-L1400 here].
+* One other thing that has been added is a file Glob_ADF which now gets generated on an EMADE run and keeps track of adf primitive tree objects for all processes running.
+* Cameron W and I have now decided to branch into different directions with me working on mating and mutation methods for ADFs. These methods will hopefully allow for speciation of ADFs and categorizations which allow us to more effectively select desirable neural net modules.
+
+== November 1st, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our SCRUM meetings consisted of each team sharing their goals going into the final stretch of the semester.
+* NAS team detailed their interest in exploring novelty detection through a set of experiments.
+* Additionally, each team recieved new members and got some time to onboard and gauge interest of new members.
+* NAS team gave updates internally and assigned the task of setting up EMADE to its new members.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Trello Board with new tasks for new members
+|Completed
+|11/1/21
+|11/8/21
+|11/6/21
+|-
+|Complete method for generating ADFs manually
+|Complete
+|11/1/21
+|11/15/21
+|11/12/21
+|-
+|}
+
+'''Individual Notes:'''
+* This week, I ran into some issues trying to resolve the bug with ADFs which cause them to be inconsistent amongst individuals. My first attempt at solving this problem was to pickle the object used to generate ADFs and load that object for every process needing to generate or access ADF informaton. This approach was not what I wanted as it turns out that the PrimitiveSetTyped class doesn't generate any ADFs for individuals until it is told by the toolbox to do so.
+* After realizing this, I'm currently taking on the task of generating a function which generates ADFs within EMADE that can be fed as primitives to the NNLearner Main primitive set type. The implementation of this method is relatively straight forward but requires changes to the SQL code which stores ADF information. I have not yet fully updated this code and hope to do so in the following week.
+* I also am looking to generate tasks for new members to engage in that will be reasonably paced but useful for our final presentation. One member requested a task around the topic of Literature Review which I think would be a great idea. I will generate a task for reading some of the articles our team has discussed in order to get members up to speed on what it is we do. Similarly, I will plan out a brief presentation that will hopefully give new members insight into some unfamiliar Machine Learning concepts. 
 
 == October 25, 2021 ==
 '''Team Meeting Notes:'''

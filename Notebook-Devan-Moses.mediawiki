@@ -9,6 +9,238 @@ Interests:
 *Academic: Artificial Intelligence, Machine Learning, NLP, Cognition, Bio-Inspired Learning
 *Recreational: Video games, Reading (Mostly fiction & academic), Outdoor activities (Hiking, Kayaking, etc.)
 
+== Nov 08, 2021 and Later==
+* Page got too long to load
+* [https://github.gatech.edu/emade/emade/wiki/Notebook-Devan-Moses-II My notebook continued]
+== Nov 01, 2021 ==
+'''Team Meeting Notes:'''
+*img processing
+** changed from MO to binary classification based on eval function results
+*mod
+** reassessing goals/timeline for rest of sem
+** stonks team used cachev2
+***modularity branch migration in progress
+** planned out first sem tasks
+** jason advised to add their changes to cachev2 branch rather than pulling in
+*nlp
+**should put together some layer combos that should work and feed into nnlearner for unit testing
+*nas
+** bugfix for time stop funcitonality
+** added constraints to primitives for i/o dimensions
+** isolating the focus for rest of semester, decided on novelty detection, time stopping, and structural changes for primitives
+** looking into options for tuing hyperparams
+**to nlp: batch size should be a number that divides dataset size or runs stall out
+
+'''Sub-team Meeting Notes:'''
+* PACE-ICE down for most of this week
+* We started working on some unit tests to test input/output dimensions
+* Steven gave a presentation to the new guys about deep learning
+* I gave them a presentation about NLP/QA/BIDAF
+* Both of us took questions as well to get every caught up or on the way to being so
+
+'''Individual notes:'''
+* The new guys had a lot of good questions and I made sure to specify that everything we're doing in a plan and we'll be more than willing to implement any good ideas or input that they have.
+* Could only really test dimensionality instead of debugging runs due to PACE outage.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Present to new members
+|Completed
+|Nov 01, 2021
+|Oct 03, 2021
+|Oct 03, 2021
+|-
+|Test layer i/o dimensions
+|Completed
+|Nov 01, 2021
+|Nov 06, 2021
+|Nov 06, 2021
+|}
+
+== Oct 25, 2021 ==
+'''Team Meeting Notes:'''
+* Presentations:
+** [https://docs.google.com/presentation/d/1GviS4whmKxNpbxn2cMQgcUthRxp1hsmu_NLfDkY00b4/edit?usp=sharing Ours]
+** NOTE: I missed some of the middle ones because of a time conflict.
+** Bootcamp 1:
+*** dropped name, ticket, cabin
+*** one hot encoded
+*** emade > gp > ml
+*** lessons: they really liked adaboost, emade kills cpus, resuse = 1 when restarting
+** nas:
+*** results not outperforming seeds
+*** no rules enforcing layer dimensionality
+*** goal is to dominate seeds and explore search space
+*** using an sql table to rack nnlearner stats over generations
+** bootcamp 4:
+*** removed name and onehot encoded
+*** gp > emade > ml
+*** concluded that emade performs best when primitives are more diverse
+*** feedback: needs to overlay plots for better visual comparison
+** modularity:
+*** goals for ARLs was to improve fitness and acheive faster convergence
+*** tons of bug fixes and documentation
+*** want to find better ways to analyze effects on ARLs on individuals
+*** takeaways: not enough data to determine effect, need to make sure the metric doesnt become the goal
+*** feedback: what ARL stats can you track for analysis?
+
+'''Sub-team Meeting Notes:'''
+* Goal: get BIDAF primitives built in EMADE so we can do baseline runs.
+* We need embedding, attention(bidriectional), modeling, and output layers:
+** we can utilize preexisting embedding or quickly make a wrapper layer running the through an LSTM.
+**We split into three groups to implement the remaining layers:
+**#Bidirectional Attention Layer: the most annoying one to implement. Me, Steven, Karthik, and Rishit.
+**#Modeling Layer: runs input through LSTMs. George.
+**#Output layer: runs input through LSTMs, dense, and softmax. Kevin and Shiyi.
+* much of the difficulty is ensuring the dimensions and data it properly handled
+
+'''Individual notes:'''
+* For the attention layer the main things are:
+** Make the Similarity Matrix, S, of dimensitons T x J where the element (t,j) represents the similarity of the two words. Here T and J are the lengths of the context and query data, respectively.
+** We then use that for the next two steps: context2query and query2context.
+** We get two matrices of size 2d x T where d is the number of hidden layers, which represent the importance each word in the query has to each word in the context and which words in the context are important with respect to the query.
+** Finally we return a matrix of size 8d x T which is a concatenation of the the attention matrices and the original input.
+* We took inspirations from a [https://github.com/galsang/BiDAF-pytorch github repo] for how to create layer wrappers using keras/pytorch.
+* Steven and I planned it out initially while everyone helped to implement it.
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Attention Layer Planning
+|Completed
+|Oct 27, 2021
+|Oct 29, 2021
+|Oct 29, 2021
+|-
+|Attention Layer Implementation
+|Completed
+|Oct 27, 2021
+|Oct 30, 2021
+|Oct 30, 2021
+|}
+
+== Oct 18, 2021 ==
+'''Team Meeting Notes:'''
+* general tips on determining wall time from Jason for experiment design:
+** "wall time" - essentially the amount of time it's expected to take to complete you're experiment
+** emade: 
+**# 1 master worker - 1 core(maybe 2) give it some ram
+**# numhosts(param) - how may worker jobs being submitted
+**# numworkersperhost(cpuperworker) - multiplicative per host
+**# numhosts x other = inds being eval'd
+**# runtime = hrs
+**# ind x hrs = # cpu hrs
+** run and watch auc(hypervolume) until stagnates then set time for when it tapers off
+** note gpu as part of experiment design
+* img processing
+** new crossover methods
+** implement hyperfeature packaging
+* mod
+** bug fixes and refactoring
+* nas
+** problems with nested nnlearners, adf's mostly invalid
+
+'''Sub-team Meeting Notes:'''
+* Two goal: 
+** Make the presentation for next week and do dry runs
+** debug any of the merge's errors
+
+'''Individual notes:'''
+* Added intro portion of our midterm presentation, intro to NLP/QA and the BIDAF model.
+* I talked to Jason about the format of an xml file with multiple input sources
+* We need a trial for each split and further split into query/context
+<MonteCarlo>
+    <trial>
+        <train>context_train0</train>
+        <test>context_test0</test>
+    </trial>
+    <trial>
+        <train>query_train0</train>
+        <test>query_test0</test>
+    </trial>
+    <trial>
+        <train>context_train1</train>
+        <test>context_test1</test>
+    </trial>
+    <trial>
+        <train>query_train1</train>
+        <test>query_test1</test>
+    </trial>
+</MonteCarlo>
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Brainstorm formatting for data engineering script with team.
+|Completed
+|Oct 18, 2021
+|Oct 20, 2021
+|Oct 20, 2021
+|-
+|Make presentation and do dry run(s).
+|Completed
+|Oct 18, 2021
+|Oct 23, 2021
+|Oct 23, 2021
+|}
+
+== Oct 11, 2021 ==
+'''Team Meeting Notes:'''
+No Meeting.
+
+'''Sub-team Meeting Notes:'''
+* Our big goal this week is the to merge cacheV2's EMADE-304 multiple data pair branch with the changes that have been made thus far to nn-vip.
+* The first team meeting was dedicated to brainstorming any suggestion for the best way to merge and we decided to make a new fork, pulling nn-vip changes into the base cacheV2 changes.
+* The second meeting we got together with an idea of which code will be trivial to merge and which needs some contextual help from Anish or Jason, we planned out all the changes we want to make on saturday.
+*~5000 changes to merge
+
+'''Individual notes:'''
+* I suggested we get together after individually analyzing the code so that we would make sure to catch individual things.
+* From what I saw there were really only 3-4 files in top prio, 2-3 mid prio, and the last ones were seemingly trivial. Though the number of files of course doesn't reflect the amount of code in each.
+* Unfortunately, I couldn't make it tothe hackathon due to prior obligations. (I did a [https://race.spartan.com/en/race/super Spartan Race.])
+ 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Identify level of priority with the Big Merge(tm).
+|Completed
+|Oct 11, 2021
+|Oct 13, 2021
+|Oct 12, 2021
+|-
+|Get familiar with some of the more obscure code to help merge.
+|Completed
+|Oct 11, 2021
+|Oct 13, 2021
+|Oct 12, 2021
+|-
+|Big Merge(tm)
+|Completed
+|Oct 11, 2021
+|Oct 16, 2021
+|Oct 16, 2021
+|}
+
 == Oct 04, 2021 ==
 '''Team Meeting Notes:'''
 common issue:
@@ -57,15 +289,14 @@ change ind => need to change seeds accordingly
 |Completed
 |Oct 04, 2021
 |Oct 09, 2021
-|WIP
+|Oct 13, 2021
 |-
 |Make changes to ppt based on new member's feedback
 |In progress
 |Oct 04, 2021
 |Oct 09, 2021
-|WIP
+|Oct 11, 2021
 |}
-
 
 == Sep 27, 2021 ==
 '''Team Meeting Notes:'''

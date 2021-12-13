@@ -9,9 +9,89 @@ Cell Phone: 678-365-1412
 
 Interests: Machine Learning, Basketball, Video Games
 
-== November 1, 2021 ==
+== December 10, 2021 ==
 
-* T
+Final Presentation Notes:
+
+* Image Processing:
+** Data preprocessing with such as horizontal shifts, sheering, etc.
+** ROCU AUC and num parameters for eval functions
+** NSGA2 still performed better than NSGA3 due to number of objectives
+** NSGA2 still performed better than lexicase due to fewer training cases and or smaller population size
+** Explored semantic operators such as semantic cross and semantic mutation
+** Best semantic crossover individual only performed a little better than seeded individual
+** New geometric cross over operators
+** Hyperfeatures are multiple primitives that work well together and combine them into a single primitive
+
+* Market/Stock Analysis
+** Using primitives like technical indicators
+** Statistical correlation between different indictators and individuals in EMADE
+** Multiple trial runs with different number of objectives
+** argmin and argmax surprisingly performed very well
+** Many individuals used argmax
+** Paper focused on individuals performed best in certain objectives
+** Beating the previous paper from midterm on all stocks besides Johnson and Johnson stock
+** Cumulative distribution based on average of random trading versus best individual average profit versus paper average profit
+
+* Neural Architecture Search
+** Increasing model complexities for neural networks
+** Eventually competitive with SOTA architectures
+** Modifications to mating and mutation without seeded runs
+** Midterm runs were used as benchmarks
+** Introduced modules
+** Easier implementaiton vs resnet/vgg architectures
+** If module has been trained, load old weights
+** Cool tracking in sql database
+** Modules in theory are unbounded
+
+* Modularity
+** Modularity and reusbaility in EMADE
+** Select combinations based on their frequency
+** Infrastructure update from tuples to classes
+** Increasing complexity of ARLs by increasing the tree depths
+** Experimental setup based on titanic dataset
+** Comparing no ARLs, old ARL architecture and new ARL architecture
+** New ARL architecture with a lot more generations could perform better than old arl
+** In general though, lower AUC with some ARL implementation versus no ARLs.
+
+== December 6, 2021 ==
+
+'''Team Meeting Notes:'''
+* Getting ready for final presentation
+
+'''Subteam Meeting Notes:'''
+
+* Subdividing work for final presentation
+* Intro to NLP, QA, BiDAF, primitive development, experiment procedure, region of interest, future work
+
+'''Personal Work:'''
+
+* Get scaling with multiple pareto fronts to scale properly with outliers. Some code I used to play around with the scale factor for both the x and y axis:
+
+```
+scale_factor_y = 0.3
+scale_factor_x = 0.18
+
+xmin, xmax = plt.xlim()
+ymin, ymax = plt.ylim()
+
+plt.xlim(xmin * scale_factor_x, xmax * scale_factor_x)
+plt.ylim(ymin * scale_factor_y, ymax * scale_factor_y)
+```
+
+* Pace run running through 190 generations but it was only having the bad individual:
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
+Trying to figure out the reason because the run is seeded with NNLearner2 individual
+* Figured out a potential error for the run while working with Steven:
+```
+        if len(input_layers) == 2 and data_pair.get_datatype()=='textdata':
+            model().fit(x=x, y=y, validation_data=validiation_data_final, batch_size=batch_size, epochs=epochs)
+```
+* Initially epochs=epochs was not a parameter. After adding in more epochs, made it so that NNLearner2 would never actually evaluate. I looked in the database and out files and the seeded individual is always in progress. Potential reasoning is because of low disk space when running on pace.
+
+* Working on presentation slides for primitive BiDaf modeling layer and development challenges with keras
 
 
 '''Action Items:'''
@@ -22,11 +102,300 @@ Interests: Machine Learning, Basketball, Video Games
 !Suspense Date
 !Date Resolved
 |-
-|Finishing up presentation notes
+|EMADE run for experimental design
 |Complete
-|October 25, 2021
-|October 25, 2021
+|December 6, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Primitive Modeling layer and development issues
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|}
+
+== November 29, 2021 ==
+
+'''Team Meeting Notes:'''
+
+* Image Processing: Primitives should not be writing disk. Not at code freeze yet
+* Modularity: Continue with runs. Upward spike AUC error found
+* NLP: Naive solution seeded compared to EMADE running without seeded
+* NAS: Not at code freeze yet. Working on getting everything merged.
+* Teams need to get to code freeze point to start experiment runs.
+
+
+'''Subteam Meeting Notes:'''
+
+* Beginning to start experimental runs for final presentation
+* Change dataset to be regression problem for word start index rather than character start index 
+
+'''Personal Work:'''
+
+* Pace EMADE runs were done in 8 hour increments. Evaluation function were num params for complexity and mse for accuacy.
+* PACE emade run getting a weird, wrong individual. Potential error is probably because not seeded with NNLearner2 individual: 
+```
+WindowKaiser(findClusterLSR(LowpassFilterGaussian(ARG0, TriState.STREAM_TO_FEATURES, Axis.FULL, -9, trueBool, 0.1, 4.419257980631761), passTriState(TriState.STREAM_TO_STREAM), greaterThan(0.1, 10.0)), passTriState(passTriState(TriState.STREAM_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), myFloatIntMult(passFloat(0.1), myIntDiv(50, 64)), myAnd(myOr(trueBool, falseBool), notEqual(10.0, -2.3921047463883305)))
+```
+
+* MSE was the worst possible error and max number of params. But it did compile.
+* Correct workflow for pace:
+** qsub mysql database. If this is the first run, clear out the database. (Drop and then create database)
+** qsub seeding file with naive solution.
+** qsub emade run
+** Note: making sure node server is correct for emade run and mysql database
+** Note: make sure reuse is set to 1 when in template file. Without this, it will not use the seeded individual or previous individuals from previous runs
+
+* New PACE emade run with 6 valid individuals using seeded individual: 
+```
+Pareto Individual 0 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(LSTMLayer(16, defaultActivation, 0, trueBool, trueBool, AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), 100, passOptimizer(AdamOptimizer))(241243.0, 2257025.0) Age 1.0
+Pareto Individual 1 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(AttentionLayer(EmbeddingLayer(16, ARG0, heWeights, InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer()))), 100, passOptimizer(passOptimizer(AdamOptimizer)))(242279.0, 2246401.0) Age 1.0
+Pareto Individual 2 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(GRULayer(6, reluActivation, 32, trueBool, falseBool, AttentionLayer(EmbeddingLayer(16, ARG0, passWeightInitializer(randomUniformWeights), InputLayer()), EmbeddingLayer(16, ARG1, glorotNormalWeights, InputLayer())))), myIntSub(10, 1), AdamOptimizer)(251242.0, 2240877.0) Age 1.0
+Pareto Individual 3 after gen 49 is NNLearner2(ARG0, ARG1, OutputLayer(ConcatenateLayer2(InputLayer(), LSTMLayer(88, softmaxActivation, 7, falseBool, falseBool, EmbeddingLayer(16, ARG0, passWeightInitializer(glorotUniformWeights), InputLayer())))), myIntSub(10, 1), AdamOptimizer)(280517.0, 1157449.0) Age 1.0
+Pareto Individual 4 after gen 49 is NNLearner(ARG0, OutputLayer(InputLayer()), 1, FtrlOptimizer)(384797.0, 401.0) Age 1.0
+Pareto Individual 5 after gen 49 is NNLearner(ARG0, OutputLayer(OutputLayer(DenseLayer(falseBool, sigmoidActivation, 255, InputLayer()))), myIntAdd(6, 55), AdamaxOptimizer)(384798.0, 3.0) Age 1.0
+Pareto Individual 6 after gen 49 is NNLearner(ARG0, OutputLayer(DenseLayer(falseBool, eluActivation, 1, InputLayer())), 1, RMSpropOptimizer)(392514.0, 1.0) Age 1.0
+```
+* Finally getting NNLearners
+* eval functions is (mse, num_params)
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Full PACE run on SQUAD dataset
+|Complete
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|Continue previous pace run to up to 24 hours
+|Complete
+|November 29, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|}
+
+== November 22, 2021 ==
+
+'''Team Meeting Notes:'''
+* Output layer is too difficult to implement, so we have changed to a regression problem rather than classification.
+* NNLearner2 to for squad datasets
+
+'''Subteam Meeting Notes:'''
+* Thanksgiving break
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|}
+
+== November 15, 2021 ==
+
+'''Team Meeting Notes:'''
+* Prep work for hackathon. Main focus will be on getting NNLearner2 to work
+
+'''Subteam Meeting Notes:'''
+* One team focused on getting NNLearner to work
+* Another team focused on getting bidirectional attention layer to work
+
+'''Personal Work:'''
+* Karthik and I worked on getting the attention flow layer to work. There were two main issues:
+** In the megamerge step, their was a function to convert a list of 1d tensors into a 2d tensor using tf.convert_to_tensor. Function was not working correctly. Instead, we converted each 1d tensor into a 2d tensor and then concatenated all together.
+```
+# T*2d megamerged matrix G
+megamerged_matrix = [[0]*8*self.d]*self.t
+
+# merge columns of embedded_context, c2q, and q2c
+for i in range(self.t):
+    megamerged_matrix[i] = tf.concat([embedded_context[i], c2q[i], c2q[i]*embedded_context[i], q2c[i]*embedded_context[i]], 0)
+        
+for i in range(len(megamerged_matrix)):
+    megamerged_matrix[i] = tf.expand_dims(megamerged_matrix[i], 0)
+    
+# convert into (T,8d) tensor
+return tf.concat(megamerged_matrix, axis = 0)
+```
+** Second issue was that the layer could not take varying batch sizes (only worked for batch size of 1). To fix this, we can return a None batch size, which represents a varying batch size. Or return the match size based on the input. We also did some better code design by abstracting the call method with a helper that does the work of getting the similarity matrix, calculating c2q and q2c, and doing the merge.
+```
+def call_helper(self, embedded_context, embedded_query):
+    # similarity_matrix: (T, J)
+    similarity_matrix = self.make_similarity_matrix(embedded_context, embedded_query)
+            
+    # Context --> Query Attention. U_hat = Attended query matrix for all context words, size (T,2d)
+    c2q = self.contextToQueryAttention(embedded_query, similarity_matrix)
+
+    # Query --> Context Attention, size (T,2d)
+    q2c = self.queryToContextAttention(embedded_context, similarity_matrix)
+
+    megamerged = self.megamergeStep(embedded_context, c2q, q2c)
+    return megamerged
+
+if input[0].shape[0] is None:
+    megamerged = self.call_helper(embedded_context, embedded_query)
+    megamerged = tf.expand_dims(megamerged, 0)
+    final_result_matrix = tf.compat.v1.placeholder_with_default(megamerged, [None, self.t, self.d * 8])
+    return final_result_matrix
+else:
+    batch_size = input[0].shape[0]
+    batches = []
+    for i in range(batch_size):
+        megamerged = self.call_helper(embedded_context, embedded_query)
+        batches.append(megamerged)
+    for i in range(len(batches)):
+        batches[i] = tf.expand_dims(batches[i], 0)
+                
+
+    return tf.concat(batches, axis = 0)
+
+```
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Hackathon project of getting Bidirectional attention flow to work
+|Complete
+|November 15, 2021
+|November 22, 2021
+|November 22, 2021
+|-
+|}
+
+== November 8, 2021 ==
+
+'''Team Meeting Notes:'''
+* Runs works on one data pair
+* Finish resolving issues of big merge
+
+'''Subteam Meeting Notes:'''
+* Splitting up into NNLearner with 2 Data pair team, integration team, and output layer team
+* For the integration team, set up pace to run squad dataset with standalone tree evaluator
+
+'''Personal Work:'''
+* Continued working with Shiyi and Karthik on Attention -> Modeling -> Output testing and making sure the inputs and outputs match.
+* A lot of the code had errors when compiling:
+** LSTM requires a 3D array with the first parameters representing batch size. To accomplish this we needed to expand out 2D dataset
+** When creating the similarity matrix, the context column and query column has mismatch dimensions for the input. Hence, element wise multiplication wasn't working. Here is the fix:
+```
+context_column = tf.expand_dims(context_column, axis = -1)
+query_column = tf.expand_dims(query_column, axis = -1)
+```
+** The output layer required the output from the modeling layer and additional matrix that needed to be computed to calculate both the start and end index in the context. We decided that the additional matrix would be calculated in the modeling layer:
+```
+# Now returns a tuple of matrices M1 and M2 - Why? Check: https://towardsdatascience.com/modeling-and-output-layers-in-bidaf-an-illustrated-guide-with-minions-f2e101a10d83
+return tf.reshape(lstm_1_output, [lstm_1_output.shape[1], lstm_1_output.shape[0]]), tf.reshape(lstm_2_output, [lstm_2_output.shape[1], lstm_2_output.shape[0]])
+```
+* Currently running into errors with the standalone tree evaluator, going to be switching to just running with the Amazon Dataset.
+** Also having errors, going to try to run locally
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Getting successful pace stand alone tree evaluator on Amazon Dataset
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Fixing modeling, attention, and output layers
+|Complete
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|}
+
+== November 1, 2021 ==
+
+'''Team Meeting Notes:'''
+* Introducing new memebers to NLP
+* Exchanging contact info, slack info, and intro presentations
+* Unit tests for new primitives for BiDAF
+
+'''Subteam Meeting Notes:'''
+* Pace setup for new members
+* Split into groups working on output layer, attention layer (hard), and modeling layer
+* NNLearner intro for new members
+
+'''Personal Work:'''
+* Custom modeling layer code for BiDaf:
+
+```
+class BidafModeling(Layer):
+    def __init__(self, out_dim, activation = 'tanh', dropout = 0.2, regularizer = 0, **kwargs):
+        super(BidafModeling, self).__init__(kwargs)
+        if regularizer == 0:
+            regularizer = None
+        else:
+            regularizer = l2(10**(-1*regularizer))
+        self.lstm_1 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer, dropout=dropout))
+        self.lstm_2 = Bidirectional(LSTM(units = out_dim, activation=activation, kernel_regularizer=regularizer))
+
+    
+    def call(self, inputs):
+        inputs = tf.reshape(inputs, [inputs.shape[1], inputs.shape[0], 1])
+        lstm_1_output = self.lstm_1(inputs)
+        lstm_1_output = tf.expand_dims(lstm_1_output, -1)
+        lstm_2_output = self.lstm_2(lstm_1_output)
+        return tf.reshape(lstm_2_output, [lstm_2_output.shape[1], lstm_2_output.shape[0]])
+```
+
+
+* Custom EMADE function for layer as primitive:
+
+```
+def BidafModelingFunc(output_dim, layerlist, activation = 'tanh', regularizer = 0, dropout=0.2):
+    """
+    Create Bidaf Modeling layer
+    """
+    layerlist.append(BidafModeling(output_dim, activation=activation, regularizer=regularizer, dropout=dropout))
+    return layerlist
+```
+
+
+* Helped Karthik and Shiyi with debugging and connecting the modeling layer, attention layer, and output layer
+
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Custom layer for Bidaf Modeling layer
+|Complete
 |November 1, 2021
+|November 8, 2021
+|November 8, 2021
+|-
+|Emade function for using the custom layer as a primitive
+|Complete
+|November 1, 2021
+|November 8, 2021
+|November 8, 2021
 |-
 |}
 

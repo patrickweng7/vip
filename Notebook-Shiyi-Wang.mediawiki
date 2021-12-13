@@ -14,11 +14,967 @@ Subteam: [[Natural Language Processing]] (Current) [[Modularity]] (Past)
 Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook Devan Moses|Devan Moses]], [[Notebook Kevin Zheng|Kevin Zheng]], [[Notebook Karthik Subramanian|Karthik Subramanian]], [[Notebook George Ye | George Ye]]
 
 = Fall 2021 =
+== Week 16 ==
+=== Dec 10, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Objectives
+*** Improve EMADE on image processing tasks
+*** with GP, selection methods, mating, mutation methods, and deep learning.
+*** Focus on Multi-class image Classification 
+** Dataset Preparation
+*** Use the TensorFlow API (ImageDataGenerator) including image resizing, normalization, horizontal flipping
+*** Multi-class but not multi-label
+** Evaluation Objectives
+*** Area Under Curve: Receiving Operator Characteristic (ROC)
+*** Number of Parameters in neural network
+** Baseline Results & Findings
+*** AUC: 0.21895
+*** Lowest ROC: 0.169169 (Multiple Convolution layers)
+*** Lowest Number of parameter: 30
+** Selection Methods
+*** NSGA 3 Good for 4-15 objectives (0.377 & 192680000)
+*** NSGA 2 performs better
+*** Less dimensions -> less axis to provide diversity/spread of reference points.
+*** Lexicase (0.348 & 12055200)
+*** NSGA 2 performs better
+*** Few training cases -> few ways individuals can be selected
+** Semantic Operator Results
+*** Semantic Crossover: 0.45 & 657455
+*** Semantic Mutation
+*** Struggle with generated usable individuals
+** Geometric Mating & Mutation Methods
+*** Partially Matched
+*** Ordered Crossover
+*** Uniform & Multi Point: 0.365 & 36184500
+*** Increase in parameters -> decrease in AUC
+** Results
+*** Lower Diversity of solutions
+*** Worse AUC than Baseline
+** Hyper features
+*** Manipulate pixels for better visibility
+*** Grey level transformation
+*** Sharpening Filter
+** Future Semesters
+*** EMADE.py using the selection method specified in XML instead of hard-coded
+*** Add new NN layers
+* NLP
+** Presented Experiment Methods of runs.
+* Stocks
+** Objectives
+*** Short: Finalize results and conduct analysis with respect to various papers.
+*** Long: EMADE for time-series and stock-specific problems. 
+** Experimental Focus
+*** Beat SOTA and other papers.
+*** Run 3 Trials of Objective Sets in EMADE.
+** Run Comparison
+*** Primitive Analysis: BWMA + ARGMIN: 13.46%.
+*** Profit percentage analysis: Loss & average the highest.
+*** Not enough Pareto individuals to make the graph.
+*** Loss_var is the top profit percentage individual 27.02%.
+** Comparison with Paper
+*** Takagi-Sugeno fuzzy model with SVR (Support Vector Regression).
+*** Best individual use ARGMIN as learner.
+*** Individuals is comparing multiple Technical Indicators together and determining its decisions based on which is least.
+** Future Work
+*** Complete Experimental Trials.
+*** Write and Review Paper.
+* Neural Architectural Search (NAS)
+** Goal
+*** Maximizing EMADE Productivity.
+*** Growing Deep and Complex Individuals.
+** Maximizing EMADE Productivity
+*** Inspiration
+**** Time being wasted on errored individuals.
+**** Need a ways to stop training.
+**** Added a TimedStopping Call back.
+**** Added a new parameter in input schema.
+*** Experiment Setup
+**** Average Evaluation Time, Average Accuracy Error, Number of Individuals.
+**** Time training does not decrease accuracy errors.
+**** No linear relationship between time trained and metrics.
+** Growing Deep and Complex Individuals
+*** Inspiration
+**** Added unique generator methods for NNLearners and Modules within EMADE.
+**** Modified NNLearner generator to produce valid nn_learners using a forward.
+**** Added Weight Sharing: increase specialization of modules.
+**** Generated Mate/Mutation methods for NNLearner and Modules.
+*** Experiment Setup
+**** Accuracy Bins using Mut/Mat modules, without Mut/Mat, optimal midterm.
+**** Elapse Time vs. Accuracy Error.
+*** Leveraging Modules
+**** Motivation: Pooling Layers, weight sharing.
+*** Experiment Setup
+**** Accuracy Error, Average Precision Error
+** Weight Sharing
+*** Inspiration
+**** If modules was trained, load old weights.
+**** Implement by storing weights in database.
+**** Best individual good for 1 epoch (64.42% test accuracy) but weights in database is too slow (<= 3 generations).
+** Weight Sharing + Max Pooling
+*** Inspiration
+**** Implement by weights stored in file.
+**** Fewer trivial individuals.
+**** Many more generations.
+*** Less frequent time stopping.
+** Max Pooling after modules
+*** Best individuals perform better.
+** Residual Connections
+*** More consistently better than WS + Max Pooling.
+*** More Left Skewed.
+*** More trivial individuals.
+** Best Individual
+*** Train & Test Accuracy: 98.8% & 74%.
+*** Takeaways: remove SGD (or only use Adams) & Experiment with training callbacks.
+** New Testing/Analysis Tools
+*** view_nn_statistics(hash, filepath)
+**** Given a hash and an optional filepath, writes the individual’s statistics for each generation into a csv file sorted by age in ascending order.
+*** make_parent_graph(hash, parent_information)
+**** Creates a visualization of the parent tree of an individual with nodes containing the individual’s hash and tree structure.
+** Literature Review
+*** Evolving Deep Neural Networks
+**** Automated method CoDeepNEAT for optimizing deep learning architecture through evolution
+*** Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification
+**** Utilize an online learning technique to seed modules with the latest and greatest neural networks.
+** Future Works
+*** Novelty Detection
+*** Novelty Evaluation Methods
+*** Potential Directions
+* Modularity
+** Background
+*** Explore ways to abstract parts of individuals.
+*** ARL: introduce modularity and reusability in EMADE.
+** Code Changes
+*** Infrastructure Update: Documentation.
+*** Moved information within tuples into classes.
+*** CloudCopy Script Changes: No more infinite execution, progress countdown & progress bar.
+** Experiments
+*** Experiment 1: ARL Complexity Effects on Individuals.
+**** Allow the search function to consider larger subtrees depth to increase the potency of ARLs.
+**** Improve ARL candidates.
+**** No ADF vs. ADF & No ADF vs. New ARL comparisons.
+**** False Negatives & False Positives of Individuals Containing ARLs vs. ARL Size.
+**** ARL Size and Depth vs. Frequency on the Pareto Front.
+**** Takeaways: Size may not inherently imply usefulness.
+*** Experiment 2: ARL Effects on Individuals' Objectives.
+**** Most ARLs tended to follow general distribution.
+**** ARLs which differ from general distribution were rare.
+*** Merging CacheV2
+** Future Work
+*** Merge stocks changes into ARL_Update branch.
+*** Continue adding to the research paper: data on extended ARLs and their performance on the titanic dataset.
+*** ARL Construction: changes to hyper parameters.
+*** ARL selection experiments: frequency and Novelty Reward.
+
+'''Individual Progress'''
+* I synced with Rishit on the multi Pareto Front optimization I made with George.
+* I reformatted the experiment and result pages based on analysis.
+* I presented the experiment section of the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Sync with teammates on visualization progress made last night
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Complete the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 10, 2021
+|-
+|Review Notebook before Final Submission
+|Completed
+|December 10, 2021
+|December 13, 2021
+|December 12, 2021
+|}
+
+=== Dec 9, 2021 ===
+'''Subteam Meeting Notes:'''
+* Went over a dry run for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation].
+* Clarified the details of specific slides for each member.
+* Summarized the findings and shared with all members.
+
+'''Individual Progress'''
+* I collaborated with Steven and Rishit to conduct analysis on the overall runs.
+* I and Steven [https://drive.google.com/drive/folders/100yIFjUIm2vPUagITxdGSIQHH7KVGppS?usp=sharing collected the valid runs] from all .out files given no error & 16 hr running time.
+* I generated the [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing Pareto Front diagrams] for all 4 valid runs.
+* I manually [https://docs.google.com/presentation/d/193SL8XMhSSKrIV0ihWu3DqZfi1cggBOnBfVBSSkFrX4/edit?usp=sharing colored the region of interest] on iPad given the Pareto fronts.
+** Coded version was too complex at the moment given time constraints.
+* I and Steven implemented and [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing automated the region of interest calculation].
+* I and Steven summarized the conclusions according to our results.
+** Overall, we are limited in scope to which we can generalize as we had a limited amount of data (4 16 hour runs).
+** However, our results are promising and have an indication that we can increase the area under the region of interest, minimizing the area bounded by a seeded individual.
+** We need more runs and a more diverse set of primitives.
+* I designed the slides for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing experiment section].
+* I and George optimized the scaling of [https://colab.research.google.com/drive/1SwuuPreeXgUUtxsMK3PGkPAftsbPilc0?usp=sharingmulti Pareto front graph]
+** To include all the outliers, where there are individuals with extremely low MSE or num_params, I fit them in by changing "xlim" parameter to actual values and "ylim" parameter to relative scale based on their distributions.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete dry run for the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Sort out the valid good runs from all [https://drive.google.com/drive/folders/100yIFjUIm2vPUagITxdGSIQHH7KVGppS?usp=sharing .out files]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Generate the [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing Pareto front for each run along with seed]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Automate the [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing calculation of region of interest] and the reduction in area
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Manually color the region of interests from each graph on [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing slide #36]
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Write [https://docs.google.com/document/d/1pSSCwE8mI10_l4GPiFldxtVD1Q7LxaJGt5MIaM9RPuA/edit?usp=sharing statistical analysis] for the results
+|Completed
+|December 9, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Optimize the scaling with the [https://colab.research.google.com/drive/1SwuuPreeXgUUtxsMK3PGkPAftsbPilc0?usp=sharing multi Pareto front visualization] on [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing slide #35]
+|Completed
+|December 9, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
+=== Dec 8, 2021 ===
+'''Subteam Meeting Notes:'''
+* Subdivided presentation responsibilities among all members.
+* Decided to finish all EMADE runs by 4 PM EST on Dec 9.
+* Decided to dry run for final presentation at 8 PM EST on Dec 9.
+
+'''Individual Progress'''
+* I, Rishit, and Steven are scheduled to meet at 4 PM on Dec 9 for analysis.
+* I keep EMADE running on PACE-ICE.
+* I explored and solved the following technical issue:
+** What can we get from the .out files?
+*** Open using a text editor (Sublime Text for example)
+*** Use command + F to find key word "Pareto"
+*** Choose "find previous" (key word)
+*** Now you can see: Pareto front datapoints, hypervolume (AUC), and corresponding individuals.
+*** The values are there, listed as (MSE, num_params).
+** Do we need to convert into .csv files to generate Pareto front?
+*** Not necessarily. The Pareto Front of each generation is in the master.out file.
+*** Update: Implementation can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
+** We need to calculate Region of Interest (ROI). Is there an easy way to do it or do we need to code it out?
+*** We will need to hard code it.
+*** Condition: obj1 < default_obj1 and obj2 < default_obj2.
+*** Update: Implementation can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
+* I researched and attempted [https://reference.wolfram.com/language/ref/BernoulliDistribution.html visualization of Bernoulli Distribution] with Mathematica.
+ DiscretePlot[Table[PDF[BernoulliDistribution[p], x], {p, {0.3, 0.5, 0.7, 0.9}}] Evaluate, {x, 0, 1}, AxesOrigin -> {1/2, 0}, PlotMarkers -> Automatic]
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Keep up EMADE runs on PACE-ICE
+|Completed
+|December 8, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Investigate on visualization of Bernoulli Distribution using multiple methods
+|Completed
+|December 8, 2021
+|December 10, 2021
+|December 8, 2021
+|-
+|Explore .out files to find what information we can retrieve from them
+|Completed
+|December 8, 2021
+|December 10, 2021
+|December 8, 2021
+|-
+|Implement Pareto front visualization from EMADE master output files
+|Completed
+|December 8, 2021
+|December 10, 2021
+|December 10, 2021
+|}
+
+=== Dec 6, 2021 ===
+'''Team Meeting Notes:'''
+* Every team is asked to define success of the semester.
+** Image Processing: Improve EMADE on image processing tasks with GP, selection methods, mating, mutation methods, and deep learning.
+** Modularity: ARL complexity effects on individual & ARL effects on individual objectives.
+** Natural Language Processing (NLP): Use AutoML to improve Question and Answering Systems.
+** Neural Architectural Search (NAS): Maximizing EMADE Productivity & Growing Deep and Complex Individuals.
+* Every team will be sharing the experiment to validate its success.
+* Dr. Rohling offered slide review on Thursday.
+
+'''Subteam Meeting Notes:'''
+* Tasked everyone with final presentation slides.
+* Helped debug EMADE/PACE-ICE issues.
+* Updated on the "reuse" parameter of the XML file: reduce instances is set to 1.
+* Synchronized on the major updates regarding NNLearner2 last week.
+** Changed metrics to be MSE and Num params, so that a start index off by one isn't punished as much as one off by 200.
+** NNLearner2's output primitive's dense layer pushes all values to 199 or 200 when using Bidirectional Modeling and Attention primitives.
+** Some of our runs aren't using the old embedding layers other than new EmbeddingLayer. 
+** Individuals with BERTInputLayer fail altogether in standalone tree evaluator.
+
+'''Individual Progress'''
+* I and Rishit presented and finalized the experiment setup with Dr. Zutty & Dr. Rohling.
+** Generate Pareto front from each run.
+** Insert the seeded individual objectives on the same graph.
+*** To retrieve the values, we can evaluate the seed by running [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py].
+** Define boundaries by the objectives of the seeded individual.
+** Record the Region of Interest (ROI) by difference between bounded region and Pareto front AUC.
+*** The greater ROI, the greater improvements.
+** For analysis, we can present Bernoulli Distribution and distribution of ROI of different runs.
+*** It would be valuable if we have more runs (greater statistical significance).
+* I was assigned on Experiment section of the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation].
+* I fixed my EMADE configuration issues thanks to Manas, Karthik, George, Devan, and Rishit.
+** Configuration issue: when seeding before EMADE runs, I encountered the issue: NameError: _mysql is not defined.
+** Command applied: python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa
+** How to locate the causes?
+*** I went over the XML file setup with Karthik and made sure that all parameters are ready to go.
+*** Rishit's suggestion: pip install mysql: no such module found. No luck.
+*** Manas's suggestion: check to [https://github.gatech.edu/emade/emade README.md file] in repository and manually pip install all the requirements: I did so and all requirements are satisfied already. No luck.
+*** Devan's suggestion: run [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py] see what may cause the issue: I realized it is a configuration issue because I meet the same problem when running standalone.py (basically same issue in two completely different scenarios).
+** How to solve the problem?
+*** Rishit shared his YAML file with me and I was able to create a new conda environment with the correct settings.
+*** Now, EMADE is working and generating output without errors.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evaluation
+|Completed
+|December 6, 2021
+|December 8, 2021
+|December 6, 2021
+|-
+|Debug EMADE run issues related to NameError: _mysql not defined
+|Completed
+|December 6, 2021
+|December 9, 2021
+|December 6, 2021
+|-
+|Update XML file and update line 1864 in neural_network_methods.py
+|Completed
+|December 6, 2021
+|December 9, 2021
+|December 6, 2021
+|-
+|Keep EMADE running for >= 16 hours
+|Completed
+|December 6, 2021
+|December 9, 2021
+|December 9, 2021
+|-
+|Design [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation] slides
+|Completed
+|December 6, 2021
+|December 10, 2021
+|December 9, 2021
+|}
+
+== Week 15 ==
+=== Dec 1, 2021 ===
+'''Subteam Meeting Notes:'''
+* Code freeze fork of subteam codebase before Final Presentation: https://github.gatech.edu/sleone6/emadebackup
+* Everyone reinstalls EMADE with Steven's version and prepare to conduct runs for final presentation.
+
+'''Individual Progress'''
+* I debugged and set up EMADE running environment on PACE-ICE.
+** I was able to run EMADE unseeded but encountered issue when seeding the individual.
+** Update: I was able to resolve the issue on Dec 6 during the Scrum meeting.
+* My tips for PACE/EMADE setup
+** ssh gt-user@pace-ice.pace.gatech.edu
+** Make scratch, db, and MySQL database
+** SCP over EMADE folder 
+*** Alternatively, I recommend using [https://code.visualstudio.com/blogs/2019/07/25/remote-ssh#:~:text=The%20VS%20Code%20Remote%20%2D%20SSH,Ctrl%20%2B%20Shift%20%2B%20X). VSCode SSH Remote Host Connect]
+** Modify all .cnf, .xml, and .pbs files
+** Install & Activate conda environment using YAML file [https://github.gatech.edu/cwhaley9/emade/commit/6781e87ba9ffed065a983d12ec38c37191e3082e HERE].
+** Create "Amazon" database & Drop all tables
+** Start EMADE runs
+* I also helped other team members set up in Slack channel.
+** Some issues encountered
+*** To properly configure, edit input XML file for username, password, reuse parameter, environment name, and objectives (MSE & num params).
+*** To run with SQuAD dataset, drop all tables in amazon database and then rerun EMADE.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Reinstall EMADE using [https://github.gatech.edu/sleone6/emadebackup emadebackup fork] shared by Steven
+|Completed
+|December 1, 2021
+|December 6, 2021
+|December 1, 2021
+|-
+|Drop all tables in Amazon database for proper SQuAD runs
+|Completed
+|December 1, 2021
+|December 6, 2021
+|December 6, 2021
+|-
+|Run EMADE with the seeded individual
+|Completed
+|December 1, 2021
+|December 9, 2021
+|December 6, 2021
+|}
+
+=== Nov 29, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Hyperfeature, selection method, and mating/mutations subteams continue to work.
+** Code freeze by the end of the week for experiments and presentation.
+* Modularity
+** Continued doing runs and gathering data for the extended ARL experiments.
+** CacheV2 integrations subteam soon begins stocks runs.
+* Natural Language Processing (NLP)
+** In NNLearner2, we send the test and train data pair in wrong order.
+** The length of the test data was not being divided by num_inputs in EMADE.py.
+* Neural Architectural Search (NAS)
+** Updated code that properly extracting layer frequencies from individuals every generation
+** Updated script that is used to generate CIFAR-10 data in proper splits with full color images.
+** Implemented weight sharing.
+** Working on merging changes and putting the desired EMADE functionality on NN-VIP branch.
+
+'''Subteam Meeting Notes:'''
+* Worked on code-freeze codebase and start getting runs in.
+
+'''Individual Progress'''
+* I, Steven, and Rishit declared continuous MSE and number of parameters as the [https://github.gatech.edu/sleone6/emadebackup/blob/master/templates/input_squad_noqsub.xml final objectives] we are pursuing.
+** continuous MSE: this is a good indicator as F1 score in Q&A systems. It works well with regression questions.
+** num_params: this estimates the model complexity. The more parameters, the more complex the model will be.
+* I and Rishit exchanged our ideas on experimental design and statistical testings.
+** T-test: in statistics, the t-statistic is the ratio of the departure of the estimated value of a parameter from its hypothesized value to its standard error.
+*** A t-test is a type of inferential statistic used to determine if there is a significant difference between the means of two groups, which may be related in certain features. 
+*** It is mostly used when the data sets, like the data set recorded as the outcome from flipping a coin 100 times, would follow a normal distribution and may have unknown variances.
+** I and Rishit hope to compare the objectives of the EMADE runs and Steven's NLP homework.
+*** However, the problem is we essentially cannot get the same EM and F1 score from EMADE as in the “Steven’s Model”.
+*** Rishit suggests we can dive into Steven's code to calculate the objectives manually.
+*** I and Steven recommend using the seed individual instead since it is equivalent.
+* I looked into library the compute_f1 function located and how the library implements it.
+** The goal is to see if we can use exact match and F1 score for EMADE to enable comparisons.
+* I worked on deleting all files on PACE-ICE (disk space issue resolved) and port over the latest changes from the features/nnlearner2 branch.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Check EMADE running status using Amazon dataset
+|Completed
+|November 29, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Port over the new changes from the features/nnlearner2 branch
+|Completed
+|November 29, 2021
+|December 6, 2021
+|November 29, 2021
+|-
+|Meet with Rishit and Steven on experimental design and objectives
+|Completed
+|November 29, 2021
+|December 6, 2021
+|November 30, 2021
+|-
+|Investigate possible statistical testing strategies such as t-test
+|Completed
+|November 29, 2021
+|December 6, 2021
+|November 30, 2021
+|-
+|Review every objective in the [https://github.gatech.edu/sleone6/emadebackup/blob/master/templates/input_squad_noqsub.xml objective4EvalFunction] to find best pair of objectives
+|Completed
+|November 29, 2021
+|December 6, 2021
+|November 30, 2021
+|}
+
+== Week 14 ==
+=== Nov 24, 2021 ===
+'''Subteam Meeting Notes:'''
+* Thanksgiving break. No meeting today.
+
+=== Nov 22, 2021 ===
+'''Team Meeting Notes:'''
+* Image Processing
+** Runs in with lexicase, epsilon lexicase, and NSGA-III.
+** Run with a new mutation method.
+** Fixed a bug in the contrast enhancement code causes .npz formatting of data
+* Modularity
+** Refactored and documented new implementation of code.
+** Added typing and classes to implementation.
+** Working on script that allows the team to upload EMADE instances to Google Colab.
+** Working on generating visualizations for the extended ARL runs.
+* Natural Language Processing (NLP)
+** NNLearner2 works on classification but have issues when switching to regression.
+** Tested integration of primitives into EMADE.
+** Built Keras Models in Google Colab to ensure integration works.
+** Fixed batch size issues with Bidirectional Attention.
+** Designing experiment for future runs.
+* Neural Architectural Search (NAS)
+** Completed changes for mating and mutation methods
+*** Allows Modules to undergo a selection process, mate with each other, mutate and be scored according to their associated individuals.
+** Integrating weight sharing to existing modules in EMADE.
+** Integrating novelty detection changes.
+** Added a parent column which tracks hash values for NNLearners.
+** Model Improvements
+*** Removing pooling layers leads to 10x more parameters.
+*** Model could overfit on train set (98% train accuracy, 62% test).
+
+'''Individual Progress'''
+* I and Rishit presented our tentative experiment plan to Dr. Zutty.
+** Generate Pareto fronts for all runs.
+** Graph the Normal Distribution for all individuals.
+** Insert BiDAF model objectives on the Normal Distribution.
+** Use hypothesis testing to see if the BiDAF data point lies in the critical region to reject hypothesis.
+*** Hypothesis: AutoML cannot solve Question and Answering system problems.
+* Dr. Zutty visualized our experiment plan and pointed out the potential issues.
+** I learned that using AUC could be a better alternative for analysis.
+** I learned about the concept of Region of Interest (ROI) and realized that we need to set the boundaries for BiDAF model to define our "success".
+*** Success: a run produced individuals that beats all of the seeded individual’s objective scores, having a non zero region of interest.
+** I learned that instead of using a normal distribution, a more effective way would be Bernoulli distribution which separates reduce in area (success) and increase in area (failure).
+* I start to pipeline the experiment procedure and the final design I made with Rishit can be found [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing HERE].
+* Over the Thanksgiving break, I learned and enhanced my understanding about hypothesis testing and Bernoulli distributions.
+** [http://www2.stat.duke.edu/~sayan/Sta613/2018/lec/mult.pdf Lecture 3 Hypothesis testing from Duke University]
+*** The classical hypothesis testing formulation is called the Neyman-Pearson paradigm. It is a formal means of distinguishing between probability distributions based upon random variables generated from one of the distributions.
+** [https://paulapivat.com/post/dsfs_7/ Data Science from Scratch (ch7) - Hypothesis and Inference]
+*** The classic coin-flipping exercise is to test the fairness off a coin. If a coin is fair, it’ll land on heads 50% of the time (and tails 50% of the time). Let’s translate into hypothesis testing language:
+**** Null Hypothesis: Probability of landing on Heads = 0.5.
+**** Alt Hypothesis: Probability of landing on Heads != 0.5.
+*** Each coin flip is a Bernoulli trial, which is an experiment with two outcomes - outcome 1, “success”, (probability p) and outcome 0, “fail” (probability p - 1). The reason it’s a Bernoulli trial is because there are only two outcome with a coin flip (heads or tails).
+** [https://www.researchgate.net/publication/321951379_Hypothesis_Tests_for_Bernoulli_Experiments_Ordering_the_Sample_Space_by_Bayes_Factors_and_Using_Adaptive_Significance_Levels_for_Decisions Hypothesis Tests for Bernoulli Experiments: Ordering the Sample Space by Bayes Factors and Using Adaptive Significance Levels for Decisions]
+*** The main objective of this paper is to find the relation between the adaptive significance level presented here and the sample size.
+*** The main tools used here are the Bayes factor and the extended Neyman–Pearson Lemma.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Pipeline [https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing experiment procedure] including Pareto front, Region of Interest, and Bernoulli Distribution
+|Completed
+|November 22, 2021
+|November 27, 2021
+|December 6, 2021
+|-
+|Review statistics materials and read related papers regarding hypothesis testing and specifically with Bernoulli Distribution
+|Completed
+|November 22, 2021
+|November 27, 2021
+|November 27, 2021
+|}
+
+== Week 13 ==
+=== Nov 17, 2021 ===
+'''Subteam Meeting Notes:'''
+* We are retasked into new sub-subteams for remaining of the semester.
+** NNLearner2 team
+*** Looking for the differences in standalone tree evaluator and launchEMADE.
+*** Updating for multiple data pairs.
+** Integration team
+*** Debug and investigate on new primitives.
+** Experiment team
+*** Re-designing our experiment with hypothesis testing.
+*** Decrease complexity with a bunch of different SOTA models becomes a long-term task.
+
+'''Individual Progress:'''
+* I volunteered to join Experiment team. I have stats course background and currently minoring in math.
+* I collaborated with Rishit and clarified on specific action items.
+** Two changes in the existing experiment we can make are:
+*** Make changes to the t-statistics for the testing.
+*** Make changes to F1 objectives.
+** I and Rishit noticed that there are a lot of evaluation functions in EMADE already. It's a regression problem, so we will choose evaluation objectives from there now.
+** We will be narrowing the scope of the problem into something like "Can we use AutoML to solve QA".
+* I research more about experimentation for model evaluation over the weekend.
+** [https://towardsdatascience.com/have-you-ever-evaluated-your-model-in-this-way-a6a599a2f89c Evaluation of Classification Model with McNemar Test]
+*** McNemar’s test is applied to 2x2 contingency tables to find whether row and column marginal frequencies are equal for paired samples.
+*** It uses the Chi-Square distribution to determine the probability of difference.
+*** Update: This is not suitable for the current goal because it is about classification. However, when we expand our scope, this test may be a good fit.
+** [https://machinelearningmastery.com/statistics-for-evaluating-machine-learning-models/ Statistics for Evaluating Machine Learning Models]
+*** The article introduces Estimating Hypothesis Accuracy, Basics of Sampling Theory, Deriving Confidence Intervals, Difference in Error of Two Hypotheses, and Comparing Learning Algorithms.
+*** Confidence intervals can be used to quantify the uncertainty in model error.
+*** The calculation of the confidence intervals importantly depends on the distribution of the quantity being estimated.
+*** A cause of errors in the evaluation of model skill is estimation bias, evaluating a model on the training dataset will introduce an optimistic bias.
+*** Another cause of errors in the evaluation of model skill is estimation variance, which can be decreased by increasing the hold out test size.
+*** Resampling with the k-fold cross-validation procedure provides an effective way to compare machine learning algorithms.
+*** When using statistical methods, we must make assumptions, such as assumptions around the distribution of parameters. Even with confidence intervals, we don’t know what is true, just what is likely.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Choose a sub-subteam and clearly understand action items for the remaining of the semester
+|Completed
+|November 17, 2021
+|November 20, 2021
+|November 17, 2021
+|-
+|Sync up current progress and revised semester goal with Steven
+|Completed
+|November 17, 2021
+|November 22, 2021
+|November 17, 2021
+|-
+|Research about statistical experimentation for SOTA model evaluation
+|Completed
+|November 17, 2021
+|November 20, 2021
+|November 20, 2021
+|}
+
+=== Nov 15, 2021 === 
+'''Team Meeting Notes:'''
+* Image Processing
+** Implementing new genetic operators such as partially matched and ordered crossover.
+** focusing on new sharpening hyperfeature.
+** Hyperfeature implementation bugs in EMADE are solved.
+* Modularity
+** match_arl bug found.
+*** Solution: use a set of indices to make sure that matched nodes aren't rematched.
+** Completed an Extended ARL run with the fix.
+** Began writing documentations and unit tests.
+** Began writing ARL changes to the Cache V2 branch.
+* Natural Language Processing (NLP)
+** Divided into new sub-subteams to tackle remaining issues.
+** Branch currently runs and works on one data pair.
+** Confirmed keras model works outside of EMADE using our primitives.
+* Neural Architectural Search (NAS)
+** Integrating novelty detection.
+** Started to integrate weight sharing into now consisted ADF modules.
+** started to integrate mating and mutation within ADFs of EMADE.
+
+'''Subteam Meeting Notes:'''
+* With Dr.Zutty's advice, we realized that getting two data pairs into NNLearner is a too hard problem for our team.
+* We had to narrow down our focus into predicting start index of the answer.
+** The problem changes from classification into regression.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Wrap up Embedding Layer implementation with Kevin
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+
+== Week 12 ==
+=== Nov 10, 2021 ===
+'''Subteam Meeting Notes:'''
+* Each sub-subteam meets at Clough for discussion and collaboration.
+* Steven and Devan gave a presentation on EMADE, Deep Learning, NLP, and QA to our New Members
+
+'''Individual Progress'''
+* I was working on the Highway Network of the Embedding layer with Kevin.
+** In a highway network, only a fraction of the input will be subjected to the three aforementioned steps; the remaining fraction is permitted to pass through the network untransformed.
+```
+def build(self, input_shape):
+    # Create a trainable weight variable for this layer.
+    dim = input_shape[-1]
+    transform_gate_bias_initializer = Constant(self.transform_gate_bias)
+    input_shape_dense_1 = input_shape[-1]
+    self.dense_1 = Dense(units=dim, bias_initializer=transform_gate_bias_initializer)
+    self.dense_1.build(input_shape)
+    self.dense_2 = Dense(units=dim)
+    self.dense_2.build(input_shape)
+    self.trainable_weights = self.dense_1.trainable_weights + self.dense_2.trainable_weights
+
+    super(Highway, self).build(input_shape)  # Be sure to call this at the end
+```
+* The reference code repository can be found [https://github.com/ParikhKadam/bidaf-keras/blob/master/bidaf/layers/highway_layer.py HERE].
+* However, the issue was that with custom layers, TensorFlow batch sizes don't work well with native python logic.
+* Solution: replace every for loop with either repeating tensors and element-wise multiplication, or a [https://keras.io/api/layers/recurrent_layers/time_distributed/ TimeDistributed layer].
+** Because TimeDistributed applies the same instance of Conv2D to each of the timestamps, the same set of weights are used at each timestamp.
+
+```
+>>> inputs = tf.keras.Input(shape=(10, 128, 128, 3))
+>>> conv_2d_layer = tf.keras.layers.Conv2D(64, (3, 3))
+>>> outputs = tf.keras.layers.TimeDistributed(conv_2d_layer)(inputs)
+>>> outputs.shape
+TensorShape([None, 10, 126, 126, 64])
+```
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Investigate TimeDistributed layer and batch size issue
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement Highway Network in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Wrap up Embedding Layer implementation with Kevin
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
+
+=== Nov 8, 2021 === 
+'''Team Meeting Notes:'''
+* Image Processing
+** Selection Methods: high p-value causes the selection methods to fail.
+** Hyper features: try to implement a new hyper feature.
+** Mating/Mutations: stuck on how to adapt geometric and semantic CX to work with strongly typed GP.
+** Data/Infra: fixing bugs for the baseline run.
+* Modularity
+** Stocks team will focus on migrating modularity into Cache V2.
+** Extended ARL group will continue doing runs and experiments.
+* Natural Language Processing (NLP)
+** I, Karthik, and George worked on testing the Bidirectional Attention -> Modeling -> Output layer pipeline. 
+*** Corrections were made to the implementation of some of these layers in TensorFlow/Keras.
+** Output layer currently doesn't return words, just the probability vectors.
+** Kevin is working on integrating the word embedding layer.
+** Steven integrated QA Primitives into neural_network_methods.py and debugged.
+** We're having some issues with getting our primitives to be recognized in string representation.
+* Neural Architectural Search (NAS)
+** Outlined Final Presentation
+*** Automating Time Stopping
+*** CoDeepNEAT and modifying ADFs
+*** Infrastructure and preprocess improvements
+*** Novelty Detection and experimentation
+*** Tracking Individual NNLearner Evolution
+*** Setting up EMADE locally and on PACE
+** Made a video for setting EMADE up locally.
+** ADFs are not consistent within the population of individuals upon further inspection.
+*** Solution A: Revising ADF usages from DEAP.
+*** Solution B: Generate a method which creates ADFs as primitives.
+** Connected the TimeStopping logic to the inputSchema for EMADE.
+** Mapping hash values of offspring to their parents via a linked list within SQL.
+
+'''Subteam Meeting Notes:'''
+* Everyone on the team is assigned new responsibilities.
+* I will be working closely with Kevin on [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Embedding Layer implementation].
+
+'''Individual Progress:'''
+* I worked on understanding the flow within the Embedding Layer.
+** Step 1. Tokenization: In BiDAF, the incoming Query and its Context are first tokenized, i.e. these two long strings are broken down into their constituent words.
+** Step 2. Word Level Embedding: The resulting words are then subjected to the embedding process, where they are converted into vectors of numbers.
+** Step 3. Character Level Embedding: Character level embedding uses one-dimensional convolutional neural network (1D-CNN) to find numeric representation of words by looking at their character-level compositions.
+** Step 4. Highway Network
+** Tutorial Link can be found [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb HERE].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb tutorial article] and understand the general flow of the Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 10, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Word Level Embedding] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Character Level Embedding] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Highway Network] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|}
+
 == Week 11 ==
+=== Nov 6, 2021 ===
+'''Subteam Meeting Notes:'''
+* Steven proposed some relevant tasks for our new members to pursue.
+** Test the functionality of aligned data pairs with NLP.
+** The outputting of words: Convert the dataset format to have said index as the output, instead of the textual answer.
+** Write unit tests for our custom layers. Making sure the input and output dimensions are correct.
+
+'''Individual Progress:'''
+* I and Karthik corrected the [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 implementations of Bi-directional attention layer and modeling layer] to ensure the proper dimensions.
+** However, we were not sure whether the output layer had done dense and LSTM on M1 and M2. Therefore, the output layer remained undone.
+** The next day, I, Karthik, and George have corrected the dimension all the way from bi-directional attention layer to the output layer.
+* I and Karthik have also [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 designed some randomized unit tests] for different dimension inputs using PyTests.
+** Our refactored code passed all tests designed.
+** I refactored the code for better readability.
+```
+num_test = 10
+print("Running " + str(num_test) + " random input PyTests...")
+
+for i in range(num_test):
+  print("Starting test " + str(i + 1))
+  test_pipeline_dim()
+  print("-> Test " + str(i + 1) + " passed!")
+
+print("Success! All tests passed!")
+```
+* I have discussed with Kevin regarding commenting out get_answer for the output layer.
+** we were trying to debug the dimensionality issues, so we changed that to a pair of output.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Bi-directional Attention Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 6, 2021
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Modeling Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 6, 2021
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Output Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Update our progress on Slack Channel
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Write new tasks and update finished tasks on Trello Board with Karthik
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Designed [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing randomized unit tests] to test the dimensionality match with the paper using PyTest
+|Completed
+|November 6, 2021
+|November 13, 2021
+|November 7, 2021
+|-
+|Write [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing comment for each line of tensor transformation] in Attention, Modeling and Output Layer.
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|}
+
 === Nov 3, 2021 ===
 '''Subteam Meeting Notes:'''
 * Every returning and new member introduced him/herself in the meeting.
+* Steven gave a quick presentation on EMADE NNLearners and briefly cover some deep learning layers like RNN and CNN. 
+* Devan gave a presentation on Question Answering and Natural Language Processing.
 * Debugged BIDAF.py
+
+'''Individual Progress:'''
+* I screen shared my laptop with all returning members and setup a local conda environment to run primitives outside EMADE.
+* Encountered issue: 
+ tensorflow.python.framework.errors_impl.AlreadyExistsError: Another metric with the same name already exists
+* Possible Solution: 
+ from tensorflow.keras.layers import Layer, InputSpec
+* Update: still unable to address the issue. However, when the note is being written, we have PACE-ICE back online. The vulnerability issue is noticed especially due to our heavy reliance on PACE-ICE to debug our code.
+* Due to the unresolvable error, we shifted to codeshare and later [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Google Colab] for debugging.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Notice the team when PACE-ICE is back online
+|Completed
+|November 3, 2021
+|November 10, 2021
+|November 5, 2021
+|-
+|Look into the error [https://stackoverflow.com/questions/51337558/how-to-import-keras-engine-topology-in-tensorflow/51337967 tensorflow.python.framework.errors_impl.AlreadyExistsError] when running BiDAF.py on local conda environment
+|Completed
+|November 3, 2021
+|November 10, 2021
+|November 3, 2021
+|}
+
 === Nov 1, 2021 ===
 '''Team Meeting Notes:'''
 * Image Processing
@@ -33,10 +989,13 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 ** Halfway through Bi-directional attention layer.
 * NAS
 ** Ideas we plan to work on in order to improve neural architecture search in EMADE: Triviality Detection, Novelty Detection, Bug fix for swap_layer method, Speeding up EMADE processes, Adding unit tests, Introducing some pause functionality.
-** Updating to Tensorflow 2.6 on PACE.
+** Updating to TensorFlow 2.6 on PACE.
 
-'''Subteam Meeting Notes'''
+'''Subteam Meeting Notes:'''
 * Presented NLP and Q&A Systems to bootcamp students.
+
+'''Individual Progress:'''
+* I, Karthik, and Kevin worked on the first draft of an implementation of the bidirectional attention layer. There is a nice article introduce and specifically describes the dimensionalities of Layer internals. Link to the article can be found [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07 HERE].
 
 == Week 10 ==
 === October 27, 2021 ===
@@ -55,16 +1014,16 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 !Date Resolved
 |-
 |Research Output Layer
-|In Progress
+|Completed
 |October 27, 2021
 |October 31, 2021
-|
+|October 31, 2021
 |-
 |Implement Output Layer
-|In Progress
+|Completed
 |October 27, 2021
 |October 31, 2021
-|
+|October 31, 2021
 |}
 
 === October 25, 2021 ===

@@ -5,11 +5,16 @@
 * Subteam: Modularity
 
 === Teammate Info ===
-* Bernadette Gabrielle Santiago Bal: bgsanbal@gatech.edu
-* Vincent Huang: vhuang31@gatech.edu
-* Xufei Liu: xufeiliu2000@gatech.edu
-* Angela Young: ayoung97@gatech.edu
-* Youssef Walid Elmougy: yelmougy3@gatech.edu
+* Vincent H Huang (vhuang31@gatech.edu)
+* Tian Sun (tsun90@gatech.edu)
+* Xufei Lu (xufeiliu2000@gatech.edu)
+* Angela Young (ayoung97@gatech.edu)
+* Bernadette Bal (bgsanbal@gatech.edu)
+* Youssef Elmougy (yelmougy3@gatech.edu)
+* Leul Wubete (wubete3@gatech.edu)
+* Aditya Kumaran (akumaran6@gatech.edu)
+* Adithya Gurunathan (agurunathan6@gatech.edu)
+* Sai Nikhil Vangala (svangala3@gatech.edu)
 
 == Week of 1/20/21 ==
 
@@ -1545,4 +1550,369 @@ Speaker Notes: On top of the technical indicators that we re-implemented, we add
 ** MOGP AUC: 0.15
 ** EMADE AUC: 0.2638
 
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Midterm presentation Practice
+|Completed
+|10/25/2021
+|10/25/2021
+|10/25/2021
+|-
+|Midterm Presentation Notes
+|Completed
+|10/25/2021
+|11/01/2021
+|10/25/2021
+|}
 
+== Week of 11/01/2021 ==
+
+=== Team Meeting Notes ===
+* Introduced the new members
+* Set the new objectives for the semester based ob midterm progress and reflection
+* Will partake in fixing bugs errors and merging our branch with cachev2.
+* Will try doing stock runs after the branch has been merged.
+* Will do titanic runs on Google Colab until PACE-ICE gets sorted out.
+* Create documentation for new members to set up google colab so they can partake in runs.
+
+=== Google Colab Documentation ===
+* Clone the [https://github.gatech.edu/vhuang31/emade/tree/master repo]
+* If the CloudCopy.sh does not exist in the main directory, go ahead and make it by copying this file [https://github.gatech.edu/vhuang31/emade/blob/ARL_Update/CloudCopy.sh here]
+* If you cannot run CloudCopy.sh (it says something about permission denied), then run chmod +x CloudCopy.sh
+* This should create a emade-cloud directory. Upload that directory onto google drive and call it whatever the branch you're working on is (eg, emade-extended-arl)
+* In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates.
+* Open input_titanicADFON.xml in a text editor
+* Near the top of the file, there should be a dbConfig. Rename the database to the schema name you are trying to join.
+* In google drive, make a copy of this [https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing Google Collab Notebook]
+* In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to.
+* Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process.
+* Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+* Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Onboard New Members
+|Completed
+|11/01/2021
+|11/08/2021
+|11/05/2021
+|-
+|Fix the GPF framework files for CacheV2 changes
+|Completed
+|11/01/2021
+|11/22/2021
+|11/21/2021
+|}
+
+== Week of 11/08/2021 ==
+
+=== Team Meeting Notes===
+* Discussed progress on Titanic ARL runs
+* Debugged issues with colab amongst first semester.
+* Set up a timeline for new objectives.
+* Gave updated regarding debugging in regards to merge branch with cachev2.
+
+=== Upcoming Team Tasks ===
+* Learn and fix emade-viz. Fork for the emade-viz repo which has the visualization notebooks and stuff under the ADFonlyAUC branch - [https://github.gatech.edu/vhuang31/emade-viz/tree/ADFonlyAUC link]
+** The main problem is during the midterm presentation, we had those spikes in the AUC over time which meant the AUC over time generator didn't have a hall of fame.
+** Fix the AUC over time generator to have a hall of fame (or figure out the bug that's causing the spikes)
+** Create a notebook which will also display deviation like last semester's presentation
+** Run the visualization tool on extendedarl 3,4,5 and generate graphs
+** Maybe also run the graphs analyzing arl size effect on individuals
+* Fix ARL selection
+** Right now the ARL selection is based off of the size of the ARL (which we found during the midterm presentation may not necessarily be good). The current formula also collapses two objectives into one via the sum of the objectives. We want to implement some sort of new method of selecting ARLs and maybe a method of depreciating "bad" ARLs.
+** Read over the original papers and see how they did ARL selection
+** Implement a better ARL selection formula based on the paper
+** OR/AND implement ARL selection similar to GP (mating/mutation can follow)
+* Improve CloudCopy.sh script
+** Fix recursive copying bug
+** Right now the script copies everything over and then deletes the unneeded data sets. Instead, copy over everything except the data sets and then copy over the needed dataset (titanic)
+** Mute error messages when removing files which dont exist. These errors caused some confusion as to whether the script was working properly
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Formulate Team Objectives & Deadlines
+|Completed
+|11/08/2021
+|11/15/2021
+|11/11/2021
+|-
+|Titanic runs on colab
+|Completed
+|11/11/2021
+|11/22/2021
+|11/19/2021
+|-
+|Fix templates files for CacheV2 changes
+|Completed
+|11/08/2021
+|11/22/2021
+|11/21/2021
+|}
+
+== Week of 11/15/2021 ==
+
+=== Team Meeting Notes ===
+* Issues with the CloudCopy.sh file has been fixed in order to run properly.
+* Visualtion code for ou experiments have been gathered and will be put to use.
+* Finish CacheV2 changes
+* Continue with Titanic ARL runs and collect data.
+
+=== CacheV2_ARL Changes ===
+* I made the necessary changes to (includes commit id):
+** SeedingFiles/seeding_test_7: de39c5ffa1f3ea789a3ecbfb3b43f0509c26e97c
+** src/GPFramework/check_valid_individual.py: 760abe2c49f8da32f5187a94af2ba4b4d9991f7c
+** src/GPFramework/data.py: f5824f84d3b8637e4c33d5c4ab91054c42f8a1e9
+** src/GPFramework/didLaunch.py: 698457a4e385629ae6db88d236146a25d961dcc4
+** src/GPFramework/emade_operators.py: 97d072504f6ab38436319fc2d6bdfd5d3f4593ad
+** src/GPFramework/eval_methods.py: 437390b3c1bbfe305677482c67e0dc534e5cbeb5
+** src/GPFramework/pickled_individual_reader.py: db4307ab296a84d92ce6d566cbec676e446497a6
+** src/GPFramework/sql_connection_orm_master.py: 7f9b485052f859e0a74d51791843364568d461c6
+** src/GPFramework/standalone_tree_evaluator.py: 57fc5af1c443de891250bed4547f7e50ddce8a73
+** src/GPFramework/statistics.py: 3f8ca166bd29ca6b2412f31fbc7347f1eb96a093
+** templates/inputSample.xml: 3d48eee20abeedd47813cd29115f7d2dac384f11
+** templates/inputSample2.xml: 84ff75943289748f1dc9367ae6015517a3c2276b
+* [https://github.gatech.edu/bbal3/emade/commits/CacheV2_ARL Commit changes link ]
+* Changes :
+** Cloned this fork of emade. git clone [https://github.gatech.edu/bbal3/emade https://github.gatech.edu/bbal3/emade] We worked off of the branch CacheV2_ARL
+** The goal was to move all the changes from adfs into the most recent version of CacheV2, which is copied over into our branch CacheV2_ARL. The file changes that needed to be made [https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2 https://github.gatech.edu/gwang340/emade/compare/ARL_Update...emade:CacheV2]
+*** the above link shows the comparison between our branch with the extended ARL changes and CacheV2. Note how the arrow is pointing, this means we’re adding all the file changes we did in our fork with adfs into the main repository, using the cachev2 branch.
+* Steps to reproduce the changes made:
+** Working off of CacheV2_ARL branch. Run git branch to make sure you’re pushing the file changes you’re making to that branch.
+** Always run git fetch git pull origin to make sure you get other people’s changes first before you make your own.
+** Make file changes, preferably one at a time.
+** Once the current file changes have been made, git commit -m 'file.txt - made file changes /  other description of changes you've made'   and then git push to push those changes to the branch.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting Notes: Status Updates
+|Completed
+|11/15/2021
+|11/22/2021
+|11/18/2021
+|-
+|Debug launchEMADE.py
+|Completed
+|11/15/2021
+|11/22/2021
+|11/21/2021
+|-
+|Figure out missing file changes for stock runs
+|Completed
+|11/18/2021
+|11/22/2021
+|11/21/2021
+|}
+
+== Week of 11/22/2021 ==
+
+=== Progress Notes ===
+* Continuing to work on making changes in order to start doing stock runs
+* Start sorting out data and analyzing it.
+* Plan what to do for final presentations.
+* Gave updates on our progress and what we want to do. 
+* Doing runs on titanic extendedarl10.
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Debug EMADE.py file for CacheV2
+|Completed
+|11/22/2021
+|12/29/2021
+|11/27/2021
+|-
+|Titanic Runs: extendedarl10
+|Completed
+|11/22/2021
+|11/29/2021
+|11/28/2021
+|-
+|Progress Notes
+|Completed
+|11/27/2021
+|11/29/2021
+|11/27/2021
+|}
+
+== Week of 11/29/2021 ==
+
+=== Team Meeting Notes ===
+* Finishing up final titanic extended runs
+* Visualisation has made progress.
+* Fixing cacheV2 errors in order to get stock runs to work.
+* Started on the final presentation and worked on figuring out what we want to include in the presentation.
+
+=== Final Presentation Information === 
+ARL Complexity
+* This semester we continued our work on increasing the complexity of ARLs via increasing tree depth
+* Goals 
+** Allow the search function to consider larger subtrees depth to increase the potency of ARLs
+** Improve ARL candidate selection via a weighting function, given by occurrences * size of ARL / fitness of individual
+* Increasing the tree depth essentially allows for there to be more nodes in the ARL, which means it is essentially doing more.
+* We wanted to see if increasing the complexity helped better the potency of the ARLs.
+* The tree depths used to be about three before. It consisted of the root node, its children nodes, and its respective parameters. 
+* The new selection function priorities weight because it multiplies that value and tries to decrease the number of FP and FN by dividing by the fitness individual.
+* Turns out increasing the complexity of the ARLs does not necessarily mean better results.
+* Thus, we will not be prioritizing complexity anymore moving forward.
+
+Merging CacheV2
+* Our current codebase is not up to date with CacheV2
+** Most teams are up to date with CacheV2, and this is the first step needed in order to do experiments using other teams’ datasets/code.
+** Integrating ARLs into CacheV2 branch
+* Methods: 
+** Looked at diffs between CacheV2 branch and ARL_Update branch to compare files that have been changed.
+* Still missing file changes for stocks.
+* Primary: launchEMADE.py / EMADE.py
+** Need to spend more time debugging changes that happened with merge
+* MySQL Connection Issues
+** MySQL connections are not working with our new, updated branch of code
+* We are able to start runs but results did not output correctly
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Do research on MySQL Connection Issues for CacheV2
+|Completed
+|11/29/2021
+|12/06/2021
+|12/05/2021
+|-
+|Titanic Runs: extendedarl10
+|Completed
+|11/29/2021
+|12/06/2021
+|12/05/2021
+|-
+|Team Meeting Notes
+|Completed
+|12/02/2021
+|12/06/2021
+|12/05/2021
+|-
+|Final Presentation: ARL Complexity Section
+|Completed
+|12/02/2021
+|12/07/2021
+|12/07/2021
+|-
+|Final Presentation: Merging CacheV2 Section
+|Completed
+|12/02/2021
+|12/07/2021
+|12/07/2021
+|}
+
+== Week of 12/06/2021 ==
+
+=== Team Meeting Notes ===
+* Discussed the topics to be covered for the presentation.
+* Figured out what future work we wanted to do in the upcoming semester:
+** Merge stocks changes into our ARL_Update branch
+** Continue adding to the research paper that Gabriel started
+** Moving onto PACE-ICE
+* Determined whose expertise would be utilized to present different parts.
+* Went through a mock presentation to make sure we met the time limit.
+* Discussed the results of our experiments and the progress that we made.
+
+=== Final Presentation Notes ===
+Image Processing
+* Selection Methods - NSGA 2 was baseline, tested against NSGA3 and Lexicase
+* For NSGA3 AUC: 0.377054
+* Fir Lexicase AUS: 0.3488
+* Continued exploration off emantic operators and their application with EMADE.
+* Two new geometric crossover operators: partially matched, ordered crossover, uniform and multi point
+
+NLP
+* Open-domain: has access to a knowledge repository
+* Closes-domain: doesn’t rely on pre-existing knowledge.
+* Can AutoML be used to improve question and answer problems.
+* Output layer problem: needed to change model’s output from probability vectors to answer string.
+* Attention Flow Layer coupes the query and context vectors and produces a set of query aware feature vectors for each word
+* One of the runs produces individuals that beats all of the seeded individuals, three successes one failure.
+
+Stocks Team
+* Uses loss percentage, CDF of Profit
+* Beat Paper and SOTA results
+* Determine how EMADE objective sets affect the overall performance of Pareto Individuals on a constant objective.
+* Use loss percentage objective to evaluate individual within runs
+* Complete Experiment Trials
+* Continue comparison of EMADE Runs
+* Publish  Paper
+
+Neural Architecture Search
+* Make EMADE more complex architectures 
+* Accuracy and frequency is better with changes made.
+* Bad individuals are taking up less time by EMADE
+* Took optimized individuals and verifies the accuracy score is viable.
+* Leveraging Modules: Resnet\VGG Architectures, Easier Implementation,  Pooling\Add Layers, weight sharing.
+* Residual Connections: Vanishing Gradient, “Add” Layer, Shape Correction, 3 trials, Pooling after Mods
+* More consistently better than WS + Max Pooling
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Team Meeting Notes
+|Completed
+|12/07/2021
+|12/13/2021
+|12/12/2021
+|-
+|Discuss and add future work to Presentation
+|Completed
+|12/07/2021
+|12/09/2021
+|12/07/2021
+|-
+|Final Presentation Notes
+|Completed
+|12/10/2021
+|12/13/2021
+|12/12/2021
+|-
+|Practice Final Presentation
+|Completed
+|12/09/2021
+|12/09/2021
+|12/09/2021
+|}
