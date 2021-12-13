@@ -783,21 +783,14 @@ For this problem, we followed many of the same steps that appeared in the One Ma
 
 Findings:
 
+1. With Shuffle Indexes/Uniform Int Mutation:
 ![Screenshot (413)](https://github.gatech.edu/storage/user/47031/files/718b57d0-f301-41a1-861e-970e07ee8180)
 
 ![Screenshot (296)](https://github.gatech.edu/storage/user/47031/files/d6f6ab76-9aaa-4a4c-87f3-d65612a2fa0c)
 
-Visualizations:
-
-1. With Shuffle Indexes Mutation:
-![N Queens Visualization](https://picc.io/-qpvzmX.png)
-
-2. With Uniform Int Mutation:
-![N Queens Visualization with Uniform Int Mutation](https://picc.io/e1uHhHm.png)
-
 * We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
 
-3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
+2. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
 ![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
 <!--![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)-->
 
@@ -806,7 +799,7 @@ Visualizations:
 I also modified the evaluation function to return a tuple (sum_left, sum_right), where sum_left is the number of conflicts between queens strictly on left diagonals and sum_right is the number of conflicts between queens strictly on right diagonals. This allowed us to attempt minimization of both objectives in the evolutionary loop such that the evolution did not produce many individuals that had a high number of conflicts on left diagonals or right diagonals but not distribute conflicts on both types of diagonals. 
 
 4. With (left_diagonal_conflicts, right_diagonal_conflicts) as fitness tuple
-![](https://picc.io/7PFcY8A.png)
+![Screenshot (299)](https://github.gatech.edu/storage/user/47031/files/5513ddc1-8c91-4380-b8b9-31bd1fb80ec2)
 
 As we can see in the above graph, the best individual was reached much more quickly using the left and right diagonal fitness tuple than simply the sum of the conflicts in the evaluation function. However, in the evolutionary function, the fitness being considered was only the first index in the fitness tuple (that is, the number of conflicts on left diagonals). As such, this indicates that our algorithm quickly minimizes left diagonal conflicts when our evaluation function contains both left and right diagonal conflicts. Next week, when we learn multi-objective genetic programming and an appropriate evaluation function to handle both left and right diagonals, I will be able to identify how fitness on both objectives improved over time in the fitness graph and obtain a best individual that is based on both objectives, not just the number of conflicts on left diagonals. 
 
