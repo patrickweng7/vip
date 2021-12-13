@@ -33,12 +33,50 @@ Hobbies: Meditation and cooking
 == November 29, 2021 ==
 === Lecutre Notes ===
 * Finally, we will be freezing our code and doing runs.
+* I talked with Dr Zutty about the experiment. It looks like the new null hypothesis is fine.
 
 === Team meeting ===
 * Steven made a new repo after fixing some bugs and changing some of the XML files: https://github.gatech.edu/sleone6/emadebackup
 
-=== My Work ===
-* Talked with 
+=== My Work: Finalized the objectives ===
+* Shiyi and I met Steven and we finalized continuous_MSE and num_params (number of parameters) as the two objectives for the runs.
+** continuous MSE: it measures how far we are from the correct index.
+** number parameters: it measures the complexity of the model, the more the number of parameters, the more complex the model becomes.
+
+* Why we chose these two objectives? We want to choose objectives that are relevant and not related to each other (measure different qualities of prediction/model). As far as we could understand, continuous MSE and number of parameters measure two qualities of prediction/model that are not related. Making the model more or less complex does not necessarily dictate whether the predicted index will be closer or farther from the actual one. 
+
+* Are these objectives enough? Maybe not. While we tried to ensure that the two objectives do not measure the same/similar quantities, it could be the case that we missed some objectives that are relevant to our problem. We will work on implementing other objectives (if required) in the coming semesters as do not have a lot of time left now.
+
+
+=== My Work: Found a flaw in the experiment ===
+* I discovered a flaw in our experiment: if we use the hypothesis test then our null will be rejected in either of the two cases: (1) EMADE performs much worse than the seeded individual (2) EMADE performs much better than the seeded individual.
+
+If EMADE performs much worse than the seeded individual then it is fine if the null is rejected but it is not fine if null is rejected in case 2.
+
+* I think the null hypothesis should be something like "AUC from pareto optimal individuals > AUC from the seeded individual." Now, if I could reject the null hypothesis then it would mean that EMADE could produce individuals that had lesser AUC than the seeded individuals, which is desired. However, I only know how to plot a distribution (normal or student-t) if the null hypothesis has equality (like μ = μ_0) and not if there is an inequality. I will try to discuss this with Dr Zutty in the next meeting.
+
+
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Determine how to draw a distribution (normal or student-t if there is an inequality like μ < μ_0)
+|Completed
+|November 29, 2021
+|November 29, 2021
+|November 29, 2021
+|Finalized the objectives that we will be using for the runs
+|Completed
+|November 29, 2021
+|December 03, 2021
+|December 03, 2021
+|}
+
+
 
 == November 22, 2021 ==
 === Lecutre Notes ===
@@ -55,15 +93,9 @@ No team meeting due to the Thanksgiving break.
 === My Work ===
 Over the break, I tried to improve some of the flaws that Dr Zutty pointed out in the lecture in our experiment:
 * Changed the null hypothesis to be "AUC from pareto optimal individuals = AUC from the seeded individual"
-* I also discovered another flaw in our experiment: if we use the hypothesis test then our null will be rejected in either of the two cases: (1) EMADE performs much worse than the seeded individual (2) EMADE performs much better than the seeded individual.
-
-If EMADE performs much worse than the seeded individual then it is fine if the null is rejected but it is not fine if null is rejected in case 2.
-
-* I think the null hypothesis should be something like "AUC from pareto optimal individuals > AUC from the seeded individual." Now, if I could reject the null hypothesis then it would mean that EMADE could produce individuals that had lesser AUC than the seeded individuals, which is desired. However, I only know how to plot a distribution (normal or student-t) if the null hypothesis has equality (like μ = μ_0) and not if there is an inequality. I will try to discuss this with Dr Zutty in the next meeting.
 * Shiyi and I started writing the code for the experiment: https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing.
-* I found the following videos and articles helpful in strengthening my understanding of hypothesis testing: 
+* I found the following article helpful in strengthening my understanding of hypothesis testing: 
 ** Statistics for evaluating ML models: https://machinelearningmastery.com/statistics-for-evaluating-machine-learning-models/
-** How to deal with the case when μ < μ_0: https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/examples-of-null-and-alternative-hypotheses?modal=1
 * Suggested Shiyi the following links to study from if he is facing any problem: 
 ** https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
 ** https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce
@@ -80,12 +112,6 @@ If EMADE performs much worse than the seeded individual then it is fine if the n
 |November 22, 2021
 |November 29, 2021
 |November 23, 2021
-|-
-|Determine how to draw a distribution (normal or student-t if there is an inequality like μ < μ_0)
-|Completed
-|November 22, 2021
-|November 29, 2021
-|November 29, 2021
 |}
 
 
