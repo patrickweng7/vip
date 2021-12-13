@@ -18,11 +18,114 @@ Final Presentations
 
 * Image Processing
 ** This was our team
+** Final Presentation here: [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk Final Presentation]
 
-* NLP
+Feedback:
+
+* We looked into a lot of things, but didn't go deep
+** For example, we evaluated the average ROC across all classes, but never looked at if it did well at particular classes.
+** An example would be if half of the classes were very difficult to solve and had low metrics, but a few classes performed extremely well. Due to having 14 classes, any success by one class dissipates
+* There are systemic artifacts that are present due to processes or code
+** As we see further down, there are some results that keep appearing over and over again
+* Most of our experiments showed no improvement. While this is probably the case, we also just don't have great numbers for the baseline
+** If all of our changes are performing worse that the baseline, then either we are making too large of a change, or the implementation might be incorrect. We have very little "test" cases to prove our code is working as it should. We only see errors
+* Each of our topics should be followed up on
+
+* I believe many of these issues are due to us not having the code base ready in time. We were only able to run experiments a couple of times and did not have enough time to truly evaluate and iterate.
+
+NLP
+*Preprocessing is  important for NLP tasks
+** Tokenization
+
+* Word Embeddings
+** Word2vec, glove
+* Attention Networks
+
+* Initial Problem
+** SOTA models to answer question from their database
+** Can we use AUTOML to do answer questions
+** Difficult to solve with multiple inputs
+
+* Initially tried to predict a tuple
+* Keras does not support regression with multiple outputs
+** Keras does support handling multiple inputs, but the original NNLearner does not.
+
+* Can Emade produce a solution that outperforms the seeded individuals from SOTA methods
+
+* Multiple Data Pairs
+* When you used standalone evaluator, it uses load_environment, which is not part of Emade. Therefore you have to make changes there too
+
+* Removed activation functions because they were making every output 1
+
+* Only 4 successful runs out of 32
+* Error is about 99% which compared to humans is 0.89%
+
+* Need more runs in the future
+* Need to hand train a model on Keras to see how close they can get that way
+* Do not have things like word embedding implemented. Could use that to compare solutions and answers
+
+*Open-Domain vs Closed-Domain
+** Open-domain has access to a knowledge repo
+* Extractive vs Abstractive
+** Answer can always be found verbatim vs paraphrased
 
 
-*Time Series Analysis
+Time Series Analysis
+
+* Beating Paper and SOTA results
+* Not all trials completed due to time constraints
+* Used profit percentage as objective because it can be compared against other experiments
+* Loss and average as components had the highest performance on average
+* Comparing to paper - Show how Emade can outperform the original paper - fuzzy model
+* Beat the paper out in all stocks except for Johnson and Johnson
+* Over 4 standard deviations greater than the mean
+* There were not enough experiments to make a meaningful Pareto graph
+* Assumed zero commission
+* Budget is however much you buy in the first trade
+* Argmin and argmax were outperforming NNs
+* It would only buy or sell if the first technical indicator was lower than any other technical indicator
+
+NAS
+
+* Hyperparemeter optimization
+* Determining the best architecture for any problem using a search strategy
+
+* Time Stopping
+* Need a way to stop training without causing ti to error out
+* Created TimedStopping Callback
+* Used 1200s timeout
+* The longer you train a model does not necessarily increase the accuracy
+
+* Added weight sharing
+* Can add module as primitive
+* Accuracy is higher for runs that end earlier
+* Weight sharing was originally very slow because of having to read and write to the database
+* Adding Residual connections
+* Every module uses a Residual connection besides the first one
+* Might be good not to put Residuals at the beginning go the model
+
+* Testing and analysis toolkit
+* Writes statistics and writes graphs
+* Inputting new layer types is difficult
+* For one we already have  most common evaluation methods
+
+ARLs
+
+* Search population for parent and children nodes
+* Moved information within tuples into classes
+* Now tells you what the data is when you print it
+* Made a shell script that installs everything for you
+
+Hypothesis:
+If some set of nodes help produce good results, you should do more computation.
+
+* As ADLs approach larger generations, they perform better but that loss goes away for bit in generations 30-35. After that, things are fine
+* Size of ARLs did not correlate with performance
+
+* Check to see if ARL that appears in > individuals perform better than other individuals. Thee doesn’t seem to be a correlation
+* ARL selection formula uses frequency - therefore it will follow the general distribution
+* Mysql connection issues  - could start runs but not finish
+* Multi-objective selection -> single objective (adding up all of the parameters and averaging currently)
 
 ''' My Work'''
 
@@ -58,7 +161,7 @@ After getting it to work once for 8 hours. I have not been able to run an experi
 
 Another thing I helped with was in creating the Pareto front for our multiple experiments. I used the data collected from 3 other members for a total of 4 runs. Our runs were to test against the baseline image processing (NSGAII and merge into nn-vip branch) if geometric crossover would produce different results. Our objectives were the average 1-ROCAUC for all 14 classes of diseases and the number of parameters.
 
-INSERT PF HERE
+[[files/egrossman3/mutations_all.png|thumb|80x80px]]
 
 This code was generating from the following starter code:
 
@@ -123,6 +226,8 @@ Here is the tree representing 30 parameters in final form:
 NNLearner(ARG0, GlobalMaxPoolingLayer2D(MaxPoolingLayer2D(Conv2DKernelSize1,MaxPoolingLayer2D(Conv2DKernelSize3,DenseLayer4dim(DenseLayerUnit256, eluActivation, MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))))), DenseLayerUnit256, AdamOptimizer)
 </pre>
 
+[[files/egrossman3/30_tree.png|thumb|80x80px]]
+
 And here it is in raw form:
 <pre>
 NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_4(adf_15(adf_5(InputLayer)))), ((((DenseLayerUnit256)))), ((((AdamOptimizer)))))
@@ -143,6 +248,8 @@ adf_15: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer)
 ** The only decent solutions (<0.4) involved many parameters
 ** Perhaps the number of parameters is not a useful optimization metric. While we should keep it low in order to have less complex solutions, there are so few good results when doing so. There may have been better metrics to choose from
 ** If good solutions only happen when parameter numbers are high, then let's use the those. Our results are not time sensitive, so speed in not a factor. The paper we are comparing against uses F1 score, so we should do the same
+* This was elabotated on in our presentation feedback in that the ROC is averaged across all 14 diseases, so we can't know if it performed well on some of the classes or all of them
+
 
 '''Action Items:'''
 {| class="wikitable"
