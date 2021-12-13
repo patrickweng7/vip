@@ -32,15 +32,8 @@ Hobbies: Meditation and cooking
 
 
 
-== November 21, 2021 ==
-=== Hackathon Meeting Notes ===
-
-
-== November 17, 2021 ==
-
-** We will consider the statistical assumptions about the sample we are testing.
-** Decide the t-statistics and here is where will have to do more research. For the midterm presentation, we were thinking of using the F-1 score that Steven wrote and the EM but I think the F-1 score that other models on the SQuAD website are using is different.
-** Find the distribution of assuming the null to be true and select significance level alpha to reject or not reject our null. 
+== November 22, 2021 ==
+* I told Dr Zutty and Rohligh our plan to proceed with hypothesis testing (plan elaborated in the 'My Work at Hackathon' section under November 15)
 
 
 == November 15, 2021 ==
@@ -56,11 +49,25 @@ Note: In the team meeting this week, I was be reassigned to work on the statisti
 * I will be working in the Statistics sub-sub-team along with Shiyi. Our main task is to design an experiment that can prove/disprove our hypothesis of the efficacy of EMADE for the question-answering. We have not yet decided on our null hypothesis but it will be something like "EMADE does not perform better than the existing NLP SOTA models (given on the SQuAD dataset) for the SQuAD dataset." 
 * I met with Shiyi in the breakout room to discuss the plan.
  
+=== My Work at Hackathon===
+I suggested the following steps to Steven in the Hackathon meeting:
+1.  Each one of us should run EMADE with different train and test splits of the dataset. This should be done to make decorrelate the predictions as during hypothesis testing we make an assumption that our random variables are independent identically distributed (IIDs). 
+2. Also, we need to make sure that each one of us run EMADE for the same amount of time to make sure that none of the runs is disadvantaged.
+3. From each master.out file, we will get the Pareto-optimal individuals. Therefore, the number of master.out files = number of pareto fronts.
+4. Then, we will find the mean of F-1 score for all the pareto optimal individuals in all the master.out files.
+5. The null hypothesis should be something like "EMADE performs as well as one of the SOTA NLP models on the SQuAD leaderboard."
+6. We will plot a distribution (normal distribution of student t-distribution based on the number of successful runs we could get.)
+7. We will set a significance level, alpha, and if the above-calculated value of F-1 score lies in the critical region then we will reject the null hypothesis.
+8. We will do the exact same steps (steps 1-7) for EM.
 
-=== My Work ===
+For the midterm presentation, we were thinking of using the F-1 score that Steven wrote and the EM but I think the F-1 score that other models on the SQuAD website are using is different. Although the F-1score that Steven wrote better captures the success of the model, we will not be using it because then we will not be able to compare our success with the success of SOTA NLP model on the SQuAD leaderboard.
+
+=== My Work before Hackathon===
 * Studied the procedure behind hypothesis-testing from here:https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
-* It looks like there is a lot of ways we can choose t-statistics given the condition in the problem. A good t-statistics can capture the nature of the given problem better. For example, we should use different t-statistics if the number of datapoints we have to plot the distribution vary. For instance, if we do not have enough samples from our population, then we should use student-t-distribution but normal distribution otherwise.
-
+* It looks like there is a lot of ways we can choose t-statistics given the condition in the problem. A good t-statistics can capture the nature of the given problem better. 
+* Also, I realized the based on the number of successful master.out files we could get, we will change our distribution. For instance, if we do not have enough samples from our population (<30), then we should use student-t-distribution but normal distribution otherwise.
+* I also realized that changing the objective functions can also help demonstrate the improvement of the model using EMADE.
+=== My Work before joining the Statistics sub-sub-team ===
 * I suggested the below method to Steven in the lecture meeting of November 15, but as I mentioned above, we will not be implementing it due to a lack of time.
 * One of the ways I am trying to modify the code to get both the start and end indices is by fitting the model twice.
 ** First, the model will predict the start index.
