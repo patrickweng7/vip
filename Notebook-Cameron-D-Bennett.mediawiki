@@ -35,6 +35,42 @@ Teammates:
 
 Total Out of 100: '''91/100'''
 
+== December 6th, 2021 ==
+'''Team Meeting Notes:'''
+* This week, our final team meeting was a check-in to ensure everyone was on track with their slides. At this time a lot of members had a couple of vacancies within the slides but I tried my best to outline the necessary steps they should take to ensure they have their sections done in time for the presentation. I also made sure to offer my time to whoever has low bandwidth this week due to finals.
+* The biggest point made was that all team members should ensure they've got some results which can be turned into visuals for them to discuss during the presentation. I was very adamant about having as much to show for all of our great work as possible. 
+* Fortunately most team members delivered excellently, I especially enjoyed the visualization that Justin H put together for his slides.
+* Pranav and Rayan showed me their slides and I gave some feedback to Pranav about some good future applicability that he could discuss with the literature review he's completed. He seemed to really grasp the reading well! 
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|2 trials of EMADE on pace containing Mate/Mutate methods in EMADE and without
+|Complete
+|11/29/21
+|12/10/21
+|12/09/21
+|-
+|Add slides about changes made within EMADE regarding weight sharing and mating/mutation methods in EMADE
+|Complete
+|11/29/21
+|12/10/21
+|12/09/21
+|-
+|}
+
+'''Individual Notes:'''
+* This week, during my pace runs I noticed a couple of different things that I think will be important for future exploration of NAS. The first thing is that EarlyStopping callbacks are extremely useful in maximizing the productivity of EMADE. Finding a way to get under the hood of this callback could prove useful in the future. For the sake of my runs, I simply utilized the parameters set in this commit and encouraged others to as well. [https://github.gatech.edu/cwhaley9/emade/commit/c66274c411536f0c7d5e1982d4f06a2cb07f6d78 commit]
+* Another thing I noticed was that when I ran EMADE locally with GPU support, I consistently saw higher-performing individuals as opposed to my pace runs which generated a lot of trivial(though functional) individuals. I wonder how significant GPU support will be in the evolution of EMADE and would like to explore some lower-level optimizations that are probably already available within Tensorflow and Keras to optimize matrix multiplication operations.
+* Novelty detection will certainly prove useful as I've run into an issue in one of my local runs which generates a very high-performing individual but causes the future populations to continue leveraging the same modules that succeeded earlier. Preventing this is a must for the future however, something that was especially wierd (not necessarily good or bad) was that when future individuals utilized the same combinations of modules they got nearly the exact same performance out of those modules even though those modules had usually mutated or been mated to produce a completely different module than what was used before. I'm not sure how this is possible and will make it a point to inspect in the future. 
+* Cameron W has made it a point throughout the semester to mention that we need to remove max-pooling layers from the primitive set provided to modules. I agree with this and just want to make that note here as well. The reason is that individuals which currently utilize max-pooling layers do so very inefficiently and at undesirable points within the network(according to the research we've seen). We'll want to constrain usage of max-pooling layers in a smarter way within the future. 
+* All of the changes I played a part in are discussed within our powerpoing [https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing here] I'm responsible for slides 14-26.
+
 == November 29th, 2021 ==
 '''Team Meeting Notes:'''
 * This week, our SCRUM meeting consisted of the final distribution of slides amongst team members followed by necessary debugging of any final issues had by team members. Novelty detection seems to be at a functional stat however we are lacking in methods to run trials with for the final presentation. Devesh pitched a decent idea which was to simply add 1 to the 'novelty score metric' for any individual containing a layer that makes up less than 50% of the population. I recommended conner implement at least 3 random eval methods which utilize layer frequencies in order to have enough information to discuss during the presentation.
@@ -59,13 +95,13 @@ Total Out of 100: '''91/100'''
 |2 trials of EMADE on pace containing Mate/Mutate methods in EMADE and without
 |Incomplete
 |11/29/21
-|12/06/21
+|12/10/21
 |
 |-
 |Add slides about changes made within EMADE regarding weight sharing and mating/mutation methods in EMADE
 |Incomplete
 |11/29/21
-|12/06/21
+|12/10/21
 |
 |-
 |}
