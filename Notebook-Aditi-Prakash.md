@@ -151,6 +151,10 @@ First NLP team meeting, understanding NLP problem, EMADE setup on PACE.
 * My tasks for this week include getting EMADE set up on PACE (scp-ing our working branch (https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs) over to PACE, setting up a conda environment, ensuring I can login to a MySQL instance and submit jobs to the queue, etc.) using Cameron’s set-up video: https://www.youtube.com/watch?v=LashYCCJF3E&feature=youtu.be and this setup guide: https://github.gatech.edu/emade/emade/wiki/Guide-to-Using-PACE-ICE. 
 * I will also read the following paper to better understand the purpose of the BIDAF model, the layers it includes, and how our custom-built EMADE primitives each map to one layer in the BIDAF model: https://arxiv.org/pdf/1611.01603.pdf. 
 
+BIDAF model overview:
+
+![Screenshot (491)](https://github.gatech.edu/storage/user/47031/files/46ce9df9-21cd-460c-a222-4a9510d54f02)
+
 Notes on BIDAF Paper:
 * Character Embedding Layer uses tokenization techniques to create vector representation of words in context and query using character-level CNNs.
 * Word Embedding Layer similarly embeds the context and query at the word level using a pre-defined corpus and a word embedding model (ie. GloVe).
