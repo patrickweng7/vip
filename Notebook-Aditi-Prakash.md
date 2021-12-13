@@ -39,6 +39,60 @@ Results captured in our final presentation:
 * The continuous_mse values for the Pareto optimal individuals also seem quite high, which means their predictions are quite far off from the actual start index of most samples passed to them. This could be due to a poor choice of word/vector/contextual embedding, which is something we plan to look into next semester. 
 * However, these Pareto optimal individuals are promising and are mostly NNLearner2 individuals with our custom primitive layers, indicating the work we have done to replicate the BIDAF model has been effective in pushing out our seeded model and reducing its AUC. 
 
+Notes on Other Teams' Presentations:
+
+Image Processing:
+* Initially a multilabel problem, every image had multiple labels to represent disease
+* Changed problem to not be multilabel, still multiclass
+* AUC: receiving Operator Characteristic (ROC) - compares TPR vs FPR over various thresholds
+* Higher the AUC ROC, more certain model is at distinguishing between classes
+* AUC for Pareto Front: 0.2189
+* Lowest ROC: 0.169169, NNLearner, adf_3: MaxPoolingLayer2D, adf_8: DenseLayer4dim 
+* NSGA2 was baseline, ROC AUC: 0.218952
+* NSGA3
+* Lexicase (uncommon training sets)
+* NSGA3 works better than NSGA2 on multiple objectives (NSGA2 reduces to a 2-objective problem)
+* Selection methods - lexicase, ton of parameters in individual
+* Too many training cases leads to selection being random 
+* Best valid individual was an NNLearner
+* Semantic operators resulted in unbound growth of individuals
+* Geometric crossover operators: partially matched, ordered crossover, uniformly matched
+* AUC of ROC - with increase in parameters, area started to decrease
+* Individuals with less parameter had greater AUCs
+* Best individual: 0.365493
+* No great solutions with less than 3.5 million parameters
+* Low diversity of solutions, worse AUC than baseline, number of parameters are extremely high for decent results
+* Two hyperfeatures: grey level transformation, sobel filter
+* Contrast + Sobel Filter: Lowest ROC AUC - 0.5
+* Number of paraemters - 929359
+* Contrast + Sharpening Filter - ~0.4
+* Future semesters: EMADE.py using selection method in XML, implement different version of lexicase, NNLearner
+* Lexicase can produce 14x14 confusion matrices to demonstrate performance of individuals for each class, ROC AUC is an average and doesn’t tell us how each individual performs
+* What kind of filters/mutations would accentuate what a human would look for?
+
+Stock Market/Trading Analysis
+* 3 trials of different objective sets in EMADE
+* Train/test data was same as used in paper
+* Primitive Analysis/Profit Percentage Analysis
+* Primitive Analysis - Profit Percentage (objective set: loss + variance) 
+* MyVMA and arg_min are common primitives 
+* Successful runs for 7 stock portfolios, only did not outperform paper’s model for one stock 
+
+NAS:
+* Worked on generators for modules in EMADE throughout the semester
+* Set up experiments to determine impact of changes on runs and evolution
+* Added weight sharing and module as a primitive to speed up training of same individuals
+* Frequency of accuracy was greater without mating and mutation for modules than with mating and mutating
+* Residual connections were more effective that pooling and weight sharing overall, but not for the best individuals
+
+Modularity: 
+* Fixed bugs in experiments from midterm 
+* Saw that introduction of ARLs to individuals tended to improve their performance
+* Used novel selection methods to avoid rewarding the desired behavior of individuals prematurely (ie. not using size as a metric)
+* New members fixed issues with cloud copy script performing infinite recursion
+* Attempted to work on Stock team’s codebase but merge conflicts were too great to make progress with Stocks team this semester
+* Continuing to experiment with ARL sizes and running experiments to see impact on results 
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
