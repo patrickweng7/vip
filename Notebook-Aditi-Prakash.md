@@ -771,23 +771,21 @@ For this problem, we followed many of the same steps that appeared in the Lectur
 
 Findings:
 
+![Best Ind One Max](https://github.gatech.edu/storage/user/47031/files/aa90dcca-d670-412d-b190-e076e8641170)
+![OneMax Generations](https://github.gatech.edu/storage/user/47031/files/f25111cf-38b3-4533-9d5c-07361438c066)
+
 The best individual was as follows: Best individual is [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], (100.0,). 
 
 The global maximum (a best individual with a fitness equal to n, the number of entries in each individual) was reached within 40 generations about every 19 out of 20 times the algorithm was run; this indicates that our algorithm has an effectiveness of around 95%. Further improvements can be made by changing the bounds of the random number generation for crossover, mutation, and selection, increasing/decreasing the size of the population and the number of generations, as well as trying other crossover and mutation methods. 
-
-![Best Ind One Max](https://github.gatech.edu/storage/user/47031/files/aa90dcca-d670-412d-b190-e076e8641170)
-![OneMax Generations](https://github.gatech.edu/storage/user/47031/files/f25111cf-38b3-4533-9d5c-07361438c066)
 
 **N Queens Problem:**
 For this problem, we followed many of the same steps that appeared in the One Max Problem (see above). We define a size n = 25 for each individual and define a weight of -1.0 here, since we wish to minimize the number of conflicts between queens in our problem space. We then create a permutation function to populate the entries for each individual with numbers selected without replacement from range(n). For instance, the following individual will have a queen in the 1st row and the 8th, the 2nd row and the 1st column, etc.: [7,0,4,6,5,1,9,2,8,3]. We define our evaluation function as a measure of the number of conflicts along each diagonal of our board; with the creation process we defined for individuals, queens will not appear in the same row or column. [Describe evaluation function modification here w/ screenshots]. We then write the cxPartialyMatched() function for partially matched crossover, cxTwoPoint(), and mutShuffleIndexes() to shuffle values at different indexes within each individual (since we must remain within size n  = 25). We modified the mutation function to be a uniform int mutation, wherein randomly selected entries for each individual are replaced with a randomly selected value between 0 and n. The improvements seen with this new mutation function are described in the Findings section below. Finally, we run a similar evolutionary loop as the one described for the One Max Problem (see above) for 100 generations, return the fitnesses of the individuals (based on the predefined fitness operation - the number of conflicts between queens) and print statistics. We loop for some number of generations (100, in this case) and report the best individual that has resulted from this evolution process. 
 
 Findings:
 
-![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
+![Screenshot (413)](https://github.gatech.edu/storage/user/47031/files/718b57d0-f301-41a1-861e-970e07ee8180)
 
 ![Screenshot (296)](https://github.gatech.edu/storage/user/47031/files/d6f6ab76-9aaa-4a4c-87f3-d65612a2fa0c)
-
-![Screenshot (413)](https://github.gatech.edu/storage/user/47031/files/718b57d0-f301-41a1-861e-970e07ee8180)
 
 Visualizations:
 
@@ -800,7 +798,8 @@ Visualizations:
 * We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
 
 3. With 85 Generations and 10% Mutation Rate (Shuffle Index Mutation):
-![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)
+![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
+<!--![N Queens Visualization with 85 Generations and 10%  Mutation Rate](https://picc.io/MZtm5UD.png)-->
 
 * We can see here that with a 10% mutation rate as opposed to the initial 20% mutation rate and with 85 generations as opposed to 100, we obtain a best individual with a fitness of 0 more consistently than we did previously. The maximum fitness also trends towards our best fitness more quickly than before. This also points to the fact that Shuffle Index Mutation may not be the best mutation for this particular problem, since a lower percentage of that mutation led to more consistent results in fewer generations. 
 
