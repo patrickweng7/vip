@@ -725,6 +725,7 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 
 '''Individual Progress'''
 * I was working on the Highway Network of the Embedding layer with Kevin.
+** In a highway network, only a fraction of the input will be subjected to the three aforementioned steps; the remaining fraction is permitted to pass through the network untransformed.
 ```
 def build(self, input_shape):
     # Create a trainable weight variable for this layer.
@@ -739,7 +740,7 @@ def build(self, input_shape):
 
     super(Highway, self).build(input_shape)  # Be sure to call this at the end
 ```
-** The reference code repository can be found [https://github.com/ParikhKadam/bidaf-keras/blob/master/bidaf/layers/highway_layer.py HERE].
+* The reference code repository can be found [https://github.com/ParikhKadam/bidaf-keras/blob/master/bidaf/layers/highway_layer.py HERE].
 * However, the issue was that with custom layers, TensorFlow batch sizes don't work well with native python logic.
 * Solution: replace every for loop with either repeating tensors and element-wise multiplication, or a [https://keras.io/api/layers/recurrent_layers/time_distributed/ TimeDistributed layer].
 ** Because TimeDistributed applies the same instance of Conv2D to each of the timestamps, the same set of weights are used at each timestamp.
@@ -752,16 +753,81 @@ def build(self, input_shape):
 TensorShape([None, 10, 126, 126, 64])
 ```
 
-=== Nov 8, 2021 === 
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Investigate TimeDistributed layer and batch size issue
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement Highway Network in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Wrap up Embedding Layer implementation with Kevin
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|}
 
+=== Nov 8, 2021 === 
+'''Team Meeting Notes:'''
+* Image Processing
+**
+**
+**
+* Modularity
+**
+**
+**
+* Natural Language Processing (NLP)
+**
+**
+**
+* Neural Architectural Search (NAS)
+** Outlined Final Presentation
+*** Automating Time Stopping
+*** CoDeepNEAT and modifying ADFs
+*** Infrastructure and preprocess improvements
+*** Novelty Detection and experimentation
+*** Tracking Individual NNLearner Evolution
+*** Setting up EMADE locally and on PACE
+** Made a video for setting EMADE up locally.
+** ADFs are not consistent within the population of individuals upon further inspection.
+*** Solution A: Revising Drom DEAP.
+*** Solution B: Generate a method which creates ADFs as primitives.
+** Connected the TimeStopping logic to the inputSchema for EMADE.
+** Mapping hash values of offspring to their parents via a linked list within SQL.
+
+'''Subteam Meeting Notes:'''
 
 == Week 11 ==
 === Nov 7, 2021 ===
+'''Subteam Meeting Notes:'''
+
+'''Individual Progress:'''
+
 === Nov 6, 2021 ===
+'''Subteam Meeting Notes:'''
+
+'''Individual Progress:'''
+
 === Nov 3, 2021 ===
 '''Subteam Meeting Notes:'''
 * Every returning and new member introduced him/herself in the meeting.
 * Debugged BIDAF.py
+
+'''Individual Progress:'''
 
 === Nov 1, 2021 ===
 '''Team Meeting Notes:'''
