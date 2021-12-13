@@ -722,6 +722,7 @@ Team members: [[Notebook Steven Anthony Leone|Steven Anthony Leone]], [[Notebook
 === Nov 10, 2021 ===
 '''Subteam Meeting Notes:'''
 * Each sub-subteam meets at Clough for discussion and collaboration.
+* Steven and Devan gave a presentation on EMADE, Deep Learning, NLP, and QA to our New Members
 
 '''Individual Progress'''
 * I was working on the Highway Network of the Embedding layer with Kevin.
@@ -783,17 +784,20 @@ TensorShape([None, 10, 126, 126, 64])
 === Nov 8, 2021 === 
 '''Team Meeting Notes:'''
 * Image Processing
-**
-**
-**
+** Selection Methods: high p-value causes the selection methods to fail.
+** Hyper features: try to implement a new hyper feature.
+** Mating/Mutations: stuck on how to adapt geometric and semantic CX to work with strongly typed GP.
+** Data/Infra: fixing bugs for the baseline run.
 * Modularity
-**
-**
-**
+** Stocks team will focus on migrating modularity into Cache V2.
+** Extended ARL group will continue doing runs and experiments.
 * Natural Language Processing (NLP)
-**
-**
-**
+** I, Karthik, and George worked on testing the Bidirectional Attention -> Modeling -> Output layer pipeline. 
+*** Corrections were made to the implementation of some of these layers in TensorFlow/Keras.
+** Output layer currently doesn't return words, just the probability vectors.
+** Kevin is working on integrating the word embedding layer.
+** Steven integrated QA Primitives into neural_network_methods.py and debugged.
+** We're having some issues with getting our primitives to be recognized in string representation.
 * Neural Architectural Search (NAS)
 ** Outlined Final Presentation
 *** Automating Time Stopping
@@ -804,12 +808,55 @@ TensorShape([None, 10, 126, 126, 64])
 *** Setting up EMADE locally and on PACE
 ** Made a video for setting EMADE up locally.
 ** ADFs are not consistent within the population of individuals upon further inspection.
-*** Solution A: Revising Drom DEAP.
+*** Solution A: Revising ADF usages from DEAP.
 *** Solution B: Generate a method which creates ADFs as primitives.
 ** Connected the TimeStopping logic to the inputSchema for EMADE.
 ** Mapping hash values of offspring to their parents via a linked list within SQL.
 
 '''Subteam Meeting Notes:'''
+* Everyone on the team is assigned new responsibilities.
+* I will be working closely with Kevin on [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Embedding Layer implementation].
+
+'''Individual Progress:'''
+* I worked on understanding the flow within the Embedding Layer.
+** Step 1. Tokenization: In BiDAF, the incoming Query and its Context are first tokenized, i.e. these two long strings are broken down into their constituent words.
+** Step 2. Word Level Embedding: The resulting words are then subjected to the embedding process, where they are converted into vectors of numbers.
+** Step 3. Character Level Embedding: Character level embedding uses one-dimensional convolutional neural network (1D-CNN) to find numeric representation of words by looking at their character-level compositions.
+** Step 4. Highway Network
+** Tutorial Link can be found [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb HERE].
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Read the [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-2-word-embedding-character-embedding-and-contextual-c151fc4f05bb tutorial article] and understand the general flow of the Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 10, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Word Level Embedding] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Character Level Embedding] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|-
+|Implement [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Highway Network] in Embedding Layer
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
+|}
 
 == Week 11 ==
 === Nov 7, 2021 ===
