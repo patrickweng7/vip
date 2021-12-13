@@ -95,7 +95,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Get at least one more EMADE Run with SQUAD| Complete | 12/06/2021 | 12/08/2021 | 12/08/2021 |
 Create final presentation | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
-Analyze Experiment Results and create Visualizations with Rishit and Shiyi | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
+Analyze EMADE runs on SQUAD Experiment Results and create Visualizations with Rishit and Shiyi | Complete | 12/06/2021 | 12/09/2021 | 12/10/2021 |
 
 
 ### Getting Runs in
@@ -272,7 +272,7 @@ Fix train/test data split in NNLearner2 in neural_network_methods.py | Complete 
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
-Further Debug New Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
+Further Debug New Primitives with Standalone Tree Evaluator until working or major code flaw is found | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
 Meet w/ Devan on  status of NNLearner2 | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
 Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
 
@@ -333,7 +333,7 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Implement new Primitives from Kevan and Karthik into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
+Implement new Primitives (Bidirectional Modeling, Attention, and Output) into EMADE in neural_network_methods.py | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
 Debug Persistent issues with Merge of EMADE-304 and nn-vip | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
 Debug New Primitives such that they are called when running standalone tree evaluator | Complete | 11/08/2021 | Moved til next week | 11/16/2021 |
 
@@ -383,7 +383,7 @@ Debug New Primitives such that they are called when running standalone tree eval
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Complete New Primitive Development | Complete | 11/01/2021 | 10/27/2021 | 11/08/2021 |
+Complete New Primitive (Bidirectional Modeling, Attention, and Output) Development outside of EMADE | Complete | 11/01/2021 | 10/27/2021 | 11/08/2021 |
 Prepare Presentations for New Members | Complete | 11/01/2021 | 11/02/2021 | 11/03/2021 |
 Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11/08/2021 | 11/08/2021 |
 
@@ -495,7 +495,7 @@ Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Assign Primitive Development | Complete | 10/25/2021 | 10/27/2021 | 11/01/2021 |
+Assign Primitive Development tasks to all team members | Complete | 10/25/2021 | 10/27/2021 | 11/01/2021 |
 Email Dr. Zutty about 2 Data Pair NNLearners | Complete | 10/25/2021 | 10/30/2021 | 11/01/2021 |
 Implement Bidirectional Attention Layer | Complete | 10/25/2021 | 11/07/2021 | 11/08/2021 |
 
@@ -679,7 +679,7 @@ Create new XML and data load functions for QA in EMADE | Complete | 09/27/2021 |
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Research NNLearners and how to implement QA | Complete | 09/20/2021 | 09/22/2021 | 09/22/2021 |
-Research creating a new type of data pair | Complete | 09/20/2021 | 09/27/2021  | 10/03/2021 |
+Research creating a new type of data pair in EMADE | Complete | 09/20/2021 | 09/27/2021  | 10/03/2021 |
 
 
 ### Researching NNLearners and how to implement QA
