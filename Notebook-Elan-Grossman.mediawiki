@@ -58,7 +58,60 @@ NLP
 
 Time Series Analysis
 
-ALS
+* Beating Paper and SOTA results
+* Not all trials completed due to time constraints
+* Used profit percentage as objective because it can be compared against other experiments
+* Loss and average as components had the highest performance on average
+* Comparing to paper - Show how Emade can outperform the original paper - fuzzy model
+* Beat the paper out in all stocks except for Johnson and Johnson
+* Over 4 standard deviations greater than the mean
+* There were not enough experiments to make a meaningful Pareto graph
+* Assumed zero commission
+* Budget is however much you buy in the first trade
+* Argmin and argmax were outperforming NNs
+* It would only buy or sell if the first technical indicator was lower than any other technical indicator
+
+NAS
+
+* Hyperparemeter optimization
+* Determining the best architecture for any problem using a search strategy
+
+* Time Stopping
+* Need a way to stop training without causing ti to error out
+* Created TimedStopping Callback
+* Used 1200s timeout
+* The longer you train a model does not necessarily increase the accuracy
+
+* Added weight sharing
+* Can add module as primitive
+* Accuracy is higher for runs that end earlier
+* Weight sharing was originally very slow because of having to read and write to the database
+* Adding Residual connections
+* Every module uses a Residual connection besides the first one
+* Might be good not to put Residuals at the beginning go the model
+
+* Testing and analysis toolkit
+* Writes statistics and writes graphs
+* Inputting new layer types is difficult
+* For one we already have  most common evaluation methods
+
+ARLs
+
+* Search population for parent and children nodes
+* Moved information within tuples into classes
+* Now tells you what the data is when you print it
+* Made a shell script that installs everything for you
+
+Hypothesis:
+If some set of nodes help produce good results, you should do more computation.
+
+* As ADLs approach larger generations, they perform better but that loss goes away for bit in generations 30-35. After that, things are fine
+* Size of ARLs did not correlate with performance
+
+* Check to see if ARL that appears in > individuals perform better than other individuals. Thee doesn’t seem to be a correlation
+* ARL selection formula uses frequency - therefore it will follow the general distribution
+* Mysql connection issues  - could start runs but not finish
+* Multi-objective selection -> single objective (adding up all of the parameters and averaging currently)
 
 ''' My Work'''
 
