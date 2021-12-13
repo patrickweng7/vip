@@ -375,6 +375,8 @@ When we restarted EMADE once with reuse=1, we observed that the number of indivi
 
 ![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
 
+My Titanic Dataset Preprocessing:
+
 ```
 import sklearn.model_selection
 import sklearn.feature_extraction
@@ -457,6 +459,15 @@ kf = sklearn.model_selection.KFold(n_splits=5)
 for i, (train_index, test_index) in enumerate(kf.split(train_data)):
     np.savetxt('train_' + str(i) + '.csv.gz', train_data[train_index], delimiter=',')
     np.savetxt('test_' + str(i) + '.csv.gz', train_data[test_index], delimiter=',')
+```
+
+Evolutionary Parameters Specified in input_titanic.xml:
+```
+<initialPopulationSize>200</initialPopulationSize>
+<elitePoolSize>200</elitePoolSize>
+ <launchSize>100</launchSize>
+<minQueueSize>50</minQueueSize>
+<outlierPenalty>0.2</outlierPenalty>
 ```
 
 **Action Items:**
