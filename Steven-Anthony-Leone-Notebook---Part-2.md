@@ -71,7 +71,7 @@ My team's final presentation can be found here: https://docs.google.com/presenta
 * We then transitioned to our experiment, and I talked to Rishit and Shiyi regarding our statistic.
 * Our objective was to prove that AutoML could be used to improve Question Answering models. We had changed to MSE and num params as our evaluation metrics, and would compare our singular seeded individual to our Pareto Front individuals at the end, using AUC as a metric.
 * We talked further about this with Dr. Zutty and Dr. Rohling. After further discussion, we ended up defined outperforming the seeded individual as having that individual no longer on the Pareto Front. In other words, how many individuals could we get in a region of interest on the Pareto chart that outperformed the seeded individual in both objectives? 
-* We could then treat this as a Binomial problem. Did it succeed or not?
+* We could then look at the problem with a Bernoulli distribution. Did it succeed or not?
 
 ### Sub Team Meeting Notes
 * At this week's sub team meeting, we worked on the final presentation and clarified anything anyone was confused on.
