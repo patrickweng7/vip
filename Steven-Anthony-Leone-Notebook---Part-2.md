@@ -207,9 +207,9 @@ Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Add Regression to NNLearner2 | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
-Fix weird incorrect accuracy issue in eval_methods | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
-Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
+Add Regression to NNLearner2 by removing hardcoded activation in neural_network_methods.py | Complete | 11/22/2021 | 11/23/2021 | 11/29/2021 |
+Fix incorrect accuracy issue in eval_methods.py | Complete | 11/22/2021 | 11/29/2021 | 11/29/2021 |
+Fix train/test data split in NNLearner2 in neural_network_methods.py | Complete | 11/25/2021 | 11/28/2021 | 11/29/2021
 
 ### Debugging NNLearner2 - Classification to Regression
 * I talked with Devan a bit before the General Meeting. NNLearner2's output seemed to be stuck on classification.
@@ -333,7 +333,7 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
 Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
-Debug Primitives | In Progress | 11/08/2021 | Moved til next week | 11/16/2021 |
+Debug New Primitives such that they are called when running standalone tree evaluator | Complete | 11/08/2021 | Moved til next week | 11/16/2021 |
 
 ### Debugging Big Merge and Primitives
 * This week, I finished debugging big bugs left over from the big merge. My commits can be at these links:
