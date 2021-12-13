@@ -543,7 +543,7 @@ Charlie's multi-layer perceptron classifier and my XGBoost learner had vastly di
 
 Pareto Front for ML Learners:
 
-![Titanic ML Pareto Graph](https://picc.io/qjd1y20.png) 
+![Screenshot (392)](https://github.gatech.edu/storage/user/47031/files/c7badbb1-d7c1-4088-a0d9-6049b9e73379)
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
