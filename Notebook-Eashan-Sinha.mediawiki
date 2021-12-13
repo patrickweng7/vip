@@ -1163,9 +1163,66 @@ WHAT WE WANT TO DO
 === Lecture Notes (11/08) ===
 
 * Weekly scrum to kick off the meeting
-* Our team Image Processing 
+* Our team Image Processing kicked off the scrum meeting
+* We mentioned our main objectives for the remaining of the semester
 
 === Subteam Notes (11/10) ===
+* Today was more of a workday
+* Went over a little bit about how EMADE and the Image Processing Subgroup works
+* Spent most of the time trying to set up PACE but still wasn't able to fully get it set up
+* We don't use the master branch
+** We use CacheV2
+*** There is no Deep Learning (Neural Networks) in CacheV2 right now
+** There is a branch with subteams
+** Then is another branch called nn-vip (Neural Architecture Search)
+*** We use a lot of NAS's work to do what we do
+** Within nn-vip, there is Image-Processing(nn-vip) sub-branch
+*** There are separate branches from here for the subteams within our Image Processing team
+** Anything with '_____methods.py', those are
+* EMADE.py is the main script which does all the GP things
+* launchEMADE.py will launch jobs on the PACE cluster, if we're on PACE.
+** It does other launch things as well
+*** Breakdown of our branch: Master -> CacheV2 -> sub teams -> nn-vip -> Image-Processing(nn-vip)
+* To run EMADE, we have to seed our database with NN Learners, so that it evolves the individuals so that those individuals can mate and mutate
+** There is a seeding file: seeding_from_file.py [xml file] seedfile
+** Shared directory: /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group
+* datasets:
+** train
+** test
+** val <-- train on here
+
+=== Individual Notes ===
+* I spent most of the time still trying to figure out how to set up PACE
+* I also spent a significant amount of time looking at some of the various crossover methods for mate/mutate
+* I wanted to choose a method that yielded more targeted results to see if our AUC would decrease
+* I started off by looking at Crossover Simulated Binary, which modifies in-place the input individuals
+
+ defcxSimulatedBinary(ind1, ind2, eta):
+    """Executes a simulated binary crossover that modify in-place the input
+    individuals. The simulated binary crossover expects :term:`sequence`
+    individuals of floating point numbers.
+
+    :param ind1: The first individual participating in the crossover.
+    :param ind2: The second individual participating in the crossover.
+    :param eta: Crowding degree of the crossover. A high eta will produce
+                children resembling to their parents, while a small eta will
+                produce solutions much more different.
+    :returns: A tuple of two individuals.
+
+    This function uses the :func:`~random.random` function from the python base
+    :mod:`random` module.
+    """
+    fori, (x1, x2) inenumerate(zip(ind1, ind2)):
+        rand=random.random()
+        ifrand<=0.5:
+            beta=2.*rand
+        else:
+            beta=1./(2.*(1.-rand))
+        beta**=1./(eta+1.)
+        ind1[i] =0.5*(((1+beta) *x1) +((1-beta) *x2))
+        ind2[i] =0.5*(((1-beta) *x1) +((1+beta) *x2))
+
+    returnind1, ind2
 
 === Action Items ===
 {| class="wikitable"
@@ -1177,36 +1234,36 @@ WHAT WE WANT TO DO
 |-
 |Add Meeting Lecture Notes into Notebook
 |Completed
-|October 6, 2021
+|November 8, 2021
 |October 12, 2021
 |October 8, 2021
 |-
-|Review Lecture Notes
+|Set Up PACE
 |In Progress
-|October 6, 2021
-|October 12, 2021
+|November 8, 2021
+|November 15, 2021
 |
 |-
-|Download/Install Emade
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Finish up Lab Notebook
+|Find and read about ONE Mate/Mutate Methods
 |Complete
-|October 6, 2021
-|October 8, 2021
-|October 8, 2021
+|November 8, 2021
+|November 15, 2021
+|November 15, 2021
+|-
+|Experiment with new mate/mutate methods
+|In Progress
+|November 8, 2021
+|November 15, 2021
+|
 |}
 
-== Week 13 (11/22 - 11/28) ==
+== Week 13 (11/15 - 11/21) ==
 
-=== Lecture Notes (11/22) ===
+=== Lecture Notes (11/15) ===
 
 * Final Presentation Day
 
-=== Subteam Notes (N/A) ===
+=== Subteam Notes (11/17) ===
 
 * There was no subteam meeting this week due to Thanksgiving Break
 
@@ -1246,7 +1303,54 @@ WHAT WE WANT TO DO
 |October 8, 2021
 |}
 
-== Week 14 (11/29 - 12/05) ==
+== Week 14 (11/22 - 11/28) ==
+
+=== Lecture Notes (11/22) ===
+
+* Started off with weekly scrum
+* Image Processing Sub team kicked off the scrum
+
+=== Subteam Notes (N/A) ===
+
+* There was no subteam meeting this week due to Thanksgiving Break!!
+
+=== Individual Notes ===
+
+
+=== Action Items ===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Add Meeting Lecture Notes into Notebook
+|Completed
+|October 6, 2021
+|October 12, 2021
+|October 8, 2021
+|-
+|Review Lecture Notes
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Download/Install Emade
+|In Progress
+|October 6, 2021
+|October 12, 2021
+|
+|-
+|Finish up Lab Notebook
+|Complete
+|October 6, 2021
+|October 8, 2021
+|October 8, 2021
+|}
+
+== Week 15 (11/29 - 12/05) ==
 
 === Lecture Notes (11/22) ===
 
@@ -1292,7 +1396,7 @@ WHAT WE WANT TO DO
 |October 8, 2021
 |}
 
-== Week 15 (12/06 - 12/10) ==
+== Week 16 (12/06 - 12/12) ==
 
 === Lecture Notes (12/06) ===
 
