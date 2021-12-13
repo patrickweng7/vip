@@ -19,6 +19,36 @@
 
 ## Week 14: November 22nd -  November 28th(2021)
 ### Lecture overview:
+* Image processing:
+1. On boarding new members
+2. Had poor results on their baseline runs
+* Modularity:
+1. Bootcamp members working on data visualization
+2. Dealing with Cache V2 integration
+
+* NLP Scrum:
+1. Got all the primitives for final presentations
+2. NNlearner2 bugs on classification are fixed
+3. Regression need to work on NNlearner2.
+4. Bootcamp students can try to run experiment on data we have
+
+### Subteam Notes:
+* No meeting because of thanksgiving 
+
+### Individual Notes:
+1. Tried to run the experiment in PACE, but forgot my password for database.
+2. Followed the instructions on Youtube and fixed the issue
+3. Tried to use standalone and seeding to test our output, but meet some issues with my VPN.
+Will do this again when I come back school.
+4. Continued reading this paper: https://www.researchgate.net/publication/339980709_Sentiment_Analysis_with_NLP_on_Twitter_Data
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|read Sentiment Analysis on Twitter data paper|November 22rd, 2021|November 30th, 2021|pending|
+|run standalone tree evaluator on PACE ICE|in progress|November 22rd, 2021|November 30th, 2021|in progress|
+|database password issue|fixed|November 22rd, 2021|November 30th, 2021|November 25th, 2021|
+|Record notebook|complete|November 22rd, 2021|November 30th, 2021|November 30th, 2021|
+
 
 
 ## Week 13: November 15th -  November 21st(2021)
@@ -29,14 +59,14 @@
 2. Had a lot of bug after merge
 3. Encountered memory error from EMADE. The solution is to set the memory limit param in the xml
 
-* sub-Team meeting note:
+### sub-Team meeting note:
 1. Our NNlearner2 team has new members 
 2. modified the code base from NNlearner and try to make it accept 2 data pairs
 3. Got NNLearner2 working on classification.
 4. Still working on integrating 2 data pair 
 5. Reduced the scope to only regression to for this semester, because of the complexity
 
-* Individual Note:
+### Individual Note:
 1. Helped he subteam change modified our xml file together
 ![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aadxml.jpeg)
 2. Helping Devan check if our layers are able to fit into Keras model
@@ -65,13 +95,13 @@ Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
 3. Integrate new primitives
 4. Discussed if we shpould include Neural Network in Bootcamp
 
-*Subteam Notes:
+###Subteam Notes:
 1. Placed into NNlearner2 data pairs team
 2. the goal is adding the nnlearner2 method that works with 2 data pairs for text type data
 3. Trying to successfully able to rum EMADE with amazoninput dataset.
 4. Sat up MariaDB
 
-*Individual notes:
+###Individual notes:
 1. NNLearner: type of learner in EMADE
 Layers of neural networks are primitives in EMADE
 2. Need to make sure NNlearner2 does not run into error
