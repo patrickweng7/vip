@@ -327,14 +327,39 @@ Met with team to run through presentation and ensure we were ready to share our 
 ## Individual Notes:
 * I worked on extracting the primitive which directly took in the EMADE datapair (ARG0) for each individual in our final generation using Python regex expressions and string parsing, which gave us a sense of the primitives that can handle the features in our Titanic dataset directly most optimally. AdaBoostLearner() was the most frequently occurring such primitive. I also pulled the evaluation time data from the individuals table in our MySQL titanic database and plotted the average evaluation time for individuals across each generation of our final run, which showed that individuals on average evaluated more quickly in later generations than earlier ones. The script for the datapair string analysis and evaluation time analysis is as follows: https://colab.research.google.com/drive/1dEGTJ-ia7fWnXCvt0tP-CcQYgr1L6xTd.
 * I worked on slides 2-5, 11, 13-15 of our final bootcamp presentation: https://docs.google.com/presentation/d/1Rgt1bLAuUg87MrD0WF8Mro7PKvBSm4EcFExPrzp5_wU/edit?usp=sharing. 
+* Our Titanic project Colab notebooks can be found here: https://drive.google.com/drive/folders/1lq6fycfuDPxNamEK6inOa1vt8-RddgiS. 
 
 Observations
-* Our revised MOGP Pareto frontier (using selDCD()) had an AUC of 0.1514, an improvement from our original Pareto frontier AUC of 0.2071 when we used selNSGAII() as our selection method, which failed to select individuals based on crowding distance correctly. A much greater number of individuals existed in the final generation of our MOGP run with selDCD(), indicating that selNSGAII() was weeding out individuals unjustifiably based on its truncation of individuals with similar ranks but different crowding distances. 
+Our revised MOGP Pareto frontier (using selDCD()) had an AUC of 0.1514, an improvement from our original Pareto frontier AUC of 0.2071 when we used selNSGAII() as our selection method, which failed to select individuals based on crowding distance correctly. A much greater number of individuals existed in the final generation of our MOGP run with selDCD(), indicating that selNSGAII() was weeding out individuals unjustifiably based on its truncation of individuals with similar ranks but different crowding distances. 
 * We had a bug in our MOGP final generation graph with the selDCD() selection method where only the Pareto front was appearing on the graph, but not the rest of the valid individuals for the final generation. We saw that we had accidentally reset the population to the initial offspring list in each iteration of the evolutionary loop instead of setting the population to be the evolved offspring (after mating, mutation, etc.), so every individual was Pareto optimal in each successive generation. We fixed this and saw that all individuals were appearing on the fitness graph as desired. 
 * EMADE's pset contained both simple and complex primitives (ex. logical operators and decision tree classifiers), which allowed for selection of individuals after several generations when many individuals consisted of the same primitives and therefore performed similarly to one another.
 * We ran 20 generations of EMADE with an initialPopulationSize of 200 and a minQueueSize of 50. We initially started out with an initialPopulationSize of 512 and a minQueueSize of 250, but evaluation was taking around 1-2 hours with these changes (especially with inconsistent worker processes running on my master process), so we decreased both of these values such that we could at least get 10-12 generations to complete in a reasonable amount of time. The starting population for each generation grew steadily with time, such that by the 20th generation, evaluation was taking around 2 hours per generation as with the starting generation for EMADE with an initialPopulationSize of 512. 
+* Our master process eventually ended when the following error was thrown in master.err:
+```
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (2013, 'Lost connection to MySQL server during query ([WinError 10053] An established connection was aborted by the software in your host machine)')
+```
 * Both the number of Pareto optimal individuals and the number of individuals in total for each successive generation increased steadily, with a final Pareto front size of 23 and 314 valid individuals in this generation. 
- 
+
+```
+Sample Individuals in Generation 13:
+Received: AdaBoostLearner(ARG0, learnerType('LogR', {'penalty': 0, 'C': 1.0}), 2, 0.01)
+	With Hash 076a79ddfb8f0527e074f92c3d3f63aa84ab18cbdb71f9973dd2e8823d333940
+	With Fitnesses: (8.4, 64.0)
+	With Age: 1.0
+Received: AdaBoostLearner(myArcTangentMath(ARG0, 1), ModifyLearnerList(learnerType('Trees', {'criterion': 0, 'splitter': 0}), [15, 5]), passInt(0), myFloatDiv(100.0, 10.0))
+	With Hash 45b1b86644bd9269f11e27b0676d8b0347b50f5675069eed50e34feaf7e2dc09
+	With Fitnesses: (18.2, 20.6)
+	With Age: 1.0
+Received: lpfBlur(sp_div(contMaskRangeAspect(ARG0, -4.617371386969362), my_pow(ARG0)), lessThanOrEqual(myFloatAdd(myFloatAdd(myFloatDiv(myIntToFloat(myIntAdd(32, 5)), 1.0), 0.01), 100.0), myIntToFloat(1)))
+	With Hash 52140884e55c36acfd6970647fe4e62e52dc62481351f9c6271865282020b81f
+	With Fitnesses: (inf, inf)
+	With Age: 0
+Received: AdaBoostLearner(myBartlettHann(ARG0, 0), learnerType('Bayes', None), 6, ifThenElseFloat(notEqual(myFloatAdd(myIntToFloat(50), ifThenFloat(falseBool, passFloat(myIntToFloat(6267)))), ifThenElseFloat(falseBool, myFloatSub(myFloatSub(ifThenElseFloat(trueBool, 0.01, 0.01), myFloatDiv(0.1, 100.0)), ifThenFloat(ifThenBool(falseBool, trueBool), myFloatDiv(10.0, 1.0))), myFloatAdd(myFloatMult(myFloatAdd(myFloatAdd(passFloat(myFloatSub(0.1, 10.0)), ifThenFloat(ifThenBool(falseBool, falseBool), ifThenElseFloat(trueBool, 100.0, -3.448215911748788))), 0.1), ifThenElseFloat(falseBool, 0.01, 10.0)), myFloatAdd(ifThenFloat(trueBool, 3.396996932591346), myFloatSub(0.01, 10.0))))), 0.01, 1.4335719305516967))
+	With Hash 228b12c29f95df6ee0a61ad4306ea8357541bf79518622e918e8c88f230a5307
+	With Fitnesses: (inf, inf)
+	With Age: 0
+```
+
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
