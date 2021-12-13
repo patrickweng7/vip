@@ -135,7 +135,9 @@ https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sh
 * NLP: 
 * * We had an error in NNLearner2 with the test and train data being sent in wrong. It is fixed now.
 * * Accuracy still rather weird, one half of what the values should be. Working on fixing this.
-* * The above described error turned out to be because the length of the test data was not being divided by num_inputs in EMADE.py.
+* * The above described error turned out to be because the length of the test data was not being divided by num_inputs in EMADE.py. I spoke with Dr. Zutty about this, and he mentioned it was likely an issue with the length of the test data being doubled, as we were now passing in two data pairs. I fixed this for now by just dividing the length of the test input by 2, but this will need fixed later to be division by the number of inputs as opposed to a fixed 2. This is a picture of my commit: 
+<img width="810" alt="Screen Shot 2021-12-12 at 7 33 37 PM" src="https://github.gatech.edu/storage/user/27405/files/96f79272-e78b-4f90-b460-4e7f8b502144">
+
 * NAS:
 * * Not a very heavy week
 * * Have been working on the final presentation, will rehearse it soon
@@ -152,10 +154,10 @@ https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sh
 
 ### Sub Team Meeting Notes
 * At this week's sub team meeting, we worked on getting our code freezed codebase onto everyone's computer to start getting runs in. 
-* I had already pushed my updates to our fork:
+* I had already pushed my updates to our fork: https://github.gatech.edu/sleone6/emade/commit/bf8992725e7107d4f134db2c4a3e63623ec4f075 and https://github.gatech.edu/sleone6/emade/commit/79d92c48f945b20591b3f2425620d7aba023ae2c are some of my most recent commits at this point in time.
 * However, the seeding wasn't working for others. Devan ran an 8 hour run and had no NNLearner2 individuals on the Pareto Front throughout the entire run.
 * I ran again to ensure seeding still worked for me, and I was able to get NNLearner2's that I seeded immediately. Thus, we determined there was probably a file that I hadn't updated on our branch. 
-* To resolve this, we used a temporary workaround. I uploaded my entire codebase as is to a new repo:
+* To resolve this, we used a temporary workaround. I uploaded my entire codebase as is to a new repo: https://github.gatech.edu/sleone6/emadebackup. Thus, they could just run git clone on this entire repo to easily move all of my code in.
 * For the rest of the meeting, I helped others move files over to PACE and start getting runs in.
 
 
@@ -165,6 +167,10 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 Complete EMADE Runs on Squad| Complete | 11/29/2021 | 12/04/2021 | 12/06/2021 |
 Create a branch for code freezed EMADE | Complete | 12/01/2021 | 12/01/2021 | 12/06/2021
 Help other Team Members get set up on PACE | Complete | 11/29/2021 | 12/06/2021 | 12/06/2021
+
+### Completing runs
+* I carried on with runs this week, as we resolved our last issue with accuracy with this commit (though we will have to change it somehow to num_inputs later on): https://github.gatech.edu/sleone6/emade/commit/79d92c48f945b20591b3f2425620d7aba023ae2c
+
 
 
 
@@ -233,7 +239,9 @@ Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 1
 ## Week 13, Nov 15th
 ### General Meeting Notes
 * NLP:
-* * Output layer problem this week, decided with Karthik and Rishit the previous week that it was too much for this semester
+* * I updated the team on how we were reducing the scope of our problem to just one index for now, due to issues with sending a tuple of ground truth values through the flow of emade in addition to issues with keras and multi output regression, as discussed with Karthik and Rishit the previous week.
+* * There was some confusion on this, I had to explain this deeper to one of our members working on a separate task who had not been told about this.
+* * Thus, we ended up disbanding the output layer problem team and splitting up the team. Rishit and Shiyi would start working on designing our experiment, while Jessi and Aditi went over with Devan on NNLearner2. I continued working on integrating our work into EMADE to get runs going for the time being, and Karthik joined me on this.
 * NAS:
 * * Had a meeting with updates, and then a 30 minute work session.
 * * New members are all on PACE and ready to work.
@@ -262,8 +270,8 @@ Fix train/test data split in NNLearner2 | Complete | 11/25/2021 | 11/28/2021 | 1
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Retask  Members from output layer team| Complete | 11/15/2021 | 11/17/2021 | 11/17/2021 |
-Further Debug Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
-Meet w/ Devan on double NNLearners | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
+Further Debug New Primitives with Standalone Tree Evaluator | Complete | 11/15/2021 | 11/21/2021 | 11/21/2021 |
+Meet w/ Devan on  status of NNLearner2 | Complete | 11/17/2021 | 11/21/2021| 11/21/2021 |
 Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/2021 -> Extended to 11/29/2021|
 
 ### Further debugging of Primitives with Standalone Tree Evaluator
