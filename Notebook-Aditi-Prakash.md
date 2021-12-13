@@ -54,7 +54,7 @@ Runtime: 2 hours
 Total Runtime: 6.5 hours
 Additional Details: 43 generations.
 
-* No individuals have evaluated thusfar in my runs. However, I was able to complete nearly 200 generations in 7 hours, which indicates that our models are able to train fast and would produce speedy results when constructed with fully valid primitives. While I waiting for runs to complete, I analyzed the current state of our team's progress and formulated ideas for next semester:
+* No individuals have evaluated thusfar in my runs with continuous_mse and number of parameters as the objectives. However, I was able to complete nearly 200 generations in 7 hours, which indicates that our models are able to train fast and would produce speedy results when constructed with fully valid primitives. While I waiting for runs to complete, I analyzed the current state of our team's progress and formulated ideas for next semester:
 
 * Since we focused heavily on creating valid primitives this semester, our layers are wrappers around Keras models and are quite limited to the functionality that the Keras API offers. In addition, our custom logic has caused some inefficiencies in the runtime for individuals, which might be avoided with a different approach to implementing our layers (ex. graph execution instead of eager execution). 
 * NNLearner2 is also more or less straight out-of-the-box, so we are not entirely certain that it is best suited for our NLP problem. 
