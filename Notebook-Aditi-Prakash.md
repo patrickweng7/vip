@@ -25,6 +25,7 @@ Continue seeded EMADE runs, begin to compile results for final presentation.
 
 ## Individual Notes:
 * I ran an emade-master job 4 times, seeding with NNLearner2 the first time and setting reuse=1 for all consecutive runs. Below is information about the runs I completed:
+
 master59026.out
 Runner: Aditi Prakash
 Continuation: No
@@ -64,9 +65,9 @@ Additional Details: 43 generations.
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Continue with runs and compare results with other team members | Done | 11/22/21 | 11/24/21  | 11/24/21 |
-| Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
-| Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
+| Continue with runs and compare results with other team members | Done | 11/29/21 | 12/6/21  | 12/6/21 |
+| Update run results document with run results | Done | 11/29/21 | 12/6/21  | 12/6/21 |
+| Pick topics to present during final presentation  | Done | 11/29/21 | 12/6/21  | 12/4/21 |
 
 # Week 14: November 22th, 2021
 ## Overview
