@@ -597,7 +597,9 @@ Original Hyperparameters:
 * MUTPB = 0.2
 
 Visualization:
+
 Before Modifications:
+
 <img src="https://github.gatech.edu/storage/user/47031/files/e863eae0-0aaf-4c6f-8793-4dc667a68ea4">
 
 <img src="https://github.gatech.edu/storage/user/47031/files/ae21bdb9-e155-4ee1-83a8-bbe7695dc0d5">
