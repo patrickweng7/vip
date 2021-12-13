@@ -9,9 +9,11 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
+* issues with PACE queue, how far off is MSE, what is exact match rate, how might we change trial if it is an abstractive problem, why might we be getting these results 
+
 # Week 15: November 29th, 2021
 ## Overview
-Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
+Continue seeded EMADE runs, begin to compile results for final presentation. 
 
 ## Team Notes:
 * Members are continuing to run 8-hour trials in EMADE seeded with NNLearner2, we have decided to use continuous_mse and number of parameters as our evolutionary objectives. 
@@ -22,7 +24,37 @@ Finalize QA model parameters and EMADE run parameters, test standalone tree eval
 * We met in person at the CULC to work on seeded runs using our codefreezed feature/nnlearner2 branch. I learned how to seed runs using python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa. My runs as of now are remaining stuck in the queue for a long time, which is likely due to the large number of runs that are simultaneously in the queue. Other errors I am experiencing include MySQL connection timeout issues, which are just a matter of retrying to resolve.  
 
 ## Individual Notes:
-* Which individuals are evaluating, are they seeded individuals, which individuals are pareto option, are they seeded individuals, how fast is evaluation happening, issues with PACE queue, how far off is MSE, what is exact match rate, how might we change trial if it is an abstractive problem, why might we be getting these results 
+* I ran an emade-master job 4 times, seeding with NNLearner2 the first time and setting reuse=1 for all consecutive runs. Below is information about the runs I completed:
+master59026.out
+Runner: Aditi Prakash
+Continuation: No
+Runtime: 8 hours
+Total Runtime: 8 hours
+Additional details: Used accuracy as objective instead of continuous_mse, so we should likely just disregard this run.
+
+master23203.out
+Runner: Aditi Prakash
+Continuation: No
+Runtime: 2 hours
+Total Runtime: 2 hours
+Additional Details: 42 generations.
+
+master168669.out
+Runner: Aditi Prakash
+Continuation: Yes, of master148523.out. 
+Runtime: 0.5 hours
+Total Runtime: 4.5 hours
+Additional Details: 14 generations. My emade-master jobs keep closing due to SQL connection/disk quota issues, which is why I have several master.out files. 
+
+master186754.out
+Runner: Aditi Prakash
+Continuation: Yes, of master168669.out. 
+Runtime: 2 hours
+Total Runtime: 6.5 hours
+Additional Details: 43 generations.
+
+* No individuals have evaluated thusfar in my runs. However, I was able to complete nearly 200 generations in 7 hours, which indicates that our models are able to train fast and would produce speedy results when constructed with fully valid primitives. While I waiting for runs to complete, I analyzed the current state of our team's progress and formulated ideas for next semester:
+
 * Since we focused heavily on creating valid primitives this semester, our layers are wrappers around Keras models and are quite limited to the functionality that the Keras API offers. In addition, our custom logic has caused some inefficiencies in the runtime for individuals, which might be avoided with a different approach to implementing our layers (ex. graph execution instead of eager execution). 
 * NNLearner2 is also more or less straight out-of-the-box, so we are not entirely certain that it is best suited for our NLP problem. 
 * One of our biggest action items for next semester is to work making our embedding methods (ex. GloVe and Bert) as optimal as possible. Moreover, since our problem is currently extractive and not abstractive, we heavily punish individuals for not predicting the exact answer string in the context, even though an actual human might be off by a word or two in their answer to a particular question. This model is quite far removed from other state-of-the-art NLP models and implementing this would allow our model to be more scalable and solve a wider range of problems. 
@@ -32,7 +64,7 @@ Finalize QA model parameters and EMADE run parameters, test standalone tree eval
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
 | --- | ----------- | --- | ----------- |----------- |
-| Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
+| Continue with runs and compare results with other team members | Done | 11/22/21 | 11/24/21  | 11/24/21 |
 | Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
 | Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
 
