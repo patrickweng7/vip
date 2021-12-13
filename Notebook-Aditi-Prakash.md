@@ -4,6 +4,7 @@ Name: Aditi Prakash
 Email: aprakash86@gatech.edu
 
 Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - rdabbagh3@gatech.edu, Rayan Khoury - rkoury7@gatech.edu
+NLP Team Members: Rishit, Shiyi, Devan, Jessi, Steven, Karthik, George, David, Manas, Kevin, Yisu
 
 Cell Phone: 704-794-3924  
 
