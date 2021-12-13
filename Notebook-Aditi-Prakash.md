@@ -784,9 +784,10 @@ For this problem, we followed many of the same steps that appeared in the One Ma
 Findings:
 
 1. With Shuffle Indexes/Uniform Int Mutation:
-![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
 
 ![Screenshot (296)](https://github.gatech.edu/storage/user/47031/files/d6f6ab76-9aaa-4a4c-87f3-d65612a2fa0c)
+
+![Screenshot (295)](https://github.gatech.edu/storage/user/47031/files/df8e7c1a-31c0-4e4d-aa9a-549a3c5236a8)
 
 * We can see here that the maximum fitness value decreased much more quickly with the Uniform Int mutation than the Shuffle Indexes mutation. We also see that the average and minimum fitness values tended towards 0 more closely than they did with the Shuffle Index mutation. 
 
