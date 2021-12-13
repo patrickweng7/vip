@@ -769,16 +769,26 @@ Eval Func:
 ** In google drive (or alternatively, you can do this before uploading the files to google drive), open up emade-cloud (or whatever you renamed the folder to) and navigate to templates
 ** Open input_titanicADFON.xml in a text editor
 ** Near the top of the file, there should be a dbConfig similar to this one. Edit it to match the following details, with the database renamed to the schema name the run you're trying to join is:
-<dbConfig>
-        <server>database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com</server>
-        <username>admin</username>
-        <password>mypassword</password>
-        <database>INSERT_SCHEMA_NAME_HERE</database>
-        <reuse>1</reuse>
-</dbConfig>
+   * server: database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com
+   * username: admin
+   * password: mypassword
+   * database: INSERT_SCHEMA_NAME_HERE
+   * You'll also want to change the following line to have a max arl size of 10
+** In google drive, make a copy of this Google Collab Notebook https://colab.research.google.com/drive/1tUqnDzLHNg7RoYc4sarB3e2k3BvR_7D7?usp=sharing
+**  In the notebook, edit the second step %cd /content/gdrive/MyDrive/INSERT-DIRECTORY-NAME-HERE/ to be whatever you renamed your directory in google drive to be. 
+** Run all of the commands in the notebook sequentially except for the !python src/GPFramework/seeding_from_file.py [input xml template] [seeding file] command. This seeds the run with individuals, which only needs to be done once by the master process
+** Make sure that the !python src/GPFramework/launchEMADE.py -w templates/INSERT-TEMPLATE-FILE-NAME command has the -w flag. Otherwise, you will join as a master process which could cause problems.
+** Once the final command has been run, wait ~10 minutes and check the directory in google collab. You should see a new worker####.err and worker#####.out file. Check the worker#####.out file and note its progress. Wait another ~10 minutes and open the worker####.out file again. If nothing new has been written to the file, EMADE is probably not working and something has gone wrong. Otherwise you should be good to go! Alternatively, you could use mysqlWorkbench to check the status of the run.
+* Join the run that will take place this weekend.
 
-=== Individual Notes ===
+=== Individual Notes (11/1) ===
+* Met with all of the team members over BlueJeans and Slack.
+* Cloned the repo: https://github.gatech.edu/vhuang31/emade/tree/master
+* Meetings take place every thursday at 11 am:  https://gatech.bluejeans.com/2224273722
 
+=== Modularity Sub-Team Meeting (11/4) ===
+* Got introduced more of the team members such as Dip, Tian, Xufei, and Bernadette.
+* Continued the on-boarding processes and receiving instructions.
 
 ===Action Items===
 {| class="wikitable"
@@ -788,13 +798,13 @@ Eval Func:
 !Suspense Date
 !Date Resolved
 |-
-|Notebook
+|Update Notebook
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 1, 2021
+|November 8, 2021
+|November 7, 2021
 |-
-|Review Notes
+|Work on the On-Boarding Process
 |Completed
 |November , 2021
 |November , 2021
@@ -804,6 +814,50 @@ Eval Func:
 == Week 12 (11/8 - 11/12) ==
 
 === Main Meeting: Weekly Scrum (11/8) ===
+* Finals Hackathon will be held around November 20th week.
+* Image Processing:
+   * Bug with hyperfeature implementation in EMADE hopefully solved, PR will be opened this week, focus turns to new sharpening hyperfeature.
+   * New EMADE environment is still in progress.
+   * Newly-processed dataset merging this week.
+   * Found an implementation of Lexicase.
+
+* NLP:
+   * Resolved issues of Big Merge
+   * Divided into new teams to identify further issues in this semester.
+   * Receiving a memory error, plan to use unit tests.
+
+* NAS:
+   * All new members setup EMADE and run locally or on Pace-ICE.
+   * Had a work session.
+   * In process to give new names for ADFs that are commonly used in NNLearners. 
+
+=== Meeting with Vincent (11/8) ===
+* manually run the contents of the bash script instead of calling the bash script
+* If the problem is that when you run the bash reinstall.sh step, it only outputs some quotation marks
+
+=== Individual Notes ===
+* Continued the on-boarding process and identified some errors with the CloudCopy.sh file.
+* The following errors were being returned: m: cannot remove 'emade-cloud': No such file or directory
+   * rm: cannot remove 'hypervolume*': No such file or directory
+   * rm: cannot remove 'pare*': No such file or directory
+   * rm: cannot remove 'worker*': No such file or directory
+   * rm: cannot remove 'master*': No such file or directory
+   * rm: cannot remove 'myPickle*': No such file or directory
+   * rm: cannot remove 'cache_opt_info*': No such file or directory
+   * rm: cannot remove 'db_info*': No such file or directory
+* Setup a meeting with Vincent to address the issue.
+* Edited the input_titanicADFON.xml to have 5 workers per host (line 100)
+* Ran the following command instead of reinstall: !python3 setup.py install
+* Joined a run on 11/10/21
+* Discussed with Leul about the changes that need to be made to CloudCopy.sh
+
+=== Modularity Sub-Team Meeting (11/11) ===
+* Reminder to double check which template your google collab is using- make sure to use input_titanicADFON.xml with schema extendedarl5, and maxadfsize 10
+* A new run "extendedarl6" was started and joined as a worker.
+* Assigned Tasks: 
+   * Learn and fix emade-viz
+   * Fix ARL selection
+   * Improve CloudCopy.sh script
 
 ===Action Items===
 {| class="wikitable"
@@ -813,22 +867,64 @@ Eval Func:
 !Suspense Date
 !Date Resolved
 |-
-|Notebook
+|Update Notebook
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 8, 2021
+|November 15, 2021
+|November 14, 2021
 |-
-|Review Notes
+|Complete the On-Boarding Process
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 8, 2021
+|November 15, 2021
+|November 10, 2021
+|-
+|Work with Leul on CloudCopy.sh
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 12, 2021
+|-
+|Join run as worker
+|Completed
+|November 8, 2021
+|November 15, 2021
+|November 10, 2021
 |}
 
 == Week 13 (11/15 - 11/19) ==
 
 === Main Meeting: Weekly Scrum (11/15) ===
+* Hackathon meeting will take place November 21st from 1-5pm
+* Image Processing: 
+   * Most of the team has completed the on-boarding process.
+   * Running final experiments on new branch with Python 3.8
+   * Did another run with new mutation method
+* Modularity: 
+   * Fix the CloudCopy.sh: smoother
+   * Data visualizationas and CacheV2 integration: begin runs on stocks data soon
+* NLP: 
+   * NNLearner2 works on classification
+   * Have a keras model that builds and layers are able to feed into Keras's LSTM layer.
+   * Get Regression working on NNLeraner2 immediately and finish on-boarding.
+* NAS:
+   * Preprocessing improvements had many positive updates.
+   * A literature review is in progress for the final presentation.
+   * Integrate weight sharing to existing modules in EMADE.
+
+=== Individual Notes ===
+* Worked with Leul on CloudCopy.sh
+   * Make infinite copies of datasets
+   * Run the CloudCopy.sh on Windows and identify the errors.
+   * Address progress bar.
+* Joined the extendedarl8 run on 11/15
+
+=== Modularity Sub-Team Meeting (11/18) ===
+* Finished extendedarl8 run.
+* Have AUC over time array for the new extended arl runs done by Monday.
+* Assert AUC[i] = AUC[i+1]
+* README includes the instructions.
+* CloudCopy changes discussed.
 
 ===Action Items===
 {| class="wikitable"
@@ -838,17 +934,23 @@ Eval Func:
 !Suspense Date
 !Date Resolved
 |-
-|Notebook
+|Update Notebook
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 15, 2021
+|November 22, 2021
+|November 21, 2021
 |-
-|Review Notes
+|Work with Leul on CloudCopy.sh
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 15, 2021
+|November 22, 2021
+|November 18, 2021
+|-
+|Join run as worker
+|Completed
+|November 15 2021
+|November 22, 2021
+|November 18, 2021
 |}
 
 == Week 14 (11/22 - 11/26) ==
@@ -857,12 +959,31 @@ Eval Func:
 * Notebooks due date will be revealed.
 * Peer Evaluations open up next week.
 
-* Image Processing
-** 
+* Image Processing: 
+   * All of the members are setup on Pace-ICE now
+   * Didn't have a meeting due to break
+   * Low AC for baseline runs
+   * Experiments in Python 3.8
+* Modularity: 
+   * CacheV2 integrations subteam hopes to begin stocks runs soon
+   * Continued runs and gathering data for extended ARL experiments
+* NLP: 
+   * NNLearner2 works on classification
+   * Improvements to an experiment the team was planning to run on EMADE.
+* NAS:
+   * Completed weight sharing and looking into some general bugs that have been noticed during the development process.
+   * Merging changes and putting all of the desired EMADE functionality onto NN-VIP.
+   * Final presentation being edited by new members.
 
-* NLP
-** Overall status is that they have all the primitives that they need to get the results working.
-** NLearner2 works on classification. 
+=== Individual Notes ===
+* Joined extendedarl9 run on 11/23
+* Run crashed on gen 44, so ended it and start new one tomorrow.
+* Joined extendedarl10 run on 11/26
+* Continued to make changes to CloudCopy.sh and testing it on Windows with Leul.
+* Run crashed again at gen 33.
+
+=== Modularity Sub-Team Meeting (11/25) ===
+* No meeting because of Thanksgiving Break.
 
 ===Action Items===
 {| class="wikitable"
@@ -872,17 +993,82 @@ Eval Func:
 !Suspense Date
 !Date Resolved
 |-
-|Notebook
+|Update Notebook
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 22, 2021
+|November 29, 2021
+|November 28, 2021
 |-
-|Review Notes
+|Work with Leul on CloudCopy.sh
 |Completed
-|November , 2021
-|November , 2021
-|November , 2021
+|November 22, 2021
+|November 29, 2021
+|November 29, 2021
+|-
+|Join run as worker
+|Completed
+|November 22 2021
+|November 29, 2021
+|November 27, 2021
+|}
+
+== Week 15 (11/29 - 12/03) ==
+
+=== Main Meeting (11/29) ===
+* Final Presentations: Dec 10th
+* Peer Evals Opened: Due Dec 8th 4pm
+* Quick short meeting about general updates: presentation coming up, almost done with visualizations, convert AUC to CSV.
+* Work-time for the rest of VIP session.
+* Image Processing: 
+    * NSGA-III and mating methods changes merged
+    * Working on presentation as a team.
+    * assign remaining assignments and complete slides. 
+* Modularity: 
+    * Finishing up visualizations of extended arl data from recent runs.
+    * Completed CloudCopy.sh fixes and verified on different OS.
+    * Last run of extended arl.
+* NLP:
+    * Continuously progressing with runs. Analysis has not been performed yet.
+    * Working on presentation slides.
+* NAS:
+    * Short meeting due to finals upcoming.
+    * Working on presentation slides with each team member having certain slides.
+
+=== Individual Notes ===
+* Joined extenderarl11 run on 11/29.
+* Completed CloudCopy.sh with updates and verified on Windows OS.
+* Need to make changes to final presentations about CloudCopy.sh
+* Work on ARL Size and ARL Depth effect on Frequency graphs.
+
+=== Modularity Sub-Team Meeting (12/02) ===
+* General updates: presentation coming up, almost done with visualizations, convert AUC to CSV.
+* Aim to work on stocks data next week.
+
+===Action Items===
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Update Notebook
+|Completed
+|November 29 2021
+|December 06, 2021
+|December 05, 2021
+|-
+|Complete work with Leul on CloudCopy.sh
+|Completed
+|November 29 2021
+|December 06, 2021
+|December 04, 2021
+|-
+|Join run as worker
+|Completed
+|November 29 2021
+|December 06, 2021
+|December 01, 2021
 |}
 
 == Week 16 (12/06 - 12/10) ==
@@ -891,14 +1077,95 @@ Eval Func:
 * Submit Peer Evaluations: Due 12/08 at 4:00pm.
 * Notebooks are due 12/13 at midnight.
 * Work on presentations and give updates.
-
-=== Team Meeting (12/06) ===
+* Image Processing:
+    * Working on final presentations
+* Modularity: 
+    * Working on final presentations
+* NLP:
+    * Working on final presentations
+* NAS:
+    * Working on final presentations
+* Discussed presentations details with Dr. Rohling and Professor Zutty and received suggestions redoing the ARL graphs.
+* Was assigned to work on the four graphs with unreliable data during midterm presentations. 
 * The first graph: False Positives of individual's containing ARLs in Relation to ARL Size
 * The second graph: False Negatives of individual's containing ARLs in Relation to ARL Size
 * The third graph: ARL Size in Relation to its frequency on the Pareto Front
 * The third graph: ARL Depth in Relation to its frequency on the Pareto Front
 
-=== Final Presentations ===
+=== Individual Notes ===
+* Work on the four graphs with unreliable data during midterm presentations.
+* Was given access to the arlsizeanalysis.ipynb file by Vincent.
+* Compiled all of the data from all of the extended arl runs 5-11 using the following methods:
+   for db_num in range (4,12):\n",
+           db = MySQLdb.connect(host='database-2.ch6igrzmr2yu.us-east-2.rds.amazonaws.com', user='admin', passwd='mypassword', 
+           database=f'extendedarl{db_num}')\n",
+           mycursor = db.cursor()\n",
+           mycursor.execute(\"SELECT name, expr FROM adf\")\n",
+           results = mycursor.fetchall()\n",
+* All of the other methods were outside of the For-loop.
+* Edited all of the variables to match the data from all of runs combined rather than from one of the runs. 
+    * name = f\"{arl_name} db {db_num}\"\n"
+    * for i in range(50):\n"
+    * for arl_name, ratio in arl_pareto_freq_list:\n",
+            size_arr.append(arl_size[f\"{arl_name} db {db_num}\"])\n",
+            ratio_size.append(ratio)\n",
+    * for arl_name, ratio in arl_pareto_freq_list:\n",
+            depth_arr.append(arl_depth[f\"{arl_name} db {db_num}\"])\n",
+            ratio_depth.append(ratio)"
+    * arl_pareto_freq_list = [(arl_name, arl_freq_pareto[arl_name] / (50 - arl_first_app[arl_name])) for arl_name in arl_first_app.keys()]\n",
+        arl_pareto_freq_list.sort(key=lambda x: x[1], reverse=True)\n",
+* The following changes were so that the graphs from all of the runs would be represented:
+   * color = [[1,0,0,0.3] for i in range(len(arlsize_points))]\n",
+        plt.scatter(arlsize_points, fpos_points, c = color)\n",
+        plt.xlabel('ARL Size')\n",
+        plt.ylabel('False Positives')\n",
+        t = plt.title('False Positives of Individuals Containing ARLs in Relation to ARL Size')\n",
+        t.set_color(\"black\")\n",
+        plt.show()\n",
+        plt.clf()\n",
+        \n",
+        plt.scatter(arlsize_points, fneg_points, c = color)\n",
+        plt.xlabel('ARL Size')\n",
+        plt.ylabel('False Negatives')\n",
+        t = plt.title('False Negatives of Individuals Containing ARLs in Relation to ARL Size')\n",
+        t.set_color(\"black\")\n",
+        plt.show()\n",
+        plt.clf()\n",
+        \n",
+        f = plt.figure()\n",
+        ax = f.add_axes([0,0,1,1])\n",
+        ax.bar(range(len(arl_freq_list)), [x[1] for x in arl_freq_list[::-1]])\n",
+        plt.show()\n",
+        plt.clf()\n",
+        \n",
+        color = [[1,0,0,0.5] for i in range(len(size_arr))]\n",
+        plt.scatter(size_arr, ratio_size, c = color)\n",
+        plt.xlabel('ARL Size (# of nodes)')\n",
+        plt.ylabel('Frequency')\n",
+        t = plt.title('ARL Size in Relation to Its Frequency on the Pareto Front')\n",
+        t.set_color(\"black\")\n",
+        plt.show()\n",
+        plt.clf()\n",
+    \n",
+        color = [[1,0,0,0.5] for i in range(len(depth_arr))]\n",
+        plt.scatter(depth_arr, ratio_depth, c = color)\n",
+        plt.xlabel('ARL Depth')\n",
+        plt.ylabel('Frequency')\n",
+        t = plt.title('ARL Depth in Relation to Its Frequency on the Pareto Front')\n",
+        t.set_color(\"black\")\n",
+        plt.show()\n",
+        plt.clf()"
+
+=== Modularity Sub-Team Meeting (12/09) ===
+* Discussed presentation and assigned slides to each member.
+* I will be talking about the titanic experimental setup, and ARL graphs.
+* Another meeting will take place tomorrow to rehearse before presentation.
+
+=== Modularity Sub-Team Meeting (12/10) ===
+* Ran through the presentation at 4pm and refined the slides and the speaking portions.
+* Timed the presentation and it was perfect.
+
+=== Final Presentations (12/10) ===
 * Image Processing
 ** Selection Methods: Lexicase vs Baseline: NSGA2 performed better
 ** Two new Geometric Crossover Operations: Partially Matched, Ordered Crossover, Uniform & Multi Point.
