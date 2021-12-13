@@ -368,13 +368,6 @@ As Charlie was able to successfully connect to my database, we determined that t
 Meeting with Rayan
 * I met with Rayan on Friday to help him get past the build wheel issue when installing packages in his conda environment. We initially tried running pip install --upgrade pip setuptools wheel and re-installing based on a suggestion from a Stack Overflow post. As this did not resolve the issue, we tried troubleshooting his system to identify any storage limitations/junk files to delete, and having cleared his Anaconda bin file of all old environments, he was able to install all conda packages and proceed with the rest of EMADE setup successfully. 
 
-We observed that most individuals evolving in the first few generations of our run were either returning with an error or evaluating to (inf, inf). Only around 5-10 individuals were actually evaluating to finite fitness values in the first 10 generations of our run; we expect to see more individuals evaluating successfully in successive generations as individuals that are evaluating properly are rewarded by our selection methods. 
-When we restarted EMADE once with reuse=1, we observed that the number of individuals at the beginning of generation 0 was drastically greater than the starting number of individuals in the initial run (~750 individuals vs. ~200 individuals for an initialPopulationSize of 200). This indicated that seeding increased population size as well as the number of individuals that evaluate successfully at the end of each generation, but this also meant that each generation took much longer to run. As such, we avoided reuse going forward and saw an EMADE run to completion with reuse=0. 
-
-![Screenshot (485)](https://github.gatech.edu/storage/user/47031/files/9f782859-88eb-4db2-accb-47f3dd3f2b53)
-
-![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
-
 My Titanic Dataset Preprocessing:
 
 ```
@@ -469,6 +462,12 @@ Evolutionary Parameters Specified in input_titanic.xml:
 <minQueueSize>50</minQueueSize>
 <outlierPenalty>0.2</outlierPenalty>
 ```
+
+
+We observed that most individuals evolving in the first few generations of our run were either returning with an error or evaluating to (inf, inf). Only around 5-10 individuals were actually evaluating to finite fitness values in the first 10 generations of our run; we expect to see more individuals evaluating successfully in successive generations as individuals that are evaluating properly are rewarded by our selection methods. 
+When we restarted EMADE once with reuse=1, we observed that the number of individuals at the beginning of generation 0 was drastically greater than the starting number of individuals in the initial run (~750 individuals vs. ~200 individuals for an initialPopulationSize of 200). This indicated that seeding increased population size as well as the number of individuals that evaluate successfully at the end of each generation, but this also meant that each generation took much longer to run. As such, we avoided reuse going forward and saw an EMADE run to completion with reuse=0. 
+
+![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
