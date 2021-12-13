@@ -333,8 +333,8 @@ Have code ready for Code Freeze | Complete | 11/15/2021 | 11/29/2021 | 11/22/202
 ### Action Items
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
-Implement new Primitives into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
-Debug Persistent issue with Merge | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
+Implement new Primitives from Kevan and Karthik into EMADE | Complete | 11/08/2021 | 11/09/2021 | 11/10/2021 |
+Debug Persistent issues with Merge of EMADE-304 and nn-vip | Complete | 11/08/2021 | 11/14/2021| 11/16/2021 |
 Debug New Primitives such that they are called when running standalone tree evaluator | Complete | 11/08/2021 | Moved til next week | 11/16/2021 |
 
 ### Debugging Big Merge and Primitives
@@ -394,7 +394,7 @@ Debug New Primitives with Standalone Tree Evaluator | Complete | 11/01/2021 | 11
 * * NNLearner overview: https://docs.google.com/presentation/d/17KfH14LP1ToNQA1u4b8WiWEcwr9bDY6KNd0Xws8iOdk/edit?usp=sharing
 
 ### Debugging Primitives with Standalone Tree Evaluator
-* I began using Standalone Tree Evaluator this week to debug the primitives we'd made.
+* I began using Standalone Tree Evaluator this week to debug the primitives we'd made. Most of the code was finished out by Karthik and Kevan, but they had only tested it in a Collab notebook, not in EMADE. 
 * Initially, I was obtaining issues with malformed individual strings. I used the error messages to debug this.
 * Upon digging deeper, I discovered that the error message was a result of trying to turn a layer (BidirectionalAttention) into a literal. I asked in the slack about this, and discovered we had to edit gp_framework_helper.py.
 * IMPORTANT FUTURE NOTE FOR ADDING PRIMITVES: all new primitives added have to be added to the set in gp_framework_helper.py. This is an example, which is the code I wrote to add our primitives, at the end of the addPrimitives() method:
@@ -610,6 +610,8 @@ Resolve Merge Conflicts | Complete | 10/13/2021 | 10/16/2021 | 10/16/2021 |
 Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Make an EMADE Branch with new CacheV2 and NNLearner functionality | Complete | 10/03/2021 | 10/10/2021 | 10/10/2021 |
+
+# This is our fork, which we would merge CacheV2 (EMADE-304) with nn-vip: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
 
 ## Week 6, Sep 27th
 ### General Meeting Notes
