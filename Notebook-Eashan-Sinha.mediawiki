@@ -1518,27 +1518,21 @@ and
 |-
 |Add Meeting Lecture Notes into Notebook
 |Completed
-|October 6, 2021
-|October 12, 2021
-|October 8, 2021
+|November 29, 2021
+|December 6, 2021
+|December 5, 2021
 |-
-|Review Lecture Notes
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Download/Install Emade
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
-|-
-|Finish up Lab Notebook
+|Set Up PACE
 |Complete
-|October 6, 2021
-|October 8, 2021
-|October 8, 2021
+|November 8, 2021
+|December 5, 2021
+|December 2, 2021
+|-
+|Run EMADE on PACE using new XML File configuration
+|Complete
+|November 22, 2021
+|December 510 2021
+|December 2, 2021
 |}
 
 == Week 16 (12/06 - 12/12) ==
@@ -1546,13 +1540,128 @@ and
 === Lecture Notes (12/06) ===
 
 * Weekly scrum meeting
+* Image Processing used the time as a work day to ensure we were all on track for a code freeze and finalization of presentation slides
 
 === Subteam Notes (12/08) ===
 
-* 
+* Mainly a work day
+* Aryaan, Rohan, Elan, and I were designated to be the mate/mutation crew to see what results we could find by changing some of the probabilities and functions used in mate/mutations
+* Aryaan sent us the XML file configuration and we immediately got to work by running some trials with our data
+* The lowest ROC AUC was about 0.36 with about 36 million parameters generated
+
+=== Final Presentations (12/10) ===
+
+* Image Processing presented our presentation and received very good feedback from Dr. Zutty and Dr. Rohling
+* One thing the mate/mutation crew and I could have done was cite the creators of the various functions we used and/or change the functions to fit our desired needs
+* We could have also been more specific about our results and also more targeted in the functions we used
 
 === Individual Notes ===
 
+* We spent a lot of time on trials and on the presentation slides for the final presentation
+* Here is a link to the XML file configuration: https://drive.google.com/file/d/1WNAr95nann3ChyjI2l1iqozEDK4aNbSa/view?usp=sharing
+* Here are the probabilities that we changed and added in to mate/mutate:
+```
+ <matings>
+            <mating>
+                <name>crossover</name>
+                <probability>0.20</probability>
+            </mating>
+            <mating>
+                <name>crossoverEphemeral</name>
+                <probability>0.20</probability>
+            </mating>
+            <mating>
+                <name>headlessChicken</name>
+                <probability>0.10</probability>
+            </mating>
+            <mating>
+                <name>headlessChickenEphemeral</name>
+                <probability>0.20</probability>
+            </mating>
+            <mating>
+                <name>cxTwoPoint</name>
+                <probability>0.00</probability>
+            </mating>
+            <mating>
+                <name>cxUniform</name>
+                <probability>0.30</probability>
+            </mating>
+            <mating>
+                <name>partiallyMatched</name>
+                <probability>0.00</probability>
+            </mating>
+            <mating>
+                <name>orderedCx</name>
+                <probability>0.00</probability>
+            </mating>
+ </matings>
+​ 
+ <mutations>
+            <mutation>
+                <name>insert</name>
+                <probability>0.05</probability>
+            </mutation>
+            <mutation>
+                <name>insert modify</name>
+                <probability>0.10</probability>
+            </mutation>
+            <mutation>
+                <name>ephemeral</name>
+                <probability>0.25</probability>
+            </mutation>
+            <mutation>
+                <name>node replace</name>
+                <probability>0.05</probability>
+            </mutation>
+            <mutation>
+                <name>uniform</name>
+                <probability>0.05</probability>
+            </mutation>
+            <mutation>
+                <name>shrink</name>
+                <probability>0.05</probability>
+            </mutation>
+ </mutations>
+```
+* The most notable additions were '''cxTwoPoint''' and '''cxUniform'''
+* I then processed trial runs of EMADE
+* I wanted to query my results for one of the trials so I used:
+```
+ select `FullDataSet ROC AUC`, `FullDataSet Num Parameters`
+ from individuals ind join paretofront pf on pf.hash=ind.hash
+ where pf.generation = (select max(generation) from paretofront);
+```
+* After querying, I achieved the following results:
+```
+ +---------------------+----------------------------+
+ | FullDataSet ROC AUC | FullDataSet Num Parameters |
+ +---------------------+----------------------------+
+ |            0.484691 |                   12046600 |
+ |            0.455363 |                   24087300 |
+ |            0.499883 |                         30 |
+ |             0.48709 |                    1395180 |
+ |            0.485118 |                   12042400 |
+ |            0.465182 |                   12048000 |
+ |            0.489069 |                        287 |
+ +---------------------+----------------------------+
+```
+* My lowest ROC AUC was 0.455363, which was substantially higher than Aryaan's lowest of ~0.36
+* The number of parameters generated for that was 24087300, which was the most number of parameters generated for any of my individuals
+* We learned that often, the greater number of generated parameters correlates to a lower ROC AUC
+* However, we want to figure out how to reduce the number of generated parameters while simultaneously lowering the ROC AUC as much as possible.
+* Here is an example of an individual:
+```
+ NNLearner(((((((((ARG0)))))))), FlattenLayer4d(adf_4(adf_11(adf_18(adf_2(adf_12(adf_4(adf_2(InputLayer)))))))), ((((falseBool)))), 
+ ((((((((RMSpropOptimizer)))))))))\nadf_2: DenseLayer4dim(DenseLayerUnit256, defaultActivation, InputLayer)\nadf_4: 
+ Conv2DLayer(Conv2DFilterUnit48, reluActivation, Conv2DKernelSize5, ARG0)\nadf_11: DenseLayer4dim((DenseLayerUnit32), (seluActivation), 
+ DenseLayer4dim(DenseLayerUnit32, eluActivation, InputLayer))\nadf_12: MaxPoolingLayer2D(Conv2DKernelSize5, ARG0)\nadf_18: 
+ DenseLayer4dim((DenseLayerUnit32), (tanhActivation), Conv2DLayer(Conv2DFilterUnit16, tanhActivation, Conv2DKernelSize5, 
+ ARG0))|0.407442|36166300
+```
+* That particular individual generated 36166300 parameters and had an ROC AUC of 0.407442, which is much lower than what I achieved
+* We can represent that individual as a tree
+* In our presentation slides, we were able to visualize a tree using https://github.com/cwhaley112/TreeVis
+* Here is a link to Image Processing's final presentation slides: https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit?usp=sharing
 
 === Action Items ===
 {| class="wikitable"
@@ -1564,25 +1673,25 @@ and
 |-
 |Add Meeting Lecture Notes into Notebook
 |Completed
-|October 6, 2021
-|October 12, 2021
-|October 8, 2021
+|December 6, 2021
+|December 12, 2021
+|December 12, 2021
 |-
-|Review Lecture Notes
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
+|Run trials of EMADE on PACE
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 8, 2021
 |-
-|Download/Install Emade
-|In Progress
-|October 6, 2021
-|October 12, 2021
-|
+|Query Results to see different individuals
+|Complete
+|December 6, 2021
+|December 10, 2021
+|December 8, 2021
 |-
 |Finish up Lab Notebook
 |Complete
-|October 6, 2021
-|October 8, 2021
-|October 8, 2021
+|December 6, 2021
+|December 12, 2021
+|December 12, 2021
 |}
