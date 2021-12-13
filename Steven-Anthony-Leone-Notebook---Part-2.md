@@ -5,7 +5,7 @@
 <b>Cell Phone:</b> (412)-378-7253 <br>
 <b>Interests:</b> Machine Learning, Natural Language Processing, Software Engineering, Algorithms <br>
 <b>Sub Team:</b> NLP <br>
-<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang, George Ye, Rishit Ahuja
+<b>Sub Team Teammates:</b> Karthik Subramanian, Devan Moses, Kevin Zheng, Shiyi Wang, George Ye, Rishit Ahuja, Jessi Chen, Aditi Prakash, David Zhang, Manas Harbola, Yisu Ma
 
 
 Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/Notebook-Steven-Anthony-Leone
@@ -13,6 +13,8 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 
 # Fall 2021
+
+My team's final presentation can be found here: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
 
 ## Final Presentations
 * Image Processing
@@ -27,7 +29,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * In actuality, NSGA II ended up performing significantly better.
 * * Trees started to become too complex to yield meaningful results come generation 4 and beyond.
 * NLP
-* * We presented our results
+* * We presented our results: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
 * Stocks
 * * Comparing their results to a paper
 * * Changed objective functions this semester
@@ -57,7 +59,6 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 * * Reading and writing shared weights to a database was bad (errors, very slow)
 * * Instead, they stored weights in a file, which was much faster. 
 * * Added Max Pooling
-* * I asked about early stopping and current state of weight sharing
 
 ## Week 16, Dec 6th
 
@@ -74,6 +75,7 @@ Original Notebook can be found at: https://github.gatech.edu/emade/emade/wiki/No
 
 ### Sub Team Meeting Notes
 * At this week's sub team meeting, we worked on the final presentation and clarified anything anyone was confused on.
+* The final presentation can be found here: https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing
 * A lot of team members had one off, individual issues, so I set up meetings with them to clarify things and attempt to fix their issues.
 
 ### Meeting with Devan
@@ -119,9 +121,9 @@ https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sh
 * You can also find a picture of it here: 
 *  <img width="1040" alt="Screen Shot 2021-12-12 at 5 26 12 PM" src="https://github.gatech.edu/storage/user/27405/files/376ec182-e2f9-4209-a07f-2fe4597d1434">
 * I plugged in numbers from our Pareto fronts of our four different runs to produce visualizations from various code Rishit and Shiyi wrote. These are the results:
-<img width="331" alt="Screen Shot 2021-12-12 at 5 27 53 PM" src="https://github.gatech.edu/storage/user/27405/files/2d838e02-93de-4313-b819-7a97b6a3eaee">
-<img width="289" alt="Screen Shot 2021-12-12 at 5 28 13 PM" src="https://github.gatech.edu/storage/user/27405/files/b9f6e4fc-1efd-4133-a8e5-c6024bafdaff">
-<img width="281" alt="Screen Shot 2021-12-12 at 5 28 35 PM" src="https://github.gatech.edu/storage/user/27405/files/63344db7-a48b-454d-93f4-1ce074bd8930">
+* <img width="331" alt="Screen Shot 2021-12-12 at 5 27 53 PM" src="https://github.gatech.edu/storage/user/27405/files/2d838e02-93de-4313-b819-7a97b6a3eaee">
+* <img width="289" alt="Screen Shot 2021-12-12 at 5 28 13 PM" src="https://github.gatech.edu/storage/user/27405/files/b9f6e4fc-1efd-4133-a8e5-c6024bafdaff">
+* <img width="281" alt="Screen Shot 2021-12-12 at 5 28 35 PM" src="https://github.gatech.edu/storage/user/27405/files/63344db7-a48b-454d-93f4-1ce074bd8930">
 * Our fourth run did not produce a run better individual. The seeded individual remained on the Pareto Front.
 * My overall analysis of the results, which I discussed with Rishit and Shiyi, is as follows. We had four runs, and 3 of them by our definition of success resulted in success. 2 of them reduced area bounded by the seeded individual by 10%, and another one was by only .1%. From one perspective, the run with .1% could realistically be seen as a failure. With four runs, only half of them managed to improve a seeded individual, indicating auto machine learning had trouble improving a seeded individual on this data, with these primitives. From another perspective though, in 75% of our runs, we were able to improve from a seeded individual, 2 of them being rather significant. Overall, I think the second case is stronger, as we definitely can't rule out that auto machine learning can improve seeded individuals- our results mostly showed improvements. Yet, the strongest factor here is definitely our limited amount of data. We only got four runs in. We only had 3 runs that were successful, but we also only had one failure. We would need many more runs before we can get a very strong sense of results here.
 * Thus, overall, we decided that our results indicated that we could use auto machine learning to improve an existing question answering model, but we lacked the data to make any firm conclusions.
