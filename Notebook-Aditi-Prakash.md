@@ -8,9 +8,33 @@ Bootcamp Subteam Members: Charlie Bauer - cbauer32@gatech.edu, Rayan Dabbagh - r
 Cell Phone: 704-794-3924  
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
-[[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
-<img src="https://github.gatech.edu/storage/user/47031/files/f251fe88-cf33-49a9-b4a9-449cf98d21b1" width="30%">
+# Week 15: November 29th, 2021
+## Overview
+Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
+
+## Team Notes:
+* Members are continuing to run 8-hour trials in EMADE seeded with NNLearner2, we have decided to use continuous_mse and number of parameters as our evolutionary objectives. 
+* Our continous_mse metric is currently having an error wherein all of the values it returns for individuals’ continuous_mse are about half of what they should be based on their predictions of the start index in the answer. Steven was able to fix this by dividing the Monte Carlo objective values by 2 (the number of input DataPairs NNLearner2 takes in). 
+* Kevin is continuing to fix up our layers by refactoring their logic to be a bit cleaner and more readable as well as adding meaningful comments to each layer to indicate the flow of tensors throughout each individual and their respective sizes. 
+
+## Subteam Notes:
+* We met in person at the CULC to work on seeded runs using our codefreezed feature/nnlearner2 branch. I learned how to seed runs using python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa. My runs as of now are remaining stuck in the queue for a long time, which is likely due to the large number of runs that are simultaneously in the queue. Other errors I am experiencing include MySQL connection timeout issues, which are just a matter of retrying to resolve.  
+
+## Individual Notes:
+* Which individuals are evaluating, are they seeded individuals, which individuals are pareto option, are they seeded individuals, how fast is evaluation happening, issues with PACE queue, how far off is MSE, what is exact match rate, how might we change trial if it is an abstractive problem, why might we be getting these results 
+* Since we focused heavily on creating valid primitives this semester, our layers are wrappers around Keras models and are quite limited to the functionality that the Keras API offers. In addition, our custom logic has caused some inefficiencies in the runtime for individuals, which might be avoided with a different approach to implementing our layers (ex. graph execution instead of eager execution). 
+* NNLearner2 is also more or less straight out-of-the-box, so we are not entirely certain that it is best suited for our NLP problem. 
+* One of our biggest action items for next semester is to work making our embedding methods (ex. GloVe and Bert) as optimal as possible. Moreover, since our problem is currently extractive and not abstractive, we heavily punish individuals for not predicting the exact answer string in the context, even though an actual human might be off by a word or two in their answer to a particular question. This model is quite far removed from other state-of-the-art NLP models and implementing this would allow our model to be more scalable and solve a wider range of problems. 
+* We should also focus on our contextual embedding and ensure the output layer does not “undo” the work  done by the embedding and attention flow layers when we distill our probability matrices into a single prediction for the answer string. 
+* Finally, we should have our models predict both the start and the end index of the answer in the context to ensure that they are able to learn the length of the answer string as opposed to just its start. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
+| Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
+| Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
 
 # Week 14: November 22th, 2021
 ## Overview
