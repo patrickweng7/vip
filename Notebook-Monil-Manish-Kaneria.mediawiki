@@ -17,16 +17,65 @@ Interests: Machine Learning, Python, Soccer, Chess
 
 
 
-== December 8, 2021 ==
+== December 10, 2021 ==
 
- December 6
+'''Final Presentations'''
 
-'''Team Meeting Notes:'''
+ My Notes
+* I presented the hyper-features slides in the final presentation. 
+* Goals for the next semester for hyper-features would be to integrate the code with our sub team master branch as we decided not to do it this time because bug fixes ended after our code freeze.
+* Work on expanding on the idea of hyper-features and identifying more combinations of primitive that we can convert into hyper-features.
+* Final presentation slides:
+** [https://docs.google.com/presentation/d/1c6c51KhAIRJMMRo2mzNDDFsWm_MkFgXmNa3j7aLppdk/edit#slide=id.p] 
 
-* Peer evals close 12/8 Wednesday 4pm
-* Our notebooks are due on Monday 12/13 at 9am
-* Visualizations for prezi: tree structure for algorithms, pareto fronts and AUC, tracking things through time, any mined info from databases
-* 20 min for presentation
+ NAS
+* They worked on time stopping to improve the productivity of individuals.
+* They also worked on making more complex individuals.
+* Added weight sharing and modules to make specialized modules and speeds up training time.
+* Tried out the modular structures with architectures like VGG 16
+* Tested out weight sharing and had a relatively low test accuracy of 64.42% due to the fact that weights were being stored in the database which was why it was taking too much storage.
+* Now they were storing it in a file which allowed for many better individuals due to many generations.
+
+ NLP
+* Created a new NNLearner2 two work with new data pairs.
+* NNLearner2 had both an ARG0 and an ARG
+* 1.sigmoid activation layer  had issues and kept shooting out a 1.
+* Had to re-process the SQUAD dataset.
+* Worked on the BiDAF model by creating a similarity matrix, query to context attention.
+* Created to new modeling layer by passing the result through a bi-directional LSTM layer.
+* Their accuracy was around 1-2% (but SOTA is around 80%
+* They got multiple individuals  better than the seeded individuals.
+
+ Stocks
+*  3 Trials. 
+* Analyzed the profit % analysis.
+* Tested across all of the different primitives.
+* ArgMin and ArgMax were the most useful primitives found through analysis.
+* Comparison of results with the fuzzy model paper:
+* The best performing individual was an ArgMin individual
+*  It was able to outperform the fuzzy model paper.
+
+ Modularity
+* CloudCopy was used to set the workspace.
+* After enough generations and time newer ARL's might perform better than the older ARL's.
+* Worked on testing the complexity of ARL's by increasing tree depth.
+* Calculated the FP and FN.
+*  Compared the new architecture versus the old architecture.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Start preparing the slides for the the final presentation (I will work on the hyper-features slides.
+|Completed
+|November 24, 2021
+|December 10, 2021
+|December 9, 2021
+|}
 
 
  December 8
@@ -81,8 +130,27 @@ Interests: Machine Learning, Python, Soccer, Chess
  NNLearner(ContrastSobelHyperfeature(ARG0, passTriState(TriState.STREAM_TO_STREAM), passAxis(Axis.FULL)), DenseLayer4dim(DenseLayerUnit32, defaultActivation, Conv2DLayer(Conv2DFilterUnit16, reluActivation, Conv2DKernelSize1, InputLayer)), 98, AdamOptimizer)
 
 
+* Added sharpening filter in hyper-feature code.
+* Now the there are essentially 2 different ways to run the hyper-feature,
+** 1) Contrast Enhancement + Sobel Filter
+** 2) Contrast Enhancement + Sharpening Filter
+* Final Updated code for the hyper-feature
+** [https://colab.research.google.com/drive/1RCwdJqF76K7DemVErY5k0GYoj_V3r2As?usp=sharing]
 
 
+* Results for the hyper-features:
+
+** 1) Contrast Enhancement + Sobel Filter
+*** Lowest ROC AUC - 0.5
+*** Number of parameters - 929359
+
+** 2) Contrast Enhancement + Sharpening Filter
+*** Lowest ROC AUC - 0.407795
+*** Number of parameters - 2628560
+
+* The result for Contrast Enhancement + Sobel Filter is not very good as we were getting 0.5 AUC ROC for every tree that we tested. We are not exactly sure why this was happening but potentially it is because the images are transformed at a point where they are no longer recognizable by the time they reach to the hyper-feature in the tree. so the AUC ROC is mostly random guessing.
+* We had an initial assumption that sharpening filter would work better with contrast enhancement than a sobel filter.
+* We did manage to prove that the assumption that we had was correct as we have a lower AUC ROC for sharpening filter above.
 
 '''Action Items:'''
 {| class="wikitable"
