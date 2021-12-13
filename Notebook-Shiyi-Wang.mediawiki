@@ -861,49 +861,19 @@ TensorShape([None, 10, 126, 126, 64])
 == Week 11 ==
 === Nov 6, 2021 ===
 '''Subteam Meeting Notes:'''
-*
-*
-*
+* Steven proposed some relevant tasks for our new members to pursue.
+** Test the functionality of aligned data pairs with NLP.
+** The outputting of words: Convert the dataset format to have said index as the output, instead of the textual answer.
+** Write unit tests for our custom layers. Making sure the input and output dimensions are correct.
 
 '''Individual Progress:'''
 * I and Karthik corrected the [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 implementations of Bi-directional attention layer and modeling layer] to ensure the proper dimensions.
 ** However, we were not sure whether the output layer had done dense and LSTM on M1 and M2. Therefore, the output layer remained undone.
 ** The next day, I, Karthik, and George have corrected the dimension all the way from bi-directional attention layer to the output layer.
-* I and Karthik have also designed some [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 randomized unit tests] for different dimension inputs using PyTests.
+* I and Karthik have also [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 designed some randomized unit tests] for different dimension inputs using PyTests.
 ** Our refactored code passed all tests designed.
-'''
-def test_pipeline_dim():
-  d = random.randint(2, 100)
-  t = random.randint(2, 100)
-  j = random.randint(2, 100)
-  context_embed = np.ones((2*d, t))
-  query_embed = np.ones((2*d, j))
-  context_tensor = tf.squeeze(tf.convert_to_tensor(context_embed))
-  query_tensor = tf.squeeze(tf.convert_to_tensor(query_embed))
-
-  #Bidirectional Attention
-  test = BidirectionalAttentionLayer(activation = "tanh")
-  bidirectionalOut = test([context_tensor, query_tensor])
-  assert bidirectionalOut.shape[0] == 8*d #8dxT
-  assert bidirectionalOut.shape[1] == t 
-
-  #Modeling Layer
-  test = BidafModeling(out_dim = d, activation = "tanh")
-  M1, M2 = test(bidirectionalOut)
-  assert M1.shape[0] == 2*d #2dxT
-  assert M2.shape[0] == 2*d 
-  assert M1.shape[1] == t
-  assert M2.shape[1] == t 
-
-  #Output Layer
-  outputIn = [bidirectionalOut, M1, M2, context_tensor]
-  test = BidafOutput()
-  P1, P2 = test(outputIn)
-  assert P1.shape[0] == 1 #1xt
-  assert P1.shape[1] == t 
-  assert P2.shape[0] == 1
-  assert P2.shape[1] == t
-
+** I refactored the code for better readability.
+```
 num_test = 10
 print("Running " + str(num_test) + " random input PyTests...")
 
@@ -913,9 +883,60 @@ for i in range(num_test):
   print("-> Test " + str(i + 1) + " passed!")
 
 print("Success! All tests passed!")
-'''
+```
 * I have discussed with Kevin regarding commenting out get_answer for the output layer.
 ** we were trying to debug the dimensionality issues, so we changed that to a pair of output.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Bi-directional Attention Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 6, 2021
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Modeling Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 6, 2021
+|-
+|Fix dimension issues with [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing Output Layer]
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Update our progress on Slack Channel
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Write new tasks and update finished tasks on Trello Board with Karthik
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|-
+|Designed [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing randomized unit tests] to test the dimensionality match with the paper using PyTest
+|Completed
+|November 6, 2021
+|November 13, 2021
+|November 7, 2021
+|-
+|Write [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w?usp=sharing comment for each line of tensor transformation] in Attention, Modeling and Output Layer.
+|Completed
+|November 6, 2021
+|November 8, 2021
+|November 7, 2021
+|}
 
 === Nov 3, 2021 ===
 '''Subteam Meeting Notes:'''
