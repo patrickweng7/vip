@@ -372,7 +372,29 @@ EMADE PACE Setup Issues
 Final VIP Presentations - Bootcamp Teams and Main Teams. 
 
 ## Team Meeting Notes
-* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice to maximize diversity of individuals being selected from during each generation, and thereby maximize diversity of the final pareto front for each generation (spreads individuals across tradeoff space between FNR and FPR). Received feedback from Dr. Zutty to ensure that all of our pareto fronts are placed on the same graph going forward for easy comparison. Heard from following teams on their current areas of focus and considered which teams best align with my research interests:
+* Presented final VIP presentations on Titanic problem solved with ML, MOGP, and EMADE. Received feedback from Dr. Zutty and Dr. Rohling that our revision of our MOGP approach based on Dr. Zutty's suggestion to use selDCD instead of selNSGA so binary selection is performed without truncation during selection was a good choice to maximize diversity of individuals being selected from during each generation, and thereby maximize diversity of the final pareto front for each generation (spreads individuals across tradeoff space between FNR and FPR). Received feedback from Dr. Zutty to ensure that all of our pareto fronts are placed on the same graph going forward for easy comparison. 
+
+Important Slides from Final Presentation:
+
+![Screenshot (503)](https://github.gatech.edu/storage/user/47031/files/7e32d132-1a4e-4053-b3de-204108129972)
+
+![Screenshot (505)](https://github.gatech.edu/storage/user/47031/files/fae01126-3739-49f2-a3c5-cb3b5b2405e6)
+
+![Screenshot (506)](https://github.gatech.edu/storage/user/47031/files/22e70a45-34dc-4986-9510-79c53f6af6a8)
+
+![Screenshot (507)](https://github.gatech.edu/storage/user/47031/files/90de7657-c746-4458-95f9-ea144b945684)
+
+![Screenshot (508)](https://github.gatech.edu/storage/user/47031/files/5323a2df-4957-45d5-ad87-06cf9d909cfa)
+
+
+
+
+
+
+
+
+
+Heard from following teams on their current areas of focus and considered which teams best align with my research interests:
 
 NLP:
 * Trying to recreate BiDAF and BERT primitives in EMADE based on literature review 
