@@ -1315,14 +1315,40 @@ WHAT WE WANT TO DO
 * Started off with weekly scrum
 * Image Processing Sub team kicked off the scrum
 * Used today as a workday to finalize an idea for the presentation on 12/10
-
+* Rohan and I worked on solving our PACE issues until about 7:30PM today
+* We were still unable to connect to the node so we were working through it with Max for a while
 
 === Subteam Notes (N/A) ===
 
 * There was no subteam meeting this week due to Thanksgiving Break!!
 
 === Individual Notes ===
+* I was still facing the same error with PACE
+* I wasn't able to ssh into the node as I would keep getting the following error:
+ ERROR 2002 (HY000): Can't connect to local MySQL server through socket 'scratch/db/mysqldb.sock' (111)
+* We thought there might have been something wrong with my port number colliding with someone else's who was also using PACE.
+* Here is my .my.cnf file with the PORT number listed
+```
+ [mysqld]
+ datadir=scratch/db
+ socket=mysqldb.sock
+ user=esinha6
+ symbolic-links=0
+ # uncomment the following line if you use a port and change the port number to the one you use
+ port=3391
 
+ [mysqld_safe]
+ log-error=mysqldb.log
+ pid-file=mysqldb.pid
+ [mysql]
+ socket=scratch/db/mysqldb.sock
+```
+* There didn't seem to be much wrong
+* I still wasn't receiving permission to SSH into the node
+
+[[files/esinha6/W14_PACE_Permission_Denied|height=100px]]
+
+* We decided that we would debug again later because we kept going in loops trying to figure out what was wrong with our inability to SSH into the node
 
 === Action Items ===
 {| class="wikitable"
@@ -1334,40 +1360,152 @@ WHAT WE WANT TO DO
 |-
 |Add Meeting Lecture Notes into Notebook
 |Completed
-|October 6, 2021
-|October 12, 2021
-|October 8, 2021
+|November 22, 2021
+|November 29, 2021
+|November 28, 2021
 |-
-|Review Lecture Notes
+|Set Up PACE
 |In Progress
-|October 6, 2021
-|October 12, 2021
+|November 8, 2021
+|December 5, 2021
 |
 |-
-|Download/Install Emade
+|Run EMADE on PACE using new XML File configuration
 |In Progress
-|October 6, 2021
-|October 12, 2021
+|November 22, 2021
+|December 10, 2021
 |
-|-
-|Finish up Lab Notebook
-|Complete
-|October 6, 2021
-|October 8, 2021
-|October 8, 2021
 |}
 
 == Week 15 (11/29 - 12/05) ==
 
-=== Lecture Notes (11/22) ===
+=== Lecture Notes (11/29) ===
 
 * Weekly scrum meeting
+* Image Processing Kicked off
+* Used today mainly as a workday to be able to get everything running and finalized in terms of presentation
+* Finally able to get EMADE running on PACE!
+** Check '''Individual Notes''' below for how I did it
 
 === Subteam Notes (12/01) ===
 
-* 
+* We first ensured everyone had tasks assigned for the week
+* I was assigned to work with Aryaan, Elan, and Rohan on the mate/mutate functions to see if we can extract useful information from experiments with different mutate functions
 
 === Individual Notes ===
+
+* I was able to figure out all my PACE issues and process a run of EMADE
+
+==== Setting Up PACE and Running EMADE on PACE ====
+
+* Forked Aaryan's repository
+** I forked the wrong one earlier so make sure to double check that you have the right repo forked
+* Transferred the EMADE fork onto PACE using:
+```
+ $ scp -r [directory of local emade fork] esinha6@pace-ice.pace.gatech.edu
+```
+* Create and place the '''.my.cnf''' file in the Username folder on PACE.
+** Either create it locally then scp to pace or create it using <code>vim</code> while on PACE
+* Here is my '''.my.cnf''':
+```
+ [mysqld]
+ datadir=scratch/db
+ socket=mysqldb.sock
+ user=esinha6
+ symbolic-links=0
+ # uncomment the following line if you use a port and change the port number to the one you use
+ port=3391
+
+ [mysqld_safe]
+ log-error=mysqldb.log
+ pid-file=mysqldb.pid
+ [mysql]
+ socket=scratch/db/mysqldb.sock
+```
+Then I ran:
+```
+ $ mysql_install_db --datadir=$HOME/scratch/db
+```
+and
+```
+ $ /usr/bin/mysqld_safe --datadir='/storage/home/hpaceice1/esinha6/scratch/db'
+```
+* ssh into your node using:
+```
+ $ ssh esinha6@atl1-1-02-012-5-l
+```
+* While in the node, run:
+```
+ $ mysql -u root
+```
+* Then we want to create a username and password so run the following SQL commands:
+```
+ DELETE FROM mysql.user WHERE user='';
+ GRANT ALL PRIVILEGES ON *.* TO 'esinha6'@'%' IDENTIFIED BY 'PASSWORD' WITH GRANT OPTION;
+ FLUSH PRIVILEGES;
+```
+* Make sure to replace esinha6 and PASSWORD with your corresponding username and desired password
+* Log into the MySQL shell with:
+```
+ $ mysql -u esinha6 -p
+```
+* Then type in your password
+* Then you want to create your database while in the MySQL shell:
+```
+ CREATE DATABASE mating_runs;
+```
+* Then we want to navigate back to our '''emade''' folder in PACE and run the following to set up PACE Anaconda:
+** <code> $ module load anaconda3/2020.02</code>
+** <code> $ conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs/</code>
+** Make sure '''setup.py''' is already installed in the shared environment, if not, run <code>python setup.py install</code>
+** Then run:
+```
+ $ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+```
+* Then we want to create our '''pbsmysql.pbs''' file that looks like this:
+** Tip: ASK how to put PACE in VSCode-- it makes creating, deleting, moving files so much easier than through the terminal
+```
+ #!/bin/bash
+ #PBS -N mysqldb
+ 
+ #PBS -q pace-ice
+ 
+ #PBS -l nodes=1:ppn=1
+ 
+ #PBS -l walltime=08:00:00
+ 
+ #PBS -M esinha6@gatech.edu
+ mysqld_safe --datadir='/storage/home/hpaceice1/esinha6/scratch/db'
+```
+* Then we want to created our '''launchEMADE.pbs''' file:
+```
+ #PBS -N emade-chest
+ #PBS -l nodes=1:ppn=4
+ #PBS -l pmem=4gb
+ #PBS -l walltime=8:00:00
+ #PBS -q pace-ice-gpu
+ #PBS -o emade-chest.out
+ 
+ cd ~/emade
+ echo "Started on `/bin/hostname`"  # prints the name of the node job started on
+ export CC=gcc
+ module load anaconda3/2020.02
+ conda activate /storage/home/hpaceice1/shared-classes/materials/vip/AAD/ip_group/envs
+ echo "STARTING EMADE"
+ # The next line seeds the run if you're starting from scratch. if you're resuming a run then comment it out.
+ python src/GPFramework/seeding_from_file.py templates/input_chestxray.xml seeding_test_cv_all_empty
+ # This line launches EMADE
+ python src/GPFramework/launchEMADE.py templates/input_chestxray.xml
+```
+* So now we open our MySQL server:
+```
+ $ qsub pbsmyql.pbs
+```
+* To '''process a run of EMADE on PACE''', we just run
+```
+ $ qsub launchEMADE.pbs
+```
+* The above script will create EMADE_master.e##### and EMADE_master.o##### files after running for a while. Make sure to check for any errors and outputs.
 
 
 === Action Items ===
