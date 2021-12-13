@@ -1,0 +1,1 @@
+![](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.semanticscholar.org%2Fpaper%2FLGND%253A-a-new-method-for-multi-class-novelty-Tang-Tian%2F2b18f73596e24b8587eed014f1c9f242e8e5f727%2Ffigure%2F0&psig=AOvVaw1Q-RjiR-rpl0elPZZjcDAl&ust=1639466197308000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCMjfidad4PQCFQAAAAAdAAAAABAD)

@@ -24,6 +24,25 @@ Subteam Teammates:
 ** -2 Usefulness to team
 
 ==Dec 10, 2021==
+'''Individual / Subteam Meeting Notes'''
+* We created [https://docs.google.com/presentation/d/1NEBKzjTDcTHCosAotFKmvSSGbmRxxeedptpNviGxse8/edit?usp=sharing our presentation]
+* I modified [https://colab.research.google.com/drive/171NDrtM1QqIjpEcNtVye9O_abDdzNU_C?usp=sharing my seeding file notebook] from last week to aid with the presentation:
+** Through SQL queries and Pandas data manipulation, I found the top 10 individuals (in terms of lowest loss percentage) from each experiment (aggregated among each of the 3 trials). I converted the loss percentages to profit percentages and then made a bar graph that averaged these top individuals' profit percentages to compare the performance of the best individuals from each set of objectives. The bar graph can be found on slide 20 of our presentation (linked above), in the notebook (also linked above), or below:
+[[files/rbhat3/comp_exp_bar.png|thumb|50x50px]]
+*** This bar chart indicate that our best objective sets seem to be [total loss, variance of profit per transaction] and [total loss, average loss per transaction]
+*** It was surprising for us to not see an objective set that included cdf among the top experiment performances, though [total loss, cdf] was the third best performing experiment
+*** Experiments with less objectives tended to perform better than those with larger objective sets
+** I also added code to find the tree with the lowest overall loss percentage, as this was the individual we would use for analysis in our final presentation
+*** In turned out to be a very long and complex tree: Learner(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyDeltaRSI(MyBollingerBand(MyEVM(MyDeltaMACD(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyEVM(MyDeltaSTOCH(MyEVM(MyDeltaSTOCH(MyDeltaSTOCH(MyBollingerBand(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyBollingerBand(MyAROON(MyDeltaSTOCH(MyBollingerBand(MyEVM(MyBollingerBand(MyEVM(MyDeltaSTOCH(ARG0, 1, 32), 8), 5, falseBool, 10), 0), 128, greaterThan(myFloatIntDiv(myFloatIntSub(myFloatIntAdd(-0.5840088004334074, 10), lessThan(100.0, -4.695623339332281)), lessThanOrEqual(myFloatIntSub(0.1, 8), -4.695623339332281)), myFloatMult(-4.695623339332281, 100.0)), 980), 1, 14), 8), 7, falseBool, 10), 0), 10, greaterThan(myFloatIntDiv(myFloatIntSub(0.1, 50), lessThanOrEqual(myFloatDiv(myIntToFloat(lessThan(0.10145704993941784, 100.0)), myFloatSub(0.1, myFloatIntAdd(0.01, 5))), 10.0)), myFloatMult(3.693800388190727, 100.0)), -3), 1, 14), 6207, lessThanOrEqual(myFloatIntSub(myFloatIntSub(0.1, 8), passInt(0)), 10.0), 32), 1, 8), 1, 10), 8), 1, 32), 12), 0), 14, falseBool, 8), 1, 32), myFloatToInt(2.1890902574242297)), 6207, lessThanOrEqual(myFloatIntSub(0.1, 50), 10.0), 32), 1, 8), 1, 10), 8), 1, 32), 12), 14, falseBool, 10), 8), trueBool, myFloatToInt(-4.901541175503988)), trueBool, myFloatToInt(-4.901541175503988)), 0), LearnerType(‘ARGMIN’, {‘sampling_rate’: 1}), EnsembleType(‘BAGGED’, None))
+**** It is tough to understand what exactly this individual is doing, but one interesting point is that the learner is not an ML model, but simply the argmin function
+**** Abhiram hypothesized that since the trading algorithm only executes a trading decision if the signal is between 0 and 1, and since the only numbers within this range that the argmin function can return are 0 and 1, the algorithm simply does nothing unless the lowest signal is one of the two innermost TIs (MyDeltaSTOCH at index 0 or MyEVM at index 1)
+**** I found it interesting that last semester our best performing individual was a very simple tree that just used the MyBollingerBand primitive as the only TI. Both that tree and this one are similar in that they are very confusing to understand and that it does not quite make sense how they work so well, but that is also why EMADE is helping with this problem: autoML finds the algorithms we could not arrive at by just using logical thought.
+* I also added some code (pictured below) to the standalone tree evaluator that helps with comparing individuals' performance to that of the paper. It creates a DataFrame that has seven rows (one per stock) and four columns: the ticker, the profit percentage achieved by the given tree on the given ticker, the profit percentage achieved by the paper on the given ticker, and the difference between the two (i.e. how many percentage points higher the tree achieves compared to the paper). This DataFrame is then written to a csv.
+** [[files/rbhat3/comp_code.png|thumb|50x50px]]
+** For the presentation, we uploaded this csv to Google Sheets, and then added a conditional formatting to the last column (the one that shows the difference between our performance and the paper's) so that the cell is green if we outperform the paper and red otherwise. This table can be found on slide 24 of our presentation.
+* I was assigned to present slides 1-2, 20-27
+
+
 '''Team Meeting Notes'''
 
 ''Final Presentation day, notes for each subteam below''
@@ -78,12 +97,19 @@ Modularity
 !Suspense Date
 !Date Resolved
 |-
-|Analyze individuals
+|Analyze and compare performance of experiments
 |In progress 
-|Nov 11, 2021
+|Dec 3, 2021
 |
 |
+|-
+|Create and rehearse final presentation
+|Complete 
+|Dec 3, 2021
+|
+|Dec 10, 2021
 |}
+
 
 
 ==Dec 3, 2021==

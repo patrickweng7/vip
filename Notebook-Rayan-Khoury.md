@@ -3,6 +3,56 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **November 8th, 2021**
+## **Meeting 12**
+### Class Notes:
+* We went through group scrums where each team talked about their weekly updates.
+* Our team is working to get some infrastructure in place that allows us to do effective runs of EMADE for our final presentation.
+
+### Group Notes:
+* We were assigned the corresponding slides to complete for the final presentation. 
+
+### Bootcamp members meeting with returning members:
+* Bootcamp members met with Cameron W and Cameron B to get to know more about EMADE's NN-VIP version, along with explaining machine learning concepts.
+* EMADE:
+    * There are 2 primitive set types:
+        * MAIN
+        * ADF
+    * EMADE object fit information into XML files 
+    * handleWorker, setObjectives, myStr are helper functions used in EMADE
+    * swap_layer, concat_healer, cx_ephemerals are mating?mutation functions.
+* Neural Networks
+    * Uses a set of layers where each layer has a set of nodes
+    * Activation Functions Used:
+        * Sigmoid
+        * tanh
+        * ReLu
+        * Leaky
+        * Maxout
+        * ELU
+    * Models that map inputs to output efficiently
+    * Each layer in the network contains operation and activation segments
+    * Types of layers: 
+        * Dense
+        * Convolutional
+        * LSTM
+        * Recurrent
+* NN-VIP EMADE
+    * Start by running the command launchEMADE.py input.xml
+    * Initiate database, track population status, and handle queues of individuals using master algorithm
+    * Connect to database and retrieve individuals that need to be evaluated using the worker algorithm
+
+### Personal Notes:
+* I read the following paper: https://dl.acm.org/doi/pdf/10.1145/3321707.3321721
+* This paper focused on deep neural networks, their architecture, and experimental results
+* I also read this article regarding neural networks: https://towardsdatascience.com/understanding-neural-networks-19020b758230?gi=1341d1e6f5c3
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Read "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification "|Complete|11/15/2021|11/08/2021|11/12/2021|
+|Complete EMADE Setup|Complete|11/15/2021|11/08/2021|11/14/2021|
+|Read the midterm presentation and prepare for final|Complete|11/15/2021|11/08/2021|11/10/2021|
+
 # **November 1st, 2021**
 ## **Meeting 11**
 ### Class Notes:
