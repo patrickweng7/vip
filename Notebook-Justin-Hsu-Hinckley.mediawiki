@@ -31,17 +31,50 @@ NLP:
 Stocks:
 * Goal was to outperform another paper on accuracy in the stocks the paper looked at.
 * For almost all stocks they improved over the paper significantly, expect for JNJ which was slightly lower.
-* Future work is to find specific pareto individuals through scripts and will write a research paper in Spring 2022.
+* Future work is to find specific Pareto individuals through scripts and will write a research paper in Spring 2022.
 Modularity:
 * Changed tuples into classes throughout infrastructure.
 * Future work, merge stocks changes into ARL_Update branch.
 * Continue adding to the research paper.
-* Move from Collab to PACE-ICE.
+* Move from Colab to PACE-ICE.
 
 === Sub-team Notes ===
 * I participated in dry run of our final presentation on 12/8 @ 5:00PM
 ** I presented the three slides without the visuals since I had not completed them at that point.
-* notes about visual generation, link to image in slides
+
+Parent graph visualization work:
+* Finished code:
+** make_parent_graph(): creates a new PNG with the graph of the given individual's parents
+    def make_parent_graph(ind_hash, inds_to_parents):
+         # creating graphs and saving to PNGs:
+         dest_path = os.getcwd()
+         graph = pydot.Dot("my_graph", graph_type='graph')
+         nodes = {}
+         add_parent_nodes(graph, ind_hash, inds_to_parents, nodes)
+         add_parent_edges(graph, ind_hash, nodes, inds_to_parents, set())
+
+        graph.write_png(os.path.join(dest_path,str(ind_hash)+".png"))
+** add_parent_nodes(): Takes in a graph and adds a PyDot node for each parent in the graph
+    def add_parent_nodes(graph, cur_hash, inds_to_parents, nodes):
+         parents = inds_to_parents[cur_hash][0]
+         structure = inds_to_parents[cur_hash][1]
+
+         node = pydot.Node(cur_hash, label=cur_hash[:30]+'...'+'\n'+structure[:30]+'...')
+         graph.add_node(node)
+         nodes[cur_hash] = node
+
+        for parent_hash in parents:
+             add_parent_nodes(graph, parent_hash, inds_to_parents, nodes)
+** add_parent_edges(): Adds PyDot edges between child to parent for the given graph
+    def add_parent_edges(graph, cur_hash, nodes, inds_to_parents, seen):
+         if cur_hash in seen:
+             return
+         seen.add(cur_hash)
+         parents = inds_to_parents[cur_hash][0]
+
+         for parent_hash in parents:
+             graph.add_edge(pydot.Edge(nodes[cur_hash], nodes[parent_hash]))
+             add_parent_edges(graph, parent_hash, nodes, inds_to_parents, seen)
 
 === Action Items ===
 {| class="wikitable"
