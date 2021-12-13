@@ -131,7 +131,45 @@ adf_5: DenseLayer4dim((DenseLayerUnit256), (eluActivation), MaxPoolingLayer2D(Co
 adf_15: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer) 
 </pre>
 
+** I couldn't find this tree in the seeding files, but investigating other's trees may yield some insight into this artifact
 
+
+* The PF was scaled to 0.5 for the ROC and 192681000 for the number of params
+** The number of params was chosen based on the baseline example
+** However, the chosen number of params is not a maximum, so even though we included a fake datapoint (0,1.0) in order to create the paretofront, it's entirely possible that a value is found at (0,1.1) that is valid and we would need to disregard the previously found point
+** The max of params is 1000000000 which is a fairly large number. Using this instead of 192681000 for scaling would make our AUC very large.
+* Most of the solutions are close to 0.5 (1.0 in the graph) for ROC
+** 0.5 is equivalent for a classifier to be randomly choosing classes, so this is pretty bad
+** The only decent solutions (<0.4) involved many parameters
+** Perhaps the number of parameters is not a useful optimization metric. While we should keep it low in order to have less complex solutions, there are so few good results when doing so. There may have been better metrics to choose from
+** If good solutions only happen when parameter numbers are high, then let's use the those. Our results are not time sensitive, so speed in not a factor. The paper we are comparing against uses F1 score, so we should do the same
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Due Date
+!Date Resolved
+|-
+|Prepare Presentation
+|In Progress
+|December 1st, 2021
+|December 10th, 2021
+|December 10th, 2021
+|-
+|Run more experiments
+|Completed
+|December 6th, 2021
+|December 10th, 2021
+|December 10th, 2021
+|-
+|Update Notebook
+|Completed
+|December 10th, 2021
+|December 13th, 2021
+|December 12th, 2021
+|}
 
 == December 6th ==
 
