@@ -16,11 +16,45 @@
 ## Week 15: November 29th -  December 5th (2021)
 ### Lecture overview:
 
+
 ## Week 14: November 22nd -  November 28th(2021)
 ### Lecture overview:
 
+
 ## Week 13: November 15th -  November 21st(2021)
 ### Lecture overview:
+* Need to keep notebook updated
+* NLP Scrum:
+1. Specified tasks in different subteams
+2. Had a lot of bug after merge
+3. Encountered memory error from EMADE. The solution is to set the memory limit param in the xml
+
+* sub-Team meeting note:
+1. Our NNlearner2 team has new members 
+2. modified the code base from NNlearner and try to make it accept 2 data pairs
+3. Got NNLearner2 working on classification.
+4. Still working on integrating 2 data pair 
+5. Reduced the scope to only regression to for this semester, because of the complexity
+
+* Individual Note:
+1. Helped he subteam change modified our xml file together
+![](https://github.gatech.edu/yma391/VIP-AAD/blob/master/aadxml.jpeg)
+2. Helping Devan check if our layers are able to fit into Keras model
+3. Looked trough our branch and this is our github link:https://github.gatech.edu/sleone6/emade/commit/77992e059d9d10b5174632a859c514b626d31d92
+4. Read several articles and papers on Sentiment Analysis with NLP on Twitter data
+https://medium.com/analytics-vidhya/introduction-bd62190f6acd
+https://ieeexplore.ieee.org/abstract/document/9036670
+
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Look through useful resource for twitter dataset NLP|in progress|November 15th, 2021|November 30th, 2021|pending|
+|run EMADE on PACE ICE environment|complete|November 15th, 2021|November 21st, 2021|November 19th, 2021|
+|check layers for Keras model|complete|November 15th, 2021|November 21st, 2021|November 20th, 2021|
+|Record notebook|complete|November 15th, 2021|November 21st, 2021|November 21st, 2021|
+
+
+
 
 ## Week 12: November 8th -  November 14th (2021)
 ### Lecture overview:
@@ -40,7 +74,8 @@
 1. NNLearner: type of learner in EMADE
 Layers of neural networks are primitives in EMADE
 2. Need to make sure NNlearner2 does not run into error
-3 I tried to download twitter data set and ran the standalone tree evaluator, but error occurs in our nnlearner2
+3 I tried to download twitter data set and ran the standalone tree evaluator, but error occurs in our nnlearner2.
+Devan and Steven would try to fix the bugs in Hackathon
 
 Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
 |------|----------------|---------------|----------------|---------------|
