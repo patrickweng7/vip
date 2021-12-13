@@ -11,10 +11,105 @@
 # **Fall 2021**
 ## Week 16: December 6th -  November 10th (2021)
 ### Lecture overview:
+* Final presentation day
+### Image Processing:
+* Outcomes:
+1. image resizing, normalization, rotation and especially sharping. 
+* Methods:
+1. Used 2 new geometric mating and mutation methods
+2. Semantic Crossover: attempt to find subchild and offsprings
+3. NSGA II and NSGA III
+4. Talked a lot about Lexicase: perform worse than NSGA II and has worse AUC
+5. using formula s = T(r)
+* Some takeaways:
+1. Overall. they have the best result from NAGA II
+2. Test usinf hyper-features, I think they had a good performance with more parameters
+
+### NLP:
+* THIS IS MY TEAM!
+* I talked about a little bit of our work in NNlearner2 and go through a refresh on NNlearner
+* The audience asked some questions about QA model. We also made some clearance for the contents
+
+### Stock
+* Objective: optimize market trading
+* Short term: do analysis on different papers
+* Used 3 objective sets in EMADE
+* Did a fancy profit percentage analysis
+* Experiment beats the paper and SOTA
+* Continued the work after midterm 
+
+### NAS
+* Goal: have more complex individuals on EMADE
+* Added different generating methods for NNlearner
+* Use resnet architectures in EMADE for weight Sharing which is implemented by storing weights in database
+* Got more complex individuals by adding different generator functions.
+* Did some paper review
+* have clear goals: using pooling layers effectively.
+
+### Modularity:
+* Objectives: increase complexity of ARLs
+* Updated the documentations
+* moved information within tuples into classes
+* rewrite some of the methods
+* Increased the ARL size and they explained its relation with accuracy.
+* The new ARLs perform better than old ARLs
+* Merged Cache V2
+* Future goal:
+1. Change hyper parameters for ARL
+2. check research papers for they data
+
+### subteam notes:
+* Joined the bluejeans meeting and went through all the slides we have and double confirmed my assignment on NNlearner2.
+* Recap the information we need to present for NNlearner2 
+* My teammates solved the dependency error in the input_squad.xml file, which enables me to run NNlearner2
+* My runs are very short, because of the VPN issue. Though I didn't get enough generations for training, the runs were success and I accumulated some useful tips for working with PACE-ICE.
+* Finish all the runs, and we found that the reuse should be sat to 1 in EMADE
+* Upload the master.out files.
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|RUN EMADE on PACE-ICE using NNlearner2|finished|December 6th, 2021|December 10th, 2021|December 8th, 2021|
+|Finalize our slides and tasks for presentation|finished|December 6th, 2021|December 10th, 2021|December 8th/9th, 2021|
+|Collect all my knowledge  for NNleanrer2|complete|December 6th, 2021|December 10th, 2021|December 8th, 2021|
+|Record notebook|complete|December 6th, 2021|December 10th, 2021|December 10th, 2021|
 
 
 ## Week 15: November 29th -  December 5th (2021)
 ### Lecture overview:
+* Need to finish Peer Evaluation
+* Final presentation details confirmed DEC. 10th
+* NLP scrum:
+1. NNlearner2 can now work on regression. 
+2. Optimized some running time complexity
+
+* NAS scrum:
+1. Had code freeze
+
+* Modularity:
+1. Standardizing the coding conventions and comments
+
+* Image processing:
+1. reaching code freeze
+2. got new results from baseline run
+ 
+### subteam note:
+* We are still focusing on running experiments on standalone and seeding test. Part of the process are paused due to PACE-ICE maintenance.
+* Need to freeze the fork of code https://github.gatech.edu/sleone6/emadebackup
+
+### Individual notes:
+* I resumed my work and tried to use standalone_tree_evaluator to test our output. But then we need to reinstall EMADE using the back up fork, so I was dealing with that. This time I pay a lot of attention on the password setup part.
+* Looked through my teammates's result for running seeding_qa.
+* The team is focusing of wrap up the data we have and prepare for final presentation. Some of the teammates are running squad.
+
+Task | Current Status | Date Assigned |  Suspense Date | Date Resolved |
+|------|----------------|---------------|----------------|---------------|
+|Reinstall EMADE using the new freezed fork|finished|December 1st, 2021|December 5th, 2021|December 1st, 2021|
+|run standalone tree evaluator on PACE ICE|finished|December 1st, 2021|December 5th, 2021|December 2rd, 2021|
+|Looked through my assigned part for presentation|in progress|December 1st, 2021|December 5th, 2021|December 5th, 2021|
+|Record notebook|complete|December 1st, 2021|December 5th, 2021|December 5th, 2021|
+|Peer evaluation|complete|December 1st, 2021|December 8th, 2021|December 6th, 2021|
+
+
 
 
 ## Week 14: November 22nd -  November 28th(2021)
