@@ -3,6 +3,31 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **December 6th, 2021**
+## **Meeting 16**
+### Class Notes:
+* Preparations for final presentations
+* Had a small revision throughout the week to make sure of the content presented
+
+### Presentation Notes:
+* NLP: 
+    * Word embeddings include Word2Vec, Glove, and Fasttext
+    * Objectives are number of parameters and mean squared error of F1 score
+    * NNLearner2 has two arguments
+* Modularity:
+    * Changed tuples into classes throughout infrastructure.
+    * Merge stocks changes into ARL_Update branch
+* Stocks:
+    * Aiming to outperform a previous paper's work
+    * They improved in all stocks significantly expect for JNJ
+
+* Personal contributions:
+I created and presented the slides titled "NN-VIP Setup Locally" 
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Final Presentation|Complete|12/10/2021|12/06/2021|12/10/2021|
+
 # **November 29th, 2021**
 ## **Meeting 15**
 ### Class Notes:
