@@ -611,7 +611,8 @@ Task | Current Status | Date Assigned | Date Resolved | Date Due |
 --- | --- | --- | --- |--- |
 Make an EMADE Branch with new CacheV2 and NNLearner functionality | Complete | 10/03/2021 | 10/10/2021 | 10/10/2021 |
 
-# This is our fork, which we would merge CacheV2 (EMADE-304) with nn-vip: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
+### Make an EMADE Branch with new CacheV2 and NNLearner functionality
+This is our fork, which we would merge CacheV2 (EMADE-304) with nn-vip: https://github.gatech.edu/sleone6/emade/tree/EMADE-304-allow-cachev2-to-consume-aligned-datapairs
 
 ## Week 6, Sep 27th
 ### General Meeting Notes
