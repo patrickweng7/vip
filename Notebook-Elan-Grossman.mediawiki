@@ -56,6 +56,52 @@ I kept getting this error:
 (Background on this error at: https://sqlalche.me/e/14/e3q8)</code>
 After getting it to work once for 8 hours. I have not been able to run an experiment since. It's unclear why I can no longer connect to the mysql database
 
+Another thing I helped with was in creating the Pareto front for our multiple experiments. I used the data collected from 3 other members for a total of 4 runs. Our runs were to test against the baseline image processing (NSGAII and merge into nn-vip branch) if geometric crossover would produce different results. Our objectives were the average 1-ROCAUC for all 14 classes of diseases and the number of parameters.
+
+INSERT PF HERE
+
+This code was generating from the following starter code:
+
+<code>
+elan_pareto, _ = find_pareto(elan)
+aryaan_pareto, _ = find_pareto(aryaan)
+rohan_pareto, _ = find_pareto(rohan)
+eashan_pareto, _ = find_pareto(eashan)
+
+
+auc_elan = np.sum(np.diff(elan_pareto[:,0])*elan_pareto[0:-1,1])
+auc_aryaan = np.sum(np.diff(aryaan_pareto[:,0])*aryaan_pareto[0:-1,1])
+auc_rohan = np.sum(np.diff(rohan_pareto[:,0])*rohan_pareto[0:-1,1])
+auc_eashan = np.sum(np.diff(eashan_pareto[:,0])*eashan_pareto[0:-1,1])
+
+# Create figure
+plt.figure()
+
+plt.rcParams.update({'font.size': 12})
+plt.scatter(elan_pareto[:,1],elan_pareto[:,0],c="blue")
+plt.scatter(aryaan_pareto[:,1],aryaan_pareto[:,0],c="red")
+plt.scatter(rohan_pareto[:,1],rohan_pareto[:,0],c="green")
+plt.scatter(eashan_pareto[:,1],eashan_pareto[:,0],c="orange")
+
+plt.step(elan_pareto[:,1], elan_pareto[:,0], where='pre')
+plt.step(aryaan_pareto[:,1], aryaan_pareto[:,0], where='pre')
+plt.step(rohan_pareto[:,1], rohan_pareto[:,0], where='pre')
+plt.step(eashan_pareto[:,1], eashan_pareto[:,0], where='pre')
+
+plt.title('Mutations ParetoFront')
+plt.legend(["AUC1: {0:.5f}".format(auc_elan), "AUC2: {0:.5f}".format(auc_aryaan),
+            "AUC3: {0:.5f}".format(auc_rohan),"AUC4: {0:.5f}".format(auc_eashan)])
+plt.ylabel('ROC AUC')
+plt.xlabel('Number of Parameters')
+plt.savefig("mutations_all.png")
+plt.show()
+print("AUC1: {}\nAUC2: {}\nAUC3: {}\nAUC4: {}".format(auc_elan,auc_aryaan,auc,rohan,auc_eashan))
+</code>
+
+Let's go over the Results
+* Every one of us had a paretofront with parameter numbers of 30 and 287. 
+** I did not have access to the evolution of each PF, but I know my GA generated these early. 
+** If I had to guess, these are seeded NNs
 
 
 == December 6th ==
