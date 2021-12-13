@@ -10,6 +10,8 @@ Cell Phone: 704-794-3924
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 [[files/aprakash86/Image\ 1.png|thumb|123x123px]]
 
+<img src="https://github.gatech.edu/storage/user/47031/files/f251fe88-cf33-49a9-b4a9-449cf98d21b1" width="30%">
+
 # Week 14: November 22th, 2021
 ## Overview
 Finalize QA model parameters and EMADE run parameters, test standalone tree evaluator on NNLearner2, begin 8-hour trials with NNlearner2 as seeded individual. 
