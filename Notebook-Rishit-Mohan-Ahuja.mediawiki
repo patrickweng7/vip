@@ -30,22 +30,63 @@ Hobbies: Meditation and cooking
 * Added some other thing ... see slides.
 *  
 
+== November 29, 2021 ==
+=== Lecutre Notes ===
+* Finally, we will be freezing our code and doing runs.
 
+=== Team meeting ===
+* Steven made a new repo after fixing some bugs and changing some of the XML files: https://github.gatech.edu/sleone6/emadebackup
+
+=== My Work ===
+* Talked with 
 
 == November 22, 2021 ==
 === Lecutre Notes ===
 * Steven told Dr Zutty that currently, we are just getting 0's and 1's as output and therefore we might just have to consider it as a classification problem although earlier we were thinking of it as a regression problem.
 * I told Dr Zutty and Rohling our plan to proceed with hypothesis testing (plan elaborated in the 'My Work at Hackathon' section under November 15).
-* Dr Zutty explained that it is not a good idea to consider one objective (like F-1 score or EM) each time and instead we should consider the area under the curve (AUC) obtained from our Pareto optimal solutions.
-* He also told that it is not necessary that we compare EMADE's performance with any NLP model, we can just compare how much AUC EMADE could reduce compared to the seeded individual.
+* Dr Zutty's suggestions:
+** He explained that it is not a good idea to consider one objective (like F-1 score or EM) each time and instead we should consider the area under the curve (AUC) obtained from our Pareto optimal solutions.
+** He also told that it is not necessary that we compare EMADE's performance with any NLP model, we can just compare how much AUC EMADE could reduce compared to the seeded individual.
+** Dr Zutty also talked about the region of interest. It is basically the region that contains pareto optimal individuals that beat the seeded individuals on both (could be more than two as well) the objectives.
 
 === Team meeting ===
 No team meeting due to the Thanksgiving break.
 
 === My Work ===
-Over the break, I tried to improve some of the flaws in our experiment:
-* 
+Over the break, I tried to improve some of the flaws that Dr Zutty pointed out in the lecture in our experiment:
+* Changed the null hypothesis to be "AUC from pareto optimal individuals = AUC from the seeded individual"
+* I also discovered another flaw in our experiment: if we use the hypothesis test then our null will be rejected in either of the two cases: (1) EMADE performs much worse than the seeded individual (2) EMADE performs much better than the seeded individual.
 
+If EMADE performs much worse than the seeded individual then it is fine if the null is rejected but it is not fine if null is rejected in case 2.
+
+* I think the null hypothesis should be something like "AUC from pareto optimal individuals > AUC from the seeded individual." Now, if I could reject the null hypothesis then it would mean that EMADE could produce individuals that had lesser AUC than the seeded individuals, which is desired. However, I only know how to plot a distribution (normal or student-t) if the null hypothesis has equality (like μ = μ_0) and not if there is an inequality. I will try to discuss this with Dr Zutty in the next meeting.
+* Shiyi and I started writing the code for the experiment: https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing.
+* I found the following videos and articles helpful in strengthening my understanding of hypothesis testing: 
+** Statistics for evaluating ML models: https://machinelearningmastery.com/statistics-for-evaluating-machine-learning-models/
+** How to deal with the case when μ < μ_0: https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample/idea-of-significance-tests/v/examples-of-null-and-alternative-hypotheses?modal=1
+* Suggested Shiyi the following links to study from if he is facing any problem: 
+** https://en.wikipedia.org/wiki/Statistical_hypothesis_testing
+** https://towardsdatascience.com/hypothesis-testing-in-machine-learning-using-python-a0dc89e169ce
+
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Fix the problems with the existing experiment (change null hypothesis, change t-statistics)
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 23, 2021
+|-
+|Determine how to draw a distribution (normal or student-t if there is an inequality like μ < μ_0)
+|Completed
+|November 22, 2021
+|November 29, 2021
+|November 29, 2021
+|}
 
 
 == November 15, 2021 ==
@@ -62,7 +103,7 @@ Note: In the team meeting this week, I was be reassigned to work on the statisti
 * I met with Shiyi in the breakout room to discuss the plan.
  
 === My Work at Hackathon===
-I suggested the following steps to Steven in the Hackathon meeting:
+I discussed with Shiyi in the subteam meeting on Wednesday and suggested the following steps to Steven in the Hackathon meeting:
 * 1.  Each one of us should run EMADE with different train and test splits of the dataset. This should be done to make decorrelate the predictions as during hypothesis testing we make an assumption that our random variables are independent identically distributed (IIDs). 
 * 2. Also, we need to make sure that each one of us run EMADE for the same amount of time to make sure that none of the runs is disadvantaged.
 * 3. From each master.out file, we will get the Pareto-optimal individuals. Therefore, the number of master.out files = number of pareto fronts.
@@ -95,17 +136,23 @@ I suggested the following steps to Steven in the Hackathon meeting:
 !Suspense Date
 !Date Resolved
 |-
-|Study the steps involved in hypothesis testing and try to implement them.
+|Study the steps involved in hypothesis testing.
+|Completed
+|November 15, 2021
+|November 18, 2021
+|November 17, 2021
+|-
+|Study how t-statistics and objectives can affect the test.
 |Completed
 |November 15, 2021
 |November 21, 2021
 |November 20, 2021
 |-
-|Study how t-statistics can affect the test.
+|Layout detailed outline for the hypothesis test for our case before the next lecture
 |Completed
 |November 15, 2021
-|November 21, 2021
-|November 20, 2021
+|November 22, 2021
+|November 19, 2021
 |}
 
 == November 8, 2021 ==
