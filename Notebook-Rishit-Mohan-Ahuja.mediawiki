@@ -4,7 +4,7 @@
 
 Name: Rishit Mohan Ahuja
 
-Team Members: Steven Leone, Devan Moses, Kevin Zheng, Karthik Subramanian, Shiyi Wang, George Ye
+Team members: Steven Leone, Devan Moses, Kevin Zheng, Karthik Subramanian, Shiyi Wang, George Ye
 
 Email: rishitmahuja@gatech.edu
 
@@ -31,13 +31,44 @@ Hobbies: Meditation and cooking
 *  
 == December 06, 2021 ==
 === Lecture Notes ===
+* We did not do scrums in this meeting but instead focused on interpreting the results we got from our runs and defining success using them.
+* Overall, this meeting was enlightening for us as we finally know how to move forward with the experiment (explained why below in the My Work section).
 
-=== Team meeting ===
-
+=== Team meetings ===
+* We expected final master.out files from all the members of the team who could run EMADE successfully by 4 PM, December 9. Shiyi and I will work on constructing graphs once we get all the final files.
+* Everyone worked on their slides. 
+* Did dry run of the presentations at 8 PM on Decmeber.
 === My Work ===
+Below I will be using the term Region of Interest (ROI), here's its informal definition:
 
-** 
+Region of Interest: It is the region that lies between seeded individuals and pareto front of pareto optimal individuals that beat the seeded individual on all (maybe more than 2) objectives.
+
+* I wrote the code for Experiments.ipynb file (https://colab.research.google.com/drive/1S5ojJMDKG8L0aNYrzHFjqhDeA19H18SI?usp=sharing). This file contains the code to (1) draw the pareto front (along with the seeded individual), (2) choose the individuals that lie on the region of interest and a method to (3) find the area of the region of interest (Steven corrected my code). We all worked together to input the values of objectives of the individuals that lie on the final pareto front in each master.out file. Shiyi colored the region of interest in the pareto fronts to specifically show the regions.
+
+Note: The values of the objectives are listed in the following manner: (MSE, num_params).
+
+* I wrote the code for bernoulli.ipynb file (https://colab.research.google.com/drive/1mSYtKW53PlF32eaBgCSAZHe3GhNgT5P7?usp=sharing) that shows percentage of runs that could successfully beat the seeded individuals. Another way to look at it is the percentage of runs that could produce at least one individual in the region of interest.
+
+* I wrote the code for all_paretos.ipynb file (https://colab.research.google.com/drive/1SwuuPreeXgUUtxsMK3PGkPAftsbPilc0?usp=sharing) that shows all the pareto fronts in a single plot. George and Shiyi scaled the axes in order to make the plot more easily interpretable. They scaled the xmin, xmax, ymin and ymax to accomplish it.
+
+==== Analysis ====
+* I discussed about the analysis with Steven and Shiyi. 
+* We finally got 4 successful runs of 16 hours (two runs of 8 each) and we started drawing pareto fronts using them.
+* Aim: Our main aim at this stage was to see if EMADE could improve the results obtained from the seeded individual and if it could then by how much and how many times (out of the total number of runs).
+* Criterion and Interpretation of results:
+** The criterion of success (as suggested by Dr Zutty and Rohling) was the total area enclosed in the region of interest and the total number of individuals that lie in the region of interest. 
+** For our presentation, we found what percentage of the area under the seeded individual is the area of the region of interest. More the percentage, the better the result.
+** The more the number of individuals lying in the region of interest, the better the result.
+* Our results:
+** Of the four successful runs, 3 could beat the seeded individual where as for one run, we only got the seeded individual on our pareto front.
+** In the three runs, where we could beat the seeded individual, reduction in area were 0.10%, 10.96% and 10.57%.
+** Number of individuals on the three regions of interest were 2, 4 and 3.
+
+Overall, from the results we can say that EMADE could improve upon the seeded individuals but we have very less datapoints to support our claim.
+
 * Link to final presentation : https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit#slide=id.p
+
+
 == November 29, 2021 ==
 === Lecutre Notes ===
 * Finally, we will be freezing our code and doing runs.
