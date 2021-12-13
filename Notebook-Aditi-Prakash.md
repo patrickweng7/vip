@@ -87,8 +87,14 @@ Debug standalone_tree_evaluator.py to work with NNLearner2 (2 DataPairs).
 * I presented my analysis of whether it would be feasible to fix standalone_tree_evaluator.py tp work with NNLearner2 before the next full-team meeting. See individual notes below for my analysis. 
 
 ## Individual Notes:
-* From what I can make of the current codebase, we define creator.create("Individual", list, fitness=creator.FitnessMin, pset=self.pset, age=0,  elapsed_time=0, retry_time=0,                        novelties = None, hash_val=None, **fitness_attr) in the setDatasets() method. However, we call create_representation() before we call setDatasets(), which means we haven't yet registered an Individual with two EMADE datapairs as arguments when we call create_representation(). 
+* From what I can make of the current codebase, we define 
+```
+creator.create("Individual", list, fitness=creator.FitnessMin, pset=self.pset, age=0,  elapsed_time=0, retry_time=0,                        novelties = None, hash_val=None, **fitness_attr)
+```  
+in the setDatasets() method. However, we call create_representation() before we call setDatasets(), which means we haven't yet registered an Individual with two EMADE datapairs as arguments when we call create_representation().
+
 * The following is the order of method calls in general_methods.py in load_environment() for standalone_tree_evaluator:
+``` 
 emade.create_representation(datasetDict, adfs=3, regression=regression)
 emade.setObjectives(objectiveDict)
 emade.setDatasets(datasetDict)
@@ -96,10 +102,13 @@ emade.setMemoryLimit(misc_dict['memoryLimit'])
 emade.setCacheInfo(cache_dict)
 emade.set_statistics(statisticsDict)
 emade.buildClassifier()
+``` 
 * create_representation() is called on the emade instance prior to setDatasets(), and setDatasets() is where the datasetDict with two input datapairs is defined. This is what I believe to be the main discrepancy between load_environments() datapair ingestion logic and EMADE.py’s logic for normal runs. 
-* I believe the following line should be modified in general_methods.py so that individuals can take in 2 datapairs in standalone_tree_evaluator: pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair), instead of gp.PrimitiveSetTyped('MAIN', [EmadeDataPair] EmadeDataPair), which is what it currently contains. 
+* I believe the following line should be modified in general_methods.py so that individuals can take in 2 datapairs in standalone_tree_evaluator: 
+``` 
+pset = gp.PrimitiveSetTyped('MAIN', [EmadeDataPair]*datasetDict[0]['numberinput'], EmadeDataPair), instead of gp.PrimitiveSetTyped('MAIN', [EmadeDataPair] EmadeDataPair)```, which is what it currently contains. 
 * At the hackathon on Saturday, I continued debugging the Already Exists error I was having with Tensorflow and Keras installation in my PACE conda environment. A quick fix for this was to simply comment out all references to keras.backend (the package whose import command was throwing the error) in neural_network_methods.py and gp_framework_helper.py. After these changes, the same error was being thrown, and I noticed that the error message pointed to code at a line number that no longer existed in neural_network_methods.py. With this, I realized that EMADE was not actually running with my updated code, and I subsequently ran bash reinstall.sh and was able to resolve all errors at that point. I’ve learned from this that a simple bash reinstall.sh can prevent several errors related to package installation, which is something I will definitely keep in mind going forward. 
-* We will start setting up 8-hour runs in Monday’s meeting (and possibly standalone_tree_evaluator.py runs with NNLearner2 if Devan and Steven are able to debug load_environment() by then). 
+* We will start setting up 8-hour runs in Monday’s meeting (and possibly standalone_tree_evaluator.py runs with NNLearner2 if we are able to debug load_environment() by then). 
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
