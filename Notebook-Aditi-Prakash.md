@@ -122,15 +122,41 @@ We will meet on Wednesday to determine the exact output format we want our model
 ## Subteam Notes:
 * During Wednesday’s meeting, Rishit, Karthik and I talked to Steven about our problem definition a bit further and received clarification about which part of the architecture we should modify to adjust the output layer’s output. 
 * Our neural_network_methods.py file contains a model.fit() call which compiles and trains an individual containing the BIDAF primitives we have implemented. This call generates trained individuals that will then output values of the label type we specify in the context and query DataPairs we pass in. Our goal is to make changes to model.fit() and preprocess our dataset such that we can have individuals predict a numerical representation of the answer string that our evaluation function can then use in evolving individuals.
+
+Model Fitting:
+```
+history = model().fit(train_data_list, target_values, batch_size=batch_size, epochs = epochs, validation_data=(test_data_list,truth_data), callbacks=[es])
+```
+
 * Rishit, Karthik and I discussed different numerical representations of our target strings that we could pass into our models. We are currently considering passing in word/character/contextual embedding vectors to the models, but this could easily devolve into replacing the embedding layer’s responsibility in the model prematurely, which could easily lead to overfitting of our models on our training set.
 * After running a quick Python script to ensure that the start index column in our dataset matched the string labels (insert script here), we decided to proceed with having our models predict the start and end index of the answer as a tuple, as this would be the easiest format for our evaluation functions to use. Script can be found here: https://colab.research.google.com/drive/1dx66YZSFYXimJAcZtU35yTkt_PYpiVL9.
 * Karthik is currently testing out an EMADE run on PACE with the start index of the answer as the target variable (as a result of our output layer changes, we have modified our problem from a classification problem to a regression problem). 
-
+* Squad Queries and Answers Sample:
+![Screenshot (493)](https://github.gatech.edu/storage/user/47031/files/6beced0b-6810-493d-ac5a-e34bd27a78cb)
 
 ## Individual Notes:
 * Since Jessi attended Wednesday’s meeting virtually, she asked if I could set up some time with her to help her get caught up with the output layer team’s progress and next steps. We met Friday afternoon at 3:00 PM for the same. I explained our team’s discussion on Friday as well as our new task of determining how Keras models can output tuples. 
 * I found this article to contain the best explanation of multi-output regression implementation in Keras: https://towardsdatascience.com/multi-output-model-with-tensorflow-keras-functional-api-875dd89aa7c6. However, I foresee limitations with EMADE’s handling of our DataPairs that may cause this approach to not work for individuals’ predictions, even if we can implement Keras layers that output tuples of the form (start_index, end_index). I believe EMADE directly passes off individuals’ predictions to the designated evaluation functions in the .xml for a given run, which might cause the start and end indices to get separated from one another when being evaluated, defeating the purpose of a tuple output for our prediction string. I will confirm with Steven on Monday. 
 * When I look at the EmbeddingLayer, it seems like the main thing we're doing there is tokenizing the datapair using texts_to_sequences(). I believe a starting point for us would be to look at other tokenization methods to use in this layer such as Penn TreeBank https://catalog.ldc.upenn.edu/LDC99T42 (which is good at identifying predicate-argument structure, a particularly common structure in answers for QA systems) and Gensim https://radimrehurek.com/gensim/, which already has pretrained embeddings for datasets of a variety of domains, including QA datasets. 
+
+Current Embedding Layer taken from feature/nnlearner2:
+```
+    maxlen = MAXLEN 
+    numwords=NUMWORDS   
+    out_dim = abs(out_dim)
+    data_pair = data_pair
+    # data_pair = data_pair[0]
+    if data_pair.get_datatype()=='textdata':
+        data_pair, size, tok  = tokenizer(data_pair, maxlen, numwords)
+    else:
+
+        size = len(data_pair.get_train_data().get_numpy())
+        maxlen = 1
+    initializer = initializer.value()  
+    layerlist.mylist.append(Embedding(size, out_dim, input_length=maxlen, embeddings_initializer=initializer))    
+    return layerlist
+```
+
 * With these trained embeddings, we could embed the output once it is predicted and pass that to the evaluation function as a vector to compare to our embedded target vectors, allowing us to capture the entire strings as a numerized vector and allowing single-output regression at the same time. Moreover, if we were to move to a different evaluation metric that is more forgiving of answers that are slightly off in index but answer the question correctly, vectorized outputs would allow us to make this qualitative comparison directly (F1 score, which is what we are using correctly, merely compares the number of words in the prediction and target string that match). 
 * With this research in mind, our output layer team will finalize our output format during Monday’s meeting. 
 
