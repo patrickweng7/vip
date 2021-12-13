@@ -866,9 +866,56 @@ TensorShape([None, 10, 126, 126, 64])
 *
 
 '''Individual Progress:'''
-*
-*
-*
+* I and Karthik corrected the [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 implementations of Bi-directional attention layer and modeling layer] to ensure the proper dimensions.
+** However, we were not sure whether the output layer had done dense and LSTM on M1 and M2. Therefore, the output layer remained undone.
+** The next day, I, Karthik, and George have corrected the dimension all the way from bi-directional attention layer to the output layer.
+* I and Karthik have also designed some [https://colab.research.google.com/drive/1sZfLfxzt1IF904cKh6FmRwLJQbN1nh-w#scrollTo=WdWJF5_OFYR8 randomized unit tests] for different dimension inputs using PyTests.
+** Our refactored code passed all tests designed.
+'''
+def test_pipeline_dim():
+  d = random.randint(2, 100)
+  t = random.randint(2, 100)
+  j = random.randint(2, 100)
+  context_embed = np.ones((2*d, t))
+  query_embed = np.ones((2*d, j))
+  context_tensor = tf.squeeze(tf.convert_to_tensor(context_embed))
+  query_tensor = tf.squeeze(tf.convert_to_tensor(query_embed))
+
+  #Bidirectional Attention
+  test = BidirectionalAttentionLayer(activation = "tanh")
+  bidirectionalOut = test([context_tensor, query_tensor])
+  assert bidirectionalOut.shape[0] == 8*d #8dxT
+  assert bidirectionalOut.shape[1] == t 
+
+  #Modeling Layer
+  test = BidafModeling(out_dim = d, activation = "tanh")
+  M1, M2 = test(bidirectionalOut)
+  assert M1.shape[0] == 2*d #2dxT
+  assert M2.shape[0] == 2*d 
+  assert M1.shape[1] == t
+  assert M2.shape[1] == t 
+
+  #Output Layer
+  outputIn = [bidirectionalOut, M1, M2, context_tensor]
+  test = BidafOutput()
+  P1, P2 = test(outputIn)
+  assert P1.shape[0] == 1 #1xt
+  assert P1.shape[1] == t 
+  assert P2.shape[0] == 1
+  assert P2.shape[1] == t
+
+num_test = 10
+print("Running " + str(num_test) + " random input PyTests...")
+
+for i in range(num_test):
+  print("Starting test " + str(i + 1))
+  test_pipeline_dim()
+  print("-> Test " + str(i + 1) + " passed!")
+
+print("Success! All tests passed!")
+'''
+* I have discussed with Kevin regarding commenting out get_answer for the output layer.
+** we were trying to debug the dimensionality issues, so we changed that to a pair of output.
 
 === Nov 3, 2021 ===
 '''Subteam Meeting Notes:'''
@@ -923,8 +970,11 @@ TensorShape([None, 10, 126, 126, 64])
 ** Ideas we plan to work on in order to improve neural architecture search in EMADE: Triviality Detection, Novelty Detection, Bug fix for swap_layer method, Speeding up EMADE processes, Adding unit tests, Introducing some pause functionality.
 ** Updating to TensorFlow 2.6 on PACE.
 
-'''Subteam Meeting Notes'''
+'''Subteam Meeting Notes:'''
 * Presented NLP and Q&A Systems to bootcamp students.
+
+'''Individual Progress:'''
+* I, Karthik, and Kevin worked on the first draft of an implementation of the bidirectional attention layer. There is a nice article introduce and specifically describes the dimensionalities of Layer internals. Link to the article can be found [https://towardsdatascience.com/the-definitive-guide-to-bidaf-part-3-attention-92352bbdcb07 HERE].
 
 == Week 10 ==
 === October 27, 2021 ===
