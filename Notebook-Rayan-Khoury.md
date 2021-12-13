@@ -3,6 +3,68 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **November 29th, 2021**
+## **Meeting 15**
+### Class Notes:
+* Worked on my the final presentation with all the members
+* Discussed with Pranav the literature review
+
+### Personal Notes:
+* The final presentation can be found here: https://docs.google.com/presentation/d/1kEOKk6Esu_CEE2FzyLRO6HDHYNDNhkNw4JH3fD7fRV0/edit?usp=sharing
+* I completed slide 51
+* Summary of Literature:
+    * EMADE is based on DEAP genetic programming:
+        * In DEAP, algorithms are expressed as trees and functions are expressed as nodes
+        * N trees are selected to create new trees in each generation
+    * Emade Neural Networks changes:
+        * Network layer types are added from Keras as EMADE primitives
+        * A layer tree is a pre-ordered representation of NNs
+        * Neural networks can e created from LayerTree specifications which are also NNLearners
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Practice for final presentation with the team|Complete|12/06/2021|12/03/2021|11/29/2021|
+|Update Notebook|Complete|12/06/2021|12/05/2021|11/29/2021|
+|Review the presentations given to us by the Camerons|Complete|12/01/2021|12/03/2021|11/29/2021|
+
+# **November 22th, 2021**
+## **Meeting 14**
+### Class Notes:
+* Was not able to attend class because I travelled for Thanksgiving
+
+### Personal Notes:
+* I continued reading the articles given to us. This week I focused on "Evolving Deep Neural Networks" (https://arxiv.org/pdf/1703.00548.pdf)
+* Here are some notes I have taken from this paper:
+    * NEAT, Neuroevolution of augmenting topologies, works on the evolution of neurons and it is low-dimensional as it adds neurons and does not result in errors
+    * HyperNEAT is a technique for evolving large-scale neural networks using the geometric regularities of the task domain.
+    * Changing primitives and tunning hyperparemters evolve blueprints and modules
+    * CIFAR10 is initializing image embedding through pre-trained ImageNet, GoogLeNet and ResNet
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Complete my final presentation slide|Complete|11/29/2021|11/26/2021|11/22/2021|
+|Update Notebook|Complete|11/29/2021|11/23/2021|11/22/2021|
+
+# **November 15th, 2021**
+## **Meeting 13**
+### Class Notes:
+* Went through SCRUMS of each group where weekly updates were shared
+
+### Personal Notes:
+* I have read "Neural Networks to get a general understanding"
+* Notes Summary:
+    * LSTM Layer: Long-short Term Memory Neural Network Layer
+    * 1D Convolutional Layer: Convolutional kernel convolved with layer input over single spatial dimension
+    * 1D MaxPooling Layer: Maximum value of size for 1D data
+    * GRU Layer: Gated recurrent unit
+    * Dense Layer: Fully connected NN layer
+    
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Read "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification"|Complete|11/22/2021|11/19/2021|11/15/2021|
+|Work on Notebook|Complete|11/22/2021|11/16/2021|11/15/2021|
+|Learn more about neural networks|Complete|11/22/2021|11/22/2021|11/15/2021|
+
 # **November 8th, 2021**
 ## **Meeting 12**
 ### Class Notes:
@@ -49,9 +111,10 @@
 
 |Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
 |---|---|---|---|---|
-|Read "Concurrent Neural Tree and Data Preprocessing AutoML for Image Classification "|Complete|11/15/2021|11/08/2021|11/12/2021|
+|Read "Neural Networks to get a general understanding"|Complete|11/15/2021|11/08/2021|11/12/2021|
 |Complete EMADE Setup|Complete|11/15/2021|11/08/2021|11/14/2021|
 |Read the midterm presentation and prepare for final|Complete|11/15/2021|11/08/2021|11/10/2021|
+
 
 # **November 1st, 2021**
 ## **Meeting 11**
