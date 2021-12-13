@@ -371,6 +371,95 @@ Meeting with Rayan
 We observed that most individuals evolving in the first few generations of our run were either returning with an error or evaluating to (inf, inf). Only around 5-10 individuals were actually evaluating to finite fitness values in the first 10 generations of our run; we expect to see more individuals evaluating successfully in successive generations as individuals that are evaluating properly are rewarded by our selection methods. 
 When we restarted EMADE once with reuse=1, we observed that the number of individuals at the beginning of generation 0 was drastically greater than the starting number of individuals in the initial run (~750 individuals vs. ~200 individuals for an initialPopulationSize of 200). This indicated that seeding increased population size as well as the number of individuals that evaluate successfully at the end of each generation, but this also meant that each generation took much longer to run. As such, we avoided reuse going forward and saw an EMADE run to completion with reuse=0. 
 
+![Screenshot (485)](https://github.gatech.edu/storage/user/47031/files/9f782859-88eb-4db2-accb-47f3dd3f2b53)
+
+![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
+
+![Screenshot (487)](https://github.gatech.edu/storage/user/47031/files/a20c73e5-42be-430c-8acc-412a2d287479)
+
+`import sklearn.model_selection
+import sklearn.feature_extraction
+import pandas as pd
+import random
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+import pandas as pd
+import numpy as np
+from numpy import array
+from numpy import argmax
+from sklearn.metrics import confusion_matrix
+
+train_data = pd.read_csv('train.csv')
+
+train_data.drop(columns=['Name', 'Cabin'], inplace=True)
+train_data.set_index(keys=['PassengerId'], drop=True, inplace=True)
+
+train_nan_map = {'Embarked': train_data['Embarked'].mode()[0], 'Ticket': '100'}
+
+train_data.fillna(value=train_nan_map, inplace=True)
+
+values = array(train_data['Embarked'])
+# print(values)
+label_encoder = LabelEncoder()
+integer_encoded = label_encoder.fit_transform(values)
+
+enc = OneHotEncoder(handle_unknown='ignore')
+enc_df = pd.DataFrame(enc.fit_transform(train_data[['Embarked']]).toarray())
+train_data = train_data.join(enc_df)
+del train_data['Embarked']
+
+columns_map = {'Sex': {'male': 0, 'female': 1}}
+train_data.replace(columns_map, inplace=True)
+
+#train_data
+
+import re
+
+train_data['Ticket'] = train_data['Ticket'].apply(lambda x: int(re.findall(r'\d+', x)[len(re.findall(r'\d+', x)) - 1]) if len(re.findall(r'\d+', x)) > 0 else 0)
+train_data.head()
+# test_data.head()
+
+train_map = {}
+for x in train_data['Pclass'].unique():
+  train_map[x] = train_data[train_data['Pclass'] == x]['Age'].median()  
+
+train_data["Modified Age"] = train_data["Pclass"].apply(lambda x: train_map[x])
+
+train_data["Age"] = train_data["Age"].fillna(train_data["Modified Age"])
+
+del[train_data['Modified Age']]
+
+train_map = {}
+for x in train_data['Pclass'].unique():
+  train_map[x] = train_data[train_data['Pclass'] == x]['Fare'].median()  
+
+train_data["Modified Fare"] = train_data["Pclass"].apply(lambda x: train_map[x])
+
+train_data["Fare"] = train_data["Fare"].fillna(train_data["Modified Fare"])
+
+del[train_data['Modified Fare']]
+
+train_nan_map2 = {0: 0.0, 1: 0.0, 2: 0.0}
+
+train_data.fillna(value=train_nan_map2, inplace=True)
+
+train_data.rename(columns={0:'A', 1: 'B', 2:'C'}, inplace=True)
+
+survived = train_data["Survived"]
+train_data = train_data.drop('Survived', axis=1)
+
+print(train_data.isnull().sum().sort_values(ascending=False))
+vectorizer = sklearn.feature_extraction.DictVectorizer(sparse=False)
+train_data =  np.hstack( (vectorizer.fit_transform(train_data.to_dict(orient='records')), survived.values.reshape((-1,1 ) ) ) )
+
+kf = sklearn.model_selection.KFold(n_splits=5)
+
+for i, (train_index, test_index) in enumerate(kf.split(train_data)):
+    np.savetxt('train_' + str(i) + '.csv.gz', train_data[train_index], delimiter=',')
+    np.savetxt('test_' + str(i) + '.csv.gz', train_data[test_index], delimiter=',')
+`
+
 input_titanic.xml, master.out, MySQL databases screenshots here 
 
 **Action Items:**
