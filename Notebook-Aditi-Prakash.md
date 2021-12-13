@@ -597,9 +597,13 @@ Original Hyperparameters:
 * MUTPB = 0.2
 
 Visualization:
-[Screenshots](https://docs.google.com/document/d/1iIiZlL-WCdWpetdyYBEG_TXH59vqYatcfh7eqzxu6b8/edit)
+Before Modifications:
+<img src="https://github.gatech.edu/storage/user/47031/files/e863eae0-0aaf-4c6f-8793-4dc667a68ea4" width="30%">
+<img src="https://github.gatech.edu/storage/user/47031/files/ae21bdb9-e155-4ee1-83a8-bbe7695dc0d5" width="30%">
+<img src="https://github.gatech.edu/storage/user/47031/files/b3dd72ee-5e49-47ff-b7d2-abd60044662b" width="30%">
 
-
+After Modifications:
+<img src="https://github.gatech.edu/storage/user/47031/files/90f6f99f-567b-462d-b8c1-b8f22290176a" width="30%">
 
 Observations and Reflection: The original evolutionary loop produced individuals that were diverse but led to a large AUC (~2.38). In addition, the average and minimum tree size of individuals grew over the course of evolution, while the average and minimum mean squared error decreased almost immediately starting at evolution. With the modified hyperparameters for evolution, the average and minimum tree size of individuals stagnated quickly, and the average and minimum mean squared error decreased quickly as before. There were also fewer individuals in the Pareto front, but they were fairly diverse as before, and they had a much lower AUC (~0.31). As such, tuning the hyperparameters of evolution such as the number of individuals to select for each generation, the number of children to produce for each generation, and mutation and mating probabilities significantly improved the performance of our individuals. In particular,  decreasing the number of individuals selected at each generation, increasing the number of children produced at each generation, increasing crossover probability, and eliminating mutation altogether significantly improved the AUC. This indicates that starting with a fewer strong individuals and favoring information exchange between them as opposed to mutation/data imputation leads to a much fitter Pareto front than starting with many more individuals, several of which cannot be pushed to the Pareto Front easily with mutation, mating, and selection. In addition, the average tree size after modifying the hyperparameters and running the evolutionary loop was around 4, while the average tree size without modifying the hyperparameters was around 10. We are able to obtain smaller, more simple trees overall when we begin with stronger individuals and perform crossovers frequently between them so as to push simpler, fitter trees to the Pareto front. 
 
