@@ -375,9 +375,8 @@ When we restarted EMADE once with reuse=1, we observed that the number of indivi
 
 ![Screenshot (489)](https://github.gatech.edu/storage/user/47031/files/aaaf8d1c-1d35-47e8-a3b5-447fc2f6e889)
 
-![Screenshot (487)](https://github.gatech.edu/storage/user/47031/files/a20c73e5-42be-430c-8acc-412a2d287479)
-
-`import sklearn.model_selection
+```
+import sklearn.model_selection
 import sklearn.feature_extraction
 import pandas as pd
 import random
@@ -458,9 +457,7 @@ kf = sklearn.model_selection.KFold(n_splits=5)
 for i, (train_index, test_index) in enumerate(kf.split(train_data)):
     np.savetxt('train_' + str(i) + '.csv.gz', train_data[train_index], delimiter=',')
     np.savetxt('test_' + str(i) + '.csv.gz', train_data[test_index], delimiter=',')
-`
-
-input_titanic.xml, master.out, MySQL databases screenshots here 
+```
 
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
@@ -489,7 +486,7 @@ input_titanic.xml, master.out, MySQL databases screenshots here
 * Having done this, I ran the master process again and noticed that inf fitness values are being printed for certain individuals. This will likely be resolved when we replace the existing preprocessing in the titanic_splitter.py with our own preprocessing, which handles null and invalid values. We will also ensure that my other team members are able to run worker processes today during our team meeting, and if not, tweak any specifications of my localhost such that it accepts remote connections.
 * I used https://whatismyipaddress.com/ip/128.61.41.136 to identify my IP address and share this with my team members so they could replace the host name string in their input_titanic.xml file and connect to the server I had created. I initially modified the value of the "Limit to Hosts Matching" field under the Users and Privileges tab in MySQL workbench to '%' so that any host would be able to connect to the instance of my MySQL server. However, my team members were still unable to connect to my instance with this change. After much research on MySQL's permission configurations, I changed the bind address specified in my.cnf in the MySQL bin folder to 0.0.0.0, so that any IP address would be allowed to connect to my MySQL server. Remote connection was still failing with these changes, at which point I found this article: https://linuxize.com/post/mysql-remote-access/ which indicated that access needed to be granted via the GRANT command to all users with the following command: GRANT ALL ON database_name.* TO user_name@'ip_address' IDENTIFIED BY 'user_password'; and that any firewalls would have to be removed. With these changes, my team workers were able to run EMADE worker processes with our own preprocessed Titanic data from the ML and MOGP assignments and write to and read from my MySQL instance. 
 
-![Screenshot (486)](https://github.gatech.edu/storage/user/47031/files/cc92adc4-a40d-4348-a92b-c35595d13f4d)
+![Screenshot (487)](https://github.gatech.edu/storage/user/47031/files/a20c73e5-42be-430c-8acc-412a2d287479)
  
 **Action Items:**
 | Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
