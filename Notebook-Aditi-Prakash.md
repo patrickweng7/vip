@@ -9,7 +9,42 @@ Cell Phone: 704-794-3924
 
 Interests: Machine Learning, Data Science, Software Development, Dance, Reading
 
-* issues with PACE queue, how far off is MSE, what is exact match rate, how might we change trial if it is an abstractive problem, why might we be getting these results 
+# Week 16: December 6th, 2021
+## Overview
+Analyze results of 24-hour runs and present final presentation.
+
+## Team Notes:
+* The NLP team finalized our parts for the final presentation on Friday (I will be working on the Output Layer problem slide detailing the issues we had with enforcing multi-output regression earlier in the semester and why we switched to a regression problem). 
+* The stats team is finalizing our experiment design. We will be calculating the region of interest between the Pareto front from our trials and our seeded NNLearner2 individual in our objective space (continuous_mse and number of parameters). The team will also be looking at our trials as Bernoulli trials and determining how many individuals outperformed NNLearner2 as well as by how much.  
+* Our new question is: Can AutoML evolve NNLearner2 and improve its performance on the SQUAD dataset? What are the tradeoffs of this evolution (ex. time, performance improvement, diversity of evolved individuals, etc.)?
+* Team members will continue to add their results to the shared run info document so that we have a significant sample size to base our hypothesis testing on. 
+* We will be doing a dry run of our final presentation during our meeting on Wednesday. 
+
+## Subteam Notes:
+* We did a dry run of our final presentation and gave feedback on each other’s slides. Overall, the organization of our presentation is effective, and we still need results from our hypothesis testing to showcase how our individuals actually evolved during our runs to either outperform/not outperform our seeded NNLearner2 individual.
+* The PACE queue was blocked up for a significant part of the day on Tuesday and Wednesday due to all of our VIP teams submitting jobs to it in preparation for the final presentation. However, it cleared up on Wednesday in time for most members 9 (including myself) to submit 24-hour runs to the shared run info doc. 
+* On Thursday, our team met to do a final run through after the stats team (Shiyi, Rishit, and Steven) finished analyzing the results from all of our team’s runs. After the run through, I asked some questions about Steven and Devan’s NNLearner and NNLearner2 tree diagrams and what they were showcasing with those diagrams in the presentation, and they explained that they were showing how NNLearner can only take in one DataPair but NNLearner2 can take in two, which enables our team to do QA bidirectionally as per the BIDAF model.  
+
+![Screenshot (499)](https://github.gatech.edu/storage/user/47031/files/e7e37eb1-e8ad-404e-879f-707fe62c6815)
+
+## Individual Notes:
+* I worked on the output layer slide for our final presentation, which captured our attempt to research ways in which to have our models output tuples but our eventual decision to do single-output regression (see earlier notebook entries for more info) (slide 12): https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing.
+
+Results captured in our final presentation: 
+![Screenshot (500)](https://github.gatech.edu/storage/user/47031/files/5df91198-0b2b-4c84-97be-01dea2ea084a)
+![Screenshot (501)](https://github.gatech.edu/storage/user/47031/files/31af7e5a-cfbf-4f44-acaf-a493af47a1c2)
+![Screenshot (502)](https://github.gatech.edu/storage/user/47031/files/27004f6c-68d7-4577-9b63-8252042ea93b)
+
+* From these results, it is clear that we need more data to be conclusive about EMADE’s ability to evolve individuals to outperform a baseline model based off of the BIDAF model. 
+* The continuous_mse values for the Pareto optimal individuals also seem quite high, which means their predictions are quite far off from the actual start index of most samples passed to them. This could be due to a poor choice of word/vector/contextual embedding, which is something we plan to look into next semester. 
+* However, these Pareto optimal individuals are promising and are mostly NNLearner2 individuals with our custom primitive layers, indicating the work we have done to replicate the BIDAF model has been effective in pushing out our seeded model and reducing its AUC. 
+
+**Action Items:**
+| Task | Current Status | Date Assigned | Suspense Date | Date Resolved |
+| --- | ----------- | --- | ----------- |----------- |
+| Work on output layer slide for final presentation  | Done | 12/6/21 | 12/8/21  | 12/7/21 |
+| Make sense of final results and implications for next semester | Done | 12/13/21 | 12/6/21  | 12/9/21 |
+| Present final presentation   | Done | 12/6/21 | 12/10/21  | 12/10/21 |
 
 # Week 15: November 29th, 2021
 ## Overview
