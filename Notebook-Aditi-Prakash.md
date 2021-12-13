@@ -51,9 +51,33 @@ Finalize QA model parameters and EMADE run parameters, test standalone tree eval
 * We are currently resolving a bug with our evaluation function wherein results are being divided by 2, which is likely due to the size of our DataPair being counted twice (since we are passing in 2 DataPairs to NNLearner2). Steven is working on a fix for this and is close to pushing the correct evaluation function, which we can use for trials going forward. 
 
 ## Individual Notes:
-* Devan’s feature/nnlearner2 branch is our up-to-date, nearly codefreezed branch that we will use to run trials with NNLearner2. I am currently getting a MalformedNodeError when running standalone tree evaluator on the following individual: NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer). Adding the following lines to my input_squad.xml file resolved the error (insert numinputs, regression flags pic here: )
-* Running standalone tree evaluator on NNLearner2, I get the following results: 
-(Analyze NNLearner2 results here). Once the statistics team finalizes the hypothesis for our experiments, I will know whether my results indicate that AutoML can improve QA systems or not. 
+* Devan’s feature/nnlearner2 branch (https://github.gatech.edu/sleone6/emade/tree/feature/nnlearner2) is our up-to-date, nearly codefreezed branch that we will use to run trials with NNLearner2. I am currently getting a MalformedNodeError when running standalone tree evaluator on the following individual: NNLearner2(ARG0,ARG1,OutputLayer(DenseLayer(10, defaultActivation, 10, LSTMLayer(16, defaultActivation, 0, trueBool, trueBool,EmbeddingLayer(100, ARG0, randomUniformWeights, InputLayer())))), 100, AdamOptimizer). Adding the following lines to my input_squad.xml file resolved the error:
+```
+        <reduceInstances>1</reduceInstances>
+            <numberinput>2</numberinput>
+          <!--  <regression>true</regression> -->
+          <!--  <multilabel>true</multilabel> -->
+```
+* Running standalone tree evaluator on NNLearner2, most individuals are evaluating to (inf, inf) as follows:
+
+```
+TimeStamp | 2021-12-09 15:21:12.089645
+Received: LocalPoolingMax(MeanWithHole(ARG0, TriState.FEATURES_TO_FEATURES, Axis.AXIS_1, 150, trueBool), passTriState(TriState.STREAM_TO_FEATURES), passAxis(Axis.AXIS_2), myIntSub(50, 7))
+	With Hash 92134d3638eaef612c1c55026caaed6d242bfef96793ec32bf38bc2c6e712e15
+	With Fitnesses: (inf, inf)
+	With Age: 0
+TimeStamp | 2021-12-09 15:21:12.089702
+Received: MySum(Tfisf(ARG1, falseBool, 8, trueBool, 9), TriState.FEATURES_TO_FEATURES, Axis.AXIS_2)
+	With Hash 928dddd34c0eed4934683788030467d15b5e0f4ed5301d90e506384aa048a37f
+	With Fitnesses: (inf, inf)
+	With Age: 0
+TimeStamp | 2021-12-09 15:21:12.089747
+Received: LocalPoolingMax(MorphGradientRect(MorphDilateCross(mySpectralEmbedding(EmadeDataMultiplyFloat(ARG1, TriState.STREAM_TO_STREAM, Axis.AXIS_0, 100.0), passTriState(TriState.STREAM_TO_STREAM), myNot(falseBool)), passTriState(passTriState(TriState.FEATURES_TO_FEATURES)), passAxis(passAxis(Axis.AXIS_2)), lessThanOrEqual(myFloatIntDiv(1.1057487513961668, 50), myFloatMult(0.1, 10.0)), equal(myFloatAdd(0.1, 100.0), myFloatAdd(2.922190844908627, 2.3428452302990967)), greaterThanEqual(myFloatIntAdd(0.1, 128), myFloatMult(0.1, 0.01))), passTriState(passTriState(passTriState(TriState.STREAM_TO_STREAM))), passAxis(passAxis(passAxis(Axis.AXIS_0))), myIntDiv(myOr(lessThanOrEqual(myIntToFloat(8), myFloatIntDiv(1.0, 7)), falseBool), myIntDiv(myOr(falseBool, trueBool), myFloatToInt(100.0))), passInt(lessThanOrEqual(myFloatSub(0.1, 0.1), myFloatIntAdd(1.0, 255)))), passTriState(passTriState(passTriState(passTriState(TriState.FEATURES_TO_FEATURES)))), passAxis(passAxis(passAxis(passAxis(Axis.AXIS_0)))), myFloatToInt(myFloatSub(myFloatIntDiv(myFloatIntAdd(0.1, 4), ifThenElseBool(falseBool, trueBool, trueBool)), myFloatIntMult(myFloatAdd(-4.284066664943587, 1.0), equal(-2.535524017927532, 0.01)))))
+	With Hash 936d57e9932860d3d79f8c7ed5d4de88f5e05b5ca231906146719303caff32ad
+	With Fitnesses: (inf, inf)
+	With Age: 0
+```
+. Once the statistics team finalizes the hypothesis for our experiments, I will know whether my results indicate that AutoML can improve QA systems or not. 
 * Our goal until final presentations is to get as many runs as possible from each team member and increase the sample size of our trials such that our hypothesis testing can produce statistically significant results. As such, we will be able to evaluate the performance of individuals on our Pareto front as compared to the performance of our seeded NNLearner2 individual (our implementation of the BIDAF model in EMADE). 
 * One goal I have for next semester is to write unit tests for each BIDAF layer we implemented this semester to ensure our seeded individual is scalable and to remove any hacky fixes with parameters we had to make this semester in the interest of time. 
 * Having started an 8-hour run without seeding, I noticed that most individuals are evaluating to (inf, inf) (our current objectives are accuracy and number of parameters). I also notice that my runs are getting stuck on a certain generation (ex. Generation 24), which is an issue I resolved during bootcamp by uninstalling and reinstalling GPFramework. Doing this repeatedly is quite impractical given that we want full 8-hour runs without reuse/reseeding, so I am looking into a permanent fix for this (ex. reducing instances in input_squad.xml, reducing the dataset size, etc.). The individuals that are evaluating are mostly NNLearner2 individuals, which indicates that NNLearner2 outperforms other individuals consistently and is therefore being placed on our Pareto front for comparison with our seeded individual. 
@@ -66,7 +90,6 @@ Finalize QA model parameters and EMADE run parameters, test standalone tree eval
 | Finalize classification vs. regression problem based on Keras activation parameter | Done | 11/22/21 | 11/24/21  | 11/24/21 |
 | Resolve standalone tree evaluator bugs with NNLearner2 | Done | 11/1/21 | 11/21/21  | 11/20/21 |
 | Begin 8-hour runs with NNLearner2 as seeded individual and correct objectives for regression | In Progress | 11/26/21 | 11/29/21  | - |
-
 
 # Week 13: November 15th, 2021
 ## Overview
