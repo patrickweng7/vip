@@ -118,6 +118,20 @@ Let's go over the Results
 ** I did not have access to the evolution of each PF, but I know my GA generated these early. 
 ** If I had to guess, these are seeded NNs
 
+Here is the tree representing 30 parameters in final form:
+<pre>
+NNLearner(ARG0, GlobalMaxPoolingLayer2D(MaxPoolingLayer2D(Conv2DKernelSize1,MaxPoolingLayer2D(Conv2DKernelSize3,DenseLayer4dim(DenseLayerUnit256, eluActivation, MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))))), DenseLayerUnit256, AdamOptimizer)
+</pre>
+
+And here it is in raw form:
+<pre>
+NNLearner(((((ARG0)))), GlobalMaxPoolingLayer2D(adf_4(adf_15(adf_5(InputLayer)))), ((((DenseLayerUnit256)))), ((((AdamOptimizer)))))
+adf_4: MaxPoolingLayer2D(Conv2DKernelSize1, ARG0)
+adf_5: DenseLayer4dim((DenseLayerUnit256), (eluActivation), MaxPoolingLayer2D(Conv2DKernelSize5, ARG0))
+adf_15: MaxPoolingLayer2D(Conv2DKernelSize3, InputLayer) 
+</pre>
+
+
 
 == December 6th ==
 
