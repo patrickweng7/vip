@@ -29,7 +29,15 @@ Hobbies: Meditation and cooking
 * Added Weight sharing.
 * Added some other thing ... see slides.
 *  
+== December 06, 2021 ==
+=== Lecture Notes ===
 
+=== Team meeting ===
+
+=== My Work ===
+
+** 
+* Link to final presentation : https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit#slide=id.p
 == November 29, 2021 ==
 === Lecutre Notes ===
 * Finally, we will be freezing our code and doing runs.
@@ -57,7 +65,17 @@ If EMADE performs much worse than the seeded individual then it is fine if the n
 
 * I think the null hypothesis should be something like "AUC from pareto optimal individuals > AUC from the seeded individual." Now, if I could reject the null hypothesis then it would mean that EMADE could produce individuals that had lesser AUC than the seeded individuals, which is desired. However, I only know how to plot a distribution (normal or student-t) if the null hypothesis has equality (like μ = μ_0) and not if there is an inequality. I will try to discuss this with Dr Zutty in the next meeting.
 
+=== My work: Ran EMADE ===
+* Ran EMADE and produced two master.out files. We could not use one of them because it did not meet the 16 hours running time criterion as one of my runs got queued for about 7 hours. It was a peculiar situation because some of the people who joined the queue later than me got it running before me. I think some other members of our team also faced a similar issue.
+* Fixed the following bugs while running on PACE-ICE:
+** Tranfer the new changes made to the repo (made a new repo called emadebackup) to WinSCP.
+** Changed the objective functions to continuous_mse and num_params in the input.xml file. Initially, the maximum limit value for continuous_mse was set to 1 for me but I changed it to 10000000.
+** Changed the port number to 3530 instead of 3106 in the cnf files.
 
+* Configured MySQL workbench. This helped me query the paretofront table 
+ to monitor the number of individuals in the paretofront and see if everything is looking good.
+
+* Tested by running Karthik's shell script, it worked perfectly for me.
 
 {| class="wikitable"
 !Task
@@ -71,11 +89,19 @@ If EMADE performs much worse than the seeded individual then it is fine if the n
 |November 29, 2021
 |December 06, 2021
 |December 06, 2021
+|-
 |Finalized the objectives that we will be using for the runs
 |Completed
 |November 29, 2021
 |December 03, 2021
 |December 03, 2021
+|-
+|Bug fixing for running EMADE using PACE-ICE (changed the XML files for new objectives, change port number in cnf files and configure MySQL)
+|Completed
+|November 29, 2021
+|December 06, 2021
+|December 06, 2021
+
 |}
 
 
