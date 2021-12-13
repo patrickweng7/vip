@@ -3,6 +3,28 @@
 * Email: rkhoury7@gatech.edu
 * Mobile number: +1(678)789-7927
 
+# **November 1st, 2021**
+## **Meeting 11**
+### Class Notes:
+* I was assigned to the Neural Architecture Search (NAS) sub-team.
+* We went through group scrums where each team talked about their weekly updates.
+
+### Group Notes:
+* We were introduced to NAS by Cameron W and Cameron B and got to learn about what the team does.
+* We were informed about the team's division of tasks and our team's preparation for the final presentation.
+
+### Personal Notes:
+* I setup EMADE locally and on PACE following the instructions found on the group's wiki page.
+* Installed numpy, keras, and tensorflow as the standard conda version did not include them
+* Was tasked to read the literature present on the trello board to understand the basics of what was happening in our team. These literatures include "Evolutionary Neural AutoML for Deep Learning", "Evolving Deep Neural Networks", "Concurrent Neural Tree and Data Preprocessing AutoML for
+Image Classification", and "NEUROEVOLUTION OF NEURAL NETWORK ARCHITECTURES USING CODEEPNEAT AND KERAS".
+
+|Task Description|Current Status|Due Date|Date Assigned|Resolved Date|
+|---|---|---|---|---|
+|Update Notebook|Complete|11/08/2021|11/01/2021|11/06/2021|
+|Join the Trello and Slack channel|Complete|11/08/2021|11/01/2021|11/01/2021|
+|Read the assigned literature and prepare notes and questions|Complete|11/08/2021|11/01/2021|11/01/2021|
+
 # **October 25th, 2021**
 ## **Meeting 10**
 ### Class Notes:
