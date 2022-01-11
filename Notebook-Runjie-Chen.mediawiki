@@ -73,7 +73,22 @@
 **** Combine the matrices produced in steps 5, 7 and 8 into a giant matrix G (8d x T) using a custom function β
 **** G:t = β(H:t, Ũ:t, Ĥ:t)
 [[files/Jessi/images/B.png]]
- 
+** Modeling & Output layers
+*** Step 10. Modeling Layer
+**** consists of two layers of bi-LSTM
+**** The first bi-LSTM layer converts G into a 2d-by-T matrix called M1
+**** M1 then acts as an input to the second bi-LSTM layer, which converts it to another 2d-by-T matrix called M2
+**** M1 and M2 are yet another matrix representation of Context words. The difference between M1 and M2 and the previous representations of Context words are that M1 and M2 have embedded in them information about the entire Context paragraph as well as the Query
+*** Step 11. Output Layer
+**** The goal is to convert the numeric vectors that represent each word in the Context to two probability vectors, p1 and p2. 
+**** p1 predicts each Context word's probability of being the first word in the answer
+[[files/Jessi/images/p1.png]]
+**** p2 predicts each Context word's probability of being the last word in the answer
+[[files/Jessi/images/p2.png]]
+**** p1 and p2 are then used to find the best Answer span, which is a substring of the Context with the highest span score, which is the product of the p1 score of the first word in that span and the p2 score of the last word in the span. We then return the span with the highest span score as our Answer
+**** if the Context word with the highest p1 comes after the Context word with the highest p2, then we have to generate all possible answer spans and calculate the span score for each of them.
+[[files/Jessi/images/Glossary.png]]
+
 ===Action Items===
 {| class="wikitable"
 !Task
