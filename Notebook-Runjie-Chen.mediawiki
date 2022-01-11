@@ -26,6 +26,26 @@
 ** Decided a temporary meeting time for this week: Friday, January 14th, at 10 am
 ** Final subteam meeting time and date will be decided once everyone's class schedules are finalized
 
+===Personal Progress===
+* Re-read the paper series: An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)
+** This series can be found at: https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b
+** Word Embedding, Character Embedding and Contextual Embedding in BiDAF:
+*** Step 1. Tokenization 
+**** In BiDAF, the incoming Query and its Context are first tokenized, i.e. these two long strings are broken down into their constituent words
+**** T - a symbol used to represent the number of words in Context
+**** J - a symbol used to represent the number of words in Query
+*** Step 2. Word Level Embedding
+**** The tokenized words are then converted into vectors of numbers during the embedding process
+**** These vectors capture the grammatical function (syntax) and the meaning (semantics) of the words, enabling us to perform various mathematical operations on them
+**** The word embedding algorithm used in the original BiDAF is GloVe, which is an unsupervised learning algorithm that uses co-occurrence frequencies of words in a corpus to generate the words’ vector representations. These vector representations numerically represent various aspects of the words’ meaning.
+**** The GloVe embeddings are pre-trained, and the BiDAF’s word embedding step is a simple dictionary lookup step where we substitute words (the “keys” of the GloVe “dictionary”) with vectors (the “values” of the “dictionary”)
+**** The output of this step is two matrices — one for the Context and one for the Query, their dimensions are (d1 X T) and (d1 x J) respectively. d1 is a preset value that is equal to the vector dimension from GloVe; this can either be 50, 100, 200 or 300
+*** Step 3. Character Level Embedding
+**** Useful if a word is not found in the GloVe dictionary
+**** analyzes each word's structure to determine its meaning using one-dimensional convolutional neural network (1D-CNN)
+**** the output of these step is another two matrices — one for the Context and one for the Query, their dimensions are (d2 X T) and (d2 x J) 
+*** Step 4. Highway Network
+**** This step is to vertically concatenate the outputted vectors returned from step 2 and 3
 ===Action Items===
 {| class="wikitable"
 !Task
