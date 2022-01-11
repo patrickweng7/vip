@@ -45,7 +45,17 @@
 **** analyzes each word's structure to determine its meaning using one-dimensional convolutional neural network (1D-CNN)
 **** the output of these step is another two matrices — one for the Context and one for the Query, their dimensions are (d2 X T) and (d2 x J) 
 *** Step 4. Highway Network
-**** This step is to vertically concatenate the outputted vectors returned from step 2 and 3
+**** This step is to vertically concatenate the outputted vectors returned from steps 2 and 3
+**** The concatenated matrices are then passed through a highway network, which is similar to a feed-forward neural network
+**** The purpose of the highway network is to adjust the relative contribution from the word embedding and the character embedding steps
+**** Returns 2 matrices yet again, d x T and d x J, d = d1 + d2
+*** Step 5. Contextual Embedding
+**** This step enables the word representations to take into account the words’ contextual meaning — the meaning derived from the words' surroundings
+**** This layer consists of Long-Short-Term-Memory (LSTM) sequences (An LSTM is a neural network architecture that can memorize long-term dependencies, the output embedding for each word will contain contextual information from words that came before it)
+**** BiDAF employs a bidirectional-LSTM (bi-LSTM), which is composed of both forward- and backward-LSTM sequences 
+**** The output of the contextual embedding step is two matrices — one from the Context and the other from the Query. The BiDAF paper refers to these matrices as H and U, respectively (2d x T and 2d x J)
+*** Conclusion: the embedding layers outputs H and U which carry within them the syntactic, semantic as well as contextual information from all words in the Query and the Context
+ 
 ===Action Items===
 {| class="wikitable"
 !Task
