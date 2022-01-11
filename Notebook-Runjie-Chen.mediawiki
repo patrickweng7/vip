@@ -27,7 +27,7 @@
 ** Final subteam meeting time and date will be decided once everyone's class schedules are finalized
 
 ===Personal Progress===
-* Re-read the paper series: An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)
+* Re-read the paper series "An Illustrated Guide to Bi-Directional Attention Flow (BiDAF)" and took the following notes:
 ** This series can be found at: https://towardsdatascience.com/the-definitive-guide-to-bi-directional-attention-flow-d0e96e9e666b
 ** Word Embedding, Character Embedding and Contextual Embedding in BiDAF:
 *** Step 1. Tokenization 
@@ -55,6 +55,24 @@
 **** BiDAF employs a bidirectional-LSTM (bi-LSTM), which is composed of both forward- and backward-LSTM sequences 
 **** The output of the contextual embedding step is two matrices — one from the Context and the other from the Query. The BiDAF paper refers to these matrices as H and U, respectively (2d x T and 2d x J)
 *** Conclusion: the embedding layers outputs H and U which carry within them the syntactic, semantic as well as contextual information from all words in the Query and the Context
+** Attention Mechanism in Seq2Seq and BiDAF:
+*** Attention was first introduced in 2016 as a part of a sequence-to-sequence (seq2seq) model, which is a neural network model whose aim is to convert one sequence to another sequence (ex. translating from French to English)
+*** A seq2seq model consists of two Recurrent Neural Networks (RNNs): Encoder and Decoder. Encoder is responsible for understanding the input sequence, the decoder generates an output sequence based on the understanding of the encoder
+*** The core idea of attention is that on each step of the decoding process, we are to make a direct connection to specific parts of the encoder 
+*** I didn't quite understand how the implementation of Attention works, need to learn more about this
+*** Step 6. Formation of Similarity Matrix
+**** Takes output from step 5 of the embedding layers as input
+**** Apply a comparison function to each column in H and each column in U to generate a Similarity Matrix, S (T x J)
+*** Step 7. Context-to-Query Attention (C2Q)
+**** The goal of this step is to find which Query words are most relevant to each Context words
+**** the output matrix is called Ũ, which is a 2d x T matrix.
+*** Step 8. Query-to-Context (Q2C) Attention
+**** The goal of this step is to find which Context word is most relevant to either one of the Query words
+**** output matrix is Ĥ (2d x T), which is yet another representation of the Context that encapsulates the information about the most important words in the Context with respect to the Query
+*** Step 9. “Megamerge”
+**** Combine the matrices produced in steps 5, 7 and 8 into a giant matrix G (8d x T) using a custom function β
+**** G:t = β(H:t, Ũ:t, Ĥ:t)
+[[files/Jessi/images/B.png]]
  
 ===Action Items===
 {| class="wikitable"
