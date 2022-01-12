@@ -18,3 +18,60 @@ Link Back to the [https://github.gatech.edu/emade/emade/wiki/Notebook-Shiyi-Wang
 = Spring 2022 =
 == Week 1 ==
 === Jan 10, 2022 ===
+'''Team Meeting Notes:'''
+* Every team is asked to define success of the semester.
+** Image Processing: Improve EMADE on image processing tasks with GP, selection methods, mating, mutation methods, and deep learning.
+** Modularity: ARL complexity effects on individual & ARL effects on individual objectives.
+** Natural Language Processing (NLP): Use AutoML to improve Question and Answering Systems.
+** Neural Architectural Search (NAS): Maximizing EMADE Productivity & Growing Deep and Complex Individuals.
+* Every team will be sharing the experiment to validate its success.
+* Dr. Rohling offered slide review on Thursday.
+
+'''Subteam Meeting Notes:'''
+* Tasked everyone with final presentation slides.
+* Helped debug EMADE/PACE-ICE issues.
+* Updated on the "reuse" parameter of the XML file: reduce instances is set to 1.
+* Synchronized on the major updates regarding NNLearner2 last week.
+** Changed metrics to be MSE and Num params, so that a start index off by one isn't punished as much as one off by 200.
+** NNLearner2's output primitive's dense layer pushes all values to 199 or 200 when using Bidirectional Modeling and Attention primitives.
+** Some of our runs aren't using the old embedding layers other than new EmbeddingLayer. 
+** Individuals with BERTInputLayer fail altogether in standalone tree evaluator.
+
+'''Individual Progress'''
+* I and Rishit presented and finalized the experiment setup with Dr. Zutty & Dr. Rohling.
+** Generate Pareto front from each run.
+** Insert the seeded individual objectives on the same graph.
+*** To retrieve the values, we can evaluate the seed by running [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py].
+** Define boundaries by the objectives of the seeded individual.
+** Record the Region of Interest (ROI) by difference between bounded region and Pareto front AUC.
+*** The greater ROI, the greater improvements.
+** For analysis, we can present Bernoulli Distribution and distribution of ROI of different runs.
+*** It would be valuable if we have more runs (greater statistical significance).
+* I was assigned on Experiment section of the [https://docs.google.com/presentation/d/1mnFnhxyJnRowr6T-qh05yUMT50rSYqUQig7FIiPekWI/edit?usp=sharing Final Presentation].
+* I fixed my EMADE configuration issues thanks to Manas, Karthik, George, Devan, and Rishit.
+** Configuration issue: when seeding before EMADE runs, I encountered the issue: NameError: _mysql is not defined.
+** Command applied: python3 src/GPFramework/seeding_from_file.py templates/input_squad.xml seeding_qa
+** How to locate the causes?
+*** I went over the XML file setup with Karthik and made sure that all parameters are ready to go.
+*** Rishit's suggestion: pip install mysql: no such module found. No luck.
+*** Manas's suggestion: check to [https://github.gatech.edu/emade/emade README.md file] in repository and manually pip install all the requirements: I did so and all requirements are satisfied already. No luck.
+*** Devan's suggestion: run [https://github.gatech.edu/emade/emade/blob/master/src/GPFramework/standalone_tree_evaluator.py standalone_tree_evaluator.py] see what may cause the issue: I realized it is a configuration issue because I meet the same problem when running standalone.py (basically same issue in two completely different scenarios).
+** How to solve the problem?
+*** Rishit shared his YAML file with me and I was able to create a new conda environment with the correct settings.
+*** Now, EMADE is working and generating output without errors.
+
+'''Action Items:'''
+{| class="wikitable"
+!Task
+!Current Status
+!Date Assigned
+!Suspense Date
+!Date Resolved
+|-
+|Complete Peer Evaluation
+|Completed
+|December 6, 2021
+|December 8, 2021
+|December 6, 2021
+|-
+|}
