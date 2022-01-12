@@ -1,11 +1,11 @@
 == Team Member ==
 [[files/GeorgiaTechBuzz.jpg|thumb|123x123px]]
-Team Member: Buzz Y. Jacket
+Team Member: Yunfan Guan
 
-Email: bjacket@gatech.edu
-Cell Phone; 404-867-5309
+Email: yguan75@gatech.edu
+Cell Phone; 470-232-7495
 
-Interests: Machine Learning, Football, Basketball, Python
+Interests: Machine Learning, Python
 
 
 
